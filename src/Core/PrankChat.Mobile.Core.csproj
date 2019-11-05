@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>PrankChat.Mobile.Core</AssemblyName>
+    <RootNamespace>PrankChat.Mobile.Core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MvvmCross" Version="6.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Presentation\Localization\" />
+  </ItemGroup>
+
+</Project>
