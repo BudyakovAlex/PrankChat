@@ -63,11 +63,14 @@
     <Compile Include="AppDelegate.cs" />
     <None Include="Info.plist" />
     <Compile Include="Presentation\Views\BaseView.cs" />
-    <Compile Include="Presentation\Views\MainView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Presentation\Views\MainView.xib" />
+    <Compile Include="Presentation\Views\MainView.cs" />
+    <Compile Include="Presentation\Views\MainView.designer.cs">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
