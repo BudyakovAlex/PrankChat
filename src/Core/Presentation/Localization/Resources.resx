@@ -120,4 +120,7 @@
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="app_name" xml:space="preserve">
+    <value>Prank Chat</value>
+  </data>
 </root>
