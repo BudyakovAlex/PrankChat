@@ -73,6 +73,7 @@
     <Compile Include="Presentation\Views\MainView.designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
+    <BundleResource Include="Presentation\Localization\en.lproj\Localizalbe.strings" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -133,7 +134,6 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Presentation\Localization\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
