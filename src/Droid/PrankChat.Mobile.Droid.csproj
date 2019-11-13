@@ -81,7 +81,7 @@
     <Compile Include="Presentation\Views\Publications\PublicationsView.cs" />
     <Compile Include="Presentation\Views\RatingView.cs" />
     <Compile Include="Presentation\Views\Registration\RegistrationSecondStepView.cs" />
-    <Compile Include="Presentation\Views\Registration\RegistrationsViewModel.cs" />
+    <Compile Include="Presentation\Views\Registration\RegistrationView.cs" />
     <Compile Include="Presentation\Views\Registration\RegistrationThirdStepView.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
