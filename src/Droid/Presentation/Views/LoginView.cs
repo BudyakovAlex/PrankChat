@@ -7,12 +7,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 {
     [MvxActivityPresentation]
     [Activity]
-    public class MainView : BaseView
+    public class LoginView : BaseView
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.main_view_layout);
+            SetContentView(Resource.Layout.login_layout);
         }
     }
 }

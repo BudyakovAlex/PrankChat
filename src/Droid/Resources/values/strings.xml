@@ -2,4 +2,8 @@
 <resources>
     <string name="Close">"Close"</string>
     <string name="app_name">"Prank Chat"</string>
+    <string name="Home_Tab">"Home"</string>
+    <string name="Rate_Tab">"Rate"</string>
+    <string name="Orders_Tab">"Orders"</string>
+    <string name="Profile_Tab">"Profile"</string>
 </resources>
