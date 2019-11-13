@@ -27,9 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Presentation\ViewModels\Registration\" />
-    <Folder Include="Presentation\ViewModels\Publication\" />
-    <Folder Include="Presentation\ViewModels\Order\" />
     <Folder Include="Presentation\Navigation\" />
+    <Folder Include="Presentation\Navigation\Parametres\" />
+    <Folder Include="Presentation\Navigation\Results\" />
   </ItemGroup>
 </Project>
