@@ -26,4 +26,10 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Presentation\ViewModels\Registration\" />
+    <Folder Include="Presentation\ViewModels\Publication\" />
+    <Folder Include="Presentation\ViewModels\Order\" />
+    <Folder Include="Presentation\Navigation\" />
+  </ItemGroup>
 </Project>
