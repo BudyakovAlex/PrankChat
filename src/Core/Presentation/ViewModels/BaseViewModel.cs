@@ -2,7 +2,7 @@
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
-    public class BaseViewModel : MvxViewModel
+    public abstract class BaseViewModel : MvxViewModel
     {
     }
 }

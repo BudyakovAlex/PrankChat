@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            RegisterAppStart<MainViewModel>();
+            RegisterAppStart<LoginViewModel>();
         }
     }
 }
