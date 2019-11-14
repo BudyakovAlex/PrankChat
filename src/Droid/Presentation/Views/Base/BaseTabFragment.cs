@@ -3,7 +3,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 {
-    public class BaseTabFragment<TMvxViewModel> : MvxFragment<TMvxViewModel> where TMvxViewModel : BaseViewModel
+    public abstract class BaseTabFragment<TMvxViewModel> : MvxFragment<TMvxViewModel> where TMvxViewModel : BaseViewModel
     {
         public override bool UserVisibleHint
         {
