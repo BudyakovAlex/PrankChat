@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
+using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Core;
 using MvvmCross.Platforms.Android.Views;
 using PrankChat.Mobile.Core;
@@ -11,7 +12,7 @@ namespace PrankChat.Mobile.Droid
         MainLauncher = true,
         NoHistory = true,
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class SplashScreen : MvxSplashScreenActivity<MvxAndroidSetup<App>, App>
+    public class SplashScreen : MvxSplashScreenAppCompatActivity
     {
         public SplashScreen() : base(Resource.Layout.splash_screen_layout)
         {

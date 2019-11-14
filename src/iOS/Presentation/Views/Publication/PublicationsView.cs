@@ -6,7 +6,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
-    [MvxTabPresentation]
+    [MvxTabPresentation(TabName = "Publications", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
     public partial class PublicationsView : BaseView<PublicationsViewModel>
     {
     }

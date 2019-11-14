@@ -6,7 +6,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
-    [MvxTabPresentation]
+    [MvxTabPresentation(TabName = "Orders", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
     public partial class OrdersView : BaseView<OrdersViewModel>
     {
     }

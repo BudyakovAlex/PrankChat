@@ -1,4 +1,4 @@
-﻿using MvvmCross.Platforms.Android.Views.Fragments;
+﻿using MvvmCross.Droid.Support.V4;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Base
