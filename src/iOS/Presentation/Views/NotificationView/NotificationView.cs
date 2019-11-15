@@ -4,9 +4,9 @@ using PrankChat.Mobile.iOS.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 {
-    [MvxRootPresentation(WrapInNavigationController = true)]
+    [MvxRootPresentation]
     public partial class NotificationView : BaseView<NotificationViewModel>
     {
-    }
+	}
 }
 

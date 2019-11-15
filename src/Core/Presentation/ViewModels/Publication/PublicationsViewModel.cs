@@ -6,7 +6,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
     public class PublicationsViewModel : BaseViewModel
     {
-        public PublicationsViewModel(INavigationService navigationService) : base(navigationService)
+		public MvxAsyncCommand ShowNotificationCommand
+		{
+			get
+			{
+				return new MvxAsyncCommand(() => NavigationService.ShowNotificationView());
+			}
+		}
+
+		public PublicationsViewModel(INavigationService navigationService) : base(navigationService)
         {
         }
     }
