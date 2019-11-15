@@ -43,5 +43,7 @@
 	<false/>
 	<key>CFBundleName</key>
 	<string>Prank Chat</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>
