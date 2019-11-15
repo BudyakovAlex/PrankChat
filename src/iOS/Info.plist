@@ -41,5 +41,7 @@
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>CFBundleName</key>
+	<string>Prank Chat</string>
 </dict>
 </plist>

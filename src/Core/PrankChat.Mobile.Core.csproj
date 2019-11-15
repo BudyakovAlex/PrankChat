@@ -26,4 +26,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Presentation\Navigation\" />
+    <Folder Include="Presentation\Navigation\Parametres\" />
+    <Folder Include="Presentation\Navigation\Results\" />
+  </ItemGroup>
 </Project>

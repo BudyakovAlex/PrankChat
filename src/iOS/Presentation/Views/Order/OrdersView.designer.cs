@@ -9,10 +9,10 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace PrankChat.Mobile.iOS.Presentation.Views
+namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
-    [Register("MainView")]
-    partial class MainView
+    [Register("OrdersView")]
+    partial class OrdersView
     {
         void ReleaseDesignerOutlets()
         {

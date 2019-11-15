@@ -123,4 +123,16 @@
   <data name="app_name" xml:space="preserve">
     <value>Prank Chat</value>
   </data>
+  <data name="Home_Tab" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Rate_Tab" xml:space="preserve">
+    <value>Rate</value>
+  </data>
+  <data name="Orders_Tab" xml:space="preserve">
+    <value>Orders</value>
+  </data>
+  <data name="Profile_Tab" xml:space="preserve">
+    <value>Profile</value>
+  </data>
 </root>

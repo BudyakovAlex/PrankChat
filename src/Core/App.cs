@@ -1,6 +1,7 @@
-﻿using MvvmCross.IoC;
+﻿using MvvmCross;
+using MvvmCross.IoC;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.Presentation.ViewModels;
+using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core
 {
@@ -8,12 +9,9 @@ namespace PrankChat.Mobile.Core
     {
         public override void Initialize()
         {
-            CreatableTypes()
-                .EndingWith("Service")
-                .AsInterfaces()
-                .RegisterAsLazySingleton();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<INavigationService, NavigationService>();
 
-            RegisterAppStart<MainViewModel>();
+            RegisterCustomAppStart<CustomAppStart>();
         }
     }
 }

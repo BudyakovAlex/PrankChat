@@ -64,16 +64,77 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Info.plist" />
-    <Compile Include="Presentation\Views\BaseView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
-    <InterfaceDefinition Include="Presentation\Views\MainView.xib" />
-    <Compile Include="Presentation\Views\MainView.cs" />
-    <Compile Include="Presentation\Views\MainView.designer.cs">
+    <BundleResource Include="Presentation\Localization\en.lproj\Localizalbe.strings" />
+    <Compile Include="Presentation\Views\Base\BaseView.cs" />
+    <Compile Include="Presentation\Views\Base\BaseCell.cs" />
+    <InterfaceDefinition Include="Presentation\Views\MainView\MainView.xib" />
+    <Compile Include="Presentation\Views\MainView\MainView.cs" />
+    <Compile Include="Presentation\Views\MainView\MainView.designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
-    <BundleResource Include="Presentation\Localization\en.lproj\Localizalbe.strings" />
+    <InterfaceDefinition Include="Presentation\Views\LoginView\LoginView.xib" />
+    <Compile Include="Presentation\Views\LoginView\LoginView.cs" />
+    <Compile Include="Presentation\Views\LoginView\LoginView.designer.cs">
+      <DependentUpon>LoginView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\NotificationView\NotificationView.xib" />
+    <Compile Include="Presentation\Views\NotificationView\NotificationView.cs" />
+    <Compile Include="Presentation\Views\NotificationView\NotificationView.designer.cs">
+      <DependentUpon>NotificationView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\PasswordRecoveryView\PasswordRecoveryView.xib" />
+    <Compile Include="Presentation\Views\PasswordRecoveryView\PasswordRecoveryView.cs" />
+    <Compile Include="Presentation\Views\PasswordRecoveryView\PasswordRecoveryView.designer.cs">
+      <DependentUpon>PasswordRecoveryView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\ProfileView\ProfileView.xib" />
+    <Compile Include="Presentation\Views\ProfileView\ProfileView.cs" />
+    <Compile Include="Presentation\Views\ProfileView\ProfileView.designer.cs">
+      <DependentUpon>ProfileView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\RatingView\RatingView.xib" />
+    <Compile Include="Presentation\Views\RatingView\RatingView.cs" />
+    <Compile Include="Presentation\Views\RatingView\RatingView.designer.cs">
+      <DependentUpon>RatingView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Order\OrdersView.xib" />
+    <Compile Include="Presentation\Views\Order\OrdersView.cs" />
+    <Compile Include="Presentation\Views\Order\OrdersView.designer.cs">
+      <DependentUpon>OrdersView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Order\CreateOrderView.xib" />
+    <Compile Include="Presentation\Views\Order\CreateOrderView.cs" />
+    <Compile Include="Presentation\Views\Order\CreateOrderView.designer.cs">
+      <DependentUpon>CreateOrderView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Publication\PublicationsView.xib" />
+    <Compile Include="Presentation\Views\Publication\PublicationsView.cs" />
+    <Compile Include="Presentation\Views\Publication\PublicationsView.designer.cs">
+      <DependentUpon>PublicationsView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Publication\CommentsView.xib" />
+    <Compile Include="Presentation\Views\Publication\CommentsView.cs" />
+    <Compile Include="Presentation\Views\Publication\CommentsView.designer.cs">
+      <DependentUpon>CommentsView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Registration\RegistrationView.xib" />
+    <Compile Include="Presentation\Views\Registration\RegistrationView.cs" />
+    <Compile Include="Presentation\Views\Registration\RegistrationView.designer.cs">
+      <DependentUpon>RegistrationView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Registration\RegistrationSecondStepView.xib" />
+    <Compile Include="Presentation\Views\Registration\RegistrationSecondStepView.cs" />
+    <Compile Include="Presentation\Views\Registration\RegistrationSecondStepView.designer.cs">
+      <DependentUpon>RegistrationSecondStepView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Registration\RegistrationThirdStepView.xib" />
+    <Compile Include="Presentation\Views\Registration\RegistrationThirdStepView.cs" />
+    <Compile Include="Presentation\Views\Registration\RegistrationThirdStepView.designer.cs">
+      <DependentUpon>RegistrationThirdStepView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -134,6 +195,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Presentation\Views\Base\" />
+    <Folder Include="Presentation\Views\MainView\" />
+    <Folder Include="Presentation\Views\LoginView\" />
+    <Folder Include="Presentation\Views\NotificationView\" />
+    <Folder Include="Presentation\Views\PasswordRecoveryView\" />
+    <Folder Include="Presentation\Views\ProfileView\" />
+    <Folder Include="Presentation\Views\RatingView\" />
+    <Folder Include="Presentation\Views\Order\" />
+    <Folder Include="Presentation\Views\Publication\" />
+    <Folder Include="Presentation\Views\Registration\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
