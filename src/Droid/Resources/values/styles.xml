@@ -9,7 +9,7 @@
       <item name="android:textColorPrimary">@color/applicationWhite</item>
       <item name="windowActionBar">false</item>
       <item name="windowNoTitle">true</item>
-      <item name="android:colorControlHighlight">@color/colorAccent</item>
+      <item name="android:colorControlHighlight">@color/accent</item>
     </style>
 
     <style name="Theme.PrankChat.TabLayout" parent="Theme.PrankChat.Base">
@@ -24,7 +24,7 @@
 
     <style name="Theme.PrankChat.MainTabLayout" parent="Theme.PrankChat.TabLayout">
       <item name="android:textSize">12sp</item>
-      <item name="tabPaddingTop">12dp</item>
+      <item name="tabPaddingTop">9dp</item>
       <item name="tabPaddingBottom">9dp</item>
     </style>
 
