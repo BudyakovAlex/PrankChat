@@ -4,4 +4,10 @@
     <color name="colorPrimaryDark">#1B3147</color>
     <color name="colorAccent">#3498db</color>
     <color name="background_tab_layout">#FF1B1B1B</color>
+
+    <color name="applicationWhite">#FFF</color>
+    <color name="accent">#6D28BE</color>
+    <color name="inactive">#514B4B</color>
+    <color name="successful">#86D549</color>
+
 </resources>

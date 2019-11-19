@@ -10,7 +10,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
     [Activity(LaunchMode = LaunchMode.SingleTop)]
     public class MainView : BaseView<MainViewModel>
     {
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.main_view_layout);
@@ -31,7 +30,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         {
             switch (item.ItemId)
             {
-                case Resource.Id.notificationButton:
+                case Resource.Id.notification_button:
+                    ViewModel.ShowNotificationCommand.Execute();
+                    return true;
+
+                case Resource.Id.search_button:
                     ViewModel.ShowNotificationCommand.Execute();
                     return true;
             }
