@@ -23,7 +23,7 @@
     </style>
 
     <style name="Theme.PrankChat.MainTabLayout" parent="Theme.PrankChat.TabLayout">
-      <item name="android:textSize">11sp</item>
+      <item name="android:textSize">12sp</item>
       <item name="tabPaddingTop">12dp</item>
       <item name="tabPaddingBottom">9dp</item>
     </style>

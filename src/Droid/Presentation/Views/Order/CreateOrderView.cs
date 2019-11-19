@@ -1,5 +1,4 @@
-﻿using Android.App;
-using Android.OS;
+﻿using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
