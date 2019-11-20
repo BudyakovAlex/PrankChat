@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout 
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:orientation="vertical"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
 	<include 
     android:id="@+id/action_bar"
-    layout="@layout/action_bar" 
+    layout="@layout/action_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
   <PrankChat.Mobile.Droid.Controls.ApplicationSwipeViewPager
@@ -20,7 +20,9 @@
     android:layout_width="match_parent"
     android:layout_gravity="bottom"
     android:layout_height="56dp"
-    app:tabMode="fixed"
+    android:elevation="25dp"
+    android:outlineProvider="paddedBounds"
+    android:outlineSpotShadowColor="@color/applicationBlack"
     style="@style/Theme.PrankChat.TabLayout"
     app:tabBackground="@color/applicationWhite"
     app:tabTextAppearance="@style/Theme.PrankChat.MainTabLayout"/>
