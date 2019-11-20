@@ -136,6 +136,9 @@
       <DependentUpon>RegistrationThirdStepView.cs</DependentUpon>
     </Compile>
     <Compile Include="LinkerPleaseInclude.cs" />
+    <Compile Include="Setup.cs" />
+    <Compile Include="AppTheme\Styles.cs" />
+    <Compile Include="AppTheme\Theme.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -206,6 +209,7 @@
     <Folder Include="Presentation\Views\Order\" />
     <Folder Include="Presentation\Views\Publication\" />
     <Folder Include="Presentation\Views\Registration\" />
+    <Folder Include="AppTheme\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

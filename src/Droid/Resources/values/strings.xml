@@ -6,4 +6,7 @@
     <string name="Rate_Tab">"Rate"</string>
     <string name="Orders_Tab">"Orders"</string>
     <string name="Profile_Tab">"Profile"</string>
+    <string name="Popular_Publication_Tab">"Popular"</string>
+    <string name="Actual_Publication_Tab">"Actual"</string>
+    <string name="MyFeed_Publication_Tab">"My feed"</string>
 </resources>

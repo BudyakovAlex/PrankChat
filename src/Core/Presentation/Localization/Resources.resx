@@ -135,4 +135,13 @@
   <data name="Profile_Tab" xml:space="preserve">
     <value>Profile</value>
   </data>
+  <data name="Popular_Publication_Tab" xml:space="preserve">
+    <value>Popular</value>
+  </data>
+  <data name="Actual_Publication_Tab" xml:space="preserve">
+    <value>Actual</value>
+  </data>
+  <data name="MyFeed_Publication_Tab" xml:space="preserve">
+    <value>My feed</value>
+  </data>
 </root>
