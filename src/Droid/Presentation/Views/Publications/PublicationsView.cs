@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using Android.OS;
+﻿using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Views;
@@ -13,7 +11,7 @@ using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 {
-    [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, Title = "Publications", ActivityHostViewModelType = typeof(MainViewModel))]
+    [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(PublicationsView))]
     public class PublicationsView : BaseTabFragment<PublicationsViewModel>
     {
