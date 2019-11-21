@@ -7,12 +7,17 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
 {
-    [MvxRootPresentation(WrapInNavigationController = false)]
+    [MvxRootPresentation]
     public partial class MainView : MvxTabBarViewController<MainViewModel>
     {
         private bool _tabsInitialized;
 
-        public override void ViewWillAppear(bool animated)
+		public override void ViewDidLoad()
+		{
+			base.ViewDidLoad();
+		}
+
+		public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
             if (!_tabsInitialized)
@@ -20,7 +25,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
                 ViewModel.ShowContentCommand.Execute();
                 _tabsInitialized = true;
             }
-        }
-    }
+		}
+	}
 }
 

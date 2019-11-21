@@ -9,17 +9,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 	[MvxModalPresentation(WrapInNavigationController = true)]
 	public partial class NotificationView : BaseView<NotificationViewModel>
     {
-		public override void ViewDidLoad()
-		{
-			base.ViewDidLoad();
-			SetupBinding();
-		}
-
-		private void SetupBinding()
+		protected override void SetupBinding()
 		{
 			var set = this.CreateBindingSet<NotificationView, NotificationViewModel>();
 			set.Bind(backButton).To(vm => vm.GoBackCommand);
 			set.Apply();
+		}
+
+		protected override void SetupControls()
+		{
 		}
 	}
 }
