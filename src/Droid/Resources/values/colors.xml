@@ -7,4 +7,5 @@
     <color name="inactive">#514B4B</color>
     <color name="successful">#86D549</color>
     <color name="background_tab_layout">#FF1B1B1B</color>
+    <color name="text_item_tab">#212121</color>
 </resources>

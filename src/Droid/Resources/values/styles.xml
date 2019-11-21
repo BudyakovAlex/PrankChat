@@ -1,31 +1,43 @@
 <resources>
 
-    <style name="Theme.PrankChat.Base" parent="Theme.AppCompat">
-      <item name="colorAccent">@color/accent</item>
-      <item name="colorPrimaryDark">@color/inactive</item>
-      <item name="colorPrimary">@color/accent</item>
-      <item name="android:windowBackground">@color/applicationWhite</item>
-      <item name="android:navigationBarColor">@color/accent</item>
-      <item name="android:textColorPrimary">@color/applicationWhite</item>
-      <item name="windowActionBar">false</item>
-      <item name="windowNoTitle">true</item>
-      <item name="android:colorControlHighlight">@color/accent</item>
+    <style name="Theme.PrankChat.Base" parent="Theme.AppCompat.Light">
+		<item name="colorAccent">@color/accent</item>
+		<item name="colorPrimaryDark">@color/inactive</item>
+		<item name="colorPrimary">@color/accent</item>
+		<item name="android:windowBackground">@color/applicationWhite</item>
+		<item name="android:navigationBarColor">@color/accent</item>
+		<item name="android:textColorPrimary">@color/applicationWhite</item>
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
+		<item name="android:colorControlHighlight">@color/accent</item>
     </style>
 
     <style name="Theme.PrankChat.TabLayout" parent="Theme.PrankChat.Base">
-      <item name="tabSelectedTextColor">@color/accent</item>
-      <item name="tabTextColor">@color/inactive</item>
-      <item name="tabIndicatorHeight">0dp</item>
-      <item name="tabMaxWidth">0dp</item>
-      <item name="tabGravity">fill</item>
-      <item name="tabMode">fixed</item>
-      <item name="android:textAllCaps">false</item>
+		<item name="tabSelectedTextColor">@color/accent</item>
+		<item name="tabTextColor">@color/inactive</item>
+		<item name="tabIndicatorHeight">0dp</item>
+		<item name="tabMaxWidth">0dp</item>
+		<item name="tabGravity">fill</item>
+		<item name="tabMode">fixed</item>
+		<item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="Theme.PrankChat.MainTabLayout" parent="Theme.PrankChat.TabLayout">
-      <item name="android:textSize">12sp</item>
-      <item name="tabPaddingTop">9dp</item>
-      <item name="tabPaddingBottom">9dp</item>
-    </style>
+	<style name="Theme.PrankChat.MainTabLayout" parent="Theme.PrankChat.TabLayout">
+		<item name="android:textSize">12sp</item>
+		<item name="tabPaddingTop">9dp</item>
+		<item name="tabPaddingBottom">9dp</item>
+	</style>
+
+	<style name="Theme.PrankChat.Publication.TabLayout" parent="Theme.PrankChat.TabLayout">
+		<item name="tabIndicatorHeight">2dp</item>
+		<item name="tabSelectedTextColor">@color/text_item_tab</item>
+		<item name="tabTextColor">@color/text_item_tab</item>
+		<item name="tabTextAppearance">@style/Theme.PrankChat.Tab</item>
+	</style>
+
+	<style name="Theme.PrankChat.Tab" parent="TextAppearance.Design.Tab">
+		<item name="textAllCaps">false</item>
+		<item name="android:textSize">14sp</item>
+	</style>
 
 </resources>

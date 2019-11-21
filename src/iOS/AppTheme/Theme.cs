@@ -7,7 +7,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
 	{
 		public class Color
 		{
-			public static UIColor Accent => UIColor.FromRGB(253, 222, 11);
+			public static UIColor Accent => UIColor.FromRGB(109, 40, 190);
 		}
 
 		public class Font

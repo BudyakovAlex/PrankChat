@@ -10,7 +10,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
 			navigationBar.Translucent = false;
 		}
 
-		public static void SetSegmentedControlStyle(this UISegmentedControl segmentedControl, params string[] segmentNames)
+		public static void SetPublicationSegmentedControlStyle(this UISegmentedControl segmentedControl, params string[] segmentNames)
 		{
 			segmentedControl.RemoveAllSegments();
 
@@ -21,11 +21,12 @@ namespace PrankChat.Mobile.iOS.AppTheme
 			segmentedControl.SetTitleTextAttributes(
 				new UITextAttributes
 				{
-					TextColor = UIColor.White,
-					Font = Theme.Font.RegularFontOfSize(12)
+					TextColor = UIColor.Black,
+					Font = Theme.Font.RegularFontOfSize(14)
 				},
 				UIControlState.Normal);
-			segmentedControl.TintColor = Theme.Color.Accent;
+
+			segmentedControl.BackgroundColor = Theme.Color.Accent;
 		}
 	}
 }

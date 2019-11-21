@@ -32,7 +32,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		{
 			InitializeNavigationBar();
 
-			publicationTypeSegment.SetSegmentedControlStyle(new string[] {
+			publicationTypeSegment.SetPublicationSegmentedControlStyle(new string[] {
 				Resources.Popular_Publication_Tab,
 				Resources.Actual_Publication_Tab,
 				Resources.MyFeed_Publication_Tab,
