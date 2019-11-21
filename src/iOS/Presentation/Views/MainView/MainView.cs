@@ -1,8 +1,8 @@
-﻿using MvvmCross.Binding.BindingContext;
-using MvvmCross.Platforms.Ios.Presenters.Attributes;
+﻿using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
-using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.AppTheme;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
@@ -23,9 +23,39 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
             if (!_tabsInitialized)
             {
                 ViewModel.ShowContentCommand.Execute();
+                SetTabs();
                 _tabsInitialized = true;
             }
 		}
-	}
+
+        private void SetTabs()
+        {
+            TabBar.SetTabBarStyle();
+            
+            if (TabBar.Items?.Length > 0)
+            {
+                InitTab(0, "ic_home", Resources.Home_Tab);
+                InitTab(1, "ic_rate", Resources.Rate_Tab);
+                InitCentralTab("ic_create_order");
+                InitTab(3, "ic_orders", Resources.Orders_Tab);
+                InitTab(4, "ic_profile", Resources.Profile_Tab);
+            }
+        }
+
+        private void InitTab(int index, string iconName, string title, UIImageRenderingMode mode = UIImageRenderingMode.AlwaysTemplate)
+        {
+            var tab = TabBar.Items[index];
+            tab.Title = title;
+            tab.Image = UIImage.FromBundle(iconName).ImageWithRenderingMode(mode);
+            tab.SetTabBarItemStyle();
+        }
+
+        private void InitCentralTab(string iconName)
+        {
+            var tab = TabBar.Items[2];
+            tab.Image = UIImage.FromBundle(iconName).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
+            tab.SetCentralTabBarItemStyle();
+        }
+    }
 }
 

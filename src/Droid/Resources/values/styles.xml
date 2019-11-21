@@ -1,15 +1,16 @@
 <resources>
 
-    <style name="Theme.PrankChat.Base" parent="Theme.AppCompat.Light">
-		<item name="colorAccent">@color/accent</item>
-		<item name="colorPrimaryDark">@color/inactive</item>
-		<item name="colorPrimary">@color/accent</item>
-		<item name="android:windowBackground">@color/applicationWhite</item>
-		<item name="android:navigationBarColor">@color/accent</item>
-		<item name="android:textColorPrimary">@color/applicationWhite</item>
-		<item name="windowActionBar">false</item>
-		<item name="windowNoTitle">true</item>
-		<item name="android:colorControlHighlight">@color/accent</item>
+    <style name="Theme.PrankChat.Base" parent="Theme.AppCompat.Light.NoActionBar">
+      <item name="colorAccent">@color/accent</item>
+      <item name="colorPrimaryDark">@color/inactive</item>
+      <item name="colorPrimary">@color/accent</item>
+      <item name="android:windowBackground">@color/applicationWhite</item>
+      <item name="android:navigationBarColor">@color/accent</item>
+      <item name="android:textColorPrimary">@color/applicationBlack</item>
+      <item name="windowActionBar">false</item>
+      <item name="windowNoTitle">true</item>
+      <item name="android:colorControlHighlight">@color/accent</item>
+      <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="Theme.PrankChat.TabLayout" parent="Theme.PrankChat.Base">
