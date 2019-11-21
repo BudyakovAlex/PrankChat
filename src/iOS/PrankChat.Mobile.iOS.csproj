@@ -196,6 +196,16 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon60.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_home.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_home.imageset\Vector.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_rate.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_rate.imageset\Vector %281%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_create_order.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_create_order.imageset\Group 54.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_orders.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_orders.imageset\Vector %282%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_profile.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_profile.imageset\Vector %283%29.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -210,6 +220,11 @@
     <Folder Include="Presentation\Views\Publication\" />
     <Folder Include="Presentation\Views\Registration\" />
     <Folder Include="AppTheme\" />
+    <Folder Include="Assets.xcassets\ic_home.imageset\" />
+    <Folder Include="Assets.xcassets\ic_rate.imageset\" />
+    <Folder Include="Assets.xcassets\ic_create_order.imageset\" />
+    <Folder Include="Assets.xcassets\ic_orders.imageset\" />
+    <Folder Include="Assets.xcassets\ic_profile.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
