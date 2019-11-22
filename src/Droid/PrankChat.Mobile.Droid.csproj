@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\ApplicationSwipeViewPager.cs" />
+    <Compile Include="PlatformServices\DialogService.cs" />
     <Compile Include="Presentation\Views\Base\BaseFragment.cs" />
     <Compile Include="Presentation\Views\Base\BaseTabFragment.cs" />
     <Compile Include="Presentation\Views\Base\BaseView.cs" />
@@ -124,8 +125,10 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\shadow.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +137,9 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs">
+      <Version>7.0.35</Version>
+    </PackageReference>
     <PackageReference Include="MvvmCross">
       <Version>6.4.1</Version>
     </PackageReference>

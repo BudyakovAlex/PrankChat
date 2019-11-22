@@ -144,4 +144,22 @@
   <data name="MyFeed_Publication_Tab" xml:space="preserve">
     <value>My feed</value>
   </data>
+  <data name="Publication_Tab_Filter_Day" xml:space="preserve">
+    <value>Per day</value>
+  </data>
+  <data name="Publication_Tab_Filter_Week" xml:space="preserve">
+    <value>Per week</value>
+  </data>
+  <data name="Publication_Tab_Filter_Month" xml:space="preserve">
+    <value>Per month</value>
+  </data>
+  <data name="Publication_Tab_Filter_Quarter" xml:space="preserve">
+    <value>Per quarter</value>
+  </data>
+  <data name="Publication_Tab_Filter_HalfYear" xml:space="preserve">
+    <value>Per half year</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>
