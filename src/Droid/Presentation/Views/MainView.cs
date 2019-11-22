@@ -1,12 +1,15 @@
 ﻿using Android.App;
 using Android.Content.PM;
+using Android.Content.Res;
 using Android.Graphics;
 using Android.OS;
 using Android.Support.Design.Widget;
+using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
+using PrankChat.Mobile.Droid.Utils.Helpers;
 using Localization = PrankChat.Mobile.Core.Presentation.Localization.Resources;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views
@@ -14,6 +17,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
     [Activity(LaunchMode = LaunchMode.SingleTop)]
     public class MainView : BaseView<MainViewModel>
     {
+        private TabLayout _tabLayout;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.main_view_layout);
@@ -23,19 +28,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
                 ViewModel.ShowContentCommand.Execute();
             }
 
+            _tabLayout = FindViewById<TabLayout>(Resource.Id.tabs);
+
             CreateTabs();
-        }
-
-        protected override void OnDestroy()
-        {
-            var tabLayout = FindViewById<TabLayout>(Resource.Id.tabs);
-            if (tabLayout != null)
-            {
-                tabLayout.TabSelected -= TabLayoutOnTabSelected;
-                tabLayout.TabUnselected -= TabLayoutOnTabUnselected;
-            }
-
-            base.OnDestroy();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -59,20 +54,41 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             return base.OnOptionsItemSelected(item);
         }
 
+        protected override void OnStart()
+        {
+            base.OnStart();
+            Subscription();
+        }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+            Unsubscription();
+        }
+
+        private void Subscription()
+        {
+            _tabLayout.TabSelected += TabLayoutOnTabSelected;
+            _tabLayout.TabUnselected += TabLayoutOnTabUnselected;
+        }
+
+        private void Unsubscription()
+        {
+            _tabLayout.TabSelected -= TabLayoutOnTabSelected;
+            _tabLayout.TabUnselected -= TabLayoutOnTabUnselected;
+        }
+
         private void CreateTabs()
         {
-            var tabLayout = FindViewById<TabLayout>(Resource.Id.tabs);
-            tabLayout.TabSelected += TabLayoutOnTabSelected;
-            tabLayout.TabUnselected += TabLayoutOnTabUnselected;
-            tabLayout.SetTabTextColors(Resource.Color.applicationBlack, Resource.Color.inactive);
+            _tabLayout.SetTabTextColors(Resource.Color.applicationBlack, Resource.Color.inactive);
             var inflater = LayoutInflater.FromContext(Application.Context);
-            InitTab(0, Resource.Drawable.ic_home, Localization.Home_Tab, tabLayout, inflater);
-            InitTab(1, Resource.Drawable.ic_rate, Localization.Rate_Tab, tabLayout, inflater);
-            InitCentralTab(Resource.Drawable.ic_create_order, null, tabLayout, inflater);
-            InitTab(3, Resource.Drawable.ic_orders, Localization.Orders_Tab, tabLayout, inflater);
-            InitTab(4, Resource.Drawable.ic_profile, Localization.Profile_Tab, tabLayout, inflater);
+            InitTab(0, Resource.Drawable.ic_home, Localization.Home_Tab, _tabLayout, inflater);
+            InitTab(1, Resource.Drawable.ic_rate, Localization.Rate_Tab, _tabLayout, inflater);
+            InitCentralTab(Resource.Drawable.ic_create_order, null, _tabLayout, inflater);
+            InitTab(3, Resource.Drawable.ic_orders, Localization.Orders_Tab, _tabLayout, inflater);
+            InitTab(4, Resource.Drawable.ic_profile, Localization.Profile_Tab, _tabLayout, inflater);
 
-            TabLayoutOnTabSelected(this, new TabLayout.TabSelectedEventArgs(tabLayout.GetTabAt(0)));
+            TabLayoutOnTabSelected(this, new TabLayout.TabSelectedEventArgs(_tabLayout.GetTabAt(0)));
         }
 
         private void TabLayoutOnTabSelected(object sender, TabLayout.TabSelectedEventArgs e)
@@ -80,7 +96,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             var iconView = e.Tab.View.FindViewById<ImageView>(Resource.Id.tab_icon);
             var textView = e.Tab.View.FindViewById<TextView>(Resource.Id.tab_title);
 
-            textView?.SetTextColor(Resources.GetColor(Resource.Color.applicationBlack));
+            textView?.SetTextColor(ContextCompat.GetColorStateList(ApplicationContext, Resource.Color.applicationBlack));
 
             if (e.Tab.Position == 4)
             {
@@ -92,8 +108,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             {
                 return;
             }
-
-            iconView.Drawable.SetColorFilter(Resources.GetColor(Resource.Color.accent), PorterDuff.Mode.SrcIn);
+            var colorFilter = ContextCompat.GetColor(ApplicationContext, Resource.Color.accent);
+            iconView.Drawable.SetColorFilter(ColorUtil.GetColorFromInteger(colorFilter), PorterDuff.Mode.SrcIn);
         }
 
         private void TabLayoutOnTabUnselected(object sender, TabLayout.TabUnselectedEventArgs e)
@@ -101,7 +117,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             var iconView = e.Tab.View.FindViewById<ImageView>(Resource.Id.tab_icon);
             var textView = e.Tab.View.FindViewById<TextView>(Resource.Id.tab_title);
 
-            textView?.SetTextColor(Resources.GetColor(Resource.Color.inactive));
+            textView?.SetTextColor(ContextCompat.GetColorStateList(ApplicationContext, Resource.Color.inactive));
 
             if (e.Tab.Position == 4)
             {
