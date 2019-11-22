@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MvvmCross.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
@@ -19,7 +18,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         public Task AppStart()
         {
-            return ShowLoginView();
+            //return ShowLoginView();
+            return ShowMainView();
         }
 
         public Task ShowLoginView()

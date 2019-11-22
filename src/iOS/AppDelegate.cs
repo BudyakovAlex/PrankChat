@@ -6,7 +6,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS
 {
     [Register("AppDelegate")]
-    public class AppDelegate : MvxApplicationDelegate<MvxIosSetup<App>, App>
+    public class AppDelegate : MvxApplicationDelegate<Setup, App>
     {
         public override void OnResignActivation(UIApplication application)
         {

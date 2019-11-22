@@ -1,5 +1,4 @@
-﻿using Android.App;
-using Android.OS;
+﻿using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
@@ -10,7 +9,7 @@ using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 {
-    [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, Title = "Create Order", ActivityHostViewModelType = typeof(MainViewModel))]
+    [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(CreateOrderView))]
     public class CreateOrderView : BaseFragment<CreateOrderViewModel>
     {

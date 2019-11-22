@@ -30,5 +30,8 @@
     <Folder Include="Presentation\Navigation\" />
     <Folder Include="Presentation\Navigation\Parametres\" />
     <Folder Include="Presentation\Navigation\Results\" />
+    <Folder Include="Models\" />
+    <Folder Include="Models\Enums\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
 </Project>

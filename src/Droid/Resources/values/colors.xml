@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2c3e50</color>
-    <color name="colorPrimaryDark">#1B3147</color>
-    <color name="colorAccent">#3498db</color>
+    <color name="applicationWhite">#FFF</color>
+    <color name="applicationBlack">#000</color>
+    <color name="applicationTransparent">#80000000</color>
+    <color name="accent">#6D28BE</color>
+    <color name="inactive">#514B4B</color>
+    <color name="successful">#86D549</color>
     <color name="background_tab_layout">#FF1B1B1B</color>
+    <color name="gradient_start">#3B8DED</color>
+    <color name="gradient_end">#6D28BE</color>
 </resources>

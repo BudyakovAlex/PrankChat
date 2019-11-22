@@ -2,8 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
   <item
-      android:id="@+id/notificationButton"
-      android:enabled="true"
-      app:showAsAction="ifRoom"
-      android:title="Notification"/>
+    android:id="@+id/search_button"
+    android:enabled="true"
+    android:icon="@drawable/ic_search"
+    app:showAsAction="ifRoom"/>
+  <item
+    android:id="@+id/notification_button"
+    android:enabled="true"
+    android:icon="@drawable/ic_notification"
+    app:showAsAction="ifRoom"/>
 </menu>

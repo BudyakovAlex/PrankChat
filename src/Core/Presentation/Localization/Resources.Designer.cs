@@ -47,57 +47,57 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Prank Chat.
-        /// </summary>
-        public static string app_name {
-            get {
-                return ResourceManager.GetString("app_name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Close.
-        /// </summary>
         public static string Close {
             get {
                 return ResourceManager.GetString("Close", resourceCulture);
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Home.
-        /// </summary>
+        public static string app_name {
+            get {
+                return ResourceManager.GetString("app_name", resourceCulture);
+            }
+        }
+        
         public static string Home_Tab {
             get {
                 return ResourceManager.GetString("Home_Tab", resourceCulture);
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Orders.
-        /// </summary>
+        public static string Rate_Tab {
+            get {
+                return ResourceManager.GetString("Rate_Tab", resourceCulture);
+            }
+        }
+        
         public static string Orders_Tab {
             get {
                 return ResourceManager.GetString("Orders_Tab", resourceCulture);
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Profile.
-        /// </summary>
         public static string Profile_Tab {
             get {
                 return ResourceManager.GetString("Profile_Tab", resourceCulture);
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Rate.
-        /// </summary>
-        public static string Rate_Tab {
+        public static string Popular_Publication_Tab {
             get {
-                return ResourceManager.GetString("Rate_Tab", resourceCulture);
+                return ResourceManager.GetString("Popular_Publication_Tab", resourceCulture);
+            }
+        }
+        
+        public static string Actual_Publication_Tab {
+            get {
+                return ResourceManager.GetString("Actual_Publication_Tab", resourceCulture);
+            }
+        }
+        
+        public static string MyFeed_Publication_Tab {
+            get {
+                return ResourceManager.GetString("MyFeed_Publication_Tab", resourceCulture);
             }
         }
     }

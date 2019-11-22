@@ -8,19 +8,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 {
     public partial class RegistrationSecondStepView : BaseView<RegistrationSecondStepViewModel>
     {
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
+		protected override void SetupBinding()
+		{
+			var set = this.CreateBindingSet<RegistrationSecondStepView, RegistrationSecondStepViewModel>();
+			set.Bind(nextStepButton).To(vm => vm.ShowThirdStepCommand);
+			set.Apply();
+		}
 
-            SetupBindings();
-        }
-
-        private void SetupBindings()
-        {
-            var set = this.CreateBindingSet<RegistrationSecondStepView, RegistrationSecondStepViewModel>();
-            set.Bind(nextStepButton).To(vm => vm.ShowThirdStepCommand);
-            set.Apply();
-        }
+		protected override void SetupControls()
+		{
+		}
     }
 }
 
