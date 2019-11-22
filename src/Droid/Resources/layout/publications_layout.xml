@@ -1,23 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout 
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <android.support.design.widget.TabLayout
         android:id="@+id/publication_type_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="41dp"
 		style="@style/Theme.PrankChat.Publication.TabLayout">
         <android.support.design.widget.TabItem
-            android:text="@string/Popular_Publication_Tab"/>
+            android:text="@string/Popular_Publication_Tab" />
         <android.support.design.widget.TabItem
-            android:text="@string/Actual_Publication_Tab"/>
+            android:text="@string/Actual_Publication_Tab" />
         <android.support.design.widget.TabItem
-            android:text="@string/MyFeed_Publication_Tab"/>
+            android:text="@string/MyFeed_Publication_Tab" />
     </android.support.design.widget.TabLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@drawable/shadow" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Publications view" />
 </LinearLayout>
