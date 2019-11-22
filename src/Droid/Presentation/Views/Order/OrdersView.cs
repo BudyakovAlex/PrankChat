@@ -19,5 +19,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             var view = this.BindingInflate(Resource.Layout.orders_layout, null);
             return view;
         }
-    }
+
+		protected override void Subscription()
+		{
+		}
+
+		protected override void Unsubscription()
+		{
+		}
+	}
 }
