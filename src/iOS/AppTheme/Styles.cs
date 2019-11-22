@@ -3,7 +3,6 @@ using UIKit;
 using CoreAnimation;
 using CoreGraphics;
 using Plugin.DeviceInfo;
-using CoreImage;
 using PrankChat.Mobile.iOS.Utils.Helpers;
 
 namespace PrankChat.Mobile.iOS.AppTheme
@@ -78,7 +77,8 @@ namespace PrankChat.Mobile.iOS.AppTheme
         public static void SetCentralTabBarItemStyle(this UITabBarItem tabBarItem)
         {
             tabBarItem.Title = string.Empty;
-            tabBarItem.ImageInsets = new UIEdgeInsets(0, 0, 0, 0);
+            var padding = CrossDeviceInfo.Current.VersionNumber.Major <= 12 ? 6 : 0;
+            tabBarItem.ImageInsets = new UIEdgeInsets(padding, 0, -padding, 0);
         }
 
         public static void SetTabBarStyle(this UITabBar tabBar)
