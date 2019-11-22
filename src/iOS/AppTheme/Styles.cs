@@ -114,6 +114,48 @@ namespace PrankChat.Mobile.iOS.AppTheme
             navigationBar.BarStyle = UIBarStyle.BlackTranslucent;
         }
 
+        public static void SetStyle(this UISearchBar searchBar)
+        {
+            searchBar.SearchTextField.BackgroundColor = Theme.Color.White;
+            searchBar.SearchTextField.TextColor = Theme.Color.SearchText;
+            searchBar.TintColor = Theme.Color.SearchText;
+        }
+
+        /// <summary>
+        /// Set style for UITableView.
+        /// </summary>
+        /// <param name="tableView"></param>
+        /// <param name="estimatedCellHeight">
+        /// If this parameter doesn't set, table
+        /// will trying set height of rows based
+        /// on cell content.
+        /// </param>
+        public static void SetStyle(this UITableView tableView, int? estimatedCellHeight = null)
+        {
+            if (estimatedCellHeight.HasValue)
+            {
+                tableView.EstimatedRowHeight = estimatedCellHeight.Value;
+                tableView.RowHeight = UITableView.AutomaticDimension;
+            }
+
+            tableView.AllowsSelection = true;
+            tableView.BackgroundColor = Theme.Color.White;
+            tableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
+            tableView.ContentInset = new UIEdgeInsets(1, 0, 10, 0);
+        }
+
+        public static void SetSearchResultTitleLabelStyle(this UILabel label)
+        {
+            label.Font = Theme.Font.MediumOfSize(12);
+            label.TextColor = Theme.Color.SearchText;
+        }
+
+        public static void SetSearchResultDescriptionLabelStyle(this UILabel label)
+        {
+            label.Font = Theme.Font.RegularFontOfSize(12);
+            label.TextColor = Theme.Color.SearchSecondary;
+        }
+
         private static UIImage GetNavigationBarBackgroundImage(UIView gradientLayer)
         {
             UIImage resultImage = null;

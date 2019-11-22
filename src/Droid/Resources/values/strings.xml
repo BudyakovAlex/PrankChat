@@ -15,4 +15,5 @@
     <string name="Publication_Tab_Filter_Quarter">"Per quarter"</string>
     <string name="Publication_Tab_Filter_HalfYear">"Per half year"</string>
     <string name="Cancel">"Cancel"</string>
+    <string name="Search_View_Search_Placeholder">"Search"</string>
 </resources>

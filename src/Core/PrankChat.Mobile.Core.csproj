@@ -34,5 +34,6 @@
     <Folder Include="Models\" />
     <Folder Include="Models\Enums\" />
     <Folder Include="Converters\" />
+    <Folder Include="Presentation\ViewModels\Search\" />
   </ItemGroup>
 </Project>

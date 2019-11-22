@@ -1,11 +1,10 @@
-﻿using System.Windows.Input;
-using MvvmCross.Binding.BindingContext;
-using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
+﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -14,7 +13,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
     [MvxTabPresentation(TabName = "Publications", TabIconName = "unselected", TabSelectedIconName = "selected")]
     public partial class PublicationsView : BaseView<PublicationsViewModel>
     {
-		protected override void SetupBinding()
+        protected override void SetupBinding()
 		{
 			var set = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
 
@@ -46,20 +45,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			NavigationController.NavigationBar.SetNavigationBarStyle();
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
-                CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand),
-                CreateBarButton("ic_search", ViewModel.ShowNotificationCommand)
+                NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand),
+                NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
             }, true);
 
-            var logoButton = CreateBarButton("ic_logo", null);
+            var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
             logoButton.Enabled = false;
             NavigationItem.LeftBarButtonItem = logoButton;
-        }
-
-        private UIBarButtonItem CreateBarButton(string imageName, ICommand command)
-        {
-            var imageView = UIImage.FromBundle(imageName).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
-            return new UIBarButtonItem(imageView, UIBarButtonItemStyle.Plain,
-                (sender, e) => command?.Execute(null));
         }
     }
 }

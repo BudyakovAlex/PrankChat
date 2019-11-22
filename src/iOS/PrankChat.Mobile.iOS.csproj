@@ -142,6 +142,18 @@
     <Compile Include="AppTheme\Theme.cs" />
     <Compile Include="Controls\CustomSegmentedControl.cs" />
     <Compile Include="Utils\Helpers\UIImageUtil.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Search\SearchView.xib" />
+    <Compile Include="Presentation\Views\Search\SearchView.cs" />
+    <Compile Include="Presentation\Views\Search\SearchView.designer.cs">
+      <DependentUpon>SearchView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Helpers\NavigationItemHelper.cs" />
+    <Compile Include="Presentation\Views\Search\SearchTableSource.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Search\ProfileSearchItemCell.xib" />
+    <Compile Include="Presentation\Views\Search\ProfileSearchItemCell.cs" />
+    <Compile Include="Presentation\Views\Search\ProfileSearchItemCell.designer.cs">
+      <DependentUpon>ProfileSearchItemCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -222,6 +234,12 @@
     <ImageAsset Include="Assets.xcassets\ic_notification_new.imageset\Group 128.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Group 108.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_back.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_back.imageset\Shape.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_search_grey.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_search_grey.imageset\Shape %281%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_userpic.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_userpic.imageset\Userpic.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -250,6 +268,12 @@
     <Folder Include="Assets.xcassets\ic_notification.imageset\" />
     <Folder Include="Assets.xcassets\ic_notification_new.imageset\" />
     <Folder Include="Assets.xcassets\ic_logo.imageset\" />
+    <Folder Include="Presentation\Views\Search\" />
+    <Folder Include="Assets.xcassets\ic_back.imageset\" />
+    <Folder Include="Assets.xcassets\ic_search_grey.imageset\" />
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Infrastructure\Helpers\" />
+    <Folder Include="Assets.xcassets\ic_userpic.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
