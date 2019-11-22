@@ -2,6 +2,9 @@
 using UIKit;
 using CoreAnimation;
 using CoreGraphics;
+using Plugin.DeviceInfo;
+using CoreImage;
+using PrankChat.Mobile.iOS.Utils.Helpers;
 
 namespace PrankChat.Mobile.iOS.AppTheme
 {
@@ -12,7 +15,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
 			navigationBar.Translucent = false;
 		}
 
-		public static void SetSegmentedControlStyle(this UISegmentedControl segmentedControl, params string[] segmentNames)
+		public static void SetPublicationSegmentedControlStyle(this UISegmentedControl segmentedControl, params string[] segmentNames)
 		{
 			segmentedControl.RemoveAllSegments();
 
@@ -20,17 +23,51 @@ namespace PrankChat.Mobile.iOS.AppTheme
 			{
 				segmentedControl.InsertSegment(segmentNames[i], i, false);
 			}
+
 			segmentedControl.SetTitleTextAttributes(
 				new UITextAttributes
 				{
-					TextColor = UIColor.White,
-					Font = Theme.Font.RegularFontOfSize(12)
+					TextColor = Theme.Color.Accent,
+					Font = Theme.Font.RegularFontOfSize(14),
 				},
 				UIControlState.Normal);
+
+			segmentedControl.SetTitleTextAttributes(
+				new UITextAttributes
+				{
+					TextColor = Theme.Color.White,
+					Font = Theme.Font.RegularFontOfSize(14),
+				},
+				UIControlState.Selected);
+
 			segmentedControl.TintColor = Theme.Color.Accent;
+			segmentedControl.BackgroundColor = Theme.Color.White;
+			segmentedControl.Layer.BorderColor = Theme.Color.Accent.CGColor;
+			segmentedControl.Layer.BorderWidth = 1;
+
+
+			if (CrossDeviceInfo.Current.VersionNumber > new Version(13, 0))
+			{
+				UIImage image(UIColor color)
+				{
+					return UIImageUtil.ImageWithColor(color, segmentedControl.Frame.Size);
+				}
+
+				UIImage imageDivider(UIColor color)
+				{
+					return UIImageUtil.ImageWithColor(color, new CGSize(1, segmentedControl.Frame.Height));
+				}
+
+				// Must set the background image for normal to something (even clear) else the rest won't work
+				segmentedControl.SetBackgroundImage(image(UIColor.Clear), UIControlState.Normal, UIBarMetrics.Default);
+				segmentedControl.SetBackgroundImage(image(Theme.Color.Accent), UIControlState.Selected, UIBarMetrics.Default);
+				segmentedControl.SetBackgroundImage(image(Theme.Color.Accent.ColorWithAlpha(0.2f)), UIControlState.Highlighted, UIBarMetrics.Default);
+				segmentedControl.SetBackgroundImage(image(Theme.Color.Accent), UIControlState.Highlighted | UIControlState.Selected, UIBarMetrics.Default);
+				segmentedControl.SetDividerImage(imageDivider(Theme.Color.Accent), UIControlState.Normal, UIControlState.Normal, UIBarMetrics.Default);
+			}
 		}
 
-        public static void SetTabBarItemStyle(this UITabBarItem tabBarItem)
+		public static void SetTabBarItemStyle(this UITabBarItem tabBarItem)
         {
             tabBarItem.ImageInsets = new UIEdgeInsets(0, 0, 0, 0);
             tabBarItem.TitlePositionAdjustment = new UIOffset(0, 0);
