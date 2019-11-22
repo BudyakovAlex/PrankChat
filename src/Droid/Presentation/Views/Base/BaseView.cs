@@ -13,7 +13,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 
         protected virtual bool HasActionBarVisible => true;
 
-        protected virtual void OnCreate(Bundle savedInstanceState, int layoutId)
+		protected abstract void Subscription();
+		protected abstract void Unsubscription();
+
+		protected virtual void OnCreate(Bundle savedInstanceState, int layoutId)
         {
             base.OnCreate(savedInstanceState);
 
@@ -55,7 +58,19 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             return base.OnOptionsItemSelected(item);
         }
 
-        public override void OnBackPressed()
+		protected override void OnStart()
+		{
+			base.OnStart();
+			Subscription();
+		}
+
+		protected override void OnStop()
+		{
+			base.OnStop();
+			Unsubscription();
+		}
+
+		public override void OnBackPressed()
         {
             ViewModel.GoBackCommand.Execute();
         }

@@ -54,29 +54,17 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             return base.OnOptionsItemSelected(item);
         }
 
-        protected override void OnStart()
-        {
-            base.OnStart();
-            Subscription();
-        }
+		protected override void Subscription()
+		{
+			_tabLayout.TabSelected += TabLayoutOnTabSelected;
+			_tabLayout.TabUnselected += TabLayoutOnTabUnselected;
+		}
 
-        protected override void OnStop()
-        {
-            base.OnStop();
-            Unsubscription();
-        }
-
-        private void Subscription()
-        {
-            _tabLayout.TabSelected += TabLayoutOnTabSelected;
-            _tabLayout.TabUnselected += TabLayoutOnTabUnselected;
-        }
-
-        private void Unsubscription()
-        {
-            _tabLayout.TabSelected -= TabLayoutOnTabSelected;
-            _tabLayout.TabUnselected -= TabLayoutOnTabUnselected;
-        }
+		protected override void Unsubscription()
+		{
+			_tabLayout.TabSelected -= TabLayoutOnTabSelected;
+			_tabLayout.TabUnselected -= TabLayoutOnTabUnselected;
+		}
 
         private void CreateTabs()
         {
@@ -151,5 +139,5 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             var tab = tabLayout.GetTabAt(2);
             tab.SetCustomView(tabView);
         }
-    }
+	}
 }

@@ -30,30 +30,18 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             return view;
         }
 
-        public override void OnStart()
-        {
-            base.OnStart();
-            Subscription();
-        }
-
-        public override void OnStop()
-        {
-            base.OnStop();
-            Unsubscription();
-        }
-
         private void InitializeControls(View view)
         {
             _publicationTypeTabLayout = view.FindViewById<TabLayout>(Resource.Id.publication_type_tab_layout);
         }
 
-        private void Subscription()
+		protected override void Subscription()
         {
             _publicationTypeTabLayout.TabSelected += PublicationTypeTabLayoutTabSelected;
             _publicationTypeTabLayout.TabUnselected += PublicationTypeTabLayoutTabUnselected;
         }
 
-        private void Unsubscription()
+        protected override void Unsubscription()
         {
             _publicationTypeTabLayout.TabSelected -= PublicationTypeTabLayoutTabSelected;
             _publicationTypeTabLayout.TabUnselected -= PublicationTypeTabLayoutTabUnselected;

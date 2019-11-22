@@ -15,5 +15,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.login_layout);
         }
-    }
+
+		protected override void Subscription()
+		{
+		}
+
+		protected override void Unsubscription()
+		{
+		}
+	}
 }
