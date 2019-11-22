@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -34,6 +35,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				Resources.Actual_Publication_Tab,
 				Resources.MyFeed_Publication_Tab,
 			});
+
+            topSeparatorView.BackgroundColor = Theme.Color.Separator;
+            filterArrowImageView.Image = UIImage.FromBundle("ic_filter_arrow");
+            filterTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
 		}
 
         private void InitializeNavigationBar()

@@ -9,4 +9,10 @@
     <string name="Popular_Publication_Tab">"Popular"</string>
     <string name="Actual_Publication_Tab">"Actual"</string>
     <string name="MyFeed_Publication_Tab">"My feed"</string>
+    <string name="Publication_Tab_Filter_Day">"Per day"</string>
+    <string name="Publication_Tab_Filter_Week">"Per week"</string>
+    <string name="Publication_Tab_Filter_Month">"Per month"</string>
+    <string name="Publication_Tab_Filter_Quarter">"Per quarter"</string>
+    <string name="Publication_Tab_Filter_HalfYear">"Per half year"</string>
+    <string name="Cancel">"Cancel"</string>
 </resources>
