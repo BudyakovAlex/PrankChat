@@ -7,3 +7,9 @@
 "Popular_Publication_Tab" = "Popular";
 "Actual_Publication_Tab" = "Actual";
 "MyFeed_Publication_Tab" = "My feed";
+"Publication_Tab_Filter_Day" = "Per day";
+"Publication_Tab_Filter_Week" = "Per week";
+"Publication_Tab_Filter_Month" = "Per month";
+"Publication_Tab_Filter_Quarter" = "Per quarter";
+"Publication_Tab_Filter_HalfYear" = "Per half year";
+"Cancel" = "Cancel";

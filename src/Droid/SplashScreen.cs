@@ -1,10 +1,9 @@
-﻿using Android.App;
+﻿using Acr.UserDialogs;
+using Android.App;
 using Android.Content.PM;
+using Android.OS;
 using Android.Runtime;
 using MvvmCross.Droid.Support.V7.AppCompat;
-using MvvmCross.Platforms.Android.Core;
-using MvvmCross.Platforms.Android.Views;
-using PrankChat.Mobile.Core;
 
 namespace PrankChat.Mobile.Droid
 {
@@ -23,6 +22,13 @@ namespace PrankChat.Mobile.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
+
+            UserDialogs.Init(this);
         }
     }
 }
