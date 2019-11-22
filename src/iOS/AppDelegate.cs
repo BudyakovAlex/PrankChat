@@ -7,7 +7,7 @@ namespace PrankChat.Mobile.iOS
 {
     [Register("AppDelegate")]
     public class AppDelegate : MvxApplicationDelegate<Setup, App>
-	{
+    {
         public override void OnResignActivation(UIApplication application)
         {
             // Invoked when the application is about to move from active to inactive state.

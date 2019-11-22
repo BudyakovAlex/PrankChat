@@ -8,13 +8,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
     public abstract class BaseView<TMvxViewModel> : MvxViewController<TMvxViewModel> where TMvxViewModel : BaseViewModel
     {
         public override void ViewDidLoad()
-		{
-			base.ViewDidLoad();
+        {
+            base.ViewDidLoad();
 
             SetCommonStyles();
-			SetupControls();
-			SetupBinding();
-		}
+            SetupControls();
+            SetupBinding();
+        }
 
         public override UIStatusBarStyle PreferredStatusBarStyle()
         {
@@ -23,7 +23,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         protected abstract void SetupBinding();
 
-		protected abstract void SetupControls();
+        protected abstract void SetupControls();
 
         private void SetCommonStyles()
         {

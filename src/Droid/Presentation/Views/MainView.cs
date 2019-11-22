@@ -26,6 +26,18 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             CreateTabs();
         }
 
+        protected override void OnDestroy()
+        {
+            var tabLayout = FindViewById<TabLayout>(Resource.Id.tabs);
+            if (tabLayout != null)
+            {
+                tabLayout.TabSelected -= TabLayoutOnTabSelected;
+                tabLayout.TabUnselected -= TabLayoutOnTabUnselected;
+            }
+
+            base.OnDestroy();
+        }
+
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.main_view_menu, menu);
