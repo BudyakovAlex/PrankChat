@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 	partial class PublicationsView
 	{
 		[Outlet]
-		UIKit.UISegmentedControl publicationTypeSegment { get; set; }
+		PrankChat.Mobile.iOS.Controls.CustomSegmentedControl publicationTypeSegment { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

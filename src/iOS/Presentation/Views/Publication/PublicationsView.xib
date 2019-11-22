@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PublicationsView">
             <connections>
-                <outlet property="publicationTypeSegment" destination="90y-3b-iKx" id="4ek-dT-hPN"/>
+                <outlet property="publicationTypeSegment" destination="90y-3b-iKx" id="h1H-KY-4tH"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
             </connections>
         </placeholder>
@@ -18,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="90y-3b-iKx">
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="90y-3b-iKx" customClass="CustomSegmentedControl">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="41" id="86u-Qc-4Zy"/>
