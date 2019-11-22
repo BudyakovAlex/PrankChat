@@ -212,6 +212,8 @@
     <ImageAsset Include="Assets.xcassets\ic_orders.imageset\Vector %282%29.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_profile.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_profile.imageset\Vector %283%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_filter_arrow.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_filter_arrow.imageset\Shape.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -235,6 +237,7 @@
     <Folder Include="Utils\" />
     <Folder Include="Utils\Extensions\" />
     <Folder Include="Utils\Helpers\" />
+    <Folder Include="Assets.xcassets\ic_filter_arrow.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

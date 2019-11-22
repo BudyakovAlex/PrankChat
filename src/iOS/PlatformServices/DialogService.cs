@@ -8,7 +8,7 @@ namespace PrankChat.Mobile.iOS.PlatformServices
 {
     public class DialogService : IDialogService
     {
-        public Task ShowFilterSelectionAsync(string[] itemStrings, CancellationToken? cancellationToken = null)
+        public Task<string> ShowFilterSelectionAsync(string[] itemStrings, CancellationToken? cancellationToken = null)
         {
             return UserDialogs.Instance.ActionSheetAsync(null, Resources.Cancel, null, cancellationToken, itemStrings);
         }

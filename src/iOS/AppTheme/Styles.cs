@@ -90,11 +90,13 @@ namespace PrankChat.Mobile.iOS.AppTheme
 
         public static void SetStyle(this UINavigationBar navigationBar)
         {
+            var statusBarHeight = UIApplication.SharedApplication.StatusBarFrame.Height;
+            var fullHeight = navigationBar.Frame.Size.Width + statusBarHeight;
             var gradientContainer = new UIView();
-            gradientContainer.Frame = navigationBar.Frame;
+            gradientContainer.Frame = new CGRect(navigationBar.Frame.Location, new CGSize(navigationBar.Frame.Size.Width, fullHeight));
             gradientContainer.ClipsToBounds = true;
+
             var gradient = new CAGradientLayer();
-            
             gradient.Colors = new CGColor[]
             {
                 Theme.Color.GradientHeaderStart.CGColor,
@@ -109,7 +111,6 @@ namespace PrankChat.Mobile.iOS.AppTheme
             gradient.Position = gradientContainer.Center;
             gradientContainer.Layer.AddSublayer(gradient);
             navigationBar.SetBackgroundImage(GetNavigationBarBackgroundImage(gradientContainer), UIBarMetrics.Default);
-            navigationBar.ShadowImage = new UIImage();
             navigationBar.BarStyle = UIBarStyle.BlackTranslucent;
         }
 

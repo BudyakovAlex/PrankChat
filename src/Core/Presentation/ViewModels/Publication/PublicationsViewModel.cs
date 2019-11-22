@@ -60,7 +60,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 Resources.Publication_Tab_Filter_HalfYear
             });
 
-            if (string.IsNullOrWhiteSpace(selectedFilter))
+            if (string.IsNullOrWhiteSpace(selectedFilter) || selectedFilter == Resources.Cancel)
                 return;
 
             ActiveFilterName = selectedFilter;

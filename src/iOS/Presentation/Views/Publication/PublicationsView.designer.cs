@@ -13,13 +13,45 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 	partial class PublicationsView
 	{
 		[Outlet]
+		UIKit.UIImageView filterArrowImageView { get; set; }
+
+		[Outlet]
+		UIKit.UIView filterContainerView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel filterTitleLabel { get; set; }
+
+		[Outlet]
 		PrankChat.Mobile.iOS.Controls.CustomSegmentedControl publicationTypeSegment { get; set; }
+
+		[Outlet]
+		UIKit.UIView topSeparatorView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
 			if (publicationTypeSegment != null) {
 				publicationTypeSegment.Dispose ();
 				publicationTypeSegment = null;
+			}
+
+			if (topSeparatorView != null) {
+				topSeparatorView.Dispose ();
+				topSeparatorView = null;
+			}
+
+			if (filterArrowImageView != null) {
+				filterArrowImageView.Dispose ();
+				filterArrowImageView = null;
+			}
+
+			if (filterTitleLabel != null) {
+				filterTitleLabel.Dispose ();
+				filterTitleLabel = null;
+			}
+
+			if (filterContainerView != null) {
+				filterContainerView.Dispose ();
+				filterContainerView = null;
 			}
 		}
 	}
