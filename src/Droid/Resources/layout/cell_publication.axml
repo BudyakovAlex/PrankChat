@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="7dp"
         android:layout_marginLeft="3dp"
-        app:MvxBind="Transformations Transformations; DownsampleWidth DownsampleWidth; ImagePath ProfilePhotoUrl" />
+        app:MvxBind="Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath ProfilePhotoUrl, Mode = OneTime" />
     <TextView
         android:id="@+id/user_name"
         android:layout_width="0dp"
@@ -28,7 +28,7 @@
         android:textSize="14sp"
         android:textColor="@color/applicationBlack"
         android:textStyle="normal|bold"
-        app:MvxBind="Text ProfileName"/>
+        app:MvxBind="Text ProfileName, Mode = OneTime"/>
     <TextView
         android:id="@+id/video_info"
         android:layout_width="0dp"
@@ -40,7 +40,7 @@
         android:layout_marginTop="8dp"
         android:singleLine="true"
         android:textSize="12sp"
-        app:MvxBind="Text VideoInformationText"/>
+        app:MvxBind="Text VideoInformationText, Mode = OneTime"/>
     <ImageButton
         android:id="@+id/more_button"
         android:layout_width="4dp"
@@ -65,7 +65,7 @@
         android:ellipsize="end" 
         android:textSize="14sp"
         android:textColor="@color/applicationBlack"
-        app:MvxBind="Text VideoName"/>
+        app:MvxBind="Text VideoName, Mode = OneTime"/>
 <!--    app:layout_constraintDimensionRatio="16:9"-->
     <FFImageLoading.Cross.MvxCachedImageView
         android:id="@+id/video_file"
@@ -76,7 +76,7 @@
         app:layout_constraintTop_toBottomOf="@+id/video_name"
         android:background="@android:color/holo_red_dark"
         android:layout_marginTop="8dp"
-        app:MvxBind="ImagePath VideoUrl"/>
+        app:MvxBind="ImagePath VideoUrl, Mode = OneTime"/>
     <ImageButton
         android:id="@+id/like_button"
         android:layout_width="20dp"
@@ -99,7 +99,7 @@
         android:layout_marginLeft="8dp"
         android:textSize="12sp"
         android:textColor="@color/applicationBlack"
-        app:MvxBind="Text NumberOfLikesText"/>
+        app:MvxBind="Text NumberOfLikesText, Mode = OneTime"/>
     <ImageButton
         android:id="@+id/share_button"
         android:layout_width="18dp"
