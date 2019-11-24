@@ -154,6 +154,12 @@
     <Compile Include="Presentation\Views\Search\ProfileSearchItemCell.designer.cs">
       <DependentUpon>ProfileSearchItemCell.cs</DependentUpon>
     </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Publication\PublicationItemCell.xib" />
+    <Compile Include="Presentation\Views\Publication\PublicationItemCell.cs" />
+    <Compile Include="Presentation\Views\Publication\PublicationItemCell.designer.cs">
+      <DependentUpon>PublicationItemCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Views\Publication\PublicationTableSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -169,6 +175,12 @@
     </PackageReference>
     <PackageReference Include="Xam.Plugin.DeviceInfo">
       <Version>4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations">
+      <Version>2.4.11.982</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -240,6 +252,14 @@
     <ImageAsset Include="Assets.xcassets\ic_search_grey.imageset\Shape %281%29.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_userpic.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_userpic.imageset\Userpic.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_bookmark.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_bookmark.imageset\ic_bookmark.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_like.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_like.imageset\ic_like.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_more.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_more.imageset\ic_more.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_share.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_share.imageset\ic_share.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -274,6 +294,10 @@
     <Folder Include="Infrastructure\" />
     <Folder Include="Infrastructure\Helpers\" />
     <Folder Include="Assets.xcassets\ic_userpic.imageset\" />
+    <Folder Include="Assets.xcassets\ic_bookmark.imageset\" />
+    <Folder Include="Assets.xcassets\ic_like.imageset\" />
+    <Folder Include="Assets.xcassets\ic_more.imageset\" />
+    <Folder Include="Assets.xcassets\ic_share.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

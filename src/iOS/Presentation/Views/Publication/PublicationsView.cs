@@ -13,6 +13,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
     [MvxTabPresentation(TabName = "Publications", TabIconName = "unselected", TabSelectedIconName = "selected")]
     public partial class PublicationsView : BaseView<PublicationsViewModel>
     {
+        public PublicationTableSource PublicationTableSource { get; private set; }
+
         protected override void SetupBinding()
 		{
 			var set = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
@@ -22,14 +24,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.To(vm => vm.SelectedPublicationType)
 				.WithConversion<PublicationTypeConverter>();
 
-			set.Apply();
+            set.Bind(PublicationTableSource)
+                .To(vm => vm.Items);
+
+            set.Apply();
 		}
 
 		protected override void SetupControls()
 		{
 			InitializeNavigationBar();
+            InitializeTableView();
 
-			publicationTypeSegment.SetPublicationSegmentedControlStyle(new string[] {
+            publicationTypeSegment.SetPublicationSegmentedControlStyle(new string[] {
 				Resources.Popular_Publication_Tab,
 				Resources.Actual_Publication_Tab,
 				Resources.MyFeed_Publication_Tab,
@@ -38,7 +44,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             topSeparatorView.BackgroundColor = Theme.Color.Separator;
             filterArrowImageView.Image = UIImage.FromBundle("ic_filter_arrow");
             filterTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
-		}
+        }
 
         private void InitializeNavigationBar()
 		{
@@ -52,6 +58,20 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
             logoButton.Enabled = false;
             NavigationItem.LeftBarButtonItem = logoButton;
+        }
+
+        private void InitializeTableView()
+        {
+            PublicationTableSource = new PublicationTableSource(tableView);
+            tableView.Source = PublicationTableSource;
+            tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
+            tableView.SetStyle();
+            tableView.RowHeight = PublicationItemCell.EstimatedHeight;
+            tableView.UserInteractionEnabled = true;
+            tableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
+
+            tableView.SeparatorColor = Theme.Color.Separator;
+            tableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
         }
     }
 }

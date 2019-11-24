@@ -3,7 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,6 +13,7 @@
                 <outlet property="filterContainerView" destination="bQQ-fc-hDh" id="cnA-Mf-nR8"/>
                 <outlet property="filterTitleLabel" destination="8EH-Ex-yMJ" id="OaE-Lp-alS"/>
                 <outlet property="publicationTypeSegment" destination="90y-3b-iKx" id="h1H-KY-4tH"/>
+                <outlet property="tableView" destination="vlZ-gR-qMH" id="bS8-0Z-BS3"/>
                 <outlet property="topSeparatorView" destination="PG4-Nb-SO4" id="Sr2-m5-LM8"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
             </connections>
@@ -33,12 +34,6 @@
                         <segment title="Third"/>
                     </segments>
                 </segmentedControl>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Publications view" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dnv-ba-IlA">
-                    <rect key="frame" x="121" y="323" width="133" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hir-Od-QZo">
                     <rect key="frame" x="0.0" y="41" width="375" height="40"/>
                     <subviews>
@@ -85,19 +80,25 @@
                         <constraint firstAttribute="height" constant="1" id="kYp-by-u3L"/>
                     </constraints>
                 </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vlZ-gR-qMH">
+                    <rect key="frame" x="0.0" y="82" width="375" height="585"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Hir-Od-QZo" firstAttribute="top" secondItem="90y-3b-iKx" secondAttribute="bottom" id="07V-Lx-ieo"/>
+                <constraint firstItem="vlZ-gR-qMH" firstAttribute="top" secondItem="PG4-Nb-SO4" secondAttribute="bottom" id="49E-Lb-0B1"/>
                 <constraint firstAttribute="trailing" secondItem="Hir-Od-QZo" secondAttribute="trailing" id="8iw-SM-Pdo"/>
                 <constraint firstItem="90y-3b-iKx" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="9pP-mY-TdH"/>
                 <constraint firstAttribute="trailing" secondItem="90y-3b-iKx" secondAttribute="trailing" id="EHd-Vw-fZL"/>
                 <constraint firstAttribute="trailing" secondItem="PG4-Nb-SO4" secondAttribute="trailing" id="Nye-Oh-D8Z"/>
                 <constraint firstItem="90y-3b-iKx" firstAttribute="top" secondItem="2" secondAttribute="top" id="OAI-HA-ndH"/>
+                <constraint firstItem="vlZ-gR-qMH" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="Yv2-fs-lyI"/>
                 <constraint firstItem="PG4-Nb-SO4" firstAttribute="top" secondItem="Hir-Od-QZo" secondAttribute="bottom" id="dlN-PG-sWG"/>
                 <constraint firstItem="PG4-Nb-SO4" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="ete-Fo-x5b"/>
-                <constraint firstItem="dnv-ba-IlA" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="hqk-SO-cEO"/>
-                <constraint firstItem="dnv-ba-IlA" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" id="lHm-nv-kdh"/>
+                <constraint firstAttribute="bottom" secondItem="vlZ-gR-qMH" secondAttribute="bottom" id="qsQ-BW-FsU"/>
+                <constraint firstAttribute="trailing" secondItem="vlZ-gR-qMH" secondAttribute="trailing" id="sEK-pY-YaH"/>
                 <constraint firstItem="Hir-Od-QZo" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="xvv-OY-Nfz"/>
             </constraints>
             <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="0.0" right="0.0"/>

@@ -122,7 +122,7 @@
         android:layout_marginLeft="8dp"
         android:textSize="12sp"
         android:textColor="@color/applicationBlack"
-        android:text="@string/Like"/>
+        android:text="@string/Share"/>
     <ImageButton
         android:id="@+id/bookmark_button"
         android:layout_width="14dp"
