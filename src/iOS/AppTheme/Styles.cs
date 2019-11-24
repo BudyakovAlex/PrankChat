@@ -116,8 +116,11 @@ namespace PrankChat.Mobile.iOS.AppTheme
 
         public static void SetStyle(this UISearchBar searchBar)
         {
-            //searchBar.SearchTextField.BackgroundColor = Theme.Color.White;
-            //searchBar.SearchTextField.TextColor = Theme.Color.SearchText;
+            if (CrossDeviceInfo.Current.VersionNumber > new Version(13, 0))
+            {
+                searchBar.SearchTextField.BackgroundColor = Theme.Color.White;
+                searchBar.SearchTextField.TextColor = Theme.Color.SearchText;
+            }
             searchBar.TintColor = Theme.Color.SearchText;
         }
 
