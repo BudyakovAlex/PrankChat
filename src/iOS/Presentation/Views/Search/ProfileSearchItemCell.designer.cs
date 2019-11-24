@@ -19,13 +19,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 		UIKit.UILabel profileDescriptionLabel { get; set; }
 
 		[Outlet]
-		UIKit.UIImageView profileImageView { get; set; }
+		FFImageLoading.Cross.MvxCachedImageView profileImageView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel profileNameLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (innerView != null) {
+				innerView.Dispose ();
+				innerView = null;
+			}
+
 			if (profileDescriptionLabel != null) {
 				profileDescriptionLabel.Dispose ();
 				profileDescriptionLabel = null;
@@ -39,11 +44,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 			if (profileNameLabel != null) {
 				profileNameLabel.Dispose ();
 				profileNameLabel = null;
-			}
-
-			if (innerView != null) {
-				innerView.Dispose ();
-				innerView = null;
 			}
 		}
 	}

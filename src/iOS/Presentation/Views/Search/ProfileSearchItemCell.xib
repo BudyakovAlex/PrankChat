@@ -3,7 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +19,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="crE-Ne-yIc">
                         <rect key="frame" x="15" y="7" width="290" height="42"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_userpic" translatesAutoresizingMaskIntoConstraints="NO" id="m56-nj-zh9">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m56-nj-zh9" customClass="MvxCachedImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="42" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="42" id="CGH-4u-g4o"/>
@@ -69,7 +69,4 @@
             <point key="canvasLocation" x="24" y="56.671664167916049"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="ic_userpic" width="40" height="40"/>
-    </resources>
 </document>

@@ -1,4 +1,6 @@
 ﻿using System;
+using MvvmCross.Binding;
+using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Search;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
@@ -25,14 +27,35 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
             innerView.BackgroundColor = UIColor.Clear;
 
             profileNameLabel.SetSearchResultTitleLabelStyle();
-            profileNameLabel.Text = ViewModel.ProfileName;
-
             profileDescriptionLabel.SetSearchResultDescriptionLabelStyle();
-            profileDescriptionLabel.Text = ViewModel.ProfileDescription;
         }
 
         protected override void SetBindings()
         {
+            var set = this.CreateBindingSet<ProfileSearchItemCell, ProfileSearchItemViewModel>();
+
+            set.Bind(profileNameLabel)
+                .To(vm => vm.ProfileName)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(profileDescriptionLabel)
+                .To(vm => vm.ProfileDescription)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(profileImageView)
+                .For(v => v.DownsampleWidth)
+                .To(vm => vm.DownsampleWidth)
+                .Mode(MvxBindingMode.OneTime);
+            set.Bind(profileImageView)
+                .For(v => v.Transformations)
+                .To(vm => vm.Transformations)
+                .Mode(MvxBindingMode.OneTime);
+            set.Bind(profileImageView)
+                .For(v => v.ImagePath)
+                .To(vm => vm.ImageUrl)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Apply();
         }
     }
 }
