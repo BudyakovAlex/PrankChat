@@ -38,11 +38,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             get { return new MvxAsyncCommand(() => NavigationService.ShowNotificationView()); }
         }
 
-        public MvxAsyncCommand ShowSearchCommand
-        {
-            get { return new MvxAsyncCommand(() => NavigationService.ShowSearchView()); }
-        }
-
         public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterCommand);
 
         public override Task Initialize()

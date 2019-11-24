@@ -16,6 +16,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
         }
 
+        public MvxAsyncCommand ShowSearchCommand
+        {
+            get { return new MvxAsyncCommand(() => NavigationService.ShowSearchView()); }
+        }
+
         public BaseViewModel(INavigationService navigationService)
         {
             NavigationService = navigationService;

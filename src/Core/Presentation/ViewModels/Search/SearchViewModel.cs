@@ -10,14 +10,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
     public class SearchViewModel : BaseViewModel
     {
-        private string _searchValue;
-
-        public SearchViewModel(INavigationService navigationService) : base(navigationService)
-        {
-        }
-
         public MvxObservableCollection<ProfileSearchItemViewModel> Items { get; } = new MvxObservableCollection<ProfileSearchItemViewModel>();
 
+        private string _searchValue;
         public string SearchValue
         {
             get => _searchValue;
@@ -31,6 +26,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         }
 
         public ICommand SearchCommand => new MvxAsyncCommand<string>(OnSearchCommand);
+
+        public SearchViewModel(INavigationService navigationService) : base(navigationService)
+        {
+        }
 
         private Task OnSearchCommand(string searchValue)
         {

@@ -48,7 +48,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
                     return true;
 
                 case Resource.Id.search_button:
-                    ViewModel.ShowNotificationCommand.Execute();
+                    ViewModel.ShowSearchCommand.Execute();
                     return true;
             }
             return base.OnOptionsItemSelected(item);

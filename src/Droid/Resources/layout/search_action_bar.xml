@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainCoordinatorLayout"
+    android:background="@drawable/gradient_background"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center_horizontal"
+        app:elevation="25dp">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentInsetLeft="0dp"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center_vertical"
+            app:contentInsetStartWithNavigation="0dp"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            <PrankChat.Mobile.Droid.Controls.ClearEditText 
+                android:id="@+id/search_text_view" 
+                android:layout_width="match_parent" 
+                android:layout_height="30dp"
+                android:layout_marginRight="16dp"
+                android:paddingRight="7dp"
+                android:paddingLeft="7dp"
+                android:drawablePadding="14dp"
+                android:drawableLeft="@drawable/ic_magnifier"
+                android:background="@drawable/rounded_edittext"
+                android:textColor="@color/applicationBlack"
+                android:textColorHint="@color/applicationTransparent"
+                android:text="lol"
+                android:hint="@string/Search_View_Search_Placeholder" 
+                android:singleLine="true" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+</android.support.design.widget.CoordinatorLayout>
