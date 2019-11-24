@@ -165,4 +165,10 @@
   <data name="Search_View_Search_Placeholder" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="Like" xml:space="preserve">
+    <value>Лайк</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Поделиться</value>
+  </data>
 </root>

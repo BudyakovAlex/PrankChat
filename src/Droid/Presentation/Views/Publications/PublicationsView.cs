@@ -1,10 +1,13 @@
 ﻿using System;
+using Android.App;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -33,6 +36,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private void InitializeControls(View view)
         {
             _publicationTypeTabLayout = view.FindViewById<TabLayout>(Resource.Id.publication_type_tab_layout);
+            var publicationRecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.publication_recycler_view);
+            var dividerItemDecoration = new DividerItemDecoration(Application.Context, LinearLayoutManager.Vertical);
+            publicationRecyclerView.AddItemDecoration(dividerItemDecoration);
         }
 
 		protected override void Subscription()
