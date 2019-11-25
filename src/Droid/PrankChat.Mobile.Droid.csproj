@@ -87,6 +87,7 @@
     <Compile Include="Utils\Helpers\ColorUtil.cs" />
     <Compile Include="Presentation\Views\SearchView.cs" />
     <Compile Include="Controls\ClearEditText.cs" />
+    <Compile Include="LinkerPleaseInclude.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
