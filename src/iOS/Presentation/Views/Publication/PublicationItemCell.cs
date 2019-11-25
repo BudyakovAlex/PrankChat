@@ -2,6 +2,7 @@
 using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
@@ -31,6 +32,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             videoNameLabel.SetTitleStyle();
             likeLabel.SetSmallTitleStyle();
             shareLabel.SetSmallTitleStyle();
+            shareLabel.Text = Resources.Share;
         }
 
         protected override void SetBindings()
@@ -46,7 +48,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 .For(v => v.Transformations)
                 .To(vm => vm.Transformations)
                 .Mode(MvxBindingMode.OneTime);
-
+                
             set.Bind(profileImage)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)

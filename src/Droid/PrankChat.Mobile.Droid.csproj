@@ -140,10 +140,6 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\menu\search_view_menu.xml">
-      <SubType></SubType>
-      <Generator></Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\search_action_bar.xml">
       <SubType></SubType>
       <Generator></Generator>

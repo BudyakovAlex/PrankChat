@@ -37,11 +37,6 @@ namespace PrankChat.Mobile.Droid.Controls
             clearButton = ContextCompat.GetDrawable(Android.App.Application.Context, Resource.Drawable.ic_clear);
             clearButton.SetBounds(0, 0, clearButton.IntrinsicWidth, clearButton.IntrinsicHeight);
 
-            //var searchButton = ContextCompat.GetDrawable(Android.App.Application.Context, Resource.Drawable.ic_search);
-            //searchButton.SetBounds(0, 0, searchButton.IntrinsicWidth, searchButton.IntrinsicHeight);
-
-            //SetCompoundDrawablesWithIntrinsicBounds(Resource.Drawable.ic_search, 0, 0, 0);
-
             SetupEvents();
         }
 

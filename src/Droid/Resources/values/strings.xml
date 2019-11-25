@@ -16,6 +16,6 @@
     <string name="Publication_Tab_Filter_HalfYear">"Per half year"</string>
     <string name="Cancel">"Cancel"</string>
     <string name="Search_View_Search_Placeholder">"Search"</string>
-    <string name="Like">"Лайк"</string>
-    <string name="Share">"Поделиться"</string>
+    <string name="Like">"Like"</string>
+    <string name="Share">"Share"</string>
 </resources>
