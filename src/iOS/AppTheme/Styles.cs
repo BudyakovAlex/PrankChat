@@ -44,7 +44,6 @@ namespace PrankChat.Mobile.iOS.AppTheme
             segmentedControl.Layer.BorderColor = Theme.Color.Accent.CGColor;
             segmentedControl.Layer.BorderWidth = 1;
 
-
             if (CrossDeviceInfo.Current.VersionNumber > new Version(13, 0))
             {
                 UIImage image(UIColor color)
@@ -119,9 +118,9 @@ namespace PrankChat.Mobile.iOS.AppTheme
             if (CrossDeviceInfo.Current.VersionNumber > new Version(13, 0))
             {
                 searchBar.SearchTextField.BackgroundColor = Theme.Color.White;
-                searchBar.SearchTextField.TextColor = Theme.Color.SearchText;
+                searchBar.SearchTextField.TextColor = Theme.Color.Title;
             }
-            searchBar.TintColor = Theme.Color.SearchText;
+            searchBar.TintColor = Theme.Color.Title;
         }
 
         /// <summary>
@@ -147,16 +146,44 @@ namespace PrankChat.Mobile.iOS.AppTheme
             tableView.ContentInset = new UIEdgeInsets(1, 0, 10, 0);
         }
 
-        public static void SetSearchResultTitleLabelStyle(this UILabel label)
+        public static void SetCornerRadius(this UIView innerView, float radius = 2f, CACornerMask maskedCorners = (CACornerMask.MaxXMaxYCorner | CACornerMask.MaxXMinYCorner | CACornerMask.MinXMaxYCorner | CACornerMask.MinXMinYCorner))
         {
-            label.Font = Theme.Font.MediumOfSize(12);
-            label.TextColor = Theme.Color.SearchText;
+            innerView.Layer.CornerRadius = radius;
+            if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
+            {
+                innerView.Layer.MaskedCorners = maskedCorners;
+            }
         }
 
-        public static void SetSearchResultDescriptionLabelStyle(this UILabel label)
+        public static void SetPreviewStyle(this UIImageView imageView)
+        {
+            imageView.BackgroundColor = UIColor.Clear;
+            imageView.ContentMode = UIViewContentMode.ScaleAspectFill;
+            imageView.SetCornerRadius(10);
+        }
+
+        public static void SetMainTitleStyle(this UILabel label)
+        {
+            label.Font = Theme.Font.MediumOfSize(14);
+            label.TextColor = Theme.Color.Title;
+        }
+
+        public static void SetTitleStyle(this UILabel label)
+        {
+            label.Font = Theme.Font.RegularFontOfSize(14);
+            label.TextColor = Theme.Color.Title;
+        }
+
+        public static void SetSmallTitleStyle(this UILabel label)
+        {
+            label.Font = Theme.Font.MediumOfSize(12);
+            label.TextColor = Theme.Color.Title;
+        }
+
+        public static void SetSmallSubtitleStyle(this UILabel label)
         {
             label.Font = Theme.Font.RegularFontOfSize(12);
-            label.TextColor = Theme.Color.SearchSecondary;
+            label.TextColor = Theme.Color.Subtitle;
         }
 
         private static UIImage GetNavigationBarBackgroundImage(UIView gradientLayer)

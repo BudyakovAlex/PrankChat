@@ -26,8 +26,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 
             innerView.BackgroundColor = UIColor.Clear;
 
-            profileNameLabel.SetSearchResultTitleLabelStyle();
-            profileDescriptionLabel.SetSearchResultDescriptionLabelStyle();
+            profileNameLabel.SetSmallTitleStyle();
+            profileDescriptionLabel.SetSmallSubtitleStyle();
         }
 
         protected override void SetBindings()

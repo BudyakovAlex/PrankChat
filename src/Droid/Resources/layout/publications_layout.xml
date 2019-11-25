@@ -54,8 +54,10 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/separator" />
-    <TextView
+    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+        android:id="@+id/publication_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Publications view" />
+        android:layout_height="match_parent"
+        app:MvxItemTemplate="@layout/cell_publication"
+        app:MvxBind="ItemsSource Items"/>
 </LinearLayout>

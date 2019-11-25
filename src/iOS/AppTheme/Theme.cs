@@ -14,8 +14,8 @@ namespace PrankChat.Mobile.iOS.AppTheme
             public static UIColor GradientHeaderEnd => UIColor.FromRGBA(0.427f, 0.157f, 0.745f, 1);
             public static UIColor FilterText => UIColor.FromRGBA(0.129f, 0.129f, 0.129f, 1);
             public static UIColor Separator => UIColor.FromRGBA(0.965f, 0.965f, 0.965f, 1);
-            public static UIColor SearchText => UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.87f);
-            public static UIColor SearchSecondary => UIColor.FromRGBA(0.62f, 0.62f, 0.62f, 1.0f);
+            public static UIColor Title => UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.87f);
+            public static UIColor Subtitle => UIColor.FromRGBA(0.62f, 0.62f, 0.62f, 1.0f);
         }
 
         public class Font

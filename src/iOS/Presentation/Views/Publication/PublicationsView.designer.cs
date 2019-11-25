@@ -25,10 +25,28 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		PrankChat.Mobile.iOS.Controls.CustomSegmentedControl publicationTypeSegment { get; set; }
 
 		[Outlet]
+		UIKit.UITableView tableView { get; set; }
+
+		[Outlet]
 		UIKit.UIView topSeparatorView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (filterArrowImageView != null) {
+				filterArrowImageView.Dispose ();
+				filterArrowImageView = null;
+			}
+
+			if (filterContainerView != null) {
+				filterContainerView.Dispose ();
+				filterContainerView = null;
+			}
+
+			if (filterTitleLabel != null) {
+				filterTitleLabel.Dispose ();
+				filterTitleLabel = null;
+			}
+
 			if (publicationTypeSegment != null) {
 				publicationTypeSegment.Dispose ();
 				publicationTypeSegment = null;
@@ -39,19 +57,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				topSeparatorView = null;
 			}
 
-			if (filterArrowImageView != null) {
-				filterArrowImageView.Dispose ();
-				filterArrowImageView = null;
-			}
-
-			if (filterTitleLabel != null) {
-				filterTitleLabel.Dispose ();
-				filterTitleLabel = null;
-			}
-
-			if (filterContainerView != null) {
-				filterContainerView.Dispose ();
-				filterContainerView = null;
+			if (tableView != null) {
+				tableView.Dispose ();
+				tableView = null;
 			}
 		}
 	}
