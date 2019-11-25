@@ -1,4 +1,5 @@
-﻿using MvvmCross;
+﻿
+using Foundation;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS

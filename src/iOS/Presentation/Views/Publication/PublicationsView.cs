@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -18,9 +19,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			var set = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
 
 			set.Bind(publicationTypeSegment)
-				.For(v => v. SelectedSegment)
+				.For(v => v.SelectedSegment)
 				.To(vm => vm.SelectedPublicationType)
 				.WithConversion<PublicationTypeConverter>();
+
+            set.Bind(filterContainerView.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.OpenFilterCommand);
+
+            set.Bind(filterTitleLabel)
+                .To(vm => vm.ActiveFilterName);
 
 			set.Apply();
 		}
