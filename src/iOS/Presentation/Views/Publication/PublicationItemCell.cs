@@ -3,6 +3,7 @@ using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
+using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -23,7 +24,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         protected override void SetupControls()
         {
             base.SetupControls();
-            videoImage.BackgroundColor = UIColor.Red;
+
+            videoImage.SetPreviewStyle();
+            profileNameLabel.SetMainTitleStyle();
+            publicationInfoLabel.SetSmallSubtitleStyle();
+            videoNameLabel.SetTitleStyle();
+            likeLabel.SetSmallTitleStyle();
+            shareLabel.SetSmallTitleStyle();
         }
 
         protected override void SetBindings()
@@ -34,10 +41,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 .For(v => v.DownsampleWidth)
                 .To(vm => vm.DownsampleWidth)
                 .Mode(MvxBindingMode.OneTime);
+
             set.Bind(profileImage)
                 .For(v => v.Transformations)
                 .To(vm => vm.Transformations)
                 .Mode(MvxBindingMode.OneTime);
+
             set.Bind(profileImage)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)

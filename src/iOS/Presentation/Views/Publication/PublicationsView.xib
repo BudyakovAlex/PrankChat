@@ -3,7 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="90y-3b-iKx" customClass="CustomSegmentedControl">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
+                    <rect key="frame" x="8" y="8" width="359" height="42"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="41" id="86u-Qc-4Zy"/>
                     </constraints>
@@ -35,7 +35,7 @@
                     </segments>
                 </segmentedControl>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hir-Od-QZo">
-                    <rect key="frame" x="0.0" y="41" width="375" height="40"/>
+                    <rect key="frame" x="0.0" y="49" width="375" height="40"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bQQ-fc-hDh">
                             <rect key="frame" x="266" y="0.0" width="109" height="40"/>
@@ -74,14 +74,14 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PG4-Nb-SO4">
-                    <rect key="frame" x="0.0" y="81" width="375" height="1"/>
+                    <rect key="frame" x="0.0" y="89" width="375" height="1"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="kYp-by-u3L"/>
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vlZ-gR-qMH">
-                    <rect key="frame" x="0.0" y="82" width="375" height="585"/>
+                    <rect key="frame" x="0.0" y="90" width="375" height="577"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
             </subviews>
@@ -90,10 +90,10 @@
                 <constraint firstItem="Hir-Od-QZo" firstAttribute="top" secondItem="90y-3b-iKx" secondAttribute="bottom" id="07V-Lx-ieo"/>
                 <constraint firstItem="vlZ-gR-qMH" firstAttribute="top" secondItem="PG4-Nb-SO4" secondAttribute="bottom" id="49E-Lb-0B1"/>
                 <constraint firstAttribute="trailing" secondItem="Hir-Od-QZo" secondAttribute="trailing" id="8iw-SM-Pdo"/>
-                <constraint firstItem="90y-3b-iKx" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="9pP-mY-TdH"/>
-                <constraint firstAttribute="trailing" secondItem="90y-3b-iKx" secondAttribute="trailing" id="EHd-Vw-fZL"/>
+                <constraint firstItem="90y-3b-iKx" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="8" id="9pP-mY-TdH"/>
+                <constraint firstAttribute="trailing" secondItem="90y-3b-iKx" secondAttribute="trailing" constant="8" id="EHd-Vw-fZL"/>
                 <constraint firstAttribute="trailing" secondItem="PG4-Nb-SO4" secondAttribute="trailing" id="Nye-Oh-D8Z"/>
-                <constraint firstItem="90y-3b-iKx" firstAttribute="top" secondItem="2" secondAttribute="top" id="OAI-HA-ndH"/>
+                <constraint firstItem="90y-3b-iKx" firstAttribute="top" secondItem="2" secondAttribute="top" constant="8" id="OAI-HA-ndH"/>
                 <constraint firstItem="vlZ-gR-qMH" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="Yv2-fs-lyI"/>
                 <constraint firstItem="PG4-Nb-SO4" firstAttribute="top" secondItem="Hir-Od-QZo" secondAttribute="bottom" id="dlN-PG-sWG"/>
                 <constraint firstItem="PG4-Nb-SO4" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="ete-Fo-x5b"/>
