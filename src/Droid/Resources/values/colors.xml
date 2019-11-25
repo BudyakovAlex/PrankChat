@@ -12,4 +12,5 @@
     <color name="separator">#F6F6F6</color>
     <color name="gradient_start">#3B8DED</color>
     <color name="gradient_end">#6D28BE</color>
+    <color name="description">#9E9E9E</color>
 </resources>

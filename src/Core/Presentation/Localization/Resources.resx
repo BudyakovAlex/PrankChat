@@ -162,4 +162,7 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Search_View_Search_Placeholder" xml:space="preserve">
+    <value>Search</value>
+  </data>
 </root>

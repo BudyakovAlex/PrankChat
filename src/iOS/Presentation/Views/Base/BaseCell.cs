@@ -8,6 +8,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 {
     public abstract class BaseCell<TCell, TViewModel> : MvxTableViewCell
     {
+        private const int DefaultCellHeight = 40;
+
         protected BaseCell(IntPtr handle) : base(handle)
         {
             this.DelayBind(SetupCell);
@@ -23,6 +25,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         public static UINib Nib { get; }
 
+        public static int EstimatedHeight { get; protected set; } = DefaultCellHeight;
+
         public TViewModel ViewModel { get; private set; }
 
         public void SetupCell()
@@ -35,7 +39,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
         protected virtual void SetupControls()
         {
             BackgroundColor = UIColor.Clear;
-            SelectionStyle = UITableViewCellSelectionStyle.None;
+            SelectionStyle = UITableViewCellSelectionStyle.Gray;
             ContentView.BackgroundColor = UIColor.Clear;
         }
 

@@ -85,6 +85,8 @@
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="Utils\Helpers\ColorUtil.cs" />
+    <Compile Include="Presentation\Views\SearchView.cs" />
+    <Compile Include="Controls\ClearEditText.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -113,7 +115,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
-    <AndroidResource Include="Resources\layout\action_bar.xml">
+    <AndroidResource Include="Resources\layout\logo_action_bar.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -130,6 +132,26 @@
       </SubType>
       <Generator>
       </Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\search_layout.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\cell_search.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\search_action_bar.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\rounded_edittext.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_magnifier.xml">
+      <SubType></SubType>
+      <Generator></Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +172,33 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
     <PackageReference Include="MvvmCross.Droid.Support.V7.AppCompat">
       <Version>6.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmCross.Droid.Support.V7.RecyclerView">
+      <Version>6.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Compat">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Annotations">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Fragment">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmCross.Droid.Support.Fragment">
+      <Version>6.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmCross.Droid.Support.Design">
+      <Version>6.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmCross.Droid.Support.Core.Utils">
+      <Version>6.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations">
+      <Version>2.4.11.982</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
