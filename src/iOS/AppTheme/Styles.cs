@@ -56,7 +56,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
                     return UIImageUtil.ImageWithColor(color, new CGSize(1, segmentedControl.Frame.Height));
                 }
 
-                // Must set the background image for normal to something (even clear) else the rest won't work
+                // Must set the background image for normal to something (even clear) else the rest won't work.
                 segmentedControl.SetBackgroundImage(image(UIColor.Clear), UIControlState.Normal, UIBarMetrics.Default);
                 segmentedControl.SetBackgroundImage(image(Theme.Color.Accent), UIControlState.Selected, UIBarMetrics.Default);
                 segmentedControl.SetBackgroundImage(image(Theme.Color.Accent.ColorWithAlpha(0.2f)), UIControlState.Highlighted, UIBarMetrics.Default);

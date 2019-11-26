@@ -3,16 +3,22 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginView">
             <connections>
+                <outlet property="emailTextField" destination="DKl-JP-yCC" id="RSa-XJ-M0V"/>
+                <outlet property="facebookButton" destination="mLZ-1x-6Uy" id="iaR-fd-8RF"/>
+                <outlet property="gmailButton" destination="Ai8-Nm-30G" id="EOR-Z2-m3N"/>
                 <outlet property="loginButton" destination="LAK-AZ-oxm" id="FWz-yy-zjI"/>
+                <outlet property="okButton" destination="gHX-dY-raH" id="eQu-y0-G4e"/>
+                <outlet property="passwordTextField" destination="f9d-Mr-X0j" id="dFN-xF-1fa"/>
                 <outlet property="registrationButton" destination="3bF-Z3-c82" id="LRG-x5-TA6"/>
                 <outlet property="resetPasswordButton" destination="QwM-j5-bZ7" id="D0y-3L-COP"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+                <outlet property="vkButton" destination="XHV-kv-qlT" id="GEm-X0-NK1"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -21,7 +27,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login view" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8U-I8-gZ5">
-                    <rect key="frame" x="147" y="323" width="81" height="21"/>
+                    <rect key="frame" x="146" y="154" width="81" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -41,11 +47,47 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Forget password"/>
                 </button>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DKl-JP-yCC">
+                    <rect key="frame" x="138" y="196" width="97" height="34"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f9d-Mr-X0j">
+                    <rect key="frame" x="138" y="254" width="97" height="34"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XHV-kv-qlT">
+                    <rect key="frame" x="72" y="523" width="30" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title=" VK"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHX-dY-raH">
+                    <rect key="frame" x="124" y="523" width="58" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="OdnKlas"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mLZ-1x-6Uy">
+                    <rect key="frame" x="207" y="523" width="30" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="FB"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ai8-Nm-30G">
+                    <rect key="frame" x="265" y="523" width="39" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Gmail"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="s8U-I8-gZ5" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" id="0Ir-la-fTq"/>
-                <constraint firstItem="s8U-I8-gZ5" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="tHH-Tb-3PV"/>
+                <constraint firstItem="DKl-JP-yCC" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="138" id="00z-wH-lg0"/>
+                <constraint firstItem="s8U-I8-gZ5" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" constant="-169" id="0Ir-la-fTq"/>
+                <constraint firstAttribute="trailing" secondItem="f9d-Mr-X0j" secondAttribute="trailing" constant="140" id="O3X-aw-KCl"/>
+                <constraint firstItem="f9d-Mr-X0j" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="138" id="Wry-ST-os9"/>
+                <constraint firstItem="f9d-Mr-X0j" firstAttribute="top" secondItem="DKl-JP-yCC" secondAttribute="bottom" constant="24" id="XSz-D8-PFY"/>
+                <constraint firstAttribute="trailing" secondItem="DKl-JP-yCC" secondAttribute="trailing" constant="140" id="bVj-FD-Mgz"/>
+                <constraint firstItem="DKl-JP-yCC" firstAttribute="top" secondItem="s8U-I8-gZ5" secondAttribute="bottom" constant="21" id="pZP-fl-X9T"/>
+                <constraint firstItem="s8U-I8-gZ5" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" constant="-1" id="tHH-Tb-3PV"/>
             </constraints>
             <point key="canvasLocation" x="24.800000000000001" y="51.724137931034484"/>
         </view>

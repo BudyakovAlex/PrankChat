@@ -13,13 +13,31 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 	partial class LoginView
 	{
 		[Outlet]
+		UIKit.UITextField emailTextField { get; set; }
+
+		[Outlet]
+		UIKit.UIButton facebookButton { get; set; }
+
+		[Outlet]
+		UIKit.UIButton gmailButton { get; set; }
+
+		[Outlet]
 		UIKit.UIButton loginButton { get; set; }
+
+		[Outlet]
+		UIKit.UIButton okButton { get; set; }
+
+		[Outlet]
+		UIKit.UITextField passwordTextField { get; set; }
 
 		[Outlet]
 		UIKit.UIButton registrationButton { get; set; }
 
 		[Outlet]
 		UIKit.UIButton resetPasswordButton { get; set; }
+
+		[Outlet]
+		UIKit.UIButton vkButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -36,6 +54,36 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 			if (resetPasswordButton != null) {
 				resetPasswordButton.Dispose ();
 				resetPasswordButton = null;
+			}
+
+			if (emailTextField != null) {
+				emailTextField.Dispose ();
+				emailTextField = null;
+			}
+
+			if (passwordTextField != null) {
+				passwordTextField.Dispose ();
+				passwordTextField = null;
+			}
+
+			if (vkButton != null) {
+				vkButton.Dispose ();
+				vkButton = null;
+			}
+
+			if (okButton != null) {
+				okButton.Dispose ();
+				okButton = null;
+			}
+
+			if (facebookButton != null) {
+				facebookButton.Dispose ();
+				facebookButton = null;
+			}
+
+			if (gmailButton != null) {
+				gmailButton.Dispose ();
+				gmailButton = null;
 			}
 		}
 	}
