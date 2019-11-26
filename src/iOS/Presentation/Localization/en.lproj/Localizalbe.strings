@@ -16,3 +16,6 @@
 "Search_View_Search_Placeholder" = "Search";
 "Like" = "Like";
 "Share" = "Share";
+"Error_Unexpected_Server" = "The unexpected error occurred on the server. We have received information about it and working actively to resolve it.";
+"Error_Unexpected_Not_Found" = "Requested entity not found.";
+"Error_Unexpected_Network" = "Unexpected error occurred on request. Please, try again.";

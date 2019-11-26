@@ -1,6 +1,6 @@
 ﻿namespace PrankChat.Mobile.Core.Models.Api
 {
-    internal class LoginApiModel
+    internal class AuthorizationApiModel
     {
         public string Email { get; set; }
 
