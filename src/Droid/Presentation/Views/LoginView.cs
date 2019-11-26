@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.OS;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using PrankChat.Mobile.Core.Presentation.ViewModels;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views
@@ -16,12 +16,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             SetContentView(Resource.Layout.login_layout);
         }
 
-		protected override void Subscription()
-		{
-		}
+        protected override void Subscription()
+        {
+        }
 
-		protected override void Unsubscription()
-		{
-		}
-	}
+        protected override void Unsubscription()
+        {
+        }
+    }
 }

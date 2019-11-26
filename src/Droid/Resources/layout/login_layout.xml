@@ -1,27 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:local="http://schemas.android.com/apk/res-auto"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
-	<TextView
+	<EditText
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="Login view"/>
+        app:MvxBind="Text EmailText"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:MvxBind="Text PasswordText"/>
 	<Button
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="Login"
-		local:MvxBind="Click LoginCommand"/>
+        app:MvxBind="Click LoginCommand"/>
 	<Button
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="Reset Password"
-		local:MvxBind="Click ResetPasswordCommand"/>
+        app:MvxBind="Click ResetPasswordCommand"/>
 	<Button
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="Registration"
-		local:MvxBind="Click RegistrationCommand"/>
+        app:MvxBind="Click RegistrationCommand"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vk Login"
+        app:MvxBind="Click LoginCommand, CommandParameter=Vk"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Od Login"
+        app:MvxBind="Click LoginCommand, CommandParameter=Ok"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Facebook Login"
+        app:MvxBind="Click LoginCommand, CommandParameter=Facebook"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gmail login"
+        app:MvxBind="Click LoginCommand, CommandParameter=Gmail"/>
 </LinearLayout>
