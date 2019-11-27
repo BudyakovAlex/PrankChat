@@ -154,5 +154,71 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Share", resourceCulture);
             }
         }
+        
+        public static string Error_Unexpected_Server {
+            get {
+                return ResourceManager.GetString("Error_Unexpected_Server", resourceCulture);
+            }
+        }
+        
+        public static string Error_Unexpected_Not_Found {
+            get {
+                return ResourceManager.GetString("Error_Unexpected_Not_Found", resourceCulture);
+            }
+        }
+        
+        public static string Error_Unexpected_Network {
+            get {
+                return ResourceManager.GetString("Error_Unexpected_Network", resourceCulture);
+            }
+        }
+        
+        public static string LoginView_Email_Placeholder {
+            get {
+                return ResourceManager.GetString("LoginView_Email_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string LoginView_Password_Placeholder {
+            get {
+                return ResourceManager.GetString("LoginView_Password_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string LoginView_ForgotPassword_Title {
+            get {
+                return ResourceManager.GetString("LoginView_ForgotPassword_Title", resourceCulture);
+            }
+        }
+        
+        public static string LoginView_ForgotPassword_Button {
+            get {
+                return ResourceManager.GetString("LoginView_ForgotPassword_Button", resourceCulture);
+            }
+        }
+        
+        public static string LoginView_Continue_Button {
+            get {
+                return ResourceManager.GetString("LoginView_Continue_Button", resourceCulture);
+            }
+        }
+        
+        public static string LoginView_CreateAccount_Button {
+            get {
+                return ResourceManager.GetString("LoginView_CreateAccount_Button", resourceCulture);
+            }
+        }
+        
+        public static string LoginView_Login_Title {
+            get {
+                return ResourceManager.GetString("LoginView_Login_Title", resourceCulture);
+            }
+        }
+        
+        public static string LoginView_AltLogin_Title {
+            get {
+                return ResourceManager.GetString("LoginView_AltLogin_Title", resourceCulture);
+            }
+        }
     }
 }

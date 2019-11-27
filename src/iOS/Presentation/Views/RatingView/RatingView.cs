@@ -7,7 +7,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 {
 	[MvxTabPresentation(TabName = "Raiting", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
-	public partial class RatingView : BaseView<RatingViewModel>
+	public partial class RatingView : BaseGradientBarView<RatingViewModel>
 	{
 		protected override void SetupBinding()
 		{

@@ -7,7 +7,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 {
 	[MvxModalPresentation(WrapInNavigationController = true)]
-	public partial class NotificationView : BaseView<NotificationViewModel>
+	public partial class NotificationView : BaseGradientBarView<NotificationViewModel>
     {
 		protected override void SetupBinding()
 		{

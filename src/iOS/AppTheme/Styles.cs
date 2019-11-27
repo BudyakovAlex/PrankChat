@@ -4,6 +4,7 @@ using CoreAnimation;
 using CoreGraphics;
 using Plugin.DeviceInfo;
 using PrankChat.Mobile.iOS.Utils.Helpers;
+using Foundation;
 
 namespace PrankChat.Mobile.iOS.AppTheme
 {
@@ -141,6 +142,28 @@ namespace PrankChat.Mobile.iOS.AppTheme
             searchBar.TintColor = Theme.Color.Title;
         }
 
+        public static void SetLightStyle(this UITextField textField)
+        {
+            textField.TextColor = Theme.Color.White;
+            textField.BackgroundColor = UIColor.Clear;
+            textField.TintColor = Theme.Color.White;
+            textField.Layer.BorderColor = Theme.Color.White.CGColor;
+            textField.Layer.BorderWidth = 1;
+            textField.Layer.CornerRadius = 3;
+
+            var placeholderAttributes = new UIStringAttributes
+            {
+                Font = Theme.Font.RegularFontOfSize(14),
+                ForegroundColor = Theme.Color.White
+            };
+
+            textField.AttributedPlaceholder = new NSAttributedString(textField.Placeholder, placeholderAttributes);
+
+            var paddingView = new UIView(new CGRect(0, 0, 14, textField.Frame.Height));
+            textField.LeftView = paddingView;
+            textField.LeftViewMode = UITextFieldViewMode.Always;
+        }
+
         public static void SetGradientBackground(this UIView view)
         {
             var containerView = new UIView(view.Frame);
@@ -224,6 +247,37 @@ namespace PrankChat.Mobile.iOS.AppTheme
         {
             label.Font = Theme.Font.RegularFontOfSize(12);
             label.TextColor = Theme.Color.Subtitle;
+        }
+
+        public static void SetLinkStyle(this UIButton button, UIFont font)
+        {
+            var titleAttributes = new UIStringAttributes
+            {
+                Font = font,
+                ForegroundColor = Theme.Color.White,
+                UnderlineStyle = NSUnderlineStyle.Single,
+                UnderlineColor = Theme.Color.White
+            };
+
+            var attributedTitle = new NSAttributedString(button.Title(UIControlState.Normal), titleAttributes);
+            button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
+        }
+
+        public static void SetLightStyle(this UIButton button)
+        {
+            button.Layer.BorderColor = Theme.Color.ButtonBorderPrimary.CGColor;
+            button.Layer.BorderWidth = 1;
+            button.Layer.CornerRadius = 4;
+            button.BackgroundColor = Theme.Color.White;
+
+            var titleAttributes = new UIStringAttributes
+            {
+                Font = Theme.Font.MediumOfSize(14),
+                ForegroundColor = Theme.Color.Accent
+            };
+
+            var attributedTitle = new NSAttributedString(button.Title(UIControlState.Normal), titleAttributes);
+            button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
         }
 
         private static UIImage GetNavigationBarBackgroundImage(UIView gradientLayer)
