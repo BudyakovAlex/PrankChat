@@ -15,6 +15,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         public LoginViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
         {
             _apiService = apiService;
+
+            EmailText = "test2@mail.ru";
+            PasswordText = "asd123456789";
         }
 
         public string EmailText
@@ -42,6 +45,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                 var email = EmailText?.Trim();
                 var password = PasswordText?.Trim();
                 await _apiService.AuthorizeAsync(email, password);
+
+                await NavigationService.ShowMainView();
             }
             else
             {

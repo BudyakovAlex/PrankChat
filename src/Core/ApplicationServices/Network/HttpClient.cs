@@ -7,6 +7,7 @@ using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Errors;
+using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using RestSharp;
 
@@ -15,9 +16,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
     public class HttpClient
     {
         private const string ApiId = "api";
-        private readonly RestClient _client;
-        private readonly IMvxLog _mvxLog;
+        private readonly IRestClient _client;
         private readonly IMvxMessenger _messenger;
+        private readonly IMvxLog _mvxLog;
         private readonly ISettingsService _settingsService;
 
         public HttpClient(string baseAddress, Version apiVersion, ISettingsService settingsService, IMvxLog mvxLog, IMvxMessenger messenger)
@@ -25,7 +26,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             _settingsService = settingsService;
             _mvxLog = mvxLog;
             _messenger = messenger;
-            _client = new RestClient($"{baseAddress}/{ApiId}/v{apiVersion.Major}");
+            _client = new RestClient($"{baseAddress}/{ApiId}/v{apiVersion.Major}").UseSerializer(() => new JsonNetSerializer());
         }
 
         public async Task<TResult> UnauthorizedGet<TResult>(string endpoint, bool exceptionThrowingEnabled = false) where TResult : class, new()
@@ -34,11 +35,20 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return await ExecuteTask<TResult>(request, false, exceptionThrowingEnabled);
         }
 
-        public async Task UnauthorizedPost<TEntity>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : class
+        public Task<string> UnauthorizedPost<TEntity>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : class
         {
             var request = new RestRequest(endpoint, Method.POST);
             request.AddJsonBody(item);
-            await ExecuteTask(request, false, exceptionThrowingEnabled);
+            return ExecuteTask(request, false, exceptionThrowingEnabled);
+        }
+
+        public async Task<TResult> UnauthorizedPost<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false)
+            where TEntity : class
+            where TResult : class, new()
+        {
+            var request = new RestRequest(endpoint, Method.POST);
+            request.AddJsonBody(item);
+            return await ExecuteTask<TResult>(request, false, exceptionThrowingEnabled);
         }
 
         public async Task<TResult> Get<TResult>(string endpoint, bool exceptionThrowingEnabled = false) where TResult : class, new()
@@ -68,7 +78,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             await ExecuteTask(request, true, exceptionThrowingEnabled);
         }
 
-        private async Task ExecuteTask(IRestRequest request, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
+        private async Task<string> ExecuteTask(IRestRequest request, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
         {
             try
             {
@@ -80,6 +90,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                 var content = cancellationToken.HasValue ? await _client.ExecuteTaskAsync(request, cancellationToken.Value) : await _client.ExecuteTaskAsync(request);
                 CheckResponse(request, content);
+                return content.Content;
             }
             catch (AuthenticationProblemDetails)
             {

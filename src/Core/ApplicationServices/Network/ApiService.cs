@@ -10,19 +10,22 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 {
     public class ApiService : IApiService
     {
+        private readonly ISettingsService _settingsService;
         private readonly HttpClient _client;
 
         public ApiService(ISettingsService settingsService, IMvxLogProvider logProvider, IMvxMessenger messenger)
         {
+            _settingsService = settingsService;
             var log = logProvider.GetLogFor<ApiService>();
             var configuration = ConfigurationProvider.GetConfiguration();
             _client = new HttpClient(configuration.BaseAddress, configuration.ApiVersion, settingsService, log, messenger);
         }
 
-        public Task AuthorizeAsync(string email, string password)
+        public async Task AuthorizeAsync(string email, string password)
         {
             var loginModel = new AuthorizationApiModel { Email = email, Password = password };
-            return _client.UnauthorizedPost("auth/login", loginModel);
+            var authTokenModel = await _client.UnauthorizedPost<AuthorizationApiModel, AccessTokenApiModel>("auth/login", loginModel);
+            await _settingsService.SetAccessTokenAsync(authTokenModel.AccessToken);
         }
 
         public Task RegisterAsync(UserRegistrationDataModel userInfo)

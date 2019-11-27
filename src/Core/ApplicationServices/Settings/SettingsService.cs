@@ -14,7 +14,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
 
         public Task SetAccessTokenAsync(string accessToken)
         {
-            return SecureStorage.SetAsync(accessToken, accessToken);
+            return SecureStorage.SetAsync(AccessTokenKey, accessToken);
         }
     }
 }
