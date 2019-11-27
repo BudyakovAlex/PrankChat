@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
     <include
         android:id="@+id/action_bar"
-        layout="@layout/logo_action_bar"
+        layout="@layout/action_bar_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <PrankChat.Mobile.Droid.Controls.ApplicationSwipeViewPager

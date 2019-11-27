@@ -1,51 +1,118 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
-	<EditText
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-        app:MvxBind="Text EmailText"/>
-    <EditText
+	android:layout_height="match_parent"
+    android:background="@drawable/gradient_background">
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar_transparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/enter_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/action_bar"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:text="Войти" />
+	<EditText
+        android:id="@+id/email_edit_text"
+		android:layout_width="match_parent"
+		android:layout_height="46dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@+id/enter_text_view"
+        app:MvxBind="Text EmailText"/>
+    <EditText
+        android:id="@+id/password_edit_text"
+        android:layout_width="match_parent"
+		android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@+id/email_edit_text"
         app:MvxBind="Text PasswordText"/>
-	<Button
+    <Button
+        android:id="@+id/reset_password_button"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Login"
-        app:MvxBind="Click LoginCommand"/>
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@+id/password_edit_text"
+        android:layout_alignParentLeft="true"
 		android:text="Reset Password"
         app:MvxBind="Click ResetPasswordCommand"/>
 	<Button
+        android:id="@+id/login_button"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Registration"
+		android:layout_height="36dp"
+        android:layout_marginTop="51dp"
+        android:layout_centerHorizontal="true"
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp"
+        android:layout_below="@+id/password_edit_text"
+        android:background="@color/applicationWhite"
+		android:text="Login"
+        app:MvxBind="Click LoginCommand"/>
+	<TextView
+        android:id="@+id/login_from_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/login_button"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:text="Войти через:" />
+    <LinearLayout
+        android:id="@+id/social_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:layout_below="@+id/login_from_text">
+        <ImageButton
+		    android:layout_width="45dp"
+		    android:layout_height="45dp"
+		    android:text="Registration"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_vk"
+            app:MvxBind="Click LoginCommand, CommandParameter=Gmail"/>
+        <ImageButton
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_odnoklassniki"
+            app:MvxBind="Click LoginCommand, CommandParameter=Ok"/>
+        <ImageButton
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_facebook"
+            app:MvxBind="Click LoginCommand, CommandParameter=Facebook"/>
+        <ImageButton
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_gmail"
+            app:MvxBind="Click LoginCommand, CommandParameter=Gmail"/>
+    </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/social_container"
+        android:text="Registration"
         app:MvxBind="Click RegistrationCommand"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Vk Login"
-        app:MvxBind="Click LoginCommand, CommandParameter=Vk"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Od Login"
-        app:MvxBind="Click LoginCommand, CommandParameter=Ok"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Facebook Login"
-        app:MvxBind="Click LoginCommand, CommandParameter=Facebook"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gmail login"
-        app:MvxBind="Click LoginCommand, CommandParameter=Gmail"/>
-</LinearLayout>
+</RelativeLayout>

@@ -2,31 +2,31 @@
 <android.support.design.widget.CoordinatorLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mainCoordinatorLayout"
-    android:background="@drawable/gradient_background"
+    android:id="@+id/container_toolbar"
+    android:background="@android:color/transparent"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:gravity="center_horizontal"
-        app:elevation="25dp">
+        android:layout_height="match_parent"
+        app:elevation="25dp"
+        android:background="@android:color/transparent">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="74dp"
             app:contentInsetLeft="0dp"
+            android:paddingTop="0dp"
             android:background="@android:color/transparent"
-            android:layout_gravity="center_vertical"
             app:contentInsetStartWithNavigation="0dp"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
             <ImageView
                 android:id="@+id/toolbar_logo"
                 android:layout_width="184dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="16dp"
+                android:background="@android:color/transparent"
+                android:layout_gravity="top|center_horizontal"
                 android:src="@drawable/ic_logo" />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
