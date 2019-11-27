@@ -2,6 +2,8 @@
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -27,8 +29,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 
 		protected override void SetupControls()
 		{
+            NavigationController?.NavigationBar.SetTransparentStyle();
+
+            View.SetGradientBackground();
+
             var tapGesture = new UITapGestureRecognizer(DismissKeyboard);
             View.AddGestureRecognizer(tapGesture);
+
+            var logoImageView = new UIImageView(UIImage.FromBundle("ic_logo"), null);
+            var backButton = NavigationItemHelper.CreateBarButton("ic_back", ViewModel.GoBackCommand);
+            NavigationItem.LeftBarButtonItems = new UIBarButtonItem[]
+            {
+                //backButton,
+            };
+
+            NavigationItem.TitleView = logoImageView;
         }
 
         private void DismissKeyboard()

@@ -27,7 +27,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         private void SetCommonStyles()
         {
-            NavigationController?.NavigationBar.SetStyle();
+            NavigationController?.NavigationBar.SetGradientStyle();
             SetNeedsStatusBarAppearanceUpdate();
         }
     }

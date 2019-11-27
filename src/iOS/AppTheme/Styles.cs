@@ -87,7 +87,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             tabBar.BarTintColor = Theme.Color.White;
         }
 
-        public static void SetStyle(this UINavigationBar navigationBar)
+        public static void SetGradientStyle(this UINavigationBar navigationBar)
         {
             var statusBarHeight = UIApplication.SharedApplication.StatusBarFrame.Height;
             var fullHeight = navigationBar.Frame.Size.Width + statusBarHeight;
@@ -113,6 +113,24 @@ namespace PrankChat.Mobile.iOS.AppTheme
             navigationBar.BarStyle = UIBarStyle.BlackTranslucent;
         }
 
+        public static void SetTransparentStyle(this UINavigationBar navigationBar)
+        {
+            var statusBarHeight = UIApplication.SharedApplication.StatusBarFrame.Height;
+            var fullHeight = navigationBar.Frame.Size.Width + statusBarHeight;
+            var transparentContainer = new UIView();
+            transparentContainer.Frame = new CGRect(navigationBar.Frame.Location, new CGSize(navigationBar.Frame.Size.Width, fullHeight));
+            transparentContainer.ClipsToBounds = true;
+
+            var transparentLayer = new CALayer();
+            transparentLayer.BackgroundColor = UIColor.Clear.CGColor;
+
+            transparentLayer.Position = transparentContainer.Center;
+            transparentContainer.Layer.AddSublayer(transparentLayer);
+            navigationBar.SetBackgroundImage(GetNavigationBarBackgroundImage(transparentContainer), UIBarMetrics.Default);
+            navigationBar.BarStyle = UIBarStyle.BlackTranslucent;
+            navigationBar.ShadowImage = new UIImage();
+        }
+
         public static void SetStyle(this UISearchBar searchBar)
         {
             if (CrossDeviceInfo.Current.VersionNumber > new Version(13, 0))
@@ -121,6 +139,28 @@ namespace PrankChat.Mobile.iOS.AppTheme
                 searchBar.SearchTextField.TextColor = Theme.Color.Title;
             }
             searchBar.TintColor = Theme.Color.Title;
+        }
+
+        public static void SetGradientBackground(this UIView view)
+        {
+            var containerView = new UIView(view.Frame);
+
+            var backgroundLayer = new CAGradientLayer();
+
+            backgroundLayer.Colors = new CGColor[] {
+              new UIColor(0.231f, 0.553f, 0.929f, 1).CGColor,
+              new UIColor(0.427f, 0.157f, 0.745f, 1).CGColor
+            };
+
+            backgroundLayer.Locations = new Foundation.NSNumber[] { 0, 1 };
+            backgroundLayer.StartPoint = new CGPoint(x: 0.25, y: 0.5);
+            backgroundLayer.EndPoint = new CGPoint(x: 0.75, y: 0.5);
+            backgroundLayer.Transform = CATransform3D.MakeFromAffine(new CGAffineTransform(0, 1, -1, 0, 1, 0));
+            backgroundLayer.Bounds = view.Bounds.Inset(-0.5f * view.Bounds.Size.Width, -0.5f * view.Bounds.Size.Height);
+            backgroundLayer.Position = view.Center;
+            containerView.Layer.AddSublayer(backgroundLayer);
+
+            view.InsertSubview(containerView, 0);
         }
 
         /// <summary>

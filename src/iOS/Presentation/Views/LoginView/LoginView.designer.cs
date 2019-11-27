@@ -19,10 +19,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 		UIKit.UIButton facebookButton { get; set; }
 
 		[Outlet]
+		UIKit.UILabel forgotPasswordTitleLabel { get; set; }
+
+		[Outlet]
 		UIKit.UIButton gmailButton { get; set; }
 
 		[Outlet]
 		UIKit.UIButton loginButton { get; set; }
+
+		[Outlet]
+		UIKit.UILabel loginTitleLabel { get; set; }
 
 		[Outlet]
 		UIKit.UIButton okButton { get; set; }
@@ -37,13 +43,41 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 		UIKit.UIButton resetPasswordButton { get; set; }
 
 		[Outlet]
+		UIKit.UILabel socialNetworksTitleLabel { get; set; }
+
+		[Outlet]
 		UIKit.UIButton vkButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (emailTextField != null) {
+				emailTextField.Dispose ();
+				emailTextField = null;
+			}
+
+			if (facebookButton != null) {
+				facebookButton.Dispose ();
+				facebookButton = null;
+			}
+
+			if (gmailButton != null) {
+				gmailButton.Dispose ();
+				gmailButton = null;
+			}
+
 			if (loginButton != null) {
 				loginButton.Dispose ();
 				loginButton = null;
+			}
+
+			if (okButton != null) {
+				okButton.Dispose ();
+				okButton = null;
+			}
+
+			if (passwordTextField != null) {
+				passwordTextField.Dispose ();
+				passwordTextField = null;
 			}
 
 			if (registrationButton != null) {
@@ -56,34 +90,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 				resetPasswordButton = null;
 			}
 
-			if (emailTextField != null) {
-				emailTextField.Dispose ();
-				emailTextField = null;
-			}
-
-			if (passwordTextField != null) {
-				passwordTextField.Dispose ();
-				passwordTextField = null;
-			}
-
 			if (vkButton != null) {
 				vkButton.Dispose ();
 				vkButton = null;
 			}
 
-			if (okButton != null) {
-				okButton.Dispose ();
-				okButton = null;
+			if (loginTitleLabel != null) {
+				loginTitleLabel.Dispose ();
+				loginTitleLabel = null;
 			}
 
-			if (facebookButton != null) {
-				facebookButton.Dispose ();
-				facebookButton = null;
+			if (forgotPasswordTitleLabel != null) {
+				forgotPasswordTitleLabel.Dispose ();
+				forgotPasswordTitleLabel = null;
 			}
 
-			if (gmailButton != null) {
-				gmailButton.Dispose ();
-				gmailButton = null;
+			if (socialNetworksTitleLabel != null) {
+				socialNetworksTitleLabel.Dispose ();
+				socialNetworksTitleLabel = null;
 			}
 		}
 	}
