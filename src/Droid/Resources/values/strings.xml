@@ -18,4 +18,15 @@
     <string name="Search_View_Search_Placeholder">"Search"</string>
     <string name="Like">"Like"</string>
     <string name="Share">"Share"</string>
+    <string name="Error_Unexpected_Server">"The unexpected error occurred on the server. We have received information about it and working actively to resolve it."</string>
+    <string name="Error_Unexpected_Not_Found">"Requested entity not found."</string>
+    <string name="Error_Unexpected_Network">"Unexpected error occurred on request. Please, try again."</string>
+    <string name="LoginView_Email_Placeholder">"Enter e-mail"</string>
+    <string name="LoginView_Password_Placeholder">"Enter password"</string>
+    <string name="LoginView_ForgotPassword_Title">"Forgot password?"</string>
+    <string name="LoginView_ForgotPassword_Button">"Restore"</string>
+    <string name="LoginView_Continue_Button">"Continue"</string>
+    <string name="LoginView_CreateAccount_Button">"Don't have an account? Create a new one."</string>
+    <string name="LoginView_Login_Title">"Log in"</string>
+    <string name="LoginView_AltLogin_Title">"Enter social networks:"</string>
 </resources>
