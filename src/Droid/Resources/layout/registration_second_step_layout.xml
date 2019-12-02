@@ -1,17 +1,153 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:local="http://schemas.android.com/apk/res-auto"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
-	<TextView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="Registration second step view" />
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Next step"
-		local:MvxBind="Click ShowThirdStepCommand"/>
+	android:layout_height="match_parent"
+    android:background="@drawable/gradient_background">
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar_back_and_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        app:boxStrokeWidth="1dp"
+        android:textColorHint="@color/applicationWhite"
+        android:hint="Введите логин"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/applicationWhite"
+            app:MvxBind="Text EmailText" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        app:boxStrokeWidth="1dp"
+        android:textColorHint="@color/applicationWhite"
+        android:hint="Введите имя"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:textColor="@color/applicationWhite"
+            app:MvxBind="Text EmailText" />
+    </android.support.design.widget.TextInputLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:orientation="horizontal"
+        style="@style/Theme.PrankChat.TextFieldLayout"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:textSize="14sp"
+            android:textColor="@color/applicationWhite"
+            android:text="День "
+            app:MvxBind="Text EmailText;" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_calendar"/>
+    </LinearLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        app:boxStrokeWidth="1dp"
+        android:textColorHint="@color/applicationWhite"
+        android:hint="Введите пароль"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/applicationWhite"
+            app:MvxBind="Text EmailText" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        app:boxStrokeWidth="1dp"
+        android:textColorHint="@color/applicationWhite"
+        android:hint="Повторите пароль"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/applicationWhite"
+            app:MvxBind="Text EmailText" />
+    </android.support.design.widget.TextInputLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/applicationWhite"
+        android:textSize="14sp"
+        android:text="Выберите пол:"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="18dp">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="19dp"
+            android:textColor="@color/applicationWhite"
+            android:drawableTop="@drawable/radio_button_background"
+            android:button="@null"
+            android:text="муж"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="19dp"
+            android:drawableTop="@drawable/radio_button_background"
+            android:button="@null"
+            android:textColor="@color/applicationWhite"
+            android:text="жен"/>
+    </RadioGroup>
+    <Button
+        android:id="@+id/registration_button"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:textSize="14sp"
+        android:textFontWeight="500"
+        android:textColor="@color/accent"
+        android:background="@drawable/button_white_background"
+        android:text="Зарегестироваться"
+        style="@style/Theme.PrankChat.Button"
+        app:MvxBind="Click ShowThirdStepCommand" />
 </LinearLayout>

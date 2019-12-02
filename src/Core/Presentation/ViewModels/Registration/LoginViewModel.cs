@@ -52,17 +52,31 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         private async Task OnLoginCommand(string loginType)
         {
-            if (!Enum.TryParse<SocialNetworkType>(loginType, out var socialNetworkType))
-            {
-                await NavigationService.ShowMainView();
-            }
-            else
+            if (Enum.TryParse<SocialNetworkType>(loginType, out var socialNetworkType))
             {
                 await NavigationService.ShowMainView();
 
                 switch (socialNetworkType)
                 {
+                    case SocialNetworkType.Vk:
+                        break;
+
+                    case SocialNetworkType.Ok:
+                        break;
+
+                    case SocialNetworkType.Facebook:
+                        break;
+
+                    case SocialNetworkType.Gmail:
+                        break;
+
+                    default:
+                        break;
                 }
+            }
+            else
+            {
+                await NavigationService.ShowMainView();
             }
         }
     }

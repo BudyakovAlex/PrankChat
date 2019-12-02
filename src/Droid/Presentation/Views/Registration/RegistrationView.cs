@@ -10,10 +10,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
     [Activity]
     public class RegistrationView : BaseView<RegistrationViewModel>
     {
+        protected override bool HasBackButton => true;
+
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle);
-            SetContentView(Resource.Layout.registration_layout);
+            base.OnCreate(bundle, Resource.Layout.registration_layout);
         }
 
 		protected override void Subscription()
