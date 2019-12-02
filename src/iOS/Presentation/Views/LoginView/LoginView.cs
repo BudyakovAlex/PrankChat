@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -30,20 +30,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 
 		protected override void SetupControls()
 		{
-            NavigationController?.NavigationBar.SetTransparentStyle();
-
-            var tapGesture = new UITapGestureRecognizer(DismissKeyboard);
-            View.AddGestureRecognizer(tapGesture);
-
-            var logoImageView = new UIImageView(UIImage.FromBundle("ic_logo"), null);
-            var backButton = NavigationItemHelper.CreateBarButton("ic_back", ViewModel.GoBackCommand);
-            NavigationItem.LeftBarButtonItems = new UIBarButtonItem[]
-            {
-                //backButton,
-            };
-
-            NavigationItem.TitleView = logoImageView;
-
             loginTitleLabel.Text = Resources.LoginView_Login_Title;
             loginTitleLabel.TextColor = Theme.Color.White;
             loginTitleLabel.Font = Theme.Font.RegularFontOfSize(20);
@@ -80,10 +66,20 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             registrationButton.SetLinkStyle(Theme.Font.RegularFontOfSize(16));
         }
 
-        private void DismissKeyboard()
+        protected override void RegisterKeyboardDismissResponders(List<UIView> views)
         {
-            emailTextField.ResignFirstResponder();
-            passwordTextField.ResignFirstResponder();
+            views.Add(scrollView);
+
+            base.RegisterKeyboardDismissResponders(views);
+        }
+
+        protected override void RegisterKeyboardDismissViews(List<UIView> viewList)
+        {
+            viewList.Add(emailTextField);
+            viewList.Add(passwordTextField);
+            viewList.Add(scrollView);
+
+            base.RegisterKeyboardDismissViews(viewList);
         }
     }
 }

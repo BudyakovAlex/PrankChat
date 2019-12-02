@@ -220,5 +220,113 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("LoginView_AltLogin_Title", resourceCulture);
             }
         }
+        
+        public static string RegistrationView_Title {
+            get {
+                return ResourceManager.GetString("RegistrationView_Title", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_Email_Placeholder {
+            get {
+                return ResourceManager.GetString("RegistrationView_Email_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_RegisteredYet_Label {
+            get {
+                return ResourceManager.GetString("RegistrationView_RegisteredYet_Label", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_Login_Button {
+            get {
+                return ResourceManager.GetString("RegistrationView_Login_Button", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_Login_Placeholder {
+            get {
+                return ResourceManager.GetString("RegistrationView_Login_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_Name_Placeholder {
+            get {
+                return ResourceManager.GetString("RegistrationView_Name_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_Birthday_Placeholder {
+            get {
+                return ResourceManager.GetString("RegistrationView_Birthday_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_Password_Placeholder {
+            get {
+                return ResourceManager.GetString("RegistrationView_Password_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_PasswordRepeat_Placeholder {
+            get {
+                return ResourceManager.GetString("RegistrationView_PasswordRepeat_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_GenderSelect_Title {
+            get {
+                return ResourceManager.GetString("RegistrationView_GenderSelect_Title", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_Male_Button {
+            get {
+                return ResourceManager.GetString("RegistrationView_Male_Button", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_Female_Button {
+            get {
+                return ResourceManager.GetString("RegistrationView_Female_Button", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_Register_Button {
+            get {
+                return ResourceManager.GetString("RegistrationView_Register_Button", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_StepTwo_Title {
+            get {
+                return ResourceManager.GetString("RegistrationView_StepTwo_Title", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_StepThree_Title {
+            get {
+                return ResourceManager.GetString("RegistrationView_StepThree_Title", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_Congrats_Title {
+            get {
+                return ResourceManager.GetString("RegistrationView_Congrats_Title", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_Confirmation_Label {
+            get {
+                return ResourceManager.GetString("RegistrationView_Confirmation_Label", resourceCulture);
+            }
+        }
+        
+        public static string RegistrationView_GoToFeed_Button {
+            get {
+                return ResourceManager.GetString("RegistrationView_GoToFeed_Button", resourceCulture);
+            }
+        }
     }
 }

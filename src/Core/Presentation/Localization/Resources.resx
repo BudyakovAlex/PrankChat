@@ -204,4 +204,58 @@
   <data name="LoginView_AltLogin_Title" xml:space="preserve">
     <value>Enter social networks:</value>
   </data>
+  <data name="RegistrationView_Title" xml:space="preserve">
+    <value>Registration</value>
+  </data>
+  <data name="RegistrationView_Email_Placeholder" xml:space="preserve">
+    <value>Enter e-mail</value>
+  </data>
+  <data name="RegistrationView_RegisteredYet_Label" xml:space="preserve">
+    <value>Already registered?</value>
+  </data>
+  <data name="RegistrationView_Login_Button" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="RegistrationView_Login_Placeholder" xml:space="preserve">
+    <value>Enter nickname</value>
+  </data>
+  <data name="RegistrationView_Name_Placeholder" xml:space="preserve">
+    <value>Enter your name</value>
+  </data>
+  <data name="RegistrationView_Birthday_Placeholder" xml:space="preserve">
+    <value>Enter birthday</value>
+  </data>
+  <data name="RegistrationView_Password_Placeholder" xml:space="preserve">
+    <value>Enter password</value>
+  </data>
+  <data name="RegistrationView_PasswordRepeat_Placeholder" xml:space="preserve">
+    <value>Enter password again</value>
+  </data>
+  <data name="RegistrationView_GenderSelect_Title" xml:space="preserve">
+    <value>Select sex:</value>
+  </data>
+  <data name="RegistrationView_Male_Button" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="RegistrationView_Female_Button" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="RegistrationView_Register_Button" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="RegistrationView_StepTwo_Title" xml:space="preserve">
+    <value>Step 2</value>
+  </data>
+  <data name="RegistrationView_StepThree_Title" xml:space="preserve">
+    <value>Step 3</value>
+  </data>
+  <data name="RegistrationView_Congrats_Title" xml:space="preserve">
+    <value>Congratulations!</value>
+  </data>
+  <data name="RegistrationView_Confirmation_Label" xml:space="preserve">
+    <value>Verification text.</value>
+  </data>
+  <data name="RegistrationView_GoToFeed_Button" xml:space="preserve">
+    <value>Go to feed</value>
+  </data>
 </root>
