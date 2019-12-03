@@ -14,11 +14,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
     public partial class LoginView : BaseTransparentBarView<LoginViewModel>
     {
         protected override void SetupBinding()
-		{
-			var set = this.CreateBindingSet<LoginView, LoginViewModel>();
-			set.Bind(loginButton).To(vm => vm.LoginCommand);
-			set.Bind(registrationButton).To(vm => vm.RegistrationCommand);
-			set.Bind(resetPasswordButton).To(vm => vm.ResetPasswordCommand);
+        {
+            var set = this.CreateBindingSet<LoginView, LoginViewModel>();
+            set.Bind(loginButton).To(vm => vm.LoginCommand);
+            set.Bind(registrationButton).To(vm => vm.RegistrationCommand);
+            set.Bind(resetPasswordButton).To(vm => vm.ResetPasswordCommand);
             set.Bind(emailTextField).To(vm => vm.EmailText);
             set.Bind(passwordTextField).To(vm => vm.PasswordText);
             set.Bind(vkButton).To(vm => vm.LoginCommand).CommandParameter("Vk");
@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             set.Bind(facebookButton).To(vm => vm.LoginCommand).CommandParameter("Facebook");
             set.Bind(gmailButton).To(vm => vm.LoginCommand).CommandParameter("Gmail");
             set.Apply();
-		}
+        }
 
 		protected override void SetupControls()
 		{
@@ -83,4 +83,3 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
         }
     }
 }
-
