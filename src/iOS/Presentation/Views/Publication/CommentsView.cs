@@ -7,7 +7,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
 	[MvxRootPresentation(WrapInNavigationController = true)]
-	public partial class CommentsView : BaseView<CommentsViewModel>
+	public partial class CommentsView : BaseGradientBarView<CommentsViewModel>
 	{
 		protected override void SetupBinding()
 		{

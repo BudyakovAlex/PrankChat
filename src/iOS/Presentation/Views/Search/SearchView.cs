@@ -8,7 +8,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 {
-    public partial class SearchView : BaseView<SearchViewModel>
+    public partial class SearchView : BaseGradientBarView<SearchViewModel>
     {
         private const int SearchBarRightPadding = 16;
         private const int BackButtonWidth = 40;

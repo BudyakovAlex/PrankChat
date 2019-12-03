@@ -5,7 +5,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.PasswordRecoveryView
 {
-	public partial class PasswordRecoveryView : BaseView<PasswordRecoveryViewModel>
+	public partial class PasswordRecoveryView : BaseTransparentBarView<PasswordRecoveryViewModel>
 	{
 		protected override void SetupBinding()
 		{

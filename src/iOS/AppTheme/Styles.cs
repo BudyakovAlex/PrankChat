@@ -4,6 +4,7 @@ using CoreAnimation;
 using CoreGraphics;
 using Plugin.DeviceInfo;
 using PrankChat.Mobile.iOS.Utils.Helpers;
+using Foundation;
 
 namespace PrankChat.Mobile.iOS.AppTheme
 {
@@ -56,7 +57,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
                     return UIImageUtil.ImageWithColor(color, new CGSize(1, segmentedControl.Frame.Height));
                 }
 
-                // Must set the background image for normal to something (even clear) else the rest won't work
+                // Must set the background image for normal to something (even clear) else the rest won't work.
                 segmentedControl.SetBackgroundImage(image(UIColor.Clear), UIControlState.Normal, UIBarMetrics.Default);
                 segmentedControl.SetBackgroundImage(image(Theme.Color.Accent), UIControlState.Selected, UIBarMetrics.Default);
                 segmentedControl.SetBackgroundImage(image(Theme.Color.Accent.ColorWithAlpha(0.2f)), UIControlState.Highlighted, UIBarMetrics.Default);
@@ -87,7 +88,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             tabBar.BarTintColor = Theme.Color.White;
         }
 
-        public static void SetStyle(this UINavigationBar navigationBar)
+        public static void SetGradientStyle(this UINavigationBar navigationBar)
         {
             var statusBarHeight = UIApplication.SharedApplication.StatusBarFrame.Height;
             var fullHeight = navigationBar.Frame.Size.Width + statusBarHeight;
@@ -113,6 +114,24 @@ namespace PrankChat.Mobile.iOS.AppTheme
             navigationBar.BarStyle = UIBarStyle.BlackTranslucent;
         }
 
+        public static void SetTransparentStyle(this UINavigationBar navigationBar)
+        {
+            var statusBarHeight = UIApplication.SharedApplication.StatusBarFrame.Height;
+            var fullHeight = navigationBar.Frame.Size.Width + statusBarHeight;
+            var transparentContainer = new UIView();
+            transparentContainer.Frame = new CGRect(navigationBar.Frame.Location, new CGSize(navigationBar.Frame.Size.Width, fullHeight));
+            transparentContainer.ClipsToBounds = true;
+
+            var transparentLayer = new CALayer();
+            transparentLayer.BackgroundColor = UIColor.Clear.CGColor;
+
+            transparentLayer.Position = transparentContainer.Center;
+            transparentContainer.Layer.AddSublayer(transparentLayer);
+            navigationBar.SetBackgroundImage(GetNavigationBarBackgroundImage(transparentContainer), UIBarMetrics.Default);
+            navigationBar.BarStyle = UIBarStyle.BlackTranslucent;
+            navigationBar.ShadowImage = new UIImage();
+        }
+
         public static void SetStyle(this UISearchBar searchBar)
         {
             if (CrossDeviceInfo.Current.VersionNumber > new Version(13, 0))
@@ -121,6 +140,50 @@ namespace PrankChat.Mobile.iOS.AppTheme
                 searchBar.SearchTextField.TextColor = Theme.Color.Title;
             }
             searchBar.TintColor = Theme.Color.Title;
+        }
+
+        public static void SetLightStyle(this UITextField textField)
+        {
+            textField.TextColor = Theme.Color.White;
+            textField.BackgroundColor = UIColor.Clear;
+            textField.TintColor = Theme.Color.White;
+            textField.Layer.BorderColor = Theme.Color.White.CGColor;
+            textField.Layer.BorderWidth = 1;
+            textField.Layer.CornerRadius = 3;
+
+            var placeholderAttributes = new UIStringAttributes
+            {
+                Font = Theme.Font.RegularFontOfSize(14),
+                ForegroundColor = Theme.Color.White
+            };
+
+            textField.AttributedPlaceholder = new NSAttributedString(textField.Placeholder, placeholderAttributes);
+
+            var paddingView = new UIView(new CGRect(0, 0, 14, textField.Frame.Height));
+            textField.LeftView = paddingView;
+            textField.LeftViewMode = UITextFieldViewMode.Always;
+        }
+
+        public static void SetGradientBackground(this UIView view)
+        {
+            var containerView = new UIView(view.Frame);
+
+            var backgroundLayer = new CAGradientLayer();
+
+            backgroundLayer.Colors = new CGColor[] {
+              new UIColor(0.231f, 0.553f, 0.929f, 1).CGColor,
+              new UIColor(0.427f, 0.157f, 0.745f, 1).CGColor
+            };
+
+            backgroundLayer.Locations = new Foundation.NSNumber[] { 0, 1 };
+            backgroundLayer.StartPoint = new CGPoint(x: 0.25, y: 0.5);
+            backgroundLayer.EndPoint = new CGPoint(x: 0.75, y: 0.5);
+            backgroundLayer.Transform = CATransform3D.MakeFromAffine(new CGAffineTransform(0, 1, -1, 0, 1, 0));
+            backgroundLayer.Bounds = view.Bounds.Inset(-0.5f * view.Bounds.Size.Width, -0.5f * view.Bounds.Size.Height);
+            backgroundLayer.Position = view.Center;
+            containerView.Layer.AddSublayer(backgroundLayer);
+
+            view.InsertSubview(containerView, 0);
         }
 
         /// <summary>
@@ -184,6 +247,37 @@ namespace PrankChat.Mobile.iOS.AppTheme
         {
             label.Font = Theme.Font.RegularFontOfSize(12);
             label.TextColor = Theme.Color.Subtitle;
+        }
+
+        public static void SetLinkStyle(this UIButton button, UIFont font)
+        {
+            var titleAttributes = new UIStringAttributes
+            {
+                Font = font,
+                ForegroundColor = Theme.Color.White,
+                UnderlineStyle = NSUnderlineStyle.Single,
+                UnderlineColor = Theme.Color.White
+            };
+
+            var attributedTitle = new NSAttributedString(button.Title(UIControlState.Normal), titleAttributes);
+            button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
+        }
+
+        public static void SetLightStyle(this UIButton button)
+        {
+            button.Layer.BorderColor = Theme.Color.ButtonBorderPrimary.CGColor;
+            button.Layer.BorderWidth = 1;
+            button.Layer.CornerRadius = 4;
+            button.BackgroundColor = Theme.Color.White;
+
+            var titleAttributes = new UIStringAttributes
+            {
+                Font = Theme.Font.MediumOfSize(14),
+                ForegroundColor = Theme.Color.Accent
+            };
+
+            var attributedTitle = new NSAttributedString(button.Title(UIControlState.Normal), titleAttributes);
+            button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
         }
 
         private static UIImage GetNavigationBarBackgroundImage(UIView gradientLayer)

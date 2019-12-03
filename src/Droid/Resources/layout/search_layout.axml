@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
     <include
         android:id="@+id/action_bar"
-        layout="@layout/search_action_bar"
+        layout="@layout/action_bar_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
