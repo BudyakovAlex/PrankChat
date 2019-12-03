@@ -1,14 +1,24 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class LoginViewModel : BaseViewModel
     {
+        private readonly IApiService _apiService;
         private string _emailText;
         private string _passwordText;
+
+        public LoginViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
+        {
+            _apiService = apiService;
+
+            EmailText = "test2@mail.ru";
+            PasswordText = "asd123456789";
+        }
 
         public string EmailText
         {
@@ -22,38 +32,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             set => SetProperty(ref _passwordText, value);
         }
 
-        public MvxAsyncCommand<string> LoginCommand
-        {
-            get
-            {
-                return new MvxAsyncCommand<string>(OnLoginCommand);
-            }
-        }
+        public MvxAsyncCommand<string> LoginCommand => new MvxAsyncCommand<string>(OnLoginCommand);
 
-        public MvxAsyncCommand ResetPasswordCommand
-        {
-            get
-            {
-                return new MvxAsyncCommand(() => NavigationService.ShowPasswordRecoveryView());
-            }
-        }
+        public MvxAsyncCommand ResetPasswordCommand => new MvxAsyncCommand(() => NavigationService.ShowPasswordRecoveryView());
 
-        public MvxAsyncCommand RegistrationCommand
-        {
-            get
-            {
-                return new MvxAsyncCommand(() => NavigationService.ShowRegistrationView());
-            }
-        }
-
-        public LoginViewModel(INavigationService navigationService) : base(navigationService)
-        {
-        }
+        public MvxAsyncCommand RegistrationCommand => new MvxAsyncCommand(() => NavigationService.ShowRegistrationView());
 
         private async Task OnLoginCommand(string loginType)
         {
             if (!Enum.TryParse<SocialNetworkType>(loginType, out var socialNetworkType))
             {
+                var email = EmailText?.Trim();
+                var password = PasswordText?.Trim();
+                await _apiService.AuthorizeAsync(email, password);
+
                 await NavigationService.ShowMainView();
             }
             else

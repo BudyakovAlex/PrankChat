@@ -184,6 +184,10 @@
     <PackageReference Include="Xamarin.FFImageLoading.Transformations">
       <Version>2.4.11.982</Version>
     </PackageReference>
+      <PackageReference Include="System.Reflection.Emit">
+          <Version>4.3.0</Version>
+          <ExcludeAssets>all</ExcludeAssets>
+      </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
