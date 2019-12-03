@@ -17,7 +17,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 			set.Bind(nextStepButton)
                 .To(vm => vm.ShowSecondStepCommand);
 
-			set.Apply();
+            set.Bind(emailTextField)
+                .To(vm => vm.Email);
+
+            set.Apply();
 		}
 
 		protected override void SetupControls()

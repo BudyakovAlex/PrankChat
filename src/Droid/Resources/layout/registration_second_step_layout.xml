@@ -14,94 +14,101 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/login_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="23dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         app:boxStrokeWidth="1dp"
         android:textColorHint="@color/applicationWhite"
-        android:hint="Введите логин"
+        android:hint="@string/RegistrationView_Login_Placeholder"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="@color/applicationWhite"
-            app:MvxBind="Text EmailText" />
+            app:MvxBind="Text Nickname" />
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:id="@+id/login_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         app:boxStrokeWidth="1dp"
         android:textColorHint="@color/applicationWhite"
-        android:hint="Введите имя"
+        android:hint="@string/RegistrationView_Name_Placeholder"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="14sp"
             android:textColor="@color/applicationWhite"
-            app:MvxBind="Text EmailText" />
+            app:MvxBind="Text Name" />
     </android.support.design.widget.TextInputLayout>
-    <LinearLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/border_white"
+        app:MvxBind="Click SelectBirthdayCommand">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            android:textColor="@color/applicationWhite"
+            android:text="@string/RegistrationView_Birthday_Placeholder"
+            app:MvxBind="Text BirthdayText;" />
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="14dp"
+            android:src="@drawable/ic_calendar"/>
+    </RelativeLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
-        android:orientation="horizontal"
-        style="@style/Theme.PrankChat.TextFieldLayout">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="46dp"
-            android:textSize="14sp"
-            android:textColor="@color/applicationWhite"
-            android:text="День "
-            app:MvxBind="Text EmailText;" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_calendar"/>
-    </LinearLayout>
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/login_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
         app:boxStrokeWidth="1dp"
         android:textColorHint="@color/applicationWhite"
-        android:hint="Введите пароль"
+        android:hint="@string/RegistrationView_Password_Placeholder"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="@color/applicationWhite"
-            app:MvxBind="Text EmailText" />
+            app:MvxBind="Text Password" />
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:id="@+id/login_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         app:boxStrokeWidth="1dp"
         android:textColorHint="@color/applicationWhite"
-        android:hint="Повторите пароль"
+        android:hint="@string/RegistrationView_PasswordRepeat_Placeholder"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="@color/applicationWhite"
-            app:MvxBind="Text EmailText" />
+            app:MvxBind="Text RepeatedPassword" />
     </android.support.design.widget.TextInputLayout>
     <TextView
         android:layout_width="wrap_content"
@@ -110,7 +117,7 @@
         android:layout_gravity="center_horizontal"
         android:textColor="@color/applicationWhite"
         android:textSize="14sp"
-        android:text="Выберите пол:"/>
+        android:text="@string/RegistrationView_GenderSelect_Title"/>
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -124,7 +131,8 @@
             android:textColor="@color/applicationWhite"
             android:drawableTop="@drawable/radio_button_background"
             android:button="@null"
-            android:text="муж"/>
+            android:text="@string/RegistrationView_Male_Button"
+            app:MvxBind="Click SelectGenderCommand, CommandParameter=Male"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -132,7 +140,8 @@
             android:drawableTop="@drawable/radio_button_background"
             android:button="@null"
             android:textColor="@color/applicationWhite"
-            android:text="жен"/>
+            android:text="@string/RegistrationView_Female_Button"
+         app:MvxBind="Click SelectGenderCommand, CommandParameter=Female"/>
     </RadioGroup>
     <Button
         android:id="@+id/registration_button"
@@ -147,7 +156,7 @@
         android:textFontWeight="500"
         android:textColor="@color/accent"
         android:background="@drawable/button_white_background"
-        android:text="Зарегестироваться"
+        android:text="@string/RegistrationView_Register_Button"
         style="@style/Theme.PrankChat.Button"
         app:MvxBind="Click ShowThirdStepCommand" />
 </LinearLayout>

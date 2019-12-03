@@ -6,6 +6,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class RegistrationViewModel : BaseViewModel
     {
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set => SetProperty(ref _email, value);
+        }
+
         public MvxAsyncCommand ShowSecondStepCommand
         {
             get

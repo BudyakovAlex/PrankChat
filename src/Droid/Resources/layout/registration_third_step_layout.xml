@@ -18,7 +18,7 @@
         android:layout_gravity="center_horizontal"
         android:textColor="@color/applicationWhite"
         android:textSize="14sp"
-        android:text="Поздравляем"/>
+        android:text="@string/RegistrationView_Congrats_Title"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         android:textFontWeight="500"
         android:textColor="@color/accent"
         android:background="@drawable/button_white_background"
-        android:text="Перейти в ленту"
+        android:text="@string/RegistrationView_GoToFeed_Button"
         style="@style/Theme.PrankChat.Button"
         app:MvxBind="Click FinishRegistrationCommand" />
 </LinearLayout>
