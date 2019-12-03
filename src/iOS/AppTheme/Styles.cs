@@ -179,7 +179,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             backgroundLayer.StartPoint = new CGPoint(x: 0.25, y: 0.5);
             backgroundLayer.EndPoint = new CGPoint(x: 0.75, y: 0.5);
             backgroundLayer.Transform = CATransform3D.MakeFromAffine(new CGAffineTransform(0, 1, -1, 0, 1, 0));
-            backgroundLayer.Bounds = view.Bounds.Inset(-0.5f * view.Bounds.Size.Width, -0.5f * view.Bounds.Size.Height);
+            backgroundLayer.Bounds = view.Bounds.Inset(-1f * view.Bounds.Size.Width, -1f * view.Bounds.Size.Height);
             backgroundLayer.Position = view.Center;
             containerView.Layer.AddSublayer(backgroundLayer);
 

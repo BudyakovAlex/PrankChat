@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l3c-1Q-Jt7">
-                    <rect key="frame" x="113.5" y="229.5" width="148" height="36"/>
+                    <rect key="frame" x="113.5" y="153.5" width="148" height="36"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="eUc-Gg-C8b"/>
                         <constraint firstAttribute="width" constant="148" id="mEj-VH-4FY"/>
@@ -29,13 +29,13 @@
                     <state key="normal" title="Finish Registration"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YT2-p7-25a">
-                    <rect key="frame" x="10" y="76" width="355" height="21"/>
+                    <rect key="frame" x="10" y="0.0" width="355" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdK-Sc-5PY">
-                    <rect key="frame" x="16" y="159" width="343" height="20.5"/>
+                    <rect key="frame" x="16" y="83" width="343" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -51,7 +51,7 @@
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="l3c-1Q-Jt7" secondAttribute="trailing" constant="16" id="cB5-Wd-yfb"/>
                 <constraint firstAttribute="trailing" secondItem="sdK-Sc-5PY" secondAttribute="trailing" constant="16" id="f6O-4M-dpT"/>
                 <constraint firstItem="l3c-1Q-Jt7" firstAttribute="top" secondItem="sdK-Sc-5PY" secondAttribute="bottom" constant="50" id="gnO-tI-SxA"/>
-                <constraint firstItem="YT2-p7-25a" firstAttribute="top" secondItem="2" secondAttribute="top" constant="76" id="icF-AG-1CH"/>
+                <constraint firstItem="YT2-p7-25a" firstAttribute="top" secondItem="2" secondAttribute="topMargin" id="icF-AG-1CH"/>
                 <constraint firstItem="l3c-1Q-Jt7" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="kVh-4v-eYk"/>
                 <constraint firstAttribute="trailing" secondItem="YT2-p7-25a" secondAttribute="trailing" constant="10" id="zcW-c1-vjd"/>
             </constraints>
