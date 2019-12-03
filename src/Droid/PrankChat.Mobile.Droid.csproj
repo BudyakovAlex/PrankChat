@@ -115,7 +115,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
-    <AndroidResource Include="Resources\layout\logo_action_bar.xml">
+    <AndroidResource Include="Resources\layout\action_bar_logo.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -134,25 +134,42 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\search_layout.axml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\cell_search.axml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\search_action_bar.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+    <AndroidResource Include="Resources\layout\action_bar_search.xml">
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\rounded_edittext.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\cell_publication.axml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\action_bar_transparent.axml">
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\gradient_background.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -478,14 +495,18 @@
     <AndroidResource Include="Resources\drawable\gradient_oval.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\gradient_background.xml">
+    <AndroidResource Include="Resources\drawable\gradient_action_bar_background.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Utils\" />
     <Folder Include="Utils\Extensions\" />
-    <Folder Include="Utils\Helpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\color\text_input_box_stroke.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\button_white_background.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

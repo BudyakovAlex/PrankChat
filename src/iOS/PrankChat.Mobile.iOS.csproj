@@ -160,6 +160,8 @@
       <DependentUpon>PublicationItemCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Views\Publication\PublicationTableSource.cs" />
+    <Compile Include="Presentation\Views\Base\BaseGradientBarView.cs" />
+    <Compile Include="Presentation\Views\Base\BaseTransparentBarView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -264,6 +266,14 @@
     <ImageAsset Include="Assets.xcassets\ic_more.imageset\ic_more.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_share.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_share.imageset\ic_share.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_vk.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_vk.imageset\vk.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_ok.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_ok.imageset\odnoklassniki.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_facebook.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_facebook.imageset\facebook.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_gmail.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_gmail.imageset\gmail.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -302,6 +312,10 @@
     <Folder Include="Assets.xcassets\ic_like.imageset\" />
     <Folder Include="Assets.xcassets\ic_more.imageset\" />
     <Folder Include="Assets.xcassets\ic_share.imageset\" />
+    <Folder Include="Assets.xcassets\ic_vk.imageset\" />
+    <Folder Include="Assets.xcassets\ic_ok.imageset\" />
+    <Folder Include="Assets.xcassets\ic_facebook.imageset\" />
+    <Folder Include="Assets.xcassets\ic_gmail.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

@@ -12,7 +12,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
     [MvxTabPresentation(TabName = "Publications", TabIconName = "unselected", TabSelectedIconName = "selected")]
-    public partial class PublicationsView : BaseView<PublicationsViewModel>
+    public partial class PublicationsView : BaseGradientBarView<PublicationsViewModel>
     {
         public PublicationTableSource PublicationTableSource { get; private set; }
 

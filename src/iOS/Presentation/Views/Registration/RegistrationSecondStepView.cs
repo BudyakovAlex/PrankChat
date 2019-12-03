@@ -6,7 +6,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 {
-    public partial class RegistrationSecondStepView : BaseView<RegistrationSecondStepViewModel>
+    public partial class RegistrationSecondStepView : BaseTransparentBarView<RegistrationSecondStepViewModel>
     {
 		protected override void SetupBinding()
 		{
