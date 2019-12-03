@@ -18,8 +18,9 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         public Task AppStart()
         {
+            return ShowRegistrationSecondStepView();
             //return ShowLoginView();
-            return ShowRegistrationView();
+            //return ShowRegistrationView();
             //return ShowMainView();
         }
 

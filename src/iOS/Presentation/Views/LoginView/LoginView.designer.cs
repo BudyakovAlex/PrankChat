@@ -43,6 +43,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 		UIKit.UIButton resetPasswordButton { get; set; }
 
 		[Outlet]
+		UIKit.UIScrollView scrollView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel socialNetworksTitleLabel { get; set; }
 
 		[Outlet]
@@ -60,6 +63,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 				facebookButton = null;
 			}
 
+			if (forgotPasswordTitleLabel != null) {
+				forgotPasswordTitleLabel.Dispose ();
+				forgotPasswordTitleLabel = null;
+			}
+
 			if (gmailButton != null) {
 				gmailButton.Dispose ();
 				gmailButton = null;
@@ -68,6 +76,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 			if (loginButton != null) {
 				loginButton.Dispose ();
 				loginButton = null;
+			}
+
+			if (loginTitleLabel != null) {
+				loginTitleLabel.Dispose ();
+				loginTitleLabel = null;
 			}
 
 			if (okButton != null) {
@@ -90,24 +103,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 				resetPasswordButton = null;
 			}
 
+			if (socialNetworksTitleLabel != null) {
+				socialNetworksTitleLabel.Dispose ();
+				socialNetworksTitleLabel = null;
+			}
+
 			if (vkButton != null) {
 				vkButton.Dispose ();
 				vkButton = null;
 			}
 
-			if (loginTitleLabel != null) {
-				loginTitleLabel.Dispose ();
-				loginTitleLabel = null;
-			}
-
-			if (forgotPasswordTitleLabel != null) {
-				forgotPasswordTitleLabel.Dispose ();
-				forgotPasswordTitleLabel = null;
-			}
-
-			if (socialNetworksTitleLabel != null) {
-				socialNetworksTitleLabel.Dispose ();
-				socialNetworksTitleLabel = null;
+			if (scrollView != null) {
+				scrollView.Dispose ();
+				scrollView = null;
 			}
 		}
 	}

@@ -225,6 +225,17 @@ namespace PrankChat.Mobile.iOS.AppTheme
             imageView.SetCornerRadius(10);
         }
 
+        public static void SetScreenTitleStyle(this UILabel label)
+        {
+            var attributes = new UIStringAttributes
+            {
+                Font = Theme.Font.MediumOfSize(14),
+                ForegroundColor = Theme.Color.White
+            };
+
+            label.AttributedText = new NSAttributedString(label.Text, attributes);
+        }
+
         public static void SetMainTitleStyle(this UILabel label)
         {
             label.Font = Theme.Font.MediumOfSize(14);
@@ -277,6 +288,32 @@ namespace PrankChat.Mobile.iOS.AppTheme
             };
 
             var attributedTitle = new NSAttributedString(button.Title(UIControlState.Normal), titleAttributes);
+            button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
+        }
+
+        public static void SetRadioInactiveStyle(this UIButton button, float padding = 8f)
+        {
+            button.SetImage(UIImage.FromBundle("ic_radio_button_inactive")
+                .ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+        }
+
+        public static void SetRadioActiveStyle(this UIButton button, float padding = 8f)
+        {
+            button.SetImage(UIImage.FromBundle("ic_radio_button_active")
+                .ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+        }
+
+        public static void SetRadioTitleStyle(this UIButton button)
+        {
+            var titleAttributes = new UIStringAttributes
+            {
+                Font = Theme.Font.RegularFontOfSize(14),
+                ForegroundColor = Theme.Color.White,
+            };
+
+            var title = button.Title(UIControlState.Normal);
+            title = title.ToLowerInvariant();
+            var attributedTitle = new NSAttributedString(title, titleAttributes);
             button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
         }
 
