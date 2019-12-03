@@ -14,7 +14,7 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/login_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="23dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
@@ -32,7 +32,7 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/login_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
@@ -47,30 +47,36 @@
             android:textColor="@color/applicationWhite"
             app:MvxBind="Text EmailText" />
     </android.support.design.widget.TextInputLayout>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
-        android:orientation="horizontal"
-        style="@style/Theme.PrankChat.TextFieldLayout"/>
+        android:background="@drawable/border_white">
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="46dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"
+            android:gravity="center_vertical"
             android:textSize="14sp"
             android:textColor="@color/applicationWhite"
-            android:text="День "
+            android:text="День Рождения"
             app:MvxBind="Text EmailText;" />
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="18dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="14dp"
             android:src="@drawable/ic_calendar"/>
-    </LinearLayout>
+    </RelativeLayout>
     <android.support.design.widget.TextInputLayout
         android:id="@+id/login_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
@@ -88,7 +94,7 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/login_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
