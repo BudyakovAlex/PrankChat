@@ -2,7 +2,7 @@
 
 namespace PrankChat.Mobile.Core.Configuration
 {
-    internal interface IConfiguration
+    internal interface IApplicationConfiguration
     {
         string BaseAddress { get; }
 

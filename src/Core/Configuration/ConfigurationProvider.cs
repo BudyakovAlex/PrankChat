@@ -4,15 +4,15 @@
     {
         public static EnvironmentType CurrentEnvironment { get; set; } = EnvironmentType.Development;
 
-        internal static IConfiguration GetConfiguration()
+        internal static IApplicationConfiguration GetConfiguration()
         {
             switch (CurrentEnvironment)
             {
                 case EnvironmentType.Development:
-                    return new DevelopmentConfiguration();
+                    return new ApplicationConfiguration();
 
                 default:
-                    return new DevelopmentConfiguration();
+                    return new ApplicationConfiguration();
             }
         }
     }
