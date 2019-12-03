@@ -20,7 +20,7 @@
         android:layout_marginLeft="16dp"
         app:boxStrokeWidth="1dp"
         android:textColorHint="@color/applicationWhite"
-        android:hint="Введите логин"
+        android:hint="@string/RegistrationView_Login_Placeholder"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
         android:layout_marginLeft="16dp"
         app:boxStrokeWidth="1dp"
         android:textColorHint="@color/applicationWhite"
-        android:hint="Введите имя"
+        android:hint="@string/RegistrationView_Name_Placeholder"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
@@ -83,7 +83,7 @@
         android:layout_marginLeft="16dp"
         app:boxStrokeWidth="1dp"
         android:textColorHint="@color/applicationWhite"
-        android:hint="Введите пароль"
+        android:hint="@string/RegistrationView_Password_Placeholder"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
@@ -101,7 +101,7 @@
         android:layout_marginLeft="16dp"
         app:boxStrokeWidth="1dp"
         android:textColorHint="@color/applicationWhite"
-        android:hint="Повторите пароль"
+        android:hint="@string/RegistrationView_PasswordRepeat_Placeholder"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
@@ -117,7 +117,7 @@
         android:layout_gravity="center_horizontal"
         android:textColor="@color/applicationWhite"
         android:textSize="14sp"
-        android:text="Выберите пол:"/>
+        android:text="@string/RegistrationView_GenderSelect_Title"/>
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -131,8 +131,8 @@
             android:textColor="@color/applicationWhite"
             android:drawableTop="@drawable/radio_button_background"
             android:button="@null"
-            android:text="муж"
-            app:MvxBind="Click SelectGenderCommand, CommandParameter=Man"/>
+            android:text="@string/RegistrationView_Male_Button"
+            app:MvxBind="Click SelectGenderCommand, CommandParameter=Male"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -140,8 +140,8 @@
             android:drawableTop="@drawable/radio_button_background"
             android:button="@null"
             android:textColor="@color/applicationWhite"
-            android:text="жен"
-         app:MvxBind="Click SelectGenderCommand, CommandParameter=Woman"/>
+            android:text="@string/RegistrationView_Female_Button"
+         app:MvxBind="Click SelectGenderCommand, CommandParameter=Female"/>
     </RadioGroup>
     <Button
         android:id="@+id/registration_button"
@@ -156,7 +156,7 @@
         android:textFontWeight="500"
         android:textColor="@color/accent"
         android:background="@drawable/button_white_background"
-        android:text="Зарегестироваться"
+        android:text="@string/RegistrationView_Register_Button"
         style="@style/Theme.PrankChat.Button"
         app:MvxBind="Click ShowThirdStepCommand" />
 </LinearLayout>
