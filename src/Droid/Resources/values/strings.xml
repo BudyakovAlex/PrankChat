@@ -29,4 +29,22 @@
     <string name="LoginView_CreateAccount_Button">"Don't have an account? Create a new one."</string>
     <string name="LoginView_Login_Title">"Log in"</string>
     <string name="LoginView_AltLogin_Title">"Enter social networks:"</string>
+    <string name="RegistrationView_Title">"Registration"</string>
+    <string name="RegistrationView_Email_Placeholder">"Enter e-mail"</string>
+    <string name="RegistrationView_RegisteredYet_Label">"Already registered?"</string>
+    <string name="RegistrationView_Login_Button">"Log in"</string>
+    <string name="RegistrationView_Login_Placeholder">"Enter nickname"</string>
+    <string name="RegistrationView_Name_Placeholder">"Enter your name"</string>
+    <string name="RegistrationView_Birthday_Placeholder">"Enter birthday"</string>
+    <string name="RegistrationView_Password_Placeholder">"Enter password"</string>
+    <string name="RegistrationView_PasswordRepeat_Placeholder">"Enter password again"</string>
+    <string name="RegistrationView_GenderSelect_Title">"Select sex:"</string>
+    <string name="RegistrationView_Male_Button">"Male"</string>
+    <string name="RegistrationView_Female_Button">"Female"</string>
+    <string name="RegistrationView_Register_Button">"Register"</string>
+    <string name="RegistrationView_StepTwo_Title">"Step 2"</string>
+    <string name="RegistrationView_StepThree_Title">"Step 3"</string>
+    <string name="RegistrationView_Congrats_Title">"Congratulations!"</string>
+    <string name="RegistrationView_Confirmation_Label">"Verification text."</string>
+    <string name="RegistrationView_GoToFeed_Button">"Go to feed"</string>
 </resources>
