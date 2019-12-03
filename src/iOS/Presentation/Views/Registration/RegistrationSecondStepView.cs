@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -27,8 +28,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             set.Bind(nameTextField)
                 .To(vm => vm.Name);
 
-            //set.Bind(birthdayTextField)
-            //    .To(vm => vm.Birthday);
+            set.Bind(birthdayTextField)
+                .To(vm => vm.Birthday);
+
+            set.Bind(birthdayTextField.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.SelectBirthdayCommand);
 
             set.Bind(passwordTextField)
                 .To(vm => vm.Password);
