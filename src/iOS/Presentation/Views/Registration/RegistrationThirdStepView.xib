@@ -3,12 +3,14 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegistrationThirdStepView">
             <connections>
+                <outlet property="confirmationDescriptionLabel" destination="sdK-Sc-5PY" id="CAR-B2-9FH"/>
+                <outlet property="congratsTitleLabel" destination="YT2-p7-25a" id="9qi-to-q6R"/>
                 <outlet property="finishRegistrationButton" destination="l3c-1Q-Jt7" id="w1M-Ru-xap"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
             </connections>
@@ -18,22 +20,40 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Registration third step view" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hp8-Wy-H4c">
-                    <rect key="frame" x="83" y="323" width="209" height="21"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l3c-1Q-Jt7">
+                    <rect key="frame" x="113.5" y="229.5" width="148" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="eUc-Gg-C8b"/>
+                        <constraint firstAttribute="width" constant="148" id="mEj-VH-4FY"/>
+                    </constraints>
+                    <state key="normal" title="Finish Registration"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YT2-p7-25a">
+                    <rect key="frame" x="10" y="76" width="355" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l3c-1Q-Jt7">
-                    <rect key="frame" x="124" y="358" width="127" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Finish Registration"/>
-                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdK-Sc-5PY">
+                    <rect key="frame" x="16" y="159" width="343" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Hp8-Wy-H4c" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" id="ZHw-gZ-ITm"/>
-                <constraint firstItem="Hp8-Wy-H4c" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="lcP-Jt-vQO"/>
+                <constraint firstItem="sdK-Sc-5PY" firstAttribute="top" secondItem="YT2-p7-25a" secondAttribute="bottom" constant="62" id="81d-Z0-iml"/>
+                <constraint firstItem="sdK-Sc-5PY" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="16" id="8wb-1Z-NCY"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="l3c-1Q-Jt7" secondAttribute="bottom" constant="16" id="9G3-6w-oPe"/>
+                <constraint firstItem="YT2-p7-25a" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="10" id="Shr-Jb-wLC"/>
+                <constraint firstItem="l3c-1Q-Jt7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2" secondAttribute="leading" constant="16" id="Xpb-yJ-v4J"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="l3c-1Q-Jt7" secondAttribute="trailing" constant="16" id="cB5-Wd-yfb"/>
+                <constraint firstAttribute="trailing" secondItem="sdK-Sc-5PY" secondAttribute="trailing" constant="16" id="f6O-4M-dpT"/>
+                <constraint firstItem="l3c-1Q-Jt7" firstAttribute="top" secondItem="sdK-Sc-5PY" secondAttribute="bottom" constant="50" id="gnO-tI-SxA"/>
+                <constraint firstItem="YT2-p7-25a" firstAttribute="top" secondItem="2" secondAttribute="top" constant="76" id="icF-AG-1CH"/>
+                <constraint firstItem="l3c-1Q-Jt7" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="kVh-4v-eYk"/>
+                <constraint firstAttribute="trailing" secondItem="YT2-p7-25a" secondAttribute="trailing" constant="10" id="zcW-c1-vjd"/>
             </constraints>
             <point key="canvasLocation" x="26" y="52"/>
         </view>

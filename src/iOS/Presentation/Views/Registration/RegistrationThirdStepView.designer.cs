@@ -13,6 +13,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 	partial class RegistrationThirdStepView
 	{
 		[Outlet]
+		UIKit.UILabel confirmationDescriptionLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel congratsTitleLabel { get; set; }
+
+		[Outlet]
 		UIKit.UIButton finishRegistrationButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -20,6 +26,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 			if (finishRegistrationButton != null) {
 				finishRegistrationButton.Dispose ();
 				finishRegistrationButton = null;
+			}
+
+			if (congratsTitleLabel != null) {
+				congratsTitleLabel.Dispose ();
+				congratsTitleLabel = null;
+			}
+
+			if (confirmationDescriptionLabel != null) {
+				confirmationDescriptionLabel.Dispose ();
+				confirmationDescriptionLabel = null;
 			}
 		}
 	}

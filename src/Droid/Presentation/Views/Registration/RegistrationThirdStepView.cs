@@ -1,27 +1,37 @@
 ﻿using Android.App;
 using Android.OS;
+using Android.Runtime;
+using Android.Views;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
 {
-    [MvxActivityPresentation]
-    [Activity]
-    public class RegistrationThirdStepView : BaseView<RegistrationThirdStepViewModel>
+    [MvxFragmentPresentation(
+        Tag = nameof(RegistrationThirdStepView),
+        ActivityHostViewModelType = typeof(RegistrationViewModel),
+        FragmentContentId = Resource.Id.container_layout,
+        AddToBackStack = true)]
+    [Register(nameof(RegistrationThirdStepView))]
+    public class RegistrationThirdStepView : BaseFragment<RegistrationThirdStepViewModel>
     {
-        protected override void OnCreate(Bundle bundle)
+        protected override bool HasBackButton => true;
+
+        protected override string ActionTitle => "Шаг 3";
+
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            base.OnCreate(bundle);
-            SetContentView(Resource.Layout.registration_third_step_layout);
+            var view = base.OnCreateView(inflater, container, savedInstanceState, Resource.Layout.registration_third_step_layout);
+            return view;
         }
 
-		protected override void Subscription()
-		{
-		}
+        protected override void Subscription()
+        {
+        }
 
-		protected override void Unsubscription()
-		{
-		}
-	}
+        protected override void Unsubscription()
+        {
+        }
+    }
 }

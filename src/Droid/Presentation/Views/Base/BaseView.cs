@@ -1,4 +1,5 @@
-﻿using Android.Content.PM;
+﻿using Acr.UserDialogs;
+using Android.Content.PM;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -45,6 +46,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             {
                 SupportActionBar.Hide();
             }
+
+            InitServices();
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -73,6 +76,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 		public override void OnBackPressed()
         {
             ViewModel.GoBackCommand.Execute();
+        }
+
+        private void InitServices()
+        {
+            UserDialogs.Init(this);
         }
     }
 }

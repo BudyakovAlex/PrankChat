@@ -26,6 +26,7 @@
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchExtraArgs>--framework:"$(HOME)/Library/Application Support/Reveal/RevealServer/iOS/RevealServer.framework"</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -274,6 +275,12 @@
     <ImageAsset Include="Assets.xcassets\ic_facebook.imageset\facebook.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_gmail.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_gmail.imageset\gmail.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_radio_button_active.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_radio_button_inactive.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_radio_button_active.imageset\Group 176.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_radio_button_inactive.imageset\Radio_button.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_calendar.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_calendar.imageset\mdi_date_range.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -316,6 +323,9 @@
     <Folder Include="Assets.xcassets\ic_ok.imageset\" />
     <Folder Include="Assets.xcassets\ic_facebook.imageset\" />
     <Folder Include="Assets.xcassets\ic_gmail.imageset\" />
+    <Folder Include="Assets.xcassets\ic_radio_button_active.imageset\" />
+    <Folder Include="Assets.xcassets\ic_radio_button_inactive.imageset\" />
+    <Folder Include="Assets.xcassets\ic_calendar.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
