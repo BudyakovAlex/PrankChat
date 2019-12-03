@@ -50,7 +50,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
 
             if (errorMessages.Count == 1)
             {
-                return errorMessages.Single();
+                return errorMessages.SingleOrDefault();
             }
 
             foreach (var errorMessage in errorMessages)
