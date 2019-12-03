@@ -17,5 +17,12 @@ namespace PrankChat.Mobile.iOS
             sb.Text = sb.Text + "";
             sb.Placeholder = sb.Placeholder + "";
         }
+
+        public void Include(UITextField textField)
+        {
+            textField.Text = textField.Text + "";
+            textField.EditingChanged += (sender, args) => { textField.Text = ""; };
+            textField.EditingDidEnd += (sender, args) => { textField.Text = ""; };
+        }
     }
 }
