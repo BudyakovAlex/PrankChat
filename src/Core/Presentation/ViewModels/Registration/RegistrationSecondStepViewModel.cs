@@ -7,12 +7,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class RegistrationSecondStepViewModel : BaseViewModel
     {
-        private DateTime _birthday;
-        public DateTime Birthday
+        private DateTime? _birthday;
+        public DateTime? Birthday
         {
             get => _birthday;
-            set => SetProperty(ref _birthday, value);
+            set
+            {
+                SetProperty(ref _birthday, value);
+
+            }
         }
+
+        public string BirthdayText => Birthday?.ToShortDateString() ?? "DR";
 
         public MvxAsyncCommand ShowThirdStepCommand
         {
@@ -28,8 +34,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    var birthday = await UserDialogs.Instance.DatePromptAsync("kik");
-
+                    var result = await UserDialogs.Instance.DatePromptAsync("kik");
+                    if (result.Ok)
+                    {
+                        Birthday = result.SelectedDate;
+                        await RaisePropertyChanged(nameof(BirthdayText));
+                    }
                 });
             }
         }
