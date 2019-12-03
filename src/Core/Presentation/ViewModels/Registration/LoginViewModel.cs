@@ -12,14 +12,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         private string _emailText;
         private string _passwordText;
 
-        public LoginViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
-        {
-            _apiService = apiService;
-
-            EmailText = "test2@mail.ru";
-            PasswordText = "asd123456789";
-        }
-
         public string EmailText
         {
             get => _emailText;
@@ -32,6 +24,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             set => SetProperty(ref _passwordText, value);
         }
 
+        public LoginViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
+        {
+            _apiService = apiService;
+
+            EmailText = "test2@mail.ru";
+            PasswordText = "asd123456789";
+        }
+
         public MvxAsyncCommand<string> LoginCommand => new MvxAsyncCommand<string>(OnLoginCommand);
 
         public MvxAsyncCommand ResetPasswordCommand => new MvxAsyncCommand(() => NavigationService.ShowPasswordRecoveryView());
@@ -40,35 +40,29 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         private async Task OnLoginCommand(string loginType)
         {
-            if (!Enum.TryParse<SocialNetworkType>(loginType, out var socialNetworkType))
+            if (Enum.TryParse<SocialNetworkType>(loginType, out var socialNetworkType))
             {
                 var email = EmailText?.Trim();
                 var password = PasswordText?.Trim();
                 await _apiService.AuthorizeAsync(email, password);
-
                 await NavigationService.ShowMainView();
-            }
-            else
-            {
-                await NavigationService.ShowMainView();
-
                 switch (socialNetworkType)
                 {
                     case SocialNetworkType.Vk:
                         break;
-
                     case SocialNetworkType.Ok:
                         break;
-
                     case SocialNetworkType.Facebook:
                         break;
-
                     case SocialNetworkType.Gmail:
                         break;
-
                     default:
                         break;
                 }
+            }
+            else
+            {
+                await NavigationService.ShowMainView();
             }
         }
     }
