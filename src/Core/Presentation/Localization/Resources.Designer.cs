@@ -142,6 +142,78 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter social networks:.
+        /// </summary>
+        public static string LoginView_AltLogin_Title {
+            get {
+                return ResourceManager.GetString("LoginView_AltLogin_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue.
+        /// </summary>
+        public static string LoginView_Continue_Button {
+            get {
+                return ResourceManager.GetString("LoginView_Continue_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t have an account? Create a new one..
+        /// </summary>
+        public static string LoginView_CreateAccount_Button {
+            get {
+                return ResourceManager.GetString("LoginView_CreateAccount_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter e-mail.
+        /// </summary>
+        public static string LoginView_Email_Placeholder {
+            get {
+                return ResourceManager.GetString("LoginView_Email_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore.
+        /// </summary>
+        public static string LoginView_ForgotPassword_Button {
+            get {
+                return ResourceManager.GetString("LoginView_ForgotPassword_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot password?.
+        /// </summary>
+        public static string LoginView_ForgotPassword_Title {
+            get {
+                return ResourceManager.GetString("LoginView_ForgotPassword_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in.
+        /// </summary>
+        public static string LoginView_Login_Title {
+            get {
+                return ResourceManager.GetString("LoginView_Login_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter password.
+        /// </summary>
+        public static string LoginView_Password_Placeholder {
+            get {
+                return ResourceManager.GetString("LoginView_Password_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My feed.
         /// </summary>
         public static string MyFeed_Publication_Tab {
@@ -232,6 +304,168 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter birthday.
+        /// </summary>
+        public static string RegistrationView_Birthday_Placeholder {
+            get {
+                return ResourceManager.GetString("RegistrationView_Birthday_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verification text..
+        /// </summary>
+        public static string RegistrationView_Confirmation_Label {
+            get {
+                return ResourceManager.GetString("RegistrationView_Confirmation_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Congratulations!.
+        /// </summary>
+        public static string RegistrationView_Congrats_Title {
+            get {
+                return ResourceManager.GetString("RegistrationView_Congrats_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter e-mail.
+        /// </summary>
+        public static string RegistrationView_Email_Placeholder {
+            get {
+                return ResourceManager.GetString("RegistrationView_Email_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Female.
+        /// </summary>
+        public static string RegistrationView_Female_Button {
+            get {
+                return ResourceManager.GetString("RegistrationView_Female_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select sex:.
+        /// </summary>
+        public static string RegistrationView_GenderSelect_Title {
+            get {
+                return ResourceManager.GetString("RegistrationView_GenderSelect_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to feed.
+        /// </summary>
+        public static string RegistrationView_GoToFeed_Button {
+            get {
+                return ResourceManager.GetString("RegistrationView_GoToFeed_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in.
+        /// </summary>
+        public static string RegistrationView_Login_Button {
+            get {
+                return ResourceManager.GetString("RegistrationView_Login_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter nickname.
+        /// </summary>
+        public static string RegistrationView_Login_Placeholder {
+            get {
+                return ResourceManager.GetString("RegistrationView_Login_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Male.
+        /// </summary>
+        public static string RegistrationView_Male_Button {
+            get {
+                return ResourceManager.GetString("RegistrationView_Male_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter your name.
+        /// </summary>
+        public static string RegistrationView_Name_Placeholder {
+            get {
+                return ResourceManager.GetString("RegistrationView_Name_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter password.
+        /// </summary>
+        public static string RegistrationView_Password_Placeholder {
+            get {
+                return ResourceManager.GetString("RegistrationView_Password_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter password again.
+        /// </summary>
+        public static string RegistrationView_PasswordRepeat_Placeholder {
+            get {
+                return ResourceManager.GetString("RegistrationView_PasswordRepeat_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string RegistrationView_Register_Button {
+            get {
+                return ResourceManager.GetString("RegistrationView_Register_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Already registered?.
+        /// </summary>
+        public static string RegistrationView_RegisteredYet_Label {
+            get {
+                return ResourceManager.GetString("RegistrationView_RegisteredYet_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 3.
+        /// </summary>
+        public static string RegistrationView_StepThree_Title {
+            get {
+                return ResourceManager.GetString("RegistrationView_StepThree_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 2.
+        /// </summary>
+        public static string RegistrationView_StepTwo_Title {
+            get {
+                return ResourceManager.GetString("RegistrationView_StepTwo_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration.
+        /// </summary>
+        public static string RegistrationView_Title {
+            get {
+                return ResourceManager.GetString("RegistrationView_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Search_View_Search_Placeholder {
@@ -246,72 +480,6 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         public static string Share {
             get {
                 return ResourceManager.GetString("Share", resourceCulture);
-            }
-        }
-        
-        public static string Error_Unexpected_Server {
-            get {
-                return ResourceManager.GetString("Error_Unexpected_Server", resourceCulture);
-            }
-        }
-        
-        public static string Error_Unexpected_Not_Found {
-            get {
-                return ResourceManager.GetString("Error_Unexpected_Not_Found", resourceCulture);
-            }
-        }
-        
-        public static string Error_Unexpected_Network {
-            get {
-                return ResourceManager.GetString("Error_Unexpected_Network", resourceCulture);
-            }
-        }
-        
-        public static string LoginView_Email_Placeholder {
-            get {
-                return ResourceManager.GetString("LoginView_Email_Placeholder", resourceCulture);
-            }
-        }
-        
-        public static string LoginView_Password_Placeholder {
-            get {
-                return ResourceManager.GetString("LoginView_Password_Placeholder", resourceCulture);
-            }
-        }
-        
-        public static string LoginView_ForgotPassword_Title {
-            get {
-                return ResourceManager.GetString("LoginView_ForgotPassword_Title", resourceCulture);
-            }
-        }
-        
-        public static string LoginView_ForgotPassword_Button {
-            get {
-                return ResourceManager.GetString("LoginView_ForgotPassword_Button", resourceCulture);
-            }
-        }
-        
-        public static string LoginView_Continue_Button {
-            get {
-                return ResourceManager.GetString("LoginView_Continue_Button", resourceCulture);
-            }
-        }
-        
-        public static string LoginView_CreateAccount_Button {
-            get {
-                return ResourceManager.GetString("LoginView_CreateAccount_Button", resourceCulture);
-            }
-        }
-        
-        public static string LoginView_Login_Title {
-            get {
-                return ResourceManager.GetString("LoginView_Login_Title", resourceCulture);
-            }
-        }
-        
-        public static string LoginView_AltLogin_Title {
-            get {
-                return ResourceManager.GetString("LoginView_AltLogin_Title", resourceCulture);
             }
         }
     }
