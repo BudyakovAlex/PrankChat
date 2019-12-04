@@ -2,7 +2,6 @@
 using MvvmCross.Platforms.Ios.Core;
 using PrankChat.Mobile.Core;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.iOS.PlatformServices;
 
 namespace PrankChat.Mobile.iOS
 {
