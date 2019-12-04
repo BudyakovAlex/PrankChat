@@ -12,6 +12,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowPasswordRecoveryView();
 
+        Task ShowFinishPasswordRecoveryView();
+
         Task ShowRegistrationView();
 
         Task ShowRegistrationSecondStepView();

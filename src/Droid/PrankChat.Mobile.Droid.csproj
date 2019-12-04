@@ -72,7 +72,6 @@
     <Compile Include="Presentation\Views\NotificationView.cs" />
     <Compile Include="Presentation\Views\Order\CreateOrderView.cs" />
     <Compile Include="Presentation\Views\Order\OrdersView.cs" />
-    <Compile Include="Presentation\Views\PasswordRecoveryView.cs" />
     <Compile Include="Presentation\Views\ProfileView.cs" />
     <Compile Include="Presentation\Views\Publications\CommentsView.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsView.cs" />
@@ -88,6 +87,8 @@
     <Compile Include="Presentation\Views\SearchView.cs" />
     <Compile Include="Controls\ClearEditText.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
+    <Compile Include="Presentation\Views\PasswordRecovery\PasswordRecoveryView.cs" />
+    <Compile Include="Presentation\Views\PasswordRecovery\FinishPasswordRecoveryView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -187,6 +188,14 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\border_white.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\finish_password_recovery_layout.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\search_action_bar.axml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
@@ -521,6 +530,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
+    <Folder Include="Presentation\Views\PasswordRecovery\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\color\text_input_box_stroke.xml" />

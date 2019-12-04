@@ -45,3 +45,8 @@
 "RegistrationView_Congrats_Title" = "Congratulations!";
 "RegistrationView_Confirmation_Label" = "Verification text.";
 "RegistrationView_GoToFeed_Button" = "Go to feed";
+"Password_Recovery_View_Title" = "Password recovery";
+"Password_Recovery_View_Email_Placeholder" = "Enter e-mail";
+"Password_Recovery_View_Recovery_Button" = "Restore";
+"Password_Recovery_View_Attention" = "Attention!";
+"Password_Recovery_View_Finish_Text" = "An email was sent to the mail with a link to reset the password.";

@@ -41,5 +41,6 @@
     <Folder Include="Converters\" />
     <Folder Include="Presentation\ViewModels\Search\" />
     <Folder Include="Presentation\ViewModels\Publication\Items\" />
+    <Folder Include="Presentation\ViewModels\PasswordRecovery\" />
   </ItemGroup>
 </Project>

@@ -26,7 +26,6 @@
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <MtouchExtraArgs>--framework:"$(HOME)/Library/Application Support/Reveal/RevealServer/iOS/RevealServer.framework"</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -163,6 +162,11 @@
     <Compile Include="Presentation\Views\Publication\PublicationTableSource.cs" />
     <Compile Include="Presentation\Views\Base\BaseGradientBarView.cs" />
     <Compile Include="Presentation\Views\Base\BaseTransparentBarView.cs" />
+    <InterfaceDefinition Include="Presentation\Views\PasswordRecoveryView\FinishPasswordRecoveryView.xib" />
+    <Compile Include="Presentation\Views\PasswordRecoveryView\FinishPasswordRecoveryView.cs" />
+    <Compile Include="Presentation\Views\PasswordRecoveryView\FinishPasswordRecoveryView.designer.cs">
+      <DependentUpon>FinishPasswordRecoveryView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

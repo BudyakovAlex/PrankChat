@@ -2,6 +2,7 @@
 using MvvmCross.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
+using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 
@@ -18,8 +19,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         public Task AppStart()
         {
-            return ShowRegistrationSecondStepView();
-            //return ShowLoginView();
+            return ShowLoginView();
             //return ShowRegistrationView();
             //return ShowMainView();
         }
@@ -32,6 +32,11 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         public Task ShowPasswordRecoveryView()
         {
             return _mvxNavigationService.Navigate<PasswordRecoveryViewModel>();
+        }
+
+        public Task ShowFinishPasswordRecoveryView()
+        {
+            return _mvxNavigationService.Navigate<FinishPasswordRecoveryViewModel>();
         }
 
         public Task ShowRegistrationView()
