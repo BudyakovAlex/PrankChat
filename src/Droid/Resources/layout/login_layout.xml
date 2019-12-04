@@ -97,6 +97,7 @@
         android:textFontWeight="500"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
+        android:stateListAnimator="@null"
         android:textColor="@color/accent"
         android:background="@drawable/button_white_background"
         android:text="@string/LoginView_Continue_Button"
@@ -162,4 +163,10 @@
         android:layout_below="@+id/social_container"
         android:text="@string/LoginView_CreateAccount_Button"
         app:MvxBind="Click RegistrationCommand" />
+    <FrameLayout
+        android:id="@+id/container_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
 </RelativeLayout>

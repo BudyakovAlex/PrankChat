@@ -47,4 +47,9 @@
     <string name="RegistrationView_Congrats_Title">"Congratulations!"</string>
     <string name="RegistrationView_Confirmation_Label">"Verification text."</string>
     <string name="RegistrationView_GoToFeed_Button">"Go to feed"</string>
+    <string name="Password_Recovery_View_Title">"Password recovery"</string>
+    <string name="Password_Recovery_View_Email_Placeholder">"Enter e-mail"</string>
+    <string name="Password_Recovery_View_Recovery_Button">"Restore"</string>
+    <string name="Password_Recovery_View_Attention">"Attention!"</string>
+    <string name="Password_Recovery_View_Finish_Text">"An email was sent to the mail with a link to reset the password."</string>
 </resources>

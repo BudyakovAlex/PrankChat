@@ -9,14 +9,14 @@ using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.PasswordRecoveryView
 {
-	[Register ("PasswordRecoveryView")]
-	partial class PasswordRecoveryView
+	[Register ("FinishPasswordRecoveryView")]
+	partial class FinishPasswordRecoveryView
 	{
 		[Outlet]
-		UIKit.UITextField emailEditText { get; set; }
+		UIKit.UIButton confirmButton { get; set; }
 
 		[Outlet]
-		UIKit.UIButton recoverPasswordButton { get; set; }
+		UIKit.UILabel messageLabel { get; set; }
 
 		[Outlet]
 		UIKit.UILabel titleLabel { get; set; }
@@ -28,14 +28,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.PasswordRecoveryView
 				titleLabel = null;
 			}
 
-			if (emailEditText != null) {
-				emailEditText.Dispose ();
-				emailEditText = null;
+			if (messageLabel != null) {
+				messageLabel.Dispose ();
+				messageLabel = null;
 			}
 
-			if (recoverPasswordButton != null) {
-				recoverPasswordButton.Dispose ();
-				recoverPasswordButton = null;
+			if (confirmButton != null) {
+				confirmButton.Dispose ();
+				confirmButton = null;
 			}
 		}
 	}

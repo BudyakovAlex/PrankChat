@@ -258,4 +258,19 @@
   <data name="RegistrationView_GoToFeed_Button" xml:space="preserve">
     <value>Go to feed</value>
   </data>
+  <data name="Password_Recovery_View_Title" xml:space="preserve">
+    <value>Password recovery</value>
+  </data>
+  <data name="Password_Recovery_View_Email_Placeholder" xml:space="preserve">
+    <value>Enter e-mail</value>
+  </data>
+  <data name="Password_Recovery_View_Recovery_Button" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="Password_Recovery_View_Attention" xml:space="preserve">
+    <value>Attention!</value>
+  </data>
+  <data name="Password_Recovery_View_Finish_Text" xml:space="preserve">
+    <value>An email was sent to the mail with a link to reset the password.</value>
+  </data>
 </root>
