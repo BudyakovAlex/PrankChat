@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Acr.UserDialogs;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
@@ -34,7 +35,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             }
         }
 
-        public string BirthdayText => Birthday?.ToShortDateString() ?? "DR";
+        public string BirthdayText => Birthday?.ToShortDateString() ?? Resources.RegistrationView_Birthday_Placeholder;
 
         private string _password;
         public string Password
