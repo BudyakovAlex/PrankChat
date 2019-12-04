@@ -33,10 +33,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MyT-Nl-9Q6">
-                    <rect key="frame" x="0.0" y="76" width="375" height="591"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dP4-hK-p69">
-                            <rect key="frame" x="16" y="0.0" width="343" height="591"/>
+                            <rect key="frame" x="16" y="0.0" width="343" height="667"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="WeL-qQ-SdX">
                                     <rect key="frame" x="0.0" y="0.0" width="343" height="294"/>
@@ -211,7 +211,7 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="MyT-Nl-9Q6" secondAttribute="bottom" id="3SP-G4-GwY"/>
-                <constraint firstItem="MyT-Nl-9Q6" firstAttribute="top" secondItem="2" secondAttribute="top" constant="76" id="VXt-VG-AGW"/>
+                <constraint firstItem="MyT-Nl-9Q6" firstAttribute="top" secondItem="2" secondAttribute="topMargin" id="VXt-VG-AGW"/>
                 <constraint firstItem="MyT-Nl-9Q6" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="d39-hi-EkD"/>
                 <constraint firstAttribute="trailing" secondItem="MyT-Nl-9Q6" secondAttribute="trailing" id="dUk-NL-qYC"/>
             </constraints>

@@ -12,6 +12,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             View.SetGradientBackground();
             SetNeedsStatusBarAppearanceUpdate();
 
+            View.LayoutMargins = new UIEdgeInsets(24, View.LayoutMargins.Left, View.LayoutMargins.Bottom, View.LayoutMargins.Right);
+
             var logoImageView = new UIImageView(UIImage.FromBundle("ic_logo"), null);
             NavigationItem.TitleView = logoImageView;
 
