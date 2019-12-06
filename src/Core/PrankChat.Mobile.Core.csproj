@@ -42,5 +42,6 @@
     <Folder Include="Presentation\ViewModels\Search\" />
     <Folder Include="Presentation\ViewModels\Publication\Items\" />
     <Folder Include="Presentation\ViewModels\PasswordRecovery\" />
+    <Folder Include="Presentation\ViewModels\Order\Items\" />
   </ItemGroup>
 </Project>

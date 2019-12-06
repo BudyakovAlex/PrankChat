@@ -93,15 +93,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
         android:layout_below="@+id/forgot_password_container"
-        android:textSize="14sp"
-        android:textFontWeight="500"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:stateListAnimator="@null"
-        android:textColor="@color/accent"
-        android:background="@drawable/button_white_background"
         android:text="@string/LoginView_Continue_Button"
-        style="@style/Theme.PrankChat.Button"
+        style="@style/Theme.PrankChat.Button.White"
         app:MvxBind="Click LoginCommand" />
     <TextView
         android:id="@+id/login_from_text"
