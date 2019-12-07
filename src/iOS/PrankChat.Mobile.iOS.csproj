@@ -166,6 +166,7 @@
     <Compile Include="Presentation\Views\PasswordRecoveryView\FinishPasswordRecoveryView.designer.cs">
       <DependentUpon>FinishPasswordRecoveryView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\Views\Base\BaseTabbedView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

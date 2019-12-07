@@ -13,7 +13,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 {
     [MvxTabPresentation(TabName = "Profile", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
-    public partial class ProfileView : BaseGradientBarView<ProfileViewModel>
+    public partial class ProfileView : BaseTabbedView<ProfileViewModel>
     {
         public PublicationTableSource PublicationTableSource { get; private set; }
 

@@ -30,6 +30,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             return UIStatusBarStyle.BlackOpaque;
         }
 
+        protected bool IsTabbedView { get; set; }
+
         protected abstract void SetupBinding();
 
         protected abstract void SetupControls();
@@ -38,7 +40,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
         {
             SetNeedsStatusBarAppearanceUpdate();
 
-            if (ParentViewController != null)
+            if (NavigationItem.HidesBackButton == false && !IsTabbedView)
             {
                 var backButton = NavigationItemHelper.CreateBarButton("ic_back", ViewModel.GoBackCommand);
                 NavigationItem.LeftBarButtonItem = backButton;
@@ -73,11 +75,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         private void SetTitle(string title)
         {
-            var titleItem = new UILabel(new CoreGraphics.CGRect(0, 0, 20, 100));
+            var titleItem = new UILabel(new CoreGraphics.CGRect(0, 0, 100, 20));
             titleItem.Text = title;
+            titleItem.TextAlignment = UITextAlignment.Center;
             titleItem.SetScreenTitleStyle();
 
-            var container = new UIView(new CoreGraphics.CGRect(0, 0, 20, 100));
+            var container = new UIView(new CoreGraphics.CGRect(0, 0, 100, 20));
+            container.ContentMode = UIViewContentMode.Center;
             container.AddSubview(titleItem);
 
             NavigationItem.TitleView = container;
