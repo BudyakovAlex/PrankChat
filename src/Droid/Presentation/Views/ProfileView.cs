@@ -12,6 +12,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
     [Register(nameof(ProfileView))]
     public class ProfileView : BaseTabFragment<ProfileViewModel>
     {
+        public ProfileView()
+        {
+            HasOptionsMenu = true;
+        }
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
@@ -19,12 +24,30 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             return view;
         }
 
-		protected override void Subscription()
-		{
-		}
+        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
+        {
+            menu.Clear();
+            inflater.Inflate(Resource.Menu.profile_menu, menu);
+        }
 
-		protected override void Unsubscription()
-		{
-		}
-	}
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.profile_menu_button:
+                    ViewModel.ShowMenuCommand.Execute();
+                    return true;
+            }
+
+            return base.OnOptionsItemSelected(item);
+        }
+
+        protected override void Subscription()
+        {
+        }
+
+        protected override void Unsubscription()
+        {
+        }
+    }
 }
