@@ -30,11 +30,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
 
-        public MvxAsyncCommand ShowNotificationCommand
-        {
-            get { return new MvxAsyncCommand(NavigationService.ShowNotificationView); }
-        }
-
         public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterCommand);
 
         public PublicationsViewModel(

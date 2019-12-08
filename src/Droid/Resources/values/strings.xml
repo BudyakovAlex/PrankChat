@@ -78,4 +78,9 @@
     <string name="OrdersView_Filter_NewTasks">"Новые задания"</string>
     <string name="OrdersView_Filter_CurrentTasks">"Задания в исполнении"</string>
     <string name="OrdersView_Filter_MyTasks">"Мои задания"</string>
+    <string name="RateView_Filter_AllTasks">"Все задания в споре"</string>
+    <string name="RateView_Filter_MyTasks">"Мои задания в споре"</string>
+    <string name="RateView_Filter_NewTasks">"Новые задания в споре"</string>
+    <string name="RateView_Title_Label">"Оценка"</string>
+    <string name="OrdersView_Title_Label">"Заказы"</string>
 </resources>

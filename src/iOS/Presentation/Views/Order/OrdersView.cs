@@ -2,8 +2,10 @@
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -33,7 +35,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 		protected override void SetupControls()
 		{
+            Title = Resources.OrdersView_Title_Label;
+
             InitializeTableView();
+            InitializeNavigationBar();
 
             NavigationController.NavigationBar.SetNavigationBarStyle();
 
@@ -53,6 +58,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             tableView.SeparatorColor = Theme.Color.Separator;
             tableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
+        }
+
+        private void InitializeNavigationBar()
+        {
+            NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
+            {
+                NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand),
+                NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
+            }, true);
         }
     }
 }

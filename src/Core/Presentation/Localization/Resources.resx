@@ -351,4 +351,19 @@
   <data name="OrdersView_Filter_MyTasks" xml:space="preserve">
     <value>Мои задания</value>
   </data>
+  <data name="RateView_Filter_AllTasks" xml:space="preserve">
+    <value>Все задания в споре</value>
+  </data>
+  <data name="RateView_Filter_MyTasks" xml:space="preserve">
+    <value>Мои задания в споре</value>
+  </data>
+  <data name="RateView_Filter_NewTasks" xml:space="preserve">
+    <value>Новые задания в споре</value>
+  </data>
+  <data name="RateView_Title_Label" xml:space="preserve">
+    <value>Оценка</value>
+  </data>
+  <data name="OrdersView_Title_Label" xml:space="preserve">
+    <value>Заказы</value>
+  </data>
 </root>
