@@ -75,12 +75,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         private void SetTitle(string title)
         {
-            var titleItem = new UILabel(new CoreGraphics.CGRect(0, 0, 100, 20));
+            var titleItem = new UILabel(new CoreGraphics.CGRect(0, 0, 200, 20));
             titleItem.Text = title;
             titleItem.TextAlignment = UITextAlignment.Center;
             titleItem.SetScreenTitleStyle();
 
-            var container = new UIView(new CoreGraphics.CGRect(0, 0, 100, 20));
+            var container = new UIView(new CoreGraphics.CGRect(0, 0, 200, 20));
             container.ContentMode = UIViewContentMode.Center;
             container.AddSubview(titleItem);
 

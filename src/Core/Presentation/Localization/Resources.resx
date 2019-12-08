@@ -3,7 +3,6 @@
   <!-- 
     Microsoft ResX Schema 
     
-    
     Version 2.0
     
     The primary goals of this format is to allow a simple XML format 
@@ -315,5 +314,56 @@
   </data>
   <data name="ProfileView_CompletedOrders_Tab" xml:space="preserve">
     <value>Исполненные заказы</value>
+  </data>
+  <data name="Order_View_Time_Text" xml:space="preserve">
+    <value>Время заказа:</value>
+  </data>
+  <data name="Order_View_Price_Text" xml:space="preserve">
+    <value>Сумма зкакза:</value>
+  </data>
+  <data name="Order_View_Day" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="Order_View_Hour" xml:space="preserve">
+    <value>Часа</value>
+  </data>
+  <data name="Order_View_Minute" xml:space="preserve">
+    <value>Минут</value>
+  </data>
+  <data name="Order_View_Details" xml:space="preserve">
+    <value>Подробнее</value>
+  </data>
+  <data name="Order_View_New_Task" xml:space="preserve">
+    <value>Новое задание</value>
+  </data>
+  <data name="Order_View_My_Task" xml:space="preserve">
+    <value>Мое задание</value>
+  </data>
+  <data name="OrdersView_Filter_AllTasks" xml:space="preserve">
+    <value>Все задания</value>
+  </data>
+  <data name="OrdersView_Filter_NewTasks" xml:space="preserve">
+    <value>Новые задания</value>
+  </data>
+  <data name="OrdersView_Filter_CurrentTasks" xml:space="preserve">
+    <value>Задания в исполнении</value>
+  </data>
+  <data name="OrdersView_Filter_MyTasks" xml:space="preserve">
+    <value>Мои задания</value>
+  </data>
+  <data name="RateView_Filter_AllTasks" xml:space="preserve">
+    <value>Все задания в споре</value>
+  </data>
+  <data name="RateView_Filter_MyTasks" xml:space="preserve">
+    <value>Мои задания в споре</value>
+  </data>
+  <data name="RateView_Filter_NewTasks" xml:space="preserve">
+    <value>Новые задания в споре</value>
+  </data>
+  <data name="RateView_Title_Label" xml:space="preserve">
+    <value>Оценка</value>
+  </data>
+  <data name="OrdersView_Title_Label" xml:space="preserve">
+    <value>Заказы</value>
   </data>
 </root>

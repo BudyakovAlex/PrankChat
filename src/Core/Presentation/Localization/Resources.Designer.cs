@@ -442,5 +442,107 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("ProfileView_CompletedOrders_Tab", resourceCulture);
             }
         }
+        
+        public static string Order_View_Time_Text {
+            get {
+                return ResourceManager.GetString("Order_View_Time_Text", resourceCulture);
+            }
+        }
+        
+        public static string Order_View_Price_Text {
+            get {
+                return ResourceManager.GetString("Order_View_Price_Text", resourceCulture);
+            }
+        }
+        
+        public static string Order_View_Day {
+            get {
+                return ResourceManager.GetString("Order_View_Day", resourceCulture);
+            }
+        }
+        
+        public static string Order_View_Hour {
+            get {
+                return ResourceManager.GetString("Order_View_Hour", resourceCulture);
+            }
+        }
+        
+        public static string Order_View_Minute {
+            get {
+                return ResourceManager.GetString("Order_View_Minute", resourceCulture);
+            }
+        }
+        
+        public static string Order_View_Details {
+            get {
+                return ResourceManager.GetString("Order_View_Details", resourceCulture);
+            }
+        }
+        
+        public static string Order_View_New_Task {
+            get {
+                return ResourceManager.GetString("Order_View_New_Task", resourceCulture);
+            }
+        }
+        
+        public static string Order_View_My_Task {
+            get {
+                return ResourceManager.GetString("Order_View_My_Task", resourceCulture);
+            }
+        }
+        
+        public static string OrdersView_Filter_AllTasks {
+            get {
+                return ResourceManager.GetString("OrdersView_Filter_AllTasks", resourceCulture);
+            }
+        }
+        
+        public static string OrdersView_Filter_NewTasks {
+            get {
+                return ResourceManager.GetString("OrdersView_Filter_NewTasks", resourceCulture);
+            }
+        }
+        
+        public static string OrdersView_Filter_CurrentTasks {
+            get {
+                return ResourceManager.GetString("OrdersView_Filter_CurrentTasks", resourceCulture);
+            }
+        }
+        
+        public static string OrdersView_Filter_MyTasks {
+            get {
+                return ResourceManager.GetString("OrdersView_Filter_MyTasks", resourceCulture);
+            }
+        }
+        
+        public static string RateView_Filter_AllTasks {
+            get {
+                return ResourceManager.GetString("RateView_Filter_AllTasks", resourceCulture);
+            }
+        }
+        
+        public static string RateView_Filter_MyTasks {
+            get {
+                return ResourceManager.GetString("RateView_Filter_MyTasks", resourceCulture);
+            }
+        }
+        
+        public static string RateView_Filter_NewTasks {
+            get {
+                return ResourceManager.GetString("RateView_Filter_NewTasks", resourceCulture);
+            }
+        }
+        
+        public static string RateView_Title_Label {
+            get {
+                return ResourceManager.GetString("RateView_Title_Label", resourceCulture);
+            }
+        }
+        
+        public static string OrdersView_Title_Label {
+            get {
+                return ResourceManager.GetString("OrdersView_Title_Label", resourceCulture);
+            }
+        }
     }
 }

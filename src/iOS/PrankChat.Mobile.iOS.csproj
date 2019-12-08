@@ -166,7 +166,19 @@
     <Compile Include="Presentation\Views\PasswordRecoveryView\FinishPasswordRecoveryView.designer.cs">
       <DependentUpon>FinishPasswordRecoveryView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\Views\Order\OrdersTableSource.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Order\OrderItemCell.xib" />
+    <Compile Include="Presentation\Views\Order\OrderItemCell.cs" />
+    <Compile Include="Presentation\Views\Order\OrderItemCell.designer.cs">
+      <DependentUpon>OrderItemCell.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\Views\Base\BaseTabbedView.cs" />
+    <Compile Include="Presentation\Views\RatingView\RatingTableSource.cs" />
+    <InterfaceDefinition Include="Presentation\Views\RatingView\RatingItemCell.xib" />
+    <Compile Include="Presentation\Views\RatingView\RatingItemCell.cs" />
+    <Compile Include="Presentation\Views\RatingView\RatingItemCell.designer.cs">
+      <DependentUpon>RatingItemCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -287,6 +299,8 @@
     <ImageAsset Include="Assets.xcassets\ic_calendar.imageset\mdi_date_range.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_menu.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_menu.imageset\Vector.pdf" />
+    <ImageAsset Include="Assets.xcassets\background_order.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\background_order.imageset\background_order.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -334,6 +348,7 @@
     <Folder Include="Assets.xcassets\ic_calendar.imageset\" />
     <Folder Include="Assets.xcassets\ic_menu.imageset\" />
     <Folder Include="Presentation\Localization\ru.lproj\" />
+    <Folder Include="Assets.xcassets\background_order.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

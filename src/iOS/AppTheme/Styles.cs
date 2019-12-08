@@ -241,8 +241,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             if (!string.IsNullOrEmpty(text))
                 label.Text = text;
 
-            label.Font = Theme.Font.MediumOfSize(14);
-            label.TextColor = Theme.Color.Title;
+            label.SetMediumStyle(14, Theme.Color.Title);
         }
 
         public static void SetTitleStyle(this UILabel label, string text = null)
@@ -250,8 +249,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             if (!string.IsNullOrEmpty(text))
                 label.Text = text;
 
-            label.Font = Theme.Font.RegularFontOfSize(14);
-            label.TextColor = Theme.Color.Title;
+            label.SetRegularStyle(14, Theme.Color.Title);
         }
 
         public static void SetBoldTitleStyle(this UILabel label, string text = null)
@@ -268,17 +266,27 @@ namespace PrankChat.Mobile.iOS.AppTheme
             if (!string.IsNullOrEmpty(text))
                 label.Text = text;
 
-            label.Font = Theme.Font.MediumOfSize(12);
-            label.TextColor = Theme.Color.Title;
+            label.SetMediumStyle(12, Theme.Color.Title);
         }
 
         public static void SetSmallSubtitleStyle(this UILabel label, string text = null)
         {
             if (!string.IsNullOrEmpty(text))
                 label.Text = text;
-            
-            label.Font = Theme.Font.RegularFontOfSize(12);
-            label.TextColor = Theme.Color.Subtitle;
+
+            label.SetRegularStyle(12, Theme.Color.Subtitle);
+        }
+
+        public static void SetMediumStyle(this UILabel label, int size, UIColor color)
+        {
+            label.Font = Theme.Font.MediumOfSize(size);
+            label.TextColor = color;
+        }
+
+        public static void SetRegularStyle(this UILabel label, int size, UIColor color)
+        {
+            label.Font = Theme.Font.RegularFontOfSize(size);
+            label.TextColor = color;
         }
 
         public static void SetLinkStyle(this UIButton button, UIFont font)

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MvvmCross.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Rating;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
@@ -19,9 +20,9 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         public Task AppStart()
         {
-            return ShowLoginView();
+            //return ShowLoginView();
             //return ShowRegistrationView();
-            //return ShowMainView();
+            return ShowMainView();
         }
 
         public Task ShowLoginView()
@@ -87,6 +88,11 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         public Task ShowSearchView()
         {
             return _mvxNavigationService.Navigate<SearchViewModel>();
+        }
+
+        public Task ShowDetailsOrderView()
+        {
+            return _mvxNavigationService.Navigate<DetailsOrderViewModel>();
         }
     }
 }
