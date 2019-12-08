@@ -72,3 +72,7 @@
 "Order_View_Details" = "Подробнее";
 "Order_View_New_Task" = "Новое задание";
 "Order_View_My_Task" = "Мое задание";
+"OrdersView_Filter_AllTasks" = "Все задания";
+"OrdersView_Filter_NewTasks" = "Новые задания";
+"OrdersView_Filter_CurrentTasks" = "Задания в исполнении";
+"OrdersView_Filter_MyTasks" = "Мои задания";

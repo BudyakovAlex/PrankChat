@@ -339,4 +339,16 @@
   <data name="Order_View_My_Task" xml:space="preserve">
     <value>Мое задание</value>
   </data>
+  <data name="OrdersView_Filter_AllTasks" xml:space="preserve">
+    <value>Все задания</value>
+  </data>
+  <data name="OrdersView_Filter_NewTasks" xml:space="preserve">
+    <value>Новые задания</value>
+  </data>
+  <data name="OrdersView_Filter_CurrentTasks" xml:space="preserve">
+    <value>Задания в исполнении</value>
+  </data>
+  <data name="OrdersView_Filter_MyTasks" xml:space="preserve">
+    <value>Мои задания</value>
+  </data>
 </root>

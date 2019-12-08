@@ -74,4 +74,8 @@
     <string name="Order_View_Details">"Подробнее"</string>
     <string name="Order_View_New_Task">"Новое задание"</string>
     <string name="Order_View_My_Task">"Мое задание"</string>
+    <string name="OrdersView_Filter_AllTasks">"Все задания"</string>
+    <string name="OrdersView_Filter_NewTasks">"Новые задания"</string>
+    <string name="OrdersView_Filter_CurrentTasks">"Задания в исполнении"</string>
+    <string name="OrdersView_Filter_MyTasks">"Мои задания"</string>
 </resources>

@@ -13,6 +13,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 	partial class OrdersView
 	{
 		[Outlet]
+		UIKit.UIImageView filterArrowImageView { get; set; }
+
+		[Outlet]
+		UIKit.UIView filterContainerView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel filterTitleLabel { get; set; }
+
+		[Outlet]
 		UIKit.UITableView tableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -20,6 +29,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (tableView != null) {
 				tableView.Dispose ();
 				tableView = null;
+			}
+
+			if (filterContainerView != null) {
+				filterContainerView.Dispose ();
+				filterContainerView = null;
+			}
+
+			if (filterTitleLabel != null) {
+				filterTitleLabel.Dispose ();
+				filterTitleLabel = null;
+			}
+
+			if (filterArrowImageView != null) {
+				filterArrowImageView.Dispose ();
+				filterArrowImageView = null;
 			}
 		}
 	}

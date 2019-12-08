@@ -1,5 +1,6 @@
 ﻿using System;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -20,6 +21,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             set.Bind(OrdersTableSource)
                 .To(vm => vm.Items);
 
+            set.Bind(filterContainerView.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.OpenFilterCommand);
+
+            set.Bind(filterTitleLabel)
+                .To(vm => vm.ActiveFilterName);
+
             set.Apply();
 		}
 
@@ -28,7 +36,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             InitializeTableView();
 
             NavigationController.NavigationBar.SetNavigationBarStyle();
-		}
+
+            filterArrowImageView.Image = UIImage.FromBundle("ic_filter_arrow");
+            filterTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
+        }
 
         private void InitializeTableView()
         {

@@ -10,15 +10,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 {
     public class DialogService : IDialogService
     {
-        public Task<string> ShowFilterSelectionAsync(string[] itemStrings, string cancelItemString = null, CancellationToken? cancellationToken = null)
+        public Task<string> ShowFilterSelectionAsync(string[] itemStrings, string cancelItemString = "", CancellationToken? cancellationToken = null)
         {
-            var cancelText = cancelItemString ?? string.Empty;
-
             if (CrossDeviceInfo.Current.Platform == Platform.iOS)
             {
+                var cancelText = string.IsNullOrWhiteSpace(cancelItemString) ? Resources.Cancel : cancelItemString;
                 return UserDialogs.Instance.ActionSheetAsync(null, cancelText, null, cancellationToken, itemStrings);
             }
-            return UserDialogs.Instance.ActionSheetAsync(null, cancelText, null, cancellationToken, itemStrings);
+            return UserDialogs.Instance.ActionSheetAsync(null, cancelItemString, null, cancellationToken, itemStrings);
         }
     }
 }

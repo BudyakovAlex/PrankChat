@@ -5,6 +5,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 {
     public interface IDialogService
     {
-        Task<string> ShowFilterSelectionAsync(string[] itemStrings, string cancelItemString = null, CancellationToken? cancellationToken = null);
+        Task<string> ShowFilterSelectionAsync(string[] itemStrings, string cancelItemString = "", CancellationToken? cancellationToken = null);
     }
 }

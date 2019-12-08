@@ -490,5 +490,29 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Order_View_My_Task", resourceCulture);
             }
         }
+        
+        public static string OrdersView_Filter_AllTasks {
+            get {
+                return ResourceManager.GetString("OrdersView_Filter_AllTasks", resourceCulture);
+            }
+        }
+        
+        public static string OrdersView_Filter_NewTasks {
+            get {
+                return ResourceManager.GetString("OrdersView_Filter_NewTasks", resourceCulture);
+            }
+        }
+        
+        public static string OrdersView_Filter_CurrentTasks {
+            get {
+                return ResourceManager.GetString("OrdersView_Filter_CurrentTasks", resourceCulture);
+            }
+        }
+        
+        public static string OrdersView_Filter_MyTasks {
+            get {
+                return ResourceManager.GetString("OrdersView_Filter_MyTasks", resourceCulture);
+            }
+        }
     }
 }
