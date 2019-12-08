@@ -18,8 +18,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
             {
                 return UserDialogs.Instance.ActionSheetAsync(null, cancelText, null, cancellationToken, itemStrings);
             }
-
-
             return UserDialogs.Instance.ActionSheetAsync(null, cancelText, null, cancellationToken, itemStrings);
         }
     }
