@@ -293,6 +293,8 @@
     <ImageAsset Include="Assets.xcassets\ic_calendar.imageset\mdi_date_range.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_menu.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_menu.imageset\Vector.pdf" />
+    <ImageAsset Include="Assets.xcassets\background_order.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\background_order.imageset\background_order.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -340,6 +342,7 @@
     <Folder Include="Assets.xcassets\ic_calendar.imageset\" />
     <Folder Include="Assets.xcassets\ic_menu.imageset\" />
     <Folder Include="Presentation\Localization\ru.lproj\" />
+    <Folder Include="Assets.xcassets\background_order.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
