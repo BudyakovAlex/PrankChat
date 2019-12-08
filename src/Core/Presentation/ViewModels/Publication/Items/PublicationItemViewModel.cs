@@ -28,11 +28,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
 
         public List<ITransformation> Transformations => new List<ITransformation> { new CircleTransformation() };
 
-        public PublicationItemViewModel()
-        {
-            ProfilePhotoUrl = "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
-        }
-
         public PublicationItemViewModel(string profileName,
                                         string profilePhotoUrl,
                                         string videoName,

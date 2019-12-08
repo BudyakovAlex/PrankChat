@@ -88,5 +88,10 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         {
             return _mvxNavigationService.Navigate<SearchViewModel>();
         }
+
+        public Task ShowDetailsOrderView()
+        {
+            return _mvxNavigationService.Navigate<DetailsOrderViewModel>();
+        }
     }
 }

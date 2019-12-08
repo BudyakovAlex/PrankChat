@@ -11,15 +11,37 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
     [MvxTabPresentation(TabName = "Orders", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
     public partial class OrdersView : BaseGradientBarView<OrdersViewModel>
     {
-		protected override void SetupBinding()
+        public OrdersTableSource OrdersTableSource { get; private set; }
+
+        protected override void SetupBinding()
 		{
 			var set = this.CreateBindingSet<OrdersView, OrdersViewModel>();
-			set.Apply();
+
+            set.Bind(OrdersTableSource)
+                .To(vm => vm.Items);
+
+            set.Apply();
 		}
 
 		protected override void SetupControls()
 		{
-			NavigationController.NavigationBar.SetNavigationBarStyle();
+            InitializeTableView();
+
+            NavigationController.NavigationBar.SetNavigationBarStyle();
 		}
-	}
+
+        private void InitializeTableView()
+        {
+            OrdersTableSource = new OrdersTableSource(tableView);
+            tableView.Source = OrdersTableSource;
+            tableView.RegisterNibForCellReuse(OrderItemCell.Nib, OrderItemCell.CellId);
+            tableView.SetStyle();
+            tableView.RowHeight = OrderItemCell.EstimatedHeight;
+            tableView.UserInteractionEnabled = true;
+            tableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
+
+            tableView.SeparatorColor = Theme.Color.Separator;
+            tableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
+        }
+    }
 }
