@@ -66,4 +66,12 @@
     <string name="ProfileView_Subscriptions_Subtitle">"подписки"</string>
     <string name="ProfileView_MyOrders_Tab">"Мои заказы"</string>
     <string name="ProfileView_CompletedOrders_Tab">"Исполненные заказы"</string>
+    <string name="Order_View_Time_Text">"Время заказа:"</string>
+    <string name="Order_View_Price_Text">"Сумма зкакза:"</string>
+    <string name="Order_View_Day">"День"</string>
+    <string name="Order_View_Hour">"Часа"</string>
+    <string name="Order_View_Minute">"Минут"</string>
+    <string name="Order_View_Details">"Подробнее"</string>
+    <string name="Order_View_New_Task">"Новое задание"</string>
+    <string name="Order_View_My_Task">"Мое задание"</string>
 </resources>

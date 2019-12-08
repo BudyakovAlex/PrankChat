@@ -77,8 +77,6 @@
     <style name="Theme.PrankChat.Button.Accent" parent="Theme.PrankChat.Button.White">
         <item name="android:textColor">@color/applicationWhite</item>
         <item name="android:background">@drawable/button_accent_background</item>
-<<<<<<< HEAD
-=======
     </style>
 
     <style name="Theme.PrankChat.Button.Borderless" parent="Theme.PrankChat.Button.White">
@@ -98,7 +96,6 @@
         <item name="android:textColor">@color/description</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_marginTop">10dp</item>
->>>>>>> development
     </style>
 
 </resources>

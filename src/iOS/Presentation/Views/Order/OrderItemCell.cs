@@ -2,6 +2,7 @@
 using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
@@ -29,18 +30,27 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             orderTitleLabel.SetScreenTitleStyle();
 
             timeLablel.SetMediumStyle(10, Theme.Color.White);
+            timeLablel.Text = Resources.Order_View_Time_Text;
+
             priceLable.SetMediumStyle(10, Theme.Color.White);
+            priceLable.Text = Resources.Order_View_Price_Text;
 
             dayLabel.SetRegularStyle(10, Theme.Color.White);
+            dayLabel.Text = Resources.Order_View_Day;
+
             hourLabel.SetRegularStyle(10, Theme.Color.White);
+            hourLabel.Text = Resources.Order_View_Hour;
+
             minuteLabel.SetRegularStyle(10, Theme.Color.White);
+            minuteLabel.Text = Resources.Order_View_Minute;
 
             orderTimeLabel.SetMediumStyle(22, Theme.Color.White);
             priceValueLabel.SetMediumStyle(26, Theme.Color.White);
 
             statusOrderLabel.SetMediumStyle(14, Theme.Color.White);
+            statusOrderLabel.Text = Resources.Order_View_My_Task;
 
-            orderDetailsButton.SetDarkStyle("lol");
+            orderDetailsButton.SetDarkStyle(Resources.Order_View_Details);
         }
 
         protected override void SetBindings()

@@ -64,3 +64,11 @@
 "ProfileView_Subscriptions_Subtitle" = "подписки";
 "ProfileView_MyOrders_Tab" = "Мои заказы";
 "ProfileView_CompletedOrders_Tab" = "Исполненные заказы";
+"Order_View_Time_Text" = "Время заказа:";
+"Order_View_Price_Text" = "Сумма зкакза:";
+"Order_View_Day" = "День";
+"Order_View_Hour" = "Часа";
+"Order_View_Minute" = "Минут";
+"Order_View_Details" = "Подробнее";
+"Order_View_New_Task" = "Новое задание";
+"Order_View_My_Task" = "Мое задание";
