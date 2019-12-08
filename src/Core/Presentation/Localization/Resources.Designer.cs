@@ -358,5 +358,89 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Password_Recovery_View_Finish_Text", resourceCulture);
             }
         }
+        
+        public static string ProfileView_Menu_Favourites {
+            get {
+                return ResourceManager.GetString("ProfileView_Menu_Favourites", resourceCulture);
+            }
+        }
+        
+        public static string ProfileView_Menu_TaskSubscriptions {
+            get {
+                return ResourceManager.GetString("ProfileView_Menu_TaskSubscriptions", resourceCulture);
+            }
+        }
+        
+        public static string ProfileView_Menu_Faq {
+            get {
+                return ResourceManager.GetString("ProfileView_Menu_Faq", resourceCulture);
+            }
+        }
+        
+        public static string ProfileView_Menu_Support {
+            get {
+                return ResourceManager.GetString("ProfileView_Menu_Support", resourceCulture);
+            }
+        }
+        
+        public static string ProfileView_Menu_Settings {
+            get {
+                return ResourceManager.GetString("ProfileView_Menu_Settings", resourceCulture);
+            }
+        }
+        
+        public static string ProfileView_Menu_LogOut {
+            get {
+                return ResourceManager.GetString("ProfileView_Menu_LogOut", resourceCulture);
+            }
+        }
+        
+        public static string ProfileView_Refill {
+            get {
+                return ResourceManager.GetString("ProfileView_Refill", resourceCulture);
+            }
+        }
+        
+        public static string ProfileView_Withdrawal {
+            get {
+                return ResourceManager.GetString("ProfileView_Withdrawal", resourceCulture);
+            }
+        }
+        
+        public static string ProfileView_Orders_Subtitle {
+            get {
+                return ResourceManager.GetString("ProfileView_Orders_Subtitle", resourceCulture);
+            }
+        }
+        
+        public static string ProfileView_Completed_Subtitle {
+            get {
+                return ResourceManager.GetString("ProfileView_Completed_Subtitle", resourceCulture);
+            }
+        }
+        
+        public static string ProfileView_Subscribers_Subtitle {
+            get {
+                return ResourceManager.GetString("ProfileView_Subscribers_Subtitle", resourceCulture);
+            }
+        }
+        
+        public static string ProfileView_Subscriptions_Subtitle {
+            get {
+                return ResourceManager.GetString("ProfileView_Subscriptions_Subtitle", resourceCulture);
+            }
+        }
+        
+        public static string ProfileView_MyOrders_Tab {
+            get {
+                return ResourceManager.GetString("ProfileView_MyOrders_Tab", resourceCulture);
+            }
+        }
+        
+        public static string ProfileView_CompletedOrders_Tab {
+            get {
+                return ResourceManager.GetString("ProfileView_CompletedOrders_Tab", resourceCulture);
+            }
+        }
     }
 }

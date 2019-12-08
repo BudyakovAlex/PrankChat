@@ -41,20 +41,20 @@ def downloadFile(url, path):
 api_key = '6a76e9420945b04d5418bb04eea679a1'
 project_id = 296029
 
-#App Android
-app_android_en = getDownloadUrl(api_key, project_id, 'en-us', 'android_strings') 
-print (app_android_en)
-downloadFile(app_android_en, '../src/Droid/Resources/values/strings.xml');
+#App Android 
+app_android_ru = getDownloadUrl(api_key, project_id, 'ru', 'android_strings') 
+print (app_android_ru)
+downloadFile(app_android_ru, '../src/Droid/Resources/values/strings.xml');
 
 #App iOS
-app_ios_en = getDownloadUrl(api_key, project_id, 'en-us', 'apple_strings') 
-print (app_ios_en)
-downloadFile(app_ios_en, '../src/iOS/Presentation/Localization/en.lproj/Localizalbe.strings');
+app_ios_ru = getDownloadUrl(api_key, project_id, 'ru', 'apple_strings') 
+print (app_ios_ru)
+downloadFile(app_ios_ru, '../src/iOS/Presentation/Localization/ru.lproj/Localizalbe.strings');
 
 #Core
-core_en = getDownloadUrl(api_key, project_id, 'en-us', 'resx') 
-print (core_en)
-downloadFile(core_en, '../src/Core/Presentation/Localization/Resources.resx');
+core_ru = getDownloadUrl(api_key, project_id, 'ru', 'resx') 
+print (core_ru)
+downloadFile(core_ru, '../src/Core/Presentation/Localization/Resources.resx');
 
 
 

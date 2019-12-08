@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
@@ -20,6 +21,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
             SetCommonStyles();
             SetupControls();
+            SetCommonControlStyles();
             SetupBinding();
         }
 
@@ -27,6 +29,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
         {
             return UIStatusBarStyle.BlackOpaque;
         }
+
+        protected bool IsTabbedView { get; set; }
 
         protected abstract void SetupBinding();
 
@@ -36,21 +40,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
         {
             SetNeedsStatusBarAppearanceUpdate();
 
-            if (ParentViewController != null)
+            if (NavigationItem.HidesBackButton == false && !IsTabbedView)
             {
                 var backButton = NavigationItemHelper.CreateBarButton("ic_back", ViewModel.GoBackCommand);
                 NavigationItem.LeftBarButtonItem = backButton;
-            }
-
-            if (!string.IsNullOrWhiteSpace(Title))
-            {
-                SetTitle(Title);
             }
         }
 
         protected virtual void RegisterKeyboardDismissResponders(List<UIView> views)
         {
-            foreach(var view in views)
+            foreach (var view in views)
             {
                 var tapGesture = new UITapGestureRecognizer(DismissKeyboard);
                 view.AddGestureRecognizer(tapGesture);
@@ -66,16 +65,26 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
                 .ForEach(c => c.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag | UIScrollViewKeyboardDismissMode.Interactive);
         }
 
+        private void SetCommonControlStyles()
+        {
+            if (!string.IsNullOrWhiteSpace(Title))
+            {
+                SetTitle(Title);
+            }
+        }
+
         private void SetTitle(string title)
         {
-            var titleItem = new UILabel(new CoreGraphics.CGRect(0,0, 20, 100));
+            var titleItem = new UILabel(new CoreGraphics.CGRect(0, 0, 100, 20));
             titleItem.Text = title;
-            titleItem.SetTitleStyle();
+            titleItem.TextAlignment = UITextAlignment.Center;
+            titleItem.SetScreenTitleStyle();
 
-            var container = new UIView(new CoreGraphics.CGRect(0, 0, 20, 100));
+            var container = new UIView(new CoreGraphics.CGRect(0, 0, 100, 20));
+            container.ContentMode = UIViewContentMode.Center;
             container.AddSubview(titleItem);
 
-            NavigationController.NavigationItem.TitleView = container;
+            NavigationItem.TitleView = container;
         }
 
         private void InitializeKeyboardDismiss()
@@ -86,7 +95,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         private void DismissKeyboard()
         {
-            foreach(var view in _viewForKeyboardDismiss)
+            foreach (var view in _viewForKeyboardDismiss)
             {
                 if (view is UIScrollView)
                     continue;

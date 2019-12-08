@@ -12,25 +12,30 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             {
                 base.UserVisibleHint = value;
                 if (value)
+                {
                     ViewModel.ViewAppeared();
+                }
                 else
+                {
                     ViewModel.ViewDisappeared();
+                }
             }
         }
 
-		protected abstract void Subscription();
-		protected abstract void Unsubscription();
+        protected abstract void Subscription();
 
-		public override void OnStart()
-		{
-			base.OnStart();
-			Subscription();
-		}
+        protected abstract void Unsubscription();
 
-		public override void OnStop()
-		{
-			base.OnStop();
-			Unsubscription();
-		}
-	}
+        public override void OnStart()
+        {
+            base.OnStart();
+            Subscription();
+        }
+
+        public override void OnStop()
+        {
+            base.OnStop();
+            Unsubscription();
+        }
+    }
 }

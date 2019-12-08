@@ -33,8 +33,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.PasswordRecoveryView
             emailEditText.Placeholder = Resources.Password_Recovery_View_Email_Placeholder;
             emailEditText.SetLightStyle();
 
-            recoverPasswordButton.SetTitle(Resources.RegistrationView_GoToFeed_Button, UIControlState.Normal);
-            recoverPasswordButton.SetLightStyle();
+            recoverPasswordButton.SetLightStyle(Resources.RegistrationView_GoToFeed_Button);
         }
 	}
 }
