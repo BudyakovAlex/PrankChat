@@ -10,8 +10,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.PasswordRecoveryView
 {
     public partial class FinishPasswordRecoveryView : BaseTransparentBarView<FinishPasswordRecoveryViewModel>
     {
-        protected override bool HasLogoInNavigationBar => false;
-
         protected override void SetupBinding()
         {
             var set = this.CreateBindingSet<FinishPasswordRecoveryView, FinishPasswordRecoveryViewModel>();
@@ -34,8 +32,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.PasswordRecoveryView
             messageLabel.TextColor = Theme.Color.White;
             messageLabel.Font = Theme.Font.RegularFontOfSize(14);
 
-            confirmButton.SetTitle(Resources.RegistrationView_GoToFeed_Button, UIControlState.Normal);
-            confirmButton.SetLightStyle();
+            confirmButton.SetLightStyle(Resources.RegistrationView_GoToFeed_Button);
         }
     }
 }

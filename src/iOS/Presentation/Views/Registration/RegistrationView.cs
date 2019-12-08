@@ -49,8 +49,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             showLoginButton.SetTitleColor(Theme.Color.White, UIControlState.Normal);
             showLoginButton.SetLinkStyle(Theme.Font.RegularFontOfSize(16));
 
-            nextStepButton.SetTitle(Resources.LoginView_Continue_Button, UIControlState.Normal);
-            nextStepButton.SetLightStyle();
+            nextStepButton.SetLightStyle(Resources.LoginView_Continue_Button);
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)

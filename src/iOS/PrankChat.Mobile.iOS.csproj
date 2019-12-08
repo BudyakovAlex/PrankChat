@@ -64,7 +64,6 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Info.plist" />
-    <Compile Include="PlatformServices\DialogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -173,6 +172,7 @@
     <Compile Include="Presentation\Views\Order\OrderItemCell.designer.cs">
       <DependentUpon>OrderItemCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\Views\Base\BaseTabbedView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -291,6 +291,8 @@
     <ImageAsset Include="Assets.xcassets\ic_radio_button_inactive.imageset\Radio_button.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_calendar.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_calendar.imageset\mdi_date_range.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_menu.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_menu.imageset\Vector.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -336,6 +338,8 @@
     <Folder Include="Assets.xcassets\ic_radio_button_active.imageset\" />
     <Folder Include="Assets.xcassets\ic_radio_button_inactive.imageset\" />
     <Folder Include="Assets.xcassets\ic_calendar.imageset\" />
+    <Folder Include="Assets.xcassets\ic_menu.imageset\" />
+    <Folder Include="Presentation\Localization\ru.lproj\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

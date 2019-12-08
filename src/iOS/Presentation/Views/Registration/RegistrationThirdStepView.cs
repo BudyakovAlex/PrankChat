@@ -28,8 +28,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             confirmationDescriptionLabel.TextColor = Theme.Color.White;
             confirmationDescriptionLabel.Font = Theme.Font.RegularFontOfSize(14);
 
-            finishRegistrationButton.SetTitle(Resources.RegistrationView_GoToFeed_Button, UIControlState.Normal);
-            finishRegistrationButton.SetLightStyle();
+            finishRegistrationButton.SetLightStyle(Resources.RegistrationView_GoToFeed_Button);
         }
     }
 }

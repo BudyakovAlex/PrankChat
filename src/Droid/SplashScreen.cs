@@ -29,6 +29,8 @@ namespace PrankChat.Mobile.Droid
             base.OnCreate(bundle);
 
             UserDialogs.Init(this);
+
+            Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, bundle);
         }
     }
 }

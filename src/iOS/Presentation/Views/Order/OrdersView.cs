@@ -9,7 +9,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
     [MvxTabPresentation(TabName = "Orders", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
-    public partial class OrdersView : BaseGradientBarView<OrdersViewModel>
+    public partial class OrdersView : BaseTabbedView<OrdersViewModel>
     {
         public OrdersTableSource OrdersTableSource { get; private set; }
 

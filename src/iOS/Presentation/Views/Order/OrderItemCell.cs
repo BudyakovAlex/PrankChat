@@ -39,6 +39,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             priceValueLabel.SetMediumStyle(26, Theme.Color.White);
 
             statusOrderLabel.SetMediumStyle(14, Theme.Color.White);
+
+            orderDetailsButton.SetDarkStyle("lol");
         }
 
         protected override void SetBindings()

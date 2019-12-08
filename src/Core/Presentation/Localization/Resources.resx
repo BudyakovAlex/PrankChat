@@ -3,6 +3,7 @@
   <!-- 
     Microsoft ResX Schema 
     
+    
     Version 2.0
     
     The primary goals of this format is to allow a simple XML format 
@@ -118,52 +119,52 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Закрыть</value>
   </data>
   <data name="app_name" xml:space="preserve">
     <value>Prank Chat</value>
   </data>
   <data name="Home_Tab" xml:space="preserve">
-    <value>Home</value>
+    <value>Главная</value>
   </data>
   <data name="Rate_Tab" xml:space="preserve">
-    <value>Rate</value>
+    <value>Оценка</value>
   </data>
   <data name="Orders_Tab" xml:space="preserve">
-    <value>Orders</value>
+    <value>Заказы</value>
   </data>
   <data name="Profile_Tab" xml:space="preserve">
-    <value>Profile</value>
+    <value>Профиль</value>
   </data>
   <data name="Popular_Publication_Tab" xml:space="preserve">
-    <value>Popular</value>
+    <value>Популярное</value>
   </data>
   <data name="Actual_Publication_Tab" xml:space="preserve">
-    <value>Actual</value>
+    <value>Актуальное</value>
   </data>
   <data name="MyFeed_Publication_Tab" xml:space="preserve">
-    <value>My feed</value>
+    <value>Моя лента</value>
   </data>
   <data name="Publication_Tab_Filter_Day" xml:space="preserve">
-    <value>Per day</value>
+    <value>За день</value>
   </data>
   <data name="Publication_Tab_Filter_Week" xml:space="preserve">
-    <value>Per week</value>
+    <value>За неделю</value>
   </data>
   <data name="Publication_Tab_Filter_Month" xml:space="preserve">
-    <value>Per month</value>
+    <value>За месяц</value>
   </data>
   <data name="Publication_Tab_Filter_Quarter" xml:space="preserve">
-    <value>Per quarter</value>
+    <value>За квартал</value>
   </data>
   <data name="Publication_Tab_Filter_HalfYear" xml:space="preserve">
-    <value>Per half year</value>
+    <value>За полгода</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Отмена</value>
   </data>
   <data name="Search_View_Search_Placeholder" xml:space="preserve">
-    <value>Search</value>
+    <value>Поиск</value>
   </data>
   <data name="Like" xml:space="preserve">
     <value>Like</value>
@@ -172,105 +173,147 @@
     <value>Share</value>
   </data>
   <data name="Error_Unexpected_Server" xml:space="preserve">
-    <value>The unexpected error occurred on the server. We have received information about it and working actively to resolve it.</value>
+    <value>Возникла непредвиденная ошибка на сервере. Мы уже получили информацию об этом и работаем над устранением проблемы.</value>
   </data>
   <data name="Error_Unexpected_Not_Found" xml:space="preserve">
-    <value>Requested entity not found.</value>
+    <value>Не удалось получить запрошенные данные.</value>
   </data>
   <data name="Error_Unexpected_Network" xml:space="preserve">
-    <value>Unexpected error occurred on request. Please, try again.</value>
+    <value>Возникла неожиданная сетевая ошибка, пожалуйста, попробуйте снова.</value>
   </data>
   <data name="LoginView_Email_Placeholder" xml:space="preserve">
-    <value>Enter e-mail</value>
+    <value>Введите email</value>
   </data>
   <data name="LoginView_Password_Placeholder" xml:space="preserve">
-    <value>Enter password</value>
+    <value>Введите пароль</value>
   </data>
   <data name="LoginView_ForgotPassword_Title" xml:space="preserve">
-    <value>Forgot password?</value>
+    <value>Востановление пароля</value>
   </data>
   <data name="LoginView_ForgotPassword_Button" xml:space="preserve">
-    <value>Restore</value>
+    <value>Востановить</value>
   </data>
   <data name="LoginView_Continue_Button" xml:space="preserve">
-    <value>Continue</value>
+    <value>Продолжить</value>
   </data>
   <data name="LoginView_CreateAccount_Button" xml:space="preserve">
-    <value>Don&apos;t have an account? Create a new one.</value>
+    <value>Нет аккаунта? Создать новый</value>
   </data>
   <data name="LoginView_Login_Title" xml:space="preserve">
-    <value>Log in</value>
+    <value>Войти</value>
   </data>
   <data name="LoginView_AltLogin_Title" xml:space="preserve">
-    <value>Enter social networks:</value>
+    <value>Войти через:</value>
   </data>
   <data name="RegistrationView_Title" xml:space="preserve">
-    <value>Registration</value>
+    <value>Регистрация</value>
   </data>
   <data name="RegistrationView_Email_Placeholder" xml:space="preserve">
-    <value>Enter e-mail</value>
+    <value>Введите email</value>
   </data>
   <data name="RegistrationView_RegisteredYet_Label" xml:space="preserve">
-    <value>Already registered?</value>
+    <value>Уже зарегистрированы?</value>
   </data>
   <data name="RegistrationView_Login_Button" xml:space="preserve">
-    <value>Log in</value>
+    <value>Войти в аккаунт</value>
   </data>
   <data name="RegistrationView_Login_Placeholder" xml:space="preserve">
-    <value>Enter nickname</value>
+    <value>Введите логин</value>
   </data>
   <data name="RegistrationView_Name_Placeholder" xml:space="preserve">
-    <value>Enter your name</value>
+    <value>Введите имя</value>
   </data>
   <data name="RegistrationView_Birthday_Placeholder" xml:space="preserve">
-    <value>Enter birthday</value>
+    <value>Дата рождения</value>
   </data>
   <data name="RegistrationView_Password_Placeholder" xml:space="preserve">
-    <value>Enter password</value>
+    <value>Введите пароль</value>
   </data>
   <data name="RegistrationView_PasswordRepeat_Placeholder" xml:space="preserve">
-    <value>Enter password again</value>
+    <value>Повторите пароль</value>
   </data>
   <data name="RegistrationView_GenderSelect_Title" xml:space="preserve">
-    <value>Select sex:</value>
+    <value>Выберите пол:</value>
   </data>
   <data name="RegistrationView_Male_Button" xml:space="preserve">
-    <value>Male</value>
+    <value>муж</value>
   </data>
   <data name="RegistrationView_Female_Button" xml:space="preserve">
-    <value>Female</value>
+    <value>жен</value>
   </data>
   <data name="RegistrationView_Register_Button" xml:space="preserve">
-    <value>Register</value>
+    <value>Зарегистрироваться</value>
   </data>
   <data name="RegistrationView_StepTwo_Title" xml:space="preserve">
-    <value>Step 2</value>
+    <value>Шаг 2</value>
   </data>
   <data name="RegistrationView_StepThree_Title" xml:space="preserve">
-    <value>Step 3</value>
+    <value>Шаг 3</value>
   </data>
   <data name="RegistrationView_Congrats_Title" xml:space="preserve">
-    <value>Congratulations!</value>
+    <value>Поздравлем!</value>
   </data>
   <data name="RegistrationView_Confirmation_Label" xml:space="preserve">
-    <value>Verification text.</value>
+    <value>На почту отправлено письмо с верификацией email адреса. Для завершения регистрации, пожалуйста подтвердите Ваш email</value>
   </data>
   <data name="RegistrationView_GoToFeed_Button" xml:space="preserve">
-    <value>Go to feed</value>
+    <value>Перейти в ленту</value>
   </data>
   <data name="Password_Recovery_View_Title" xml:space="preserve">
-    <value>Password recovery</value>
+    <value>Восстановление пароля</value>
   </data>
   <data name="Password_Recovery_View_Email_Placeholder" xml:space="preserve">
-    <value>Enter e-mail</value>
+    <value>Введите email</value>
   </data>
   <data name="Password_Recovery_View_Recovery_Button" xml:space="preserve">
-    <value>Restore</value>
+    <value>Восстановить</value>
   </data>
   <data name="Password_Recovery_View_Attention" xml:space="preserve">
-    <value>Attention!</value>
+    <value>Внимание!</value>
   </data>
   <data name="Password_Recovery_View_Finish_Text" xml:space="preserve">
-    <value>An email was sent to the mail with a link to reset the password.</value>
+    <value>На почту отправлено письмо с ссылкой для восстановления пароля.</value>
+  </data>
+  <data name="ProfileView_Menu_Favourites" xml:space="preserve">
+    <value>Избранные видео</value>
+  </data>
+  <data name="ProfileView_Menu_TaskSubscriptions" xml:space="preserve">
+    <value>Подписки на задания</value>
+  </data>
+  <data name="ProfileView_Menu_Faq" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="ProfileView_Menu_Support" xml:space="preserve">
+    <value>Справки/отзывы</value>
+  </data>
+  <data name="ProfileView_Menu_Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="ProfileView_Menu_LogOut" xml:space="preserve">
+    <value>Выйти из аккаунта</value>
+  </data>
+  <data name="ProfileView_Refill" xml:space="preserve">
+    <value>Пополнить</value>
+  </data>
+  <data name="ProfileView_Withdrawal" xml:space="preserve">
+    <value>Вывести</value>
+  </data>
+  <data name="ProfileView_Orders_Subtitle" xml:space="preserve">
+    <value>заказов</value>
+  </data>
+  <data name="ProfileView_Completed_Subtitle" xml:space="preserve">
+    <value>выполнено</value>
+  </data>
+  <data name="ProfileView_Subscribers_Subtitle" xml:space="preserve">
+    <value>подписчики</value>
+  </data>
+  <data name="ProfileView_Subscriptions_Subtitle" xml:space="preserve">
+    <value>подписки</value>
+  </data>
+  <data name="ProfileView_MyOrders_Tab" xml:space="preserve">
+    <value>Мои заказы</value>
+  </data>
+  <data name="ProfileView_CompletedOrders_Tab" xml:space="preserve">
+    <value>Исполненные заказы</value>
   </data>
 </root>

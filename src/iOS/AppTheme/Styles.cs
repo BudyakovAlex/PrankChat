@@ -236,23 +236,44 @@ namespace PrankChat.Mobile.iOS.AppTheme
             label.AttributedText = new NSAttributedString(label.Text, attributes);
         }
 
-        public static void SetMainTitleStyle(this UILabel label)
+        public static void SetMainTitleStyle(this UILabel label, string text = null)
         {
+            if (!string.IsNullOrEmpty(text))
+                label.Text = text;
+
             label.SetMediumStyle(14, Theme.Color.Title);
         }
 
-        public static void SetTitleStyle(this UILabel label)
+        public static void SetTitleStyle(this UILabel label, string text = null)
         {
+            if (!string.IsNullOrEmpty(text))
+                label.Text = text;
+
             label.SetRegularStyle(14, Theme.Color.Title);
         }
 
-        public static void SetSmallTitleStyle(this UILabel label)
+        public static void SetBoldTitleStyle(this UILabel label, string text = null)
         {
+            if (!string.IsNullOrEmpty(text))
+                label.Text = text;
+
+            label.Font = Theme.Font.BoldOfSize(14);
+            label.TextColor = Theme.Color.Title;
+        }
+
+        public static void SetSmallTitleStyle(this UILabel label, string text = null)
+        {
+            if (!string.IsNullOrEmpty(text))
+                label.Text = text;
+
             label.SetMediumStyle(12, Theme.Color.Title);
         }
 
-        public static void SetSmallSubtitleStyle(this UILabel label)
+        public static void SetSmallSubtitleStyle(this UILabel label, string text = null)
         {
+            if (!string.IsNullOrEmpty(text))
+                label.Text = text;
+
             label.SetRegularStyle(12, Theme.Color.Subtitle);
         }
 
@@ -282,7 +303,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
         }
 
-        public static void SetLightStyle(this UIButton button)
+        public static void SetLightStyle(this UIButton button, string title)
         {
             button.Layer.BorderColor = Theme.Color.ButtonBorderPrimary.CGColor;
             button.Layer.BorderWidth = 1;
@@ -295,7 +316,39 @@ namespace PrankChat.Mobile.iOS.AppTheme
                 ForegroundColor = Theme.Color.Accent
             };
 
-            var attributedTitle = new NSAttributedString(button.Title(UIControlState.Normal), titleAttributes);
+            var attributedTitle = new NSAttributedString(title, titleAttributes);
+            button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
+        }
+
+        public static void SetDarkStyle(this UIButton button, string title)
+        {
+            button.Layer.BorderColor = Theme.Color.Accent.CGColor;
+            button.Layer.BorderWidth = 1;
+            button.Layer.CornerRadius = 4;
+            button.BackgroundColor = Theme.Color.Accent;
+
+            var titleAttributes = new UIStringAttributes
+            {
+                Font = Theme.Font.MediumOfSize(14),
+                ForegroundColor = Theme.Color.White
+            };
+
+            var attributedTitle = new NSAttributedString(title, titleAttributes);
+            button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
+        }
+
+        public static void SetBorderlessStyle(this UIButton button, string title)
+        {
+            button.Layer.BorderColor = UIColor.Clear.CGColor;
+            button.BackgroundColor = UIColor.Clear;
+
+            var titleAttributes = new UIStringAttributes
+            {
+                Font = Theme.Font.MediumOfSize(14),
+                ForegroundColor = Theme.Color.Accent
+            };
+
+            var attributedTitle = new NSAttributedString(title, titleAttributes);
             button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
         }
 

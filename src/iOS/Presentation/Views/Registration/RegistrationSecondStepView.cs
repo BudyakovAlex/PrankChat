@@ -97,8 +97,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 
             femaleButtonsContainerView.AddGestureRecognizer(new UITapGestureRecognizer(s => HandleRadioTap(Sex.Female)));
 
-            registerButton.SetTitle(Resources.RegistrationView_Register_Button, UIControlState.Normal);
-            registerButton.SetLightStyle();
+            registerButton.SetLightStyle(Resources.RegistrationView_Register_Button);
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)
