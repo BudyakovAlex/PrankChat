@@ -32,6 +32,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
             Items.Add(new OrderItemViewModel(navigationService, "Подсесть к человеку в ТЦ и съесть его еду и сказать сальто де марто", "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg", "13 455 p", new DateTime(2019, 4, 22)));
             Items.Add(new OrderItemViewModel(navigationService, "Выпить бутылку воды без остановки", "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg", "995,55 p", new DateTime(2019, 11, 2)));
+            Items.Add(new OrderItemViewModel(navigationService, "Подсесть к человеку в ТЦ и съесть его еду и сказать сальто де марто", "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg", "13 455 p", new DateTime(2019, 4, 22)));
         }
 
         public override Task Initialize()
