@@ -43,33 +43,22 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 		FFImageLoading.Cross.MvxCachedImageView profilePhotoImage { get; set; }
 
 		[Outlet]
-		UIKit.UILabel statusOrderLabel { get; set; }
+		UIKit.UIButton thumbsDownButton { get; set; }
+
+		[Outlet]
+		UIKit.UILabel thumbsDownValueLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIButton thumbsUpButton { get; set; }
+
+		[Outlet]
+		UIKit.UILabel thumbsUpValueLabel { get; set; }
 
 		[Outlet]
 		UIKit.UILabel timeLablel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (innerView != null) {
-				innerView.Dispose ();
-				innerView = null;
-			}
-
-			if (orderTitleLabel != null) {
-				orderTitleLabel.Dispose ();
-				orderTitleLabel = null;
-			}
-
-			if (timeLablel != null) {
-				timeLablel.Dispose ();
-				timeLablel = null;
-			}
-
-			if (priceLable != null) {
-				priceLable.Dispose ();
-				priceLable = null;
-			}
-
 			if (dayLabel != null) {
 				dayLabel.Dispose ();
 				dayLabel = null;
@@ -80,24 +69,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 				hourLabel = null;
 			}
 
+			if (innerView != null) {
+				innerView.Dispose ();
+				innerView = null;
+			}
+
 			if (minuteLabel != null) {
 				minuteLabel.Dispose ();
 				minuteLabel = null;
-			}
-
-			if (orderTimeLabel != null) {
-				orderTimeLabel.Dispose ();
-				orderTimeLabel = null;
-			}
-
-			if (priceValueLabel != null) {
-				priceValueLabel.Dispose ();
-				priceValueLabel = null;
-			}
-
-			if (statusOrderLabel != null) {
-				statusOrderLabel.Dispose ();
-				statusOrderLabel = null;
 			}
 
 			if (orderDetailsButton != null) {
@@ -105,9 +84,54 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 				orderDetailsButton = null;
 			}
 
+			if (orderTimeLabel != null) {
+				orderTimeLabel.Dispose ();
+				orderTimeLabel = null;
+			}
+
+			if (orderTitleLabel != null) {
+				orderTitleLabel.Dispose ();
+				orderTitleLabel = null;
+			}
+
+			if (priceLable != null) {
+				priceLable.Dispose ();
+				priceLable = null;
+			}
+
+			if (priceValueLabel != null) {
+				priceValueLabel.Dispose ();
+				priceValueLabel = null;
+			}
+
 			if (profilePhotoImage != null) {
 				profilePhotoImage.Dispose ();
 				profilePhotoImage = null;
+			}
+
+			if (timeLablel != null) {
+				timeLablel.Dispose ();
+				timeLablel = null;
+			}
+
+			if (thumbsUpButton != null) {
+				thumbsUpButton.Dispose ();
+				thumbsUpButton = null;
+			}
+
+			if (thumbsUpValueLabel != null) {
+				thumbsUpValueLabel.Dispose ();
+				thumbsUpValueLabel = null;
+			}
+
+			if (thumbsDownButton != null) {
+				thumbsDownButton.Dispose ();
+				thumbsDownButton = null;
+			}
+
+			if (thumbsDownValueLabel != null) {
+				thumbsDownValueLabel.Dispose ();
+				thumbsDownValueLabel = null;
 			}
 		}
 	}

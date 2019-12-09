@@ -544,5 +544,11 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("OrdersView_Title_Label", resourceCulture);
             }
         }
+        
+        public static string RateView_Vote_Button {
+            get {
+                return ResourceManager.GetString("RateView_Vote_Button", resourceCulture);
+            }
+        }
     }
 }

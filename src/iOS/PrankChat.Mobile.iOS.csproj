@@ -179,6 +179,11 @@
     <Compile Include="Presentation\Views\RatingView\RatingItemCell.designer.cs">
       <DependentUpon>RatingItemCell.cs</DependentUpon>
     </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Order\DetailsOrderView.xib" />
+    <Compile Include="Presentation\Views\Order\DetailsOrderView.cs" />
+    <Compile Include="Presentation\Views\Order\DetailsOrderView.designer.cs">
+      <DependentUpon>DetailsOrderView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -301,6 +306,10 @@
     <ImageAsset Include="Assets.xcassets\ic_menu.imageset\Vector.pdf" />
     <ImageAsset Include="Assets.xcassets\background_order.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\background_order.imageset\background_order.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_thumbs_up.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_thumbs_up.imageset\Vector %281%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Vector %282%29.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -349,6 +358,8 @@
     <Folder Include="Assets.xcassets\ic_menu.imageset\" />
     <Folder Include="Presentation\Localization\ru.lproj\" />
     <Folder Include="Assets.xcassets\background_order.imageset\" />
+    <Folder Include="Assets.xcassets\ic_thumbs_up.imageset\" />
+    <Folder Include="Assets.xcassets\ic_thumbs_down.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

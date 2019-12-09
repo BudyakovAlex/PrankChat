@@ -366,4 +366,7 @@
   <data name="OrdersView_Title_Label" xml:space="preserve">
     <value>Заказы</value>
   </data>
+  <data name="RateView_Vote_Button" xml:space="preserve">
+    <value>Голосовать</value>
+  </data>
 </root>
