@@ -28,8 +28,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 
             innerView.SetCornerRadius(10);
 
-            orderTitleLabel.SetScreenTitleStyle();
-
             timeLablel.SetMediumStyle(10, Theme.Color.White);
             timeLablel.Text = Resources.Order_View_Time_Text;
 
@@ -48,10 +46,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
             orderTimeLabel.SetMediumStyle(22, Theme.Color.White);
             priceValueLabel.SetMediumStyle(26, Theme.Color.White);
 
-            statusOrderLabel.SetMediumStyle(14, Theme.Color.White);
-            statusOrderLabel.Text = Resources.Order_View_My_Task;
+            orderDetailsButton.SetDarkStyle(Resources.RateView_Vote_Button);
 
-            orderDetailsButton.SetDarkStyle(Resources.Order_View_Details);
+            thumbsUpButton.SetImage(UIImage.FromBundle("ic_thumbs_up").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+
+            thumbsDownButton.SetImage(UIImage.FromBundle("ic_thumbs_down").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+
+            thumbsUpValueLabel.SetMediumStyle(14, Theme.Color.White);
+
+            thumbsDownValueLabel.SetMediumStyle(14, Theme.Color.White);
         }
 
         protected override void SetBindings()
@@ -88,6 +91,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
             set.Bind(orderDetailsButton)
                 .To(vm => vm.OpenDetailsOrderCommand)
                 .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(thumbsUpValueLabel)
+                .To(vm => vm.Likes);
+
+            set.Bind(thumbsDownValueLabel)
+                .To(vm => vm.Dislikes);
 
             set.Apply();
         }

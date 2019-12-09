@@ -21,6 +21,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 
         public string PriceText { get; }
 
+        public string Likes { get; }
+
+        public string Dislikes { get; }
+
         public List<ITransformation> Transformations => new List<ITransformation> { new CircleTransformation() };
 
         public double DownsampleWidth { get; } = 100;
@@ -38,6 +42,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
             ProfilePhotoUrl = profilePhotoUrl;
             PriceText = priceText;
             _orderTime = time;
+
+            Likes = "1000";
+            Dislikes = "100";
         }
 
         private Task OnOpenDetailsOrderAsync()

@@ -81,3 +81,4 @@
 "RateView_Filter_NewTasks" = "Новые задания в споре";
 "RateView_Title_Label" = "Оценка";
 "OrdersView_Title_Label" = "Заказы";
+"RateView_Vote_Button" = "Голосовать";
