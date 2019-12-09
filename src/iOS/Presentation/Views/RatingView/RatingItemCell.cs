@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
@@ -27,6 +27,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
             base.SetupControls();
 
             innerView.SetCornerRadius(10);
+
+            orderTitleLabel.SetScreenTitleStyle();
 
             timeLablel.SetMediumStyle(10, Theme.Color.White);
             timeLablel.Text = Resources.Order_View_Time_Text;
