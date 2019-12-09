@@ -10,6 +10,16 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 {
     public class DialogService : IDialogService
     {
+        public async Task<DateTime?> ShowDateDialogAsync()
+        {
+            var result = await UserDialogs.Instance.DatePromptAsync();
+            if (result.Ok) {
+                return result.SelectedDate;
+            }
+
+            return null;
+        }
+
         public Task<string> ShowFilterSelectionAsync(string[] itemStrings, string cancelItemString = "", CancellationToken? cancellationToken = null)
         {
             if (CrossDeviceInfo.Current.Platform == Platform.iOS)

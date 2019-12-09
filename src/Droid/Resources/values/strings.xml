@@ -84,4 +84,11 @@
     <string name="RateView_Title_Label">"Оценка"</string>
     <string name="OrdersView_Title_Label">"Заказы"</string>
     <string name="RateView_Vote_Button">"Голосовать"</string>
+    <string name="CreateOrderView_Title">"Создание заказа"</string>
+    <string name="CreateOrderView_Name_Placeholder">"Название заказа"</string>
+    <string name="CreateOrderView_Description_Placeholder">"Описание задания"</string>
+    <string name="CreateOrderView_Price_Placeholder">"10 000 ₽"</string>
+    <string name="CreateOrderView_CompleteDate_Placeholder">"Дата исполнения"</string>
+    <string name="CreateOrderView_HideExecutor_Button">"Скрыть исполнителя"</string>
+    <string name="CreateOrderView_Create_Button">"Создать заказ"</string>
 </resources>
