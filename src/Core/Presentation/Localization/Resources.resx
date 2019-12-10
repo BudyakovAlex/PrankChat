@@ -369,4 +369,28 @@
   <data name="RateView_Vote_Button" xml:space="preserve">
     <value>Голосовать</value>
   </data>
+  <data name="CreateOrderView_Title" xml:space="preserve">
+    <value>Создание заказа</value>
+  </data>
+  <data name="CreateOrderView_Name_Placeholder" xml:space="preserve">
+    <value>Название заказа</value>
+  </data>
+  <data name="CreateOrderView_Description_Placeholder" xml:space="preserve">
+    <value>Описание задания</value>
+  </data>
+  <data name="CreateOrderView_Price_Placeholder" xml:space="preserve">
+    <value>10 000 ₽</value>
+  </data>
+  <data name="CreateOrderView_CompleteDate_Placeholder" xml:space="preserve">
+    <value>Дата исполнения</value>
+  </data>
+  <data name="CreateOrderView_HideExecutor_Button" xml:space="preserve">
+    <value>Скрыть исполнителя</value>
+  </data>
+  <data name="CreateOrderView_Create_Button" xml:space="preserve">
+    <value>Создать заказ</value>
+  </data>
+  <data name="NotificationView_Title" xml:space="preserve">
+    <value>Уведомления</value>
+  </data>
 </root>

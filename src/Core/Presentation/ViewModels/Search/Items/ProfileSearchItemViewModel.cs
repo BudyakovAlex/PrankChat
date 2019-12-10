@@ -2,7 +2,7 @@
 using FFImageLoading.Transformations;
 using FFImageLoading.Work;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Search
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items
 {
     public class ProfileSearchItemViewModel : BaseItemViewModel
     {
@@ -11,10 +11,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Search
         public string ProfileDescription { get; }
 
         public string ImageUrl { get; }
-
-        public double DownsampleWidth { get; } = 100;
-
-        public List<ITransformation> Transformations => new List<ITransformation> { new CircleTransformation() };
 
         public ProfileSearchItemViewModel(string profileName, string profileDescription)
         {

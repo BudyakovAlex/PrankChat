@@ -184,6 +184,12 @@
     <Compile Include="Presentation\Views\Order\DetailsOrderView.designer.cs">
       <DependentUpon>DetailsOrderView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\Views\NotificationView\NotificationTableSource.cs" />
+    <InterfaceDefinition Include="Presentation\Views\NotificationView\NotificationItemCell.xib" />
+    <Compile Include="Presentation\Views\NotificationView\NotificationItemCell.cs" />
+    <Compile Include="Presentation\Views\NotificationView\NotificationItemCell.designer.cs">
+      <DependentUpon>NotificationItemCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

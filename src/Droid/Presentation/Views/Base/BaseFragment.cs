@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
     {
         protected virtual bool HasBackButton => false;
 
-        protected virtual string ActionTitle => string.Empty;
+        protected virtual string TitleActionBar => string.Empty;
 
         public virtual View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState, int resourceId)
         {
@@ -27,10 +27,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             }
 
             var title = view.FindViewById<TextView>(Resource.Id.toolbar_title);
-            title.Text = ActionTitle;
+            if (title != null)
+                title.Text = TitleActionBar;
 
             var backButton = view.FindViewById<ImageButton>(Resource.Id.back_button);
-            backButton.Visibility = HasBackButton ? ViewStates.Visible : ViewStates.Gone;
+            if (backButton != null)
+                backButton.Visibility = HasBackButton ? ViewStates.Visible : ViewStates.Gone;
 
             return view;
         }

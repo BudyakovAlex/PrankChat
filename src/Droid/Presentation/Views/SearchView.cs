@@ -4,12 +4,14 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {
+    [MvxActivityPresentation]
     [Activity]
     public class SearchView : BaseView<SearchViewModel>
     {

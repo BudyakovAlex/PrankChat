@@ -82,3 +82,11 @@
 "RateView_Title_Label" = "Оценка";
 "OrdersView_Title_Label" = "Заказы";
 "RateView_Vote_Button" = "Голосовать";
+"CreateOrderView_Title" = "Создание заказа";
+"CreateOrderView_Name_Placeholder" = "Название заказа";
+"CreateOrderView_Description_Placeholder" = "Описание задания";
+"CreateOrderView_Price_Placeholder" = "10 000 ₽";
+"CreateOrderView_CompleteDate_Placeholder" = "Дата исполнения";
+"CreateOrderView_HideExecutor_Button" = "Скрыть исполнителя";
+"CreateOrderView_Create_Button" = "Создать заказ";
+"NotificationView_Title" = "Уведомления";

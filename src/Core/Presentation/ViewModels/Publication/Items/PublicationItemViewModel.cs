@@ -24,10 +24,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
 
         public string NumberOfLikesText => $"{Resources.Like} {_numberOfLikes}";
 
-        public double DownsampleWidth { get; } = 100;
-
-        public List<ITransformation> Transformations => new List<ITransformation> { new CircleTransformation() };
-
         public PublicationItemViewModel(string profileName,
                                         string profilePhotoUrl,
                                         string videoName,

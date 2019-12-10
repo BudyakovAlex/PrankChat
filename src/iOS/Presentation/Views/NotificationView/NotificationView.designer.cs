@@ -13,13 +13,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 	partial class NotificationView
 	{
 		[Outlet]
-		UIKit.UIButton backButton { get; set; }
+		UIKit.UITableView tableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (backButton != null) {
-				backButton.Dispose ();
-				backButton = null;
+			if (tableView != null) {
+				tableView.Dispose ();
+				tableView = null;
 			}
 		}
 	}

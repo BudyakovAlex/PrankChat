@@ -550,5 +550,53 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("RateView_Vote_Button", resourceCulture);
             }
         }
+        
+        public static string CreateOrderView_Title {
+            get {
+                return ResourceManager.GetString("CreateOrderView_Title", resourceCulture);
+            }
+        }
+        
+        public static string CreateOrderView_Name_Placeholder {
+            get {
+                return ResourceManager.GetString("CreateOrderView_Name_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string CreateOrderView_Description_Placeholder {
+            get {
+                return ResourceManager.GetString("CreateOrderView_Description_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string CreateOrderView_Price_Placeholder {
+            get {
+                return ResourceManager.GetString("CreateOrderView_Price_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string CreateOrderView_CompleteDate_Placeholder {
+            get {
+                return ResourceManager.GetString("CreateOrderView_CompleteDate_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string CreateOrderView_HideExecutor_Button {
+            get {
+                return ResourceManager.GetString("CreateOrderView_HideExecutor_Button", resourceCulture);
+            }
+        }
+        
+        public static string CreateOrderView_Create_Button {
+            get {
+                return ResourceManager.GetString("CreateOrderView_Create_Button", resourceCulture);
+            }
+        }
+        
+        public static string NotificationView_Title {
+            get {
+                return ResourceManager.GetString("NotificationView_Title", resourceCulture);
+            }
+        }
     }
 }
