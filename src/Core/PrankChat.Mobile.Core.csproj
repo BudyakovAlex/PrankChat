@@ -46,5 +46,8 @@
     <Folder Include="Presentation\ViewModels\Order\Items\" />
     <Folder Include="Presentation\ViewModels\Rating\" />
     <Folder Include="Presentation\ViewModels\Rating\Items\" />
+    <Folder Include="Presentation\ViewModels\Search\Items\" />
+    <Folder Include="Presentation\ViewModels\Notification\" />
+    <Folder Include="Presentation\ViewModels\Notification\Items\" />
   </ItemGroup>
 </Project>

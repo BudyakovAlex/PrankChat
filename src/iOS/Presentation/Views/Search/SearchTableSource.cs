@@ -2,6 +2,7 @@
 using Foundation;
 using MvvmCross.Platforms.Ios.Binding.Views;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Search;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Search

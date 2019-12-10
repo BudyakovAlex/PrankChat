@@ -4,7 +4,7 @@ using System.Windows.Input;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Search;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {

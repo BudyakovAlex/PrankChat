@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
@@ -20,9 +21,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         public Task AppStart()
         {
-            return ShowLoginView();
-            //return ShowRegistrationView();
-            //return ShowMainView();
+            //return ShowLoginView();
+            return ShowMainView();
         }
 
         public Task ShowLoginView()
