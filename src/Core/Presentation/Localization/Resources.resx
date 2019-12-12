@@ -435,4 +435,10 @@
   <data name="OrderDetailsView_Corresponds_To_Video_Text" xml:space="preserve">
     <value>Соответствует видео заказу?</value>
   </data>
+  <data name="CreateOrderView_PriceTitle_Placeholder" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="OrderDetailsView_Took_Title" xml:space="preserve">
+    <value>Задание</value>
+  </data>
 </root>

@@ -682,5 +682,17 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("OrderDetailsView_Corresponds_To_Video_Text", resourceCulture);
             }
         }
+        
+        public static string CreateOrderView_PriceTitle_Placeholder {
+            get {
+                return ResourceManager.GetString("CreateOrderView_PriceTitle_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_Took_Title {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_Took_Title", resourceCulture);
+            }
+        }
     }
 }
