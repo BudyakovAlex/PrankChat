@@ -9,17 +9,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
     public class CreateOrderViewModel : BaseViewModel
     {
-        private IDialogService _dialogService;
+        private readonly IDialogService _dialogService;
         private DateTime? _completedDateValue;
         private string _name;
         private string _description;
         private string _price;
         private bool _isExecutorHidden;
+        private string _currencySign;
 
         public CreateOrderViewModel(INavigationService navigationService,
             IDialogService dialogService) : base(navigationService)
         {
             _dialogService = dialogService;
+            _currencySign = "₽";
         }
 
         public DateTime? CompletedDateValue
@@ -40,10 +42,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             set => SetProperty(ref _description, value);
         }
 
+        public string CurrencySign
+        {
+            get => _currencySign;
+            set => _currencySign = value;
+        }
+
         public string Price
         {
             get => _price;
-            set => SetProperty(ref _price, value);
+            set
+            {
+                var price = value.EndsWith(_currencySign) ? value : value + _currencySign;
+                SetProperty(ref _price, price);
+            }
         }
 
         public bool IsExecutorHidden
