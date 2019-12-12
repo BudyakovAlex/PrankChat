@@ -393,4 +393,46 @@
   <data name="NotificationView_Title" xml:space="preserve">
     <value>Уведомления</value>
   </data>
+  <data name="OrderDetailsView_Price_Text" xml:space="preserve">
+    <value>Сумма заказа:</value>
+  </data>
+  <data name="OrderDetailsView_Time_Text" xml:space="preserve">
+    <value>Время заказа:</value>
+  </data>
+  <data name="OrderDetailsView_Take_Order_Button" xml:space="preserve">
+    <value>Взять заказ</value>
+  </data>
+  <data name="OrderDetailsView_Subscribe_Button" xml:space="preserve">
+    <value>Подписаться</value>
+  </data>
+  <data name="OrderDetailsView_Unsubscribe_Button" xml:space="preserve">
+    <value>Отписаться</value>
+  </data>
+  <data name="OrderDetailsView_Download_Text" xml:space="preserve">
+    <value>Загрузить видео:</value>
+  </data>
+  <data name="OrderDetailsView_Execute_Button" xml:space="preserve">
+    <value>Выполнить</value>
+  </data>
+  <data name="OrderDetailsView_Cancel_Button" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="OrderDetailsView_Took_The_Order_Text" xml:space="preserve">
+    <value>Взять заказ:</value>
+  </data>
+  <data name="OrderDetailsView_Yes_Button" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="OrderDetailsView_No_Button" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="OrderDetailsView_Accept_Button" xml:space="preserve">
+    <value>Принять</value>
+  </data>
+  <data name="OrderDetailsView_Argue_Button" xml:space="preserve">
+    <value>В спор</value>
+  </data>
+  <data name="OrderDetailsView_Corresponds_To_Video_Text" xml:space="preserve">
+    <value>Соответствует видео заказу?</value>
+  </data>
 </root>

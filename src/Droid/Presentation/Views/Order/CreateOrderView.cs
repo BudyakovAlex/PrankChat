@@ -11,7 +11,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 {
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(CreateOrderView))]
-    public class CreateOrderView : BaseFragment<CreateOrderViewModel>
+    public class CreateOrderView : BaseTabFragment<CreateOrderViewModel>
     {
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

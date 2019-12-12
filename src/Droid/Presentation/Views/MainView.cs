@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using System.Linq;
+using Android.App;
 using Android.Content.PM;
 using Android.Content.Res;
 using Android.Graphics;
@@ -7,6 +8,7 @@ using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
+using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Utils.Helpers;
@@ -14,6 +16,7 @@ using Localization = PrankChat.Mobile.Core.Presentation.Localization.Resources;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {
+    [MvxActivityPresentation]
     [Activity(LaunchMode = LaunchMode.SingleTop)]
     public class MainView : BaseView<MainViewModel>
     {

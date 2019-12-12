@@ -598,5 +598,89 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("NotificationView_Title", resourceCulture);
             }
         }
+        
+        public static string OrderDetailsView_Price_Text {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_Price_Text", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_Time_Text {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_Time_Text", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_Take_Order_Button {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_Take_Order_Button", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_Subscribe_Button {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_Subscribe_Button", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_Unsubscribe_Button {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_Unsubscribe_Button", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_Download_Text {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_Download_Text", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_Execute_Button {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_Execute_Button", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_Cancel_Button {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_Cancel_Button", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_Took_The_Order_Text {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_Took_The_Order_Text", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_Yes_Button {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_Yes_Button", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_No_Button {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_No_Button", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_Accept_Button {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_Accept_Button", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_Argue_Button {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_Argue_Button", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_Corresponds_To_Video_Text {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_Corresponds_To_Video_Text", resourceCulture);
+            }
+        }
     }
 }
