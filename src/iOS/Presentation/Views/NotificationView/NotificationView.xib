@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NotificationView">
             <connections>
-                <outlet property="backButton" destination="zeU-6S-cDa" id="RCt-9Z-U5m"/>
+                <outlet property="tableView" destination="5cn-bf-5Kw" id="k7L-yp-5lE"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
             </connections>
         </placeholder>
@@ -18,22 +18,17 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notification view" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bCA-AX-lcZ">
-                    <rect key="frame" x="123.5" y="323" width="128" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zeU-6S-cDa">
-                    <rect key="frame" x="170" y="230" width="34" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="back"/>
-                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5cn-bf-5Kw">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="bCA-AX-lcZ" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="Pfh-uh-ccm"/>
-                <constraint firstItem="bCA-AX-lcZ" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" id="qPm-6i-Qkr"/>
+                <constraint firstAttribute="bottom" secondItem="5cn-bf-5Kw" secondAttribute="bottom" id="Ngf-rF-4tC"/>
+                <constraint firstItem="5cn-bf-5Kw" firstAttribute="top" secondItem="2" secondAttribute="top" id="UfM-3y-7S8"/>
+                <constraint firstAttribute="trailing" secondItem="5cn-bf-5Kw" secondAttribute="trailing" id="Z8a-yM-sbg"/>
+                <constraint firstItem="5cn-bf-5Kw" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="azg-1T-a65"/>
             </constraints>
             <point key="canvasLocation" x="25" y="52"/>
         </view>

@@ -21,10 +21,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public string PriceText { get; }
 
-        public List<ITransformation> Transformations => new List<ITransformation> { new CircleTransformation() };
-
-        public double DownsampleWidth { get; } = 100;
-
         public MvxAsyncCommand OpenDetailsOrderCommand => new MvxAsyncCommand(OnOpenDetailsOrderAsync);
 
         public OrderItemViewModel(INavigationService navigatiobService,

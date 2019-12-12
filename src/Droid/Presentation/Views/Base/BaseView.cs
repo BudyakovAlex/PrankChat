@@ -1,8 +1,8 @@
 ﻿using Acr.UserDialogs;
 using Android.Content.PM;
 using Android.OS;
-using Android.Support.V7.Widget;
 using Android.Views;
+using Android.Widget;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 
@@ -14,7 +14,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 
         protected virtual bool HasActionBarVisible => true;
 
-		protected abstract void Subscription();
+        protected virtual string TitleActionBar => string.Empty;
+
+        protected abstract void Subscription();
 		protected abstract void Unsubscription();
 
 		protected virtual void OnCreate(Bundle savedInstanceState, int layoutId)
@@ -24,7 +26,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             RequestedOrientation = ScreenOrientation.Portrait;
 
             SetContentView(layoutId);
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             if (toolbar == null)
             {
                 return;
@@ -46,6 +48,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             {
                 SupportActionBar.Hide();
             }
+
+            var title = FindViewById<TextView>(Resource.Id.toolbar_title);
+            if (title != null)
+                title.Text = TitleActionBar;
 
             InitServices();
         }

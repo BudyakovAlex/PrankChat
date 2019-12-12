@@ -1,10 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-  <TextView
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Notifications view" />
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        local:MvxItemTemplate="@layout/cell_notification"
+        local:MvxBind="ItemsSource Items"/>
 </LinearLayout>

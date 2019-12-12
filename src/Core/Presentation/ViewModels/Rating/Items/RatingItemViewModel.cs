@@ -25,10 +25,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 
         public string Dislikes { get; }
 
-        public List<ITransformation> Transformations => new List<ITransformation> { new CircleTransformation() };
-
-        public double DownsampleWidth { get; } = 100;
-
         public MvxAsyncCommand OpenDetailsOrderCommand => new MvxAsyncCommand(OnOpenDetailsOrderAsync);
 
         public RatingItemViewModel(INavigationService navigatiobService,
