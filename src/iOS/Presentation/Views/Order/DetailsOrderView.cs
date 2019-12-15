@@ -1,4 +1,5 @@
 ﻿using System;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
@@ -13,6 +14,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         protected override void SetupControls()
         {
+            Title = Resources.OrderDetailsView_Took_Title;
         }
     }
 }

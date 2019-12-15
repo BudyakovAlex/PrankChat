@@ -107,5 +107,7 @@
     <string name="OrderDetailsView_Argue_Button">"В спор"</string>
     <string name="OrderDetailsView_Corresponds_To_Video_Text">"Соответствует видео заказу?"</string>
     <string name="CreateOrderView_PriceTitle_Placeholder">"Цена"</string>
-    <string name="OrderDetailsView_Took_Title">"Задание"</string>
+
+    <!-- Fuzzy -->
+    <string name="OrderDetailsView_Title">"Задание"</string>
 </resources>

@@ -438,7 +438,8 @@
   <data name="CreateOrderView_PriceTitle_Placeholder" xml:space="preserve">
     <value>Цена</value>
   </data>
-  <data name="OrderDetailsView_Took_Title" xml:space="preserve">
+  <data name="OrderDetailsView_Title" xml:space="preserve">
     <value>Задание</value>
+    <comment>Fuzzy</comment>
   </data>
 </root>

@@ -3,7 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,19 +17,28 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create order view" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1H-ET-S6O">
-                    <rect key="frame" x="119.5" y="323" width="136" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oK8-S5-eoC">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dkd-TQ-7bE">
+                            <rect key="frame" x="67" y="269" width="240" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
+                    </subviews>
+                    <edgeInsets key="layoutMargins" top="16" left="32" bottom="8" right="32"/>
+                    <viewLayoutGuide key="contentLayoutGuide" id="MtS-LM-FhA"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="RhK-vb-KBD"/>
+                </scrollView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="n1H-ET-S6O" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" id="Nvu-Ri-2lx"/>
-                <constraint firstItem="n1H-ET-S6O" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="j3B-29-Q3K"/>
+                <constraint firstAttribute="trailing" secondItem="oK8-S5-eoC" secondAttribute="trailing" id="0X3-5Y-WVz"/>
+                <constraint firstAttribute="bottom" secondItem="oK8-S5-eoC" secondAttribute="bottom" id="KPk-8O-mQp"/>
+                <constraint firstItem="oK8-S5-eoC" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="bYH-VO-3BJ"/>
+                <constraint firstItem="oK8-S5-eoC" firstAttribute="top" secondItem="2" secondAttribute="top" id="okG-O1-UuX"/>
             </constraints>
-            <point key="canvasLocation" x="25" y="52"/>
+            <point key="canvasLocation" x="24.800000000000001" y="51.724137931034484"/>
         </view>
     </objects>
 </document>

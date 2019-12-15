@@ -17,7 +17,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
     {
         protected override bool HasBackButton => true;
 
-        protected override string TitleActionBar => Core.Presentation.Localization.Resources.OrderDetailsView_Took_Title;
+        protected override string TitleActionBar => Core.Presentation.Localization.Resources.OrderDetailsView_Title;
 
         protected override void OnCreate(Bundle bundle)
         {

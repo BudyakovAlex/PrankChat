@@ -589,9 +589,6 @@
     <Folder Include="Utils\Extensions\" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\color\text_input_box_stroke.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_background.xml" />
   </ItemGroup>
   <ItemGroup>
