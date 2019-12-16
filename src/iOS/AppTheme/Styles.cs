@@ -337,9 +337,19 @@ namespace PrankChat.Mobile.iOS.AppTheme
             button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
         }
 
-        public static void SetBorderlessStyle(this UIButton button, string title)
+        public static void SetBorderlessStyle(this UIButton button, string title, UIColor borderColor = null)
         {
-            button.Layer.BorderColor = UIColor.Clear.CGColor;
+            if (borderColor != null)
+            {
+                button.Layer.BorderColor = borderColor.CGColor;
+                button.Layer.BorderWidth = 1;
+                button.Layer.CornerRadius = 4;
+            }
+            else
+            {
+                button.Layer.BorderColor = UIColor.Clear.CGColor;
+            }
+
             button.BackgroundColor = UIColor.Clear;
 
             var titleAttributes = new UIStringAttributes

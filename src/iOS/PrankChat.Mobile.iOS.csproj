@@ -316,6 +316,8 @@
     <ImageAsset Include="Assets.xcassets\ic_thumbs_up.imageset\Vector %281%29.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Vector %282%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_download.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_download.imageset\ic_download.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -366,6 +368,7 @@
     <Folder Include="Assets.xcassets\background_order.imageset\" />
     <Folder Include="Assets.xcassets\ic_thumbs_up.imageset\" />
     <Folder Include="Assets.xcassets\ic_thumbs_down.imageset\" />
+    <Folder Include="Assets.xcassets\ic_download.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
