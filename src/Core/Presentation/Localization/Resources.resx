@@ -393,4 +393,80 @@
   <data name="NotificationView_Title" xml:space="preserve">
     <value>Уведомления</value>
   </data>
+  <data name="OrderDetailsView_Price_Text" xml:space="preserve">
+    <value>Сумма заказа:</value>
+  </data>
+  <data name="OrderDetailsView_Time_Text" xml:space="preserve">
+    <value>Время заказа:</value>
+  </data>
+  <data name="OrderDetailsView_Take_Order_Button" xml:space="preserve">
+    <value>Взять заказ</value>
+  </data>
+  <data name="OrderDetailsView_Subscribe_Button" xml:space="preserve">
+    <value>Подписаться</value>
+  </data>
+  <data name="OrderDetailsView_Unsubscribe_Button" xml:space="preserve">
+    <value>Отписаться</value>
+  </data>
+  <data name="OrderDetailsView_Download_Text" xml:space="preserve">
+    <value>Загрузить видео:</value>
+  </data>
+  <data name="OrderDetailsView_Execute_Button" xml:space="preserve">
+    <value>Выполнить</value>
+  </data>
+  <data name="OrderDetailsView_Cancel_Button" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="OrderDetailsView_Took_The_Order_Text" xml:space="preserve">
+    <value>Взять заказ:</value>
+  </data>
+  <data name="OrderDetailsView_Yes_Button" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="OrderDetailsView_No_Button" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="OrderDetailsView_Accept_Button" xml:space="preserve">
+    <value>Принять</value>
+  </data>
+  <data name="OrderDetailsView_Argue_Button" xml:space="preserve">
+    <value>В спор</value>
+  </data>
+  <data name="OrderDetailsView_Corresponds_To_Video_Text" xml:space="preserve">
+    <value>Соответствует видео заказу?</value>
+  </data>
+  <data name="CreateOrderView_PriceTitle_Placeholder" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="OrderDetailsView_Title" xml:space="preserve">
+    <value>Задание</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="CashboxView_Title" xml:space="preserve">
+    <value>Касса</value>
+  </data>
+  <data name="CashboxView_Fillup_Tab" xml:space="preserve">
+    <value>Пополнение</value>
+  </data>
+  <data name="CashboxView_Withdrawal_Tab" xml:space="preserve">
+    <value>Снятие</value>
+  </data>
+  <data name="CashboxView_Fillup_Button" xml:space="preserve">
+    <value>Пополнить</value>
+  </data>
+  <data name="CashboxView_FillupMethodSelect_Title" xml:space="preserve">
+    <value>Выберите метод для пополнения:</value>
+  </data>
+  <data name="CashboxView_WithdrawalAvailable_Title" xml:space="preserve">
+    <value>Доступно для снятия:</value>
+  </data>
+  <data name="CashboxView_Withdrawal_Button" xml:space="preserve">
+    <value>Снять</value>
+  </data>
+  <data name="CashboxView_WithdrawalMethodSelect_Title" xml:space="preserve">
+    <value>Выберите метод для снятия:</value>
+  </data>
+  <data name="CashboxView_Price_Placeholder" xml:space="preserve">
+    <value>1 000 000 ₽</value>
+  </data>
 </root>

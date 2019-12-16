@@ -10,7 +10,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
-    public partial class PublicationItemCell : BaseCell<PublicationItemCell, PublicationItemViewModel>
+    public partial class PublicationItemCell : BaseTableCell<PublicationItemCell, PublicationItemViewModel>
     {
         static PublicationItemCell()
         {

@@ -7,6 +7,8 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
+using System;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
@@ -22,7 +24,13 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         public Task AppStart()
         {
             //return ShowLoginView();
-            return ShowMainView();
+            //return ShowMainView();
+            return ShowCashboxView();
+        }
+
+        public Task ShowCashboxView()
+        {
+            return _mvxNavigationService.Navigate<CashboxViewModel>();
         }
 
         public Task ShowLoginView()

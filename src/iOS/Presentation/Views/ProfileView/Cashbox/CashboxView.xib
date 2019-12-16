@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CashboxView">
+            <connections>
+                <outlet property="scrollView" destination="dE3-5N-ZF3" id="vgL-1m-DN1"/>
+                <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="52g-zo-sdE" customClass="CustomSegmentedControl">
+                    <rect key="frame" x="0.0" y="8" width="375" height="32"/>
+                    <segments>
+                        <segment title="First"/>
+                        <segment title="Second"/>
+                    </segments>
+                </segmentedControl>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dE3-5N-ZF3">
+                    <rect key="frame" x="0.0" y="39" width="375" height="628"/>
+                    <edgeInsets key="layoutMargins" top="24" left="16" bottom="26" right="16"/>
+                    <viewLayoutGuide key="contentLayoutGuide" id="vWF-h6-002"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="aqW-gT-2g1"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="dE3-5N-ZF3" secondAttribute="bottom" id="1OV-69-eaQ"/>
+                <constraint firstItem="dE3-5N-ZF3" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="Im9-yv-cWj"/>
+                <constraint firstAttribute="trailing" secondItem="dE3-5N-ZF3" secondAttribute="trailing" id="Qmi-nc-cqd"/>
+                <constraint firstItem="dE3-5N-ZF3" firstAttribute="top" secondItem="52g-zo-sdE" secondAttribute="bottom" id="Qv8-fc-h83"/>
+                <constraint firstAttribute="trailing" secondItem="52g-zo-sdE" secondAttribute="trailing" id="SkC-Cy-zNe"/>
+                <constraint firstItem="52g-zo-sdE" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="pnO-ei-s93"/>
+                <constraint firstItem="52g-zo-sdE" firstAttribute="top" secondItem="2" secondAttribute="top" constant="8" id="qr0-I2-d2d"/>
+            </constraints>
+            <point key="canvasLocation" x="24.800000000000001" y="51.724137931034484"/>
+        </view>
+    </objects>
+</document>

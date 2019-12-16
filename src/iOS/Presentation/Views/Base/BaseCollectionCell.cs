@@ -1,4 +1,5 @@
 ﻿using System;
+using CoreGraphics;
 using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views;
@@ -6,16 +7,16 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 {
-    public abstract class BaseCell<TCell, TViewModel> : MvxTableViewCell
+    public class BaseCollectionCell<TCell, TViewModel> : MvxCollectionViewCell
     {
-        private const int DefaultCellHeight = 40;
+        private static readonly CGSize DefaultSize = new CGSize(50, 50);
 
-        protected BaseCell(IntPtr handle) : base(handle)
+        protected BaseCollectionCell(IntPtr handle) : base(handle)
         {
             this.DelayBind(SetupCell);
         }
 
-        static BaseCell()
+        static BaseCollectionCell()
         {
             CellId = typeof(TCell).Name;
             Nib = UINib.FromName(CellId, NSBundle.MainBundle);
@@ -25,7 +26,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         public static UINib Nib { get; }
 
-        public static int EstimatedHeight { get; protected set; } = DefaultCellHeight;
+        public static CGSize EstimatedSize { get; protected set; } = DefaultSize;
 
         public TViewModel ViewModel { get; private set; }
 
@@ -39,7 +40,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
         protected virtual void SetupControls()
         {
             BackgroundColor = UIColor.Clear;
-            SelectionStyle = UITableViewCellSelectionStyle.Gray;
             ContentView.BackgroundColor = UIColor.Clear;
         }
 
