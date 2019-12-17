@@ -49,6 +49,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIView executorView { get; set; }
 
 		[Outlet]
+		UIKit.UIView innerView { get; set; }
+
+		[Outlet]
 		UIKit.UIButton noButton { get; set; }
 
 		[Outlet]
@@ -98,6 +101,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (innerView != null) {
+				innerView.Dispose ();
+				innerView = null;
+			}
+
 			if (acceptButton != null) {
 				acceptButton.Dispose ();
 				acceptButton = null;

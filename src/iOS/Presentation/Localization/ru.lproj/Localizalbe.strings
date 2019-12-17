@@ -105,6 +105,13 @@
 "OrderDetailsView_Argue_Button" = "В спор";
 "OrderDetailsView_Corresponds_To_Video_Text" = "Соответствует видео заказу?";
 "CreateOrderView_PriceTitle_Placeholder" = "Цена";
-
-/*Fuzzy*/
 "OrderDetailsView_Title" = "Задание";
+"CashboxView_Title" = "Касса";
+"CashboxView_Fillup_Tab" = "Пополнение";
+"CashboxView_Withdrawal_Tab" = "Снятие";
+"CashboxView_Fillup_Button" = "Пополнить";
+"CashboxView_FillupMethodSelect_Title" = "Выберите метод для пополнения:";
+"CashboxView_WithdrawalAvailable_Title" = "Доступно для снятия:";
+"CashboxView_Withdrawal_Button" = "Снять";
+"CashboxView_WithdrawalMethodSelect_Title" = "Выберите метод для снятия:";
+"CashboxView_Price_Placeholder" = "1 000 000 ₽";

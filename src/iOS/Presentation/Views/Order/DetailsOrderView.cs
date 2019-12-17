@@ -124,7 +124,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         protected override void SetupControls()
         {
-            Title = Resources.OrderDetailsView_Took_Title;
+            Title = Resources.OrderDetailsView_Title;
 
             takeOrderButton.SetDarkStyle(Resources.OrderDetailsView_Take_Order_Button);
             subscriptionButton.SetDarkStyle(Resources.OrderDetailsView_Subscribe_Button);

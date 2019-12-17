@@ -689,9 +689,63 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
             }
         }
         
-        public static string OrderDetailsView_Took_Title {
+        public static string OrderDetailsView_Title {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Took_Title", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsView_Title", resourceCulture);
+            }
+        }
+        
+        public static string CashboxView_Title {
+            get {
+                return ResourceManager.GetString("CashboxView_Title", resourceCulture);
+            }
+        }
+        
+        public static string CashboxView_Fillup_Tab {
+            get {
+                return ResourceManager.GetString("CashboxView_Fillup_Tab", resourceCulture);
+            }
+        }
+        
+        public static string CashboxView_Withdrawal_Tab {
+            get {
+                return ResourceManager.GetString("CashboxView_Withdrawal_Tab", resourceCulture);
+            }
+        }
+        
+        public static string CashboxView_Fillup_Button {
+            get {
+                return ResourceManager.GetString("CashboxView_Fillup_Button", resourceCulture);
+            }
+        }
+        
+        public static string CashboxView_FillupMethodSelect_Title {
+            get {
+                return ResourceManager.GetString("CashboxView_FillupMethodSelect_Title", resourceCulture);
+            }
+        }
+        
+        public static string CashboxView_WithdrawalAvailable_Title {
+            get {
+                return ResourceManager.GetString("CashboxView_WithdrawalAvailable_Title", resourceCulture);
+            }
+        }
+        
+        public static string CashboxView_Withdrawal_Button {
+            get {
+                return ResourceManager.GetString("CashboxView_Withdrawal_Button", resourceCulture);
+            }
+        }
+        
+        public static string CashboxView_WithdrawalMethodSelect_Title {
+            get {
+                return ResourceManager.GetString("CashboxView_WithdrawalMethodSelect_Title", resourceCulture);
+            }
+        }
+        
+        public static string CashboxView_Price_Placeholder {
+            get {
+                return ResourceManager.GetString("CashboxView_Price_Placeholder", resourceCulture);
             }
         }
     }

@@ -440,6 +440,32 @@
   </data>
   <data name="OrderDetailsView_Title" xml:space="preserve">
     <value>Задание</value>
-    <comment>Fuzzy</comment>
+  </data>
+  <data name="CashboxView_Title" xml:space="preserve">
+    <value>Касса</value>
+  </data>
+  <data name="CashboxView_Fillup_Tab" xml:space="preserve">
+    <value>Пополнение</value>
+  </data>
+  <data name="CashboxView_Withdrawal_Tab" xml:space="preserve">
+    <value>Снятие</value>
+  </data>
+  <data name="CashboxView_Fillup_Button" xml:space="preserve">
+    <value>Пополнить</value>
+  </data>
+  <data name="CashboxView_FillupMethodSelect_Title" xml:space="preserve">
+    <value>Выберите метод для пополнения:</value>
+  </data>
+  <data name="CashboxView_WithdrawalAvailable_Title" xml:space="preserve">
+    <value>Доступно для снятия:</value>
+  </data>
+  <data name="CashboxView_Withdrawal_Button" xml:space="preserve">
+    <value>Снять</value>
+  </data>
+  <data name="CashboxView_WithdrawalMethodSelect_Title" xml:space="preserve">
+    <value>Выберите метод для снятия:</value>
+  </data>
+  <data name="CashboxView_Price_Placeholder" xml:space="preserve">
+    <value>1 000 000 ₽</value>
   </data>
 </root>
