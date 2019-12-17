@@ -10,7 +10,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class RegistrationSecondStepViewModel : BaseViewModel
     {
-        private IDialogService _dialogService;
+        private readonly IDialogService _dialogService;
 
         public RegistrationSecondStepViewModel(INavigationService navigationService, IDialogService dialogService) : base(navigationService)
         {
@@ -74,7 +74,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             set => SetProperty(ref _gender, value);
         }
 
-        public MvxAsyncCommand SelectBirthdayCommand => new MvxAsyncCommand(OnSelectBirthday);
+        public MvxAsyncCommand SelectBirthdayCommand => new MvxAsyncCommand(OnSelectBirthdayAsync);
 
         public MvxCommand<string> SelectGenderCommand => new MvxCommand<string>(OnSelectGender);
 
@@ -86,7 +86,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             }
         }
 
-        private async Task OnSelectBirthday()
+        private async Task OnSelectBirthdayAsync()
         {
             var result = await _dialogService.ShowDateDialogAsync();
             if (result.HasValue)

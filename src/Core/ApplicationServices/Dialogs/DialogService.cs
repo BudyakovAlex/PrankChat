@@ -12,7 +12,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
     {
         public async Task<DateTime?> ShowDateDialogAsync()
         {
-            var result = await UserDialogs.Instance.DatePromptAsync();
+            var result = await UserDialogs.Instance.DatePromptAsync(selectedDate: DateTime.Now);
             if (result.Ok) {
                 return result.SelectedDate;
             }

@@ -6,8 +6,8 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Controls
 {
-    [Register("CustomTextView"), DesignTimeVisible(true)]
-    public class CustomTextView : UITextView
+    [Register("PlaceholderTextView"), DesignTimeVisible(true)]
+    public class PlaceholderTextView : UITextView
     {
         private UIColor _textColor;
         public string Placeholder { get; set; }
@@ -22,36 +22,36 @@ namespace PrankChat.Mobile.iOS.Controls
 
         #region Constructors
 
-        public CustomTextView()
+        public PlaceholderTextView()
         {
         }
 
-        public CustomTextView(NSCoder coder) : base(coder)
+        public PlaceholderTextView(NSCoder coder) : base(coder)
         {
         }
 
-        public CustomTextView(CGRect frame) : base(frame)
+        public PlaceholderTextView(CGRect frame) : base(frame)
         {
         }
 
-        protected CustomTextView(NSObjectFlag t) : base(t)
+        protected PlaceholderTextView(NSObjectFlag t) : base(t)
         {
         }
 
-        protected internal CustomTextView(IntPtr handle) : base(handle)
+        protected internal PlaceholderTextView(IntPtr handle) : base(handle)
         {
-            Started += CustomTextView_Started;
-            Ended += CustomTextView_Ended;
+            Started += CustomTextViewStarted;
+            Ended += CustomTextViewEnded;
         }
 
         #endregion
 
-        private void CustomTextView_Started(object sender, EventArgs e)
+        private void CustomTextViewStarted(object sender, EventArgs e)
         {
             TryRemovePlaceholder();
         }
 
-        private void CustomTextView_Ended(object sender, EventArgs e)
+        private void CustomTextViewEnded(object sender, EventArgs e)
         {
             UpdatePlaceholder();
         }

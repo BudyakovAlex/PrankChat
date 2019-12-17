@@ -17,6 +17,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
     public class CreateOrderView : BaseFragment<CreateOrderViewModel>
     {
         private TextInputEditText _priceEditText;
+
         public CreateOrderView()
         {
             HasOptionsMenu = true;

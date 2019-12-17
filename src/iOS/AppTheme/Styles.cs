@@ -175,7 +175,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             textField.SetStyle(placeholderAttributes, placeholder, rightImage, leftPadding, rightPadding);
         }
 
-        public static void SetStyle(this CustomTextView textView, string placeholder = null)
+        public static void SetStyle(this PlaceholderTextView textView, string placeholder = null)
         {
             textView.TextColor = Theme.Color.Text;
             textView.BackgroundColor = UIColor.Clear;

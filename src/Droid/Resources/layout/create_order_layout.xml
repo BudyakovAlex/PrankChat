@@ -59,32 +59,21 @@
             android:textColor="@color/applicationBlack"
             app:MvxBind="Text Price" />
     </android.support.design.widget.TextInputLayout>
-    <RelativeLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:layout_marginTop="16dp"
+        android:layout_marginLeft="11dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
         android:background="@drawable/border_grey"
-        app:MvxBind="Click ShowDateDialogCommand">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="11dp"
-            android:gravity="center_vertical"
-            android:textSize="14sp"
-            android:textColorHint="@color/dark_placeholder"
-            android:hint="@string/CreateOrderView_CompleteDate_Placeholder"
-            android:textColor="@color/applicationBlack"
-            app:MvxBind="Text CompletedDateValue" />
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="14dp"
-            android:src="@drawable/ic_calendar_accent" />
-    </RelativeLayout>
+        android:drawableRight="@drawable/ic_calendar_accent"
+        android:textSize="14sp"
+        android:textColorHint="@color/dark_placeholder"
+        android:hint="@string/CreateOrderView_CompleteDate_Placeholder"
+        android:textColor="@color/applicationBlack"
+        app:MvxBind="Text CompletedDateValue; Click ShowDateDialogCommand;" />
     <CheckBox
         android:layout_height="18dp"
         android:layout_width="match_parent"

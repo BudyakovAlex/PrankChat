@@ -19,7 +19,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIButton createButton { get; set; }
 
 		[Outlet]
-		PrankChat.Mobile.iOS.Controls.CustomTextView descriptionTextView { get; set; }
+		PrankChat.Mobile.iOS.Controls.PlaceholderTextView descriptionTextView { get; set; }
 
 		[Outlet]
 		UIKit.UIImageView hideExecuterCheckboxImageView { get; set; }
