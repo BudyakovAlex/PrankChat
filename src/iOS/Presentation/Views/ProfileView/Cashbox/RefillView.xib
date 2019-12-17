@@ -51,9 +51,12 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="eBO-cQ-EbD">
-                    <rect key="frame" x="16" y="142" width="343" height="455"/>
+                    <rect key="frame" x="44" y="142" width="287" height="455"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="X6K-hw-JEW">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="287" id="mrn-KS-yyN"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="7" minimumInteritemSpacing="7" id="X6K-hw-JEW">
                         <size key="itemSize" width="90" height="60"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -99,11 +102,12 @@
                 <constraint firstItem="PVX-Qr-nIl" firstAttribute="leading" secondItem="2" secondAttribute="leadingMargin" id="8rt-VG-PFj"/>
                 <constraint firstAttribute="bottomMargin" secondItem="PVX-Qr-nIl" secondAttribute="bottom" id="H0h-my-vMl"/>
                 <constraint firstAttribute="trailingMargin" secondItem="PVX-Qr-nIl" secondAttribute="trailing" id="HLI-3P-k0F"/>
+                <constraint firstItem="eBO-cQ-EbD" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="KqB-Sk-wsQ"/>
                 <constraint firstItem="wt4-pd-ho3" firstAttribute="leading" secondItem="acu-XJ-Y7P" secondAttribute="trailing" constant="16" id="SQb-Jo-opy"/>
                 <constraint firstItem="NKZ-24-tGe" firstAttribute="leading" secondItem="2" secondAttribute="leadingMargin" id="eyD-D1-W27"/>
                 <constraint firstItem="acu-XJ-Y7P" firstAttribute="top" secondItem="2" secondAttribute="topMargin" id="gSd-8e-mRq"/>
-                <constraint firstItem="eBO-cQ-EbD" firstAttribute="leading" secondItem="2" secondAttribute="leadingMargin" id="nUi-Pg-pDw"/>
-                <constraint firstAttribute="trailingMargin" secondItem="eBO-cQ-EbD" secondAttribute="trailing" id="rTM-cQ-2m2"/>
+                <constraint firstItem="eBO-cQ-EbD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2" secondAttribute="leadingMargin" id="nUi-Pg-pDw"/>
+                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="eBO-cQ-EbD" secondAttribute="trailing" id="rTM-cQ-2m2"/>
                 <constraint firstItem="eBO-cQ-EbD" firstAttribute="top" secondItem="NKZ-24-tGe" secondAttribute="bottom" constant="16" id="uGW-ly-oGO"/>
                 <constraint firstItem="NKZ-24-tGe" firstAttribute="top" secondItem="acu-XJ-Y7P" secondAttribute="bottom" constant="26" id="uZC-LC-igP"/>
             </constraints>

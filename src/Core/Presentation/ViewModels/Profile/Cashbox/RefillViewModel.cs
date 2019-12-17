@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using System.Linq;
+using System.Diagnostics;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
@@ -31,6 +33,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         private Task OnSelectionChangedCommand(PaymentMethodItemViewModel item)
         {
             SelectedItem = item;
+
+            var items = Items.Where(c => c.IsSelected).ToList();
+            items.ForEach(c => c.IsSelected = false);
+            item.IsSelected = true;
+
+            if (item.Type == PaymentType.Alphabank)
+            {
+                Debug.WriteLine("IS SELECTED: " + item.IsSelected);
+            }
 
             return Task.CompletedTask;
         }

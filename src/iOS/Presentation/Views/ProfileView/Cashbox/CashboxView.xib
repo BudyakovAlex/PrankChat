@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CashboxView">
             <connections>
                 <outlet property="scrollView" destination="dE3-5N-ZF3" id="vgL-1m-DN1"/>
+                <outlet property="segmentedControl" destination="52g-zo-sdE" id="SnU-wQ-5wQ"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
             </connections>
         </placeholder>
@@ -24,6 +25,9 @@
                         <segment title="First"/>
                         <segment title="Second"/>
                     </segments>
+                    <connections>
+                        <action selector="segmentedControl:" destination="-1" eventType="valueChanged" id="nZ6-3a-cZU"/>
+                    </connections>
                 </segmentedControl>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dE3-5N-ZF3">
                     <rect key="frame" x="0.0" y="39" width="375" height="628"/>

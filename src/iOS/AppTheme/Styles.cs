@@ -15,7 +15,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             navigationBar.Translucent = false;
         }
 
-        public static void SetPublicationSegmentedControlStyle(this UISegmentedControl segmentedControl, params string[] segmentNames)
+        public static void SetStyle(this UISegmentedControl segmentedControl, params string[] segmentNames)
         {
             segmentedControl.RemoveAllSegments();
 

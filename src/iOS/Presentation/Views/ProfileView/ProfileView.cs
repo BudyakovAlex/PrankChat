@@ -80,7 +80,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             subscriptionsValueLabel.SetBoldTitleStyle();
             subscriptionsTitleLabel.SetSmallSubtitleStyle(Resources.ProfileView_Subscriptions_Subtitle);
 
-            segmentedControl.SetPublicationSegmentedControlStyle(new string[] {
+            segmentedControl.SetStyle(new string[] {
                 Resources.ProfileView_MyOrders_Tab,
                 Resources.ProfileView_CompletedOrders_Tab
             });

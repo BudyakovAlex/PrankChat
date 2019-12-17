@@ -14,12 +14,20 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 	{
 		[Outlet]
 		UIKit.UIScrollView scrollView { get; set; }
+
+		[Outlet]
+		PrankChat.Mobile.iOS.Controls.CustomSegmentedControl segmentedControl { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
 			if (scrollView != null) {
 				scrollView.Dispose ();
 				scrollView = null;
+			}
+
+			if (segmentedControl != null) {
+				segmentedControl.Dispose ();
+				segmentedControl = null;
 			}
 		}
 	}
