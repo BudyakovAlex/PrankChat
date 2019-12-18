@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Views;
@@ -12,14 +13,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 {
     public partial class CashboxView : BaseGradientBarView<CashboxViewModel>
     {
-        private int _page;
-
-        public int Page
-        {
-            get => _page;
-            set => scrollView.SetContentOffset(new PointF((float)(value * scrollView.Bounds.Width), 0), true);
-        }
-
         public override void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
@@ -39,22 +32,26 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         protected override void SetupControls()
         {
-            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+            ViewModel.PropertyChanged += ViewModelPropertyChanged;
             Title = Resources.CreateOrderView_Title;
             segmentedControl.SetStyle(new[] { Resources.CashboxView_Fillup_Tab, Resources.CashboxView_Withdrawal_Tab });
         }
 
         private void HandleScrollViewDecelerationEnded(object sender, EventArgs e)
         {
-            var pageScrolledTo = (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
-            ViewModel.SelectedPage = pageScrolledTo;
+            var isPageStable = (scrollView.ContentOffset.X % scrollView.Frame.Width) == 0;
+            if (isPageStable)
+            {
+                var calculatedPageIndex = (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
+                ViewModel.SelectedPage = calculatedPageIndex;
+            }
         }
 
-        private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ViewModel.SelectedPage))
             {
-                Page = ViewModel.SelectedPage;
+                scrollView.SetContentOffset(new PointF((float)(ViewModel.SelectedPage * scrollView.Bounds.Width), 0), true);
             }
         }
 
