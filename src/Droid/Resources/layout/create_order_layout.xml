@@ -1,10 +1,99 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-  <TextView
+﻿<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Create order view" />
+    android:layout_height="match_parent"
+    android:paddingTop="32dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/create_order_text_input_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxStrokeWidth="1dp"
+        android:textColorHint="@color/dark_placeholder"
+        android:hint="@string/CreateOrderView_Name_Placeholder"
+        style="@style/Theme.PrankChat.TextFieldLayout.Dark">
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:textColor="@color/applicationBlack"
+            app:MvxBind="Text Name" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:boxStrokeWidth="1dp"
+        android:textColorHint="@color/dark_placeholder"
+        android:hint="@string/CreateOrderView_Description_Placeholder"
+        style="@style/Theme.PrankChat.TextFieldLayout.Dark">
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:minLines="3"
+            android:gravity="top|left"
+            android:textColor="@color/applicationBlack"
+            app:MvxBind="Text Description" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:boxStrokeWidth="1dp"
+        android:textColorHint="@color/dark_placeholder"
+        android:gravity="right|center_vertical"
+        android:hint="@string/CreateOrderView_PriceTitle_Placeholder"
+        style="@style/Theme.PrankChat.TextFieldLayout.Dark">
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/create_order_price_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textAlignment="viewEnd"
+            android:maxLines="1"
+            android:textColor="@color/applicationBlack"
+            app:MvxBind="Text Price" />
+    </android.support.design.widget.TextInputLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/border_grey"
+        android:drawableRight="@drawable/ic_calendar_accent"
+        android:textSize="14sp"
+        android:textColorHint="@color/dark_placeholder"
+        android:hint="@string/CreateOrderView_CompleteDate_Placeholder"
+        android:textColor="@color/applicationBlack"
+        app:MvxBind="Text CompletedDateValue; Click ShowDateDialogCommand;" />
+    <CheckBox
+        android:layout_height="18dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="26dp"
+        android:layout_marginLeft="-5dp"
+        android:gravity="left|center_vertical"
+        android:buttonTint="@color/accent"
+        android:text="@string/CreateOrderView_HideExecutor_Button"
+        android:textSize="14sp"
+        android:textColor="@color/applicationBlack"
+        app:MvxBind="Checked IsExecutorHidden"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginTop="32dp"
+        android:layout_gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="@string/CreateOrderView_Create_Button"
+        style="@style/Theme.PrankChat.Button.Accent"
+        app:MvxBind="Click CreateCommand"/>
 </LinearLayout>
