@@ -184,7 +184,7 @@
     <Compile Include="Presentation\Views\Order\DetailsOrderView.designer.cs">
       <DependentUpon>DetailsOrderView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CustomTextView.cs" />
+    <Compile Include="Controls\PlaceholderTextView.cs" />
     <Compile Include="Presentation\Views\NotificationView\NotificationTableSource.cs" />
     <InterfaceDefinition Include="Presentation\Views\NotificationView\NotificationItemCell.xib" />
     <Compile Include="Presentation\Views\NotificationView\NotificationItemCell.cs" />
