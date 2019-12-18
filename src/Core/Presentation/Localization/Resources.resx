@@ -440,7 +440,6 @@
   </data>
   <data name="OrderDetailsView_Title" xml:space="preserve">
     <value>Задание</value>
-    <comment>Fuzzy</comment>
   </data>
   <data name="CashboxView_Title" xml:space="preserve">
     <value>Касса</value>

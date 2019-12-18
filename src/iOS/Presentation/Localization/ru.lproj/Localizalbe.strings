@@ -105,8 +105,6 @@
 "OrderDetailsView_Argue_Button" = "В спор";
 "OrderDetailsView_Corresponds_To_Video_Text" = "Соответствует видео заказу?";
 "CreateOrderView_PriceTitle_Placeholder" = "Цена";
-
-/*Fuzzy*/
 "OrderDetailsView_Title" = "Задание";
 "CashboxView_Title" = "Касса";
 "CashboxView_Fillup_Tab" = "Пополнение";

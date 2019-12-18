@@ -107,8 +107,6 @@
     <string name="OrderDetailsView_Argue_Button">"В спор"</string>
     <string name="OrderDetailsView_Corresponds_To_Video_Text">"Соответствует видео заказу?"</string>
     <string name="CreateOrderView_PriceTitle_Placeholder">"Цена"</string>
-
-    <!-- Fuzzy -->
     <string name="OrderDetailsView_Title">"Задание"</string>
     <string name="CashboxView_Title">"Касса"</string>
     <string name="CashboxView_Fillup_Tab">"Пополнение"</string>
