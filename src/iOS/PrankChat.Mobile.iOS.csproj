@@ -179,10 +179,10 @@
     <Compile Include="Presentation\Views\RatingView\RatingItemCell.designer.cs">
       <DependentUpon>RatingItemCell.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Order\DetailsOrderView.xib" />
-    <Compile Include="Presentation\Views\Order\DetailsOrderView.cs" />
-    <Compile Include="Presentation\Views\Order\DetailsOrderView.designer.cs">
-      <DependentUpon>DetailsOrderView.cs</DependentUpon>
+    <InterfaceDefinition Include="Presentation\Views\Order\OrderDetailsView.xib" />
+    <Compile Include="Presentation\Views\Order\OrderDetailsView.cs" />
+    <Compile Include="Presentation\Views\Order\OrderDetailsView.designer.cs">
+      <DependentUpon>OrderDetailsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\PlaceholderTextView.cs" />
     <Compile Include="Presentation\Views\NotificationView\NotificationTableSource.cs" />
@@ -317,6 +317,8 @@
     <ImageAsset Include="Assets.xcassets\ic_thumbs_up.imageset\Vector %281%29.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Vector %282%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_download.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_download.imageset\ic_download.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_calendar_accent.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_checkbox_checked.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_checkbox_unchecked.imageset\Contents.json" />
@@ -373,6 +375,7 @@
     <Folder Include="Assets.xcassets\background_order.imageset\" />
     <Folder Include="Assets.xcassets\ic_thumbs_up.imageset\" />
     <Folder Include="Assets.xcassets\ic_thumbs_down.imageset\" />
+    <Folder Include="Assets.xcassets\ic_download.imageset\" />
     <Folder Include="Assets.xcassets\ic_calendar_accent.imageset\" />
     <Folder Include="Assets.xcassets\ic_checkbox_checked.imageset\" />
     <Folder Include="Assets.xcassets\ic_checkbox_unchecked.imageset\" />

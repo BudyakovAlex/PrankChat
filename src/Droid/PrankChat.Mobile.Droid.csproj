@@ -88,6 +88,7 @@
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Presentation\Views\PasswordRecovery\PasswordRecoveryView.cs" />
     <Compile Include="Presentation\Views\PasswordRecovery\FinishPasswordRecoveryView.cs" />
+    <Compile Include="Presentation\Views\Order\DetailsOrderView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -240,6 +241,18 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_order_details_view.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\border_accent.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_download.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -289,6 +302,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Constraint.Layout">
       <Version>1.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Percent">
+      <Version>28.0.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -571,9 +587,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\color\text_input_box_stroke.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_background.xml" />
