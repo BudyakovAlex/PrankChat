@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
@@ -30,7 +31,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
 
-        public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterCommand);
+        public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterAsync);
+
+        public MvxAsyncCommand SelectItemCommand => new MvxAsyncCommand(() => NavigationService.ShowDetailsPublicationView());
 
         public PublicationsViewModel(
             INavigationService navigationService,
@@ -49,7 +52,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             return Task.CompletedTask;
         }
 
-        private async Task OnOpenFilterCommand(CancellationToken arg)
+        private async Task OnOpenFilterAsync(CancellationToken arg)
         {
             var selectedFilter = await _dialogService.ShowFilterSelectionAsync(new[]
             {

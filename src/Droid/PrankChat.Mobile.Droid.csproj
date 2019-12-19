@@ -88,6 +88,7 @@
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Presentation\Views\PasswordRecovery\PasswordRecoveryView.cs" />
     <Compile Include="Presentation\Views\PasswordRecovery\FinishPasswordRecoveryView.cs" />
+    <Compile Include="Presentation\Views\Publications\PublicationDetailsView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -237,6 +238,10 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\cell_notification.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_publication_details.axml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
