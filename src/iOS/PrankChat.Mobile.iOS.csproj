@@ -179,11 +179,12 @@
     <Compile Include="Presentation\Views\RatingView\RatingItemCell.designer.cs">
       <DependentUpon>RatingItemCell.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Order\DetailsOrderView.xib" />
-    <Compile Include="Presentation\Views\Order\DetailsOrderView.cs" />
-    <Compile Include="Presentation\Views\Order\DetailsOrderView.designer.cs">
-      <DependentUpon>DetailsOrderView.cs</DependentUpon>
+    <InterfaceDefinition Include="Presentation\Views\Order\OrderDetailsView.xib" />
+    <Compile Include="Presentation\Views\Order\OrderDetailsView.cs" />
+    <Compile Include="Presentation\Views\Order\OrderDetailsView.designer.cs">
+      <DependentUpon>OrderDetailsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PlaceholderTextView.cs" />
     <Compile Include="Presentation\Views\NotificationView\NotificationTableSource.cs" />
     <InterfaceDefinition Include="Presentation\Views\NotificationView\NotificationItemCell.xib" />
     <Compile Include="Presentation\Views\NotificationView\NotificationItemCell.cs" />
@@ -213,7 +214,7 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
       <PackageReference Include="System.Reflection.Emit">
-          <Version>4.3.0</Version>
+          <Version>4.7.0</Version>
           <ExcludeAssets>all</ExcludeAssets>
       </PackageReference>
   </ItemGroup>
@@ -316,6 +317,14 @@
     <ImageAsset Include="Assets.xcassets\ic_thumbs_up.imageset\Vector %281%29.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Vector %282%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_download.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_download.imageset\ic_download.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_calendar_accent.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_checkbox_checked.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_checkbox_unchecked.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_calendar_accent.imageset\Vector %283%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_checkbox_checked.imageset\Shape.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_checkbox_unchecked.imageset\Path.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -366,6 +375,10 @@
     <Folder Include="Assets.xcassets\background_order.imageset\" />
     <Folder Include="Assets.xcassets\ic_thumbs_up.imageset\" />
     <Folder Include="Assets.xcassets\ic_thumbs_down.imageset\" />
+    <Folder Include="Assets.xcassets\ic_download.imageset\" />
+    <Folder Include="Assets.xcassets\ic_calendar_accent.imageset\" />
+    <Folder Include="Assets.xcassets\ic_checkbox_checked.imageset\" />
+    <Folder Include="Assets.xcassets\ic_checkbox_unchecked.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

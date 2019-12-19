@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Acr.UserDialogs;
 using MvvmCross.Commands;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -10,6 +10,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class RegistrationSecondStepViewModel : BaseViewModel
     {
+        private readonly IDialogService _dialogService;
+
+        public RegistrationSecondStepViewModel(INavigationService navigationService, IDialogService dialogService) : base(navigationService)
+        {
+            _dialogService = dialogService;
+        }
+
         private string _nickname;
         public string Nickname
         {
@@ -60,19 +67,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         }
 
         private GenderType _gender;
+
         public GenderType Gender
         {
             get => _gender;
             set => SetProperty(ref _gender, value);
         }
 
-        public MvxAsyncCommand SelectBirthdayCommand => new MvxAsyncCommand(OnSelectGender);
+        public MvxAsyncCommand SelectBirthdayCommand => new MvxAsyncCommand(OnSelectBirthdayAsync);
 
         public MvxCommand<string> SelectGenderCommand => new MvxCommand<string>(OnSelectGender);
-
-        public RegistrationSecondStepViewModel(INavigationService navigationService) : base(navigationService)
-        {
-        }
 
         private void OnSelectGender(string genderTypeString)
         {
@@ -82,12 +86,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             }
         }
 
-        private async Task OnSelectGender()
+        private async Task OnSelectBirthdayAsync()
         {
-            var result = await UserDialogs.Instance.DatePromptAsync();
-            if (result.Ok)
+            var result = await _dialogService.ShowDateDialogAsync();
+            if (result.HasValue)
             {
-                Birthday = result.SelectedDate;
+                Birthday = result.Value;
                 await RaisePropertyChanged(nameof(BirthdayText));
             }
         }

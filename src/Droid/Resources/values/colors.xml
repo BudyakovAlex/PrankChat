@@ -14,8 +14,9 @@
     <color name="gradient_end">#6D28BE</color>
     <color name="description">#9E9E9E</color>
     <color name="border">#C3C3C3</color>
+    <color name="dark_placeholder">#878787</color>
     <color name="ic_launcher_background">#2C3E50</color>
     <color name="primary_button_border">#602E9B</color>
-    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#C3C3C3</color>
     <color name="order_cell_separator_color">#253D67</color>
 </resources>

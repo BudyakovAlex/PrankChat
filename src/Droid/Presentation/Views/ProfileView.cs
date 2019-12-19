@@ -12,6 +12,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
     [Register(nameof(ProfileView))]
     public class ProfileView : BaseTabFragment<ProfileViewModel>
     {
+        protected override string TitleActionBar => Core.Presentation.Localization.Resources.Profile_Tab;
+
         public ProfileView()
         {
             HasOptionsMenu = true;
