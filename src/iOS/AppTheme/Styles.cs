@@ -5,6 +5,7 @@ using CoreGraphics;
 using Plugin.DeviceInfo;
 using PrankChat.Mobile.iOS.Utils.Helpers;
 using Foundation;
+using PrankChat.Mobile.iOS.Controls;
 
 namespace PrankChat.Mobile.iOS.AppTheme
 {
@@ -137,19 +138,17 @@ namespace PrankChat.Mobile.iOS.AppTheme
             if (CrossDeviceInfo.Current.VersionNumber > new Version(13, 0))
             {
                 searchBar.SearchTextField.BackgroundColor = Theme.Color.White;
-                searchBar.SearchTextField.TextColor = Theme.Color.Title;
+                searchBar.SearchTextField.TextColor = Theme.Color.Text;
             }
-            searchBar.TintColor = Theme.Color.Title;
+            searchBar.TintColor = Theme.Color.Text;
         }
 
-        public static void SetLightStyle(this UITextField textField)
+        public static void SetLightStyle(this UITextField textField, string placeholder = null, UIImage rightImage = null, float leftPadding = 14, float rightPadding = 0)
         {
             textField.TextColor = Theme.Color.White;
             textField.BackgroundColor = UIColor.Clear;
             textField.TintColor = Theme.Color.White;
             textField.Layer.BorderColor = Theme.Color.White.CGColor;
-            textField.Layer.BorderWidth = 1;
-            textField.Layer.CornerRadius = 3;
 
             var placeholderAttributes = new UIStringAttributes
             {
@@ -157,11 +156,41 @@ namespace PrankChat.Mobile.iOS.AppTheme
                 ForegroundColor = Theme.Color.White
             };
 
-            textField.AttributedPlaceholder = new NSAttributedString(textField.Placeholder, placeholderAttributes);
+            textField.SetStyle(placeholderAttributes, placeholder, rightImage, leftPadding, rightPadding);
+        }
 
-            var paddingView = new UIView(new CGRect(0, 0, 14, textField.Frame.Height));
-            textField.LeftView = paddingView;
-            textField.LeftViewMode = UITextFieldViewMode.Always;
+        public static void SetDarkStyle(this UITextField textField, string placeholder = null, UIImage rightImage = null, float leftPadding = 14, float rightPadding = 0)
+        {
+            textField.TextColor = Theme.Color.Text;
+            textField.BackgroundColor = UIColor.Clear;
+            textField.TintColor = Theme.Color.Text;
+            textField.Layer.BorderColor = Theme.Color.TextFieldDarkBorder.CGColor;
+
+            var placeholderAttributes = new UIStringAttributes
+            {
+                Font = Theme.Font.RegularFontOfSize(14),
+                ForegroundColor = Theme.Color.Subtitle
+            };
+
+            textField.SetStyle(placeholderAttributes, placeholder, rightImage, leftPadding, rightPadding);
+        }
+
+        public static void SetStyle(this PlaceholderTextView textView, string placeholder = null)
+        {
+            textView.TextColor = Theme.Color.Text;
+            textView.BackgroundColor = UIColor.Clear;
+            textView.TintColor = Theme.Color.Text;
+            textView.Layer.BorderColor = Theme.Color.TextFieldDarkBorder.CGColor;
+            textView.Layer.BorderWidth = 1;
+            textView.Layer.CornerRadius = 3;
+            textView.TextContainerInset = new UIEdgeInsets(18, 20, 18, 14);
+            textView.TextContainer.LineFragmentPadding = 0;
+            textView.ScrollEnabled = true;
+            textView.Editable = true;
+            textView.Selectable = true;
+            textView.Font = Theme.Font.RegularFontOfSize(14);
+            textView.Placeholder = placeholder;
+            textView.PlaceholderColor = Theme.Color.Subtitle;
         }
 
         public static void SetGradientBackground(this UIView view)
@@ -241,7 +270,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             if (!string.IsNullOrEmpty(text))
                 label.Text = text;
 
-            label.SetMediumStyle(14, Theme.Color.Title);
+            label.SetMediumStyle(14, Theme.Color.Text);
         }
 
         public static void SetTitleStyle(this UILabel label, string text = null)
@@ -249,7 +278,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             if (!string.IsNullOrEmpty(text))
                 label.Text = text;
 
-            label.SetRegularStyle(14, Theme.Color.Title);
+            label.SetRegularStyle(14, Theme.Color.Text);
         }
 
         public static void SetBoldTitleStyle(this UILabel label, string text = null)
@@ -258,7 +287,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
                 label.Text = text;
 
             label.Font = Theme.Font.BoldOfSize(14);
-            label.TextColor = Theme.Color.Title;
+            label.TextColor = Theme.Color.Text;
         }
 
         public static void SetSmallTitleStyle(this UILabel label, string text = null)
@@ -266,7 +295,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             if (!string.IsNullOrEmpty(text))
                 label.Text = text;
 
-            label.SetMediumStyle(12, Theme.Color.Title);
+            label.SetMediumStyle(12, Theme.Color.Text);
         }
 
         public static void SetSmallSubtitleStyle(this UILabel label, string text = null)
@@ -386,6 +415,47 @@ namespace PrankChat.Mobile.iOS.AppTheme
             title = title.ToLowerInvariant();
             var attributedTitle = new NSAttributedString(title, titleAttributes);
             button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
+        }
+
+        private static UITextField SetStyle(
+            this UITextField textField,
+            UIStringAttributes placeholderAttributes,
+            string placeholder = null,
+            UIImage rightImage = null,
+            float leftPadding = 14,
+            float rightPadding = 0)
+        {
+            textField.Layer.BorderWidth = 1;
+            textField.Layer.CornerRadius = 3;
+
+            textField.AttributedPlaceholder = new NSAttributedString(placeholder ?? string.Empty, placeholderAttributes);
+
+            var leftPaddingView = new UIView(new CGRect(0, 0, leftPadding, textField.Frame.Height));
+            textField.LeftView = leftPaddingView;
+            textField.LeftViewMode = UITextFieldViewMode.Always;
+
+            var rightPaddingView = new UIView(new CGRect(0, 0, rightPadding, textField.Frame.Height));
+            textField.RightView = rightPaddingView;
+            textField.RightViewMode = UITextFieldViewMode.Always;
+
+            textField.TrySetRightImage(rightImage);
+
+            return textField;
+        }
+
+        private static UITextField TrySetRightImage(this UITextField textField, UIImage image)
+        {
+            if (image != null)
+            {
+                var imageView = new UIImageView(image);
+                var imageContainer = new UIView(new CGRect(0, 0, 35, 22));
+                imageContainer.ContentMode = UIViewContentMode.Center;
+                imageContainer.AddSubview(imageView);
+                textField.RightView = imageContainer;
+                textField.RightViewMode = UITextFieldViewMode.Always;
+            }
+
+            return textField;
         }
 
         private static UIImage GetNavigationBarBackgroundImage(UIView gradientLayer)

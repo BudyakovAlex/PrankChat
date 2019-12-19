@@ -140,9 +140,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			videoNameLabel.SetBoldTitleStyle();
 			videoDescriptionLabel.SetTitleStyle();
 			priceTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Price_Text);
-			priceValueLabel.SetMediumStyle(26, Theme.Color.Title);
+			priceValueLabel.SetMediumStyle(26, Theme.Color.Text);
 			timeTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Time_Text);
-			timeValueLabel.SetMediumStyle(26, Theme.Color.Title);
+			timeValueLabel.SetMediumStyle(26, Theme.Color.Text);
 			downloadVideotextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Download_Text);
 			tookOrderTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Took_The_Order_Text);
 			executorNameLabel.SetTitleStyle();

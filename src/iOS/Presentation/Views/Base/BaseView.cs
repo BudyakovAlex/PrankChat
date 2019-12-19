@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
@@ -12,6 +11,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
     public abstract class BaseView<TMvxViewModel> : MvxViewController<TMvxViewModel> where TMvxViewModel : BaseViewModel
     {
         private List<UIView> _viewForKeyboardDismiss = new List<UIView>();
+
+        public new string Title { get; set; }
 
         public override void ViewDidLoad()
         {

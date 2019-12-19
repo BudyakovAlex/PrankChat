@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Android.App;
 using Android.Content.PM;
-using Android.Content.Res;
 using Android.Graphics;
 using Android.OS;
 using Android.Support.Design.Widget;
@@ -17,7 +16,7 @@ using Localization = PrankChat.Mobile.Core.Presentation.Localization.Resources;
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {
     [MvxActivityPresentation]
-    [Activity(LaunchMode = LaunchMode.SingleTop)]
+    [Activity(LaunchMode = LaunchMode.SingleTop, Theme = "@style/Theme.PrankChat.Base.Dark")]
     public class MainView : BaseView<MainViewModel>
     {
         private TabLayout _tabLayout;
@@ -57,17 +56,17 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             return base.OnOptionsItemSelected(item);
         }
 
-		protected override void Subscription()
-		{
-			_tabLayout.TabSelected += TabLayoutOnTabSelected;
-			_tabLayout.TabUnselected += TabLayoutOnTabUnselected;
-		}
+        protected override void Subscription()
+        {
+            _tabLayout.TabSelected += TabLayoutOnTabSelected;
+            _tabLayout.TabUnselected += TabLayoutOnTabUnselected;
+        }
 
-		protected override void Unsubscription()
-		{
-			_tabLayout.TabSelected -= TabLayoutOnTabSelected;
-			_tabLayout.TabUnselected -= TabLayoutOnTabUnselected;
-		}
+        protected override void Unsubscription()
+        {
+            _tabLayout.TabSelected -= TabLayoutOnTabSelected;
+            _tabLayout.TabUnselected -= TabLayoutOnTabUnselected;
+        }
 
         private void CreateTabs()
         {
@@ -142,5 +141,5 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             var tab = tabLayout.GetTabAt(2);
             tab.SetCustomView(tabView);
         }
-	}
+    }
 }
