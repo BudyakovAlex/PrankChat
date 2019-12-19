@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using FFImageLoading.Transformations;
 using FFImageLoading.Work;
 using MvvmCross.Commands;
@@ -49,6 +49,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
             await _dialogService.ShowFilterSelectionAsync(items, Resources.ProfileView_Menu_LogOut);
         });
+
+        public ICommand ShowRefillCommand => new MvxAsyncCommand(NavigationService.ShowRefillView);
+
+        public ICommand ShowWithdrawalCommand => new MvxAsyncCommand(NavigationService.ShowWithdrawalView);
 
         public string ProfileName
         {

@@ -106,7 +106,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             base.RegisterKeyboardDismissResponders(views);
         }
 
-        protected override void RegisterKeyboardDismissViews(List<UIView> viewList)
+        protected override void RegisterKeyboardDismissTextFields(List<UIView> viewList)
         {
             viewList.AddRange(new[] {
                 nicknameTextField,
@@ -116,7 +116,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
                 passwordRepeatTextField
             });
 
-            base.RegisterKeyboardDismissViews(viewList);
+            base.RegisterKeyboardDismissTextFields(viewList);
         }
 
         private void HandleRadioTap(Sex sex)

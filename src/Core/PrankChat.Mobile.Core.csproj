@@ -36,7 +36,7 @@
 
   <ItemGroup>
     <Folder Include="Presentation\Navigation\" />
-    <Folder Include="Presentation\Navigation\Parametres\" />
+    <Folder Include="Presentation\Navigation\Parameters\" />
     <Folder Include="Presentation\Navigation\Results\" />
     <Folder Include="Models\Enums\" />
     <Folder Include="Converters\" />

@@ -63,7 +63,8 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="@string/ProfileView_Refill"
-            style="@style/Theme.PrankChat.Button.Accent" />
+            style="@style/Theme.PrankChat.Button.Accent"
+            app:MvxBind="Click ShowRefillCommand" />
         <Button
             android:id="@+id/profile_withdrawal_button"
             android:layout_width="wrap_content"
@@ -73,7 +74,8 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="10dp"
             android:text="@string/ProfileView_Withdrawal"
-            style="@style/Theme.PrankChat.Button.Borderless" />
+            style="@style/Theme.PrankChat.Button.Borderless"
+            app:MvxBind="Click ShowWithdrawalCommand" />
 
         <!-- Values section row -->
 

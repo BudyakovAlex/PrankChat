@@ -1,5 +1,4 @@
-﻿using System;
-using MvvmCross.Binding;
+﻿using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -39,6 +38,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             set.Bind(profileDescriptionLabel)
                 .To(vm => vm.Description)
                 .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(refillButton)
+                .To(vm => vm.ShowRefillCommand);
+
+            set.Bind(withdrawalButton)
+                .To(vm => vm.ShowWithdrawalCommand);
 
             set.Bind(priceLabel)
                 .To(vm => vm.Price);
