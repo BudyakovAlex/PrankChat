@@ -179,10 +179,10 @@
     <Compile Include="Presentation\Views\RatingView\RatingItemCell.designer.cs">
       <DependentUpon>RatingItemCell.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Order\DetailsOrderView.xib" />
-    <Compile Include="Presentation\Views\Order\DetailsOrderView.cs" />
-    <Compile Include="Presentation\Views\Order\DetailsOrderView.designer.cs">
-      <DependentUpon>DetailsOrderView.cs</DependentUpon>
+    <InterfaceDefinition Include="Presentation\Views\Order\OrderDetailsView.xib" />
+    <Compile Include="Presentation\Views\Order\OrderDetailsView.cs" />
+    <Compile Include="Presentation\Views\Order\OrderDetailsView.designer.cs">
+      <DependentUpon>OrderDetailsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Views\NotificationView\NotificationTableSource.cs" />
     <InterfaceDefinition Include="Presentation\Views\NotificationView\NotificationItemCell.xib" />

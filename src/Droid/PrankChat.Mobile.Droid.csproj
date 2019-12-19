@@ -241,7 +241,7 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\activity_details_order_view.axml">
+    <AndroidResource Include="Resources\layout\activity_order_details_view.axml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

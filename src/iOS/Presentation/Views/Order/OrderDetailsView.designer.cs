@@ -9,9 +9,9 @@ using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
-	[Register ("DetailsOrderView")]
-	partial class DetailsOrderView
-	{
+	[Register ("OrderDetailsView")]
+	partial class OrderDetailsView
+    {
 		[Outlet]
 		UIKit.UIButton acceptButton { get; set; }
 

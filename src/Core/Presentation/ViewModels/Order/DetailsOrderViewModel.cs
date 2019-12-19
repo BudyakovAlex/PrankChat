@@ -8,7 +8,7 @@ using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
-    public class DetailsOrderViewModel : BaseViewModel
+    public class OrderDetailsViewModel : BaseViewModel
     {
         #region Profile
 
@@ -50,27 +50,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string TimeValue { get; set; } = "22 : 12 : 11";
 
-        public MvxAsyncCommand TakeTheOrderCommand => new MvxAsyncCommand(OnTakeOrderAsync);
+        public MvxAsyncCommand TakeOrderCommand => new MvxAsyncCommand(OnTakeOrderAsync);
 
-        public MvxAsyncCommand SubscribeTheOrderCommand => new MvxAsyncCommand(OnSubscribeTheOrderAsync);
+        public MvxAsyncCommand SubscribeTheOrderCommand => new MvxAsyncCommand(OnSubscribeOrderAsync);
 
-        public MvxAsyncCommand UnsubscribeTheOrderCommand => new MvxAsyncCommand(OnUnsubscribeTheOrderAsync);
+        public MvxAsyncCommand UnsubscribeOrderCommand => new MvxAsyncCommand(OnUnsubscribeOrderAsync);
 
         public MvxAsyncCommand YesCommand => new MvxAsyncCommand(OnYesAsync);
 
         public MvxAsyncCommand NoCommand => new MvxAsyncCommand(OnNoAsync);
 
-        public MvxAsyncCommand DownloadTheOrderCommand => new MvxAsyncCommand(OnDownloadTheOrderAsync);
+        public MvxAsyncCommand DownloadOrderCommand => new MvxAsyncCommand(OnDownloadOrderAsync);
 
-        public MvxAsyncCommand ExecuteTheOrderCommand => new MvxAsyncCommand(OnExecuteTheOrderAsync);
+        public MvxAsyncCommand ExecuteOrderCommand => new MvxAsyncCommand(OnExecuteOrderAsync);
 
-        public MvxAsyncCommand CancelTheOrderCommand => new MvxAsyncCommand(OnCancelTheOrderAsync);
+        public MvxAsyncCommand CancelOrderCommand => new MvxAsyncCommand(OnCancelOrderAsync);
 
-        public MvxAsyncCommand ArqueTheOrderCommand => new MvxAsyncCommand(OnArqueTheOrderAsync);
+        public MvxAsyncCommand ArqueOrderCommand => new MvxAsyncCommand(OnArqueOrderAsync);
 
-        public MvxAsyncCommand AcceptTheOrderCommand => new MvxAsyncCommand(OnAcceptTheOrderAsync);
+        public MvxAsyncCommand AcceptOrderCommand => new MvxAsyncCommand(OnAcceptOrderAsync);
 
-        public DetailsOrderViewModel(INavigationService navigationService) : base(navigationService)
+        public OrderDetailsViewModel(INavigationService navigationService) : base(navigationService)
         {
         }
 
@@ -79,37 +79,37 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             return Task.CompletedTask;
         }
 
-        private Task OnSubscribeTheOrderAsync()
+        private Task OnSubscribeOrderAsync()
         {
             return Task.CompletedTask;
         }
 
-        private Task OnUnsubscribeTheOrderAsync()
+        private Task OnUnsubscribeOrderAsync()
         {
             return Task.CompletedTask;
         }
 
-        private Task OnDownloadTheOrderAsync()
+        private Task OnDownloadOrderAsync()
         {
             return Task.CompletedTask;
         }
 
-        private Task OnArqueTheOrderAsync()
+        private Task OnArqueOrderAsync()
         {
             return Task.CompletedTask;
         }
 
-        private Task OnAcceptTheOrderAsync()
+        private Task OnAcceptOrderAsync()
         {
             return Task.CompletedTask;
         }
 
-        private Task OnCancelTheOrderAsync()
+        private Task OnCancelOrderAsync()
         {
             return Task.CompletedTask;
         }
 
-        private Task OnExecuteTheOrderAsync()
+        private Task OnExecuteOrderAsync()
         {
             return Task.CompletedTask;
         }

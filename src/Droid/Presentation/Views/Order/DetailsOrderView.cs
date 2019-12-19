@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 {
     [MvxActivityPresentation]
     [Activity]
-    public class DetailsOrderView : BaseView<DetailsOrderViewModel>
+    public class OrderDetailsView : BaseView<OrderDetailsViewModel>
     {
         protected override bool HasBackButton => true;
 
@@ -21,7 +21,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle, Resource.Layout.activity_details_order_view);
+            base.OnCreate(bundle, Resource.Layout.activity_order_details_view);
         }
 
         protected override void Subscription()

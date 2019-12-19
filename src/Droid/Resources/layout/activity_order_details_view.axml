@@ -96,7 +96,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/OrderDetailsView_Take_Order_Button"
                 style="@style/Theme.PrankChat.Button.Accent"
-                app:MvxBind="Click TakeTheOrderCommand"/>
+                app:MvxBind="Click TakeOrderCommand"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
@@ -104,7 +104,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/OrderDetailsView_Subscribe_Button"
                 style="@style/Theme.PrankChat.Button.Accent"
-                app:MvxBind="Click SubscribeTheOrderCommand"/>
+                app:MvxBind="Click SubscribeOrderCommand"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
@@ -112,9 +112,8 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/OrderDetailsView_Unsubscribe_Button"
                 style="@style/Theme.PrankChat.Button.Accent"
-                app:MvxBind="Click UnsubscribeTheOrderCommand"/>
-
-            <!--Donwload video.-->
+                app:MvxBind="Click UnsubscribeOrderCommand"/>
+            <!--Download video-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -134,7 +133,7 @@
                     android:layout_gravity="center_horizontal"
                     android:background="@null"
                     android:src="@drawable/ic_download"
-                    app:MvxBind="Click DownloadTheOrderCommand"/>
+                    app:MvxBind="Click DownloadOrderCommand"/>
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
@@ -142,7 +141,7 @@
                     android:layout_gravity="center_horizontal"
                     android:text="@string/OrderDetailsView_Execute_Button"
                     style="@style/Theme.PrankChat.Button.Accent"
-                    app:MvxBind="Click ExecuteTheOrderCommand"/>
+                    app:MvxBind="Click ExecuteOrderCommand"/>
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
@@ -152,9 +151,8 @@
                     android:textColor="@color/accent"
                     android:background="@drawable/border_accent"
                     style="@style/Theme.PrankChat.Button"
-                    app:MvxBind="Click CancelTheOrderCommand"/>
+                    app:MvxBind="Click CancelOrderCommand"/>
             </LinearLayout>
-
             <!--Took the order.-->
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -216,7 +214,6 @@
                     android:layout_marginTop="25dp"
                     app:MvxBind="ImagePath VideoUrl, Mode = OneTime" />
             </RelativeLayout>
-
             <!--Corresponds to the video-->
             <android.support.percent.PercentRelativeLayout
                 android:layout_width="match_parent"
@@ -252,7 +249,6 @@
                     style="@style/Theme.PrankChat.Button.Accent"
                     app:MvxBind="Click YesCommand"/>
             </android.support.percent.PercentRelativeLayout>
-
             <!--Decide-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -265,7 +261,7 @@
                     android:layout_height="36dp"
                     android:text="@string/OrderDetailsView_Accept_Button"
                     style="@style/Theme.PrankChat.Button.Accent"
-                    app:MvxBind="Click AcceptTheOrderCommand"/>
+                    app:MvxBind="Click AcceptOrderCommand"/>
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
@@ -274,7 +270,7 @@
                     android:textColor="@color/accent"
                     android:background="@null"
                     style="@style/Theme.PrankChat.Button"
-                    app:MvxBind="Click ArqueTheOrderCommand"/>
+                    app:MvxBind="Click ArqueOrderCommand"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
