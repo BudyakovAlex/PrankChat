@@ -33,7 +33,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterAsync);
 
-        public MvxAsyncCommand SelectItemCommand => new MvxAsyncCommand(() => NavigationService.ShowDetailsPublicationView());
+        public MvxAsyncCommand<PublicationItemViewModel> SelectItemCommand => new MvxAsyncCommand<PublicationItemViewModel>((item) => NavigationService.ShowDetailsPublicationView());
 
         public PublicationsViewModel(
             INavigationService navigationService,

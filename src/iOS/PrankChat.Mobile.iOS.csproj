@@ -191,6 +191,11 @@
     <Compile Include="Presentation\Views\NotificationView\NotificationItemCell.designer.cs">
       <DependentUpon>NotificationItemCell.cs</DependentUpon>
     </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Publication\PublicationDetailsView.xib" />
+    <Compile Include="Presentation\Views\Publication\PublicationDetailsView.cs" />
+    <Compile Include="Presentation\Views\Publication\PublicationDetailsView.designer.cs">
+      <DependentUpon>PublicationDetailsView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -325,6 +330,8 @@
     <ImageAsset Include="Assets.xcassets\ic_calendar_accent.imageset\Vector %283%29.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_checkbox_checked.imageset\Shape.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_checkbox_unchecked.imageset\Path.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_comment.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_comment.imageset\ic_comment.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -379,6 +386,7 @@
     <Folder Include="Assets.xcassets\ic_calendar_accent.imageset\" />
     <Folder Include="Assets.xcassets\ic_checkbox_checked.imageset\" />
     <Folder Include="Assets.xcassets\ic_checkbox_unchecked.imageset\" />
+    <Folder Include="Assets.xcassets\ic_comment.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
