@@ -7,6 +7,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {

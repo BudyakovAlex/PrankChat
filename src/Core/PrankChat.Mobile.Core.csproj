@@ -49,5 +49,7 @@
     <Folder Include="Presentation\ViewModels\Search\Items\" />
     <Folder Include="Presentation\ViewModels\Notification\" />
     <Folder Include="Presentation\ViewModels\Notification\Items\" />
+    <Folder Include="Presentation\ViewModels\Comment\" />
+    <Folder Include="Presentation\ViewModels\Comment\Items\" />
   </ItemGroup>
 </Project>

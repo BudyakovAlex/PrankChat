@@ -1,10 +1,10 @@
 ﻿using Android.App;
 using Android.OS;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
-namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
+namespace PrankChat.Mobile.Droid.Presentation.Views.Comment
 {
     [MvxActivityPresentation]
     [Activity]
@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.comments_layout);
+            SetContentView(Resource.Layout.activity_comments_view);
         }
 
 		protected override void Subscription()

@@ -72,7 +72,6 @@
     <Compile Include="Presentation\Views\Order\CreateOrderView.cs" />
     <Compile Include="Presentation\Views\Order\OrdersView.cs" />
     <Compile Include="Presentation\Views\ProfileView.cs" />
-    <Compile Include="Presentation\Views\Publications\CommentsView.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsView.cs" />
     <Compile Include="Presentation\Views\RatingView.cs" />
     <Compile Include="Presentation\Views\Registration\RegistrationSecondStepView.cs" />
@@ -89,6 +88,7 @@
     <Compile Include="Presentation\Views\PasswordRecovery\PasswordRecoveryView.cs" />
     <Compile Include="Presentation\Views\PasswordRecovery\FinishPasswordRecoveryView.cs" />
     <Compile Include="Presentation\Views\Order\DetailsOrderView.cs" />
+    <Compile Include="Presentation\Views\Comment\CommentsView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -253,6 +253,10 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\cell_comment.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -335,7 +339,7 @@
     <AndroidResource Include="Resources\layout\orders_layout.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\comments_layout.xml" />
+    <AndroidResource Include="Resources\layout\activity_comments_view.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\publications_layout.xml" />
@@ -587,6 +591,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
+    <Folder Include="Presentation\Views\Comment\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_background.xml" />
