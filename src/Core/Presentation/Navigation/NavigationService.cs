@@ -10,6 +10,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
 using System;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
@@ -25,8 +26,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         public Task AppStart()
         {
             //return ShowLoginView();
-            return ShowMainView();
-            //return ShowCashboxView();
+            //return ShowMainView();
+            return ShowCashboxView();
         }
 
         public Task ShowCashboxView()
@@ -87,6 +88,13 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         public Task ShowCommentsView()
         {
             return _mvxNavigationService.Navigate<CommentsViewModel>();
+        }
+
+        public Task ShowCashboxContent()
+        {
+            return Task.WhenAll(
+                _mvxNavigationService.Navigate<RefillViewModel>(),
+                           _mvxNavigationService.Navigate<WithdrawalViewModel>());
         }
 
         public Task<bool> CloseView(BaseViewModel viewModel)

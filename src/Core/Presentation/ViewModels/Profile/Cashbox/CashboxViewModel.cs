@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
     public class CashboxViewModel : BaseViewModel, IMvxViewModel<CashboxTypeNavigationParameter>
     {
@@ -20,6 +21,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         }
 
         public List<BaseViewModel> Items { get; } = new List<BaseViewModel>();
+
+        public ICommand ShowContentCommand => new MvxAsyncCommand(NavigationService.ShowCashboxContent);
 
         public int SelectedPage
         {

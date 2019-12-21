@@ -6,7 +6,7 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
-namespace PrankChat.Mobile.Droid.Presentation.Views
+namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 {
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(ProfileView))]
