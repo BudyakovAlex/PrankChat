@@ -9,7 +9,7 @@ using PrankChat.Mobile.iOS.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
-    public partial class OrderItemCell : BaseCell<OrderItemCell, OrderItemViewModel>
+    public partial class OrderItemCell : BaseTableCell<OrderItemCell, OrderItemViewModel>
     {
         static OrderItemCell()
         {

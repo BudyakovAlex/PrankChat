@@ -28,8 +28,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             set.Apply();
         }
 
-		protected override void SetupControls()
-		{
+        protected override void SetupControls()
+        {
             loginTitleLabel.Text = Resources.LoginView_Login_Title;
             loginTitleLabel.TextColor = Theme.Color.White;
             loginTitleLabel.Font = Theme.Font.RegularFontOfSize(20);
@@ -72,13 +72,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             base.RegisterKeyboardDismissResponders(views);
         }
 
-        protected override void RegisterKeyboardDismissViews(List<UIView> viewList)
+        protected override void RegisterKeyboardDismissTextFields(List<UIView> viewList)
         {
             viewList.Add(emailTextField);
             viewList.Add(passwordTextField);
             viewList.Add(scrollView);
 
-            base.RegisterKeyboardDismissViews(viewList);
+            base.RegisterKeyboardDismissTextFields(viewList);
         }
     }
 }

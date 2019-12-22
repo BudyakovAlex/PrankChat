@@ -9,7 +9,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 {
-    public partial class ProfileSearchItemCell : BaseCell<ProfileSearchItemCell, ProfileSearchItemViewModel>
+    public partial class ProfileSearchItemCell : BaseTableCell<ProfileSearchItemCell, ProfileSearchItemViewModel>
     {
         static ProfileSearchItemCell()
         {

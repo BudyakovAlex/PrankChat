@@ -10,7 +10,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 {
-    public partial class RatingItemCell : BaseCell<RatingItemCell, RatingItemViewModel>
+    public partial class RatingItemCell : BaseTableCell<RatingItemCell, RatingItemViewModel>
     {
         static RatingItemCell()
         {

@@ -9,7 +9,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 {
-    public partial class NotificationItemCell : BaseCell<NotificationItemCell, NotificationItemViewModel>
+    public partial class NotificationItemCell : BaseTableCell<NotificationItemCell, NotificationItemViewModel>
     {
         static NotificationItemCell()
         {

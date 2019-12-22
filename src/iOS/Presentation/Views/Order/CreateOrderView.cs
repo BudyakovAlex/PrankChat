@@ -79,14 +79,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             base.RegisterKeyboardDismissResponders(views);
         }
 
-        protected override void RegisterKeyboardDismissViews(List<UIView> viewList)
+        protected override void RegisterKeyboardDismissTextFields(List<UIView> viewList)
         {
             viewList.Add(nameTextField);
             viewList.Add(descriptionTextView);
             viewList.Add(completeDateTextField);
             viewList.Add(priceTextField);
 
-            base.RegisterKeyboardDismissViews(viewList);
+            base.RegisterKeyboardDismissTextFields(viewList);
         }
 
         private void OnCheckboxTapped()

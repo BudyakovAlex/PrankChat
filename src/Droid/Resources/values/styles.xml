@@ -57,7 +57,6 @@
     </style>
 
     <style name="Theme.PrankChat.TextFieldLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@android:color/holo_red_dark</item>
         <item name="boxStrokeWidth">1dp</item>
         <item name="android:textColorHint">#fff</item>
         <item name="android:colorAccent">#fff</item>
@@ -75,6 +74,16 @@
     <style name="Theme.PrankChat.TextField" parent="Theme.PrankChat.Base">
         <item name="colorControlNormal">@color/applicationWhite</item>
         <item name="colorControlActivated">@color/applicationWhite</item>
+    </style>
+
+    <style name="Theme.PrankChat.EditText" parent="@style/Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/applicationBlack</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:background">@drawable/border_grey</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">right|center_vertical</item>
     </style>
 
     <style name="Theme.PrankChat.Button" parent="@style/Widget.AppCompat.Button">
