@@ -1,16 +1,14 @@
 ﻿using System.Threading.Tasks;
 using MvvmCross.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Rating;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
-using System;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
-using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Rating;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
@@ -26,8 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         public Task AppStart()
         {
             //return ShowLoginView();
-            //return ShowMainView();
-            return ShowCashboxView();
+            return ShowMainView();
         }
 
         public Task ShowCashboxView()
