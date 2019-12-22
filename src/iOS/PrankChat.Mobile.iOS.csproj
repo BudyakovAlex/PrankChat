@@ -115,11 +115,6 @@
     <Compile Include="Presentation\Views\Publication\PublicationsView.designer.cs">
       <DependentUpon>PublicationsView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Publication\CommentsView.xib" />
-    <Compile Include="Presentation\Views\Publication\CommentsView.cs" />
-    <Compile Include="Presentation\Views\Publication\CommentsView.designer.cs">
-      <DependentUpon>CommentsView.cs</DependentUpon>
-    </Compile>
     <InterfaceDefinition Include="Presentation\Views\Registration\RegistrationView.xib" />
     <Compile Include="Presentation\Views\Registration\RegistrationView.cs" />
     <Compile Include="Presentation\Views\Registration\RegistrationView.designer.cs">
@@ -191,6 +186,22 @@
     <Compile Include="Presentation\Views\NotificationView\NotificationItemCell.designer.cs">
       <DependentUpon>NotificationItemCell.cs</DependentUpon>
     </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Publication\PublicationDetailsView.xib" />
+    <Compile Include="Presentation\Views\Publication\PublicationDetailsView.cs" />
+    <Compile Include="Presentation\Views\Publication\PublicationDetailsView.designer.cs">
+      <DependentUpon>PublicationDetailsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Views\Comment\CommentView.cs" />
+    <Compile Include="Presentation\Views\Comment\CommentView.designer.cs">
+      <DependentUpon>CommentView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Comment\CommentView.xib" />
+    <InterfaceDefinition Include="Presentation\Views\Comment\CommentItemCell.xib" />
+    <Compile Include="Presentation\Views\Comment\CommentItemCell.cs" />
+    <Compile Include="Presentation\Views\Comment\CommentItemCell.designer.cs">
+      <DependentUpon>CommentItemCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Views\Comment\CommentTableSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -214,7 +225,7 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
       <PackageReference Include="System.Reflection.Emit">
-          <Version>4.3.0</Version>
+          <Version>4.7.0</Version>
           <ExcludeAssets>all</ExcludeAssets>
       </PackageReference>
   </ItemGroup>
@@ -325,6 +336,10 @@
     <ImageAsset Include="Assets.xcassets\ic_calendar_accent.imageset\Vector %283%29.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_checkbox_checked.imageset\Shape.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_checkbox_unchecked.imageset\Path.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_comment.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_comment.imageset\ic_comment.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_send.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_send.imageset\ic_send.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -379,6 +394,9 @@
     <Folder Include="Assets.xcassets\ic_calendar_accent.imageset\" />
     <Folder Include="Assets.xcassets\ic_checkbox_checked.imageset\" />
     <Folder Include="Assets.xcassets\ic_checkbox_unchecked.imageset\" />
+    <Folder Include="Assets.xcassets\ic_comment.imageset\" />
+    <Folder Include="Presentation\Views\Comment\" />
+    <Folder Include="Assets.xcassets\ic_send.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

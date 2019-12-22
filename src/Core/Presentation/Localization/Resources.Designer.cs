@@ -748,5 +748,11 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("CashboxView_Price_Placeholder", resourceCulture);
             }
         }
+        
+        public static string CommentView_Title {
+            get {
+                return ResourceManager.GetString("CommentView_Title", resourceCulture);
+            }
+        }
     }
 }

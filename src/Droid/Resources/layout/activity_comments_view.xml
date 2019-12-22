@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include
@@ -13,6 +12,40 @@
     <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/action_bar"
+        android:layout_above="@+id/text_view_contener"
         local:MvxItemTemplate="@layout/cell_comment"
         local:MvxBind="ItemsSource Items"/>
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/text_view_contener"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/separator"/>
+        <EditText
+            android:id="@+id/comment_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_toLeftOf="@+id/create_comment_button"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
+            android:paddingLeft="8dp"
+            android:textSize="14sp"
+            android:background="@drawable/border_grey"
+            local:MvxBind="Text Comment"/>
+        <ImageButton
+            android:id="@+id/create_comment_button"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_send"
+            local:MvxBind="Click SendCommentCommand"/>
+    </RelativeLayout>
+</RelativeLayout>

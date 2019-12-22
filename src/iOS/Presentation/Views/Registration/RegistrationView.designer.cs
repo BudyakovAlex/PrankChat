@@ -1,114 +1,67 @@
 // WARNING
 //
-// This file has been generated automatically by Visual Studio to store outlets and
-// actions made in the UI designer. If it is removed, they will be lost.
-// Manual changes to this file may not be handled correctly.
+// This file has been generated automatically by Visual Studio from the outlets and
+// actions declared in your storyboard file.
+// Manual changes to this file will not be maintained.
 //
 using Foundation;
+using System;
 using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 {
-	[Register ("RegistrationView")]
-	partial class RegistrationView
-	{
-		[Outlet]
-		UIKit.UIView contentContainerView { get; set; }
+    [Register ("RegistrationView")]
+    partial class RegistrationView
+    {
+        [Outlet]
+        UIKit.UIView contentContainerView { get; set; }
 
-		[Outlet]
-		UIKit.UITextField emailTextField { get; set; }
 
-		[Outlet]
-		UIKit.UIButton facebookButton { get; set; }
+        [Outlet]
+        UIKit.UITextField emailTextField { get; set; }
 
-		[Outlet]
-		UIKit.UIButton gmailButton { get; set; }
 
-		[Outlet]
-		UIKit.UIButton nextStepButton { get; set; }
+        [Outlet]
+        UIKit.UIButton facebookButton { get; set; }
 
-		[Outlet]
-		UIKit.UIButton okButton { get; set; }
 
-		[Outlet]
-		UIKit.UILabel registrationTitleLabel { get; set; }
+        [Outlet]
+        UIKit.UIButton gmailButton { get; set; }
 
-		[Outlet]
-		UIKit.UIScrollView scrollView { get; set; }
 
-		[Outlet]
-		UIKit.UIButton showLoginButton { get; set; }
+        [Outlet]
+        UIKit.UIButton nextStepButton { get; set; }
 
-		[Outlet]
-		UIKit.UILabel socialNetworksLabel { get; set; }
 
-		[Outlet]
-		UIKit.UIButton vkButton { get; set; }
+        [Outlet]
+        UIKit.UIButton okButton { get; set; }
 
-		[Outlet]
-		UIKit.UILabel yetRegisteredLabel { get; set; }
-		
-		void ReleaseDesignerOutlets ()
-		{
-			if (nextStepButton != null) {
-				nextStepButton.Dispose ();
-				nextStepButton = null;
-			}
 
-			if (registrationTitleLabel != null) {
-				registrationTitleLabel.Dispose ();
-				registrationTitleLabel = null;
-			}
+        [Outlet]
+        UIKit.UILabel registrationTitleLabel { get; set; }
 
-			if (emailTextField != null) {
-				emailTextField.Dispose ();
-				emailTextField = null;
-			}
 
-			if (socialNetworksLabel != null) {
-				socialNetworksLabel.Dispose ();
-				socialNetworksLabel = null;
-			}
+        [Outlet]
+        UIKit.UIScrollView scrollView { get; set; }
 
-			if (vkButton != null) {
-				vkButton.Dispose ();
-				vkButton = null;
-			}
 
-			if (okButton != null) {
-				okButton.Dispose ();
-				okButton = null;
-			}
+        [Outlet]
+        UIKit.UIButton showLoginButton { get; set; }
 
-			if (facebookButton != null) {
-				facebookButton.Dispose ();
-				facebookButton = null;
-			}
 
-			if (gmailButton != null) {
-				gmailButton.Dispose ();
-				gmailButton = null;
-			}
+        [Outlet]
+        UIKit.UILabel socialNetworksLabel { get; set; }
 
-			if (yetRegisteredLabel != null) {
-				yetRegisteredLabel.Dispose ();
-				yetRegisteredLabel = null;
-			}
 
-			if (showLoginButton != null) {
-				showLoginButton.Dispose ();
-				showLoginButton = null;
-			}
+        [Outlet]
+        UIKit.UIButton vkButton { get; set; }
 
-			if (scrollView != null) {
-				scrollView.Dispose ();
-				scrollView = null;
-			}
 
-			if (contentContainerView != null) {
-				contentContainerView.Dispose ();
-				contentContainerView = null;
-			}
-		}
-	}
+        [Outlet]
+        UIKit.UILabel yetRegisteredLabel { get; set; }
+
+        void ReleaseDesignerOutlets ()
+        {
+        }
+    }
 }

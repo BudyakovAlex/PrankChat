@@ -28,10 +28,10 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/profile_photo"
         android:layout_below="@+id/name_text_view"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
         android:textSize="12sp"
-        android:textColor="@color/applicationBlack"
+        android:textColor="@color/description"
         android:singleLine="true"
-        local:MvxBind="Text Description, Mode = OneTime"/>
+        local:MvxBind="Text DateText, Mode = OneTime"/>
 </RelativeLayout>

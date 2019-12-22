@@ -1,90 +1,55 @@
 // WARNING
 //
-// This file has been generated automatically by Visual Studio to store outlets and
-// actions made in the UI designer. If it is removed, they will be lost.
-// Manual changes to this file may not be handled correctly.
+// This file has been generated automatically by Visual Studio from the outlets and
+// actions declared in your storyboard file.
+// Manual changes to this file will not be maintained.
 //
 using Foundation;
+using System;
 using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
-	[Register ("CreateOrderView")]
-	partial class CreateOrderView
-	{
-		[Outlet]
-		UIKit.UITextField completeDateTextField { get; set; }
+    [Register ("CreateOrderView")]
+    partial class CreateOrderView
+    {
+        [Outlet]
+        UIKit.UITextField completeDateTextField { get; set; }
 
-		[Outlet]
-		UIKit.UIButton createButton { get; set; }
 
-		[Outlet]
-		PrankChat.Mobile.iOS.Controls.PlaceholderTextView descriptionTextView { get; set; }
+        [Outlet]
+        UIKit.UIButton createButton { get; set; }
 
-		[Outlet]
-		UIKit.UIImageView hideExecuterCheckboxImageView { get; set; }
 
-		[Outlet]
-		UIKit.UILabel hideExecutorCheckboxLabel { get; set; }
+        [Outlet]
+        PrankChat.Mobile.iOS.Controls.PlaceholderTextView descriptionTextView { get; set; }
 
-		[Outlet]
-		UIKit.UITextField nameTextField { get; set; }
 
-		[Outlet]
-		UIKit.UITextField priceTextField { get; set; }
+        [Outlet]
+        UIKit.UIImageView hideExecuterCheckboxImageView { get; set; }
 
-		[Outlet]
-		UIKit.UIScrollView scrollView { get; set; }
 
-		[Outlet]
-		UIKit.UIStackView stackView { get; set; }
-		
-		void ReleaseDesignerOutlets ()
-		{
-			if (completeDateTextField != null) {
-				completeDateTextField.Dispose ();
-				completeDateTextField = null;
-			}
+        [Outlet]
+        UIKit.UILabel hideExecutorCheckboxLabel { get; set; }
 
-			if (createButton != null) {
-				createButton.Dispose ();
-				createButton = null;
-			}
 
-			if (descriptionTextView != null) {
-				descriptionTextView.Dispose ();
-				descriptionTextView = null;
-			}
+        [Outlet]
+        UIKit.UITextField nameTextField { get; set; }
 
-			if (hideExecuterCheckboxImageView != null) {
-				hideExecuterCheckboxImageView.Dispose ();
-				hideExecuterCheckboxImageView = null;
-			}
 
-			if (hideExecutorCheckboxLabel != null) {
-				hideExecutorCheckboxLabel.Dispose ();
-				hideExecutorCheckboxLabel = null;
-			}
+        [Outlet]
+        UIKit.UITextField priceTextField { get; set; }
 
-			if (nameTextField != null) {
-				nameTextField.Dispose ();
-				nameTextField = null;
-			}
 
-			if (priceTextField != null) {
-				priceTextField.Dispose ();
-				priceTextField = null;
-			}
+        [Outlet]
+        UIKit.UIScrollView scrollView { get; set; }
 
-			if (scrollView != null) {
-				scrollView.Dispose ();
-				scrollView = null;
-			}
 
-			if (stackView != null) {
-				stackView.Dispose ();
-				stackView = null;
-			}
-		}
-	}
+        [Outlet]
+        UIKit.UIStackView stackView { get; set; }
+
+        void ReleaseDesignerOutlets ()
+        {
+        }
+    }
 }

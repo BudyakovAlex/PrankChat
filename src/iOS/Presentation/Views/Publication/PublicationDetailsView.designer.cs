@@ -10,11 +10,31 @@ using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
-    [Register ("PublicationItemCell")]
-    partial class PublicationItemCell
+    [Register ("PublicationDetailsView")]
+    partial class PublicationDetailsView
     {
         [Outlet]
-        UIKit.UIButton bookmarkButton { get; set; }
+        UIKit.UILabel commentatorNameLabel { get; set; }
+
+
+        [Outlet]
+        FFImageLoading.Cross.MvxCachedImageView commentatorPhotoImageView { get; set; }
+
+
+        [Outlet]
+        UIKit.UIButton commentButton { get; set; }
+
+
+        [Outlet]
+        UIKit.UILabel commentDateLabel { get; set; }
+
+
+        [Outlet]
+        UIKit.UILabel commentLabel { get; set; }
+
+
+        [Outlet]
+        UIKit.UIView commentView { get; set; }
 
 
         [Outlet]
@@ -30,11 +50,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
 
         [Outlet]
-        FFImageLoading.Cross.MvxCachedImageView profileImage { get; set; }
+        UIKit.UILabel profileNameLabel { get; set; }
 
 
         [Outlet]
-        UIKit.UILabel profileNameLabel { get; set; }
+        FFImageLoading.Cross.MvxCachedImageView profilePhotoImageView { get; set; }
 
 
         [Outlet]
@@ -50,7 +70,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
 
         [Outlet]
-        FFImageLoading.Cross.MvxCachedImageView videoImage { get; set; }
+        UIKit.UILabel videoDescriptionButton { get; set; }
+
+
+        [Outlet]
+        FFImageLoading.Cross.MvxCachedImageView videoImageView { get; set; }
 
 
         [Outlet]
