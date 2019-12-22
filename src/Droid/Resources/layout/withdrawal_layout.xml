@@ -1,15 +1,102 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<RelativeLayout
+﻿<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/RelativeLayout1"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:paddingTop="24dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp">
+    <EditText
+        android:id="@+id/withdrawal_cost_edit_text"
+        android:layout_width="206dp"
+        android:layout_height="36dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:maxLines="1"
+        android:inputType="number"
+        android:hint="@string/CashboxView_Price_Placeholder"
+        style="@style/Theme.PrankChat.EditText"
+        app:MvxBind="Text Cost" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        app:layout_constraintLeft_toRightOf="@id/withdrawal_cost_edit_text"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/CashboxView_Withdrawal_Button"
+        style="@style/Theme.PrankChat.Button.Accent"
+        app:MvxBind="Click WithdrawCommand" />
+    <View
+        android:id="@+id/withdrawal_vertical_separator"
+        android:layout_width="3dp"
+        android:layout_height="36dp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/withdrawal_available_amount_text"
+        app:layout_constraintTop_toBottomOf="@id/withdrawal_cost_edit_text"
+        android:layout_marginTop="26dp"
+        app:layout_constraintHorizontal_bias="0"
+        android:background="@color/accent" />
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:id="@+id/withdrawal_available_amount_text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_default="wrap"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintLeft_toRightOf="@id/withdrawal_vertical_separator"
+        app:layout_constraintRight_toLeftOf="@id/withdrawal_question_image"
+        app:layout_constraintTop_toTopOf="@id/withdrawal_vertical_separator"
+        app:layout_constraintBottom_toBottomOf="@id/withdrawal_vertical_separator"
+        app:layout_constraintVertical_bias="0.5"
+        android:layout_marginLeft="16dp"
         android:textColor="@color/applicationBlack"
-        android:text="Withdrawal">
-    </TextView>
-</RelativeLayout>
+        android:textSize="14sp"
+        app:MvxBind="Text AvailableForWithdrawal" />
+    <ImageView
+        android:id="@+id/withdrawal_question_image"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintLeft_toRightOf="@id/withdrawal_available_amount_text"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/withdrawal_available_amount_text"
+        app:layout_constraintBottom_toBottomOf="@id/withdrawal_available_amount_text"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintHorizontal_bias="0"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/ic_question_black" />
+    <TextView
+        android:id="@+id/withdrawal_methods_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_default="spread"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/withdrawal_vertical_separator"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="26dp"
+        android:textSize="14dp"
+        android:textColor="@color/description"
+        android:text="@string/CashboxView_WithdrawalMethodSelect_Title" />
+    <Mvx.MvxGridView
+        android:id="@+id/withdrawal_methods_collection"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_default="wrap"
+        app:layout_constraintHeight_default="spread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/withdrawal_methods_title"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="46dp"
+        android:numColumns="3"
+        android:verticalSpacing="8dp"
+        android:horizontalSpacing="8dp"
+        android:columnWidth="69dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center_horizontal|top"
+        app:MvxItemTemplate="@layout/cell_payment_method"
+        app:MvxBind="ItemsSource Items; ItemClick SelectionChangedCommand;" />
+</android.support.constraint.ConstraintLayout>
