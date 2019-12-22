@@ -358,9 +358,6 @@
     <ImageAsset Include="Assets.xcassets\ic_payment_phone.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_payment_sberbank.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_payment_alphabank.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_mastercard_banner.imageset\image 43.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_visa_banner.imageset\image 45.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_3dsecure_banner.imageset\image 44.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney.imageset\Group.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_payment_phone.imageset\Group 179.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_payment_sberbank.imageset\Sberbank 1.pdf" />
@@ -385,6 +382,9 @@
     <ImageAsset Include="Assets.xcassets\ic_payment_qiwi.imageset\Group %281%29.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_payment_cards.imageset\Group 178.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_payment_cards_selected.imageset\Group 178 %281%29-1.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_3dsecure_banner.imageset\Group %282%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_visa_banner.imageset\Group %281%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_mastercard_banner.imageset\Group.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

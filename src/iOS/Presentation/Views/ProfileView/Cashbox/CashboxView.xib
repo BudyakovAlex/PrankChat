@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="MdO-VY-f7G" customClass="CustomSegmentedControl">
-                    <rect key="frame" x="0.0" y="8" width="375" height="35"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="35"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="34" id="yAV-CZ-WJW"/>
                     </constraints>
@@ -44,7 +44,7 @@
                 <constraint firstAttribute="trailing" secondItem="dE3-5N-ZF3" secondAttribute="trailing" id="Qmi-nc-cqd"/>
                 <constraint firstItem="dE3-5N-ZF3" firstAttribute="top" secondItem="MdO-VY-f7G" secondAttribute="bottom" id="Vir-vq-kGL"/>
                 <constraint firstItem="MdO-VY-f7G" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="W2r-BU-EP9"/>
-                <constraint firstItem="MdO-VY-f7G" firstAttribute="top" secondItem="2" secondAttribute="top" constant="8" id="zke-B0-bVc"/>
+                <constraint firstItem="MdO-VY-f7G" firstAttribute="top" secondItem="2" secondAttribute="top" id="zke-B0-bVc"/>
             </constraints>
             <point key="canvasLocation" x="24.800000000000001" y="51.724137931034484"/>
         </view>

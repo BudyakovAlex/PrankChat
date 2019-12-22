@@ -37,6 +37,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
         protected override void SetupControls()
         {
             costTextField.SetDarkStyle(Resources.CashboxView_Price_Placeholder);
+            costTextField.TextAlignment = UITextAlignment.Right;
 
             refillButton.SetDarkStyle(Resources.CashboxView_Fillup_Button);
 

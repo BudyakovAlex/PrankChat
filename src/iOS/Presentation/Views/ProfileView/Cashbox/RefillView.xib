@@ -51,7 +51,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="eBO-cQ-EbD">
-                    <rect key="frame" x="44" y="142" width="287" height="455"/>
+                    <rect key="frame" x="44" y="142" width="287" height="378"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="287" id="mrn-KS-yyN"/>
@@ -64,32 +64,31 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PVX-Qr-nIl">
-                    <rect key="frame" x="16" y="613" width="343" height="28"/>
+                    <rect key="frame" x="16" y="536" width="343" height="78"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xKa-YZ-EHx">
-                            <rect key="frame" x="0.0" y="0.0" width="78" height="28"/>
+                            <rect key="frame" x="0.0" y="25" width="79" height="28"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="28" id="9lA-Ft-ciz"/>
-                                <constraint firstAttribute="width" constant="78.150000000000006" id="ZZ4-6g-qeB"/>
+                                <constraint firstAttribute="width" constant="78.829999999999998" id="ZZ4-6g-qeB"/>
                             </constraints>
                         </imageView>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k67-lj-Z81">
-                            <rect key="frame" x="144" y="0.0" width="50" height="28"/>
+                            <rect key="frame" x="130" y="14" width="78.5" height="50"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="50" id="Yek-ad-yFS"/>
+                                <constraint firstAttribute="width" constant="78.489999999999995" id="Yek-ad-yFS"/>
                             </constraints>
                         </imageView>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Bc0-eN-UvT">
-                            <rect key="frame" x="254.5" y="0.0" width="88.5" height="28"/>
+                            <rect key="frame" x="255" y="14" width="88" height="50"/>
                             <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64.980000000000004" id="02H-se-WsP"/>
-                                <constraint firstAttribute="width" constant="88.680000000000007" id="qlu-am-TPc"/>
+                                <constraint firstAttribute="width" constant="88.120000000000005" id="qlu-am-TPc"/>
                             </constraints>
                         </imageView>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="28" id="nFj-Pb-NxM"/>
+                        <constraint firstAttribute="height" constant="78" id="nFj-Pb-NxM"/>
                     </constraints>
                 </stackView>
             </subviews>
@@ -100,7 +99,7 @@
                 <constraint firstItem="PVX-Qr-nIl" firstAttribute="top" secondItem="eBO-cQ-EbD" secondAttribute="bottom" constant="16" id="6Hk-qO-oB0"/>
                 <constraint firstAttribute="trailingMargin" secondItem="wt4-pd-ho3" secondAttribute="trailing" id="7KA-3m-COL"/>
                 <constraint firstItem="PVX-Qr-nIl" firstAttribute="leading" secondItem="2" secondAttribute="leadingMargin" id="8rt-VG-PFj"/>
-                <constraint firstAttribute="bottomMargin" secondItem="PVX-Qr-nIl" secondAttribute="bottom" id="H0h-my-vMl"/>
+                <constraint firstAttribute="bottomMargin" secondItem="PVX-Qr-nIl" secondAttribute="bottom" constant="27" id="H0h-my-vMl"/>
                 <constraint firstAttribute="trailingMargin" secondItem="PVX-Qr-nIl" secondAttribute="trailing" id="HLI-3P-k0F"/>
                 <constraint firstItem="eBO-cQ-EbD" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="KqB-Sk-wsQ"/>
                 <constraint firstItem="wt4-pd-ho3" firstAttribute="leading" secondItem="acu-XJ-Y7P" secondAttribute="trailing" constant="16" id="SQb-Jo-opy"/>

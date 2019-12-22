@@ -4,7 +4,7 @@ using System.Drawing;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
@@ -13,10 +13,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 {
     public partial class CashboxView : BaseGradientBarView<CashboxViewModel>
     {
-        public override void ViewDidAppear(bool animated)
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidAppear(animated);
-
+            base.ViewDidLayoutSubviews();
             SetupScrollView();
         }
 
@@ -51,8 +50,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         {
             if (e.PropertyName == nameof(ViewModel.SelectedPage))
             {
-                scrollView.SetContentOffset(new PointF((float)(ViewModel.SelectedPage * scrollView.Bounds.Width), 0), true);
+                SetPageOffset(ViewModel.SelectedPage, true);
             }
+        }
+
+        private void SetPageOffset(int pageIndex, bool animated)
+        {
+            scrollView.SetContentOffset(new PointF((float)(pageIndex * scrollView.Bounds.Width), 0), animated);
         }
 
         private void SetupScrollView()
@@ -73,10 +77,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 var pageViewController = this.CreateViewControllerFor(ViewModel.Items[i]) as UIViewController;
                 var view = pageViewController.View;
                 view.Frame = new RectangleF((float)scrollView.Bounds.Width * i, 0, (float)scrollView.Bounds.Width, (float)scrollView.Bounds.Height);
-                scrollView.AddSubview(view);
+                UIView.Transition(scrollView, 0.3, UIViewAnimationOptions.TransitionCrossDissolve, () => scrollView.AddSubview(view), null);
             }
 
             scrollView.ContentSize = new SizeF((float)scrollView.Bounds.Width * (i == 0 ? 1 : i), (float)scrollView.Bounds.Height);
+
+            SetPageOffset(ViewModel.SelectedPage, false);
         }
     }
 }
