@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -10,6 +12,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 {
+    [MvxModalPresentation(WrapInNavigationController = true)]
 	public partial class CommentView : BaseGradientBarView<CommentsViewModel>
 	{
         public CommentTableSource CommentTableSource { get; private set; }
@@ -34,6 +37,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 		{
             Title = Resources.CommentView_Title;
             InitializeTableView();
+            SetScrollKeyboard();
+
+            commentTextView.SetBorderlessStyle(string.Empty, Theme.Color.Separator);
         }
 
         private void InitializeTableView()
@@ -45,8 +51,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
             tableView.RowHeight = CommentItemCell.EstimatedHeight;
             tableView.UserInteractionEnabled = true;
             tableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
-
             tableView.AllowsSelection = false;
+        }
+
+        private void SetScrollKeyboard()
+        {
+            Xamarin.IQKeyboardManager.SharedManager.ShouldResignOnTouchOutside = true;
+            Xamarin.IQKeyboardManager.SharedManager.ShouldToolbarUsesTextFieldTintColor = true;
+            Xamarin.IQKeyboardManager.SharedManager.KeyboardDistanceFromTextField = 300f;
         }
     }
 }
