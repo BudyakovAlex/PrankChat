@@ -47,8 +47,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Distribution: Alexey Sorochan (C7FL5MJ4D2)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
+    <CodesignProvision>Ad-Hoc Provision Profile</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -69,7 +70,7 @@
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <BundleResource Include="Presentation\Localization\en.lproj\Localizalbe.strings" />
     <Compile Include="Presentation\Views\Base\BaseView.cs" />
-    <Compile Include="Presentation\Views\Base\BaseCell.cs" />
+    <Compile Include="Presentation\Views\Base\BaseTableCell.cs" />
     <InterfaceDefinition Include="Presentation\Views\MainView\MainView.xib" />
     <Compile Include="Presentation\Views\MainView\MainView.cs" />
     <Compile Include="Presentation\Views\MainView\MainView.designer.cs">
@@ -202,6 +203,29 @@
       <DependentUpon>CommentItemCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Views\Comment\CommentTableSource.cs" />
+    <Compile Include="Presentation\Views\ProfileView\Cashbox\CashboxView.cs" />
+    <Compile Include="Presentation\Views\ProfileView\Cashbox\CashboxView.designer.cs">
+      <DependentUpon>CashboxView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\ProfileView\Cashbox\CashboxView.xib" />
+    <InterfaceDefinition Include="Presentation\Views\ProfileView\Cashbox\RefillView.xib" />
+    <Compile Include="Presentation\Views\ProfileView\Cashbox\RefillView.cs" />
+    <Compile Include="Presentation\Views\ProfileView\Cashbox\RefillView.designer.cs">
+      <DependentUpon>RefillView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\ProfileView\Cashbox\WithdrawalView.xib" />
+    <Compile Include="Presentation\Views\ProfileView\Cashbox\WithdrawalView.cs" />
+    <Compile Include="Presentation\Views\ProfileView\Cashbox\WithdrawalView.designer.cs">
+      <DependentUpon>WithdrawalView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Views\ProfileView\Cashbox\PaymentMethodsCollectionViewSource.cs" />
+    <InterfaceDefinition Include="Presentation\Views\ProfileView\Cashbox\PaymentMethodCell.xib" />
+    <Compile Include="Presentation\Views\ProfileView\Cashbox\PaymentMethodCell.cs" />
+    <Compile Include="Presentation\Views\ProfileView\Cashbox\PaymentMethodCell.designer.cs">
+      <DependentUpon>PaymentMethodCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Views\Base\BaseCollectionCell.cs" />
+    <Compile Include="Presentation\Converters\BoolToUIImageConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -343,6 +367,42 @@
     <ImageAsset Include="Assets.xcassets\ic_comment.imageset\ic_comment.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_send.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_send.imageset\ic_send.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_mastercard_banner.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_visa_banner.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_3dsecure_banner.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_cards.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_qiwi.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_phone.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_sberbank.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_alphabank.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney.imageset\Group.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_phone.imageset\Group 179.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_sberbank.imageset\Sberbank 1.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_alphabank.imageset\Alfa bank.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_question.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_question.imageset\Vector %284%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\bg_selected_payment.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\bg_payment.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\bg_selected_payment.imageset\Rectangle 35.6.pdf" />
+    <ImageAsset Include="Assets.xcassets\bg_payment.imageset\Rectangle 35.11.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_alphabank_selected.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_cards_selected.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_phone_selected.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_qiwi_selected.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_sberbank_selected.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney_selected.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_alphabank_selected.imageset\Group 181.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_phone_selected.imageset\Group 179 %281%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_qiwi_selected.imageset\Group %281%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_sberbank_selected.imageset\Sberbank 1 %281%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney_selected.imageset\Group %282%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_qiwi.imageset\Group %281%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_cards.imageset\Group 178.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_payment_cards_selected.imageset\Group 178 %281%29-1.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_3dsecure_banner.imageset\Group %282%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_visa_banner.imageset\Group %281%29.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_mastercard_banner.imageset\Group.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -400,6 +460,26 @@
     <Folder Include="Assets.xcassets\ic_comment.imageset\" />
     <Folder Include="Presentation\Views\Comment\" />
     <Folder Include="Assets.xcassets\ic_send.imageset\" />
+    <Folder Include="Assets.xcassets\ic_mastercard_banner.imageset\" />
+    <Folder Include="Assets.xcassets\ic_visa_banner.imageset\" />
+    <Folder Include="Assets.xcassets\ic_3dsecure_banner.imageset\" />
+    <Folder Include="Assets.xcassets\ic_payment_cards.imageset\" />
+    <Folder Include="Assets.xcassets\ic_payment_qiwi.imageset\" />
+    <Folder Include="Assets.xcassets\ic_payment_yandexmoney.imageset\" />
+    <Folder Include="Assets.xcassets\ic_payment_phone.imageset\" />
+    <Folder Include="Assets.xcassets\ic_payment_sberbank.imageset\" />
+    <Folder Include="Assets.xcassets\ic_payment_alphabank.imageset\" />
+    <Folder Include="Assets.xcassets\ic_question.imageset\" />
+    <Folder Include="Presentation\Views\ProfileView\Cashbox\" />
+    <Folder Include="Assets.xcassets\bg_selected_payment.imageset\" />
+    <Folder Include="Assets.xcassets\bg_payment.imageset\" />
+    <Folder Include="Presentation\Converters\" />
+    <Folder Include="Assets.xcassets\ic_payment_alphabank_selected.imageset\" />
+    <Folder Include="Assets.xcassets\ic_payment_cards_selected.imageset\" />
+    <Folder Include="Assets.xcassets\ic_payment_phone_selected.imageset\" />
+    <Folder Include="Assets.xcassets\ic_payment_qiwi_selected.imageset\" />
+    <Folder Include="Assets.xcassets\ic_payment_sberbank_selected.imageset\" />
+    <Folder Include="Assets.xcassets\ic_payment_yandexmoney_selected.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

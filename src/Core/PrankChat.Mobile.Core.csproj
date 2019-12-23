@@ -36,7 +36,7 @@
 
   <ItemGroup>
     <Folder Include="Presentation\Navigation\" />
-    <Folder Include="Presentation\Navigation\Parametres\" />
+    <Folder Include="Presentation\Navigation\Parameters\" />
     <Folder Include="Presentation\Navigation\Results\" />
     <Folder Include="Models\Enums\" />
     <Folder Include="Converters\" />
@@ -51,5 +51,7 @@
     <Folder Include="Presentation\ViewModels\Notification\Items\" />
     <Folder Include="Presentation\ViewModels\Comment\" />
     <Folder Include="Presentation\ViewModels\Comment\Items\" />
+    <Folder Include="Presentation\ViewModels\Profile\" />
+    <Folder Include="Presentation\ViewModels\Profile\Cashbox\" />
   </ItemGroup>
 </Project>

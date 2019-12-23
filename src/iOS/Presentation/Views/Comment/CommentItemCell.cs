@@ -9,7 +9,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 {
-    public partial class CommentItemCell : BaseCell<CommentItemCell, CommentItemViewModel>
+    public partial class CommentItemCell : BaseTableCell<CommentItemCell, CommentItemViewModel>
     {
         static CommentItemCell()
         {

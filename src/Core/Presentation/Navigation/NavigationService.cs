@@ -1,10 +1,13 @@
 ﻿using System.Threading.Tasks;
 using MvvmCross.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Rating;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Rating;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
@@ -24,6 +27,11 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         {
             //return ShowLoginView();
             return ShowMainView();
+        }
+
+        public Task ShowCashboxView()
+        {
+            return _mvxNavigationService.Navigate<CashboxViewModel>();
         }
 
         public Task ShowLoginView()
@@ -81,6 +89,13 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<CommentsViewModel>();
         }
 
+        public Task ShowCashboxContent()
+        {
+            return Task.WhenAll(
+                _mvxNavigationService.Navigate<RefillViewModel>(),
+                           _mvxNavigationService.Navigate<WithdrawalViewModel>());
+        }
+
         public Task<bool> CloseView(BaseViewModel viewModel)
         {
             return _mvxNavigationService.Close(viewModel);
@@ -99,6 +114,18 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         public Task ShowDetailsPublicationView()
         {
             return _mvxNavigationService.Navigate<PublicationDetailsViewModel>();
+        }
+        
+        public Task ShowWithdrawalView()
+        {
+            var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Withdrawal);
+            return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter>(navigationParameter);
+        }
+
+        public Task ShowRefillView()
+        {
+            var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Refill);
+            return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter>(navigationParameter);
         }
     }
 }

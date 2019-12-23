@@ -24,5 +24,12 @@ namespace PrankChat.Mobile.iOS
             textField.EditingChanged += (sender, args) => { textField.Text = ""; };
             textField.EditingDidEnd += (sender, args) => { textField.Text = ""; };
         }
+
+        public void Include(UITextView textView)
+        {
+            textView.Text = textView.Text + "";
+            textView.TextStorage.DidProcessEditing += (sender, e) => textView.Text = "";
+            textView.Changed += (sender, args) => { textView.Text = ""; };
+        }
     }
 }

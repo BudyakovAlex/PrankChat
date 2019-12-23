@@ -33,6 +33,11 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         Task ShowDetailsOrderView();
 
         Task ShowDetailsPublicationView();
+        Task ShowWithdrawalView();
+
+        Task ShowRefillView();
+
+        Task ShowCashboxContent();
 
         Task<bool> CloseView(BaseViewModel viewModel);
     }

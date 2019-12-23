@@ -59,11 +59,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             base.RegisterKeyboardDismissResponders(views);
         }
 
-        protected override void RegisterKeyboardDismissViews(List<UIView> viewList)
+        protected override void RegisterKeyboardDismissTextFields(List<UIView> viewList)
         {
             viewList.Add(emailTextField);
 
-            base.RegisterKeyboardDismissViews(viewList);
+            base.RegisterKeyboardDismissTextFields(viewList);
         }
     }
 }
