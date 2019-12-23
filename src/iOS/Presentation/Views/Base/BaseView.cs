@@ -90,7 +90,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         private void InitializeKeyboardDismiss()
         {
-            RegisterKeyboardDismissResponders(new List<UIView> { View });
+            RegisterKeyboardDismissResponders(new List<UIView> { });
             RegisterKeyboardDismissTextFields(_viewForKeyboardDismiss);
         }
 

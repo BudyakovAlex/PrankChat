@@ -130,7 +130,7 @@
                 <outlet property="bookmarkButton" destination="3bc-Te-k2D" id="6J2-HR-UQP"/>
                 <outlet property="likeButton" destination="BXs-ef-I9v" id="S0C-ak-W9Z"/>
                 <outlet property="likeLabel" destination="Kam-d9-irM" id="cam-QN-BGK"/>
-                <outlet property="moreButton" destination="YTl-1W-gDM" id="OlI-Mf-ujx"/>
+                <outlet property="moreButton" destination="4BB-gN-kDu" id="yYK-uy-gD1"/>
                 <outlet property="profileImage" destination="kAU-Il-kDS" id="0jc-Qm-QfR"/>
                 <outlet property="profileNameLabel" destination="fjE-FD-JYU" id="7iM-Cc-3Wv"/>
                 <outlet property="publicationInfoLabel" destination="n9k-fi-DBx" id="02W-8E-rCE"/>

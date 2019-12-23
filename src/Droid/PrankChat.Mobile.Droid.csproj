@@ -37,10 +37,6 @@
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
     <AndroidSupportedAbis>x86;x86_64;armeabi-v7a</AndroidSupportedAbis>
-    <AotAssemblies>false</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
-    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -97,7 +93,8 @@
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Presentation\Views\PasswordRecovery\PasswordRecoveryView.cs" />
     <Compile Include="Presentation\Views\PasswordRecovery\FinishPasswordRecoveryView.cs" />
-    <Compile Include="Presentation\Views\Order\DetailsOrderView.cs" />
+    <Compile Include="Presentation\Views\Publications\PublicationDetailsView.cs" />
+    <Compile Include="Presentation\Views\Order\OrderDetailsView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -262,6 +259,10 @@
       </SubType>
       <Generator>
       </Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_publication_details.axml">
+      <SubType></SubType>
+      <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_order_details_view.axml">
       <SubType>

@@ -4,7 +4,6 @@
 // actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using FFImageLoading.Cross;
 using Foundation;
 using System.CodeDom.Compiler;
 
@@ -23,7 +22,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UILabel likeLabel { get; set; }
 
 		[Outlet]
-		UIKit.UIView moreButton { get; set; }
+		UIKit.UIButton moreButton { get; set; }
 
 		[Outlet]
 		FFImageLoading.Cross.MvxCachedImageView profileImage { get; set; }
@@ -41,7 +40,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UILabel shareLabel { get; set; }
 
 		[Outlet]
-		MvxCachedImageView videoImage { get; set; }
+		FFImageLoading.Cross.MvxCachedImageView videoImage { get; set; }
 
 		[Outlet]
 		UIKit.UILabel videoNameLabel { get; set; }
