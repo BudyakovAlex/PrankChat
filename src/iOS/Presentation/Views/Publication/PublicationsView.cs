@@ -61,12 +61,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)
         {
-            // Nothing do
+            // Fix to select cell
         }
 
         protected override void RegisterKeyboardDismissTextFields(List<UIView> viewList)
         {
-            // Nothing do
+            // Fix to select cell
         }
 
         private void InitializeNavigationBar()
