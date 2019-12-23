@@ -50,14 +50,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         protected virtual void RegisterKeyboardDismissResponders(List<UIView> views)
         {
+            View.AddGestureRecognizer(new UITapGestureRecognizer(DismissKeyboard));
             foreach (var view in views)
             {
-                var tapGesture = new UITapGestureRecognizer(DismissKeyboard);
-                view.AddGestureRecognizer(tapGesture);
+                view.AddGestureRecognizer(new UITapGestureRecognizer(DismissKeyboard));
             }
         }
 
-        protected virtual void RegisterKeyboardDismissViews(List<UIView> viewList)
+        protected virtual void RegisterKeyboardDismissTextFields(List<UIView> viewList)
         {
             _viewForKeyboardDismiss = viewList;
             _viewForKeyboardDismiss
@@ -91,7 +91,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
         private void InitializeKeyboardDismiss()
         {
             RegisterKeyboardDismissResponders(new List<UIView> { });
-            RegisterKeyboardDismissViews(_viewForKeyboardDismiss);
+            RegisterKeyboardDismissTextFields(_viewForKeyboardDismiss);
         }
 
         private void DismissKeyboard()

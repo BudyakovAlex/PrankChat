@@ -1,4 +1,5 @@
-﻿using MvvmCross.Binding.BindingContext;
+﻿using System.Collections.Generic;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
@@ -47,7 +48,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			InitializeNavigationBar();
             InitializeTableView();
 
-            publicationTypeSegment.SetPublicationSegmentedControlStyle(new string[] {
+            publicationTypeSegment.SetStyle(new string[] {
 				Resources.Popular_Publication_Tab,
 				Resources.Actual_Publication_Tab,
 				Resources.MyFeed_Publication_Tab,
@@ -56,6 +57,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             topSeparatorView.BackgroundColor = Theme.Color.Separator;
             filterArrowImageView.Image = UIImage.FromBundle("ic_filter_arrow");
             filterTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
+        }
+
+        protected override void RegisterKeyboardDismissResponders(List<UIView> views)
+        {
+            // Nothing do
+        }
+
+        protected override void RegisterKeyboardDismissTextFields(List<UIView> viewList)
+        {
+            // Nothing do
         }
 
         private void InitializeNavigationBar()
