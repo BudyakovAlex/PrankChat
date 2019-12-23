@@ -11,6 +11,8 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
+
+    [MvxModalPresentation(WrapInNavigationController = true)]
     public partial class PublicationDetailsView : BaseGradientBarView<PublicationDetailsViewModel>
     {
         protected override void SetupBinding()

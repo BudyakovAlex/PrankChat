@@ -115,3 +115,4 @@
 "CashboxView_Withdrawal_Button" = "Снять";
 "CashboxView_WithdrawalMethodSelect_Title" = "Выберите метод для снятия:";
 "CashboxView_Price_Placeholder" = "1 000 000 ₽";
+"CommentView_Title" = "Комментарии";

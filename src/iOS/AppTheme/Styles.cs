@@ -366,20 +366,20 @@ namespace PrankChat.Mobile.iOS.AppTheme
             button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
         }
 
-        public static void SetBorderlessStyle(this UIButton button, string title, UIColor borderColor = null)
+        public static void SetBorderlessStyle(this UIView view, string title, UIColor borderColor = null)
         {
             if (borderColor != null)
             {
-                button.Layer.BorderColor = borderColor.CGColor;
-                button.Layer.BorderWidth = 1;
-                button.Layer.CornerRadius = 4;
+                view.Layer.BorderColor = borderColor.CGColor;
+                view.Layer.BorderWidth = 1;
+                view.Layer.CornerRadius = 4;
             }
             else
             {
-                button.Layer.BorderColor = UIColor.Clear.CGColor;
+                view.Layer.BorderColor = UIColor.Clear.CGColor;
             }
 
-            button.BackgroundColor = UIColor.Clear;
+            view.BackgroundColor = UIColor.Clear;
 
             var titleAttributes = new UIStringAttributes
             {
@@ -387,8 +387,12 @@ namespace PrankChat.Mobile.iOS.AppTheme
                 ForegroundColor = Theme.Color.Accent
             };
 
-            var attributedTitle = new NSAttributedString(title, titleAttributes);
-            button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
+            if (view is UIButton button)
+            {
+                var attributedTitle = new NSAttributedString(title, titleAttributes);
+                button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
+            }
+
         }
 
         public static void SetRadioInactiveStyle(this UIButton button, float padding = 8f)

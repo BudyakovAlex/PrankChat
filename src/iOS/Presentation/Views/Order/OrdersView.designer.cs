@@ -1,50 +1,35 @@
 // WARNING
 //
-// This file has been generated automatically by Visual Studio to store outlets and
-// actions made in the UI designer. If it is removed, they will be lost.
-// Manual changes to this file may not be handled correctly.
+// This file has been generated automatically by Visual Studio from the outlets and
+// actions declared in your storyboard file.
+// Manual changes to this file will not be maintained.
 //
 using Foundation;
+using System;
 using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
-	[Register ("OrdersView")]
-	partial class OrdersView
-	{
-		[Outlet]
-		UIKit.UIImageView filterArrowImageView { get; set; }
+    [Register ("OrdersView")]
+    partial class OrdersView
+    {
+        [Outlet]
+        UIKit.UIImageView filterArrowImageView { get; set; }
 
-		[Outlet]
-		UIKit.UIView filterContainerView { get; set; }
 
-		[Outlet]
-		UIKit.UILabel filterTitleLabel { get; set; }
+        [Outlet]
+        UIKit.UIView filterContainerView { get; set; }
 
-		[Outlet]
-		UIKit.UITableView tableView { get; set; }
-		
-		void ReleaseDesignerOutlets ()
-		{
-			if (tableView != null) {
-				tableView.Dispose ();
-				tableView = null;
-			}
 
-			if (filterContainerView != null) {
-				filterContainerView.Dispose ();
-				filterContainerView = null;
-			}
+        [Outlet]
+        UIKit.UILabel filterTitleLabel { get; set; }
 
-			if (filterTitleLabel != null) {
-				filterTitleLabel.Dispose ();
-				filterTitleLabel = null;
-			}
 
-			if (filterArrowImageView != null) {
-				filterArrowImageView.Dispose ();
-				filterArrowImageView = null;
-			}
-		}
-	}
+        [Outlet]
+        UIKit.UITableView tableView { get; set; }
+
+        void ReleaseDesignerOutlets ()
+        {
+        }
+    }
 }

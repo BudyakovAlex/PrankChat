@@ -468,4 +468,7 @@
   <data name="CashboxView_Price_Placeholder" xml:space="preserve">
     <value>1 000 000 ₽</value>
   </data>
+  <data name="CommentView_Title" xml:space="preserve">
+    <value>Комментарии</value>
+  </data>
 </root>
