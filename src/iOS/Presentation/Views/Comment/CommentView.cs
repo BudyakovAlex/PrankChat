@@ -1,11 +1,7 @@
-﻿using System;
-using System.Drawing;
-using Foundation;
-using MvvmCross.Binding.BindingContext;
+﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
@@ -39,7 +35,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
             InitializeTableView();
             SetScrollKeyboard();
 
-            commentTextView.SetBorderlessStyle(string.Empty, Theme.Color.Separator);
+            commentTextView.SetBorderlessStyle(string.Empty, Theme.Color.CommentBorder);
+
+            commentViewSeparatorView.BackgroundColor = Theme.Color.Separator;
         }
 
         private void InitializeTableView()

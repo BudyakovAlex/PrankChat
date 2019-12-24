@@ -90,6 +90,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         private void InitializeKeyboardDismiss()
         {
+            Xamarin.IQKeyboardManager.SharedManager.ShouldResignOnTouchOutside = true;
             RegisterKeyboardDismissResponders(new List<UIView> { });
             RegisterKeyboardDismissTextFields(_viewForKeyboardDismiss);
         }
