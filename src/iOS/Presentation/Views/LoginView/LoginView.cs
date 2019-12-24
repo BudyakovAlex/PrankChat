@@ -34,12 +34,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             loginTitleLabel.TextColor = Theme.Color.White;
             loginTitleLabel.Font = Theme.Font.RegularFontOfSize(20);
 
-            emailTextField.Placeholder = Resources.LoginView_Email_Placeholder;
-            emailTextField.SetLightStyle();
+            emailTextField.SetLightStyle(Resources.LoginView_Email_Placeholder);
 
-            passwordTextField.Placeholder = Resources.LoginView_Password_Placeholder;
             passwordTextField.SecureTextEntry = true;
-            passwordTextField.SetLightStyle();
+            passwordTextField.SetLightStyle(Resources.LoginView_Password_Placeholder);
 
             forgotPasswordTitleLabel.Text = Resources.LoginView_ForgotPassword_Title;
             forgotPasswordTitleLabel.Font = Theme.Font.RegularFontOfSize(12);

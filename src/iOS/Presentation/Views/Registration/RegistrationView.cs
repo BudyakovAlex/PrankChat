@@ -29,8 +29,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             registrationTitleLabel.TextColor = Theme.Color.White;
             registrationTitleLabel.Font = Theme.Font.RegularFontOfSize(20);
 
-            emailTextField.Placeholder = Resources.RegistrationView_Email_Placeholder;
-            emailTextField.SetLightStyle();
+            emailTextField.SetLightStyle(Resources.RegistrationView_Email_Placeholder);
 
             socialNetworksLabel.Text = Resources.LoginView_AltLogin_Title;
             socialNetworksLabel.Font = Theme.Font.RegularFontOfSize(12);

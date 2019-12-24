@@ -51,14 +51,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
         {
             Title = Resources.RegistrationView_StepTwo_Title;
 
-            nicknameTextField.Placeholder = Resources.RegistrationView_Login_Placeholder;
-            nicknameTextField.SetLightStyle();
+            nicknameTextField.SetLightStyle(Resources.RegistrationView_Login_Placeholder);
 
-            nameTextField.Placeholder = Resources.RegistrationView_Name_Placeholder;
-            nameTextField.SetLightStyle();
+            nameTextField.SetLightStyle(Resources.RegistrationView_Name_Placeholder);
 
-            birthdayTextField.Placeholder = Resources.RegistrationView_Birthday_Placeholder;
-            birthdayTextField.SetLightStyle();
+            birthdayTextField.SetLightStyle(Resources.RegistrationView_Birthday_Placeholder);
             var imageView = new UIImageView(UIImage.FromBundle("ic_calendar"));
             var imageContainer = new UIView(new CGRect(0, 0, 35, 22));
             imageContainer.ContentMode = UIViewContentMode.Center;
@@ -67,12 +64,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             birthdayTextField.RightViewMode = UITextFieldViewMode.Always;
             birthdayTextField.AddGestureRecognizer(new UITapGestureRecognizer(HandleCalendarTap));
 
-            passwordTextField.Placeholder = Resources.RegistrationView_Password_Placeholder;
-            passwordTextField.SetLightStyle();
+            passwordTextField.SetLightStyle(Resources.RegistrationView_Password_Placeholder);
             passwordTextField.SecureTextEntry = true;
 
-            passwordRepeatTextField.Placeholder = Resources.RegistrationView_PasswordRepeat_Placeholder;
-            passwordRepeatTextField.SetLightStyle();
+            passwordRepeatTextField.SetLightStyle(Resources.RegistrationView_PasswordRepeat_Placeholder);
             passwordRepeatTextField.SecureTextEntry = true;
 
             sexSelectTitleLabel.Text = Resources.RegistrationView_GenderSelect_Title;
