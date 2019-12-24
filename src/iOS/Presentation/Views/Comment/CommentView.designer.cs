@@ -11,12 +11,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 {
 	[Register ("CommentView")]
 	partial class CommentView
-    {
+	{
 		[Outlet]
 		UIKit.UITextView commentTextView { get; set; }
 
 		[Outlet]
 		UIKit.UIView commentView { get; set; }
+
+		[Outlet]
+		UIKit.UIView commentViewSeparatorView { get; set; }
 
 		[Outlet]
 		UIKit.UIButton sendButton { get; set; }
@@ -26,9 +29,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (tableView != null) {
-				tableView.Dispose ();
-				tableView = null;
+			if (commentTextView != null) {
+				commentTextView.Dispose ();
+				commentTextView = null;
 			}
 
 			if (commentView != null) {
@@ -36,14 +39,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 				commentView = null;
 			}
 
-			if (commentTextView != null) {
-				commentTextView.Dispose ();
-				commentTextView = null;
-			}
-
 			if (sendButton != null) {
 				sendButton.Dispose ();
 				sendButton = null;
+			}
+
+			if (tableView != null) {
+				tableView.Dispose ();
+				tableView = null;
+			}
+
+			if (commentViewSeparatorView != null) {
+				commentViewSeparatorView.Dispose ();
+				commentViewSeparatorView = null;
 			}
 		}
 	}

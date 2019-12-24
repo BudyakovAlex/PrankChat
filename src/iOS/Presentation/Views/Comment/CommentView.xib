@@ -3,7 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="commentTextView" destination="qaA-v0-vuR" id="opp-Ff-8fD"/>
                 <outlet property="commentView" destination="gSR-Dk-tic" id="IDB-EO-Xva"/>
+                <outlet property="commentViewSeparatorView" destination="zxd-hP-SJY" id="mFm-iW-Te3"/>
                 <outlet property="sendButton" destination="mQc-qs-CH9" id="bhe-ee-mAs"/>
                 <outlet property="tableView" destination="JPe-5Z-1nG" id="nTD-dB-ZEX"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
@@ -22,11 +23,11 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JPe-5Z-1nG">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="601"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSR-Dk-tic">
-                    <rect key="frame" x="0.0" y="597" width="375" height="70"/>
+                    <rect key="frame" x="0.0" y="601" width="375" height="66"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zxd-hP-SJY">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
@@ -36,15 +37,15 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQc-qs-CH9">
-                            <rect key="frame" x="323" y="17" width="36" height="36"/>
+                            <rect key="frame" x="323" y="15" width="36" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="36" id="oxK-rO-HpE"/>
                                 <constraint firstAttribute="height" constant="36" id="x0N-qK-Pet"/>
                             </constraints>
                             <state key="normal" image="ic_send"/>
                         </button>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Lorem ipsum dolor sit er " translatesAutoresizingMaskIntoConstraints="NO" id="qaA-v0-vuR">
-                            <rect key="frame" x="8" y="16" width="299" height="38"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum dolor sit er " translatesAutoresizingMaskIntoConstraints="NO" id="qaA-v0-vuR">
+                            <rect key="frame" x="8" y="17" width="299" height="33"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -53,16 +54,16 @@
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
+                        <constraint firstItem="qaA-v0-vuR" firstAttribute="top" secondItem="zxd-hP-SJY" secondAttribute="bottom" constant="16" id="2yS-Uj-TFd"/>
                         <constraint firstItem="qaA-v0-vuR" firstAttribute="leading" secondItem="gSR-Dk-tic" secondAttribute="leading" constant="8" id="6v0-DQ-ynO"/>
                         <constraint firstItem="mQc-qs-CH9" firstAttribute="centerY" secondItem="gSR-Dk-tic" secondAttribute="centerY" id="ADr-Tv-RPe"/>
                         <constraint firstItem="zxd-hP-SJY" firstAttribute="leading" secondItem="gSR-Dk-tic" secondAttribute="leading" id="BRX-da-MPU"/>
                         <constraint firstItem="mQc-qs-CH9" firstAttribute="leading" secondItem="qaA-v0-vuR" secondAttribute="trailing" constant="16" id="GwV-5g-dkf"/>
                         <constraint firstAttribute="trailing" secondItem="zxd-hP-SJY" secondAttribute="trailing" id="gb6-n0-9tj"/>
-                        <constraint firstItem="qaA-v0-vuR" firstAttribute="top" secondItem="gSR-Dk-tic" secondAttribute="top" constant="16" id="hhM-k9-lEm"/>
                         <constraint firstAttribute="trailing" secondItem="mQc-qs-CH9" secondAttribute="trailing" constant="16" id="l1r-CO-ocZ"/>
                         <constraint firstItem="zxd-hP-SJY" firstAttribute="top" secondItem="gSR-Dk-tic" secondAttribute="top" id="n7A-t5-gos"/>
                         <constraint firstAttribute="bottom" secondItem="qaA-v0-vuR" secondAttribute="bottom" constant="16" id="qzC-mf-m2C"/>
-                        <constraint firstAttribute="height" constant="70" id="vIo-d9-QZW"/>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="250" id="vIo-d9-QZW"/>
                     </constraints>
                 </view>
             </subviews>
@@ -80,6 +81,6 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_send" width="16" height="16"/>
+        <image name="ic_send" width="36" height="36"/>
     </resources>
 </document>
