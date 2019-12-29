@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using FFImageLoading.Transformations;
-using FFImageLoading.Work;
 using PrankChat.Mobile.Core.Presentation.Localization;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
 {
     public class PublicationItemViewModel : BaseItemViewModel
     {
-        private int _numberOfViews;
+        private long _numberOfViews;
         private DateTime _publicationDate;
-        private int _numberOfLikes;
+        private long _numberOfLikes;
 
         public string ProfileName { get; }
 
@@ -28,9 +25,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                                         string profilePhotoUrl,
                                         string videoName,
                                         string videoUrl,
-                                        int numberOfViews,
+                                        long numberOfViews,
                                         DateTime publicationDate,
-                                        int numberOfLikes)
+                                        long numberOfLikes)
         {
             ProfileName = profileName;
             ProfilePhotoUrl = profilePhotoUrl;

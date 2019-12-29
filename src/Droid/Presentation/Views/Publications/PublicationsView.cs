@@ -1,5 +1,4 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
@@ -24,6 +23,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
     {
         private TabLayout _publicationTypeTabLayout;
         private Typeface _unselectedTypeface;
+        private MvxRecyclerView _publicationRecyclerView;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -36,12 +36,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private void InitializeControls(View view)
         {
             _publicationTypeTabLayout = view.FindViewById<TabLayout>(Resource.Id.publication_type_tab_layout);
-            var publicationRecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.publication_recycler_view);
+            _publicationRecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.publication_recycler_view);
+            _publicationRecyclerView.Adapter = new PublicationRecycleViewAdapter(ViewModel, BindingContext);
             var dividerItemDecoration = new DividerItemDecoration(Application.Context, LinearLayoutManager.Vertical);
-            publicationRecyclerView.AddItemDecoration(dividerItemDecoration);
+            _publicationRecyclerView.AddItemDecoration(dividerItemDecoration);
         }
 
-		protected override void Subscription()
+        protected override void Subscription()
         {
             _publicationTypeTabLayout.TabSelected += PublicationTypeTabLayoutTabSelected;
             _publicationTypeTabLayout.TabUnselected += PublicationTypeTabLayoutTabUnselected;

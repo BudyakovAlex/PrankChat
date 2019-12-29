@@ -1,9 +1,11 @@
-﻿using System;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -14,8 +16,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     public class PublicationsViewModel : BaseViewModel
     {
         private readonly IDialogService _dialogService;
+        private readonly IApiService _apiService;
 
         private PublicationType _selectedPublicationType;
+
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
@@ -23,6 +27,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         }
 
         private string _activeFilterName;
+
         public string ActiveFilterName
         {
             get => _activeFilterName;
@@ -37,9 +42,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public PublicationsViewModel(
             INavigationService navigationService,
-            IDialogService dialogService) : base(navigationService)
+            IDialogService dialogService,
+            IApiService apiService) : base(navigationService)
         {
             _dialogService = dialogService;
+            _apiService = apiService;
         }
 
         public override Task Initialize()
@@ -48,7 +55,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             ActiveFilterName = Resources.Publication_Tab_Filter_Day;
 
-            InitializePublications();
+            InitializePublications().FireAndForget();
+
             return Task.CompletedTask;
         }
 
@@ -69,33 +77,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             ActiveFilterName = selectedFilter;
         }
 
-        private Task InitializePublications()
+        private async Task InitializePublications()
         {
-            Items.Add(new PublicationItemViewModel("Name one",
-                                                   "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                                   "Name video one",
-                                                   "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg",
-                                                   134,
-                                                   new System.DateTime(2018, 4, 24),
-                                                   245));
+            var videoBundle = await _apiService.GetVideoFeedAsync();
 
-            Items.Add(new PublicationItemViewModel("Name two",
-                                       "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                       "Name video two Name video two Name video two Name video two Name video two Name video two Name video two",
-                                       "https://cdn.pixabay.com/photo/2016/11/30/09/27/hacker-1872291_960_720.jpg",
-                                       134,
-                                       new System.DateTime(2018, 4, 24),
-                                       245));
+            var publicationViewModels = videoBundle.Data.Select(x =>
+                new PublicationItemViewModel("Name one",
+                    "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                    x.Title,
+                    x.StreamUri,
+                    x.ViewsCount,
+                    new System.DateTime(2018, 4, 24),
+                    x.RepostsCount));
 
-            Items.Add(new PublicationItemViewModel("Name three",
-                           "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                           "Name video three",
-                           "https://images.pexels.com/photos/326055/pexels-photo-326055.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                           134,
-                           new System.DateTime(2018, 4, 24),
-                           245));
-
-            return Task.CompletedTask;
+            Items.Add(publicationViewModels.ToList()[2]);
         }
     }
 }

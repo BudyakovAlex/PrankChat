@@ -33,5 +33,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             var registrationApiModel = MappingConfig.Mapper.Map<UserRegistrationApiModel>(userInfo);
             return _client.UnauthorizedPost("auth/register", registrationApiModel);
         }
+
+        public async Task<VideoMetadataBundleDataModel> GetVideoFeedAsync()
+        {
+            var videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>("videos");
+            return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
+        }
     }
 }
