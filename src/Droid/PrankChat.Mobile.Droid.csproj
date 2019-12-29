@@ -83,7 +83,6 @@
     <Compile Include="Presentation\Views\Profile\Cashbox\RefillView.cs" />
     <Compile Include="Presentation\Views\Profile\Cashbox\WithdrawalView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileView.cs" />
-    <Compile Include="Presentation\Views\Publications\PublicationRecycleViewAdapter.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsView.cs" />
     <Compile Include="Presentation\Views\RatingView.cs" />
     <Compile Include="Presentation\Views\Registration\RegistrationSecondStepView.cs" />

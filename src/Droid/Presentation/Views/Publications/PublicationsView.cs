@@ -6,14 +6,18 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using MediaManager;
+using MediaManager.Library;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using static Android.Support.Design.Widget.TabLayout;
+using VideoView = MediaManager.Platforms.Android.Video.VideoView;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 {
@@ -37,7 +41,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         {
             _publicationTypeTabLayout = view.FindViewById<TabLayout>(Resource.Id.publication_type_tab_layout);
             _publicationRecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.publication_recycler_view);
-            _publicationRecyclerView.Adapter = new PublicationRecycleViewAdapter(ViewModel, BindingContext);
             var dividerItemDecoration = new DividerItemDecoration(Application.Context, LinearLayoutManager.Vertical);
             _publicationRecyclerView.AddItemDecoration(dividerItemDecoration);
         }
@@ -46,6 +49,22 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         {
             _publicationTypeTabLayout.TabSelected += PublicationTypeTabLayoutTabSelected;
             _publicationTypeTabLayout.TabUnselected += PublicationTypeTabLayoutTabUnselected;
+            _publicationRecyclerView.ScrollChange += PublicationRecyclerViewOnScrollChange;
+        }
+
+        private void PublicationRecyclerViewOnScrollChange(object sender, View.ScrollChangeEventArgs e)
+        {
+            var layoutManager = (LinearLayoutManager)_publicationRecyclerView.GetLayoutManager();
+            var completelyVisibleItemPosition = layoutManager.FindFirstCompletelyVisibleItemPosition();
+            if (completelyVisibleItemPosition == -1)
+                return;
+
+            var visibleView = layoutManager.FindViewByPosition(completelyVisibleItemPosition);
+            var videoView = visibleView.FindViewById<VideoView>(Resource.Id.video_file);
+            var visibleViewModel = (PublicationItemViewModel)_publicationRecyclerView.Adapter.GetItem(completelyVisibleItemPosition);
+            CrossMediaManager.Current.MediaPlayer.VideoView = videoView;
+            var mediaItem = new MediaItem(visibleViewModel.VideoUrl);
+            CrossMediaManager.Current.Play(mediaItem);
         }
 
         protected override void Unsubscription()

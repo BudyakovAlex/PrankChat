@@ -239,6 +239,9 @@
     <PackageReference Include="MvvmCross">
       <Version>6.4.1</Version>
     </PackageReference>
+    <PackageReference Include="Plugin.MediaManager">
+      <Version>0.9.1</Version>
+    </PackageReference>
     <PackageReference Include="Xam.Plugin.DeviceInfo">
       <Version>4.1.1</Version>
     </PackageReference>

@@ -90,6 +90,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     new System.DateTime(2018, 4, 24),
                     x.RepostsCount));
 
+            Items.Add(publicationViewModels.ToList()[1]);
+            Items.Add(publicationViewModels.ToList()[2]);
+            Items.Add(publicationViewModels.ToList()[1]);
             Items.Add(publicationViewModels.ToList()[2]);
         }
     }
