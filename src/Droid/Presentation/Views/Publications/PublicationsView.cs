@@ -15,6 +15,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
+using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using static Android.Support.Design.Widget.TabLayout;
 using VideoView = MediaManager.Platforms.Android.Video.VideoView;
@@ -28,6 +29,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private TabLayout _publicationTypeTabLayout;
         private Typeface _unselectedTypeface;
         private MvxRecyclerView _publicationRecyclerView;
+        private StateScrollListener _stateScrollListener;
+
+        private int _currentVisibleItemPosition;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -43,34 +47,41 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             _publicationRecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.publication_recycler_view);
             var dividerItemDecoration = new DividerItemDecoration(Application.Context, LinearLayoutManager.Vertical);
             _publicationRecyclerView.AddItemDecoration(dividerItemDecoration);
+            _stateScrollListener = new StateScrollListener();
+            _publicationRecyclerView.AddOnScrollListener(_stateScrollListener);
         }
 
         protected override void Subscription()
         {
             _publicationTypeTabLayout.TabSelected += PublicationTypeTabLayoutTabSelected;
             _publicationTypeTabLayout.TabUnselected += PublicationTypeTabLayoutTabUnselected;
-            _publicationRecyclerView.ScrollChange += PublicationRecyclerViewOnScrollChange;
-        }
-
-        private void PublicationRecyclerViewOnScrollChange(object sender, View.ScrollChangeEventArgs e)
-        {
-            var layoutManager = (LinearLayoutManager)_publicationRecyclerView.GetLayoutManager();
-            var completelyVisibleItemPosition = layoutManager.FindFirstCompletelyVisibleItemPosition();
-            if (completelyVisibleItemPosition == -1)
-                return;
-
-            var visibleView = layoutManager.FindViewByPosition(completelyVisibleItemPosition);
-            var videoView = visibleView.FindViewById<VideoView>(Resource.Id.video_file);
-            var visibleViewModel = (PublicationItemViewModel)_publicationRecyclerView.Adapter.GetItem(completelyVisibleItemPosition);
-            CrossMediaManager.Current.MediaPlayer.VideoView = videoView;
-            var mediaItem = new MediaItem(visibleViewModel.VideoUrl);
-            CrossMediaManager.Current.Play(mediaItem);
+            _stateScrollListener.FinishScroll += StateScrollListenerFinishScroll;
         }
 
         protected override void Unsubscription()
         {
             _publicationTypeTabLayout.TabSelected -= PublicationTypeTabLayoutTabSelected;
             _publicationTypeTabLayout.TabUnselected -= PublicationTypeTabLayoutTabUnselected;
+            _stateScrollListener.FinishScroll -= StateScrollListenerFinishScroll;
+        }
+
+        private void StateScrollListenerFinishScroll(object sender, System.EventArgs e)
+        {
+            var layoutManager = (LinearLayoutManager)_publicationRecyclerView.GetLayoutManager();
+            var completelyVisibleItemPosition = layoutManager.FindFirstCompletelyVisibleItemPosition();
+            if (completelyVisibleItemPosition == -1 || _currentVisibleItemPosition == completelyVisibleItemPosition)
+                return;
+
+            _currentVisibleItemPosition = completelyVisibleItemPosition;
+            var visibleView = layoutManager.FindViewByPosition(_currentVisibleItemPosition);
+            var videoView = visibleView.FindViewById<VideoView>(Resource.Id.video_file);
+            var visibleViewModel = (PublicationItemViewModel)_publicationRecyclerView.Adapter.GetItem(_currentVisibleItemPosition);
+
+            if (CrossMediaManager.Current.IsPlaying())
+                CrossMediaManager.Current.Stop();
+
+            CrossMediaManager.Current.MediaPlayer.VideoView = videoView;
+            CrossMediaManager.Current.Play(visibleViewModel.VideoUrl);
         }
 
         private void PublicationTypeTabLayoutTabUnselected(object sender, TabLayout.TabUnselectedEventArgs e)

@@ -247,7 +247,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             }
         }
 
-        public static void SetPreviewStyle(this UIImageView imageView)
+        public static void SetPreviewStyle(this UIView imageView)
         {
             imageView.BackgroundColor = UIColor.Clear;
             imageView.ContentMode = UIViewContentMode.ScaleAspectFill;

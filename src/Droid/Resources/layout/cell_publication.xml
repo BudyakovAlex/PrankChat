@@ -66,7 +66,6 @@
         android:textSize="14sp"
         android:textColor="@color/applicationBlack"
         app:MvxBind="Text VideoName, Mode = OneTime"/>
-<!--    app:layout_constraintDimensionRatio="16:9"-->
     <mediamanager.platforms.android.video.VideoView
         android:id="@+id/video_file"
         android:layout_width="0dp"
