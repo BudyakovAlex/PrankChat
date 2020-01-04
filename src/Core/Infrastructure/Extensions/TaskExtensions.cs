@@ -27,7 +27,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                 }
 
                 return result;
-            });
+            }, TaskContinuationOptions.OnlyOnFaulted);
         }
     }
 }

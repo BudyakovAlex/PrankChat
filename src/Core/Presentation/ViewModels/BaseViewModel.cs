@@ -17,6 +17,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         #endregion
 
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
+        }
+
         public INavigationService NavigationService { get; }
 
         public MvxAsyncCommand GoBackCommand

@@ -98,6 +98,7 @@
     <Compile Include="Presentation\Views\Publications\PublicationDetailsView.cs" />
     <Compile Include="Presentation\Views\Order\OrderDetailsView.cs" />
     <Compile Include="Presentation\Listeners\StateScrollListener.cs" />
+    <Compile Include="Presentation\Converters\BooleanToSoundResourceConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -286,6 +287,14 @@
       </SubType>
       <Generator>
       </Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_sound.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_without_sound.xml">
+      <SubType></SubType>
+      <Generator></Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>

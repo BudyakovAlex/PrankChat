@@ -60,10 +60,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             set => SetProperty(ref _profileName, value);
         }
 
-        public double DownsampleWidth { get; } = 100;
-
-        public List<ITransformation> Transformations => new List<ITransformation> { new CircleTransformation() };
-
         public string ProfilePhotoUrl { get; } = "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
 
         public string Description
@@ -102,7 +98,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             set => SetProperty(ref _subscriptionsValue, value);
         }
 
-        public MvxObservableCollection<BaseItemViewModel> Items { get; } = new MvxObservableCollection<BaseItemViewModel>();
+        public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
 
         public override async Task Initialize()
         {
@@ -113,29 +109,35 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private Task InitializePublications()
         {
-            Items.Add(new PublicationItemViewModel("Name one",
-                                                   "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                                   "Name video one",
-                                                   "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg",
-                                                   134,
-                                                   new System.DateTime(2018, 4, 24),
-                                                   245));
+            Items.Add(new PublicationItemViewModel(
+                NavigationService,
+                "Name one",
+                "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                "Name video one",
+                "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg",
+                134,
+                new System.DateTime(2018, 4, 24),
+                245));
 
-            Items.Add(new PublicationItemViewModel("Name two",
-                                       "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                       "Name video two Name video two Name video two Name video two Name video two Name video two Name video two",
-                                       "https://cdn.pixabay.com/photo/2016/11/30/09/27/hacker-1872291_960_720.jpg",
-                                       134,
-                                       new System.DateTime(2018, 4, 24),
-                                       245));
+            Items.Add(new PublicationItemViewModel(
+                NavigationService,
+                "Name two",
+                "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                "Name video two Name video two Name video two Name video two Name video two Name video two Name video two",
+                "https://cdn.pixabay.com/photo/2016/11/30/09/27/hacker-1872291_960_720.jpg",
+                134,
+                new System.DateTime(2018, 4, 24),
+                245));
 
-            Items.Add(new PublicationItemViewModel("Name three",
-                           "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                           "Name video three",
-                           "https://images.pexels.com/photos/326055/pexels-photo-326055.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                           134,
-                           new System.DateTime(2018, 4, 24),
-                           245));
+            Items.Add(new PublicationItemViewModel(
+                NavigationService,
+                "Name three",
+                "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                "Name video three",
+                "https://images.pexels.com/photos/326055/pexels-photo-326055.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                134,
+                new System.DateTime(2018, 4, 24),
+                245));
 
             return Task.CompletedTask;
         }

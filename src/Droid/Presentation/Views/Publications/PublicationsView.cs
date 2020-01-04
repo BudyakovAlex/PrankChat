@@ -77,11 +77,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             var videoView = visibleView.FindViewById<VideoView>(Resource.Id.video_file);
             var visibleViewModel = (PublicationItemViewModel)_publicationRecyclerView.Adapter.GetItem(_currentVisibleItemPosition);
 
-            if (CrossMediaManager.Current.IsPlaying())
-                CrossMediaManager.Current.Stop();
-
-            CrossMediaManager.Current.MediaPlayer.VideoView = videoView;
-            CrossMediaManager.Current.Play(visibleViewModel.VideoUrl);
+            visibleViewModel.PlayVideoCommand.Execute(videoView);
         }
 
         private void PublicationTypeTabLayoutTabUnselected(object sender, TabLayout.TabUnselectedEventArgs e)

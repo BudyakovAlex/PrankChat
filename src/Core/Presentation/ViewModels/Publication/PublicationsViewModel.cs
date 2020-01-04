@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
@@ -38,6 +39,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterAsync);
 
+        public MvxAsyncCommand LoadPublicationsCommand => new MvxAsyncCommand(OnLoadPublicationsAsync);
+
         public MvxAsyncCommand<PublicationItemViewModel> SelectItemCommand => new MvxAsyncCommand<PublicationItemViewModel>((item) => NavigationService.ShowDetailsPublicationView());
 
         public PublicationsViewModel(
@@ -55,7 +58,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             ActiveFilterName = Resources.Publication_Tab_Filter_Day;
 
-            InitializePublications().FireAndForget();
+            LoadPublicationsCommand.ExecuteAsync().FireAndForget();
 
             return Task.CompletedTask;
         }
@@ -77,23 +80,43 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             ActiveFilterName = selectedFilter;
         }
 
-        private async Task InitializePublications()
+        private async Task OnLoadPublicationsAsync()
         {
-            var videoBundle = await _apiService.GetVideoFeedAsync();
+            try
+            {
+                IsBusy = true;
 
-            var publicationViewModels = videoBundle.Data.Select(x =>
-                new PublicationItemViewModel("Name one",
-                    "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                    x.Title,
-                    x.StreamUri,
-                    x.ViewsCount,
-                    new System.DateTime(2018, 4, 24),
-                    x.RepostsCount));
+                var videoBundle = await _apiService.GetVideoFeedAsync();
 
-            Items.Add(publicationViewModels.ToList()[1]);
-            Items.Add(publicationViewModels.ToList()[2]);
-            Items.Add(publicationViewModels.ToList()[1]);
-            Items.Add(publicationViewModels.ToList()[2]);
+                if (videoBundle.Data.Count > 0)
+                {
+                    Items.Clear();
+                }
+
+                var publicationViewModels = videoBundle.Data.Select(x =>
+                    new PublicationItemViewModel(
+                        NavigationService,
+                        "Name one",
+                        "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                        x.Title,
+                        x.StreamUri,
+                        x.ViewsCount,
+                        new System.DateTime(2018, 4, 24),
+                        x.RepostsCount));
+
+                Items.Add(publicationViewModels.ToList()[1]);
+                Items.Add(publicationViewModels.ToList()[2]);
+                Items.Add(publicationViewModels.ToList()[1]);
+                Items.Add(publicationViewModels.ToList()[2]);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

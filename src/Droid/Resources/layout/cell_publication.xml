@@ -75,6 +75,14 @@
         app:layout_constraintTop_toBottomOf="@+id/video_name"
         android:background="@android:color/holo_red_dark"
         android:layout_marginTop="8dp"/>
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        app:layout_constraintRight_toRightOf="@+id/video_file"
+        app:layout_constraintBottom_toBottomOf="@+id/video_file"
+        android:layout_marginRight="13dp"
+        android:layout_marginBottom="13dp"
+        app:MvxBind="DrawableName BooleanToSoundResource(HasSoundTurnOn)"/>
     <ImageButton
         android:id="@+id/like_button"
         android:layout_width="20dp"
