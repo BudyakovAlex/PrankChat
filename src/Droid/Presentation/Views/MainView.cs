@@ -131,7 +131,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             textView.Text = title;
             iconView.SetImageResource(iconResource);
             var tab = tabLayout.GetTabAt(index);
-            tab.SetCustomView(tabView);
+            tab?.SetCustomView(tabView);
         }
 
         private void InitCentralTab(int iconResource, string title, TabLayout tabLayout, LayoutInflater inflater)

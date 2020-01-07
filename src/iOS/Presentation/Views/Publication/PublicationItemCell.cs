@@ -75,6 +75,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 .To(vm => vm.NumberOfLikesText)
                 .Mode(MvxBindingMode.OneTime);
 
+            set.Bind(moreButton)
+                .To(vm => vm.OpenSettingsCommand)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(shareButton)
+                .To(vm => vm.ShareCommand)
+                .Mode(MvxBindingMode.OneTime);
+
             set.Apply();
         }
     }

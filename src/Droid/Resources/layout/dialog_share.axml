@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="178dp"
+    android:background="@color/applicationWhite">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="14sp"
+        android:text="Поделиться"
+        android:textColor="@color/applicationBlack"/>
+    <ImageButton
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_share"
+        android:background="@null"
+        app:MvxBind="Click ShareCommand"/>
+    <android.support.constraint.Guideline
+        android:id="@+id/line_1"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <ImageButton
+        android:id="@+id/copy_link_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintRight_toLeftOf="@+id/line_1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="42dp"
+        android:src="@drawable/ic_copy"
+        android:background="@null"
+        app:MvxBind="Click CopyLinkCommand"/>
+    <TextView
+        android:id="@+id/copy_link_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/copy_link_button"
+        app:layout_constraintRight_toRightOf="@+id/copy_link_button"
+        app:layout_constraintTop_toBottomOf="@+id/copy_link_button"
+        android:layout_marginTop="8dp"
+        android:textSize="10sp"
+        android:text="Коп. ссылку"
+        android:lines="2"
+        android:textColor="@color/applicationBlack"/>
+    <ImageButton
+        android:id="@+id/share_inst_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintLeft_toRightOf="@+id/line_1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="42dp"
+        android:src="@drawable/ic_share_instagram"
+        android:background="@null"
+        app:MvxBind="Click ShareToInstagramCommand"/>
+    <TextView
+        android:id="@+id/share_inst_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/share_inst_button"
+        app:layout_constraintRight_toRightOf="@+id/share_inst_button"
+        app:layout_constraintTop_toBottomOf="@+id/share_inst_button"
+        android:layout_marginTop="8dp"
+        android:textSize="10sp"
+        android:text="В Instagram"
+        android:lines="2"
+        android:textColor="@color/applicationBlack"/>
+    <View
+        android:id="@+id/separator"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/share_inst_text"
+        android:background="@color/separator"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/separator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@null"
+        android:text="Отмена"
+        app:MvxBind="Click GoBackCommand"/>
+</android.support.constraint.ConstraintLayout>

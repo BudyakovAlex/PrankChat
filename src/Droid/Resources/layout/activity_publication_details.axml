@@ -60,7 +60,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/user_photo"
             app:layout_constraintHorizontal_bias="1"
             android:layout_marginRight="3dp"
-            android:layout_marginTop="11dp"/>
+            android:layout_marginTop="11dp"
+            app:MvxBind="Click OpenSettingsCommand"/>
         <mediamanager.platforms.android.video.VideoView
             android:id="@+id/video_file"
             android:layout_width="0dp"
@@ -140,7 +141,8 @@
             app:layout_constraintLeft_toRightOf="@+id/comment_button"
             app:layout_constraintTop_toBottomOf="@+id/video_file"
             android:layout_marginTop="11dp"
-            android:layout_marginLeft="40dp"/>
+            android:layout_marginLeft="40dp"
+            app:MvxBind="Click ShareCommand"/>
         <TextView
             android:id="@+id/share_text"
             android:layout_width="wrap_content"
@@ -153,7 +155,8 @@
             android:layout_marginLeft="8dp"
             android:textSize="12sp"
             android:textColor="@color/applicationBlack"
-            android:text="@string/Share"/>
+            android:text="@string/Share"
+            app:MvxBind="Click ShareCommand"/>
         <!--Bookmark-->
         <ImageButton
             android:id="@+id/bookmark_button"

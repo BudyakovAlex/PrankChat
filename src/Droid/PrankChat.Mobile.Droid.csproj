@@ -99,6 +99,7 @@
     <Compile Include="Presentation\Views\Order\OrderDetailsView.cs" />
     <Compile Include="Presentation\Listeners\StateScrollListener.cs" />
     <Compile Include="Presentation\Converters\BooleanToSoundResourceConverter.cs" />
+    <Compile Include="Presentation\Dialogs\ShareDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -293,6 +294,14 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_without_sound.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\dialog_share.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_copy.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
@@ -589,6 +598,7 @@
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
     <Folder Include="Presentation\Listeners\" />
+    <Folder Include="Presentation\Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_background.xml" />

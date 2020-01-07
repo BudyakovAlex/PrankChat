@@ -6,6 +6,7 @@ using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -18,9 +19,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     {
         private readonly IDialogService _dialogService;
         private readonly IApiService _apiService;
+        private readonly IPlatformService _platformService;
 
         private PublicationType _selectedPublicationType;
-
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
@@ -28,7 +29,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         }
 
         private string _activeFilterName;
-
         public string ActiveFilterName
         {
             get => _activeFilterName;
@@ -46,10 +46,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public PublicationsViewModel(
             INavigationService navigationService,
             IDialogService dialogService,
-            IApiService apiService) : base(navigationService)
+            IApiService apiService,
+            IPlatformService platformService) : base(navigationService)
         {
             _dialogService = dialogService;
             _apiService = apiService;
+            _platformService = platformService;
         }
 
         public override Task Initialize()
@@ -65,7 +67,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
-            var selectedFilter = await _dialogService.ShowFilterSelectionAsync(new[]
+            var selectedFilter = await _dialogService.ShowMenuDialogAsync(new[]
             {
                 Resources.Publication_Tab_Filter_Day,
                 Resources.Publication_Tab_Filter_Week,
@@ -96,13 +98,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 var publicationViewModels = videoBundle.Data.Select(x =>
                     new PublicationItemViewModel(
                         NavigationService,
+                        _dialogService,
+                        _platformService,
                         "Name one",
                         "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                         x.Title,
                         x.StreamUri,
                         x.ViewsCount,
-                        new System.DateTime(2018, 4, 24),
-                        x.RepostsCount));
+                        new DateTime(2018, 4, 24),
+                        x.RepostsCount,
+                        x.ShareUri));
 
                 Items.Add(publicationViewModels.ToList()[1]);
                 Items.Add(publicationViewModels.ToList()[2]);

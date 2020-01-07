@@ -226,6 +226,11 @@
     </Compile>
     <Compile Include="Presentation\Views\Base\BaseCollectionCell.cs" />
     <Compile Include="Presentation\Converters\BoolToUIImageConverter.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Share\ShareController.xib" />
+    <Compile Include="Presentation\Views\Share\ShareController.cs" />
+    <Compile Include="Presentation\Views\Share\ShareController.designer.cs">
+      <DependentUpon>ShareController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -483,6 +488,7 @@
     <Folder Include="Assets.xcassets\ic_payment_qiwi_selected.imageset\" />
     <Folder Include="Assets.xcassets\ic_payment_sberbank_selected.imageset\" />
     <Folder Include="Assets.xcassets\ic_payment_yandexmoney_selected.imageset\" />
+    <Folder Include="Presentation\Views\Share\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

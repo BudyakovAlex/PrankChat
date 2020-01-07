@@ -471,4 +471,13 @@
   <data name="CommentView_Title" xml:space="preserve">
     <value>Комментарии</value>
   </data>
+  <data name="Publication_Item_Complain" xml:space="preserve">
+    <value>Пожаловаться...</value>
+  </data>
+  <data name="Publication_Item_Copy_Link" xml:space="preserve">
+    <value>Копировать ссылку</value>
+  </data>
+  <data name="Publication_Item_Subscribe_To_Author" xml:space="preserve">
+    <value>Подписаться на автора</value>
+  </data>
 </root>

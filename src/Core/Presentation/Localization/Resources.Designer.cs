@@ -754,5 +754,23 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("CommentView_Title", resourceCulture);
             }
         }
+        
+        public static string Publication_Item_Complain {
+            get {
+                return ResourceManager.GetString("Publication_Item_Complain", resourceCulture);
+            }
+        }
+        
+        public static string Publication_Item_Copy_Link {
+            get {
+                return ResourceManager.GetString("Publication_Item_Copy_Link", resourceCulture);
+            }
+        }
+        
+        public static string Publication_Item_Subscribe_To_Author {
+            get {
+                return ResourceManager.GetString("Publication_Item_Subscribe_To_Author", resourceCulture);
+            }
+        }
     }
 }

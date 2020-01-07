@@ -2,7 +2,10 @@
 using System.Threading.Tasks;
 using MediaManager;
 using MediaManager.Video;
+using MvvmCross;
 using MvvmCross.Commands;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
@@ -10,9 +13,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
     public class BasePublicationViewModel : BaseViewModel
     {
+        private readonly IDialogService _dialogService;
+        private readonly IPlatformService _platformService;
         private long _numberOfViews;
         private DateTime _publicationDate;
         private long _numberOfLikes;
+        private string _shareLink;
 
         #region Profile
 
@@ -28,7 +34,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string VideoName { get; set; } = "Name video one";
 
-        public string VideoUrl { get; set; } = "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg";
+        public string PlaceholderImageUrl { get; set; } = "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg";
+
+        public string VideoUrl { get; set; }
 
         private bool _hasSoundTurnOn;
         public bool HasSoundTurnOn
@@ -45,6 +53,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxAsyncCommand LikeCommand => new MvxAsyncCommand(OnLikeAsync);
 
+        public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(() => _dialogService.ShowShareDialogAsync(_shareLink));
+
         public MvxAsyncCommand BookmarkCommand => new MvxAsyncCommand(OnBookmarkAsync);
 
         public MvxAsyncCommand OpenSettingsCommand => new MvxAsyncCommand(OnOpenSettingAsync);
@@ -55,21 +65,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #endregion
 
-        public BasePublicationViewModel(INavigationService navigationService)
+        public BasePublicationViewModel(INavigationService navigationService, IDialogService dialogService)
             : base(navigationService)
         {
+            _dialogService = dialogService;
         }
 
         public BasePublicationViewModel(INavigationService navigationService,
+                                        IDialogService dialogService,
+                                        IPlatformService platformService,
                                         string profileName,
                                         string profilePhotoUrl,
                                         string videoName,
                                         string videoUrl,
                                         long numberOfViews,
                                         DateTime publicationDate,
-                                        long numberOfLikes)
+                                        long numberOfLikes,
+                                        string shareLink)
             : base (navigationService)
         {
+            _dialogService = dialogService;
+            _platformService = platformService;
+
             ProfileName = profileName;
             ProfilePhotoUrl = profilePhotoUrl;
             VideoName = videoName;
@@ -78,6 +95,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _numberOfViews = numberOfViews;
             _publicationDate = publicationDate;
             _numberOfLikes = numberOfLikes;
+            _shareLink = shareLink;
 
             CrossMediaManager.Current.Volume.Muted = HasSoundTurnOn;
         }
@@ -92,9 +110,33 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             return Task.CompletedTask;
         }
 
-        private Task OnOpenSettingAsync()
+        private async Task OnOpenSettingAsync()
         {
-            return Task.CompletedTask;
+            var result = await _dialogService.ShowMenuDialogAsync(new string[]
+            {
+                Resources.Publication_Item_Complain,
+                Resources.Publication_Item_Copy_Link,
+                Resources.Publication_Item_Subscribe_To_Author
+            });
+
+            if (string.IsNullOrWhiteSpace(result))
+                return;
+
+            if (result == Resources.Publication_Item_Complain)
+            {
+                return;
+            }
+
+            if (result == Resources.Publication_Item_Copy_Link)
+            {
+                await _platformService.CopyTextAsync(_shareLink);
+                return;
+            }
+
+            if (result == Resources.Publication_Item_Subscribe_To_Author)
+            {
+                return;
+            }
         }
 
         private void OnToggleSound()
