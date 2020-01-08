@@ -8,6 +8,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
         public class Color
         {
             public static UIColor Black => UIColor.FromRGB(0, 0, 0);
+            public static UIColor BlackTransparentBackground => UIColor.FromRGBA(0, 0, 0, 0.5f);
             public static UIColor White => UIColor.FromRGB(255, 255, 255);
             public static UIColor Accent => UIColor.FromRGBA(0.427f, 0.157f, 0.745f, 1);
             public static UIColor Inactive => UIColor.FromRGBA(0.129f, 0.129f, 0.129f, 1);

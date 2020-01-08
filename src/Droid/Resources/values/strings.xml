@@ -121,4 +121,8 @@
     <string name="Publication_Item_Complain">"Пожаловаться..."</string>
     <string name="Publication_Item_Copy_Link">"Копировать ссылку"</string>
     <string name="Publication_Item_Subscribe_To_Author">"Подписаться на автора"</string>
+    <string name="ShareDialog_Title">"Поделиться"</string>
+    <string name="ShareDialog_CopyLink_Label">"Коп. ссылку"</string>
+    <string name="ShareDialog_ShareInstagram_Label">"В Instagram"</string>
+    <string name="ShareDialog_LinkShareTitle">"Поделиться ссылкой"</string>
 </resources>

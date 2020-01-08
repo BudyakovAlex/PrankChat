@@ -411,6 +411,10 @@
     <ImageAsset Include="Assets.xcassets\ic_3dsecure_banner.imageset\Group %282%29.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_visa_banner.imageset\Group %281%29.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_mastercard_banner.imageset\Group.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_share_copy.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_share_instagram.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_share_copy.imageset\Group 113.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_share_instagram.imageset\Group 114.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -489,6 +493,8 @@
     <Folder Include="Assets.xcassets\ic_payment_sberbank_selected.imageset\" />
     <Folder Include="Assets.xcassets\ic_payment_yandexmoney_selected.imageset\" />
     <Folder Include="Presentation\Views\Share\" />
+    <Folder Include="Assets.xcassets\ic_share_copy.imageset\" />
+    <Folder Include="Assets.xcassets\ic_share_instagram.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

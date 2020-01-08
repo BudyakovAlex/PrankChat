@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
+using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
@@ -41,8 +43,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 
         private async Task OnShareAsync()
         {
-            await _platformService.ShareUrlAsync("Share publication", _url);
-            await GoBackCommand.ExecuteAsync();
+            await _platformService.ShareUrlAsync(Resources.ShareDialog_LinkShareTitle, _url);
+            if(CrossDeviceInfo.Current.Platform == Plugin.DeviceInfo.Abstractions.Platform.Android)
+            {
+                await NavigationService.CloseView(this);
+            }
         }
     }
 }

@@ -772,5 +772,29 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Publication_Item_Subscribe_To_Author", resourceCulture);
             }
         }
+        
+        public static string ShareDialog_Title {
+            get {
+                return ResourceManager.GetString("ShareDialog_Title", resourceCulture);
+            }
+        }
+        
+        public static string ShareDialog_CopyLink_Label {
+            get {
+                return ResourceManager.GetString("ShareDialog_CopyLink_Label", resourceCulture);
+            }
+        }
+        
+        public static string ShareDialog_ShareInstagram_Label {
+            get {
+                return ResourceManager.GetString("ShareDialog_ShareInstagram_Label", resourceCulture);
+            }
+        }
+        
+        public static string ShareDialog_LinkShareTitle {
+            get {
+                return ResourceManager.GetString("ShareDialog_LinkShareTitle", resourceCulture);
+            }
+        }
     }
 }

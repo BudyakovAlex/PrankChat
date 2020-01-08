@@ -90,7 +90,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
                 var videoBundle = await _apiService.GetVideoFeedAsync();
 
-                if (videoBundle.Data.Count > 0)
+                if (videoBundle?.Data?.Count > 0)
                 {
                     Items.Clear();
                 }
@@ -109,14 +109,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                         x.RepostsCount,
                         x.ShareUri));
 
-                Items.Add(publicationViewModels.ToList()[1]);
-                Items.Add(publicationViewModels.ToList()[2]);
-                Items.Add(publicationViewModels.ToList()[1]);
-                Items.Add(publicationViewModels.ToList()[2]);
-            }
-            catch (Exception ex)
-            {
+                Items.AddRange(publicationViewModels);
 
+                //Items.Add(publicationViewModels.ToList()[1]);
+                //Items.Add(publicationViewModels.ToList()[2]);
+                //Items.Add(publicationViewModels.ToList()[1]);
+                //Items.Add(publicationViewModels.ToList()[2]);
             }
             finally
             {
