@@ -2,6 +2,7 @@
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
+using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
@@ -15,6 +16,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
     [MvxTabPresentation(TabName = "Publications", TabIconName = "unselected", TabSelectedIconName = "selected")]
     public partial class PublicationsView : BaseTabbedView<PublicationsViewModel>
     {
+        private MvxUIRefreshControl _refreshControl;
+
         public PublicationTableSource PublicationTableSource { get; private set; }
 
         protected override void SetupBinding()
@@ -39,6 +42,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             set.Bind(PublicationTableSource)
                 .For(v => v.SelectionChangedCommand)
                 .To(vm => vm.SelectItemCommand);
+
+            set.Bind(_refreshControl)
+                .For(v => v.IsRefreshing)
+                .To(vm => vm.IsBusy);
+
+            set.Bind(_refreshControl)
+                .For(v => v.RefreshCommand)
+                .To(vm => vm.LoadPublicationsCommand);
 
             set.Apply();
 		}
@@ -95,6 +106,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             tableView.SeparatorColor = Theme.Color.Separator;
             tableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
+
+            _refreshControl = new MvxUIRefreshControl();
+            tableView.RefreshControl = _refreshControl;
         }
     }
 }
