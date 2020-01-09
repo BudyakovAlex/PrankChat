@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -14,6 +18,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     public class PublicationsViewModel : BaseViewModel
     {
         private readonly IDialogService _dialogService;
+        private readonly IApiService _apiService;
+        private readonly IPlatformService _platformService;
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
@@ -33,13 +39,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterAsync);
 
+        public MvxAsyncCommand LoadPublicationsCommand => new MvxAsyncCommand(OnLoadPublicationsAsync);
+
         public MvxAsyncCommand<PublicationItemViewModel> SelectItemCommand => new MvxAsyncCommand<PublicationItemViewModel>((item) => NavigationService.ShowDetailsPublicationView());
 
         public PublicationsViewModel(
             INavigationService navigationService,
-            IDialogService dialogService) : base(navigationService)
+            IDialogService dialogService,
+            IApiService apiService,
+            IPlatformService platformService) : base(navigationService)
         {
             _dialogService = dialogService;
+            _apiService = apiService;
+            _platformService = platformService;
         }
 
         public override Task Initialize()
@@ -48,13 +60,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             ActiveFilterName = Resources.Publication_Tab_Filter_Day;
 
-            InitializePublications();
+            LoadPublicationsCommand.ExecuteAsync().FireAndForget();
+
             return Task.CompletedTask;
         }
 
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
-            var selectedFilter = await _dialogService.ShowFilterSelectionAsync(new[]
+            var selectedFilter = await _dialogService.ShowMenuDialogAsync(new[]
             {
                 Resources.Publication_Tab_Filter_Day,
                 Resources.Publication_Tab_Filter_Week,
@@ -69,33 +82,44 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             ActiveFilterName = selectedFilter;
         }
 
-        private Task InitializePublications()
+        private async Task OnLoadPublicationsAsync()
         {
-            Items.Add(new PublicationItemViewModel("Name one",
-                                                   "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                                   "Name video one",
-                                                   "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg",
-                                                   134,
-                                                   new System.DateTime(2018, 4, 24),
-                                                   245));
+            try
+            {
+                IsBusy = true;
 
-            Items.Add(new PublicationItemViewModel("Name two",
-                                       "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                       "Name video two Name video two Name video two Name video two Name video two Name video two Name video two",
-                                       "https://cdn.pixabay.com/photo/2016/11/30/09/27/hacker-1872291_960_720.jpg",
-                                       134,
-                                       new System.DateTime(2018, 4, 24),
-                                       245));
+                var videoBundle = await _apiService.GetVideoFeedAsync();
 
-            Items.Add(new PublicationItemViewModel("Name three",
-                           "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                           "Name video three",
-                           "https://images.pexels.com/photos/326055/pexels-photo-326055.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                           134,
-                           new System.DateTime(2018, 4, 24),
-                           245));
+                if (videoBundle?.Data?.Count > 0)
+                {
+                    Items.Clear();
+                }
 
-            return Task.CompletedTask;
+                var publicationViewModels = videoBundle.Data.Select(x =>
+                    new PublicationItemViewModel(
+                        NavigationService,
+                        _dialogService,
+                        _platformService,
+                        "Name one",
+                        "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                        x.Title,
+                        x.StreamUri,
+                        x.ViewsCount,
+                        new DateTime(2018, 4, 24),
+                        x.RepostsCount,
+                        x.ShareUri));
+
+                Items.AddRange(publicationViewModels);
+
+                //Items.Add(publicationViewModels.ToList()[1]);
+                //Items.Add(publicationViewModels.ToList()[2]);
+                //Items.Add(publicationViewModels.ToList()[1]);
+                //Items.Add(publicationViewModels.ToList()[2]);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

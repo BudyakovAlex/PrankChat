@@ -6,7 +6,7 @@ namespace PrankChat.Mobile.Core.Configuration
     {
         public ApplicationConfiguration()
         {
-            BaseAddress = "http://dev.prankchat.store/";
+            BaseAddress = "http://stage.prankchat.store/";
             ApiVersion = new Version(1, 0);
         }
 

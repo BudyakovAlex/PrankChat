@@ -43,7 +43,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
-            var selectedFilter = await _dialogService.ShowFilterSelectionAsync(new[]
+            var selectedFilter = await _dialogService.ShowMenuDialogAsync(new[]
             {
                 Resources.OrdersView_Filter_AllTasks,
                 Resources.OrdersView_Filter_NewTasks,

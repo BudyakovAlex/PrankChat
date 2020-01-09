@@ -226,6 +226,11 @@
     </Compile>
     <Compile Include="Presentation\Views\Base\BaseCollectionCell.cs" />
     <Compile Include="Presentation\Converters\BoolToUIImageConverter.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Share\ShareController.xib" />
+    <Compile Include="Presentation\Views\Share\ShareController.cs" />
+    <Compile Include="Presentation\Views\Share\ShareController.designer.cs">
+      <DependentUpon>ShareController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -238,6 +243,9 @@
   <ItemGroup>
     <PackageReference Include="MvvmCross">
       <Version>6.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.MediaManager">
+      <Version>0.9.1</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugin.DeviceInfo">
       <Version>4.1.1</Version>
@@ -403,6 +411,10 @@
     <ImageAsset Include="Assets.xcassets\ic_3dsecure_banner.imageset\Group %282%29.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_visa_banner.imageset\Group %281%29.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_mastercard_banner.imageset\Group.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_share_copy.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_share_instagram.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_share_copy.imageset\Group 113.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_share_instagram.imageset\Group 114.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -480,6 +492,9 @@
     <Folder Include="Assets.xcassets\ic_payment_qiwi_selected.imageset\" />
     <Folder Include="Assets.xcassets\ic_payment_sberbank_selected.imageset\" />
     <Folder Include="Assets.xcassets\ic_payment_yandexmoney_selected.imageset\" />
+    <Folder Include="Presentation\Views\Share\" />
+    <Folder Include="Assets.xcassets\ic_share_copy.imageset\" />
+    <Folder Include="Assets.xcassets\ic_share_instagram.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

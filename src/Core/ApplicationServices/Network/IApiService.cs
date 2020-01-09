@@ -8,5 +8,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         Task AuthorizeAsync(string email, string password);
 
         Task RegisterAsync(UserRegistrationDataModel userInfo);
+
+        Task<VideoMetadataBundleDataModel> GetVideoFeedAsync();
     }
 }

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -52,7 +52,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/user_photo"
         app:layout_constraintHorizontal_bias="1"
         android:layout_marginRight="3dp"
-        android:layout_marginTop="11dp"/>
+        android:layout_marginTop="11dp"
+        app:MvxBind="Click OpenSettingsCommand"/>
     <TextView
         android:id="@+id/video_name"
         android:layout_width="0dp"
@@ -66,8 +67,7 @@
         android:textSize="14sp"
         android:textColor="@color/applicationBlack"
         app:MvxBind="Text VideoName, Mode = OneTime"/>
-<!--    app:layout_constraintDimensionRatio="16:9"-->
-    <FFImageLoading.Cross.MvxCachedImageView
+    <mediamanager.platforms.android.video.VideoView
         android:id="@+id/video_file"
         android:layout_width="0dp"
         android:layout_height="246dp"
@@ -76,7 +76,15 @@
         app:layout_constraintTop_toBottomOf="@+id/video_name"
         android:background="@android:color/holo_red_dark"
         android:layout_marginTop="8dp"
-        app:MvxBind="ImagePath VideoUrl, Mode = OneTime"/>
+        app:MvxBind="Click ToggleSoundCommand"/>
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        app:layout_constraintRight_toRightOf="@+id/video_file"
+        app:layout_constraintBottom_toBottomOf="@+id/video_file"
+        android:layout_marginRight="13dp"
+        android:layout_marginBottom="13dp"
+        app:MvxBind="DrawableName BooleanToSoundResource(HasSoundTurnOn)"/>
     <ImageButton
         android:id="@+id/like_button"
         android:layout_width="20dp"
@@ -110,7 +118,8 @@
         app:layout_constraintRight_toLeftOf="@+id/share_text"
         app:layout_constraintTop_toBottomOf="@+id/video_file"
         android:layout_marginTop="11dp"
-        android:layout_marginLeft="19dp"/>
+        android:layout_marginLeft="19dp"
+        app:MvxBind="Click ShareCommand"/>
     <TextView
         android:id="@+id/share_text"
         android:layout_width="wrap_content"
@@ -122,7 +131,8 @@
         android:layout_marginLeft="8dp"
         android:textSize="12sp"
         android:textColor="@color/applicationBlack"
-        android:text="@string/Share"/>
+        android:text="@string/Share"
+        app:MvxBind="Click ShareCommand"/>
     <ImageButton
         android:id="@+id/bookmark_button"
         android:layout_width="14dp"

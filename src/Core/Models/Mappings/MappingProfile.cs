@@ -9,6 +9,9 @@ namespace PrankChat.Mobile.Core.Models.Mappings
         public MappingProfile()
         {
             CreateMap<UserRegistrationDataModel, UserRegistrationApiModel>().ReverseMap();
+            CreateMap<VideoMetadataBundleDataModel, VideoMetadataBundleApiModel>().ReverseMap();
+            CreateMap<VideoMetadataDataModel, VideoMetadataApiModel>().ReverseMap();
+            CreateMap<PaginationInfoDataModel, PaginationInfoApiModel>().ReverseMap();
         }
     }
 }

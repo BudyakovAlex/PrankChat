@@ -124,4 +124,11 @@
         <item name="android:layout_marginTop">10dp</item>
     </style>
 
+    <style name="ShareDialogStyle" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+    </style>
+
 </resources>
