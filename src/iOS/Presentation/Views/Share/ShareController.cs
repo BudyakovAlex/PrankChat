@@ -50,9 +50,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Share
             set.Bind(cancelButton)
                 .To(vm => vm.GoBackCommand);
 
-            set.Bind(View.Tap())
-                .For(v => v.Command)
-                .To(vm => vm.GoBackCommand);
+            set.Bind(shareButton)
+                .To(vm => vm.ShareCommand);
 
             set.Apply();
         }
