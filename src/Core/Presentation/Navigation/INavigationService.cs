@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
@@ -16,7 +17,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowRegistrationView();
 
-        Task ShowRegistrationSecondStepView();
+        Task ShowRegistrationSecondStepView(RegistrationNavigationParameter parameter);
 
         Task ShowRegistrationThirdStepView();
 

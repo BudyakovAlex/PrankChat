@@ -32,7 +32,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
             return UserDialogs.Instance.ActionSheetAsync(null, cancelItemString, null, cancellationToken, itemStrings);
         }
 
-        public void ShowToastAsync(string text)
+        public void ShowToast(string text)
         {
             UserDialogs.Instance.Toast(text);
         }

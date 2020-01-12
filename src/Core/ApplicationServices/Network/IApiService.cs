@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 
@@ -12,6 +13,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task CreateOrderAsync(CreateOrderDataModel orderInfo);
 
-        Task GetOrdersAsync();
+        Task<List<OrderApiModel>> GetOrdersAsync();
     }
 }

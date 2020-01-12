@@ -84,12 +84,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             {
                 _mvxLog.Debug($"[HTTP] {request.Method} {request.Resource}");
                 if (includeAccessToken)
-                {
-                    request.AddHeader(HttpRequestHeader.Authorization.ToString(), $"Bearer {await _settingsService.GetAccessTokenAsync()}");
-                }
+                    await AddAuthorizationHeader(request);
 
-                var content = cancellationToken.HasValue ? await _client.ExecuteTaskAsync(request, cancellationToken.Value) : await _client.ExecuteTaskAsync(request);
-                CheckResponse(request, content);
+                var content = cancellationToken.HasValue
+                    ? await _client.ExecuteAsync<string>(request, cancellationToken.Value)
+                    : await _client.ExecuteAsync<string>(request);
+
+                CheckResponse(request, content, exceptionThrowingEnabled);
                 return content.Content;
             }
             catch (AuthenticationProblemDetails)
@@ -108,13 +109,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             {
                 _mvxLog.Debug($"[HTTP] {request.Method} {request.Resource}");
                 if (includeAccessToken)
-                {
-                    var accessToken = await _settingsService.GetAccessTokenAsync();
-                    request.AddHeader(HttpRequestHeader.Authorization.ToString(), $"Bearer {accessToken}");
-                }
+                    await AddAuthorizationHeader(request);
 
-                var content = cancellationToken.HasValue ? await _client.ExecuteTaskAsync<T>(request, cancellationToken.Value) : await _client.ExecuteTaskAsync<T>(request);
-                CheckResponse(request, content);
+                var content = cancellationToken.HasValue
+                    ? await _client.ExecuteAsync<T>(request, cancellationToken.Value)
+                    : await _client.ExecuteAsync<T>(request);
+
+                CheckResponse(request, content, exceptionThrowingEnabled);
                 return content.Data;
             }
             catch (AuthenticationProblemDetails)
@@ -162,6 +163,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     throw;
                 }
             }
+        }
+
+        private async Task AddAuthorizationHeader(IRestRequest request)
+        {
+            var accessToken = await _settingsService.GetAccessTokenAsync();
+            request.AddHeader(HttpRequestHeader.Authorization.ToString(), $"Bearer {accessToken}");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -11,6 +12,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
     {
         private readonly IApiService _apiService;
         private readonly IDialogService _dialogService;
+        private readonly IMvxLog _mvxLog;
 
         private string _emailText;
         private string _passwordText;
@@ -27,13 +29,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             set => SetProperty(ref _passwordText, value);
         }
 
-        public LoginViewModel(INavigationService navigationService, IApiService apiService, IDialogService dialogService) : base(navigationService)
+        public LoginViewModel(INavigationService navigationService,
+                              IApiService apiService,
+                              IDialogService dialogService,
+                              IMvxLog mvxLog)
+            : base(navigationService)
         {
             _apiService = apiService;
             _dialogService = dialogService;
+            _mvxLog = mvxLog;
 
-            EmailText = "formation7@outlook.com";
-            PasswordText = "qweqweqwe";
+#if DEBUG
+
+            EmailText = "e.podluzhnyi@gmail.com";
+            PasswordText = "1234567890";
+#endif
         }
 
         public MvxAsyncCommand<string> LoginCommand => new MvxAsyncCommand<string>(OnLoginCommand);
@@ -44,35 +54,49 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         private async Task OnLoginCommand(string loginType)
         {
-            if (Enum.TryParse<LoginType>(loginType, out var socialNetworkType))
+            try
             {
-                switch (socialNetworkType)
+                IsBusy = true;
+
+                if (Enum.TryParse<LoginType>(loginType, out var socialNetworkType))
                 {
-                    case LoginType.Vk:
-                        break;
+                    switch (socialNetworkType)
+                    {
+                        case LoginType.Vk:
+                            break;
 
-                    case LoginType.Ok:
-                        break;
+                        case LoginType.Ok:
+                            break;
 
-                    case LoginType.Facebook:
-                        break;
+                        case LoginType.Facebook:
+                            break;
 
-                    case LoginType.Gmail:
-                        break;
+                        case LoginType.Gmail:
+                            break;
 
-                    case LoginType.UsernameAndPassword:
-                        var email = EmailText?.Trim();
-                        var password = PasswordText?.Trim();
-                        await _apiService.AuthorizeAsync(email, password);
-                        break;
+                        case LoginType.UsernameAndPassword:
+                            var email = EmailText?.Trim();
+                            var password = PasswordText?.Trim();
+                            await _apiService.AuthorizeAsync(email, password);
+                            break;
+                    }
+
+                    await NavigationService.ShowMainView();
+                }
+                else
+                {
+                    _dialogService.ShowToast("Error with login type!");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                _dialogService.ShowToastAsync("Error with login type!");
+                _dialogService.ShowToast("Exception with login");
+                _mvxLog.ErrorException($"[{nameof(LoginViewModel)}]", ex);
             }
-
-            await NavigationService.ShowMainView();
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

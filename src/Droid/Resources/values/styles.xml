@@ -124,4 +124,10 @@
         <item name="android:layout_marginTop">10dp</item>
     </style>
 
+    <style name="Theme.PrankChat.ProgressBar" parent="Theme.PrankChat.Base">
+        <item name="android:indeterminateTint">@color/accent</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
+    </style>
+
 </resources>

@@ -93,11 +93,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 };
                 await _apiService.CreateOrderAsync(createOrderModel);
 
-                _dialogService.ShowToastAsync("Order is created");
+                _dialogService.ShowToast("Order is created");
             }
             catch (Exception ex)
             {
-                _dialogService.ShowToastAsync("Required data is empty");
+                _dialogService.ShowToast("Required data is empty");
             }
         }
 

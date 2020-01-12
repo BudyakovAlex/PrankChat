@@ -1,6 +1,7 @@
 ﻿using System;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
@@ -17,7 +18,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             get
             {
-                return new MvxAsyncCommand(() => NavigationService.ShowRegistrationSecondStepView());
+                return new MvxAsyncCommand(() => NavigationService.ShowRegistrationSecondStepView(new RegistrationNavigationParameter(Email)));
             }
         }
 

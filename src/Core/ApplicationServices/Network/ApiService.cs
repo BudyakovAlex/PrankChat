@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
@@ -24,26 +25,26 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task AuthorizeAsync(string email, string password)
         {
             var loginModel = new AuthorizationApiModel { Email = email, Password = password };
-            var authTokenModel = await _client.UnauthorizedPost<AuthorizationApiModel, AccessTokenApiModel>("auth/login", loginModel);
-            await _settingsService.SetAccessTokenAsync(authTokenModel?.AccessToken);
+            var authTokenModel = await _client.UnauthorizedPost<AuthorizationApiModel, DataApiModel<AccessTokenApiModel>>("auth/login", loginModel, true);
+            await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
-        public Task RegisterAsync(UserRegistrationDataModel userInfo)
+        public async Task RegisterAsync(UserRegistrationDataModel userInfo)
         {
             var registrationApiModel = MappingConfig.Mapper.Map<UserRegistrationApiModel>(userInfo);
-            return _client.UnauthorizedPost("auth/register", registrationApiModel);
+            var lol = await _client.UnauthorizedPost("auth/register", registrationApiModel, true);
         }
 
         public Task CreateOrderAsync(CreateOrderDataModel orderInfo)
         {
             var createOrderApiModel = MappingConfig.Mapper.Map<CreateOrderApiModel>(orderInfo);
-            return _client.UnauthorizedPost("orders", createOrderApiModel);
+            return _client.Post("orders", createOrderApiModel);
         }
 
-        public async Task GetOrdersAsync()
+        public async Task<List<OrderApiModel>> GetOrdersAsync()
         {
-            //var createOrderApiModel = MappingConfig.Mapper.Map<CreateOrderApiModel>(orderInfo);
-            var result = await _client.Get<OrderApiModel>("orders");
+            var data = await _client.Get<DataApiModel<List<OrderApiModel>>>("orders");
+            return data.Data;
         }
     }
 }

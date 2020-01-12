@@ -1,71 +1,130 @@
 // WARNING
 //
-// This file has been generated automatically by Visual Studio from the outlets and
-// actions declared in your storyboard file.
-// Manual changes to this file will not be maintained.
+// This file has been generated automatically by Visual Studio to store outlets and
+// actions made in the UI designer. If it is removed, they will be lost.
+// Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using System;
 using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 {
-    [Register ("LoginView")]
-    partial class LoginView
-    {
-        [Outlet]
-        UIKit.UITextField emailTextField { get; set; }
+	[Register ("LoginView")]
+	partial class LoginView
+	{
+		[Outlet]
+		UIKit.UITextField emailTextField { get; set; }
 
+		[Outlet]
+		UIKit.UIButton facebookButton { get; set; }
 
-        [Outlet]
-        UIKit.UIButton facebookButton { get; set; }
+		[Outlet]
+		UIKit.UILabel forgotPasswordTitleLabel { get; set; }
 
+		[Outlet]
+		UIKit.UIButton gmailButton { get; set; }
 
-        [Outlet]
-        UIKit.UILabel forgotPasswordTitleLabel { get; set; }
+		[Outlet]
+		UIKit.UIButton loginButton { get; set; }
 
+		[Outlet]
+		UIKit.UILabel loginTitleLabel { get; set; }
 
-        [Outlet]
-        UIKit.UIButton gmailButton { get; set; }
+		[Outlet]
+		UIKit.UIButton okButton { get; set; }
 
+		[Outlet]
+		UIKit.UITextField passwordTextField { get; set; }
 
-        [Outlet]
-        UIKit.UIButton loginButton { get; set; }
+		[Outlet]
+		UIKit.UIActivityIndicatorView progressBar { get; set; }
 
+		[Outlet]
+		UIKit.UIButton registrationButton { get; set; }
 
-        [Outlet]
-        UIKit.UILabel loginTitleLabel { get; set; }
+		[Outlet]
+		UIKit.UIButton resetPasswordButton { get; set; }
 
+		[Outlet]
+		UIKit.UIScrollView scrollView { get; set; }
 
-        [Outlet]
-        UIKit.UIButton okButton { get; set; }
+		[Outlet]
+		UIKit.UILabel socialNetworksTitleLabel { get; set; }
 
+		[Outlet]
+		UIKit.UIButton vkButton { get; set; }
+		
+		void ReleaseDesignerOutlets ()
+		{
+			if (progressBar != null) {
+				progressBar.Dispose ();
+				progressBar = null;
+			}
 
-        [Outlet]
-        UIKit.UITextField passwordTextField { get; set; }
+			if (emailTextField != null) {
+				emailTextField.Dispose ();
+				emailTextField = null;
+			}
 
+			if (facebookButton != null) {
+				facebookButton.Dispose ();
+				facebookButton = null;
+			}
 
-        [Outlet]
-        UIKit.UIButton registrationButton { get; set; }
+			if (forgotPasswordTitleLabel != null) {
+				forgotPasswordTitleLabel.Dispose ();
+				forgotPasswordTitleLabel = null;
+			}
 
+			if (gmailButton != null) {
+				gmailButton.Dispose ();
+				gmailButton = null;
+			}
 
-        [Outlet]
-        UIKit.UIButton resetPasswordButton { get; set; }
+			if (loginButton != null) {
+				loginButton.Dispose ();
+				loginButton = null;
+			}
 
+			if (loginTitleLabel != null) {
+				loginTitleLabel.Dispose ();
+				loginTitleLabel = null;
+			}
 
-        [Outlet]
-        UIKit.UIScrollView scrollView { get; set; }
+			if (okButton != null) {
+				okButton.Dispose ();
+				okButton = null;
+			}
 
+			if (passwordTextField != null) {
+				passwordTextField.Dispose ();
+				passwordTextField = null;
+			}
 
-        [Outlet]
-        UIKit.UILabel socialNetworksTitleLabel { get; set; }
+			if (registrationButton != null) {
+				registrationButton.Dispose ();
+				registrationButton = null;
+			}
 
+			if (resetPasswordButton != null) {
+				resetPasswordButton.Dispose ();
+				resetPasswordButton = null;
+			}
 
-        [Outlet]
-        UIKit.UIButton vkButton { get; set; }
+			if (scrollView != null) {
+				scrollView.Dispose ();
+				scrollView = null;
+			}
 
-        void ReleaseDesignerOutlets ()
-        {
-        }
-    }
+			if (socialNetworksTitleLabel != null) {
+				socialNetworksTitleLabel.Dispose ();
+				socialNetworksTitleLabel = null;
+			}
+
+			if (vkButton != null) {
+				vkButton.Dispose ();
+				vkButton = null;
+			}
+		}
+	}
 }

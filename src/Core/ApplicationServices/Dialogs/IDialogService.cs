@@ -10,6 +10,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 
         Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null);
 
-        void ShowToastAsync(string text);
+        void ShowToast(string text);
     }
 }
