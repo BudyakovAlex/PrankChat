@@ -95,7 +95,7 @@
         android:layout_below="@+id/forgot_password_container"
         android:text="@string/LoginView_Continue_Button"
         style="@style/Theme.PrankChat.Button.White"
-        app:MvxBind="Click LoginCommand" />
+        app:MvxBind="Click LoginCommand, CommandParameter=UsernameAndPassword" />
     <TextView
         android:id="@+id/login_from_text"
         android:layout_width="match_parent"

@@ -25,13 +25,25 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var loginModel = new AuthorizationApiModel { Email = email, Password = password };
             var authTokenModel = await _client.UnauthorizedPost<AuthorizationApiModel, AccessTokenApiModel>("auth/login", loginModel);
-            await _settingsService.SetAccessTokenAsync(authTokenModel.AccessToken);
+            await _settingsService.SetAccessTokenAsync(authTokenModel?.AccessToken);
         }
 
         public Task RegisterAsync(UserRegistrationDataModel userInfo)
         {
             var registrationApiModel = MappingConfig.Mapper.Map<UserRegistrationApiModel>(userInfo);
             return _client.UnauthorizedPost("auth/register", registrationApiModel);
+        }
+
+        public Task CreateOrderAsync(CreateOrderDataModel orderInfo)
+        {
+            var createOrderApiModel = MappingConfig.Mapper.Map<CreateOrderApiModel>(orderInfo);
+            return _client.UnauthorizedPost("orders", createOrderApiModel);
+        }
+
+        public async Task GetOrdersAsync()
+        {
+            //var createOrderApiModel = MappingConfig.Mapper.Map<CreateOrderApiModel>(orderInfo);
+            var result = await _client.Get<OrderApiModel>("orders");
         }
     }
 }

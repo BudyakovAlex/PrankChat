@@ -1,6 +1,6 @@
 ﻿namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
-    public enum SocialNetworkType
+    public enum LoginType
     {
         /// <summary>
         /// The Vkontakte social network.
@@ -20,6 +20,11 @@
         /// <summary>
         /// The GMail service.
         /// </summary>
-        Gmail
+        Gmail,
+
+        /// <summary>
+        /// Ligin with user name and password.
+        /// </summary>
+        UsernameAndPassword
     }
 }

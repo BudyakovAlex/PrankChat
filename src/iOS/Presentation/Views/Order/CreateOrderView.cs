@@ -21,7 +21,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			var set = this.CreateBindingSet<CreateOrderView, CreateOrderViewModel>();
 
             set.Bind(nameTextField)
-                .To(vm => vm.Name);
+                .To(vm => vm.Title);
 
             set.Bind(descriptionTextView)
                 .To(vm => vm.Description);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
@@ -9,6 +10,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
     public class LoginViewModel : BaseViewModel
     {
         private readonly IApiService _apiService;
+        private readonly IDialogService _dialogService;
+
         private string _emailText;
         private string _passwordText;
 
@@ -24,12 +27,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             set => SetProperty(ref _passwordText, value);
         }
 
-        public LoginViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
+        public LoginViewModel(INavigationService navigationService, IApiService apiService, IDialogService dialogService) : base(navigationService)
         {
             _apiService = apiService;
+            _dialogService = dialogService;
 
-            EmailText = "test2@mail.ru";
-            PasswordText = "asd123456789";
+            EmailText = "formation7@outlook.com";
+            PasswordText = "qweqweqwe";
         }
 
         public MvxAsyncCommand<string> LoginCommand => new MvxAsyncCommand<string>(OnLoginCommand);
@@ -40,30 +44,35 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         private async Task OnLoginCommand(string loginType)
         {
-            if (Enum.TryParse<SocialNetworkType>(loginType, out var socialNetworkType))
+            if (Enum.TryParse<LoginType>(loginType, out var socialNetworkType))
             {
-                var email = EmailText?.Trim();
-                var password = PasswordText?.Trim();
-                await _apiService.AuthorizeAsync(email, password);
-                await NavigationService.ShowMainView();
                 switch (socialNetworkType)
                 {
-                    case SocialNetworkType.Vk:
+                    case LoginType.Vk:
                         break;
-                    case SocialNetworkType.Ok:
+
+                    case LoginType.Ok:
                         break;
-                    case SocialNetworkType.Facebook:
+
+                    case LoginType.Facebook:
                         break;
-                    case SocialNetworkType.Gmail:
+
+                    case LoginType.Gmail:
                         break;
-                    default:
+
+                    case LoginType.UsernameAndPassword:
+                        var email = EmailText?.Trim();
+                        var password = PasswordText?.Trim();
+                        await _apiService.AuthorizeAsync(email, password);
                         break;
                 }
             }
             else
             {
-                await NavigationService.ShowMainView();
+                _dialogService.ShowToastAsync("Error with login type!");
             }
+
+            await NavigationService.ShowMainView();
         }
     }
 }

@@ -21,7 +21,7 @@
             android:textSize="14sp"
             android:maxLines="1"
             android:textColor="@color/applicationBlack"
-            app:MvxBind="Text Name" />
+            app:MvxBind="Text Title" />
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"

@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
@@ -10,76 +12,96 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     public class CreateOrderViewModel : BaseViewModel
     {
         private readonly IDialogService _dialogService;
+        private readonly IApiService _apiService;
+
         private DateTime? _completedDateValue;
-        private string _name;
-        private string _description;
-        private string _price;
-        private bool _isExecutorHidden;
-        private string _currencySign;
-
-        public CreateOrderViewModel(INavigationService navigationService,
-            IDialogService dialogService) : base(navigationService)
-        {
-            _dialogService = dialogService;
-            _currencySign = "₽";
-        }
-
         public DateTime? CompletedDateValue
         {
             get => _completedDateValue;
             set => SetProperty(ref _completedDateValue, value);
         }
 
-        public string Name
+        private string _title;
+        public string Title
         {
-            get => _name;
-            set => SetProperty(ref _name, value);
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
 
+        private string _description;
         public string Description
         {
             get => _description;
             set => SetProperty(ref _description, value);
         }
 
+        private string _currencySign;
         public string CurrencySign
         {
             get => _currencySign;
             set => _currencySign = value;
         }
 
-        public string Price
+        private long _price;
+        public long Price
         {
             get => _price;
             set
             {
-                var price = value.EndsWith(_currencySign) ? value : value + _currencySign;
-                SetProperty(ref _price, price);
+                //var price = value.EndsWith(_currencySign) ? value : value + _currencySign;
+                SetProperty(ref _price, value);
             }
         }
 
+        private bool _isExecutorHidden;
         public bool IsExecutorHidden
         {
             get => _isExecutorHidden;
             set => SetProperty(ref _isExecutorHidden, value);
         }
 
-        public ICommand ShowDateDialogCommand
+        public MvxAsyncCommand ShowDateDialogCommand => new MvxAsyncCommand(OnDateDialogAsync);
+
+        public MvxAsyncCommand CreateCommand => new MvxAsyncCommand(OnCreateAsync);
+
+        public CreateOrderViewModel(INavigationService navigationService,
+                                    IDialogService dialogService,
+                                    IApiService apiService)
+            : base(navigationService)
         {
-            get => new MvxAsyncCommand(OnDateDialogCommand);
+            _dialogService = dialogService;
+            _apiService = apiService;
         }
 
-        public ICommand CreateCommand
+        public override void Prepare()
         {
-            get => new MvxAsyncCommand(OnCreateCommand);
+            CurrencySign = "₽";
+            base.Prepare();
         }
 
-        private Task OnCreateCommand()
+        private async Task OnCreateAsync()
         {
-            return Task.CompletedTask;
+            try
+            {
+                var createOrderModel = new CreateOrderDataModel()
+                {
+                    Title = Title,
+                    Description = Description,
+                    AutoProlongation = IsExecutorHidden,
+                    ActiveTo = CompletedDateValue.Value,
+                    Price = Price,
+                };
+                await _apiService.CreateOrderAsync(createOrderModel);
+
+                _dialogService.ShowToastAsync("Order is created");
+            }
+            catch (Exception ex)
+            {
+                _dialogService.ShowToastAsync("Required data is empty");
+            }
         }
 
-        private async Task OnDateDialogCommand()
+        private async Task OnDateDialogAsync()
         {
             var result = await _dialogService.ShowDateDialogAsync();
             if (result.HasValue)
