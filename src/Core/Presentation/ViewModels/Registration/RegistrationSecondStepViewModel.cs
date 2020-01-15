@@ -5,6 +5,7 @@ using MvvmCross.Logging;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -76,9 +77,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         public MvxAsyncCommand UserRegistrationCommand => new MvxAsyncCommand(OnUserRegistrationAsync);
 
         public RegistrationSecondStepViewModel(INavigationService navigationService,
-                                                IDialogService dialogService,
-                                                IApiService apiService,
-                                                IMvxLog mvxLog)
+                                               IDialogService dialogService,
+                                               IApiService apiService,
+                                               IMvxLog mvxLog)
             : base(navigationService)
         {
             _dialogService = dialogService;
@@ -89,17 +90,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         public void Prepare(RegistrationNavigationParameter parameter)
         {
             _email = parameter.Email;
-
-#if DEBUG
-
-            _email = "formation7@outlook.com";
-            Nickname = "formation7";
-            Name = "test user";
-            Birthday = new DateTime(1992,4,11);
-            Password = "qweqweqwe";
-            RepeatedPassword = "qweqweqwe";
-            Gender = GenderType.Male;
-#endif
         }
 
         private void OnSelectGender(string genderTypeString)
@@ -132,10 +122,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                     Email = _email,
                     Login = Nickname,
                     Birthday = Birthday.Value,
+                    Sex = Gender,
                     Password = Password,
                     PasswordConfirmation = RepeatedPassword,
                 };
                 await _apiService.RegisterAsync(userInfo);
+                // todo: not wait
+                await _apiService.GetCurrentUser();
                 await NavigationService.ShowRegistrationThirdStepView();
             }
             catch (Exception ex)

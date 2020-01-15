@@ -25,5 +25,8 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         [JsonProperty("auto_prolongation")]
         public bool AutoProlongation { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime CreatedAt { get; set; }
     }
 }

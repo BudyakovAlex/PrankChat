@@ -88,6 +88,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.OpenDetailsOrderCommand)
                 .Mode(MvxBindingMode.OneTime);
 
+            set.Bind(statusOrderLabel)
+                .To(vm => vm.StatusText)
+                .Mode(MvxBindingMode.OneTime);
+
             set.Apply();
         }
     }

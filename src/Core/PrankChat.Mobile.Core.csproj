@@ -58,5 +58,6 @@
     <Folder Include="Presentation\ViewModels\Dialogs\" />
     <Folder Include="ApplicationServices\Platforms\" />
     <Folder Include="Presentation\Messengers\" />
+    <Folder Include="ApplicationServices\Storages\" />
   </ItemGroup>
 </Project>

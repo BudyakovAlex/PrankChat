@@ -7,6 +7,7 @@ using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Storages;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messengers;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -20,6 +21,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly IDialogService _dialogService;
         private readonly IApiService _apiService;
         private readonly IMvxMessenger _mvxMessenger;
+        private readonly IStorageService _storageService;
 
         private MvxSubscriptionToken _newOrderMessengertoken;
 
@@ -39,12 +41,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public OrdersViewModel(INavigationService navigationService,
                                IDialogService dialogService,
                                IApiService apiService,
-                               IMvxMessenger mvxMessenger)
+                               IMvxMessenger mvxMessenger,
+                               IStorageService storageService)
             : base(navigationService)
         {
             _dialogService = dialogService;
             _apiService = apiService;
             _mvxMessenger = mvxMessenger;
+            _storageService = storageService;
         }
 
         public override Task Initialize()
@@ -93,6 +97,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             var orderItemViewModel = orders.Select(x =>
                 new OrderItemViewModel(
                     NavigationService,
+                    _storageService,
                     x.Title,
                     "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                     x.PriceTo,
@@ -102,12 +107,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             Items.AddRange(orderItemViewModel);
         }
 
-        protected void Subscription()
+        private void Subscription()
         {
             _newOrderMessengertoken = _mvxMessenger.SubscribeOnMainThread<NewOrderMessenger>(OnNewOrderMessenger);
         }
 
-        protected void Unsubscription()
+        private void Unsubscription()
         {
             if (_newOrderMessengertoken != null)
             {
@@ -120,6 +125,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             var newOrderItemViewModel = new OrderItemViewModel(
                     NavigationService,
+                    _storageService,
                     newOrder.NewOrder.Title,
                     "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                     newOrder.NewOrder.PriceTo,

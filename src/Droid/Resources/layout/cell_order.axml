@@ -156,7 +156,8 @@
             android:gravity="center"
             android:textSize="16sp"
             android:textColor="@color/applicationWhite"
-            android:text="@string/Order_View_New_Task" />
+            android:text="@string/Order_View_New_Task"
+            app:MvxBind="Text StatusText"/>
         <Button
             android:id="@+id/task_button"
             android:layout_width="0dp"
