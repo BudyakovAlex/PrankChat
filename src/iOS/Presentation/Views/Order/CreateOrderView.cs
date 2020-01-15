@@ -2,6 +2,7 @@
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
+using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -39,7 +40,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             set.Bind(createButton)
                 .To(vm => vm.CreateCommand);
 
-			set.Apply();
+            set.Bind(progressBar)
+                .For(v => v.Hidden)
+                .To(vm => vm.IsBusy)
+                .WithConversion<MvxVisibilityValueConverter>();
+
+            set.Apply();
 		}
 
 		protected override void SetupControls()

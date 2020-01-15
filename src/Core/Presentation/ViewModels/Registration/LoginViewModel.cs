@@ -90,7 +90,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             }
             catch (Exception ex)
             {
-                _dialogService.ShowToast("Exception with login");
+                _dialogService.ShowToast($"Exception with login {ex.Message}");
                 _mvxLog.ErrorException($"[{nameof(LoginViewModel)}]", ex);
             }
             finally

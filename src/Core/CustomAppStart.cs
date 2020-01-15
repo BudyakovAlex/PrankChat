@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
+using MediaManager;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -17,6 +18,8 @@ namespace PrankChat.Mobile.Core
             : base(application, mvxNavigationService)
         {
             _navigationService = navigationService;
+
+            CrossMediaManager.Current.MediaPlayer.AutoAttachVideoView = false;
         }
 
         protected override Task NavigateToFirstViewModel(object hint = null)

@@ -38,7 +38,7 @@
             android:ellipsize="end" 
             android:textColor="@color/applicationWhite"
             android:text="Подсесть к человеку в ТЦ и съесть его еду и сказать спасибо дорогой"
-            app:MvxBind="Text OrderTitle"/>
+            app:MvxBind="Text Title"/>
 
         <View
             android:id="@+id/top_separator"

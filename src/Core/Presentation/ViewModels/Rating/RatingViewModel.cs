@@ -41,7 +41,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
 
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
-            var selectedFilter = await _dialogService.ShowFilterSelectionAsync(new[]
+            var selectedFilter = await _dialogService.ShowMenuDialogAsync(new[]
             {
                 Resources.RateView_Filter_AllTasks,
                 Resources.RateView_Filter_MyTasks,

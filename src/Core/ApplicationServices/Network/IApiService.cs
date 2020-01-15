@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
@@ -11,8 +10,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task RegisterAsync(UserRegistrationDataModel userInfo);
 
-        Task CreateOrderAsync(CreateOrderDataModel orderInfo);
+        Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel orderInfo);
 
-        Task<List<OrderApiModel>> GetOrdersAsync();
+        Task<List<OrderDataModel>> GetOrdersAsync();
+        
+        Task<VideoMetadataBundleDataModel> GetVideoFeedAsync();
     }
 }

@@ -5,25 +5,25 @@ namespace PrankChat.Mobile.Core.Models.Api
 {
     public class OrderApiModel
     {
-        [JsonProperty("is_active")]
-        public bool IsActive { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
 
-        [JsonProperty("customer_id")]
-        public int CustomerId { get; set; }
-
-        [JsonProperty("executor_id")]
-        public int ExecutorId { get; set; }
-
-        [JsonProperty("dateFrom")]
-        public DateTime DateFrom { get; set; }
-
-        [JsonProperty("dateTo")]
-        public DateTime DateTo { get; set; }
-
-        [JsonProperty("priceFrom")]
-        public long PriceFrom { get; set; }
-
-        [JsonProperty("priceTo")]
+        [JsonProperty("price")]
         public long PriceTo { get; set; }
+
+        [JsonProperty("title")]
+        public string Title { get; set; }
+
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("active_to")]
+        public DateTime ActiveTo { get; set; }
+
+        [JsonProperty("auto_prolongation")]
+        public bool AutoProlongation { get; set; }
     }
 }

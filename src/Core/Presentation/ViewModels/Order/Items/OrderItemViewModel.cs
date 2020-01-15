@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using FFImageLoading.Transformations;
 using FFImageLoading.Work;
 using MvvmCross.Commands;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
@@ -11,13 +12,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
     public class OrderItemViewModel : BaseItemViewModel
     {
         private readonly INavigationService _navigatiobService;
-        private DateTime _orderTime;
 
-        public string OrderTitle { get; }
+        private TimeSpan _orderTime;
+        private OrderStatusType _status;
+
+        public string Title { get; }
 
         public string ProfilePhotoUrl { get; }
 
-        public string TimeText => _orderTime.ToString("dd : hh : mm");
+        public string TimeText => _orderTime.ToString("dd' : 'hh' : 'mm");
 
         public string PriceText { get; }
 
@@ -26,14 +29,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         public OrderItemViewModel(INavigationService navigatiobService,
                                   string orderTitle,
                                   string profilePhotoUrl,
-                                  string priceText,
-                                  DateTime time)
+                                  long price,
+                                  TimeSpan time,
+                                  OrderStatusType status)
         {
             _navigatiobService = navigatiobService;
-            OrderTitle = orderTitle;
+            Title = orderTitle;
             ProfilePhotoUrl = profilePhotoUrl;
-            PriceText = priceText;
+            PriceText = $"{price} P";
             _orderTime = time;
+            _status = status;
         }
 
         private Task OnOpenDetailsOrderAsync()

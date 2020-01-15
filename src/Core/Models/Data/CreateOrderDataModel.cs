@@ -10,7 +10,7 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public long Price { get; set; }
 
-        public DateTime ActiveTo { get; set; }
+        public int ActiveFor { get; set; }
 
         public bool AutoProlongation { get; set; }
     }

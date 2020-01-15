@@ -35,16 +35,23 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             var lol = await _client.UnauthorizedPost("auth/register", registrationApiModel, true);
         }
 
-        public Task CreateOrderAsync(CreateOrderDataModel orderInfo)
+        public async Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel orderInfo)
         {
             var createOrderApiModel = MappingConfig.Mapper.Map<CreateOrderApiModel>(orderInfo);
-            return _client.Post("orders", createOrderApiModel);
+            var newOrder = await _client.Post<CreateOrderApiModel, DataApiModel<OrderApiModel>>("orders", createOrderApiModel, true);
+            return MappingConfig.Mapper.Map<OrderDataModel>(newOrder.Data);
         }
 
-        public async Task<List<OrderApiModel>> GetOrdersAsync()
+        public async Task<List<OrderDataModel>> GetOrdersAsync()
         {
             var data = await _client.Get<DataApiModel<List<OrderApiModel>>>("orders");
-            return data.Data;
+            return MappingConfig.Mapper.Map<List<OrderDataModel>>(data.Data);
+        }
+
+        public async Task<VideoMetadataBundleDataModel> GetVideoFeedAsync()
+        {
+            var videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>("videos");
+            return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
     }
 }

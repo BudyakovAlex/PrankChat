@@ -13,6 +13,7 @@
     <PackageReference Include="MvvmCross.Plugin.Messenger" Version="6.4.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="RestSharp" Version="106.10.1" />
+    <PackageReference Include="Plugin.MediaManager" Version="0.9.1" />
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
@@ -35,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="BusinessServices\" />
     <Folder Include="Presentation\Navigation\" />
     <Folder Include="Presentation\Navigation\Parameters\" />
     <Folder Include="Presentation\Navigation\Results\" />
@@ -53,5 +55,8 @@
     <Folder Include="Presentation\ViewModels\Comment\Items\" />
     <Folder Include="Presentation\ViewModels\Profile\" />
     <Folder Include="Presentation\ViewModels\Profile\Cashbox\" />
+    <Folder Include="Presentation\ViewModels\Dialogs\" />
+    <Folder Include="ApplicationServices\Platforms\" />
+    <Folder Include="Presentation\Messengers\" />
   </ItemGroup>
 </Project>

@@ -140,7 +140,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             }
             catch (Exception ex)
             {
-                _dialogService.ShowToast("Exception with registration");
+                _dialogService.ShowToast($"Exception with registration {ex.Message}");
                 _mvxLog.ErrorException($"[{nameof(RegistrationSecondStepViewModel)}]", ex);
             }
             finally

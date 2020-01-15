@@ -37,6 +37,8 @@
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
     <AndroidSupportedAbis>x86;x86_64;armeabi-v7a</AndroidSupportedAbis>
+    <AndroidDexTool>d8</AndroidDexTool>
+    <AndroidLinkTool>r8</AndroidLinkTool>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -51,6 +53,7 @@
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <AndroidUseAapt2>false</AndroidUseAapt2>
+<AndroidLinkTool>r8</AndroidLinkTool>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android.Export" />
@@ -95,6 +98,9 @@
     <Compile Include="Presentation\Views\Comment\CommentsView.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationDetailsView.cs" />
     <Compile Include="Presentation\Views\Order\OrderDetailsView.cs" />
+    <Compile Include="Presentation\Listeners\StateScrollListener.cs" />
+    <Compile Include="Presentation\Converters\BooleanToSoundResourceConverter.cs" />
+    <Compile Include="Presentation\Dialogs\ShareDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -159,12 +165,6 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\rounded_edittext.xml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\cell_publication.axml">
       <SubType>
       </SubType>
       <Generator>
@@ -261,8 +261,10 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_publication_details.axml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_order_details_view.axml">
       <SubType>
@@ -283,6 +285,24 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\cell_comment.axml">
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_sound.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_without_sound.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\dialog_share.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_copy.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
@@ -298,6 +318,9 @@
     </PackageReference>
     <PackageReference Include="MvvmCross">
       <Version>6.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.MediaManager">
+      <Version>0.9.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
@@ -578,7 +601,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
-    <Folder Include="Presentation\Views\Comment\" />
+    <Folder Include="Presentation\Listeners\" />
+    <Folder Include="Presentation\Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_background.xml" />
@@ -669,6 +693,14 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_banner_visa.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\cell_publication.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\network_security_config.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

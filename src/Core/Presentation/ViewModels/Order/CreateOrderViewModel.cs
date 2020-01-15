@@ -2,9 +2,12 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Presentation.Messengers;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
@@ -13,6 +16,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     {
         private readonly IDialogService _dialogService;
         private readonly IApiService _apiService;
+        private readonly IMvxLog _mvxLog;
+        private readonly IMvxMessenger _mvxMessenger;
 
         private DateTime? _completedDateValue;
         public DateTime? CompletedDateValue
@@ -66,11 +71,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public CreateOrderViewModel(INavigationService navigationService,
                                     IDialogService dialogService,
-                                    IApiService apiService)
+                                    IApiService apiService,
+                                    IMvxLog mvxLog,
+                                    IMvxMessenger mvxMessenger)
             : base(navigationService)
         {
             _dialogService = dialogService;
             _apiService = apiService;
+            _mvxLog = mvxLog;
+            _mvxMessenger = mvxMessenger;
         }
 
         public override void Prepare()
@@ -81,23 +90,40 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnCreateAsync()
         {
+            if (CompletedDateValue == null || DateTime.Now > CompletedDateValue.Value)
+            {
+                _dialogService.ShowToast("Date must be greater than the current");
+            }
+
             try
             {
+                IsBusy = true;
+
                 var createOrderModel = new CreateOrderDataModel()
                 {
                     Title = Title,
                     Description = Description,
                     AutoProlongation = IsExecutorHidden,
-                    ActiveTo = CompletedDateValue.Value,
+                    ActiveFor = (int) (CompletedDateValue.Value - DateTime.Now).TotalDays,
                     Price = Price,
                 };
-                await _apiService.CreateOrderAsync(createOrderModel);
+
+                var newOrder = await _apiService.CreateOrderAsync(createOrderModel);
+                if (newOrder != null)
+                {
+                    _mvxMessenger.Publish(new NewOrderMessenger(this, newOrder));
+                }
 
                 _dialogService.ShowToast("Order is created");
             }
             catch (Exception ex)
             {
+                _mvxLog.DebugException($"{nameof(CreateOrderViewModel)}", ex);
                 _dialogService.ShowToast("Required data is empty");
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 

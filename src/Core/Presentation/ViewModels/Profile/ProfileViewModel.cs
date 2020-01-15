@@ -6,6 +6,7 @@ using FFImageLoading.Work;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
@@ -15,6 +16,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
     public class ProfileViewModel : BaseViewModel
     {
         private readonly IDialogService _dialogService;
+        private readonly IPlatformService _platformService;
+
         private string _profileName;
         private string _description;
         private string _price;
@@ -22,19 +25,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private string _completedOrdersValue;
         private string _subscriptionsValue;
         private string _subscribersValue;
-
-        public ProfileViewModel(INavigationService navigationService, IDialogService dialogService) : base(navigationService)
-        {
-            _dialogService = dialogService;
-
-            ProfileName = "Adria";
-            Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
-            Price = "100 000 ₽";
-            OrdersValue = "200";
-            CompletedOrdersValue = "10";
-            SubscribersValue = "1k";
-            SubscriptionsValue = "100";
-        }
 
         public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(async () =>
         {
@@ -47,7 +37,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 Resources.ProfileView_Menu_Settings,
             };
 
-            await _dialogService.ShowFilterSelectionAsync(items, Resources.ProfileView_Menu_LogOut);
+            await _dialogService.ShowMenuDialogAsync(items, Resources.ProfileView_Menu_LogOut);
         });
 
         public ICommand ShowRefillCommand => new MvxAsyncCommand(NavigationService.ShowRefillView);
@@ -59,10 +49,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             get => _profileName;
             set => SetProperty(ref _profileName, value);
         }
-
-        public double DownsampleWidth { get; } = 100;
-
-        public List<ITransformation> Transformations => new List<ITransformation> { new CircleTransformation() };
 
         public string ProfilePhotoUrl { get; } = "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
 
@@ -102,7 +88,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             set => SetProperty(ref _subscriptionsValue, value);
         }
 
-        public MvxObservableCollection<BaseItemViewModel> Items { get; } = new MvxObservableCollection<BaseItemViewModel>();
+        public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
+
+        public ProfileViewModel(INavigationService navigationService, IDialogService dialogService, IPlatformService platformService) : base(navigationService)
+        {
+            _dialogService = dialogService;
+            _platformService = platformService;
+
+            ProfileName = "Adria";
+            Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
+            Price = "100 000 ₽";
+            OrdersValue = "200";
+            CompletedOrdersValue = "10";
+            SubscribersValue = "1k";
+            SubscriptionsValue = "100";
+        }
 
         public override async Task Initialize()
         {
@@ -113,29 +113,44 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private Task InitializePublications()
         {
-            Items.Add(new PublicationItemViewModel("Name one",
-                                                   "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                                   "Name video one",
-                                                   "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg",
-                                                   134,
-                                                   new System.DateTime(2018, 4, 24),
-                                                   245));
+            Items.Add(new PublicationItemViewModel(
+                NavigationService,
+                _dialogService,
+                _platformService,
+                "Name one",
+                "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                "Name video one",
+                "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg",
+                134,
+                new System.DateTime(2018, 4, 24),
+                245,
+                ""));
 
-            Items.Add(new PublicationItemViewModel("Name two",
-                                       "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                       "Name video two Name video two Name video two Name video two Name video two Name video two Name video two",
-                                       "https://cdn.pixabay.com/photo/2016/11/30/09/27/hacker-1872291_960_720.jpg",
-                                       134,
-                                       new System.DateTime(2018, 4, 24),
-                                       245));
+            Items.Add(new PublicationItemViewModel(
+                NavigationService,
+                _dialogService,
+                _platformService,
+                "Name two",
+                "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                "Name video two Name video two Name video two Name video two Name video two Name video two Name video two",
+                "https://cdn.pixabay.com/photo/2016/11/30/09/27/hacker-1872291_960_720.jpg",
+                134,
+                new System.DateTime(2018, 4, 24),
+                245,
+                ""));
 
-            Items.Add(new PublicationItemViewModel("Name three",
-                           "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                           "Name video three",
-                           "https://images.pexels.com/photos/326055/pexels-photo-326055.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                           134,
-                           new System.DateTime(2018, 4, 24),
-                           245));
+            Items.Add(new PublicationItemViewModel(
+                NavigationService,
+                _dialogService,
+                _platformService,
+                "Name three",
+                "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                "Name video three",
+                "https://images.pexels.com/photos/326055/pexels-photo-326055.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                134,
+                new System.DateTime(2018, 4, 24),
+                245,
+                ""));
 
             return Task.CompletedTask;
         }

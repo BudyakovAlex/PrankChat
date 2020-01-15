@@ -2,14 +2,23 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
+using MvvmCross.Navigation;
 using Plugin.DeviceInfo;
 using Plugin.DeviceInfo.Abstractions;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 {
     public class DialogService : IDialogService
     {
+        private readonly IMvxNavigationService _mvxNavigationService;
+
+        public DialogService(IMvxNavigationService mvxNavigationService)
+        {
+            _mvxNavigationService = mvxNavigationService;
+        }
+
         public async Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null)
         {
             var selectedDateTime = initialDateTime.HasValue ? initialDateTime : DateTime.Now;
@@ -22,7 +31,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
             return null;
         }
 
-        public Task<string> ShowFilterSelectionAsync(string[] itemStrings, string cancelItemString = "", CancellationToken? cancellationToken = null)
+        public Task<string> ShowMenuDialogAsync(string[] itemStrings, string cancelItemString = "", CancellationToken? cancellationToken = null)
         {
             if (CrossDeviceInfo.Current.Platform == Platform.iOS)
             {
@@ -35,6 +44,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
         public void ShowToast(string text)
         {
             UserDialogs.Instance.Toast(text);
+        }
+
+        public Task ShowShareDialogAsync(string url)
+        {
+            if (string.IsNullOrWhiteSpace(url))
+               throw new ArgumentNullException(nameof(url));
+
+            return _mvxNavigationService.Navigate<ShareDialogViewModel, string>(url);
         }
     }
 }

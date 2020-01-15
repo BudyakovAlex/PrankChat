@@ -104,7 +104,7 @@
         android:layout_alignTop="@+id/login_button"
         android:layout_alignRight="@+id/login_button"
         android:layout_alignEnd="@+id/login_button"
-        style="@style/Theme.PrankChat.ProgressBar"
+        style="@style/Theme.PrankChat.ProgressBar.Accent"
         app:MvxBind="Visibility Visibility(IsBusy)"/>
     <TextView
         android:id="@+id/login_from_text"

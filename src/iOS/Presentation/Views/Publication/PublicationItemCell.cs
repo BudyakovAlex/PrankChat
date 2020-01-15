@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         {
             base.SetupControls();
 
-            videoImage.SetPreviewStyle();
+            videoView.SetPreviewStyle();
             profileNameLabel.SetMainTitleStyle();
             publicationInfoLabel.SetSmallSubtitleStyle();
             videoNameLabel.SetTitleStyle();
@@ -54,10 +54,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 .To(vm => vm.ProfilePhotoUrl)
                 .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(videoImage)
-                .For(v => v.ImagePath)
-                .To(vm => vm.VideoUrl)
-                .Mode(MvxBindingMode.OneTime);
+            //set.Bind(videoImage)
+            //    .For(v => v.ImagePath)
+            //    .To(vm => vm.VideoUrl)
+            //    .Mode(MvxBindingMode.OneTime);
 
             set.Bind(profileNameLabel)
                 .To(vm => vm.ProfileName)
@@ -73,6 +73,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             set.Bind(likeLabel)
                 .To(vm => vm.NumberOfLikesText)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(moreButton)
+                .To(vm => vm.OpenSettingsCommand)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(shareButton)
+                .To(vm => vm.ShareCommand)
                 .Mode(MvxBindingMode.OneTime);
 
             set.Apply();

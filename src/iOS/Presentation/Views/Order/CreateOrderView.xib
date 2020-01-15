@@ -16,6 +16,7 @@
                 <outlet property="hideExecutorCheckboxLabel" destination="XJw-V4-peh" id="W31-ba-m63"/>
                 <outlet property="nameTextField" destination="jJE-mS-9rl" id="fGM-8d-NSn"/>
                 <outlet property="priceTextField" destination="xEE-mS-qWc" id="FWK-pw-ghP"/>
+                <outlet property="progressBar" destination="fvd-b3-Z4Y" id="bjA-Jr-I7a"/>
                 <outlet property="scrollView" destination="SnW-tf-9KZ" id="3QE-9r-TDm"/>
                 <outlet property="stackView" destination="BDc-xh-Ib0" id="3p5-Fu-2kC"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
@@ -93,19 +94,26 @@
                                     </constraints>
                                     <state key="normal" title="Button"/>
                                 </button>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="fvd-b3-Z4Y">
+                                    <rect key="frame" x="231.5" y="342" width="20" height="36"/>
+                                </activityIndicatorView>
                             </subviews>
                             <constraints>
+                                <constraint firstItem="fvd-b3-Z4Y" firstAttribute="bottom" secondItem="kIc-F7-6ov" secondAttribute="bottom" id="26G-wj-BAn"/>
                                 <constraint firstItem="BDc-xh-Ib0" firstAttribute="leading" secondItem="fQO-fP-Hac" secondAttribute="leading" id="5f7-WZ-vCp"/>
                                 <constraint firstItem="ffI-un-2WW" firstAttribute="leading" secondItem="fQO-fP-Hac" secondAttribute="leading" id="6W3-af-mwy"/>
                                 <constraint firstItem="kIc-F7-6ov" firstAttribute="centerX" secondItem="fQO-fP-Hac" secondAttribute="centerX" id="9LB-gc-Fe5"/>
+                                <constraint firstItem="fvd-b3-Z4Y" firstAttribute="top" secondItem="kIc-F7-6ov" secondAttribute="top" id="AJB-kA-dCp"/>
                                 <constraint firstItem="kIc-F7-6ov" firstAttribute="top" secondItem="ffI-un-2WW" secondAttribute="bottom" constant="32" id="CPI-Qb-Uma"/>
                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kIc-F7-6ov" secondAttribute="trailing" constant="10" id="HJj-JG-oYL"/>
                                 <constraint firstItem="ffI-un-2WW" firstAttribute="top" secondItem="BDc-xh-Ib0" secondAttribute="bottom" constant="26" id="Jr8-xQ-wEs"/>
                                 <constraint firstAttribute="trailing" secondItem="BDc-xh-Ib0" secondAttribute="trailing" id="NRe-tK-e1i"/>
                                 <constraint firstAttribute="trailing" secondItem="XJw-V4-peh" secondAttribute="trailing" id="O7L-hx-ypQ"/>
                                 <constraint firstItem="kIc-F7-6ov" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fQO-fP-Hac" secondAttribute="leading" constant="10" id="SJa-oU-ngK"/>
+                                <constraint firstItem="fvd-b3-Z4Y" firstAttribute="trailing" secondItem="kIc-F7-6ov" secondAttribute="trailing" id="Xsr-yx-iBm"/>
                                 <constraint firstItem="BDc-xh-Ib0" firstAttribute="top" secondItem="fQO-fP-Hac" secondAttribute="top" id="j5q-Er-23j"/>
                                 <constraint firstItem="XJw-V4-peh" firstAttribute="centerY" secondItem="ffI-un-2WW" secondAttribute="centerY" id="jkB-sw-9Aj"/>
+                                <constraint firstItem="fvd-b3-Z4Y" firstAttribute="centerY" secondItem="kIc-F7-6ov" secondAttribute="centerY" id="qdM-am-gpf"/>
                                 <constraint firstItem="XJw-V4-peh" firstAttribute="leading" secondItem="ffI-un-2WW" secondAttribute="trailing" constant="8" id="yYd-ty-4ko"/>
                             </constraints>
                         </view>

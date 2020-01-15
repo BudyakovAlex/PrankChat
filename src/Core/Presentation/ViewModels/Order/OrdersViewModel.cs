@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Messengers;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
@@ -16,6 +19,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     {
         private readonly IDialogService _dialogService;
         private readonly IApiService _apiService;
+        private readonly IMvxMessenger _mvxMessenger;
+
+        private MvxSubscriptionToken _newOrderMessengertoken;
 
         public MvxObservableCollection<OrderItemViewModel> Items { get; } = new MvxObservableCollection<OrderItemViewModel>();
 
@@ -31,13 +37,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public MvxAsyncCommand LoadOrdersCommand => new MvxAsyncCommand(OnLoadOrdersAsync);
 
         public OrdersViewModel(INavigationService navigationService,
-                                IDialogService dialogService,
-                                IApiService apiService)
+                               IDialogService dialogService,
+                               IApiService apiService,
+                               IMvxMessenger mvxMessenger)
             : base(navigationService)
         {
             _dialogService = dialogService;
             _apiService = apiService;
-
+            _mvxMessenger = mvxMessenger;
         }
 
         public override Task Initialize()
@@ -51,9 +58,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             base.Prepare();
         }
 
+        public override void ViewCreated()
+        {
+            base.ViewCreated();
+            Subscription();
+        }
+
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            Unsubscription();
+            base.ViewDestroy(viewFinishing);
+        }
+
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
-            var selectedFilter = await _dialogService.ShowFilterSelectionAsync(new[]
+            var selectedFilter = await _dialogService.ShowMenuDialogAsync(new[]
             {
                 Resources.OrdersView_Filter_AllTasks,
                 Resources.OrdersView_Filter_NewTasks,
@@ -71,9 +90,42 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             var orders = await _apiService.GetOrdersAsync();
 
+            var orderItemViewModel = orders.Select(x =>
+                new OrderItemViewModel(
+                    NavigationService,
+                    x.Title,
+                    "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                    x.PriceTo,
+                    DateTime.Now - x.ActiveTo.ToLocalTime(),
+                    x.Status));
 
-            //Items.Add(new OrderItemViewModel(navigationService, "Подсесть к человеку в ТЦ и съесть его еду и сказать сальто де марто", "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg", "13 455 p", new DateTime(2019, 4, 22)));
+            Items.AddRange(orderItemViewModel);
+        }
 
+        protected void Subscription()
+        {
+            _newOrderMessengertoken = _mvxMessenger.SubscribeOnMainThread<NewOrderMessenger>(OnNewOrderMessenger);
+        }
+
+        protected void Unsubscription()
+        {
+            if (_newOrderMessengertoken != null)
+            {
+                _mvxMessenger.Unsubscribe<NewOrderMessenger>(_newOrderMessengertoken);
+                _newOrderMessengertoken.Dispose();
+            }
+        }
+
+        private void OnNewOrderMessenger(NewOrderMessenger newOrder)
+        {
+            var newOrderItemViewModel = new OrderItemViewModel(
+                    NavigationService,
+                    newOrder.NewOrder.Title,
+                    "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                    newOrder.NewOrder.PriceTo,
+                    DateTime.Now - newOrder.NewOrder.ActiveTo.ToLocalTime(),
+                    newOrder.NewOrder.Status);
+            Items.Add(newOrderItemViewModel);
         }
     }
 }
