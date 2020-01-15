@@ -7,11 +7,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
     {
         private const string AccessTokenKey = "access_token";
 
-        private string _lol;
-
         public Task<string> GetAccessTokenAsync()
         {
-            return Task.FromResult(_lol);
             return SecureStorage.GetAsync(AccessTokenKey);
         }
 
@@ -21,9 +18,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
             {
                 return Task.CompletedTask;
             }
-
-            _lol = accessToken;
-            return Task.CompletedTask;
 
             return SecureStorage.SetAsync(AccessTokenKey, accessToken);
         }

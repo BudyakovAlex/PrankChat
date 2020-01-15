@@ -32,7 +32,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task RegisterAsync(UserRegistrationDataModel userInfo)
         {
             var registrationApiModel = MappingConfig.Mapper.Map<UserRegistrationApiModel>(userInfo);
-            var lol = await _client.UnauthorizedPost("auth/register", registrationApiModel, true);
+            var content = await _client.UnauthorizedPost("auth/register", registrationApiModel, true);
         }
 
         public async Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel orderInfo)
