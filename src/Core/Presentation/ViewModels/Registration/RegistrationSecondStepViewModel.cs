@@ -1,21 +1,26 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
-    public class RegistrationSecondStepViewModel : BaseViewModel
+    public class RegistrationSecondStepViewModel : BaseViewModel, IMvxViewModel<RegistrationNavigationParameter>
     {
         private readonly IDialogService _dialogService;
+        private readonly IApiService _apiService;
+        private readonly IMvxLog _mvxLog;
 
-        public RegistrationSecondStepViewModel(INavigationService navigationService, IDialogService dialogService) : base(navigationService)
-        {
-            _dialogService = dialogService;
-        }
+        private string _email;
 
         private string _nickname;
         public string Nickname
@@ -58,16 +63,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             set => SetProperty(ref _repeatedPassword, value);
         }
 
-        public MvxAsyncCommand ShowThirdStepCommand
-        {
-            get
-            {
-                return new MvxAsyncCommand(() => NavigationService.ShowRegistrationThirdStepView());
-            }
-        }
-
         private GenderType _gender;
-
         public GenderType Gender
         {
             get => _gender;
@@ -77,6 +73,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         public MvxAsyncCommand SelectBirthdayCommand => new MvxAsyncCommand(OnSelectBirthdayAsync);
 
         public MvxCommand<string> SelectGenderCommand => new MvxCommand<string>(OnSelectGender);
+
+        public MvxAsyncCommand UserRegistrationCommand => new MvxAsyncCommand(OnUserRegistrationAsync);
+
+        public RegistrationSecondStepViewModel(INavigationService navigationService,
+                                               IDialogService dialogService,
+                                               IApiService apiService,
+                                               IMvxLog mvxLog)
+            : base(navigationService)
+        {
+            _dialogService = dialogService;
+            _apiService = apiService;
+            _mvxLog = mvxLog;
+        }
+
+        public void Prepare(RegistrationNavigationParameter parameter)
+        {
+            _email = parameter.Email;
+        }
 
         private void OnSelectGender(string genderTypeString)
         {
@@ -93,6 +107,38 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             {
                 Birthday = result.Value;
                 await RaisePropertyChanged(nameof(BirthdayText));
+            }
+        }
+
+        private async Task OnUserRegistrationAsync()
+        {
+            try
+            {
+                IsBusy = true;
+
+                var userInfo = new UserRegistrationDataModel()
+                {
+                    Name = Name,
+                    Email = _email,
+                    Login = Nickname,
+                    Birthday = Birthday.Value,
+                    Sex = Gender,
+                    Password = Password,
+                    PasswordConfirmation = RepeatedPassword,
+                };
+                await _apiService.RegisterAsync(userInfo);
+                // todo: not wait
+                await _apiService.GetCurrentUser();
+                await NavigationService.ShowRegistrationThirdStepView();
+            }
+            catch (Exception ex)
+            {
+                _dialogService.ShowToast($"Exception with registration {ex.Message}");
+                _mvxLog.ErrorException($"[{nameof(RegistrationSecondStepViewModel)}]", ex);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }

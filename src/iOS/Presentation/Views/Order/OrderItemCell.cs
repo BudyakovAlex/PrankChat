@@ -73,7 +73,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .Mode(MvxBindingMode.OneTime);
 
             set.Bind(orderTitleLabel)
-                .To(vm => vm.OrderTitle)
+                .To(vm => vm.Title)
                 .Mode(MvxBindingMode.OneTime);
 
             set.Bind(orderTimeLabel)
@@ -86,6 +86,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             set.Bind(orderDetailsButton)
                 .To(vm => vm.OpenDetailsOrderCommand)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(statusOrderLabel)
+                .To(vm => vm.StatusText)
                 .Mode(MvxBindingMode.OneTime);
 
             set.Apply();

@@ -25,8 +25,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         public Task AppStart()
         {
-            //return ShowLoginView();
-            return ShowMainView();
+            return ShowLoginView();
+            //return ShowMainView();
         }
 
         public Task ShowCashboxView()
@@ -54,9 +54,9 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<RegistrationViewModel>();
         }
 
-        public Task ShowRegistrationSecondStepView()
+        public Task ShowRegistrationSecondStepView(RegistrationNavigationParameter parameter)
         {
-            return _mvxNavigationService.Navigate<RegistrationSecondStepViewModel>();
+            return _mvxNavigationService.Navigate<RegistrationSecondStepViewModel, RegistrationNavigationParameter>(parameter);
         }
 
         public Task ShowRegistrationThirdStepView()

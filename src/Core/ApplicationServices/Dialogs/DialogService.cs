@@ -41,10 +41,15 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
             return UserDialogs.Instance.ActionSheetAsync(null, cancelItemString, null, cancellationToken, itemStrings);
         }
 
+        public void ShowToast(string text)
+        {
+            UserDialogs.Instance.Toast(text);
+        }
+
         public Task ShowShareDialogAsync(string url)
         {
-            //if (string.IsNullOrWhiteSpace(url))
-            //    throw new ArgumentNullException(nameof(url));
+            if (string.IsNullOrWhiteSpace(url))
+               throw new ArgumentNullException(nameof(url));
 
             return _mvxNavigationService.Navigate<ShareDialogViewModel, string>(url);
         }

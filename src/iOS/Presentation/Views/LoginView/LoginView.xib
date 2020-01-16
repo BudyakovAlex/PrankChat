@@ -3,7 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,6 +17,7 @@
                 <outlet property="loginTitleLabel" destination="s8U-I8-gZ5" id="GN6-j5-hkU"/>
                 <outlet property="okButton" destination="gHX-dY-raH" id="eQu-y0-G4e"/>
                 <outlet property="passwordTextField" destination="f9d-Mr-X0j" id="dFN-xF-1fa"/>
+                <outlet property="progressBar" destination="kTq-FK-K6A" id="yjH-2Z-GEr"/>
                 <outlet property="registrationButton" destination="3bF-Z3-c82" id="LRG-x5-TA6"/>
                 <outlet property="resetPasswordButton" destination="hmY-gs-LtT" id="dE7-WW-cQY"/>
                 <outlet property="scrollView" destination="U2A-OD-dov" id="hD5-7X-oYz"/>
@@ -141,6 +142,9 @@
                                         <constraint firstAttribute="height" constant="45" id="CvY-Rw-5vO"/>
                                     </constraints>
                                 </stackView>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="kTq-FK-K6A">
+                                    <rect key="frame" x="231.5" y="194" width="20" height="40"/>
+                                </activityIndicatorView>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="xNg-ZQ-Oho" firstAttribute="leading" secondItem="HGZ-VA-QRD" secondAttribute="leading" constant="20" id="1AE-eh-Kbf"/>
@@ -148,21 +152,25 @@
                                 <constraint firstItem="nAJ-a9-g7E" firstAttribute="top" secondItem="f9d-Mr-X0j" secondAttribute="bottom" constant="16" id="7n5-sy-U0b"/>
                                 <constraint firstItem="LAK-AZ-oxm" firstAttribute="centerX" secondItem="HGZ-VA-QRD" secondAttribute="centerX" id="DYH-QN-BXD"/>
                                 <constraint firstItem="LAK-AZ-oxm" firstAttribute="leading" relation="lessThanOrEqual" secondItem="HGZ-VA-QRD" secondAttribute="leading" constant="112" id="Ev0-ey-vXK"/>
+                                <constraint firstItem="kTq-FK-K6A" firstAttribute="top" secondItem="LAK-AZ-oxm" secondAttribute="top" id="Glh-Zb-tk6"/>
                                 <constraint firstItem="DKl-JP-yCC" firstAttribute="leading" secondItem="HGZ-VA-QRD" secondAttribute="leading" constant="20" id="H6z-6s-B5g"/>
                                 <constraint firstItem="3bF-Z3-c82" firstAttribute="top" secondItem="ET3-2r-7cv" secondAttribute="bottom" constant="26" id="J5h-To-wCO"/>
                                 <constraint firstAttribute="trailing" secondItem="f9d-Mr-X0j" secondAttribute="trailing" constant="20" id="JAb-0l-9GH"/>
+                                <constraint firstItem="kTq-FK-K6A" firstAttribute="bottom" secondItem="LAK-AZ-oxm" secondAttribute="bottom" id="Jmv-Mg-Rri"/>
                                 <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="LAK-AZ-oxm" secondAttribute="trailing" constant="111" id="Ot6-0T-MVO"/>
                                 <constraint firstItem="LAK-AZ-oxm" firstAttribute="top" secondItem="nAJ-a9-g7E" secondAttribute="bottom" constant="26" id="Sn5-sd-QPy"/>
                                 <constraint firstItem="DKl-JP-yCC" firstAttribute="top" secondItem="HGZ-VA-QRD" secondAttribute="top" constant="20" id="T5b-vf-Ueq"/>
                                 <constraint firstItem="f9d-Mr-X0j" firstAttribute="top" secondItem="DKl-JP-yCC" secondAttribute="bottom" constant="16" id="Tfw-7a-oOx"/>
                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="3bF-Z3-c82" secondAttribute="bottom" constant="5" id="YJh-wh-Jur"/>
                                 <constraint firstItem="3bF-Z3-c82" firstAttribute="leading" secondItem="HGZ-VA-QRD" secondAttribute="leading" constant="20" id="a0i-s0-Bgf"/>
+                                <constraint firstItem="kTq-FK-K6A" firstAttribute="centerY" secondItem="LAK-AZ-oxm" secondAttribute="centerY" id="bCJ-RF-e0P"/>
                                 <constraint firstAttribute="trailing" secondItem="3bF-Z3-c82" secondAttribute="trailing" constant="20" id="bDq-V7-fD5"/>
                                 <constraint firstAttribute="trailing" secondItem="xNg-ZQ-Oho" secondAttribute="trailing" constant="20" id="cnR-7B-9PO"/>
                                 <constraint firstItem="ET3-2r-7cv" firstAttribute="centerX" secondItem="HGZ-VA-QRD" secondAttribute="centerX" id="d6F-XF-OYZ"/>
                                 <constraint firstItem="ET3-2r-7cv" firstAttribute="top" secondItem="xNg-ZQ-Oho" secondAttribute="bottom" constant="16" id="h6O-nN-bHE"/>
                                 <constraint firstItem="nAJ-a9-g7E" firstAttribute="centerX" secondItem="HGZ-VA-QRD" secondAttribute="centerX" id="iJX-MP-ga3"/>
                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nAJ-a9-g7E" secondAttribute="trailing" constant="16" id="lye-3f-zdt"/>
+                                <constraint firstItem="kTq-FK-K6A" firstAttribute="trailing" secondItem="LAK-AZ-oxm" secondAttribute="trailing" id="ma9-XK-bDP"/>
                                 <constraint firstItem="nAJ-a9-g7E" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HGZ-VA-QRD" secondAttribute="leading" constant="16" id="rdt-ip-MnG"/>
                                 <constraint firstAttribute="trailing" secondItem="DKl-JP-yCC" secondAttribute="trailing" constant="20" id="wMW-rq-MvJ"/>
                                 <constraint firstItem="xNg-ZQ-Oho" firstAttribute="top" secondItem="LAK-AZ-oxm" secondAttribute="bottom" constant="26" id="zKl-3i-VVB"/>
