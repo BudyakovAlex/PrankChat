@@ -2,6 +2,7 @@
 using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -118,6 +119,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			set.Bind(arqueButton)
 				.To(vm => vm.ArqueOrderCommand)
 				.Mode(MvxBindingMode.OneTime);
+
+			set.Bind(progressBarView)
+                .For(v => v.Hidden)
+                .To(vm => vm.IsBusy)
+                .WithConversion<MvxVisibilityValueConverter>();
 
 			set.Apply();
 		}

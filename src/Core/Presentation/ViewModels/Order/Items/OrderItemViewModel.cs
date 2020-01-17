@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using FFImageLoading.Transformations;
-using FFImageLoading.Work;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Storages;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 {
@@ -17,6 +16,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         private TimeSpan _orderTime;
         private OrderStatusType _status;
+        private string _orderId;
 
         public string Title { get; }
 
@@ -33,30 +33,38 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                 switch (_status)
                 {
                     case OrderStatusType.New:
-                        break;
-                    case OrderStatusType.Rejected:
-                        break;
-                    case OrderStatusType.Cancelled:
-                        break;
-                    case OrderStatusType.Active:
-                        break;
-                    case OrderStatusType.InWork:
-                        break;
-                    case OrderStatusType.InArbitration:
-                        break;
-                    case OrderStatusType.ProcessCloseArbitration:
-                        break;
-                    case OrderStatusType.ClosedAfterArbitrationCustomerWin:
-                        break;
-                    case OrderStatusType.ClosedAfterArbitrationExecutorWin:
-                        break;
-                    case OrderStatusType.Finished:
-                        break;
-                    default:
-                        break;
-                }
+                        return Resources.OrderStatus_New;
 
-                return "LOL";
+                    case OrderStatusType.Rejected:
+                        return Resources.OrderStatus_Rejected;
+
+                    case OrderStatusType.Cancelled:
+                        return Resources.OrderStatus_Cancelled;
+
+                    case OrderStatusType.Active:
+                        return Resources.OrderStatus_Active;
+
+                    case OrderStatusType.InWork:
+                        return Resources.OrderStatus_InWork;
+
+                    case OrderStatusType.InArbitration:
+                        return Resources.OrderStatus_InArbitration;
+
+                    case OrderStatusType.ProcessCloseArbitration:
+                        return Resources.OrderStatus_ProcessCloseArbitration;
+
+                    case OrderStatusType.ClosedAfterArbitrationCustomerWin:
+                        return Resources.OrderStatus_ClosedAfterArbitrationCustomerWin;
+
+                    case OrderStatusType.ClosedAfterArbitrationExecutorWin:
+                        return Resources.OrderStatus_ClosedAfterArbitrationExecutorWin;
+
+                    case OrderStatusType.Finished:
+                        return Resources.OrderStatus_Finished;
+
+                    default:
+                        return string.Empty;
+                }
             }
         }
 
@@ -64,6 +72,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public OrderItemViewModel(INavigationService navigatiobService,
                                   IStorageService storageService,
+                                  string orderId,
                                   string orderTitle,
                                   string profilePhotoUrl,
                                   long price,
@@ -78,11 +87,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             PriceText = $"{price} P";
             _orderTime = time;
             _status = status;
+            _orderId = orderId;
         }
 
         private Task OnOpenDetailsOrderAsync()
         {
-            return _navigatiobService.ShowDetailsOrderView();
+            var parameter = new OrderDetailsNavigationParameter(_orderId);
+            return _navigatiobService.ShowDetailsOrderView(parameter);
         }
     }
 }

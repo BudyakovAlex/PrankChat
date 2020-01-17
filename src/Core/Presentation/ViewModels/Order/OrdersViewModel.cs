@@ -98,6 +98,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 new OrderItemViewModel(
                     NavigationService,
                     _storageService,
+                    x.Id,
                     x.Title,
                     "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                     x.PriceTo,
@@ -121,16 +122,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private void OnNewOrderMessenger(NewOrderMessenger newOrder)
+        private void OnNewOrderMessenger(NewOrderMessenger newOrderMessenger)
         {
             var newOrderItemViewModel = new OrderItemViewModel(
                     NavigationService,
                     _storageService,
-                    newOrder.NewOrder.Title,
+                    newOrderMessenger.NewOrder.Id,
+                    newOrderMessenger.NewOrder.Title,
                     "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                    newOrder.NewOrder.PriceTo,
-                    DateTime.Now - newOrder.NewOrder.ActiveTo.ToLocalTime(),
-                    newOrder.NewOrder.Status);
+                    newOrderMessenger.NewOrder.PriceTo,
+                    DateTime.Now - newOrderMessenger.NewOrder.ActiveTo.ToLocalTime(),
+                    newOrderMessenger.NewOrder.Status);
             Items.Add(newOrderItemViewModel);
         }
     }

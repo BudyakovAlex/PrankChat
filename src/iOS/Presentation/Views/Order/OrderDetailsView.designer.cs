@@ -11,7 +11,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
 	[Register ("OrderDetailsView")]
 	partial class OrderDetailsView
-    {
+	{
 		[Outlet]
 		UIKit.UIButton acceptButton { get; set; }
 
@@ -67,6 +67,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UILabel profileNameLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIView progressBarView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel startDateLabel { get; set; }
 
 		[Outlet]
@@ -101,11 +104,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (innerView != null) {
-				innerView.Dispose ();
-				innerView = null;
-			}
-
 			if (acceptButton != null) {
 				acceptButton.Dispose ();
 				acceptButton = null;
@@ -166,6 +164,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				executorView = null;
 			}
 
+			if (innerView != null) {
+				innerView.Dispose ();
+				innerView = null;
+			}
+
 			if (noButton != null) {
 				noButton.Dispose ();
 				noButton = null;
@@ -184,6 +187,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (profileImageView != null) {
 				profileImageView.Dispose ();
 				profileImageView = null;
+			}
+
+			if (progressBarView != null) {
+				progressBarView.Dispose ();
+				progressBarView = null;
 			}
 
 			if (profileNameLabel != null) {

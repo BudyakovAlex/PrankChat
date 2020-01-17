@@ -16,6 +16,7 @@ namespace PrankChat.Mobile.Core.Models.Mappings
             CreateMap<OrderDataModel, OrderApiModel>().ReverseMap();
             CreateMap<CreateOrderDataModel, CreateOrderApiModel>().ReverseMap();
             CreateMap<UserDataModel, UserApiModel>().ReverseMap();
+            CreateMap<OrderDetailsDataModel, OrderDetailsApiModel>().ReverseMap();
             CreateMap<GenderType, string>().ConvertUsing(src => src.ToString().ToLower());
         }
     }

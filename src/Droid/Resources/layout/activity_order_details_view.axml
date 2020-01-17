@@ -96,7 +96,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/OrderDetailsView_Take_Order_Button"
                 style="@style/Theme.PrankChat.Button.Accent"
-                app:MvxBind="Click TakeOrderCommand"/>
+                app:MvxBind="Click TakeOrderCommand; Visibility Visibility(IsNewOrder)"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
@@ -274,5 +274,16 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/applicationTransparent"
+        app:MvxBind="Visibility Visibility(IsBusy)">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="@style/Theme.PrankChat.ProgressBar.Accent"/>
+    </FrameLayout>
 </RelativeLayout>
 

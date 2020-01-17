@@ -62,6 +62,24 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<List<OrderDataModel>>(data.Data);
         }
 
+        public async Task<OrderDetailsDataModel> GetOrderDetailsAsync(string orderId)
+        {
+            var data = await _client.Get<DataApiModel<OrderDetailsApiModel>>($"orders/{orderId}");
+            return MappingConfig.Mapper.Map<OrderDetailsDataModel>(data.Data);
+        }
+
+        public async Task<OrderDetailsDataModel> TakeOrderAsync(string orderId)
+        {
+            var data = await _client.Post<DataApiModel<OrderDetailsApiModel>>($"orders/{orderId}/executor​/appoint");
+            return MappingConfig.Mapper.Map<OrderDetailsDataModel>(data.Data);
+        }
+
+        public async Task<List<OrderDataModel>> GetRatingOrdersAsync()
+        {
+            var data = await _client.Get<DataApiModel<List<OrderDataModel>>>($"orders/appoint");
+            return MappingConfig.Mapper.Map<List<OrderDataModel>>(data.Data);
+        }
+
         #endregion
 
         #region Publications

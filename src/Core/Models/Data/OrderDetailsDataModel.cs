@@ -3,11 +3,11 @@ using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Data
 {
-    public class OrderDataModel
+    public class OrderDetailsDataModel
     {
         public string Id { get; set; }
 
-        public long PriceTo { get; set; }
+        public double Price { get; set; }
 
         public string Title { get; set; }
 
@@ -17,6 +17,10 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public DateTime ActiveTo { get; set; }
 
-        public bool AutoProlongation { get; set; }
+        public DateTime CreatedAt { get; set; }
+
+        public UserDataModel Сustomer { get; set; }
+
+        public UserDataModel Executor { get; set; }
     }
 }

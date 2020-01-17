@@ -796,5 +796,89 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("ShareDialog_LinkShareTitle", resourceCulture);
             }
         }
+        
+        public static string OrderStatus_New {
+            get {
+                return ResourceManager.GetString("OrderStatus_New", resourceCulture);
+            }
+        }
+        
+        public static string OrderStatus_Rejected {
+            get {
+                return ResourceManager.GetString("OrderStatus_Rejected", resourceCulture);
+            }
+        }
+        
+        public static string OrderStatus_Cancelled {
+            get {
+                return ResourceManager.GetString("OrderStatus_Cancelled", resourceCulture);
+            }
+        }
+        
+        public static string OrderStatus_Active {
+            get {
+                return ResourceManager.GetString("OrderStatus_Active", resourceCulture);
+            }
+        }
+        
+        public static string OrderStatus_InWork {
+            get {
+                return ResourceManager.GetString("OrderStatus_InWork", resourceCulture);
+            }
+        }
+        
+        public static string OrderStatus_InArbitration {
+            get {
+                return ResourceManager.GetString("OrderStatus_InArbitration", resourceCulture);
+            }
+        }
+        
+        public static string OrderStatus_ProcessCloseArbitration {
+            get {
+                return ResourceManager.GetString("OrderStatus_ProcessCloseArbitration", resourceCulture);
+            }
+        }
+        
+        public static string OrderStatus_ClosedAfterArbitrationCustomerWin {
+            get {
+                return ResourceManager.GetString("OrderStatus_ClosedAfterArbitrationCustomerWin", resourceCulture);
+            }
+        }
+        
+        public static string OrderStatus_ClosedAfterArbitrationExecutorWin {
+            get {
+                return ResourceManager.GetString("OrderStatus_ClosedAfterArbitrationExecutorWin", resourceCulture);
+            }
+        }
+        
+        public static string OrderStatus_Finished {
+            get {
+                return ResourceManager.GetString("OrderStatus_Finished", resourceCulture);
+            }
+        }
+        
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        public static string Attention {
+            get {
+                return ResourceManager.GetString("Attention", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_TakeOrderTitle {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_TakeOrderTitle", resourceCulture);
+            }
+        }
+        
+        public static string OrderDetailsView_TakeOrderQuestion {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_TakeOrderQuestion", resourceCulture);
+            }
+        }
     }
 }

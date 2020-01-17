@@ -7,19 +7,24 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
     {
         private const string AccessTokenKey = "access_token";
 
-        public Task<string> GetAccessTokenAsync()
+        private string _token;
+
+        public async Task<string> GetAccessTokenAsync()
         {
-            return SecureStorage.GetAsync(AccessTokenKey);
+            return _token;
+            //return SecureStorage.GetAsync(AccessTokenKey);
         }
 
-        public Task SetAccessTokenAsync(string accessToken)
+        public async Task SetAccessTokenAsync(string accessToken)
         {
-            if (string.IsNullOrWhiteSpace(accessToken))
-            {
-                return Task.CompletedTask;
-            }
+            _token = accessToken;
 
-            return SecureStorage.SetAsync(AccessTokenKey, accessToken);
+            //if (string.IsNullOrWhiteSpace(accessToken))
+            //{
+            //    return Task.CompletedTask;
+            //}
+
+            //return SecureStorage.SetAsync(AccessTokenKey, accessToken);
         }
     }
 }
