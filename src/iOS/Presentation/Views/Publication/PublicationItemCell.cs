@@ -11,12 +11,13 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
     public partial class PublicationItemCell : BaseTableCell<PublicationItemCell, PublicationItemViewModel>
     {
-        private const int VideoRepeatDelayInSeconds = 10;
+        private const int VideoRepeatDelayInSeconds = 200;
         private AVPlayerViewController _avPlayerViewController;
         private AVQueuePlayer _avPlayer;
         private AVPlayerLooper _avPlayerLooper;
@@ -33,13 +34,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         public void PlayVideo()
         {
-            _avPlayer.Play();
+            Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() => _avPlayer.Play());
         }
 
         public void StopVideo()
         {
-            _avPlayer.Seek(new CMTime(0, 1));
-            _avPlayer.Pause();
+            Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
+            {
+                _avPlayer.Seek(new CMTime(0, 1));
+                _avPlayer.Pause();
+            });
         }
 
         public void PrerollVideo(string uri)
@@ -56,7 +60,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                             Duration = new CMTime(VideoRepeatDelayInSeconds, 1)});
         }
 
-        public CGRect VideoBounds => videoView.Bounds;
+        public CGRect GetVideoBounds(UITableView tableView)
+        {
+            return videoView.ConvertRectToView(videoView.Bounds, tableView);
+        }
 
         public override void PrepareForReuse()
         {

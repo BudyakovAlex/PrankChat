@@ -107,24 +107,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                         "Name one",
                         "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                         x.Title,
-                        "https://prankchat-dev.s3.us-east-2.amazonaws.com/videos/3/cb5ee50f054879b7f13e0b41fa8f270b.mp4",
+                        x.StreamUri,
                         x.ViewsCount,
                         new DateTime(2018, 4, 24),
                         x.RepostsCount,
                         x.ShareUri));
 
-                //Items.AddRange(publicationViewModels);
+      //Items.AddRange(publicationViewModels);
+                var firstModel = publicationViewModels.ToList()[0];
+                firstModel.VideoUrl = "https://prankchat-dev.s3.us-east-2.amazonaws.com/videos/2/b110cf26e059f101deb955564b014332.mp4";
+                var secondModel = publicationViewModels.ToList()[1];
+                secondModel.VideoUrl = "https://prankchat-dev.s3.us-east-2.amazonaws.com/videos/3/cb5ee50f054879b7f13e0b41fa8f270b.mp4";
 
-                Items.Add(publicationViewModels.ToList()[0]);
-                Items.Add(publicationViewModels.ToList()[0]);
-                Items.Add(publicationViewModels.ToList()[0]);
-                Items.Add(publicationViewModels.ToList()[0]);
-                Items.Add(publicationViewModels.ToList()[0]);
-
-                //Items.Add(publicationViewModels.ToList()[1]);
-                //Items.Add(publicationViewModels.ToList()[2]);
-                //Items.Add(publicationViewModels.ToList()[1]);
-                //Items.Add(publicationViewModels.ToList()[2]);
+                 Items.Add(secondModel);
+                 Items.Add(secondModel);
+                 Items.Add(secondModel);
+                 Items.Add(secondModel);
+                 Items.Add(secondModel);
+                 Items.Add(secondModel);
+                Items.Add(secondModel);
             }
             catch (Exception ex)
             {

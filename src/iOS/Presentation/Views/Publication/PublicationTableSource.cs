@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Foundation;
 using MvvmCross.Platforms.Ios.Binding.Views;
@@ -20,7 +21,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         public override void DecelerationEnded(UIScrollView scrollView)
         {
-            PlayAllVisibleVideos();
+            PlayFirstCompletelyVisibleVideo();
         }
 
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
@@ -29,17 +30,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             {
                 var cell = (PublicationItemCell)tableView.DequeueReusableCell(PublicationItemCell.CellId);
                 cell.PrerollVideo(viewModel.VideoUrl);
-                if (TableView.IndexPathsForVisibleRows.Contains(indexPath))
-                    cell.PlayVideo();
-
                 return cell;
             }
 
             return null;
         }
 
-        private void PlayAllVisibleVideos()
+        private void PlayFirstCompletelyVisibleVideo()
         {
+            var indexPaths = TableView.IndexPathsForVisibleRows;
+            PublicationItemCell cellToPlay = null;
+            var centralCellToPlay = TableView.CellAt(indexPaths[indexPaths.Length / 2]) as PublicationItemCell;
             foreach (var indexPath in TableView.IndexPathsForVisibleRows)
             {
                 var cell = TableView.CellAt(indexPath);
@@ -47,8 +48,28 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 if (publicationCell == null)
                     continue;
 
-                publicationCell.PlayVideo();
+                if (IsCompletelyVisible(publicationCell))
+                {
+                    cellToPlay = publicationCell;
+                    break;
+                }
             }
+
+            if (cellToPlay == null)
+                if (centralCellToPlay != null)
+                    cellToPlay = centralCellToPlay;
+                else
+                    return;
+
+            Debug.WriteLine("Play activated:" + TableView.IndexPathForCell(cellToPlay).Row);
+            cellToPlay.PlayVideo();
+        }
+
+        private bool IsCompletelyVisible(PublicationItemCell publicationCell)
+        {
+            var videoRect = publicationCell.GetVideoBounds(TableView);
+            Debug.WriteLine($"Video rect Y: {videoRect.Y}, Table view Y: {TableView.Bounds.Y}");
+            return TableView.Bounds.Contains(videoRect);
         }
     }
 }
