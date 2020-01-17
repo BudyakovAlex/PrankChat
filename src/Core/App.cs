@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using MediaManager;
 using MvvmCross;
 using MvvmCross.IoC;
 using MvvmCross.ViewModels;
@@ -25,8 +24,6 @@ namespace PrankChat.Mobile.Core
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IPlatformService, PlatformService>();
 
             RegisterCustomAppStart<CustomAppStart>();
-
-            CrossMediaManager.Current.Init();
         }
 
         private void InitializeMappings()

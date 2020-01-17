@@ -6,6 +6,7 @@
 //
 using Foundation;
 using System.CodeDom.Compiler;
+using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
@@ -43,7 +44,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UILabel videoNameLabel { get; set; }
 
 		[Outlet]
-		MediaManager.Platforms.Ios.Video.VideoView videoView { get; set; }
+		UIView videoView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MediaManager;
-using MediaManager.Video;
 using MvvmCross;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -61,8 +59,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxCommand ToggleSoundCommand => new MvxCommand(OnToggleSound);
 
-        public MvxCommand<IVideoView> PlayVideoCommand => new MvxCommand<IVideoView>(OnPlayVideo);
-
         #endregion
 
         public BasePublicationViewModel(INavigationService navigationService, IDialogService dialogService)
@@ -96,8 +92,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _publicationDate = publicationDate;
             _numberOfLikes = numberOfLikes;
             _shareLink = shareLink;
-
-            CrossMediaManager.Current.Volume.Muted = HasSoundTurnOn;
         }
 
         private Task OnLikeAsync()
@@ -142,16 +136,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private void OnToggleSound()
         {
             HasSoundTurnOn = !HasSoundTurnOn;
-            CrossMediaManager.Current.Volume.Muted = HasSoundTurnOn;
-        }
-
-        private void OnPlayVideo(IVideoView videoView)
-        {
-            if (CrossMediaManager.Current.IsPlaying())
-                CrossMediaManager.Current.Stop();
-
-            CrossMediaManager.Current.MediaPlayer.VideoView = videoView;
-            CrossMediaManager.Current.Play(VideoUrl);
         }
     }
 }
