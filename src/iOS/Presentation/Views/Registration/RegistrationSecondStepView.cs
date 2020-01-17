@@ -2,6 +2,7 @@
 using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
+using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -42,7 +43,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
                 .To(vm => vm.RepeatedPassword);
 
             set.Bind(nextStepButton)
-                .To(vm => vm.ShowThirdStepCommand);
+                .To(vm => vm.UserRegistrationCommand);
+
+            set.Bind(progressBar)
+                .For(v => v.Hidden)
+                .To(vm => vm.IsBusy)
+                .WithConversion<MvxVisibilityValueConverter>();
 
             set.Apply();
         }

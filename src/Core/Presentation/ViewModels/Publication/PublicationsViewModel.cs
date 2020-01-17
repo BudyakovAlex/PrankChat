@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
@@ -20,6 +21,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private readonly IDialogService _dialogService;
         private readonly IApiService _apiService;
         private readonly IPlatformService _platformService;
+        private readonly IMvxLog _mvxLog;
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
@@ -47,11 +49,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             INavigationService navigationService,
             IDialogService dialogService,
             IApiService apiService,
-            IPlatformService platformService) : base(navigationService)
+            IPlatformService platformService,
+            IMvxLog mvxLog) : base(navigationService)
         {
             _dialogService = dialogService;
             _apiService = apiService;
             _platformService = platformService;
+            _mvxLog = mvxLog;
         }
 
         public override Task Initialize()
@@ -117,6 +121,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 //Items.Add(publicationViewModels.ToList()[2]);
                 //Items.Add(publicationViewModels.ToList()[1]);
                 //Items.Add(publicationViewModels.ToList()[2]);
+            }
+            catch (Exception ex)
+            {
+                _dialogService.ShowToast($"Exception with registration {ex.Message}");
+                _mvxLog.ErrorException($"[{nameof(PublicationsViewModel)}]", ex);
             }
             finally
             {

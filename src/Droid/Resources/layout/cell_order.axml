@@ -38,7 +38,7 @@
             android:ellipsize="end" 
             android:textColor="@color/applicationWhite"
             android:text="Подсесть к человеку в ТЦ и съесть его еду и сказать спасибо дорогой"
-            app:MvxBind="Text OrderTitle"/>
+            app:MvxBind="Text Title"/>
 
         <View
             android:id="@+id/top_separator"
@@ -156,7 +156,8 @@
             android:gravity="center"
             android:textSize="16sp"
             android:textColor="@color/applicationWhite"
-            android:text="@string/Order_View_New_Task" />
+            android:text="@string/Order_View_New_Task"
+            app:MvxBind="Text StatusText"/>
         <Button
             android:id="@+id/task_button"
             android:layout_width="0dp"

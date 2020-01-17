@@ -1,4 +1,5 @@
 ﻿using System;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Data
 {
@@ -11,6 +12,8 @@ namespace PrankChat.Mobile.Core.Models.Data
         public string Login { get; set; }
 
         public DateTime Birthday { get; set; }
+
+        public GenderType Sex { get; set; }
 
         public string Password { get; set; }
 

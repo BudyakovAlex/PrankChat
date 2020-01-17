@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
@@ -9,6 +11,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
     public class LoginViewModel : BaseViewModel
     {
         private readonly IApiService _apiService;
+        private readonly IDialogService _dialogService;
+        private readonly IMvxLog _mvxLog;
+
         private string _emailText;
         private string _passwordText;
 
@@ -24,12 +29,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             set => SetProperty(ref _passwordText, value);
         }
 
-        public LoginViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
+        public LoginViewModel(INavigationService navigationService,
+                              IApiService apiService,
+                              IDialogService dialogService,
+                              IMvxLog mvxLog)
+            : base(navigationService)
         {
             _apiService = apiService;
+            _dialogService = dialogService;
+            _mvxLog = mvxLog;
 
-            EmailText = "test2@mail.ru";
-            PasswordText = "asd123456789";
+#if DEBUG
+
+            EmailText = "e.podluzhnyi@gmail.com";
+            PasswordText = "1234567890";
+#endif
         }
 
         public MvxAsyncCommand<string> LoginCommand => new MvxAsyncCommand<string>(OnLoginCommand);
@@ -40,29 +54,50 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         private async Task OnLoginCommand(string loginType)
         {
-            if (Enum.TryParse<SocialNetworkType>(loginType, out var socialNetworkType))
+            try
             {
-                var email = EmailText?.Trim();
-                var password = PasswordText?.Trim();
-                await _apiService.AuthorizeAsync(email, password);
-                await NavigationService.ShowMainView();
-                switch (socialNetworkType)
+                IsBusy = true;
+
+                if (Enum.TryParse<LoginType>(loginType, out var socialNetworkType))
                 {
-                    case SocialNetworkType.Vk:
-                        break;
-                    case SocialNetworkType.Ok:
-                        break;
-                    case SocialNetworkType.Facebook:
-                        break;
-                    case SocialNetworkType.Gmail:
-                        break;
-                    default:
-                        break;
+                    switch (socialNetworkType)
+                    {
+                        case LoginType.Vk:
+                            break;
+
+                        case LoginType.Ok:
+                            break;
+
+                        case LoginType.Facebook:
+                            break;
+
+                        case LoginType.Gmail:
+                            break;
+
+                        case LoginType.UsernameAndPassword:
+                            var email = EmailText?.Trim();
+                            var password = PasswordText?.Trim();
+                            await _apiService.AuthorizeAsync(email, password);
+                            break;
+                    }
+
+                    // todo: not wait
+                    await _apiService.GetCurrentUser();
+                    await NavigationService.ShowMainView();
+                }
+                else
+                {
+                    _dialogService.ShowToast("Error with login type!");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                await NavigationService.ShowMainView();
+                _dialogService.ShowToast($"Exception with login {ex.Message}");
+                _mvxLog.ErrorException($"[{nameof(LoginViewModel)}]", ex);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }
