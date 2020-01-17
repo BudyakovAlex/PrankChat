@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.ApplicationServices.Storages;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
@@ -14,15 +14,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
     {
         private readonly ISettingsService _settingsService;
         private readonly HttpClient _client;
-        private readonly IStorageService _storageService;
 
         public ApiService(ISettingsService settingsService,
                           IMvxLogProvider logProvider,
-                          IMvxMessenger messenger,
-                          IStorageService storageService)
+                          IMvxMessenger messenger)
         {
             _settingsService = settingsService;
-            _storageService = storageService;
 
             var log = logProvider.GetLogFor<ApiService>();
             var configuration = ConfigurationProvider.GetConfiguration();
@@ -68,7 +65,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<VideoMetadataBundleDataModel> GetVideoFeedAsync()
         {
-            var videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>("videos");
+            var videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>("videos", false, IncludeType.User);
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
@@ -80,7 +77,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var dataApiModel = await _client.Get<DataApiModel<UserApiModel>>("me");
             var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel.Data);
-            _storageService.User = user;
+            _settingsService.User = user;
         }
 
         #endregion

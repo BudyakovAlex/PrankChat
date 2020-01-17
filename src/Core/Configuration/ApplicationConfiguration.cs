@@ -4,8 +4,8 @@ namespace PrankChat.Mobile.Core.Configuration
 {
     internal class ApplicationConfiguration : IApplicationConfiguration
     {
-        private const string DevAddress = "http://dev.prankchat.store";
-        private const string StageAddress = "http://stage.prankchat.store";
+        private const string DevAddress = "https://dev.prankchat.store";
+        private const string StageAddress = "https://stage.prankchat.store";
 
         public ApplicationConfiguration()
         {

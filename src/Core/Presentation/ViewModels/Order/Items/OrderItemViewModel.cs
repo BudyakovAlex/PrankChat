@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using FFImageLoading.Transformations;
 using FFImageLoading.Work;
 using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Storages;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
     public class OrderItemViewModel : BaseItemViewModel
     {
         private readonly INavigationService _navigatiobService;
-        private readonly IStorageService _storageService;
+        private readonly ISettingsService _settingsService;
 
         private TimeSpan _orderTime;
         private OrderStatusType _status;
@@ -63,7 +63,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         public MvxAsyncCommand OpenDetailsOrderCommand => new MvxAsyncCommand(OnOpenDetailsOrderAsync);
 
         public OrderItemViewModel(INavigationService navigatiobService,
-                                  IStorageService storageService,
+                                  ISettingsService settingsService,
                                   string orderTitle,
                                   string profilePhotoUrl,
                                   long price,
@@ -71,7 +71,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                                   OrderStatusType status)
         {
             _navigatiobService = navigatiobService;
-            _storageService = storageService;
+            _settingsService = settingsService;
 
             Title = orderTitle;
             ProfilePhotoUrl = profilePhotoUrl;

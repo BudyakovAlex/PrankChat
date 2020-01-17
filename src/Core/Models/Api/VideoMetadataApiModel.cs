@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace PrankChat.Mobile.Core.Models.Api
@@ -16,6 +17,9 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty(PropertyName = "views_count")]
         public long ViewsCount { get; set; }
 
+        [JsonProperty(PropertyName = "likes_count")]
+        public long LikesCount { get; set; }
+
         [JsonProperty(PropertyName = "reposts_count")]
         public long RepostsCount { get; set; }
 
@@ -24,5 +28,7 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         [JsonProperty(PropertyName = "share_url")]
         public string ShareUri { get; set; }
+
+        public Dictionary<string, UserApiModel> User { get; set; }
     }
 }

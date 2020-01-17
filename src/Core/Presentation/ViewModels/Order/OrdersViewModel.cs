@@ -7,7 +7,7 @@ using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Storages;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messengers;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -21,7 +21,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly IDialogService _dialogService;
         private readonly IApiService _apiService;
         private readonly IMvxMessenger _mvxMessenger;
-        private readonly IStorageService _storageService;
+        private readonly ISettingsService _settingsService;
 
         private MvxSubscriptionToken _newOrderMessengertoken;
 
@@ -41,14 +41,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public OrdersViewModel(INavigationService navigationService,
                                IDialogService dialogService,
                                IApiService apiService,
-                               IMvxMessenger mvxMessenger,
-                               IStorageService storageService)
+                               IMvxMessenger mvxMessenger)
             : base(navigationService)
         {
             _dialogService = dialogService;
             _apiService = apiService;
             _mvxMessenger = mvxMessenger;
-            _storageService = storageService;
         }
 
         public override Task Initialize()
@@ -97,7 +95,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             var orderItemViewModel = orders.Select(x =>
                 new OrderItemViewModel(
                     NavigationService,
-                    _storageService,
+                    _settingsService,
                     x.Title,
                     "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                     x.PriceTo,
@@ -125,7 +123,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             var newOrderItemViewModel = new OrderItemViewModel(
                     NavigationService,
-                    _storageService,
+                    _settingsService,
                     newOrder.NewOrder.Title,
                     "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                     newOrder.NewOrder.PriceTo,
