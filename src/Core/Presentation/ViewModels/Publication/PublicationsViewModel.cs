@@ -107,7 +107,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                         "Name one",
                         "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                         x.Title,
-                        "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+                        "https://prankchat-dev.s3.us-east-2.amazonaws.com/videos/3/cb5ee50f054879b7f13e0b41fa8f270b.mp4",
                         x.ViewsCount,
                         new DateTime(2018, 4, 24),
                         x.RepostsCount,
@@ -115,6 +115,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
                 //Items.AddRange(publicationViewModels);
 
+                Items.Add(publicationViewModels.ToList()[0]);
+                Items.Add(publicationViewModels.ToList()[0]);
+                Items.Add(publicationViewModels.ToList()[0]);
+                Items.Add(publicationViewModels.ToList()[0]);
                 Items.Add(publicationViewModels.ToList()[0]);
 
                 //Items.Add(publicationViewModels.ToList()[1]);

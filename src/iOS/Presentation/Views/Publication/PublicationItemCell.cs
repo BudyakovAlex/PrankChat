@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Threading;
 using AVFoundation;
 using AVKit;
 using CoreGraphics;
@@ -12,15 +11,15 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
-using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
     public partial class PublicationItemCell : BaseTableCell<PublicationItemCell, PublicationItemViewModel>
     {
+        private const int VideoRepeatDelayInSeconds = 10;
         private AVPlayerViewController _avPlayerViewController;
         private AVQueuePlayer _avPlayer;
-        private AVPlayerLooper _aVPlayerLooper;
+        private AVPlayerLooper _avPlayerLooper;
 
         static PublicationItemCell()
         {
@@ -34,25 +33,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         public void PlayVideo()
         {
-            BeginInvokeOnMainThread(() =>
-            {
-                try
-                {
-                    _avPlayer.Play();
-                }
-                catch (Exception ex)
-                {
-
-                }
-            });
+            _avPlayer.Play();
         }
 
         public void StopVideo()
         {
-            BeginInvokeOnMainThread(() =>
-            {
-                _avPlayer.Pause();
-            });
+            _avPlayer.Seek(new CMTime(0, 1));
+            _avPlayer.Pause();
         }
 
         public void PrerollVideo(string uri)
@@ -60,22 +47,22 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             if (_avPlayer == null)
                 _avPlayer = new AVQueuePlayer(new[] { new AVPlayerItem(new NSUrl(uri)) });
 
-            if (_aVPlayerLooper == null)
-                _aVPlayerLooper = new AVPlayerLooper(_avPlayer, _avPlayer.CurrentItem, CMTimeRange.InvalidRange);
-
-            //Task.Run(() =>
-            //{
-            
-            //    while(_avPlayer.Status != AVPlayerStatus.ReadyToPlay)
-            //    {
-            //        continue;
-            //    }
-            //    Debug.WriteLine($"Video by URI {uri} is downloading...");
-            //    _avPlayer.Preroll(1, (c) => Debug.WriteLine($"Video by URI {uri} downloaded"));
-            //});
+            // Initialize looper for player that will repeat first 10 seconds of video in a loop.
+            if (_avPlayerLooper == null)
+                _avPlayerLooper =
+                    new AVPlayerLooper(_avPlayer, _avPlayer.CurrentItem,
+                        new CMTimeRange {
+                            Start = new CMTime(0, 1),
+                            Duration = new CMTime(VideoRepeatDelayInSeconds, 1)});
         }
 
         public CGRect VideoBounds => videoView.Bounds;
+
+        public override void PrepareForReuse()
+        {
+            StopVideo();
+            base.PrepareForReuse();
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -152,7 +139,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         private void InitializeVideoControl()
         {
-            if (_avPlayer == null || _aVPlayerLooper == null)
+            if (_avPlayer == null || _avPlayerLooper == null)
                 throw new ArgumentException("Player hasn't been initialized, please, check Preroll method called before.");
 
             _avPlayer.Muted = false;
