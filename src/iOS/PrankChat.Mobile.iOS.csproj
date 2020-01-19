@@ -231,6 +231,8 @@
     <Compile Include="Presentation\Views\Share\ShareController.designer.cs">
       <DependentUpon>ShareController.cs</DependentUpon>
     </Compile>
+    <Compile Include="PlatformBusinessServices\VideoPlayerService.cs" />
+    <Compile Include="PlatformBusinessServices\VideoPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -495,6 +497,7 @@
     <Folder Include="Presentation\Views\Share\" />
     <Folder Include="Assets.xcassets\ic_share_copy.imageset\" />
     <Folder Include="Assets.xcassets\ic_share_instagram.imageset\" />
+    <Folder Include="PlatformBusinessServices\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

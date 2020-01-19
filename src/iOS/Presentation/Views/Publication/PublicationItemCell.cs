@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using AVFoundation;
 using AVKit;
 using CoreGraphics;
 using CoreMedia;
 using Foundation;
+using MvvmCross;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -17,10 +20,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
     public partial class PublicationItemCell : BaseTableCell<PublicationItemCell, PublicationItemViewModel>
     {
-        private const int VideoRepeatDelayInSeconds = 200;
         private AVPlayerViewController _avPlayerViewController;
-        private AVQueuePlayer _avPlayer;
-        private AVPlayerLooper _avPlayerLooper;
+        private bool _isPlaying;
 
         static PublicationItemCell()
         {
@@ -34,30 +35,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         public void PlayVideo()
         {
-            Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() => _avPlayer.Play());
+            var service = ViewModel.VideoPlayerService;
+            if (service.Player.IsPlaying)
+                return;
+
+            service.Player.SetPlatformVideoPlayerContainer(_avPlayerViewController);
+            service.Play(ViewModel.VideoUrl);
         }
 
         public void StopVideo()
         {
-            Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
-            {
-                _avPlayer.Seek(new CMTime(0, 1));
-                _avPlayer.Pause();
-            });
-        }
+            if (!ViewModel.VideoPlayerService.Player.IsPlaying)
+                return;
 
-        public void PrerollVideo(string uri)
-        {
-            if (_avPlayer == null)
-                _avPlayer = new AVQueuePlayer(new[] { new AVPlayerItem(new NSUrl(uri)) });
-
-            // Initialize looper for player that will repeat first 10 seconds of video in a loop.
-            if (_avPlayerLooper == null)
-                _avPlayerLooper =
-                    new AVPlayerLooper(_avPlayer, _avPlayer.CurrentItem,
-                        new CMTimeRange {
-                            Start = new CMTime(0, 1),
-                            Duration = new CMTime(VideoRepeatDelayInSeconds, 1)});
+            ViewModel.VideoPlayerService.Stop();
+            _avPlayerViewController.Player = null;
         }
 
         public CGRect GetVideoBounds(UITableView tableView)
@@ -73,8 +65,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         protected override void Dispose(bool disposing)
         {
-            _avPlayer.Pause();
-            _avPlayer.Dispose();
+            StopVideo();
             base.Dispose(disposing);
         }
 
@@ -146,12 +137,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         private void InitializeVideoControl()
         {
-            if (_avPlayer == null || _avPlayerLooper == null)
-                throw new ArgumentException("Player hasn't been initialized, please, check Preroll method called before.");
-
-            _avPlayer.Muted = false;
             _avPlayerViewController = new AVPlayerViewController();
-            _avPlayerViewController.Player = _avPlayer;
             _avPlayerViewController.View.Frame = new CGRect(0, 0, videoView.Frame.Width, videoView.Frame.Height);
             _avPlayerViewController.ShowsPlaybackControls = false;
             _avPlayerViewController.VideoGravity = AVLayerVideoGravity.ResizeAspectFill;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Foundation;
@@ -10,6 +11,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
     public class PublicationTableSource : MvxTableViewSource
     {
+        private PublicationItemCell _previousCellToPlay;
+
         public PublicationTableSource(UITableView tableView) : base(tableView)
         {
         }
@@ -21,7 +24,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         public override void DecelerationEnded(UIScrollView scrollView)
         {
-            PlayFirstCompletelyVisibleVideo();
+            PlayFirstCompletelyVisibleVideoItem();
+        }
+
+        public override void DraggingEnded(UIScrollView scrollView, bool willDecelerate)
+        {
+            PlayFirstCompletelyVisibleVideoItem();
         }
 
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
@@ -29,29 +37,31 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             if (item is PublicationItemViewModel viewModel)
             {
                 var cell = (PublicationItemCell)tableView.DequeueReusableCell(PublicationItemCell.CellId);
-                cell.PrerollVideo(viewModel.VideoUrl);
                 return cell;
             }
 
             return null;
         }
 
-        private void PlayFirstCompletelyVisibleVideo()
+        private void PlayFirstCompletelyVisibleVideoItem()
         {
             var indexPaths = TableView.IndexPathsForVisibleRows;
-            PublicationItemCell cellToPlay = null;
-            var centralCellToPlay = TableView.CellAt(indexPaths[indexPaths.Length / 2]) as PublicationItemCell;
-            foreach (var indexPath in TableView.IndexPathsForVisibleRows)
-            {
-                var cell = TableView.CellAt(indexPath);
-                var publicationCell = cell as PublicationItemCell;
-                if (publicationCell == null)
-                    continue;
+            if (indexPaths.Length == 0)
+                return;
 
-                if (IsCompletelyVisible(publicationCell))
+            PublicationItemCell cellToPlay = null;
+            var visibleCells = indexPaths.Select(indexPath => TableView.CellAt(indexPath) as PublicationItemCell).ToList();
+            var centralCellToPlay = visibleCells[indexPaths.Length / 2];
+            var partiallyVisibleCells = new List<PublicationItemCell>();
+            foreach (var visibleCell in visibleCells)
+            {
+                if (IsCompletelyVisible(visibleCell))
                 {
-                    cellToPlay = publicationCell;
-                    break;
+                    cellToPlay = visibleCell;
+                }
+                else
+                {
+                    partiallyVisibleCells.Add(visibleCell);
                 }
             }
 
@@ -62,6 +72,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                     return;
 
             Debug.WriteLine("Play activated:" + TableView.IndexPathForCell(cellToPlay).Row);
+
+            if (cellToPlay == _previousCellToPlay)
+                return;
+
+            _previousCellToPlay = cellToPlay;
+
+            foreach (var partiallyVisibleCell in partiallyVisibleCells)
+            {
+                partiallyVisibleCell.StopVideo();
+            }
+
             cellToPlay.PlayVideo();
         }
 

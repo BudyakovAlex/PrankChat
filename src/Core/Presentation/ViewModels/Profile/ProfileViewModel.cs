@@ -7,6 +7,7 @@ using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
@@ -17,6 +18,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
     {
         private readonly IDialogService _dialogService;
         private readonly IPlatformService _platformService;
+        private readonly IVideoPlayerService _videoPlayerService;
 
         private string _profileName;
         private string _description;
@@ -90,11 +92,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
 
-        public ProfileViewModel(INavigationService navigationService, IDialogService dialogService, IPlatformService platformService) : base(navigationService)
+        public ProfileViewModel(
+            INavigationService navigationService,
+            IDialogService dialogService,
+            IPlatformService platformService,
+            IVideoPlayerService videoPlayerService) : base(navigationService)
         {
             _dialogService = dialogService;
             _platformService = platformService;
-
+            _videoPlayerService = videoPlayerService;
             ProfileName = "Adria";
             Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
             Price = "100 000 ₽";
@@ -117,6 +123,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 NavigationService,
                 _dialogService,
                 _platformService,
+                _videoPlayerService,
                 "Name one",
                 "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                 "Name video one",
@@ -130,6 +137,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 NavigationService,
                 _dialogService,
                 _platformService,
+                _videoPlayerService,
                 "Name two",
                 "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                 "Name video two Name video two Name video two Name video two Name video two Name video two Name video two",
@@ -143,6 +151,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 NavigationService,
                 _dialogService,
                 _platformService,
+                _videoPlayerService,
                 "Name three",
                 "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                 "Name video three",
