@@ -2,7 +2,7 @@
 {
     public class UserDataModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -10,7 +10,7 @@
 
         public string Email { get; set; }
 
-        public double Balance { get; set; }
+        public double? Balance { get; set; }
 
         public string Avatar { get; set; }
 
@@ -20,8 +20,8 @@
 
         public int? OrdersExecuteFinishedCount { get; set; }
 
-        public int? Subscribers { get; set; }
+        public int? SubscribersCount { get; set; }
 
-        public int? Subscriptions { get; set; }
+        public int? SubscriptionsCount { get; set; }
     }
 }

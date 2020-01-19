@@ -17,5 +17,7 @@
         public string StreamUri { get; set; }
 
         public string ShareUri { get; set; }
+
+        public UserDataModel User { get; set; }
     }
 }

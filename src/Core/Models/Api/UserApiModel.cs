@@ -4,7 +4,7 @@ namespace PrankChat.Mobile.Core.Models.Api
 {
     public class UserApiModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -12,7 +12,7 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         public string Email { get; set; }
 
-        public double Balance { get; set; }
+        public double? Balance { get; set; }
 
         public string Avatar { get; set; }
 
@@ -25,8 +25,10 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("orders_execute_finished_count")]
         public int? OrdersExecuteFinishedCount { get; set; }
 
-        public int? Subscribers { get; set; }
+        [JsonProperty("subscribers_count")]
+        public int? SubscribersCount { get; set; }
 
-        public int? Subscriptions { get; set; }
+        [JsonProperty("subscriptions_count")]
+        public int? SubscriptionsCount { get; set; }
     }
 }

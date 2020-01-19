@@ -9,6 +9,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Errors;
 using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Models.Api;
 using RestSharp;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
@@ -29,8 +30,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             _client = new RestClient($"{baseAddress}/{ApiId}/v{apiVersion.Major}").UseSerializer(() => new JsonNetSerializer());
         }
 
-        public async Task<TResult> UnauthorizedGet<TResult>(string endpoint, bool exceptionThrowingEnabled = false) where TResult : class, new()
+        public async Task<TResult> UnauthorizedGet<TResult>(string endpoint, bool exceptionThrowingEnabled = false, params IncludeType[] includes) where TResult : class, new()
         {
+            endpoint = TryAddIncludeFlag(endpoint, includes);
             var request = new RestRequest(endpoint, Method.GET);
             return await ExecuteTask<TResult>(request, false, exceptionThrowingEnabled);
         }
@@ -51,8 +53,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return await ExecuteTask<TResult>(request, false, exceptionThrowingEnabled);
         }
 
-        public async Task<TResult> Get<TResult>(string endpoint, bool exceptionThrowingEnabled = false) where TResult : class, new()
+        public async Task<TResult> Get<TResult>(string endpoint, bool exceptionThrowingEnabled = false, params IncludeType[] includes) where TResult : class, new()
         {
+            endpoint = TryAddIncludeFlag(endpoint, includes);
             var request = new RestRequest(endpoint, Method.GET);
             return await ExecuteTask<TResult>(request, true, exceptionThrowingEnabled);
         }
@@ -175,6 +178,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var accessToken = await _settingsService.GetAccessTokenAsync();
             request.AddHeader(HttpRequestHeader.Authorization.ToString(), $"Bearer {accessToken}");
+        }
+
+        private string TryAddIncludeFlag(string apiPoint, IncludeType[] includes)
+        {
+            if (includes == null || includes.Length == 0)
+                return apiPoint;
+
+            return $"{apiPoint}?include={string.Join(",", includes)}".ToLowerInvariant();
         }
     }
 }

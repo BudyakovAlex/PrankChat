@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Storages;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -12,17 +12,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
     public class OrderItemViewModel : BaseItemViewModel
     {
         private readonly INavigationService _navigatiobService;
-        private readonly IStorageService _storageService;
+        private readonly ISettingsService _settingsService;
 
-        private TimeSpan _orderTime;
+        private TimeSpan? _orderTime;
         private OrderStatusType _status;
-        private string _orderId;
+        private int _orderId;
+        private int? _customerId;
 
         public string Title { get; }
 
         public string ProfilePhotoUrl { get; }
 
-        public string TimeText => _orderTime.ToString("dd' : 'hh' : 'mm");
+        public string TimeText => _orderTime?.ToString("dd' : 'hh' : 'mm");
 
         public string PriceText { get; }
 
@@ -30,6 +31,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         {
             get
             {
+                if (_settingsService.User?.Id == _customerId)
+                {
+                    return "Мое задание";
+                }
+
                 switch (_status)
                 {
                     case OrderStatusType.New:
@@ -71,16 +77,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         public MvxAsyncCommand OpenDetailsOrderCommand => new MvxAsyncCommand(OnOpenDetailsOrderAsync);
 
         public OrderItemViewModel(INavigationService navigatiobService,
-                                  IStorageService storageService,
-                                  string orderId,
+                                  ISettingsService settingsService,
+                                  int orderId,
                                   string orderTitle,
                                   string profilePhotoUrl,
-                                  long price,
-                                  TimeSpan time,
-                                  OrderStatusType status)
+                                  long? price,
+                                  TimeSpan? time,
+                                  OrderStatusType status,
+                                  int? customerId)
         {
             _navigatiobService = navigatiobService;
-            _storageService = storageService;
+            _settingsService = settingsService;
 
             Title = orderTitle;
             ProfilePhotoUrl = profilePhotoUrl;
@@ -88,6 +95,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             _orderTime = time;
             _status = status;
             _orderId = orderId;
+            _customerId = customerId;
         }
 
         private Task OnOpenDetailsOrderAsync()

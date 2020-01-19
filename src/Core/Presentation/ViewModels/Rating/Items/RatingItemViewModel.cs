@@ -14,7 +14,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
         private readonly INavigationService _navigatiobService;
 
         private DateTime _orderTime;
-        private string _orderId;
+        private int _orderId;
 
         public string OrderTitle { get; }
 
@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
         public MvxAsyncCommand OpenDetailsOrderCommand => new MvxAsyncCommand(OnOpenDetailsOrderAsync);
 
         public RatingItemViewModel(INavigationService navigatiobService,
-                                  string orderId,
+                                  int orderId,
                                   string orderTitle,
                                   string profilePhotoUrl,
                                   string priceText,

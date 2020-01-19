@@ -3,11 +3,11 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation.Parameters
 {
     public class OrderDetailsNavigationParameter : INavigationParameter
     {
-        public string Id { get; }
+        public int OrderId { get; }
 
-        public OrderDetailsNavigationParameter(string id)
+        public OrderDetailsNavigationParameter(int orderId)
         {
-            Id = id;
+            OrderId = orderId;
         }
     }
 }

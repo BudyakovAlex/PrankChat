@@ -8,6 +8,7 @@ using MvvmCross.Logging;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -21,15 +22,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly IApiService _apiService;
         private readonly IMvxLog _mvxLog;
         private readonly IDialogService _dialogService;
+        private readonly ISettingsService _settingsService;
 
-        private string _orderId;
-        private OrderDetailsDataModel _order;
+        private int _orderId;
+        private OrderDataModel _order;
 
         #region Profile
 
-        public string ProfilePhotoUrl => _order?.Сustomer?.Avatar;
+        public string ProfilePhotoUrl => _order?.Customer?.Avatar;
 
-        public string ProfileName => _order?.Сustomer?.Name;
+        public string ProfileName => _order?.Customer?.Name;
 
         #endregion
 
@@ -45,19 +47,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #region Executor
 
-        public string ExecutorPhotoUrl => _order?.Executor?.Avatar;
+        public string ExecutorPhotoUrl => "";// _order?.Executor?.Avatar;
 
-        public string ExecutorName => _order?.Executor?.Name;
+        public string ExecutorName => "";//_order?.Executor?.Name;
 
-        public string StartOrderDate { get; set; } = DateTime.Now.ToShortDateString();
+        public string StartOrderDate => _order?.CreatedAt?.ToShortDateString();
 
         #endregion
 
         public string PriceValue => _order?.Price.ToString();
 
-        public string TimeValue { get; set; } = "22 : 12 : 11";
+        public string TimeValue => _order?.FinishIn?.ToString("dd' : 'hh' : 'mm");
 
-        public bool IsNewOrder => _order?.Status == OrderStatusType.New;
+        public bool IsUserOwner => _order?.Customer?.Id == _settingsService.User?.Id;
+
+        public bool IsAvailebleTakeOrder => !IsUserOwner && _order?.Status == OrderStatusType.New;
+
 
 
         public MvxAsyncCommand TakeOrderCommand => new MvxAsyncCommand(OnTakeOrderAsync);
@@ -83,16 +88,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public OrderDetailsViewModel(INavigationService navigationService,
                                     IApiService apiService,
                                     IDialogService dialogService,
-                                    IMvxLog mvxLog) : base(navigationService)
+                                    IMvxLog mvxLog,
+                                    ISettingsService settingsService) : base(navigationService)
         {
             _dialogService = dialogService;
             _apiService = apiService;
             _mvxLog = mvxLog;
+            _settingsService = settingsService;
         }
 
         public void Prepare(OrderDetailsNavigationParameter parameter)
         {
-            _orderId = parameter.Id;
+            _orderId = parameter.OrderId;
         }
 
         public override Task Initialize()

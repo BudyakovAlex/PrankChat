@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Api
 {
@@ -9,7 +11,7 @@ namespace PrankChat.Mobile.Core.Models.Api
         public int Id { get; set; }
 
         [JsonProperty("price")]
-        public long PriceTo { get; set; }
+        public long? Price { get; set; }
 
         [JsonProperty("title")]
         public string Title { get; set; }
@@ -18,15 +20,21 @@ namespace PrankChat.Mobile.Core.Models.Api
         public string Description { get; set; }
 
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public OrderStatusType? Status { get; set; }
 
         [JsonProperty("active_to")]
-        public DateTime ActiveTo { get; set; }
+        public DateTime? ActiveTo { get; set; }
 
         [JsonProperty("auto_prolongation")]
-        public bool AutoProlongation { get; set; }
+        public bool? AutoProlongation { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
+
+        [JsonProperty("customer")]
+        public DataApiModel<UserApiModel> Customer { get; set; }
+
+        [JsonProperty("executor")]
+        public DataApiModel<List<UserApiModel>> Executor { get; set; }
     }
 }
