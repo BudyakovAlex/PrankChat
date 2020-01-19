@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.Models.Data;
@@ -32,6 +33,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
         {
             if (string.IsNullOrWhiteSpace(accessToken))
             {
+                throw new ArgumentNullException(nameof(accessToken));
+            }
+
+            // Workaround for iOS simulator.
+            if (CrossDeviceInfo.Current.Platform == Plugin.DeviceInfo.Abstractions.Platform.iOS
+                && !CrossDeviceInfo.Current.IsDevice)
+            {
+                Preferences.Set(AccessTokenKey, accessToken);
                 return Task.CompletedTask;
             }
 

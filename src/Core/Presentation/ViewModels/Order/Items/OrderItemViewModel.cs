@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using FFImageLoading.Transformations;
-using FFImageLoading.Work;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 {
@@ -15,14 +14,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         private readonly INavigationService _navigatiobService;
         private readonly ISettingsService _settingsService;
 
-        private TimeSpan _orderTime;
+        private TimeSpan? _orderTime;
         private OrderStatusType _status;
+        private int _orderId;
+        private int? _customerId;
 
         public string Title { get; }
 
         public string ProfilePhotoUrl { get; }
 
-        public string TimeText => _orderTime.ToString("dd' : 'hh' : 'mm");
+        public string TimeText => _orderTime?.ToString("dd' : 'hh' : 'mm");
 
         public string PriceText { get; }
 
@@ -30,33 +31,46 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         {
             get
             {
+                if (_settingsService.User?.Id == _customerId)
+                {
+                    return "Мое задание";
+                }
+
                 switch (_status)
                 {
                     case OrderStatusType.New:
-                        break;
-                    case OrderStatusType.Rejected:
-                        break;
-                    case OrderStatusType.Cancelled:
-                        break;
-                    case OrderStatusType.Active:
-                        break;
-                    case OrderStatusType.InWork:
-                        break;
-                    case OrderStatusType.InArbitration:
-                        break;
-                    case OrderStatusType.ProcessCloseArbitration:
-                        break;
-                    case OrderStatusType.ClosedAfterArbitrationCustomerWin:
-                        break;
-                    case OrderStatusType.ClosedAfterArbitrationExecutorWin:
-                        break;
-                    case OrderStatusType.Finished:
-                        break;
-                    default:
-                        break;
-                }
+                        return Resources.OrderStatus_New;
 
-                return "LOL";
+                    case OrderStatusType.Rejected:
+                        return Resources.OrderStatus_Rejected;
+
+                    case OrderStatusType.Cancelled:
+                        return Resources.OrderStatus_Cancelled;
+
+                    case OrderStatusType.Active:
+                        return Resources.OrderStatus_Active;
+
+                    case OrderStatusType.InWork:
+                        return Resources.OrderStatus_InWork;
+
+                    case OrderStatusType.InArbitration:
+                        return Resources.OrderStatus_InArbitration;
+
+                    case OrderStatusType.ProcessCloseArbitration:
+                        return Resources.OrderStatus_ProcessCloseArbitration;
+
+                    case OrderStatusType.ClosedAfterArbitrationCustomerWin:
+                        return Resources.OrderStatus_ClosedAfterArbitrationCustomerWin;
+
+                    case OrderStatusType.ClosedAfterArbitrationExecutorWin:
+                        return Resources.OrderStatus_ClosedAfterArbitrationExecutorWin;
+
+                    case OrderStatusType.Finished:
+                        return Resources.OrderStatus_Finished;
+
+                    default:
+                        return string.Empty;
+                }
             }
         }
 
@@ -64,11 +78,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public OrderItemViewModel(INavigationService navigatiobService,
                                   ISettingsService settingsService,
+                                  int orderId,
                                   string orderTitle,
                                   string profilePhotoUrl,
-                                  long price,
-                                  TimeSpan time,
-                                  OrderStatusType status)
+                                  long? price,
+                                  TimeSpan? time,
+                                  OrderStatusType status,
+                                  int? customerId)
         {
             _navigatiobService = navigatiobService;
             _settingsService = settingsService;
@@ -78,11 +94,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             PriceText = $"{price} P";
             _orderTime = time;
             _status = status;
+            _orderId = orderId;
+            _customerId = customerId;
         }
 
         private Task OnOpenDetailsOrderAsync()
         {
-            return _navigatiobService.ShowDetailsOrderView();
+            var parameter = new OrderDetailsNavigationParameter(_orderId);
+            return _navigatiobService.ShowDetailsOrderView(parameter);
         }
     }
 }

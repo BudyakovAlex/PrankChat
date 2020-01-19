@@ -13,9 +13,12 @@ namespace PrankChat.Mobile.Core.Models.Mappings
             CreateMap<VideoMetadataBundleDataModel, VideoMetadataBundleApiModel>().ReverseMap();
             CreateMap<VideoMetadataApiModel, VideoMetadataDataModel>().ForMember(c => c.User, options => options.MapFrom(x => x.User["data"])).ReverseMap();
             CreateMap<PaginationInfoDataModel, PaginationInfoApiModel>().ReverseMap();
-            CreateMap<OrderDataModel, OrderApiModel>().ReverseMap();
             CreateMap<CreateOrderDataModel, CreateOrderApiModel>().ReverseMap();
             CreateMap<UserDataModel, UserApiModel>().ReverseMap();
+            CreateMap<OrderDataModel, OrderApiModel>()
+                .ForPath(dest => dest.Customer.Data, opt => opt.MapFrom(src => src.Customer))
+                .ForPath(dest => dest.Executor.Data, opt => opt.MapFrom(src => src.Executor))
+                .ReverseMap();
             CreateMap<GenderType, string>().ConvertUsing(src => src.ToString().ToLower());
         }
     }

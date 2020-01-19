@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Data
 {
     public class OrderDataModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public long? Price { get; set; }
 
@@ -21,9 +22,11 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public DateTime? CreatedAt { get; set; }
 
+        public TimeSpan? FinishIn => DateTime.Now - ActiveTo?.ToLocalTime();
+
         public UserDataModel Customer { get; set; }
 
-        public UserDataModel Executor { get; set; }
+        public List<UserDataModel> Executor { get; set; }
     }
 
 }

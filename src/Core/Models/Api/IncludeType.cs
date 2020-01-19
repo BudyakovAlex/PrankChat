@@ -6,6 +6,10 @@ namespace PrankChat.Mobile.Core.Models.Api
     {
         User,
         Comments,
+        Customer,
+        Executor,
+        Videos,
+        InArbitration,
         Order
     }
 }

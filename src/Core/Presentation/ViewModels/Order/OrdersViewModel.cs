@@ -3,16 +3,17 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messengers;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
@@ -22,6 +23,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly IApiService _apiService;
         private readonly IMvxMessenger _mvxMessenger;
         private readonly ISettingsService _settingsService;
+        private readonly IMvxLog _mvxLog;
 
         private MvxSubscriptionToken _newOrderMessengertoken;
 
@@ -41,12 +43,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public OrdersViewModel(INavigationService navigationService,
                                IDialogService dialogService,
                                IApiService apiService,
-                               IMvxMessenger mvxMessenger)
+                               IMvxMessenger mvxMessenger,
+                               IMvxLog mvxLog,
+                               ISettingsService settingsService)
             : base(navigationService)
         {
             _dialogService = dialogService;
             _apiService = apiService;
             _mvxMessenger = mvxMessenger;
+            _mvxLog = mvxLog;
+            _settingsService = settingsService;
         }
 
         public override Task Initialize()
@@ -90,20 +96,35 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnLoadOrdersAsync()
         {
-            var orders = await _apiService.GetOrdersAsync();
+            try
+            {
+                IsBusy = true;
 
-            var orderItemViewModel = orders.Select(x =>
-                new OrderItemViewModel(
-                    NavigationService,
-                    _settingsService,
-                    x.Title,
-                    "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                    x.Price.Value,
-                    (DateTime.UtcNow - x.CreatedAt).Value,
-                    x.Status.Value));
+                var orders = await _apiService.GetOrdersAsync();
 
+                var orderItemViewModel = orders.Select(x =>
+                    new OrderItemViewModel(
+                        NavigationService,
+                        _settingsService,
+                        x.Id,
+                        x.Title,
+                        x.Customer?.Avatar,
+                        x.Price,
+                        DateTime.Now - x.ActiveTo?.ToLocalTime(),
+                        x.Status ?? OrderStatusType.None,
+                        x.Customer?.Id));
 
-            Items.AddRange(orderItemViewModel);
+                Items.AddRange(orderItemViewModel);
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(OrdersViewModel)}", ex);
+                _dialogService.ShowToast("Can not load order details!");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private void Subscription()
@@ -120,16 +141,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private void OnNewOrderMessenger(NewOrderMessenger newOrder)
+        private void OnNewOrderMessenger(NewOrderMessenger newOrderMessenger)
         {
             var newOrderItemViewModel = new OrderItemViewModel(
                     NavigationService,
                     _settingsService,
-                    newOrder.NewOrder.Title,
-                    "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                    newOrder.NewOrder.Price.Value,
-                    DateTime.Now - newOrder.NewOrder.ActiveTo.Value.ToLocalTime(),
-                    newOrder.NewOrder.Status.Value);
+                    newOrderMessenger.NewOrder.Id,
+                    newOrderMessenger.NewOrder.Title,
+                    newOrderMessenger.NewOrder.Customer?.Avatar,
+                    newOrderMessenger.NewOrder.Price,
+                    newOrderMessenger.NewOrder.FinishIn,
+                    newOrderMessenger.NewOrder.Status ?? OrderStatusType.None,
+                    newOrderMessenger.NewOrder.Customer?.Id);
             Items.Add(newOrderItemViewModel);
         }
     }

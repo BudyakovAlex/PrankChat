@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using PrankChat.Mobile.Core.Models.Enums;
 
@@ -34,7 +35,6 @@ namespace PrankChat.Mobile.Core.Models.Api
         public DataApiModel<UserApiModel> Customer { get; set; }
 
         [JsonProperty("executor")]
-        public DataApiModel<UserApiModel> Executor { get; set; }
-
+        public DataApiModel<List<UserApiModel>> Executor { get; set; }
     }
 }

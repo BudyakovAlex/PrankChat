@@ -2,6 +2,7 @@
 using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -18,106 +19,92 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 			set.Bind(videoImageView)
 				.For(v => v.ImagePath)
-				.To(vm => vm.VideoUrl)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.VideoUrl);
 
 			set.Bind(profileImageView)
 				.For(v => v.DownsampleWidth)
-				.To(vm => vm.DownsampleWidth)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.DownsampleWidth);
 
 			set.Bind(profileImageView)
 				.For(v => v.Transformations)
-				.To(vm => vm.Transformations)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.Transformations);
 
 			set.Bind(profileImageView)
 				.For(v => v.ImagePath)
-				.To(vm => vm.ProfilePhotoUrl)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.ProfilePhotoUrl);
 
 			set.Bind(profileNameLabel)
-				.To(vm => vm.ProfileName)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.ProfileName);
 
 			set.Bind(videoNameLabel)
-				.To(vm => vm.VideoName)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.VideoName);
 
 			set.Bind(videoDescriptionLabel)
-				.To(vm => vm.VideoDetails)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.VideoDetails);
 
 			set.Bind(priceValueLabel)
-				.To(vm => vm.PriceValue)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.PriceValue);
 
 			set.Bind(timeValueLabel)
-				.To(vm => vm.TimeValue)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.TimeValue);
 
 			set.Bind(takeOrderButton)
-				.To(vm => vm.TakeOrderCommand)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.TakeOrderCommand);
+
+			set.Bind(takeOrderButton)
+	            .For(v => v.Hidden)
+	            .To(vm => vm.IsAvailebleTakeOrder)
+	            .WithConversion<MvxVisibilityValueConverter>();
 
 			set.Bind(subscriptionButton)
-				.To(vm => vm.SubscribeTheOrderCommand)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.SubscribeTheOrderCommand);
 
 			set.Bind(unsubscriptionButton)
-				.To(vm => vm.UnsubscribeOrderCommand)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.UnsubscribeOrderCommand);
 
 			set.Bind(executorImageView)
 				.For(v => v.DownsampleWidth)
-				.To(vm => vm.DownsampleWidth)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.DownsampleWidth);
 
 			set.Bind(executorImageView)
 				.For(v => v.Transformations)
-				.To(vm => vm.Transformations)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.Transformations);
 
 			set.Bind(executorImageView)
-				.For(v => v.ImagePath)
-				.To(vm => vm.ExecutorPhotoUrl)
-				.Mode(MvxBindingMode.OneTime);
+	            .For(v => v.ImagePath)
+	            .To(vm => vm.ExecutorPhotoUrl);
 
 			set.Bind(executorNameLabel)
-				.To(vm => vm.ExecutorName)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.ExecutorName);
 
 			set.Bind(startDateLabel)
-				.To(vm => vm.StartOrderDate)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.StartOrderDate);
 
 			set.Bind(noButton)
-				.To(vm => vm.NoCommand)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.NoCommand);
 
 			set.Bind(yesButton)
-				.To(vm => vm.YesCommand)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.YesCommand);
 
 			set.Bind(downloadButton)
-				.To(vm => vm.UnsubscribeOrderCommand)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.UnsubscribeOrderCommand);
 
 			set.Bind(executeVideoButton)
-				.To(vm => vm.ExecuteOrderCommand)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.ExecuteOrderCommand);
 
 			set.Bind(cancelVideoButton)
-				.To(vm => vm.CancelOrderCommand)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.CancelOrderCommand);
 
 			set.Bind(acceptButton)
-				.To(vm => vm.UnsubscribeOrderCommand)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.UnsubscribeOrderCommand);
 
 			set.Bind(arqueButton)
-				.To(vm => vm.ArqueOrderCommand)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.ArqueOrderCommand);
+
+			set.Bind(progressBarView)
+                .For(v => v.Hidden)
+                .To(vm => vm.IsBusy)
+                .WithConversion<MvxVisibilityValueConverter>();
 
 			set.Apply();
 		}

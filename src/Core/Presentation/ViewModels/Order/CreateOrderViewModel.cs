@@ -6,6 +6,7 @@ using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messengers;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -18,6 +19,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly IApiService _apiService;
         private readonly IMvxLog _mvxLog;
         private readonly IMvxMessenger _mvxMessenger;
+        private readonly ISettingsService _settingsService;
 
         private DateTime? _completedDateValue;
         public DateTime? CompletedDateValue
@@ -73,13 +75,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                     IDialogService dialogService,
                                     IApiService apiService,
                                     IMvxLog mvxLog,
-                                    IMvxMessenger mvxMessenger)
+                                    IMvxMessenger mvxMessenger,
+                                    ISettingsService settingsService)
             : base(navigationService)
         {
             _dialogService = dialogService;
             _apiService = apiService;
             _mvxLog = mvxLog;
             _mvxMessenger = mvxMessenger;
+            _settingsService = settingsService;
         }
 
         public override void Prepare()
@@ -111,6 +115,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 var newOrder = await _apiService.CreateOrderAsync(createOrderModel);
                 if (newOrder != null)
                 {
+                    if (newOrder.Customer == null)
+                        newOrder.Customer = _settingsService.User;
+
                     _mvxMessenger.Publish(new NewOrderMessenger(this, newOrder));
                 }
 
