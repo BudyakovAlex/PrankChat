@@ -12,9 +12,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
     public class PublicationTableSource : MvxTableViewSource
     {
         private PublicationItemCell _previousCellToPlay;
+        private bool _initialized;
 
         public PublicationTableSource(UITableView tableView) : base(tableView)
         {
+        }
+
+        public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
+        {
+            if (_initialized)
+                return;
+
+            var cellToPlay = (PublicationItemCell)cell;
+            _previousCellToPlay = cellToPlay;
+            cellToPlay.PlayVideo();
+            _initialized = true;
         }
 
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)

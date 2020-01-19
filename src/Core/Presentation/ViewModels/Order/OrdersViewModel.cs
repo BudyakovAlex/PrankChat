@@ -98,9 +98,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     _settingsService,
                     x.Title,
                     "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                    x.PriceTo,
-                    DateTime.Now - x.ActiveTo.ToLocalTime(),
-                    x.Status));
+                    x.Price.Value,
+                    (DateTime.UtcNow - x.CreatedAt).Value,
+                    x.Status.Value));
+
 
             Items.AddRange(orderItemViewModel);
         }
@@ -126,9 +127,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     _settingsService,
                     newOrder.NewOrder.Title,
                     "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                    newOrder.NewOrder.PriceTo,
-                    DateTime.Now - newOrder.NewOrder.ActiveTo.ToLocalTime(),
-                    newOrder.NewOrder.Status);
+                    newOrder.NewOrder.Price.Value,
+                    DateTime.Now - newOrder.NewOrder.ActiveTo.Value.ToLocalTime(),
+                    newOrder.NewOrder.Status.Value);
             Items.Add(newOrderItemViewModel);
         }
     }

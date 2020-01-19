@@ -5,16 +5,25 @@ namespace PrankChat.Mobile.Core.Models.Data
 {
     public class OrderDataModel
     {
-        public long PriceTo { get; set; }
+        public string Id { get; set; }
+
+        public long? Price { get; set; }
 
         public string Title { get; set; }
 
         public string Description { get; set; }
 
-        public OrderStatusType Status { get; set; }
+        public OrderStatusType? Status { get; set; }
 
-        public DateTime ActiveTo { get; set; }
+        public DateTime? ActiveTo { get; set; }
 
-        public bool AutoProlongation { get; set; }
+        public bool? AutoProlongation { get; set; }
+
+        public DateTime? CreatedAt { get; set; }
+
+        public UserDataModel Customer { get; set; }
+
+        public UserDataModel Executor { get; set; }
     }
+
 }

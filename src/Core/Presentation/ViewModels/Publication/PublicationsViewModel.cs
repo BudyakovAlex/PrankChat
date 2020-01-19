@@ -136,16 +136,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
                 Items.Add(firstModel);
                 Items.Add(secondModel);
-                Items.Add(thirdModel);
                 Items.Add(firstModel);
                 Items.Add(secondModel);
-                Items.Add(thirdModel);
                 Items.Add(firstModel);
                 Items.Add(secondModel);
-                Items.Add(thirdModel);
                 Items.Add(firstModel);
                 Items.Add(secondModel);
-                Items.Add(thirdModel);
             }
             catch (Exception ex)
             {
