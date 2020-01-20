@@ -123,3 +123,58 @@
 "ShareDialog_CopyLink_Label" = "Коп. ссылку";
 "ShareDialog_ShareInstagram_Label" = "В Instagram";
 "ShareDialog_LinkShareTitle" = "Поделиться ссылкой";
+"OrderStatus_New" = "Новый";
+"OrderStatus_Rejected" = "Отменен модератором";
+"OrderStatus_Cancelled" = "Отменен";
+"OrderStatus_Active" = "Ожидает исполнителя";
+"OrderStatus_InWork" = "В работе";
+"OrderStatus_InArbitration" = "В споре";
+"OrderStatus_ProcessCloseArbitration" = "Закрытие спора";
+"OrderStatus_ClosedAfterArbitrationCustomerWin" = "Закрыт после спора в пользу заказчика";
+"OrderStatus_ClosedAfterArbitrationExecutorWin" = "Закрыт после спора в пользу исполнителя";
+"OrderStatus_Finished" = "Завершён";
+"Ok" = "Ок";
+"Attention" = "Внимание!";
+"OrderDetailsView_TakeOrderTitle" = "Взять заказ";
+"OrderDetailsView_TakeOrderQuestion" = "Вы уверены что хотите стать исполнителем данного заказа?";
+"seconds_short" = "сек.";
+"minutes_short" = "мин.";
+"hours_short" = "ч.";
+"days_short" = "д.";
+"weeks_short" = "нед.";
+"count_thousand" = "k";
+"count_millions" = "m";
+"currency" = "₽";
+"count_view" = "просмотр";
+
+/*Fuzzy*/
+"count_views" = "просмотров";
+
+/*Fuzzy*/
+"count_of_viewing" = "просмотра";
+
+/*Fuzzy*/
+"months_ago" = "месяцев назад";
+
+/*Fuzzy*/
+"one_month_ago" = "месяц назад";
+
+/*Fuzzy*/
+"second_ago" = "секунд назад";
+"seconds_ago" = "секунды назад";
+"one_second_ago" = "секунду назад";
+
+/*Fuzzy*/
+"month_ago" = "месяца назад";
+"one_minute_ago" = "минуту назад";
+"minute_ago" = "минут назад";
+"minutes_ago" = "минуты назад";
+"one_hour_ago" = "час назад";
+"hour_ago" = "часа назад";
+"hours_ago" = "часов назад";
+"one_day_ago" = "день назад";
+"day_ago" = "дня назад";
+"days_ago" = "дней назад";
+"one_year_ago" = "год назад";
+"year_ago" = "года назад";
+"years_ago" = "лет назад";
