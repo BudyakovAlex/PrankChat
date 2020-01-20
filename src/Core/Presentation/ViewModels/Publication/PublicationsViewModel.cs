@@ -81,6 +81,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             return Task.CompletedTask;
         }
 
+        public override void ViewDisappearing()
+        {
+            _videoPlayerService.Pause();
+
+            base.ViewDisappearing();
+        }
+
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
+
+            _videoPlayerService.Play();
+        }
+
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
             var selectedFilter = await _dialogService.ShowMenuDialogAsync(new[]

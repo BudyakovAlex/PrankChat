@@ -95,14 +95,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             PublicationTableSource = new PublicationTableSource(tableView);
             tableView.Source = PublicationTableSource;
             tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
-            tableView.SetStyle();
-            tableView.RowHeight = PublicationItemCell.EstimatedHeight;
-            tableView.UserInteractionEnabled = true;
-            tableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
+            tableView.SetVideoListStyle(PublicationItemCell.EstimatedHeight);
             tableView.ContentInset = new UIEdgeInsets(10, 0, 0, 0);
-
-            tableView.SeparatorColor = Theme.Color.Separator;
-            tableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
         }
     }
 }

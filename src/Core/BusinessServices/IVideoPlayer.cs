@@ -1,7 +1,7 @@
 ﻿using System;
 namespace PrankChat.Mobile.Core.BusinessServices
 {
-    public interface IVideoPlayer
+    public interface IVideoPlayer : IDisposable
     {
         bool IsPlaying { get; }
 
@@ -10,6 +10,8 @@ namespace PrankChat.Mobile.Core.BusinessServices
         void SetSourceUri(string uri);
 
         void Play();
+
+        void Pause();
 
         void Stop();
 

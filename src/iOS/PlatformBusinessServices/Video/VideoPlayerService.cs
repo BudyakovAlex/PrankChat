@@ -1,8 +1,9 @@
-﻿using PrankChat.Mobile.Core.BusinessServices;
+﻿using System;
+using PrankChat.Mobile.Core.BusinessServices;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
 {
-    public class VideoPlayerService : IVideoPlayerService
+    public class VideoPlayerService : IVideoPlayerService, IDisposable
     {
         private const int RepeatDelayInSeconds = 10;
         private IVideoPlayer _player;
@@ -26,9 +27,33 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             Player.Play();
         }
 
+        public void Play()
+        {
+            Player.Play();
+        }
+
+        public void Pause()
+        {
+            Player.Pause();
+        }
+
         public void Stop()
         {
             Player.Stop();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing && _player != null)
+            {
+                _player.Dispose();
+            }
         }
     }
 }

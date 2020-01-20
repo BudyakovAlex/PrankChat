@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Threading;
 using AVFoundation;
 using AVKit;
 using CoreGraphics;
-using CoreMedia;
-using Foundation;
-using MvvmCross;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
-using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -21,7 +15,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
     public partial class PublicationItemCell : BaseTableCell<PublicationItemCell, PublicationItemViewModel>
     {
         private AVPlayerViewController _avPlayerViewController;
-        private bool _isPlaying;
 
         static PublicationItemCell()
         {
@@ -41,6 +34,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             service.Player.SetPlatformVideoPlayerContainer(_avPlayerViewController);
             service.Play(ViewModel.VideoUrl);
+        }
+
+        public void ContinueVideo()
+        {
+            var service = ViewModel.VideoPlayerService;
+            if (!service.Player.IsPlaying)
+                return;
+
+            service.Play();
+        }
+
+        public void PauseVideo()
+        {
+            var service = ViewModel.VideoPlayerService;
+            if (!service.Player.IsPlaying)
+                return;
+
+            service.Pause();
         }
 
         public void StopVideo()

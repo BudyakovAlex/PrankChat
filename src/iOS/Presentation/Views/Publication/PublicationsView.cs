@@ -99,13 +99,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             PublicationTableSource = new PublicationTableSource(tableView);
             tableView.Source = PublicationTableSource;
             tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
-            tableView.SetStyle();
-            tableView.RowHeight = PublicationItemCell.EstimatedHeight;
-            tableView.UserInteractionEnabled = true;
-            tableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
-
-            tableView.SeparatorColor = Theme.Color.Separator;
-            tableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
+            tableView.SetVideoListStyle(PublicationItemCell.EstimatedHeight);
 
             _refreshControl = new MvxUIRefreshControl();
             tableView.RefreshControl = _refreshControl;

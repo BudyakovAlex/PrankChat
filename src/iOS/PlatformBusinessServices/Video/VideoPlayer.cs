@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using AVFoundation;
 using AVKit;
 using CoreMedia;
@@ -12,11 +11,9 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
     public class VideoPlayer : IVideoPlayer
     {
         private AVPlayer _player;
-        private AVPlayerLooper _looper;
         private int _repeatDelayInSeconds;
-        private bool _repeadEnabled;
-        private string _currentUri;
         private AVPlayerViewController _currentContainer;
+        private NSObject _repeatObserver;
 
         public VideoPlayer()
         {
@@ -28,13 +25,27 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
 
         public object PlatformPlayerInstance => _player;
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         public void EnableRepeat(int repeatDelayInSeconds)
         {
-            var observer = new VideoPlayerStatusObserver(_player, repeatDelayInSeconds);
-            _player.AddBoundaryTimeObserver(
+            _repeatObserver = _player.AddBoundaryTimeObserver(
                 times: new[] { NSValue.FromCMTime(new CMTime(repeatDelayInSeconds, 1)) },
                 queue: null,
                 handler: TryRepeatVideo);
+        }
+
+        public void Pause()
+        {
+            if (!IsPlaying)
+                return;
+
+            _player.Pause();
+            IsPlaying = false;
         }
 
         public void Play()
@@ -42,8 +53,19 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             if (IsPlaying)
                 return;
 
+            if (_player.CurrentItem == null)
+                return;
+
             _player.Play();
             IsPlaying = true;
+        }
+
+        public void Stop()
+        {
+            Debug.WriteLine("Play stopped.");
+            _player.Seek(new CMTime(0, 1));
+            _player.Pause();
+            IsPlaying = false;
         }
 
         public void SetPlatformVideoPlayerContainer(object container)
@@ -66,15 +88,14 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             _player.ReplaceCurrentItemWithPlayerItem(new AVPlayerItem(new NSUrl(uri))); 
         }
 
-        public void Stop()
+        protected virtual void Dispose(bool disposing)
         {
-            Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
+            if (disposing && _player != null)
             {
-                Debug.WriteLine("Play stopped.");
-                _player.Seek(new CMTime(0, 1));
-                _player.Pause();
-                IsPlaying = false;
-            });
+                _player.Dispose();
+                _player.RemoveTimeObserver(_repeatObserver);
+                _repeatObserver = null;
+            }
         }
 
         private void TryRepeatVideo()
