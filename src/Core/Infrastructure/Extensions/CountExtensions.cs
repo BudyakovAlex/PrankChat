@@ -23,7 +23,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
         {
             char lastChar = count.ToString().Last();
             return count.ToUICountString() + " " + (lastChar == '1' ? Resources.count_view :
-                                                           new[] { '2', '3', '4' }.Contains(lastChar) ? Resources.count_of_viewing : Resources.count_views);
+                                                   new[] { '2', '3', '4' }.Contains(lastChar) ? Resources.count_of_viewing : Resources.count_views);
         }
     }
 }
