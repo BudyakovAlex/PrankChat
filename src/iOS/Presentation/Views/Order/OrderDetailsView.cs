@@ -6,6 +6,7 @@ using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -54,7 +55,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			set.Bind(takeOrderButton)
 	            .For(v => v.Hidden)
 	            .To(vm => vm.IsAvailebleTakeOrder)
-	            .WithConversion<MvxVisibilityValueConverter>();
+	            .WithConversion<NegateBooleanValueConverter>();
 
 			set.Bind(subscriptionButton)
 				.To(vm => vm.SubscribeTheOrderCommand);
@@ -104,7 +105,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			set.Bind(progressBarView)
                 .For(v => v.Hidden)
                 .To(vm => vm.IsBusy)
-                .WithConversion<MvxVisibilityValueConverter>();
+                .WithConversion<NegateBooleanValueConverter>();
 
 			set.Apply();
 		}
