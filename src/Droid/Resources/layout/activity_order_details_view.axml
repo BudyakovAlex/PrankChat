@@ -96,7 +96,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/OrderDetailsView_Take_Order_Button"
                 style="@style/Theme.PrankChat.Button.Accent"
-                app:MvxBind="Click TakeOrderCommand; Visibility Visibility(IsAvailebleTakeOrder)"/>
+                app:MvxBind="Click TakeOrderCommand; Visibility Visibility(IsTakeOrderAvailable)"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
@@ -104,7 +104,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/OrderDetailsView_Subscribe_Button"
                 style="@style/Theme.PrankChat.Button.Accent"
-                app:MvxBind="Click SubscribeOrderCommand"/>
+                app:MvxBind="Click SubscribeOrderCommand; Visibility Visibility(IsSubscribeAvailable)"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
@@ -112,7 +112,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/OrderDetailsView_Unsubscribe_Button"
                 style="@style/Theme.PrankChat.Button.Accent"
-                app:MvxBind="Click UnsubscribeOrderCommand"/>
+                app:MvxBind="Click UnsubscribeOrderCommand; Visibility Visibility(IsUnsubscribeAvailable)"/>
             <!--Download video-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -151,7 +151,7 @@
                     android:textColor="@color/accent"
                     android:background="@drawable/border_accent"
                     style="@style/Theme.PrankChat.Button"
-                    app:MvxBind="Click CancelOrderCommand"/>
+                    app:MvxBind="Click CancelOrderCommand; Visibility(IsUserCustomer)"/>
             </LinearLayout>
             <!--Took the order.-->
             <RelativeLayout
