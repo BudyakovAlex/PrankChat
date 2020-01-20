@@ -322,24 +322,6 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to дня назад.
-        /// </summary>
-        public static string day_ago {
-            get {
-                return ResourceManager.GetString("day_ago", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to дней назад.
-        /// </summary>
-        public static string days_ago {
-            get {
-                return ResourceManager.GetString("days_ago", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to д..
         /// </summary>
         public static string days_short {
@@ -381,24 +363,6 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         public static string Home_Tab {
             get {
                 return ResourceManager.GetString("Home_Tab", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to часа назад.
-        /// </summary>
-        public static string hour_ago {
-            get {
-                return ResourceManager.GetString("hour_ago", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to часов назад.
-        /// </summary>
-        public static string hours_ago {
-            get {
-                return ResourceManager.GetString("hours_ago", resourceCulture);
             }
         }
         
@@ -493,47 +457,11 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to минут назад.
-        /// </summary>
-        public static string minute_ago {
-            get {
-                return ResourceManager.GetString("minute_ago", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to минуты назад.
-        /// </summary>
-        public static string minutes_ago {
-            get {
-                return ResourceManager.GetString("minutes_ago", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to мин..
         /// </summary>
         public static string minutes_short {
             get {
                 return ResourceManager.GetString("minutes_short", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to месяца назад.
-        /// </summary>
-        public static string month_ago {
-            get {
-                return ResourceManager.GetString("month_ago", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to месяцев назад.
-        /// </summary>
-        public static string months_ago {
-            get {
-                return ResourceManager.GetString("months_ago", resourceCulture);
             }
         }
         
@@ -561,60 +489,6 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         public static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to день назад.
-        /// </summary>
-        public static string one_day_ago {
-            get {
-                return ResourceManager.GetString("one_day_ago", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to час назад.
-        /// </summary>
-        public static string one_hour_ago {
-            get {
-                return ResourceManager.GetString("one_hour_ago", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to минуту назад.
-        /// </summary>
-        public static string one_minute_ago {
-            get {
-                return ResourceManager.GetString("one_minute_ago", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to месяц назад.
-        /// </summary>
-        public static string one_month_ago {
-            get {
-                return ResourceManager.GetString("one_month_ago", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to секунду назад.
-        /// </summary>
-        public static string one_second_ago {
-            get {
-                return ResourceManager.GetString("one_second_ago", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to год назад.
-        /// </summary>
-        public static string one_year_ago {
-            get {
-                return ResourceManager.GetString("one_year_ago", resourceCulture);
             }
         }
         
@@ -1474,24 +1348,6 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to секунд назад.
-        /// </summary>
-        public static string second_ago {
-            get {
-                return ResourceManager.GetString("second_ago", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to секунды назад.
-        /// </summary>
-        public static string seconds_ago {
-            get {
-                return ResourceManager.GetString("seconds_ago", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to сек..
         /// </summary>
         public static string seconds_short {
@@ -1551,24 +1407,6 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         public static string weeks_short {
             get {
                 return ResourceManager.GetString("weeks_short", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to года назад.
-        /// </summary>
-        public static string year_ago {
-            get {
-                return ResourceManager.GetString("year_ago", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to лет назад.
-        /// </summary>
-        public static string years_ago {
-            get {
-                return ResourceManager.GetString("years_ago", resourceCulture);
             }
         }
     }

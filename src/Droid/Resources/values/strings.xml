@@ -148,36 +148,6 @@
     <string name="count_millions">"m"</string>
     <string name="currency">"₽"</string>
     <string name="count_view">"просмотр"</string>
-
-    <!-- Fuzzy -->
     <string name="count_views">"просмотров"</string>
-
-    <!-- Fuzzy -->
     <string name="count_of_viewing">"просмотра"</string>
-
-    <!-- Fuzzy -->
-    <string name="months_ago">"месяцев назад"</string>
-
-    <!-- Fuzzy -->
-    <string name="one_month_ago">"месяц назад"</string>
-
-    <!-- Fuzzy -->
-    <string name="second_ago">"секунд назад"</string>
-    <string name="seconds_ago">"секунды назад"</string>
-    <string name="one_second_ago">"секунду назад"</string>
-
-    <!-- Fuzzy -->
-    <string name="month_ago">"месяца назад"</string>
-    <string name="one_minute_ago">"минуту назад"</string>
-    <string name="minute_ago">"минут назад"</string>
-    <string name="minutes_ago">"минуты назад"</string>
-    <string name="one_hour_ago">"час назад"</string>
-    <string name="hour_ago">"часа назад"</string>
-    <string name="hours_ago">"часов назад"</string>
-    <string name="one_day_ago">"день назад"</string>
-    <string name="day_ago">"дня назад"</string>
-    <string name="days_ago">"дней назад"</string>
-    <string name="one_year_ago">"год назад"</string>
-    <string name="year_ago">"года назад"</string>
-    <string name="years_ago">"лет назад"</string>
 </resources>

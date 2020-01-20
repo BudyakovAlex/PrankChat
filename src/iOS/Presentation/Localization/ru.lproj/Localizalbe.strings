@@ -146,35 +146,5 @@
 "count_millions" = "m";
 "currency" = "₽";
 "count_view" = "просмотр";
-
-/*Fuzzy*/
 "count_views" = "просмотров";
-
-/*Fuzzy*/
 "count_of_viewing" = "просмотра";
-
-/*Fuzzy*/
-"months_ago" = "месяцев назад";
-
-/*Fuzzy*/
-"one_month_ago" = "месяц назад";
-
-/*Fuzzy*/
-"second_ago" = "секунд назад";
-"seconds_ago" = "секунды назад";
-"one_second_ago" = "секунду назад";
-
-/*Fuzzy*/
-"month_ago" = "месяца назад";
-"one_minute_ago" = "минуту назад";
-"minute_ago" = "минут назад";
-"minutes_ago" = "минуты назад";
-"one_hour_ago" = "час назад";
-"hour_ago" = "часа назад";
-"hours_ago" = "часов назад";
-"one_day_ago" = "день назад";
-"day_ago" = "дня назад";
-"days_ago" = "дней назад";
-"one_year_ago" = "год назад";
-"year_ago" = "года назад";
-"years_ago" = "лет назад";
