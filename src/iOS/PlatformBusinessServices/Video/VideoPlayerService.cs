@@ -1,6 +1,6 @@
 ﻿using PrankChat.Mobile.Core.BusinessServices;
 
-namespace PrankChat.Mobile.iOS.PlatformBusinessServices
+namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
 {
     public class VideoPlayerService : IVideoPlayerService
     {

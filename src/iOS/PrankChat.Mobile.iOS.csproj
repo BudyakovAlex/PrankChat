@@ -231,11 +231,12 @@
     <Compile Include="Presentation\Views\Share\ShareController.designer.cs">
       <DependentUpon>ShareController.cs</DependentUpon>
     </Compile>
-    <Compile Include="PlatformBusinessServices\VideoPlayerService.cs" />
-    <Compile Include="PlatformBusinessServices\VideoPlayer.cs" />
     <Compile Include="Presentation\Converters\NegateBooleanValueConverter.cs" />
     <Compile Include="Presentation\Converters\DateFormatConverter.cs" />
     <Compile Include="Infrastructure\DateFormats.cs" />
+    <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
+    <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
+    <Compile Include="PlatformBusinessServices\Video\VideoPlayerStatusObserver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -501,6 +502,7 @@
     <Folder Include="Assets.xcassets\ic_share_copy.imageset\" />
     <Folder Include="Assets.xcassets\ic_share_instagram.imageset\" />
     <Folder Include="PlatformBusinessServices\" />
+    <Folder Include="PlatformBusinessServices\Video\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

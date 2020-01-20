@@ -7,7 +7,7 @@ using CoreMedia;
 using Foundation;
 using PrankChat.Mobile.Core.BusinessServices;
 
-namespace PrankChat.Mobile.iOS.PlatformBusinessServices
+namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
 {
     public class VideoPlayer : IVideoPlayer
     {
@@ -30,8 +30,11 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices
 
         public void EnableRepeat(int repeatDelayInSeconds)
         {
-            _repeatDelayInSeconds = repeatDelayInSeconds;
-            _repeadEnabled = true;
+            var observer = new VideoPlayerStatusObserver(_player, repeatDelayInSeconds);
+            _player.AddBoundaryTimeObserver(
+                times: new[] { NSValue.FromCMTime(new CMTime(repeatDelayInSeconds, 1)) },
+                queue: null,
+                handler: TryRepeatVideo);
         }
 
         public void Play()
@@ -60,18 +63,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices
 
         public void SetSourceUri(string uri)
         {
-            _player.ReplaceCurrentItemWithPlayerItem(new AVPlayerItem(new NSUrl(uri)));
-
-            //// Initialize looper for player that will repeat first 10 seconds of video in a loop.
-            //if ((_looper == null && _repeadEnabled) ||
-            //    (_repeadEnabled && !_looper.LoopingPlayerItems.Contains(_player.CurrentItem)))
-            //    _looper =
-            //        new AVPlayerLooper(_player, _player.CurrentItem,
-            //            new CMTimeRange
-            //            {
-            //                Start = new CMTime(0, 1),
-            //                Duration = new CMTime(_repeatDelayInSeconds, 1)
-            //            });
+            _player.ReplaceCurrentItemWithPlayerItem(new AVPlayerItem(new NSUrl(uri))); 
         }
 
         public void Stop()
@@ -83,6 +75,17 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices
                 _player.Pause();
                 IsPlaying = false;
             });
+        }
+
+        private void TryRepeatVideo()
+        {
+            var timeValue = _player.CurrentItem.CurrentTime;
+            var currentTimePosition = timeValue.Seconds;
+
+            if (currentTimePosition >= _repeatDelayInSeconds)
+            {
+                _player.Seek(new CMTime(0, 1));
+            }
         }
     }
 }
