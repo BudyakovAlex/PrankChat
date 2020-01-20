@@ -39,3 +39,4 @@ using UIKit;
 
 
 [assembly: Preserve(typeof(UISearchBar), AllMembers = true)]
+[assembly: Preserve(typeof(System.Convert), AllMembers = true)]
