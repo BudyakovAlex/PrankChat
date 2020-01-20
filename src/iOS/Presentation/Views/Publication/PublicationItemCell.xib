@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -54,9 +54,20 @@
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUy-yv-U1B" customClass="VideoView">
                         <rect key="frame" x="16" y="98.5" width="378" height="216"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_sound_muted" translatesAutoresizingMaskIntoConstraints="NO" id="xaG-Fz-qCn">
+                                <rect key="frame" x="351" y="189.5" width="16" height="15.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15.800000000000001" id="SZW-YS-VSx"/>
+                                    <constraint firstAttribute="width" constant="15.800000000000001" id="rOt-wM-EqP"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="216" id="1XT-xl-VPp"/>
+                            <constraint firstAttribute="bottom" secondItem="xaG-Fz-qCn" secondAttribute="bottom" constant="11" id="rsx-eq-tkw"/>
+                            <constraint firstAttribute="trailing" secondItem="xaG-Fz-qCn" secondAttribute="trailing" constant="11" id="vEo-Er-oAX"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Лайк 1к" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kam-d9-irM">
@@ -136,6 +147,7 @@
                 <outlet property="publicationInfoLabel" destination="n9k-fi-DBx" id="02W-8E-rCE"/>
                 <outlet property="shareButton" destination="RUb-8g-dpe" id="w3c-7X-0PG"/>
                 <outlet property="shareLabel" destination="wLe-9a-Ah1" id="kbd-cs-dCs"/>
+                <outlet property="soundImageView" destination="xaG-Fz-qCn" id="i8K-ab-5fe"/>
                 <outlet property="videoNameLabel" destination="5WK-d7-xgu" id="pqj-yG-F5C"/>
                 <outlet property="videoView" destination="QUy-yv-U1B" id="Pr3-Ez-3fB"/>
             </connections>
@@ -147,5 +159,6 @@
         <image name="ic_like" width="20" height="19"/>
         <image name="ic_more" width="16" height="4"/>
         <image name="ic_share" width="18" height="18"/>
+        <image name="ic_sound_muted" width="16" height="16"/>
     </resources>
 </document>

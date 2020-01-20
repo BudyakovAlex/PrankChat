@@ -5,6 +5,8 @@ namespace PrankChat.Mobile.Core.BusinessServices
     {
         bool IsPlaying { get; }
 
+        bool Muted { get; set; }
+
         void EnableRepeat(int repeatDelayInSeconds);
 
         void SetSourceUri(string uri);

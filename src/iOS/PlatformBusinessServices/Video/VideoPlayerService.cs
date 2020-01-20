@@ -21,6 +21,12 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             }
         }
 
+        public bool Muted
+        {
+            get => _player.Muted;
+            set => _player.Muted = value;
+        }
+
         public void Play(string uri)
         {
             Player.SetSourceUri(uri);

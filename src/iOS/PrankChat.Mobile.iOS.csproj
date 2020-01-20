@@ -420,6 +420,8 @@
     <ImageAsset Include="Assets.xcassets\ic_share_instagram.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_share_copy.imageset\Group 113.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_share_instagram.imageset\Group 114.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Vector.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -502,6 +504,7 @@
     <Folder Include="Assets.xcassets\ic_share_instagram.imageset\" />
     <Folder Include="PlatformBusinessServices\" />
     <Folder Include="PlatformBusinessServices\Video\" />
+    <Folder Include="Assets.xcassets\ic_sound_muted.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

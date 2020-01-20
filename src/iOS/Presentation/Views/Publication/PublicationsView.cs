@@ -39,10 +39,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             set.Bind(PublicationTableSource)
                 .To(vm => vm.Items);
 
-            set.Bind(PublicationTableSource)
-                .For(v => v.SelectionChangedCommand)
-                .To(vm => vm.SelectItemCommand);
-
             set.Bind(_refreshControl)
                 .For(v => v.IsRefreshing)
                 .To(vm => vm.IsBusy);

@@ -4,9 +4,11 @@ using AVKit;
 using CoreGraphics;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -108,7 +110,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 .For(v => v.Transformations)
                 .To(vm => vm.Transformations)
                 .Mode(MvxBindingMode.OneTime);
-                
+
+            set.Bind(profileImage.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.ShowDetailsCommand);
+
             set.Bind(profileImage)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)
@@ -123,14 +129,42 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 .To(vm => vm.ProfileName)
                 .Mode(MvxBindingMode.OneTime);
 
+            set.Bind(profileNameLabel.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.ShowDetailsCommand);
+
             set.Bind(videoNameLabel)
                 .To(vm => vm.VideoName)
                 .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(videoNameLabel.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.ShowDetailsCommand);
 
             set.Bind(publicationInfoLabel)
                 .To(vm => vm.VideoInformationText)
                 .Mode(MvxBindingMode.OneTime);
 
+            set.Bind(publicationInfoLabel.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.ShowDetailsCommand);
+
+            set.Bind(videoView.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.ToggleSoundCommand);
+
+            set.Bind(soundImageView)
+                .For(v => v.Hidden)
+                .To(vm => vm.SoundMuted)
+                .WithConversion<NegateBooleanValueConverter>();
+
+            set.Bind(likeButton)
+                .To(vm => vm.LikeCommand);
+
+            set.Bind(likeLabel.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.LikeCommand);
+                
             set.Bind(likeLabel)
                 .To(vm => vm.NumberOfLikesText)
                 .Mode(MvxBindingMode.OneTime);
@@ -142,6 +176,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             set.Bind(shareButton)
                 .To(vm => vm.ShareCommand)
                 .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(shareLabel.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.ShareCommand);
 
             set.Apply();
         }

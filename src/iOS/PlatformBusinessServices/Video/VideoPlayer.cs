@@ -19,11 +19,18 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         {
             _player = new AVQueuePlayer();
             _player.AutomaticallyWaitsToMinimizeStalling = true;
+            _player.Muted = true;
         }
 
         public bool IsPlaying { get; private set; }
 
         public object PlatformPlayerInstance => _player;
+
+        public bool Muted
+        {
+            get => _player.Muted;
+            set => _player.Muted = value;
+        }
 
         public void Dispose()
         {
@@ -85,7 +92,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
 
         public void SetSourceUri(string uri)
         {
-            _player.ReplaceCurrentItemWithPlayerItem(new AVPlayerItem(new NSUrl(uri))); 
+            _player.ReplaceCurrentItemWithPlayerItem(new AVPlayerItem(new NSUrl(uri)));
         }
 
         protected virtual void Dispose(bool disposing)
