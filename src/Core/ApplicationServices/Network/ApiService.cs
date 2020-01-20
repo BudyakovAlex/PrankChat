@@ -49,7 +49,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel orderInfo)
         {
             var createOrderApiModel = MappingConfig.Mapper.Map<CreateOrderApiModel>(orderInfo);
-            var newOrder = await _client.Post<CreateOrderApiModel, DataApiModel<OrderApiModel>>("orders", createOrderApiModel, true);
+            var newOrder = await _client.Post<CreateOrderApiModel, DataApiModel<OrderApiModel>>("orders", createOrderApiModel);
             return MappingConfig.Mapper.Map<OrderDataModel>(newOrder.Data);
         }
 
@@ -85,6 +85,18 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public Task CancelOrderAsync(int orderId)
         {
             return Task.CompletedTask;
+        }
+
+        public async Task<OrderDataModel> SubscribeOrderAsync(int orderId)
+        {
+            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
+            return MappingConfig.Mapper.Map<OrderDataModel>(data.Data);
+        }
+
+        public async Task<OrderDataModel> UnsubscribeOrderAsync(int orderId)
+        {
+            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
+            return MappingConfig.Mapper.Map<OrderDataModel>(data.Data);
         }
 
         #endregion

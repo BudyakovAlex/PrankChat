@@ -6,6 +6,7 @@ using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Errors;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messengers;
@@ -97,6 +98,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             if (CompletedDateValue == null || DateTime.Now > CompletedDateValue.Value)
             {
                 _dialogService.ShowToast("Date must be greater than the current");
+                return;
             }
 
             try
@@ -119,14 +121,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                         newOrder.Customer = _settingsService.User;
 
                     _mvxMessenger.Publish(new NewOrderMessenger(this, newOrder));
+                    _dialogService.ShowToast("Order is created");
                 }
-
-                _dialogService.ShowToast("Order is created");
-            }
-            catch (Exception ex)
-            {
-                _mvxLog.DebugException($"{nameof(CreateOrderViewModel)}", ex);
-                _dialogService.ShowToast("Required data is empty");
             }
             finally
             {

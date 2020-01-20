@@ -151,7 +151,7 @@
                     android:textColor="@color/accent"
                     android:background="@drawable/border_accent"
                     style="@style/Theme.PrankChat.Button"
-                    app:MvxBind="Click CancelOrderCommand; Visibility(IsUserCustomer)"/>
+                    app:MvxBind="Click CancelOrderCommand"/>
             </LinearLayout>
             <!--Took the order.-->
             <RelativeLayout

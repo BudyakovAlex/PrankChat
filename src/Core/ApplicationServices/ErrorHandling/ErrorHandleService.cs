@@ -22,9 +22,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
         {
             _messenger = messenger;
 
-            _messenger.Subscribe<BadRequestErrorMessage>(OnBadRequestErrorEvent);
-            _messenger.Subscribe<NotFoundErrorMessage>(OnNotFoundErrorEvent);
-            _messenger.Subscribe<ServerErrorMessage>(OnServerErrorEvent);
+            _messenger.Subscribe<BadRequestErrorMessage>(OnBadRequestErrorEvent, MvxReference.Strong);
+            _messenger.Subscribe<NotFoundErrorMessage>(OnNotFoundErrorEvent, MvxReference.Strong);
+            _messenger.Subscribe<ServerErrorMessage>(OnServerErrorEvent, MvxReference.Strong);
         }
 
         private bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;

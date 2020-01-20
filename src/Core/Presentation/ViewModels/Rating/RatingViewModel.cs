@@ -2,8 +2,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items;
@@ -12,6 +14,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
 {
     public class RatingViewModel : BaseViewModel
     {
+        private readonly IApiService _apiService;
+        private readonly IMvxLog _mvxLog;
         private readonly IDialogService _dialogService;
 
         public MvxObservableCollection<RatingItemViewModel> Items { get; } = new MvxObservableCollection<RatingItemViewModel>();
@@ -25,18 +29,39 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
 
         public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterAsync);
 
-        public RatingViewModel(INavigationService navigationService, IDialogService dialogService) : base(navigationService)
+        public RatingViewModel(INavigationService navigationService,
+                               IDialogService dialogService,
+                               IApiService apiService,
+                               IMvxLog mvxLog) : base(navigationService)
         {
             _dialogService = dialogService;
-
-            //Items.Add(new RatingItemViewModel(navigationService, "Подсесть к человеку в ТЦ и съесть его еду и сказать сальто де марто", "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg", "13 455 p", new DateTime(2019, 4, 22)));
-            //Items.Add(new RatingItemViewModel(navigationService, "Выпить бутылку воды без остановки", "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg", "995,55 p", new DateTime(2019, 11, 2)));
+            _apiService = apiService;
+            _mvxLog = mvxLog;
         }
 
         public override Task Initialize()
         {
             ActiveFilterName = Resources.RateView_Filter_AllTasks;
-            return base.Initialize();
+            return LoadRatingOrders();
+        }
+
+        private async Task LoadRatingOrders()
+        {
+            try
+            {
+                IsBusy = true;
+
+                //var ratingOrders = await _apiService.GetRatingOrdersAsync();
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(RatingViewModel)}", ex);
+                _dialogService.ShowToast("Can not load order details!");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private async Task OnOpenFilterAsync(CancellationToken arg)

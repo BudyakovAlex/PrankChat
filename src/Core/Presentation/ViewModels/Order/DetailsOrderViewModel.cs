@@ -146,14 +146,44 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             var lol = await _apiService.TakeOrderAsync(_orderId, _settingsService.User.Id);
         }
 
-        private Task OnSubscribeOrderAsync()
+        private async Task OnSubscribeOrderAsync()
         {
-            return Task.CompletedTask;
+            try
+            {
+                IsBusy = true;
+
+                var order = await _apiService.SubscribeOrderAsync(_orderId);
+                await RaiseAllPropertiesChanged();
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
+                _dialogService.ShowToast("Can not subscribe order!");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
-        private Task OnUnsubscribeOrderAsync()
+        private async Task OnUnsubscribeOrderAsync()
         {
-            return Task.CompletedTask;
+            try
+            {
+                IsBusy = true;
+
+                var order = await _apiService.UnsubscribeOrderAsync(_orderId);
+                await RaiseAllPropertiesChanged();
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
+                _dialogService.ShowToast("Can not unsubscribe order!");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private Task OnDownloadOrderAsync()

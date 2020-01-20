@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -151,6 +152,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     case HttpStatusCode.Unauthorized:
                     case HttpStatusCode.Forbidden:
                         throw JsonConvert.DeserializeObject<AuthenticationProblemDetails>(response.Content);
+
+                    case HttpStatusCode.InternalServerError:
+                        var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(response.Content);
+                        throw new InternalServerProblemDetails(problemDetails.Title);
                 }
 
                 if (response.ErrorException != null)
@@ -162,14 +167,18 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     throw new NetworkException($"Network error - {response.ErrorMessage} with code {response.StatusCode} for request {request.Resource}");
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                _mvxLog.Error(response.StatusCode + response.ErrorMessage);
-                _messenger.Publish(new BadRequestErrorMessage(this));
+                _mvxLog.ErrorException(response.StatusCode + response.ErrorMessage, ex);
+                var errorMessages = new List<string>
+                {
+                    ex.Message
+                };
+                _messenger.Publish(new BadRequestErrorMessage(this, errorMessages.AsReadOnly()));
 
                 if (exceptionThrowingEnabled)
                 {
-                    throw;
+                    throw ex;
                 }
             }
         }
