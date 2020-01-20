@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FFImageLoading.Transformations;
 using FFImageLoading.Work;
@@ -47,9 +48,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #region Executor
 
-        public string ExecutorPhotoUrl => "";// _order?.Executor?.Avatar;
+        public string ExecutorPhotoUrl => _order?.Executor?.FirstOrDefault()?.Avatar;
 
-        public string ExecutorName => "";//_order?.Executor?.Name;
+        public string ExecutorName => _order?.Executor?.FirstOrDefault()?.Name;
 
         public string StartOrderDate => _order?.CreatedAt?.ToShortDateString();
 
@@ -59,11 +60,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string TimeValue => _order?.FinishIn?.ToString("dd' : 'hh' : 'mm");
 
-        public bool IsUserOwner => _order?.Customer?.Id == _settingsService.User?.Id;
+        public bool IsUserCustomer => _order?.Customer?.Id == _settingsService.User?.Id;
 
-        public bool IsAvailebleTakeOrder => !IsUserOwner && _order?.Status == OrderStatusType.New;
+        public bool IsUserExecutor => _order?.Executor?.FirstOrDefault()?.Id == _settingsService.User?.Id;
 
+        public bool IsUserListener => !IsUserCustomer && !IsUserExecutor;
 
+        public bool IsTakeOrderAvailable => !IsUserCustomer && _order?.Status == OrderStatusType.New;
+
+        public bool IsSubscribeAvailable => IsUserListener;
+
+        public bool IsUnsubscribeAvailable => IsUserListener;
 
         public MvxAsyncCommand TakeOrderCommand => new MvxAsyncCommand(OnTakeOrderAsync);
 
@@ -136,17 +143,47 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             if (!result)
                 return;
 
-            var lol = await _apiService.TakeOrderAsync(_orderId);
+            var lol = await _apiService.TakeOrderAsync(_orderId, _settingsService.User.Id);
         }
 
-        private Task OnSubscribeOrderAsync()
+        private async Task OnSubscribeOrderAsync()
         {
-            return Task.CompletedTask;
+            try
+            {
+                IsBusy = true;
+
+                var order = await _apiService.SubscribeOrderAsync(_orderId);
+                await RaiseAllPropertiesChanged();
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
+                _dialogService.ShowToast("Can not subscribe order!");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
-        private Task OnUnsubscribeOrderAsync()
+        private async Task OnUnsubscribeOrderAsync()
         {
-            return Task.CompletedTask;
+            try
+            {
+                IsBusy = true;
+
+                var order = await _apiService.UnsubscribeOrderAsync(_orderId);
+                await RaiseAllPropertiesChanged();
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
+                _dialogService.ShowToast("Can not unsubscribe order!");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private Task OnDownloadOrderAsync()
@@ -164,9 +201,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             return Task.CompletedTask;
         }
 
-        private Task OnCancelOrderAsync()
+        private async Task OnCancelOrderAsync()
         {
-            return Task.CompletedTask;
+            var result = await _dialogService.ShowConfirmAsync("Вы уверены что хотите отменить заказ?",
+                                                   Resources.Attention,
+                                                   "Отменить",
+                                                   Resources.Cancel);
+
+            if (!result)
+                return;
+
+            await _apiService.CancelOrderAsync(_orderId);
         }
 
         private Task OnExecuteOrderAsync()

@@ -23,7 +23,15 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<OrderDataModel> GetOrderDetailsAsync(int orderId);
 
-        Task<OrderDataModel> TakeOrderAsync(int orderId);
+        Task<OrderDataModel> TakeOrderAsync(int orderId, int executorId);
+
+        Task<List<OrderDataModel>> GetRatingOrdersAsync();
+
+        Task CancelOrderAsync(int orderId);
+
+        Task<OrderDataModel> SubscribeOrderAsync(int orderId);
+
+        Task<OrderDataModel> UnsubscribeOrderAsync(int orderId);
 
         #endregion
 

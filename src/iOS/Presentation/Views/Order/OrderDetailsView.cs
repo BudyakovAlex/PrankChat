@@ -54,14 +54,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 			set.Bind(takeOrderButton)
 	            .For(v => v.Hidden)
-	            .To(vm => vm.IsAvailebleTakeOrder)
+	            .To(vm => vm.IsTakeOrderAvailable)
 	            .WithConversion<NegateBooleanValueConverter>();
 
 			set.Bind(subscriptionButton)
 				.To(vm => vm.SubscribeTheOrderCommand);
 
+			set.Bind(subscriptionButton)
+	            .For(v => v.Hidden)
+	            .To(vm => vm.IsSubscribeAvailable)
+	            .WithConversion<NegateBooleanValueConverter>();
+
 			set.Bind(unsubscriptionButton)
 				.To(vm => vm.UnsubscribeOrderCommand);
+
+			set.Bind(unsubscriptionButton)
+	            .For(v => v.Hidden)
+	            .To(vm => vm.IsUnsubscribeAvailable)
+	            .WithConversion<NegateBooleanValueConverter>();
 
 			set.Bind(executorImageView)
 				.For(v => v.DownsampleWidth)
@@ -95,6 +105,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 			set.Bind(cancelVideoButton)
 				.To(vm => vm.CancelOrderCommand);
+
+			set.Bind(cancelVideoButton)
+	            .For(v => v.Hidden)
+	            .To(vm => vm.IsUserCustomer)
+	            .WithConversion<NegateBooleanValueConverter>();
 
 			set.Bind(acceptButton)
 				.To(vm => vm.UnsubscribeOrderCommand);
