@@ -7,6 +7,9 @@ using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.ApplicationServices.Storages;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
@@ -17,6 +20,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
     {
         private readonly IDialogService _dialogService;
         private readonly IPlatformService _platformService;
+        private readonly IStorageService _storageService;
 
         private string _profileName;
         private string _description;
@@ -25,6 +29,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private string _completedOrdersValue;
         private string _subscriptionsValue;
         private string _subscribersValue;
+        private string _profilePhotoUrl;
 
         public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(async () =>
         {
@@ -50,7 +55,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             set => SetProperty(ref _profileName, value);
         }
 
-        public string ProfilePhotoUrl { get; } = "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+        public string ProfilePhotoUrl
+        {
+            get => _profilePhotoUrl;
+            set => SetProperty(ref _profilePhotoUrl, value);
+        }
 
         public string Description
         {
@@ -90,25 +99,38 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
 
-        public ProfileViewModel(INavigationService navigationService, IDialogService dialogService, IPlatformService platformService) : base(navigationService)
+        public ProfileViewModel(INavigationService navigationService,
+                                IDialogService dialogService,
+                                IPlatformService platformService,
+                                IStorageService storageService) : base(navigationService)
         {
             _dialogService = dialogService;
             _platformService = platformService;
-
-            ProfileName = "Adria";
-            Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
-            Price = "100 000 ₽";
-            OrdersValue = "200";
-            CompletedOrdersValue = "10";
-            SubscribersValue = "1k";
-            SubscriptionsValue = "100";
+            _storageService = storageService;
         }
 
         public override async Task Initialize()
         {
             await base.Initialize();
 
+            InitializeProfile();
+
             await InitializePublications();
+        }
+
+        private void InitializeProfile()
+        {
+            var user = _storageService.User;
+
+            ProfileName = user.Name;
+            ProfilePhotoUrl = user.Avatar ?? "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+            Price = user.Balance.ToPriceUIString();
+            OrdersValue = 1000.ToUICountString();
+            CompletedOrdersValue = 1900.ToUICountString();
+            SubscribersValue = 1123.ToUICountString();
+            SubscriptionsValue = 112312122.ToUICountString();
+
+            Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
         }
 
         private Task InitializePublications()

@@ -109,7 +109,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                         x.Title,
                         x.StreamUri,
                         x.ViewsCount,
-                        new DateTime(2018, 4, 24),
+                        new DateTime(2020, 1, 15),
                         x.RepostsCount,
                         x.ShareUri));
 

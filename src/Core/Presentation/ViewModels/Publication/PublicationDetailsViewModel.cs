@@ -1,6 +1,7 @@
 ﻿using System;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
@@ -22,9 +23,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string CommentatorPhotoUrl { get; } = "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
 
-        public string CommentDateText => $"{_commentDate}";
+        public string CommentDateText => _commentDate.ToUITimeAgoString();
 
-        public string NumberOfCommentText => $"{_numberOfComments}";
+        public string NumberOfCommentText => _numberOfComments.ToUICountString();
 
         #endregion
 

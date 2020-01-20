@@ -5,6 +5,7 @@ using FFImageLoading.Transformations;
 using FFImageLoading.Work;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
@@ -46,9 +47,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #endregion
 
-        public string PriceValue { get; set; } = "10 000 ₽";
+        public string PriceValue { get; set; } = 10000D.ToPriceUIString();
 
-        public string TimeValue { get; set; } = "22 : 12 : 11";
+        public string TimeValue { get; set; } = DateTime.Now.ToUITimeWithSpaceString();
 
         public MvxAsyncCommand TakeOrderCommand => new MvxAsyncCommand(OnTakeOrderAsync);
 

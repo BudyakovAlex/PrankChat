@@ -6,6 +6,7 @@ using MvvmCross;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
@@ -30,7 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #region Video
 
-        public string VideoInformationText => $"{_numberOfViews} просмотров {_publicationDate.ToShortDateString()} месяцев назад";
+        public string VideoInformationText => $"{_numberOfViews.ToUICountViewsString()} {_publicationDate.ToUITimeAgoString()}";
 
         public string VideoName { get; set; } = "Name video one";
 
@@ -47,7 +48,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #endregion
 
-        public string NumberOfLikesText => $"{Resources.Like} {_numberOfLikes}";
+        public string NumberOfLikesText => $"{Resources.Like} {_numberOfLikes.ToUICountString()}";
 
         #region Commands
 
