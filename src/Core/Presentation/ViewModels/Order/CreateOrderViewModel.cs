@@ -49,8 +49,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             set => _currencySign = value;
         }
 
-        private long _price;
-        public long Price
+        private long? _price;
+        public long? Price
         {
             get => _price;
             set
@@ -109,7 +109,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     Description = Description,
                     AutoProlongation = IsExecutorHidden,
                     ActiveFor = (int) (CompletedDateValue.Value - DateTime.Now).TotalDays,
-                    Price = Price,
+                    Price = Price.Value,
                 };
 
                 var newOrder = await _apiService.CreateOrderAsync(createOrderModel);

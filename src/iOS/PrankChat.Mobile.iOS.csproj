@@ -234,6 +234,8 @@
     <Compile Include="PlatformBusinessServices\VideoPlayerService.cs" />
     <Compile Include="PlatformBusinessServices\VideoPlayer.cs" />
     <Compile Include="Presentation\Converters\NegateBooleanValueConverter.cs" />
+    <Compile Include="Presentation\Converters\DateFormatConverter.cs" />
+    <Compile Include="Infrastructure\DateFormats.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
