@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,8 +9,10 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -23,24 +26,33 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private readonly IApiService _apiService;
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
+        private readonly ISettingsService _settingsService;
         private readonly IMvxLog _mvxLog;
+        private readonly Dictionary<string, DateFilterType> _dateFilterTypeTitleMap;
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
-            set => SetProperty(ref _selectedPublicationType, value);
+            set
+            {
+                SetProperty(ref _selectedPublicationType, value);
+                LoadPublicationsCommand.ExecuteAsync().FireAndForget();
+            }
         }
 
         private string _activeFilterName;
-        private int _currentlyPlayingItem;
-
         public string ActiveFilterName
         {
             get => _activeFilterName;
-            set => SetProperty(ref _activeFilterName, value);
+            set
+            {
+                SetProperty(ref _activeFilterName, value);
+                LoadPublicationsCommand.ExecuteAsync().FireAndForget();
+            }
         }
 
+        private int _currentlyPlayingItem;
         public int CurrentlyPlayingItem
         {
             get => _currentlyPlayingItem;
@@ -51,7 +63,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterAsync);
 
-        public MvxAsyncCommand LoadPublicationsCommand => new MvxAsyncCommand(OnLoadPublicationsAsync);
+        public MvxAsyncCommand LoadPublicationsCommand => new MvxAsyncCommand(async () =>
+        {
+            _dateFilterTypeTitleMap.TryGetValue(ActiveFilterName, out var dateFilterType);
+            await OnLoadPublicationsAsync(SelectedPublicationType, dateFilterType);
+        });
 
         public PublicationsViewModel(
             INavigationService navigationService,
@@ -59,13 +75,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             IApiService apiService,
             IPlatformService platformService,
             IVideoPlayerService videoPlayerService,
+            ISettingsService settingsService,
             IMvxLog mvxLog) : base(navigationService)
         {
             _dialogService = dialogService;
             _apiService = apiService;
             _platformService = platformService;
             _videoPlayerService = videoPlayerService;
+            _settingsService = settingsService;
             _mvxLog = mvxLog;
+
+            _dateFilterTypeTitleMap = new Dictionary<string, DateFilterType>
+            {
+                { Resources.Publication_Tab_Filter_Day, DateFilterType.Day },
+                { Resources.Publication_Tab_Filter_Week, DateFilterType.Week},
+                { Resources.Publication_Tab_Filter_Month, DateFilterType.Month },
+                { Resources.Publication_Tab_Filter_Quarter, DateFilterType.Quarter },
+                { Resources.Publication_Tab_Filter_HalfYear, DateFilterType.HalfYear },
+            };
         }
 
         public override Task Initialize()
@@ -110,50 +137,39 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             ActiveFilterName = selectedFilter;
         }
 
-        private async Task OnLoadPublicationsAsync()
+        private async Task OnLoadPublicationsAsync(PublicationType publicationType, DateFilterType dateFilterType)
         {
             try
             {
                 IsBusy = true;
 
-                var videoBundle = await _apiService.GetVideoFeedAsync();
+                VideoMetadataBundleDataModel videoBundle = null;
 
-                if (videoBundle?.Data?.Count > 0)
+                switch (publicationType)
                 {
-                    Items.Clear();
+                    case PublicationType.Popular:
+                        videoBundle = await _apiService.GetPopularVideoFeedAsync(dateFilterType);
+                        break;
+
+                    case PublicationType.Actual:
+                        videoBundle = await _apiService.GetActualVideoFeedAsync(dateFilterType);
+                        break;
+
+                    case PublicationType.MyFeed:
+                        if (_settingsService.User != null)
+                        {
+                            videoBundle = await _apiService.GetMyVideoFeedAsync(_settingsService.User.Id, dateFilterType);
+                        }
+                        break;
                 }
 
-                var publicationViewModels = videoBundle.Data.Select(x =>
-                    new PublicationItemViewModel(
-                        NavigationService,
-                        _dialogService,
-                        _platformService,
-                        _videoPlayerService,
-                        "Name one",
-                        "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                        x.Title,
-                        x.StreamUri,
-                        x.ViewsCount,
-                        new DateTime(2018, 4, 24),
-                        x.RepostsCount,
-                        x.ShareUri));
+                await SetVideoListAsync(videoBundle);
 
-      //Items.AddRange(publicationViewModels);
-                var firstModel = publicationViewModels.ToList()[0];
-                firstModel.VideoUrl = "https://prankchat-dev.s3.us-east-2.amazonaws.com/videos/2/b110cf26e059f101deb955564b014332.mp4";
-                var secondModel = publicationViewModels.ToList()[1];
-                secondModel.VideoUrl = "https://prankchat-dev.s3.us-east-2.amazonaws.com/videos/3/cb5ee50f054879b7f13e0b41fa8f270b.mp4";
-                var thirdModel = publicationViewModels.ToList()[1];
-                thirdModel.VideoUrl = "https://www.dhs.gov/xlibrary/videos/17_0728_NPPD_active-shooter-awareness.mp4";
-
-                Items.Add(firstModel);
-                Items.Add(secondModel);
-                Items.Add(firstModel);
-                Items.Add(secondModel);
-                Items.Add(firstModel);
-                Items.Add(secondModel);
-                Items.Add(firstModel);
-                Items.Add(secondModel);
+                var firstVideo = Items.FirstOrDefault();
+                if (firstVideo != null)
+                {
+                    _videoPlayerService.Play(firstVideo.VideoUrl);
+                }
             }
             catch (Exception ex)
             {
@@ -164,6 +180,49 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             {
                 IsBusy = false;
             }
+        }
+
+        private async Task SetVideoListAsync(VideoMetadataBundleDataModel videoBundle)
+        {
+            if (Items.Count > 0)
+            {
+                await InvokeOnMainThreadAsync(Items.Clear);
+            }
+
+            if (videoBundle.Data == null)
+                return;
+
+            var publicationViewModels = videoBundle.Data.Select(x =>
+                new PublicationItemViewModel(
+                    NavigationService,
+                    _dialogService,
+                    _platformService,
+                    _videoPlayerService,
+                    "Name one",
+                    "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                    x.Title,
+                    x.StreamUri,
+                    x.ViewsCount,
+                    x.CreatedAt.DateTime,
+                    x.RepostsCount,
+                    x.ShareUri));
+
+            await InvokeOnMainThreadAsync(() => Items.SwitchTo(publicationViewModels));
+            //var firstModel = publicationViewModels.ToList()[0];
+            //firstModel.VideoUrl = "https://prankchat-dev.s3.us-east-2.amazonaws.com/videos/2/b110cf26e059f101deb955564b014332.mp4";
+            //var secondModel = publicationViewModels.ToList()[1];
+            //secondModel.VideoUrl = "https://prankchat-dev.s3.us-east-2.amazonaws.com/videos/3/cb5ee50f054879b7f13e0b41fa8f270b.mp4";
+            //var thirdModel = publicationViewModels.ToList()[1];
+            //thirdModel.VideoUrl = "https://www.dhs.gov/xlibrary/videos/17_0728_NPPD_active-shooter-awareness.mp4";
+
+            //Items.Add(firstModel);
+            //Items.Add(secondModel);
+            //Items.Add(firstModel);
+            //Items.Add(secondModel);
+            //Items.Add(firstModel);
+            //Items.Add(secondModel);
+            //Items.Add(firstModel);
+            //Items.Add(secondModel);
         }
     }
 }

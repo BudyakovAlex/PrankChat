@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MvvmCross;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;

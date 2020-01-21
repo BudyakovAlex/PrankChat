@@ -233,7 +233,6 @@
     </Compile>
     <Compile Include="Presentation\Converters\NegateBooleanValueConverter.cs" />
     <Compile Include="Presentation\Converters\DateFormatConverter.cs" />
-    <Compile Include="Infrastructure\DateFormats.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
   </ItemGroup>

@@ -37,7 +37,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Publications
 
-        Task<VideoMetadataBundleDataModel> GetVideoFeedAsync();
+        Task<VideoMetadataBundleDataModel> GetPopularVideoFeedAsync(DateFilterType dateFilterType);
+
+        Task<VideoMetadataBundleDataModel> GetActualVideoFeedAsync(DateFilterType dateFilterType);
+
+        Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int userId, DateFilterType dateFilterType);
 
         #endregion
 

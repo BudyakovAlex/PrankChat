@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Configuration;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 
@@ -103,9 +105,22 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Publications
 
-        public async Task<VideoMetadataBundleDataModel> GetVideoFeedAsync()
+        public async Task<VideoMetadataBundleDataModel> GetPopularVideoFeedAsync(DateFilterType dateFilterType)
         {
-            var videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>("videos", false, IncludeType.User);
+            var videoMetadataBundle =
+                await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?popular=true&date_to={dateFilterType.GetDateString()}", false, IncludeType.User);
+            return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
+        }
+
+        public async Task<VideoMetadataBundleDataModel> GetActualVideoFeedAsync(DateFilterType dateFilterType)
+        {
+            var videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?actual=true&date_to={dateFilterType.GetDateString()}", false, IncludeType.User);
+            return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
+        }
+
+        public async Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int userId, DateFilterType dateFilterType)
+        {
+            var videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?user_id={userId}&date_to={dateFilterType.GetDateString()}", false, IncludeType.User);
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 

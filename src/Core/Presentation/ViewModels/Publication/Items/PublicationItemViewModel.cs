@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Input;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;

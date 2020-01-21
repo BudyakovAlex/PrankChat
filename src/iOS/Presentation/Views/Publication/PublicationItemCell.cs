@@ -34,6 +34,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             if (service.Player.IsPlaying)
                 return;
 
+            service.Stop();
             service.Player.SetPlatformVideoPlayerContainer(_avPlayerViewController);
             service.Play(ViewModel.VideoUrl);
         }

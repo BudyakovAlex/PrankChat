@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -28,6 +29,9 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         [JsonProperty(PropertyName = "share_url")]
         public string ShareUri { get; set; }
+
+        [JsonProperty(PropertyName = "created_at")]
+        public DateTimeOffset CreatedAt { get; set; }
 
         public Dictionary<string, UserApiModel> User { get; set; }
     }

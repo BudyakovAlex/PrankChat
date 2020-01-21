@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using Foundation;
 using MvvmCross.Platforms.Ios.Binding.Views;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
@@ -16,6 +15,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         public PublicationTableSource(UITableView tableView) : base(tableView)
         {
+            UseAnimations = true;
         }
 
         public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
@@ -46,13 +46,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
         {
-            if (item is PublicationItemViewModel viewModel)
-            {
-                var cell = (PublicationItemCell)tableView.DequeueReusableCell(PublicationItemCell.CellId);
-                return cell;
-            }
-
-            return null;
+            return tableView.DequeueReusableCell(PublicationItemCell.CellId);
         }
 
         private void PlayFirstCompletelyVisibleVideoItem()
