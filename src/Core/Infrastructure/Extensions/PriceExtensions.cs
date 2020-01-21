@@ -1,10 +1,14 @@
-﻿namespace PrankChat.Mobile.Core.Infrastructure.Extensions
+﻿using PrankChat.Mobile.Core.Presentation.Localization;
+
+namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
     public static class PriceExtensions
     {
-        public static string ToPriceUIString(this double price)
+        private const string FormatForPrice = "#,#.#";
+
+        public static string ToPriceString(this double price)
         {
-            return price.ToString("#,#.# ₽").Replace(',', ' ');
+            return price.ToString($"{FormatForPrice} {Resources.currency}").Replace(',', ' ');
         }
     }
 }

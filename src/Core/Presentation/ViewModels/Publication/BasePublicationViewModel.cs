@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #region Video
 
-        public string VideoInformationText => $"{_numberOfViews.ToUICountViewsString()} {_publicationDate.ToUITimeAgoString()}";
+        public string VideoInformationText => $"{_numberOfViews.ToCountViewsString()} {_publicationDate.ToTimeAgoString()}";
 
         public string VideoName { get; set; } = "Name video one";
 
@@ -48,7 +48,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #endregion
 
-        public string NumberOfLikesText => $"{Resources.Like} {_numberOfLikes.ToUICountString()}";
+        public string NumberOfLikesText => $"{Resources.Like} {_numberOfLikes.ToCountString()}";
 
         #region Commands
 

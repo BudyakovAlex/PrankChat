@@ -47,9 +47,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #endregion
 
-        public string PriceValue { get; set; } = 10000D.ToPriceUIString();
+        public string PriceValue { get; set; } = 10000D.ToPriceString();
 
-        public string TimeValue { get; set; } = DateTime.Now.ToUITimeWithSpaceString();
+        public string TimeValue { get; set; } = DateTime.Now.ToTimeWithSpaceString();
 
         public MvxAsyncCommand TakeOrderCommand => new MvxAsyncCommand(OnTakeOrderAsync);
 

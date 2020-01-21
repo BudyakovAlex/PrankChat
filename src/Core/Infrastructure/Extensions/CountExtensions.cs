@@ -1,28 +1,34 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using PrankChat.Mobile.Core.Presentation.Localization;
 
 namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
     public static class CountExtensions
     {
-        public static string ToUICountString(this int count)
+        private const string FormatForCount = "0.#";
+        private const string FormatForCountWithFraction = "#,0";
+        private const double BigLimitForCount = 1000000D;
+        private const double SmallLimitForCount = 1000D;
+
+        public static string ToCountString(this int count)
         {
-            return ((long)count).ToUICountString();
+            return ((long)count).ToCountString();
         }
 
-        public static string ToUICountString(this long count)
+        public static string ToCountString(this long count)
         {
-            if (count >= 1000000)
-                return (count / 1000000D).ToString("0.#") + Resources.count_millions;
-            if (count >= 1000)
-                return (count / 1000D).ToString("0.#") + Resources.count_thousand;
-            return count.ToString("#,0");
+            if (count >= BigLimitForCount)
+                return (count / BigLimitForCount).ToString(FormatForCount) + Resources.count_millions;
+            if (count >= SmallLimitForCount)
+                return (count / SmallLimitForCount).ToString(FormatForCount) + Resources.count_thousand;
+            return count.ToString(FormatForCountWithFraction);
         }
 
-        public static string ToUICountViewsString(this long count)
+        public static string ToCountViewsString(this long count)
         {
-            char lastChar = count.ToString().Last();
-            return count.ToUICountString() + " " + (lastChar == '1' ? Resources.count_view :
+            char lastChar = count.ToString().LastOrDefault();
+            return count.ToCountString() + " " + (lastChar == '1' ? Resources.count_view :
                                                    new[] { '2', '3', '4' }.Contains(lastChar) ? Resources.count_of_viewing : Resources.count_views);
         }
     }

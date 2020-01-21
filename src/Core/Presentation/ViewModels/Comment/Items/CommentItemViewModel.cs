@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items
 
         public string Comment { get; }
 
-        public string DateText => _date.ToUITimeAgoString();
+        public string DateText => _date.ToTimeAgoString();
 
         public CommentItemViewModel(string profileName, string profilePhotoUrl, string comment, DateTime date)
         {

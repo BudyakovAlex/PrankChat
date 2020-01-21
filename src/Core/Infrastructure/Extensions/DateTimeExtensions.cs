@@ -1,13 +1,14 @@
 ﻿using System;
-using System.IO.Compression;
-using System.Linq;
 using PrankChat.Mobile.Core.Presentation.Localization;
 
 namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
     public static class DateTimeExtension
     {
-        public static string ToUITimeAgoString(this DateTime dateTime)
+        private const int DaysInWeek = 7;
+        private const string FormatDateWithSpace = "dd : hh : mm";
+
+        public static string ToTimeAgoString(this DateTime dateTime)
         {
             var date = DateTime.UtcNow - dateTime;
             string afterCount;
@@ -15,9 +16,9 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             if (date.Days != 0)
             {
                 count = date.Days;
-                if (count >= 7)
+                if (count >= DaysInWeek)
                 {
-                    count /= 7;
+                    count /= DaysInWeek;
                     afterCount = Resources.weeks_short;
                 }
                 else
@@ -39,12 +40,12 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                 afterCount = Resources.seconds_short;
             }
 
-            return count + afterCount;
+            return $"{count}{afterCount}";
         }
 
-        public static string ToUITimeWithSpaceString(this DateTime dateTime)
+        public static string ToTimeWithSpaceString(this DateTime dateTime)
         {
-            return dateTime.ToString("dd : hh : mm");
+            return dateTime.ToString(FormatDateWithSpace);
         }
     }
 }

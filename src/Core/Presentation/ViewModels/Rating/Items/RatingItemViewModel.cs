@@ -18,7 +18,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 
         public string ProfilePhotoUrl { get; }
 
-        public string TimeText => _orderTime.ToUITimeWithSpaceString();
+        public string TimeText => _orderTime.ToTimeWithSpaceString();
 
         public string PriceText { get; }
 
@@ -37,7 +37,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
             _navigatiobService = navigatiobService;
             OrderTitle = orderTitle;
             ProfilePhotoUrl = profilePhotoUrl;
-            PriceText = priceText.ToPriceUIString();
+            PriceText = priceText.ToPriceString();
             _orderTime = time;
 
             Likes = "1000";
