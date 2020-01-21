@@ -8,7 +8,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 
         public static string ToPriceString(this double price)
         {
-            return price.ToString($"{FormatForPrice} {Resources.currency}").Replace(',', ' ');
+            return price.ToString($"{FormatForPrice} {Resources.Currency}").Replace(',', ' ');
         }
     }
 }

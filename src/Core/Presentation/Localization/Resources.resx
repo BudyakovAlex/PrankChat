@@ -534,38 +534,47 @@
   <data name="OrderDetailsView_TakeOrderQuestion" xml:space="preserve">
     <value>Вы уверены что хотите стать исполнителем данного заказа?</value>
   </data>
-  <data name="seconds_short" xml:space="preserve">
+  <data name="Seconds_Short" xml:space="preserve">
     <value>сек.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="minutes_short" xml:space="preserve">
+  <data name="Minutes_Short" xml:space="preserve">
     <value>мин.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="hours_short" xml:space="preserve">
+  <data name="Hours_Short" xml:space="preserve">
     <value>ч.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="days_short" xml:space="preserve">
+  <data name="Days_Short" xml:space="preserve">
     <value>д.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="weeks_short" xml:space="preserve">
+  <data name="Weeks_Short" xml:space="preserve">
     <value>нед.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="count_thousand" xml:space="preserve">
+  <data name="Count_Thousand" xml:space="preserve">
     <value>k</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="count_millions" xml:space="preserve">
+  <data name="Count_Millions" xml:space="preserve">
     <value>m</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="currency" xml:space="preserve">
+  <data name="Currency" xml:space="preserve">
     <value>₽</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="count_view" xml:space="preserve">
+  <data name="Count_View" xml:space="preserve">
     <value>просмотр</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="count_views" xml:space="preserve">
+  <data name="Count_Views" xml:space="preserve">
     <value>просмотров</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="count_of_viewing" xml:space="preserve">
+  <data name="Count_Of_Viewing" xml:space="preserve">
     <value>просмотра</value>
     <comment>Fuzzy</comment>
   </data>

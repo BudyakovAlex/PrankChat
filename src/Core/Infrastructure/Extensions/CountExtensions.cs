@@ -19,17 +19,17 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
         public static string ToCountString(this long count)
         {
             if (count >= BigLimitForCount)
-                return (count / BigLimitForCount).ToString(FormatForCount) + Resources.count_millions;
+                return (count / BigLimitForCount).ToString(FormatForCount) + Resources.Count_Millions;
             if (count >= SmallLimitForCount)
-                return (count / SmallLimitForCount).ToString(FormatForCount) + Resources.count_thousand;
+                return (count / SmallLimitForCount).ToString(FormatForCount) + Resources.Count_Thousand;
             return count.ToString(FormatForCountWithFraction);
         }
 
         public static string ToCountViewsString(this long count)
         {
             char lastChar = count.ToString().LastOrDefault();
-            return count.ToCountString() + " " + (lastChar == '1' ? Resources.count_view :
-                                                   new[] { '2', '3', '4' }.Contains(lastChar) ? Resources.count_of_viewing : Resources.count_views);
+            return count.ToCountString() + " " + (lastChar == '1' ? Resources.Count_View :
+                                                   new[] { '2', '3', '4' }.Contains(lastChar) ? Resources.Count_Of_Viewing : Resources.Count_Views);
         }
     }
 }

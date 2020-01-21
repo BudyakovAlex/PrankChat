@@ -198,45 +198,45 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         /// <summary>
         ///   Looks up a localized string similar to m.
         /// </summary>
-        public static string count_millions {
+        public static string Count_Millions {
             get {
-                return ResourceManager.GetString("count_millions", resourceCulture);
+                return ResourceManager.GetString("Count_Millions", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to просмотра.
         /// </summary>
-        public static string count_of_viewing {
+        public static string Count_Of_Viewing {
             get {
-                return ResourceManager.GetString("count_of_viewing", resourceCulture);
+                return ResourceManager.GetString("Count_Of_Viewing", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to k.
         /// </summary>
-        public static string count_thousand {
+        public static string Count_Thousand {
             get {
-                return ResourceManager.GetString("count_thousand", resourceCulture);
+                return ResourceManager.GetString("Count_Thousand", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to просмотр.
         /// </summary>
-        public static string count_view {
+        public static string Count_View {
             get {
-                return ResourceManager.GetString("count_view", resourceCulture);
+                return ResourceManager.GetString("Count_View", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to просмотров.
         /// </summary>
-        public static string count_views {
+        public static string Count_Views {
             get {
-                return ResourceManager.GetString("count_views", resourceCulture);
+                return ResourceManager.GetString("Count_Views", resourceCulture);
             }
         }
         
@@ -315,18 +315,18 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         /// <summary>
         ///   Looks up a localized string similar to ₽.
         /// </summary>
-        public static string currency {
+        public static string Currency {
             get {
-                return ResourceManager.GetString("currency", resourceCulture);
+                return ResourceManager.GetString("Currency", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to д..
         /// </summary>
-        public static string days_short {
+        public static string Days_Short {
             get {
-                return ResourceManager.GetString("days_short", resourceCulture);
+                return ResourceManager.GetString("Days_Short", resourceCulture);
             }
         }
         
@@ -369,9 +369,9 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         /// <summary>
         ///   Looks up a localized string similar to ч..
         /// </summary>
-        public static string hours_short {
+        public static string Hours_Short {
             get {
-                return ResourceManager.GetString("hours_short", resourceCulture);
+                return ResourceManager.GetString("Hours_Short", resourceCulture);
             }
         }
         
@@ -459,9 +459,9 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         /// <summary>
         ///   Looks up a localized string similar to мин..
         /// </summary>
-        public static string minutes_short {
+        public static string Minutes_Short {
             get {
-                return ResourceManager.GetString("minutes_short", resourceCulture);
+                return ResourceManager.GetString("Minutes_Short", resourceCulture);
             }
         }
         
@@ -1350,9 +1350,9 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         /// <summary>
         ///   Looks up a localized string similar to сек..
         /// </summary>
-        public static string seconds_short {
+        public static string Seconds_Short {
             get {
-                return ResourceManager.GetString("seconds_short", resourceCulture);
+                return ResourceManager.GetString("Seconds_Short", resourceCulture);
             }
         }
         
@@ -1404,9 +1404,9 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         /// <summary>
         ///   Looks up a localized string similar to нед..
         /// </summary>
-        public static string weeks_short {
+        public static string Weeks_Short {
             get {
-                return ResourceManager.GetString("weeks_short", resourceCulture);
+                return ResourceManager.GetString("Weeks_Short", resourceCulture);
             }
         }
     }

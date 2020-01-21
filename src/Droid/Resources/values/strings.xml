@@ -139,15 +139,37 @@
     <string name="Attention">"Внимание!"</string>
     <string name="OrderDetailsView_TakeOrderTitle">"Взять заказ"</string>
     <string name="OrderDetailsView_TakeOrderQuestion">"Вы уверены что хотите стать исполнителем данного заказа?"</string>
-    <string name="seconds_short">"сек."</string>
-    <string name="minutes_short">"мин."</string>
-    <string name="hours_short">"ч."</string>
-    <string name="days_short">"д."</string>
-    <string name="weeks_short">"нед."</string>
-    <string name="count_thousand">"k"</string>
-    <string name="count_millions">"m"</string>
-    <string name="currency">"₽"</string>
-    <string name="count_view">"просмотр"</string>
-    <string name="count_views">"просмотров"</string>
-    <string name="count_of_viewing">"просмотра"</string>
+
+    <!-- Fuzzy -->
+    <string name="Seconds_Short">"сек."</string>
+
+    <!-- Fuzzy -->
+    <string name="Minutes_Short">"мин."</string>
+
+    <!-- Fuzzy -->
+    <string name="Hours_Short">"ч."</string>
+
+    <!-- Fuzzy -->
+    <string name="Days_Short">"д."</string>
+
+    <!-- Fuzzy -->
+    <string name="Weeks_Short">"нед."</string>
+
+    <!-- Fuzzy -->
+    <string name="Count_Thousand">"k"</string>
+
+    <!-- Fuzzy -->
+    <string name="Count_Millions">"m"</string>
+
+    <!-- Fuzzy -->
+    <string name="Currency">"₽"</string>
+
+    <!-- Fuzzy -->
+    <string name="Count_View">"просмотр"</string>
+
+    <!-- Fuzzy -->
+    <string name="Count_Views">"просмотров"</string>
+
+    <!-- Fuzzy -->
+    <string name="Count_Of_Viewing">"просмотра"</string>
 </resources>

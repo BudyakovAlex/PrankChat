@@ -19,27 +19,27 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                 if (count >= DaysInWeek)
                 {
                     count /= DaysInWeek;
-                    afterCount = Resources.weeks_short;
+                    afterCount = Resources.Weeks_Short;
                 }
                 else
                 {
-                    afterCount = Resources.days_short;
+                    afterCount = Resources.Days_Short;
                 }
             }
             else if (date.Hours != 0)
             {
                 count = date.Hours;
-                afterCount = Resources.hours_short;
+                afterCount = Resources.Hours_Short;
             }
             else if (date.Minutes != 0)
             {
                 count = date.Minutes;
-                afterCount = Resources.minutes_short;
+                afterCount = Resources.Minutes_Short;
             }
             else
             {
                 count = date.Seconds;
-                afterCount = Resources.seconds_short;
+                afterCount = Resources.Seconds_Short;
             }
 
             return $"{count}{afterCount}";
