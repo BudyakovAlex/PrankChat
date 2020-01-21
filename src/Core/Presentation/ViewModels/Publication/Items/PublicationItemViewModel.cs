@@ -10,8 +10,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
 {
     public class PublicationItemViewModel : BasePublicationViewModel
     {
-        public IVideoPlayerService VideoPlayerService { get; }
-
         public PublicationItemViewModel(INavigationService navigationService,
                                         IDialogService dialogService,
                                         IPlatformService platformService,
@@ -27,6 +25,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
             : base(navigationService,
                     dialogService,
                     platformService,
+                    videoPlayerService,
                     profileName,
                     profilePhotoUrl,
                     videoName,
@@ -36,25 +35,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                     numberOfLikes,
                     shareLink)
         {
-            VideoPlayerService = videoPlayerService;
         }
 
         public MvxAsyncCommand ShowDetailsCommand => new MvxAsyncCommand(() => NavigationService.ShowDetailsPublicationView());
-
-        public MvxCommand ToggleSound => new MvxCommand(OnToggleSoundCommand);
-
-        private bool _soundMuted;
-        public bool SoundMuted
-        {
-            get => _soundMuted;
-            set => SetProperty(ref _soundMuted, value);
-        }
-
-        private void OnToggleSoundCommand()
-        {
-            SoundMuted = !SoundMuted;
-
-            VideoPlayerService.Muted = SoundMuted;
-        }
     }
 }

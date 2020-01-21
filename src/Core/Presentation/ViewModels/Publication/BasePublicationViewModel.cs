@@ -4,6 +4,7 @@ using MvvmCross;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
@@ -35,6 +36,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public string PlaceholderImageUrl { get; set; } = "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg";
 
         public string VideoUrl { get; set; }
+
+        public IVideoPlayerService VideoPlayerService { get; }
 
         private bool _hasSoundTurnOn;
         public bool HasSoundTurnOn
@@ -70,6 +73,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public BasePublicationViewModel(INavigationService navigationService,
                                         IDialogService dialogService,
                                         IPlatformService platformService,
+                                        IVideoPlayerService videoPlayerService,
                                         string profileName,
                                         string profilePhotoUrl,
                                         string videoName,
@@ -82,6 +86,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         {
             _dialogService = dialogService;
             _platformService = platformService;
+            VideoPlayerService = videoPlayerService;
 
             ProfileName = profileName;
             ProfilePhotoUrl = profilePhotoUrl;
@@ -136,6 +141,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private void OnToggleSound()
         {
             HasSoundTurnOn = !HasSoundTurnOn;
+
+            VideoPlayerService.Muted = !HasSoundTurnOn;
         }
     }
 }

@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -54,22 +53,18 @@
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUy-yv-U1B" customClass="VideoView">
                         <rect key="frame" x="16" y="98.5" width="378" height="216"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_sound_muted" translatesAutoresizingMaskIntoConstraints="NO" id="xaG-Fz-qCn">
-                                <rect key="frame" x="351" y="189.5" width="16" height="15.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="15.800000000000001" id="SZW-YS-VSx"/>
-                                    <constraint firstAttribute="width" constant="15.800000000000001" id="rOt-wM-EqP"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="216" id="1XT-xl-VPp"/>
-                            <constraint firstAttribute="bottom" secondItem="xaG-Fz-qCn" secondAttribute="bottom" constant="11" id="rsx-eq-tkw"/>
-                            <constraint firstAttribute="trailing" secondItem="xaG-Fz-qCn" secondAttribute="trailing" constant="11" id="vEo-Er-oAX"/>
                         </constraints>
                     </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_sound_muted" translatesAutoresizingMaskIntoConstraints="NO" id="xaG-Fz-qCn">
+                        <rect key="frame" x="368" y="288" width="16" height="15.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15.800000000000001" id="SZW-YS-VSx"/>
+                            <constraint firstAttribute="width" constant="15.800000000000001" id="rOt-wM-EqP"/>
+                        </constraints>
+                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Лайк 1к" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kam-d9-irM">
                         <rect key="frame" x="46" y="327.5" width="44.5" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -92,7 +87,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bc-Te-k2D">
-                        <rect key="frame" x="378" y="324" width="14" height="22"/>
+                        <rect key="frame" x="364" y="317" width="28" height="36"/>
                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                         <state key="normal" image="ic_bookmark"/>
                     </button>
@@ -110,6 +105,7 @@
                     </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="xaG-Fz-qCn" firstAttribute="bottom" secondItem="QUy-yv-U1B" secondAttribute="bottom" constant="-11" id="2Me-27-7Lx"/>
                     <constraint firstItem="RUb-8g-dpe" firstAttribute="leading" secondItem="Kam-d9-irM" secondAttribute="trailing" constant="19" id="2h0-Zu-daa"/>
                     <constraint firstItem="wLe-9a-Ah1" firstAttribute="leading" secondItem="RUb-8g-dpe" secondAttribute="trailing" constant="9" id="74v-Ov-gap"/>
                     <constraint firstItem="kAU-Il-kDS" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="15" id="BSw-x9-Cx1"/>
@@ -133,6 +129,7 @@
                     <constraint firstAttribute="trailing" secondItem="5WK-d7-xgu" secondAttribute="trailing" constant="16" id="psH-ZY-ayA"/>
                     <constraint firstItem="3bc-Te-k2D" firstAttribute="centerY" secondItem="BXs-ef-I9v" secondAttribute="centerY" id="tqg-En-gWu"/>
                     <constraint firstItem="n9k-fi-DBx" firstAttribute="leading" secondItem="kAU-Il-kDS" secondAttribute="trailing" constant="8" id="tve-vl-Iir"/>
+                    <constraint firstItem="xaG-Fz-qCn" firstAttribute="leading" secondItem="QUy-yv-U1B" secondAttribute="trailing" constant="-26" id="wqe-lR-a1B"/>
                     <constraint firstItem="QUy-yv-U1B" firstAttribute="top" secondItem="5WK-d7-xgu" secondAttribute="bottom" constant="8" id="x7U-Es-jDk"/>
                     <constraint firstItem="5WK-d7-xgu" firstAttribute="top" secondItem="kAU-Il-kDS" secondAttribute="bottom" constant="9" id="xET-TF-CpC"/>
                 </constraints>
