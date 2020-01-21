@@ -16,7 +16,7 @@
             android:layout_height="85dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:MvxBind="Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath ProfilePhotoUrl, Mode = OneTime" />
+            app:MvxBind="Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath ProfilePhotoUrl, Mode = OneWay" />
         <TextView
             android:id="@+id/profile_description"
             android:layout_width="0dp"
@@ -31,7 +31,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/applicationBlack"
-            app:MvxBind="Text Description, Mode=OneTime" />
+            app:MvxBind="Text Description, Mode=OneWay" />
         <TextView
             android:id="@+id/profile_price"
             android:layout_width="0dp"
@@ -45,7 +45,7 @@
             android:maxLines="1"
             android:textSize="12sp"
             android:textColor="@color/description"
-            app:MvxBind="Text Price, Mode=OneTime" />
+            app:MvxBind="Text Price, Mode=OneWay" />
 
         <!-- Buttons section row -->
 
