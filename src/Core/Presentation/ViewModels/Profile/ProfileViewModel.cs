@@ -29,8 +29,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private string _subscribersValue;
         private string _profilePhotoUrl;
 
-        private bool _isFirstInitialize = true;
-
         public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(async () =>
         {
             var items = new string[]
@@ -49,7 +47,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public ICommand ShowWithdrawalCommand => new MvxAsyncCommand(NavigationService.ShowWithdrawalView);
 
-        public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(InitializeProfile);
+        public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
 
         public string ProfileName
         {
@@ -117,31 +115,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         {
             await base.Initialize();
 
+            await UpdateProfileCommand.ExecuteAsync();
+
             await InitializePublications();
         }
 
-        public override void ViewAppearing()
+        private async Task OnLoadProfileAsync()
         {
-            base.ViewAppearing();
-
-            if (_isFirstInitialize == false)
-                return;
-
-            _isFirstInitialize = false;
-
-            UpdateProfileCommand.ExecuteAsync().FireAndForget();
-        }
-
-        private async Task InitializeProfile()
-        {
-            await InvokeOnMainThreadAsync(() => IsBusy = true);
-
-            await _apiService.GetCurrentUser();
-
-            var user = _storageService.User;
-
-            if (user != null)
+            try
             {
+                IsBusy = true;
+
+                await _apiService.GetCurrentUser();
+
+                var user = _storageService.User;
+
+                if (user == null)
+                    return;
+
                 ProfileName = user.Name;
                 ProfilePhotoUrl = user.Avatar ?? "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
                 Price = user.Balance.ToPriceString();
@@ -151,8 +142,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 SubscriptionsValue = 112312122.ToCountString();
                 Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
             }
-
-            await InvokeOnMainThreadAsync(() => IsBusy = false);
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private Task InitializePublications()

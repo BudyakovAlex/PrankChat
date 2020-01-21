@@ -22,7 +22,9 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                     afterCount = Resources.weeks_short;
                 }
                 else
+                {
                     afterCount = Resources.days_short;
+                }
             }
             else if (date.Hours != 0)
             {
