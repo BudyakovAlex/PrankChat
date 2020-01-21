@@ -1,15 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
-using FFImageLoading.Transformations;
-using FFImageLoading.Work;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Storages;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
@@ -21,6 +18,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly IDialogService _dialogService;
         private readonly IPlatformService _platformService;
         private readonly IStorageService _storageService;
+        private readonly IApiService _apiService;
 
         private string _profileName;
         private string _description;
@@ -30,6 +28,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private string _subscriptionsValue;
         private string _subscribersValue;
         private string _profilePhotoUrl;
+
+        private bool _isFirstInitialize = true;
 
         public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(async () =>
         {
@@ -48,6 +48,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         public ICommand ShowRefillCommand => new MvxAsyncCommand(NavigationService.ShowRefillView);
 
         public ICommand ShowWithdrawalCommand => new MvxAsyncCommand(NavigationService.ShowWithdrawalView);
+
+        public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(InitializeProfile);
 
         public string ProfileName
         {
@@ -102,35 +104,55 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         public ProfileViewModel(INavigationService navigationService,
                                 IDialogService dialogService,
                                 IPlatformService platformService,
-                                IStorageService storageService) : base(navigationService)
+                                IStorageService storageService,
+                                IApiService apiService) : base(navigationService)
         {
             _dialogService = dialogService;
             _platformService = platformService;
             _storageService = storageService;
+            _apiService = apiService;
         }
 
         public override async Task Initialize()
         {
             await base.Initialize();
 
-            InitializeProfile();
-
             await InitializePublications();
         }
 
-        private void InitializeProfile()
+        public override void ViewAppearing()
         {
+            base.ViewAppearing();
+
+            if (_isFirstInitialize == false)
+                return;
+
+            _isFirstInitialize = false;
+
+            UpdateProfileCommand.ExecuteAsync().FireAndForget();
+        }
+
+        private async Task InitializeProfile()
+        {
+            await InvokeOnMainThreadAsync(() => IsBusy = true);
+
+            await _apiService.GetCurrentUser();
+
             var user = _storageService.User;
 
-            ProfileName = user.Name;
-            ProfilePhotoUrl = user.Avatar ?? "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
-            Price = user.Balance.ToPriceUIString();
-            OrdersValue = 1000.ToUICountString();
-            CompletedOrdersValue = 1900.ToUICountString();
-            SubscribersValue = 1123.ToUICountString();
-            SubscriptionsValue = 112312122.ToUICountString();
+            if (user != null)
+            {
+                ProfileName = user.Name;
+                ProfilePhotoUrl = user.Avatar ?? "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+                Price = user.Balance.ToPriceString();
+                OrdersValue = 1000.ToCountString();
+                CompletedOrdersValue = 1900.ToCountString();
+                SubscribersValue = 1123.ToCountString();
+                SubscriptionsValue = 112312122.ToCountString();
+                Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
+            }
 
-            Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
+            await InvokeOnMainThreadAsync(() => IsBusy = false);
         }
 
         private Task InitializePublications()

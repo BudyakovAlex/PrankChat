@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
+using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -33,11 +34,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             set.Bind(profileImageView)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)
-                .Mode(MvxBindingMode.OneTime);
+                .Mode(MvxBindingMode.OneWay);
 
             set.Bind(profileDescriptionLabel)
                 .To(vm => vm.Description)
-                .Mode(MvxBindingMode.OneTime);
+                .Mode(MvxBindingMode.OneWay);
 
             set.Bind(refillButton)
                 .To(vm => vm.ShowRefillCommand);
@@ -62,6 +63,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             set.Bind(PublicationTableSource)
                 .To(vm => vm.Items);
+
+            set.Bind(progressBar).
+                For(v => v.Hidden)
+                .To(vm => vm.IsBusy)
+                .WithConversion<MvxVisibilityValueConverter>();
 
             set.Apply();
         }

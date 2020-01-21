@@ -159,6 +159,19 @@
             app:layout_constraintEnd_toEndOf="@id/profile_subscriptions_value"
             android:text="@string/ProfileView_Subscriptions_Subtitle"
             style="@style/Theme.PrankChat.TextView.ProfileView.TitleLabel" />
+
+        <ProgressBar
+            android:id="@+id/profile_progress_bar"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            style="@style/Theme.PrankChat.ProgressBar.Accent"
+            app:MvxBind="Visibility Visibility(IsBusy)"
+            />
+
     </android.support.constraint.ConstraintLayout>
     <android.support.design.widget.TabLayout
         android:id="@+id/publication_type_tab_layout"
