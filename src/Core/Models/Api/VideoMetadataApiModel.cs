@@ -15,13 +15,13 @@ namespace PrankChat.Mobile.Core.Models.Api
         public string Status { get; set; }
 
         [JsonProperty(PropertyName = "views_count")]
-        public long ViewsCount { get; set; }
+        public long? ViewsCount { get; set; }
 
         [JsonProperty(PropertyName = "likes_count")]
-        public long LikesCount { get; set; }
+        public long? LikesCount { get; set; }
 
         [JsonProperty(PropertyName = "reposts_count")]
-        public long RepostsCount { get; set; }
+        public long? RepostsCount { get; set; }
 
         [JsonProperty(PropertyName = "stream_url")]
         public string StreamUri { get; set; }

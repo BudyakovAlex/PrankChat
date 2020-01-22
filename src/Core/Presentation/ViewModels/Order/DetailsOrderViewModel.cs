@@ -75,6 +75,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsVideoLoadAvailable => _order?.Status == OrderStatusType.InWork;
 
+        public bool IsExecutorAvailable => _order?.Executor != null;
+
+        #region Commands
+
         public MvxAsyncCommand TakeOrderCommand => new MvxAsyncCommand(OnTakeOrderAsync);
 
         public MvxAsyncCommand SubscribeTheOrderCommand => new MvxAsyncCommand(OnSubscribeOrderAsync);
@@ -94,6 +98,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public MvxAsyncCommand ArqueOrderCommand => new MvxAsyncCommand(OnArqueOrderAsync);
 
         public MvxAsyncCommand AcceptOrderCommand => new MvxAsyncCommand(OnAcceptOrderAsync);
+
+        #endregion
 
         public OrderDetailsViewModel(INavigationService navigationService,
                                     IApiService apiService,
@@ -208,9 +214,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             //    permissionsStatus.TryGetValue(Permission.Storage, out storageStatus);
             //}
 
-            await CrossMedia.Current.Initialize();
-            var file = await CrossMedia.Current.PickVideoAsync();
+            try
+            {
+                IsBusy = true;
 
+                await CrossMedia.Current.Initialize();
+                var file = await CrossMedia.Current.PickVideoAsync();
+
+                await _apiService.SendVideoAsync(_orderId, file.Path, _order?.Title, _order?.Description);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private Task OnArqueOrderAsync()

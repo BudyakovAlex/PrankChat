@@ -10,13 +10,13 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         public long Count { get; set; }
 
-        [JsonProperty(PropertyName = "per_page")]
+        [JsonProperty("per_page")]
         public int PerPage { get; set; }
 
-        [JsonProperty(PropertyName = "current_page")]
+        [JsonProperty("current_page")]
         public long CurrentPage { get; set; }
 
-        [JsonProperty(PropertyName = "total_pages")]
+        [JsonProperty("total_pages")]
         public long TotalPages { get; set; }
 
         public Dictionary<string, string> Links { get; set; }

@@ -17,13 +17,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		{
 			var set = this.CreateBindingSet<OrderDetailsView, OrderDetailsViewModel>();
 
-			set.Bind(videoImageView)
-				.For(v => v.ImagePath)
-				.To(vm => vm.VideoUrl);
+			#region Customer
 
 			set.Bind(profileImageView)
-				.For(v => v.DownsampleWidth)
-				.To(vm => vm.DownsampleWidth);
+	            .For(v => v.DownsampleWidth)
+	            .To(vm => vm.DownsampleWidth);
 
 			set.Bind(profileImageView)
 				.For(v => v.Transformations)
@@ -35,6 +33,29 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 			set.Bind(profileNameLabel)
 				.To(vm => vm.ProfileName);
+
+			#endregion
+
+			#region LoadVideo
+
+			set.Bind(downloadButton)
+	            .To(vm => vm.LoadVideoCommand);
+
+			set.Bind(downloadButton)
+	            .For("Visibility")
+	            .To(vm => vm.IsVideoLoadAvailable)
+	            .WithConversion<MvxVisibilityValueConverter>();
+
+			set.Bind(downloadVideotextLabel)
+	            .For("Visibility")
+	            .To(vm => vm.IsVideoLoadAvailable)
+	            .WithConversion<MvxVisibilityValueConverter>();
+
+			#endregion
+
+			set.Bind(videoImageView)
+				.For(v => v.ImagePath)
+				.To(vm => vm.VideoUrl);
 
 			set.Bind(videoNameLabel)
 				.To(vm => vm.VideoName);
@@ -72,32 +93,38 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 	            .To(vm => vm.IsUnsubscribeAvailable)
 	            .WithConversion<MvxVisibilityValueConverter>();
 
+			#region Executor
+
 			set.Bind(executorImageView)
-				.For(v => v.DownsampleWidth)
-				.To(vm => vm.DownsampleWidth);
+	            .For(v => v.DownsampleWidth)
+	            .To(vm => vm.DownsampleWidth);
 
 			set.Bind(executorImageView)
 				.For(v => v.Transformations)
 				.To(vm => vm.Transformations);
 
 			set.Bind(executorImageView)
-	            .For(v => v.ImagePath)
-	            .To(vm => vm.ExecutorPhotoUrl);
+				.For(v => v.ImagePath)
+				.To(vm => vm.ExecutorPhotoUrl);
 
 			set.Bind(executorNameLabel)
-				.To(vm => vm.ExecutorName);
+	            .To(vm => vm.ExecutorName);
 
 			set.Bind(startDateLabel)
-				.To(vm => vm.StartOrderDate);
+	            .To(vm => vm.StartOrderDate);
+
+			set.Bind(executorView)
+	            .For("Visibility")
+	            .To(vm => vm.IsExecutorAvailable)
+	            .WithConversion<MvxVisibilityValueConverter>();
+
+			#endregion
 
 			set.Bind(noButton)
 				.To(vm => vm.NoCommand);
 
 			set.Bind(yesButton)
 				.To(vm => vm.YesCommand);
-
-			set.Bind(downloadButton)
-				.To(vm => vm.LoadVideoCommand);
 
 			set.Bind(executeVideoButton)
 				.To(vm => vm.ExecuteOrderCommand);

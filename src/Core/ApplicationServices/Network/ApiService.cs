@@ -119,9 +119,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Video
 
-        public async Task SendVideoAsync(string orderId, string path, string title)
+        public async Task<VideoMetadataDataModel> SendVideoAsync(int orderId, string path, string title, string description)
         {
-            var dataApiModel = await _client.Post<DataApiModel<UserApiModel>>("videos");
+            var loadVideoApiModel = new LoadVideoApiModel()
+            {
+                OrderId = orderId,
+                FilePath = path,
+                Title = title,
+                Description = description,
+            };
+            var videoMetadataApiModel = await _client.PostFile<LoadVideoApiModel, DataApiModel<VideoMetadataApiModel>>("videos", loadVideoApiModel);
+            return MappingConfig.Mapper.Map<VideoMetadataDataModel>(videoMetadataApiModel.Data);
         }
 
         #endregion

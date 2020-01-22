@@ -49,7 +49,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Video
 
-        Task SendVideoAsync(string orderId, string path, string title);
+        Task<VideoMetadataDataModel> SendVideoAsync(int orderId, string path, string title, string description);
 
         #endregion
 
