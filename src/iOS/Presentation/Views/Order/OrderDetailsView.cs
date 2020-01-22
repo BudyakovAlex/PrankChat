@@ -52,7 +52,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				.To(vm => vm.TakeOrderCommand);
 
 			set.Bind(takeOrderButton)
-	            .For(v => v.Hidden)
+	            .For("Visibility")
 	            .To(vm => vm.IsTakeOrderAvailable)
 	            .WithConversion<MvxVisibilityValueConverter>();
 
@@ -60,7 +60,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				.To(vm => vm.SubscribeTheOrderCommand);
 
 			set.Bind(subscriptionButton)
-	            .For(v => v.Hidden)
+	            .For("Visibility")
 	            .To(vm => vm.IsSubscribeAvailable)
 	            .WithConversion<MvxVisibilityValueConverter>();
 
@@ -68,7 +68,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				.To(vm => vm.UnsubscribeOrderCommand);
 
 			set.Bind(unsubscriptionButton)
-	            .For(v => v.Hidden)
+	            .For("Visibility")
 	            .To(vm => vm.IsUnsubscribeAvailable)
 	            .WithConversion<MvxVisibilityValueConverter>();
 
@@ -97,7 +97,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				.To(vm => vm.YesCommand);
 
 			set.Bind(downloadButton)
-				.To(vm => vm.UnsubscribeOrderCommand);
+				.To(vm => vm.LoadVideoCommand);
 
 			set.Bind(executeVideoButton)
 				.To(vm => vm.ExecuteOrderCommand);
@@ -106,7 +106,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				.To(vm => vm.CancelOrderCommand);
 
 			set.Bind(cancelVideoButton)
-	            .For(v => v.Hidden)
+	            .For("Visibility")
 	            .To(vm => vm.IsUserCustomer)
 	            .WithConversion<MvxVisibilityValueConverter>();
 
@@ -117,7 +117,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				.To(vm => vm.ArqueOrderCommand);
 
 			set.Bind(progressBarView)
-                .For(v => v.Hidden)
+                .For("Visibility")
                 .To(vm => vm.IsBusy)
                 .WithConversion<MvxVisibilityValueConverter>();
 

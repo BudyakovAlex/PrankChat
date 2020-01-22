@@ -102,6 +102,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 IsBusy = true;
 
                 var orders = await _apiService.GetOrdersAsync();
+                if (Items.Count != 0)
+                    Items.Clear();
 
                 var orderItemViewModel = orders.Select(x =>
                     new OrderItemViewModel(

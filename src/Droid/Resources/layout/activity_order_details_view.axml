@@ -133,7 +133,7 @@
                     android:layout_gravity="center_horizontal"
                     android:background="@null"
                     android:src="@drawable/ic_download"
-                    app:MvxBind="Click DownloadOrderCommand"/>
+                    app:MvxBind="Click LoadVideoCommand"/>
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
