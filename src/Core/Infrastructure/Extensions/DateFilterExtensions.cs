@@ -44,9 +44,10 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
         {
             var days = 0;
             days += DateTime.DaysInMonth(DateTime.UtcNow.Year, DateTime.UtcNow.Month);
-            for (var i = 0; i < monthAgo; i++)
+            for (var i = 1; i < monthAgo; i++)
             {
-                days += DateTime.DaysInMonth(DateTime.UtcNow.Year, DateTime.UtcNow.Month - (i + 1));
+                var timePeriod = DateTime.UtcNow - TimeSpan.FromDays(days);
+                days += DateTime.DaysInMonth(timePeriod.Year, timePeriod.Month);
             }
 
             return days;

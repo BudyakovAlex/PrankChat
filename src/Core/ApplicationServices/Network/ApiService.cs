@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
@@ -9,6 +7,7 @@ using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
 {
@@ -55,9 +54,29 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<OrderDataModel>(newOrder.Data);
         }
 
-        public async Task<List<OrderDataModel>> GetOrdersAsync()
+        public async Task<List<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType)
         {
-            var data = await _client.Get<DataApiModel<List<OrderApiModel>>>("orders", includes: IncludeType.Customer);
+            string endpoint = "orders";
+            switch(orderFilterType)
+            {
+                case OrderFilterType.New:
+                    endpoint = $"{endpoint}?is_active=1";
+                    break;
+
+                case OrderFilterType.InProgress:
+                    endpoint = $"{endpoint}?status=in_work";
+                    break;
+
+                case OrderFilterType.MyOwn:
+                    if (_settingsService.User == null)
+                        return new List<OrderDataModel>();
+
+                    endpoint = $"{endpoint}?user_id={_settingsService.User.Id}";
+                    break;
+            }
+
+
+            var data = await _client.Get<DataApiModel<List<OrderApiModel>>>(endpoint, includes: IncludeType.Customer);
             return MappingConfig.Mapper.Map<List<OrderDataModel>>(data.Data);
         }
 
@@ -108,19 +127,19 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<VideoMetadataBundleDataModel> GetPopularVideoFeedAsync(DateFilterType dateFilterType)
         {
             var videoMetadataBundle =
-                await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?popular=true&date_to={dateFilterType.GetDateString()}", false, IncludeType.User);
+                await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?popular=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
         public async Task<VideoMetadataBundleDataModel> GetActualVideoFeedAsync(DateFilterType dateFilterType)
         {
-            var videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?actual=true&date_to={dateFilterType.GetDateString()}", false, IncludeType.User);
+            var videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?actual=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
         public async Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int userId, DateFilterType dateFilterType)
         {
-            var videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?user_id={userId}&date_to={dateFilterType.GetDateString()}", false, IncludeType.User);
+            var videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?user_id={userId}&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 

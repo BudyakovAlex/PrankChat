@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +10,8 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messengers;
@@ -24,6 +27,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly IMvxMessenger _mvxMessenger;
         private readonly ISettingsService _settingsService;
         private readonly IMvxLog _mvxLog;
+        private readonly Dictionary<string, OrderFilterType> _orderFilterTypeTitleMap;
 
         private MvxSubscriptionToken _newOrderMessengertoken;
 
@@ -33,12 +37,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public string ActiveFilterName
         {
             get => _activeFilterName;
-            set => SetProperty(ref _activeFilterName, value);
+            set
+            {
+                SetProperty(ref _activeFilterName, value);
+                LoadOrdersCommand.ExecuteAsync().FireAndForget();
+            }
         }
 
         public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterAsync);
 
-        public MvxAsyncCommand LoadOrdersCommand => new MvxAsyncCommand(OnLoadOrdersAsync);
+        public MvxAsyncCommand LoadOrdersCommand => new MvxAsyncCommand(async () =>
+        {
+            _orderFilterTypeTitleMap.TryGetValue(ActiveFilterName, out var orderFilterType);
+            await OnLoadOrdersAsync(orderFilterType);
+        });
 
         public OrdersViewModel(INavigationService navigationService,
                                IDialogService dialogService,
@@ -53,6 +65,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             _mvxMessenger = mvxMessenger;
             _mvxLog = mvxLog;
             _settingsService = settingsService;
+
+            _orderFilterTypeTitleMap = new Dictionary<string, OrderFilterType>
+            {
+                { Resources.OrdersView_Filter_AllTasks, OrderFilterType.All },
+                { Resources.OrdersView_Filter_NewTasks, OrderFilterType.New },
+                { Resources.OrdersView_Filter_CurrentTasks, OrderFilterType.InProgress },
+                { Resources.OrdersView_Filter_MyTasks, OrderFilterType.MyOwn }
+            };
         }
 
         public override Task Initialize()
@@ -85,7 +105,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 Resources.OrdersView_Filter_AllTasks,
                 Resources.OrdersView_Filter_NewTasks,
                 Resources.OrdersView_Filter_CurrentTasks,
-                Resources.OrdersView_Filter_MyTasks,
+                Resources.OrdersView_Filter_MyTasks
             });
 
             if (string.IsNullOrWhiteSpace(selectedFilter) || selectedFilter == Resources.Cancel)
@@ -94,13 +114,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             ActiveFilterName = selectedFilter;
         }
 
-        private async Task OnLoadOrdersAsync()
+        private async Task OnLoadOrdersAsync(OrderFilterType orderFilterType)
         {
             try
             {
                 IsBusy = true;
 
-                var orders = await _apiService.GetOrdersAsync();
+                var orders = await _apiService.GetOrdersAsync(orderFilterType);
 
                 var orderItemViewModel = orders.Select(x =>
                     new OrderItemViewModel(
@@ -114,7 +134,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                         x.Status ?? OrderStatusType.None,
                         x.Customer?.Id));
 
-                Items.AddRange(orderItemViewModel);
+                Items.SwitchTo(orderItemViewModel);
             }
             catch (Exception ex)
             {

@@ -93,13 +93,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 { Resources.Publication_Tab_Filter_Quarter, DateFilterType.Quarter },
                 { Resources.Publication_Tab_Filter_HalfYear, DateFilterType.HalfYear },
             };
+
         }
 
         public override Task Initialize()
         {
             base.Initialize();
 
-            ActiveFilterName = Resources.Publication_Tab_Filter_Day;
+            ActiveFilterName = Resources.Publication_Tab_Filter_Month;
 
             LoadPublicationsCommand.ExecuteAsync().FireAndForget();
 
@@ -163,7 +164,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                         break;
                 }
 
-                await SetVideoListAsync(videoBundle);
+                SetVideoList(videoBundle);
 
                 var firstVideo = Items.FirstOrDefault();
                 if (firstVideo != null)
@@ -182,13 +183,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             }
         }
 
-        private async Task SetVideoListAsync(VideoMetadataBundleDataModel videoBundle)
+        private void SetVideoList(VideoMetadataBundleDataModel videoBundle)
         {
-            if (Items.Count > 0)
-            {
-                await InvokeOnMainThreadAsync(Items.Clear);
-            }
-
             if (videoBundle.Data == null)
                 return;
 
@@ -207,22 +203,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     x.RepostsCount,
                     x.ShareUri));
 
-            await InvokeOnMainThreadAsync(() => Items.SwitchTo(publicationViewModels));
-            //var firstModel = publicationViewModels.ToList()[0];
-            //firstModel.VideoUrl = "https://prankchat-dev.s3.us-east-2.amazonaws.com/videos/2/b110cf26e059f101deb955564b014332.mp4";
-            //var secondModel = publicationViewModels.ToList()[1];
-            //secondModel.VideoUrl = "https://prankchat-dev.s3.us-east-2.amazonaws.com/videos/3/cb5ee50f054879b7f13e0b41fa8f270b.mp4";
-            //var thirdModel = publicationViewModels.ToList()[1];
-            //thirdModel.VideoUrl = "https://www.dhs.gov/xlibrary/videos/17_0728_NPPD_active-shooter-awareness.mp4";
-
-            //Items.Add(firstModel);
-            //Items.Add(secondModel);
-            //Items.Add(firstModel);
-            //Items.Add(secondModel);
-            //Items.Add(firstModel);
-            //Items.Add(secondModel);
-            //Items.Add(firstModel);
-            //Items.Add(secondModel);
+            Items.SwitchTo(publicationViewModels);
         }
     }
 }

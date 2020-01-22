@@ -57,5 +57,6 @@
     <Folder Include="Presentation\ViewModels\Dialogs\" />
     <Folder Include="ApplicationServices\Platforms\" />
     <Folder Include="Presentation\Messengers\" />
+    <Folder Include="Models\Data\FilterTypes\" />
   </ItemGroup>
 </Project>

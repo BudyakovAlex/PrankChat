@@ -194,7 +194,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             if (includes == null || includes.Length == 0)
                 return apiPoint;
 
-            return $"{apiPoint}?include={string.Join(",", includes)}".ToLowerInvariant();
+            var startChar = apiPoint.Contains("?") ? "&" : "?";
+            return $"{apiPoint}{startChar}include={string.Join(",", includes)}".ToLowerInvariant();
         }
     }
 }
