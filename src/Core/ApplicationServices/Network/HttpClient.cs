@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -71,6 +72,20 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public Task<TResult> Post<TResult>(string endpoint, bool exceptionThrowingEnabled = false) where TResult : new()
         {
             var request = new RestRequest(endpoint, Method.POST);
+            return ExecuteTask<TResult>(request, true, exceptionThrowingEnabled);
+        }
+
+        public Task<TResult> PostFile<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : LoadVideoApiModel where TResult : new()
+        {
+            var request = new RestRequest(endpoint, Method.POST);
+
+            request.AddParameter("order_id", item.OrderId);
+            request.AddParameter("title", item.Title);
+            request.AddParameter("description", item.Description);
+
+            request.AddFile("video", item.FilePath);
+            request.AlwaysMultipartFormData = true;
+
             return ExecuteTask<TResult>(request, true, exceptionThrowingEnabled);
         }
 

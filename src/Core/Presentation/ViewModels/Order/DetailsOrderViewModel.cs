@@ -7,6 +7,7 @@ using FFImageLoading.Work;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.ViewModels;
+using Plugin.Media;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
@@ -48,9 +49,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #region Executor
 
-        public string ExecutorPhotoUrl => _order?.Executor?.FirstOrDefault()?.Avatar;
+        public string ExecutorPhotoUrl => _order?.Executor?.Avatar;
 
-        public string ExecutorName => _order?.Executor?.FirstOrDefault()?.Name;
+        public string ExecutorName => _order?.Executor?.Name;
 
         public string StartOrderDate => _order?.CreatedAt?.ToShortDateString();
 
@@ -62,7 +63,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsUserCustomer => _order?.Customer?.Id == _settingsService.User?.Id;
 
-        public bool IsUserExecutor => _order?.Executor?.FirstOrDefault()?.Id == _settingsService.User?.Id;
+        public bool IsUserExecutor => _order?.Executor?.Id == _settingsService.User?.Id;
 
         public bool IsUserListener => !IsUserCustomer && !IsUserExecutor;
 
@@ -71,6 +72,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public bool IsSubscribeAvailable => IsUserListener;
 
         public bool IsUnsubscribeAvailable => IsUserListener;
+
+        public bool IsVideoLoadAvailable => _order?.Status == OrderStatusType.InWork;
+
+        public bool IsExecutorAvailable => _order?.Executor != null;
+
+        #region Commands
 
         public MvxAsyncCommand TakeOrderCommand => new MvxAsyncCommand(OnTakeOrderAsync);
 
@@ -82,7 +89,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public MvxAsyncCommand NoCommand => new MvxAsyncCommand(OnNoAsync);
 
-        public MvxAsyncCommand DownloadOrderCommand => new MvxAsyncCommand(OnDownloadOrderAsync);
+        public MvxAsyncCommand LoadVideoCommand => new MvxAsyncCommand(OnLoadVideoAsync);
 
         public MvxAsyncCommand ExecuteOrderCommand => new MvxAsyncCommand(OnExecuteOrderAsync);
 
@@ -91,6 +98,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public MvxAsyncCommand ArqueOrderCommand => new MvxAsyncCommand(OnArqueOrderAsync);
 
         public MvxAsyncCommand AcceptOrderCommand => new MvxAsyncCommand(OnAcceptOrderAsync);
+
+        #endregion
 
         public OrderDetailsViewModel(INavigationService navigationService,
                                     IApiService apiService,
@@ -143,7 +152,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             if (!result)
                 return;
 
-            var lol = await _apiService.TakeOrderAsync(_orderId, _settingsService.User.Id);
+            var order = await _apiService.TakeOrderAsync(_orderId);
+            if (order != null)
+            {
+                _order.Status = OrderStatusType.InWork;
+                _order.Executor = _settingsService.User;
+                _dialogService.ShowToast("You have successfully taken the order!");
+            }
         }
 
         private async Task OnSubscribeOrderAsync()
@@ -186,9 +201,32 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private Task OnDownloadOrderAsync()
+        private async Task OnLoadVideoAsync()
         {
-            return Task.CompletedTask;
+            // todo: create service for Permissions and Photo
+            //var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
+            //var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+
+            //if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
+            //{
+            //    var permissionsStatus = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Camera | Permission.Storage);
+            //    permissionsStatus.TryGetValue(Permission.Camera, out cameraStatus);
+            //    permissionsStatus.TryGetValue(Permission.Storage, out storageStatus);
+            //}
+
+            try
+            {
+                IsBusy = true;
+
+                await CrossMedia.Current.Initialize();
+                var file = await CrossMedia.Current.PickVideoAsync();
+
+                await _apiService.SendVideoAsync(_orderId, file.Path, _order?.Title, _order?.Description);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private Task OnArqueOrderAsync()

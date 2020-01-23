@@ -35,6 +35,6 @@ namespace PrankChat.Mobile.Core.Models.Api
         public DataApiModel<UserApiModel> Customer { get; set; }
 
         [JsonProperty("executor")]
-        public DataApiModel<List<UserApiModel>> Executor { get; set; }
+        public DataApiModel<UserApiModel> Executor { get; set; }
     }
 }

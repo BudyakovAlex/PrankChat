@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public UserDataModel Customer { get; set; }
 
-        public List<UserDataModel> Executor { get; set; }
+        public UserDataModel Executor { get; set; }
     }
 
 }

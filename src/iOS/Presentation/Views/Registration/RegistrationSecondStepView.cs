@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -47,9 +48,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
                 .To(vm => vm.UserRegistrationCommand);
 
             set.Bind(progressBar)
-                .For(v => v.Hidden)
+                .For(v => v.BindVisible())
                 .To(vm => vm.IsBusy)
-                .WithConversion<NegateBooleanValueConverter>();
+                .WithConversion<MvxVisibilityValueConverter>();
 
             set.Apply();
         }

@@ -86,14 +86,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<OrderDataModel>(data.Data);
         }
 
-        public async Task<OrderDataModel> TakeOrderAsync(int orderId, int executorId)
+        public async Task<OrderDataModel> TakeOrderAsync(int orderId)
         {
-            var takeOrderApiModel = new TakeOrderApiModel()
-            {
-                ExecutorId = executorId,
-            };
-
-            var data = await _client.Post<TakeOrderApiModel, DataApiModel<OrderApiModel>>($"orders/{orderId}/executor​/appoint", takeOrderApiModel);
+            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/executor​/appoint");
             return MappingConfig.Mapper.Map<OrderDataModel>(data.Data);
         }
 
@@ -155,5 +150,23 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         }
 
         #endregion
+
+        #region Video
+
+        public async Task<VideoMetadataDataModel> SendVideoAsync(int orderId, string path, string title, string description)
+        {
+            var loadVideoApiModel = new LoadVideoApiModel()
+            {
+                OrderId = orderId,
+                FilePath = path,
+                Title = title,
+                Description = description,
+            };
+            var videoMetadataApiModel = await _client.PostFile<LoadVideoApiModel, DataApiModel<VideoMetadataApiModel>>("videos", loadVideoApiModel);
+            return MappingConfig.Mapper.Map<VideoMetadataDataModel>(videoMetadataApiModel.Data);
+        }
+
+        #endregion
+
     }
 }

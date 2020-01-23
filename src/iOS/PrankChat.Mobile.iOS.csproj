@@ -49,7 +49,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodesignKey>iPhone Distribution: Alexey Sorochan (C7FL5MJ4D2)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignProvision>Ad-Hoc Provision Profile</CodesignProvision>
+    <CodesignProvision>Automatic:AdHoc</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -231,7 +231,6 @@
     <Compile Include="Presentation\Views\Share\ShareController.designer.cs">
       <DependentUpon>ShareController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Converters\NegateBooleanValueConverter.cs" />
     <Compile Include="Presentation\Converters\DateFormatConverter.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
@@ -266,6 +265,9 @@
       </PackageReference>
       <PackageReference Include="MvvmCross.Plugin.Visibility">
         <Version>6.4.2</Version>
+      </PackageReference>
+      <PackageReference Include="Xam.Plugin.Media">
+        <Version>4.0.1.5</Version>
       </PackageReference>
   </ItemGroup>
   <ItemGroup>

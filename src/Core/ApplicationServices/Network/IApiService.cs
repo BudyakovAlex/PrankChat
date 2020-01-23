@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<OrderDataModel> GetOrderDetailsAsync(int orderId);
 
-        Task<OrderDataModel> TakeOrderAsync(int orderId, int executorId);
+        Task<OrderDataModel> TakeOrderAsync(int orderId);
 
         Task<List<OrderDataModel>> GetRatingOrdersAsync();
 
@@ -51,5 +51,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         Task GetCurrentUser();
 
         #endregion
+
+        #region Video
+
+        Task<VideoMetadataDataModel> SendVideoAsync(int orderId, string path, string title, string description);
+
+        #endregion
+
     }
 }
