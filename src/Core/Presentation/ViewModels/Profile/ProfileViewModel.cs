@@ -136,10 +136,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 ProfileName = user.Name;
                 ProfilePhotoUrl = user.Avatar ?? "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
                 Price = user.Balance.ToPriceString();
-                OrdersValue = 1000.ToCountString();
-                CompletedOrdersValue = 1900.ToCountString();
-                SubscribersValue = 1123.ToCountString();
-                SubscriptionsValue = 112312122.ToCountString();
+                OrdersValue = user.OrdersExecuteCount.ToCountString();
+                CompletedOrdersValue = user.OrdersExecuteFinishedCount.ToCountString();
+                SubscribersValue = user.SubscribersCount.ToCountString();
+                SubscriptionsValue = user.SubscriptionsCount.ToCountString();
                 Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
             }
             finally

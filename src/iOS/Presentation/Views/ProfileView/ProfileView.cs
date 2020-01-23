@@ -64,8 +64,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             set.Bind(PublicationTableSource)
                 .To(vm => vm.Items);
 
-            set.Bind(progressBar).
-                For(v => v.Hidden)
+            set.Bind(progressBar)
+                .For(v => v.Hidden)
                 .To(vm => vm.IsBusy)
                 .WithConversion<MvxVisibilityValueConverter>();
 
