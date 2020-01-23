@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using PrankChat.Mobile.Core.Presentation.Localization;
 
 namespace PrankChat.Mobile.Core.Infrastructure.Extensions
@@ -41,7 +42,11 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 
         public static string ToCountViewsString(this long count)
         {
-            char lastChar = count.ToString().LastOrDefault();
+            var countString = count.ToString();
+            var lastTwoChars = long.Parse(countString.Substring(Math.Max(0, countString.Length - 2)));
+            if (lastTwoChars >= 11 && lastTwoChars <= 19)
+                return $"{count.ToCountString()} {Resources.Count_Views}";
+            var lastChar = count.ToString().LastOrDefault();
             return count.ToCountString() + " " + (lastChar == '1' ? Resources.Count_View :
                                                    new[] { '2', '3', '4' }.Contains(lastChar) ? Resources.Count_Of_Viewing : Resources.Count_Views);
         }
