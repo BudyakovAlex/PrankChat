@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -22,7 +23,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             set.Bind(resetPasswordButton).To(vm => vm.ResetPasswordCommand);
             set.Bind(emailTextField).To(vm => vm.EmailText);
             set.Bind(passwordTextField).To(vm => vm.PasswordText);
-            set.Bind(progressBar).For(v => v.Hidden).To(vm => vm.IsBusy).WithConversion<MvxVisibilityValueConverter>();
+            set.Bind(progressBar).For(v => v.BindVisible()).To(vm => vm.IsBusy);
             set.Bind(vkButton).To(vm => vm.LoginCommand).CommandParameter(nameof(LoginType.Vk));
             set.Bind(okButton).To(vm => vm.LoginCommand).CommandParameter(nameof(LoginType.Ok));
             set.Bind(facebookButton).To(vm => vm.LoginCommand).CommandParameter(nameof(LoginType.Facebook));

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Plugin.Visibility;
@@ -41,7 +42,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.CreateCommand);
 
             set.Bind(progressBar)
-                .For("Visibility")
+                .For(v => v.BindVisible())
                 .To(vm => vm.IsBusy)
                 .WithConversion<MvxVisibilityValueConverter>();
 

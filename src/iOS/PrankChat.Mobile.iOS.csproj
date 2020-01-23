@@ -47,8 +47,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignKey>iPhone Developer: Alexey Sorochan (KR99U2SW6N)</CodesignKey>
+    <CodesignKey>iPhone Distribution: Alexey Sorochan (C7FL5MJ4D2)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
+    <CodesignProvision>Automatic:AdHoc</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
