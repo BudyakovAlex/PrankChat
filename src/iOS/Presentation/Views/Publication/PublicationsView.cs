@@ -29,6 +29,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.To(vm => vm.SelectedPublicationType)
 				.WithConversion<PublicationTypeConverter>();
 
+            set.Bind(PublicationTableSource)
+                .For(v => v.Segment)
+                .To(vm => vm.SelectedPublicationType)
+                .WithConversion<PublicationTypeConverter>();
+
+            set.Bind(PublicationTableSource)
+                .For(v => v.FilterName)
+                .To(vm => vm.ActiveFilterName);
+
             set.Bind(filterContainerView.Tap())
                 .For(v => v.Command)
                 .To(vm => vm.OpenFilterCommand);

@@ -18,14 +18,37 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             UseAnimations = true;
         }
 
-        public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
+        private int _segment;
+        public int Segment
         {
+            get => _segment;
+            set
+            {
+                _segment = value;
+                _initialized = false;
+            }
+        }
+
+        private string _filterName;
+        public string FilterName
+        {
+            get => _filterName;
+            set
+            {
+                _filterName = value;
+                _initialized = false;
+            }
+        }
+
+        public override void CellDisplayingEnded(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
+        {
+            base.CellDisplayingEnded(tableView, cell, indexPath);
+
             if (_initialized)
                 return;
 
-            var cellToPlay = (PublicationItemCell)cell;
-            _previousCellToPlay = cellToPlay;
-            cellToPlay.PlayVideo();
+            PlayFirstCompletelyVisibleVideoItem();
+
             _initialized = true;
         }
 

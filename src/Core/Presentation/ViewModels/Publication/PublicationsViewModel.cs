@@ -165,12 +165,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 }
 
                 SetVideoList(videoBundle);
-
-                var firstVideo = Items.FirstOrDefault();
-                if (firstVideo != null)
-                {
-                    _videoPlayerService.Play(firstVideo.VideoUrl);
-                }
             }
             catch (Exception ex)
             {
