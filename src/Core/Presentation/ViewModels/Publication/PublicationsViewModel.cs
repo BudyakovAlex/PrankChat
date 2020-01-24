@@ -156,11 +156,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                         videoBundle = await _apiService.GetActualVideoFeedAsync(dateFilterType);
                         break;
 
-                    case PublicationType.MyFeed:
+                    case PublicationType.MyFeedComplete:
                         if (_settingsService.User != null)
-                        {
-                            videoBundle = await _apiService.GetMyVideoFeedAsync(_settingsService.User.Id, dateFilterType);
-                        }
+                            videoBundle = await _apiService.GetMyVideoFeedAsync(_settingsService.User.Id, publicationType, dateFilterType);
                         break;
                 }
 

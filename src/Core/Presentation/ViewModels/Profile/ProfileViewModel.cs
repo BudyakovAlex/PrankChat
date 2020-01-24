@@ -11,6 +11,9 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Models.Data;
+using System.Linq;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
@@ -30,6 +33,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private string _subscriptionsValue;
         private string _subscribersValue;
         private string _profilePhotoUrl;
+        private PublicationType _selectedPublicationType;
 
         public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(async () =>
         {
@@ -50,6 +54,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         public ICommand ShowWithdrawalCommand => new MvxAsyncCommand(NavigationService.ShowWithdrawalView);
 
         public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
+
+        public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(async () => await LoadVideoFeedAsync(SelectedPublicationType));
+
+        public PublicationType SelectedPublicationType
+        {
+            get => _selectedPublicationType;
+            set
+            {
+                SetProperty(ref _selectedPublicationType, value);
+                LoadVideoFeedAsync(value).FireAndForget();
+            }
+        }
 
         public string ProfileName
         {
@@ -120,8 +136,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             await base.Initialize();
 
             await UpdateProfileCommand.ExecuteAsync();
+        }
 
-            await InitializePublications();
+        public override void ViewDisappearing()
+        {
+            _videoPlayerService.Pause();
+
+            base.ViewDisappearing();
+        }
+
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
+
+            _videoPlayerService.Play();
         }
 
         private async Task OnLoadProfileAsync()
@@ -145,6 +173,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 SubscribersValue = user.SubscribersCount.ToCountString();
                 SubscriptionsValue = user.SubscriptionsCount.ToCountString();
                 Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
+
+                await LoadVideoFeedAsync(SelectedPublicationType);
             }
             finally
             {
@@ -152,51 +182,42 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
         }
 
-        private Task InitializePublications()
+        private async Task LoadVideoFeedAsync(PublicationType publicationType)
         {
-            Items.Add(new PublicationItemViewModel(
-                NavigationService,
-                _dialogService,
-                _platformService,
-                _videoPlayerService,
-                "Name one",
-                "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                "Name video one",
-                "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg",
-                134,
-                new System.DateTime(2018, 4, 24),
-                245,
-                ""));
+            try
+            {
+                IsBusy = true;
 
-            Items.Add(new PublicationItemViewModel(
-                NavigationService,
-                _dialogService,
-                _platformService,
-                _videoPlayerService,
-                "Name two",
-                "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                "Name video two Name video two Name video two Name video two Name video two Name video two Name video two",
-                "https://cdn.pixabay.com/photo/2016/11/30/09/27/hacker-1872291_960_720.jpg",
-                134,
-                new System.DateTime(2018, 4, 24),
-                245,
-                ""));
+                var videoBundle = await _apiService.GetMyVideoFeedAsync(_settingsService.User.Id, PublicationType.MyFeedComplete);
+                SetVideoList(videoBundle);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
 
-            Items.Add(new PublicationItemViewModel(
-                NavigationService,
-                _dialogService,
-                _platformService,
-                _videoPlayerService,
-                "Name three",
-                "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                "Name video three",
-                "https://images.pexels.com/photos/326055/pexels-photo-326055.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                134,
-                new System.DateTime(2018, 4, 24),
-                245,
-                ""));
+        private void SetVideoList(VideoMetadataBundleDataModel videoBundle)
+        {
+            if (videoBundle.Data == null)
+                return;
 
-            return Task.CompletedTask;
+            var publicationViewModels = videoBundle.Data.Select(x =>
+                new PublicationItemViewModel(
+                    NavigationService,
+                    _dialogService,
+                    _platformService,
+                    _videoPlayerService,
+                    "Name one",
+                    "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                    x.Title,
+                    x.StreamUri,
+                    x.ViewsCount,
+                    x.CreatedAt.DateTime,
+                    x.RepostsCount,
+                    x.ShareUri));
+
+            Items.SwitchTo(publicationViewModels);
         }
     }
 }

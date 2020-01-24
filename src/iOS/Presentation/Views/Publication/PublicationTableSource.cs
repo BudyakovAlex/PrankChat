@@ -40,16 +40,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             }
         }
 
-        public override void CellDisplayingEnded(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
+        public void Initialize()
         {
-            base.CellDisplayingEnded(tableView, cell, indexPath);
-
             if (_initialized)
                 return;
 
             PlayFirstCompletelyVisibleVideoItem();
 
             _initialized = true;
+        }
+
+        public override void CellDisplayingEnded(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
+        {
+            base.CellDisplayingEnded(tableView, cell, indexPath);
+
+            Initialize();
         }
 
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
@@ -79,11 +84,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 return;
 
             PublicationItemCell cellToPlay = null;
-            var visibleCells = indexPaths.Select(indexPath => TableView.CellAt(indexPath) as PublicationItemCell).ToList();
+            var visibleCellsCollection = indexPaths.Select(indexPath => TableView.CellAt(indexPath) as PublicationItemCell);
+            var visibleCells = visibleCellsCollection.ToList();
             var centralCellToPlay = visibleCells[indexPaths.Length / 2];
             var partiallyVisibleCells = new List<PublicationItemCell>();
             foreach (var visibleCell in visibleCells)
             {
+                if (visibleCell == null)
+                    continue;
+
                 if (IsCompletelyVisible(visibleCell))
                 {
                     cellToPlay = visibleCell;

@@ -1,7 +1,8 @@
 ﻿using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using MvvmCross.Plugin.Visibility;
+using MvvmCross.Platforms.Ios.Views;
+using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -15,7 +16,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
     [MvxTabPresentation(TabName = "Profile", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
     public partial class ProfileView : BaseTabbedView<ProfileViewModel>
     {
+        private MvxUIRefreshControl _refreshControl;
+
         public PublicationTableSource PublicationTableSource { get; private set; }
+
+        public override void ViewDidAppear(bool animated)
+        {
+            base.ViewDidAppear(animated);
+
+            PublicationTableSource.Initialize();
+        }
 
         protected override void SetupBinding()
         {
@@ -61,19 +71,34 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             set.Bind(subscriptionsValueLabel)
                 .To(vm => vm.SubscriptionsValue);
 
+            set.Bind(segmentedControl)
+                .For(v => v.SelectedSegment)
+                .To(vm => vm.SelectedPublicationType)
+                .WithConversion<PublicationTypeConverter>();
+
             set.Bind(PublicationTableSource)
                 .To(vm => vm.Items);
 
-            set.Bind(progressBar)
-                .For(v => v.Hidden)
-                .To(vm => vm.IsBusy)
-                .WithConversion<MvxVisibilityValueConverter>();
+            set.Bind(_refreshControl)
+                .For(v => v.IsRefreshing)
+                .To(vm => vm.IsBusy);
+
+            set.Bind(_refreshControl)
+                .For(v => v.RefreshCommand)
+                .To(vm => vm.UpdateProfileVideoCommand);
+
+            set.Bind(PublicationTableSource)
+                .For(v => v.Segment)
+                .To(vm => vm.SelectedPublicationType)
+                .WithConversion<PublicationTypeConverter>();
 
             set.Apply();
         }
 
         protected override void SetupControls()
         {
+            InitializeTableView();
+
             Title = ViewModel.ProfileName;
 
             NavigationItem.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton("ic_menu", ViewModel.ShowMenuCommand), false);
@@ -97,12 +122,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             });
 
             segmentedControl.SelectedSegment = 0;
+        }
 
+        private void InitializeTableView()
+        {
             PublicationTableSource = new PublicationTableSource(tableView);
             tableView.Source = PublicationTableSource;
             tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
             tableView.SetVideoListStyle(PublicationItemCell.EstimatedHeight);
             tableView.ContentInset = new UIEdgeInsets(10, 0, 0, 0);
+
+            _refreshControl = new MvxUIRefreshControl();
+            tableView.RefreshControl = _refreshControl;
         }
     }
 }

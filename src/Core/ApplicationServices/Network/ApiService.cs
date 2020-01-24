@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
 {
@@ -132,9 +133,32 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
-        public async Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int userId, DateFilterType dateFilterType)
+        public async Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
         {
-            var videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?user_id={userId}&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
+            var endpoint = "videos";
+            switch(publicationType)
+            {
+                case PublicationType.MyFeedComplete:
+                    endpoint += $"?user_id={userId}";
+                    break;
+
+                case PublicationType.MyFeedIncomingOrders:
+                    endpoint += $"?user_id={userId}";
+                    break;
+
+                case PublicationType.MyFeedOutgoingOrders:
+                    endpoint += $"?user_id={userId}";
+                    break;
+
+                default:
+                    endpoint += $"?user_id={userId}";
+                    break;
+            }
+
+            if (dateFilterType.HasValue)
+                endpoint += $"&date_from={dateFilterType.Value.GetDateString()}";
+
+            var videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>(endpoint, false, IncludeType.User);
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
