@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using FFImageLoading.Transformations;
-using FFImageLoading.Work;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.ViewModels;
@@ -168,6 +164,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 _order.Status = OrderStatusType.InWork;
                 _order.Executor = _settingsService.User;
+                await RaiseAllPropertiesChanged();
                 _dialogService.ShowToast("You have successfully taken the order!");
             }
         }
@@ -232,7 +229,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 await CrossMedia.Current.Initialize();
                 var file = await CrossMedia.Current.PickVideoAsync();
 
-                await _apiService.SendVideoAsync(_orderId, file.Path, _order?.Title, _order?.Description);
+                var video = await _apiService.SendVideoAsync(_orderId, file.Path, _order?.Title, _order?.Description);
+                if (video != null)
+                {
+                    _order.Video = video;
+                    await RaiseAllPropertiesChanged();
+                }
             }
             finally
             {

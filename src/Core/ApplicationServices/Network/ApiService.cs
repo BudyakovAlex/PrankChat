@@ -88,7 +88,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<OrderDataModel> TakeOrderAsync(int orderId)
         {
-            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/executor​/appoint");
+            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/executor/appoint");
             return MappingConfig.Mapper.Map<OrderDataModel>(data.Data);
         }
 
