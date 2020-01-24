@@ -74,7 +74,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsExecuteOrderAvailable => false;
 
-        public bool IsVideoLoadAvailable => _order?.Status != OrderStatusType.New && _order.Video == null;
+        public bool IsVideoLoadAvailable => _order?.Status != OrderStatusType.New && _order.Video == null && !IsUserCustomer;
 
         public bool IsVideoAvailable => _order.Video != null;
 
@@ -228,6 +228,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 await CrossMedia.Current.Initialize();
                 var file = await CrossMedia.Current.PickVideoAsync();
+                if (file == null)
+                    return;
 
                 var video = await _apiService.SendVideoAsync(_orderId, file.Path, _order?.Title, _order?.Description);
                 if (video != null)
