@@ -137,3 +137,36 @@
 "Attention" = "Внимание!";
 "OrderDetailsView_TakeOrderTitle" = "Взять заказ";
 "OrderDetailsView_TakeOrderQuestion" = "Вы уверены что хотите стать исполнителем данного заказа?";
+
+/*Fuzzy*/
+"Seconds_Short" = "сек.";
+
+/*Fuzzy*/
+"Minutes_Short" = "мин.";
+
+/*Fuzzy*/
+"Hours_Short" = "ч.";
+
+/*Fuzzy*/
+"Days_Short" = "д.";
+
+/*Fuzzy*/
+"Weeks_Short" = "нед.";
+
+/*Fuzzy*/
+"Count_Thousand" = "k";
+
+/*Fuzzy*/
+"Count_Millions" = "m";
+
+/*Fuzzy*/
+"Currency" = "₽";
+
+/*Fuzzy*/
+"Count_View" = "просмотр";
+
+/*Fuzzy*/
+"Count_Views" = "просмотров";
+
+/*Fuzzy*/
+"Count_Of_Viewing" = "просмотра";

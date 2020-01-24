@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
-using FFImageLoading.Transformations;
-using FFImageLoading.Work;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
@@ -18,7 +18,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
     {
         private readonly IDialogService _dialogService;
         private readonly IPlatformService _platformService;
+        private readonly IApiService _apiService;
         private readonly IVideoPlayerService _videoPlayerService;
+        private readonly ISettingsService _settingsService;
 
         private string _profileName;
         private string _description;
@@ -27,6 +29,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private string _completedOrdersValue;
         private string _subscriptionsValue;
         private string _subscribersValue;
+        private string _profilePhotoUrl;
 
         public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(async () =>
         {
@@ -46,13 +49,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public ICommand ShowWithdrawalCommand => new MvxAsyncCommand(NavigationService.ShowWithdrawalView);
 
+        public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
+
         public string ProfileName
         {
             get => _profileName;
             set => SetProperty(ref _profileName, value);
         }
 
-        public string ProfilePhotoUrl { get; } = "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+        public string ProfilePhotoUrl
+        {
+            get => _profilePhotoUrl;
+            set => SetProperty(ref _profilePhotoUrl, value);
+        }
 
         public string Description
         {
@@ -92,29 +101,55 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
 
-        public ProfileViewModel(
-            INavigationService navigationService,
-            IDialogService dialogService,
-            IPlatformService platformService,
-            IVideoPlayerService videoPlayerService) : base(navigationService)
+        public ProfileViewModel(INavigationService navigationService,
+                                IDialogService dialogService,
+                                IPlatformService platformService,
+                                ISettingsService settingsService,
+                                IApiService apiService,
+                                IVideoPlayerService videoPlayerService) : base(navigationService)
         {
             _dialogService = dialogService;
             _platformService = platformService;
+            _settingsService = settingsService;
+            _apiService = apiService;
             _videoPlayerService = videoPlayerService;
-            ProfileName = "Adria";
-            Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
-            Price = "100 000 ₽";
-            OrdersValue = "200";
-            CompletedOrdersValue = "10";
-            SubscribersValue = "1k";
-            SubscriptionsValue = "100";
         }
 
         public override async Task Initialize()
         {
             await base.Initialize();
 
+            await UpdateProfileCommand.ExecuteAsync();
+
             await InitializePublications();
+        }
+
+        private async Task OnLoadProfileAsync()
+        {
+            try
+            {
+                IsBusy = true;
+
+                await _apiService.GetCurrentUser();
+
+                var user = _settingsService.User;
+
+                if (user == null)
+                    return;
+
+                ProfileName = user.Name;
+                ProfilePhotoUrl = user.Avatar ?? "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+                Price = user.Balance.ToPriceString();
+                OrdersValue = user.OrdersExecuteCount.ToCountString();
+                CompletedOrdersValue = user.OrdersExecuteFinishedCount.ToCountString();
+                SubscribersValue = user.SubscribersCount.ToCountString();
+                SubscriptionsValue = user.SubscriptionsCount.ToCountString();
+                Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private Task InitializePublications()

@@ -1,180 +1,186 @@
-﻿<LinearLayout
+﻿<MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.constraint.ConstraintLayout
+    app:MvxBind="Refreshing IsBusy; RefreshCommand UpdateProfileCommand">
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp">
-        <FFImageLoading.Cross.MvxCachedImageView
-            android:id="@+id/profile_photo"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:MvxBind="Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath ProfilePhotoUrl, Mode = OneTime" />
-        <TextView
-            android:id="@+id/profile_description"
-            android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/profile_photo"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintWidth_default="spread"
-            android:layout_marginTop="2dp"
-            android:layout_marginLeft="16dp"
-            android:textSize="14sp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/applicationBlack"
-            app:MvxBind="Text Description, Mode=OneTime" />
-        <TextView
-            android:id="@+id/profile_price"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/profile_photo"
-            app:layout_constraintTop_toBottomOf="@id/profile_description"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintWidth_default="spread"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="16dp">
+            <FFImageLoading.Cross.MvxCachedImageView
+                android:id="@+id/profile_photo"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:MvxBind="Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath ProfilePhotoUrl, Mode = OneWay" />
+            <TextView
+                android:id="@+id/profile_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/profile_photo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintWidth_default="spread"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="16dp"
+                android:textSize="14sp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/applicationBlack"
+                app:MvxBind="Text Description, Mode=OneWay" />
+            <TextView
+                android:id="@+id/profile_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/profile_photo"
+                app:layout_constraintTop_toBottomOf="@id/profile_description"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintWidth_default="spread"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                android:maxLines="1"
+                android:textSize="12sp"
+                android:textColor="@color/description"
+                app:MvxBind="Text Price, Mode=OneWay" />
+
+            <!-- Buttons section row -->
+
+            <Button
+                android:id="@+id/profile_refill_button"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintTop_toBottomOf="@id/profile_price"
+                app:layout_constraintLeft_toRightOf="@id/profile_photo"
+                app:layout_constraintRight_toLeftOf="@id/profile_withdrawal_button"
+                app:layout_constraintHorizontal_bias="0"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="16dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="@string/ProfileView_Refill"
+                style="@style/Theme.PrankChat.Button.Accent"
+                app:MvxBind="Click ShowRefillCommand" />
+            <Button
+                android:id="@+id/profile_withdrawal_button"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                app:layout_constraintTop_toBottomOf="@id/profile_price"
+                app:layout_constraintLeft_toRightOf="@id/profile_refill_button"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="10dp"
+                android:text="@string/ProfileView_Withdrawal"
+                style="@style/Theme.PrankChat.Button.Borderless"
+                app:MvxBind="Click ShowWithdrawalCommand" />
+
+            <!-- Values section row -->
+
+            <TextView
+                android:id="@+id/profile_orders_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_refill_button"
+                app:layout_constraintRight_toLeftOf="@+id/profile_completed_orders_value"
+                app:layout_constraintHorizontal_weight="1"
+                android:layout_marginTop="18dp"
+                style="@style/Theme.PrankChat.TextView.ProfileView.ValueLabel"
+                app:MvxBind="Text OrdersValue" />
+            <TextView
+                android:id="@+id/profile_orders_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/profile_orders_value"
+                app:layout_constraintStart_toStartOf="@id/profile_orders_value"
+                app:layout_constraintEnd_toEndOf="@id/profile_orders_value"
+                android:text="@string/ProfileView_Orders_Subtitle"
+                style="@style/Theme.PrankChat.TextView.ProfileView.TitleLabel" />
+            <TextView
+                android:id="@+id/profile_completed_orders_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/profile_orders_value"
+                app:layout_constraintTop_toBottomOf="@id/profile_refill_button"
+                app:layout_constraintRight_toLeftOf="@+id/profile_subscribers_value"
+                app:layout_constraintHorizontal_weight="1"
+                android:layout_marginTop="18dp"
+                style="@style/Theme.PrankChat.TextView.ProfileView.ValueLabel"
+                app:MvxBind="Text CompletedOrdersValue" />
+            <TextView
+                android:id="@+id/profile_completed_orders_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/profile_completed_orders_value"
+                app:layout_constraintStart_toStartOf="@id/profile_completed_orders_value"
+                app:layout_constraintEnd_toEndOf="@id/profile_completed_orders_value"
+                android:text="@string/ProfileView_Completed_Subtitle"
+                style="@style/Theme.PrankChat.TextView.ProfileView.TitleLabel" />
+            <TextView
+                android:id="@+id/profile_subscribers_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/profile_completed_orders_value"
+                app:layout_constraintTop_toBottomOf="@id/profile_refill_button"
+                app:layout_constraintRight_toLeftOf="@+id/profile_subscriptions_value"
+                app:layout_constraintHorizontal_weight="1"
+                android:layout_marginTop="18dp"
+                style="@style/Theme.PrankChat.TextView.ProfileView.ValueLabel"
+                app:MvxBind="Text SubscribersValue" />
+            <TextView
+                android:id="@+id/profile_subscribers_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/profile_subscribers_value"
+                app:layout_constraintStart_toStartOf="@id/profile_subscribers_value"
+                app:layout_constraintEnd_toEndOf="@id/profile_subscribers_value"
+                android:text="@string/ProfileView_Subscribers_Subtitle"
+                style="@style/Theme.PrankChat.TextView.ProfileView.TitleLabel" />
+            <TextView
+                android:id="@+id/profile_subscriptions_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/profile_subscribers_value"
+                app:layout_constraintTop_toBottomOf="@id/profile_refill_button"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                android:layout_marginTop="18dp"
+                style="@style/Theme.PrankChat.TextView.ProfileView.ValueLabel"
+                app:MvxBind="Text SubscriptionsValue" />
+            <TextView
+                android:id="@+id/profile_subscriptions_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/profile_subscriptions_value"
+                app:layout_constraintStart_toStartOf="@id/profile_subscriptions_value"
+                app:layout_constraintEnd_toEndOf="@id/profile_subscriptions_value"
+                android:text="@string/ProfileView_Subscriptions_Subtitle"
+                style="@style/Theme.PrankChat.TextView.ProfileView.TitleLabel" />
+        </android.support.constraint.ConstraintLayout>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/publication_type_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
             android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:maxLines="1"
-            android:textSize="12sp"
-            android:textColor="@color/description"
-            app:MvxBind="Text Price, Mode=OneTime" />
-
-        <!-- Buttons section row -->
-
-        <Button
-            android:id="@+id/profile_refill_button"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintTop_toBottomOf="@id/profile_price"
-            app:layout_constraintLeft_toRightOf="@id/profile_photo"
-            app:layout_constraintRight_toLeftOf="@id/profile_withdrawal_button"
-            app:layout_constraintHorizontal_bias="0"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="16dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="@string/ProfileView_Refill"
-            style="@style/Theme.PrankChat.Button.Accent"
-            app:MvxBind="Click ShowRefillCommand" />
-        <Button
-            android:id="@+id/profile_withdrawal_button"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            app:layout_constraintTop_toBottomOf="@id/profile_price"
-            app:layout_constraintLeft_toRightOf="@id/profile_refill_button"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="10dp"
-            android:text="@string/ProfileView_Withdrawal"
-            style="@style/Theme.PrankChat.Button.Borderless"
-            app:MvxBind="Click ShowWithdrawalCommand" />
-
-        <!-- Values section row -->
-
-        <TextView
-            android:id="@+id/profile_orders_value"
-            android:layout_width="0dp"
+            style="@style/Theme.PrankChat.Publication.TabLayout">
+            <android.support.design.widget.TabItem
+                android:text="@string/ProfileView_MyOrders_Tab" />
+            <android.support.design.widget.TabItem
+                android:text="@string/ProfileView_CompletedOrders_Tab" />
+        </android.support.design.widget.TabLayout>
+        <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+            android:id="@+id/profile_publication_recycler_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_refill_button"
-            app:layout_constraintRight_toLeftOf="@+id/profile_completed_orders_value"
-            app:layout_constraintHorizontal_weight="1"
-            android:layout_marginTop="18dp"
-            style="@style/Theme.PrankChat.TextView.ProfileView.ValueLabel"
-            app:MvxBind="Text OrdersValue" />
-        <TextView
-            android:id="@+id/profile_orders_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/profile_orders_value"
-            app:layout_constraintStart_toStartOf="@id/profile_orders_value"
-            app:layout_constraintEnd_toEndOf="@id/profile_orders_value"
-            android:text="@string/ProfileView_Orders_Subtitle"
-            style="@style/Theme.PrankChat.TextView.ProfileView.TitleLabel" />
-        <TextView
-            android:id="@+id/profile_completed_orders_value"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/profile_orders_value"
-            app:layout_constraintTop_toBottomOf="@id/profile_refill_button"
-            app:layout_constraintRight_toLeftOf="@+id/profile_subscribers_value"
-            app:layout_constraintHorizontal_weight="1"
-            android:layout_marginTop="18dp"
-            style="@style/Theme.PrankChat.TextView.ProfileView.ValueLabel"
-            app:MvxBind="Text CompletedOrdersValue" />
-        <TextView
-            android:id="@+id/profile_completed_orders_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/profile_completed_orders_value"
-            app:layout_constraintStart_toStartOf="@id/profile_completed_orders_value"
-            app:layout_constraintEnd_toEndOf="@id/profile_completed_orders_value"
-            android:text="@string/ProfileView_Completed_Subtitle"
-            style="@style/Theme.PrankChat.TextView.ProfileView.TitleLabel" />
-        <TextView
-            android:id="@+id/profile_subscribers_value"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/profile_completed_orders_value"
-            app:layout_constraintTop_toBottomOf="@id/profile_refill_button"
-            app:layout_constraintRight_toLeftOf="@+id/profile_subscriptions_value"
-            app:layout_constraintHorizontal_weight="1"
-            android:layout_marginTop="18dp"
-            style="@style/Theme.PrankChat.TextView.ProfileView.ValueLabel"
-            app:MvxBind="Text SubscribersValue" />
-        <TextView
-            android:id="@+id/profile_subscribers_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/profile_subscribers_value"
-            app:layout_constraintStart_toStartOf="@id/profile_subscribers_value"
-            app:layout_constraintEnd_toEndOf="@id/profile_subscribers_value"
-            android:text="@string/ProfileView_Subscribers_Subtitle"
-            style="@style/Theme.PrankChat.TextView.ProfileView.TitleLabel" />
-        <TextView
-            android:id="@+id/profile_subscriptions_value"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/profile_subscribers_value"
-            app:layout_constraintTop_toBottomOf="@id/profile_refill_button"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            android:layout_marginTop="18dp"
-            style="@style/Theme.PrankChat.TextView.ProfileView.ValueLabel"
-            app:MvxBind="Text SubscriptionsValue" />
-        <TextView
-            android:id="@+id/profile_subscriptions_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/profile_subscriptions_value"
-            app:layout_constraintStart_toStartOf="@id/profile_subscriptions_value"
-            app:layout_constraintEnd_toEndOf="@id/profile_subscriptions_value"
-            android:text="@string/ProfileView_Subscriptions_Subtitle"
-            style="@style/Theme.PrankChat.TextView.ProfileView.TitleLabel" />
-    </android.support.constraint.ConstraintLayout>
-    <android.support.design.widget.TabLayout
-        android:id="@+id/publication_type_tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="41dp"
-        android:layout_marginTop="16dp"
-        style="@style/Theme.PrankChat.Publication.TabLayout">
-        <android.support.design.widget.TabItem
-            android:text="@string/ProfileView_MyOrders_Tab" />
-        <android.support.design.widget.TabItem
-            android:text="@string/ProfileView_CompletedOrders_Tab" />
-    </android.support.design.widget.TabLayout>
-    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
-        android:id="@+id/profile_publication_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:MvxItemTemplate="@layout/cell_publication"
-        app:MvxBind="ItemsSource Items" />
-</LinearLayout>
+            app:MvxItemTemplate="@layout/cell_publication"
+            app:MvxBind="ItemsSource Items" />
+    </LinearLayout>
+</MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout>

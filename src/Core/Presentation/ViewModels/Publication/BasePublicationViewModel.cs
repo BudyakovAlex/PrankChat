@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -13,9 +14,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     {
         private readonly IDialogService _dialogService;
         private readonly IPlatformService _platformService;
-        private long _numberOfViews;
+        private long? _numberOfViews;
         private DateTime _publicationDate;
-        private long _numberOfLikes;
+        private long? _numberOfLikes;
         private string _shareLink;
 
         #region Profile
@@ -28,7 +29,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #region Video
 
-        public string VideoInformationText => $"{_numberOfViews} просмотров {_publicationDate.ToShortDateString()} месяцев назад";
+        public string VideoInformationText => $"{_numberOfViews.ToCountViewsString()} {_publicationDate.ToTimeAgoString()}";
 
         public string VideoName { get; set; } = "Name video one";
 
@@ -47,7 +48,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #endregion
 
-        public string NumberOfLikesText => $"{Resources.Like} {_numberOfLikes}";
+        public string NumberOfLikesText => $"{Resources.Like} {_numberOfLikes.ToCountString()}";
 
         #region Commands
 

@@ -73,8 +73,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         [Outlet]
         UIKit.UIButton withdrawalButton { get; set; }
 
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIActivityIndicatorView progressBar { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
+            if (progressBar != null) {
+                progressBar.Dispose ();
+                progressBar = null;
+            }
         }
     }
 }

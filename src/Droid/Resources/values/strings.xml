@@ -139,4 +139,37 @@
     <string name="Attention">"Внимание!"</string>
     <string name="OrderDetailsView_TakeOrderTitle">"Взять заказ"</string>
     <string name="OrderDetailsView_TakeOrderQuestion">"Вы уверены что хотите стать исполнителем данного заказа?"</string>
+
+    <!-- Fuzzy -->
+    <string name="Seconds_Short">"сек."</string>
+
+    <!-- Fuzzy -->
+    <string name="Minutes_Short">"мин."</string>
+
+    <!-- Fuzzy -->
+    <string name="Hours_Short">"ч."</string>
+
+    <!-- Fuzzy -->
+    <string name="Days_Short">"д."</string>
+
+    <!-- Fuzzy -->
+    <string name="Weeks_Short">"нед."</string>
+
+    <!-- Fuzzy -->
+    <string name="Count_Thousand">"k"</string>
+
+    <!-- Fuzzy -->
+    <string name="Count_Millions">"m"</string>
+
+    <!-- Fuzzy -->
+    <string name="Currency">"₽"</string>
+
+    <!-- Fuzzy -->
+    <string name="Count_View">"просмотр"</string>
+
+    <!-- Fuzzy -->
+    <string name="Count_Views">"просмотров"</string>
+
+    <!-- Fuzzy -->
+    <string name="Count_Of_Viewing">"просмотра"</string>
 </resources>

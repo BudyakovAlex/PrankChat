@@ -880,5 +880,71 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("OrderDetailsView_TakeOrderQuestion", resourceCulture);
             }
         }
+        
+        public static string Seconds_Short {
+            get {
+                return ResourceManager.GetString("Seconds_Short", resourceCulture);
+            }
+        }
+        
+        public static string Minutes_Short {
+            get {
+                return ResourceManager.GetString("Minutes_Short", resourceCulture);
+            }
+        }
+        
+        public static string Hours_Short {
+            get {
+                return ResourceManager.GetString("Hours_Short", resourceCulture);
+            }
+        }
+        
+        public static string Days_Short {
+            get {
+                return ResourceManager.GetString("Days_Short", resourceCulture);
+            }
+        }
+        
+        public static string Weeks_Short {
+            get {
+                return ResourceManager.GetString("Weeks_Short", resourceCulture);
+            }
+        }
+        
+        public static string Count_Thousand {
+            get {
+                return ResourceManager.GetString("Count_Thousand", resourceCulture);
+            }
+        }
+        
+        public static string Count_Millions {
+            get {
+                return ResourceManager.GetString("Count_Millions", resourceCulture);
+            }
+        }
+        
+        public static string Currency {
+            get {
+                return ResourceManager.GetString("Currency", resourceCulture);
+            }
+        }
+        
+        public static string Count_View {
+            get {
+                return ResourceManager.GetString("Count_View", resourceCulture);
+            }
+        }
+        
+        public static string Count_Views {
+            get {
+                return ResourceManager.GetString("Count_Views", resourceCulture);
+            }
+        }
+        
+        public static string Count_Of_Viewing {
+            get {
+                return ResourceManager.GetString("Count_Of_Viewing", resourceCulture);
+            }
+        }
     }
 }
