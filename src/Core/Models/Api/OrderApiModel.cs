@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers.Converters;
 using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Api
@@ -31,10 +32,18 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
 
+        [JsonProperty("taken_to_work_at")]
+        public DateTime? TakenToWorkAt { get; set; }
+
         [JsonProperty("customer")]
         public DataApiModel<UserApiModel> Customer { get; set; }
 
+        [JsonConverter(typeof(IgnoreUnexpectedArraysConverter<UserApiModel>))]
         [JsonProperty("executor")]
         public DataApiModel<UserApiModel> Executor { get; set; }
+
+        [JsonConverter(typeof(IgnoreUnexpectedArraysConverter<VideoMetadataApiModel>))]
+        [JsonProperty("videos")]
+        public DataApiModel<VideoMetadataApiModel> Video { get; set; }
     }
 }

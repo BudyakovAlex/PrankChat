@@ -61,7 +61,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<OrderDataModel> GetOrderDetailsAsync(int orderId)
         {
-            var data = await _client.Get<DataApiModel<OrderApiModel>>($"orders/{orderId}", includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor });
+            var data = await _client.Get<DataApiModel<OrderApiModel>>($"orders/{orderId}", includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor, IncludeType.Videos });
             return MappingConfig.Mapper.Map<OrderDataModel>(data.Data);
         }
 

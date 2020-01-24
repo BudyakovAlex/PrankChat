@@ -28,6 +28,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIView decideView { get; set; }
 
 		[Outlet]
+		UIKit.UIView decisionView { get; set; }
+
+		[Outlet]
 		UIKit.UIButton downloadButton { get; set; }
 
 		[Outlet]
@@ -104,6 +107,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (decisionView != null) {
+				decisionView.Dispose ();
+				decisionView = null;
+			}
+
 			if (acceptButton != null) {
 				acceptButton.Dispose ();
 				acceptButton = null;
@@ -189,14 +197,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				profileImageView = null;
 			}
 
-			if (progressBarView != null) {
-				progressBarView.Dispose ();
-				progressBarView = null;
-			}
-
 			if (profileNameLabel != null) {
 				profileNameLabel.Dispose ();
 				profileNameLabel = null;
+			}
+
+			if (progressBarView != null) {
+				progressBarView.Dispose ();
+				progressBarView = null;
 			}
 
 			if (startDateLabel != null) {

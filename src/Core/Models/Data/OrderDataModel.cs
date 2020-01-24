@@ -22,10 +22,14 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public DateTime? CreatedAt { get; set; }
 
+        public DateTime? TakenToWorkAt { get; set; }
+
         public TimeSpan? FinishIn => DateTime.Now - ActiveTo?.ToLocalTime();
 
         public UserDataModel Customer { get; set; }
 
         public UserDataModel Executor { get; set; }
+
+        public VideoMetadataDataModel Video { get; set; }
     }
 }
