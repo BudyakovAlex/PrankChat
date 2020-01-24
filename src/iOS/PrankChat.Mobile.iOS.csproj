@@ -234,6 +234,7 @@
     <Compile Include="Presentation\Converters\DateFormatConverter.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
+    <Compile Include="Presentation\Converters\MvxInvertedBooleanConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -45,8 +45,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.CreateCommand);
 
             set.Bind(progressBar)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsBusy);
+                .For(v => v.BindHidden())
+                .To(vm => vm.IsBusy)
+                .WithConversion<MvxInvertedBooleanConverter>();
 
             set.Apply();
 		}

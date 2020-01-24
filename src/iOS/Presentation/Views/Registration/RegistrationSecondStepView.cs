@@ -48,8 +48,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
                 .To(vm => vm.UserRegistrationCommand);
 
             set.Bind(progressBar)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsBusy);
+                .For(v => v.BindHidden())
+                .To(vm => vm.IsBusy)
+                .WithConversion<MvxInvertedBooleanConverter>();
 
             set.Apply();
         }

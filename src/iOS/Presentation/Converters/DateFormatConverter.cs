@@ -6,6 +6,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Converters
 {
     public class DateFormatConverter : MvxValueConverter<DateTime?, string>
     {
+        // todo move to VM
         protected override string Convert(DateTime? value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!value.HasValue)
