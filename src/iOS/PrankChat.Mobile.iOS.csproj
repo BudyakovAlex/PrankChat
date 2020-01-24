@@ -266,6 +266,9 @@
     <PackageReference Include="MvvmCross.Plugin.Visibility">
       <Version>6.4.2</Version>
     </PackageReference>
+    <PackageReference Include="Xam.Plugin.Media">
+      <Version>4.0.1.5</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -632,6 +635,12 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_share_instagram.imageset\Group 114.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Vector.pdf">
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>

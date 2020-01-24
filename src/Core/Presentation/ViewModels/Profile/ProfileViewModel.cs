@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
@@ -8,6 +9,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Storages;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Messengers;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
@@ -19,6 +21,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly IPlatformService _platformService;
         private readonly IStorageService _storageService;
         private readonly IApiService _apiService;
+        private readonly IMvxMessenger _messenger;
 
         private string _profileName;
         private string _description;
@@ -103,12 +106,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                                 IDialogService dialogService,
                                 IPlatformService platformService,
                                 IStorageService storageService,
-                                IApiService apiService) : base(navigationService)
+                                IApiService apiService,
+                                IMvxMessenger messenger) : base(navigationService)
         {
             _dialogService = dialogService;
             _platformService = platformService;
             _storageService = storageService;
             _apiService = apiService;
+            _messenger = messenger;
         }
 
         public override async Task Initialize()
@@ -141,6 +146,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 SubscribersValue = user.SubscribersCount.ToCountString();
                 SubscriptionsValue = user.SubscriptionsCount.ToCountString();
                 Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
+
+                _messenger.Publish(new UpdateUserProfileMessenger(this));
             }
             finally
             {
