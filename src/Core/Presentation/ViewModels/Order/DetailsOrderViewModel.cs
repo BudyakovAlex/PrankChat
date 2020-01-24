@@ -47,7 +47,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #endregion
 
-        public string PriceValue { get; set; } = 10000D.ToPriceString();
+        public string PriceValue { get; set; } //= 10000D.ToPriceString();
 
         public string TimeValue { get; set; } = DateTime.Now.ToTimeWithSpaceString();
 

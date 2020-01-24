@@ -5,18 +5,15 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
     public static class PriceExtensions
     {
         private const string FormatForPrice = "#,#.#";
-        private const string DefaultValueIfNull = "0";
+        private const string DefaultValue = "0";
 
         public static string ToPriceString(this double? price)
         {
-            if (price.HasValue)
-                return price.Value.ToPriceString();
-            return GetStringWithCurrency(DefaultValueIfNull);
-        }
+            if (price == null)
+                return GetStringWithCurrency(DefaultValue);
 
-        public static string ToPriceString(this double price)
-        {
-            return price.ToString(GetStringWithCurrency(FormatForPrice)).Replace(',', ' ');
+
+            return price?.ToString(GetStringWithCurrency(FormatForPrice)).Replace(',', ' ');
         }
 
         private static string GetStringWithCurrency(string value)

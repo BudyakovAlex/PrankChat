@@ -9,7 +9,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     public class PublicationDetailsViewModel : BasePublicationViewModel
     {
         private DateTime _commentDate = new DateTime(2018, 4, 24);
-        private int _numberOfComments = 125;
+        private int? _numberOfComments = 125;
 
         #region Video
 

@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
         public RatingItemViewModel(INavigationService navigatiobService,
                                   string orderTitle,
                                   string profilePhotoUrl,
-                                  double priceText,
+                                  double? priceText,
                                   DateTime time)
         {
             _navigatiobService = navigatiobService;

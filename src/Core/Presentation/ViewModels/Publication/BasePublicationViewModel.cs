@@ -16,9 +16,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     {
         private readonly IDialogService _dialogService;
         private readonly IPlatformService _platformService;
-        private long _numberOfViews;
+        private long? _numberOfViews;
         private DateTime _publicationDate;
-        private long _numberOfLikes;
+        private long? _numberOfLikes;
         private string _shareLink;
 
         #region Profile
