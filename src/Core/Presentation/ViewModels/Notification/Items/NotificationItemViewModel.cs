@@ -1,4 +1,5 @@
 ﻿using System;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 {
@@ -12,7 +13,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         public string Description { get; }
 
-        public string DateText => _date.ToShortDateString();
+        public string DateText => _date.ToTimeAgoString();
 
         public string Status { get; }
 

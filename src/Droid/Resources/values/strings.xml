@@ -125,4 +125,51 @@
     <string name="ShareDialog_CopyLink_Label">"Коп. ссылку"</string>
     <string name="ShareDialog_ShareInstagram_Label">"В Instagram"</string>
     <string name="ShareDialog_LinkShareTitle">"Поделиться ссылкой"</string>
+    <string name="OrderStatus_New">"Новый"</string>
+    <string name="OrderStatus_Rejected">"Отменен модератором"</string>
+    <string name="OrderStatus_Cancelled">"Отменен"</string>
+    <string name="OrderStatus_Active">"Ожидает исполнителя"</string>
+    <string name="OrderStatus_InWork">"В работе"</string>
+    <string name="OrderStatus_InArbitration">"В споре"</string>
+    <string name="OrderStatus_ProcessCloseArbitration">"Закрытие спора"</string>
+    <string name="OrderStatus_ClosedAfterArbitrationCustomerWin">"Закрыт после спора в пользу заказчика"</string>
+    <string name="OrderStatus_ClosedAfterArbitrationExecutorWin">"Закрыт после спора в пользу исполнителя"</string>
+    <string name="OrderStatus_Finished">"Завершён"</string>
+    <string name="Ok">"Ок"</string>
+    <string name="Attention">"Внимание!"</string>
+    <string name="OrderDetailsView_TakeOrderTitle">"Взять заказ"</string>
+    <string name="OrderDetailsView_TakeOrderQuestion">"Вы уверены что хотите стать исполнителем данного заказа?"</string>
+
+    <!-- Fuzzy -->
+    <string name="Seconds_Short">"сек."</string>
+
+    <!-- Fuzzy -->
+    <string name="Minutes_Short">"мин."</string>
+
+    <!-- Fuzzy -->
+    <string name="Hours_Short">"ч."</string>
+
+    <!-- Fuzzy -->
+    <string name="Days_Short">"д."</string>
+
+    <!-- Fuzzy -->
+    <string name="Weeks_Short">"нед."</string>
+
+    <!-- Fuzzy -->
+    <string name="Count_Thousand">"k"</string>
+
+    <!-- Fuzzy -->
+    <string name="Count_Millions">"m"</string>
+
+    <!-- Fuzzy -->
+    <string name="Currency">"₽"</string>
+
+    <!-- Fuzzy -->
+    <string name="Count_View">"просмотр"</string>
+
+    <!-- Fuzzy -->
+    <string name="Count_Views">"просмотров"</string>
+
+    <!-- Fuzzy -->
+    <string name="Count_Of_Viewing">"просмотра"</string>
 </resources>

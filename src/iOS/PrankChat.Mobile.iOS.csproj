@@ -256,16 +256,16 @@
     <PackageReference Include="Xamarin.FFImageLoading.Transformations">
       <Version>2.4.11.982</Version>
     </PackageReference>
-      <PackageReference Include="System.Reflection.Emit">
-          <Version>4.7.0</Version>
-          <ExcludeAssets>all</ExcludeAssets>
-      </PackageReference>
-      <PackageReference Include="Xamarin.IQKeyboardManager">
-        <Version>1.4.1</Version>
-      </PackageReference>
-      <PackageReference Include="MvvmCross.Plugin.Visibility">
-        <Version>6.4.2</Version>
-      </PackageReference>
+    <PackageReference Include="System.Reflection.Emit">
+      <Version>4.7.0</Version>
+      <ExcludeAssets>all</ExcludeAssets>
+    </PackageReference>
+    <PackageReference Include="Xamarin.IQKeyboardManager">
+      <Version>1.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmCross.Plugin.Visibility">
+      <Version>6.4.2</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -310,114 +310,330 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon60.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_home.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_home.imageset\Vector.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_rate.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_rate.imageset\Vector %281%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_create_order.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_create_order.imageset\Group 54.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_orders.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_orders.imageset\Vector %282%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_profile.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_profile.imageset\Vector %283%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_filter_arrow.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_filter_arrow.imageset\Shape.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_search.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_search.imageset\Shape.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_notification.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_notification.imageset\Vector %284%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_notification_new.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_notification_new.imageset\Group 128.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Group 108.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_back.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_back.imageset\Shape.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_search_grey.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_search_grey.imageset\Shape %281%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_userpic.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_userpic.imageset\Userpic.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_bookmark.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_bookmark.imageset\ic_bookmark.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_like.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_like.imageset\ic_like.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_more.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_more.imageset\ic_more.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_share.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_share.imageset\ic_share.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_vk.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_vk.imageset\vk.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_ok.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_ok.imageset\odnoklassniki.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_facebook.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_facebook.imageset\facebook.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_gmail.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_gmail.imageset\gmail.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_radio_button_active.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_radio_button_inactive.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_radio_button_active.imageset\Group 176.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_radio_button_inactive.imageset\Radio_button.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_calendar.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_calendar.imageset\mdi_date_range.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_menu.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_menu.imageset\Vector.pdf" />
-    <ImageAsset Include="Assets.xcassets\background_order.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\background_order.imageset\background_order.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_thumbs_up.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_thumbs_up.imageset\Vector %281%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Vector %282%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_download.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_download.imageset\ic_download.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_calendar_accent.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_checkbox_checked.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_checkbox_unchecked.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_calendar_accent.imageset\Vector %283%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_checkbox_checked.imageset\Shape.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_checkbox_unchecked.imageset\Path.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_comment.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_comment.imageset\ic_comment.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_send.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_send.imageset\ic_send.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_mastercard_banner.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_visa_banner.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_3dsecure_banner.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_cards.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_qiwi.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_phone.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_sberbank.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_alphabank.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney.imageset\Group.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_phone.imageset\Group 179.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_sberbank.imageset\Sberbank 1.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_alphabank.imageset\Alfa bank.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_question.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_question.imageset\Vector %284%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\bg_selected_payment.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\bg_payment.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\bg_selected_payment.imageset\Rectangle 35.6.pdf" />
-    <ImageAsset Include="Assets.xcassets\bg_payment.imageset\Rectangle 35.11.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_alphabank_selected.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_cards_selected.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_phone_selected.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_qiwi_selected.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_sberbank_selected.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney_selected.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_alphabank_selected.imageset\Group 181.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_phone_selected.imageset\Group 179 %281%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_qiwi_selected.imageset\Group %281%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_sberbank_selected.imageset\Sberbank 1 %281%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney_selected.imageset\Group %282%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_qiwi.imageset\Group %281%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_cards.imageset\Group 178.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_payment_cards_selected.imageset\Group 178 %281%29-1.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_3dsecure_banner.imageset\Group %282%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_visa_banner.imageset\Group %281%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_mastercard_banner.imageset\Group.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_share_copy.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_share_instagram.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_share_copy.imageset\Group 113.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_share_instagram.imageset\Group 114.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_home.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_home.imageset\Vector.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_rate.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_rate.imageset\Vector %281%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_create_order.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_create_order.imageset\Group 54.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_orders.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_orders.imageset\Vector %282%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_profile.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_profile.imageset\Vector %283%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_filter_arrow.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_filter_arrow.imageset\Shape.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_search.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_search.imageset\Shape.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_notification.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_notification.imageset\Vector %284%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_notification_new.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_notification_new.imageset\Group 128.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Group 108.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_back.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_back.imageset\Shape.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_search_grey.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_search_grey.imageset\Shape %281%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_userpic.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_userpic.imageset\Userpic.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_bookmark.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_bookmark.imageset\ic_bookmark.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_like.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_like.imageset\ic_like.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_more.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_more.imageset\ic_more.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_share.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_share.imageset\ic_share.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_vk.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_vk.imageset\vk.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_ok.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_ok.imageset\odnoklassniki.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_facebook.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_facebook.imageset\facebook.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_gmail.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_gmail.imageset\gmail.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_radio_button_active.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_radio_button_inactive.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_radio_button_active.imageset\Group 176.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_radio_button_inactive.imageset\Radio_button.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_calendar.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_calendar.imageset\mdi_date_range.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_menu.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_menu.imageset\Vector.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\background_order.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\background_order.imageset\background_order.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_thumbs_up.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_thumbs_up.imageset\Vector %281%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Vector %282%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_download.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_download.imageset\ic_download.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_calendar_accent.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_checkbox_checked.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_checkbox_unchecked.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_calendar_accent.imageset\Vector %283%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_checkbox_checked.imageset\Shape.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_checkbox_unchecked.imageset\Path.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_comment.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_comment.imageset\ic_comment.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_send.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_send.imageset\ic_send.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_mastercard_banner.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_visa_banner.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_3dsecure_banner.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_cards.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_qiwi.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_phone.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_sberbank.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_alphabank.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney.imageset\Group.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_phone.imageset\Group 179.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_sberbank.imageset\Sberbank 1.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_alphabank.imageset\Alfa bank.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_question.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_question.imageset\Vector %284%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_selected_payment.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_payment.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_selected_payment.imageset\Rectangle 35.6.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_payment.imageset\Rectangle 35.11.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_alphabank_selected.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_cards_selected.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_phone_selected.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_qiwi_selected.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_sberbank_selected.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney_selected.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_alphabank_selected.imageset\Group 181.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_phone_selected.imageset\Group 179 %281%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_qiwi_selected.imageset\Group %281%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_sberbank_selected.imageset\Sberbank 1 %281%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney_selected.imageset\Group %282%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_qiwi.imageset\Group %281%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_cards.imageset\Group 178.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_payment_cards_selected.imageset\Group 178 %281%29-1.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_3dsecure_banner.imageset\Group %282%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_visa_banner.imageset\Group %281%29.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_mastercard_banner.imageset\Group.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_share_copy.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_share_instagram.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_share_copy.imageset\Group 113.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_share_instagram.imageset\Group 114.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
