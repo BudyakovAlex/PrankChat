@@ -53,7 +53,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string ExecutorName => _order?.Executor?.Name;
 
-        public string StartOrderDate => _order?.CreatedAt?.ToShortDateString();
+        public string StartOrderDate => _order?.TakenToWorkAt?.ToShortDateString();
 
         #endregion
 
@@ -67,15 +67,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsUserListener => !IsUserCustomer && !IsUserExecutor;
 
-        public bool IsTakeOrderAvailable => !IsUserCustomer && _order?.Status == OrderStatusType.New;
-
         public bool IsSubscribeAvailable => IsUserListener;
 
         public bool IsUnsubscribeAvailable => IsUserListener;
 
-        public bool IsVideoLoadAvailable => _order?.Status == OrderStatusType.InWork;
+        public bool IsTakeOrderAvailable => !IsUserCustomer && _order?.Status == OrderStatusType.New;
+
+        public bool IsCancelOrderAvailable => false;
+
+        public bool IsExecuteOrderAvailable => false;
+
+        public bool IsVideoLoadAvailable => _order?.Status != OrderStatusType.New && _order.Video == null;
+
+        public bool IsVideoAvailable => _order.Video != null;
 
         public bool IsExecutorAvailable => _order?.Executor != null;
+
+        public bool IsDecideVideoAvailable => false;
+
+        public bool IsDecisionVideoAvailable => false;
 
         #region Commands
 

@@ -45,55 +45,84 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 			set.Bind(downloadButton)
 	            .For(v => v.BindVisible())
-	            .To(vm => vm.IsVideoLoadAvailable)
-	            .WithConversion<MvxVisibilityValueConverter>();
+	            .To(vm => vm.IsVideoLoadAvailable);
 
-			set.Bind(downloadVideotextLabel)
+			set.Bind(downloadView)
 	            .For(v => v.BindVisible())
-	            .To(vm => vm.IsVideoLoadAvailable)
-	            .WithConversion<MvxVisibilityValueConverter>();
+	            .To(vm => vm.IsVideoLoadAvailable);
 
 			#endregion
 
-			set.Bind(videoImageView)
-				.For(v => v.ImagePath)
-				.To(vm => vm.VideoUrl);
+			#region Orders
 
 			set.Bind(videoNameLabel)
-				.To(vm => vm.VideoName);
+	            .To(vm => vm.VideoName);
 
 			set.Bind(videoDescriptionLabel)
 				.To(vm => vm.VideoDetails);
 
 			set.Bind(priceValueLabel)
-				.To(vm => vm.PriceValue);
+	            .To(vm => vm.PriceValue);
 
 			set.Bind(timeValueLabel)
 				.To(vm => vm.TimeValue);
+
+			#endregion
+
+			#region Video
+
+			set.Bind(videoImageView)
+				.For(v => v.ImagePath)
+				.To(vm => vm.VideoUrl);
+
+			set.Bind(videoImageView)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsVideoAvailable);
+
+			#endregion
+
+			#region Subscribe and Unsubscribe
+
+			set.Bind(subscriptionButton)
+	            .To(vm => vm.SubscribeTheOrderCommand);
+
+			set.Bind(subscriptionButton)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsSubscribeAvailable);
+
+			set.Bind(unsubscriptionButton)
+				.To(vm => vm.UnsubscribeOrderCommand);
+
+			set.Bind(unsubscriptionButton)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsUnsubscribeAvailable);
+
+			#endregion
+
+			#region Take order
 
 			set.Bind(takeOrderButton)
 				.To(vm => vm.TakeOrderCommand);
 
 			set.Bind(takeOrderButton)
 	            .For(v => v.BindVisible())
-	            .To(vm => vm.IsTakeOrderAvailable)
-	            .WithConversion<MvxVisibilityValueConverter>();
+	            .To(vm => vm.IsTakeOrderAvailable);
 
-			set.Bind(subscriptionButton)
-				.To(vm => vm.SubscribeTheOrderCommand);
+            #endregion
 
-			set.Bind(subscriptionButton)
+            #region Decide View
+
+            set.Bind(decideView)
 	            .For(v => v.BindVisible())
-	            .To(vm => vm.IsSubscribeAvailable)
-	            .WithConversion<MvxVisibilityValueConverter>();
+	            .To(vm => vm.IsDecideVideoAvailable);
 
-			set.Bind(unsubscriptionButton)
-				.To(vm => vm.UnsubscribeOrderCommand);
+			set.Bind(noButton)
+	            .To(vm => vm.NoCommand);
 
-			set.Bind(unsubscriptionButton)
-	            .For(v => v.BindVisible())
-	            .To(vm => vm.IsUnsubscribeAvailable)
-	            .WithConversion<MvxVisibilityValueConverter>();
+			set.Bind(yesButton)
+				.To(vm => vm.YesCommand);
+
+			#endregion
 
 			#region Executor
 
@@ -117,38 +146,49 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 			set.Bind(executorView)
 	            .For(v => v.BindVisible())
-	            .To(vm => vm.IsExecutorAvailable)
-	            .WithConversion<MvxVisibilityValueConverter>();
+	            .To(vm => vm.IsExecutorAvailable);
 
 			#endregion
 
-			set.Bind(noButton)
-				.To(vm => vm.NoCommand);
+			#region Decision View
 
-			set.Bind(yesButton)
-				.To(vm => vm.YesCommand);
-
-			set.Bind(executeVideoButton)
-				.To(vm => vm.ExecuteOrderCommand);
-
-			set.Bind(cancelVideoButton)
-				.To(vm => vm.CancelOrderCommand);
-
-			set.Bind(cancelVideoButton)
+			set.Bind(decisionView)
 	            .For(v => v.BindVisible())
-	            .To(vm => vm.IsUserCustomer)
-	            .WithConversion<MvxVisibilityValueConverter>();
+	            .To(vm => vm.IsDecisionVideoAvailable);
 
 			set.Bind(acceptButton)
-				.To(vm => vm.UnsubscribeOrderCommand);
+	            .To(vm => vm.UnsubscribeOrderCommand);
 
 			set.Bind(arqueButton)
 				.To(vm => vm.ArqueOrderCommand);
 
+			#endregion
+
+			#region Cancel
+
+			set.Bind(cancelVideoButton)
+	            .To(vm => vm.CancelOrderCommand);
+
+			set.Bind(cancelVideoButton)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsCancelOrderAvailable);
+
+			#endregion
+
+			#region Execute video
+
+			set.Bind(executeVideoButton)
+	            .To(vm => vm.ExecuteOrderCommand);
+
+			set.Bind(executeVideoButton)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsExecuteOrderAvailable);
+
+			#endregion
+
 			set.Bind(progressBarView)
                 .For(v => v.BindVisible())
-                .To(vm => vm.IsBusy)
-                .WithConversion<MvxVisibilityValueConverter>();
+                .To(vm => vm.IsBusy);
 
 			set.Apply();
 		}

@@ -18,6 +18,7 @@ namespace PrankChat.Mobile.Core.Models.Mappings
             CreateMap<OrderDataModel, OrderApiModel>()
                 .ForPath(dest => dest.Customer.Data, opt => opt.MapFrom(src => src.Customer))
                 .ForPath(dest => dest.Executor.Data, opt => opt.MapFrom(src => src.Executor))
+                .ForPath(dest => dest.Video.Data, opt => opt.MapFrom(src => src.Video))
                 .ReverseMap();
             CreateMap<GenderType, string>().ConvertUsing(src => src.ToString().ToLower());
         }

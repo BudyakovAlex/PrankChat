@@ -59,5 +59,6 @@
     <Folder Include="ApplicationServices\Platforms\" />
     <Folder Include="Presentation\Messengers\" />
     <Folder Include="Models\Data\FilterTypes\" />
+    <Folder Include="ApplicationServices\Network\JsonSerializers\Converters\" />
   </ItemGroup>
 </Project>
