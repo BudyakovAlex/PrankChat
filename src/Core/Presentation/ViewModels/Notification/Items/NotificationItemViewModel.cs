@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         public string Description { get; }
 
-        public string DateText => _date.ToTimeAgoString();
+        public string DateText => _date.ToTimeAgoCommentString();
 
         public string Status { get; }
 

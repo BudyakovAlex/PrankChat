@@ -1409,5 +1409,14 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Weeks_Short", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to г..
+        /// </summary>
+        public static string Year_Short {
+            get {
+                return ResourceManager.GetString("Year_Short", resourceCulture);
+            }
+        }
     }
 }

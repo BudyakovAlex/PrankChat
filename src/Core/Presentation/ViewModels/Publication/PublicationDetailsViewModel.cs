@@ -23,7 +23,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string CommentatorPhotoUrl { get; } = "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
 
-        public string CommentDateText => _commentDate.ToTimeAgoString();
+        public string CommentDateText => _commentDate.ToTimeAgoCommentString();
 
         public string NumberOfCommentText => _numberOfComments.ToCountString();
 

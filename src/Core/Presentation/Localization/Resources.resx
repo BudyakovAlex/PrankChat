@@ -578,4 +578,7 @@
     <value>просмотра</value>
     <comment>Fuzzy</comment>
   </data>
+  <data name="Year_Short" xml:space="preserve">
+    <value>г.</value>
+  </data>
 </root>

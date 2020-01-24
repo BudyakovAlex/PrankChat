@@ -172,4 +172,5 @@
 
     <!-- Fuzzy -->
     <string name="Count_Of_Viewing">"просмотра"</string>
+    <string name="Year_Short">"г."</string>
 </resources>
