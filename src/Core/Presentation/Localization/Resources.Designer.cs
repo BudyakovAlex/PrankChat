@@ -565,6 +565,15 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OrderDetails_View_Cancel_Title {
+            get {
+                return ResourceManager.GetString("OrderDetails_View_Cancel_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Принять.
         /// </summary>
         public static string OrderDetailsView_Accept_Button {
@@ -786,6 +795,15 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         public static string OrderStatus_InWork {
             get {
                 return ResourceManager.GetString("OrderStatus_InWork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Мой заказ.
+        /// </summary>
+        public static string OrderStatus_MyOrder {
+            get {
+                return ResourceManager.GetString("OrderStatus_MyOrder", resourceCulture);
             }
         }
         
@@ -1407,6 +1425,15 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         public static string Weeks_Short {
             get {
                 return ResourceManager.GetString("Weeks_Short", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to г..
+        /// </summary>
+        public static string Year_Short {
+            get {
+                return ResourceManager.GetString("Year_Short", resourceCulture);
             }
         }
     }

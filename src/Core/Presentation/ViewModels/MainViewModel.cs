@@ -1,6 +1,6 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Storages;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Presentation.Messengers;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
@@ -9,7 +9,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
     public class MainViewModel : BaseViewModel
     {
         private readonly IMvxMessenger _messenger;
-        private readonly IStorageService _storageService;
+        private readonly ISettingsService _settingsService;
 
         private MvxSubscriptionToken _updateProfileToken;
         private string _userImageUrl;
@@ -39,10 +39,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MainViewModel(INavigationService navigationService,
                              IMvxMessenger messenger,
-                             IStorageService storageService) : base(navigationService)
+                             ISettingsService settingsService) : base(navigationService)
         {
             _messenger = messenger;
-            _storageService = storageService;
+            _settingsService = settingsService;
         }
 
         public override void ViewCreated()
@@ -73,7 +73,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private void OnUserProfileUpdate(UpdateUserProfileMessenger message)
         {
-            var user = _storageService.User;
+            var user = _settingsService.User;
             if (user == null)
                 return;
             UserImageUrl = user.Avatar ?? "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";

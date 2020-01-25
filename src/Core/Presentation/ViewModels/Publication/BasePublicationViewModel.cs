@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MediaManager;
-using MediaManager.Video;
-using MvvmCross;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
@@ -39,6 +37,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string VideoUrl { get; set; }
 
+        public IVideoPlayerService VideoPlayerService { get; }
+
         private bool _hasSoundTurnOn;
         public bool HasSoundTurnOn
         {
@@ -62,8 +62,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxCommand ToggleSoundCommand => new MvxCommand(OnToggleSound);
 
-        public MvxCommand<IVideoView> PlayVideoCommand => new MvxCommand<IVideoView>(OnPlayVideo);
-
         #endregion
 
         public BasePublicationViewModel(INavigationService navigationService, IDialogService dialogService)
@@ -75,6 +73,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public BasePublicationViewModel(INavigationService navigationService,
                                         IDialogService dialogService,
                                         IPlatformService platformService,
+                                        IVideoPlayerService videoPlayerService,
                                         string profileName,
                                         string profilePhotoUrl,
                                         string videoName,
@@ -87,6 +86,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         {
             _dialogService = dialogService;
             _platformService = platformService;
+            VideoPlayerService = videoPlayerService;
 
             ProfileName = profileName;
             ProfilePhotoUrl = profilePhotoUrl;
@@ -97,8 +97,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _publicationDate = publicationDate;
             _numberOfLikes = numberOfLikes;
             _shareLink = shareLink;
-
-            CrossMediaManager.Current.Volume.Muted = HasSoundTurnOn;
         }
 
         private Task OnLikeAsync()
@@ -143,16 +141,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private void OnToggleSound()
         {
             HasSoundTurnOn = !HasSoundTurnOn;
-            CrossMediaManager.Current.Volume.Muted = HasSoundTurnOn;
-        }
 
-        private void OnPlayVideo(IVideoView videoView)
-        {
-            if (CrossMediaManager.Current.IsPlaying())
-                CrossMediaManager.Current.Stop();
-
-            CrossMediaManager.Current.MediaPlayer.VideoView = videoView;
-            CrossMediaManager.Current.Play(VideoUrl);
+            VideoPlayerService.Muted = !HasSoundTurnOn;
         }
     }
 }

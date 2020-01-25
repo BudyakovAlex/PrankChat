@@ -2,6 +2,7 @@
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
+using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -14,6 +15,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
     [MvxTabPresentation(TabName = "Orders", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
     public partial class OrdersView : BaseTabbedView<OrdersViewModel>
     {
+        private MvxUIRefreshControl _refreshControl;
+
         public OrdersTableSource OrdersTableSource { get; private set; }
 
         protected override void SetupBinding()
@@ -29,6 +32,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             set.Bind(filterTitleLabel)
                 .To(vm => vm.ActiveFilterName);
+
+            set.Bind(_refreshControl)
+                .For(v => v.IsRefreshing)
+                .To(vm => vm.IsBusy);
+
+            set.Bind(_refreshControl)
+                .For(v => v.RefreshCommand)
+                .To(vm => vm.LoadOrdersCommand);
 
             set.Apply();
 		}
@@ -58,6 +69,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             tableView.SeparatorColor = Theme.Color.Separator;
             tableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
+
+            _refreshControl = new MvxUIRefreshControl();
+            tableView.RefreshControl = _refreshControl;
         }
 
         private void InitializeNavigationBar()

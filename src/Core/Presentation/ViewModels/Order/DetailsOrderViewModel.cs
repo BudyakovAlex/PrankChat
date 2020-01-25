@@ -1,55 +1,89 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using FFImageLoading.Transformations;
-using FFImageLoading.Work;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.ViewModels;
+using Plugin.Media;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
-    public class OrderDetailsViewModel : BaseViewModel
+    public class OrderDetailsViewModel : BaseViewModel, IMvxViewModel<OrderDetailsNavigationParameter>
     {
+        private readonly IApiService _apiService;
+        private readonly IMvxLog _mvxLog;
+        private readonly IDialogService _dialogService;
+        private readonly ISettingsService _settingsService;
+
+        private int _orderId;
+        private OrderDataModel _order;
+
         #region Profile
 
-        public string ProfilePhotoUrl { get; set; } = "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg";
+        public string ProfilePhotoUrl => _order?.Customer?.Avatar;
 
-        public string ProfileName { get; set; } = "Володя";
+        public string ProfileName => _order?.Customer?.Name;
 
-        #endregion
+        #endregion Profile
 
         #region Video
 
         public string VideoUrl { get; set; } = "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg";
 
-        public string VideoName { get; set; } = "Скушать 1 кг томатов за 10 минут";
+        public string VideoName => _order?.Title;
 
-        public string VideoDetails { get; set; } = "Полное описание видео. Полное описание видео. Скушать 1 кг томатов за 10 минут";
+        public string VideoDetails => _order?.Description;
 
-        #endregion
+        #endregion Video
 
         #region Executor
 
-        public string ExecutorPhotoUrl { get; set; } = "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg";
+        public string ExecutorPhotoUrl => _order?.Executor?.Avatar;
 
-        public string ExecutorName { get; set; } = "Евгений";
+        public string ExecutorName => _order?.Executor?.Name;
 
-        public string StartOrderDate { get; set; } = DateTime.Now.ToShortDateString();
+        public string StartOrderDate => _order?.TakenToWorkAt?.ToShortDateString();
 
-        #endregion
+        #endregion Executor
 
-        #region PhotoSetting
+        public string PriceValue => _order?.Price.ToString();
 
-        public List<ITransformation> Transformations => new List<ITransformation> { new CircleTransformation() };
+        public string TimeValue => _order?.FinishIn?.ToString("dd' : 'hh' : 'mm");
 
-        public double DownsampleWidth { get; } = 100;
+        public bool IsUserCustomer => _order?.Customer?.Id == _settingsService.User?.Id;
 
-        #endregion
+        public bool IsUserExecutor => _order?.Executor?.Id == _settingsService.User?.Id;
 
-        public string PriceValue { get; set; } //= 10000D.ToPriceString();
+        public bool IsUserListener => !IsUserCustomer && !IsUserExecutor;
 
-        public string TimeValue { get; set; } = DateTime.Now.ToTimeWithSpaceString();
+        public bool IsSubscribeAvailable => IsUserListener;
+
+        public bool IsUnsubscribeAvailable => IsUserListener;
+
+        public bool IsTakeOrderAvailable => !IsUserCustomer && _order?.Status == OrderStatusType.New;
+
+        public bool IsCancelOrderAvailable => false;
+
+        public bool IsExecuteOrderAvailable => false;
+
+        public bool IsVideoLoadAvailable => _order?.Status != OrderStatusType.New && _order.Video == null && !IsUserCustomer;
+
+        public bool IsVideoAvailable => _order.Video != null;
+
+        public bool IsExecutorAvailable => _order?.Executor != null;
+
+        public bool IsDecideVideoAvailable => false;
+
+        public bool IsDecisionVideoAvailable => false;
+
+        #region Commands
 
         public MvxAsyncCommand TakeOrderCommand => new MvxAsyncCommand(OnTakeOrderAsync);
 
@@ -61,7 +95,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public MvxAsyncCommand NoCommand => new MvxAsyncCommand(OnNoAsync);
 
-        public MvxAsyncCommand DownloadOrderCommand => new MvxAsyncCommand(OnDownloadOrderAsync);
+        public MvxAsyncCommand LoadVideoCommand => new MvxAsyncCommand(OnLoadVideoAsync);
 
         public MvxAsyncCommand ExecuteOrderCommand => new MvxAsyncCommand(OnExecuteOrderAsync);
 
@@ -71,28 +105,142 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public MvxAsyncCommand AcceptOrderCommand => new MvxAsyncCommand(OnAcceptOrderAsync);
 
-        public OrderDetailsViewModel(INavigationService navigationService) : base(navigationService)
+        #endregion Commands
+
+        public OrderDetailsViewModel(INavigationService navigationService,
+                                    IApiService apiService,
+                                    IDialogService dialogService,
+                                    IMvxLog mvxLog,
+                                    ISettingsService settingsService) : base(navigationService)
         {
+            _dialogService = dialogService;
+            _apiService = apiService;
+            _mvxLog = mvxLog;
+            _settingsService = settingsService;
         }
 
-        private Task OnTakeOrderAsync()
+        public void Prepare(OrderDetailsNavigationParameter parameter)
         {
-            return Task.CompletedTask;
+            _orderId = parameter.OrderId;
         }
 
-        private Task OnSubscribeOrderAsync()
+        public override Task Initialize()
         {
-            return Task.CompletedTask;
+            return LoadOrderDetails();
         }
 
-        private Task OnUnsubscribeOrderAsync()
+        private async Task LoadOrderDetails()
         {
-            return Task.CompletedTask;
+            try
+            {
+                IsBusy = true;
+
+                _order = await _apiService.GetOrderDetailsAsync(_orderId);
+                await RaiseAllPropertiesChanged();
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
+                _dialogService.ShowToast("Can not load order details!");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
-        private Task OnDownloadOrderAsync()
+        private async Task OnTakeOrderAsync()
         {
-            return Task.CompletedTask;
+            var result = await _dialogService.ShowConfirmAsync(Resources.OrderDetailsView_TakeOrderQuestion,
+                                                               Resources.Attention,
+                                                               Resources.OrderDetailsView_TakeOrderTitle,
+                                                               Resources.Cancel);
+            if (!result)
+                return;
+
+            var order = await _apiService.TakeOrderAsync(_orderId);
+            if (order != null)
+            {
+                _order.Status = OrderStatusType.InWork;
+                _order.Executor = _settingsService.User;
+                await RaiseAllPropertiesChanged();
+                _dialogService.ShowToast("You have successfully taken the order!");
+            }
+        }
+
+        private async Task OnSubscribeOrderAsync()
+        {
+            try
+            {
+                IsBusy = true;
+
+                var order = await _apiService.SubscribeOrderAsync(_orderId);
+                await RaiseAllPropertiesChanged();
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
+                _dialogService.ShowToast("Can not subscribe order!");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task OnUnsubscribeOrderAsync()
+        {
+            try
+            {
+                IsBusy = true;
+
+                var order = await _apiService.UnsubscribeOrderAsync(_orderId);
+                await RaiseAllPropertiesChanged();
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
+                _dialogService.ShowToast("Can not unsubscribe order!");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task OnLoadVideoAsync()
+        {
+            // todo: create service for Permissions and Photo
+            //var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
+            //var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+
+            //if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
+            //{
+            //    var permissionsStatus = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Camera | Permission.Storage);
+            //    permissionsStatus.TryGetValue(Permission.Camera, out cameraStatus);
+            //    permissionsStatus.TryGetValue(Permission.Storage, out storageStatus);
+            //}
+
+            try
+            {
+                IsBusy = true;
+
+                await CrossMedia.Current.Initialize();
+                var file = await CrossMedia.Current.PickVideoAsync();
+                if (file == null)
+                    return;
+
+                var video = await _apiService.SendVideoAsync(_orderId, file.Path, _order?.Title, _order?.Description);
+                if (video != null)
+                {
+                    _order.Video = video;
+                    await RaiseAllPropertiesChanged();
+                }
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private Task OnArqueOrderAsync()
@@ -105,9 +253,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             return Task.CompletedTask;
         }
 
-        private Task OnCancelOrderAsync()
+        private async Task OnCancelOrderAsync()
         {
-            return Task.CompletedTask;
+            var result = await _dialogService.ShowConfirmAsync(Resources.OrderDetails_View_Cancel_Title,
+                                                   Resources.Attention,
+                                                   Resources.Ok,
+                                                   Resources.Cancel);
+
+            if (!result)
+                return;
+
+            await _apiService.CancelOrderAsync(_orderId);
         }
 
         private Task OnExecuteOrderAsync()

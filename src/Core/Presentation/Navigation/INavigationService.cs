@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowSearchView();
 
-        Task ShowDetailsOrderView();
+        Task ShowDetailsOrderView(OrderDetailsNavigationParameter parameter);
 
         Task ShowDetailsPublicationView();
 

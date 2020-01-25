@@ -10,6 +10,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
     {
         public OrdersTableSource(UITableView tableView) : base(tableView)
         {
+            UseAnimations = true;
         }
 
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
