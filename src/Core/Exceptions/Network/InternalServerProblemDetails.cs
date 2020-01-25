@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace PrankChat.Mobile.Core.ApplicationServices.Network.Errors
+namespace PrankChat.Mobile.Core.Exceptions.Network
 {
     public class InternalServerProblemDetails : Exception
     {

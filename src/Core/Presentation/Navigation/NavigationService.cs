@@ -11,22 +11,27 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Rating;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
     public class NavigationService : INavigationService
     {
         private readonly IMvxNavigationService _mvxNavigationService;
+        private readonly ISettingsService _settingsService;
 
-        public NavigationService(IMvxNavigationService mvxNavigationService)
+        public NavigationService(IMvxNavigationService mvxNavigationService, ISettingsService settingsService)
         {
             _mvxNavigationService = mvxNavigationService;
+            _settingsService = settingsService;
         }
 
-        public Task AppStart()
+        public async Task AppStart()
         {
-            return ShowLoginView();
-            //return ShowMainView();
+            if (_settingsService.User == null)
+                await ShowLoginView();
+            else
+                await ShowMainView();
         }
 
         public Task ShowCashboxView()

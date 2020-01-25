@@ -4,8 +4,9 @@ using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -19,6 +20,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         private readonly IDialogService _dialogService;
         private readonly IApiService _apiService;
         private readonly IMvxLog _mvxLog;
+        private readonly IErrorHandleService _errorHandleService;
 
         private string _email;
 
@@ -40,11 +42,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         public DateTime? Birthday
         {
             get => _birthday;
-            set
-            {
-                SetProperty(ref _birthday, value);
-
-            }
+            set => SetProperty(ref _birthday, value);
         }
 
         public string BirthdayText => Birthday?.ToShortDateString() ?? Resources.RegistrationView_Birthday_Placeholder;
@@ -63,8 +61,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             set => SetProperty(ref _repeatedPassword, value);
         }
 
-        private GenderType _gender;
-        public GenderType Gender
+        private GenderType? _gender;
+        public GenderType? Gender
         {
             get => _gender;
             set => SetProperty(ref _gender, value);
@@ -72,19 +70,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         public MvxAsyncCommand SelectBirthdayCommand => new MvxAsyncCommand(OnSelectBirthdayAsync);
 
-        public MvxCommand<string> SelectGenderCommand => new MvxCommand<string>(OnSelectGender);
+        public MvxCommand<GenderType> SelectGenderCommand => new MvxCommand<GenderType>(OnSelectGender);
 
         public MvxAsyncCommand UserRegistrationCommand => new MvxAsyncCommand(OnUserRegistrationAsync);
 
         public RegistrationSecondStepViewModel(INavigationService navigationService,
                                                IDialogService dialogService,
                                                IApiService apiService,
-                                               IMvxLog mvxLog)
+                                               IMvxLog mvxLog,
+                                               IErrorHandleService errorHandleService)
             : base(navigationService)
         {
             _dialogService = dialogService;
             _apiService = apiService;
             _mvxLog = mvxLog;
+            _errorHandleService = errorHandleService;
         }
 
         public void Prepare(RegistrationNavigationParameter parameter)
@@ -92,12 +92,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             _email = parameter.Email;
         }
 
-        private void OnSelectGender(string genderTypeString)
+        private void OnSelectGender(GenderType genderType)
         {
-            if (Enum.TryParse<GenderType>(genderTypeString, out var genderType))
-            {
-                Gender = genderType;
-            }
+            Gender = genderType;
         }
 
         private async Task OnSelectBirthdayAsync()
@@ -112,6 +109,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         private async Task OnUserRegistrationAsync()
         {
+            if (!CheckValidation())
+                return;
+
             try
             {
                 IsBusy = true;
@@ -121,7 +121,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                     Name = Name,
                     Email = _email,
                     Login = Nickname,
-                    Birthday = Birthday.Value,
+                    Birthday = Birthday,
                     Sex = Gender,
                     Password = Password,
                     PasswordConfirmation = RepeatedPassword,
@@ -140,6 +140,59 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             {
                 IsBusy = false;
             }
+        }
+
+        private bool CheckValidation()
+        {
+            if (string.IsNullOrWhiteSpace(Nickname))
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Логин не может быть пустым."));
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(Name))
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Имя не может быть пустым."));
+                return false;
+            }
+
+            if (Birthday == null)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("День рождения не может быть пустым."));
+                return false;
+            }
+
+            if (Birthday > DateTime.Now)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Дата дня рождения не может быть польше текущей даты."));
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Password))
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Пароль не может быть пустым."));
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(RepeatedPassword))
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Проверочный пароль не может быть пустым."));
+                return false;
+            }
+
+            if (Password != RepeatedPassword)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Проверочный пароль и пароль не совпадают."));
+                return false;
+            }
+
+            if (Gender == null)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Выберите свой пол."));
+                return false;
+            }
+
+            return true;
         }
     }
 }
