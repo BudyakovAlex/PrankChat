@@ -61,5 +61,6 @@
     <Folder Include="Exceptions\" />
     <Folder Include="Exceptions\Network\" />
     <Folder Include="ApplicationServices\Network\Errors\" />
+    <Folder Include="ApplicationServices\Timer\" />
   </ItemGroup>
 </Project>
