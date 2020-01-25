@@ -7,6 +7,7 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
@@ -14,6 +15,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     {
         private readonly IDialogService _dialogService;
         private readonly IPlatformService _platformService;
+        private readonly IApiService _apiService;
         private long? _numberOfViews;
         private DateTime _publicationDate;
         private long? _numberOfLikes;
@@ -31,6 +33,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string VideoInformationText => $"{_numberOfViews.ToCountViewsString()} {_publicationDate.ToTimeAgoPublicationString()}";
 
+        public string VideoId { get; set; } 
         public string VideoName { get; set; } = "Name video one";
 
         public string PlaceholderImageUrl { get; set; } = "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg";
@@ -74,8 +77,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                         IDialogService dialogService,
                                         IPlatformService platformService,
                                         IVideoPlayerService videoPlayerService,
+                                        IApiService apiServices,
                                         string profileName,
                                         string profilePhotoUrl,
+                                        string videoId,
                                         string videoName,
                                         string videoUrl,
                                         long numberOfViews,
@@ -86,10 +91,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         {
             _dialogService = dialogService;
             _platformService = platformService;
+            _apiService = apiServices;
             VideoPlayerService = videoPlayerService;
 
             ProfileName = profileName;
             ProfilePhotoUrl = profilePhotoUrl;
+            VideoId = videoId;
             VideoName = videoName;
             VideoUrl = videoUrl;
 
@@ -99,9 +106,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _shareLink = shareLink;
         }
 
-        private Task OnLikeAsync()
+        private async Task OnLikeAsync()
         {
-            return Task.CompletedTask;
+            var video = await _apiService.SendLikeAsync(VideoId, true);
+
         }
 
         private Task OnBookmarkAsync()

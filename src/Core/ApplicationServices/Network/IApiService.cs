@@ -39,6 +39,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         #region Publications
 
         Task<VideoMetadataBundleDataModel> GetPopularVideoFeedAsync(DateFilterType dateFilterType);
+        Task<VideoMetadataBundleDataModel> SendLikeAsync(string videoId, bool isChecked);
 
         Task<VideoMetadataBundleDataModel> GetActualVideoFeedAsync(DateFilterType dateFilterType);
 

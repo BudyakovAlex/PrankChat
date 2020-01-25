@@ -1,6 +1,7 @@
 ﻿using System;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -15,8 +16,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                                         IDialogService dialogService,
                                         IPlatformService platformService,
                                         IVideoPlayerService videoPlayerService,
+                                        IApiService apiServices,
                                         string profileName,
                                         string profilePhotoUrl,
+                                        string videoId,
                                         string videoName,
                                         string videoUrl,
                                         long numberOfViews,
@@ -27,8 +30,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                     dialogService,
                     platformService,
                     videoPlayerService,
+                    apiServices,
                     profileName,
                     profilePhotoUrl,
+                    videoId,
                     videoName,
                     videoUrl,
                     numberOfViews,
