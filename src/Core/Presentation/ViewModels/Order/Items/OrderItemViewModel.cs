@@ -137,7 +137,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         private void OnTimerTick(TimerTickMessage message)
         {
             ElapsedTime = DateTime.Now - _activeTo?.ToLocalTime();
-            RaisePropertyChanged(nameof(TimeText));
         }
 
         private Task OnOpenDetailsOrderAsync()

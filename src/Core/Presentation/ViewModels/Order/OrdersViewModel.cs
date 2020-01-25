@@ -161,6 +161,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 _mvxMessenger.Unsubscribe<NewOrderMessage>(_newOrderMessageToken);
                 _newOrderMessageToken.Dispose();
             }
+
+            foreach(var item in Items)
+            {
+                item.Dispose();
+            }
         }
 
         private void OnNewOrderMessenger(NewOrderMessage newOrderMessage)
