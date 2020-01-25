@@ -127,11 +127,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     new OrderItemViewModel(
                         NavigationService,
                         _settingsService,
+                        _mvxMessenger,
                         x.Id,
                         x.Title,
                         x.Customer?.Avatar,
                         x.Price,
-                        DateTime.Now - x.ActiveTo?.ToLocalTime(),
+                        x.ActiveTo,
                         x.Status ?? OrderStatusType.None,
                         x.Customer?.Id));
 
@@ -160,6 +161,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 _mvxMessenger.Unsubscribe<NewOrderMessage>(_newOrderMessageToken);
                 _newOrderMessageToken.Dispose();
             }
+
+            foreach(var item in Items)
+            {
+                item.Dispose();
+            }
         }
 
         private void OnNewOrderMessenger(NewOrderMessage newOrderMessage)
@@ -167,11 +173,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             var newOrderItemViewModel = new OrderItemViewModel(
                     NavigationService,
                     _settingsService,
+                    _mvxMessenger,
                     newOrderMessage.NewOrder.Id,
                     newOrderMessage.NewOrder.Title,
                     newOrderMessage.NewOrder.Customer?.Avatar,
                     newOrderMessage.NewOrder.Price,
-                    newOrderMessage.NewOrder.FinishIn,
+                    newOrderMessage.NewOrder.ActiveTo,
                     newOrderMessage.NewOrder.Status ?? OrderStatusType.None,
                     newOrderMessage.NewOrder.Customer?.Id);
             Items.Add(newOrderItemViewModel);

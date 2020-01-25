@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -10,21 +12,35 @@ using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 {
-    public class OrderItemViewModel : BaseItemViewModel
+    public class OrderItemViewModel : BaseItemViewModel, IDisposable
     {
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;
-
-        private TimeSpan? _orderTime;
+        private readonly IMvxMessenger _mvxMessenger;
+        private DateTime? _activeTo;
         private OrderStatusType _status;
         private int _orderId;
         private int? _customerId;
+        private TimeSpan? _elapsedTime;
+        private MvxSubscriptionToken _timerTickMessageToken;
 
         public string Title { get; }
 
         public string ProfilePhotoUrl { get; }
 
-        public string TimeText => _orderTime?.ToString("dd' : 'hh' : 'mm");
+        public TimeSpan? ElapsedTime
+        {
+            get => _elapsedTime;
+            set
+            {
+                if(SetProperty(ref _elapsedTime, value))
+                {
+                    RaisePropertyChanged(nameof(TimeText));
+                }
+            }
+        }
+
+        public string TimeText => _elapsedTime?.ToString("dd' : 'hh' : 'mm");
 
         public string PriceText { get; }
 
@@ -79,24 +95,61 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public OrderItemViewModel(INavigationService navigationService,
                                   ISettingsService settingsService,
+                                  IMvxMessenger mvxMessenger,
                                   int orderId,
                                   string orderTitle,
                                   string profilePhotoUrl,
                                   double? price,
-                                  TimeSpan? time,
+                                  DateTime? activeTo,
                                   OrderStatusType status,
                                   int? customerId)
         {
             _navigationService = navigationService;
             _settingsService = settingsService;
+            _mvxMessenger = mvxMessenger;
 
             Title = orderTitle;
             ProfilePhotoUrl = profilePhotoUrl;
             PriceText = price.ToPriceString();
-            _orderTime = time;
+            _activeTo = activeTo;
             _status = status;
             _orderId = orderId;
             _customerId = customerId;
+
+            Subscribe();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Unsubscribe();
+            }
+        }
+
+        private void Subscribe()
+        {
+            _timerTickMessageToken = _mvxMessenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong);
+        }
+
+        private void Unsubscribe()
+        {
+            if (_timerTickMessageToken != null)
+            {
+                _mvxMessenger.Unsubscribe<TimerTickMessage>(_timerTickMessageToken);
+                _timerTickMessageToken = null;
+            }
+        }
+
+        private void OnTimerTick(TimerTickMessage message)
+        {
+            ElapsedTime = DateTime.Now - _activeTo?.ToLocalTime();
         }
 
         private Task OnOpenDetailsOrderAsync()
