@@ -12,28 +12,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly ISettingsService _settingsService;
 
         private MvxSubscriptionToken _updateProfileToken;
-        private string _userImageUrl;
 
+        private string _userImageUrl;
         public string UserImageUrl
         {
             get => _userImageUrl;
             set => SetProperty(ref _userImageUrl, value);
         }
 
-
         public MvxAsyncCommand ShowContentCommand
         {
             get
             {
                 return new MvxAsyncCommand(() => NavigationService.ShowMainViewContent());
-            }
-        }
-
-        public MvxAsyncCommand ShowNotificationCommand
-        {
-            get
-            {
-                return new MvxAsyncCommand(() => NavigationService.ShowNotificationView());
             }
         }
 
@@ -74,9 +65,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private void OnUserProfileUpdate(UpdateUserProfileMessenger message)
         {
             var user = _settingsService.User;
-            if (user == null)
-                return;
-            UserImageUrl = user.Avatar ?? "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+            UserImageUrl = user?.Avatar ?? "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
         }
     }
 }
