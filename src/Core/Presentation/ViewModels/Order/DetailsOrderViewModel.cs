@@ -4,6 +4,8 @@ using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.ViewModels;
 using Plugin.Media;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
@@ -210,22 +212,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnLoadVideoAsync()
         {
-            // todo: create service for Permissions and Photo
-            //var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
-            //var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
-
-            //if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
-            //{
-            //    var permissionsStatus = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Camera | Permission.Storage);
-            //    permissionsStatus.TryGetValue(Permission.Camera, out cameraStatus);
-            //    permissionsStatus.TryGetValue(Permission.Storage, out storageStatus);
-            //}
-
             try
             {
                 IsBusy = true;
 
+                // todo: create service for Permissions and Photo
+                //var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
+                //var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+
+                //if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
+                //{
+                //    var permissionsStatus = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Camera | Permission.Storage);
+                //    permissionsStatus.TryGetValue(Permission.Camera, out cameraStatus);
+                //    permissionsStatus.TryGetValue(Permission.Storage, out storageStatus);
+                //}
+
+                await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Storage, Permission.Camera, Permission.Photos });
+
+
                 await CrossMedia.Current.Initialize();
+
+                var lol = CrossMedia.Current.IsPickVideoSupported;
+
                 var file = await CrossMedia.Current.PickVideoAsync();
                 if (file == null)
                     return;
