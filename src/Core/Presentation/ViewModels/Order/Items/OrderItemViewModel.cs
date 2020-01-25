@@ -116,7 +116,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             _orderId = orderId;
             _customerId = customerId;
 
-            _timerTickMessageToken = mvxMessenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong);
+            Subscribe();
         }
 
         public void Dispose()
@@ -127,7 +127,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing && _timerTickMessageToken != null)
+            if (disposing)
+            {
+                Unsubscribe();
+            }
+        }
+
+        private void Subscribe()
+        {
+            _timerTickMessageToken = _mvxMessenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong);
+        }
+
+        private void Unsubscribe()
+        {
+            if (_timerTickMessageToken != null)
             {
                 _mvxMessenger.Unsubscribe<TimerTickMessage>(_timerTickMessageToken);
                 _timerTickMessageToken = null;
