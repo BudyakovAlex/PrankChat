@@ -6,13 +6,16 @@ using FFImageLoading.Work;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 {
     public class RatingItemViewModel : BaseItemViewModel
     {
         private readonly INavigationService _navigatiobService;
+
         private DateTime _orderTime;
+        private int _orderId;
 
         public string OrderTitle { get; }
 
@@ -29,6 +32,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
         public MvxAsyncCommand OpenDetailsOrderCommand => new MvxAsyncCommand(OnOpenDetailsOrderAsync);
 
         public RatingItemViewModel(INavigationService navigatiobService,
+                                  int orderId,
                                   string orderTitle,
                                   string profilePhotoUrl,
                                   double? priceText,
@@ -39,6 +43,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
             ProfilePhotoUrl = profilePhotoUrl;
             PriceText = priceText.ToPriceString();
             _orderTime = time;
+            _orderId = orderId;
 
             Likes = "1000";
             Dislikes = "100";
@@ -46,7 +51,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 
         private Task OnOpenDetailsOrderAsync()
         {
-            return _navigatiobService.ShowDetailsOrderView();
+            var parameter = new OrderDetailsNavigationParameter(_orderId);
+            return _navigatiobService.ShowDetailsOrderView(parameter);
         }
     }
 }

@@ -53,5 +53,20 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 
             return _mvxNavigationService.Navigate<ShareDialogViewModel, string>(url);
         }
+
+        public Task<bool> ShowConfirmAsync(string message, string title = "", string ok = "", string cancel = "")
+        {
+            if (string.IsNullOrWhiteSpace(ok))
+            {
+                ok = Resources.Ok;
+            }
+
+            if (string.IsNullOrWhiteSpace(cancel))
+            {
+                cancel = Resources.Cancel;
+            }
+
+            return UserDialogs.Instance.ConfirmAsync(message, title, ok, cancel);
+        }
     }
 }

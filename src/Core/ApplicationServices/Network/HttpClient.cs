@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Errors;
 using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Models.Api;
 using RestSharp;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
@@ -29,8 +31,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             _client = new RestClient($"{baseAddress}/{ApiId}/v{apiVersion.Major}").UseSerializer(() => new JsonNetSerializer());
         }
 
-        public async Task<TResult> UnauthorizedGet<TResult>(string endpoint, bool exceptionThrowingEnabled = false) where TResult : class, new()
+        public async Task<TResult> UnauthorizedGet<TResult>(string endpoint, bool exceptionThrowingEnabled = false, params IncludeType[] includes) where TResult : class, new()
         {
+            endpoint = TryAddIncludeFlag(endpoint, includes);
             var request = new RestRequest(endpoint, Method.GET);
             return await ExecuteTask<TResult>(request, false, exceptionThrowingEnabled);
         }
@@ -51,8 +54,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return await ExecuteTask<TResult>(request, false, exceptionThrowingEnabled);
         }
 
-        public async Task<TResult> Get<TResult>(string endpoint, bool exceptionThrowingEnabled = false) where TResult : class, new()
+        public async Task<TResult> Get<TResult>(string endpoint, bool exceptionThrowingEnabled = false, params IncludeType[] includes) where TResult : class, new()
         {
+            endpoint = TryAddIncludeFlag(endpoint, includes);
             var request = new RestRequest(endpoint, Method.GET);
             return await ExecuteTask<TResult>(request, true, exceptionThrowingEnabled);
         }
@@ -61,6 +65,26 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var request = new RestRequest(endpoint, Method.POST);
             request.AddJsonBody(item);
+            return ExecuteTask<TResult>(request, true, exceptionThrowingEnabled);
+        }
+
+        public Task<TResult> Post<TResult>(string endpoint, bool exceptionThrowingEnabled = false) where TResult : new()
+        {
+            var request = new RestRequest(endpoint, Method.POST);
+            return ExecuteTask<TResult>(request, true, exceptionThrowingEnabled);
+        }
+
+        public Task<TResult> PostFile<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : LoadVideoApiModel where TResult : new()
+        {
+            var request = new RestRequest(endpoint, Method.POST);
+
+            request.AddParameter("order_id", item.OrderId);
+            request.AddParameter("title", item.Title);
+            request.AddParameter("description", item.Description);
+
+            request.AddFile("video", item.FilePath);
+            request.AlwaysMultipartFormData = true;
+
             return ExecuteTask<TResult>(request, true, exceptionThrowingEnabled);
         }
 
@@ -142,6 +166,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     case HttpStatusCode.Unauthorized:
                     case HttpStatusCode.Forbidden:
                         throw JsonConvert.DeserializeObject<AuthenticationProblemDetails>(response.Content);
+
+                    case HttpStatusCode.InternalServerError:
+                        var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(response.Content);
+                        throw new InternalServerProblemDetails(problemDetails.Title);
                 }
 
                 if (response.ErrorException != null)
@@ -153,14 +181,18 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     throw new NetworkException($"Network error - {response.ErrorMessage} with code {response.StatusCode} for request {request.Resource}");
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                _mvxLog.Error(response.StatusCode + response.ErrorMessage);
-                _messenger.Publish(new BadRequestErrorMessage(this));
+                _mvxLog.ErrorException(response.StatusCode + response.ErrorMessage, ex);
+                var errorMessages = new List<string>
+                {
+                    ex.Message
+                };
+                _messenger.Publish(new BadRequestErrorMessage(this, errorMessages.AsReadOnly()));
 
                 if (exceptionThrowingEnabled)
                 {
-                    throw;
+                    throw ex;
                 }
             }
         }
@@ -169,6 +201,16 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var accessToken = await _settingsService.GetAccessTokenAsync();
             request.AddHeader(HttpRequestHeader.Authorization.ToString(), $"Bearer {accessToken}");
+        }
+
+        private string TryAddIncludeFlag(string apiPoint, IncludeType[] includes)
+        {
+            // TODO: Refactor this.
+            if (includes == null || includes.Length == 0)
+                return apiPoint;
+
+            var startChar = apiPoint.Contains("?") ? "&" : "?";
+            return $"{apiPoint}{startChar}include={string.Join(",", includes)}".ToLowerInvariant();
         }
     }
 }

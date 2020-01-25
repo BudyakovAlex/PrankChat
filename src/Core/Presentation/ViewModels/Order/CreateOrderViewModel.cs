@@ -6,8 +6,10 @@ using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Errors;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Presentation.Messengers;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
@@ -18,6 +20,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly IApiService _apiService;
         private readonly IMvxLog _mvxLog;
         private readonly IMvxMessenger _mvxMessenger;
+        private readonly ISettingsService _settingsService;
 
         private DateTime? _completedDateValue;
         public DateTime? CompletedDateValue
@@ -47,8 +50,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             set => _currencySign = value;
         }
 
-        private long _price;
-        public long Price
+        private long? _price;
+        public long? Price
         {
             get => _price;
             set
@@ -73,13 +76,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                     IDialogService dialogService,
                                     IApiService apiService,
                                     IMvxLog mvxLog,
-                                    IMvxMessenger mvxMessenger)
+                                    IMvxMessenger mvxMessenger,
+                                    ISettingsService settingsService)
             : base(navigationService)
         {
             _dialogService = dialogService;
             _apiService = apiService;
             _mvxLog = mvxLog;
             _mvxMessenger = mvxMessenger;
+            _settingsService = settingsService;
         }
 
         public override void Prepare()
@@ -93,6 +98,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             if (CompletedDateValue == null || DateTime.Now > CompletedDateValue.Value)
             {
                 _dialogService.ShowToast("Date must be greater than the current");
+                return;
             }
 
             try
@@ -105,21 +111,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     Description = Description,
                     AutoProlongation = IsExecutorHidden,
                     ActiveFor = (int) (CompletedDateValue.Value - DateTime.Now).TotalDays,
-                    Price = Price,
+                    Price = Price.Value,
                 };
 
                 var newOrder = await _apiService.CreateOrderAsync(createOrderModel);
                 if (newOrder != null)
                 {
-                    _mvxMessenger.Publish(new NewOrderMessenger(this, newOrder));
-                }
+                    if (newOrder.Customer == null)
+                        newOrder.Customer = _settingsService.User;
 
-                _dialogService.ShowToast("Order is created");
-            }
-            catch (Exception ex)
-            {
-                _mvxLog.DebugException($"{nameof(CreateOrderViewModel)}", ex);
-                _dialogService.ShowToast("Required data is empty");
+                    _mvxMessenger.Publish(new NewOrderMessage(this, newOrder));
+                    _dialogService.ShowToast("Order is created");
+                }
             }
             finally
             {
