@@ -4,6 +4,8 @@
     {
         Popular,
         Actual,
-        MyFeed
+        MyFeedComplete,
+        MyFeedIncomingOrders,
+        MyFeedOutgoingOrders
     }
 }

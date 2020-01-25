@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Plugin.Visibility;
+using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Infrastructure;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -31,7 +35,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.Price);
 
             set.Bind(completeDateTextField)
-                .To(vm => vm.CompletedDateValue);
+                .To(vm => vm.CompletedDateValue)
+                .WithConversion<DateFormatConverter>(DateFormats.ShortDate);
 
             set.Bind(completeDateTextField.Tap())
                 .For(v => v.Command)
@@ -41,9 +46,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.CreateCommand);
 
             set.Bind(progressBar)
-                .For(v => v.Hidden)
+                .For(v => v.BindHidden())
                 .To(vm => vm.IsBusy)
-                .WithConversion<MvxVisibilityValueConverter>();
+                .WithConversion<MvxInvertedBooleanConverter>();
 
             set.Apply();
 		}

@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -53,6 +52,9 @@
                                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     </state>
                                 </button>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="kTq-FK-K6A">
+                                    <rect key="frame" x="221.5" y="194" width="20" height="40"/>
+                                </activityIndicatorView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bF-Z3-c82">
                                     <rect key="frame" x="20" y="367.5" width="303" height="30"/>
                                     <state key="normal" title="Registration"/>
@@ -142,9 +144,6 @@
                                         <constraint firstAttribute="height" constant="45" id="CvY-Rw-5vO"/>
                                     </constraints>
                                 </stackView>
-                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="kTq-FK-K6A">
-                                    <rect key="frame" x="231.5" y="194" width="20" height="40"/>
-                                </activityIndicatorView>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="xNg-ZQ-Oho" firstAttribute="leading" secondItem="HGZ-VA-QRD" secondAttribute="leading" constant="20" id="1AE-eh-Kbf"/>
@@ -170,8 +169,8 @@
                                 <constraint firstItem="ET3-2r-7cv" firstAttribute="top" secondItem="xNg-ZQ-Oho" secondAttribute="bottom" constant="16" id="h6O-nN-bHE"/>
                                 <constraint firstItem="nAJ-a9-g7E" firstAttribute="centerX" secondItem="HGZ-VA-QRD" secondAttribute="centerX" id="iJX-MP-ga3"/>
                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nAJ-a9-g7E" secondAttribute="trailing" constant="16" id="lye-3f-zdt"/>
-                                <constraint firstItem="kTq-FK-K6A" firstAttribute="trailing" secondItem="LAK-AZ-oxm" secondAttribute="trailing" id="ma9-XK-bDP"/>
                                 <constraint firstItem="nAJ-a9-g7E" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HGZ-VA-QRD" secondAttribute="leading" constant="16" id="rdt-ip-MnG"/>
+                                <constraint firstItem="kTq-FK-K6A" firstAttribute="trailing" secondItem="LAK-AZ-oxm" secondAttribute="trailing" constant="-10" id="vB3-m5-euS"/>
                                 <constraint firstAttribute="trailing" secondItem="DKl-JP-yCC" secondAttribute="trailing" constant="20" id="wMW-rq-MvJ"/>
                                 <constraint firstItem="xNg-ZQ-Oho" firstAttribute="top" secondItem="LAK-AZ-oxm" secondAttribute="bottom" constant="26" id="zKl-3i-VVB"/>
                             </constraints>

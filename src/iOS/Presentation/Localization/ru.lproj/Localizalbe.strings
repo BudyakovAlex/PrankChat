@@ -171,3 +171,5 @@
 /*Fuzzy*/
 "Count_Of_Viewing" = "просмотра";
 "Year_Short" = "г.";
+"OrderStatus_MyOrder" = "Мой заказ";
+"OrderDetails_View_Cancel_Title" = "";

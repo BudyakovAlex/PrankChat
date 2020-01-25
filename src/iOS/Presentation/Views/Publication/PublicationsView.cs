@@ -29,6 +29,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.To(vm => vm.SelectedPublicationType)
 				.WithConversion<PublicationTypeConverter>();
 
+            set.Bind(PublicationTableSource)
+                .For(v => v.Segment)
+                .To(vm => vm.SelectedPublicationType)
+                .WithConversion<PublicationTypeConverter>();
+
+            set.Bind(PublicationTableSource)
+                .For(v => v.FilterName)
+                .To(vm => vm.ActiveFilterName);
+
             set.Bind(filterContainerView.Tap())
                 .For(v => v.Command)
                 .To(vm => vm.OpenFilterCommand);
@@ -38,10 +47,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             set.Bind(PublicationTableSource)
                 .To(vm => vm.Items);
-
-            set.Bind(PublicationTableSource)
-                .For(v => v.SelectionChangedCommand)
-                .To(vm => vm.SelectItemCommand);
 
             set.Bind(_refreshControl)
                 .For(v => v.IsRefreshing)
@@ -99,13 +104,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             PublicationTableSource = new PublicationTableSource(tableView);
             tableView.Source = PublicationTableSource;
             tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
-            tableView.SetStyle();
-            tableView.RowHeight = PublicationItemCell.EstimatedHeight;
-            tableView.UserInteractionEnabled = true;
-            tableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
-
-            tableView.SeparatorColor = Theme.Color.Separator;
-            tableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
+            tableView.SetVideoListStyle(PublicationItemCell.EstimatedHeight);
 
             _refreshControl = new MvxUIRefreshControl();
             tableView.RefreshControl = _refreshControl;

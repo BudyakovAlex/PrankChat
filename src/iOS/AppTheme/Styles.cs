@@ -238,6 +238,16 @@ namespace PrankChat.Mobile.iOS.AppTheme
             tableView.ContentInset = new UIEdgeInsets(1, 0, 10, 0);
         }
 
+        public static void SetVideoListStyle(this UITableView tableView, int? estimatedCellHeight = null)
+        {
+            tableView.SetStyle(estimatedCellHeight);
+            tableView.AllowsSelection = false;
+            tableView.UserInteractionEnabled = true;
+            tableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
+            tableView.SeparatorColor = Theme.Color.Separator;
+            tableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
+        }
+
         public static void SetCornerRadius(this UIView innerView, float radius = 2f, CACornerMask maskedCorners = (CACornerMask.MaxXMaxYCorner | CACornerMask.MaxXMinYCorner | CACornerMask.MinXMaxYCorner | CACornerMask.MinXMinYCorner))
         {
             innerView.Layer.CornerRadius = radius;

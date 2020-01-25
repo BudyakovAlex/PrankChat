@@ -26,7 +26,7 @@
                 android:layout_height="85dp"
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center_horizontal"
-                app:MvxBind="Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath ProfilePhotoUrl, Mode = OneTime" />
+                app:MvxBind="ImagePath ProfilePhotoUrl; Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/OrderDetailsView_Take_Order_Button"
                 style="@style/Theme.PrankChat.Button.Accent"
-                app:MvxBind="Click TakeOrderCommand"/>
+                app:MvxBind="Click TakeOrderCommand; Visibility Visibility(IsTakeOrderAvailable)"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
@@ -104,7 +104,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/OrderDetailsView_Subscribe_Button"
                 style="@style/Theme.PrankChat.Button.Accent"
-                app:MvxBind="Click SubscribeOrderCommand"/>
+                app:MvxBind="Click SubscribeOrderCommand; Visibility Visibility(IsSubscribeAvailable)"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
@@ -112,7 +112,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/OrderDetailsView_Unsubscribe_Button"
                 style="@style/Theme.PrankChat.Button.Accent"
-                app:MvxBind="Click UnsubscribeOrderCommand"/>
+                app:MvxBind="Click UnsubscribeOrderCommand; Visibility Visibility(IsUnsubscribeAvailable)"/>
             <!--Download video-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,7 +133,7 @@
                     android:layout_gravity="center_horizontal"
                     android:background="@null"
                     android:src="@drawable/ic_download"
-                    app:MvxBind="Click DownloadOrderCommand"/>
+                    app:MvxBind="Click LoadVideoCommand"/>
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
@@ -181,7 +181,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_below="@+id/take_the_order_text"
                     android:layout_marginTop="15dp"
-                    app:MvxBind="Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath ExecutorPhotoUrl, Mode = OneTime" />
+                    app:MvxBind="ImagePath ExecutorPhotoUrl; Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
                 <TextView
                     android:id="@+id/executor_name"
                     android:layout_width="match_parent"
@@ -193,7 +193,7 @@
                     android:textSize="14sp"
                     android:textColor="@color/applicationBlack"
                     android:text="Название профиля"
-                    app:MvxBind="Text ExecutorName, Mode = OneTime"/>
+                    app:MvxBind="Text ExecutorName"/>
                 <TextView
                     android:id="@+id/take_the_order_date"
                     android:layout_width="match_parent"
@@ -205,14 +205,14 @@
                     android:textSize="12sp"
                     android:textColor="@color/description"
                     android:text="Название профиля"
-                    app:MvxBind="Text StartOrderDate, Mode = OneTime"/>
+                    app:MvxBind="Text StartOrderDate"/>
                 <FFImageLoading.Cross.MvxCachedImageView
                     android:id="@+id/completed_video"
                     android:layout_width="match_parent"
                     android:layout_height="204dp"
                     android:layout_below="@+id/executor_photo"
                     android:layout_marginTop="25dp"
-                    app:MvxBind="ImagePath VideoUrl, Mode = OneTime" />
+                    app:MvxBind="ImagePath VideoUrl" />
             </RelativeLayout>
             <!--Corresponds to the video-->
             <android.support.percent.PercentRelativeLayout
@@ -274,5 +274,16 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/applicationTransparent"
+        app:MvxBind="Visibility Visibility(IsBusy)">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="@style/Theme.PrankChat.ProgressBar.Accent"/>
+    </FrameLayout>
 </RelativeLayout>
 

@@ -40,13 +40,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UILabel shareLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIImageView soundImageView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel videoNameLabel { get; set; }
 
 		[Outlet]
-		MediaManager.Platforms.Ios.Video.VideoView videoView { get; set; }
+		UIKit.UIView videoView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (soundImageView != null) {
+				soundImageView.Dispose ();
+				soundImageView = null;
+			}
+
 			if (bookmarkButton != null) {
 				bookmarkButton.Dispose ();
 				bookmarkButton = null;

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using MediaManager;
 using MvvmCross;
 using MvvmCross.IoC;
 using MvvmCross.ViewModels;
@@ -7,7 +6,6 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.ApplicationServices.Storages;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
@@ -20,15 +18,12 @@ namespace PrankChat.Mobile.Core
             InitializeMappings();
 
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<INavigationService, NavigationService>();
-            Mvx.IoCProvider.ConstructAndRegisterSingleton<IStorageService, StorageService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISettingsService, SettingsService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IApiService, ApiService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IErrorHandleService, ErrorHandleService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IPlatformService, PlatformService>();
 
             RegisterCustomAppStart<CustomAppStart>();
-
-            CrossMediaManager.Current.Init();
         }
 
         private void InitializeMappings()
