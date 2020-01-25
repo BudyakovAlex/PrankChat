@@ -640,9 +640,7 @@
     <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Group 189.pdf">
-      <Visible>false</Visible>
-    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Group 189-1.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />

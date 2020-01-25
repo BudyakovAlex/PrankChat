@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
@@ -12,6 +13,7 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Messengers;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
@@ -22,6 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly IDialogService _dialogService;
         private readonly IPlatformService _platformService;
         private readonly IApiService _apiService;
+        private readonly IMvxMessenger _messenger;
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly ISettingsService _settingsService;
 
@@ -120,14 +123,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         public ProfileViewModel(INavigationService navigationService,
                                 IDialogService dialogService,
                                 IPlatformService platformService,
-                                ISettingsService settingsService,
                                 IApiService apiService,
+                                ISettingsService settingsService,
+                                IMvxMessenger messenger,
                                 IVideoPlayerService videoPlayerService) : base(navigationService)
         {
             _dialogService = dialogService;
             _platformService = platformService;
             _settingsService = settingsService;
             _apiService = apiService;
+            _messenger = messenger;
             _videoPlayerService = videoPlayerService;
         }
 
@@ -174,6 +179,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 SubscriptionsValue = user.SubscriptionsCount.ToCountString();
                 Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
 
+                _messenger.Publish(new UpdateUserProfileMessenger(this));
                 await LoadVideoFeedAsync();
             }
             finally
