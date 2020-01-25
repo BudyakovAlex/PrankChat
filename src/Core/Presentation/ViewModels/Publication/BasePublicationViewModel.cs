@@ -29,7 +29,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #region Video
 
-        public string VideoInformationText => $"{_numberOfViews.ToCountViewsString()} {_publicationDate.ToTimeAgoString()}";
+        public string VideoInformationText => $"{_numberOfViews.ToCountViewsString()} {_publicationDate.ToTimeAgoPublicationString()}";
 
         public string VideoName { get; set; } = "Name video one";
 
