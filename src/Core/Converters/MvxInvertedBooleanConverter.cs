@@ -2,7 +2,7 @@
 using System.Globalization;
 using MvvmCross.Converters;
 
-namespace PrankChat.Mobile.iOS.Presentation.Converters
+namespace PrankChat.Mobile.Core.Converters
 {
     public class MvxInvertedBooleanConverter : MvxValueConverter<bool, bool>
     {

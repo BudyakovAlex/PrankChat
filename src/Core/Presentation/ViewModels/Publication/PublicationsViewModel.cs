@@ -31,6 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private readonly Dictionary<string, DateFilterType> _dateFilterTypeTitleMap;
 
         private PublicationType _selectedPublicationType;
+
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
@@ -42,6 +43,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         }
 
         private string _activeFilterName;
+
         public string ActiveFilterName
         {
             get => _activeFilterName;
@@ -53,6 +55,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         }
 
         private int _currentlyPlayingItem;
+
         public int CurrentlyPlayingItem
         {
             get => _currentlyPlayingItem;
@@ -63,11 +66,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterAsync);
 
-        public MvxAsyncCommand LoadPublicationsCommand => new MvxAsyncCommand(async () =>
-        {
-            _dateFilterTypeTitleMap.TryGetValue(ActiveFilterName, out var dateFilterType);
-            await OnLoadPublicationsAsync(SelectedPublicationType, dateFilterType);
-        });
+        public MvxAsyncCommand LoadPublicationsCommand => new MvxAsyncCommand(OnLoadPublicationsAsync);
 
         public PublicationsViewModel(
             INavigationService navigationService,
@@ -93,7 +92,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 { Resources.Publication_Tab_Filter_Quarter, DateFilterType.Quarter },
                 { Resources.Publication_Tab_Filter_HalfYear, DateFilterType.HalfYear },
             };
-
         }
 
         public override Task Initialize()
@@ -138,15 +136,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             ActiveFilterName = selectedFilter;
         }
 
-        private async Task OnLoadPublicationsAsync(PublicationType publicationType, DateFilterType dateFilterType)
+        private async Task OnLoadPublicationsAsync()
         {
             try
             {
                 IsBusy = true;
 
+                _dateFilterTypeTitleMap.TryGetValue(ActiveFilterName, out var dateFilterType);
+
                 VideoMetadataBundleDataModel videoBundle = null;
 
-                switch (publicationType)
+                switch (SelectedPublicationType)
                 {
                     case PublicationType.Popular:
                         videoBundle = await _apiService.GetPopularVideoFeedAsync(dateFilterType);
@@ -158,7 +158,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
                     case PublicationType.MyFeedComplete:
                         if (_settingsService.User != null)
-                            videoBundle = await _apiService.GetMyVideoFeedAsync(_settingsService.User.Id, publicationType, dateFilterType);
+                            videoBundle = await _apiService.GetMyVideoFeedAsync(_settingsService.User.Id, SelectedPublicationType, dateFilterType);
                         break;
                 }
 

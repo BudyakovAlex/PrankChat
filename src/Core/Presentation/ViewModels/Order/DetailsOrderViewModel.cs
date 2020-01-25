@@ -12,7 +12,6 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
@@ -32,7 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string ProfileName => _order?.Customer?.Name;
 
-        #endregion
+        #endregion Profile
 
         #region Video
 
@@ -42,7 +41,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string VideoDetails => _order?.Description;
 
-        #endregion
+        #endregion Video
 
         #region Executor
 
@@ -52,7 +51,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string StartOrderDate => _order?.TakenToWorkAt?.ToShortDateString();
 
-        #endregion
+        #endregion Executor
 
         public string PriceValue => _order?.Price.ToString();
 
@@ -106,7 +105,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public MvxAsyncCommand AcceptOrderCommand => new MvxAsyncCommand(OnAcceptOrderAsync);
 
-        #endregion
+        #endregion Commands
 
         public OrderDetailsViewModel(INavigationService navigationService,
                                     IApiService apiService,
@@ -256,9 +255,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnCancelOrderAsync()
         {
-            var result = await _dialogService.ShowConfirmAsync("Вы уверены что хотите отменить заказ?",
+            var result = await _dialogService.ShowConfirmAsync(Resources.OrderDetails_View_Cancel_Title,
                                                    Resources.Attention,
-                                                   "Отменить",
+                                                   Resources.Ok,
                                                    Resources.Cancel);
 
             if (!result)

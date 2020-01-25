@@ -41,7 +41,6 @@
     <Folder Include="Presentation\Navigation\Parameters\" />
     <Folder Include="Presentation\Navigation\Results\" />
     <Folder Include="Models\Enums\" />
-    <Folder Include="Converters\" />
     <Folder Include="Presentation\ViewModels\Search\" />
     <Folder Include="Presentation\ViewModels\Publication\Items\" />
     <Folder Include="Presentation\ViewModels\PasswordRecovery\" />
@@ -57,7 +56,6 @@
     <Folder Include="Presentation\ViewModels\Profile\Cashbox\" />
     <Folder Include="Presentation\ViewModels\Dialogs\" />
     <Folder Include="ApplicationServices\Platforms\" />
-    <Folder Include="Presentation\Messengers\" />
     <Folder Include="Models\Data\FilterTypes\" />
     <Folder Include="ApplicationServices\Network\JsonSerializers\Converters\" />
   </ItemGroup>

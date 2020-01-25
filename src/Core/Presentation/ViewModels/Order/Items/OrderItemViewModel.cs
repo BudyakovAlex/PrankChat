@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -11,7 +12,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 {
     public class OrderItemViewModel : BaseItemViewModel
     {
-        private readonly INavigationService _navigatiobService;
+        private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;
 
         private TimeSpan? _orderTime;
@@ -33,7 +34,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             {
                 if (_settingsService.User?.Id == _customerId)
                 {
-                    return "Мое задание";
+                    return Resources.OrderStatus_MyOrder;
                 }
 
                 switch (_status)
@@ -76,22 +77,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public MvxAsyncCommand OpenDetailsOrderCommand => new MvxAsyncCommand(OnOpenDetailsOrderAsync);
 
-        public OrderItemViewModel(INavigationService navigatiobService,
+        public OrderItemViewModel(INavigationService navigationService,
                                   ISettingsService settingsService,
                                   int orderId,
                                   string orderTitle,
                                   string profilePhotoUrl,
-                                  long? price,
+                                  double? price,
                                   TimeSpan? time,
                                   OrderStatusType status,
                                   int? customerId)
         {
-            _navigatiobService = navigatiobService;
+            _navigationService = navigationService;
             _settingsService = settingsService;
 
             Title = orderTitle;
             ProfilePhotoUrl = profilePhotoUrl;
-            PriceText = $"{price} P";
+            PriceText = price.ToPriceString();
             _orderTime = time;
             _status = status;
             _orderId = orderId;
@@ -101,7 +102,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         private Task OnOpenDetailsOrderAsync()
         {
             var parameter = new OrderDetailsNavigationParameter(_orderId);
-            return _navigatiobService.ShowDetailsOrderView(parameter);
+            return _navigationService.ShowDetailsOrderView(parameter);
         }
     }
 }

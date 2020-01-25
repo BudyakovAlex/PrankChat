@@ -14,7 +14,7 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Messengers;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 
@@ -29,11 +29,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly IMvxLog _mvxLog;
         private readonly Dictionary<string, OrderFilterType> _orderFilterTypeTitleMap;
 
-        private MvxSubscriptionToken _newOrderMessengertoken;
+        private MvxSubscriptionToken _newOrderMessageToken;
 
         public MvxObservableCollection<OrderItemViewModel> Items { get; } = new MvxObservableCollection<OrderItemViewModel>();
 
         private string _activeFilterName;
+
         public string ActiveFilterName
         {
             get => _activeFilterName;
@@ -46,11 +47,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterAsync);
 
-        public MvxAsyncCommand LoadOrdersCommand => new MvxAsyncCommand(async () =>
-        {
-            _orderFilterTypeTitleMap.TryGetValue(ActiveFilterName, out var orderFilterType);
-            await OnLoadOrdersAsync(orderFilterType);
-        });
+        public MvxAsyncCommand LoadOrdersCommand => new MvxAsyncCommand(OnLoadOrdersAsync);
 
         public OrdersViewModel(INavigationService navigationService,
                                IDialogService dialogService,
@@ -114,11 +111,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             ActiveFilterName = selectedFilter;
         }
 
-        private async Task OnLoadOrdersAsync(OrderFilterType orderFilterType)
+        private async Task OnLoadOrdersAsync()
         {
             try
             {
                 IsBusy = true;
+
+                _orderFilterTypeTitleMap.TryGetValue(ActiveFilterName, out var orderFilterType);
 
                 var orders = await _apiService.GetOrdersAsync(orderFilterType);
                 if (Items.Count != 0)
@@ -151,30 +150,30 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private void Subscription()
         {
-            _newOrderMessengertoken = _mvxMessenger.SubscribeOnMainThread<NewOrderMessenger>(OnNewOrderMessenger);
+            _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<NewOrderMessage>(OnNewOrderMessenger);
         }
 
         private void Unsubscription()
         {
-            if (_newOrderMessengertoken != null)
+            if (_newOrderMessageToken != null)
             {
-                _mvxMessenger.Unsubscribe<NewOrderMessenger>(_newOrderMessengertoken);
-                _newOrderMessengertoken.Dispose();
+                _mvxMessenger.Unsubscribe<NewOrderMessage>(_newOrderMessageToken);
+                _newOrderMessageToken.Dispose();
             }
         }
 
-        private void OnNewOrderMessenger(NewOrderMessenger newOrderMessenger)
+        private void OnNewOrderMessenger(NewOrderMessage newOrderMessage)
         {
             var newOrderItemViewModel = new OrderItemViewModel(
                     NavigationService,
                     _settingsService,
-                    newOrderMessenger.NewOrder.Id,
-                    newOrderMessenger.NewOrder.Title,
-                    newOrderMessenger.NewOrder.Customer?.Avatar,
-                    newOrderMessenger.NewOrder.Price,
-                    newOrderMessenger.NewOrder.FinishIn,
-                    newOrderMessenger.NewOrder.Status ?? OrderStatusType.None,
-                    newOrderMessenger.NewOrder.Customer?.Id);
+                    newOrderMessage.NewOrder.Id,
+                    newOrderMessage.NewOrder.Title,
+                    newOrderMessage.NewOrder.Customer?.Avatar,
+                    newOrderMessage.NewOrder.Price,
+                    newOrderMessage.NewOrder.FinishIn,
+                    newOrderMessage.NewOrder.Status ?? OrderStatusType.None,
+                    newOrderMessage.NewOrder.Customer?.Id);
             Items.Add(newOrderItemViewModel);
         }
     }

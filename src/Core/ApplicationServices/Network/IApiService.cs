@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -9,13 +8,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 {
     public interface IApiService
     {
-        #region Authorize 
+        #region Authorize
 
         Task AuthorizeAsync(string email, string password);
 
         Task RegisterAsync(UserRegistrationDataModel userInfo);
 
-        #endregion 
+        #endregion Authorize
 
         #region Orders
 
@@ -35,7 +34,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<OrderDataModel> UnsubscribeOrderAsync(int orderId);
 
-        #endregion
+        #endregion Orders
 
         #region Publications
 
@@ -43,21 +42,20 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<VideoMetadataBundleDataModel> GetActualVideoFeedAsync(DateFilterType dateFilterType);
 
-        Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null);
+        Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int? userId, PublicationType publicationType, DateFilterType? dateFilterType = null);
 
-        #endregion
+        #endregion Publications
 
         #region Users
 
         Task GetCurrentUser();
 
-        #endregion
+        #endregion Users
 
         #region Video
 
         Task<VideoMetadataDataModel> SendVideoAsync(int orderId, string path, string title, string description);
 
-        #endregion
-
+        #endregion Video
     }
 }

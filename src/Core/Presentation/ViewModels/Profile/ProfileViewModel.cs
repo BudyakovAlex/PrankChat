@@ -1,19 +1,19 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Models.Data;
-using System.Linq;
-using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
@@ -55,7 +55,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
 
-        public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(async () => await LoadVideoFeedAsync(SelectedPublicationType));
+        public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(LoadVideoFeedAsync);
 
         public PublicationType SelectedPublicationType
         {
@@ -63,7 +63,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             set
             {
                 SetProperty(ref _selectedPublicationType, value);
-                LoadVideoFeedAsync(value).FireAndForget();
+                LoadVideoFeedAsync().FireAndForget();
             }
         }
 
@@ -174,7 +174,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 SubscriptionsValue = user.SubscriptionsCount.ToCountString();
                 Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
 
-                await LoadVideoFeedAsync(SelectedPublicationType);
+                await LoadVideoFeedAsync();
             }
             finally
             {
@@ -182,13 +182,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
         }
 
-        private async Task LoadVideoFeedAsync(PublicationType publicationType)
+        private async Task LoadVideoFeedAsync()
         {
             try
             {
                 IsBusy = true;
 
-                var videoBundle = await _apiService.GetMyVideoFeedAsync(_settingsService.User.Id, PublicationType.MyFeedComplete);
+                var videoBundle = await _apiService.GetMyVideoFeedAsync(_settingsService.User?.Id, PublicationType.MyFeedComplete);
                 SetVideoList(videoBundle);
             }
             finally

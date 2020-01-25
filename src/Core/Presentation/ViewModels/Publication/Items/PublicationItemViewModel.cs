@@ -9,6 +9,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
 {
     public class PublicationItemViewModel : BasePublicationViewModel
     {
+        public MvxAsyncCommand ShowDetailsCommand => new MvxAsyncCommand(NavigationService.ShowDetailsPublicationView);
+
         public PublicationItemViewModel(INavigationService navigationService,
                                         IDialogService dialogService,
                                         IPlatformService platformService,
@@ -35,7 +37,5 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                     shareLink)
         {
         }
-
-        public MvxAsyncCommand ShowDetailsCommand => new MvxAsyncCommand(() => NavigationService.ShowDetailsPublicationView());
     }
 }

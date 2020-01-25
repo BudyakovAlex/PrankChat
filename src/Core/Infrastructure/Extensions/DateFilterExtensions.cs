@@ -4,6 +4,7 @@ using PrankChat.Mobile.iOS.Infrastructure;
 
 namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
+    // TODO: Move to JSON converter.
     public static class DateFilterExtensions
     {
         private const int DaysInWeek = 7;

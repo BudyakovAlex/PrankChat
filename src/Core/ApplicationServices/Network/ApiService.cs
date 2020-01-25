@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
@@ -28,7 +29,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             _client = new HttpClient(configuration.BaseAddress, configuration.ApiVersion, settingsService, log, messenger);
         }
 
-        #region Authorize 
+        #region Authorize
 
         public async Task AuthorizeAsync(string email, string password)
         {
@@ -44,7 +45,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
-        #endregion
+        #endregion Authorize
 
         #region Orders
 
@@ -58,7 +59,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<List<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType)
         {
             string endpoint = "orders";
-            switch(orderFilterType)
+            switch (orderFilterType)
             {
                 case OrderFilterType.New:
                     endpoint = $"{endpoint}?is_active=1";
@@ -75,7 +76,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     endpoint = $"{endpoint}?user_id={_settingsService.User.Id}";
                     break;
             }
-
 
             var data = await _client.Get<DataApiModel<List<OrderApiModel>>>(endpoint, includes: IncludeType.Customer);
             return MappingConfig.Mapper.Map<List<OrderDataModel>>(data.Data);
@@ -116,7 +116,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<OrderDataModel>(data.Data);
         }
 
-        #endregion
+        #endregion Orders
 
         #region Publications
 
@@ -133,10 +133,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
-        public async Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
+        public async Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int? userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
         {
+            if (userId == null)
+                throw new ArgumentException("User not logged in. Please check user data.");
+
             var endpoint = "videos";
-            switch(publicationType)
+            switch (publicationType)
             {
                 case PublicationType.MyFeedComplete:
                     endpoint += $"?user_id={userId}";
@@ -147,10 +150,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     break;
 
                 case PublicationType.MyFeedOutgoingOrders:
+                    // TODO: Update endpoint for correct filter parameters
                     endpoint += $"?user_id={userId}";
                     break;
 
                 default:
+                    // TODO: Update endpoint for correct filter parameters
                     endpoint += $"?user_id={userId}";
                     break;
             }
@@ -162,7 +167,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
-        #endregion
+        #endregion Publications
 
         #region Users
 
@@ -173,7 +178,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             _settingsService.User = user;
         }
 
-        #endregion
+        #endregion Users
 
         #region Video
 
@@ -190,7 +195,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<VideoMetadataDataModel>(videoMetadataApiModel.Data);
         }
 
-        #endregion
-
+        #endregion Video
     }
 }

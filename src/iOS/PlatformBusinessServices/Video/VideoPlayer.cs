@@ -22,10 +22,13 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             _player.Muted = true;
         }
 
+        /// <inheritdoc />>
         public bool IsPlaying { get; private set; }
 
+        /// <inheritdoc />>
         public object PlatformPlayerInstance => _player;
 
+        /// <inheritdoc />>
         public bool Muted
         {
             get => _player.Muted;
@@ -38,14 +41,17 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             GC.SuppressFinalize(this);
         }
 
+        /// <inheritdoc />>
         public void EnableRepeat(int repeatDelayInSeconds)
         {
+            _repeatDelayInSeconds = repeatDelayInSeconds;
             _repeatObserver = _player.AddBoundaryTimeObserver(
                 times: new[] { NSValue.FromCMTime(new CMTime(repeatDelayInSeconds, 1)) },
                 queue: null,
                 handler: TryRepeatVideo);
         }
 
+        /// <inheritdoc />>
         public void Pause()
         {
             if (!IsPlaying)

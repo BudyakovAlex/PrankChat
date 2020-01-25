@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -206,6 +205,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         private string TryAddIncludeFlag(string apiPoint, IncludeType[] includes)
         {
+            // TODO: Refactor this.
             if (includes == null || includes.Length == 0)
                 return apiPoint;
 

@@ -9,7 +9,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Errors;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Presentation.Messengers;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
@@ -120,7 +120,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     if (newOrder.Customer == null)
                         newOrder.Customer = _settingsService.User;
 
-                    _mvxMessenger.Publish(new NewOrderMessenger(this, newOrder));
+                    _mvxMessenger.Publish(new NewOrderMessage(this, newOrder));
                     _dialogService.ShowToast("Order is created");
                 }
             }
