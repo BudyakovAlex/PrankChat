@@ -58,5 +58,6 @@
     <Folder Include="ApplicationServices\Platforms\" />
     <Folder Include="Models\Data\FilterTypes\" />
     <Folder Include="ApplicationServices\Network\JsonSerializers\Converters\" />
+    <Folder Include="ApplicationServices\Timer\" />
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
@@ -17,6 +18,7 @@ namespace PrankChat.Mobile.Core
         {
             InitializeMappings();
 
+            Mvx.IoCProvider.ConstructAndRegisterSingleton<ITimerService, TimerService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<INavigationService, NavigationService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISettingsService, SettingsService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IApiService, ApiService>();
