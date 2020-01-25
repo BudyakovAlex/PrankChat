@@ -90,6 +90,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                     _dialogService.ShowToast("Error with login type!");
                 }
             }
+            catch (ArgumentNullException ex)
+            {
+
+            }
             catch (Exception ex)
             {
                 _dialogService.ShowToast($"Exception with login {ex.Message}");
