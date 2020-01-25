@@ -5,6 +5,7 @@ using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Converters;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -16,12 +17,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 {
     public partial class RegistrationSecondStepView : BaseTransparentBarView<RegistrationSecondStepViewModel>
     {
-        private enum Sex
-        {
-            Male,
-            Female
-        }
-
         protected override void SetupBinding()
         {
             var set = this.CreateBindingSet<RegistrationSecondStepView, RegistrationSecondStepViewModel>();
@@ -47,6 +42,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 
             set.Bind(nextStepButton)
                 .To(vm => vm.UserRegistrationCommand);
+
+            set.Bind(maleIconButton)
+                .To(vm => vm.SelectGenderCommand)
+                .CommandParameter(GenderType.Male);
+
+            set.Bind(femaleIconButton)
+                .To(vm => vm.SelectGenderCommand)
+                .CommandParameter(GenderType.Female);
 
             set.Bind(progressBar)
                 .For(v => v.BindHidden())
@@ -84,22 +87,22 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             sexSelectTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
 
             maleTitleButton.SetTitle(Resources.RegistrationView_Male_Button, UIControlState.Normal);
-            maleTitleButton.AddTarget((s, e) => HandleRadioTap(Sex.Male), UIControlEvent.TouchUpInside);
+            maleTitleButton.AddTarget((s, e) => HandleRadioTap(GenderType.Male), UIControlEvent.TouchUpInside);
             maleTitleButton.SetRadioTitleStyle();
 
             maleIconButton.SetRadioInactiveStyle();
-            maleIconButton.AddTarget((s, e) => HandleRadioTap(Sex.Male), UIControlEvent.TouchUpInside);
+            maleIconButton.AddTarget((s, e) => HandleRadioTap(GenderType.Male), UIControlEvent.TouchUpInside);
 
-            maleButtonsContainerView.AddGestureRecognizer(new UITapGestureRecognizer(s => HandleRadioTap(Sex.Male)));
+            maleButtonsContainerView.AddGestureRecognizer(new UITapGestureRecognizer(s => HandleRadioTap(GenderType.Male)));
 
             femaleTitleButton.SetTitle(Resources.RegistrationView_Female_Button, UIControlState.Normal);
             femaleTitleButton.SetRadioTitleStyle();
-            femaleTitleButton.AddTarget((s, e) => HandleRadioTap(Sex.Female), UIControlEvent.TouchUpInside);
+            femaleTitleButton.AddTarget((s, e) => HandleRadioTap(GenderType.Female), UIControlEvent.TouchUpInside);
 
             femaleIconButton.SetRadioInactiveStyle();
-            femaleIconButton.AddTarget((s, e) => HandleRadioTap(Sex.Female), UIControlEvent.TouchUpInside);
+            femaleIconButton.AddTarget((s, e) => HandleRadioTap(GenderType.Female), UIControlEvent.TouchUpInside);
 
-            femaleButtonsContainerView.AddGestureRecognizer(new UITapGestureRecognizer(s => HandleRadioTap(Sex.Female)));
+            femaleButtonsContainerView.AddGestureRecognizer(new UITapGestureRecognizer(s => HandleRadioTap(GenderType.Female)));
 
             registerButton.SetLightStyle(Resources.RegistrationView_Register_Button);
         }
@@ -123,18 +126,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             base.RegisterKeyboardDismissTextFields(viewList);
         }
 
-        private void HandleRadioTap(Sex sex)
+        private void HandleRadioTap(GenderType sex)
         {
             switch (sex)
             {
-                case Sex.Male:
+                case GenderType.Male:
                     // Set male.
                     femaleIconButton.SetRadioInactiveStyle();
                     maleIconButton.SetRadioActiveStyle();
                     // TODO: Command invoke here;
                     break;
 
-                case Sex.Female:
+                case GenderType.Female:
                     // Set female.
                     femaleIconButton.SetRadioActiveStyle();
                     maleIconButton.SetRadioInactiveStyle();

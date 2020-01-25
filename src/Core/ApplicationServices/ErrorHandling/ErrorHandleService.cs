@@ -5,7 +5,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
+using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using Xamarin.Essentials;
 
@@ -15,33 +17,44 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
     {
         private const string ListMark = "-";
         private const int ZeroSkipDelay = 0;
+
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
         private readonly IMvxMessenger _messenger;
+        private readonly IDialogService _dialogService;
 
-        public ErrorHandleService(IMvxMessenger messenger)
+        public ErrorHandleService(IMvxMessenger messenger, IDialogService dialogService)
         {
             _messenger = messenger;
+            _dialogService = dialogService;
 
             _messenger.Subscribe<BadRequestErrorMessage>(OnBadRequestErrorEvent, MvxReference.Strong);
             _messenger.Subscribe<NotFoundErrorMessage>(OnNotFoundErrorEvent, MvxReference.Strong);
             _messenger.Subscribe<ServerErrorMessage>(OnServerErrorEvent, MvxReference.Strong);
         }
 
-        private bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
+        public void HandleException(Exception exception)
+        {
+            switch (exception)
+            {
+                case UserVisibleException _:
+                    DisplayMessage(async () => _dialogService.ShowToast(exception.Message));
+                    break;
+            }
+        }
 
         private void OnNotFoundErrorEvent(NotFoundErrorMessage e)
         {
-            DisplayMessage(async () => await UserDialogs.Instance.AlertAsync(Resources.Error_Unexpected_Not_Found), e.ErrorMessages);
+            DisplayMessage(async () => await _dialogService.ShowAlertAsync(Resources.Error_Unexpected_Not_Found), e.ErrorMessages);
         }
 
         private void OnBadRequestErrorEvent(BadRequestErrorMessage e)
         {
-            DisplayMessage(async () => await UserDialogs.Instance.AlertAsync(Resources.Error_Unexpected_Network), e.ErrorMessages);
+            DisplayMessage(async () => await _dialogService.ShowAlertAsync(Resources.Error_Unexpected_Network), e.ErrorMessages);
         }
 
         private void OnServerErrorEvent(ServerErrorMessage e)
         {
-            DisplayMessage(async () => await UserDialogs.Instance.AlertAsync(Resources.Error_Unexpected_Server));
+            DisplayMessage(async () => await _dialogService.ShowAlertAsync(Resources.Error_Unexpected_Server));
         }
 
         private string FormatErrorMessages(IReadOnlyList<string> errorMessages)

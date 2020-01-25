@@ -53,7 +53,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var createOrderApiModel = MappingConfig.Mapper.Map<CreateOrderApiModel>(orderInfo);
             var newOrder = await _client.Post<CreateOrderApiModel, DataApiModel<OrderApiModel>>("orders", createOrderApiModel);
-            return MappingConfig.Mapper.Map<OrderDataModel>(newOrder.Data);
+            return MappingConfig.Mapper.Map<OrderDataModel>(newOrder?.Data);
         }
 
         public async Task<List<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType)
@@ -84,19 +84,19 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<OrderDataModel> GetOrderDetailsAsync(int orderId)
         {
             var data = await _client.Get<DataApiModel<OrderApiModel>>($"orders/{orderId}", includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor, IncludeType.Videos });
-            return MappingConfig.Mapper.Map<OrderDataModel>(data.Data);
+            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
         public async Task<OrderDataModel> TakeOrderAsync(int orderId)
         {
             var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/executor/appoint");
-            return MappingConfig.Mapper.Map<OrderDataModel>(data.Data);
+            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
         public async Task<List<OrderDataModel>> GetRatingOrdersAsync()
         {
             var data = await _client.Get<DataApiModel<List<RatingOrderApiModel>>>($"orders/appoint");
-            return MappingConfig.Mapper.Map<List<OrderDataModel>>(data.Data);
+            return MappingConfig.Mapper.Map<List<OrderDataModel>>(data?.Data);
         }
 
         public Task CancelOrderAsync(int orderId)
@@ -107,13 +107,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<OrderDataModel> SubscribeOrderAsync(int orderId)
         {
             var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
-            return MappingConfig.Mapper.Map<OrderDataModel>(data.Data);
+            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
         public async Task<OrderDataModel> UnsubscribeOrderAsync(int orderId)
         {
             var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
-            return MappingConfig.Mapper.Map<OrderDataModel>(data.Data);
+            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
         #endregion Orders
@@ -133,11 +133,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
-        public async Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int? userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
+        public async Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
         {
-            if (userId == null)
-                throw new ArgumentException("User not logged in. Please check user data.");
-
             var endpoint = "videos";
             switch (publicationType)
             {
@@ -174,7 +171,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task GetCurrentUser()
         {
             var dataApiModel = await _client.Get<DataApiModel<UserApiModel>>("me");
-            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel.Data);
+            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
             _settingsService.User = user;
         }
 

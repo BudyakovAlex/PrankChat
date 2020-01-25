@@ -68,5 +68,15 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 
             return UserDialogs.Instance.ConfirmAsync(message, title, ok, cancel);
         }
+
+        public Task ShowAlertAsync(string message, string title = "", string ok = "")
+        {
+            if (string.IsNullOrWhiteSpace(ok))
+            {
+                ok = Resources.Ok;
+            }
+
+            return UserDialogs.Instance.AlertAsync(message, title, ok);
+        }
     }
 }

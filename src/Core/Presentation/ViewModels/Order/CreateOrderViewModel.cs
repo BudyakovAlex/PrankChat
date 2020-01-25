@@ -5,9 +5,10 @@ using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Errors;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -21,6 +22,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly IMvxLog _mvxLog;
         private readonly IMvxMessenger _mvxMessenger;
         private readonly ISettingsService _settingsService;
+        private readonly IErrorHandleService _errorHandleService;
 
         private DateTime? _completedDateValue;
         public DateTime? CompletedDateValue
@@ -77,7 +79,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                     IApiService apiService,
                                     IMvxLog mvxLog,
                                     IMvxMessenger mvxMessenger,
-                                    ISettingsService settingsService)
+                                    ISettingsService settingsService,
+                                    IErrorHandleService errorHandleService)
             : base(navigationService)
         {
             _dialogService = dialogService;
@@ -85,6 +88,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             _mvxLog = mvxLog;
             _mvxMessenger = mvxMessenger;
             _settingsService = settingsService;
+            _errorHandleService = errorHandleService;
         }
 
         public override void Prepare()
@@ -95,11 +99,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnCreateAsync()
         {
-            if (CompletedDateValue == null || DateTime.Now > CompletedDateValue.Value)
-            {
-                _dialogService.ShowToast("Date must be greater than the current");
+            if (!CheckValidation())
                 return;
-            }
 
             try
             {
@@ -121,7 +122,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                         newOrder.Customer = _settingsService.User;
 
                     _mvxMessenger.Publish(new NewOrderMessage(this, newOrder));
-                    _dialogService.ShowToast("Order is created");
+                    _dialogService.ShowToast("Заказ создан");
                 }
             }
             finally
@@ -137,6 +138,47 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 CompletedDateValue = result.Value;
             }
+        }
+
+        private bool CheckValidation()
+        {
+            if (string.IsNullOrWhiteSpace(Title))
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Название заказа не может быть пустым."));
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(Description))
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Описание заказа не может быть пустым."));
+                return false;
+            }
+
+            if (Price == null)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Цена не может быть пустой."));
+                return false;
+            }
+
+            if (Price <= 0)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Цена не может быть меньше или равна нулю."));
+                return false;
+            }
+
+            if (CompletedDateValue == null)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Дата окончания не может быть пустой."));
+                return false;
+            }
+
+            if (CompletedDateValue < DateTime.Now)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Дата окончания не может быть раньше текущей даты."));
+                return false;
+            }
+
+            return true;
         }
     }
 }

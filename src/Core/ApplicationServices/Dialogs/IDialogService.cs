@@ -15,5 +15,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
         Task ShowShareDialogAsync(string url);
 
         Task<bool> ShowConfirmAsync(string message, string title = "", string ok = "", string cancel = "");
+
+        Task ShowAlertAsync(string message, string title = "", string ok = "");
     }
 }

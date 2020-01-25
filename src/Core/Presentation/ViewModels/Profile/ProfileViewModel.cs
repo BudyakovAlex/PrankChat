@@ -5,10 +5,12 @@ using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -27,6 +29,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly IMvxMessenger _messenger;
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly ISettingsService _settingsService;
+        private readonly IErrorHandleService _errorHandleService;
 
         private string _profileName;
         private string _description;
@@ -124,9 +127,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                                 IDialogService dialogService,
                                 IPlatformService platformService,
                                 IApiService apiService,
+                                IVideoPlayerService videoPlayerService,
+                                IErrorHandleService errorHandleService,
                                 ISettingsService settingsService,
-                                IMvxMessenger messenger,
-                                IVideoPlayerService videoPlayerService) : base(navigationService)
+                                IMvxMessenger messenger) : base(navigationService)
         {
             _dialogService = dialogService;
             _platformService = platformService;
@@ -134,6 +138,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             _apiService = apiService;
             _messenger = messenger;
             _videoPlayerService = videoPlayerService;
+            _errorHandleService = errorHandleService;
         }
 
         public override async Task Initialize()
@@ -190,11 +195,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private async Task LoadVideoFeedAsync()
         {
+            if (!CheckValidation())
+                return;
+
             try
             {
                 IsBusy = true;
 
-                var videoBundle = await _apiService.GetMyVideoFeedAsync(_settingsService.User?.Id, PublicationType.MyFeedComplete);
+                var videoBundle = await _apiService.GetMyVideoFeedAsync(_settingsService.User.Id, PublicationType.MyFeedComplete);
                 SetVideoList(videoBundle);
             }
             finally
@@ -224,6 +232,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                     x.ShareUri));
 
             Items.SwitchTo(publicationViewModels);
+        }
+
+        private bool CheckValidation()
+        {
+            if (_settingsService.User == null)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Пользователь не может быть пустым."));
+                return false;
+            }
+
+            return true;
         }
     }
 }
