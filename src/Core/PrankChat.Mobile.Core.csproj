@@ -52,7 +52,6 @@
     <Folder Include="Presentation\ViewModels\Notification\Items\" />
     <Folder Include="Presentation\ViewModels\Comment\" />
     <Folder Include="Presentation\ViewModels\Comment\Items\" />
-    <Folder Include="Presentation\ViewModels\Profile\" />
     <Folder Include="Presentation\ViewModels\Profile\Cashbox\" />
     <Folder Include="Presentation\ViewModels\Dialogs\" />
     <Folder Include="ApplicationServices\Platforms\" />

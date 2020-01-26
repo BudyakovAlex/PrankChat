@@ -42,5 +42,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         Task ShowCashboxContent();
 
         Task<bool> CloseView(BaseViewModel viewModel);
+
+        Task ShowProfileUpdateView();
     }
 }
