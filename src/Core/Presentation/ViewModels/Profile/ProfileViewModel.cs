@@ -252,28 +252,23 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             {
 
             }
-
-            if (result == Resources.ProfileView_Menu_TaskSubscriptions)
+            else if (result == Resources.ProfileView_Menu_TaskSubscriptions)
             {
 
             }
-
-            if (result == Resources.ProfileView_Menu_Faq)
+            else if (result == Resources.ProfileView_Menu_Faq)
             {
 
             }
-
-            if (result == Resources.ProfileView_Menu_Support)
+            else if (result == Resources.ProfileView_Menu_Support)
             {
 
             }
-
-            if (result == Resources.ProfileView_Menu_Settings)
+            else if (result == Resources.ProfileView_Menu_Settings)
             {
 
             }
-
-            if (result == Resources.ProfileView_Menu_LogOut)
+            else if (result == Resources.ProfileView_Menu_LogOut)
             {
                 await LogoutUser();
             }
