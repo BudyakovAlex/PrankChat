@@ -28,7 +28,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             // Note: this .ctor should not contain any initialization logic.
         }
 
-        public void PlayVideo()
+        public void PlayVideo(string uri)
         {
             var service = ViewModel.VideoPlayerService;
             if (service.Player.IsPlaying)
@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             service.Stop();
             service.Player.SetPlatformVideoPlayerContainer(_avPlayerViewController);
-            service.Play(ViewModel.VideoUrl);
+            service.Play(uri);
         }
 
         public void ContinueVideo()

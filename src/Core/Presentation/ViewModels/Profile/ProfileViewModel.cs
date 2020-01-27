@@ -21,7 +21,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
-    public class ProfileViewModel : BaseViewModel
+    public class ProfileViewModel : BaseViewModel, IVideoListViewModel
     {
         private readonly IDialogService _dialogService;
         private readonly IPlatformService _platformService;

@@ -101,7 +101,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         private void InitializeTableView()
         {
-            PublicationTableSource = new PublicationTableSource(tableView);
+            PublicationTableSource = new PublicationTableSource(tableView, ViewModel);
             tableView.Source = PublicationTableSource;
             tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
             tableView.SetVideoListStyle(PublicationItemCell.EstimatedHeight);

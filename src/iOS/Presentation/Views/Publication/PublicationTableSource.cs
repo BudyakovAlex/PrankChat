@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using Foundation;
 using MvvmCross.Platforms.Ios.Binding.Views;
+using PrankChat.Mobile.Core.Presentation.ViewModels;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
@@ -12,10 +13,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
     {
         private PublicationItemCell _previousCellToPlay;
         private bool _initialized;
+        private readonly IVideoListViewModel _parentViewModel;
 
-        public PublicationTableSource(UITableView tableView) : base(tableView)
+        public PublicationTableSource(UITableView tableView, IVideoListViewModel parentViewModel) : base(tableView)
         {
             UseAnimations = true;
+            _parentViewModel = parentViewModel;
         }
 
         private int _segment;
@@ -121,7 +124,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 partiallyVisibleCell.StopVideo();
             }
 
-            cellToPlay.PlayVideo();
+            var viewModel = _parentViewModel.Items.ToList()[TableView.IndexPathForCell(cellToPlay).Row];
+            cellToPlay.PlayVideo(viewModel.VideoUrl);
         }
 
         private bool IsCompletelyVisible(PublicationItemCell publicationCell)

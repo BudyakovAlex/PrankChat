@@ -35,14 +35,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             endpoint = TryAddIncludeFlag(endpoint, includes);
             var request = new RestRequest(endpoint, Method.GET);
-            return await ExecuteTask<TResult>(request, false, exceptionThrowingEnabled);
+            return await ExecuteTask<TResult>(request, endpoint, false, exceptionThrowingEnabled);
         }
 
         public Task<string> UnauthorizedPost<TEntity>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : class
         {
             var request = new RestRequest(endpoint, Method.POST);
             request.AddJsonBody(item);
-            return ExecuteTask(request, false, exceptionThrowingEnabled);
+            return ExecuteTask(request, endpoint, false, exceptionThrowingEnabled);
         }
 
         public async Task<TResult> UnauthorizedPost<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false)
@@ -51,27 +51,27 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var request = new RestRequest(endpoint, Method.POST);
             request.AddJsonBody(item);
-            return await ExecuteTask<TResult>(request, false, exceptionThrowingEnabled);
+            return await ExecuteTask<TResult>(request, endpoint, false, exceptionThrowingEnabled);
         }
 
         public async Task<TResult> Get<TResult>(string endpoint, bool exceptionThrowingEnabled = false, params IncludeType[] includes) where TResult : class, new()
         {
             endpoint = TryAddIncludeFlag(endpoint, includes);
             var request = new RestRequest(endpoint, Method.GET);
-            return await ExecuteTask<TResult>(request, true, exceptionThrowingEnabled);
+            return await ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
         public Task<TResult> Post<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : class where TResult : new()
         {
             var request = new RestRequest(endpoint, Method.POST);
             request.AddJsonBody(item);
-            return ExecuteTask<TResult>(request, true, exceptionThrowingEnabled);
+            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
         public Task<TResult> Post<TResult>(string endpoint, bool exceptionThrowingEnabled = false) where TResult : new()
         {
             var request = new RestRequest(endpoint, Method.POST);
-            return ExecuteTask<TResult>(request, true, exceptionThrowingEnabled);
+            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
         public Task<TResult> PostFile<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : LoadVideoApiModel where TResult : new()
@@ -85,28 +85,28 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             request.AddFile("video", item.FilePath);
             request.AlwaysMultipartFormData = true;
 
-            return ExecuteTask<TResult>(request, true, exceptionThrowingEnabled);
+            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
         public async Task Delete<TEntity>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : class
         {
             var request = new RestRequest(endpoint, Method.DELETE);
             request.AddJsonBody(item);
-            await ExecuteTask(request, true, exceptionThrowingEnabled);
+            await ExecuteTask(request, endpoint, true, exceptionThrowingEnabled);
         }
 
         public async Task Put<TEntity>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : class
         {
             var request = new RestRequest(endpoint, Method.PUT);
             request.AddJsonBody(item);
-            await ExecuteTask(request, true, exceptionThrowingEnabled);
+            await ExecuteTask(request, endpoint, true, exceptionThrowingEnabled);
         }
 
-        private async Task<string> ExecuteTask(IRestRequest request, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
+        private async Task<string> ExecuteTask(IRestRequest request, string endpoint, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
         {
             try
             {
-                _mvxLog.Debug($"[HTTP] {request.Method} {request.Resource}");
+                _mvxLog.Debug($"[HTTP] {request.Method} {endpoint}");
                 if (includeAccessToken)
                     await AddAuthorizationHeader(request);
 
@@ -127,11 +127,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             }
         }
 
-        private async Task<T> ExecuteTask<T>(IRestRequest request, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where T : new()
+        private async Task<T> ExecuteTask<T>(IRestRequest request, string endpoint, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where T : new()
         {
             try
             {
-                _mvxLog.Debug($"[HTTP] {request.Method} {request.Resource}");
+                _mvxLog.Debug($"[HTTP] {request.Method} {endpoint}");
                 if (includeAccessToken)
                     await AddAuthorizationHeader(request);
 
