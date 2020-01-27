@@ -101,6 +101,8 @@
     <Compile Include="Presentation\Listeners\StateScrollListener.cs" />
     <Compile Include="Presentation\Converters\BooleanToSoundResourceConverter.cs" />
     <Compile Include="Presentation\Dialogs\ShareDialog.cs" />
+    <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
+    <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -610,6 +612,8 @@
     <Folder Include="Utils\Extensions\" />
     <Folder Include="Presentation\Listeners\" />
     <Folder Include="Presentation\Dialogs\" />
+    <Folder Include="PlatformBusinessServices\" />
+    <Folder Include="PlatformBusinessServices\Video\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_background.xml" />

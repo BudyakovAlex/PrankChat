@@ -3,6 +3,8 @@ using MvvmCross;
 using MvvmCross.Binding.Bindings.Target.Construction;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Droid.PlatformBusinessServices.Video;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 
 namespace PrankChat.Mobile.Droid
@@ -14,6 +16,7 @@ namespace PrankChat.Mobile.Droid
             base.InitializeFirstChance();
 
             Mvx.IoCProvider.RegisterType<IDialogService, DialogService>();
+            Mvx.IoCProvider.RegisterType<IVideoPlayerService, VideoPlayerService>();
         }
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
