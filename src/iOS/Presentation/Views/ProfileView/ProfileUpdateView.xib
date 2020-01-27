@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -7,18 +8,19 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileUpdateView">
             <connections>
-                <outlet property="nameTextField" destination="LSK-6X-VPD" id="name-outlet-LSK-6X-VPD"/>
+                <outlet property="birthdayTextField" destination="IdI-5m-Blj" id="name-outlet-IdI-5m-Blj"/>
+                <outlet property="changePasswordLabel" destination="8bo-Kv-Lx4" id="name-outlet-8bo-Kv-Lx4"/>
+                <outlet property="emailTextField" destination="NMl-tL-te4" id="name-outlet-NMl-tL-te4"/>
                 <outlet property="femaleButtonsContainerView" destination="5pb-dq-QUn" id="L5E-md-Pzh"/>
                 <outlet property="femaleIconButton" destination="mrQ-Lp-Lhw" id="6Mn-tc-kq8"/>
                 <outlet property="femaleTitleButton" destination="xcX-NX-b03" id="8gR-T3-T2S"/>
+                <outlet property="loginTextField" destination="ouE-yp-Yy4" id="name-outlet-ouE-yp-Yy4"/>
                 <outlet property="maleButtonsContainerView" destination="cQT-e9-fE0" id="4ha-oi-L2d"/>
                 <outlet property="maleIconButton" destination="J5p-fv-RIK" id="JmL-Ua-EOo"/>
                 <outlet property="maleTitleButton" destination="phy-bg-W0V" id="gqu-ke-nlr"/>
-                <outlet property="loginTextField" destination="ouE-yp-Yy4" id="name-outlet-ouE-yp-Yy4"/>
-                <outlet property="saveButton" destination="vRl-An-stw" id="name-outlet-vRl-An-stw"/>
-                <outlet property="emailTextField" destination="NMl-tL-te4" id="name-outlet-NMl-tL-te4"/>
-                <outlet property="birthdayTextField" destination="IdI-5m-Blj" id="name-outlet-IdI-5m-Blj"/>
+                <outlet property="nameTextField" destination="LSK-6X-VPD" id="name-outlet-LSK-6X-VPD"/>
                 <outlet property="progressBar" destination="Lmz-yn-GFE" id="hMm-NN-5HC"/>
+                <outlet property="saveButton" destination="vRl-An-stw" id="name-outlet-vRl-An-stw"/>
                 <outlet property="scrollView" destination="MyT-Nl-9Q6" id="kLY-CR-UDs"/>
                 <outlet property="sexSelectTitleLabel" destination="dhy-0X-kl9" id="ui0-4T-5xj"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
@@ -26,44 +28,44 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="2">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MyT-Nl-9Q6">
-                    <rect key="frame" x="0.0" y="8" width="414" height="728"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dP4-hK-p69">
-                            <rect key="frame" x="16" y="0.0" width="382" height="728"/>
+                            <rect key="frame" x="16" y="0.0" width="382" height="852"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="WeL-qQ-SdX" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="382" height="294"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="WeL-qQ-SdX">
+                                    <rect key="frame" x="0.0" y="0.0" width="382" height="232"/>
                                     <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NMl-tL-te4" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="0.0" width="382" height="61.5"/>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NMl-tL-te4">
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="46"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="46" id="8he-WC-iyi"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ouE-yp-Yy4" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="77.5" width="382" height="61.5"/>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ouE-yp-Yy4">
+                                            <rect key="frame" x="0.0" y="62" width="382" height="46"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="46" id="ni0-gH-47O"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LSK-6X-VPD" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="155" width="382" height="61.5"/>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LSK-6X-VPD">
+                                            <rect key="frame" x="0.0" y="124" width="382" height="46"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="46" id="9fK-iq-ibi"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IdI-5m-Blj" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="232.5" width="382" height="61.5"/>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IdI-5m-Blj">
+                                            <rect key="frame" x="0.0" y="186" width="382" height="46"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="46" id="Tix-jM-4eb"/>
                                             </constraints>
@@ -72,13 +74,13 @@
                                         </textField>
                                     </subviews>
                                 </stackView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhy-0X-kl9" misplaced="YES">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhy-0X-kl9">
                                     <rect key="frame" x="170" y="310" width="42" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GK0-wQ-u5P" misplaced="YES">
+                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GK0-wQ-u5P">
                                     <rect key="frame" x="132" y="348.5" width="118" height="38"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cQT-e9-fE0">
@@ -155,7 +157,7 @@
                                         <constraint firstItem="5pb-dq-QUn" firstAttribute="leading" secondItem="cQT-e9-fE0" secondAttribute="trailing" constant="26" id="rfX-tm-XNb"/>
                                     </constraints>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vRl-An-stw" misplaced="YES">
+                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vRl-An-stw">
                                     <rect key="frame" x="111" y="412.5" width="160" height="36"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="36" id="5CJ-P6-ejF"/>
@@ -163,15 +165,33 @@
                                     </constraints>
                                     <state key="normal" title="Next step"/>
                                 </button>
-                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Lmz-yn-GFE" misplaced="YES">
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Lmz-yn-GFE">
                                     <rect key="frame" x="251" y="412.5" width="20" height="36"/>
                                 </activityIndicatorView>
+                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8bo-Kv-Lx4">
+                                    <rect key="frame" x="170" y="461" width="42" height="21"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="Label">
+                                            <attributes>
+                                                <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="changePasswordLabel.textColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="Lmz-yn-GFE" firstAttribute="trailing" secondItem="vRl-An-stw" secondAttribute="trailing" id="4Cp-eD-4Sp"/>
                                 <constraint firstItem="vRl-An-stw" firstAttribute="centerX" secondItem="dP4-hK-p69" secondAttribute="centerX" id="5BW-C5-A5g"/>
                                 <constraint firstItem="WeL-qQ-SdX" firstAttribute="top" secondItem="dP4-hK-p69" secondAttribute="top" id="C9G-3t-QBH"/>
                                 <constraint firstItem="Lmz-yn-GFE" firstAttribute="centerY" secondItem="vRl-An-stw" secondAttribute="centerY" id="Ci1-vW-SxH"/>
+                                <constraint firstItem="8bo-Kv-Lx4" firstAttribute="centerX" secondItem="dP4-hK-p69" secondAttribute="centerX" id="E0Y-r3-S9J"/>
                                 <constraint firstItem="GK0-wQ-u5P" firstAttribute="centerX" secondItem="dP4-hK-p69" secondAttribute="centerX" id="Hvf-75-aiJ"/>
                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GK0-wQ-u5P" secondAttribute="trailing" id="IFa-NZ-jIm"/>
                                 <constraint firstItem="dhy-0X-kl9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dP4-hK-p69" secondAttribute="leading" id="PyK-vX-RnW"/>
@@ -179,6 +199,7 @@
                                 <constraint firstItem="GK0-wQ-u5P" firstAttribute="top" secondItem="dhy-0X-kl9" secondAttribute="bottom" constant="18" id="SBz-nU-iWZ"/>
                                 <constraint firstItem="dhy-0X-kl9" firstAttribute="centerX" secondItem="dP4-hK-p69" secondAttribute="centerX" id="STc-tS-NlW"/>
                                 <constraint firstItem="dhy-0X-kl9" firstAttribute="top" secondItem="WeL-qQ-SdX" secondAttribute="bottom" constant="16" id="URE-xd-cLP"/>
+                                <constraint firstItem="8bo-Kv-Lx4" firstAttribute="topMargin" secondItem="vRl-An-stw" secondAttribute="bottom" constant="30" id="Ucd-Mf-BBd"/>
                                 <constraint firstItem="Lmz-yn-GFE" firstAttribute="bottom" secondItem="vRl-An-stw" secondAttribute="bottom" id="YtX-ww-TqU"/>
                                 <constraint firstItem="GK0-wQ-u5P" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dP4-hK-p69" secondAttribute="leading" id="b4g-ql-JFN"/>
                                 <constraint firstItem="vRl-An-stw" firstAttribute="top" secondItem="GK0-wQ-u5P" secondAttribute="bottom" constant="26" id="eks-zb-9ft"/>

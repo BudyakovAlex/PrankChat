@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
@@ -17,6 +18,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private readonly ISettingsService _settingsService;
         private readonly IDialogService _dialogService;
         private readonly IApiService _apiService;
+        private readonly IMvxMessenger _messenger;
 
         private string _email;
         private string _login;
@@ -68,11 +70,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         public ProfileUpdateViewModel(INavigationService navigationService,
                                       ISettingsService settingsService,
                                       IDialogService dialogService,
-                                      IApiService apiService) : base(navigationService)
+                                      IApiService apiService,
+                                      IMvxMessenger messenger) : base(navigationService)
         {
             _settingsService = settingsService;
             _dialogService = dialogService;
             _apiService = apiService;
+            _messenger = messenger;
         }
 
         public override async Task Initialize()
@@ -124,6 +128,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
                 await _apiService.UpdateProfileAsync(dataModel);
 
+                _messenger.Publish(new UpdateUserProfileMessage(this));
             }
             finally
             {

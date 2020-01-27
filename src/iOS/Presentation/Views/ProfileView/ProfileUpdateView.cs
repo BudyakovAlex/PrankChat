@@ -4,6 +4,7 @@ using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Commands;
 using MvvmCross.Platforms.Ios.Binding;
+using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -18,19 +19,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
     [MvxModalPresentation(WrapInNavigationController = true)]
     public partial class ProfileUpdateView : BaseTransparentBarView<ProfileUpdateViewModel>
     {
-        public IMvxAsyncCommand OpenCalendarCommand { get; set; }
-
         public IMvxCommand<GenderType> SelectGenderCommand { get; set; }
-
-        private GenderType _gender;
-        public GenderType Gender
-        {
-            get => _gender;
-            set
-            {
-               
-            }
-        }
 
         protected override void SetupBinding()
         {
@@ -55,8 +44,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .For(v => v.Text)
                 .To(vm => vm.BirthdayText);
 
-            set.Bind(this)
-                .For(v => v.OpenCalendarCommand)
+            set.Bind(birthdayTextField.Tap())
+                .For(v => v.Command)
                 .To(vm => vm.SelectBirthdayCommand);
 
             set.Bind(this)
@@ -70,6 +59,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             set.Bind(saveButton)
                 .To(vm => vm.ProfileUpdateCommand);
+
+            set.Bind(changePasswordLabel.Tap())
+                .For(tap => tap.Command)
+                .To(vm => vm.ChangePasswordCommand);
 
             set.Apply();
         }
@@ -93,7 +86,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             imageContainer.AddSubview(imageView);
             birthdayTextField.RightView = imageContainer;
             birthdayTextField.RightViewMode = UITextFieldViewMode.Always;
-            birthdayTextField.AddGestureRecognizer(new UITapGestureRecognizer(HandleCalendarTap));
 
 
             sexSelectTitleLabel.Text = Resources.ProfileUpdateView_GenderSelect_Title;
@@ -119,6 +111,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             femaleButtonsContainerView.AddGestureRecognizer(new UITapGestureRecognizer(s => HandleRadioTap(GenderType.Female)));
 
             saveButton.SetLightStyle(Resources.ProfileUpdateView_Button_Save);
+
+            changePasswordLabel.Text = Resources.ProfileUpdateView_ChangePassword;
+            changePasswordLabel.TextColor = UIColor.White;
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)
@@ -156,11 +151,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                     break;
             }
             SelectGenderCommand?.Execute(sex);
-        }
-
-        private void HandleCalendarTap(object sender)
-        {
-            OpenCalendarCommand?.Execute();
         }
     }
 }

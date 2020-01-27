@@ -20,6 +20,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel changePasswordLabel { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField emailTextField { get; set; }
 
         [Outlet]
@@ -75,6 +79,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             if (birthdayTextField != null) {
                 birthdayTextField.Dispose ();
                 birthdayTextField = null;
+            }
+
+            if (changePasswordLabel != null) {
+                changePasswordLabel.Dispose ();
+                changePasswordLabel = null;
             }
 
             if (emailTextField != null) {
