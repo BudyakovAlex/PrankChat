@@ -20,7 +20,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
-    public class PublicationsViewModel : BaseViewModel
+    public class PublicationsViewModel : BaseViewModel, IVideoListViewModel
     {
         private readonly IDialogService _dialogService;
         private readonly IApiService _apiService;
@@ -194,6 +194,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     x.CreatedAt.DateTime,
                     x.RepostsCount,
                     x.ShareUri));
+
+            var list = publicationViewModels.ToList();
 
             Items.SwitchTo(publicationViewModels);
         }
