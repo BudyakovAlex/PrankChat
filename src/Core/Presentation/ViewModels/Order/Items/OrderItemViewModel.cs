@@ -28,6 +28,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public string ProfilePhotoUrl { get; }
 
+        public string ProfileShortName { get; }
+
         public TimeSpan? ElapsedTime
         {
             get => _elapsedTime;
@@ -99,6 +101,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                                   int orderId,
                                   string orderTitle,
                                   string profilePhotoUrl,
+                                  string profileName,
                                   double? price,
                                   DateTime? activeTo,
                                   OrderStatusType status,
@@ -111,6 +114,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             Title = orderTitle;
             ProfilePhotoUrl = profilePhotoUrl;
             PriceText = price.ToPriceString();
+            ProfileShortName = profileName.ToShortenName();
             _activeTo = activeTo;
             _status = status;
             _orderId = orderId;

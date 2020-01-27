@@ -1,8 +1,10 @@
-﻿using MvvmCross.Binding.BindingContext;
+﻿using MvvmCross.Binding;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
@@ -25,10 +27,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             set.Bind(profileImageView)
                 .For(v => v.ImagePath)
+                .WithConversion<PlaceholderColorConverter>()
                 .To(vm => vm.ProfilePhotoUrl);
 
             set.Bind(profileNameLabel)
                 .To(vm => vm.ProfileName);
+
+            set.Bind(customerShortNameLabel)
+                .To(vm => vm.ProfileShortName);
+
+            set.Bind(customerShortNameLabel)
+                .For(v => v.BindHidden())
+                .To(vm => vm.ProfilePhotoUrl);
 
             #endregion Customer
 
@@ -130,6 +140,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             set.Bind(executorImageView)
                 .For(v => v.ImagePath)
+                .WithConversion<PlaceholderColorConverter>()
                 .To(vm => vm.ExecutorPhotoUrl);
 
             set.Bind(executorNameLabel)
@@ -141,6 +152,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             set.Bind(executorView)
                 .For(v => v.BindVisible())
                 .To(vm => vm.IsExecutorAvailable);
+
+            set.Bind(executorShortNameLabel)
+                .To(vm => vm.ExecutorShortName);
+
+            set.Bind(executorShortNameLabel)
+                .For(v => v.BindHidden())
+                .To(vm => vm.ExecutorPhotoUrl);
 
             #endregion Executor
 

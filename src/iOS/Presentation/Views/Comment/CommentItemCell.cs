@@ -2,8 +2,10 @@
 using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -46,6 +48,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
             set.Bind(profileImageView)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)
+                .WithConversion<PlaceholderColorConverter>()
                 .Mode(MvxBindingMode.OneTime);
 
             set.Bind(profileNameLabel)
@@ -54,6 +57,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 
             set.Bind(commentDateLabel)
                 .To(vm => vm.DateText)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(profileShortName)
+                .To(vm => vm.ProfileShortName)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(profileShortName)
+                .For(v => v.BindHidden())
+                .To(vm => vm.ProfilePhotoUrl)
                 .Mode(MvxBindingMode.OneTime);
 
             set.Apply();

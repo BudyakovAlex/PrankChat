@@ -234,6 +234,7 @@
     <Compile Include="Presentation\Converters\DateFormatConverter.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
+    <Compile Include="Presentation\Converters\PlaceholderColorConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -641,11 +642,14 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Group 189-1.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_image_background.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_image_background.imageset\ic_image_background.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
     <Folder Include="Resources\" />
     <Folder Include="Utils\Extensions\" />
+    <Folder Include="Assets.xcassets\ic_image_background.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Converters;
@@ -7,6 +8,7 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Publication;
 using UIKit;
@@ -44,6 +46,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             set.Bind(profileImageView)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)
+                .WithConversion<PlaceholderColorConverter>()
                 .Mode(MvxBindingMode.OneWay);
 
             set.Bind(profileDescriptionLabel)
@@ -91,6 +94,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .For(v => v.Segment)
                 .To(vm => vm.SelectedPublicationType)
                 .WithConversion<PublicationTypeConverter>();
+
+            set.Bind(profileShortNameLabel)
+                .To(vm => vm.ProfileShortName);
+
+            set.Bind(profileShortNameLabel)
+                .For(v => v.BindHidden())
+                .To(vm => vm.ProfilePhotoUrl);
 
             set.Apply();
         }

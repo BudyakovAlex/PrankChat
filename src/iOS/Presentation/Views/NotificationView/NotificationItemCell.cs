@@ -2,8 +2,10 @@
 using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -48,6 +50,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
             set.Bind(profilePhotoImageView)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ImageUrl)
+                .WithConversion<PlaceholderColorConverter>()
                 .Mode(MvxBindingMode.OneTime);
 
             set.Bind(profileNameLabel)
@@ -64,6 +67,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 
             set.Bind(statusLabel)
                 .To(vm => vm.Status)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(profileShortNameLabel)
+                .To(vm => vm.ProfileShortName)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(profileShortNameLabel)
+                .For(v => v.BindHidden())
+                .To(vm => vm.ImageUrl)
                 .Mode(MvxBindingMode.OneTime);
 
             set.Apply();

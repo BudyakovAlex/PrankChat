@@ -21,9 +21,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #region Profile
 
-        public string ProfileName { get; set; } = "Name one";
+        public string ProfileName { get; set; }
 
-        public string ProfilePhotoUrl { get; set; } = "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+        public string ProfileShortName => ProfileName.ToShortenName();
+
+        public string ProfilePhotoUrl { get; set; }
 
         #endregion
 
@@ -31,9 +33,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string VideoInformationText => $"{_numberOfViews.ToCountViewsString()} {_publicationDate.ToTimeAgoPublicationString()}";
 
-        public string VideoName { get; set; } = "Name video one";
+        public string VideoName { get; set; }
 
-        public string PlaceholderImageUrl { get; set; } = "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg";
+        public string PlaceholderImageUrl { get; set; }
 
         public string VideoUrl { get; set; }
 

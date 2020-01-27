@@ -4,6 +4,7 @@ using AVKit;
 using CoreGraphics;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
@@ -119,6 +120,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             set.Bind(profileImage)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)
+                .WithConversion<PlaceholderColorConverter>()
                 .Mode(MvxBindingMode.OneTime);
 
             //set.Bind(videoImage)
@@ -180,6 +182,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             set.Bind(shareLabel.Tap())
                 .For(v => v.Command)
                 .To(vm => vm.ShareCommand);
+
+            set.Bind(profileShortNameLabel)
+                .To(vm => vm.ProfileShortName)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(profileShortNameLabel)
+                .For(v => v.BindHidden())
+                .To(vm => vm.ProfilePhotoUrl)
+                .Mode(MvxBindingMode.OneTime);
 
             set.Apply();
         }

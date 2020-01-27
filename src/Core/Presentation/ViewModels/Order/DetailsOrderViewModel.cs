@@ -9,6 +9,7 @@ using Plugin.Permissions.Abstractions;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -33,6 +34,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string ProfileName => _order?.Customer?.Name;
 
+        public string ProfileShortName => _order?.Customer?.Name?.ToShortenName();
+
         #endregion Profile
 
         #region Video
@@ -50,6 +53,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public string ExecutorPhotoUrl => _order?.Executor?.Avatar;
 
         public string ExecutorName => _order?.Executor?.Name;
+
+        public string ExecutorShortName => _order?.Executor?.Name.ToShortenName();
 
         public string StartOrderDate => _order?.TakenToWorkAt?.ToShortDateString();
 
