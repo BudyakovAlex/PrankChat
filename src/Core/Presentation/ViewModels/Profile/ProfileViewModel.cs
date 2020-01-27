@@ -31,38 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly ISettingsService _settingsService;
         private readonly IErrorHandleService _errorHandleService;
 
-        private string _profileName;
-        private string _description;
-        private string _price;
-        private string _ordersValue;
-        private string _completedOrdersValue;
-        private string _subscriptionsValue;
-        private string _subscribersValue;
-        private string _profilePhotoUrl;
         private PublicationType _selectedPublicationType;
-
-        public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(async () =>
-        {
-            var items = new string[]
-            {
-                Resources.ProfileView_Menu_Favourites,
-                Resources.ProfileView_Menu_TaskSubscriptions,
-                Resources.ProfileView_Menu_Faq,
-                Resources.ProfileView_Menu_Support,
-                Resources.ProfileView_Menu_Settings,
-            };
-
-            await _dialogService.ShowMenuDialogAsync(items, Resources.ProfileView_Menu_LogOut);
-        });
-
-        public ICommand ShowRefillCommand => new MvxAsyncCommand(NavigationService.ShowRefillView);
-
-        public ICommand ShowWithdrawalCommand => new MvxAsyncCommand(NavigationService.ShowWithdrawalView);
-
-        public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
-
-        public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(LoadVideoFeedAsync);
-
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
@@ -73,48 +42,56 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
         }
 
+        private string _profileName;
         public string ProfileName
         {
             get => _profileName;
             set => SetProperty(ref _profileName, value);
         }
 
+        private string _profilePhotoUrl;
         public string ProfilePhotoUrl
         {
             get => _profilePhotoUrl;
             set => SetProperty(ref _profilePhotoUrl, value);
         }
 
+        private string _description;
         public string Description
         {
             get => _description;
             set => SetProperty(ref _description, value);
         }
 
+        private string _price;
         public string Price
         {
             get => _price;
             set => SetProperty(ref _price, value);
         }
 
+        private string _ordersValue;
         public string OrdersValue
         {
             get => _ordersValue;
             set => SetProperty(ref _ordersValue, value);
         }
 
+        private string _completedOrdersValue;
         public string CompletedOrdersValue
         {
             get => _completedOrdersValue;
             set => SetProperty(ref _completedOrdersValue, value);
         }
 
+        private string _subscribersValue;
         public string SubscribersValue
         {
             get => _subscribersValue;
             set => SetProperty(ref _subscribersValue, value);
         }
 
+        private string _subscriptionsValue;
         public string SubscriptionsValue
         {
             get => _subscriptionsValue;
@@ -122,6 +99,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         }
 
         public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
+
+        public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(ShowMenuAsync);
+
+        public MvxAsyncCommand ShowRefillCommand => new MvxAsyncCommand(NavigationService.ShowRefillView);
+
+        public MvxAsyncCommand ShowWithdrawalCommand => new MvxAsyncCommand(NavigationService.ShowWithdrawalView);
+
+        public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
+
+        public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(LoadVideoFeedAsync);
 
         public ProfileViewModel(INavigationService navigationService,
                                 IDialogService dialogService,
@@ -243,6 +230,60 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
 
             return true;
+        }
+
+        private async Task ShowMenuAsync()
+        {
+            var items = new string[]
+            {
+                Resources.ProfileView_Menu_Favourites,
+                Resources.ProfileView_Menu_TaskSubscriptions,
+                Resources.ProfileView_Menu_Faq,
+                Resources.ProfileView_Menu_Support,
+                Resources.ProfileView_Menu_Settings,
+                Resources.ProfileView_Menu_LogOut,
+            };
+
+            var result = await _dialogService.ShowMenuDialogAsync(items, Resources.Cancel);
+            if (string.IsNullOrWhiteSpace(result))
+                return;
+
+            if (result == Resources.ProfileView_Menu_Favourites)
+            {
+
+            }
+
+            if (result == Resources.ProfileView_Menu_TaskSubscriptions)
+            {
+
+            }
+
+            if (result == Resources.ProfileView_Menu_Faq)
+            {
+
+            }
+
+            if (result == Resources.ProfileView_Menu_Support)
+            {
+
+            }
+
+            if (result == Resources.ProfileView_Menu_Settings)
+            {
+
+            }
+
+            if (result == Resources.ProfileView_Menu_LogOut)
+            {
+                await LogoutUser();
+            }
+        }
+
+        private async Task LogoutUser()
+        {
+            _settingsService.User = null;
+            await _settingsService.SetAccessTokenAsync(string.Empty);
+            await NavigationService.Logout();
         }
     }
 }
