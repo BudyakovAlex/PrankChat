@@ -58,7 +58,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
             set.Bind(profileImageView)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ImageUrl)
-                .WithConversion<PlaceholderColorConverter>()
+                .WithConversion<PlaceholderImageConverter>()
                 .Mode(MvxBindingMode.OneTime);
 
             set.Bind(profileShortNameLabel)

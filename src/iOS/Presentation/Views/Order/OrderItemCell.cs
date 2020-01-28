@@ -72,7 +72,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             set.Bind(profilePhotoImage)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)
-                .WithConversion<PlaceholderColorConverter>()
+                .WithConversion<PlaceholderImageConverter>()
                 .Mode(MvxBindingMode.OneTime);
 
             set.Bind(orderTitleLabel)

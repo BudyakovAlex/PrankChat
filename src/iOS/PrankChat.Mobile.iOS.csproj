@@ -234,7 +234,7 @@
     <Compile Include="Presentation\Converters\DateFormatConverter.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
-    <Compile Include="Presentation\Converters\PlaceholderColorConverter.cs" />
+    <Compile Include="Presentation\Converters\PlaceholderImageConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

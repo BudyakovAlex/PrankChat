@@ -48,7 +48,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
             set.Bind(profileImageView)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)
-                .WithConversion<PlaceholderColorConverter>()
+                .WithConversion<PlaceholderImageConverter>()
                 .Mode(MvxBindingMode.OneTime);
 
             set.Bind(profileNameLabel)
