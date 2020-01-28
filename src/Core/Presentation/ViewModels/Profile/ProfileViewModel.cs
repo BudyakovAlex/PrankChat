@@ -32,9 +32,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly IErrorHandleService _errorHandleService;
 
         private PublicationType _selectedPublicationType;
-        public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(OnShowMenuAsync);
-        public MvxAsyncCommand ShowUpdateProfileCommand => new MvxAsyncCommand(NavigationService.ShowProfileUpdateView);
-
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
@@ -103,7 +100,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
 
-        public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(ShowMenuAsync);
+        public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(OnShowMenuAsync);
 
         public MvxAsyncCommand ShowRefillCommand => new MvxAsyncCommand(NavigationService.ShowRefillView);
 
@@ -112,6 +109,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
 
         public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(LoadVideoFeedAsync);
+
+        public MvxAsyncCommand ShowUpdateProfileCommand => new MvxAsyncCommand(NavigationService.ShowProfileUpdateView);
 
         public ProfileViewModel(INavigationService navigationService,
                                 IDialogService dialogService,
