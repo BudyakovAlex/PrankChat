@@ -278,6 +278,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         {
             _settingsService.User = null;
             await _settingsService.SetAccessTokenAsync(string.Empty);
+            //_apiService.LogoutAsync().FireAndForget();
             await NavigationService.Logout();
         }
     }
