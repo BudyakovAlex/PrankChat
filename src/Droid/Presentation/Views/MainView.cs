@@ -17,6 +17,8 @@ using Android.Net;
 using MvvmCross.Binding.BindingContext;
 using FFImageLoading;
 using FFImageLoading.Transformations;
+using Android.Runtime;
+using Plugin.Permissions;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {
@@ -73,6 +75,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
                     return true;
             }
             return base.OnOptionsItemSelected(item);
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
         protected override void Subscription()

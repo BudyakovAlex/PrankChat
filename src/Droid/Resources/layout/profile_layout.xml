@@ -21,7 +21,7 @@
                 android:layout_height="85dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:MvxBind="Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath ProfilePhotoUrl, Mode = OneWay" />
+                app:MvxBind="Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath ProfilePhotoUrl, Mode = OneWay; Click CreateNewAvatarCommand" />
             <TextView
                 android:id="@+id/profile_description"
                 android:layout_width="0dp"

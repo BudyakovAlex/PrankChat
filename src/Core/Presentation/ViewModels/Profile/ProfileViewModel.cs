@@ -1,11 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
+using Plugin.Media.Abstractions;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
@@ -30,6 +33,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly ISettingsService _settingsService;
         private readonly IErrorHandleService _errorHandleService;
+        private readonly IMediaService _mediaService;
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
@@ -38,7 +42,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             set
             {
                 SetProperty(ref _selectedPublicationType, value);
-                LoadVideoFeedAsync().FireAndForget();
+                OnLoadVideoFeedAsync().FireAndForget();
             }
         }
 
@@ -106,9 +110,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MvxAsyncCommand ShowWithdrawalCommand => new MvxAsyncCommand(NavigationService.ShowWithdrawalView);
 
-        public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
+        public MvxAsyncCommand LoadProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
 
-        public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(LoadVideoFeedAsync);
+        public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(OnLoadVideoFeedAsync);
+
+        public MvxAsyncCommand CreateNewAvatarCommand => new MvxAsyncCommand(OnCreateNewAvatarAsync);
 
         public ProfileViewModel(INavigationService navigationService,
                                 IDialogService dialogService,
@@ -117,7 +123,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                                 IVideoPlayerService videoPlayerService,
                                 IErrorHandleService errorHandleService,
                                 ISettingsService settingsService,
-                                IMvxMessenger messenger) : base(navigationService)
+                                IMvxMessenger messenger,
+                                IMediaService mediaService) : base(navigationService)
         {
             _dialogService = dialogService;
             _platformService = platformService;
@@ -126,13 +133,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             _messenger = messenger;
             _videoPlayerService = videoPlayerService;
             _errorHandleService = errorHandleService;
+            _mediaService = mediaService;
         }
 
-        public override async Task Initialize()
+        public override Task Initialize()
         {
-            await base.Initialize();
-
-            await UpdateProfileCommand.ExecuteAsync();
+            return LoadProfileCommand.ExecuteAsync();
         }
 
         public override void ViewDisappearing()
@@ -172,7 +178,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
 
                 _messenger.Publish(new UpdateUserProfileMessenger(this));
-                await LoadVideoFeedAsync();
+                await OnLoadVideoFeedAsync();
             }
             finally
             {
@@ -180,7 +186,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
         }
 
-        private async Task LoadVideoFeedAsync()
+        private async Task OnLoadVideoFeedAsync()
         {
             if (!CheckValidation())
                 return;
@@ -195,6 +201,30 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        private async Task OnCreateNewAvatarAsync()
+        {
+            var result = await _dialogService.ShowMenuDialogAsync(new string[]
+            {
+                Resources.TakePhoto,
+                Resources.PickPhoto,
+            });
+
+            MediaFile file = null;
+            if (result == Resources.TakePhoto)
+            {
+                file = await _mediaService.TakePhotoAsync();
+            }
+            else if (result == Resources.PickPhoto)
+            {
+                file = await _mediaService.PickPhotoAsync();
+            }
+
+            if (file != null)
+            {
+                await _apiService.SendAvatarAsync(file.Path);
             }
         }
 

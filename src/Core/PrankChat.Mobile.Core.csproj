@@ -62,5 +62,7 @@
     <Folder Include="Exceptions\Network\" />
     <Folder Include="ApplicationServices\Network\Errors\" />
     <Folder Include="ApplicationServices\Timer\" />
+    <Folder Include="ApplicationServices\Mediaes\" />
+    <Folder Include="ApplicationServices\Permissions\" />
   </ItemGroup>
 </Project>

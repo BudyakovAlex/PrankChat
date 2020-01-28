@@ -52,6 +52,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task GetCurrentUser();
 
+        Task SendAvatarAsync(string path);
+
         #endregion Users
 
         #region Video

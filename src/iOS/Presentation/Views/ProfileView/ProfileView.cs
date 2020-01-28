@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Converters;
@@ -44,6 +45,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             set.Bind(profileImageView)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)
+                .Mode(MvxBindingMode.OneWay);
+
+            set.Bind(profileImageView.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.CreateNewAvatarCommand)
                 .Mode(MvxBindingMode.OneWay);
 
             set.Bind(profileDescriptionLabel)

@@ -172,4 +172,18 @@
 "Count_Of_Viewing" = "просмотра";
 "Year_Short" = "г.";
 "OrderStatus_MyOrder" = "Мой заказ";
-"OrderDetails_View_Cancel_Title" = "";
+"OrderDetails_View_Cancel_Title" = "Вы уверены что хотите отменить заказ?";
+"ProfileUpdateView_Email_Placeholder" = "Email";
+"ProfileUpdateView_Login_Placeholder" = "Логин";
+
+/*Fuzzy*/
+"ProfileUpdateView_Name_Placeholder" = "Имя";
+"ProfileUpdateView_Birthday_Placeholder" = "Дата рождения";
+"ProfileUpdateView_Button_Save" = "Сохранить";
+"ProfileUpdateView_GenderSelect_Title" = "Ваш пол";
+
+/*Fuzzy*/
+"ProfileUpdateView_Title" = "Редактирование профиля";
+"ProfileUpdateView_ChangePassword" = "Сменить пароль";
+"TakePhoto" = "Cфотографировать";
+"PickPhoto" = "Выбрать из галереи";
