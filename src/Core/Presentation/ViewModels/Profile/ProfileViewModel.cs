@@ -31,26 +31,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly ISettingsService _settingsService;
         private readonly IErrorHandleService _errorHandleService;
 
-        private string _profileName;
-        private string _description;
-        private string _price;
-        private string _ordersValue;
-        private string _completedOrdersValue;
-        private string _subscriptionsValue;
-        private string _subscribersValue;
-        private string _profilePhotoUrl;
         private PublicationType _selectedPublicationType;
-
         public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(OnShowMenuAsync);
-
-        public ICommand ShowRefillCommand => new MvxAsyncCommand(NavigationService.ShowRefillView);
-
-        public ICommand ShowWithdrawalCommand => new MvxAsyncCommand(NavigationService.ShowWithdrawalView);
-
-        public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
-
-        public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(LoadVideoFeedAsync);
-
         public MvxAsyncCommand ShowUpdateProfileCommand => new MvxAsyncCommand(NavigationService.ShowProfileUpdateView);
 
         public PublicationType SelectedPublicationType
@@ -63,48 +45,56 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
         }
 
+        private string _profileName;
         public string ProfileName
         {
             get => _profileName;
             set => SetProperty(ref _profileName, value);
         }
 
+        private string _profilePhotoUrl;
         public string ProfilePhotoUrl
         {
             get => _profilePhotoUrl;
             set => SetProperty(ref _profilePhotoUrl, value);
         }
 
+        private string _description;
         public string Description
         {
             get => _description;
             set => SetProperty(ref _description, value);
         }
 
+        private string _price;
         public string Price
         {
             get => _price;
             set => SetProperty(ref _price, value);
         }
 
+        private string _ordersValue;
         public string OrdersValue
         {
             get => _ordersValue;
             set => SetProperty(ref _ordersValue, value);
         }
 
+        private string _completedOrdersValue;
         public string CompletedOrdersValue
         {
             get => _completedOrdersValue;
             set => SetProperty(ref _completedOrdersValue, value);
         }
 
+        private string _subscribersValue;
         public string SubscribersValue
         {
             get => _subscribersValue;
             set => SetProperty(ref _subscribersValue, value);
         }
 
+        private string _subscriptionsValue;
         public string SubscriptionsValue
         {
             get => _subscriptionsValue;
@@ -112,6 +102,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         }
 
         public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
+
+        public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(ShowMenuAsync);
+
+        public MvxAsyncCommand ShowRefillCommand => new MvxAsyncCommand(NavigationService.ShowRefillView);
+
+        public MvxAsyncCommand ShowWithdrawalCommand => new MvxAsyncCommand(NavigationService.ShowWithdrawalView);
+
+        public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
+
+        public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(LoadVideoFeedAsync);
 
         public ProfileViewModel(INavigationService navigationService,
                                 IDialogService dialogService,
@@ -244,9 +244,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 Resources.ProfileView_Menu_Faq,
                 Resources.ProfileView_Menu_Support,
                 Resources.ProfileView_Menu_Settings,
+                Resources.ProfileView_Menu_LogOut,
             };
 
-            var result = await _dialogService.ShowMenuDialogAsync(items, Resources.ProfileView_Menu_LogOut);
+            var result = await _dialogService.ShowMenuDialogAsync(items, Resources.Cancel);
+            if (string.IsNullOrWhiteSpace(result))
+                return;
+
             if (result == Resources.ProfileView_Menu_Favourites)
             {
 
@@ -269,8 +273,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
             else if (result == Resources.ProfileView_Menu_LogOut)
             {
-                await NavigationService.ShowLoginView();
+                await LogoutUser();
             }
+        }
+
+        private async Task LogoutUser()
+        {
+            _settingsService.User = null;
+            await _settingsService.SetAccessTokenAsync(string.Empty);
+            //_apiService.LogoutAsync().FireAndForget();
+            await NavigationService.Logout();
         }
     }
 }

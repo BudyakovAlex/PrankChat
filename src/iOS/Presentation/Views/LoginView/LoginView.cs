@@ -14,7 +14,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 {
-    [MvxRootPresentation(WrapInNavigationController = true)]
+    [MvxRootPresentation]
     public partial class LoginView : BaseTransparentBarView<LoginViewModel>
     {
         protected override void SetupBinding()
