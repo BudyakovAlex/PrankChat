@@ -1,6 +1,10 @@
-﻿using Android.OS;
+﻿using System.Collections.Generic;
+using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using FFImageLoading.Cross;
+using FFImageLoading.Transformations;
+using FFImageLoading.Work;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -24,6 +28,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = this.BindingInflate(Resource.Layout.profile_layout, null);
+
+            //var changeImage = view.FindViewById<MvxCachedImageView>(Resource.Id.profile_change_icon);
+            //if (changeImage != null)
+            //{
+            //    changeImage.Transformations = new List<ITransformation>() { new CircleTransformation(10, "#FFFFFF"), new ColorFillTransformation("#000000") };
+            //}
             return view;
         }
 

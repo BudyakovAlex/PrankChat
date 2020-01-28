@@ -20,31 +20,29 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private readonly IApiService _apiService;
         private readonly IMvxMessenger _messenger;
 
+
         private string _email;
-        private string _login;
-        private string _name;
-        private DateTime? _birthdate;
-        private GenderType? _gender;
-
-
         public string Email
         {
             get => _email;
             set => SetProperty(ref _email, value);
         }
 
+        private string _login;
         public string Login
         {
             get => _login;
             set => SetProperty(ref _login, value);
         }
 
+        private string _name;
         public string Name
         {
             get => _name;
             set => SetProperty(ref _name, value);
         }
 
+        private DateTime? _birthdate;
         public DateTime? Birthday
         {
             get => _birthdate;
@@ -53,10 +51,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public string BirthdayText => Birthday?.ToShortDateString() ?? Resources.ProfileUpdateView_Birthday_Placeholder;
 
+        private GenderType? _gender;
         public GenderType? Gender
         {
             get => _gender;
             set => SetProperty(ref _gender, value);
+        }
+
+        private string _profilePhotoUrl;
+        public string ProfilePhotoUrl
+        {
+            get => _profilePhotoUrl;
+            set => SetProperty(ref _profilePhotoUrl, value);
         }
 
         public MvxAsyncCommand SelectBirthdayCommand => new MvxAsyncCommand(OnSelectBirthdayAsync);
@@ -66,6 +72,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         public MvxAsyncCommand ProfileUpdateCommand => new MvxAsyncCommand(OnProfileUpdateAsync);
 
         public MvxAsyncCommand ChangePasswordCommand => new MvxAsyncCommand(OnChangePasswordAsync);
+
+        public MvxAsyncCommand ChangeProfilePhotoCommand => new MvxAsyncCommand(OnChangeProfilePhotoAsync);
 
         public ProfileUpdateViewModel(INavigationService navigationService,
                                       ISettingsService settingsService,
@@ -93,6 +101,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             Login = user.Login;
             Birthday = DateTime.Now;
             Gender = GenderType.Male;
+            ProfilePhotoUrl = user.Avatar ?? "http://simpleicon.com/wp-content/uploads/user-5.png";
             await RaisePropertyChanged(nameof(BirthdayText));
         }
 
@@ -139,6 +148,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private async Task OnChangePasswordAsync()
         {
             await _dialogService.ShowAlertAsync("Change password");
+        }
+
+        private async Task OnChangeProfilePhotoAsync()
+        {
+            await _dialogService.ShowAlertAsync("Change photo profile");
         }
     }
 }

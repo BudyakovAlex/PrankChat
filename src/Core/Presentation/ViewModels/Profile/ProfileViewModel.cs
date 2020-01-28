@@ -51,6 +51,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(LoadVideoFeedAsync);
 
+        public MvxAsyncCommand ShowUpdateProfileCommand => new MvxAsyncCommand(NavigationService.ShowProfileUpdateView);
+
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
@@ -263,7 +265,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
             else if (result == Resources.ProfileView_Menu_Settings)
             {
-                await NavigationService.ShowProfileUpdateView();
+
             }
             else if (result == Resources.ProfileView_Menu_LogOut)
             {

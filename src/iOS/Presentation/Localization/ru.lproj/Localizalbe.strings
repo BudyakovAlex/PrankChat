@@ -183,5 +183,9 @@
 "ProfileUpdateView_GenderSelect_Title" = "Ваш пол";
 
 /*Fuzzy*/
-"ProfileUpdateView_Title" = "Редактирование профиля";
+"ProfileUpdateView_Title" = "Изменить профиль";
 "ProfileUpdateView_ChangePassword" = "Сменить пароль";
+"TakePhoto" = "Cфотографировать";
+"PickPhoto" = "Выбрать из галереи";
+"ProfileUpdateView_Description_Placeholder" = "О себе";
+"ProfileUpdateView_PhotoChange_Title" = "Сменить фото профиля";

@@ -17,9 +17,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         {
             base.OnCreate(bundle, Resource.Layout.profile_update_layout);
 
-            var textView = this.FindViewById<TextView>(Resource.Id.text_view_change_password);
-            if (textView != null)
-                textView.PaintFlags = Android.Graphics.PaintFlags.UnderlineText;
+            var textViewChangePassword = this.FindViewById<TextView>(Resource.Id.text_view_change_password);
+            if (textViewChangePassword != null)
+                textViewChangePassword.PaintFlags = Android.Graphics.PaintFlags.UnderlineText;
+
+            var textViewChangeProfilePhoto = this.FindViewById<TextView>(Resource.Id.text_view_change_photo);
+            if (textViewChangeProfilePhoto != null)
+                textViewChangeProfilePhoto.PaintFlags = Android.Graphics.PaintFlags.UnderlineText;
         }
 
         protected override void Subscription()

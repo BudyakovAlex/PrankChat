@@ -607,10 +607,22 @@
     <value>Ваш пол</value>
   </data>
   <data name="ProfileUpdateView_Title" xml:space="preserve">
-    <value>Редактирование профиля</value>
+    <value>Изменить профиль</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="ProfileUpdateView_ChangePassword" xml:space="preserve">
     <value>Сменить пароль</value>
+  </data>
+  <data name="TakePhoto" xml:space="preserve">
+    <value>Cфотографировать</value>
+  </data>
+  <data name="PickPhoto" xml:space="preserve">
+    <value>Выбрать из галереи</value>
+  </data>
+  <data name="ProfileUpdateView_Description_Placeholder" xml:space="preserve">
+    <value>О себе</value>
+  </data>
+  <data name="ProfileUpdateView_PhotoChange_Title" xml:space="preserve">
+    <value>Сменить фото профиля</value>
   </data>
 </root>
