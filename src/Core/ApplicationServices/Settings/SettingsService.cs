@@ -31,11 +31,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
 
         public Task SetAccessTokenAsync(string accessToken)
         {
-            if (string.IsNullOrWhiteSpace(accessToken))
-            {
-                throw new ArgumentNullException(nameof(accessToken));
-            }
-
             // Workaround for iOS simulator.
             if (CrossDeviceInfo.Current.Platform == Plugin.DeviceInfo.Abstractions.Platform.iOS
                 && !CrossDeviceInfo.Current.IsDevice)
