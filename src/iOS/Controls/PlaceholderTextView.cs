@@ -48,7 +48,7 @@ namespace PrankChat.Mobile.iOS.Controls
 
         private void CustomTextViewStarted(object sender, EventArgs e)
         {
-            TryRemovePlaceholder();
+            UpdatePlaceholder();
         }
 
         private void CustomTextViewEnded(object sender, EventArgs e)
@@ -56,38 +56,24 @@ namespace PrankChat.Mobile.iOS.Controls
             UpdatePlaceholder();
         }
 
-        public override bool BecomeFirstResponder()
-        {
-            UpdatePlaceholder();
-
-            return base.BecomeFirstResponder();
-        }
-
-        private void TryRemovePlaceholder()
+        private void UpdatePlaceholder()
         {
             if (Text == Placeholder)
             {
                 Text = string.Empty;
+                base.TextColor = _textColor;
             }
-        }
-
-        private void UpdatePlaceholder()
-        {
-            if (string.IsNullOrWhiteSpace(Text))
+            else if (Text == string.Empty)
             {
                 Text = Placeholder;
                 base.TextColor = PlaceholderColor;
-                return;
             }
-
-            base.TextColor = _textColor;
         }
 
-        public override void LayoutSubviews()
+        public override void Draw(CGRect rect)
         {
+            base.Draw(rect);
             UpdatePlaceholder();
-
-            base.LayoutSubviews();
         }
     }
 }
