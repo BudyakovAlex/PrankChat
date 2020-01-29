@@ -185,8 +185,10 @@
     <string name="ProfileUpdateView_GenderSelect_Title">"Ваш пол"</string>
 
     <!-- Fuzzy -->
-    <string name="ProfileUpdateView_Title">"Редактирование профиля"</string>
+    <string name="ProfileUpdateView_Title">"Изменить профиль"</string>
     <string name="ProfileUpdateView_ChangePassword">"Сменить пароль"</string>
     <string name="TakePhoto">"Cфотографировать"</string>
     <string name="PickPhoto">"Выбрать из галереи"</string>
+    <string name="ProfileUpdateView_Description_Placeholder">"О себе"</string>
+    <string name="ProfileUpdateView_PhotoChange_Title">"Сменить фото профиля"</string>
 </resources>

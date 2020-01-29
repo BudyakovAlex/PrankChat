@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
-using Plugin.Media.Abstractions;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
@@ -18,7 +15,7 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Messengers;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
@@ -33,7 +30,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly ISettingsService _settingsService;
         private readonly IErrorHandleService _errorHandleService;
-        private readonly IMediaService _mediaService;
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
@@ -50,8 +46,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         public string ProfileName
         {
             get => _profileName;
-            set => SetProperty(ref _profileName, value);
+            set
+            {
+                if (SetProperty(ref _profileName, value))
+                {
+                    RaisePropertyChanged(nameof(ProfileShortName));
+                }
+            }
         }
+
+        public string ProfileShortName => ProfileName.ToShortenName();
 
         private string _profilePhotoUrl;
         public string ProfilePhotoUrl
@@ -104,7 +108,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
 
-        public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(ShowMenuAsync);
+        public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(OnShowMenuAsync);
 
         public MvxAsyncCommand ShowRefillCommand => new MvxAsyncCommand(NavigationService.ShowRefillView);
 
@@ -114,7 +118,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(OnLoadVideoFeedAsync);
 
-        public MvxAsyncCommand CreateNewAvatarCommand => new MvxAsyncCommand(OnCreateNewAvatarAsync);
+        public MvxAsyncCommand ShowUpdateProfileCommand => new MvxAsyncCommand(NavigationService.ShowUpdateProfileView);
 
         public ProfileViewModel(INavigationService navigationService,
                                 IDialogService dialogService,
@@ -123,8 +127,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                                 IVideoPlayerService videoPlayerService,
                                 IErrorHandleService errorHandleService,
                                 ISettingsService settingsService,
-                                IMvxMessenger messenger,
-                                IMediaService mediaService) : base(navigationService)
+                                IMvxMessenger messenger) : base(navigationService)
         {
             _dialogService = dialogService;
             _platformService = platformService;
@@ -133,7 +136,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             _messenger = messenger;
             _videoPlayerService = videoPlayerService;
             _errorHandleService = errorHandleService;
-            _mediaService = mediaService;
         }
 
         public override Task Initialize()
@@ -161,15 +163,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             {
                 IsBusy = true;
 
-                await _apiService.GetCurrentUser();
+                var oldAvatar = _settingsService.User?.Avatar;
+                await _apiService.GetCurrentUserAsync();
 
                 var user = _settingsService.User;
-
                 if (user == null)
                     return;
 
                 ProfileName = user.Name;
-                ProfilePhotoUrl = user.Avatar ?? "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+                ProfilePhotoUrl = user.Avatar;
                 Price = user.Balance.ToPriceString();
                 OrdersValue = user.OrdersExecuteCount.ToCountString();
                 CompletedOrdersValue = user.OrdersExecuteFinishedCount.ToCountString();
@@ -177,8 +179,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 SubscriptionsValue = user.SubscriptionsCount.ToCountString();
                 Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
 
-                _messenger.Publish(new UpdateUserProfileMessenger(this));
-                await OnLoadVideoFeedAsync();
+                if (_settingsService.User.Avatar != oldAvatar)
+                    _messenger.Publish(new UpdateAvatarMessage(this));
+
+                UpdateProfileVideoCommand.Execute();
             }
             finally
             {
@@ -204,49 +208,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
         }
 
-        private async Task OnCreateNewAvatarAsync()
-        {
-            var result = await _dialogService.ShowMenuDialogAsync(new string[]
-            {
-                Resources.TakePhoto,
-                Resources.PickPhoto,
-            });
-
-            MediaFile file = null;
-            if (result == Resources.TakePhoto)
-            {
-                file = await _mediaService.TakePhotoAsync();
-            }
-            else if (result == Resources.PickPhoto)
-            {
-                file = await _mediaService.PickPhotoAsync();
-            }
-
-            if (file != null)
-            {
-                await _apiService.SendAvatarAsync(file.Path);
-            }
-        }
-
         private void SetVideoList(VideoMetadataBundleDataModel videoBundle)
         {
             if (videoBundle.Data == null)
                 return;
 
-            var publicationViewModels = videoBundle.Data.Select(x =>
+            var publicationViewModels = videoBundle.Data.Select(publication =>
                 new PublicationItemViewModel(
                     NavigationService,
                     _dialogService,
                     _platformService,
                     _videoPlayerService,
-                    "Name one",
-                    "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                    x.Title,
-                    x.StreamUri,
-                    x.ViewsCount,
-                    x.CreatedAt.DateTime,
-                    x.RepostsCount,
-                    x.ShareUri));
+                    publication.User?.Name,
+                    publication.User?.Avatar,
+                    publication.Title,
+                    publication.StreamUri,
+                    publication.ViewsCount,
+                    publication.CreatedAt.DateTime,
+                    publication.RepostsCount,
+                    publication.ShareUri));
 
             Items.SwitchTo(publicationViewModels);
         }
@@ -262,7 +242,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             return true;
         }
 
-        private async Task ShowMenuAsync()
+        private async Task OnShowMenuAsync()
         {
             var items = new string[]
             {

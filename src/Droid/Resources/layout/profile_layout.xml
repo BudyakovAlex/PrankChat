@@ -8,7 +8,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,7 +20,24 @@
                 android:layout_height="85dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:MvxBind="Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath ProfilePhotoUrl, Mode = OneWay; Click CreateNewAvatarCommand" />
+                app:MvxBind="ImagePath PlaceholderImage(ProfilePhotoUrl); Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
+            <ImageView
+                android:id="@+id/profile_change_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_change_profile"
+                app:layout_constraintBottom_toBottomOf="@id/profile_photo"
+                app:layout_constraintRight_toRightOf="@id/profile_photo"
+                app:MvxBind="Click ShowUpdateProfileCommand" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/applicationWhite"
+                app:layout_constraintLeft_toLeftOf="@+id/profile_photo"
+                app:layout_constraintRight_toRightOf="@+id/profile_photo"
+                app:layout_constraintTop_toTopOf="@+id/profile_photo"
+                app:layout_constraintBottom_toBottomOf="@+id/profile_photo"
+                app:MvxBind="Text ProfileShortName, Mode = OneTime; Visibility InvertedVisibility(ProfilePhotoUrl), Mode = OneTime;"/>
             <TextView
                 android:id="@+id/profile_description"
                 android:layout_width="0dp"
@@ -51,9 +67,7 @@
                 android:textSize="12sp"
                 android:textColor="@color/description"
                 app:MvxBind="Text Price, Mode=OneWay" />
-
             <!-- Buttons section row -->
-
             <Button
                 android:id="@+id/profile_refill_button"
                 android:layout_width="wrap_content"
@@ -81,9 +95,7 @@
                 android:text="@string/ProfileView_Withdrawal"
                 style="@style/Theme.PrankChat.Button.Borderless"
                 app:MvxBind="Click ShowWithdrawalCommand" />
-
             <!-- Values section row -->
-
             <TextView
                 android:id="@+id/profile_orders_value"
                 android:layout_width="0dp"

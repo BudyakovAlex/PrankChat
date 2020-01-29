@@ -1,7 +1,8 @@
-﻿using MvvmCross.Commands;
+﻿using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Presentation.Messengers;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
@@ -11,7 +12,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly IMvxMessenger _messenger;
         private readonly ISettingsService _settingsService;
 
-        private MvxSubscriptionToken _updateProfileToken;
+        private MvxSubscriptionToken _updateAvatarToken;
 
         private string _userImageUrl;
         public string UserImageUrl
@@ -36,6 +37,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             _settingsService = settingsService;
         }
 
+        public override Task Initialize()
+        {
+            UpdateUserAvatar();
+            return base.Initialize();
+        }
+
         public override void ViewCreated()
         {
             base.ViewCreated();
@@ -50,22 +57,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private void Subscription()
         {
-            _updateProfileToken = _messenger.SubscribeOnMainThread<UpdateUserProfileMessenger>(OnUserProfileUpdate);
+            _updateAvatarToken = _messenger.Subscribe<UpdateAvatarMessage>(UpdateUserAvatar);
         }
 
         private void Unsubscription()
         {
-            if (_updateProfileToken != null)
+            if (_updateAvatarToken != null)
             {
-                _messenger.Unsubscribe<UpdateUserProfileMessenger>(_updateProfileToken);
-                _updateProfileToken.Dispose();
+                _messenger.Unsubscribe<UpdateAvatarMessage>(_updateAvatarToken);
+                _updateAvatarToken.Dispose();
             }
         }
 
-        private void OnUserProfileUpdate(UpdateUserProfileMessenger message)
+        private void UpdateUserAvatar(UpdateAvatarMessage message = null)
         {
-            var user = _settingsService.User;
-            UserImageUrl = user?.Avatar ?? "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+            UserImageUrl = _settingsService.User?.Avatar;
         }
     }
 }

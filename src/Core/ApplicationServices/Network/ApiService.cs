@@ -173,16 +173,24 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Users
 
-        public async Task GetCurrentUser()
+        public async Task GetCurrentUserAsync()
         {
             var dataApiModel = await _client.Get<DataApiModel<UserApiModel>>("me");
             var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
             _settingsService.User = user;
         }
 
-        public async Task SendAvatarAsync(string path)
+        public async Task<UserDataModel> SendAvatarAsync(string path)
         {
             var dataApiModel = await _client.PostPhotoFile<DataApiModel<UserApiModel>>("me/avatar", path);
+            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
+            return user;
+        }
+        
+        public async Task UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
+        {
+            var userUpdateProfileApiModel = MappingConfig.Mapper.Map<UserUpdateProfileApiModel>(userInfo);
+            var resultUpdate = await _client.Post<UserUpdateProfileApiModel, DataApiModel<UserUpdateProfileApiModel>>("me", userUpdateProfileApiModel);
         }
 
         #endregion Users
