@@ -186,8 +186,7 @@
                     android:layout_alignEnd="@+id/registration_button"
                     style="@style/Theme.PrankChat.ProgressBar.Accent"
                     app:MvxBind="Visibility Visibility(IsBusy)"/>
-            </RelativeLayout>
-
+            </RelativeLayout
             <TextView
                 android:id="@+id/text_view_change_password"
                 android:layout_width="wrap_content"

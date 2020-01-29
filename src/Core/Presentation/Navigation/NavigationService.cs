@@ -121,7 +121,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         {
             return _mvxNavigationService.Navigate<PublicationDetailsViewModel>();
         }
-        
+
         public Task ShowWithdrawalView()
         {
             var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Withdrawal);
@@ -139,7 +139,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter>(navigationParameter);
         }
 
-        public Task ShowProfileUpdateView()
+        public Task ShowUpdateProfileView()
         {
             return _mvxNavigationService.Navigate<ProfileUpdateViewModel>();
         }

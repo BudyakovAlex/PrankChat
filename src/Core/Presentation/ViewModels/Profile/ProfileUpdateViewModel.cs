@@ -5,6 +5,7 @@ using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -19,7 +20,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private readonly IDialogService _dialogService;
         private readonly IApiService _apiService;
         private readonly IMvxMessenger _messenger;
-
 
         private string _email;
         public string Email
@@ -46,7 +46,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         public DateTime? Birthday
         {
             get => _birthdate;
-            set => SetProperty(ref _birthdate, value);
+            set
+            {
+                if (SetProperty(ref _birthdate, value))
+                {
+                    RaisePropertyChanged(nameof(BirthdayText)).FireAndForget();
+                }
+            }
         }
 
         public string BirthdayText => Birthday?.ToShortDateString() ?? Resources.ProfileUpdateView_Birthday_Placeholder;
@@ -98,6 +104,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             await base.Initialize();
 
+            InitializeProfile();
+        }
+
+        private void InitializeProfile()
+        {
             var user = _settingsService.User;
 
             if (user == null)
@@ -109,10 +120,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             Login = user.Login;
             Birthday = DateTime.Now;
             Gender = GenderType.Male;
-            ProfilePhotoUrl = user.Avatar ?? "http://simpleicon.com/wp-content/uploads/user-5.png";
+            ProfilePhotoUrl = user.Avatar;
             Description = "Description";
-            await RaisePropertyChanged(nameof(BirthdayText));
         }
+
 
         private async Task OnSelectBirthdayAsync()
         {
@@ -120,7 +131,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             if (result.HasValue)
             {
                 Birthday = result.Value;
-                await RaisePropertyChanged(nameof(BirthdayText));
             }
         }
 

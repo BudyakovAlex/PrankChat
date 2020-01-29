@@ -19,8 +19,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
     [MvxModalPresentation(WrapInNavigationController = true)]
     public partial class ProfileUpdateView : BaseTransparentBarView<ProfileUpdateViewModel>
     {
-        public IMvxCommand<GenderType> SelectGenderCommand { get; set; }
-
         protected override void SetupBinding()
         {
             var set = this.CreateBindingSet<ProfileUpdateView, ProfileUpdateViewModel>();
@@ -47,10 +45,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             set.Bind(birthdayTextField.Tap())
                 .For(v => v.Command)
                 .To(vm => vm.SelectBirthdayCommand);
-
-            set.Bind(this)
-                .For(v => v.SelectGenderCommand)
-                .To(vm => vm.SelectGenderCommand);
 
             set.Bind(progressBar)
                 .For(v => v.BindHidden())
@@ -85,6 +79,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             set.Bind(changeProfilePhotoLabel.Tap())
                 .For(v => v.Command)
                 .To(vm => vm.ChangeProfilePhotoCommand);
+
+            set.Bind(femaleIconButton)
+                .To(vm => vm.SelectGenderCommand)
+                .CommandParameter(GenderType.Female);
+
+            set.Bind(maleIconButton)
+                .To(vm => vm.SelectGenderCommand)
+                .CommandParameter(GenderType.Male);
 
             set.Apply();
         }
@@ -177,7 +179,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                     maleIconButton.SetRadioInactiveStyle();
                     break;
             }
-            SelectGenderCommand?.Execute(sex);
         }
     }
 }

@@ -28,12 +28,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = this.BindingInflate(Resource.Layout.profile_layout, null);
-
-            //var changeImage = view.FindViewById<MvxCachedImageView>(Resource.Id.profile_change_icon);
-            //if (changeImage != null)
-            //{
-            //    changeImage.Transformations = new List<ITransformation>() { new CircleTransformation(10, "#FFFFFF"), new ColorFillTransformation("#000000") };
-            //}
             return view;
         }
 
