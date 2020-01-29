@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
@@ -6,18 +7,22 @@ using MvvmCross.Navigation;
 using Plugin.DeviceInfo;
 using Plugin.DeviceInfo.Abstractions;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 {
-    public class DialogService : IDialogService
+    public abstract class DialogService : IDialogService
     {
-        private readonly IMvxNavigationService _mvxNavigationService;
+        private readonly INavigationService _navigationService;
 
-        public DialogService(IMvxNavigationService mvxNavigationService)
+        public DialogService(INavigationService navigationService)
         {
-            _mvxNavigationService = mvxNavigationService;
+            _navigationService = navigationService;
         }
+
+        public abstract Task<TEntity> ShowArrayAsync<TEntity>(List<TEntity> array) where TEntity : class;
 
         public async Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null)
         {
@@ -51,7 +56,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
             if (string.IsNullOrWhiteSpace(url))
                throw new ArgumentNullException(nameof(url));
 
-            return _mvxNavigationService.Navigate<ShareDialogViewModel, string>(url);
+            return _navigationService.ShowShareDialog(new ShareDialogParameter(url));
         }
 
         public Task<bool> ShowConfirmAsync(string message, string title = "", string ok = "", string cancel = "")
@@ -77,6 +82,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
             }
 
             return UserDialogs.Instance.AlertAsync(message, title, ok);
+        }
+
+        public async Task<string> ShowArrayDialogAsync(List<string> items)
+        {
+            var result = await _navigationService.ShowArrayDialog(new ArrayDialogParameter(items));
+            return result.SelectedItem;
         }
     }
 }

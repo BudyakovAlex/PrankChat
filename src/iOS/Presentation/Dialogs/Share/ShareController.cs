@@ -7,7 +7,7 @@ using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
-namespace PrankChat.Mobile.iOS.Presentation.Views.Share
+namespace PrankChat.Mobile.iOS.Presentation.Dialogs.Share
 {
     [MvxModalPresentation(
         ModalPresentationStyle = UIModalPresentationStyle.BlurOverFullScreen,

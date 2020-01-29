@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
@@ -127,15 +128,29 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter>(navigationParameter);
         }
 
-        public Task Logout()
-        {
-            return ShowLoginView();
-        }
-
         public Task ShowRefillView()
         {
             var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Refill);
             return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter>(navigationParameter);
         }
+
+        public Task Logout()
+        {
+            return ShowLoginView();
+        }
+
+        #region Dialogs
+
+        public Task ShowShareDialog(ShareDialogParameter parameter)
+        {
+            return _mvxNavigationService.Navigate<ShareDialogViewModel, ShareDialogParameter>(parameter);
+        }
+
+        public Task<ArrayDialogResult> ShowArrayDialog(ArrayDialogParameter parameter)
+        {
+            return _mvxNavigationService.Navigate<ArrayDialogViewModel, ArrayDialogParameter, ArrayDialogResult>(parameter);
+        }
+
+        #endregion
     }
 }

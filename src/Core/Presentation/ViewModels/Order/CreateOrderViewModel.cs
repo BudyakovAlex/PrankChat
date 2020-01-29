@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Commands;
@@ -12,6 +13,7 @@ using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
@@ -122,7 +124,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                         newOrder.Customer = _settingsService.User;
 
                     _mvxMessenger.Publish(new NewOrderMessage(this, newOrder));
-                    _dialogService.ShowToast("Заказ создан");
+                    await NavigationService.ShowDetailsOrderView(new OrderDetailsNavigationParameter(newOrder.Id));
                 }
             }
             finally
@@ -133,11 +135,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnDateDialogAsync()
         {
-            var result = await _dialogService.ShowDateDialogAsync();
-            if (result.HasValue)
-            {
-                CompletedDateValue = result.Value;
-            }
+            var result = await _dialogService.ShowArrayDialogAsync(new List<string>() { "LOL1", "LOL1", "LOL1", "LOL1", "LOL1", "LOL1", "LOL1", "LOL1", "LOL1", "LOL1"});
         }
 
         private bool CheckValidation()

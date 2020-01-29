@@ -226,14 +226,14 @@
     </Compile>
     <Compile Include="Presentation\Views\Base\BaseCollectionCell.cs" />
     <Compile Include="Presentation\Converters\BoolToUIImageConverter.cs" />
-    <InterfaceDefinition Include="Presentation\Views\Share\ShareController.xib" />
-    <Compile Include="Presentation\Views\Share\ShareController.cs" />
-    <Compile Include="Presentation\Views\Share\ShareController.designer.cs">
-      <DependentUpon>ShareController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Presentation\Converters\DateFormatConverter.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
+    <Compile Include="Presentation\Dialogs\Share\ShareController.cs" />
+    <Compile Include="Presentation\Dialogs\Share\ShareController.designer.cs">
+      <DependentUpon>..\..\Views\Share\ShareController.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Dialogs\Share\ShareController.xib" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -646,6 +646,9 @@
     <Folder Include="Presentation\Localization\ru.lproj\" />
     <Folder Include="Resources\" />
     <Folder Include="Utils\Extensions\" />
+    <Folder Include="Presentation\Dialogs\" />
+    <Folder Include="Presentation\Dialogs\Share\" />
+    <Folder Include="Presentation\Dialogs\ArrayPicker\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

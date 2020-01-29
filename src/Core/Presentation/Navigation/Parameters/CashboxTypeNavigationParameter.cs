@@ -1,6 +1,6 @@
 ﻿namespace PrankChat.Mobile.Core.Presentation.Navigation.Parameters
 {
-    public class CashboxTypeNavigationParameter : INavigationParameter
+    public class CashboxTypeNavigationParameter
     {
         public enum CashboxType
         {
