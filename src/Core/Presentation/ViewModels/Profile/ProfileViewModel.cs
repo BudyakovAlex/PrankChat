@@ -160,7 +160,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 await _apiService.GetCurrentUserAsync();
 
                 var user = _settingsService.User;
-
                 if (user == null)
                     return;
 

@@ -50,7 +50,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private void Subscription()
         {
-            _updateProfileToken = _messenger.SubscribeOnMainThread<UpdateUserProfileMessage>(OnUserProfileUpdate);
+            _updateProfileToken = _messenger.Subscribe<UpdateUserProfileMessage>(OnUserProfileUpdate);
         }
 
         private void Unsubscription()

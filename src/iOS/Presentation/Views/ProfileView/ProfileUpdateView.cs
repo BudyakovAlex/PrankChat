@@ -52,7 +52,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .WithConversion<MvxInvertedBooleanConverter>();
 
             set.Bind(saveButton)
-                .To(vm => vm.ProfileUpdateCommand);
+                .To(vm => vm.UpdateProfileCommand);
 
             set.Bind(changePasswordLabel.Tap())
                 .For(tap => tap.Command)

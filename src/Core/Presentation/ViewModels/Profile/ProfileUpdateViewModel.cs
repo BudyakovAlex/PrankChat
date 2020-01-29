@@ -82,7 +82,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public MvxCommand<GenderType> SelectGenderCommand => new MvxCommand<GenderType>(OnSelectGender);
 
-        public MvxAsyncCommand ProfileUpdateCommand => new MvxAsyncCommand(OnProfileUpdateAsync);
+        public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(OnUpdateProfileAsync);
 
         public MvxAsyncCommand ChangePasswordCommand => new MvxAsyncCommand(OnChangePasswordAsync);
 
@@ -139,7 +139,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             Gender = genderType;
         }
 
-        private async Task OnProfileUpdateAsync()
+        private async Task OnUpdateProfileAsync()
         {
             try
             {
@@ -147,12 +147,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
                 var dataModel = new UserUpdateProfileDataModel()
                 {
-                    Email = this.Email,
-                    Login = this.Login,
-                    Name = this.Name,
-                    Sex = this.Gender?.ToString(),
-                    Birthday = this.Birthday?.ToShortDateString(),
-                    Description = this.Description
+                    Email = Email,
+                    Login = Login,
+                    Name = Name,
+                    Sex = Gender?.ToString(),
+                    Birthday = Birthday?.ToShortDateString(),
+                    Description = Description
                 };
 
                 await _apiService.UpdateProfileAsync(dataModel);
