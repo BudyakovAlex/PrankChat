@@ -63,7 +63,7 @@ namespace PrankChat.Mobile.iOS.Controls
                 Text = string.Empty;
                 base.TextColor = _textColor;
             }
-            else if (Text == string.Empty)
+            else if (string.IsNullOrEmpty(Text))
             {
                 Text = Placeholder;
                 base.TextColor = PlaceholderColor;
