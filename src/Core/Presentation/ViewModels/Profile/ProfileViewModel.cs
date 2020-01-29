@@ -46,8 +46,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         public string ProfileName
         {
             get => _profileName;
-            set => SetProperty(ref _profileName, value);
+            set
+            {
+                if (SetProperty(ref _profileName, value))
+                {
+                    RaisePropertyChanged(nameof(ProfileShortName));
+                }
+            }
         }
+
+        public string ProfileShortName => ProfileName.ToShortenName();
 
         private string _profilePhotoUrl;
         public string ProfilePhotoUrl
@@ -106,7 +114,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MvxAsyncCommand ShowWithdrawalCommand => new MvxAsyncCommand(NavigationService.ShowWithdrawalView);
 
-        public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
+        public MvxAsyncCommand LoadProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
 
         public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(LoadVideoFeedAsync);
 
@@ -130,11 +138,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             _errorHandleService = errorHandleService;
         }
 
-        public override async Task Initialize()
+        public override Task Initialize()
         {
-            await base.Initialize();
-
-            await UpdateProfileCommand.ExecuteAsync();
+            return LoadProfileCommand.ExecuteAsync();
         }
 
         public override void ViewDisappearing()
@@ -164,7 +170,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                     return;
 
                 ProfileName = user.Name;
-                ProfilePhotoUrl = user.Avatar ?? "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+                ProfilePhotoUrl = user.Avatar;
                 Price = user.Balance.ToPriceString();
                 OrdersValue = user.OrdersExecuteCount.ToCountString();
                 CompletedOrdersValue = user.OrdersExecuteFinishedCount.ToCountString();
@@ -204,20 +210,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             if (videoBundle.Data == null)
                 return;
 
-            var publicationViewModels = videoBundle.Data.Select(x =>
+            var publicationViewModels = videoBundle.Data.Select(publication =>
                 new PublicationItemViewModel(
                     NavigationService,
                     _dialogService,
                     _platformService,
                     _videoPlayerService,
-                    "Name one",
-                    "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                    x.Title,
-                    x.StreamUri,
-                    x.ViewsCount,
-                    x.CreatedAt.DateTime,
-                    x.RepostsCount,
-                    x.ShareUri));
+                    publication.User?.Name,
+                    publication.User?.Avatar,
+                    publication.Title,
+                    publication.StreamUri,
+                    publication.ViewsCount,
+                    publication.CreatedAt.DateTime,
+                    publication.RepostsCount,
+                    publication.ShareUri));
 
             Items.SwitchTo(publicationViewModels);
         }

@@ -234,6 +234,7 @@
     <Compile Include="Presentation\Converters\DateFormatConverter.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
+    <Compile Include="Presentation\Converters\PlaceholderImageConverter.cs" />
     <InterfaceDefinition Include="Presentation\Views\ProfileView\ProfileUpdateView.xib" />
     <Compile Include="Presentation\Views\ProfileView\ProfileUpdateView.cs" />
     <Compile Include="Presentation\Views\ProfileView\ProfileUpdateView.designer.cs">
@@ -645,6 +646,9 @@
     <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Group 189-1.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_image_background.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_image_background.imageset\ic_image_background.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Group 189-1.pdf">
       <Visible>false</Visible>
     </ImageAsset>
@@ -655,6 +659,7 @@
     <Folder Include="Presentation\Localization\ru.lproj\" />
     <Folder Include="Resources\" />
     <Folder Include="Utils\Extensions\" />
+    <Folder Include="Assets.xcassets\ic_image_background.imageset\" />
     <Folder Include="Assets.xcassets\ic_change_profile.imageset\" />
   </ItemGroup>
   <ItemGroup>

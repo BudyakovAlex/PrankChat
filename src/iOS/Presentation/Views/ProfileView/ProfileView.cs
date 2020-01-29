@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
@@ -8,25 +9,26 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Publication;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 {
-    [MvxTabPresentation(TabName = "Profile", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
-    public partial class ProfileView : BaseTabbedView<ProfileViewModel>
-    {
-        private MvxUIRefreshControl _refreshControl;
+	[MvxTabPresentation(TabName = "Profile", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
+	public partial class ProfileView : BaseTabbedView<ProfileViewModel>
+	{
+		private MvxUIRefreshControl _refreshControl;
 
-        public PublicationTableSource PublicationTableSource { get; private set; }
+		public PublicationTableSource PublicationTableSource { get; private set; }
 
-        public override void ViewDidAppear(bool animated)
-        {
-            base.ViewDidAppear(animated);
+		public override void ViewDidAppear(bool animated)
+		{
+			base.ViewDidAppear(animated);
 
-            PublicationTableSource.Initialize();
-        }
+			PublicationTableSource.Initialize();
+		}
 
         protected override void SetupBinding()
         {
@@ -46,6 +48,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)
                 .Mode(MvxBindingMode.OneWay);
+
+			set.Bind(profileImageView)
+				.For(v => v.ImagePath)
+				.To(vm => vm.ProfilePhotoUrl)
+				.WithConversion<PlaceholderImageConverter>()
+				.Mode(MvxBindingMode.OneWay);	
 
             set.Bind(profileDescriptionLabel)
                 .To(vm => vm.Description)
@@ -97,6 +105,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .For(v => v.Command)
                 .To(vm => vm.ShowUpdateProfileCommand);
 
+            set.Bind(profileShortNameLabel)
+                .To(vm => vm.ProfileShortName);
+
+            set.Bind(profileShortNameLabel)
+                .For(v => v.BindHidden())
+                .To(vm => vm.ProfilePhotoUrl);
+
             set.Apply();
         }
 
@@ -127,8 +142,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             });
 
             segmentedControl.SelectedSegment = 0;
-
-            imageChangeProfile.Image = UIImage.FromBundle("ic_change_profile").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
         }
 
         private void InitializeTableView()

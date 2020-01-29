@@ -11,6 +11,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -60,7 +61,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             set.Bind(profileImage)
                 .For(v => v.ImagePath)
-                .To(vm => vm.ProfilePhotoUrl);
+                .To(vm => vm.ProfilePhotoUrl)
+                .WithConversion<PlaceholderImageConverter>()
+                .Mode(MvxBindingMode.OneWay);
 
             set.Bind(profileImage)
                 .For(v => v.DownsampleWidth)
@@ -88,12 +91,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .To(vm => vm.SelectGenderCommand)
                 .CommandParameter(GenderType.Male);
 
+            set.Bind(profileShortNameLabel)
+                .To(vm => vm.ProfileShortName);
+
+            set.Bind(profileShortNameLabel)
+                .For(v => v.BindHidden())
+                .To(vm => vm.ProfilePhotoUrl);
+
             set.Apply();
         }
 
         protected override void SetupControls()
         {
-            this.View.BackgroundColor = UIColor.Black;
+            //this.View.BackgroundColor = UIColor.Black;
 
             Title = Resources.ProfileUpdateView_Title;
 
@@ -110,7 +120,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             imageContainer.AddSubview(imageView);
             birthdayTextField.RightView = imageContainer;
             birthdayTextField.RightViewMode = UITextFieldViewMode.Always;
-
 
             sexSelectTitleLabel.Text = Resources.ProfileUpdateView_GenderSelect_Title;
             sexSelectTitleLabel.TextColor = Theme.Color.White;

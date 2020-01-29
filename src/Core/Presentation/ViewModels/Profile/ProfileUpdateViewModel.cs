@@ -39,8 +39,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         public string Name
         {
             get => _name;
-            set => SetProperty(ref _name, value);
+            set
+            {
+                if (SetProperty(ref _name, value))
+                {
+                    RaisePropertyChanged(nameof(ProfileShortName));
+                }
+            }
         }
+
+        public string ProfileShortName => Name.ToShortenName();
 
         private DateTime? _birthdate;
         public DateTime? Birthday
@@ -50,7 +58,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             {
                 if (SetProperty(ref _birthdate, value))
                 {
-                    RaisePropertyChanged(nameof(BirthdayText)).FireAndForget();
+                    RaisePropertyChanged(nameof(BirthdayText));
                 }
             }
         }
@@ -100,11 +108,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             _messenger = messenger;
         }
 
-        public override async Task Initialize()
+        public override Task Initialize()
         {
-            await base.Initialize();
-
             InitializeProfile();
+            return base.Initialize();
         }
 
         private void InitializeProfile()
@@ -123,7 +130,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             ProfilePhotoUrl = user.Avatar;
             Description = "Description";
         }
-
 
         private async Task OnSelectBirthdayAsync()
         {

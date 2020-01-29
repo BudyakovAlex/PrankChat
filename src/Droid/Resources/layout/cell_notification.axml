@@ -4,13 +4,23 @@
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <ffimageloading.cross.MvxCachedImageView
+    <FrameLayout
         android:id="@+id/profile_photo"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginLeft="15dp"
-        local:MvxBind="Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath ImageUrl, Mode = OneTime" />
+        android:layout_marginLeft="15dp">
+        <ffimageloading.cross.MvxCachedImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            local:MvxBind="ImagePath PlaceholderImage(ImageUrl), Mode = OneTime; Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/applicationWhite"
+            local:MvxBind="Text ProfileShortName, Mode = OneTime; Visibility InvertedVisibility(ImageUrl), Mode = OneTime;"/>
+    </FrameLayout>
     <TextView
         android:id="@+id/name_text_view"
         android:layout_width="wrap_content"

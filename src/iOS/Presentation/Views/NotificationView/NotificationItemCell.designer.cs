@@ -1,39 +1,66 @@
 // WARNING
 //
-// This file has been generated automatically by Visual Studio from the outlets and
-// actions declared in your storyboard file.
-// Manual changes to this file will not be maintained.
+// This file has been generated automatically by Visual Studio to store outlets and
+// actions made in the UI designer. If it is removed, they will be lost.
+// Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using System;
 using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 {
-    [Register ("NotificationItemCell")]
-    partial class NotificationItemCell
-    {
-        [Outlet]
-        UIKit.UILabel dateLabel { get; set; }
+	[Register ("NotificationItemCell")]
+	partial class NotificationItemCell
+	{
+		[Outlet]
+		UIKit.UILabel dateLabel { get; set; }
 
+		[Outlet]
+		UIKit.UILabel descriptionLabel { get; set; }
 
-        [Outlet]
-        UIKit.UILabel descriptionLabel { get; set; }
+		[Outlet]
+		UIKit.UILabel profileNameLabel { get; set; }
 
+		[Outlet]
+		FFImageLoading.Cross.MvxCachedImageView profilePhotoImageView { get; set; }
 
-        [Outlet]
-        UIKit.UILabel profileNameLabel { get; set; }
+		[Outlet]
+		UIKit.UILabel profileShortNameLabel { get; set; }
 
+		[Outlet]
+		UIKit.UILabel statusLabel { get; set; }
+		
+		void ReleaseDesignerOutlets ()
+		{
+			if (profileShortNameLabel != null) {
+				profileShortNameLabel.Dispose ();
+				profileShortNameLabel = null;
+			}
 
-        [Outlet]
-        FFImageLoading.Cross.MvxCachedImageView profilePhotoImageView { get; set; }
+			if (dateLabel != null) {
+				dateLabel.Dispose ();
+				dateLabel = null;
+			}
 
+			if (descriptionLabel != null) {
+				descriptionLabel.Dispose ();
+				descriptionLabel = null;
+			}
 
-        [Outlet]
-        UIKit.UILabel statusLabel { get; set; }
+			if (profileNameLabel != null) {
+				profileNameLabel.Dispose ();
+				profileNameLabel = null;
+			}
 
-        void ReleaseDesignerOutlets ()
-        {
-        }
-    }
+			if (profilePhotoImageView != null) {
+				profilePhotoImageView.Dispose ();
+				profilePhotoImageView = null;
+			}
+
+			if (statusLabel != null) {
+				statusLabel.Dispose ();
+				statusLabel = null;
+			}
+		}
+	}
 }
