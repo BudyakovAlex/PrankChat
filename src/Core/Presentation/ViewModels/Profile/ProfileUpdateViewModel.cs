@@ -140,8 +140,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                     Email = this.Email,
                     Login = this.Login,
                     Name = this.Name,
-                    Sex = Gender?.ToString(),
-                    Birthday = Birthday?.ToShortDateString()
+                    Sex = this.Gender?.ToString(),
+                    Birthday = this.Birthday?.ToShortDateString(),
+                    Description = this.Description
                 };
 
                 await _apiService.UpdateProfileAsync(dataModel);

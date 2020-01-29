@@ -18,5 +18,8 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         [JsonProperty("birthday")]
         public string Birthday { get; set; }
+
+        [JsonProperty("description")]
+        public string Description { get; set; }
     }
 }
