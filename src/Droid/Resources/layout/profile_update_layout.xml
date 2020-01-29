@@ -75,7 +75,7 @@
                 android:layout_marginLeft="16dp"
                 app:boxStrokeWidth="1dp"
                 android:textColorHint="@color/applicationWhite"
-                android:hint="@string/ProfileUpdateView_Description_Placeholder"
+                android:hint="@string/ProfileUpdateView_Name_Placeholder"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
@@ -92,14 +92,14 @@
                 android:layout_marginLeft="16dp"
                 app:boxStrokeWidth="1dp"
                 android:textColorHint="@color/applicationWhite"
-                android:hint="@string/ProfileUpdateView_Name_Placeholder"
+                android:hint="@string/ProfileUpdateView_Description_Placeholder"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="14sp"
                     android:textColor="@color/applicationWhite"
-                    app:MvxBind="Text Name" />
+                    app:MvxBind="Text Description" />
             </android.support.design.widget.TextInputLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -194,6 +194,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:text="@string/ProfileUpdateView_ChangePassword"
                 android:textColor="@android:color/white"
                 app:MvxBind="Click ChangePasswordCommand"/>

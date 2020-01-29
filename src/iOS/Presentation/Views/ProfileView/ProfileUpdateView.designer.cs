@@ -24,6 +24,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel changeProfilePhotoLabel { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextField descriptionTextField { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField emailTextField { get; set; }
 
         [Outlet]
@@ -60,6 +68,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        FFImageLoading.Cross.MvxCachedImageView profileImage { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIActivityIndicatorView progressBar { get; set; }
 
         [Outlet]
@@ -84,6 +96,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             if (changePasswordLabel != null) {
                 changePasswordLabel.Dispose ();
                 changePasswordLabel = null;
+            }
+
+            if (changeProfilePhotoLabel != null) {
+                changeProfilePhotoLabel.Dispose ();
+                changeProfilePhotoLabel = null;
+            }
+
+            if (descriptionTextField != null) {
+                descriptionTextField.Dispose ();
+                descriptionTextField = null;
             }
 
             if (emailTextField != null) {
@@ -129,6 +151,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             if (nameTextField != null) {
                 nameTextField.Dispose ();
                 nameTextField = null;
+            }
+
+            if (profileImage != null) {
+                profileImage.Dispose ();
+                profileImage = null;
             }
 
             if (progressBar != null) {

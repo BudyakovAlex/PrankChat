@@ -65,6 +65,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             set => SetProperty(ref _profilePhotoUrl, value);
         }
 
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            set => SetProperty(ref _description, value);
+        }
+
         public MvxAsyncCommand SelectBirthdayCommand => new MvxAsyncCommand(OnSelectBirthdayAsync);
 
         public MvxCommand<GenderType> SelectGenderCommand => new MvxCommand<GenderType>(OnSelectGender);
@@ -96,12 +103,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             if (user == null)
                 return;
 
+            // TODO set some properties from user
             Email = user.Email;
             Name = user.Name;
             Login = user.Login;
             Birthday = DateTime.Now;
             Gender = GenderType.Male;
             ProfilePhotoUrl = user.Avatar ?? "http://simpleicon.com/wp-content/uploads/user-5.png";
+            Description = "Description";
             await RaisePropertyChanged(nameof(BirthdayText));
         }
 

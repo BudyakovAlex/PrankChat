@@ -73,8 +73,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         [Outlet]
         UIKit.UIButton withdrawalButton { get; set; }
 
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        FFImageLoading.Cross.MvxCachedImageView imageChangeProfile { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
+            if (imageChangeProfile != null) {
+                imageChangeProfile.Dispose ();
+                imageChangeProfile = null;
+            }
         }
     }
 }

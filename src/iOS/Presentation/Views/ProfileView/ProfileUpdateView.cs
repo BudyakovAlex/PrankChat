@@ -64,6 +64,28 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .For(tap => tap.Command)
                 .To(vm => vm.ChangePasswordCommand);
 
+            set.Bind(profileImage)
+                .For(v => v.ImagePath)
+                .To(vm => vm.ProfilePhotoUrl);
+
+            set.Bind(profileImage)
+                .For(v => v.DownsampleWidth)
+                .To(vm => vm.DownsampleWidth)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(profileImage)
+                .For(v => v.Transformations)
+                .To(vm => vm.Transformations)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(profileImage.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.ChangeProfilePhotoCommand);
+
+            set.Bind(changeProfilePhotoLabel.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.ChangeProfilePhotoCommand);
+
             set.Apply();
         }
 
@@ -114,6 +136,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             changePasswordLabel.Text = Resources.ProfileUpdateView_ChangePassword;
             changePasswordLabel.TextColor = UIColor.White;
+
+            changeProfilePhotoLabel.Text = Resources.ProfileUpdateView_PhotoChange_Title;
+            changeProfilePhotoLabel.TextColor = UIColor.White;
+
+            descriptionTextField.SetLightStyle(Resources.ProfileUpdateView_Description_Placeholder);
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)

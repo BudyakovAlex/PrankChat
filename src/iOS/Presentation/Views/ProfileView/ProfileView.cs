@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Converters;
@@ -92,6 +93,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .To(vm => vm.SelectedPublicationType)
                 .WithConversion<PublicationTypeConverter>();
 
+            set.Bind(profileImageView.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.ShowUpdateProfileCommand);
+
             set.Apply();
         }
 
@@ -122,6 +127,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             });
 
             segmentedControl.SelectedSegment = 0;
+
+            imageChangeProfile.Image = UIImage.FromBundle("ic_change_profile").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
         }
 
         private void InitializeTableView()
