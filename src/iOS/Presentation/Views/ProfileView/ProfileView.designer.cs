@@ -19,6 +19,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		UIKit.UILabel completedOrdersValueLabel { get; set; }
 
 		[Outlet]
+		[GeneratedCode ("iOS Designer", "1.0")]
+		FFImageLoading.Cross.MvxCachedImageView imageChangeProfile { get; set; }
+
+		[Outlet]
 		UIKit.UILabel ordersTitleLabel { get; set; }
 
 		[Outlet]
@@ -35,10 +39,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
 		[Outlet]
 		UIKit.UILabel profileShortNameLabel { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIKit.UIActivityIndicatorView progressBar { get; set; }
 
 		[Outlet]
 		UIKit.UIButton refillButton { get; set; }
@@ -146,9 +146,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 				withdrawalButton = null;
 			}
 
-			if (progressBar != null) {
-				progressBar.Dispose ();
-				progressBar = null;
+			if (imageChangeProfile != null) {
+				imageChangeProfile.Dispose ();
+				imageChangeProfile = null;
 			}
 		}
 	}

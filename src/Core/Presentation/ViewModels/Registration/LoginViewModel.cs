@@ -91,7 +91,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                     }
 
                     // todo: not wait
-                    await _apiService.GetCurrentUser();
+                    await _apiService.GetCurrentUserAsync();
                     await NavigationService.ShowMainView();
                 }
                 else

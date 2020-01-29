@@ -15,7 +15,7 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Messengers;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
@@ -108,15 +108,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
 
-        public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(ShowMenuAsync);
+        public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(OnShowMenuAsync);
 
         public MvxAsyncCommand ShowRefillCommand => new MvxAsyncCommand(NavigationService.ShowRefillView);
 
         public MvxAsyncCommand ShowWithdrawalCommand => new MvxAsyncCommand(NavigationService.ShowWithdrawalView);
 
-        public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
+        public MvxAsyncCommand LoadProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
 
         public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(LoadVideoFeedAsync);
+
+        public MvxAsyncCommand ShowUpdateProfileCommand => new MvxAsyncCommand(NavigationService.ShowUpdateProfileView);
 
         public ProfileViewModel(INavigationService navigationService,
                                 IDialogService dialogService,
@@ -136,11 +138,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             _errorHandleService = errorHandleService;
         }
 
-        public override async Task Initialize()
+        public override Task Initialize()
         {
-            await base.Initialize();
-
-            await UpdateProfileCommand.ExecuteAsync();
+            return LoadProfileCommand.ExecuteAsync();
         }
 
         public override void ViewDisappearing()
@@ -163,10 +163,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             {
                 IsBusy = true;
 
-                await _apiService.GetCurrentUser();
+                await _apiService.GetCurrentUserAsync();
 
                 var user = _settingsService.User;
-
                 if (user == null)
                     return;
 
@@ -179,7 +178,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 SubscriptionsValue = user.SubscriptionsCount.ToCountString();
                 Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
 
-                _messenger.Publish(new UpdateUserProfileMessenger(this));
+                _messenger.Publish(new UpdateUserProfileMessage(this));
                 await LoadVideoFeedAsync();
             }
             finally
@@ -240,7 +239,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             return true;
         }
 
-        private async Task ShowMenuAsync()
+        private async Task OnShowMenuAsync()
         {
             var items = new string[]
             {

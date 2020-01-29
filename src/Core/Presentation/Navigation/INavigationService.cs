@@ -44,5 +44,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         Task Logout();
 
         Task<bool> CloseView(BaseViewModel viewModel);
+
+        Task ShowUpdateProfileView();
     }
 }
