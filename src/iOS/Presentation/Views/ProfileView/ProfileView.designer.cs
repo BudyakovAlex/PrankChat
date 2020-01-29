@@ -75,13 +75,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIActivityIndicatorView progressBar { get; set; }
+        FFImageLoading.Cross.MvxCachedImageView imageChangeProfile { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
-            if (progressBar != null) {
-                progressBar.Dispose ();
-                progressBar = null;
+            if (imageChangeProfile != null) {
+                imageChangeProfile.Dispose ();
+                imageChangeProfile = null;
             }
         }
     }

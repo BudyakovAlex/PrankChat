@@ -964,5 +964,77 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("OrderDetails_View_Cancel_Title", resourceCulture);
             }
         }
+        
+        public static string ProfileUpdateView_Email_Placeholder {
+            get {
+                return ResourceManager.GetString("ProfileUpdateView_Email_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string ProfileUpdateView_Login_Placeholder {
+            get {
+                return ResourceManager.GetString("ProfileUpdateView_Login_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string ProfileUpdateView_Name_Placeholder {
+            get {
+                return ResourceManager.GetString("ProfileUpdateView_Name_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string ProfileUpdateView_Birthday_Placeholder {
+            get {
+                return ResourceManager.GetString("ProfileUpdateView_Birthday_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string ProfileUpdateView_Button_Save {
+            get {
+                return ResourceManager.GetString("ProfileUpdateView_Button_Save", resourceCulture);
+            }
+        }
+        
+        public static string ProfileUpdateView_GenderSelect_Title {
+            get {
+                return ResourceManager.GetString("ProfileUpdateView_GenderSelect_Title", resourceCulture);
+            }
+        }
+        
+        public static string ProfileUpdateView_Title {
+            get {
+                return ResourceManager.GetString("ProfileUpdateView_Title", resourceCulture);
+            }
+        }
+        
+        public static string ProfileUpdateView_ChangePassword {
+            get {
+                return ResourceManager.GetString("ProfileUpdateView_ChangePassword", resourceCulture);
+            }
+        }
+        
+        public static string TakePhoto {
+            get {
+                return ResourceManager.GetString("TakePhoto", resourceCulture);
+            }
+        }
+        
+        public static string PickPhoto {
+            get {
+                return ResourceManager.GetString("PickPhoto", resourceCulture);
+            }
+        }
+        
+        public static string ProfileUpdateView_Description_Placeholder {
+            get {
+                return ResourceManager.GetString("ProfileUpdateView_Description_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string ProfileUpdateView_PhotoChange_Title {
+            get {
+                return ResourceManager.GetString("ProfileUpdateView_PhotoChange_Title", resourceCulture);
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
@@ -120,7 +121,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         {
             return _mvxNavigationService.Navigate<PublicationDetailsViewModel>();
         }
-        
+
         public Task ShowWithdrawalView()
         {
             var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Withdrawal);
@@ -136,6 +137,11 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         {
             var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Refill);
             return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter>(navigationParameter);
+        }
+
+        public Task ShowUpdateProfileView()
+        {
+            return _mvxNavigationService.Navigate<ProfileUpdateViewModel>();
         }
     }
 }

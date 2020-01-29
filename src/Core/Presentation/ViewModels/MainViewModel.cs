@@ -1,7 +1,7 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Presentation.Messengers;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
@@ -50,19 +50,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private void Subscription()
         {
-            _updateProfileToken = _messenger.SubscribeOnMainThread<UpdateUserProfileMessenger>(OnUserProfileUpdate);
+            _updateProfileToken = _messenger.Subscribe<UpdateUserProfileMessage>(OnUserProfileUpdate);
         }
 
         private void Unsubscription()
         {
             if (_updateProfileToken != null)
             {
-                _messenger.Unsubscribe<UpdateUserProfileMessenger>(_updateProfileToken);
+                _messenger.Unsubscribe<UpdateUserProfileMessage>(_updateProfileToken);
                 _updateProfileToken.Dispose();
             }
         }
 
-        private void OnUserProfileUpdate(UpdateUserProfileMessenger message)
+        private void OnUserProfileUpdate(UpdateUserProfileMessage message)
         {
             var user = _settingsService.User;
             UserImageUrl = user?.Avatar ?? "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";

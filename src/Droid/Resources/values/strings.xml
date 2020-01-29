@@ -174,5 +174,21 @@
     <string name="Count_Of_Viewing">"просмотра"</string>
     <string name="Year_Short">"г."</string>
     <string name="OrderStatus_MyOrder">"Мой заказ"</string>
-    <string name="OrderDetails_View_Cancel_Title"></string>
+    <string name="OrderDetails_View_Cancel_Title">"Вы уверены что хотите отменить заказ?"</string>
+    <string name="ProfileUpdateView_Email_Placeholder">"Email"</string>
+    <string name="ProfileUpdateView_Login_Placeholder">"Логин"</string>
+
+    <!-- Fuzzy -->
+    <string name="ProfileUpdateView_Name_Placeholder">"Имя"</string>
+    <string name="ProfileUpdateView_Birthday_Placeholder">"Дата рождения"</string>
+    <string name="ProfileUpdateView_Button_Save">"Сохранить"</string>
+    <string name="ProfileUpdateView_GenderSelect_Title">"Ваш пол"</string>
+
+    <!-- Fuzzy -->
+    <string name="ProfileUpdateView_Title">"Изменить профиль"</string>
+    <string name="ProfileUpdateView_ChangePassword">"Сменить пароль"</string>
+    <string name="TakePhoto">"Cфотографировать"</string>
+    <string name="PickPhoto">"Выбрать из галереи"</string>
+    <string name="ProfileUpdateView_Description_Placeholder">"О себе"</string>
+    <string name="ProfileUpdateView_PhotoChange_Title">"Сменить фото профиля"</string>
 </resources>
