@@ -13,7 +13,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 {
-    public abstract class DialogService : IDialogService
+    public class DialogService : IDialogService
     {
         private readonly INavigationService _navigationService;
 
@@ -21,8 +21,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
         {
             _navigationService = navigationService;
         }
-
-        public abstract Task<TEntity> ShowArrayAsync<TEntity>(List<TEntity> array) where TEntity : class;
 
         public async Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null)
         {
@@ -84,10 +82,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
             return UserDialogs.Instance.AlertAsync(message, title, ok);
         }
 
-        public async Task<string> ShowArrayDialogAsync(List<string> items)
+        public async Task<string> ShowArrayDialogAsync(List<string> items, string title = "")
         {
-            var result = await _navigationService.ShowArrayDialog(new ArrayDialogParameter(items));
-            return result.SelectedItem;
+            var result = await _navigationService.ShowArrayDialog(new ArrayDialogParameter(items, title));
+            return result?.SelectedItem;
         }
     }
 }

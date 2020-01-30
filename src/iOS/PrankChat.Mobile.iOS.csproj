@@ -234,6 +234,12 @@
       <DependentUpon>..\..\Views\Share\ShareController.cs</DependentUpon>
     </Compile>
     <InterfaceDefinition Include="Presentation\Dialogs\Share\ShareController.xib" />
+    <InterfaceDefinition Include="Presentation\Dialogs\ArrayPicker\ArrayPickerController.xib" />
+    <Compile Include="Presentation\Dialogs\ArrayPicker\ArrayPickerController.cs" />
+    <Compile Include="Presentation\Dialogs\ArrayPicker\ArrayPickerController.designer.cs">
+      <DependentUpon>ArrayPickerController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Dialogs\BaseDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

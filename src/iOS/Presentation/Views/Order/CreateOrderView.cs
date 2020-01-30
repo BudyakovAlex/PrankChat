@@ -35,8 +35,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.Price);
 
             set.Bind(completeDateTextField)
-                .To(vm => vm.CompletedDateValue)
-                .WithConversion<DateFormatConverter>(DateFormats.ShortDate);
+                .To(vm => vm.ActiveFor.Title);
 
             set.Bind(completeDateTextField.Tap())
                 .For(v => v.Command)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Commands;
@@ -9,8 +10,10 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
@@ -21,16 +24,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     {
         private readonly IDialogService _dialogService;
         private readonly IApiService _apiService;
-        private readonly IMvxLog _mvxLog;
         private readonly IMvxMessenger _mvxMessenger;
         private readonly ISettingsService _settingsService;
         private readonly IErrorHandleService _errorHandleService;
 
-        private DateTime? _completedDateValue;
-        public DateTime? CompletedDateValue
+        private PeriodDataModel _activeFor;
+        public PeriodDataModel ActiveFor
         {
-            get => _completedDateValue;
-            set => SetProperty(ref _completedDateValue, value);
+            get => _activeFor;
+            set => SetProperty(ref _activeFor, value);
         }
 
         private string _title;
@@ -79,7 +81,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public CreateOrderViewModel(INavigationService navigationService,
                                     IDialogService dialogService,
                                     IApiService apiService,
-                                    IMvxLog mvxLog,
                                     IMvxMessenger mvxMessenger,
                                     ISettingsService settingsService,
                                     IErrorHandleService errorHandleService)
@@ -87,7 +88,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             _dialogService = dialogService;
             _apiService = apiService;
-            _mvxLog = mvxLog;
             _mvxMessenger = mvxMessenger;
             _settingsService = settingsService;
             _errorHandleService = errorHandleService;
@@ -113,7 +113,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     Title = Title,
                     Description = Description,
                     AutoProlongation = IsExecutorHidden,
-                    ActiveFor = (int) (CompletedDateValue.Value - DateTime.Now).TotalDays,
+                    ActiveFor = ActiveFor?.Hours ?? 0,
                     Price = Price.Value,
                 };
 
@@ -125,6 +125,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                     _mvxMessenger.Publish(new NewOrderMessage(this, newOrder));
                     await NavigationService.ShowDetailsOrderView(new OrderDetailsNavigationParameter(newOrder.Id));
+                    SetDefaultData();
                 }
             }
             finally
@@ -135,7 +136,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnDateDialogAsync()
         {
-            var result = await _dialogService.ShowArrayDialogAsync(new List<string>() { "LOL1", "LOL1", "LOL1", "LOL1", "LOL1", "LOL1", "LOL1", "LOL1", "LOL1", "LOL1"});
+            var periods = ConfigurationProvider.GetConfiguration().Periods;
+            var result = await _dialogService.ShowArrayDialogAsync(periods.Select(p => p.Title).ToList(), Resources.CreateOrderView_Choose_Time_Period);
+            if (!string.IsNullOrWhiteSpace(result))
+            {
+                ActiveFor = periods.FirstOrDefault(p => p.Title == result);
+            }
         }
 
         private bool CheckValidation()
@@ -164,19 +170,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return false;
             }
 
-            if (CompletedDateValue == null)
+            if (ActiveFor == null)
             {
-                _errorHandleService.HandleException(new UserVisibleException("Дата окончания не может быть пустой."));
-                return false;
-            }
-
-            if (CompletedDateValue < DateTime.Now)
-            {
-                _errorHandleService.HandleException(new UserVisibleException("Дата окончания не может быть раньше текущей даты."));
+                _errorHandleService.HandleException(new UserVisibleException("Выберите период действия заказа."));
                 return false;
             }
 
             return true;
+        }
+
+        private void SetDefaultData()
+        {
+            Title = string.Empty;
+            Description = string.Empty;
+            IsExecutorHidden = false;
+            ActiveFor = null;
+            Price = null;
         }
     }
 }

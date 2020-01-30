@@ -20,6 +20,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 
         Task ShowAlertAsync(string message, string title = "", string ok = "");
 
-        Task<string> ShowArrayDialogAsync(List<string> items);
+        Task<string> ShowArrayDialogAsync(List<string> items, string title = "");
     }
 }

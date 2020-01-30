@@ -12,7 +12,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 {
     public class ArrayDialogViewModel : BaseViewModel, IMvxViewModel<ArrayDialogParameter, ArrayDialogResult>
     {
+        public string Title { get; set; }
+
         public List<string> Items { get; } = new List<string>();
+
+        public string SelectdItem { get; set; }
+
+        public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
         public MvxCommand<string> SelectItemCommand => new MvxCommand<string>(OnSelectItem);
 
@@ -20,17 +26,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
         {
         }
 
-        public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
-
         public void Prepare(ArrayDialogParameter parameter)
         {
             Items.AddRange(parameter.Items);
+            Title = parameter.Title;
         }
 
         private void OnSelectItem(string item)
         {
+            if (string.IsNullOrWhiteSpace(item))
+                item = SelectdItem;
+
             CloseCompletionSource.SetResult(new ArrayDialogResult(item));
             NavigationService.CloseView(this).FireAndForget();
+        }
+
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
+                CloseCompletionSource?.TrySetCanceled();
+
+            base.ViewDestroy(viewFinishing);
         }
     }
 }

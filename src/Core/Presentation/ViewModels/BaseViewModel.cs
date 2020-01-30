@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             set => SetProperty(ref _isBusy, value);
         }
 
-        public MvxAsyncCommand GoBackCommand
+        public virtual MvxAsyncCommand GoBackCommand
         {
             get
             {
