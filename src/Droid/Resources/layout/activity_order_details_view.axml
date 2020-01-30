@@ -297,6 +297,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/action_bar"
         android:background="@color/applicationTransparent"
         app:MvxBind="Visibility Visibility(IsBusy)">
         <ProgressBar
