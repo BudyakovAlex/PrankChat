@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs location when app in usage.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app require location to set it for video.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>This app needs access to calendar to pick date and time.</string>
 	<key>CFBundleDisplayName</key>
 	<string>PrankChat.Mobile.iOS</string>
 	<key>CFBundleIdentifier</key>

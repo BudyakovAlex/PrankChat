@@ -1,35 +1,58 @@
 // WARNING
 //
-// This file has been generated automatically by Visual Studio from the outlets and
-// actions declared in your storyboard file.
-// Manual changes to this file will not be maintained.
+// This file has been generated automatically by Visual Studio to store outlets and
+// actions made in the UI designer. If it is removed, they will be lost.
+// Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using System;
 using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 {
-    [Register ("ProfileSearchItemCell")]
-    partial class ProfileSearchItemCell
-    {
-        [Outlet]
-        UIKit.UIView innerView { get; set; }
+	[Register ("ProfileSearchItemCell")]
+	partial class ProfileSearchItemCell
+	{
+		[Outlet]
+		UIKit.UIView innerView { get; set; }
 
+		[Outlet]
+		UIKit.UILabel profileDescriptionLabel { get; set; }
 
-        [Outlet]
-        UIKit.UILabel profileDescriptionLabel { get; set; }
+		[Outlet]
+		FFImageLoading.Cross.MvxCachedImageView profileImageView { get; set; }
 
+		[Outlet]
+		UIKit.UILabel profileNameLabel { get; set; }
 
-        [Outlet]
-        FFImageLoading.Cross.MvxCachedImageView profileImageView { get; set; }
+		[Outlet]
+		UIKit.UILabel profileShortNameLabel { get; set; }
+		
+		void ReleaseDesignerOutlets ()
+		{
+			if (profileShortNameLabel != null) {
+				profileShortNameLabel.Dispose ();
+				profileShortNameLabel = null;
+			}
 
+			if (innerView != null) {
+				innerView.Dispose ();
+				innerView = null;
+			}
 
-        [Outlet]
-        UIKit.UILabel profileNameLabel { get; set; }
+			if (profileDescriptionLabel != null) {
+				profileDescriptionLabel.Dispose ();
+				profileDescriptionLabel = null;
+			}
 
-        void ReleaseDesignerOutlets ()
-        {
-        }
-    }
+			if (profileImageView != null) {
+				profileImageView.Dispose ();
+				profileImageView = null;
+			}
+
+			if (profileNameLabel != null) {
+				profileNameLabel.Dispose ();
+				profileNameLabel = null;
+			}
+		}
+	}
 }

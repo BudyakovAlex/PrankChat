@@ -180,20 +180,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             if (videoBundle.Data == null)
                 return;
 
-            var publicationViewModels = videoBundle.Data.Select(x =>
+            var publicationViewModels = videoBundle.Data.Select(publication =>
                 new PublicationItemViewModel(
                     NavigationService,
                     _dialogService,
                     _platformService,
                     _videoPlayerService,
-                    "Name one",
-                    "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                    x.Title,
-                    x.StreamUri,
-                    x.ViewsCount,
-                    x.CreatedAt.DateTime,
-                    x.RepostsCount,
-                    x.ShareUri));
+                    publication.User?.Name,
+                    publication.User?.Avatar,
+                    publication.Title,
+                    publication.StreamUri,
+                    publication.ViewsCount,
+                    publication.CreatedAt.DateTime,
+                    publication.RepostsCount,
+                    publication.ShareUri));
 
             var list = publicationViewModels.ToList();
 

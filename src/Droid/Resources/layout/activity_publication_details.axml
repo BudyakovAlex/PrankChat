@@ -23,7 +23,16 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="7dp"
             android:layout_marginLeft="3dp"
-            app:MvxBind="Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath ProfilePhotoUrl, Mode = OneTime" />
+            app:MvxBind="ImagePath PlaceholderImage(ProfilePhotoUrl), Mode = OneTime; Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/applicationWhite"
+            app:layout_constraintLeft_toLeftOf="@+id/user_photo"
+            app:layout_constraintRight_toRightOf="@+id/user_photo"
+            app:layout_constraintTop_toTopOf="@+id/user_photo"
+            app:layout_constraintBottom_toBottomOf="@+id/user_photo"
+            app:MvxBind="Text ProfileShortName, Mode = OneTime; Visibility InvertedVisibility(ProfilePhotoUrl), Mode = OneTime;"/>
         <TextView
             android:id="@+id/user_name"
             android:layout_width="0dp"

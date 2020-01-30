@@ -22,6 +22,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIButton cancelVideoButton { get; set; }
 
 		[Outlet]
+		UIKit.UILabel customerShortNameLabel { get; set; }
+
+		[Outlet]
 		UIKit.UILabel decideTextLabel { get; set; }
 
 		[Outlet]
@@ -47,6 +50,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 		[Outlet]
 		UIKit.UILabel executorNameLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel executorShortNameLabel { get; set; }
 
 		[Outlet]
 		UIKit.UIView executorView { get; set; }
@@ -107,9 +113,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (decisionView != null) {
-				decisionView.Dispose ();
-				decisionView = null;
+			if (customerShortNameLabel != null) {
+				customerShortNameLabel.Dispose ();
+				customerShortNameLabel = null;
 			}
 
 			if (acceptButton != null) {
@@ -135,6 +141,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (decideView != null) {
 				decideView.Dispose ();
 				decideView = null;
+			}
+
+			if (executorShortNameLabel != null) {
+				executorShortNameLabel.Dispose ();
+				executorShortNameLabel = null;
+			}
+
+			if (decisionView != null) {
+				decisionView.Dispose ();
+				decisionView = null;
 			}
 
 			if (downloadButton != null) {

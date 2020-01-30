@@ -53,7 +53,7 @@
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <AndroidUseAapt2>false</AndroidUseAapt2>
-<AndroidLinkTool>r8</AndroidLinkTool>
+    <AndroidLinkTool>r8</AndroidLinkTool>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android.Export" />
@@ -79,6 +79,7 @@
     <Compile Include="Presentation\Views\Profile\Cashbox\CashboxView.cs" />
     <Compile Include="Presentation\Views\Profile\Cashbox\RefillView.cs" />
     <Compile Include="Presentation\Views\Profile\Cashbox\WithdrawalView.cs" />
+    <Compile Include="Presentation\Views\Profile\ProfileUpdateView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileView.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsView.cs" />
     <Compile Include="Presentation\Views\RatingView.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
     <Compile Include="Presentation\Dialogs\ArrayDialog.cs" />
+    <Compile Include="Presentation\Converters\PlaceholderImageConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -294,22 +296,52 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_sound.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_without_sound.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\dialog_share.axml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_copy.xml">
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\xml\file_paths.xml">
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_change_profile.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\xml\file_paths.xml">
+    <AndroidResource Include="Resources\drawable-hdpi\ic_image_background.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_image_background.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_image_background.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_image_background.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
@@ -321,6 +353,11 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_image_background.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\cell_publication.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -616,10 +653,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
-    <Folder Include="Presentation\Listeners\" />
-    <Folder Include="Presentation\Dialogs\" />
-    <Folder Include="PlatformBusinessServices\" />
-    <Folder Include="PlatformBusinessServices\Video\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_background.xml" />
@@ -712,11 +745,13 @@
     <AndroidResource Include="Resources\drawable\ic_banner_visa.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\cell_publication.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\xml\network_security_config.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\profile_update_layout.xml">
+      <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

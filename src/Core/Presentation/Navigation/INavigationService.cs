@@ -44,6 +44,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task Logout();
 
+        Task ShowUpdateProfileView();
+
         Task<bool> CloseView(BaseViewModel viewModel);
 
         #region Dialogs

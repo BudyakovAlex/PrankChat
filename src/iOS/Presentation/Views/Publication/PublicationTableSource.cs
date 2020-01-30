@@ -90,6 +90,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             var visibleCellsCollection = indexPaths.Select(indexPath => TableView.CellAt(indexPath) as PublicationItemCell);
             var visibleCells = visibleCellsCollection.ToList();
             var centralCellToPlay = visibleCells[indexPaths.Length / 2];
+            var completelyVisibleCells = new List<PublicationItemCell>();
             var partiallyVisibleCells = new List<PublicationItemCell>();
             foreach (var visibleCell in visibleCells)
             {
@@ -98,13 +99,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
                 if (IsCompletelyVisible(visibleCell))
                 {
-                    cellToPlay = visibleCell;
+                    completelyVisibleCells.Add(visibleCell);
                 }
                 else
                 {
                     partiallyVisibleCells.Add(visibleCell);
                 }
             }
+
+            cellToPlay = completelyVisibleCells.FirstOrDefault();
 
             if (cellToPlay == null)
                 if (centralCellToPlay != null)
@@ -124,8 +127,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 partiallyVisibleCell.StopVideo();
             }
 
-            var viewModel = _parentViewModel.Items.ToList()[TableView.IndexPathForCell(cellToPlay).Row];
-            cellToPlay.PlayVideo(viewModel.VideoUrl);
+
+            if (TableView.IndexPathForCell(completelyVisibleCells.LastOrDefault()).Row == _parentViewModel.Items.Count - 1)
+            {
+                completelyVisibleCells.ForEach(c => c.PlayVideo(_parentViewModel.Items.ToList()[TableView.IndexPathForCell(c).Row].VideoUrl));
+            }
+            else
+            {
+                var viewModel = _parentViewModel.Items.ToList()[TableView.IndexPathForCell(cellToPlay).Row];
+                cellToPlay.PlayVideo(viewModel.VideoUrl);
+            }
         }
 
         private bool IsCompletelyVisible(PublicationItemCell publicationCell)
