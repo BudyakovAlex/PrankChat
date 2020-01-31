@@ -61,8 +61,9 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<RegistrationViewModel>();
         }
 
-        public Task ShowRegistrationSecondStepView(RegistrationNavigationParameter parameter)
+        public Task ShowRegistrationSecondStepView(string email)
         {
+            var parameter = new RegistrationNavigationParameter(email);
             return _mvxNavigationService.Navigate<RegistrationSecondStepViewModel, RegistrationNavigationParameter>(parameter);
         }
 
@@ -113,8 +114,9 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<SearchViewModel>();
         }
 
-        public Task ShowDetailsOrderView(OrderDetailsNavigationParameter parameter)
+        public Task ShowDetailsOrderView(int orderId)
         {
+            var parameter = new OrderDetailsNavigationParameter(orderId);
             return _mvxNavigationService.Navigate<OrderDetailsViewModel, OrderDetailsNavigationParameter>(parameter);
         }
 

@@ -18,7 +18,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowRegistrationView();
 
-        Task ShowRegistrationSecondStepView(RegistrationNavigationParameter parameter);
+        Task ShowRegistrationSecondStepView(string email);
 
         Task ShowRegistrationThirdStepView();
 
@@ -32,7 +32,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowSearchView();
 
-        Task ShowDetailsOrderView(OrderDetailsNavigationParameter parameter);
+        Task ShowDetailsOrderView(int orderId);
 
         Task ShowDetailsPublicationView();
 

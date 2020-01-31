@@ -158,8 +158,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         private Task OnOpenDetailsOrderAsync()
         {
-            var parameter = new OrderDetailsNavigationParameter(_orderId);
-            return _navigationService.ShowDetailsOrderView(parameter);
+            return _navigationService.ShowDetailsOrderView(_orderId);
         }
     }
 }
