@@ -35,11 +35,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
-            set
-            {
-                SetProperty(ref _selectedPublicationType, value);
-                OnLoadVideoFeedAsync().FireAndForget();
-            }
+            set => SetProperty(ref _selectedPublicationType, value);
         }
 
         private string _profileName;
