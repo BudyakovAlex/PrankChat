@@ -111,7 +111,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             InitTab(1, Resource.Drawable.ic_rate, Localization.Rate_Tab, _tabLayout, inflater);
             InitCentralTab(Resource.Drawable.ic_create_order, _tabLayout, inflater);
             InitTab(3, Resource.Drawable.ic_orders, Localization.Orders_Tab, _tabLayout, inflater);
-            InitTab(4, Resource.Drawable.ic_profile, Localization.Profile_Tab, _tabLayout, inflater);
+            InitTab(4, Resource.Drawable.ic_image_background, Localization.Profile_Tab, _tabLayout, inflater);
 
             TabLayoutOnTabSelected(this, new TabLayout.TabSelectedEventArgs(_tabLayout.GetTabAt(0)));
         }
@@ -183,10 +183,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             var iconView = tabView.CustomView.FindViewById<MvxCachedImageView>(Resource.Id.tab_icon);
             ImageService.Instance.LoadUrl(_userImageUrl)
                 .Retry(3, 200)
-                .DownSample(300, 300)
+                .DownSample(50, 50)
                 .Transform(new CircleTransformation())
-                .LoadingPlaceholder(Resources.GetResourceName(Resource.Drawable.ic_profile), FFImageLoading.Work.ImageSource.CompiledResource)
-                .ErrorPlaceholder(Resources.GetResourceName(Resource.Drawable.ic_profile))
+                .LoadingPlaceholder(Resources.GetResourceName(Resource.Drawable.ic_image_background), FFImageLoading.Work.ImageSource.CompiledResource)
+                .ErrorPlaceholder(Resources.GetResourceName(Resource.Drawable.ic_image_background))
                 .Into(iconView);
         }
     }
