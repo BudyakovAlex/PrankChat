@@ -20,13 +20,23 @@
             android:layout_height="wrap_content"
             android:paddingLeft="32dp"
             android:paddingRight="32dp">
-            <FFImageLoading.Cross.MvxCachedImageView
-                android:id="@+id/user_photo"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
-                android:layout_marginTop="16dp"
-                android:layout_gravity="center_horizontal"
-                app:MvxBind="ImagePath ProfilePhotoUrl; Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+                <FFImageLoading.Cross.MvxCachedImageView
+                    android:id="@+id/user_photo"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:layout_gravity="center_horizontal"
+                    app:MvxBind="ImagePath PlaceholderImage(ProfilePhotoUrl), Mode = OneTime; Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/applicationWhite"
+                    app:MvxBind="Text ProfileShortName; Visibility InvertedVisibility(ProfilePhotoUrl);"/>
+            </FrameLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -174,14 +184,24 @@
                     android:textSize="12sp"
                     android:textColor="@color/inactive"
                     android:text="@string/OrderDetailsView_Took_The_Order_Text"/>
-                <FFImageLoading.Cross.MvxCachedImageView
+                <FrameLayout
                     android:id="@+id/executor_photo"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/take_the_order_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    app:MvxBind="ImagePath ExecutorPhotoUrl; Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/take_the_order_text">
+                    <FFImageLoading.Cross.MvxCachedImageView
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        app:MvxBind="ImagePath PlaceholderImage(ExecutorPhotoUrl); Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/applicationWhite"
+                        app:MvxBind="Text ExecutorShortName; Visibility InvertedVisibility(ExecutorPhotoUrl);"/>
+                </FrameLayout>
                 <TextView
                     android:id="@+id/executor_name"
                     android:layout_width="match_parent"
@@ -277,6 +297,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/action_bar"
         android:background="@color/applicationTransparent"
         app:MvxBind="Visibility Visibility(IsBusy)">
         <ProgressBar

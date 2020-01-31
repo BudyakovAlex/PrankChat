@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.Core.Configuration
 {
@@ -7,5 +9,7 @@ namespace PrankChat.Mobile.Core.Configuration
         string BaseAddress { get; }
 
         Version ApiVersion { get; }
+
+        List<PeriodDataModel> Periods { get; }
     }
 }

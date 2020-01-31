@@ -17,7 +17,7 @@
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
     <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
-    <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
+    <PackageReference Include="Xam.Plugin.Media" Version="4.4.10-beta" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,7 +39,6 @@
     <Folder Include="BusinessServices\" />
     <Folder Include="Presentation\Navigation\" />
     <Folder Include="Presentation\Navigation\Parameters\" />
-    <Folder Include="Presentation\Navigation\Results\" />
     <Folder Include="Models\Enums\" />
     <Folder Include="Presentation\ViewModels\Search\" />
     <Folder Include="Presentation\ViewModels\Publication\Items\" />
@@ -58,5 +57,10 @@
     <Folder Include="ApplicationServices\Platforms\" />
     <Folder Include="Models\Data\FilterTypes\" />
     <Folder Include="ApplicationServices\Network\JsonSerializers\Converters\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="Exceptions\Network\" />
+    <Folder Include="ApplicationServices\Network\Errors\" />
+    <Folder Include="ApplicationServices\Timer\" />
+    <Folder Include="ApplicationServices\Dialogs\" />
   </ItemGroup>
 </Project>

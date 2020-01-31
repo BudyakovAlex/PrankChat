@@ -5,6 +5,7 @@ using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -76,6 +77,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
             set.Bind(profilePhotoImage)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)
+                .WithConversion<PlaceholderImageConverter>()
                 .Mode(MvxBindingMode.OneTime);
 
             set.Bind(orderTitleLabel)

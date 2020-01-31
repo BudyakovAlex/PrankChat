@@ -14,6 +14,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task RegisterAsync(UserRegistrationDataModel userInfo);
 
+        Task LogoutAsync();
+
         #endregion Authorize
 
         #region Orders
@@ -39,17 +41,22 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         #region Publications
 
         Task<VideoMetadataBundleDataModel> GetPopularVideoFeedAsync(DateFilterType dateFilterType);
-        Task<VideoMetadataBundleDataModel> SendLikeAsync(string videoId, bool isChecked);
+
+        Task<VideoMetadataBundleDataModel> SendLikeAsync(int videoId, bool isChecked);
 
         Task<VideoMetadataBundleDataModel> GetActualVideoFeedAsync(DateFilterType dateFilterType);
 
-        Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int? userId, PublicationType publicationType, DateFilterType? dateFilterType = null);
+        Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null);
 
         #endregion Publications
 
         #region Users
 
-        Task GetCurrentUser();
+        Task GetCurrentUserAsync();
+
+        Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo);
+
+        Task<UserDataModel> SendAvatarAsync(string path);
 
         #endregion Users
 

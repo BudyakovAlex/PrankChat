@@ -20,9 +20,22 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 
 		[Outlet]
 		UIKit.UILabel profileNameLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel profileShortName { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (profileShortName != null) {
+				profileShortName.Dispose ();
+				profileShortName = null;
+			}
+
+			if (commentDateLabel != null) {
+				commentDateLabel.Dispose ();
+				commentDateLabel = null;
+			}
+
 			if (profileImageView != null) {
 				profileImageView.Dispose ();
 				profileImageView = null;
@@ -31,11 +44,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 			if (profileNameLabel != null) {
 				profileNameLabel.Dispose ();
 				profileNameLabel = null;
-			}
-
-			if (commentDateLabel != null) {
-				commentDateLabel.Dispose ();
-				commentDateLabel = null;
 			}
 		}
 	}

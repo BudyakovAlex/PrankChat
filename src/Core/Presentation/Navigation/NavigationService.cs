@@ -11,22 +11,29 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Rating;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Presentation.Navigation.Results;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
     public class NavigationService : INavigationService
     {
         private readonly IMvxNavigationService _mvxNavigationService;
+        private readonly ISettingsService _settingsService;
 
-        public NavigationService(IMvxNavigationService mvxNavigationService)
+        public NavigationService(IMvxNavigationService mvxNavigationService, ISettingsService settingsService)
         {
             _mvxNavigationService = mvxNavigationService;
+            _settingsService = settingsService;
         }
 
-        public Task AppStart()
+        public async Task AppStart()
         {
-            return ShowLoginView();
-            //return ShowMainView();
+            if (_settingsService.User == null)
+                await ShowLoginView();
+            else
+                await ShowMainView();
         }
 
         public Task ShowCashboxView()
@@ -54,8 +61,9 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<RegistrationViewModel>();
         }
 
-        public Task ShowRegistrationSecondStepView(RegistrationNavigationParameter parameter)
+        public Task ShowRegistrationSecondStepView(string email)
         {
+            var parameter = new RegistrationNavigationParameter(email);
             return _mvxNavigationService.Navigate<RegistrationSecondStepViewModel, RegistrationNavigationParameter>(parameter);
         }
 
@@ -106,8 +114,9 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<SearchViewModel>();
         }
 
-        public Task ShowDetailsOrderView(OrderDetailsNavigationParameter parameter)
+        public Task ShowDetailsOrderView(int orderId)
         {
+            var parameter = new OrderDetailsNavigationParameter(orderId);
             return _mvxNavigationService.Navigate<OrderDetailsViewModel, OrderDetailsNavigationParameter>(parameter);
         }
 
@@ -115,7 +124,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         {
             return _mvxNavigationService.Navigate<PublicationDetailsViewModel>();
         }
-        
+
         public Task ShowWithdrawalView()
         {
             var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Withdrawal);
@@ -127,5 +136,29 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Refill);
             return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter>(navigationParameter);
         }
+
+        public Task ShowUpdateProfileView()
+        {
+            return _mvxNavigationService.Navigate<ProfileUpdateViewModel>();
+        }
+
+        public Task Logout()
+        {
+            return ShowLoginView();
+        }
+
+        #region Dialogs
+
+        public Task ShowShareDialog(ShareDialogParameter parameter)
+        {
+            return _mvxNavigationService.Navigate<ShareDialogViewModel, ShareDialogParameter>(parameter);
+        }
+
+        public Task<ArrayDialogResult> ShowArrayDialog(ArrayDialogParameter parameter)
+        {
+            return _mvxNavigationService.Navigate<ArrayDialogViewModel, ArrayDialogParameter, ArrayDialogResult>(parameter);
+        }
+
+        #endregion
     }
 }

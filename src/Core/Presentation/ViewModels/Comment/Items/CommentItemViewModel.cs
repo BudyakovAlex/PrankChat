@@ -9,6 +9,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items
 
         public string ProfileName { get; }
 
+        public string ProfileShortName { get; }
+
         public string ProfilePhotoUrl { get; }
 
         public string Comment { get; }
@@ -19,6 +21,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items
         {
             ProfileName = profileName;
             ProfilePhotoUrl = profilePhotoUrl;
+            ProfileShortName = profileName.ToShortenName();
             Comment = comment;
             _date = date;
         }

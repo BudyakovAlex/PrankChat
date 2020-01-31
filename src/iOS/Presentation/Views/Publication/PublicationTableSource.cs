@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using Foundation;
 using MvvmCross.Platforms.Ios.Binding.Views;
+using PrankChat.Mobile.Core.Presentation.ViewModels;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
@@ -12,10 +13,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
     {
         private PublicationItemCell _previousCellToPlay;
         private bool _initialized;
+        private readonly IVideoListViewModel _parentViewModel;
 
-        public PublicationTableSource(UITableView tableView) : base(tableView)
+        public PublicationTableSource(UITableView tableView, IVideoListViewModel parentViewModel) : base(tableView)
         {
             UseAnimations = true;
+            _parentViewModel = parentViewModel;
         }
 
         private int _segment;
@@ -59,7 +62,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            return PublicationItemCell.EstimatedHeight;
+            return UITableView.AutomaticDimension;
         }
 
         public override void DecelerationEnded(UIScrollView scrollView)
@@ -87,6 +90,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             var visibleCellsCollection = indexPaths.Select(indexPath => TableView.CellAt(indexPath) as PublicationItemCell);
             var visibleCells = visibleCellsCollection.ToList();
             var centralCellToPlay = visibleCells[indexPaths.Length / 2];
+            var completelyVisibleCells = new List<PublicationItemCell>();
             var partiallyVisibleCells = new List<PublicationItemCell>();
             foreach (var visibleCell in visibleCells)
             {
@@ -95,13 +99,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
                 if (IsCompletelyVisible(visibleCell))
                 {
-                    cellToPlay = visibleCell;
+                    completelyVisibleCells.Add(visibleCell);
                 }
                 else
                 {
                     partiallyVisibleCells.Add(visibleCell);
                 }
             }
+
+            cellToPlay = completelyVisibleCells.FirstOrDefault();
 
             if (cellToPlay == null)
                 if (centralCellToPlay != null)
@@ -121,7 +127,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 partiallyVisibleCell.StopVideo();
             }
 
-            cellToPlay.PlayVideo();
+
+            if (completelyVisibleCells.Count > 0
+                && TableView.IndexPathForCell(completelyVisibleCells.LastOrDefault()).Row == _parentViewModel.Items.Count - 1)
+            {
+                completelyVisibleCells.ForEach(c => c.PlayVideo(_parentViewModel.Items.ToList()[TableView.IndexPathForCell(c).Row].VideoUrl));
+            }
+            else
+            {
+                var viewModel = _parentViewModel.Items.ToList()[TableView.IndexPathForCell(cellToPlay).Row];
+                cellToPlay.PlayVideo(viewModel.VideoUrl);
+            }
         }
 
         private bool IsCompletelyVisible(PublicationItemCell publicationCell)

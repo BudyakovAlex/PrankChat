@@ -19,7 +19,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                                         IApiService apiServices,
                                         string profileName,
                                         string profilePhotoUrl,
-                                        string videoId,
+                                        int videoId,
                                         string videoName,
                                         string videoUrl,
                                         long numberOfViews,

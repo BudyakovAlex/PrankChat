@@ -38,9 +38,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 return Task.CompletedTask;
             }
 
-            Items.Add(new ProfileSearchItemViewModel("@AnnaGaretta", "Мой профиль - моя крепость"));
-            Items.Add(new ProfileSearchItemViewModel("@UniverseDestroyer4328", "Меня сложно найти, легко потерять и невозможно забыть."));
-            Items.Add(new ProfileSearchItemViewModel("@4234lex", "Меломан, милиционер, филантроп."));
+            Items.Add(new ProfileSearchItemViewModel("@AnnaGaretta", "Мой профиль - моя крепость", ""));
+            Items.Add(new ProfileSearchItemViewModel("@UniverseDestroyer4328", "Меня сложно найти, легко потерять и невозможно забыть.", ""));
+            Items.Add(new ProfileSearchItemViewModel("@4234lex", "Меломан, милиционер, филантроп.", ""));
 
             return Task.CompletedTask;
         }

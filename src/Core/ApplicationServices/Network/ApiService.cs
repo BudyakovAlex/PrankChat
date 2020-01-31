@@ -45,6 +45,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
+        public async Task LogoutAsync()
+        {
+            var authTokenModel = await _client.Post<AuthorizationApiModel>("auth/logout", true);
+        }
+
         #endregion Authorize
 
         #region Orders
@@ -53,7 +58,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var createOrderApiModel = MappingConfig.Mapper.Map<CreateOrderApiModel>(orderInfo);
             var newOrder = await _client.Post<CreateOrderApiModel, DataApiModel<OrderApiModel>>("orders", createOrderApiModel);
-            return MappingConfig.Mapper.Map<OrderDataModel>(newOrder.Data);
+            return MappingConfig.Mapper.Map<OrderDataModel>(newOrder?.Data);
         }
 
         public async Task<List<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType)
@@ -84,19 +89,19 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<OrderDataModel> GetOrderDetailsAsync(int orderId)
         {
             var data = await _client.Get<DataApiModel<OrderApiModel>>($"orders/{orderId}", includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor, IncludeType.Videos });
-            return MappingConfig.Mapper.Map<OrderDataModel>(data.Data);
+            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
         public async Task<OrderDataModel> TakeOrderAsync(int orderId)
         {
             var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/executor/appoint");
-            return MappingConfig.Mapper.Map<OrderDataModel>(data.Data);
+            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
         public async Task<List<OrderDataModel>> GetRatingOrdersAsync()
         {
             var data = await _client.Get<DataApiModel<List<RatingOrderApiModel>>>($"orders/appoint");
-            return MappingConfig.Mapper.Map<List<OrderDataModel>>(data.Data);
+            return MappingConfig.Mapper.Map<List<OrderDataModel>>(data?.Data);
         }
 
         public Task CancelOrderAsync(int orderId)
@@ -107,13 +112,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<OrderDataModel> SubscribeOrderAsync(int orderId)
         {
             var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
-            return MappingConfig.Mapper.Map<OrderDataModel>(data.Data);
+            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
         public async Task<OrderDataModel> UnsubscribeOrderAsync(int orderId)
         {
             var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
-            return MappingConfig.Mapper.Map<OrderDataModel>(data.Data);
+            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
         #endregion Orders
@@ -133,11 +138,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
-        public async Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int? userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
+        public async Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
         {
-            if (userId == null)
-                throw new ArgumentException("User not logged in. Please check user data.");
-
             var endpoint = "videos";
             switch (publicationType)
             {
@@ -167,7 +169,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
-        public async Task<VideoMetadataBundleDataModel> SendLikeAsync(string videoId, bool isChecked)
+        public async Task<VideoMetadataBundleDataModel> SendLikeAsync(int videoId, bool isChecked)
         {
             var url = isChecked ? $"video/{videoId}/like" : $"video/{videoId}/like/remove";
             var data = await _client.Post<DataApiModel<VideoMetadataApiModel>>(url, true);
@@ -178,11 +180,26 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Users
 
-        public async Task GetCurrentUser()
+        public async Task GetCurrentUserAsync()
         {
             var dataApiModel = await _client.Get<DataApiModel<UserApiModel>>("me");
-            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel.Data);
+            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
             _settingsService.User = user;
+        }
+
+        public async Task<UserDataModel> SendAvatarAsync(string path)
+        {
+            var dataApiModel = await _client.PostPhotoFile<DataApiModel<UserApiModel>>("me/avatar", path);
+            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
+            return user;
+        }
+        
+        public async Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
+        {
+            var userUpdateProfileApiModel = MappingConfig.Mapper.Map<UserUpdateProfileApiModel>(userInfo);
+            var dataApiModel = await _client.Post<UserUpdateProfileApiModel, DataApiModel<UserApiModel>>("me", userUpdateProfileApiModel);
+            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
+            return user;
         }
 
         #endregion Users
@@ -198,7 +215,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 Title = title,
                 Description = description,
             };
-            var videoMetadataApiModel = await _client.PostFile<LoadVideoApiModel, DataApiModel<VideoMetadataApiModel>>("videos", loadVideoApiModel);
+            var videoMetadataApiModel = await _client.PostVideoFile<LoadVideoApiModel, DataApiModel<VideoMetadataApiModel>>("videos", loadVideoApiModel);
             return MappingConfig.Mapper.Map<VideoMetadataDataModel>(videoMetadataApiModel.Data);
         }
 

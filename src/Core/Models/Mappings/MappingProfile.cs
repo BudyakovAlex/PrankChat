@@ -22,6 +22,7 @@ namespace PrankChat.Mobile.Core.Models.Mappings
                 .ForPath(dest => dest.Video.Data, opt => opt.MapFrom(src => src.Video))
                 .ReverseMap();
             CreateMap<GenderType, string>().ConvertUsing(src => src.ToString().ToLower());
+            CreateMap<UserUpdateProfileDataModel, UserUpdateProfileApiModel>();
         }
     }
 }

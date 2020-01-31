@@ -1,16 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Errors;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Configuration;
+using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
@@ -18,15 +24,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     {
         private readonly IDialogService _dialogService;
         private readonly IApiService _apiService;
-        private readonly IMvxLog _mvxLog;
         private readonly IMvxMessenger _mvxMessenger;
         private readonly ISettingsService _settingsService;
+        private readonly IErrorHandleService _errorHandleService;
 
-        private DateTime? _completedDateValue;
-        public DateTime? CompletedDateValue
+        private PeriodDataModel _activeFor;
+        public PeriodDataModel ActiveFor
         {
-            get => _completedDateValue;
-            set => SetProperty(ref _completedDateValue, value);
+            get => _activeFor;
+            set => SetProperty(ref _activeFor, value);
         }
 
         private string _title;
@@ -75,16 +81,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public CreateOrderViewModel(INavigationService navigationService,
                                     IDialogService dialogService,
                                     IApiService apiService,
-                                    IMvxLog mvxLog,
                                     IMvxMessenger mvxMessenger,
-                                    ISettingsService settingsService)
+                                    ISettingsService settingsService,
+                                    IErrorHandleService errorHandleService)
             : base(navigationService)
         {
             _dialogService = dialogService;
             _apiService = apiService;
-            _mvxLog = mvxLog;
             _mvxMessenger = mvxMessenger;
             _settingsService = settingsService;
+            _errorHandleService = errorHandleService;
         }
 
         public override void Prepare()
@@ -95,11 +101,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnCreateAsync()
         {
-            if (CompletedDateValue == null || DateTime.Now > CompletedDateValue.Value)
-            {
-                _dialogService.ShowToast("Date must be greater than the current");
+            if (!CheckValidation())
                 return;
-            }
 
             try
             {
@@ -110,7 +113,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     Title = Title,
                     Description = Description,
                     AutoProlongation = IsExecutorHidden,
-                    ActiveFor = (int) (CompletedDateValue.Value - DateTime.Now).TotalDays,
+                    ActiveFor = ActiveFor?.Hours ?? 0,
                     Price = Price.Value,
                 };
 
@@ -121,7 +124,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                         newOrder.Customer = _settingsService.User;
 
                     _mvxMessenger.Publish(new NewOrderMessage(this, newOrder));
-                    _dialogService.ShowToast("Order is created");
+                    await NavigationService.ShowDetailsOrderView(newOrder.Id);
+                    SetDefaultData();
                 }
             }
             finally
@@ -132,11 +136,56 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnDateDialogAsync()
         {
-            var result = await _dialogService.ShowDateDialogAsync();
-            if (result.HasValue)
+            var periods = ConfigurationProvider.GetConfiguration().Periods;
+            var result = await _dialogService.ShowArrayDialogAsync(periods.Select(p => p.Title).ToList(), Resources.CreateOrderView_Choose_Time_Period);
+            if (!string.IsNullOrWhiteSpace(result))
             {
-                CompletedDateValue = result.Value;
+                ActiveFor = periods.FirstOrDefault(p => p.Title == result);
             }
+        }
+
+        private bool CheckValidation()
+        {
+            if (string.IsNullOrWhiteSpace(Title))
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Название заказа не может быть пустым."));
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(Description))
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Описание заказа не может быть пустым."));
+                return false;
+            }
+
+            if (Price == null)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Цена не может быть пустой."));
+                return false;
+            }
+
+            if (Price <= 0)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Цена не может быть меньше или равна нулю."));
+                return false;
+            }
+
+            if (ActiveFor == null)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Выберите период действия заказа."));
+                return false;
+            }
+
+            return true;
+        }
+
+        private void SetDefaultData()
+        {
+            Title = string.Empty;
+            Description = string.Empty;
+            IsExecutorHidden = false;
+            ActiveFor = null;
+            Price = null;
         }
     }
 }

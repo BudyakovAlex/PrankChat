@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PrankChat.Mobile.Core.ApplicationServices.Network.Errors
+namespace PrankChat.Mobile.Core.Exceptions.Network
 {
     public class NetworkException : ApplicationException
     {

@@ -7,7 +7,7 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace PrankChat.Mobile.iOS.Presentation.Views.Share
+namespace PrankChat.Mobile.iOS.Presentation.Dialogs.Share
 {
 	[Register ("ShareController")]
 	partial class ShareController

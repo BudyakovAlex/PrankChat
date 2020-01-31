@@ -4,9 +4,13 @@ using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.ViewModels;
 using Plugin.Media;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -21,6 +25,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly IMvxLog _mvxLog;
         private readonly IDialogService _dialogService;
         private readonly ISettingsService _settingsService;
+        private readonly IMediaService _mediaService;
 
         private int _orderId;
         private OrderDataModel _order;
@@ -30,6 +35,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public string ProfilePhotoUrl => _order?.Customer?.Avatar;
 
         public string ProfileName => _order?.Customer?.Name;
+
+        public string ProfileShortName => _order?.Customer?.Name?.ToShortenName();
 
         #endregion Profile
 
@@ -49,6 +56,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string ExecutorName => _order?.Executor?.Name;
 
+        public string ExecutorShortName => _order?.Executor?.Name.ToShortenName();
+
         public string StartOrderDate => _order?.TakenToWorkAt?.ToShortDateString();
 
         #endregion Executor
@@ -63,9 +72,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsUserListener => !IsUserCustomer && !IsUserExecutor;
 
-        public bool IsSubscribeAvailable => IsUserListener;
+        public bool IsSubscribeAvailable => false; // IsUserListener;
 
-        public bool IsUnsubscribeAvailable => IsUserListener;
+        public bool IsUnsubscribeAvailable => false; // IsUserListener;
 
         public bool IsTakeOrderAvailable => !IsUserCustomer && _order?.Status == OrderStatusType.New;
 
@@ -111,12 +120,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                     IApiService apiService,
                                     IDialogService dialogService,
                                     IMvxLog mvxLog,
-                                    ISettingsService settingsService) : base(navigationService)
+                                    ISettingsService settingsService,
+                                    IMediaService mediaService) : base(navigationService)
         {
             _dialogService = dialogService;
             _apiService = apiService;
             _mvxLog = mvxLog;
             _settingsService = settingsService;
+            _mediaService = mediaService;
         }
 
         public void Prepare(OrderDetailsNavigationParameter parameter)
@@ -210,23 +221,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnLoadVideoAsync()
         {
-            // todo: create service for Permissions and Photo
-            //var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
-            //var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
-
-            //if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
-            //{
-            //    var permissionsStatus = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Camera | Permission.Storage);
-            //    permissionsStatus.TryGetValue(Permission.Camera, out cameraStatus);
-            //    permissionsStatus.TryGetValue(Permission.Storage, out storageStatus);
-            //}
-
             try
             {
                 IsBusy = true;
 
-                await CrossMedia.Current.Initialize();
-                var file = await CrossMedia.Current.PickVideoAsync();
+                var file = await _mediaService.PickVideoAsync();
                 if (file == null)
                     return;
 

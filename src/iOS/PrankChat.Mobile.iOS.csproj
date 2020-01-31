@@ -226,14 +226,26 @@
     </Compile>
     <Compile Include="Presentation\Views\Base\BaseCollectionCell.cs" />
     <Compile Include="Presentation\Converters\BoolToUIImageConverter.cs" />
-    <InterfaceDefinition Include="Presentation\Views\Share\ShareController.xib" />
-    <Compile Include="Presentation\Views\Share\ShareController.cs" />
-    <Compile Include="Presentation\Views\Share\ShareController.designer.cs">
-      <DependentUpon>ShareController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Presentation\Converters\DateFormatConverter.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
+    <Compile Include="Presentation\Dialogs\Share\ShareController.cs" />
+    <Compile Include="Presentation\Dialogs\Share\ShareController.designer.cs">
+      <DependentUpon>..\..\Views\Share\ShareController.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Dialogs\Share\ShareController.xib" />
+    <InterfaceDefinition Include="Presentation\Dialogs\ArrayPicker\ArrayPickerController.xib" />
+    <Compile Include="Presentation\Dialogs\ArrayPicker\ArrayPickerController.cs" />
+    <Compile Include="Presentation\Dialogs\ArrayPicker\ArrayPickerController.designer.cs">
+      <DependentUpon>ArrayPickerController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Dialogs\BaseDialog.cs" />
+    <Compile Include="Presentation\Converters\PlaceholderImageConverter.cs" />
+    <InterfaceDefinition Include="Presentation\Views\ProfileView\ProfileUpdateView.xib" />
+    <Compile Include="Presentation\Views\ProfileView\ProfileUpdateView.cs" />
+    <Compile Include="Presentation\Views\ProfileView\ProfileUpdateView.designer.cs">
+      <DependentUpon>ProfileUpdateView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -267,7 +279,7 @@
       <Version>6.4.2</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugin.Media">
-      <Version>4.0.1.5</Version>
+      <Version>4.4.10-beta</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -640,7 +652,22 @@
     <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Group 189.pdf">
+    <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Group 189-1.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_image_background.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_image_background.imageset\ic_image_background.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Group 189-1.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_change_profile.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_change_profile.imageset\ic_change_profile.pdf">
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
@@ -648,6 +675,11 @@
     <Folder Include="Presentation\Localization\ru.lproj\" />
     <Folder Include="Resources\" />
     <Folder Include="Utils\Extensions\" />
+    <Folder Include="Presentation\Dialogs\" />
+    <Folder Include="Presentation\Dialogs\Share\" />
+    <Folder Include="Presentation\Dialogs\ArrayPicker\" />
+    <Folder Include="Assets.xcassets\ic_image_background.imageset\" />
+    <Folder Include="Assets.xcassets\ic_change_profile.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

@@ -51,8 +51,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 
         private Task OnOpenDetailsOrderAsync()
         {
-            var parameter = new OrderDetailsNavigationParameter(_orderId);
-            return _navigatiobService.ShowDetailsOrderView(parameter);
+            return _navigatiobService.ShowDetailsOrderView(_orderId);
         }
     }
 }

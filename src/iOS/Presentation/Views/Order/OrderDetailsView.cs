@@ -1,217 +1,235 @@
-﻿using MvvmCross.Binding.BindingContext;
+﻿using MvvmCross.Binding;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
-    public partial class OrderDetailsView : BaseGradientBarView<OrderDetailsViewModel>
-    {
-        protected override void SetupBinding()
-        {
-            var set = this.CreateBindingSet<OrderDetailsView, OrderDetailsViewModel>();
+	public partial class OrderDetailsView : BaseGradientBarView<OrderDetailsViewModel>
+	{
+		protected override void SetupBinding()
+		{
+			var set = this.CreateBindingSet<OrderDetailsView, OrderDetailsViewModel>();
 
-            #region Customer
+			#region Customer
 
-            set.Bind(profileImageView)
-                .For(v => v.DownsampleWidth)
-                .To(vm => vm.DownsampleWidth);
+			set.Bind(profileImageView)
+				.For(v => v.DownsampleWidth)
+				.To(vm => vm.DownsampleWidth);
 
-            set.Bind(profileImageView)
-                .For(v => v.Transformations)
-                .To(vm => vm.Transformations);
+			set.Bind(profileImageView)
+				.For(v => v.Transformations)
+				.To(vm => vm.Transformations);
 
-            set.Bind(profileImageView)
-                .For(v => v.ImagePath)
-                .To(vm => vm.ProfilePhotoUrl);
+			set.Bind(profileImageView)
+				.For(v => v.ImagePath)
+				.WithConversion<PlaceholderImageConverter>()
+				.To(vm => vm.ProfilePhotoUrl);
 
-            set.Bind(profileNameLabel)
-                .To(vm => vm.ProfileName);
+			set.Bind(profileNameLabel)
+				.To(vm => vm.ProfileName);
 
-            #endregion Customer
+			set.Bind(customerShortNameLabel)
+				.To(vm => vm.ProfileShortName);
 
-            #region LoadVideo
+			set.Bind(customerShortNameLabel)
+				.For(v => v.BindHidden())
+				.To(vm => vm.ProfilePhotoUrl);
 
-            set.Bind(downloadButton)
-                .To(vm => vm.LoadVideoCommand);
+			#endregion Customer
 
-            set.Bind(downloadButton)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsVideoLoadAvailable);
+			#region LoadVideo
 
-            set.Bind(downloadView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsVideoLoadAvailable);
+			set.Bind(downloadButton)
+				.To(vm => vm.LoadVideoCommand);
 
-            #endregion LoadVideo
+			set.Bind(downloadButton)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsVideoLoadAvailable);
 
-            #region Orders
+			set.Bind(downloadView)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsVideoLoadAvailable);
 
-            set.Bind(videoNameLabel)
-                .To(vm => vm.VideoName);
+			#endregion LoadVideo
 
-            set.Bind(videoDescriptionLabel)
-                .To(vm => vm.VideoDetails);
+			#region Orders
 
-            set.Bind(priceValueLabel)
-                .To(vm => vm.PriceValue);
+			set.Bind(videoNameLabel)
+				.To(vm => vm.VideoName);
 
-            set.Bind(timeValueLabel)
-                .To(vm => vm.TimeValue);
+			set.Bind(videoDescriptionLabel)
+				.To(vm => vm.VideoDetails);
 
-            #endregion Orders
+			set.Bind(priceValueLabel)
+				.To(vm => vm.PriceValue);
 
-            #region Video
+			set.Bind(timeValueLabel)
+				.To(vm => vm.TimeValue);
 
-            set.Bind(videoImageView)
-                .For(v => v.ImagePath)
-                .To(vm => vm.VideoUrl);
+			#endregion Orders
 
-            set.Bind(videoImageView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsVideoAvailable);
+			#region Video
 
-            #endregion Video
+			set.Bind(videoImageView)
+				.For(v => v.ImagePath)
+				.To(vm => vm.VideoUrl);
 
-            #region Subscribe and Unsubscribe
+			set.Bind(videoImageView)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsVideoAvailable);
 
-            set.Bind(subscriptionButton)
-                .To(vm => vm.SubscribeTheOrderCommand);
+			#endregion Video
 
-            set.Bind(subscriptionButton)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsSubscribeAvailable);
+			#region Subscribe and Unsubscribe
 
-            set.Bind(unsubscriptionButton)
-                .To(vm => vm.UnsubscribeOrderCommand);
+			set.Bind(subscriptionButton)
+				.To(vm => vm.SubscribeTheOrderCommand);
 
-            set.Bind(unsubscriptionButton)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsUnsubscribeAvailable);
+			set.Bind(subscriptionButton)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsSubscribeAvailable);
 
-            #endregion Subscribe and Unsubscribe
+			set.Bind(unsubscriptionButton)
+				.To(vm => vm.UnsubscribeOrderCommand);
 
-            #region Take order
+			set.Bind(unsubscriptionButton)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsUnsubscribeAvailable);
 
-            set.Bind(takeOrderButton)
-                .To(vm => vm.TakeOrderCommand);
+			#endregion Subscribe and Unsubscribe
 
-            set.Bind(takeOrderButton)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsTakeOrderAvailable);
+			#region Take order
 
-            #endregion Take order
+			set.Bind(takeOrderButton)
+				.To(vm => vm.TakeOrderCommand);
 
-            #region Decide View
+			set.Bind(takeOrderButton)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsTakeOrderAvailable);
 
-            set.Bind(decideView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsDecideVideoAvailable);
+			#endregion Take order
 
-            set.Bind(noButton)
-                .To(vm => vm.NoCommand);
+			#region Decide View
 
-            set.Bind(yesButton)
-                .To(vm => vm.YesCommand);
+			set.Bind(decideView)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsDecideVideoAvailable);
 
-            #endregion Decide View
+			set.Bind(noButton)
+				.To(vm => vm.NoCommand);
 
-            #region Executor
+			set.Bind(yesButton)
+				.To(vm => vm.YesCommand);
 
-            set.Bind(executorImageView)
-                .For(v => v.DownsampleWidth)
-                .To(vm => vm.DownsampleWidth);
+			#endregion Decide View
 
-            set.Bind(executorImageView)
-                .For(v => v.Transformations)
-                .To(vm => vm.Transformations);
+			#region Executor
 
-            set.Bind(executorImageView)
-                .For(v => v.ImagePath)
-                .To(vm => vm.ExecutorPhotoUrl);
+			set.Bind(executorImageView)
+				.For(v => v.DownsampleWidth)
+				.To(vm => vm.DownsampleWidth);
 
-            set.Bind(executorNameLabel)
-                .To(vm => vm.ExecutorName);
+			set.Bind(executorImageView)
+				.For(v => v.Transformations)
+				.To(vm => vm.Transformations);
 
-            set.Bind(startDateLabel)
-                .To(vm => vm.StartOrderDate);
+			set.Bind(executorImageView)
+				.For(v => v.ImagePath)
+				.WithConversion<PlaceholderImageConverter>()
+				.To(vm => vm.ExecutorPhotoUrl);
 
-            set.Bind(executorView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsExecutorAvailable);
+			set.Bind(executorNameLabel)
+				.To(vm => vm.ExecutorName);
 
-            #endregion Executor
+			set.Bind(startDateLabel)
+				.To(vm => vm.StartOrderDate);
 
-            #region Decision View
+			set.Bind(executorView)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsExecutorAvailable);
 
-            set.Bind(decisionView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsDecisionVideoAvailable);
+			set.Bind(executorShortNameLabel)
+				.To(vm => vm.ExecutorShortName);
 
-            set.Bind(acceptButton)
-                .To(vm => vm.UnsubscribeOrderCommand);
+			set.Bind(executorShortNameLabel)
+				.For(v => v.BindHidden())
+				.To(vm => vm.ExecutorPhotoUrl);
 
-            set.Bind(arqueButton)
-                .To(vm => vm.ArqueOrderCommand);
+			#endregion Executor
 
-            #endregion Decision View
+			#region Decision View
 
-            #region Cancel
+			set.Bind(decisionView)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsDecisionVideoAvailable);
 
-            set.Bind(cancelVideoButton)
-                .To(vm => vm.CancelOrderCommand);
+			set.Bind(acceptButton)
+				.To(vm => vm.UnsubscribeOrderCommand);
 
-            set.Bind(cancelVideoButton)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsCancelOrderAvailable);
+			set.Bind(arqueButton)
+				.To(vm => vm.ArqueOrderCommand);
 
-            #endregion Cancel
+			#endregion Decision View
 
-            #region Execute video
+			#region Cancel
 
-            set.Bind(executeVideoButton)
-                .To(vm => vm.ExecuteOrderCommand);
+			set.Bind(cancelVideoButton)
+				.To(vm => vm.CancelOrderCommand);
 
-            set.Bind(executeVideoButton)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsExecuteOrderAvailable);
+			set.Bind(cancelVideoButton)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsCancelOrderAvailable);
 
-            #endregion Execute video
+			#endregion Cancel
 
-            set.Bind(progressBarView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsBusy);
+			#region Execute video
 
-            set.Apply();
-        }
+			set.Bind(executeVideoButton)
+				.To(vm => vm.ExecuteOrderCommand);
 
-        protected override void SetupControls()
-        {
-            Title = Resources.OrderDetailsView_Title;
+			set.Bind(executeVideoButton)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsExecuteOrderAvailable);
 
-            takeOrderButton.SetDarkStyle(Resources.OrderDetailsView_Take_Order_Button);
-            subscriptionButton.SetDarkStyle(Resources.OrderDetailsView_Subscribe_Button);
-            unsubscriptionButton.SetDarkStyle(Resources.OrderDetailsView_Unsubscribe_Button);
-            noButton.SetDarkStyle(Resources.OrderDetailsView_No_Button);
-            yesButton.SetDarkStyle(Resources.OrderDetailsView_Yes_Button);
-            executeVideoButton.SetDarkStyle(Resources.OrderDetailsView_Execute_Button);
-            acceptButton.SetDarkStyle(Resources.OrderDetailsView_Accept_Button);
-            arqueButton.SetBorderlessStyle(Resources.OrderDetailsView_Argue_Button);
-            cancelVideoButton.SetBorderlessStyle(Resources.OrderDetailsView_Cancel_Button, Theme.Color.Accent);
+			#endregion Execute video
 
-            profileNameLabel.SetTitleStyle();
-            videoNameLabel.SetBoldTitleStyle();
-            videoDescriptionLabel.SetTitleStyle();
-            priceTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Price_Text);
-            priceValueLabel.SetMediumStyle(26, Theme.Color.Text);
-            timeTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Time_Text);
-            timeValueLabel.SetMediumStyle(26, Theme.Color.Text);
-            downloadVideotextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Download_Text);
-            tookOrderTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Took_The_Order_Text);
-            executorNameLabel.SetTitleStyle();
-            startDateLabel.SetSmallSubtitleStyle();
-        }
-    }
+			set.Bind(progressBarView)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsBusy);
+
+			set.Apply();
+		}
+
+		protected override void SetupControls()
+		{
+			Title = Resources.OrderDetailsView_Title;
+
+			takeOrderButton.SetDarkStyle(Resources.OrderDetailsView_Take_Order_Button);
+			subscriptionButton.SetDarkStyle(Resources.OrderDetailsView_Subscribe_Button);
+			unsubscriptionButton.SetDarkStyle(Resources.OrderDetailsView_Unsubscribe_Button);
+			noButton.SetDarkStyle(Resources.OrderDetailsView_No_Button);
+			yesButton.SetDarkStyle(Resources.OrderDetailsView_Yes_Button);
+			executeVideoButton.SetDarkStyle(Resources.OrderDetailsView_Execute_Button);
+			acceptButton.SetDarkStyle(Resources.OrderDetailsView_Accept_Button);
+			arqueButton.SetBorderlessStyle(Resources.OrderDetailsView_Argue_Button);
+			cancelVideoButton.SetBorderlessStyle(Resources.OrderDetailsView_Cancel_Button, Theme.Color.Accent);
+
+			profileNameLabel.SetTitleStyle();
+			videoNameLabel.SetBoldTitleStyle();
+			videoDescriptionLabel.SetTitleStyle();
+			priceTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Price_Text);
+			priceValueLabel.SetMediumStyle(26, Theme.Color.Text);
+			timeTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Time_Text);
+			timeValueLabel.SetMediumStyle(26, Theme.Color.Text);
+			downloadVideotextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Download_Text);
+			tookOrderTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Took_The_Order_Text);
+			executorNameLabel.SetTitleStyle();
+			startDateLabel.SetSmallSubtitleStyle();
+		}
+	}
 }

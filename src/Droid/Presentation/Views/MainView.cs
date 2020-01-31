@@ -7,11 +7,18 @@ using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
+using FFImageLoading.Cross;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Utils.Helpers;
 using Localization = PrankChat.Mobile.Core.Presentation.Localization.Resources;
+using MvvmCross.Binding.BindingContext;
+using FFImageLoading;
+using FFImageLoading.Transformations;
+using Android.Runtime;
+using Plugin.Permissions;
+using MvvmCross.Binding;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {
@@ -20,6 +27,20 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
     public class MainView : BaseView<MainViewModel>
     {
         private TabLayout _tabLayout;
+
+        private string _userImageUrl;
+        public string UserImageUrl
+        {
+            get => _userImageUrl;
+            set
+            {
+                if (_userImageUrl == value)
+                    return;
+
+                _userImageUrl = value;
+                UpdateProfileTabImage(_tabLayout);
+            }
+        }
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -56,6 +77,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             return base.OnOptionsItemSelected(item);
         }
 
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
         protected override void Subscription()
         {
             _tabLayout.TabSelected += TabLayoutOnTabSelected;
@@ -68,13 +94,22 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             _tabLayout.TabUnselected -= TabLayoutOnTabUnselected;
         }
 
+        protected override void OnViewModelSet()
+        {
+            base.OnViewModelSet();
+
+            var set = this.CreateBindingSet<MainView, MainViewModel>();
+            set.Bind(this).For(v => v.UserImageUrl).To(vm => vm.UserImageUrl).Mode(MvxBindingMode.OneWay);
+            set.Apply();
+        }
+
         private void CreateTabs()
         {
             _tabLayout.SetTabTextColors(Resource.Color.applicationBlack, Resource.Color.inactive);
             var inflater = LayoutInflater.FromContext(Application.Context);
             InitTab(0, Resource.Drawable.ic_home, Localization.Home_Tab, _tabLayout, inflater);
             InitTab(1, Resource.Drawable.ic_rate, Localization.Rate_Tab, _tabLayout, inflater);
-            InitCentralTab(Resource.Drawable.ic_create_order, null, _tabLayout, inflater);
+            InitCentralTab(Resource.Drawable.ic_create_order, _tabLayout, inflater);
             InitTab(3, Resource.Drawable.ic_orders, Localization.Orders_Tab, _tabLayout, inflater);
             InitTab(4, Resource.Drawable.ic_profile, Localization.Profile_Tab, _tabLayout, inflater);
 
@@ -127,19 +162,32 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         {
             var tabView = inflater.Inflate(Resource.Layout.tab_button_layout, null);
             var textView = tabView.FindViewById<TextView>(Resource.Id.tab_title);
-            var iconView = tabView.FindViewById<ImageView>(Resource.Id.tab_icon);
+            var iconView = tabView.FindViewById<MvxCachedImageView>(Resource.Id.tab_icon);
             textView.Text = title;
             iconView.SetImageResource(iconResource);
             var tab = tabLayout.GetTabAt(index);
             tab?.SetCustomView(tabView);
         }
 
-        private void InitCentralTab(int iconResource, string title, TabLayout tabLayout, LayoutInflater inflater)
+        private void InitCentralTab(int iconResource, TabLayout tabLayout, LayoutInflater inflater)
         {
             var tabView = (ImageView)inflater.Inflate(Resource.Layout.central_tab_button_layout, null);
             tabView.SetImageResource(iconResource);
             var tab = tabLayout.GetTabAt(2);
             tab.SetCustomView(tabView);
+        }
+
+        private void UpdateProfileTabImage(TabLayout tabLayout)
+        {
+            var tabView = tabLayout.GetTabAt(4);
+            var iconView = tabView.CustomView.FindViewById<MvxCachedImageView>(Resource.Id.tab_icon);
+            ImageService.Instance.LoadUrl(_userImageUrl)
+                .Retry(3, 200)
+                .DownSample(300, 300)
+                .Transform(new CircleTransformation())
+                .LoadingPlaceholder(Resources.GetResourceName(Resource.Drawable.ic_profile), FFImageLoading.Work.ImageSource.CompiledResource)
+                .ErrorPlaceholder(Resources.GetResourceName(Resource.Drawable.ic_profile))
+                .Into(iconView);
         }
     }
 }
