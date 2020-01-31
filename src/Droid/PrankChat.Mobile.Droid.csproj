@@ -104,6 +104,7 @@
     <Compile Include="Presentation\Dialogs\ShareDialog.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
+    <Compile Include="Presentation\Dialogs\ArrayDialog.cs" />
     <Compile Include="Presentation\Converters\PlaceholderImageConverter.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -344,6 +345,14 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\dialog_array.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_create_order.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_image_background.png">
       <SubType></SubType>
       <Generator></Generator>
@@ -432,9 +441,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\registration_third_step_layout.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\create_order_layout.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\orders_layout.xml" />

@@ -625,4 +625,10 @@
   <data name="ProfileUpdateView_PhotoChange_Title" xml:space="preserve">
     <value>Сменить фото профиля</value>
   </data>
+  <data name="Select" xml:space="preserve">
+    <value>Выбрать</value>
+  </data>
+  <data name="CreateOrderView_Choose_Time_Period" xml:space="preserve">
+    <value>Выберите период действия заказа.</value>
+  </data>
 </root>

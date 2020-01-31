@@ -13,7 +13,6 @@ using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Utils.Helpers;
 using Localization = PrankChat.Mobile.Core.Presentation.Localization.Resources;
-using Android.Net;
 using MvvmCross.Binding.BindingContext;
 using FFImageLoading;
 using FFImageLoading.Transformations;

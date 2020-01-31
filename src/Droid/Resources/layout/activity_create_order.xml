@@ -74,7 +74,7 @@
         android:textColorHint="@color/dark_placeholder"
         android:hint="@string/CreateOrderView_CompleteDate_Placeholder"
         android:textColor="@color/applicationBlack"
-        app:MvxBind="Text CompletedDateValue; Click ShowDateDialogCommand;" />
+        app:MvxBind="Text ActiveFor.Title; Click ShowDateDialogCommand;" />
     <CheckBox
         android:layout_height="18dp"
         android:layout_width="match_parent"

@@ -11,22 +11,19 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
 namespace PrankChat.Mobile.Droid.Presentation.Dialogs
 {
     [MvxDialogFragmentPresentation]
-    [Register(nameof(ShareDialog))]
-    public class ShareDialog : MvxDialogFragment<ShareDialogViewModel>
+    [Register(nameof(ArrayDialog))]
+    public class ArrayDialog : MvxDialogFragment<ArrayDialogViewModel>
     {
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetStyle(StyleNoFrame, Resource.Style.Theme_PrankChat_ShareDialogStyle);
+            SetStyle(StyleNoFrame, Resource.Style.Theme_PrankChat_DialogStyle);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var ignore = base.OnCreateView(inflater, container, savedInstanceState);
-
-            Dialog.Window.SetGravity(GravityFlags.Bottom);
-
-            var view = this.BindingInflate(Resource.Layout.dialog_share, null);
+            var view = this.BindingInflate(Resource.Layout.dialog_array, container);
             return view;
         }
     }

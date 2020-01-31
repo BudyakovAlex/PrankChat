@@ -14,7 +14,6 @@ namespace PrankChat.Mobile.iOS
         {
             base.InitializeFirstChance();
 
-            Mvx.IoCProvider.RegisterType<IDialogService, DialogService>();
             Mvx.IoCProvider.RegisterType<IVideoPlayerService, VideoPlayerService>();
         }
     }

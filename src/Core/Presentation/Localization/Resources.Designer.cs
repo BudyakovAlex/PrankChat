@@ -1036,5 +1036,17 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("ProfileUpdateView_PhotoChange_Title", resourceCulture);
             }
         }
+        
+        public static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
+            }
+        }
+        
+        public static string CreateOrderView_Choose_Time_Period {
+            get {
+                return ResourceManager.GetString("CreateOrderView_Choose_Time_Period", resourceCulture);
+            }
+        }
     }
 }

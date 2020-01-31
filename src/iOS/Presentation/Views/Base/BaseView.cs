@@ -33,9 +33,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         protected bool IsTabbedView { get; set; }
 
-        protected abstract void SetupBinding();
+        protected virtual void SetupBinding()
+        {
+            // nothing do
+        }
 
-        protected abstract void SetupControls();
+        protected virtual void SetupControls()
+        {
+            // nothing do
+        }
 
         protected virtual void SetCommonStyles()
         {

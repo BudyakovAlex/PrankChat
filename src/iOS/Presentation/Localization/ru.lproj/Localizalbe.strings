@@ -189,3 +189,5 @@
 "PickPhoto" = "Выбрать из галереи";
 "ProfileUpdateView_Description_Placeholder" = "О себе";
 "ProfileUpdateView_PhotoChange_Title" = "Сменить фото профиля";
+"Select" = "Выбрать";
+"CreateOrderView_Choose_Time_Period" = "Выберите период действия заказа.";

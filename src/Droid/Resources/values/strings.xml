@@ -191,4 +191,6 @@
     <string name="PickPhoto">"Выбрать из галереи"</string>
     <string name="ProfileUpdateView_Description_Placeholder">"О себе"</string>
     <string name="ProfileUpdateView_PhotoChange_Title">"Сменить фото профиля"</string>
+    <string name="Select">"Выбрать"</string>
+    <string name="CreateOrderView_Choose_Time_Period">"Выберите период действия заказа."</string>
 </resources>
