@@ -646,14 +646,24 @@
     <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Group 189-1.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_image_background.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_image_background.imageset\ic_image_background.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Group 189-1.pdf">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_change_profile.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_change_profile.imageset\ic_change_profile.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_image_background.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_image_background.imageset\ic_image_background.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Group 189-1.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_change_profile.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_change_profile.imageset\ic_change_profile.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
