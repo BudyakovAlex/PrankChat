@@ -20,6 +20,8 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public string ShareUri { get; set; }
 
+        public bool IsLiked { get; set; }
+
         public DateTimeOffset CreatedAt { get; set; }
 
         public UserDataModel User { get; set; }

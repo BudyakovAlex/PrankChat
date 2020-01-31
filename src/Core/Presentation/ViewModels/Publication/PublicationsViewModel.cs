@@ -7,6 +7,7 @@ using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
@@ -27,6 +28,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly ISettingsService _settingsService;
+        private readonly IErrorHandleService _errorHandleService;
         private readonly IMvxLog _mvxLog;
         private readonly Dictionary<string, DateFilterType> _dateFilterTypeTitleMap;
 
@@ -75,7 +77,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             IPlatformService platformService,
             IVideoPlayerService videoPlayerService,
             ISettingsService settingsService,
-            IMvxLog mvxLog) : base(navigationService)
+            IMvxLog mvxLog,
+            IErrorHandleService errorHandleService) : base(navigationService)
         {
             _dialogService = dialogService;
             _apiService = apiService;
@@ -83,6 +86,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _videoPlayerService = videoPlayerService;
             _settingsService = settingsService;
             _mvxLog = mvxLog;
+            _errorHandleService = errorHandleService;
 
             _dateFilterTypeTitleMap = new Dictionary<string, DateFilterType>
             {
@@ -187,6 +191,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     _platformService,
                     _videoPlayerService,
                     _apiService,
+                    _errorHandleService,
                     publication.User?.Name,
                     publication.User?.Avatar,
                     publication.Id,
@@ -195,7 +200,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     publication.ViewsCount,
                     publication.CreatedAt.DateTime,
                     publication.RepostsCount,
-                    publication.ShareUri));
+                    publication.ShareUri,
+                    publication.IsLiked));
 
             var list = publicationViewModels.ToList();
 

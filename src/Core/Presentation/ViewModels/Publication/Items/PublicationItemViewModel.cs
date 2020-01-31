@@ -1,6 +1,7 @@
 ﻿using System;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.BusinessServices;
@@ -17,6 +18,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                                         IPlatformService platformService,
                                         IVideoPlayerService videoPlayerService,
                                         IApiService apiServices,
+                                        IErrorHandleService errorHandleService,
                                         string profileName,
                                         string profilePhotoUrl,
                                         int videoId,
@@ -25,12 +27,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                                         long numberOfViews,
                                         DateTime publicationDate,
                                         long numberOfLikes,
-                                        string shareLink)
+                                        string shareLink,
+                                        bool isLiked)
             : base(navigationService,
                     dialogService,
                     platformService,
                     videoPlayerService,
                     apiServices,
+                    errorHandleService,
                     profileName,
                     profilePhotoUrl,
                     videoId,
@@ -39,7 +43,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                     numberOfViews,
                     publicationDate,
                     numberOfLikes,
-                    shareLink)
+                    shareLink,
+                    isLiked)
         {
         }
     }

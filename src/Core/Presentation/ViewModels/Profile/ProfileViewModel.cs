@@ -216,6 +216,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                     _platformService,
                     _videoPlayerService,
                     _apiService,
+                    _errorHandleService,
                     publication.User?.Name,
                     publication.User?.Avatar,
                     publication.Id,
@@ -224,7 +225,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                     publication.ViewsCount,
                     publication.CreatedAt.DateTime,
                     publication.RepostsCount,
-                    publication.ShareUri));
+                    publication.ShareUri,
+                    publication.IsLiked));
 
             Items.SwitchTo(publicationViewModels);
         }
