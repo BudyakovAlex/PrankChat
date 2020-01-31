@@ -155,7 +155,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             Gender = genderType;
         }
 
-        private Task OnUpdateProfileAsync()
+        private async Task OnUpdateProfileAsync()
         {
             try
             {
@@ -166,12 +166,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                     Email = Email,
                     Login = Login,
                     Name = Name,
-                    Sex = Gender?.ToString(),
+                    Sex = Gender.Value,
                     Birthday = Birthday?.ToShortDateString(),
                     Description = Description
                 };
 
-                return _apiService.UpdateProfileAsync(dataModel);
+                _settingsService.User = await _apiService.UpdateProfileAsync(dataModel);
             }
             finally
             {
