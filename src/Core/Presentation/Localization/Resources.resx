@@ -166,10 +166,10 @@
     <value>Поиск</value>
   </data>
   <data name="Like" xml:space="preserve">
-    <value>Like</value>
+    <value>Лайк</value>
   </data>
   <data name="Share" xml:space="preserve">
-    <value>Share</value>
+    <value>Поделиться</value>
   </data>
   <data name="Error_Unexpected_Server" xml:space="preserve">
     <value>Возникла непредвиденная ошибка на сервере. Мы уже получили информацию об этом и работаем над устранением проблемы.</value>
