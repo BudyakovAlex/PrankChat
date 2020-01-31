@@ -39,7 +39,6 @@
     <Folder Include="BusinessServices\" />
     <Folder Include="Presentation\Navigation\" />
     <Folder Include="Presentation\Navigation\Parameters\" />
-    <Folder Include="Presentation\Navigation\Results\" />
     <Folder Include="Models\Enums\" />
     <Folder Include="Presentation\ViewModels\Search\" />
     <Folder Include="Presentation\ViewModels\Publication\Items\" />
@@ -62,5 +61,6 @@
     <Folder Include="Exceptions\Network\" />
     <Folder Include="ApplicationServices\Network\Errors\" />
     <Folder Include="ApplicationServices\Timer\" />
+    <Folder Include="ApplicationServices\Dialogs\" />
   </ItemGroup>
 </Project>
