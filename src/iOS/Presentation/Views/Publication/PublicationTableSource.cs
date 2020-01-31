@@ -62,7 +62,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            return PublicationItemCell.EstimatedHeight;
+            return UITableView.AutomaticDimension;
         }
 
         public override void DecelerationEnded(UIScrollView scrollView)
@@ -128,7 +128,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             }
 
 
-            if (TableView.IndexPathForCell(completelyVisibleCells.LastOrDefault()).Row == _parentViewModel.Items.Count - 1)
+            if (completelyVisibleCells.Count > 0
+                && TableView.IndexPathForCell(completelyVisibleCells.LastOrDefault()).Row == _parentViewModel.Items.Count - 1)
             {
                 completelyVisibleCells.ForEach(c => c.PlayVideo(_parentViewModel.Items.ToList()[TableView.IndexPathForCell(c).Row].VideoUrl));
             }
