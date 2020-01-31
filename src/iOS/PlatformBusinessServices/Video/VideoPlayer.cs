@@ -14,7 +14,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         private int _repeatDelayInSeconds;
         private AVPlayerViewController _currentContainer;
         private NSObject _repeatObserver;
-        private NSObject _videoEndHanler;
+        private NSObject _videoEndHandler;
 
         public VideoPlayer()
         {
@@ -52,7 +52,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
                 queue: null,
                 handler: TryRepeatVideo);
 
-            _videoEndHanler = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, RepeatEndedItem);
+            _videoEndHandler = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, RepeatEndedItem);
         }
 
         /// <inheritdoc />>
@@ -117,10 +117,10 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
                     _repeatObserver = null;
                 }
 
-                if (_videoEndHanler != null)
+                if (_videoEndHandler != null)
                 {
-                    NSNotificationCenter.DefaultCenter.RemoveObserver(_videoEndHanler);
-                    _videoEndHanler = null;
+                    NSNotificationCenter.DefaultCenter.RemoveObserver(_videoEndHandler);
+                    _videoEndHandler = null;
                 }
             }
         }
