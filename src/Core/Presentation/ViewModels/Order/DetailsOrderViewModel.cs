@@ -72,9 +72,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsUserListener => !IsUserCustomer && !IsUserExecutor;
 
-        public bool IsSubscribeAvailable => IsUserListener;
+        public bool IsSubscribeAvailable => false; // IsUserListener;
 
-        public bool IsUnsubscribeAvailable => IsUserListener;
+        public bool IsUnsubscribeAvailable => false; // IsUserListener;
 
         public bool IsTakeOrderAvailable => !IsUserCustomer && _order?.Status == OrderStatusType.New;
 
