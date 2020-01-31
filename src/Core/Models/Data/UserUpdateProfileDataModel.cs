@@ -1,4 +1,6 @@
-﻿namespace PrankChat.Mobile.Core.Models.Data
+﻿using PrankChat.Mobile.Core.Models.Enums;
+
+namespace PrankChat.Mobile.Core.Models.Data
 {
     public class UserUpdateProfileDataModel
     {
@@ -8,7 +10,7 @@
 
         public string Login { get; set; }
 
-        public string Sex { get; set; }
+        public GenderType Sex { get; set; }
 
         public string Birthday { get; set; }
 

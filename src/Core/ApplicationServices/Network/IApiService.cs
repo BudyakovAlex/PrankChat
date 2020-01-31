@@ -52,7 +52,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task GetCurrentUserAsync();
 
-        Task UpdateProfileAsync(UserUpdateProfileDataModel userInfo);
+        Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo);
+
+        Task<UserDataModel> SendAvatarAsync(string path);
 
         #endregion Users
 

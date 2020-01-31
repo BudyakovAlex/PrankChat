@@ -180,10 +180,19 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             _settingsService.User = user;
         }
 
-        public async Task UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
+        public async Task<UserDataModel> SendAvatarAsync(string path)
+        {
+            var dataApiModel = await _client.PostPhotoFile<DataApiModel<UserApiModel>>("me/avatar", path);
+            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
+            return user;
+        }
+        
+        public async Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
         {
             var userUpdateProfileApiModel = MappingConfig.Mapper.Map<UserUpdateProfileApiModel>(userInfo);
-            var resultUpdate = await _client.Post<UserUpdateProfileApiModel, DataApiModel<UserUpdateProfileApiModel>>("me", userUpdateProfileApiModel);
+            var dataApiModel = await _client.Post<UserUpdateProfileApiModel, DataApiModel<UserApiModel>>("me", userUpdateProfileApiModel);
+            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
+            return user;
         }
 
         #endregion Users
@@ -199,7 +208,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 Title = title,
                 Description = description,
             };
-            var videoMetadataApiModel = await _client.PostFile<LoadVideoApiModel, DataApiModel<VideoMetadataApiModel>>("videos", loadVideoApiModel);
+            var videoMetadataApiModel = await _client.PostVideoFile<LoadVideoApiModel, DataApiModel<VideoMetadataApiModel>>("videos", loadVideoApiModel);
             return MappingConfig.Mapper.Map<VideoMetadataDataModel>(videoMetadataApiModel.Data);
         }
 

@@ -2,9 +2,9 @@
 
 namespace PrankChat.Mobile.Core.Presentation.Messages
 {
-    public class UpdateUserProfileMessage : MvxMessage
+    public class UpdateAvatarMessage : MvxMessage
     {
-        public UpdateUserProfileMessage(object sender) : base(sender)
+        public UpdateAvatarMessage(object sender) : base(sender)
         {
         }
     }

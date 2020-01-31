@@ -74,17 +74,22 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
-        public Task<TResult> PostFile<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : LoadVideoApiModel where TResult : new()
+        public Task<TResult> PostVideoFile<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : LoadVideoApiModel where TResult : new()
         {
             var request = new RestRequest(endpoint, Method.POST);
-
             request.AddParameter("order_id", item.OrderId);
             request.AddParameter("title", item.Title);
             request.AddParameter("description", item.Description);
-
             request.AddFile("video", item.FilePath);
             request.AlwaysMultipartFormData = true;
+            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
+        }
 
+        public Task<TResult> PostPhotoFile<TResult>(string endpoint, string path, bool exceptionThrowingEnabled = false) where TResult : new()
+        {
+            var request = new RestRequest(endpoint, Method.POST);
+            request.AddFile("avatar", path);
+            request.AlwaysMultipartFormData = true;
             return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
