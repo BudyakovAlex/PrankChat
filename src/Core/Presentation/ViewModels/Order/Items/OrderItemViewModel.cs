@@ -84,6 +84,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                     case OrderStatusType.ClosedAfterArbitrationExecutorWin:
                         return Resources.OrderStatus_ClosedAfterArbitrationExecutorWin;
 
+                    case OrderStatusType.WaitFinish:
+                        return Resources.OrderStatus_WaitFinish;
+
                     case OrderStatusType.Finished:
                         return Resources.OrderStatus_Finished;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
@@ -6,12 +7,14 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Dialogs
 {
+    [MvxModalPresentation(
+        ModalPresentationStyle = UIModalPresentationStyle.Custom,
+        ModalTransitionStyle = UIModalTransitionStyle.CrossDissolve)]
     public class BaseDialog<TMvxViewModel> : BaseView<TMvxViewModel> where TMvxViewModel : BaseViewModel
     {
-        public override void ViewDidAppear(bool animated)
+        public override void ViewWillAppear(bool animated)
         {
-            base.ViewDidAppear(animated);
-
+            base.ViewWillAppear(animated);
             SetCommonBackground(true);
         }
 
