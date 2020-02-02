@@ -7,6 +7,10 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.Exceptions;
+using System.Threading;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
@@ -14,6 +18,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     {
         private readonly IDialogService _dialogService;
         private readonly IPlatformService _platformService;
+        private readonly IApiService _apiService;
+        private readonly IErrorHandleService _errorHandleService;
+        private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
+
         private long? _numberOfViews;
         private DateTime _publicationDate;
         private long? _numberOfLikes;
@@ -31,8 +39,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #region Video
 
-        public string VideoInformationText => $"{_numberOfViews.ToCountViewsString()} {_publicationDate.ToTimeAgoPublicationString()}";
+        public string VideoInformationText => $"{_numberOfViews.ToCountViewsString()} • {_publicationDate.ToTimeAgoPublicationString()}";
 
+        public int VideoId { get; set; } 
+        
         public string VideoName { get; set; }
 
         public string PlaceholderImageUrl { get; set; }
@@ -46,6 +56,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         {
             get => _hasSoundTurnOn;
             set => SetProperty(ref _hasSoundTurnOn, value);
+        }
+
+        private bool _isLiked;
+        public bool IsLiked
+        {
+            get => _isLiked;
+            set => SetProperty(ref _isLiked, value);
         }
 
         #endregion
@@ -76,24 +93,32 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                         IDialogService dialogService,
                                         IPlatformService platformService,
                                         IVideoPlayerService videoPlayerService,
+                                        IApiService apiServices,
+                                        IErrorHandleService errorHandleService,
                                         string profileName,
                                         string profilePhotoUrl,
+                                        int videoId,
                                         string videoName,
                                         string videoUrl,
                                         long numberOfViews,
                                         DateTime publicationDate,
                                         long numberOfLikes,
-                                        string shareLink)
+                                        string shareLink,
+                                        bool isLiked)
             : base (navigationService)
         {
             _dialogService = dialogService;
             _platformService = platformService;
-            VideoPlayerService = videoPlayerService;
+            _apiService = apiServices;
+            _errorHandleService = errorHandleService;
 
+            VideoPlayerService = videoPlayerService;
             ProfileName = profileName;
             ProfilePhotoUrl = profilePhotoUrl;
+            VideoId = videoId;
             VideoName = videoName;
             VideoUrl = videoUrl;
+            IsLiked = isLiked;
 
             _numberOfViews = numberOfViews;
             _publicationDate = publicationDate;
@@ -101,9 +126,23 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _shareLink = shareLink;
         }
 
-        private Task OnLikeAsync()
+        private async Task OnLikeAsync()
         {
-            return Task.CompletedTask;
+            await _semaphoreSlim.WaitAsync(0);
+            try
+            {
+                IsLiked = !IsLiked;
+                var video = await _apiService.SendLikeAsync(VideoId, IsLiked);
+            }
+            catch
+            {
+                IsLiked = !IsLiked;
+                _errorHandleService.HandleException(new UserVisibleException("Произошла ошибка. Лайк не поставле."));
+            }
+            finally
+            {
+                _semaphoreSlim.Release();
+            }
         }
 
         private Task OnBookmarkAsync()

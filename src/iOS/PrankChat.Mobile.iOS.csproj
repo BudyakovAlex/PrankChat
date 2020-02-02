@@ -246,6 +246,7 @@
     <Compile Include="Presentation\Views\ProfileView\ProfileUpdateView.designer.cs">
       <DependentUpon>ProfileUpdateView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\Binding\UIButtonSelectedTargetBinding.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -670,6 +671,8 @@
     <ImageAsset Include="Assets.xcassets\ic_change_profile.imageset\ic_change_profile.pdf">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_like_active.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_like_active.imageset\ic_like_active.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -680,6 +683,8 @@
     <Folder Include="Presentation\Dialogs\ArrayPicker\" />
     <Folder Include="Assets.xcassets\ic_image_background.imageset\" />
     <Folder Include="Assets.xcassets\ic_change_profile.imageset\" />
+    <Folder Include="Assets.xcassets\ic_like_active.imageset\" />
+    <Folder Include="Presentation\Binding\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

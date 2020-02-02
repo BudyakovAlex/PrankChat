@@ -169,6 +169,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
+        public async Task<VideoMetadataBundleDataModel> SendLikeAsync(int videoId, bool isChecked)
+        {
+            var url = isChecked ? $"video/{videoId}/like" : $"video/{videoId}/like/remove";
+            var data = await _client.Post<DataApiModel<VideoMetadataApiModel>>(url);
+            return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(data);
+        }
+
         #endregion Publications
 
         #region Users

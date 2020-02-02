@@ -15,23 +15,26 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         public string Status { get; set; }
 
-        [JsonProperty(PropertyName = "views_count")]
+        [JsonProperty("views_count")]
         public long? ViewsCount { get; set; }
 
-        [JsonProperty(PropertyName = "likes_count")]
+        [JsonProperty("likes_count")]
         public long? LikesCount { get; set; }
 
-        [JsonProperty(PropertyName = "reposts_count")]
+        [JsonProperty("reposts_count")]
         public long? RepostsCount { get; set; }
 
-        [JsonProperty(PropertyName = "stream_url")]
+        [JsonProperty("stream_url")]
         public string StreamUri { get; set; }
 
-        [JsonProperty(PropertyName = "share_url")]
+        [JsonProperty("share_url")]
         public string ShareUri { get; set; }
 
-        [JsonProperty(PropertyName = "created_at")]
+        [JsonProperty("created_at")]
         public DateTimeOffset CreatedAt { get; set; }
+
+        [JsonProperty("is_liked")]
+        public bool IsLiked { get; set; }
 
         public Dictionary<string, UserApiModel> User { get; set; }
     }

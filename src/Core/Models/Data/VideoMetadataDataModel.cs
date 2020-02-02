@@ -4,7 +4,7 @@ namespace PrankChat.Mobile.Core.Models.Data
 {
     public class VideoMetadataDataModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Title { get; set; }
 
@@ -19,6 +19,8 @@ namespace PrankChat.Mobile.Core.Models.Data
         public string StreamUri { get; set; }
 
         public string ShareUri { get; set; }
+
+        public bool IsLiked { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }
 
