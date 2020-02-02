@@ -79,7 +79,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsExecuteOrderAvailable => false;
 
-        public bool IsVideoLoadAvailable => _order?.Status != OrderStatusType.New && _order.Video == null && !IsUserCustomer;
+        public bool IsVideoLoadAvailable => _order?.Status == OrderStatusType.InWork && IsUserExecutor;
 
         public bool IsVideoAvailable => _order.Video != null;
 
@@ -87,7 +87,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsDecideVideoAvailable => false;
 
-        public bool IsDecisionVideoAvailable => _order?.Status == OrderStatusType.WaitFinish;
+        public bool IsDecisionVideoAvailable => _order?.Status == OrderStatusType.WaitFinish && IsUserCustomer;
 
         #region Commands
 
@@ -230,6 +230,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 if (video != null)
                 {
                     _order.Video = video;
+                    _order.Status = OrderStatusType.WaitFinish;
                     await RaiseAllPropertiesChanged();
                 }
             }
@@ -245,8 +246,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = true;
 
-                _order = await _apiService.ArguebeOrderAsync(_orderId);
-                await RaiseAllPropertiesChanged();
+                var order = await _apiService.ArguebeOrderAsync(_orderId);
+                if (order != null)
+                {
+                    await RaiseAllPropertiesChanged();
+                }
             }
             catch (Exception ex)
             {

@@ -277,10 +277,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFz-8d-an4">
-                                                    <rect key="frame" x="169" y="24" width="37" height="37"/>
+                                                    <rect key="frame" x="117.5" y="24" width="140" height="37"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="37" id="ObM-4e-nYU"/>
-                                                        <constraint firstAttribute="width" constant="37" id="gqJ-6M-auc"/>
+                                                        <constraint firstAttribute="width" constant="140" id="gqJ-6M-auc"/>
                                                     </constraints>
                                                 </button>
                                             </subviews>
