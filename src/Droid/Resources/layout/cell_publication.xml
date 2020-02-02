@@ -98,13 +98,13 @@
         android:id="@+id/like_button"
         android:layout_width="20dp"
         android:layout_height="18.35dp"
-        android:src="@drawable/ic_like"
         android:background="@null"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/video_file"
         app:layout_constraintRight_toLeftOf="@+id/like_text"
         android:layout_marginLeft="3dp"
-        android:layout_marginTop="11dp"/>
+        android:layout_marginTop="11dp"
+        app:MvxBind="Click LikeCommand; DrawableId Like(IsLiked)"/>
     <TextView
         android:id="@+id/like_text"
         android:layout_width="wrap_content"
