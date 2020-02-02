@@ -162,7 +162,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.To(vm => vm.LikeCommand);
 
             set.Bind(likeButton)
-                .For(MvxUIButtonSelectedTargetBinding.TargetBinding)
+                .For(UIButtonSelectedTargetBinding.TargetBinding)
                 .To(vm => vm.IsLiked);
 
             set.Bind(likeLabel.Tap())

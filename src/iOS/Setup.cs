@@ -22,7 +22,7 @@ namespace PrankChat.Mobile.iOS
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
         {
-            registry.RegisterPropertyInfoBindingFactory(typeof(MvxUIButtonSelectedTargetBinding), typeof(UIButton), MvxUIButtonSelectedTargetBinding.TargetBinding);
+            registry.RegisterPropertyInfoBindingFactory(typeof(UIButtonSelectedTargetBinding), typeof(UIButton), UIButtonSelectedTargetBinding.TargetBinding);
             base.FillTargetFactories(registry);
         }
     }

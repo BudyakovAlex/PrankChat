@@ -128,7 +128,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private async Task OnLikeAsync()
         {
-            await _semaphoreSlim.WaitAsync();
+            await _semaphoreSlim.WaitAsync(0);
             try
             {
                 IsLiked = !IsLiked;

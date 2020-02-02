@@ -6,7 +6,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Binding
 {
-    public class MvxUIButtonSelectedTargetBinding : MvxPropertyInfoTargetBinding<UIButton>
+    public class UIButtonSelectedTargetBinding : MvxPropertyInfoTargetBinding<UIButton>
     {
         public static string TargetBinding = "Selected";
 
@@ -15,7 +15,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Binding
             get { return MvxBindingMode.TwoWay; }
         }
 
-        public MvxUIButtonSelectedTargetBinding(object target, PropertyInfo targetPropertyInfo)
+        public UIButtonSelectedTargetBinding(object target, PropertyInfo targetPropertyInfo)
             : base(target, targetPropertyInfo)
         {
             var view = View;

@@ -246,7 +246,7 @@
     <Compile Include="Presentation\Views\ProfileView\ProfileUpdateView.designer.cs">
       <DependentUpon>ProfileUpdateView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Binding\MvxUIButtonSelectedTargetBinding.cs" />
+    <Compile Include="Presentation\Binding\UIButtonSelectedTargetBinding.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
