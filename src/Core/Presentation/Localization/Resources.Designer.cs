@@ -1054,5 +1054,11 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("OrderStatus_WaitFinish", resourceCulture);
             }
         }
+        
+        public static string OrderDetailsView_LoadVideo {
+            get {
+                return ResourceManager.GetString("OrderDetailsView_LoadVideo", resourceCulture);
+            }
+        }
     }
 }

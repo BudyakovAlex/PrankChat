@@ -50,15 +50,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         {
             get
             {
-                if (_settingsService.User?.Id == _customerId)
-                {
-                    return Resources.OrderStatus_MyOrder;
-                }
-
                 switch (_status)
                 {
                     case OrderStatusType.New:
-                        return Resources.OrderStatus_New;
+                            return _settingsService.User?.Id == _customerId ? Resources.OrderStatus_MyOrder : Resources.OrderStatus_New;
 
                     case OrderStatusType.Rejected:
                         return Resources.OrderStatus_Rejected;
@@ -88,7 +83,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                         return Resources.OrderStatus_WaitFinish;
 
                     case OrderStatusType.Finished:
-                        return Resources.OrderStatus_Finished;
+                        return Resources.OrderStatus_InWork;
 
                     default:
                         return string.Empty;
