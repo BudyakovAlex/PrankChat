@@ -22,7 +22,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
             SetCommonStyles();
             SetupControls();
-            SetupConstraints();
             SetCommonControlStyles();
             SetupBinding();
         }
@@ -40,11 +39,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
         }
 
         protected virtual void SetupControls()
-        {
-            // nothing do
-        }
-
-        protected virtual void SetupConstraints()
         {
             // nothing do
         }

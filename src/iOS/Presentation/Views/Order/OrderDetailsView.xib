@@ -24,6 +24,7 @@
                 <outlet property="executorShortNameLabel" destination="Z5m-mt-OK7" id="dBc-o5-kHr"/>
                 <outlet property="executorView" destination="RvH-P9-dic" id="Edz-4h-cQF"/>
                 <outlet property="innerView" destination="MTy-Ls-Uj1" id="A5v-ei-cdS"/>
+                <outlet property="lottieAnimationView" destination="P27-eA-GzC" id="rRD-Vg-V1x"/>
                 <outlet property="noButton" destination="VIZ-UP-NIg" id="8sw-4S-O9I"/>
                 <outlet property="priceTextLabel" destination="t60-ur-KeT" id="Pog-WW-raB"/>
                 <outlet property="priceValueLabel" destination="FBt-DS-M9m" id="3IV-pQ-gEa"/>
@@ -406,7 +407,18 @@
                 </scrollView>
                 <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5a-93-Vf4">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P27-eA-GzC" userLabel="Lottie Animation View" customClass="LOTAnimationView">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        </view>
+                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="P27-eA-GzC" firstAttribute="centerY" secondItem="q5a-93-Vf4" secondAttribute="centerY" id="7Pv-UO-Kh0"/>
+                        <constraint firstItem="P27-eA-GzC" firstAttribute="width" secondItem="q5a-93-Vf4" secondAttribute="width" priority="250" id="8jK-z6-bnd"/>
+                        <constraint firstItem="P27-eA-GzC" firstAttribute="centerX" secondItem="q5a-93-Vf4" secondAttribute="centerX" id="R5W-cS-LPs"/>
+                        <constraint firstItem="P27-eA-GzC" firstAttribute="height" secondItem="q5a-93-Vf4" secondAttribute="height" priority="250" id="lsD-fd-PlE"/>
+                    </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

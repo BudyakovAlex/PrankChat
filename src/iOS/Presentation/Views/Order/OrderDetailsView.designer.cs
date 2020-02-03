@@ -110,6 +110,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 		[Outlet]
 		UIKit.UIButton yesButton { get; set; }
+
+        [Outlet]
+        Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -276,6 +279,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (yesButton != null) {
 				yesButton.Dispose ();
 				yesButton = null;
+			}
+
+            if (lottieAnimationView != null) {
+				lottieAnimationView.Dispose ();
+				lottieAnimationView = null;
 			}
 		}
 	}
