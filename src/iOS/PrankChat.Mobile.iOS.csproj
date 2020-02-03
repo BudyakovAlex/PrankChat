@@ -678,8 +678,12 @@
     <ImageAsset Include="Assets.xcassets\ic_change_profile.imageset\ic_change_profile.pdf">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_like_active.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_like_active.imageset\ic_like_active.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_like_active.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_like_active.imageset\ic_like_active.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />

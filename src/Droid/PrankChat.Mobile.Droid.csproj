@@ -341,11 +341,9 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\cell_publication.xml" />
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
+    <AndroidResource Include="Resources\layout\cell_publication.xml">
+      <SubType></SubType>
+      <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_like_active.xml">
       <SubType></SubType>
@@ -725,6 +723,10 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_banner_visa.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_image_background.xml"/>
+  </ItemGroup>
+ 
   <ItemGroup>
     <AndroidResource Include="Resources\xml\network_security_config.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
