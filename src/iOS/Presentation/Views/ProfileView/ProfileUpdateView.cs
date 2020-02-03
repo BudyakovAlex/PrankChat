@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using CoreGraphics;
+using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Commands;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
@@ -145,10 +145,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             saveButton.SetLightStyle(Resources.ProfileUpdateView_Button_Save);
 
-            changePasswordLabel.Text = Resources.ProfileUpdateView_ChangePassword;
+            changePasswordLabel.AttributedText = new NSAttributedString(Resources.ProfileUpdateView_ChangePassword, underlineStyle: NSUnderlineStyle.Single);
             changePasswordLabel.TextColor = UIColor.White;
 
-            changeProfilePhotoLabel.Text = Resources.ProfileUpdateView_PhotoChange_Title;
+
+            changeProfilePhotoLabel.AttributedText = new NSAttributedString(Resources.ProfileUpdateView_PhotoChange_Title, underlineStyle: NSUnderlineStyle.Single);
             changeProfilePhotoLabel.TextColor = UIColor.White;
 
             descriptionTextField.SetLightStyle(Resources.ProfileUpdateView_Description_Placeholder);

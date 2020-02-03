@@ -14,12 +14,14 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         private int _repeatDelayInSeconds;
         private AVPlayerViewController _currentContainer;
         private NSObject _repeatObserver;
+        private NSObject _videoEndHandler;
 
         public VideoPlayer()
         {
             _player = new AVQueuePlayer();
             _player.AutomaticallyWaitsToMinimizeStalling = true;
             _player.Muted = true;
+            _player.ActionAtItemEnd = AVPlayerActionAtItemEnd.None;
         }
 
         /// <inheritdoc />>
@@ -49,6 +51,8 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
                 times: new[] { NSValue.FromCMTime(new CMTime(repeatDelayInSeconds, 1)) },
                 queue: null,
                 handler: TryRepeatVideo);
+
+            _videoEndHandler = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, RepeatEndedItem);
         }
 
         /// <inheritdoc />>
@@ -106,8 +110,18 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             if (disposing && _player != null)
             {
                 _player.Dispose();
-                _player.RemoveTimeObserver(_repeatObserver);
-                _repeatObserver = null;
+
+                if (_repeatObserver != null)
+                {
+                    _player.RemoveTimeObserver(_repeatObserver);
+                    _repeatObserver = null;
+                }
+
+                if (_videoEndHandler != null)
+                {
+                    NSNotificationCenter.DefaultCenter.RemoveObserver(_videoEndHandler);
+                    _videoEndHandler = null;
+                }
             }
         }
 
@@ -120,6 +134,11 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             {
                 _player.Seek(new CMTime(0, 1));
             }
+        }
+
+        private void RepeatEndedItem(NSNotification obj)
+        {
+            _player.Seek(new CMTime(0, 1));
         }
     }
 }

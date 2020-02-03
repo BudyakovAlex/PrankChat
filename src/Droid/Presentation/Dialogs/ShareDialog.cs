@@ -17,7 +17,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Dialogs
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetStyle(StyleNoFrame, Resource.Style.ShareDialogStyle);
+            SetStyle(StyleNoFrame, Resource.Style.Theme_PrankChat_ShareDialogStyle);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

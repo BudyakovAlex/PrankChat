@@ -13,10 +13,12 @@ using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Utils.Helpers;
 using Localization = PrankChat.Mobile.Core.Presentation.Localization.Resources;
-using Android.Net;
 using MvvmCross.Binding.BindingContext;
 using FFImageLoading;
 using FFImageLoading.Transformations;
+using Android.Runtime;
+using Plugin.Permissions;
+using MvvmCross.Binding;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {
@@ -75,6 +77,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             return base.OnOptionsItemSelected(item);
         }
 
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
         protected override void Subscription()
         {
             _tabLayout.TabSelected += TabLayoutOnTabSelected;
@@ -92,7 +99,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             base.OnViewModelSet();
 
             var set = this.CreateBindingSet<MainView, MainViewModel>();
-            set.Bind(this).For(v => v.UserImageUrl).To(vm => vm.UserImageUrl).Mode(MvvmCross.Binding.MvxBindingMode.OneWay);
+            set.Bind(this).For(v => v.UserImageUrl).To(vm => vm.UserImageUrl).Mode(MvxBindingMode.OneWay);
             set.Apply();
         }
 
@@ -102,7 +109,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             var inflater = LayoutInflater.FromContext(Application.Context);
             InitTab(0, Resource.Drawable.ic_home, Localization.Home_Tab, _tabLayout, inflater);
             InitTab(1, Resource.Drawable.ic_rate, Localization.Rate_Tab, _tabLayout, inflater);
-            InitCentralTab(Resource.Drawable.ic_create_order, null, _tabLayout, inflater);
+            InitCentralTab(Resource.Drawable.ic_create_order, _tabLayout, inflater);
             InitTab(3, Resource.Drawable.ic_orders, Localization.Orders_Tab, _tabLayout, inflater);
             InitTab(4, Resource.Drawable.ic_profile, Localization.Profile_Tab, _tabLayout, inflater);
 
@@ -162,7 +169,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             tab?.SetCustomView(tabView);
         }
 
-        private void InitCentralTab(int iconResource, string title, TabLayout tabLayout, LayoutInflater inflater)
+        private void InitCentralTab(int iconResource, TabLayout tabLayout, LayoutInflater inflater)
         {
             var tabView = (ImageView)inflater.Inflate(Resource.Layout.central_tab_button_layout, null);
             tabView.SetImageResource(iconResource);

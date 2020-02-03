@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -403,10 +402,10 @@
                     <viewLayoutGuide key="frameLayoutGuide" id="ZZz-I3-Av7"/>
                 </scrollView>
                 <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5a-93-Vf4">
-                    <rect key="frame" x="20" y="20" width="355" height="647"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="pBd-Be-zBg">
-                            <rect key="frame" x="167.5" y="313.5" width="20" height="20"/>
+                            <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
                         </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -418,14 +417,14 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="q5a-93-Vf4" firstAttribute="top" secondItem="2" secondAttribute="top" constant="20" symbolic="YES" id="cpU-kX-vZg"/>
+                <constraint firstItem="q5a-93-Vf4" firstAttribute="top" secondItem="2" secondAttribute="top" id="cpU-kX-vZg"/>
                 <constraint firstAttribute="trailing" secondItem="q5a-93-Vf4" secondAttribute="trailing" id="eHr-Tr-D16"/>
                 <constraint firstAttribute="bottom" secondItem="q5a-93-Vf4" secondAttribute="bottom" id="mdi-jC-Dzp"/>
                 <constraint firstItem="dIr-NI-Bz0" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="omf-l6-zhb"/>
                 <constraint firstAttribute="trailing" secondItem="dIr-NI-Bz0" secondAttribute="trailing" id="snq-Je-dso"/>
                 <constraint firstAttribute="bottom" secondItem="dIr-NI-Bz0" secondAttribute="bottom" id="tm6-aT-PCh"/>
                 <constraint firstItem="dIr-NI-Bz0" firstAttribute="top" secondItem="2" secondAttribute="top" id="vIz-X5-mbs"/>
-                <constraint firstItem="q5a-93-Vf4" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="yg8-Qk-Qxl"/>
+                <constraint firstItem="q5a-93-Vf4" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="yg8-Qk-Qxl"/>
             </constraints>
             <point key="canvasLocation" x="24.800000000000001" y="51.724137931034484"/>
         </view>

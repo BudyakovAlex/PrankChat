@@ -2,7 +2,7 @@
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation.Parameters
 {
-    public class RegistrationNavigationParameter : INavigationParameter
+    public class RegistrationNavigationParameter
     {
         public string Email { get; }
 

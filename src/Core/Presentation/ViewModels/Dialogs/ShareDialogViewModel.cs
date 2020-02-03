@@ -6,10 +6,11 @@ using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 {
-    public class ShareDialogViewModel : BaseViewModel, IMvxViewModel<string>
+    public class ShareDialogViewModel : BaseViewModel, IMvxViewModel<ShareDialogParameter>
     {
         private string _url;
         private readonly IPlatformService _platformService;
@@ -25,9 +26,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
             _platformService = platformService;
         }
 
-        public void Prepare(string parameter)
+        public void Prepare(ShareDialogParameter parameter)
         {
-            _url = parameter;
+            _url = parameter.Url;
         }
 
         private Task OnShareToInstagramAsync()

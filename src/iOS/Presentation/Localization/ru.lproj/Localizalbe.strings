@@ -14,8 +14,8 @@
 "Publication_Tab_Filter_HalfYear" = "За полгода";
 "Cancel" = "Отмена";
 "Search_View_Search_Placeholder" = "Поиск";
-"Like" = "Like";
-"Share" = "Share";
+"Like" = "Лайк";
+"Share" = "Поделиться";
 "Error_Unexpected_Server" = "Возникла непредвиденная ошибка на сервере. Мы уже получили информацию об этом и работаем над устранением проблемы.";
 "Error_Unexpected_Not_Found" = "Не удалось получить запрошенные данные.";
 "Error_Unexpected_Network" = "Возникла неожиданная сетевая ошибка, пожалуйста, попробуйте снова.";
@@ -189,3 +189,5 @@
 "PickPhoto" = "Выбрать из галереи";
 "ProfileUpdateView_Description_Placeholder" = "О себе";
 "ProfileUpdateView_PhotoChange_Title" = "Сменить фото профиля";
+"Select" = "Выбрать";
+"CreateOrderView_Choose_Time_Period" = "Выберите период действия заказа.";

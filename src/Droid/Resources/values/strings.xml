@@ -16,8 +16,8 @@
     <string name="Publication_Tab_Filter_HalfYear">"За полгода"</string>
     <string name="Cancel">"Отмена"</string>
     <string name="Search_View_Search_Placeholder">"Поиск"</string>
-    <string name="Like">"Like"</string>
-    <string name="Share">"Share"</string>
+    <string name="Like">"Лайк"</string>
+    <string name="Share">"Поделиться"</string>
     <string name="Error_Unexpected_Server">"Возникла непредвиденная ошибка на сервере. Мы уже получили информацию об этом и работаем над устранением проблемы."</string>
     <string name="Error_Unexpected_Not_Found">"Не удалось получить запрошенные данные."</string>
     <string name="Error_Unexpected_Network">"Возникла неожиданная сетевая ошибка, пожалуйста, попробуйте снова."</string>
@@ -191,4 +191,6 @@
     <string name="PickPhoto">"Выбрать из галереи"</string>
     <string name="ProfileUpdateView_Description_Placeholder">"О себе"</string>
     <string name="ProfileUpdateView_PhotoChange_Title">"Сменить фото профиля"</string>
+    <string name="Select">"Выбрать"</string>
+    <string name="CreateOrderView_Choose_Time_Period">"Выберите период действия заказа."</string>
 </resources>

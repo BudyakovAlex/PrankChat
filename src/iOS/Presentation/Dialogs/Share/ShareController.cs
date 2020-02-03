@@ -7,7 +7,7 @@ using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
-namespace PrankChat.Mobile.iOS.Presentation.Views.Share
+namespace PrankChat.Mobile.iOS.Presentation.Dialogs.Share
 {
     [MvxModalPresentation(
         ModalPresentationStyle = UIModalPresentationStyle.BlurOverFullScreen,
@@ -15,20 +15,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Share
     )]
     public partial class ShareController : BaseView<ShareDialogViewModel>
     {
-        public override void ViewDidAppear(bool animated)
-        {
-            base.ViewDidAppear(animated);
-
-            SetCommonBackground(true);
-        }
-
-        public override void ViewWillDisappear(bool animated)
-        {
-            SetCommonBackground(false);
-
-            base.ViewWillDisappear(animated);
-        }
-
         protected override void SetupBinding()
         {
             var set = this.CreateBindingSet<ShareController, ShareDialogViewModel>();
@@ -73,11 +59,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Share
             separatorView.BackgroundColor = Theme.Color.Separator;
 
             cancelButton.SetBorderlessStyle(Resources.Cancel);
-        }
-
-        private void SetCommonBackground(bool enable)
-        {
-            UIView.Animate(enable ? 0.4f : 0.1f, 0, UIViewAnimationOptions.AllowAnimatedContent, () => View.BackgroundColor = enable ? Theme.Color.BlackTransparentBackground : UIColor.Clear, null);
         }
     }
 }

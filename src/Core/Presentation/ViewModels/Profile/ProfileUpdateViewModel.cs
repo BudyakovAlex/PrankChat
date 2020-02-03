@@ -2,9 +2,13 @@
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
+using Plugin.Media.Abstractions;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -20,6 +24,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private readonly IDialogService _dialogService;
         private readonly IApiService _apiService;
         private readonly IMvxMessenger _messenger;
+        private readonly IMediaService _mediaService;
+        private readonly IErrorHandleService _errorHandleService;
 
         private string _email;
         public string Email
@@ -100,12 +106,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                                       ISettingsService settingsService,
                                       IDialogService dialogService,
                                       IApiService apiService,
-                                      IMvxMessenger messenger) : base(navigationService)
+                                      IMvxMessenger messenger,
+                                      IMediaService mediaService,
+                                      IErrorHandleService errorHandleService) : base(navigationService)
         {
             _settingsService = settingsService;
             _dialogService = dialogService;
             _apiService = apiService;
             _messenger = messenger;
+            _mediaService = mediaService;
+            _errorHandleService = errorHandleService;
         }
 
         public override Task Initialize()
@@ -156,14 +166,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                     Email = Email,
                     Login = Login,
                     Name = Name,
-                    Sex = Gender?.ToString(),
+                    Sex = Gender.Value,
                     Birthday = Birthday?.ToShortDateString(),
                     Description = Description
                 };
 
-                await _apiService.UpdateProfileAsync(dataModel);
-
-                _messenger.Publish(new UpdateUserProfileMessage(this));
+                _settingsService.User = await _apiService.UpdateProfileAsync(dataModel);
             }
             finally
             {
@@ -178,7 +186,35 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task OnChangeProfilePhotoAsync()
         {
-            await _dialogService.ShowAlertAsync("Change photo profile");
+            var result = await _dialogService.ShowMenuDialogAsync(new string[]
+            {
+                Resources.TakePhoto,
+                Resources.PickPhoto,
+            });
+
+            MediaFile file = null;
+            if (result == Resources.TakePhoto)
+            {
+                file = await _mediaService.TakePhotoAsync();
+            }
+            else if (result == Resources.PickPhoto)
+            {
+                file = await _mediaService.PickPhotoAsync();
+            }
+
+            if (file != null)
+            {
+                var user = await _apiService.SendAvatarAsync(file.Path);
+                if (user == null)
+                {
+                    _errorHandleService.HandleException(new UserVisibleException("Ошибка при загрузке фотографии."));
+                    return;
+                }
+
+                ProfilePhotoUrl = file.Path;
+                _settingsService.User = user;
+                _messenger.Publish(new UpdateAvatarMessage(this));
+            }
         }
     }
 }

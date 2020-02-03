@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using PrankChat.Mobile.Core.Presentation.Localization;
 
 namespace PrankChat.Mobile.Core.Infrastructure.Extensions
@@ -8,7 +9,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
         private const int DaysInWeek = 7;
         private const string FormatDateWithSpace = "dd : hh : mm";
         private const string FormatDateMoreSevenDays = "dd MMMM yyyy";
-        private const string ForamtDateLessSevenDays = "dd MMMM";
+        private const string FormatDateLessSevenDays = "dd MMMM";
 
         public static string ToTimeAgoCommentString(this DateTime dateTime)
         {
@@ -55,9 +56,9 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
         public static string ToTimeAgoPublicationString(this DateTime dateTime)
         {
             if ((DateTime.UtcNow - dateTime).Days > DaysInWeek)
-                return $"{dateTime.ToString(FormatDateMoreSevenDays)} {Resources.Year_Short}";
+                return $"{dateTime.ToString(FormatDateMoreSevenDays, CultureInfo.CurrentCulture)} {Resources.Year_Short}";
             else
-                return dateTime.ToString(ForamtDateLessSevenDays);
+                return dateTime.ToString(FormatDateLessSevenDays, CultureInfo.CurrentCulture);
         }
     }
 }

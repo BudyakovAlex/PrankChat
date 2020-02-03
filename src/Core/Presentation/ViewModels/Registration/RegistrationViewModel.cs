@@ -37,7 +37,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             if (!CheckValidation())
                 return Task.CompletedTask;
 
-            return NavigationService.ShowRegistrationSecondStepView(new RegistrationNavigationParameter(Email));
+            return NavigationService.ShowRegistrationSecondStepView(Email);
         }
 
         private bool CheckValidation()

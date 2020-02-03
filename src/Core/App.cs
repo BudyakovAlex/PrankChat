@@ -2,8 +2,11 @@
 using MvvmCross;
 using MvvmCross.IoC;
 using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Permissions;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
@@ -20,10 +23,14 @@ namespace PrankChat.Mobile.Core
 
             Mvx.IoCProvider.ConstructAndRegisterSingleton<ITimerService, TimerService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<INavigationService, NavigationService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IDialogService, DialogService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISettingsService, SettingsService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IApiService, ApiService>();
-            Mvx.IoCProvider.ConstructAndRegisterSingleton<IErrorHandleService, ErrorHandleService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IErrorHandleService, ErrorHandleService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IPlatformService, PlatformService>();
+            Mvx.IoCProvider.ConstructAndRegisterSingleton<IPlatformService, PlatformService>();
+            Mvx.IoCProvider.ConstructAndRegisterSingleton<IPermissionService, PermissionService>();
+            Mvx.IoCProvider.ConstructAndRegisterSingleton<IMediaService, MediaService>();
 
             RegisterCustomAppStart<CustomAppStart>();
         }

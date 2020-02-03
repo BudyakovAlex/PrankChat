@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
@@ -35,11 +35,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
-            set
-            {
-                SetProperty(ref _selectedPublicationType, value);
-                LoadVideoFeedAsync().FireAndForget();
-            }
+            set => SetProperty(ref _selectedPublicationType, value);
         }
 
         private string _profileName;
@@ -116,7 +112,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MvxAsyncCommand LoadProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
 
-        public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(LoadVideoFeedAsync);
+        public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(OnLoadVideoFeedAsync);
 
         public MvxAsyncCommand ShowUpdateProfileCommand => new MvxAsyncCommand(NavigationService.ShowUpdateProfileView);
 
@@ -163,6 +159,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             {
                 IsBusy = true;
 
+                var oldAvatar = _settingsService.User?.Avatar;
                 await _apiService.GetCurrentUserAsync();
 
                 var user = _settingsService.User;
@@ -178,8 +175,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 SubscriptionsValue = user.SubscriptionsCount.ToCountString();
                 Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
 
-                _messenger.Publish(new UpdateUserProfileMessage(this));
-                await LoadVideoFeedAsync();
+                if (_settingsService.User.Avatar != oldAvatar)
+                    _messenger.Publish(new UpdateAvatarMessage(this));
+
+                UpdateProfileVideoCommand.Execute();
             }
             finally
             {
@@ -187,7 +186,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
         }
 
-        private async Task LoadVideoFeedAsync()
+        private async Task OnLoadVideoFeedAsync()
         {
             if (!CheckValidation())
                 return;
@@ -216,14 +215,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                     _dialogService,
                     _platformService,
                     _videoPlayerService,
+                    _apiService,
+                    _errorHandleService,
                     publication.User?.Name,
                     publication.User?.Avatar,
+                    publication.Id,
                     publication.Title,
                     publication.StreamUri,
                     publication.ViewsCount,
                     publication.CreatedAt.DateTime,
                     publication.RepostsCount,
-                    publication.ShareUri));
+                    publication.ShareUri,
+                    publication.IsLiked));
 
             Items.SwitchTo(publicationViewModels);
         }

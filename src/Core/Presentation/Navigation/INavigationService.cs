@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
@@ -17,7 +18,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowRegistrationView();
 
-        Task ShowRegistrationSecondStepView(RegistrationNavigationParameter parameter);
+        Task ShowRegistrationSecondStepView(string email);
 
         Task ShowRegistrationThirdStepView();
 
@@ -31,7 +32,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowSearchView();
 
-        Task ShowDetailsOrderView(OrderDetailsNavigationParameter parameter);
+        Task ShowDetailsOrderView(int orderId);
 
         Task ShowDetailsPublicationView();
 
@@ -43,8 +44,16 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task Logout();
 
+        Task ShowUpdateProfileView();
+
         Task<bool> CloseView(BaseViewModel viewModel);
 
-        Task ShowUpdateProfileView();
+        #region Dialogs
+
+        Task ShowShareDialog(ShareDialogParameter parameter);
+
+        Task<ArrayDialogResult> ShowArrayDialog(ArrayDialogParameter parameter);
+
+        #endregion
     }
 }

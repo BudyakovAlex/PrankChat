@@ -44,6 +44,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
 
         private void InitTab(int index, string iconName, string title, UIImageRenderingMode mode = UIImageRenderingMode.AlwaysTemplate)
         {
+            if (TabBar.Items.Length <= index)
+            {
+                // TODO: Must have log the error.
+                return;
+            }
+
             var tab = TabBar.Items[index];
             tab.Title = title;
             tab.Image = UIImage.FromBundle(iconName).ImageWithRenderingMode(mode);
