@@ -3,9 +3,6 @@ using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.ViewModels;
-using Plugin.Media;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
@@ -82,7 +79,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsExecuteOrderAvailable => false;
 
-        public bool IsVideoLoadAvailable => _order?.Status != OrderStatusType.New && _order.Video == null && !IsUserCustomer;
+        public bool IsVideoLoadAvailable => _order?.Status == OrderStatusType.InWork && IsUserExecutor;
 
         public bool IsVideoAvailable => _order.Video != null;
 
@@ -90,7 +87,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsDecideVideoAvailable => false;
 
-        public bool IsDecisionVideoAvailable => false;
+        public bool IsDecisionVideoAvailable => _order?.Status == OrderStatusType.WaitFinish && IsUserCustomer;
 
         #region Commands
 
@@ -110,7 +107,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public MvxAsyncCommand CancelOrderCommand => new MvxAsyncCommand(OnCancelOrderAsync);
 
-        public MvxAsyncCommand ArqueOrderCommand => new MvxAsyncCommand(OnArqueOrderAsync);
+        public MvxAsyncCommand ArqueOrderCommand => new MvxAsyncCommand(OnArgueOrderAsync);
 
         public MvxAsyncCommand AcceptOrderCommand => new MvxAsyncCommand(OnAcceptOrderAsync);
 
@@ -233,6 +230,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 if (video != null)
                 {
                     _order.Video = video;
+                    _order.Status = OrderStatusType.WaitFinish;
                     await RaiseAllPropertiesChanged();
                 }
             }
@@ -242,14 +240,47 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private Task OnArqueOrderAsync()
+        private async Task OnArgueOrderAsync()
         {
-            return Task.CompletedTask;
+            try
+            {
+                IsBusy = true;
+
+                var order = await _apiService.ArgueOrderAsync(_orderId);
+                if (order != null)
+                {
+                    await RaiseAllPropertiesChanged();
+                }
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
+                _dialogService.ShowToast("Can not argue order!");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
-        private Task OnAcceptOrderAsync()
+        private async Task OnAcceptOrderAsync()
         {
-            return Task.CompletedTask;
+            try
+            {
+                IsBusy = true;
+
+                _order = await _apiService.AcceptOrderAsync(_orderId);
+                await RaiseAllPropertiesChanged();
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
+                _dialogService.ShowToast("Can not accept order!");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private async Task OnCancelOrderAsync()

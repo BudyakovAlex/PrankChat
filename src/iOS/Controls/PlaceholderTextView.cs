@@ -9,11 +9,11 @@ namespace PrankChat.Mobile.iOS.Controls
     [Register("PlaceholderTextView"), DesignTimeVisible(true)]
     public class PlaceholderTextView : UITextView
     {
-        private UIColor _textColor;
         public string Placeholder { get; set; }
 
         public UIColor PlaceholderColor { get; set; }
 
+        private UIColor _textColor;
         public override UIColor TextColor
         {
             get => _textColor;
@@ -24,36 +24,54 @@ namespace PrankChat.Mobile.iOS.Controls
 
         public PlaceholderTextView()
         {
+            Initialize();
         }
 
         public PlaceholderTextView(NSCoder coder) : base(coder)
         {
+            Initialize();
         }
 
         public PlaceholderTextView(CGRect frame) : base(frame)
         {
+            Initialize();
         }
 
         protected PlaceholderTextView(NSObjectFlag t) : base(t)
         {
+            Initialize();
         }
 
         protected internal PlaceholderTextView(IntPtr handle) : base(handle)
         {
-            Started += CustomTextViewStarted;
-            Ended += CustomTextViewEnded;
+            Initialize();
         }
 
         #endregion
 
-        private void CustomTextViewStarted(object sender, EventArgs e)
+        void Initialize()
         {
-            UpdatePlaceholder();
-        }
+            ShouldBeginEditing = t =>
+            {
+                if (Text == Placeholder)
+                {
+                    Text = string.Empty;
+                    base.TextColor = _textColor;
+                }
 
-        private void CustomTextViewEnded(object sender, EventArgs e)
-        {
-            UpdatePlaceholder();
+                return true;
+            };
+
+            ShouldEndEditing = t =>
+            {
+                if (string.IsNullOrEmpty(Text))
+                {
+                    Text = Placeholder;
+                    base.TextColor = PlaceholderColor;
+                }
+
+                return true;
+            };
         }
 
         private void UpdatePlaceholder()
@@ -63,7 +81,7 @@ namespace PrankChat.Mobile.iOS.Controls
                 Text = string.Empty;
                 base.TextColor = _textColor;
             }
-            else if (string.IsNullOrEmpty(Text))
+            else
             {
                 Text = Placeholder;
                 base.TextColor = PlaceholderColor;

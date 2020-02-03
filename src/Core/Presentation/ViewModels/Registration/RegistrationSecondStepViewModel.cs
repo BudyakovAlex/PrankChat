@@ -162,9 +162,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                 return false;
             }
 
-            if (Birthday > DateTime.Now)
+            if ((DateTime.Now.Year - Birthday?.Year) <= 18)
             {
-                _errorHandleService.HandleException(new UserVisibleException("Дата дня рождения не может быть польше текущей даты."));
+                _errorHandleService.HandleException(new UserVisibleException("Пользователь не может быть младше 18 лет."));
                 return false;
             }
 

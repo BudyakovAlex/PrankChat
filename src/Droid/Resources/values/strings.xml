@@ -125,11 +125,11 @@
     <string name="ShareDialog_CopyLink_Label">"Коп. ссылку"</string>
     <string name="ShareDialog_ShareInstagram_Label">"В Instagram"</string>
     <string name="ShareDialog_LinkShareTitle">"Поделиться ссылкой"</string>
-    <string name="OrderStatus_New">"Новый"</string>
+    <string name="OrderStatus_New">"Новое"</string>
     <string name="OrderStatus_Rejected">"Отменен модератором"</string>
     <string name="OrderStatus_Cancelled">"Отменен"</string>
     <string name="OrderStatus_Active">"Ожидает исполнителя"</string>
-    <string name="OrderStatus_InWork">"В работе"</string>
+    <string name="OrderStatus_InWork">"Выполняется"</string>
     <string name="OrderStatus_InArbitration">"В споре"</string>
     <string name="OrderStatus_ProcessCloseArbitration">"Закрытие спора"</string>
     <string name="OrderStatus_ClosedAfterArbitrationCustomerWin">"Закрыт после спора в пользу заказчика"</string>
@@ -173,7 +173,7 @@
     <!-- Fuzzy -->
     <string name="Count_Of_Viewing">"просмотра"</string>
     <string name="Year_Short">"г."</string>
-    <string name="OrderStatus_MyOrder">"Мой заказ"</string>
+    <string name="OrderStatus_MyOrder">"Мое"</string>
     <string name="OrderDetails_View_Cancel_Title">"Вы уверены что хотите отменить заказ?"</string>
     <string name="ProfileUpdateView_Email_Placeholder">"Email"</string>
     <string name="ProfileUpdateView_Login_Placeholder">"Логин"</string>
@@ -193,4 +193,6 @@
     <string name="ProfileUpdateView_PhotoChange_Title">"Сменить фото профиля"</string>
     <string name="Select">"Выбрать"</string>
     <string name="CreateOrderView_Choose_Time_Period">"Выберите период действия заказа."</string>
+    <string name="OrderStatus_WaitFinish">"В ожидании"</string>
+    <string name="OrderDetailsView_LoadVideo">"Загрузить видео"</string>
 </resources>

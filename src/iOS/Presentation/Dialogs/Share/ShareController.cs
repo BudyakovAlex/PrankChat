@@ -9,11 +9,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Dialogs.Share
 {
-    [MvxModalPresentation(
-        ModalPresentationStyle = UIModalPresentationStyle.BlurOverFullScreen,
-        ModalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-    )]
-    public partial class ShareController : BaseView<ShareDialogViewModel>
+    public partial class ShareController : BaseDialog<ShareDialogViewModel>
     {
         protected override void SetupBinding()
         {

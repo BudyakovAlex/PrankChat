@@ -52,7 +52,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="@color/applicationBlack"
-                app:MvxBind="Text Description, Mode=OneWay" />
+                app:MvxBind="Text ProfileName, Mode=OneWay" />
             <TextView
                 android:id="@+id/profile_price"
                 android:layout_width="0dp"

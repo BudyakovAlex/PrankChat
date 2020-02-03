@@ -157,6 +157,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task OnUpdateProfileAsync()
         {
+            if (!CheckValidation())
+                return;
+
             try
             {
                 IsBusy = true;
@@ -215,6 +218,47 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 _settingsService.User = user;
                 _messenger.Publish(new UpdateAvatarMessage(this));
             }
+        }
+
+        private bool CheckValidation()
+        {
+            if (string.IsNullOrWhiteSpace(Login))
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Логин не может быть пустым."));
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(Name))
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Имя не может быть пустым."));
+                return false;
+            }
+
+            if (Birthday == null)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("День рождения не может быть пустым."));
+                return false;
+            }
+
+            if (Birthday > DateTime.Now)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Дата дня рождения не может быть польше текущей даты."));
+                return false;
+            }
+
+            if ((DateTime.Now.Year - Birthday?.Year) <= 18)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Пользователь не может быть младше 18 лет."));
+                return false;
+            }
+
+            if (Gender == null)
+            {
+                _errorHandleService.HandleException(new UserVisibleException("Выберите свой пол."));
+                return false;
+            }
+
+            return true;
         }
     }
 }
