@@ -106,6 +106,7 @@
     <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
     <Compile Include="Presentation\Dialogs\ArrayDialog.cs" />
     <Compile Include="Presentation\Converters\PlaceholderImageConverter.cs" />
+    <Compile Include="Presentation\Converters\LikeConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -339,6 +340,10 @@
     </AndroidResource>
     <AndroidResource Include="Resources\layout\cell_publication.xml" />
     <AndroidResource Include="Resources\drawable\ic_image_background.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_like_active.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

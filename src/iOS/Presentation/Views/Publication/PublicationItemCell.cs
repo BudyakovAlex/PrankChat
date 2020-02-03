@@ -9,6 +9,7 @@ using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
@@ -95,8 +96,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			likeLabel.SetSmallTitleStyle();
 			shareLabel.SetSmallTitleStyle();
 			shareLabel.Text = Resources.Share;
+			likeButton.SetBackgroundImage(UIImage.FromBundle("ic_like.png"), UIControlState.Normal);
+			likeButton.SetBackgroundImage(UIImage.FromBundle("ic_like_active.png"), UIControlState.Selected);
 
-			InitializeVideoControl();
+            InitializeVideoControl();
 		}
 
 		protected override void SetBindings()
@@ -122,11 +125,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.To(vm => vm.ProfilePhotoUrl)
 				.WithConversion<PlaceholderImageConverter>()
 				.Mode(MvxBindingMode.OneTime);
-
-			//set.Bind(videoImage)
-			//    .For(v => v.ImagePath)
-			//    .To(vm => vm.VideoUrl)
-			//    .Mode(MvxBindingMode.OneTime);
 
 			set.Bind(profileNameLabel)
 				.To(vm => vm.ProfileName)
@@ -163,7 +161,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			set.Bind(likeButton)
 				.To(vm => vm.LikeCommand);
 
-			set.Bind(likeLabel.Tap())
+            set.Bind(likeButton)
+                .For(UIButtonSelectedTargetBinding.TargetBinding)
+                .To(vm => vm.IsLiked);
+
+            set.Bind(likeLabel.Tap())
 				.For(v => v.Command)
 				.To(vm => vm.LikeCommand);
 
@@ -202,6 +204,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			_avPlayerViewController.ShowsPlaybackControls = false;
 			_avPlayerViewController.VideoGravity = AVLayerVideoGravity.ResizeAspectFill;
 			videoView.Add(_avPlayerViewController.View);
+
 		}
 	}
 }
