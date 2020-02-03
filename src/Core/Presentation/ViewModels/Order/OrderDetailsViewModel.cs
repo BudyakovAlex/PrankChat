@@ -246,7 +246,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = true;
 
-                var order = await _apiService.ArguebeOrderAsync(_orderId);
+                var order = await _apiService.ArgueOrderAsync(_orderId);
                 if (order != null)
                 {
                     await RaiseAllPropertiesChanged();

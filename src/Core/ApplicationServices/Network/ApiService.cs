@@ -121,7 +121,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
-        public async Task<OrderDataModel> ArguebeOrderAsync(int orderId)
+        public async Task<OrderDataModel> ArgueOrderAsync(int orderId)
         {
             var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/arbitration", true);
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);

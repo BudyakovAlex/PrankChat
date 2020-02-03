@@ -51,8 +51,6 @@ namespace PrankChat.Mobile.iOS.Controls
 
         void Initialize()
         {
-            Placeholder = "Please enter text";
-
             ShouldBeginEditing = t =>
             {
                 if (Text == Placeholder)
