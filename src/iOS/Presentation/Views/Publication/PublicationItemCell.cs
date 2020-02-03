@@ -171,7 +171,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
 			set.Bind(likeLabel)
 				.To(vm => vm.NumberOfLikesText)
-				.Mode(MvxBindingMode.OneTime);
+				.Mode(MvxBindingMode.OneWay);
 
 			set.Bind(moreButton)
 				.To(vm => vm.OpenSettingsCommand)

@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="7dp"
         android:layout_marginLeft="3dp"
-        app:MvxBind="ImagePath PlaceholderImage(ProfilePhotoUrl), Mode = OneTime; Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
+        app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneTime; DrawableId PlaceholderImage(ProfilePhotoUrl), Mode = OneTime; Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
         android:layout_marginLeft="8dp"
         android:textSize="12sp"
         android:textColor="@color/applicationBlack"
-        app:MvxBind="Text NumberOfLikesText, Mode = OneTime"/>
+        app:MvxBind="Text NumberOfLikesText, Mode = OneWay"/>
     <ImageButton
         android:id="@+id/share_button"
         android:layout_width="18dp"

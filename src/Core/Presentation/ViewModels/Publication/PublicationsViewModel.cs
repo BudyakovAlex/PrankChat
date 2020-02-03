@@ -100,13 +100,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public override Task Initialize()
         {
-            base.Initialize();
-
             ActiveFilterName = Resources.Publication_Tab_Filter_Month;
 
             LoadPublicationsCommand.ExecuteAsync().FireAndForget();
 
-            return Task.CompletedTask;
+            return base.Initialize();
         }
 
         public override void ViewDisappearing()
@@ -199,7 +197,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     publication.StreamUri,
                     publication.ViewsCount,
                     publication.CreatedAt.DateTime,
-                    publication.RepostsCount,
+                    publication.LikesCount,
                     publication.ShareUri,
                     publication.IsLiked));
 

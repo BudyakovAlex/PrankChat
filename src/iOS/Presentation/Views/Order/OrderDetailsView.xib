@@ -277,12 +277,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFz-8d-an4">
-                                                    <rect key="frame" x="169" y="24" width="37" height="37"/>
+                                                    <rect key="frame" x="117.5" y="24" width="140" height="37"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="37" id="ObM-4e-nYU"/>
-                                                        <constraint firstAttribute="width" constant="37" id="gqJ-6M-auc"/>
+                                                        <constraint firstAttribute="width" constant="140" id="gqJ-6M-auc"/>
                                                     </constraints>
-                                                    <state key="normal" image="ic_download"/>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -347,6 +346,10 @@
                                             <constraints>
                                                 <constraint firstItem="kSx-6S-Jg3" firstAttribute="centerX" secondItem="hzF-j0-Pi6" secondAttribute="centerX" id="6lh-aj-IqG"/>
                                                 <constraint firstItem="kSx-6S-Jg3" firstAttribute="top" secondItem="hzF-j0-Pi6" secondAttribute="top" id="Eu2-4R-yOh"/>
+                                                <constraint firstItem="dC1-Zt-IyK" firstAttribute="leading" secondItem="hzF-j0-Pi6" secondAttribute="leading" constant="117.5" id="MP1-Zi-jDY"/>
+                                                <constraint firstAttribute="trailing" secondItem="kSx-6S-Jg3" secondAttribute="trailing" constant="117.5" id="e0S-Ir-sbE"/>
+                                                <constraint firstAttribute="trailing" secondItem="dC1-Zt-IyK" secondAttribute="trailing" constant="117.5" id="gC9-Mb-a0u"/>
+                                                <constraint firstItem="kSx-6S-Jg3" firstAttribute="leading" secondItem="hzF-j0-Pi6" secondAttribute="leading" constant="117.5" id="hjf-Xp-Nob"/>
                                                 <constraint firstItem="dC1-Zt-IyK" firstAttribute="top" secondItem="kSx-6S-Jg3" secondAttribute="bottom" constant="5" id="kFL-i7-YbO"/>
                                                 <constraint firstAttribute="bottom" secondItem="dC1-Zt-IyK" secondAttribute="bottom" id="qLQ-IL-Fv5"/>
                                                 <constraint firstItem="dC1-Zt-IyK" firstAttribute="centerX" secondItem="hzF-j0-Pi6" secondAttribute="centerX" id="y2c-LN-g26"/>
@@ -420,7 +423,4 @@
             <point key="canvasLocation" x="24.800000000000001" y="51.724137931034484"/>
         </view>
     </objects>
-    <resources>
-        <image name="ic_download" width="50" height="50"/>
-    </resources>
 </document>

@@ -29,7 +29,7 @@
                     android:layout_width="85dp"
                     android:layout_height="85dp"
                     android:layout_gravity="center_horizontal"
-                    app:MvxBind="ImagePath PlaceholderImage(ProfilePhotoUrl), Mode = OneTime; Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
+                    app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneTime; DrawableId PlaceholderImage(ProfilePhotoUrl); Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -194,7 +194,7 @@
                     <FFImageLoading.Cross.MvxCachedImageView
                         android:layout_width="42dp"
                         android:layout_height="42dp"
-                        app:MvxBind="ImagePath PlaceholderImage(ExecutorPhotoUrl); Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
+                        app:MvxBind="ImagePath ExecutorPhotoUrl; DrawableId PlaceholderImage(ExecutorPhotoUrl); Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

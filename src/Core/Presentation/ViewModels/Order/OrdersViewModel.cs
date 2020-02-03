@@ -34,7 +34,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public MvxObservableCollection<OrderItemViewModel> Items { get; } = new MvxObservableCollection<OrderItemViewModel>();
 
         private string _activeFilterName;
-
         public string ActiveFilterName
         {
             get => _activeFilterName;

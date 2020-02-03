@@ -9,10 +9,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Dialogs.ArrayPicker
 {
-    [MvxModalPresentation(
-        ModalPresentationStyle = UIModalPresentationStyle.BlurOverFullScreen,
-        ModalTransitionStyle = UIModalTransitionStyle.CrossDissolve)]
-    public partial class ArrayPickerController : BaseView<ArrayDialogViewModel>
+    public partial class ArrayPickerController : BaseDialog<ArrayDialogViewModel>
     {
         private MvxPickerViewModel _pickerViewModel;
 

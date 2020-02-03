@@ -56,7 +56,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 				.Mode(MvxBindingMode.OneWay);	
 
             set.Bind(profileDescriptionLabel)
-                .To(vm => vm.Description)
+                .To(vm => vm.ProfileName)
                 .Mode(MvxBindingMode.OneWay);
 
             set.Bind(refillButton)
