@@ -139,14 +139,23 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<VideoMetadataBundleDataModel> GetPopularVideoFeedAsync(DateFilterType dateFilterType)
         {
-            var videoMetadataBundle =
-                await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?popular=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
+            VideoMetadataBundleApiModel videoMetadataBundle;
+            if (_settingsService.User == null)
+                videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?popular=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
+            else
+                videoMetadataBundle = await _client.Get<VideoMetadataBundleApiModel>($"videos?popular=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
+
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
         public async Task<VideoMetadataBundleDataModel> GetActualVideoFeedAsync(DateFilterType dateFilterType)
         {
-            var videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?actual=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
+            VideoMetadataBundleApiModel videoMetadataBundle;
+            if (_settingsService.User == null)
+                videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?actual=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
+            else
+                videoMetadataBundle = await _client.Get<VideoMetadataBundleApiModel>($"videos?actual=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
+
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
@@ -177,15 +186,15 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             if (dateFilterType.HasValue)
                 endpoint += $"&date_from={dateFilterType.Value.GetDateString()}";
 
-            var videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>(endpoint, false, IncludeType.User);
+            var videoMetadataBundle = await _client.Get<VideoMetadataBundleApiModel>(endpoint, false, IncludeType.User);
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
-        public async Task<VideoMetadataBundleDataModel> SendLikeAsync(int videoId, bool isChecked)
+        public async Task<VideoMetadataDataModel> SendLikeAsync(int videoId, bool isChecked)
         {
-            var url = isChecked ? $"video/{videoId}/like" : $"video/{videoId}/like/remove";
+            var url = isChecked ? $"videos/{videoId}/like" : $"videos/{videoId}/like/remove";
             var data = await _client.Post<DataApiModel<VideoMetadataApiModel>>(url);
-            return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(data);
+            return MappingConfig.Mapper.Map<VideoMetadataDataModel>(data?.Data);
         }
 
         #endregion Publications
