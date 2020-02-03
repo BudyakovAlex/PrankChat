@@ -4,14 +4,14 @@ using MvvmCross.Converters;
 
 namespace PrankChat.Mobile.Droid.Presentation.Converters
 {
-    public class PlaceholderImageConverter : MvxValueConverter<string, string>
+    public class PlaceholderImageConverter : MvxValueConverter<string, int>
     {
-        protected override string Convert(string value, Type targetType, object parameter, CultureInfo culture)
+        protected override int Convert(string value, Type targetType, object parameter, CultureInfo culture)
         {
             if (string.IsNullOrWhiteSpace(value))
-                return "res:ic_image_background.png";
+                return Resource.Drawable.ic_image_background;
 
-            return value;
+            return 0;
         }
     }
 }

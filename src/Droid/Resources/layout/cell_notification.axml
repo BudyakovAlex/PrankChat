@@ -13,7 +13,7 @@
         <ffimageloading.cross.MvxCachedImageView
             android:layout_width="42dp"
             android:layout_height="42dp"
-            local:MvxBind="ImagePath PlaceholderImage(ImageUrl), Mode = OneTime; Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
+            local:MvxBind="ImagePath ImageUrl, Mode = OneTime; DrawableId PlaceholderImage(ImageUrl), Mode = OneTime; Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -20,7 +20,7 @@
                 android:layout_height="85dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:MvxBind="ImagePath PlaceholderImage(ProfilePhotoUrl); Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
+                app:MvxBind="ImagePath ProfilePhotoUrl; DrawableId PlaceholderImage(ProfilePhotoUrl); Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
             <ImageView
                 android:id="@+id/profile_change_icon"
                 android:layout_width="30dp"
