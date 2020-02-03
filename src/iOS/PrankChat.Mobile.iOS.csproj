@@ -247,6 +247,7 @@
       <DependentUpon>ProfileUpdateView.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Binding\UIButtonSelectedTargetBinding.cs" />
+    <BundleResource Include="Resources\Animations\ripple_animation.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -281,6 +282,12 @@
     </PackageReference>
     <PackageReference Include="Xam.Plugin.Media">
       <Version>4.4.10-beta</Version>
+    </PackageReference>
+    <PackageReference Include="Com.Airbnb.iOS.Lottie">
+      <Version>2.5.10</Version>
+    </PackageReference>
+    <PackageReference Include="Cirrious.FluentLayout">
+      <Version>2.9.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -685,6 +692,7 @@
     <Folder Include="Assets.xcassets\ic_change_profile.imageset\" />
     <Folder Include="Assets.xcassets\ic_like_active.imageset\" />
     <Folder Include="Presentation\Binding\" />
+    <Folder Include="Resources\Animations\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
