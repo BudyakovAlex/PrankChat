@@ -6,11 +6,16 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using Airbnb.Lottie;
+using UIKit;
+using Cirrious.FluentLayouts.Touch;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
 	public partial class OrderDetailsView : BaseGradientBarView<OrderDetailsViewModel>
 	{
+		private LOTAnimationView _lottieProgressBar;
+
 		protected override void SetupBinding()
 		{
 			var set = this.CreateBindingSet<OrderDetailsView, OrderDetailsViewModel>();
@@ -230,6 +235,20 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			tookOrderTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Took_The_Order_Text);
 			executorNameLabel.SetTitleStyle();
 			startDateLabel.SetSmallSubtitleStyle();
+
+			_lottieProgressBar = LOTAnimationView.AnimationNamed("Animations/ripple_animation");
+			_lottieProgressBar.LoopAnimation = true;
+			_lottieProgressBar.Play();
+
+			progressBarView.AddSubview(_lottieProgressBar);
 		}
-	}
+
+        protected override void SetupConstraints()
+        {
+			progressBarView.SubviewsDoNotTranslateAutoresizingMaskIntoConstraints();
+			progressBarView.AddConstraints(
+				_lottieProgressBar.CenterX().EqualTo().CenterXOf(progressBarView),
+				_lottieProgressBar.CenterY().EqualTo().CenterYOf(progressBarView));
+		}
+    }
 }
