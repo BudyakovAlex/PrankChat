@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
@@ -51,12 +52,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
             {
                 IsBusy = true;
 
-                //var ratingOrders = await _apiService.GetRatingOrdersAsync();
+                var ratingOrders = await _apiService.GetRatingOrdersAsync();
+                //var items = ratingOrders?.Select(o => new RatingItemViewModel(
+                //                                        NavigationService,
+                //                                        o.Id,
+                //                                        o.Title,
+                //                                        o.Customer?.Avatar,
+                //                                        o.Price,
+                //                                        o.CreatedAt.Value));
+
+                //Items.AddRange(items);
             }
             catch (Exception ex)
             {
                 _mvxLog.DebugException($"{nameof(RatingViewModel)}", ex);
-                _dialogService.ShowToast("Can not load order details!");
+                _dialogService.ShowToast("Can not load rating!");
             }
             finally
             {

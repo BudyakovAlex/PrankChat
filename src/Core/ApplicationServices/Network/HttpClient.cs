@@ -10,6 +10,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions.Network;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
 using RestSharp;
 
@@ -215,7 +216,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 return apiPoint;
 
             var startChar = apiPoint.Contains("?") ? "&" : "?";
-            return $"{apiPoint}{startChar}include={string.Join(",", includes)}".ToLowerInvariant();
+            var values = includes.GetEnumMembersAttrValues();
+            return $"{apiPoint}{startChar}include={string.Join(",", values)}".ToLowerInvariant();
         }
     }
 }
