@@ -16,6 +16,8 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public long RepostsCount { get; set; }
 
+        public long LikesCount { get; set; }
+
         public string StreamUri { get; set; }
 
         public string ShareUri { get; set; }

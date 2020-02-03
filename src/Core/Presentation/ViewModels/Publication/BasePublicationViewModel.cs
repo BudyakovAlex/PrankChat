@@ -133,11 +133,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             {
                 IsLiked = !IsLiked;
                 var video = await _apiService.SendLikeAsync(VideoId, IsLiked);
+                if (video != null)
+                {
+                    _numberOfLikes = IsLiked
+                        ? _numberOfLikes + 1
+                        : _numberOfLikes - 1;
+                    await RaisePropertyChanged(nameof(NumberOfLikesText));
+                }
             }
             catch
             {
                 IsLiked = !IsLiked;
-                _errorHandleService.HandleException(new UserVisibleException("Произошла ошибка. Лайк не поставле."));
+                _errorHandleService.HandleException(new UserVisibleException("Произошла ошибка."));
             }
             finally
             {
