@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
     public class RatingViewModel : BaseViewModel
     {
         private readonly IMvxLog _mvxLog;
+        private readonly Dictionary<RatingOrderFilterType, string> _ratingOrderFilterTypeTitleMap;
 
         public MvxObservableCollection<RatingItemViewModel> Items { get; } = new MvxObservableCollection<RatingItemViewModel>();
 
@@ -36,19 +38,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
             set
             {
                 _activeFilter = value;
-                switch (_activeFilter)
+                if (_ratingOrderFilterTypeTitleMap.TryGetValue(_activeFilter, out var activeFilterName))
                 {
-                    case RatingOrderFilterType.All:
-                        ActiveFilterName = Resources.RateView_Filter_AllTasks;
-                        break;
-
-                    case RatingOrderFilterType.My:
-                        ActiveFilterName = Resources.RateView_Filter_MyTasks;
-                        break;
-
-                    case RatingOrderFilterType.New:
-                        ActiveFilterName = Resources.RateView_Filter_NewTasks;
-                        break;
+                    ActiveFilterName = activeFilterName;
                 }
             }
         }
@@ -65,6 +57,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
             : base(navigationService, errorHandleService, apiService, dialogService)
         {
             _mvxLog = mvxLog;
+
+            _ratingOrderFilterTypeTitleMap = new Dictionary<RatingOrderFilterType, string>
+            {
+                { RatingOrderFilterType.All, Resources.RateView_Filter_AllTasks },
+                { RatingOrderFilterType.New, Resources.RateView_Filter_NewTasks },
+                { RatingOrderFilterType.My, Resources.RateView_Filter_MyTasks },
+            };
         }
 
         public override Task Initialize()
@@ -106,29 +105,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
 
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
-            var selectedFilter = await DialogService.ShowMenuDialogAsync(new[]
-            {
-                Resources.RateView_Filter_AllTasks,
-                Resources.RateView_Filter_MyTasks,
-                Resources.RateView_Filter_NewTasks,
-            }, Resources.Cancel);
+            var parametres = _ratingOrderFilterTypeTitleMap.Values.ToArray();
+            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parametres, Resources.Cancel);
 
-            if (string.IsNullOrWhiteSpace(selectedFilter) || selectedFilter == Resources.Cancel)
+            if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
                 return;
 
-            if (selectedFilter == Resources.RateView_Filter_AllTasks)
-            {
-                ActiveFilter = RatingOrderFilterType.All;
-            }
-            else if (selectedFilter == Resources.RateView_Filter_MyTasks)
-            {
-                ActiveFilter = RatingOrderFilterType.My;
-            }
-            else if (selectedFilter == Resources.RateView_Filter_NewTasks)
-            {
-                ActiveFilter = RatingOrderFilterType.New;
-            }
-
+            ActiveFilter = _ratingOrderFilterTypeTitleMap.FirstOrDefault(x => x.Value == selectedFilterName).Key;
             await LoadRatingOrdersCommand.ExecuteAsync();
         }
     }
