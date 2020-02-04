@@ -259,5 +259,16 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         }
 
         #endregion Video
+
+
+        #region Notification
+
+        public async Task<NotificationMetadataBundleDataModel> GetNotificationsAsync()
+        {
+            var notificationMetadataBundle = await _client.Get<NotificationMetadataBundleApiModel>("notifications");
+            return MappingConfig.Mapper.Map<NotificationMetadataBundleDataModel>(notificationMetadataBundle);
+        }
+
+        #endregion
     }
 }
