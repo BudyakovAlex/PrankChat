@@ -98,6 +98,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .For(v => v.BindHidden())
                 .To(vm => vm.ProfilePhotoUrl);
 
+            set.Bind(descriptionTextField)
+                .For(v => v.Text)
+                .To(vm => vm.Description);
+
             set.Apply();
         }
 
@@ -152,7 +156,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             changeProfilePhotoLabel.AttributedText = new NSAttributedString(Resources.ProfileUpdateView_PhotoChange_Title, underlineStyle: NSUnderlineStyle.Single);
             changeProfilePhotoLabel.TextColor = UIColor.White;
 
-            descriptionTextField.SetLightStyle(Resources.ProfileUpdateView_Description_Placeholder);
+            descriptionTextField.SetStyle(Resources.ProfileUpdateView_Description_Placeholder);
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)

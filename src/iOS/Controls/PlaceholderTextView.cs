@@ -40,6 +40,16 @@ namespace PrankChat.Mobile.iOS.Controls
             }
         }
 
+        public override UIFont Font
+        {
+            get => base.Font;
+            set
+            {
+                base.Font = value;
+                _placeholderLabel.Font = value;
+            }
+        }
+
         public override UIEdgeInsets TextContainerInset
         {
             get => base.TextContainerInset;
@@ -49,6 +59,8 @@ namespace PrankChat.Mobile.iOS.Controls
                 UpdateConstraintsForPlaceholder();
             }
         }
+
+        public override string Text { get => base.Text; set { base.Text = value; UpdatePlaceholder(); } }
 
         #region Constructors
 
@@ -79,14 +91,13 @@ namespace PrankChat.Mobile.iOS.Controls
 
         #endregion
 
-        void Initialize()
+        private void Initialize()
         {
             _placeholderLabel = new UILabel()
             {
                 Lines = 0,
                 BackgroundColor = UIColor.Clear,
-                TranslatesAutoresizingMaskIntoConstraints = false,
-                Font = this.Font
+                TranslatesAutoresizingMaskIntoConstraints = false
             };
 
             ShouldBeginEditing = t =>
@@ -101,13 +112,15 @@ namespace PrankChat.Mobile.iOS.Controls
                 return true;
             };
 
+            this.Changed += TextChanged;
+
             this.AddSubview(_placeholderLabel);
             UpdateConstraintsForPlaceholder();
         }
 
         private void UpdatePlaceholder()
         {
-            _placeholderLabel.Hidden = string.IsNullOrWhiteSpace(this.Text);
+            _placeholderLabel.Hidden = !string.IsNullOrWhiteSpace(this.Text);
         }
 
         public override void LayoutSubviews()
@@ -118,15 +131,38 @@ namespace PrankChat.Mobile.iOS.Controls
 
         private void UpdateConstraintsForPlaceholder()
         {
+            if (_placeholderLabel == null)
+                return;
             var newConstraints = new[]
             {
-                NSLayoutConstraint.Create(_placeholderLabel, NSLayoutAttribute.Height, NSLayoutRelation.GreaterThanOrEqual, this, NSLayoutAttribute.Height, 1.0f, TextContainerInset.Top + TextContainerInset.Bottom),
-                NSLayoutConstraint.Create(_placeholderLabel, NSLayoutAttribute.Width, NSLayoutRelation.Equal, this, NSLayoutAttribute.Width, 1.0f, -(TextContainerInset.Left + TextContainerInset.Right + TextContainer.LineFragmentPadding * 2.0f))
+                
+                NSLayoutConstraint.Create(_placeholderLabel, NSLayoutAttribute.Top, NSLayoutRelation.Equal, this, NSLayoutAttribute.Top, 1.0f, 17.0f),
+                NSLayoutConstraint.Create(_placeholderLabel, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, this, NSLayoutAttribute.Leading, 1.0f, 24.0f)
             };
             NSLayoutConstraint.ActivateConstraints(newConstraints);
-            RemoveConstraints(_placeholderConstraints);
+            if (_placeholderConstraints != null)
+                RemoveConstraints(_placeholderConstraints);
             _placeholderConstraints = newConstraints;
             AddConstraints(_placeholderConstraints);
+        }
+
+        private void TextChanged(object sender, EventArgs e)
+        {
+            UpdatePlaceholder();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            if (_placeholderLabel != null)
+            {
+                _placeholderLabel.RemoveFromSuperview();
+                _placeholderLabel.Dispose();
+                _placeholderLabel = null;
+            }
+
+            this.Changed -= TextChanged;
         }
     }
 }
