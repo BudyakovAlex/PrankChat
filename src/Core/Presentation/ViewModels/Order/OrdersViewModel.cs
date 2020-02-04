@@ -27,7 +27,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly IMvxMessenger _mvxMessenger;
         private readonly ISettingsService _settingsService;
         private readonly IMvxLog _mvxLog;
-        private readonly Dictionary<string, OrderFilterType> _orderFilterTypeTitleMap;
+        private readonly Dictionary<OrderFilterType, string> _orderFilterTypeTitleMap;
 
         private MvxSubscriptionToken _newOrderMessageToken;
 
@@ -37,10 +37,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public string ActiveFilterName
         {
             get => _activeFilterName;
+            set => SetProperty(ref _activeFilterName, value);
+        }
+
+        private OrderFilterType _activeFilter;
+        public OrderFilterType ActiveFilter
+        {
+            get => _activeFilter;
             set
             {
-                SetProperty(ref _activeFilterName, value);
-                LoadOrdersCommand.ExecuteAsync().FireAndForget();
+                _activeFilter = value;
+                if (_orderFilterTypeTitleMap.TryGetValue(_activeFilter, out var activeFilterName))
+                {
+                    ActiveFilterName = activeFilterName;
+                }
             }
         }
 
@@ -61,24 +71,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             _mvxLog = mvxLog;
             _settingsService = settingsService;
 
-            _orderFilterTypeTitleMap = new Dictionary<string, OrderFilterType>
+            _orderFilterTypeTitleMap = new Dictionary<OrderFilterType, string>
             {
-                { Resources.OrdersView_Filter_AllTasks, OrderFilterType.All },
-                { Resources.OrdersView_Filter_NewTasks, OrderFilterType.New },
-                { Resources.OrdersView_Filter_CurrentTasks, OrderFilterType.InProgress },
-                { Resources.OrdersView_Filter_MyTasks, OrderFilterType.MyOwn }
+                { OrderFilterType.All, Resources.OrdersView_Filter_AllTasks },
+                { OrderFilterType.New, Resources.OrdersView_Filter_NewTasks },
+                { OrderFilterType.InProgress, Resources.OrdersView_Filter_CurrentTasks },
+                { OrderFilterType.MyOwn, Resources.OrdersView_Filter_MyTasks }
             };
         }
 
         public override Task Initialize()
         {
+            ActiveFilter = OrderFilterType.All;
             return LoadOrdersCommand.ExecuteAsync();
-        }
-
-        public override void Prepare()
-        {
-            ActiveFilterName = Resources.OrdersView_Filter_AllTasks;
-            base.Prepare();
         }
 
         public override void ViewCreated()
@@ -95,18 +100,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
-            var selectedFilter = await DialogService.ShowMenuDialogAsync(new[]
-            {
-                Resources.OrdersView_Filter_AllTasks,
-                Resources.OrdersView_Filter_NewTasks,
-                Resources.OrdersView_Filter_CurrentTasks,
-                Resources.OrdersView_Filter_MyTasks
-            });
+            var parametres = _orderFilterTypeTitleMap.Values.ToArray();
+            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parametres, Resources.Cancel);
 
-            if (string.IsNullOrWhiteSpace(selectedFilter) || selectedFilter == Resources.Cancel)
+            if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
                 return;
 
-            ActiveFilterName = selectedFilter;
+            ActiveFilter = _orderFilterTypeTitleMap.FirstOrDefault(x => x.Value == selectedFilterName).Key;
+            await LoadOrdersCommand.ExecuteAsync();
         }
 
         private async Task OnLoadOrdersAsync()
@@ -115,9 +116,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = true;
 
-                _orderFilterTypeTitleMap.TryGetValue(ActiveFilterName, out var orderFilterType);
-
-                var orders = await ApiService.GetOrdersAsync(orderFilterType);
+                var orders = await ApiService.GetOrdersAsync(ActiveFilter);
                 Items.Clear();
 
                 var orderItemViewModel = orders.Select(x =>

@@ -724,7 +724,7 @@
     <AndroidResource Include="Resources\drawable\ic_banner_visa.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_image_background.xml"/>
+    <AndroidResource Include="Resources\drawable\ic_image_background.xml" />
   </ItemGroup>
  
   <ItemGroup>
