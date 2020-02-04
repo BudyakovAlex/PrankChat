@@ -98,9 +98,27 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
-        public async Task<List<RatingOrderDataModel>> GetRatingOrdersAsync()
+        public async Task<List<RatingOrderDataModel>> GetRatingOrdersAsync(RatingOrderFilterType filter)
         {
-            var data = await _client.Get<DataApiModel<List<RatingOrderApiModel>>>("orders", includes: IncludeType.ArbitrationValues);
+            string endpoint = "orders";
+            switch (filter)
+            {
+                case RatingOrderFilterType.All:
+                    // nothing to do
+                    break;
+
+                case RatingOrderFilterType.New:
+                    endpoint = $"{endpoint}?date_from={DateFilterType.Day.GetDateString()}";
+                    break;
+
+                case RatingOrderFilterType.My:
+                    if (_settingsService.User == null)
+                        return new List<RatingOrderDataModel>();
+
+                    endpoint = $"{endpoint}?user_id={_settingsService.User.Id}";
+                    break;
+            }
+            var data = await _client.Get<DataApiModel<List<RatingOrderApiModel>>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
             return MappingConfig.Mapper.Map<List<RatingOrderDataModel>>(data?.Data);
         }
 

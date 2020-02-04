@@ -11,7 +11,6 @@ namespace PrankChat.Mobile.Core.Models.Mappings
         {
             CreateMap<UserRegistrationDataModel, UserRegistrationApiModel>().ReverseMap();
             CreateMap<VideoMetadataBundleDataModel, VideoMetadataBundleApiModel>().ReverseMap();
-            // TODO: Replace data invoke to DataApiModel inheritance.
             CreateMap<VideoMetadataDataModel, VideoMetadataApiModel> ()
                 .ForPath(dest => dest.User.Data, opt => opt.MapFrom(src => src.User))
                 .ReverseMap();
@@ -24,7 +23,10 @@ namespace PrankChat.Mobile.Core.Models.Mappings
                 .ForPath(dest => dest.Video.Data, opt => opt.MapFrom(src => src.Video))
                 .ReverseMap();
             CreateMap<GenderType, string>().ConvertUsing(src => src.ToString().ToLower());
-            CreateMap<UserUpdateProfileDataModel, UserUpdateProfileApiModel>();
+            CreateMap<UserUpdateProfileDataModel, UserUpdateProfileApiModel>().ReverseMap();
+            CreateMap<RatingOrderDataModel, RatingOrderApiModel>()
+                .ForPath(dest => dest.Customer.Data, opt => opt.MapFrom(src => src.Customer))
+                .ReverseMap();
         }
     }
 }
