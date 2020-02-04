@@ -104,7 +104,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             switch (filter)
             {
                 case RatingOrderFilterType.All:
-                    // nothing to do
+                    // Nothing to do. We should use the 'orders' endpoint to get all rating orders.
                     break;
 
                 case RatingOrderFilterType.New:
