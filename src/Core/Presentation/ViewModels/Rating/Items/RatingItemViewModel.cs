@@ -25,9 +25,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 
         public string PriceText { get; }
 
-        public string Likes { get; }
+        public int Likes { get; }
 
-        public string Dislikes { get; }
+        public int Dislikes { get; }
 
         public MvxAsyncCommand OpenDetailsOrderCommand => new MvxAsyncCommand(OnOpenDetailsOrderAsync);
 
@@ -36,17 +36,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
                                   string orderTitle,
                                   string profilePhotoUrl,
                                   double? priceText,
+                                  int likes,
+                                  int dislikes,
                                   DateTime time)
         {
             _navigatiobService = navigatiobService;
+
             OrderTitle = orderTitle;
             ProfilePhotoUrl = profilePhotoUrl;
             PriceText = priceText.ToPriceString();
+            Likes = likes;
+            Dislikes = dislikes;
+
             _orderTime = time;
             _orderId = orderId;
-
-            Likes = "1000";
-            Dislikes = "100";
         }
 
         private Task OnOpenDetailsOrderAsync()

@@ -1,6 +1,8 @@
 ﻿using System;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
@@ -31,8 +33,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxAsyncCommand OpenCommentsCommand => new MvxAsyncCommand(() => NavigationService.ShowCommentsView());
 
-        public PublicationDetailsViewModel(INavigationService navigationService, IDialogService dialogService)
-            : base(navigationService, dialogService)
+        public PublicationDetailsViewModel(INavigationService navigationService,
+                                            IErrorHandleService errorHandleService,
+                                            IApiService apiService,
+                                            IDialogService dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
         }
     }

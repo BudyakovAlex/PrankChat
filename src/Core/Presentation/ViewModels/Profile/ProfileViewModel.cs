@@ -23,13 +23,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
     public class ProfileViewModel : BaseViewModel, IVideoListViewModel
     {
-        private readonly IDialogService _dialogService;
         private readonly IPlatformService _platformService;
-        private readonly IApiService _apiService;
         private readonly IMvxMessenger _messenger;
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly ISettingsService _settingsService;
-        private readonly IErrorHandleService _errorHandleService;
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
@@ -116,15 +113,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                                 IVideoPlayerService videoPlayerService,
                                 IErrorHandleService errorHandleService,
                                 ISettingsService settingsService,
-                                IMvxMessenger messenger) : base(navigationService)
+                                IMvxMessenger messenger)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
-            _dialogService = dialogService;
             _platformService = platformService;
             _settingsService = settingsService;
-            _apiService = apiService;
             _messenger = messenger;
             _videoPlayerService = videoPlayerService;
-            _errorHandleService = errorHandleService;
         }
 
         public override Task Initialize()
@@ -153,7 +148,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 IsBusy = true;
 
                 var oldAvatar = _settingsService.User?.Avatar;
-                await _apiService.GetCurrentUserAsync();
+                await ApiService.GetCurrentUserAsync();
 
                 var user = _settingsService.User;
                 if (user == null)
@@ -187,7 +182,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             {
                 IsBusy = true;
 
-                var videoBundle = await _apiService.GetMyVideoFeedAsync(_settingsService.User.Id, PublicationType.MyFeedComplete);
+                var videoBundle = await ApiService.GetMyVideoFeedAsync(_settingsService.User.Id, PublicationType.MyFeedComplete);
                 SetVideoList(videoBundle);
             }
             finally
@@ -204,11 +199,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             var publicationViewModels = videoBundle.Data.Select(publication =>
                 new PublicationItemViewModel(
                     NavigationService,
-                    _dialogService,
+                    DialogService,
                     _platformService,
                     _videoPlayerService,
-                    _apiService,
-                    _errorHandleService,
+                    ApiService,
+                    ErrorHandleService,
                     publication.User?.Name,
                     publication.User?.Avatar,
                     publication.Id,
@@ -227,7 +222,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         {
             if (_settingsService.User == null)
             {
-                _errorHandleService.HandleException(new UserVisibleException("Пользователь не может быть пустым."));
+                ErrorHandleService.HandleException(new UserVisibleException("Пользователь не может быть пустым."));
                 return false;
             }
 
@@ -246,7 +241,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 Resources.ProfileView_Menu_LogOut,
             };
 
-            var result = await _dialogService.ShowMenuDialogAsync(items, Resources.Cancel);
+            var result = await DialogService.ShowMenuDialogAsync(items, Resources.Cancel);
             if (string.IsNullOrWhiteSpace(result))
                 return;
 

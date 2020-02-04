@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
@@ -9,7 +12,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
     {
         public MvxAsyncCommand FinishRecoveringPasswordCommand => new MvxAsyncCommand(OnFinishRecoverPassword);
 
-        public FinishPasswordRecoveryViewModel(INavigationService navigationService) : base(navigationService)
+        public FinishPasswordRecoveryViewModel(INavigationService navigationService,
+                                                IErrorHandleService errorHandleService,
+                                                IApiService apiService,
+                                                IDialogService dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
         }
 

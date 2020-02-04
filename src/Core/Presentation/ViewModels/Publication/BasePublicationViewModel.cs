@@ -83,17 +83,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #endregion
 
-        public BasePublicationViewModel(INavigationService navigationService, IDialogService dialogService)
-            : base(navigationService)
+        public BasePublicationViewModel(INavigationService navigationService,
+                                        IErrorHandleService errorHandleService,
+                                        IApiService apiService,
+                                        IDialogService dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
-            _dialogService = dialogService;
         }
 
         public BasePublicationViewModel(INavigationService navigationService,
                                         IDialogService dialogService,
                                         IPlatformService platformService,
                                         IVideoPlayerService videoPlayerService,
-                                        IApiService apiServices,
+                                        IApiService apiService,
                                         IErrorHandleService errorHandleService,
                                         string profileName,
                                         string profilePhotoUrl,
@@ -105,12 +107,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                         long numberOfLikes,
                                         string shareLink,
                                         bool isLiked)
-            : base (navigationService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
-            _dialogService = dialogService;
             _platformService = platformService;
-            _apiService = apiServices;
-            _errorHandleService = errorHandleService;
 
             VideoPlayerService = videoPlayerService;
             ProfileName = profileName;
@@ -144,7 +143,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             catch
             {
                 IsLiked = !IsLiked;
-                _errorHandleService.HandleException(new UserVisibleException("Произошла ошибка."));
+                _errorHandleService.HandleException(new UserVisibleException("Невозможно поставить лайк."));
             }
             finally
             {

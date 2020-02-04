@@ -2,6 +2,7 @@
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
+using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Rating;
@@ -16,6 +17,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 	[MvxTabPresentation(TabName = "Raiting", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
 	public partial class RatingView : BaseTabbedView<RatingViewModel>
 	{
+        private MvxUIRefreshControl _refreshControl;
+
         public RatingTableSource RatingTableSource { get; private set; }
 
         protected override void SetupBinding()
@@ -32,6 +35,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
             set.Bind(filterTitleLabel)
                 .To(vm => vm.ActiveFilterName);
 
+            set.Bind(_refreshControl)
+                .For(v => v.IsRefreshing)
+                .To(vm => vm.IsBusy);
+
+            set.Bind(_refreshControl)
+                .For(v => v.RefreshCommand)
+                .To(vm => vm.LoadRatingOrdersCommand);
+
             set.Apply();
         }
 
@@ -46,6 +57,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 
             filterArrowImageView.Image = UIImage.FromBundle("ic_filter_arrow");
             filterTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
+
+            _refreshControl = new MvxUIRefreshControl();
+            tableView.RefreshControl = _refreshControl;
         }
 
         private void InitializeTableView()

@@ -8,8 +8,10 @@ using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -22,8 +24,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
     public class OrdersViewModel : BaseViewModel
     {
-        private readonly IDialogService _dialogService;
-        private readonly IApiService _apiService;
         private readonly IMvxMessenger _mvxMessenger;
         private readonly ISettingsService _settingsService;
         private readonly IMvxLog _mvxLog;
@@ -53,11 +53,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                IApiService apiService,
                                IMvxMessenger mvxMessenger,
                                IMvxLog mvxLog,
-                               ISettingsService settingsService)
-            : base(navigationService)
+                               ISettingsService settingsService,
+                               IErrorHandleService errorHandleService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
-            _dialogService = dialogService;
-            _apiService = apiService;
             _mvxMessenger = mvxMessenger;
             _mvxLog = mvxLog;
             _settingsService = settingsService;
@@ -96,7 +95,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
-            var selectedFilter = await _dialogService.ShowMenuDialogAsync(new[]
+            var selectedFilter = await DialogService.ShowMenuDialogAsync(new[]
             {
                 Resources.OrdersView_Filter_AllTasks,
                 Resources.OrdersView_Filter_NewTasks,
@@ -118,9 +117,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 _orderFilterTypeTitleMap.TryGetValue(ActiveFilterName, out var orderFilterType);
 
-                var orders = await _apiService.GetOrdersAsync(orderFilterType);
-                if (Items.Count != 0)
-                    Items.Clear();
+                var orders = await ApiService.GetOrdersAsync(orderFilterType);
+                Items.Clear();
 
                 var orderItemViewModel = orders.Select(x =>
                     new OrderItemViewModel(
@@ -141,7 +139,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             catch (Exception ex)
             {
                 _mvxLog.DebugException($"{nameof(OrdersViewModel)}", ex);
-                _dialogService.ShowToast("Can not load order details!");
+                ErrorHandleService.HandleException(new UserVisibleException("Ошибка в загрузке заказов."));
             }
             finally
             {
