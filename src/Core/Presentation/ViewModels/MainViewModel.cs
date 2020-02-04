@@ -1,6 +1,9 @@
 ﻿using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -31,7 +34,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MainViewModel(INavigationService navigationService,
                              IMvxMessenger messenger,
-                             ISettingsService settingsService) : base(navigationService)
+                             ISettingsService settingsService,
+                             IErrorHandleService errorHandleService,
+                             IApiService apiService,
+                             IDialogService dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
             _messenger = messenger;
             _settingsService = settingsService;

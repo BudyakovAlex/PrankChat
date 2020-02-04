@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -12,9 +13,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class RegistrationViewModel : BaseViewModel
     {
-        private readonly IDialogService _dialogService;
-        private readonly IErrorHandleService _errorHandleService;
-
         private string _email;
         public string Email
         {
@@ -26,10 +24,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         public RegistrationViewModel(INavigationService navigationService,
                                      IDialogService dialogService,
-                                     IErrorHandleService errorHandleService) : base(navigationService)
+                                     IApiService apiService,
+                                     IErrorHandleService errorHandleService) : base(navigationService, errorHandleService, apiService, dialogService)
         {
-            _dialogService = dialogService;
-            _errorHandleService = errorHandleService;
         }
 
         private Task OnShowSecondStepAsync()
@@ -44,13 +41,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             if (string.IsNullOrWhiteSpace(Email))
             {
-                _errorHandleService.HandleException(new UserVisibleException("Имя не может быть пустым."));
+                ErrorHandleService.HandleException(new UserVisibleException("Имя не может быть пустым."));
                 return false;
             }
 
             if (!Email.IsValidEmail())
             {
-                _errorHandleService.HandleException(new UserVisibleException("Поле Email введено не правильно."));
+                ErrorHandleService.HandleException(new UserVisibleException("Поле Email введено не правильно."));
                 return false;
             }
 

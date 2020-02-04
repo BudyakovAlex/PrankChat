@@ -21,11 +21,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
     public class ProfileUpdateViewModel : BaseViewModel
     {
         private readonly ISettingsService _settingsService;
-        private readonly IDialogService _dialogService;
-        private readonly IApiService _apiService;
         private readonly IMvxMessenger _messenger;
         private readonly IMediaService _mediaService;
-        private readonly IErrorHandleService _errorHandleService;
 
         private string _email;
         public string Email
@@ -108,14 +105,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                                       IApiService apiService,
                                       IMvxMessenger messenger,
                                       IMediaService mediaService,
-                                      IErrorHandleService errorHandleService) : base(navigationService)
+                                      IErrorHandleService errorHandleService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
             _settingsService = settingsService;
-            _dialogService = dialogService;
-            _apiService = apiService;
             _messenger = messenger;
             _mediaService = mediaService;
-            _errorHandleService = errorHandleService;
         }
 
         public override Task Initialize()
@@ -143,7 +138,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task OnSelectBirthdayAsync()
         {
-            var result = await _dialogService.ShowDateDialogAsync();
+            var result = await DialogService.ShowDateDialogAsync();
             if (result.HasValue)
             {
                 Birthday = result.Value;
@@ -174,7 +169,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                     Description = Description
                 };
 
-                _settingsService.User = await _apiService.UpdateProfileAsync(dataModel);
+                _settingsService.User = await ApiService.UpdateProfileAsync(dataModel);
             }
             finally
             {
@@ -184,12 +179,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task OnChangePasswordAsync()
         {
-            await _dialogService.ShowAlertAsync("Change password");
+            await DialogService.ShowAlertAsync("Change password");
         }
 
         private async Task OnChangeProfilePhotoAsync()
         {
-            var result = await _dialogService.ShowMenuDialogAsync(new string[]
+            var result = await DialogService.ShowMenuDialogAsync(new string[]
             {
                 Resources.TakePhoto,
                 Resources.PickPhoto,
@@ -207,10 +202,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
             if (file != null)
             {
-                var user = await _apiService.SendAvatarAsync(file.Path);
+                var user = await ApiService.SendAvatarAsync(file.Path);
                 if (user == null)
                 {
-                    _errorHandleService.HandleException(new UserVisibleException("Ошибка при загрузке фотографии."));
+                    ErrorHandleService.HandleException(new UserVisibleException("Ошибка при загрузке фотографии."));
                     return;
                 }
 
@@ -224,37 +219,37 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             if (string.IsNullOrWhiteSpace(Login))
             {
-                _errorHandleService.HandleException(new UserVisibleException("Логин не может быть пустым."));
+                ErrorHandleService.HandleException(new UserVisibleException("Логин не может быть пустым."));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Name))
             {
-                _errorHandleService.HandleException(new UserVisibleException("Имя не может быть пустым."));
+                ErrorHandleService.HandleException(new UserVisibleException("Имя не может быть пустым."));
                 return false;
             }
 
             if (Birthday == null)
             {
-                _errorHandleService.HandleException(new UserVisibleException("День рождения не может быть пустым."));
+                ErrorHandleService.HandleException(new UserVisibleException("День рождения не может быть пустым."));
                 return false;
             }
 
             if (Birthday > DateTime.Now)
             {
-                _errorHandleService.HandleException(new UserVisibleException("Дата дня рождения не может быть польше текущей даты."));
+                ErrorHandleService.HandleException(new UserVisibleException("Дата дня рождения не может быть польше текущей даты."));
                 return false;
             }
 
             if ((DateTime.Now.Year - Birthday?.Year) <= 18)
             {
-                _errorHandleService.HandleException(new UserVisibleException("Пользователь не может быть младше 18 лет."));
+                ErrorHandleService.HandleException(new UserVisibleException("Пользователь не может быть младше 18 лет."));
                 return false;
             }
 
             if (Gender == null)
             {
-                _errorHandleService.HandleException(new UserVisibleException("Выберите свой пол."));
+                ErrorHandleService.HandleException(new UserVisibleException("Выберите свой пол."));
                 return false;
             }
 

@@ -6,7 +6,9 @@ using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -16,9 +18,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
 {
     public class RatingViewModel : BaseViewModel
     {
-        private readonly IApiService _apiService;
         private readonly IMvxLog _mvxLog;
-        private readonly IDialogService _dialogService;
 
         public MvxObservableCollection<RatingItemViewModel> Items { get; } = new MvxObservableCollection<RatingItemViewModel>();
 
@@ -60,10 +60,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
         public RatingViewModel(INavigationService navigationService,
                                IDialogService dialogService,
                                IApiService apiService,
-                               IMvxLog mvxLog) : base(navigationService)
+                               IMvxLog mvxLog,
+                               IErrorHandleService errorHandleService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
-            _dialogService = dialogService;
-            _apiService = apiService;
             _mvxLog = mvxLog;
         }
 
@@ -81,7 +81,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
 
                 Items.Clear();
 
-                var ratingOrders = await _apiService.GetRatingOrdersAsync(ActiveFilter);
+                var ratingOrders = await ApiService.GetRatingOrdersAsync(ActiveFilter);
                 var items = ratingOrders?.Select(o => new RatingItemViewModel(
                                                             NavigationService,
                                                             o.Id,
@@ -96,7 +96,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
             catch (Exception ex)
             {
                 _mvxLog.DebugException($"{nameof(RatingViewModel)}", ex);
-                _dialogService.ShowToast("Can not load rating!");
+                ErrorHandleService.HandleException(new UserVisibleException("Проблема с загрузкой оценок."));
             }
             finally
             {
@@ -106,7 +106,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
 
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
-            var selectedFilter = await _dialogService.ShowMenuDialogAsync(new[]
+            var selectedFilter = await DialogService.ShowMenuDialogAsync(new[]
             {
                 Resources.RateView_Filter_AllTasks,
                 Resources.RateView_Filter_MyTasks,

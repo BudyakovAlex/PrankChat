@@ -4,9 +4,11 @@ using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -18,9 +20,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
     public class OrderDetailsViewModel : BaseViewModel, IMvxViewModel<OrderDetailsNavigationParameter>
     {
-        private readonly IApiService _apiService;
         private readonly IMvxLog _mvxLog;
-        private readonly IDialogService _dialogService;
         private readonly ISettingsService _settingsService;
         private readonly IMediaService _mediaService;
 
@@ -114,14 +114,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         #endregion Commands
 
         public OrderDetailsViewModel(INavigationService navigationService,
-                                    IApiService apiService,
-                                    IDialogService dialogService,
                                     IMvxLog mvxLog,
                                     ISettingsService settingsService,
-                                    IMediaService mediaService) : base(navigationService)
+                                    IMediaService mediaService,
+                                    IErrorHandleService errorHandleService,
+                                    IApiService apiService,
+                                    IDialogService dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
-            _dialogService = dialogService;
-            _apiService = apiService;
             _mvxLog = mvxLog;
             _settingsService = settingsService;
             _mediaService = mediaService;
@@ -143,13 +143,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = true;
 
-                _order = await _apiService.GetOrderDetailsAsync(_orderId);
+                _order = await ApiService.GetOrderDetailsAsync(_orderId);
                 await RaiseAllPropertiesChanged();
             }
             catch (Exception ex)
             {
                 _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                _dialogService.ShowToast("Can not load order details!");
+                ErrorHandleService.HandleException(new UserVisibleException("Проблема с загрузкой детальной страницы заказ."));
             }
             finally
             {
@@ -159,20 +159,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnTakeOrderAsync()
         {
-            var result = await _dialogService.ShowConfirmAsync(Resources.OrderDetailsView_TakeOrderQuestion,
+            var result = await DialogService.ShowConfirmAsync(Resources.OrderDetailsView_TakeOrderQuestion,
                                                                Resources.Attention,
                                                                Resources.OrderDetailsView_TakeOrderTitle,
                                                                Resources.Cancel);
             if (!result)
                 return;
 
-            var order = await _apiService.TakeOrderAsync(_orderId);
+            var order = await ApiService.TakeOrderAsync(_orderId);
             if (order != null)
             {
                 _order.Status = OrderStatusType.InWork;
                 _order.Executor = _settingsService.User;
                 await RaiseAllPropertiesChanged();
-                _dialogService.ShowToast("You have successfully taken the order!");
             }
         }
 
@@ -182,13 +181,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = true;
 
-                var order = await _apiService.SubscribeOrderAsync(_orderId);
+                var order = await ApiService.SubscribeOrderAsync(_orderId);
                 await RaiseAllPropertiesChanged();
             }
             catch (Exception ex)
             {
                 _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                _dialogService.ShowToast("Can not subscribe order!");
+                ErrorHandleService.HandleException(new UserVisibleException("Неудачная попытка подписаться на заказ."));
             }
             finally
             {
@@ -202,13 +201,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = true;
 
-                var order = await _apiService.UnsubscribeOrderAsync(_orderId);
+                var order = await ApiService.UnsubscribeOrderAsync(_orderId);
                 await RaiseAllPropertiesChanged();
             }
             catch (Exception ex)
             {
                 _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                _dialogService.ShowToast("Can not unsubscribe order!");
+                ErrorHandleService.HandleException(new UserVisibleException("Неудачная попытка отписаться от заказ."));
             }
             finally
             {
@@ -226,7 +225,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 if (file == null)
                     return;
 
-                var video = await _apiService.SendVideoAsync(_orderId, file.Path, _order?.Title, _order?.Description);
+                var video = await ApiService.SendVideoAsync(_orderId, file.Path, _order?.Title, _order?.Description);
                 if (video != null)
                 {
                     _order.Video = video;
@@ -246,7 +245,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = true;
 
-                var order = await _apiService.ArgueOrderAsync(_orderId);
+                var order = await ApiService.ArgueOrderAsync(_orderId);
                 if (order != null)
                 {
                     await RaiseAllPropertiesChanged();
@@ -255,7 +254,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             catch (Exception ex)
             {
                 _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                _dialogService.ShowToast("Can not argue order!");
+                ErrorHandleService.HandleException(new UserVisibleException("Неудачная отправка заказа на спор."));
             }
             finally
             {
@@ -269,13 +268,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = true;
 
-                _order = await _apiService.AcceptOrderAsync(_orderId);
+                _order = await ApiService.AcceptOrderAsync(_orderId);
                 await RaiseAllPropertiesChanged();
             }
             catch (Exception ex)
             {
                 _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                _dialogService.ShowToast("Can not accept order!");
+                ErrorHandleService.HandleException(new UserVisibleException("Ошибка в подтверждении заказа."));
             }
             finally
             {
@@ -285,7 +284,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnCancelOrderAsync()
         {
-            var result = await _dialogService.ShowConfirmAsync(Resources.OrderDetails_View_Cancel_Title,
+            var result = await DialogService.ShowConfirmAsync(Resources.OrderDetails_View_Cancel_Title,
                                                    Resources.Attention,
                                                    Resources.Ok,
                                                    Resources.Cancel);
@@ -293,7 +292,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             if (!result)
                 return;
 
-            await _apiService.CancelOrderAsync(_orderId);
+            await ApiService.CancelOrderAsync(_orderId);
         }
 
         private Task OnExecuteOrderAsync()

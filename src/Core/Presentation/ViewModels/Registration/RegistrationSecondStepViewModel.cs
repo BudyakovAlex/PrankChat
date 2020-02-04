@@ -17,10 +17,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class RegistrationSecondStepViewModel : BaseViewModel, IMvxViewModel<RegistrationNavigationParameter>
     {
-        private readonly IDialogService _dialogService;
-        private readonly IApiService _apiService;
         private readonly IMvxLog _mvxLog;
-        private readonly IErrorHandleService _errorHandleService;
 
         private string _email;
 
@@ -79,12 +76,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                                                IApiService apiService,
                                                IMvxLog mvxLog,
                                                IErrorHandleService errorHandleService)
-            : base(navigationService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
-            _dialogService = dialogService;
-            _apiService = apiService;
             _mvxLog = mvxLog;
-            _errorHandleService = errorHandleService;
         }
 
         public void Prepare(RegistrationNavigationParameter parameter)
@@ -99,7 +93,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         private async Task OnSelectBirthdayAsync()
         {
-            var result = await _dialogService.ShowDateDialogAsync();
+            var result = await DialogService.ShowDateDialogAsync();
             if (result.HasValue)
             {
                 Birthday = result.Value;
@@ -126,14 +120,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                     Password = Password,
                     PasswordConfirmation = RepeatedPassword,
                 };
-                await _apiService.RegisterAsync(userInfo);
+                await ApiService.RegisterAsync(userInfo);
                 // todo: not wait
-                await _apiService.GetCurrentUserAsync();
+                await ApiService.GetCurrentUserAsync();
                 await NavigationService.ShowRegistrationThirdStepView();
             }
             catch (Exception ex)
             {
-                _dialogService.ShowToast($"Exception with registration {ex.Message}");
+                ErrorHandleService.HandleException(new UserVisibleException("Проблема с регистрацией пользователя."));
                 _mvxLog.ErrorException($"[{nameof(RegistrationSecondStepViewModel)}]", ex);
             }
             finally
@@ -146,49 +140,49 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             if (string.IsNullOrWhiteSpace(Nickname))
             {
-                _errorHandleService.HandleException(new UserVisibleException("Логин не может быть пустым."));
+                ErrorHandleService.HandleException(new UserVisibleException("Логин не может быть пустым."));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Name))
             {
-                _errorHandleService.HandleException(new UserVisibleException("Имя не может быть пустым."));
+                ErrorHandleService.HandleException(new UserVisibleException("Имя не может быть пустым."));
                 return false;
             }
 
             if (Birthday == null)
             {
-                _errorHandleService.HandleException(new UserVisibleException("День рождения не может быть пустым."));
+                ErrorHandleService.HandleException(new UserVisibleException("День рождения не может быть пустым."));
                 return false;
             }
 
             if ((DateTime.Now.Year - Birthday?.Year) <= 18)
             {
-                _errorHandleService.HandleException(new UserVisibleException("Пользователь не может быть младше 18 лет."));
+                ErrorHandleService.HandleException(new UserVisibleException("Пользователь не может быть младше 18 лет."));
                 return false;
             }
 
             if (string.IsNullOrEmpty(Password))
             {
-                _errorHandleService.HandleException(new UserVisibleException("Пароль не может быть пустым."));
+                ErrorHandleService.HandleException(new UserVisibleException("Пароль не может быть пустым."));
                 return false;
             }
 
             if (string.IsNullOrEmpty(RepeatedPassword))
             {
-                _errorHandleService.HandleException(new UserVisibleException("Проверочный пароль не может быть пустым."));
+                ErrorHandleService.HandleException(new UserVisibleException("Проверочный пароль не может быть пустым."));
                 return false;
             }
 
             if (Password != RepeatedPassword)
             {
-                _errorHandleService.HandleException(new UserVisibleException("Проверочный пароль и пароль не совпадают."));
+                ErrorHandleService.HandleException(new UserVisibleException("Проверочный пароль и пароль не совпадают."));
                 return false;
             }
 
             if (Gender == null)
             {
-                _errorHandleService.HandleException(new UserVisibleException("Выберите свой пол."));
+                ErrorHandleService.HandleException(new UserVisibleException("Выберите свой пол."));
                 return false;
             }
 

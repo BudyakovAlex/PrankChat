@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
@@ -22,7 +25,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 
         public MvxCommand<string> SelectItemCommand => new MvxCommand<string>(OnSelectItem);
 
-        public ArrayDialogViewModel(INavigationService navigationService) : base(navigationService)
+        public ArrayDialogViewModel(INavigationService navigationService,
+                                    IErrorHandleService errorHandleService,
+                                    IApiService apiService,
+                                    IDialogService dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
         }
 

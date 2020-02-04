@@ -17,6 +17,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _mvxMessenger;
+
         private DateTime? _activeTo;
         private OrderStatusType _status;
         private int _orderId;
