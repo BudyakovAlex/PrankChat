@@ -72,7 +72,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Notification
 
-        Task<NotificationMetadataBundleDataModel> GetNotificationsAsync()
+        Task<NotificationMetadataBundleDataModel> GetNotificationsAsync();
 
         #endregion
 

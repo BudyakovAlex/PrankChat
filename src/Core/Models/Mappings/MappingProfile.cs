@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -27,6 +28,7 @@ namespace PrankChat.Mobile.Core.Models.Mappings
             CreateMap<RatingOrderDataModel, RatingOrderApiModel>()
                 .ForPath(dest => dest.Customer.Data, opt => opt.MapFrom(src => src.Customer))
                 .ReverseMap();
+            CreateMap<NotificationMetadataBundleDataModel, NotificationMetadataBundleApiModel>().ReverseMap();
             CreateMap<NotificationMetadataDataModel, NotificationMetadataApiModel>().ReverseMap();
             CreateMap<TransactionDataModel, TransactionApiModel>().ReverseMap();
         }

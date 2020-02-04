@@ -38,11 +38,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 
                 var notificationsDataModel = await ApiService.GetNotificationsAsync();
 
-                var notifications = notificationsDataModel.Data.Select(x => 
-                //new NotificationItemViewModel(x.RelatedUser.Name, x.Text, x.RelatedUser.Avatar, x.))
+                var notifications = notificationsDataModel.Data.Select(x =>
+                    new NotificationItemViewModel(x.RelatedUser.Name, x.Text, x.RelatedUser.Avatar, DateTime.Now, "OLOLO"));
 
-                //Items = 
-
+                Items.SwitchTo(notifications);
             }
             finally
             {
