@@ -251,7 +251,7 @@
                 <Button
                     android:id="@+id/no_button"
                     app:layout_widthPercent="47%"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:layout_below="@+id/corresponds_title_text_view"
                     android:layout_marginTop="26dp"
@@ -263,7 +263,7 @@
                     android:id="@+id/yes_button"
                     app:layout_widthPercent="47%"
                     android:layout_height="36dp"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_below="@+id/corresponds_title_text_view"
                     android:layout_marginTop="26dp"
                     android:layout_alignParentRight="true"
