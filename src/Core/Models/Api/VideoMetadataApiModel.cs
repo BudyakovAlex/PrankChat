@@ -36,6 +36,6 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("is_liked")]
         public bool IsLiked { get; set; }
 
-        public Dictionary<string, UserApiModel> User { get; set; }
+        public DataApiModel<UserApiModel> User { get; set; }
     }
 }

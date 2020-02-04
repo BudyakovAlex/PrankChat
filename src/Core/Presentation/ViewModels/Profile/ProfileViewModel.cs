@@ -60,13 +60,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             set => SetProperty(ref _profilePhotoUrl, value);
         }
 
-        private string _description;
-        public string Description
-        {
-            get => _description;
-            set => SetProperty(ref _description, value);
-        }
-
         private string _price;
         public string Price
         {
@@ -173,7 +166,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 CompletedOrdersValue = user.OrdersExecuteFinishedCount.ToCountString();
                 SubscribersValue = user.SubscribersCount.ToCountString();
                 SubscriptionsValue = user.SubscriptionsCount.ToCountString();
-                Description = "Это профиль Адрии. #хэштег #хэштег #хэштег #хэштег #хэштег";
 
                 if (_settingsService.User.Avatar != oldAvatar)
                     _messenger.Publish(new UpdateAvatarMessage(this));

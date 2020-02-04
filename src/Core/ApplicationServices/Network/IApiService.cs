@@ -36,13 +36,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<OrderDataModel> UnsubscribeOrderAsync(int orderId);
 
+        Task<OrderDataModel> ArgueOrderAsync(int orderId);
+
+        Task<OrderDataModel> AcceptOrderAsync(int orderId);
+
         #endregion Orders
 
         #region Publications
 
         Task<VideoMetadataBundleDataModel> GetPopularVideoFeedAsync(DateFilterType dateFilterType);
 
-        Task<VideoMetadataBundleDataModel> SendLikeAsync(int videoId, bool isChecked);
+        Task<VideoMetadataDataModel> SendLikeAsync(int videoId, bool isChecked);
 
         Task<VideoMetadataBundleDataModel> GetActualVideoFeedAsync(DateFilterType dateFilterType);
 

@@ -123,11 +123,11 @@
 "ShareDialog_CopyLink_Label" = "Коп. ссылку";
 "ShareDialog_ShareInstagram_Label" = "В Instagram";
 "ShareDialog_LinkShareTitle" = "Поделиться ссылкой";
-"OrderStatus_New" = "Новый";
+"OrderStatus_New" = "Новое";
 "OrderStatus_Rejected" = "Отменен модератором";
 "OrderStatus_Cancelled" = "Отменен";
 "OrderStatus_Active" = "Ожидает исполнителя";
-"OrderStatus_InWork" = "В работе";
+"OrderStatus_InWork" = "Выполняется";
 "OrderStatus_InArbitration" = "В споре";
 "OrderStatus_ProcessCloseArbitration" = "Закрытие спора";
 "OrderStatus_ClosedAfterArbitrationCustomerWin" = "Закрыт после спора в пользу заказчика";
@@ -171,7 +171,7 @@
 /*Fuzzy*/
 "Count_Of_Viewing" = "просмотра";
 "Year_Short" = "г.";
-"OrderStatus_MyOrder" = "Мой заказ";
+"OrderStatus_MyOrder" = "Мое";
 "OrderDetails_View_Cancel_Title" = "Вы уверены что хотите отменить заказ?";
 "ProfileUpdateView_Email_Placeholder" = "Email";
 "ProfileUpdateView_Login_Placeholder" = "Логин";
@@ -191,3 +191,5 @@
 "ProfileUpdateView_PhotoChange_Title" = "Сменить фото профиля";
 "Select" = "Выбрать";
 "CreateOrderView_Choose_Time_Period" = "Выберите период действия заказа.";
+"OrderStatus_WaitFinish" = "В ожидании";
+"OrderDetailsView_LoadVideo" = "Загрузить видео";
