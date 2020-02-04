@@ -9,15 +9,45 @@ namespace PrankChat.Mobile.iOS.Controls
     [Register("PlaceholderTextView"), DesignTimeVisible(true)]
     public class PlaceholderTextView : UITextView
     {
-        public string Placeholder { get; set; }
+        private UILabel _placeholderLabel;
+        private NSLayoutConstraint[] _placeholderConstraints;
 
-        public UIColor PlaceholderColor { get; set; }
-
-        private UIColor _textColor;
-        public override UIColor TextColor
+        public string Placeholder
         {
-            get => _textColor;
-            set => _textColor = value;
+            get => _placeholderLabel.Text;
+            set => _placeholderLabel.Text = value;
+        }
+
+        public UIColor PlaceholderColor
+        {
+            get => _placeholderLabel.TextColor;
+            set => _placeholderLabel.TextColor = value;
+        }
+
+        public UIFont PlaceholderFont
+        {
+            get => _placeholderLabel.Font;
+            set => _placeholderLabel.Font = value;
+        }
+
+        public override UITextAlignment TextAlignment
+        {
+            get => base.TextAlignment;
+            set
+            {
+                base.TextAlignment = value;
+                _placeholderLabel.TextAlignment = value;
+            }
+        }
+
+        public override UIEdgeInsets TextContainerInset
+        {
+            get => base.TextContainerInset;
+            set
+            {
+                base.TextContainerInset = value;
+                UpdateConstraintsForPlaceholder();
+            }
         }
 
         #region Constructors
@@ -51,47 +81,52 @@ namespace PrankChat.Mobile.iOS.Controls
 
         void Initialize()
         {
+            _placeholderLabel = new UILabel()
+            {
+                Lines = 0,
+                BackgroundColor = UIColor.Clear,
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                Font = this.Font
+            };
+
             ShouldBeginEditing = t =>
             {
-                if (Text == Placeholder)
-                {
-                    Text = string.Empty;
-                    base.TextColor = _textColor;
-                }
-
+                UpdatePlaceholder();
                 return true;
             };
 
             ShouldEndEditing = t =>
             {
-                if (string.IsNullOrEmpty(Text))
-                {
-                    Text = Placeholder;
-                    base.TextColor = PlaceholderColor;
-                }
-
+                UpdatePlaceholder();
                 return true;
             };
+
+            this.AddSubview(_placeholderLabel);
+            UpdateConstraintsForPlaceholder();
         }
 
         private void UpdatePlaceholder()
         {
-            if (Text == Placeholder)
-            {
-                Text = string.Empty;
-                base.TextColor = _textColor;
-            }
-            else
-            {
-                Text = Placeholder;
-                base.TextColor = PlaceholderColor;
-            }
+            _placeholderLabel.Hidden = string.IsNullOrWhiteSpace(this.Text);
         }
 
-        public override void Draw(CGRect rect)
+        public override void LayoutSubviews()
         {
-            base.Draw(rect);
-            UpdatePlaceholder();
+            base.LayoutSubviews();
+            _placeholderLabel.PreferredMaxLayoutWidth = TextContainer.Size.Width - TextContainer.LineFragmentPadding * 2.0f;
+        }
+
+        private void UpdateConstraintsForPlaceholder()
+        {
+            var newConstraints = new[]
+            {
+                NSLayoutConstraint.Create(_placeholderLabel, NSLayoutAttribute.Height, NSLayoutRelation.GreaterThanOrEqual, this, NSLayoutAttribute.Height, 1.0f, TextContainerInset.Top + TextContainerInset.Bottom),
+                NSLayoutConstraint.Create(_placeholderLabel, NSLayoutAttribute.Width, NSLayoutRelation.Equal, this, NSLayoutAttribute.Width, 1.0f, -(TextContainerInset.Left + TextContainerInset.Right + TextContainer.LineFragmentPadding * 2.0f))
+            };
+            NSLayoutConstraint.ActivateConstraints(newConstraints);
+            RemoveConstraints(_placeholderConstraints);
+            _placeholderConstraints = newConstraints;
+            AddConstraints(_placeholderConstraints);
         }
     }
 }
