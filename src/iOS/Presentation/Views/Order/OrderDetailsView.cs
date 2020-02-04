@@ -232,6 +232,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			tookOrderTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Took_The_Order_Text);
 			executorNameLabel.SetTitleStyle();
 			startDateLabel.SetSmallSubtitleStyle();
+
+			lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
+			lottieAnimationView.LoopAnimation = true;
+			lottieAnimationView.Play();
 		}
-	}
+    }
 }

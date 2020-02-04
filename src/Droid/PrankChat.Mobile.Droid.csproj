@@ -112,6 +112,7 @@
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
+    <AndroidAsset Include="Assets\ripple_animation.json" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\colors.xml" />
@@ -327,8 +328,10 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_change_profile.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\dialog_array.axml">
       <SubType></SubType>
@@ -338,8 +341,7 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\cell_publication.xml" />
-    <AndroidResource Include="Resources\drawable\ic_image_background.xml">
+    <AndroidResource Include="Resources\layout\cell_publication.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
@@ -356,6 +358,9 @@
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs">
       <Version>7.0.35</Version>
+    </PackageReference>
+    <PackageReference Include="Com.Airbnb.Android.Lottie">
+      <Version>3.0.5</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross">
       <Version>6.4.2</Version>
@@ -718,6 +723,10 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_banner_visa.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_image_background.xml"/>
+  </ItemGroup>
+ 
   <ItemGroup>
     <AndroidResource Include="Resources\xml\network_security_config.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>

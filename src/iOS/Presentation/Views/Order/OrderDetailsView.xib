@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,6 +24,7 @@
                 <outlet property="executorShortNameLabel" destination="Z5m-mt-OK7" id="dBc-o5-kHr"/>
                 <outlet property="executorView" destination="RvH-P9-dic" id="Edz-4h-cQF"/>
                 <outlet property="innerView" destination="MTy-Ls-Uj1" id="A5v-ei-cdS"/>
+                <outlet property="lottieAnimationView" destination="P27-eA-GzC" id="rRD-Vg-V1x"/>
                 <outlet property="noButton" destination="VIZ-UP-NIg" id="8sw-4S-O9I"/>
                 <outlet property="priceTextLabel" destination="t60-ur-KeT" id="Pog-WW-raB"/>
                 <outlet property="priceValueLabel" destination="FBt-DS-M9m" id="3IV-pQ-gEa"/>
@@ -407,14 +408,16 @@
                 <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5a-93-Vf4">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="pBd-Be-zBg">
-                            <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
-                        </activityIndicatorView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P27-eA-GzC" userLabel="Lottie Animation View" customClass="LOTAnimationView">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="pBd-Be-zBg" firstAttribute="centerX" secondItem="q5a-93-Vf4" secondAttribute="centerX" id="4iD-QT-Lqh"/>
-                        <constraint firstItem="pBd-Be-zBg" firstAttribute="centerY" secondItem="q5a-93-Vf4" secondAttribute="centerY" id="HWu-pq-5e0"/>
+                        <constraint firstItem="P27-eA-GzC" firstAttribute="centerY" secondItem="q5a-93-Vf4" secondAttribute="centerY" id="7Pv-UO-Kh0"/>
+                        <constraint firstItem="P27-eA-GzC" firstAttribute="width" secondItem="q5a-93-Vf4" secondAttribute="width" priority="250" id="8jK-z6-bnd"/>
+                        <constraint firstItem="P27-eA-GzC" firstAttribute="centerX" secondItem="q5a-93-Vf4" secondAttribute="centerX" id="R5W-cS-LPs"/>
+                        <constraint firstItem="P27-eA-GzC" firstAttribute="height" secondItem="q5a-93-Vf4" secondAttribute="height" priority="250" id="lsD-fd-PlE"/>
                     </constraints>
                 </view>
             </subviews>
