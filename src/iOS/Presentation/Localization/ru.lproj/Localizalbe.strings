@@ -98,7 +98,7 @@
 "OrderDetailsView_Download_Text" = "Загрузить видео:";
 "OrderDetailsView_Execute_Button" = "Выполнить";
 "OrderDetailsView_Cancel_Button" = "Отменить";
-"OrderDetailsView_Took_The_Order_Text" = "Взять заказ:";
+"OrderDetailsView_Took_The_Order_Text" = "Взял заказ:";
 "OrderDetailsView_Yes_Button" = "Да";
 "OrderDetailsView_No_Button" = "Нет";
 "OrderDetailsView_Accept_Button" = "Принять";
@@ -193,3 +193,4 @@
 "CreateOrderView_Choose_Time_Period" = "Выберите период действия заказа.";
 "OrderStatus_WaitFinish" = "В ожидании";
 "OrderDetailsView_LoadVideo" = "Загрузить видео";
+"OrderDetailsView_Take_The_Order_Text" = "Взять заказ:";

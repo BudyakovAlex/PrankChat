@@ -89,6 +89,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsDecisionVideoAvailable => _order?.Status == OrderStatusType.WaitFinish && IsUserCustomer;
 
+        public string TitleTookTheOrderText => IsExecutorAvailable ? Resources.OrderDetailsView_Took_The_Order_Text : Resources.OrderDetailsView_Take_The_Order_Text;
+
         #region Commands
 
         public MvxAsyncCommand TakeOrderCommand => new MvxAsyncCommand(OnTakeOrderAsync);

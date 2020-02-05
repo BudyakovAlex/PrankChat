@@ -100,7 +100,7 @@
     <string name="OrderDetailsView_Download_Text">"Загрузить видео:"</string>
     <string name="OrderDetailsView_Execute_Button">"Выполнить"</string>
     <string name="OrderDetailsView_Cancel_Button">"Отменить"</string>
-    <string name="OrderDetailsView_Took_The_Order_Text">"Взять заказ:"</string>
+    <string name="OrderDetailsView_Took_The_Order_Text">"Взял заказ:"</string>
     <string name="OrderDetailsView_Yes_Button">"Да"</string>
     <string name="OrderDetailsView_No_Button">"Нет"</string>
     <string name="OrderDetailsView_Accept_Button">"Принять"</string>
@@ -195,4 +195,5 @@
     <string name="CreateOrderView_Choose_Time_Period">"Выберите период действия заказа."</string>
     <string name="OrderStatus_WaitFinish">"В ожидании"</string>
     <string name="OrderDetailsView_LoadVideo">"Загрузить видео"</string>
+    <string name="OrderDetailsView_Take_The_Order_Text">"Взять заказ:"</string>
 </resources>

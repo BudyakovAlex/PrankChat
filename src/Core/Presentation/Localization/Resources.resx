@@ -418,7 +418,7 @@
     <value>Отменить</value>
   </data>
   <data name="OrderDetailsView_Took_The_Order_Text" xml:space="preserve">
-    <value>Взять заказ:</value>
+    <value>Взял заказ:</value>
   </data>
   <data name="OrderDetailsView_Yes_Button" xml:space="preserve">
     <value>Да</value>
@@ -636,5 +636,8 @@
   </data>
   <data name="OrderDetailsView_LoadVideo" xml:space="preserve">
     <value>Загрузить видео</value>
+  </data>
+  <data name="OrderDetailsView_Take_The_Order_Text" xml:space="preserve">
+    <value>Взять заказ:</value>
   </data>
 </root>
