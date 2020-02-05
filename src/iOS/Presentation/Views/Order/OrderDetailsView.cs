@@ -203,6 +203,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				.For(v => v.BindVisible())
 				.To(vm => vm.IsBusy);
 
+			set.Bind(tookOrderTextLabel)
+				.For(v => v.Text)
+				.To(vm => vm.TitleTookTheOrderText);
+
 			set.Apply();
 		}
 
