@@ -183,7 +183,7 @@
                     android:gravity="center_horizontal"
                     android:textSize="12sp"
                     android:textColor="@color/inactive"
-                    app:MvxBind="Text TitleTookTheOrderText"/>
+                    android:text="@string/OrderDetailsView_Took_The_Order_Text"/>
                 <FrameLayout
                     android:id="@+id/executor_photo"
                     android:layout_width="wrap_content"
