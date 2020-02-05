@@ -60,7 +60,15 @@ namespace PrankChat.Mobile.iOS.Controls
             }
         }
 
-        public override string Text { get => base.Text; set { base.Text = value; UpdatePlaceholder(); } }
+        public override string Text
+        {
+            get => base.Text;
+            set
+            {
+                base.Text = value;
+                UpdateVisibilityPlaceholder();
+            }
+        }
 
         #region Constructors
 
@@ -91,6 +99,12 @@ namespace PrankChat.Mobile.iOS.Controls
 
         #endregion
 
+        public override void LayoutSubviews()
+        {
+            base.LayoutSubviews();
+            _placeholderLabel.PreferredMaxLayoutWidth = TextContainer.Size.Width - TextContainer.LineFragmentPadding * 2.0f;
+        }
+
         private void Initialize()
         {
             _placeholderLabel = new UILabel()
@@ -102,37 +116,32 @@ namespace PrankChat.Mobile.iOS.Controls
 
             ShouldBeginEditing = t =>
             {
-                UpdatePlaceholder();
+                UpdateVisibilityPlaceholder();
                 return true;
             };
 
             ShouldEndEditing = t =>
             {
-                UpdatePlaceholder();
+                UpdateVisibilityPlaceholder();
                 return true;
             };
 
-            this.Changed += TextChanged;
+            Changed += OnTextChanged;
 
-            this.AddSubview(_placeholderLabel);
+            AddSubview(_placeholderLabel);
             UpdateConstraintsForPlaceholder();
         }
 
-        private void UpdatePlaceholder()
+        private void UpdateVisibilityPlaceholder()
         {
-            _placeholderLabel.Hidden = !string.IsNullOrWhiteSpace(this.Text);
-        }
-
-        public override void LayoutSubviews()
-        {
-            base.LayoutSubviews();
-            _placeholderLabel.PreferredMaxLayoutWidth = TextContainer.Size.Width - TextContainer.LineFragmentPadding * 2.0f;
+            _placeholderLabel.Hidden = !string.IsNullOrWhiteSpace(Text);
         }
 
         private void UpdateConstraintsForPlaceholder()
         {
             if (_placeholderLabel == null)
                 return;
+
             var newConstraints = new[]
             {
                 
@@ -140,21 +149,21 @@ namespace PrankChat.Mobile.iOS.Controls
                 NSLayoutConstraint.Create(_placeholderLabel, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, this, NSLayoutAttribute.Leading, 1.0f, 24.0f)
             };
             NSLayoutConstraint.ActivateConstraints(newConstraints);
+
             if (_placeholderConstraints != null)
                 RemoveConstraints(_placeholderConstraints);
+
             _placeholderConstraints = newConstraints;
             AddConstraints(_placeholderConstraints);
         }
 
-        private void TextChanged(object sender, EventArgs e)
+        private void OnTextChanged(object sender, EventArgs e)
         {
-            UpdatePlaceholder();
+            UpdateVisibilityPlaceholder();
         }
 
         protected override void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
             if (_placeholderLabel != null)
             {
                 _placeholderLabel.RemoveFromSuperview();
@@ -162,7 +171,9 @@ namespace PrankChat.Mobile.iOS.Controls
                 _placeholderLabel = null;
             }
 
-            this.Changed -= TextChanged;
+            Changed -= OnTextChanged;
+
+            base.Dispose(disposing);
         }
     }
 }
