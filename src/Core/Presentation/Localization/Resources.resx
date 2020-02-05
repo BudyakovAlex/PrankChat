@@ -637,7 +637,4 @@
   <data name="OrderDetailsView_LoadVideo" xml:space="preserve">
     <value>Загрузить видео</value>
   </data>
-  <data name="OrderDetailsView_Take_The_Order_Text" xml:space="preserve">
-    <value>Взять заказ:</value>
-  </data>
 </root>

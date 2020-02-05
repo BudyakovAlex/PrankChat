@@ -193,4 +193,3 @@
 "CreateOrderView_Choose_Time_Period" = "Выберите период действия заказа.";
 "OrderStatus_WaitFinish" = "В ожидании";
 "OrderDetailsView_LoadVideo" = "Загрузить видео";
-"OrderDetailsView_Take_The_Order_Text" = "Взять заказ:";

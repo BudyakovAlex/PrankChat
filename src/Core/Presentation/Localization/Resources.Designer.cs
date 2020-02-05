@@ -682,15 +682,6 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Взять заказ:.
-        /// </summary>
-        public static string OrderDetailsView_Take_The_Order_Text {
-            get {
-                return ResourceManager.GetString("OrderDetailsView_Take_The_Order_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Вы уверены что хотите стать исполнителем данного заказа?.
         /// </summary>
         public static string OrderDetailsView_TakeOrderQuestion {
