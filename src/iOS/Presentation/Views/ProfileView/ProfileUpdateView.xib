@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -40,7 +39,7 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <subviews>
                         <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="dP4-hK-p69">
-                            <rect key="frame" x="16" y="0.0" width="382" height="712"/>
+                            <rect key="frame" x="16" y="0.0" width="382" height="756"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EHp-Y2-CQM" customClass="MvxCachedImageView">
                                     <rect key="frame" x="141" y="16" width="100" height="100"/>
@@ -67,13 +66,13 @@
                                     </attributedString>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="WeL-qQ-SdX">
-                                    <rect key="frame" x="0.0" y="177.5" width="382" height="294"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="WeL-qQ-SdX">
+                                    <rect key="frame" x="0.0" y="177.5" width="382" height="338"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NMl-tL-te4">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="46"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="46" id="8he-WC-iyi"/>
+                                                <constraint firstAttribute="height" constant="46" id="b2N-su-UrG"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" textContentType="email"/>
@@ -81,7 +80,7 @@
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ouE-yp-Yy4">
                                             <rect key="frame" x="0.0" y="62" width="382" height="46"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="46" id="ni0-gH-47O"/>
+                                                <constraint firstAttribute="height" constant="46" id="aIX-qQ-PSq"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" textContentType="username"/>
@@ -89,20 +88,23 @@
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LSK-6X-VPD">
                                             <rect key="frame" x="0.0" y="124" width="382" height="46"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="46" id="9fK-iq-ibi"/>
+                                                <constraint firstAttribute="height" constant="46" id="zZi-ZH-rc2"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="name"/>
                                         </textField>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uN2-rG-rwV">
-                                            <rect key="frame" x="0.0" y="186" width="382" height="46"/>
+                                        <textView opaque="NO" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uN2-rG-rwV" userLabel="Description Text View" customClass="PlaceholderTextView">
+                                            <rect key="frame" x="0.0" y="186" width="382" height="90"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="90" id="W6N-Gg-1hd"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="username"/>
-                                        </textField>
+                                        </textView>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IdI-5m-Blj">
-                                            <rect key="frame" x="0.0" y="248" width="382" height="46"/>
+                                            <rect key="frame" x="0.0" y="292" width="382" height="46"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="46" id="Tix-jM-4eb"/>
+                                                <constraint firstAttribute="height" constant="46" id="LOL-Rr-jBJ"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
@@ -110,13 +112,13 @@
                                     </subviews>
                                 </stackView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhy-0X-kl9">
-                                    <rect key="frame" x="170" y="487.5" width="42" height="20.5"/>
+                                    <rect key="frame" x="170" y="531.5" width="42" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GK0-wQ-u5P">
-                                    <rect key="frame" x="132" y="526" width="118" height="38"/>
+                                    <rect key="frame" x="132" y="570" width="118" height="38"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cQT-e9-fE0">
                                             <rect key="frame" x="0.0" y="0.0" width="46" height="38"/>
@@ -193,7 +195,7 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vRl-An-stw">
-                                    <rect key="frame" x="111" y="590" width="160" height="36"/>
+                                    <rect key="frame" x="111" y="634" width="160" height="36"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="36" id="5CJ-P6-ejF"/>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="MJN-m5-Dip"/>
@@ -201,14 +203,14 @@
                                     <state key="normal" title="Next step"/>
                                 </button>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Lmz-yn-GFE">
-                                    <rect key="frame" x="251" y="598" width="20" height="20"/>
+                                    <rect key="frame" x="251" y="642" width="20" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="20" id="N7n-4Z-fjm"/>
                                         <constraint firstAttribute="height" constant="20" id="NvV-wL-Lyh"/>
                                     </constraints>
                                 </activityIndicatorView>
                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8bo-Kv-Lx4">
-                                    <rect key="frame" x="170" y="642" width="42" height="20"/>
+                                    <rect key="frame" x="170" y="686" width="42" height="20"/>
                                     <attributedString key="attributedText">
                                         <fragment content="Label">
                                             <attributes>
