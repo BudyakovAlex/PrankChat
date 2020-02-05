@@ -1,4 +1,6 @@
-﻿using Android.App;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Android.App;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
@@ -6,8 +8,6 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using MediaManager;
-using MediaManager.Library;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -18,7 +18,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using static Android.Support.Design.Widget.TabLayout;
-using VideoView = MediaManager.Platforms.Android.Video.VideoView;
+using Debug = System.Diagnostics.Debug;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 {
@@ -47,6 +47,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             _publicationRecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.publication_recycler_view);
             var dividerItemDecoration = new DividerItemDecoration(Application.Context, LinearLayoutManager.Vertical);
             _publicationRecyclerView.AddItemDecoration(dividerItemDecoration);
+            _publicationRecyclerView.Adapter = new PublicationsRecyclerAdapter((IMvxAndroidBindingContext)BindingContext);
             _stateScrollListener = new StateScrollListener();
             _publicationRecyclerView.AddOnScrollListener(_stateScrollListener);
         }
@@ -68,16 +69,66 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private void StateScrollListenerFinishScroll(object sender, System.EventArgs e)
         {
             var layoutManager = (LinearLayoutManager)_publicationRecyclerView.GetLayoutManager();
-            var completelyVisibleItemPosition = layoutManager.FindFirstCompletelyVisibleItemPosition();
-            if (completelyVisibleItemPosition == -1 || _currentVisibleItemPosition == completelyVisibleItemPosition)
+            var firstVisibleItemPosition = layoutManager.FindFirstVisibleItemPosition();
+            if (firstVisibleItemPosition == -1 || _currentVisibleItemPosition == firstVisibleItemPosition)
                 return;
 
-            _currentVisibleItemPosition = completelyVisibleItemPosition;
-            var visibleView = layoutManager.FindViewByPosition(_currentVisibleItemPosition);
-            var videoView = visibleView.FindViewById<VideoView>(Resource.Id.video_file);
-            var visibleViewModel = (PublicationItemViewModel)_publicationRecyclerView.Adapter.GetItem(_currentVisibleItemPosition);
+            _currentVisibleItemPosition = firstVisibleItemPosition;
+            var visibleItemsCount = layoutManager.ChildCount;
+            var centralVisibleItemIndexToPlay = visibleItemsCount / 2;
+            var completelyVisibleItems = new Dictionary<int, View>();
+            var partiallyVisibleItems = new Dictionary<int, View>();
 
-            //visibleViewModel.PlayVideoCommand.Execute(videoView);
+            for (var i = firstVisibleItemPosition; i < firstVisibleItemPosition + visibleItemsCount; i++)
+            {
+                var itemView = layoutManager.FindViewByPosition(i);
+
+                // The IsViewPartiallyVisible method checks for completely visible state when completelyVisible option equals true.
+                var isCompletelyVisible = layoutManager.IsViewPartiallyVisible(itemView, true, false);
+                if (isCompletelyVisible)
+                {
+                    completelyVisibleItems.Add(i, itemView);
+                }
+                else
+                {
+                    partiallyVisibleItems.Add(i, itemView);
+                }
+            }
+
+            var itemToPlay = completelyVisibleItems.FirstOrDefault();
+            if (itemToPlay.Value == null)
+            {
+                var centralItemView = layoutManager.FindViewByPosition(centralVisibleItemIndexToPlay);
+                if (centralItemView != null)
+                    itemToPlay = new KeyValuePair<int, View>(centralVisibleItemIndexToPlay, centralItemView);
+                else
+                    return;
+            }
+
+            Debug.WriteLine("Play activated:");
+
+            foreach (var partiallyVisibleItem in partiallyVisibleItems)
+            {
+                var itemViewModel = (PublicationItemViewModel)_publicationRecyclerView.Adapter.GetItem(partiallyVisibleItem.Key);
+                PauseVideo(itemViewModel);
+            }
+
+            var visibleViewModel = (PublicationItemViewModel)_publicationRecyclerView.Adapter.GetItem(itemToPlay.Key);
+            var videoView = itemToPlay.Value.FindViewById<VideoView>(Resource.Id.video_file);
+
+            PlayVideo(visibleViewModel, videoView);
+        }
+
+        private void PlayVideo(PublicationItemViewModel itemViewModel, VideoView videoView)
+        {
+            var videoService = itemViewModel.VideoPlayerService;
+            videoService.Player.SetPlatformVideoPlayerContainer(videoView);
+            videoService.Play(itemViewModel.VideoUrl);
+        }
+
+        private void PauseVideo(PublicationItemViewModel itemViewModel)
+        {
+            itemViewModel.VideoPlayerService.Stop();
         }
 
         private void PublicationTypeTabLayoutTabUnselected(object sender, TabLayout.TabUnselectedEventArgs e)

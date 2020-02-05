@@ -3,7 +3,6 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
-using MediaManager;
 using MvvmCross.Droid.Support.V7.AppCompat;
 
 namespace PrankChat.Mobile.Droid
@@ -32,7 +31,6 @@ namespace PrankChat.Mobile.Droid
             UserDialogs.Init(this);
 
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, bundle);
-            CrossMediaManager.Current.Init(this);
         }
     }
 }

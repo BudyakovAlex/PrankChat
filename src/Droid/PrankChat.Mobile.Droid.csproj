@@ -81,6 +81,7 @@
     <Compile Include="Presentation\Views\Profile\Cashbox\WithdrawalView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileUpdateView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileView.cs" />
+    <Compile Include="Presentation\Views\Publications\PublicationsRecyclerAdapter.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsView.cs" />
     <Compile Include="Presentation\Views\RatingView.cs" />
     <Compile Include="Presentation\Views\Registration\RegistrationSecondStepView.cs" />
@@ -327,25 +328,35 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_change_profile.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\dialog_array.axml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_create_order.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\cell_publication.xml" />
     <AndroidResource Include="Resources\drawable\ic_image_background.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_like_active.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -359,9 +370,6 @@
     </PackageReference>
     <PackageReference Include="MvvmCross">
       <Version>6.4.2</Version>
-    </PackageReference>
-    <PackageReference Include="Plugin.MediaManager">
-      <Version>0.9.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
