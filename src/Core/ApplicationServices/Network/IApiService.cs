@@ -40,6 +40,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<OrderDataModel> AcceptOrderAsync(int orderId);
 
+        Task<OrderDataModel> VoteVideoAsync(int orderId, bool isLiked);
+
         #endregion Orders
 
         #region Publications

@@ -1,12 +1,15 @@
-﻿using MvvmCross.Binding;
+﻿using CoreGraphics;
+using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
@@ -124,8 +127,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			set.Bind(noButton)
 				.To(vm => vm.NoCommand);
 
+			set.Bind(noButton)
+                .For(v => v.BindTitle())
+	            .To(vm => vm.NoText);
+
+			set.Bind(noButton)
+	            .For(UIButtonSelectedTargetBinding.TargetBinding)
+	            .To(vm => vm.IsNoSelected);
+
 			set.Bind(yesButton)
 				.To(vm => vm.YesCommand);
+
+			set.Bind(yesButton)
+	            .For(v => v.BindTitle())
+	            .To(vm => vm.YesText);
+
+			set.Bind(yesButton)
+	            .For(UIButtonSelectedTargetBinding.TargetBinding)
+	            .To(vm => vm.IsYesSelected);
 
 			#endregion Decide View
 
@@ -213,8 +232,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			takeOrderButton.SetDarkStyle(Resources.OrderDetailsView_Take_Order_Button);
 			subscriptionButton.SetDarkStyle(Resources.OrderDetailsView_Subscribe_Button);
 			unsubscriptionButton.SetDarkStyle(Resources.OrderDetailsView_Unsubscribe_Button);
-			noButton.SetDarkStyle(Resources.OrderDetailsView_No_Button);
-			yesButton.SetDarkStyle(Resources.OrderDetailsView_Yes_Button);
 			executeVideoButton.SetDarkStyle(Resources.OrderDetailsView_Execute_Button);
 			acceptButton.SetDarkStyle(Resources.OrderDetailsView_Accept_Button);
 			arqueButton.SetBorderlessStyle(Resources.OrderDetailsView_Argue_Button);
@@ -236,6 +253,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
 			lottieAnimationView.LoopAnimation = true;
 			lottieAnimationView.Play();
+
+			yesButton.ImageEdgeInsets = new UIEdgeInsets(0, 0, 0, 10);
+			noButton.ImageEdgeInsets = new UIEdgeInsets(0, 0, 0, 10);
 		}
     }
 }

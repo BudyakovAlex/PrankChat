@@ -154,6 +154,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
+        public async Task<OrderDataModel> VoteVideoAsync(int orderId, bool isLiked)
+        {
+            var value = isLiked ? "positive" : "negative";
+            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/arbitration/{value}", true);
+            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
+        }
+
         #endregion Orders
 
         #region Publications

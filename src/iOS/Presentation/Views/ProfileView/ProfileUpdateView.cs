@@ -107,8 +107,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         protected override void SetupControls()
         {
-            //this.View.BackgroundColor = UIColor.Black;
-
             Title = Resources.ProfileUpdateView_Title;
 
             emailTextField.SetLightStyle(Resources.ProfileUpdateView_Email_Placeholder);

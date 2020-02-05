@@ -59,6 +59,32 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #endregion Executor
 
+        #region Decide
+
+        public int LikesCount { get; set; } = 100;
+
+        public int DisikesCount { get; set; } = 100;
+
+        public string YesText => $"{Resources.OrderDetailsView_Yes_Button} {LikesCount}";
+
+        public string NoText => $"{Resources.OrderDetailsView_No_Button} {DisikesCount}";
+
+        private bool _isNoSelected = true;
+        public bool IsNoSelected
+        {
+            get => _isNoSelected;
+            set => SetProperty(ref _isNoSelected, value);
+        }
+
+        private bool _isYesSelected;
+        public bool IsYesSelected
+        {
+            get => _isYesSelected;
+            set => SetProperty(ref _isYesSelected, value);
+        }
+
+        #endregion
+
         public string PriceValue => _order?.Price.ToString();
 
         public string TimeValue => _order?.FinishIn?.ToString("dd' : 'hh' : 'mm");
@@ -67,7 +93,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsUserExecutor => _order?.Executor?.Id == _settingsService.User?.Id;
 
-        public bool IsUserListener => !IsUserCustomer && !IsUserExecutor;
+        public bool IsUserGuest => !IsUserCustomer && !IsUserExecutor;
 
         public bool IsSubscribeAvailable => false; // IsUserListener;
 
@@ -85,7 +111,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsExecutorAvailable => _order?.Executor != null;
 
-        public bool IsDecideVideoAvailable => false;
+        public bool IsDecideVideoAvailable => _order?.Status == OrderStatusType.InArbitration;// && IsUserGuest;
 
         public bool IsDecisionVideoAvailable => _order?.Status == OrderStatusType.WaitFinish && IsUserCustomer;
 
@@ -300,14 +326,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             return Task.CompletedTask;
         }
 
-        private Task OnYesAsync()
+        private async Task OnYesAsync()
         {
-            return Task.CompletedTask;
+            IsYesSelected = !IsYesSelected;
+            //var order = await ApiService.VoteVideoAsync(_orderId, true);
         }
 
-        private Task OnNoAsync()
+        private async Task OnNoAsync()
         {
-            return Task.CompletedTask;
+            IsNoSelected = !IsNoSelected;
+            //var order = await ApiService.VoteVideoAsync(_orderId, false);
         }
     }
 }
