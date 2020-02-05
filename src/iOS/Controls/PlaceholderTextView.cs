@@ -18,6 +18,12 @@ namespace PrankChat.Mobile.iOS.Controls
             set => _placeholderLabel.Text = value;
         }
 
+        public NSAttributedString AttributedPlaceholder
+        {
+            get => _placeholderLabel.AttributedText;
+            set => _placeholderLabel.AttributedText = value;
+        }
+
         public UIColor PlaceholderColor
         {
             get => _placeholderLabel.TextColor;
