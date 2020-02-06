@@ -175,22 +175,58 @@ namespace PrankChat.Mobile.iOS.AppTheme
             textField.SetStyle(placeholderAttributes, placeholder, rightImage, leftPadding, rightPadding);
         }
 
-        public static void SetStyle(this PlaceholderTextView textView, string placeholder = null)
+        public static void SetStyle(
+            this PlaceholderTextView textView,
+            UIStringAttributes placeholderAttributes,
+            string placeholder = null)
         {
-            textView.TextColor = Theme.Color.Text;
-            textView.BackgroundColor = UIColor.Clear;
-            textView.TintColor = Theme.Color.Text;
-            textView.Layer.BorderColor = Theme.Color.TextFieldDarkBorder.CGColor;
             textView.Layer.BorderWidth = 1;
             textView.Layer.CornerRadius = 3;
-            textView.TextContainerInset = new UIEdgeInsets(18, 20, 18, 14);
+            textView.AttributedPlaceholder = new NSAttributedString(placeholder ?? string.Empty, placeholderAttributes);
+            textView.Layer.BorderWidth = 1;
+            textView.Layer.CornerRadius = 3;
+            textView.TextContainerInset = new UIEdgeInsets(17, 24, 17, 14);
             textView.TextContainer.LineFragmentPadding = 0;
             textView.ScrollEnabled = true;
             textView.Editable = true;
             textView.Selectable = true;
             textView.Font = Theme.Font.RegularFontOfSize(14);
-            textView.Placeholder = placeholder;
-            textView.PlaceholderColor = Theme.Color.Subtitle;
+        }
+
+        public static void SetLightStyle(
+            this PlaceholderTextView textView,
+            string placeholder = null)
+        {
+            textView.TextColor = Theme.Color.White;
+            textView.BackgroundColor = UIColor.Clear;
+            textView.TintColor = Theme.Color.White;
+            textView.Layer.BorderColor = Theme.Color.White.CGColor;
+
+            var placeholderAttributes = new UIStringAttributes
+            {
+                Font = Theme.Font.RegularFontOfSize(14),
+                ForegroundColor = Theme.Color.White
+            };
+
+            textView.SetStyle(placeholderAttributes, placeholder);
+        }
+
+        public static void SetDarkStyle(
+            this PlaceholderTextView textView,
+            string placeholder = null)
+        {
+            textView.TextColor = Theme.Color.Text;
+            textView.BackgroundColor = UIColor.Clear;
+            textView.TintColor = Theme.Color.Text;
+            textView.Layer.BorderColor = Theme.Color.TextFieldDarkBorder.CGColor;
+
+            var placeholderAttributes = new UIStringAttributes
+            {
+                Font = Theme.Font.RegularFontOfSize(14),
+                ForegroundColor = Theme.Color.Subtitle
+            };
+
+            textView.SetStyle(placeholderAttributes, placeholder);
         }
 
         public static void SetGradientBackground(this UIView view)

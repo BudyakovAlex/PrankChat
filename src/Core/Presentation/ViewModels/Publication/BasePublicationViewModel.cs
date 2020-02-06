@@ -16,10 +16,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
     public class BasePublicationViewModel : BaseViewModel
     {
-        private readonly IDialogService _dialogService;
         private readonly IPlatformService _platformService;
-        private readonly IApiService _apiService;
-        private readonly IErrorHandleService _errorHandleService;
         private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
 
         private long? _numberOfViews;
@@ -73,7 +70,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxAsyncCommand LikeCommand => new MvxAsyncCommand(OnLikeAsync);
 
-        public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(() => _dialogService.ShowShareDialogAsync(_shareLink));
+        public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(() => DialogService.ShowShareDialogAsync(_shareLink));
 
         public MvxAsyncCommand BookmarkCommand => new MvxAsyncCommand(OnBookmarkAsync);
 
@@ -131,7 +128,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             try
             {
                 IsLiked = !IsLiked;
-                var video = await _apiService.SendLikeAsync(VideoId, IsLiked);
+                var video = await ApiService.SendLikeAsync(VideoId, IsLiked);
                 if (video != null)
                 {
                     _numberOfLikes = IsLiked
@@ -140,10 +137,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     await RaisePropertyChanged(nameof(NumberOfLikesText));
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 IsLiked = !IsLiked;
-                _errorHandleService.HandleException(new UserVisibleException("Невозможно поставить лайк."));
+                ErrorHandleService.HandleException(new UserVisibleException("Невозможно поставить лайк."));
             }
             finally
             {
@@ -158,7 +155,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private async Task OnOpenSettingAsync()
         {
-            var result = await _dialogService.ShowMenuDialogAsync(new string[]
+            var result = await DialogService.ShowMenuDialogAsync(new string[]
             {
                 Resources.Publication_Item_Complain,
                 Resources.Publication_Item_Copy_Link,

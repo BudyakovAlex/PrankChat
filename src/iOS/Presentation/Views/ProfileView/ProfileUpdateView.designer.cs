@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
-		UIKit.UITextField descriptionTextField { get; set; }
+		PrankChat.Mobile.iOS.Controls.PlaceholderTextView descriptionTextField { get; set; }
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]

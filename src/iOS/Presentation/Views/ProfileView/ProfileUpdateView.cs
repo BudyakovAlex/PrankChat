@@ -98,6 +98,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .For(v => v.BindHidden())
                 .To(vm => vm.ProfilePhotoUrl);
 
+            set.Bind(descriptionTextField)
+                .For(v => v.Text)
+                .To(vm => vm.Description);
+
             set.Apply();
         }
 

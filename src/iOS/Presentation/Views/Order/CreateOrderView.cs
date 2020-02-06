@@ -61,7 +61,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             nameTextField.SetDarkStyle(Resources.CreateOrderView_Name_Placeholder);
 
-            descriptionTextView.SetStyle(Resources.CreateOrderView_Description_Placeholder);
+            descriptionTextView.SetDarkStyle(Resources.CreateOrderView_Description_Placeholder);
 
             priceTextField.SetDarkStyle(Resources.CreateOrderView_Price_Placeholder, rightPadding: 14);
             priceTextField.TextAlignment = UITextAlignment.Right;

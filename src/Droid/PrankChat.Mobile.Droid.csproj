@@ -334,20 +334,28 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\dialog_array.axml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_create_order.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\cell_publication.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_like_active.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -724,9 +732,8 @@
     <AndroidResource Include="Resources\drawable\ic_banner_visa.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_image_background.xml"/>
+    <AndroidResource Include="Resources\drawable\ic_image_background.xml" />
   </ItemGroup>
- 
   <ItemGroup>
     <AndroidResource Include="Resources\xml\network_security_config.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>

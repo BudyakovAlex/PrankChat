@@ -100,7 +100,7 @@
     <string name="OrderDetailsView_Download_Text">"Загрузить видео:"</string>
     <string name="OrderDetailsView_Execute_Button">"Выполнить"</string>
     <string name="OrderDetailsView_Cancel_Button">"Отменить"</string>
-    <string name="OrderDetailsView_Took_The_Order_Text">"Взять заказ:"</string>
+    <string name="OrderDetailsView_Took_The_Order_Text">"Взял заказ:"</string>
     <string name="OrderDetailsView_Yes_Button">"Да"</string>
     <string name="OrderDetailsView_No_Button">"Нет"</string>
     <string name="OrderDetailsView_Accept_Button">"Принять"</string>

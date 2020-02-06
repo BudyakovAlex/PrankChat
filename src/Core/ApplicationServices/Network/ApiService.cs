@@ -71,14 +71,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     break;
 
                 case OrderFilterType.InProgress:
-                    endpoint = $"{endpoint}?status=in_work";
+                    if (_settingsService.User == null)
+                        return new List<OrderDataModel>();
+
+                    endpoint = $"{endpoint}?executor_id={_settingsService.User.Id}";
                     break;
 
                 case OrderFilterType.MyOwn:
                     if (_settingsService.User == null)
                         return new List<OrderDataModel>();
 
-                    endpoint = $"{endpoint}?user_id={_settingsService.User.Id}";
+                    endpoint = $"{endpoint}?customer_id={_settingsService.User.Id}";
                     break;
             }
 
@@ -115,7 +118,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     if (_settingsService.User == null)
                         return new List<RatingOrderDataModel>();
 
-                    endpoint = $"{endpoint}?user_id={_settingsService.User.Id}";
+                    endpoint = $"{endpoint}?customer_id={_settingsService.User.Id}";
                     break;
             }
             var data = await _client.Get<DataApiModel<List<RatingOrderApiModel>>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
