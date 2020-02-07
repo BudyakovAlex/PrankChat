@@ -441,16 +441,15 @@ namespace PrankChat.Mobile.iOS.AppTheme
 
         }
 
-        public static void SetRadioInactiveStyle(this UIButton button, float padding = 8f)
+        public static void SetSelectableImageStyle(this UIButton button, string normalImage, string selectedImage)
         {
-            button.SetImage(UIImage.FromBundle("ic_radio_button_inactive")
-                .ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-        }
+            button.TintColor = UIColor.Clear;
 
-        public static void SetRadioActiveStyle(this UIButton button, float padding = 8f)
-        {
-            button.SetImage(UIImage.FromBundle("ic_radio_button_active")
+            button.SetImage(UIImage.FromBundle(normalImage)
                 .ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+
+            button.SetImage(UIImage.FromBundle(selectedImage)
+                .ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Selected);
         }
 
         public static void SetRadioTitleStyle(this UIButton button)

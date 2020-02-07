@@ -5,6 +5,7 @@ using Android.Views;
 using Android.Widget;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 {
