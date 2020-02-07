@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
+using MvvmCross.ViewModels;
 using Plugin.Media.Abstractions;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
@@ -15,85 +16,19 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Results;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
-    public class ProfileUpdateViewModel : BaseViewModel
+    public class ProfileUpdateViewModel : BaseProfileViewModel, IMvxViewModelResult<ProfileUpdateResult>
     {
-        private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _messenger;
         private readonly IMediaService _mediaService;
 
-        private string _email;
-        public string Email
-        {
-            get => _email;
-            set => SetProperty(ref _email, value);
-        }
+        public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
-        private string _login;
-        public string Login
-        {
-            get => _login;
-            set => SetProperty(ref _login, value);
-        }
-
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (SetProperty(ref _name, value))
-                {
-                    RaisePropertyChanged(nameof(ProfileShortName));
-                }
-            }
-        }
-
-        public string ProfileShortName => Name.ToShortenName();
-
-        private DateTime? _birthdate;
-        public DateTime? Birthday
-        {
-            get => _birthdate;
-            set
-            {
-                if (SetProperty(ref _birthdate, value))
-                {
-                    RaisePropertyChanged(nameof(BirthdayText));
-                }
-            }
-        }
-
-        public string BirthdayText => Birthday?.ToShortDateString() ?? Resources.ProfileUpdateView_Birthday_Placeholder;
-
-        private GenderType? _gender;
-        public GenderType? Gender
-        {
-            get => _gender;
-            set => SetProperty(ref _gender, value);
-        }
-
-        private string _profilePhotoUrl;
-        public string ProfilePhotoUrl
-        {
-            get => _profilePhotoUrl;
-            set => SetProperty(ref _profilePhotoUrl, value);
-        }
-
-        private string _description;
-        public string Description
-        {
-            get => _description;
-            set => SetProperty(ref _description, value);
-        }
-
-        public MvxAsyncCommand SelectBirthdayCommand => new MvxAsyncCommand(OnSelectBirthdayAsync);
-
-        public MvxCommand<GenderType> SelectGenderCommand => new MvxCommand<GenderType>(OnSelectGender);
-
-        public MvxAsyncCommand UpdateProfileCommand => new MvxAsyncCommand(OnUpdateProfileAsync);
+        public MvxAsyncCommand SaveProfileCommand => new MvxAsyncCommand(OnSaveProfileAsync);
 
         public MvxAsyncCommand ChangePasswordCommand => new MvxAsyncCommand(OnChangePasswordAsync);
 
@@ -106,51 +41,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                                       IMvxMessenger messenger,
                                       IMediaService mediaService,
                                       IErrorHandleService errorHandleService)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
-            _settingsService = settingsService;
             _messenger = messenger;
             _mediaService = mediaService;
         }
 
-        public override Task Initialize()
+        public override void ViewDestroy(bool viewFinishing = true)
         {
-            InitializeProfile();
-            return base.Initialize();
+            if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
+                CloseCompletionSource?.TrySetCanceled();
+
+            base.ViewDestroy(viewFinishing);
         }
 
-        private void InitializeProfile()
-        {
-            var user = _settingsService.User;
-
-            if (user == null)
-                return;
-
-            // TODO set some properties from user
-            Email = user.Email;
-            Name = user.Name;
-            Login = user.Login;
-            Birthday = DateTime.Now;
-            Gender = GenderType.Male;
-            ProfilePhotoUrl = user.Avatar;
-            Description = "Description";
-        }
-
-        private async Task OnSelectBirthdayAsync()
-        {
-            var result = await DialogService.ShowDateDialogAsync();
-            if (result.HasValue)
-            {
-                Birthday = result.Value;
-            }
-        }
-
-        private void OnSelectGender(GenderType genderType)
-        {
-            Gender = genderType;
-        }
-
-        private async Task OnUpdateProfileAsync()
+        private async Task OnSaveProfileAsync()
         {
             if (!CheckValidation())
                 return;
@@ -169,7 +74,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                     Description = Description
                 };
 
-                _settingsService.User = await ApiService.UpdateProfileAsync(dataModel);
+                SettingsService.User = await ApiService.UpdateProfileAsync(dataModel);
+
+                CloseCompletionSource.SetResult(new ProfileUpdateResult(true));
+                await NavigationService.CloseView(this);
             }
             finally
             {
@@ -210,7 +118,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 }
 
                 ProfilePhotoUrl = file.Path;
-                _settingsService.User = user;
+                SettingsService.User = user;
                 _messenger.Publish(new UpdateAvatarMessage(this));
             }
         }

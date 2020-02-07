@@ -17,6 +17,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
@@ -54,7 +55,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         public string ProfilePhotoUrl
         {
             get => _profilePhotoUrl;
-            set => SetProperty(ref _profilePhotoUrl, value);
+            set
+            {
+                if (SetProperty(ref _profilePhotoUrl, value))
+                {
+                    _messenger.Publish(new UpdateAvatarMessage(this));
+                }
+            }
         }
 
         private string _price;
@@ -104,7 +111,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(OnLoadVideoFeedAsync);
 
-        public MvxAsyncCommand ShowUpdateProfileCommand => new MvxAsyncCommand(NavigationService.ShowUpdateProfileView);
+        public MvxAsyncCommand ShowUpdateProfileCommand => new MvxAsyncCommand(OnShowUpdateProfileAsync);
 
         public ProfileViewModel(INavigationService navigationService,
                                 IDialogService dialogService,
@@ -147,24 +154,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             {
                 IsBusy = true;
 
-                var oldAvatar = _settingsService.User?.Avatar;
                 await ApiService.GetCurrentUserAsync();
-
-                var user = _settingsService.User;
-                if (user == null)
-                    return;
-
-                ProfileName = user.Name;
-                ProfilePhotoUrl = user.Avatar;
-                Price = user.Balance.ToPriceString();
-                OrdersValue = user.OrdersExecuteCount.ToCountString();
-                CompletedOrdersValue = user.OrdersExecuteFinishedCount.ToCountString();
-                SubscribersValue = user.SubscribersCount.ToCountString();
-                SubscriptionsValue = user.SubscriptionsCount.ToCountString();
-
-                if (_settingsService.User.Avatar != oldAvatar)
-                    _messenger.Publish(new UpdateAvatarMessage(this));
-
+                UpdateUserData();
                 UpdateProfileVideoCommand.Execute();
             }
             finally
@@ -271,12 +262,34 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
         }
 
+        private async Task OnShowUpdateProfileAsync()
+        {
+            var isUpdated = await NavigationService.ShowUpdateProfileView();
+            if (isUpdated)
+                UpdateUserData();
+        }
+
         private async Task LogoutUser()
         {
             _settingsService.User = null;
             await _settingsService.SetAccessTokenAsync(string.Empty);
             //_apiService.LogoutAsync().FireAndForget();
             await NavigationService.Logout();
+        }
+
+        private void UpdateUserData()
+        {
+            var user = _settingsService.User;
+            if (user == null)
+                return;
+
+            ProfileName = user.Name;
+            ProfilePhotoUrl = user.Avatar;
+            Price = user.Balance.ToPriceString();
+            OrdersValue = user.OrdersExecuteCount.ToCountString();
+            CompletedOrdersValue = user.OrdersExecuteFinishedCount.ToCountString();
+            SubscribersValue = user.SubscribersCount.ToCountString();
+            SubscriptionsValue = user.SubscriptionsCount.ToCountString();
         }
     }
 }

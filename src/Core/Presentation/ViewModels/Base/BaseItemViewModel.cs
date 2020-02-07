@@ -3,7 +3,7 @@ using FFImageLoading.Transformations;
 using FFImageLoading.Work;
 using MvvmCross.ViewModels;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {
     public abstract class BaseItemViewModel : MvxNotifyPropertyChanged
     {
