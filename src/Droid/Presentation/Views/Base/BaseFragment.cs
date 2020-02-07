@@ -35,8 +35,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             return view;
         }
 
-        protected abstract void Subscription();
-		protected abstract void Unsubscription();
+        protected virtual void Subscription()
+        {
+        }
+
+		protected virtual void Unsubscription()
+        {
+        }
 
 		public override void OnStart()
 		{
