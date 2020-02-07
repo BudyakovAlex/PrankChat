@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\ApplicationSwipeViewPager.cs" />
+    <Compile Include="PlatformBusinessServices\Video\Listeners\VideoPlayerOnPreparedListener.cs" />
     <Compile Include="Presentation\Bindings\BackgroundBinding.cs" />
     <Compile Include="Presentation\Converters\BooleanToResourcePathConverter.cs" />
     <Compile Include="Presentation\Views\Base\BaseFragment.cs" />
@@ -735,6 +736,9 @@
     <AndroidResource Include="Resources\layout\profile_update_layout.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_publication_details.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

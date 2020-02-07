@@ -1,12 +1,14 @@
 ﻿using Android.Net;
 using Android.Widget;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Droid.PlatformBusinessServices.Video.Listeners;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 {
     public class VideoPlayer : IVideoPlayer
     {
         private VideoView _videoView;
+        private bool _isRepeatEnabled;
 
         public bool IsPlaying { get; private set; }
 
@@ -14,10 +16,12 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         public void Dispose()
         {
+            _videoView?.SetOnPreparedListener(null);
         }
 
         public void EnableRepeat(int repeatDelayInSeconds)
         {
+            _isRepeatEnabled = true;
         }
 
         public void Pause()
@@ -40,8 +44,17 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         public void SetPlatformVideoPlayerContainer(object container)
         {
+            if (_videoView == container)
+                return;
+
             if (container is VideoView videoView)
+            {
+                _videoView?.SetOnPreparedListener(null);
                 _videoView = videoView;
+
+                if (_isRepeatEnabled)
+                    ActivateRepeat();
+            }
             else
                 _videoView = null;
         }
@@ -58,6 +71,11 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
             _videoView?.StopPlayback();
             IsPlaying = false;
+        }
+
+        private void ActivateRepeat()
+        {
+            _videoView.SetOnPreparedListener(new VideoPlayerOnPreparedListener());
         }
     }
 }

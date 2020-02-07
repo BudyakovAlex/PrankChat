@@ -24,7 +24,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
         public override void OnViewRecycled(Object holder)
         {
-            if (BindingContext.DataContext is PublicationsViewModel viewModel && holder is RecyclerView.ViewHolder viewHolder)
+            if (BindingContext.DataContext is PublicationsViewModel viewModel
+                && holder is RecyclerView.ViewHolder viewHolder
+                && viewHolder.LayoutPosition != -1)
             {
                 var itemViewModel = viewModel.Items[viewHolder.LayoutPosition];
                 StopVideo(itemViewModel);

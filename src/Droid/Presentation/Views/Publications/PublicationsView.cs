@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private MvxRecyclerView _publicationRecyclerView;
         private StateScrollListener _stateScrollListener;
 
-        private int _currentVisibleItemPosition;
+        private int _currentPlayingItemPosition = -1;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -39,6 +39,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             var view = this.BindingInflate(Resource.Layout.publications_layout, null);
             InitializeControls(view);
             return view;
+        }
+
+        public override void OnViewCreated(View view, Bundle savedInstanceState)
+        {
+            base.OnViewCreated(view, savedInstanceState);
+
+            PlayFirstCompletelyVisibleVideoItem();
         }
 
         private void InitializeControls(View view)
@@ -68,30 +75,37 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
         private void StateScrollListenerFinishScroll(object sender, System.EventArgs e)
         {
+            PlayFirstCompletelyVisibleVideoItem();
+        }
+
+        private void PlayFirstCompletelyVisibleVideoItem()
+        {
             var layoutManager = (LinearLayoutManager)_publicationRecyclerView.GetLayoutManager();
             var firstVisibleItemPosition = layoutManager.FindFirstVisibleItemPosition();
-            if (firstVisibleItemPosition == -1 || _currentVisibleItemPosition == firstVisibleItemPosition)
-                return;
-
-            _currentVisibleItemPosition = firstVisibleItemPosition;
             var visibleItemsCount = layoutManager.ChildCount;
             var centralVisibleItemIndexToPlay = visibleItemsCount / 2;
             var completelyVisibleItems = new Dictionary<int, View>();
             var partiallyVisibleItems = new Dictionary<int, View>();
+            var recyclerViewBounds = new Rect();
+            _publicationRecyclerView.GetHitRect(recyclerViewBounds);
 
             for (var i = firstVisibleItemPosition; i < firstVisibleItemPosition + visibleItemsCount; i++)
             {
                 var itemView = layoutManager.FindViewByPosition(i);
-
+                var videoView = itemView.FindViewById<VideoView>(Resource.Id.video_file);
                 // The IsViewPartiallyVisible method checks for completely visible state when completelyVisible option equals true.
-                var isCompletelyVisible = layoutManager.IsViewPartiallyVisible(itemView, true, false);
+                var videoViewBounds = new Rect();
+                videoView.GetLocalVisibleRect(videoViewBounds);
+                var isCompletelyVisible = videoView.IsShown
+                                          && videoViewBounds.Height() == videoView.Height
+                                          && videoViewBounds.Width() == videoView.Width;
                 if (isCompletelyVisible)
                 {
-                    completelyVisibleItems.Add(i, itemView);
+                    completelyVisibleItems.Add(i, videoView);
                 }
                 else
                 {
-                    partiallyVisibleItems.Add(i, itemView);
+                    partiallyVisibleItems.Add(i, videoView);
                 }
             }
 
@@ -114,9 +128,16 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             }
 
             var visibleViewModel = (PublicationItemViewModel)_publicationRecyclerView.Adapter.GetItem(itemToPlay.Key);
-            var videoView = itemToPlay.Value.FindViewById<VideoView>(Resource.Id.video_file);
 
-            PlayVideo(visibleViewModel, videoView);
+            //if (_currentPlayingItemPosition == itemToPlay.Key && _currentPlayingItemPosition != -1)
+            //    return;
+
+            _currentPlayingItemPosition = itemToPlay.Key;
+
+            if (itemToPlay.Value is VideoView videoItemView)
+            {
+                PlayVideo(visibleViewModel, videoItemView);
+            }
         }
 
         private void PlayVideo(PublicationItemViewModel itemViewModel, VideoView videoView)
