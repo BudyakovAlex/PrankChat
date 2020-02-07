@@ -56,7 +56,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 				.Mode(MvxBindingMode.OneWay);	
 
             set.Bind(profileDescriptionLabel)
-                .To(vm => vm.ProfileName)
+                .To(vm => vm.Name)
                 .Mode(MvxBindingMode.OneWay);
 
             set.Bind(refillButton)
@@ -119,7 +119,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         {
             InitializeTableView();
 
-            Title = ViewModel.ProfileName;
+            Title = ViewModel.Name;
 
             NavigationItem.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton("ic_menu", ViewModel.ShowMenuCommand), false);
 

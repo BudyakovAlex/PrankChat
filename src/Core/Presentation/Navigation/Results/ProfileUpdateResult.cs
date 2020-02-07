@@ -3,7 +3,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation.Results
 {
     public class ProfileUpdateResult
     {
-        public bool IsProfileUpdated { get; set; }
+        public bool IsProfileUpdated { get; }
 
         public ProfileUpdateResult(bool _isProfileUpdated)
         {

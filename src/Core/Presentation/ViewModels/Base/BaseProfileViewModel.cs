@@ -125,7 +125,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             Gender = genderType;
         }
 
-        protected void InitializeProfileData()
+        protected virtual void InitializeProfileData()
         {
             var user = SettingsService.User;
             if (user == null)

@@ -22,46 +22,17 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
-    public class ProfileViewModel : BaseViewModel, IVideoListViewModel
+    public class ProfileViewModel : BaseProfileViewModel, IVideoListViewModel
     {
         private readonly IPlatformService _platformService;
         private readonly IMvxMessenger _messenger;
         private readonly IVideoPlayerService _videoPlayerService;
-        private readonly ISettingsService _settingsService;
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
             set => SetProperty(ref _selectedPublicationType, value);
-        }
-
-        private string _profileName;
-        public string ProfileName
-        {
-            get => _profileName;
-            set
-            {
-                if (SetProperty(ref _profileName, value))
-                {
-                    RaisePropertyChanged(nameof(ProfileShortName));
-                }
-            }
-        }
-
-        public string ProfileShortName => ProfileName.ToShortenName();
-
-        private string _profilePhotoUrl;
-        public string ProfilePhotoUrl
-        {
-            get => _profilePhotoUrl;
-            set
-            {
-                if (SetProperty(ref _profilePhotoUrl, value))
-                {
-                    _messenger.Publish(new UpdateAvatarMessage(this));
-                }
-            }
         }
 
         private string _price;
@@ -121,10 +92,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                                 IErrorHandleService errorHandleService,
                                 ISettingsService settingsService,
                                 IMvxMessenger messenger)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _platformService = platformService;
-            _settingsService = settingsService;
             _messenger = messenger;
             _videoPlayerService = videoPlayerService;
         }
@@ -155,7 +125,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 IsBusy = true;
 
                 await ApiService.GetCurrentUserAsync();
-                UpdateUserData();
+                InitializeProfileData();
                 UpdateProfileVideoCommand.Execute();
             }
             finally
@@ -166,14 +136,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private async Task OnLoadVideoFeedAsync()
         {
-            if (!CheckValidation())
-                return;
-
             try
             {
                 IsBusy = true;
 
-                var videoBundle = await ApiService.GetMyVideoFeedAsync(_settingsService.User.Id, PublicationType.MyFeedComplete);
+                var videoBundle = await ApiService.GetMyVideoFeedAsync(SettingsService.User.Id, PublicationType.MyFeedComplete);
                 SetVideoList(videoBundle);
             }
             finally
@@ -207,17 +174,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                     publication.IsLiked));
 
             Items.SwitchTo(publicationViewModels);
-        }
-
-        private bool CheckValidation()
-        {
-            if (_settingsService.User == null)
-            {
-                ErrorHandleService.HandleException(new UserVisibleException("Пользователь не может быть пустым."));
-                return false;
-            }
-
-            return true;
         }
 
         private async Task OnShowMenuAsync()
@@ -266,24 +222,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         {
             var isUpdated = await NavigationService.ShowUpdateProfileView();
             if (isUpdated)
-                UpdateUserData();
+                InitializeProfileData();
         }
 
         private async Task LogoutUser()
         {
-            _settingsService.User = null;
-            await _settingsService.SetAccessTokenAsync(string.Empty);
+            SettingsService.User = null;
+            await SettingsService.SetAccessTokenAsync(string.Empty);
             //_apiService.LogoutAsync().FireAndForget();
             await NavigationService.Logout();
         }
 
-        private void UpdateUserData()
+        protected override void InitializeProfileData()
         {
-            var user = _settingsService.User;
+            base.InitializeProfileData();
+
+            var user = SettingsService.User;
             if (user == null)
                 return;
 
-            ProfileName = user.Name;
             ProfilePhotoUrl = user.Avatar;
             Price = user.Balance.ToPriceString();
             OrdersValue = user.OrdersExecuteCount.ToCountString();
