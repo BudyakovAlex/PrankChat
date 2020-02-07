@@ -7,7 +7,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
     public static class EnumExtensions
     {
-        public static string GetEnumMemberAttrValue<T>(T enumValue)
+        public static string GetEnumMemberAttrValue<T>(this T enumValue)
         {
             var enumType = typeof(T);
             var memInfo = enumType.GetMember(enumValue.ToString());

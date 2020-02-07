@@ -25,14 +25,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
     public class ProfileViewModel : BaseProfileViewModel, IVideoListViewModel
     {
         private readonly IPlatformService _platformService;
-        private readonly IMvxMessenger _messenger;
         private readonly IVideoPlayerService _videoPlayerService;
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
-            set => SetProperty(ref _selectedPublicationType, value);
+            set
+            {
+                if (SetProperty(ref _selectedPublicationType, value))
+                {
+                    LoadProfileCommand.Execute();
+                }
+            }
         }
 
         private string _price;
@@ -90,18 +95,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                                 IApiService apiService,
                                 IVideoPlayerService videoPlayerService,
                                 IErrorHandleService errorHandleService,
-                                ISettingsService settingsService,
-                                IMvxMessenger messenger)
+                                ISettingsService settingsService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _platformService = platformService;
-            _messenger = messenger;
             _videoPlayerService = videoPlayerService;
         }
 
         public override Task Initialize()
         {
-            return LoadProfileCommand.ExecuteAsync();
+            SelectedPublicationType = PublicationType.MyVideosOfCreatedOrders;
+            return base.Initialize();
         }
 
         public override void ViewDisappearing()
@@ -140,7 +144,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             {
                 IsBusy = true;
 
-                var videoBundle = await ApiService.GetMyVideoFeedAsync(SettingsService.User.Id, PublicationType.MyFeedComplete);
+                var videoBundle = await ApiService.GetMyVideoFeedAsync(SettingsService.User.Id, SelectedPublicationType);
                 SetVideoList(videoBundle);
             }
             finally
