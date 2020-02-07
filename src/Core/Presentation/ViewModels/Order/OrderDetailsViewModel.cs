@@ -328,14 +328,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnYesAsync()
         {
-            IsYesSelected = !IsYesSelected;
-            //var order = await ApiService.VoteVideoAsync(_orderId, true);
+            try
+            {
+                IsYesSelected = !IsYesSelected;
+                var order = await ApiService.VoteVideoAsync(_orderId, true);
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
+                ErrorHandleService.HandleException(new UserVisibleException("Ошибка в подтверждении заказа."));
+
+                IsYesSelected = !IsYesSelected;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private async Task OnNoAsync()
         {
             IsNoSelected = !IsNoSelected;
-            //var order = await ApiService.VoteVideoAsync(_orderId, false);
+            var order = await ApiService.VoteVideoAsync(_orderId, false);
         }
     }
 }
