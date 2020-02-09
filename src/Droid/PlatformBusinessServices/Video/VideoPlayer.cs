@@ -1,5 +1,4 @@
-﻿using Android.Net;
-using Android.Widget;
+﻿using Android.Widget;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Video.Listeners;
 
@@ -49,11 +48,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
             if (container is VideoView videoView)
             {
-                _videoView?.SetOnPreparedListener(null);
                 _videoView = videoView;
-
-                if (_isRepeatEnabled)
-                    ActivateRepeat();
             }
             else
                 _videoView = null;
@@ -61,7 +56,8 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         public void SetSourceUri(string uri)
         {
-            _videoView.SetVideoURI(Uri.Parse(uri));
+            _videoView.SetVideoPath(uri);
+            _videoView.SetOnPreparedListener(new VideoPlayerOnPreparedListener(_isRepeatEnabled));
         }
 
         public void Stop()
@@ -71,11 +67,6 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
             _videoView?.StopPlayback();
             IsPlaying = false;
-        }
-
-        private void ActivateRepeat()
-        {
-            _videoView.SetOnPreparedListener(new VideoPlayerOnPreparedListener());
         }
     }
 }

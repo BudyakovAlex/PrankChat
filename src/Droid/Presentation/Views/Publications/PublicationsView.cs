@@ -129,6 +129,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
             var visibleViewModel = (PublicationItemViewModel)_publicationRecyclerView.Adapter.GetItem(itemToPlay.Key);
 
+            // TODO: Needs to resolve problem when playback has been successful from second attempt load only.
+            // After that necessary to enable double-play blocker (mentioned below) again.
             //if (_currentPlayingItemPosition == itemToPlay.Key && _currentPlayingItemPosition != -1)
             //    return;
 
