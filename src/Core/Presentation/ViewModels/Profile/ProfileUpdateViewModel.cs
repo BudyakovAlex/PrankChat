@@ -26,6 +26,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private readonly IMvxMessenger _messenger;
         private readonly IMediaService _mediaService;
 
+        private bool _isUserPhotoUpdated;
+
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
         public MvxAsyncCommand SaveProfileCommand => new MvxAsyncCommand(OnSaveProfileAsync);
@@ -50,7 +52,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         public override void ViewDestroy(bool viewFinishing = true)
         {
             if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
-                CloseCompletionSource?.TrySetCanceled();
+                CloseCompletionSource?.TrySetResult(new ProfileUpdateResult(false, _isUserPhotoUpdated));
 
             base.ViewDestroy(viewFinishing);
         }
@@ -76,7 +78,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
                 SettingsService.User = await ApiService.UpdateProfileAsync(dataModel);
 
-                CloseCompletionSource.SetResult(new ProfileUpdateResult(true));
+                CloseCompletionSource.SetResult(new ProfileUpdateResult(true, _isUserPhotoUpdated));
                 await NavigationService.CloseView(this);
             }
             finally
@@ -119,6 +121,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
                 ProfilePhotoUrl = file.Path;
                 SettingsService.User = user;
+                _isUserPhotoUpdated = true;
                 _messenger.Publish(new UpdateAvatarMessage(this));
             }
         }

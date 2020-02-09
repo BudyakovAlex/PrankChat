@@ -141,7 +141,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         public async Task<bool> ShowUpdateProfileView()
         {
             var result = await _mvxNavigationService.Navigate<ProfileUpdateViewModel, ProfileUpdateResult>();
-            return result?.IsProfileUpdated ?? false;
+            return (result?.IsProfileUpdated ?? false) || (result?.IsAvatarUpdated ?? false);
         }
 
         public Task Logout()

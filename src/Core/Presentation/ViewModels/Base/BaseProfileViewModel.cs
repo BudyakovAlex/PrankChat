@@ -113,7 +113,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         private async Task OnSelectBirthdayAsync()
         {
-            var result = await DialogService.ShowDateDialogAsync();
+            var result = await DialogService.ShowDateDialogAsync(Birthday);
             if (result.HasValue)
             {
                 Birthday = result.Value;
