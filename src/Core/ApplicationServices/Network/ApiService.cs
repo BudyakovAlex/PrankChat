@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
@@ -181,9 +182,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
-        public async Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
+        public async Task<List<VideoMetadataDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
         {
-            var endpoint = "videos";
+            if (_settingsService.User == null)
+                return new List<VideoMetadataDataModel>();
+
+            var endpoint = "orders";
             switch (publicationType)
             {
                 case PublicationType.MyVideosOfCreatedOrders:
@@ -191,7 +195,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     break;
 
                 case PublicationType.CompletedVideosAssignmentsByMe:
-                    endpoint += $"?executor_id={userId}&status={OrderStatusType.Finished.GetEnumMemberAttrValue()}";
+                    endpoint += $"?executor_id={userId}";
                     break;
 
                 default:
@@ -201,8 +205,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             if (dateFilterType.HasValue)
                 endpoint += $"&date_from={dateFilterType.Value.GetDateString()}";
 
-            var videoMetadataBundle = await _client.Get<VideoMetadataBundleApiModel>(endpoint, false, IncludeType.User);
-            return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
+            var dataApiModel = await _client.Get<DataApiModel<List<OrderApiModel>>>(endpoint, false, IncludeType.Videos, IncludeType.Executor);
+            var orderDataModel = MappingConfig.Mapper.Map<List<OrderDataModel>>(dataApiModel?.Data);
+            orderDataModel.ForEach(o => o.Video.User = o.Executor);
+            var videoData = orderDataModel?.Where(o => o.Video != null)
+                                           .Select(o => o.Video)
+                                           .ToList();
+            return videoData;
         }
 
         public async Task<VideoMetadataDataModel> SendLikeAsync(int videoId, bool isChecked)

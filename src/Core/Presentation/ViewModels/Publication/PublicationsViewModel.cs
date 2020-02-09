@@ -138,25 +138,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             {
                 IsBusy = true;
 
-                VideoMetadataBundleDataModel videoBundle = null;
-
                 switch (SelectedPublicationType)
                 {
                     case PublicationType.Popular:
-                        videoBundle = await ApiService.GetPopularVideoFeedAsync(ActiveFilter);
+                        var videoBundle = await ApiService.GetPopularVideoFeedAsync(ActiveFilter);
+                        SetVideoList(videoBundle.Data);
                         break;
 
                     case PublicationType.Actual:
                         videoBundle = await ApiService.GetActualVideoFeedAsync(ActiveFilter);
+                        SetVideoList(videoBundle.Data);
                         break;
 
                     case PublicationType.MyVideosOfCreatedOrders:
-                        if (_settingsService.User != null)
-                            videoBundle = await ApiService.GetMyVideoFeedAsync(_settingsService.User.Id, SelectedPublicationType, ActiveFilter);
+                        var myVideos = await ApiService.GetMyVideoFeedAsync(_settingsService.User.Id, SelectedPublicationType, ActiveFilter);
+                        SetVideoList(myVideos);
                         break;
                 }
 
-                SetVideoList(videoBundle);
             }
             catch (Exception ex)
             {
@@ -169,12 +168,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             }
         }
 
-        private void SetVideoList(VideoMetadataBundleDataModel videoBundle)
+        private void SetVideoList(List<VideoMetadataDataModel> videoBundle)
         {
-            if (videoBundle.Data == null)
-                return;
-
-            var publicationViewModels = videoBundle.Data.Select(publication =>
+            var publicationViewModels = videoBundle.Select(publication =>
                 new PublicationItemViewModel(
                     NavigationService,
                     DialogService,
