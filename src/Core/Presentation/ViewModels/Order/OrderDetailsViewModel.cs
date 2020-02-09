@@ -70,6 +70,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string NoText => $"{Resources.OrderDetailsView_No_Button} {DisikesCount}";
 
+        public ArbitrationValueType? SelectedArbitration => _order.MyArbitrationValue;
+
+        public bool IsDecideEnabled => SelectedArbitration == null;
+
         private bool _isNoSelected;
         public bool IsNoSelected
         {
@@ -172,6 +176,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 _order = await ApiService.GetOrderDetailsAsync(_orderId);
                 await RaiseAllPropertiesChanged();
+
+                IsNoSelected = SelectedArbitration == ArbitrationValueType.Negative;
+                IsYesSelected = SelectedArbitration == ArbitrationValueType.Positive;
             }
             catch (Exception ex)
             {
@@ -329,11 +336,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnYesAsync()
         {
+            if (!IsDecideEnabled)
+                return;
+
             try
             {
                 IsYesSelected = !IsYesSelected;
                 _order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Positive);
-                await RaiseAllPropertiesChanged();
+                _order.MyArbitrationValue = ArbitrationValueType.Positive;
             }
             catch (Exception ex)
             {
@@ -350,11 +360,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnNoAsync()
         {
+            if (!IsDecideEnabled)
+                return;
+
             try
             {
                 IsNoSelected = !IsNoSelected;
                 _order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Negative);
-                await RaiseAllPropertiesChanged();
+                _order.MyArbitrationValue = ArbitrationValueType.Negative;
             }
             catch (Exception ex)
             {

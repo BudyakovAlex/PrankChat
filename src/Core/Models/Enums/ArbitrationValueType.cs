@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PrankChat.Mobile.Core.Models.Enums
+﻿namespace PrankChat.Mobile.Core.Models.Enums
 {
     public enum ArbitrationValueType
     {
