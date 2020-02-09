@@ -104,7 +104,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<List<RatingOrderDataModel>> GetRatingOrdersAsync(RatingOrderFilterType filter)
         {
-            string endpoint = "orders";
+            string endpoint = $"orders?status={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}";
             switch (filter)
             {
                 case RatingOrderFilterType.All:
@@ -112,17 +112,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     break;
 
                 case RatingOrderFilterType.New:
-                    endpoint = $"{endpoint}?date_from={DateFilterType.Day.GetDateString()}";
+                    endpoint = $"{endpoint}&date_from={DateFilterType.Day.GetDateString()}";
                     break;
 
                 case RatingOrderFilterType.My:
                     if (_settingsService.User == null)
                         return new List<RatingOrderDataModel>();
 
-                    endpoint = $"{endpoint}?customer_id={_settingsService.User.Id}";
+                    endpoint = $"{endpoint}&customer_id={_settingsService.User.Id}";
                     break;
             }
-            var data = await _client.Get<DataApiModel<List<RatingOrderApiModel>>>($"{endpoint}?status={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}", includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
+            var data = await _client.Get<DataApiModel<List<RatingOrderApiModel>>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
             return MappingConfig.Mapper.Map<List<RatingOrderDataModel>>(data?.Data);
         }
 
