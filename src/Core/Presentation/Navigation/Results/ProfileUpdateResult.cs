@@ -5,9 +5,12 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation.Results
     {
         public bool IsProfileUpdated { get; }
 
-        public ProfileUpdateResult(bool _isProfileUpdated)
+        public bool IsAvatarUpdated { get; }
+
+        public ProfileUpdateResult(bool _isProfileUpdated, bool isAvatarUpdated)
         {
             IsProfileUpdated = _isProfileUpdated;
+            IsAvatarUpdated = isAvatarUpdated;
         }
     }
 }

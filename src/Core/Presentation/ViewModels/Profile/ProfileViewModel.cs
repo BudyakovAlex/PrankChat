@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
@@ -144,8 +145,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             {
                 IsBusy = true;
 
-                var videoBundle = await ApiService.GetMyVideoFeedAsync(SettingsService.User.Id, SelectedPublicationType);
-                SetVideoList(videoBundle);
+                var videos= await ApiService.GetMyVideoFeedAsync(SettingsService.User.Id, SelectedPublicationType);
+                SetVideoList(videos);
             }
             finally
             {
@@ -153,12 +154,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
         }
 
-        private void SetVideoList(VideoMetadataBundleDataModel videoBundle)
+        private void SetVideoList(IEnumerable<VideoMetadataDataModel> videos)
         {
-            if (videoBundle.Data == null)
-                return;
-
-            var publicationViewModels = videoBundle.Data.Select(publication =>
+            var publicationViewModels = videos.Select(publication =>
                 new PublicationItemViewModel(
                     NavigationService,
                     DialogService,

@@ -2,6 +2,7 @@ using System;
 using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -101,6 +102,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 
             set.Bind(thumbsDownValueLabel)
                 .To(vm => vm.Dislikes);
+
+            set.Bind(customerShortNameLabel)
+                .To(vm => vm.CustomerShortName);
+
+            set.Bind(customerShortNameLabel)
+                .For(v => v.BindHidden())
+                .To(vm => vm.ProfilePhotoUrl);
 
             set.Apply();
         }

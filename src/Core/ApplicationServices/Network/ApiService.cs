@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
@@ -104,7 +105,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<List<RatingOrderDataModel>> GetRatingOrdersAsync(RatingOrderFilterType filter)
         {
-            string endpoint = "orders";
+            string endpoint = $"orders?status={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}";
             switch (filter)
             {
                 case RatingOrderFilterType.All:
@@ -112,17 +113,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     break;
 
                 case RatingOrderFilterType.New:
-                    endpoint = $"{endpoint}?date_from={DateFilterType.Day.GetDateString()}";
+                    endpoint = $"{endpoint}&date_from={DateFilterType.Day.GetDateString()}";
                     break;
 
                 case RatingOrderFilterType.My:
                     if (_settingsService.User == null)
                         return new List<RatingOrderDataModel>();
 
-                    endpoint = $"{endpoint}?customer_id={_settingsService.User.Id}";
+                    endpoint = $"{endpoint}&customer_id={_settingsService.User.Id}";
                     break;
             }
-            var data = await _client.Get<DataApiModel<List<RatingOrderApiModel>>>($"{endpoint}?status={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}", includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
+            var data = await _client.Get<DataApiModel<List<RatingOrderApiModel>>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
             return MappingConfig.Mapper.Map<List<RatingOrderDataModel>>(data?.Data);
         }
 
@@ -191,9 +192,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
-        public async Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
+        public async Task<List<VideoMetadataDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
         {
-            var endpoint = "videos";
+            if (_settingsService.User == null)
+                return new List<VideoMetadataDataModel>();
+
+            var endpoint = "orders";
             switch (publicationType)
             {
                 case PublicationType.MyVideosOfCreatedOrders:
@@ -201,7 +205,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     break;
 
                 case PublicationType.CompletedVideosAssignmentsByMe:
-                    endpoint += $"?executor_id={userId}&status={OrderStatusType.Finished.GetEnumMemberAttrValue()}";
+                    endpoint += $"?executor_id={userId}";
                     break;
 
                 default:
@@ -211,8 +215,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             if (dateFilterType.HasValue)
                 endpoint += $"&date_from={dateFilterType.Value.GetDateString()}";
 
-            var videoMetadataBundle = await _client.Get<VideoMetadataBundleApiModel>(endpoint, false, IncludeType.User);
-            return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
+            var dataApiModel = await _client.Get<DataApiModel<List<OrderApiModel>>>(endpoint, false, IncludeType.Videos, IncludeType.Customer);
+            var orderDataModel = MappingConfig.Mapper.Map<List<OrderDataModel>>(dataApiModel?.Data);
+            orderDataModel.ForEach(o => o.Video.User = o.Customer);
+            var videoData = orderDataModel?.Where(o => o.Video != null)
+                                           .Select(o => o.Video)
+                                           .ToList();
+            return videoData;
         }
 
         public async Task<VideoMetadataDataModel> SendLikeAsync(int videoId, bool isChecked)
@@ -235,7 +244,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<UserDataModel> SendAvatarAsync(string path)
         {
-            var dataApiModel = await _client.PostPhotoFile<DataApiModel<UserApiModel>>("me/avatar", path);
+            var dataApiModel = await _client.PostPhotoFile<DataApiModel<UserApiModel>>("me/picture", path);
             var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
             return user;
         }

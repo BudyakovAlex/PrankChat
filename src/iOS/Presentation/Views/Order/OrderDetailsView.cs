@@ -177,7 +177,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				.To(vm => vm.ExecutorShortName);
 
 			set.Bind(executorShortNameLabel)
-				.For(v => v.BindVisible())
+				.For(v => v.BindHidden())
 				.To(vm => vm.ExecutorPhotoUrl);
 
 			#endregion Executor

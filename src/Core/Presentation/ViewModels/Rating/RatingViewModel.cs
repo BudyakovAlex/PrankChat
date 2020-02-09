@@ -87,6 +87,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
                                                             o.Id,
                                                             o.Title,
                                                             o.Customer?.Avatar,
+                                                            o.Customer?.Name,
                                                             o.Price,
                                                             o.Likes,
                                                             o.Dislikes,

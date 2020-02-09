@@ -24,6 +24,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 
         public string TimeText => (_arbitrationFinishAt - DateTime.UtcNow).ToTimeWithSpaceString();
 
+        public string CustomerShortName { get; }
+
         public string PriceText { get; }
 
         public int Likes { get; }
@@ -35,7 +37,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
         public RatingItemViewModel(INavigationService navigatiobService,
                                   int orderId,
                                   string orderTitle,
-                                  string profilePhotoUrl,
+                                  string customerPhotoUrl,
+                                  string customerName,
                                   double? priceText,
                                   int likes,
                                   int dislikes,
@@ -43,10 +46,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
         {
             _navigatiobService = navigatiobService;
             OrderTitle = orderTitle;
-            ProfilePhotoUrl = profilePhotoUrl;
+            ProfilePhotoUrl = customerPhotoUrl;
             PriceText = priceText.ToPriceString();
             Likes = likes;
             Dislikes = dislikes;
+            CustomerShortName = customerName.ToShortenName();
 
             _arbitrationFinishAt = arbitrationFinishAt;
             _orderId = orderId;
