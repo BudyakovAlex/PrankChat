@@ -34,5 +34,4 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public ArbitrationValueType? MyArbitrationValue { get; set; }
     }
-
 }

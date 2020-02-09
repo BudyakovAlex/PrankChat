@@ -15,14 +15,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
     {
         private readonly INavigationService _navigatiobService;
 
-        private DateTime _orderTime;
+        private DateTime _arbitrationFinishAt;
         private int _orderId;
 
         public string OrderTitle { get; }
 
         public string ProfilePhotoUrl { get; }
 
-        public string TimeText => _orderTime.ToTimeWithSpaceString();
+        public string TimeText => (_arbitrationFinishAt - DateTime.UtcNow).ToTimeWithSpaceString();
 
         public string PriceText { get; }
 
@@ -39,17 +39,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
                                   double? priceText,
                                   int likes,
                                   int dislikes,
-                                  DateTime time)
+                                  DateTime arbitrationFinishAt)
         {
             _navigatiobService = navigatiobService;
-
             OrderTitle = orderTitle;
             ProfilePhotoUrl = profilePhotoUrl;
             PriceText = priceText.ToPriceString();
             Likes = likes;
             Dislikes = dislikes;
 
-            _orderTime = time;
+            _arbitrationFinishAt = arbitrationFinishAt;
             _orderId = orderId;
         }
 
