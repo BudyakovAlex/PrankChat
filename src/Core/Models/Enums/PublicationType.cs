@@ -4,8 +4,7 @@
     {
         Popular,
         Actual,
-        MyFeedComplete,
-        MyFeedIncomingOrders,
-        MyFeedOutgoingOrders
+        MyVideosOfCreatedOrders,
+        CompletedVideosAssignmentsByMe,
     }
 }

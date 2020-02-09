@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
@@ -121,7 +122,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     endpoint = $"{endpoint}?customer_id={_settingsService.User.Id}";
                     break;
             }
-            var data = await _client.Get<DataApiModel<List<RatingOrderApiModel>>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
+            var data = await _client.Get<DataApiModel<List<RatingOrderApiModel>>>($"{endpoint}?status={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}", includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
             return MappingConfig.Mapper.Map<List<RatingOrderDataModel>>(data?.Data);
         }
 
@@ -192,23 +193,16 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             var endpoint = "videos";
             switch (publicationType)
             {
-                case PublicationType.MyFeedComplete:
-                    endpoint += $"?user_id={userId}";
+                case PublicationType.MyVideosOfCreatedOrders:
+                    endpoint += $"?customer_id={userId}";
                     break;
 
-                case PublicationType.MyFeedIncomingOrders:
-                    endpoint += $"?user_id={userId}";
-                    break;
-
-                case PublicationType.MyFeedOutgoingOrders:
-                    // TODO: Update endpoint for correct filter parameters
-                    endpoint += $"?user_id={userId}";
+                case PublicationType.CompletedVideosAssignmentsByMe:
+                    endpoint += $"?executor_id={userId}&status={OrderStatusType.Finished.GetEnumMemberAttrValue()}";
                     break;
 
                 default:
-                    // TODO: Update endpoint for correct filter parameters
-                    endpoint += $"?user_id={userId}";
-                    break;
+                    throw new InvalidEnumArgumentException();
             }
 
             if (dateFilterType.HasValue)

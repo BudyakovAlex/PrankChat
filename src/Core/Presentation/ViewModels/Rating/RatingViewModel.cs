@@ -13,6 +13,7 @@ using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating

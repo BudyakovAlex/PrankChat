@@ -1,10 +1,19 @@
-﻿namespace PrankChat.Mobile.Core.Models.Data
+﻿using System;
+using PrankChat.Mobile.Core.Models.Enums;
+
+namespace PrankChat.Mobile.Core.Models.Data
 {
     public class UserDataModel
     {
         public int Id { get; set; }
 
+        public string Avatar { get; set; }
+
         public string Name { get; set; }
+
+        public GenderType Sex { get; set; }
+
+        public DateTime? Birthday { get; set; }
 
         public string Login { get; set; }
 
@@ -12,7 +21,7 @@
 
         public double? Balance { get; set; }
 
-        public string Avatar { get; set; }
+        public string Description { get; set; }
 
         public int? OrdersOwnCount { get; set; }
 

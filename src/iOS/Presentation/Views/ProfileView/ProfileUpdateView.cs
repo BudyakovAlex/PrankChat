@@ -11,6 +11,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
@@ -53,7 +54,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .WithConversion<MvxInvertedBooleanConverter>();
 
             set.Bind(saveButton)
-                .To(vm => vm.UpdateProfileCommand);
+                .To(vm => vm.SaveProfileCommand);
 
             set.Bind(changePasswordLabel.Tap())
                 .For(tap => tap.Command)
@@ -87,9 +88,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .To(vm => vm.SelectGenderCommand)
                 .CommandParameter(GenderType.Female);
 
+            set.Bind(femaleIconButton)
+                .For(UIButtonSelectedTargetBinding.TargetBinding)
+                .To(vm => vm.IsGenderFemale);
+
             set.Bind(maleIconButton)
                 .To(vm => vm.SelectGenderCommand)
                 .CommandParameter(GenderType.Male);
+
+            set.Bind(maleIconButton)
+                .For(UIButtonSelectedTargetBinding.TargetBinding)
+                .To(vm => vm.IsGenderMale);
 
             set.Bind(profileShortNameLabel)
                 .To(vm => vm.ProfileShortName);
@@ -117,8 +126,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             birthdayTextField.SetLightStyle(Resources.ProfileUpdateView_Birthday_Placeholder);
             var imageView = new UIImageView(UIImage.FromBundle("ic_calendar"));
-            var imageContainer = new UIView(new CGRect(0, 0, 35, 22));
-            imageContainer.ContentMode = UIViewContentMode.Center;
+            var imageContainer = new UIView(new CGRect(0, 0, 35, 22))
+            {
+                ContentMode = UIViewContentMode.Center
+            };
             imageContainer.AddSubview(imageView);
             birthdayTextField.RightView = imageContainer;
             birthdayTextField.RightViewMode = UITextFieldViewMode.Always;
@@ -128,22 +139,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             sexSelectTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
 
             maleTitleButton.SetTitle(Resources.RegistrationView_Male_Button, UIControlState.Normal);
-            maleTitleButton.AddTarget((s, e) => HandleRadioTap(GenderType.Male), UIControlEvent.TouchUpInside);
             maleTitleButton.SetRadioTitleStyle();
-
-            maleIconButton.SetRadioInactiveStyle();
-            maleIconButton.AddTarget((s, e) => HandleRadioTap(GenderType.Male), UIControlEvent.TouchUpInside);
-
-            maleButtonsContainerView.AddGestureRecognizer(new UITapGestureRecognizer(s => HandleRadioTap(GenderType.Male)));
 
             femaleTitleButton.SetTitle(Resources.RegistrationView_Female_Button, UIControlState.Normal);
             femaleTitleButton.SetRadioTitleStyle();
-            femaleTitleButton.AddTarget((s, e) => HandleRadioTap(GenderType.Female), UIControlEvent.TouchUpInside);
 
-            femaleIconButton.SetRadioInactiveStyle();
-            femaleIconButton.AddTarget((s, e) => HandleRadioTap(GenderType.Female), UIControlEvent.TouchUpInside);
-
-            femaleButtonsContainerView.AddGestureRecognizer(new UITapGestureRecognizer(s => HandleRadioTap(GenderType.Female)));
+            femaleIconButton.SetSelectableImageStyle("ic_radio_button_inactive", "ic_radio_button_active");
+            maleIconButton.SetSelectableImageStyle("ic_radio_button_inactive", "ic_radio_button_active");
 
             saveButton.SetLightStyle(Resources.ProfileUpdateView_Button_Save);
 
@@ -154,7 +156,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             changeProfilePhotoLabel.AttributedText = new NSAttributedString(Resources.ProfileUpdateView_PhotoChange_Title, underlineStyle: NSUnderlineStyle.Single);
             changeProfilePhotoLabel.TextColor = UIColor.White;
 
-            descriptionTextField.SetStyle(Resources.ProfileUpdateView_Description_Placeholder);
+            descriptionTextField.SetLightStyle(Resources.ProfileUpdateView_Description_Placeholder);
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)
@@ -173,24 +175,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             });
 
             base.RegisterKeyboardDismissTextFields(viewList);
-        }
-
-        private void HandleRadioTap(GenderType sex)
-        {
-            switch (sex)
-            {
-                case GenderType.Male:
-                    // Set male.
-                    femaleIconButton.SetRadioInactiveStyle();
-                    maleIconButton.SetRadioActiveStyle();
-                    break;
-
-                case GenderType.Female:
-                    // Set female.
-                    femaleIconButton.SetRadioActiveStyle();
-                    maleIconButton.SetRadioInactiveStyle();
-                    break;
-            }
         }
     }
 }

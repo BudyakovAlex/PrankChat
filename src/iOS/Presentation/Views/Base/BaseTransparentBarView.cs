@@ -1,4 +1,5 @@
 ﻿using PrankChat.Mobile.Core.Presentation.ViewModels;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.iOS.AppTheme;
 using UIKit;
 
