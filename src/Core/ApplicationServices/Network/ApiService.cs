@@ -205,9 +205,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             if (dateFilterType.HasValue)
                 endpoint += $"&date_from={dateFilterType.Value.GetDateString()}";
 
-            var dataApiModel = await _client.Get<DataApiModel<List<OrderApiModel>>>(endpoint, false, IncludeType.Videos, IncludeType.Executor);
+            var dataApiModel = await _client.Get<DataApiModel<List<OrderApiModel>>>(endpoint, false, IncludeType.Videos, IncludeType.Customer);
             var orderDataModel = MappingConfig.Mapper.Map<List<OrderDataModel>>(dataApiModel?.Data);
-            orderDataModel.ForEach(o => o.Video.User = o.Executor);
+            orderDataModel.ForEach(o => o.Video.User = o.Customer);
             var videoData = orderDataModel?.Where(o => o.Video != null)
                                            .Select(o => o.Video)
                                            .ToList();
