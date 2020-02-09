@@ -35,6 +35,9 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("taken_to_work_at")]
         public DateTime? TakenToWorkAt { get; set; }
 
+        [JsonProperty("my_arbitration_value")]
+        public ArbitrationValueType? MyArbitrationValue { get; set; }
+
         [JsonProperty("customer")]
         public DataApiModel<UserApiModel> Customer { get; set; }
 

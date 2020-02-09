@@ -332,7 +332,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             try
             {
                 IsYesSelected = !IsYesSelected;
-                var order = await ApiService.VoteVideoAsync(_orderId, true);
+                _order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Positive);
+                await RaiseAllPropertiesChanged();
             }
             catch (Exception ex)
             {
@@ -349,8 +350,23 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnNoAsync()
         {
-            IsNoSelected = !IsNoSelected;
-            var order = await ApiService.VoteVideoAsync(_orderId, false);
+            try
+            {
+                IsNoSelected = !IsNoSelected;
+                _order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Negative);
+                await RaiseAllPropertiesChanged();
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
+                ErrorHandleService.HandleException(new UserVisibleException("Ошибка в подтверждении заказа."));
+
+                IsYesSelected = !IsYesSelected;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

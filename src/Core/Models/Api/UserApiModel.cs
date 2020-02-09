@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Api
 {
@@ -19,7 +20,7 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         public DateTime? Birthday { get; set; }
 
-        public string Sex { get; set; }
+        public GenderType? Sex { get; set; }
 
         public string Description { get; set; }
 

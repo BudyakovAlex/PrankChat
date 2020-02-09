@@ -155,10 +155,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
-        public async Task<OrderDataModel> VoteVideoAsync(int orderId, bool isLiked)
+        public async Task<OrderDataModel> VoteVideoAsync(int orderId, ArbitrationValueType isLiked)
         {
-            var value = isLiked ? "positive" : "negative";
-            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/arbitration/{value}", true);
+            var arbitrationValue = new ChangeArbitrationApiModel()
+            {
+                Value = isLiked.ToString().ToLower(),
+            };
+            var data = await _client.Post<ChangeArbitrationApiModel, DataApiModel<OrderApiModel>>($"orders/{orderId}/arbitration/value", arbitrationValue, true);
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
