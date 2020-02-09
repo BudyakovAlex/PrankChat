@@ -23,7 +23,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         private OrderStatusType _status;
         private int _orderId;
         private int? _customerId;
-        private TimeSpan? _elapsedTime;
         private MvxSubscriptionToken _timerTickMessageToken;
 
         public string Title { get; }
@@ -32,6 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public string ProfileShortName { get; }
 
+        private TimeSpan? _elapsedTime;
         public TimeSpan? ElapsedTime
         {
             get => _elapsedTime;
@@ -44,7 +44,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             }
         }
 
-        public string TimeText => _elapsedTime?.ToString("dd' : 'hh' : 'mm");
+        public string TimeText => _elapsedTime?.ToTimeWithSpaceString();
 
         public string PriceText { get; }
 

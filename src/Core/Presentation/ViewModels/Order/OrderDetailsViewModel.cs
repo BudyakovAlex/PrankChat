@@ -70,7 +70,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string NoText => $"{Resources.OrderDetailsView_No_Button} {DisikesCount}";
 
-        private bool _isNoSelected = true;
+        private bool _isNoSelected;
         public bool IsNoSelected
         {
             get => _isNoSelected;
@@ -88,7 +88,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string PriceValue => _order?.Price.ToString();
 
-        public string TimeValue => _order?.FinishIn?.ToString("dd' : 'hh' : 'mm");
+        public string TimeValue => _order?.FinishIn?.ToTimeWithSpaceString();
 
         public bool IsUserCustomer => _order?.Customer?.Id == _settingsService.User?.Id;
 
