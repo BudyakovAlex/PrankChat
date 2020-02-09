@@ -130,7 +130,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                         x.Customer?.Avatar,
                         x.Customer?.Name,
                         x.Price,
-                        x.ActiveTo,
+                        x.ActiveTo?.ToLocalTime(),
                         x.Status ?? OrderStatusType.None,
                         x.Customer?.Id));
 

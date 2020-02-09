@@ -412,7 +412,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
         }
 
-        public static void SetBorderlessStyle(this UIView view, string title, UIColor borderColor = null)
+        public static void SetBorderlessStyle(this UIView view, string title = "", UIColor borderColor = null)
         {
             if (borderColor != null)
             {
@@ -438,7 +438,6 @@ namespace PrankChat.Mobile.iOS.AppTheme
                 var attributedTitle = new NSAttributedString(title, titleAttributes);
                 button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
             }
-
         }
 
         public static void SetSelectableImageStyle(this UIButton button, string normalImage, string selectedImage)
