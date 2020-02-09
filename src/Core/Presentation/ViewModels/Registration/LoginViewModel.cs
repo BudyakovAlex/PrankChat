@@ -8,25 +8,22 @@ using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class LoginViewModel : BaseViewModel
     {
-        private readonly IApiService _apiService;
-        private readonly IDialogService _dialogService;
         private readonly IMvxLog _mvxLog;
-        private readonly IErrorHandleService _errorHandleService;
 
         private string _emailText;
-        private string _passwordText;
-
         public string EmailText
         {
             get => _emailText;
             set => SetProperty(ref _emailText, value);
         }
 
+        private string _passwordText;
         public string PasswordText
         {
             get => _passwordText;
@@ -38,17 +35,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                               IDialogService dialogService,
                               IMvxLog mvxLog,
                               IErrorHandleService errorHandleService)
-            : base(navigationService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
-            _apiService = apiService;
-            _dialogService = dialogService;
             _mvxLog = mvxLog;
-            _errorHandleService = errorHandleService;
 
 #if DEBUG
 
-            EmailText = "e.podluzhnyi@gmail.com";
-            PasswordText = "1234567890";
+            EmailText = "testuser@delete.me";
+            PasswordText = "123456789";
 #endif
         }
 
@@ -64,44 +58,42 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             {
                 IsBusy = true;
 
-                if (Enum.TryParse<LoginType>(loginType, out var socialNetworkType))
+                if (!Enum.TryParse<LoginType>(loginType, out var socialNetworkType))
                 {
-                    switch (socialNetworkType)
-                    {
-                        case LoginType.Vk:
-                            break;
-
-                        case LoginType.Ok:
-                            break;
-
-                        case LoginType.Facebook:
-                            break;
-
-                        case LoginType.Gmail:
-                            break;
-
-                        case LoginType.UsernameAndPassword:
-                            if (!CheckValidation())
-                                return;
-
-                            var email = EmailText?.Trim();
-                            var password = PasswordText?.Trim();
-                            await _apiService.AuthorizeAsync(email, password);
-                            break;
-                    }
-
-                    // todo: not wait
-                    await _apiService.GetCurrentUserAsync();
-                    await NavigationService.ShowMainView();
+                    throw new ArgumentException(nameof(loginType));
                 }
-                else
+
+                switch (socialNetworkType)
                 {
-                    _dialogService.ShowToast("Error with login type!");
+                    case LoginType.Vk:
+                        break;
+
+                    case LoginType.Ok:
+                        break;
+
+                    case LoginType.Facebook:
+                        break;
+
+                    case LoginType.Gmail:
+                        break;
+
+                    case LoginType.UsernameAndPassword:
+                        if (!CheckValidation())
+                            return;
+
+                        var email = EmailText?.Trim();
+                        var password = PasswordText?.Trim();
+                        await ApiService.AuthorizeAsync(email, password);
+                        break;
                 }
+
+                // todo: not wait
+                await ApiService.GetCurrentUserAsync();
+                await NavigationService.ShowMainView();
             }
             catch (Exception ex)
             {
-                _dialogService.ShowToast($"Exception with login {ex.Message}");
+                ErrorHandleService.HandleException(new UserVisibleException("Проблема с входом в приложение. Попробуйте еще раз."));
                 _mvxLog.ErrorException($"[{nameof(LoginViewModel)}]", ex);
             }
             finally
@@ -114,19 +106,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             if (string.IsNullOrWhiteSpace(EmailText))
             {
-                _errorHandleService.HandleException(new UserVisibleException("Email не может быть пустым."));
+                ErrorHandleService.HandleException(new UserVisibleException("Email не может быть пустым."));
                 return false;
             }
 
             if (!EmailText.IsValidEmail())
             {
-                _errorHandleService.HandleException(new UserVisibleException("Поле Email введено не правильно."));
+                ErrorHandleService.HandleException(new UserVisibleException("Поле Email введено не правильно."));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(PasswordText))
             {
-                _errorHandleService.HandleException(new UserVisibleException("Пароль не может быть пустым."));
+                ErrorHandleService.HandleException(new UserVisibleException("Пароль не может быть пустым."));
                 return false;
             }
 

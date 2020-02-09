@@ -12,28 +12,26 @@ using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
     public class PublicationsViewModel : BaseViewModel, IVideoListViewModel
     {
-        private readonly IDialogService _dialogService;
-        private readonly IApiService _apiService;
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly ISettingsService _settingsService;
-        private readonly IErrorHandleService _errorHandleService;
         private readonly IMvxLog _mvxLog;
-        private readonly Dictionary<string, DateFilterType> _dateFilterTypeTitleMap;
+        private readonly Dictionary<DateFilterType, string> _dateFilterTypeTitleMap;
 
         private PublicationType _selectedPublicationType;
-
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
@@ -45,19 +43,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         }
 
         private string _activeFilterName;
-
         public string ActiveFilterName
         {
             get => _activeFilterName;
+            set => SetProperty(ref _activeFilterName, value);
+        }
+
+        private DateFilterType _activeFilter;
+        public DateFilterType ActiveFilter
+        {
+            get => _activeFilter;
             set
             {
-                SetProperty(ref _activeFilterName, value);
-                LoadPublicationsCommand.ExecuteAsync().FireAndForget();
+                _activeFilter = value;
+                if (_dateFilterTypeTitleMap.TryGetValue(_activeFilter, out var activeFilterName))
+                {
+                    ActiveFilterName = activeFilterName;
+                }
             }
         }
 
         private int _currentlyPlayingItem;
-
         public int CurrentlyPlayingItem
         {
             get => _currentlyPlayingItem;
@@ -70,47 +76,40 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxAsyncCommand LoadPublicationsCommand => new MvxAsyncCommand(OnLoadPublicationsAsync);
 
-        public PublicationsViewModel(
-            INavigationService navigationService,
-            IDialogService dialogService,
-            IApiService apiService,
-            IPlatformService platformService,
-            IVideoPlayerService videoPlayerService,
-            ISettingsService settingsService,
-            IMvxLog mvxLog,
-            IErrorHandleService errorHandleService) : base(navigationService)
+        public PublicationsViewModel(INavigationService navigationService,
+                                    IDialogService dialogService,
+                                    IApiService apiService,
+                                    IPlatformService platformService,
+                                    IVideoPlayerService videoPlayerService,
+                                    ISettingsService settingsService,
+                                    IMvxLog mvxLog,
+                                    IErrorHandleService errorHandleService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
-            _dialogService = dialogService;
-            _apiService = apiService;
             _platformService = platformService;
             _videoPlayerService = videoPlayerService;
             _settingsService = settingsService;
             _mvxLog = mvxLog;
-            _errorHandleService = errorHandleService;
 
-            _dateFilterTypeTitleMap = new Dictionary<string, DateFilterType>
+            _dateFilterTypeTitleMap = new Dictionary<DateFilterType, string>
             {
-                { Resources.Publication_Tab_Filter_Day, DateFilterType.Day },
-                { Resources.Publication_Tab_Filter_Week, DateFilterType.Week},
-                { Resources.Publication_Tab_Filter_Month, DateFilterType.Month },
-                { Resources.Publication_Tab_Filter_Quarter, DateFilterType.Quarter },
-                { Resources.Publication_Tab_Filter_HalfYear, DateFilterType.HalfYear },
+                { DateFilterType.Day, Resources.Publication_Tab_Filter_Day },
+                { DateFilterType.Week, Resources.Publication_Tab_Filter_Week },
+                { DateFilterType.Month, Resources.Publication_Tab_Filter_Month },
+                { DateFilterType.Quarter, Resources.Publication_Tab_Filter_Quarter },
+                { DateFilterType.HalfYear, Resources.Publication_Tab_Filter_HalfYear },
             };
         }
 
         public override Task Initialize()
         {
-            ActiveFilterName = Resources.Publication_Tab_Filter_Month;
-
-            LoadPublicationsCommand.ExecuteAsync().FireAndForget();
-
-            return base.Initialize();
+            ActiveFilter = DateFilterType.Month;
+            return LoadPublicationsCommand.ExecuteAsync();
         }
 
         public override void ViewDisappearing()
         {
             _videoPlayerService.Pause();
-
             base.ViewDisappearing();
         }
 
@@ -123,19 +122,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
-            var selectedFilter = await _dialogService.ShowMenuDialogAsync(new[]
-            {
-                Resources.Publication_Tab_Filter_Day,
-                Resources.Publication_Tab_Filter_Week,
-                Resources.Publication_Tab_Filter_Month,
-                Resources.Publication_Tab_Filter_Quarter,
-                Resources.Publication_Tab_Filter_HalfYear
-            });
+            var parametres = _dateFilterTypeTitleMap.Values.ToArray();
+            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parametres, Resources.Cancel);
 
-            if (string.IsNullOrWhiteSpace(selectedFilter) || selectedFilter == Resources.Cancel)
+            if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
                 return;
 
-            ActiveFilterName = selectedFilter;
+            ActiveFilter = _dateFilterTypeTitleMap.FirstOrDefault(x => x.Value == selectedFilterName).Key;
+            await LoadPublicationsCommand.ExecuteAsync();
         }
 
         private async Task OnLoadPublicationsAsync()
@@ -144,31 +138,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             {
                 IsBusy = true;
 
-                _dateFilterTypeTitleMap.TryGetValue(ActiveFilterName, out var dateFilterType);
-
-                VideoMetadataBundleDataModel videoBundle = null;
-
                 switch (SelectedPublicationType)
                 {
                     case PublicationType.Popular:
-                        videoBundle = await _apiService.GetPopularVideoFeedAsync(dateFilterType);
+                        var videoBundle = await ApiService.GetPopularVideoFeedAsync(ActiveFilter);
+                        SetVideoList(videoBundle.Data);
                         break;
 
                     case PublicationType.Actual:
-                        videoBundle = await _apiService.GetActualVideoFeedAsync(dateFilterType);
+                        videoBundle = await ApiService.GetActualVideoFeedAsync(ActiveFilter);
+                        SetVideoList(videoBundle.Data);
                         break;
 
-                    case PublicationType.MyFeedComplete:
-                        if (_settingsService.User != null)
-                            videoBundle = await _apiService.GetMyVideoFeedAsync(_settingsService.User.Id, SelectedPublicationType, dateFilterType);
+                    case PublicationType.MyVideosOfCreatedOrders:
+                        var myVideos = await ApiService.GetMyVideoFeedAsync(_settingsService.User.Id, SelectedPublicationType, ActiveFilter);
+                        SetVideoList(myVideos);
                         break;
                 }
 
-                SetVideoList(videoBundle);
             }
             catch (Exception ex)
             {
-                _dialogService.ShowToast($"Exception with registration {ex.Message}");
+                ErrorHandleService.HandleException(new UserVisibleException("Проблема с загрузкой публикаций."));
                 _mvxLog.ErrorException($"[{nameof(PublicationsViewModel)}]", ex);
             }
             finally
@@ -177,19 +168,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             }
         }
 
-        private void SetVideoList(VideoMetadataBundleDataModel videoBundle)
+        private void SetVideoList(List<VideoMetadataDataModel> videoBundle)
         {
-            if (videoBundle.Data == null)
-                return;
-
-            var publicationViewModels = videoBundle.Data.Select(publication =>
+            var publicationViewModels = videoBundle.Select(publication =>
                 new PublicationItemViewModel(
                     NavigationService,
-                    _dialogService,
+                    DialogService,
                     _platformService,
                     _videoPlayerService,
-                    _apiService,
-                    _errorHandleService,
+                    ApiService,
+                    ErrorHandleService,
                     publication.User?.Name,
                     publication.User?.Avatar,
                     publication.Id,

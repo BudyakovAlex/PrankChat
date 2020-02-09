@@ -158,7 +158,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				.To(vm => vm.ExecutorShortName);
 
 			set.Bind(executorShortNameLabel)
-				.For(v => v.BindVisible())
+				.For(v => v.BindHidden())
 				.To(vm => vm.ExecutorPhotoUrl);
 
 			#endregion Executor
@@ -232,6 +232,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			tookOrderTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Took_The_Order_Text);
 			executorNameLabel.SetTitleStyle();
 			startDateLabel.SetSmallSubtitleStyle();
+
+			lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
+			lottieAnimationView.LoopAnimation = true;
+			lottieAnimationView.Play();
 		}
-	}
+    }
 }

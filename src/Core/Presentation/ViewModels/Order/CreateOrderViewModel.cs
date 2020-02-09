@@ -17,16 +17,14 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
     public class CreateOrderViewModel : BaseViewModel
     {
-        private readonly IDialogService _dialogService;
-        private readonly IApiService _apiService;
         private readonly IMvxMessenger _mvxMessenger;
         private readonly ISettingsService _settingsService;
-        private readonly IErrorHandleService _errorHandleService;
 
         private PeriodDataModel _activeFor;
         public PeriodDataModel ActiveFor
@@ -84,13 +82,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                     IMvxMessenger mvxMessenger,
                                     ISettingsService settingsService,
                                     IErrorHandleService errorHandleService)
-            : base(navigationService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
-            _dialogService = dialogService;
-            _apiService = apiService;
             _mvxMessenger = mvxMessenger;
             _settingsService = settingsService;
-            _errorHandleService = errorHandleService;
         }
 
         public override void Prepare()
@@ -117,7 +112,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     Price = Price.Value,
                 };
 
-                var newOrder = await _apiService.CreateOrderAsync(createOrderModel);
+                var newOrder = await ApiService.CreateOrderAsync(createOrderModel);
                 if (newOrder != null)
                 {
                     if (newOrder.Customer == null)
@@ -137,7 +132,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private async Task OnDateDialogAsync()
         {
             var periods = ConfigurationProvider.GetConfiguration().Periods;
-            var result = await _dialogService.ShowArrayDialogAsync(periods.Select(p => p.Title).ToList(), Resources.CreateOrderView_Choose_Time_Period);
+            var result = await DialogService.ShowArrayDialogAsync(periods.Select(p => p.Title).ToList(), Resources.CreateOrderView_Choose_Time_Period);
             if (!string.IsNullOrWhiteSpace(result))
             {
                 ActiveFor = periods.FirstOrDefault(p => p.Title == result);
@@ -148,31 +143,31 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             if (string.IsNullOrWhiteSpace(Title))
             {
-                _errorHandleService.HandleException(new UserVisibleException("Название заказа не может быть пустым."));
+                ErrorHandleService.HandleException(new UserVisibleException("Название заказа не может быть пустым."));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Description))
             {
-                _errorHandleService.HandleException(new UserVisibleException("Описание заказа не может быть пустым."));
+                ErrorHandleService.HandleException(new UserVisibleException("Описание заказа не может быть пустым."));
                 return false;
             }
 
             if (Price == null)
             {
-                _errorHandleService.HandleException(new UserVisibleException("Цена не может быть пустой."));
+                ErrorHandleService.HandleException(new UserVisibleException("Цена не может быть пустой."));
                 return false;
             }
 
             if (Price <= 0)
             {
-                _errorHandleService.HandleException(new UserVisibleException("Цена не может быть меньше или равна нулю."));
+                ErrorHandleService.HandleException(new UserVisibleException("Цена не может быть меньше или равна нулю."));
                 return false;
             }
 
             if (ActiveFor == null)
             {
-                _errorHandleService.HandleException(new UserVisibleException("Выберите период действия заказа."));
+                ErrorHandleService.HandleException(new UserVisibleException("Выберите период действия заказа."));
                 return false;
             }
 

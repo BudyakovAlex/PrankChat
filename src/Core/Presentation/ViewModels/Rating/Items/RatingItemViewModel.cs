@@ -7,6 +7,7 @@ using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 {
@@ -23,30 +24,37 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 
         public string TimeText => _orderTime.ToTimeWithSpaceString();
 
+        public string CustomerShortName { get; }
+
         public string PriceText { get; }
 
-        public string Likes { get; }
+        public int Likes { get; }
 
-        public string Dislikes { get; }
+        public int Dislikes { get; }
 
         public MvxAsyncCommand OpenDetailsOrderCommand => new MvxAsyncCommand(OnOpenDetailsOrderAsync);
 
         public RatingItemViewModel(INavigationService navigatiobService,
-                                  int orderId,
-                                  string orderTitle,
-                                  string profilePhotoUrl,
-                                  double? priceText,
-                                  DateTime time)
+                                    int orderId,
+                                    string orderTitle,
+                                    string customerPhotoUrl,
+                                    string customerName,
+                                    double? priceText,
+                                    int likes,
+                                    int dislikes,
+                                    DateTime time)
         {
             _navigatiobService = navigatiobService;
+
             OrderTitle = orderTitle;
-            ProfilePhotoUrl = profilePhotoUrl;
+            ProfilePhotoUrl = customerPhotoUrl;
             PriceText = priceText.ToPriceString();
+            Likes = likes;
+            Dislikes = dislikes;
+            CustomerShortName = customerName.ToShortenName();
+
             _orderTime = time;
             _orderId = orderId;
-
-            Likes = "1000";
-            Dislikes = "100";
         }
 
         private Task OnOpenDetailsOrderAsync()

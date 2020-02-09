@@ -185,7 +185,7 @@
                     android:paddingRight="30dp"
                     android:text="@string/ProfileUpdateView_Button_Save"
                     style="@style/Theme.PrankChat.Button.White"
-                    app:MvxBind="Click ProfileUpdateCommand" />
+                    app:MvxBind="Click SaveProfileCommand" />
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="30dp"

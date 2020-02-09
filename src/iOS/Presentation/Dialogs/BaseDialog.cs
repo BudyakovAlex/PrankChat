@@ -1,6 +1,6 @@
 ﻿using System;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using PrankChat.Mobile.Core.Presentation.ViewModels;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;

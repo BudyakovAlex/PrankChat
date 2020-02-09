@@ -2,7 +2,11 @@
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
@@ -15,7 +19,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
 
         public MvxAsyncCommand SendCommentCommand => new MvxAsyncCommand(OnSendCommentAsync);
 
-        public CommentsViewModel(INavigationService navigationService) : base(navigationService)
+        public CommentsViewModel(INavigationService navigationService,
+                                IErrorHandleService errorHandleService,
+                                IApiService apiService,
+                                IDialogService dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
         }
 

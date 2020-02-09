@@ -3,7 +3,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
@@ -27,7 +31,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public ICommand SearchCommand => new MvxAsyncCommand<string>(OnSearchCommand);
 
-        public SearchViewModel(INavigationService navigationService) : base(navigationService)
+        public SearchViewModel(INavigationService navigationService,
+                                IErrorHandleService errorHandleService,
+                                IApiService apiService,
+                                IDialogService dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService)
         {
         }
 

@@ -240,7 +240,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="26dp">
                 <TextView
-                    android:id="@+id/take_the_order_date"
+                    android:id="@+id/corresponds_title_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -251,8 +251,9 @@
                 <Button
                     android:id="@+id/no_button"
                     app:layout_widthPercent="47%"
+                    android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:layout_below="@+id/take_the_order_date"
+                    android:layout_below="@+id/corresponds_title_text_view"
                     android:layout_marginTop="26dp"
                     android:layout_alignParentLeft="true"
                     android:text="@string/OrderDetailsView_No_Button"
@@ -262,7 +263,8 @@
                     android:id="@+id/yes_button"
                     app:layout_widthPercent="47%"
                     android:layout_height="36dp"
-                    android:layout_below="@+id/take_the_order_date"
+                    android:layout_width="match_parent"
+                    android:layout_below="@+id/corresponds_title_text_view"
                     android:layout_marginTop="26dp"
                     android:layout_alignParentRight="true"
                     android:text="@string/OrderDetailsView_Yes_Button"
@@ -300,11 +302,14 @@
         android:layout_below="@id/action_bar"
         android:background="@color/applicationTransparent"
         app:MvxBind="Visibility Visibility(IsBusy)">
-        <ProgressBar
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            style="@style/Theme.PrankChat.ProgressBar.Accent"/>
+            app:lottie_fileName="ripple_animation.json"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true" />
     </FrameLayout>
 </RelativeLayout>
 

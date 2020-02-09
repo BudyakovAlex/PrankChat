@@ -28,7 +28,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<OrderDataModel> TakeOrderAsync(int orderId);
 
-        Task<List<OrderDataModel>> GetRatingOrdersAsync();
+        Task<List<RatingOrderDataModel>> GetRatingOrdersAsync(RatingOrderFilterType filter);
 
         Task CancelOrderAsync(int orderId);
 
@@ -50,7 +50,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<VideoMetadataBundleDataModel> GetActualVideoFeedAsync(DateFilterType dateFilterType);
 
-        Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null);
+        Task<List<VideoMetadataDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null);
 
         #endregion Publications
 

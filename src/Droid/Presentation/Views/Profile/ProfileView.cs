@@ -48,13 +48,5 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 
             return base.OnOptionsItemSelected(item);
         }
-
-        protected override void Subscription()
-        {
-        }
-
-        protected override void Unsubscription()
-        {
-        }
     }
 }
