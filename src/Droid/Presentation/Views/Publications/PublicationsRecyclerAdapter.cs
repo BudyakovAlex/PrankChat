@@ -11,6 +11,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 {
     public class PublicationsRecyclerAdapter : MvxRecyclerAdapter
     {
+        private const int InactivatedPosition = -1;
+
         public PublicationsRecyclerAdapter(IntPtr javaReference, JniHandleOwnership transfer)
             : base(javaReference, transfer) { }
 
@@ -26,7 +28,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         {
             if (BindingContext.DataContext is PublicationsViewModel viewModel
                 && holder is RecyclerView.ViewHolder viewHolder
-                && viewHolder.LayoutPosition != -1)
+                && viewHolder.LayoutPosition != InactivatedPosition)
             {
                 var itemViewModel = viewModel.Items[viewHolder.LayoutPosition];
                 StopVideo(itemViewModel);

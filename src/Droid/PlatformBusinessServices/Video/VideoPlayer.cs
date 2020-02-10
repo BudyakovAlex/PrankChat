@@ -51,7 +51,9 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
                 _videoView = videoView;
             }
             else
+            {
                 _videoView = null;
+            }
         }
 
         public void SetSourceUri(string uri)
