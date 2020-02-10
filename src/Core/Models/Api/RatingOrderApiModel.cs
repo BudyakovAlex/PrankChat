@@ -34,6 +34,6 @@ namespace PrankChat.Mobile.Core.Models.Api
         public int Dislikes { get; set; }
 
         [JsonProperty("arbitration_finish_at")]
-        public DateTime ArbitrationFinishAt { get; set; }
+        public DateTime? ArbitrationFinishAt { get; set; }
     }
 }
