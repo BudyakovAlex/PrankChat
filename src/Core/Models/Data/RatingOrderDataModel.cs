@@ -23,6 +23,6 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public int Dislikes { get; set; }
 
-        public DateTime ArbitrationFinishAt { get; set; }
+        public DateTime? ArbitrationFinishAt { get; set; }
     }
 }
