@@ -62,5 +62,6 @@
     <Folder Include="ApplicationServices\Network\Errors\" />
     <Folder Include="ApplicationServices\Timer\" />
     <Folder Include="ApplicationServices\Dialogs\" />
+    <Folder Include="BusinessServices\Crashlytic\" />
   </ItemGroup>
 </Project>

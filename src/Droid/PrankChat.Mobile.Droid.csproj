@@ -110,6 +110,7 @@
     <Compile Include="Presentation\Converters\PlaceholderImageConverter.cs" />
     <Compile Include="Presentation\Converters\LikeConverter.cs" />
     <Compile Include="Controls\SelectableButton.cs" />
+    <Compile Include="PlatformBusinessServices\Crashlytics\CrashlyticsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -379,7 +380,7 @@
       <Version>7.0.35</Version>
     </PackageReference>
     <PackageReference Include="Com.Airbnb.Android.Lottie">
-      <Version>3.0.5</Version>
+      <Version>3.0.6</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross">
       <Version>6.4.2</Version>
@@ -387,7 +388,7 @@
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.3" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.4.0-pre2" />
     <PackageReference Include="MvvmCross.Droid.Support.V7.AppCompat">
       <Version>6.4.2</Version>
     </PackageReference>
@@ -419,7 +420,7 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Constraint.Layout">
-      <Version>1.1.2</Version>
+      <Version>2.0.0-beta2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Percent">
       <Version>28.0.0.3</Version>
@@ -429,6 +430,18 @@
     </PackageReference>
     <PackageReference Include="Xam.Plugin.Media">
       <Version>4.4.10-beta</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Crashlytics">
+      <Version>2.9.4.4</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Crashlytics.Answers">
+      <Version>1.4.2.4</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Crashlytics.Beta">
+      <Version>1.2.9.4</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Crashlytics.Core">
+      <Version>2.6.3.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -648,6 +661,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
+    <Folder Include="PlatformBusinessServices\Crashlytics\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_background.xml" />
