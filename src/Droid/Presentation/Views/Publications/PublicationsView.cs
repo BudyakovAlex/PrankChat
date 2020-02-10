@@ -1,4 +1,6 @@
-﻿using Android.App;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Android.App;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
@@ -6,8 +8,6 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using MediaManager;
-using MediaManager.Library;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -18,7 +18,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using static Android.Support.Design.Widget.TabLayout;
-using VideoView = MediaManager.Platforms.Android.Video.VideoView;
+using Debug = System.Diagnostics.Debug;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 {
@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private MvxRecyclerView _publicationRecyclerView;
         private StateScrollListener _stateScrollListener;
 
-        private int _currentVisibleItemPosition;
+        private int _currentPlayingItemPosition = -1;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -41,12 +41,20 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             return view;
         }
 
+        public override void OnViewCreated(View view, Bundle savedInstanceState)
+        {
+            base.OnViewCreated(view, savedInstanceState);
+
+            PlayFirstCompletelyVisibleVideoItem();
+        }
+
         private void InitializeControls(View view)
         {
             _publicationTypeTabLayout = view.FindViewById<TabLayout>(Resource.Id.publication_type_tab_layout);
             _publicationRecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.publication_recycler_view);
             var dividerItemDecoration = new DividerItemDecoration(Application.Context, LinearLayoutManager.Vertical);
             _publicationRecyclerView.AddItemDecoration(dividerItemDecoration);
+            _publicationRecyclerView.Adapter = new PublicationsRecyclerAdapter((IMvxAndroidBindingContext)BindingContext);
             _stateScrollListener = new StateScrollListener();
             _publicationRecyclerView.AddOnScrollListener(_stateScrollListener);
         }
@@ -67,17 +75,83 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
         private void StateScrollListenerFinishScroll(object sender, System.EventArgs e)
         {
+            PlayFirstCompletelyVisibleVideoItem();
+        }
+
+        private void PlayFirstCompletelyVisibleVideoItem()
+        {
             var layoutManager = (LinearLayoutManager)_publicationRecyclerView.GetLayoutManager();
-            var completelyVisibleItemPosition = layoutManager.FindFirstCompletelyVisibleItemPosition();
-            if (completelyVisibleItemPosition == -1 || _currentVisibleItemPosition == completelyVisibleItemPosition)
-                return;
+            var firstVisibleItemPosition = layoutManager.FindFirstVisibleItemPosition();
+            var visibleItemsCount = layoutManager.ChildCount;
+            var centralVisibleItemIndexToPlay = visibleItemsCount / 2;
+            var completelyVisibleItems = new Dictionary<int, View>();
+            var partiallyVisibleItems = new Dictionary<int, View>();
+            var recyclerViewBounds = new Rect();
+            _publicationRecyclerView.GetHitRect(recyclerViewBounds);
 
-            _currentVisibleItemPosition = completelyVisibleItemPosition;
-            var visibleView = layoutManager.FindViewByPosition(_currentVisibleItemPosition);
-            var videoView = visibleView.FindViewById<VideoView>(Resource.Id.video_file);
-            var visibleViewModel = (PublicationItemViewModel)_publicationRecyclerView.Adapter.GetItem(_currentVisibleItemPosition);
+            for (var i = firstVisibleItemPosition; i < firstVisibleItemPosition + visibleItemsCount; i++)
+            {
+                var itemView = layoutManager.FindViewByPosition(i);
+                var videoView = itemView.FindViewById<VideoView>(Resource.Id.video_file);
+                // The IsViewPartiallyVisible method checks for completely visible state when completelyVisible option equals true.
+                var videoViewBounds = new Rect();
+                videoView.GetLocalVisibleRect(videoViewBounds);
+                var isCompletelyVisible = videoView.IsShown
+                                          && videoViewBounds.Height() == videoView.Height
+                                          && videoViewBounds.Width() == videoView.Width;
+                if (isCompletelyVisible)
+                {
+                    completelyVisibleItems.Add(i, videoView);
+                }
+                else
+                {
+                    partiallyVisibleItems.Add(i, videoView);
+                }
+            }
 
-            //visibleViewModel.PlayVideoCommand.Execute(videoView);
+            var itemToPlay = completelyVisibleItems.FirstOrDefault();
+            if (itemToPlay.Value == null)
+            {
+                var centralItemView = layoutManager.FindViewByPosition(centralVisibleItemIndexToPlay);
+                if (centralItemView != null)
+                    itemToPlay = new KeyValuePair<int, View>(centralVisibleItemIndexToPlay, centralItemView);
+                else
+                    return;
+            }
+
+            Debug.WriteLine("Play activated:");
+
+            foreach (var partiallyVisibleItem in partiallyVisibleItems)
+            {
+                var itemViewModel = (PublicationItemViewModel)_publicationRecyclerView.Adapter.GetItem(partiallyVisibleItem.Key);
+                PauseVideo(itemViewModel);
+            }
+
+            var visibleViewModel = (PublicationItemViewModel)_publicationRecyclerView.Adapter.GetItem(itemToPlay.Key);
+
+            // TODO: Needs to resolve problem when playback has been successful from second attempt load only.
+            // After that necessary to enable double-play blocker (mentioned below) again.
+            //if (_currentPlayingItemPosition == itemToPlay.Key && _currentPlayingItemPosition != -1)
+            //    return;
+
+            _currentPlayingItemPosition = itemToPlay.Key;
+
+            if (itemToPlay.Value is VideoView videoItemView)
+            {
+                PlayVideo(visibleViewModel, videoItemView);
+            }
+        }
+
+        private void PlayVideo(PublicationItemViewModel itemViewModel, VideoView videoView)
+        {
+            var videoService = itemViewModel.VideoPlayerService;
+            videoService.Player.SetPlatformVideoPlayerContainer(videoView);
+            videoService.Play(itemViewModel.VideoUrl);
+        }
+
+        private void PauseVideo(PublicationItemViewModel itemViewModel)
+        {
+            itemViewModel.VideoPlayerService.Stop();
         }
 
         private void PublicationTypeTabLayoutTabUnselected(object sender, TabLayout.TabUnselectedEventArgs e)
