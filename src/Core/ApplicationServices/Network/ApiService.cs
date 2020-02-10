@@ -217,9 +217,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
             var dataApiModel = await _client.Get<DataApiModel<List<OrderApiModel>>>(endpoint, false, IncludeType.Videos, IncludeType.Customer);
             var orderDataModel = MappingConfig.Mapper.Map<List<OrderDataModel>>(dataApiModel?.Data);
-            orderDataModel.ForEach(o => o.Video.User = o.Customer);
             var videoData = orderDataModel?.Where(o => o.Video != null)
-                                           .Select(o => o.Video)
+                                           .Select(o =>
+                                           {
+                                               o.Video.User = o.Customer;
+                                               return o.Video;
+                                           })
                                            .ToList();
             return videoData;
         }
