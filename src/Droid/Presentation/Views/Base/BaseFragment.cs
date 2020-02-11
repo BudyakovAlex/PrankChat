@@ -3,11 +3,12 @@ using Android.Views;
 using Android.Widget;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
+using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 {
-    public abstract class BaseFragment<TMvxViewModel> : MvxFragment<TMvxViewModel> where TMvxViewModel : BaseViewModel
+    public abstract class BaseFragment<TMvxViewModel> : MvxFragment<TMvxViewModel> where TMvxViewModel : class, IMvxViewModel
     {
         protected virtual bool HasBackButton => false;
 

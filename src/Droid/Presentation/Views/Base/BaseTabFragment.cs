@@ -1,9 +1,10 @@
 ﻿using MvvmCross.Droid.Support.V4;
+using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 {
-    public abstract class BaseTabFragment<TMvxViewModel> : BaseFragment<TMvxViewModel> where TMvxViewModel : BaseViewModel
+    public abstract class BaseTabFragment<TMvxViewModel> : BaseFragment<TMvxViewModel> where TMvxViewModel : class, IMvxViewModel
     {
         public override bool UserVisibleHint
         {

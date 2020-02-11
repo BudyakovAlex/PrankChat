@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
@@ -21,7 +20,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
-    public class ProfileViewModel : BaseViewModel, IVideoListViewModel
+    public class ProfileViewModel : BaseViewModel<int>, IVideoListViewModel
     {
         private readonly IPlatformService _platformService;
         private readonly IMvxMessenger _messenger;
@@ -139,6 +138,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             base.ViewAppeared();
 
             _videoPlayerService.Play();
+        }
+
+        public override void Prepare(int parameter)
+        {
+            // TODO: save this id and change OnLoadProfileAsync
         }
 
         private async Task OnLoadProfileAsync()
