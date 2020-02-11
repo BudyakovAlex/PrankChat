@@ -5,6 +5,7 @@ using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Converters;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -56,7 +57,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 				.Mode(MvxBindingMode.OneWay);	
 
             set.Bind(profileDescriptionLabel)
-                .To(vm => vm.ProfileName)
+                .To(vm => vm.Name)
                 .Mode(MvxBindingMode.OneWay);
 
             set.Bind(refillButton)
@@ -79,11 +80,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             set.Bind(subscriptionsValueLabel)
                 .To(vm => vm.SubscriptionsValue);
-
-            set.Bind(segmentedControl)
-                .For(v => v.SelectedSegment)
-                .To(vm => vm.SelectedPublicationType)
-                .WithConversion<PublicationTypeConverter>();
 
             set.Bind(PublicationTableSource)
                 .To(vm => vm.Items);
@@ -119,7 +115,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         {
             InitializeTableView();
 
-            Title = ViewModel.ProfileName;
+            Title = ViewModel.Name;
 
             NavigationItem.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton("ic_menu", ViewModel.ShowMenuCommand), false);
 
@@ -142,6 +138,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             });
 
             segmentedControl.SelectedSegment = 0;
+            segmentedControl.ValueChanged += SegmentedControl_ValueChanged;
+        }
+
+        private void SegmentedControl_ValueChanged(object sender, System.EventArgs e)
+        {
+            switch (segmentedControl.SelectedSegment)
+            {
+                case 0:
+                    ViewModel.SelectedPublicationType = PublicationType.MyVideosOfCreatedOrders;
+                    break;
+
+                case 1:
+                    ViewModel.SelectedPublicationType = PublicationType.CompletedVideosAssignmentsByMe;
+                    break;
+            }
         }
 
         private void InitializeTableView()

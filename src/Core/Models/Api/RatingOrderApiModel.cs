@@ -32,5 +32,8 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         [JsonProperty("negative_arbitration_values_count")]
         public int Dislikes { get; set; }
+
+        [JsonProperty("arbitration_finish_at")]
+        public DateTime? ArbitrationFinishAt { get; set; }
     }
 }

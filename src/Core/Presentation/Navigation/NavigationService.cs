@@ -14,6 +14,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
@@ -137,9 +138,10 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter>(navigationParameter);
         }
 
-        public Task ShowUpdateProfileView()
+        public async Task<bool> ShowUpdateProfileView()
         {
-            return _mvxNavigationService.Navigate<ProfileUpdateViewModel>();
+            var result = await _mvxNavigationService.Navigate<ProfileUpdateViewModel, ProfileUpdateResult>();
+            return (result?.IsProfileUpdated ?? false) || (result?.IsAvatarUpdated ?? false);
         }
 
         public Task Logout()

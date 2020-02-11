@@ -238,7 +238,8 @@
             <android.support.percent.PercentRelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="26dp">
+                android:layout_marginTop="26dp"
+                app:MvxBind="Visibility Visibility(IsDecideVideoAvailable);">
                 <TextView
                     android:id="@+id/corresponds_title_text_view"
                     android:layout_width="wrap_content"
@@ -248,28 +249,34 @@
                     android:textSize="14sp"
                     android:textColor="@color/applicationBlack"
                     android:text="@string/OrderDetailsView_Corresponds_To_Video_Text"/>
-                <Button
+                <SelectableButton
                     android:id="@+id/no_button"
-                    app:layout_widthPercent="47%"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:layout_below="@+id/corresponds_title_text_view"
+                    app:layout_widthPercent="30%"
                     android:layout_marginTop="26dp"
-                    android:layout_alignParentLeft="true"
-                    android:text="@string/OrderDetailsView_No_Button"
-                    style="@style/Theme.PrankChat.Button.Accent"
-                    app:MvxBind="Click NoCommand"/>
-                <Button
+                    android:layout_marginRight="10dp"
+                    android:layout_below="@+id/corresponds_title_text_view"
+                    android:layout_toLeftOf="@+id/space"
+                    android:drawableLeft="@drawable/ic_accent_thumbs_down"
+                    android:paddingLeft="10dp"
+                    app:MvxBind="Click NoCommand; Selected IsNoSelected; Text NoText"/>
+                <Space
+                    android:id="@+id/space"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"/>
+                <SelectableButton
                     android:id="@+id/yes_button"
-                    app:layout_widthPercent="47%"
                     android:layout_height="36dp"
                     android:layout_width="match_parent"
-                    android:layout_below="@+id/corresponds_title_text_view"
+                    app:layout_widthPercent="30%"
                     android:layout_marginTop="26dp"
-                    android:layout_alignParentRight="true"
-                    android:text="@string/OrderDetailsView_Yes_Button"
-                    style="@style/Theme.PrankChat.Button.Accent"
-                    app:MvxBind="Click YesCommand"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_below="@+id/corresponds_title_text_view"
+                    android:layout_toRightOf="@+id/space"
+                    android:drawableLeft="@drawable/ic_accent_thumbs_up"
+                    app:MvxBind="Click YesCommand; Selected IsYesSelected; Text YesText"/>
             </android.support.percent.PercentRelativeLayout>
             <!--Decide-->
             <LinearLayout

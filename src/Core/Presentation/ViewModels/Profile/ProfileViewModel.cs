@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
@@ -16,44 +17,27 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
-    public class ProfileViewModel : BaseViewModel<int>, IVideoListViewModel
+    public class ProfileViewModel : BaseProfileViewModel, IVideoListViewModel
     {
         private readonly IPlatformService _platformService;
-        private readonly IMvxMessenger _messenger;
         private readonly IVideoPlayerService _videoPlayerService;
-        private readonly ISettingsService _settingsService;
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
-            set => SetProperty(ref _selectedPublicationType, value);
-        }
-
-        private string _profileName;
-        public string ProfileName
-        {
-            get => _profileName;
             set
             {
-                if (SetProperty(ref _profileName, value))
+                if (SetProperty(ref _selectedPublicationType, value))
                 {
-                    RaisePropertyChanged(nameof(ProfileShortName));
+                    LoadProfileCommand.Execute();
                 }
             }
-        }
-
-        public string ProfileShortName => ProfileName.ToShortenName();
-
-        private string _profilePhotoUrl;
-        public string ProfilePhotoUrl
-        {
-            get => _profilePhotoUrl;
-            set => SetProperty(ref _profilePhotoUrl, value);
         }
 
         private string _price;
@@ -103,7 +87,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(OnLoadVideoFeedAsync);
 
-        public MvxAsyncCommand ShowUpdateProfileCommand => new MvxAsyncCommand(NavigationService.ShowUpdateProfileView);
+        public MvxAsyncCommand ShowUpdateProfileCommand => new MvxAsyncCommand(OnShowUpdateProfileAsync);
 
         public ProfileViewModel(INavigationService navigationService,
                                 IDialogService dialogService,
@@ -111,19 +95,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                                 IApiService apiService,
                                 IVideoPlayerService videoPlayerService,
                                 IErrorHandleService errorHandleService,
-                                ISettingsService settingsService,
-                                IMvxMessenger messenger)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+                                ISettingsService settingsService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _platformService = platformService;
-            _settingsService = settingsService;
-            _messenger = messenger;
             _videoPlayerService = videoPlayerService;
         }
 
         public override Task Initialize()
         {
-            return LoadProfileCommand.ExecuteAsync();
+            SelectedPublicationType = PublicationType.MyVideosOfCreatedOrders;
+            return base.Initialize();
         }
 
         public override void ViewDisappearing()
@@ -151,24 +133,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             {
                 IsBusy = true;
 
-                var oldAvatar = _settingsService.User?.Avatar;
                 await ApiService.GetCurrentUserAsync();
-
-                var user = _settingsService.User;
-                if (user == null)
-                    return;
-
-                ProfileName = user.Name;
-                ProfilePhotoUrl = user.Avatar;
-                Price = user.Balance.ToPriceString();
-                OrdersValue = user.OrdersExecuteCount.ToCountString();
-                CompletedOrdersValue = user.OrdersExecuteFinishedCount.ToCountString();
-                SubscribersValue = user.SubscribersCount.ToCountString();
-                SubscriptionsValue = user.SubscriptionsCount.ToCountString();
-
-                if (_settingsService.User.Avatar != oldAvatar)
-                    _messenger.Publish(new UpdateAvatarMessage(this));
-
+                InitializeProfileData();
                 UpdateProfileVideoCommand.Execute();
             }
             finally
@@ -179,15 +145,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private async Task OnLoadVideoFeedAsync()
         {
-            if (!CheckValidation())
-                return;
-
             try
             {
                 IsBusy = true;
 
-                var videoBundle = await ApiService.GetMyVideoFeedAsync(_settingsService.User.Id, PublicationType.MyFeedComplete);
-                SetVideoList(videoBundle);
+                var videos= await ApiService.GetMyVideoFeedAsync(SettingsService.User.Id, SelectedPublicationType);
+                SetVideoList(videos);
             }
             finally
             {
@@ -195,12 +158,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
         }
 
-        private void SetVideoList(VideoMetadataBundleDataModel videoBundle)
+        private void SetVideoList(IEnumerable<VideoMetadataDataModel> videos)
         {
-            if (videoBundle.Data == null)
-                return;
-
-            var publicationViewModels = videoBundle.Data.Select(publication =>
+            var publicationViewModels = videos.Select(publication =>
                 new PublicationItemViewModel(
                     NavigationService,
                     DialogService,
@@ -220,17 +180,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                     publication.IsLiked));
 
             Items.SwitchTo(publicationViewModels);
-        }
-
-        private bool CheckValidation()
-        {
-            if (_settingsService.User == null)
-            {
-                ErrorHandleService.HandleException(new UserVisibleException("Пользователь не может быть пустым."));
-                return false;
-            }
-
-            return true;
         }
 
         private async Task OnShowMenuAsync()
@@ -275,12 +224,35 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
         }
 
+        private async Task OnShowUpdateProfileAsync()
+        {
+            var isUpdated = await NavigationService.ShowUpdateProfileView();
+            if (isUpdated)
+                InitializeProfileData();
+        }
+
         private async Task LogoutUser()
         {
-            _settingsService.User = null;
-            await _settingsService.SetAccessTokenAsync(string.Empty);
+            SettingsService.User = null;
+            await SettingsService.SetAccessTokenAsync(string.Empty);
             //_apiService.LogoutAsync().FireAndForget();
             await NavigationService.Logout();
+        }
+
+        protected override void InitializeProfileData()
+        {
+            base.InitializeProfileData();
+
+            var user = SettingsService.User;
+            if (user == null)
+                return;
+
+            ProfilePhotoUrl = user.Avatar;
+            Price = user.Balance.ToPriceString();
+            OrdersValue = user.OrdersExecuteCount.ToCountString();
+            CompletedOrdersValue = user.OrdersExecuteFinishedCount.ToCountString();
+            SubscribersValue = user.SubscribersCount.ToCountString();
+            SubscriptionsValue = user.SubscriptionsCount.ToCountString();
         }
     }
 }

@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
@@ -40,8 +41,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
 #if DEBUG
 
-            EmailText = "e.podluzhnyi@gmail.com";
-            PasswordText = "1234567890";
+            EmailText = "testuser@delete.me";
+            PasswordText = "123456789";
 #endif
         }
 

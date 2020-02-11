@@ -15,6 +15,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
@@ -59,15 +60,45 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #endregion Executor
 
+        #region Decide
+
+        public int LikesCount { get; set; } = 100;
+
+        public int DisikesCount { get; set; } = 100;
+
+        public string YesText => $"{Resources.OrderDetailsView_Yes_Button} {LikesCount}";
+
+        public string NoText => $"{Resources.OrderDetailsView_No_Button} {DisikesCount}";
+
+        public ArbitrationValueType? SelectedArbitration => _order.MyArbitrationValue;
+
+        public bool IsDecideEnabled => SelectedArbitration == null;
+
+        private bool _isNoSelected;
+        public bool IsNoSelected
+        {
+            get => _isNoSelected;
+            set => SetProperty(ref _isNoSelected, value);
+        }
+
+        private bool _isYesSelected;
+        public bool IsYesSelected
+        {
+            get => _isYesSelected;
+            set => SetProperty(ref _isYesSelected, value);
+        }
+
+        #endregion
+
         public string PriceValue => _order?.Price.ToString();
 
-        public string TimeValue => _order?.FinishIn?.ToString("dd' : 'hh' : 'mm");
+        public string TimeValue => _order?.FinishIn?.ToTimeWithSpaceString();
 
         public bool IsUserCustomer => _order?.Customer?.Id == _settingsService.User?.Id;
 
         public bool IsUserExecutor => _order?.Executor?.Id == _settingsService.User?.Id;
 
-        public bool IsUserListener => !IsUserCustomer && !IsUserExecutor;
+        public bool IsUserGuest => !IsUserCustomer && !IsUserExecutor;
 
         public bool IsSubscribeAvailable => false; // IsUserListener;
 
@@ -85,7 +116,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsExecutorAvailable => _order?.Executor != null;
 
-        public bool IsDecideVideoAvailable => false;
+        public bool IsDecideVideoAvailable => _order?.Status == OrderStatusType.InArbitration && IsUserGuest;
 
         public bool IsDecisionVideoAvailable => _order?.Status == OrderStatusType.WaitFinish && IsUserCustomer;
 
@@ -145,6 +176,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 _order = await ApiService.GetOrderDetailsAsync(_orderId);
                 await RaiseAllPropertiesChanged();
+
+                IsNoSelected = SelectedArbitration == ArbitrationValueType.Negative;
+                IsYesSelected = SelectedArbitration == ArbitrationValueType.Positive;
             }
             catch (Exception ex)
             {
@@ -300,14 +334,52 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             return Task.CompletedTask;
         }
 
-        private Task OnYesAsync()
+        private async Task OnYesAsync()
         {
-            return Task.CompletedTask;
+            if (!IsDecideEnabled)
+                return;
+
+            try
+            {
+                IsYesSelected = !IsYesSelected;
+                _order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Positive);
+                _order.MyArbitrationValue = ArbitrationValueType.Positive;
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
+                ErrorHandleService.HandleException(new UserVisibleException("Ошибка в подтверждении заказа."));
+
+                IsYesSelected = !IsYesSelected;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
-        private Task OnNoAsync()
+        private async Task OnNoAsync()
         {
-            return Task.CompletedTask;
+            if (!IsDecideEnabled)
+                return;
+
+            try
+            {
+                IsNoSelected = !IsNoSelected;
+                _order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Negative);
+                _order.MyArbitrationValue = ArbitrationValueType.Negative;
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
+                ErrorHandleService.HandleException(new UserVisibleException("Ошибка в подтверждении заказа."));
+
+                IsYesSelected = !IsYesSelected;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

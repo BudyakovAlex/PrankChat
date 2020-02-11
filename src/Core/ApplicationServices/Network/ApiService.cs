@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
@@ -103,7 +105,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<List<RatingOrderDataModel>> GetRatingOrdersAsync(RatingOrderFilterType filter)
         {
-            string endpoint = "orders";
+            string endpoint = $"orders?status={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}";
             switch (filter)
             {
                 case RatingOrderFilterType.All:
@@ -111,14 +113,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     break;
 
                 case RatingOrderFilterType.New:
-                    endpoint = $"{endpoint}?date_from={DateFilterType.Day.GetDateString()}";
+                    endpoint = $"{endpoint}&date_from={DateFilterType.Day.GetDateString()}";
                     break;
 
                 case RatingOrderFilterType.My:
                     if (_settingsService.User == null)
                         return new List<RatingOrderDataModel>();
 
-                    endpoint = $"{endpoint}?customer_id={_settingsService.User.Id}";
+                    endpoint = $"{endpoint}&customer_id={_settingsService.User.Id}";
                     break;
             }
             var data = await _client.Get<DataApiModel<List<RatingOrderApiModel>>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
@@ -154,6 +156,16 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
+        public async Task<OrderDataModel> VoteVideoAsync(int orderId, ArbitrationValueType isLiked)
+        {
+            var arbitrationValue = new ChangeArbitrationApiModel()
+            {
+                Value = isLiked.ToString().ToLower(),
+            };
+            var data = await _client.Post<ChangeArbitrationApiModel, DataApiModel<OrderApiModel>>($"orders/{orderId}/arbitration/value", arbitrationValue, true);
+            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
+        }
+
         #endregion Orders
 
         #region Publications
@@ -180,35 +192,39 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
         }
 
-        public async Task<VideoMetadataBundleDataModel> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
+        public async Task<List<VideoMetadataDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
         {
-            var endpoint = "videos";
+            if (_settingsService.User == null)
+                return new List<VideoMetadataDataModel>();
+
+            var endpoint = "orders";
             switch (publicationType)
             {
-                case PublicationType.MyFeedComplete:
-                    endpoint += $"?user_id={userId}";
+                case PublicationType.MyVideosOfCreatedOrders:
+                    endpoint += $"?customer_id={userId}";
                     break;
 
-                case PublicationType.MyFeedIncomingOrders:
-                    endpoint += $"?user_id={userId}";
-                    break;
-
-                case PublicationType.MyFeedOutgoingOrders:
-                    // TODO: Update endpoint for correct filter parameters
-                    endpoint += $"?user_id={userId}";
+                case PublicationType.CompletedVideosAssignmentsByMe:
+                    endpoint += $"?executor_id={userId}";
                     break;
 
                 default:
-                    // TODO: Update endpoint for correct filter parameters
-                    endpoint += $"?user_id={userId}";
-                    break;
+                    throw new InvalidEnumArgumentException();
             }
 
             if (dateFilterType.HasValue)
                 endpoint += $"&date_from={dateFilterType.Value.GetDateString()}";
 
-            var videoMetadataBundle = await _client.Get<VideoMetadataBundleApiModel>(endpoint, false, IncludeType.User);
-            return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
+            var dataApiModel = await _client.Get<DataApiModel<List<OrderApiModel>>>(endpoint, false, IncludeType.Videos, IncludeType.Customer);
+            var orderDataModel = MappingConfig.Mapper.Map<List<OrderDataModel>>(dataApiModel?.Data);
+            var videoData = orderDataModel?.Where(o => o.Video != null)
+                                           .Select(o =>
+                                           {
+                                               o.Video.User = o.Customer;
+                                               return o.Video;
+                                           })
+                                           .ToList();
+            return videoData;
         }
 
         public async Task<VideoMetadataDataModel> SendLikeAsync(int videoId, bool isChecked)
@@ -231,7 +247,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<UserDataModel> SendAvatarAsync(string path)
         {
-            var dataApiModel = await _client.PostPhotoFile<DataApiModel<UserApiModel>>("me/avatar", path);
+            var dataApiModel = await _client.PostPhotoFile<DataApiModel<UserApiModel>>("me/picture", path);
             var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
             return user;
         }

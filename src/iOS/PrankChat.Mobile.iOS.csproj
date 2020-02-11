@@ -248,6 +248,7 @@
     </Compile>
     <Compile Include="Presentation\Binding\UIButtonSelectedTargetBinding.cs" />
     <BundleResource Include="Resources\Animations\ripple_animation.json" />
+    <Compile Include="Controls\SelectableButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -400,12 +401,6 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_search_grey.imageset\Shape %281%29.pdf">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_userpic.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_userpic.imageset\Userpic.pdf">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_bookmark.imageset\Contents.json">
@@ -681,6 +676,18 @@
     <ImageAsset Include="Assets.xcassets\ic_like_active.imageset\ic_like_active.pdf">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\ic_accent_thumbs_down.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\ic_accent_thumbs_up.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -694,6 +701,8 @@
     <Folder Include="Assets.xcassets\ic_like_active.imageset\" />
     <Folder Include="Presentation\Binding\" />
     <Folder Include="Resources\Animations\" />
+    <Folder Include="Assets.xcassets\ic_accent_thumbs_down.imageset\" />
+    <Folder Include="Assets.xcassets\ic_accent_thumbs_up.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

@@ -7,9 +7,6 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
     public static class DateTimeExtension
     {
         private const int DaysInWeek = 7;
-        private const string FormatDateWithSpace = "dd : hh : mm";
-        private const string FormatDateMoreSevenDays = "dd MMMM yyyy";
-        private const string FormatDateLessSevenDays = "dd MMMM";
 
         public static string ToTimeAgoCommentString(this DateTime dateTime)
         {
@@ -50,15 +47,15 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 
         public static string ToTimeWithSpaceString(this DateTime dateTime)
         {
-            return dateTime.ToString(FormatDateWithSpace);
+            return dateTime.ToString(Constants.Formats.DateWithSpace);
         }
 
         public static string ToTimeAgoPublicationString(this DateTime dateTime)
         {
             if ((DateTime.UtcNow - dateTime).Days > DaysInWeek)
-                return $"{dateTime.ToString(FormatDateMoreSevenDays, CultureInfo.CurrentCulture)} {Resources.Year_Short}";
+                return $"{dateTime.ToString(Constants.Formats.DateMoreSevenDays, CultureInfo.CurrentCulture)} {Resources.Year_Short}";
             else
-                return dateTime.ToString(FormatDateLessSevenDays, CultureInfo.CurrentCulture);
+                return dateTime.ToString(Constants.Formats.DateLessSevenDays, CultureInfo.CurrentCulture);
         }
     }
 }

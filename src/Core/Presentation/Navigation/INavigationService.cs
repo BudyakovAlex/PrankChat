@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
@@ -44,7 +45,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task Logout();
 
-        Task ShowUpdateProfileView();
+        Task<bool> ShowUpdateProfileView();
 
         Task<bool> CloseView(BaseViewModel viewModel);
 

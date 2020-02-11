@@ -8,7 +8,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {
     public abstract class BaseViewModel : MvxViewModel
     {

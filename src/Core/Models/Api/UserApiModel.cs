@@ -1,10 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Api
 {
     public class UserApiModel
     {
         public int Id { get; set; }
+
+        public string Avatar { get; set; }
 
         public string Name { get; set; }
 
@@ -14,7 +18,11 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         public double? Balance { get; set; }
 
-        public string Avatar { get; set; }
+        public DateTime? Birthday { get; set; }
+
+        public GenderType? Sex { get; set; }
+
+        public string Description { get; set; }
 
         [JsonProperty("orders_own_count")]
         public int? OrdersOwnCount { get; set; }
