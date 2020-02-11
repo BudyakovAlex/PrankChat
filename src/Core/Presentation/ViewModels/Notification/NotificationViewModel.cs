@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -38,8 +39,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 
                 var notificationsDataModel = await ApiService.GetNotificationsAsync();
 
-                var notifications = notificationsDataModel.Data.Select(x =>
-                    new NotificationItemViewModel(x.RelatedUser.Name, x.Text, x.RelatedUser.Avatar, DateTime.Now, "OLOLO"));
+                if (notificationsDataModel == null)
+                    return;
+
+                var notifications = notificationsDataModel.Data.Select(x => new NotificationItemViewModel(NavigationService, x));
 
                 Items.SwitchTo(notifications);
             }
