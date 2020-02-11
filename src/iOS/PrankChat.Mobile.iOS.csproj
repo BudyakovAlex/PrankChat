@@ -249,6 +249,8 @@
     <Compile Include="Presentation\Binding\UIButtonSelectedTargetBinding.cs" />
     <BundleResource Include="Resources\Animations\ripple_animation.json" />
     <Compile Include="Controls\SelectableButton.cs" />
+    <Compile Include="PlatformBusinessServices\Crashlytic\CrashlyticsService.cs" />
+    <BundleResource Include="GoogleService-Info.plist" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -286,6 +288,12 @@
     </PackageReference>
     <PackageReference Include="Com.Airbnb.iOS.Lottie">
       <Version>2.5.10</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.iOS.Crashlytics">
+      <Version>3.14.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.iOS.Core">
+      <Version>6.1.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -695,6 +703,7 @@
     <Folder Include="Resources\Animations\" />
     <Folder Include="Assets.xcassets\ic_accent_thumbs_down.imageset\" />
     <Folder Include="Assets.xcassets\ic_accent_thumbs_up.imageset\" />
+    <Folder Include="PlatformBusinessServices\Crashlytic\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

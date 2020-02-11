@@ -1,7 +1,7 @@
 ﻿using System;
 using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
 
-namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Crashlytics
+namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Crashlytic
 {
     public class CrashlyticsService : ICrashlyticsService
     {
@@ -12,15 +12,6 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Crashlytics
 
 		public void TrackError(Exception exception)
 		{
-			if (exception is WebViewException ex)
-			{
-				if (ex.Code != 0)
-					Crashlytics.Crashlytics.SetInt("Error Code", ex.Code);
-
-				if (ex.Url != null)
-					Crashlytics.Crashlytics.SetString("Url", ex.Url);
-			}
-
 			Crashlytics.Crashlytics.LogException(Java.Lang.Throwable.FromException(exception));
 		}
 	}

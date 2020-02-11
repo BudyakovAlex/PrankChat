@@ -110,7 +110,7 @@
     <Compile Include="Presentation\Converters\PlaceholderImageConverter.cs" />
     <Compile Include="Presentation\Converters\LikeConverter.cs" />
     <Compile Include="Controls\SelectableButton.cs" />
-    <Compile Include="PlatformBusinessServices\Crashlytics\CrashlyticsService.cs" />
+    <Compile Include="PlatformBusinessServices\Crashlytic\CrashlyticsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -443,6 +443,9 @@
     <PackageReference Include="Xamarin.Android.Crashlytics.Core">
       <Version>2.6.3.4</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Android.Fabric">
+      <Version>1.4.3.4</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\splash_screen_layout.xml" />
@@ -661,7 +664,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
-    <Folder Include="PlatformBusinessServices\Crashlytics\" />
+    <Folder Include="PlatformBusinessServices\Crashlytic\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_background.xml" />
@@ -768,6 +771,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_publication_details.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <GoogleServicesJson Include="google-services.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
