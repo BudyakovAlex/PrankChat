@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using PrankChat.Mobile.Core.Models.Data.Base;
 
 namespace PrankChat.Mobile.Core.Models.Data
 {
-    public class VideoMetadataBundleDataModel
+    public class VideoMetadataBundleDataModel : BaseBundleDataModel<VideoMetadataDataModel>
     {
-        public List<VideoMetadataDataModel> Data { get; set; }
-
-        public Dictionary<string, PaginationInfoDataModel> Meta { get; set; }
     }
 }

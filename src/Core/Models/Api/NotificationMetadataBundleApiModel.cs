@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using PrankChat.Mobile.Core.Models.Api.Base;
 
 namespace PrankChat.Mobile.Core.Models.Api
 {
-    public class NotificationMetadataBundleApiModel
+    public class NotificationMetadataBundleApiModel : BaseBundleApiModel<NotificationMetadataApiModel>
     {
-        public List<NotificationMetadataApiModel> Data { get; set; }
-
-        public Dictionary<string, PaginationInfoApiModel> Meta { get; set; }
     }
 }

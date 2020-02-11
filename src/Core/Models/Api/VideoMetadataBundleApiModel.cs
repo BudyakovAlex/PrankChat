@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using PrankChat.Mobile.Core.Models.Api.Base;
 
 namespace PrankChat.Mobile.Core.Models.Api
 {
-    public class VideoMetadataBundleApiModel
+    public class VideoMetadataBundleApiModel : BaseBundleApiModel<VideoMetadataApiModel>
     {
-        public List<VideoMetadataApiModel> Data { get; set; }
-
-        public Dictionary<string, PaginationInfoApiModel> Meta { get; set; }
     }
 }
