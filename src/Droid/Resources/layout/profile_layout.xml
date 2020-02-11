@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    app:MvxBind="Refreshing IsBusy; RefreshCommand UpdateProfileCommand">
+    app:MvxBind="Refreshing IsBusy; RefreshCommand LoadProfileCommand">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
