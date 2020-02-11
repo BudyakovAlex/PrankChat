@@ -1,4 +1,7 @@
-﻿namespace PrankChat.Mobile.Core.Models.Data
+﻿using System;
+using System.Collections.Generic;
+
+namespace PrankChat.Mobile.Core.Models.Data
 {
     public class NotificationMetadataDataModel
     {
@@ -8,7 +11,11 @@
 
         public string Text { get; set; }
 
-        public int IsDelivered { get; set; }
+        public bool IsDelivered { get; set; }
+
+        public string Type { get; set; }
+
+        public DateTime CreatedAt { get; set; }
 
         public UserDataModel Recipient { get; set; }
 

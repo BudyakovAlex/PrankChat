@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using Newtonsoft.Json;
 
 namespace PrankChat.Mobile.Core.Models.Api
 {
@@ -11,20 +14,25 @@ namespace PrankChat.Mobile.Core.Models.Api
         public string Text { get; set; }
 
         [JsonProperty("is_delivered")]
-        public int IsDelivered { get; set; }
+        public bool IsDelivered { get; set; }
+
+        public string Type { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime CreatedAt { get; set; }
 
         public UserApiModel Recipient { get; set; }
 
         [JsonProperty("related_user")]
-        public UserApiModel RelatedUser { get; set; }
+        public DataApiModel<UserApiModel> RelatedUser { get; set; }
 
         [JsonProperty("related_order")]
-        public OrderApiModel RelatedOrder { get; set; }
+        public DataApiModel<OrderApiModel> RelatedOrder { get; set; }
 
         [JsonProperty("related_video")]
-        public VideoMetadataApiModel RelatedVideo { get; set; }
+        public DataApiModel<VideoMetadataApiModel> RelatedVideo { get; set; }
 
         [JsonProperty("relation_transaction")]
-        public TransactionApiModel RelationTransaction { get; set; }
+        public DataApiModel<TransactionApiModel> RelationTransaction { get; set; }
     }
 }
