@@ -122,11 +122,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             _videoPlayerService.Play();
         }
 
-        public override void Prepare(int parameter)
-        {
-            // TODO: save this id and change OnLoadProfileAsync
-        }
-
         private async Task OnLoadProfileAsync()
         {
             try

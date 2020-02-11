@@ -5,6 +5,7 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Localization;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 {
@@ -19,7 +20,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         public string ProfileName { get; }
 
-        public string ProfileShortName { get; }
+        public string ProfileShortName => ProfileName.ToShortenName();
 
         public string ImageUrl { get; }
 
@@ -27,7 +28,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         public string DateText => _date.ToTimeAgoCommentString();
 
-        public string Status => _status ? "Просмотрено" : "Непросмотрено";
+        public string Status => _status ? Resources.NotificationStatus_Viewed : Resources.NotificationStatus_NotViewed;
 
         public string Title { get; }
 
@@ -57,8 +58,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
             {
                 case "order_event":
                     // есть заказ
-                    ProfileName = "Модератор";
-                    ProfileShortName = ProfileName.ToShortenName();
                     break;
                 case "wallet_event":
                     // есть транзакция
@@ -69,7 +68,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
                 case "executor_event":
                     // есть пользователь
                     ProfileName = nmDataModel.RelatedUser.Name;
-                    ProfileShortName = ProfileName.ToShortenName();
                     ImageUrl = nmDataModel.RelatedUser.Avatar;
                     _idUser = nmDataModel.RelatedUser.Id;
                     break;
