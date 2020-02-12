@@ -1,25 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
 using Newtonsoft.Json;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Api
 {
     public class NotificationMetadataApiModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         public string Title { get; set; }
 
         public string Text { get; set; }
 
         [JsonProperty("is_delivered")]
-        public bool IsDelivered { get; set; }
+        public bool? IsDelivered { get; set; }
 
-        public string Type { get; set; }
+        public NotificationType Type { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         public UserApiModel Recipient { get; set; }
 

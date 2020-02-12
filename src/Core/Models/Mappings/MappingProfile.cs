@@ -27,7 +27,6 @@ namespace PrankChat.Mobile.Core.Models.Mappings
             CreateMap<RatingOrderDataModel, RatingOrderApiModel>()
                 .ForPath(dest => dest.Customer.Data, opt => opt.MapFrom(src => src.Customer))
                 .ReverseMap();
-
             CreateMap<GenderType, string>().ConvertUsing(src => src.ToString().ToLower());
             CreateMap<ArbitrationValueType, string>().ConvertUsing(src => src.ToString().ToLower());
             CreateMap<NotificationMetadataBundleDataModel, NotificationMetadataBundleApiModel>().ReverseMap();
