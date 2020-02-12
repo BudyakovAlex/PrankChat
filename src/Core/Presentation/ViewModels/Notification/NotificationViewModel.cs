@@ -37,11 +37,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
             {
                 IsBusy = true;
 
-                var notificationsDataModel = await ApiService.GetNotificationsAsync();
-                if (notificationsDataModel == null)
+                var notifications = await ApiService.GetNotificationsAsync();
+                if (notifications == null)
                     return;
 
-                var notifications = notificationsDataModel.Select(norification =>
+                var notificationItems = notifications.Select(norification =>
                     new NotificationItemViewModel(NavigationService,
                                                   norification.RelatedUser,
                                                   norification.Title,
@@ -50,7 +50,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
                                                   norification.IsDelivered,
                                                   norification.Type));
 
-                Items.SwitchTo(notifications);
+                Items.SwitchTo(notificationItems);
             }
             finally
             {

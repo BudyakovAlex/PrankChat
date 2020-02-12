@@ -20,7 +20,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         public string ProfileName { get; }
 
-        public string ProfileShortName => ProfileName.ToShortenName();
+        public string ProfileShortName => ProfileName?.ToShortenName();
 
         public string ImageUrl { get; }
 
@@ -49,7 +49,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
             DateText = createdAt?.ToTimeAgoCommentString();
 
             _isDelivered = isDelivered ?? false;
-            _notificationType = (NotificationType)type;
+            _notificationType = type;
 
             switch (_notificationType)
             {
