@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -39,7 +37,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
                 IsBusy = true;
 
                 var notificationsDataModel = await ApiService.GetNotificationsAsync();
-
                 if (notificationsDataModel == null)
                     return;
 

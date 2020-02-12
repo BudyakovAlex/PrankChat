@@ -6,17 +6,18 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 {
     public class NotificationItemViewModel : BaseItemViewModel
     {
+        private const int DefaultIdUser = -1;
+
         private readonly INavigationService _navigationService;
 
-        private DateTime _date;
-        private bool _status;
-        private string _type;
-        private int _idUser;
+        private NotificationType _typeNotification;
+        private int _idUser = DefaultIdUser;
 
         public string ProfileName { get; }
 
@@ -26,9 +27,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         public string Description { get; }
 
-        public string DateText => _date.ToTimeAgoCommentString();
+        public string DateText { get; }
 
-        public string Status => _status ? Resources.NotificationStatus_Viewed : Resources.NotificationStatus_NotViewed;
+        public string Status { get; set; }
 
         public string Title { get; }
 
@@ -38,47 +39,59 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
             INavigationService navigationService,
             string title,
             string description,
-            DateTime notificationDate,
-            bool status,
-            string type)
+            DateTime? notificationDate,
+            bool? isDelivered,
+            NotificationType? type)
         {
             _navigationService = navigationService;
             Title = title;
             Description = description;
-            _date = notificationDate;
-            _status = status;
-            _type = type;
+            if (notificationDate != null)
+            {
+                DateText = ((DateTime)notificationDate).ToTimeAgoCommentString();
+            }
+            if (isDelivered != null)
+            {
+                Status = (bool)isDelivered ? Resources.NotificationStatus_Viewed : Resources.NotificationStatus_NotViewed;
+            }
+            if (type != null)
+            {
+                _typeNotification = (NotificationType)type;
+            }
         }
 
         public NotificationItemViewModel(
             INavigationService navigationService,
             NotificationMetadataDataModel nmDataModel) : this(navigationService, nmDataModel.Title, nmDataModel.Text, nmDataModel.CreatedAt, nmDataModel.IsDelivered, nmDataModel.Type)
         {
-            switch (_type)
+            switch (_typeNotification)
             {
-                case "order_event":
+                case NotificationType.OrderEvent:
                     // есть заказ
                     break;
-                case "wallet_event":
+
+                case NotificationType.WalletEvent:
                     // есть транзакция
                     break;
-                case "subscription_event":
-                case "like_event":
-                case "comment_event":
-                case "executor_event":
+
+                case NotificationType.SubscriptionEvent:
+                case NotificationType.LikeEvent:
+                case NotificationType.CommentEvent:
+                case NotificationType.ExecutorEvent:
                     // есть пользователь
                     ProfileName = nmDataModel.RelatedUser.Name;
                     ImageUrl = nmDataModel.RelatedUser.Avatar;
                     _idUser = nmDataModel.RelatedUser.Id;
                     break;
+
             }
         }
 
         private Task OnOpenProfileUser()
         {
-            if (_idUser == default(int))
+            if (_idUser == DefaultIdUser)
                 return Task.FromResult(0);
-            return _navigationService.ShowProfileUser(_idUser); ;
+            return _navigationService.ShowProfileUser(_idUser);
         }
     }
 }
