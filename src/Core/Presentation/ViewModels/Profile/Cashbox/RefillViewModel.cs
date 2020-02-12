@@ -8,13 +8,14 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
     public class RefillViewModel : BaseViewModel
     {
-        private string _cost;
-        public string Cost
+        private double _cost;
+        public double Cost
         {
             get => _cost;
             set => SetProperty(ref _cost, value);
@@ -29,14 +30,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             set => SetProperty(ref _selectedItem, value);
         }
 
-        public ICommand SelectionChangedCommand => new MvxAsyncCommand<PaymentMethodItemViewModel>(OnSelectionChangedCommand);
+        public MvxAsyncCommand<PaymentMethodItemViewModel> SelectionChangedCommand => new MvxAsyncCommand<PaymentMethodItemViewModel>(OnSelectionChangedAsync);
 
-        public ICommand RefillCommand => new MvxAsyncCommand<PaymentMethodItemViewModel>(OnRefillCommand);
+        public MvxAsyncCommand RefillCommand => new MvxAsyncCommand(OnRefillAsync);
 
         public RefillViewModel(INavigationService navigationService,
-                                IErrorHandleService errorHandleService,
-                                IApiService apiService,
-                                IDialogService dialogService)
+                               IErrorHandleService errorHandleService,
+                               IApiService apiService,
+                               IDialogService dialogService)
             : base(navigationService, errorHandleService, apiService, dialogService)
         {
         }
@@ -50,15 +51,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             Items.Add(new PaymentMethodItemViewModel(PaymentType.Sberbank));
             Items.Add(new PaymentMethodItemViewModel(PaymentType.Alphabank));
 
-            return Task.CompletedTask;
+            return base.Initialize();
         }
 
-        private Task OnRefillCommand(PaymentMethodItemViewModel arg)
+        private async Task OnRefillAsync()
         {
-            return Task.CompletedTask;
+            try
+            {
+                var paymentData = await ApiService.RefillAsync(Cost);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
-        private Task OnSelectionChangedCommand(PaymentMethodItemViewModel item)
+        private Task OnSelectionChangedAsync(PaymentMethodItemViewModel item)
         {
             SelectedItem = item;
 

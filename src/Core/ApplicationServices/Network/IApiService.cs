@@ -71,5 +71,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         Task<VideoMetadataDataModel> SendVideoAsync(int orderId, string path, string title, string description);
 
         #endregion Video
+
+        #region Payment
+
+        Task<PaymentDataModel> RefillAsync(double coast);
+
+        Task<PaymentDataModel> WithdrawalAsync(double coast);
+
+        #endregion Video
     }
 }

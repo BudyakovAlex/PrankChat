@@ -37,14 +37,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             set => SetProperty(ref _selectedItem, value);
         }
 
-        public ICommand SelectionChangedCommand => new MvxAsyncCommand<PaymentMethodItemViewModel>(OnSelectionChangedCommand);
+        public ICommand SelectionChangedCommand => new MvxAsyncCommand<PaymentMethodItemViewModel>(OnSelectionChangedAsync);
 
-        public ICommand WithdrawCommand => new MvxAsyncCommand<PaymentMethodItemViewModel>(OnWithdrawCommand);
+        public ICommand WithdrawCommand => new MvxAsyncCommand(OnWithdrawAsync);
 
         public WithdrawalViewModel(INavigationService navigationService,
-                                    IErrorHandleService errorHandleService,
-                                    IApiService apiService,
-                                    IDialogService dialogService)
+                                   IErrorHandleService errorHandleService,
+                                   IApiService apiService,
+                                   IDialogService dialogService)
             : base(navigationService, errorHandleService, apiService, dialogService)
         {
             AvailableForWithdrawal = $"{Resources.CashboxView_WithdrawalAvailable_Title} {"75 000"} {"₽"}";
@@ -59,15 +59,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             Items.Add(new PaymentMethodItemViewModel(PaymentType.Sberbank));
             Items.Add(new PaymentMethodItemViewModel(PaymentType.Alphabank));
 
-            return Task.CompletedTask;
+            return base.Initialize();
         }
 
-        private Task OnWithdrawCommand(PaymentMethodItemViewModel arg)
+        private Task OnWithdrawAsync()
         {
             return Task.CompletedTask;
         }
 
-        private Task OnSelectionChangedCommand(PaymentMethodItemViewModel item)
+        private Task OnSelectionChangedAsync(PaymentMethodItemViewModel item)
         {
             SelectedItem = item;
 
