@@ -1060,5 +1060,17 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("OrderDetailsView_LoadVideo", resourceCulture);
             }
         }
+        
+        public static string NotificationStatus_Viewed {
+            get {
+                return ResourceManager.GetString("NotificationStatus_Viewed", resourceCulture);
+            }
+        }
+        
+        public static string NotificationStatus_NotViewed {
+            get {
+                return ResourceManager.GetString("NotificationStatus_NotViewed", resourceCulture);
+            }
+        }
     }
 }

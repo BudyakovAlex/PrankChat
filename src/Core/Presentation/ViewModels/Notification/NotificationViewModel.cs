@@ -1,5 +1,6 @@
-﻿using System;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
@@ -14,19 +15,47 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
     {
         public MvxObservableCollection<NotificationItemViewModel> Items { get; } = new MvxObservableCollection<NotificationItemViewModel>();
 
+        public MvxAsyncCommand UpdateNotificationsCommand => new MvxAsyncCommand(OnUpdateNotificationsAsync);
+
         public NotificationViewModel(INavigationService navigationService,
-                                    IErrorHandleService errorHandleService,
-                                    IApiService apiService,
-                                    IDialogService dialogService)
+                                     IErrorHandleService errorHandleService,
+                                     IApiService apiService,
+                                     IDialogService dialogService)
             : base(navigationService, errorHandleService, apiService, dialogService)
         {
         }
 
         public override Task Initialize()
         {
-            Items.Add(new NotificationItemViewModel("Ann", "Выполнено Задание Example", "", new DateTime(2019, 4, 12), "Непросмотрено"));
-            Items.Add(new NotificationItemViewModel("Kirill", "Выполнено Задание Example. Выполнено Задание Example", "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500", new DateTime(2019, 9, 24), ""));
-            return base.Initialize();
+            base.Initialize();
+            return UpdateNotificationsCommand.ExecuteAsync();
+        }
+
+        private async Task OnUpdateNotificationsAsync()
+        {
+            try
+            {
+                IsBusy = true;
+
+                var notifications = await ApiService.GetNotificationsAsync();
+                if (notifications == null)
+                    return;
+
+                var notificationItems = notifications.Select(norification =>
+                    new NotificationItemViewModel(NavigationService,
+                                                  norification.RelatedUser,
+                                                  norification.Title,
+                                                  norification.Text,
+                                                  norification.CreatedAt,
+                                                  norification.IsDelivered,
+                                                  norification.Type));
+
+                Items.SwitchTo(notificationItems);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

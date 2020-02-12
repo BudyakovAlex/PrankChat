@@ -9,6 +9,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Models.Api.Base;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -170,32 +171,32 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Publications
 
-        public async Task<VideoMetadataBundleDataModel> GetPopularVideoFeedAsync(DateFilterType dateFilterType)
+        public async Task<List<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType)
         {
-            VideoMetadataBundleApiModel videoMetadataBundle;
+            BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
             if (_settingsService.User == null)
-                videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?popular=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
+                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"videos?popular=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
             else
-                videoMetadataBundle = await _client.Get<VideoMetadataBundleApiModel>($"videos?popular=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
+                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"videos?popular=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
 
-            return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
+            return MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
         }
 
-        public async Task<VideoMetadataBundleDataModel> GetActualVideoFeedAsync(DateFilterType dateFilterType)
+        public async Task<List<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType)
         {
-            VideoMetadataBundleApiModel videoMetadataBundle;
+            BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
             if (_settingsService.User == null)
-                videoMetadataBundle = await _client.UnauthorizedGet<VideoMetadataBundleApiModel>($"videos?actual=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
+                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"videos?actual=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
             else
-                videoMetadataBundle = await _client.Get<VideoMetadataBundleApiModel>($"videos?actual=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
+                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"videos?actual=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
 
-            return MappingConfig.Mapper.Map<VideoMetadataBundleDataModel>(videoMetadataBundle);
+            return MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle);
         }
 
-        public async Task<List<VideoMetadataDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
+        public async Task<List<VideoDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
         {
             if (_settingsService.User == null)
-                return new List<VideoMetadataDataModel>();
+                return new List<VideoDataModel>();
 
             var endpoint = "orders";
             switch (publicationType)
@@ -227,11 +228,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return videoData;
         }
 
-        public async Task<VideoMetadataDataModel> SendLikeAsync(int videoId, bool isChecked)
+        public async Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked)
         {
             var url = isChecked ? $"videos/{videoId}/like" : $"videos/{videoId}/like/remove";
-            var data = await _client.Post<DataApiModel<VideoMetadataApiModel>>(url);
-            return MappingConfig.Mapper.Map<VideoMetadataDataModel>(data?.Data);
+            var data = await _client.Post<DataApiModel<VideoApiModel>>(url);
+            return MappingConfig.Mapper.Map<VideoDataModel>(data?.Data);
         }
 
         #endregion Publications
@@ -264,7 +265,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Video
 
-        public async Task<VideoMetadataDataModel> SendVideoAsync(int orderId, string path, string title, string description)
+        public async Task<VideoDataModel> SendVideoAsync(int orderId, string path, string title, string description)
         {
             var loadVideoApiModel = new LoadVideoApiModel()
             {
@@ -273,10 +274,21 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 Title = title,
                 Description = description,
             };
-            var videoMetadataApiModel = await _client.PostVideoFile<LoadVideoApiModel, DataApiModel<VideoMetadataApiModel>>("videos", loadVideoApiModel);
-            return MappingConfig.Mapper.Map<VideoMetadataDataModel>(videoMetadataApiModel.Data);
+            var videoMetadataApiModel = await _client.PostVideoFile<LoadVideoApiModel, DataApiModel<VideoApiModel>>("videos", loadVideoApiModel);
+            return MappingConfig.Mapper.Map<VideoDataModel>(videoMetadataApiModel.Data);
         }
 
         #endregion Video
+
+
+        #region Notification
+
+        public async Task<List<NotificationDataModel>> GetNotificationsAsync()
+        {
+            var notificationBundle = await _client.Get<BaseBundleApiModel<NotificationApiModel>>("notifications");
+            return MappingConfig.Mapper.Map<List<NotificationDataModel>>(notificationBundle?.Data);
+        }
+
+        #endregion
     }
 }

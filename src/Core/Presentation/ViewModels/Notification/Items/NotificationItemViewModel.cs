@@ -1,33 +1,89 @@
 ﻿using System;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 {
     public class NotificationItemViewModel : BaseItemViewModel
     {
-        private DateTime _date;
+        private readonly INavigationService _navigationService;
+
+        private NotificationType? _notificationType;
+        private bool _isDelivered;
+        private int? _userId;
 
         public string ProfileName { get; }
 
-        public string ProfileShortName { get; }
+        public string ProfileShortName => ProfileName?.ToShortenName();
 
         public string ImageUrl { get; }
 
         public string Description { get; }
 
-        public string DateText => _date.ToTimeAgoCommentString();
+        public string DateText { get; }
 
-        public string Status { get; }
+        public string Status => _isDelivered ? Resources.NotificationStatus_Viewed : Resources.NotificationStatus_NotViewed;
 
-        public NotificationItemViewModel(string profileName, string description, string imageUrl, DateTime notificationDate, string status)
+        public string Title { get; }
+
+        public MvxAsyncCommand ShowUserProfileCommand => new MvxAsyncCommand(OnShowUserProfileAsync);
+
+        public NotificationItemViewModel(INavigationService navigationService,
+                                         UserDataModel user,
+                                         string title,
+                                         string description,
+                                         DateTime? createdAt,
+                                         bool? isDelivered,
+                                         NotificationType? type)
         {
-            ProfileName = profileName;
-            ProfileShortName = profileName.ToShortenName();
+            _navigationService = navigationService;
+
+            Title = title;
             Description = description;
-            ImageUrl = imageUrl;
-            _date = notificationDate;
-            Status = status;
+            DateText = createdAt?.ToTimeAgoCommentString();
+
+            _isDelivered = isDelivered ?? false;
+            _notificationType = type;
+
+            switch (_notificationType)
+            {
+                case NotificationType.OrderEvent:
+                    // Order created
+                    break;
+
+                case NotificationType.WalletEvent:
+                    // there are transactions
+                    break;
+
+                case NotificationType.SubscriptionEvent:
+                case NotificationType.LikeEvent:
+                case NotificationType.CommentEvent:
+                case NotificationType.ExecutorEvent:
+                    ProfileName = user.Name;
+                    ImageUrl = user.Avatar;
+                    _userId = user.Id;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private Task OnShowUserProfileAsync()
+        {
+            if (_userId == null)
+            {
+                // TODO add handler for error.
+                return Task.CompletedTask;
+            }
+
+            return _navigationService.ShowProfileUser(_userId.Value);
         }
     }
 }

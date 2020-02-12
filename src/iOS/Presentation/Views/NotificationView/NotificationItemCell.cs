@@ -3,6 +3,7 @@ using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
+using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Converters;
@@ -52,6 +53,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
                 .To(vm => vm.ImageUrl)
                 .WithConversion<PlaceholderImageConverter>()
                 .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(profilePhotoImageView.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.ShowUserProfileCommand);
 
             set.Bind(profileNameLabel)
                 .To(vm => vm.ProfileName)

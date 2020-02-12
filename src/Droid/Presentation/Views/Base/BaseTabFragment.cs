@@ -1,6 +1,4 @@
-﻿using MvvmCross.Droid.Support.V4;
-using PrankChat.Mobile.Core.Presentation.ViewModels;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+﻿using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 {
