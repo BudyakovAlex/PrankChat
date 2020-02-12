@@ -5,7 +5,7 @@ namespace PrankChat.Mobile.Core.Models.Data
 {
     public class NotificationDataModel
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         public string Title { get; set; }
 

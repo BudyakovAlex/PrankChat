@@ -4,7 +4,7 @@ namespace PrankChat.Mobile.Core.Models.Api
 {
     public class TransactionApiModel
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         public double? Amount { get; set; }
 
