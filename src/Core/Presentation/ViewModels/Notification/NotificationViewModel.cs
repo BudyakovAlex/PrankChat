@@ -27,6 +27,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 
         public override Task Initialize()
         {
+            base.Initialize();
             return UpdateNotificationsCommand.ExecuteAsync();
         }
 
@@ -40,7 +41,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
                 if (notificationsDataModel == null)
                     return;
 
-                var notifications = notificationsDataModel.Data.Select(x => new NotificationItemViewModel(NavigationService, x));
+                var notifications = notificationsDataModel.Select(norification =>
+                    new NotificationItemViewModel(NavigationService,
+                                                  norification.RelatedUser,
+                                                  norification.Title,
+                                                  norification.Text,
+                                                  norification.CreatedAt,
+                                                  norification.IsDelivered,
+                                                  norification.Type));
 
                 Items.SwitchTo(notifications);
             }

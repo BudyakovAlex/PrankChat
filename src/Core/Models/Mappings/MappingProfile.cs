@@ -11,8 +11,7 @@ namespace PrankChat.Mobile.Core.Models.Mappings
         public MappingProfile()
         {
             CreateMap<UserRegistrationDataModel, UserRegistrationApiModel>().ReverseMap();
-            CreateMap<VideoMetadataBundleDataModel, VideoMetadataBundleApiModel>().ReverseMap();
-            CreateMap<VideoMetadataDataModel, VideoMetadataApiModel> ()
+            CreateMap<VideoDataModel, VideoApiModel> ()
                 .ForPath(dest => dest.User.Data, opt => opt.MapFrom(src => src.User))
                 .ReverseMap();
             CreateMap<PaginationInfoDataModel, PaginationInfoApiModel>().ReverseMap();
@@ -29,8 +28,7 @@ namespace PrankChat.Mobile.Core.Models.Mappings
                 .ReverseMap();
             CreateMap<GenderType, string>().ConvertUsing(src => src.ToString().ToLower());
             CreateMap<ArbitrationValueType, string>().ConvertUsing(src => src.ToString().ToLower());
-            CreateMap<NotificationMetadataBundleDataModel, NotificationMetadataBundleApiModel>().ReverseMap();
-            CreateMap<NotificationMetadataDataModel, NotificationMetadataApiModel>()
+            CreateMap<NotificationDataModel, NotificationApiModel>()
                 .ForPath(dest => dest.RelatedOrder.Data, opt => opt.MapFrom(src => src.RelatedOrder))
                 .ForPath(dest => dest.RelatedUser.Data, opt => opt.MapFrom(src => src.RelatedUser))
                 .ForPath(dest => dest.RelatedVideo.Data, opt => opt.MapFrom(src => src.RelatedVideo))

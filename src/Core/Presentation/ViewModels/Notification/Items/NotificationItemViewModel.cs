@@ -12,12 +12,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 {
     public class NotificationItemViewModel : BaseItemViewModel
     {
-        private const int DefaultIdUser = -1;
-
         private readonly INavigationService _navigationService;
 
-        private NotificationType _typeNotification;
-        private int _idUser = DefaultIdUser;
+        private NotificationType? _notificationType;
+        private bool _isDelivered;
+        private int? _userId;
 
         public string ProfileName { get; }
 
@@ -29,69 +28,62 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         public string DateText { get; }
 
-        public string Status { get; set; }
+        public string Status => _isDelivered ? Resources.NotificationStatus_Viewed : Resources.NotificationStatus_NotViewed;
 
         public string Title { get; }
 
-        public MvxAsyncCommand OpenProfileUserCommand => new MvxAsyncCommand(OnOpenProfileUser);
+        public MvxAsyncCommand ShowUserProfileCommand => new MvxAsyncCommand(OnShowUserProfileAsync);
 
-        public NotificationItemViewModel(
-            INavigationService navigationService,
-            string title,
-            string description,
-            DateTime? notificationDate,
-            bool? isDelivered,
-            NotificationType? type)
+        public NotificationItemViewModel(INavigationService navigationService,
+                                         UserDataModel user,
+                                         string title,
+                                         string description,
+                                         DateTime? createdAt,
+                                         bool? isDelivered,
+                                         NotificationType? type)
         {
             _navigationService = navigationService;
+
             Title = title;
             Description = description;
-            if (notificationDate != null)
-            {
-                DateText = ((DateTime)notificationDate).ToTimeAgoCommentString();
-            }
-            if (isDelivered != null)
-            {
-                Status = (bool)isDelivered ? Resources.NotificationStatus_Viewed : Resources.NotificationStatus_NotViewed;
-            }
-            if (type != null)
-            {
-                _typeNotification = (NotificationType)type;
-            }
-        }
+            DateText = createdAt?.ToTimeAgoCommentString();
 
-        public NotificationItemViewModel(
-            INavigationService navigationService,
-            NotificationMetadataDataModel nmDataModel) : this(navigationService, nmDataModel.Title, nmDataModel.Text, nmDataModel.CreatedAt, nmDataModel.IsDelivered, nmDataModel.Type)
-        {
-            switch (_typeNotification)
+            _isDelivered = isDelivered ?? false;
+            _notificationType = (NotificationType)type;
+
+            switch (_notificationType)
             {
                 case NotificationType.OrderEvent:
-                    // есть заказ
+                    // Order created
                     break;
 
                 case NotificationType.WalletEvent:
-                    // есть транзакция
+                    // there are transactions
                     break;
 
                 case NotificationType.SubscriptionEvent:
                 case NotificationType.LikeEvent:
                 case NotificationType.CommentEvent:
                 case NotificationType.ExecutorEvent:
-                    // есть пользователь
-                    ProfileName = nmDataModel.RelatedUser.Name;
-                    ImageUrl = nmDataModel.RelatedUser.Avatar;
-                    _idUser = nmDataModel.RelatedUser.Id;
+                    ProfileName = user.Name;
+                    ImageUrl = user.Avatar;
+                    _userId = user.Id;
                     break;
 
+                default:
+                    break;
             }
         }
 
-        private Task OnOpenProfileUser()
+        private Task OnShowUserProfileAsync()
         {
-            if (_idUser == DefaultIdUser)
-                return Task.FromResult(0);
-            return _navigationService.ShowProfileUser(_idUser);
+            if (_userId == null)
+            {
+                // TODO add handler for error.
+                return Task.CompletedTask;
+            }
+
+            return _navigationService.ShowProfileUser(_userId.Value);
         }
     }
 }

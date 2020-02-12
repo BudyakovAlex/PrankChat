@@ -30,7 +30,7 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public UserDataModel Executor { get; set; }
 
-        public VideoMetadataDataModel Video { get; set; }
+        public VideoDataModel Video { get; set; }
 
         public ArbitrationValueType? MyArbitrationValue { get; set; }
     }

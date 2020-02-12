@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -46,13 +47,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Publications
 
-        Task<VideoMetadataBundleDataModel> GetPopularVideoFeedAsync(DateFilterType dateFilterType);
+        Task<List<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType);
 
-        Task<VideoMetadataDataModel> SendLikeAsync(int videoId, bool isChecked);
+        Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked);
 
-        Task<VideoMetadataBundleDataModel> GetActualVideoFeedAsync(DateFilterType dateFilterType);
+        Task<List<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType);
 
-        Task<List<VideoMetadataDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null);
+        Task<List<VideoDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null);
 
         #endregion Publications
 
@@ -68,13 +69,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Video
 
-        Task<VideoMetadataDataModel> SendVideoAsync(int orderId, string path, string title, string description);
+        Task<VideoDataModel> SendVideoAsync(int orderId, string path, string title, string description);
 
         #endregion Video
 
         #region Notification
 
-        Task<NotificationMetadataBundleDataModel> GetNotificationsAsync();
+        Task<List<NotificationDataModel>> GetNotificationsAsync();
 
         #endregion
 
