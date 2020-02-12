@@ -285,8 +285,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<List<NotificationDataModel>> GetNotificationsAsync()
         {
-            var notificationMetadataBundle = await _client.Get<BaseBundleApiModel<NotificationApiModel>>("notifications");
-            return MappingConfig.Mapper.Map<List<NotificationDataModel>>(notificationMetadataBundle?.Data);
+            var notificationBundle = await _client.Get<BaseBundleApiModel<NotificationApiModel>>("notifications");
+            return MappingConfig.Mapper.Map<List<NotificationDataModel>>(notificationBundle?.Data);
         }
 
         #endregion
