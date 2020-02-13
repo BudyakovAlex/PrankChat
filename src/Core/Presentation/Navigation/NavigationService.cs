@@ -15,6 +15,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
@@ -119,6 +120,11 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         {
             var parameter = new OrderDetailsNavigationParameter(orderId);
             return _mvxNavigationService.Navigate<OrderDetailsViewModel, OrderDetailsNavigationParameter>(parameter);
+        }
+
+        public Task ShowFullScreenVideoView(string videoUrl)
+        {
+            return _mvxNavigationService.Navigate<FullScreenVideoViewModel, string>(videoUrl);
         }
 
         public Task ShowDetailsPublicationView()

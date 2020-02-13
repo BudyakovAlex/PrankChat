@@ -110,6 +110,9 @@
     <Compile Include="Presentation\Converters\PlaceholderImageConverter.cs" />
     <Compile Include="Presentation\Converters\LikeConverter.cs" />
     <Compile Include="Controls\SelectableButton.cs" />
+    <Compile Include="Presentation\Views\Video\FullScreenVideoView.cs" />
+    <Compile Include="Presentation\Bindings\VideoUrlTargetBinding.cs" />
+    <Compile Include="Controls\CustomMediaControllerView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -365,6 +368,10 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_accent_thumbs_up.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_full_screen_video.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
@@ -648,6 +655,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
+    <Folder Include="Presentation\Views\Video\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_background.xml" />

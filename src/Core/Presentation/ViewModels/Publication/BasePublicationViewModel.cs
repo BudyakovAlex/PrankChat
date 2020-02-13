@@ -1,16 +1,16 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.Exceptions;
-using System.Threading;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
@@ -79,6 +79,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxCommand ToggleSoundCommand => new MvxCommand(OnToggleSound);
 
+        public IMvxAsyncCommand ShowFullScreenVideoCommand { get; }
+
         #endregion
 
         public BasePublicationViewModel(INavigationService navigationService,
@@ -121,6 +123,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _publicationDate = publicationDate;
             _numberOfLikes = numberOfLikes;
             _shareLink = shareLink;
+
+            ShowFullScreenVideoCommand = new MvxAsyncCommand(ShowFullScreenVideoAsync);
+        }
+
+        private Task ShowFullScreenVideoAsync()
+        {
+            return NavigationService.ShowFullScreenVideoView(VideoUrl);
         }
 
         private async Task OnLikeAsync()
