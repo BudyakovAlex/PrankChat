@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,7 +27,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YwJ-uT-8wj">
-                    <rect key="frame" x="0.0" y="469" width="375" height="198"/>
+                    <rect key="frame" x="0.0" y="473.5" width="375" height="193.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Поделиться" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFt-k2-ROJ">
                             <rect key="frame" x="16" y="16" width="317" height="20.5"/>
@@ -44,10 +44,10 @@
                             <state key="normal" title="Button" image="ic_share"/>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="top" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="gTn-CO-szs">
-                            <rect key="frame" x="124.5" y="52.5" width="126" height="86.5"/>
+                            <rect key="frame" x="162.5" y="52.5" width="50" height="82"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yiy-KR-aPX">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="86.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="82"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RX4-ah-6v7">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -58,7 +58,7 @@
                                             <state key="normal" title="Button"/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="копировать ссылку" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFp-fp-APq">
-                                            <rect key="frame" x="0.0" y="58" width="50" height="28.5"/>
+                                            <rect key="frame" x="0.0" y="58" width="50" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="LWx-8J-CSV"/>
                                             </constraints>
@@ -77,8 +77,8 @@
                                         <constraint firstItem="RX4-ah-6v7" firstAttribute="top" secondItem="yiy-KR-aPX" secondAttribute="top" id="yIH-M9-OKd"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jMf-JF-hUa">
-                                    <rect key="frame" x="76" y="0.0" width="50" height="86.5"/>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jMf-JF-hUa">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="86.5"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bC-vC-Ttl">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -111,14 +111,14 @@
                             </subviews>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GhW-Ql-bw9">
-                            <rect key="frame" x="0.0" y="155" width="375" height="1"/>
+                            <rect key="frame" x="0.0" y="150.5" width="375" height="1"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="nws-at-ppX"/>
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jbM-r6-QRE">
-                            <rect key="frame" x="0.0" y="156" width="375" height="42"/>
+                            <rect key="frame" x="0.0" y="151.5" width="375" height="42"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="42" id="UI3-7D-Lhx"/>
                             </constraints>
@@ -133,7 +133,7 @@
                         <constraint firstItem="jbM-r6-QRE" firstAttribute="leading" secondItem="YwJ-uT-8wj" secondAttribute="leading" id="IUf-AV-LvV"/>
                         <constraint firstItem="oFt-k2-ROJ" firstAttribute="leading" secondItem="YwJ-uT-8wj" secondAttribute="leadingMargin" id="IvL-pU-WMW"/>
                         <constraint firstItem="NCv-Vh-fkM" firstAttribute="leading" secondItem="oFt-k2-ROJ" secondAttribute="trailing" constant="5" id="N1P-Rg-XoT"/>
-                        <constraint firstItem="GhW-Ql-bw9" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gTn-CO-szs" secondAttribute="bottom" constant="16" id="NwH-AQ-2lP"/>
+                        <constraint firstItem="GhW-Ql-bw9" firstAttribute="top" secondItem="gTn-CO-szs" secondAttribute="bottom" constant="16" id="NwH-AQ-2lP"/>
                         <constraint firstItem="gTn-CO-szs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YwJ-uT-8wj" secondAttribute="leading" constant="20" symbolic="YES" id="PSb-sf-aBY"/>
                         <constraint firstItem="oFt-k2-ROJ" firstAttribute="top" secondItem="YwJ-uT-8wj" secondAttribute="topMargin" id="Twb-Fs-qEY"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gTn-CO-szs" secondAttribute="trailing" constant="20" symbolic="YES" id="WqQ-et-9H2"/>
@@ -148,12 +148,13 @@
                 </view>
             </subviews>
             <constraints>
+                <constraint firstItem="YwJ-uT-8wj" firstAttribute="top" secondItem="Vtt-JU-ejp" secondAttribute="top" priority="1" constant="425" id="8nY-5V-jj8"/>
                 <constraint firstItem="YwJ-uT-8wj" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="Kxd-lD-YWz"/>
-                <constraint firstItem="YwJ-uT-8wj" firstAttribute="top" secondItem="2" secondAttribute="top" constant="469" id="SFK-Aj-BYx"/>
-                <constraint firstAttribute="bottom" secondItem="YwJ-uT-8wj" secondAttribute="bottom" id="SXi-gZ-Lfe"/>
+                <constraint firstItem="Vtt-JU-ejp" firstAttribute="bottom" secondItem="YwJ-uT-8wj" secondAttribute="bottom" id="ObZ-s6-hQQ"/>
                 <constraint firstAttribute="trailing" secondItem="YwJ-uT-8wj" secondAttribute="trailing" id="g00-WC-gDe"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="Vtt-JU-ejp"/>
             <point key="canvasLocation" x="16.800000000000001" y="-349.47526236881561"/>
         </view>
     </objects>

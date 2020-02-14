@@ -5,7 +5,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace PrankChat.Mobile.Core.Models.Api
 {
-    public class VideoMetadataApiModel
+    public class VideoApiModel
     {
         public string Id { get; set; }
 

@@ -369,12 +369,16 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_accent_thumbs_down.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_accent_thumbs_up.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_full_screen_video.xml">
       <SubType></SubType>

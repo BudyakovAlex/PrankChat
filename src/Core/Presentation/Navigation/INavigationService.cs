@@ -51,6 +51,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task<bool> CloseView(BaseViewModel viewModel);
 
+        Task ShowProfileUser(int idUser);
+
         #region Dialogs
 
         Task ShowShareDialog(ShareDialogParameter parameter);

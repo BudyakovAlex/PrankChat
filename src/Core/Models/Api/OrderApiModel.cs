@@ -45,8 +45,8 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("executor")]
         public DataApiModel<UserApiModel> Executor { get; set; }
 
-        [JsonConverter(typeof(IgnoreUnexpectedArraysConverter<VideoMetadataApiModel>))]
+        [JsonConverter(typeof(IgnoreUnexpectedArraysConverter<VideoApiModel>))]
         [JsonProperty("videos")]
-        public DataApiModel<VideoMetadataApiModel> Video { get; set; }
+        public DataApiModel<VideoApiModel> Video { get; set; }
     }
 }
