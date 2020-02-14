@@ -113,6 +113,8 @@
     <Compile Include="Presentation\Views\Video\FullScreenVideoView.cs" />
     <Compile Include="Presentation\Bindings\VideoUrlTargetBinding.cs" />
     <Compile Include="Controls\CustomMediaControllerView.cs" />
+    <Compile Include="Presentation\Listeners\ViewOnTouchListener.cs" />
+    <Compile Include="Presentation\Listeners\ViewOnClickListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -372,6 +374,10 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_full_screen_video.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\video_controller_layout.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

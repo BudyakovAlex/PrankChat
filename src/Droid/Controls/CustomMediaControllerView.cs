@@ -1,22 +1,28 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Android.Content;
 using Android.Runtime;
 using Android.Util;
+using Android.Views;
 using Android.Widget;
+using PrankChat.Mobile.Droid.Presentation.Listeners;
 
 namespace PrankChat.Mobile.Droid.Controls
 {
-    public class CustomMediaControllerView : FrameLayout, MediaController.IMediaPlayerControl
+    public class CustomMediaControllerView : FrameLayout, MediaController.IMediaPlayerControl, SeekBar.IOnSeekBarChangeListener
     {
-        public int AudioSessionId => throw new NotImplementedException();
+        private const int DefaultSecondsViewDelayOnScreen = 4;
 
-        public int BufferPercentage => throw new NotImplementedException();
+        private ViewGroup anchorView;
+        private View controllerView;
+        private bool isViewAdded;
 
-        public int CurrentPosition => throw new NotImplementedException();
-
-        public int Duration => throw new NotImplementedException();
-
-        public bool IsPlaying => throw new NotImplementedException();
+        private DateTime nextHideTimeStamp;
+        private bool isDragging;
+        private TextView timeTextView;
+        private SeekBar seekBar;
+        private ImageView resumeImageView;
+        private ImageView muteImageView;
 
         public CustomMediaControllerView(Context context) : base(context)
         {
@@ -26,7 +32,11 @@ namespace PrankChat.Mobile.Droid.Controls
         {
         }
 
-        public CustomMediaControllerView(Context context, bool useFastForward) : base(context, useFastForward)
+        public CustomMediaControllerView(Context context, IAttributeSet attrs, int defStyleAttr) : base(context, attrs, defStyleAttr)
+        {
+        }
+
+        public CustomMediaControllerView(Context context, IAttributeSet attrs, int defStyleAttr, int defStyleRes) : base(context, attrs, defStyleAttr, defStyleRes)
         {
         }
 
@@ -34,34 +44,193 @@ namespace PrankChat.Mobile.Droid.Controls
         {
         }
 
-        override public bool CanPause()
+        public MediaController.IMediaPlayerControl MediaPlayer { get; set; }
+
+        public int AudioSessionId => MediaPlayer?.AudioSessionId ?? 0;
+
+        public int BufferPercentage => MediaPlayer?.BufferPercentage ?? 0;
+
+        public int CurrentPosition => MediaPlayer?.CurrentPosition ?? 0;
+
+        public int Duration => MediaPlayer?.Duration ?? 0;
+
+        public bool IsPlaying => MediaPlayer?.IsPlaying ?? false;
+
+        public bool CanPause()
         {
-            throw new NotImplementedException();
+            return MediaPlayer?.CanPause() ?? false;
         }
 
         public bool CanSeekBackward()
         {
-            throw new NotImplementedException();
+            return MediaPlayer?.CanSeekBackward() ?? false;
+        }
+
+        public void SetAnchorView(ViewGroup anchorView)
+        {
+            this.anchorView = anchorView;
+
+            var frameParams = new LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
+
+            RemoveAllViews();
+
+            var view = InflateControllerView();
+            AddView(view, frameParams);
+            Show();
+        }
+
+        public void Show()
+        {
+            nextHideTimeStamp = DateTime.Now.AddSeconds(DefaultSecondsViewDelayOnScreen);
+            if (isViewAdded)
+            {
+                Visibility = ViewStates.Visible;
+                _ = UpdateProgressAsync();
+                return;
+            }
+
+            if (anchorView is null)
+            {
+                return;
+            }
+
+            var layoutParameters = new LayoutParams(ViewGroup.LayoutParams.MatchParent,
+                                                    ViewGroup.LayoutParams.WrapContent,
+                                                    GravityFlags.Bottom);
+
+            anchorView.AddView(this, layoutParameters);
+            isViewAdded = true;
+
+            _ = UpdateProgressAsync();
+        }
+
+        public void Hide()
+        {
+            Visibility = ViewStates.Gone;
         }
 
         public bool CanSeekForward()
         {
-            throw new NotImplementedException();
+            return MediaPlayer?.CanSeekForward() ?? false;
         }
 
         public void Pause()
         {
-            throw new NotImplementedException();
+            MediaPlayer?.Pause();
         }
 
         public void SeekTo(int pos)
         {
-            throw new NotImplementedException();
+            MediaPlayer?.SeekTo(pos);
         }
 
         public void Start()
         {
-            throw new NotImplementedException();
+            MediaPlayer?.Start();
+        }
+
+        public void OnStartTrackingTouch(SeekBar seekBar)
+        {
+            isDragging = true;
+        }
+
+        public void OnStopTrackingTouch(SeekBar seekBar)
+        {
+            isDragging = false;
+        }
+
+        public void OnProgressChanged(SeekBar seekBar, int progress, bool fromUser)
+        {
+            if (!isDragging)
+            {
+                return;
+            }
+
+            var duration = MediaPlayer.Duration;
+            var newPosition = duration * progress / 1000L;
+            MediaPlayer.SeekTo((int)newPosition);
+            SetTimeLineLabelValue(newPosition, duration);
+        }
+
+        private View InflateControllerView()
+        {
+            var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
+            controllerView = inflater.Inflate(Resource.Layout.video_controller_layout, null);
+
+            InitControllerView(controllerView);
+
+            return controllerView;
+        }
+
+        private void InitControllerView(View controllerView)
+        {
+            timeTextView = controllerView.FindViewById<TextView>(Resource.Id.timeline_text_view);
+            seekBar = controllerView.FindViewById<SeekBar>(Resource.Id.play_progress_seek_bar);
+            resumeImageView = controllerView.FindViewById<ImageView>(Resource.Id.resume_image_view);
+            muteImageView = controllerView.FindViewById<ImageView>(Resource.Id.mute_image_view);
+
+            resumeImageView.SetOnClickListener(new ViewOnClickListener(OnResumeImageClicked));
+            muteImageView.SetOnClickListener(new ViewOnClickListener(OnMuteImageClicked));
+
+            seekBar.Max = 1000;
+            seekBar.SetOnSeekBarChangeListener(this);
+        }
+
+        private void OnMuteImageClicked(View view)
+        {
+            
+        }
+
+        private void OnResumeImageClicked(View view)
+        {
+            if (MediaPlayer.IsPlaying)
+            {
+                MediaPlayer.Pause();
+                return;
+            }
+
+            MediaPlayer.Start();
+        }
+
+        private void SetPorgress()
+        {
+            var position = MediaPlayer.CurrentPosition;
+            var duration = MediaPlayer.Duration;
+            if (duration > 0)
+            {
+                var targetPosition = 1000L * position / duration;
+                seekBar.Progress = (int)targetPosition;
+                SetTimeLineLabelValue(position, duration);
+            }
+
+            var percent = MediaPlayer.BufferPercentage;
+            seekBar.SecondaryProgress = percent * 10;
+        }
+
+        private async Task UpdateProgressAsync()
+        {
+            while (Visibility == ViewStates.Visible)
+            {
+                await Task.Delay(200);
+                SetPorgress();
+            }
+        }
+
+        private void SetTimeLineLabelValue(long currentPosition, long totalMiliseconds)
+        {
+            timeTextView.Text = $"{GetTimeLineText(currentPosition)}/{GetTimeLineText(totalMiliseconds)}";
+        }
+
+        private string GetTimeLineText(long timeMiliseconds)
+        {
+            var timeSpan = TimeSpan.FromMilliseconds(timeMiliseconds);
+
+            if (timeSpan.Hours > 0)
+            {
+                return timeSpan.ToString("HH\\:mm\\:ss");
+            }
+
+            return timeSpan.ToString("mm\\:ss");
         }
     }
 }
