@@ -85,7 +85,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/video_name"
         android:layout_marginTop="8dp"
-        app:MvxBind="Click ShowFullScreenVideoCommand"/>
+        app:MvxBind="Touch ShowFullScreenVideoCommand"/>
     <ImageView
         android:layout_width="18dp"
         android:layout_height="18dp"

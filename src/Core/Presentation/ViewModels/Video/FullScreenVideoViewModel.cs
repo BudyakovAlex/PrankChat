@@ -10,6 +10,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
     public class FullScreenVideoViewModel : BaseViewModel, IMvxViewModel<string>
     {
         private string videoUrl;
+        private bool isMuted;
 
         public FullScreenVideoViewModel(INavigationService navigationService,
                                         IErrorHandleService errorHandleService,
@@ -22,6 +23,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         {
             get => videoUrl;
             private set => SetProperty(ref videoUrl, value);
+        }
+
+        public bool IsMuted
+        {
+            get => isMuted;
+            set => SetProperty(ref isMuted, value);
         }
 
         public void Prepare(string parameter)
