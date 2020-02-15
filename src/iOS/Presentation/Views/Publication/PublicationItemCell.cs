@@ -16,7 +16,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
-	public partial class PublicationItemCell : BaseTableCell<PublicationItemCell, PublicationItemViewModel>
+    public partial class PublicationItemCell : BaseTableCell<PublicationItemCell, PublicationItemViewModel>
 	{
 		private AVPlayerViewController _avPlayerViewController;
 
@@ -150,9 +150,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.For(v => v.Command)
 				.To(vm => vm.ShowDetailsCommand);
 
-			set.Bind(_avPlayerViewController.View.Tap())
-				.For(v => v.Command)
-				.To(vm => vm.ToggleSoundCommand);
+            // TODO: we should probably move this functionality to the mute button
+			//set.Bind(_avPlayerViewController.View.Tap())
+			//	.For(v => v.Command)
+			//	.To(vm => vm.ToggleSoundCommand);
 
 			set.Bind(soundImageView)
 				.For(v => v.Hidden)
@@ -194,6 +195,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.To(vm => vm.ProfilePhotoUrl)
 				.Mode(MvxBindingMode.OneTime);
 
+			set.Bind(videoView)
+				.For(v => v.BindTap())
+				.To(vm => vm.ShowFullScreenVideoCommand);
+
 			set.Apply();
 		}
 
@@ -204,8 +209,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			_avPlayerViewController.ShowsPlaybackControls = false;
 			_avPlayerViewController.VideoGravity = AVLayerVideoGravity.ResizeAspectFill;
 			videoView.Add(_avPlayerViewController.View);
-
 		}
 	}
 }
-
