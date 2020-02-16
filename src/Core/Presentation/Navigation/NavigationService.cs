@@ -124,7 +124,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         public Task ShowFullScreenVideoView(string videoUrl)
         {
-            return _mvxNavigationService.Navigate<FullScreenVideoViewModel, string>(videoUrl);
+            var parameter = new FullScreenVideoParameter(videoUrl);
+            return _mvxNavigationService.Navigate<FullScreenVideoViewModel, FullScreenVideoParameter>(parameter);
         }
 
         public Task ShowDetailsPublicationView()
@@ -155,6 +156,13 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return ShowLoginView();
         }
 
+        public Task ShowProfileUser(int idUser)
+        {
+            return Task.FromResult(0);
+            // TODO change this code for normal navigate to profile other user
+            // return _mvxNavigationService.Navigate<ProfileViewModel, int>(idUser);
+        }
+
         #region Dialogs
 
         public Task ShowShareDialog(ShareDialogParameter parameter)
@@ -168,12 +176,5 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         }
 
         #endregion
-
-        public Task ShowProfileUser(int idUser)
-        {
-            return Task.FromResult(0);
-            // TODO change this code for normal navigate to profile other user
-            // return _mvxNavigationService.Navigate<ProfileViewModel, int>(idUser);
-        }
     }
 }
