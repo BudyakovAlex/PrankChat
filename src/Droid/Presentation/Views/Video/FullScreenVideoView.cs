@@ -5,6 +5,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.Droid.Controls;
@@ -20,7 +21,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
     {
         private ExtendedVideoView videoView;
         private FrameLayout rootView;
+        private FrameLayout topPanel;
         private CustomMediaControllerView mediaController;
+        private ImageView backImageView;
 
         private int currentPosition;
 
@@ -39,10 +42,18 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 
         protected override void SetViewProperties()
         {
+            topPanel = FindViewById<FrameLayout>(Resource.Id.top_panel);
             videoView = FindViewById<ExtendedVideoView>(Resource.Id.video_view);
             rootView = FindViewById<FrameLayout>(Resource.Id.root_view);
+            backImageView = FindViewById<ImageView>(Resource.Id.back_image_view);
+            topPanel.Visibility = ViewStates.Gone;
 
-            mediaController = new CustomMediaControllerView(this) { VideoView = videoView };
+            mediaController = new CustomMediaControllerView(this)
+            {
+                VideoView = videoView,
+                ViewStateChanged = (viewState) => topPanel.Visibility = viewState
+            };
+
             videoView.SetOnPreparedListener(new MediaPlayerOnPreparedListener((mp) => mediaController.MediaPlayer = mp));
 
             mediaController.SetAnchorView(rootView);
@@ -57,6 +68,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 
             bindingSet.Bind(videoView).For(VideoUrlTargetBinding.PropertyName).To(vm => vm.VideoUrl);
             bindingSet.Bind(mediaController).For(v => v.IsMuted).To(vm => vm.IsMuted);
+            bindingSet.Bind(backImageView).For(v => v.BindClick()).To(vm => vm.GoBackCommand);
 
             bindingSet.Apply();
         }

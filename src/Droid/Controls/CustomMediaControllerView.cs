@@ -66,6 +66,8 @@ namespace PrankChat.Mobile.Droid.Controls
             }
         }
 
+        public Action<ViewStates> ViewStateChanged { get; set; }
+
         public MediaPlayer MediaPlayer { get; set; }
 
         public int AudioSessionId => VideoView?.AudioSessionId ?? 0;
@@ -119,6 +121,7 @@ namespace PrankChat.Mobile.Droid.Controls
             if (isViewAdded)
             {
                 Visibility = ViewStates.Visible;
+                ViewStateChanged?.Invoke(Visibility);
                 _ = UpdateProgressAsync();
                 return;
             }
@@ -135,12 +138,14 @@ namespace PrankChat.Mobile.Droid.Controls
             anchorView.AddView(this, layoutParameters);
             isViewAdded = true;
 
+            ViewStateChanged?.Invoke(Visibility);
             _ = UpdateProgressAsync();
         }
 
         public void Hide()
         {
             Visibility = ViewStates.Gone;
+            ViewStateChanged?.Invoke(Visibility);
         }
 
         public bool CanSeekForward()
@@ -271,12 +276,10 @@ namespace PrankChat.Mobile.Droid.Controls
         {
             var position = VideoView.CurrentPosition;
             var duration = VideoView.Duration;
-            if (duration > 0)
-            {
-                var targetPosition = ProgressMultiplier * position / duration;
-                seekBar.Progress = (int)targetPosition;
-                SetTimeLineLabelValue(position, duration);
-            }
+            var targetPosition = ProgressMultiplier * position / duration;
+
+            seekBar.Progress = (int)targetPosition;
+            SetTimeLineLabelValue(position, duration);
 
             var percent = VideoView.BufferPercentage;
             seekBar.SecondaryProgress = percent * 10;
@@ -292,7 +295,10 @@ namespace PrankChat.Mobile.Droid.Controls
                 }
 
                 await Task.Delay(UpdateTimeLineMillisecondsDelay);
-                SetPorgress();
+                if (!isDragging)
+                {
+                    SetPorgress();
+                }
 
                 if (IsPlaying || videoView.Duration == 0)
                 {
