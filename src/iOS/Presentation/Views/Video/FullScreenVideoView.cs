@@ -63,7 +63,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             NSNotificationCenter.DefaultCenter.AddObserver(this, new Selector(nameof(WillResignActive)), UIApplication.WillResignActiveNotification, null);
             NSNotificationCenter.DefaultCenter.AddObserver(this, new Selector(nameof(DidBecomeActive)), UIApplication.DidBecomeActiveNotification, null);
         }
-
+      
         protected override void SetupBinding()
         {
             base.SetupBinding();
@@ -443,12 +443,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private void CloseButtonTap()
         {
-            controller.WillMoveToParentViewController(null);
-            controller.View.RemoveFromSuperview();
-            controller.RemoveFromParentViewController();
-            player.Dispose();
+            controller?.WillMoveToParentViewController(null);
+            controller?.View.RemoveFromSuperview();
+            controller?.RemoveFromParentViewController();
+            player?.Pause();
+            player?.Dispose();
 
-            ViewModel.GoBackCommand.ExecuteAsync();
+            ViewModel?.GoBackCommand.ExecuteAsync();
         }
 
         [Export(nameof(WillResignActive))]
