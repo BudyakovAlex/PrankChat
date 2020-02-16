@@ -79,7 +79,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxCommand ToggleSoundCommand => new MvxCommand(OnToggleSound);
 
-        public IMvxAsyncCommand ShowFullScreenVideoCommand { get; }
+        public MvxAsyncCommand ShowFullScreenVideoCommand => new MvxAsyncCommand(ShowFullScreenVideoAsync);
 
         #endregion
 
@@ -123,8 +123,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _publicationDate = publicationDate;
             _numberOfLikes = numberOfLikes;
             _shareLink = shareLink;
-
-            ShowFullScreenVideoCommand = new MvxAsyncCommand(ShowFullScreenVideoAsync);
         }
 
         private Task ShowFullScreenVideoAsync()
