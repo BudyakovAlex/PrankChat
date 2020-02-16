@@ -24,6 +24,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         private const string PlayerItemLoadedTimeRangesKey = "loadedTimeRanges";
         private const string PlayerMutedKey = "muted";
 
+        private const int ThreeSecondsTicks = 30_000_000;
+
         private string videoUrl;
         private bool wasPlaying;
         private long lastActionTicks;
@@ -34,6 +36,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         private UIView overlayView;
         private UIButton playButton;
         private UIButton muteButton;
+        private UIButton closeButton;
         private UIView progressView;
         private UIView loadProgressView;
         private UIView watchProgressView;
@@ -105,6 +108,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             InitializeOverlayView();
             InitializePlayButton();
             InitializeMuteButton();
+            InitializeCloseButton();
             InitializeProgressView();
             InitializeLoadProgressView();
             InitializeWatchProgressView();
@@ -197,6 +201,25 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                 muteButton.BottomAnchor.ConstraintEqualTo(overlayView.BottomAnchor, -20f),
                 muteButton.HeightAnchor.ConstraintEqualTo(52f),
                 muteButton.WidthAnchor.ConstraintEqualTo(52f)
+            });
+        }
+
+        private void InitializeCloseButton()
+        {
+            closeButton = new UIButton();
+            closeButton.TranslatesAutoresizingMaskIntoConstraints = false;
+            closeButton.ContentMode = UIViewContentMode.Center;
+            closeButton.AddGestureRecognizer(new UITapGestureRecognizer(CloseButtonTap));
+            closeButton.SetImage(UIImage.FromBundle("ic_back"), UIControlState.Normal);
+
+            overlayView.AddSubview(closeButton);
+
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                closeButton.TopAnchor.ConstraintEqualTo(overlayView.SafeAreaLayoutGuide.TopAnchor),
+                closeButton.LeadingAnchor.ConstraintEqualTo(overlayView.SafeAreaLayoutGuide.LeadingAnchor),
+                closeButton.HeightAnchor.ConstraintEqualTo(52f),
+                closeButton.WidthAnchor.ConstraintEqualTo(52f)
             });
         }
 
@@ -298,7 +321,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         {
             while (true)
             {
-                if (GetHideOverlay() && (DateTime.Now.Ticks - lastActionTicks >= 30_000_000))
+                if (GetHideOverlay() && (DateTime.Now.Ticks - lastActionTicks >= ThreeSecondsTicks))
                 {
                     InvokeOnMainThread(() => overlayView.Hidden = true);
                 }
@@ -320,6 +343,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private void PlayerTimeChanged(CMTime _)
         {
+            if (player.CurrentItem == null)
+            {
+                return;
+            }
+
             var time = GetTextRepresentation(player.CurrentItem.CurrentTime);
             var duration = GetTextRepresentation(player.CurrentItem.Duration);
             timeLabel.Text = $"{time} / {duration}";
@@ -338,6 +366,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private void UpdateTimePassedWidthConstraint()
         {
+            if (player.CurrentItem == null)
+            {
+                return;
+            }
+
             var ration = player.CurrentItem.CurrentTime.Seconds / player.CurrentItem.Duration.Seconds;
             var width = (nfloat) ration * progressView.Frame.Width;
             timePassedWidthConstraint.Constant = width;
@@ -345,34 +378,26 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private void PlayerMutedChanged()
         {
-            if (player.Muted)
-            {
-                var muteImage = UIImage.FromBundle("ic_sound_muted");
-                muteButton.SetImage(muteImage, UIControlState.Normal);
-            }
-            else
-            {
-                var muteImage = UIImage.FromBundle("FullscreenVideoMute");
-                muteButton.SetImage(muteImage, UIControlState.Normal);
-            }
+            var imageName = player.Muted ? "ic_sound_muted" : "FullscreenVideoMute";
+            muteButton.SetImage(UIImage.FromBundle(imageName), UIControlState.Normal);
         }
 
         private void PlayerTimeControlStatusChanged()
         {
-            if (player.TimeControlStatus == AVPlayerTimeControlStatus.Paused)
-            {
-                var playImage = UIImage.FromBundle("FullscreenVideoPlay");
-                playButton.SetImage(playImage, UIControlState.Normal);
-            }
-            else
-            {
-                var playImage = UIImage.FromBundle("FullscreenVideoPause");
-                playButton.SetImage(playImage, UIControlState.Normal);
-            }
+            var imageName = player.TimeControlStatus == AVPlayerTimeControlStatus.Paused
+                ? "FullscreenVideoPlay"
+                : "FullscreenVideoPause";
+
+            playButton.SetImage(UIImage.FromBundle(imageName), UIControlState.Normal);
         }
 
         private void PlayerItemLoadedTimeRangesChanged()
         {
+            if (player.CurrentItem == null)
+            {
+                return;
+            }
+
             var value = player.CurrentItem.LoadedTimeRanges.Last();
             var seconds = value.CMTimeRangeValue.Start.Seconds + value.CMTimeRangeValue.Duration.Seconds;
             var ratio = seconds / player.CurrentItem.Duration.Seconds;
@@ -414,6 +439,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         {
             player.Muted = !player.Muted;
             UpdateLastActionTicks();
+        }
+
+        private void CloseButtonTap()
+        {
+            controller.WillMoveToParentViewController(null);
+            controller.View.RemoveFromSuperview();
+            controller.RemoveFromParentViewController();
+            player.Dispose();
+
+            ViewModel.GoBackCommand.ExecuteAsync();
         }
 
         [Export(nameof(WillResignActive))]
