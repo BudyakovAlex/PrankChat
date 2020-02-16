@@ -30,6 +30,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         private bool wasPlaying;
         private long lastActionTicks;
 
+        private NSObject playerPerdiodicTimeObserver;
         private AVPlayer player;
         private AVPlayerViewController controller;
 
@@ -63,7 +64,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             NSNotificationCenter.DefaultCenter.AddObserver(this, new Selector(nameof(WillResignActive)), UIApplication.WillResignActiveNotification, null);
             NSNotificationCenter.DefaultCenter.AddObserver(this, new Selector(nameof(DidBecomeActive)), UIApplication.DidBecomeActiveNotification, null);
         }
-      
+
         protected override void SetupBinding()
         {
             base.SetupBinding();
@@ -127,7 +128,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             var playerItem = new AVPlayerItem(url);
             player = new AVPlayer(playerItem);
 
-            player.AddPeriodicTimeObserver(new CMTime(1, 2), DispatchQueue.MainQueue, PlayerTimeChanged);
+            playerPerdiodicTimeObserver = player.AddPeriodicTimeObserver(new CMTime(1, 2), DispatchQueue.MainQueue, PlayerTimeChanged);
             player.AddObserver(this, PlayerTimeControlStatusKey, NSKeyValueObservingOptions.New, IntPtr.Zero);
             player.AddObserver(this, PlayerMutedKey, NSKeyValueObservingOptions.New, IntPtr.Zero);
             player.CurrentItem.AddObserver(this, PlayerItemLoadedTimeRangesKey, NSKeyValueObservingOptions.New, IntPtr.Zero);
@@ -443,13 +444,27 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private void CloseButtonTap()
         {
-            controller?.WillMoveToParentViewController(null);
-            controller?.View.RemoveFromSuperview();
-            controller?.RemoveFromParentViewController();
-            player?.Pause();
-            player?.Dispose();
+            if (controller != null)
+            {
+                controller.WillMoveToParentViewController(null);
+                controller.View.RemoveFromSuperview();
+                controller.RemoveFromParentViewController();
+            }
 
-            ViewModel?.GoBackCommand.ExecuteAsync();
+            if (player != null)
+            {
+                player.RemoveTimeObserver(playerPerdiodicTimeObserver);
+                player.RemoveObserver(this, PlayerTimeControlStatusKey, IntPtr.Zero);
+                player.RemoveObserver(this, PlayerMutedKey, IntPtr.Zero);
+                player.CurrentItem.RemoveObserver(this, PlayerItemLoadedTimeRangesKey, IntPtr.Zero);
+
+                player.Pause();
+                player.Dispose();
+            }
+
+            NSNotificationCenter.DefaultCenter.RemoveObserver(this);
+
+            ViewModel.GoBackCommand.ExecuteAsync();
         }
 
         [Export(nameof(WillResignActive))]
