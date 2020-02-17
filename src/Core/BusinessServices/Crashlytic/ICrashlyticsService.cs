@@ -2,8 +2,8 @@
 
 namespace PrankChat.Mobile.Core.BusinessServices.CrashlyticService
 {
-    public interface ICrashlyticsService
-    {
+	public interface ICrashlyticsService
+	{
 		void TrackEvent(string message);
 
 		void TrackError(Exception exception);
