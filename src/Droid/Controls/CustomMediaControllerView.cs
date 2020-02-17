@@ -57,12 +57,7 @@ namespace PrankChat.Mobile.Droid.Controls
             set
             {
                 _videoView = value;
-                if (_videoView is null)
-                {
-                    return;
-                }
-
-                _videoView.SetOnVideoViewStateChangedListener(this);
+                _videoView?.SetOnVideoViewStateChangedListener(this);
             }
         }
 
