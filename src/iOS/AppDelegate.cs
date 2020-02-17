@@ -1,4 +1,5 @@
-﻿using Foundation;
+﻿using Firebase.Crashlytics;
+using Foundation;
 using MvvmCross.Platforms.Ios.Core;
 using PrankChat.Mobile.Core;
 using UIKit;
@@ -37,6 +38,18 @@ namespace PrankChat.Mobile.iOS
         public override void WillTerminate(UIApplication application)
         {
             // Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
+        }
+
+        public override void FinishedLaunching(UIApplication application)
+        {
+            InitializeFirebase();
+            base.FinishedLaunching(application);
+        }
+
+        private void InitializeFirebase()
+        {
+            Firebase.Core.App.Configure();
+            Crashlytics.Configure();
         }
     }
 }
