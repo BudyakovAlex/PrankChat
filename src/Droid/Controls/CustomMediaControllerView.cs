@@ -16,20 +16,20 @@ namespace PrankChat.Mobile.Droid.Controls
         private const long ProgressMultiplier = 1000L;
         private const int UpdateTimeLineMillisecondsDelay = 200;
 
-        private ViewGroup anchorView;
-        private View controllerView;
-        private bool isViewAdded;
+        private ViewGroup _anchorView;
+        private View _controllerView;
+        private bool _isViewAdded;
 
-        private DateTime nextHideTimeStamp;
+        private DateTime _nextHideTimeStamp;
 
-        private bool isDragging;
-        private TextView timeTextView;
-        private SeekBar seekBar;
-        private ImageView resumeImageView;
-        private ImageView muteImageView;
+        private bool _isDragging;
+        private TextView _timeTextView;
+        private SeekBar _seekBar;
+        private ImageView _resumeImageView;
+        private ImageView _muteImageView;
 
-        private ExtendedVideoView videoView;
-        private bool isMuted;
+        private ExtendedVideoView _videoView;
+        private bool _isMuted;
 
         public CustomMediaControllerView(Context context) : base(context)
         {
@@ -53,16 +53,16 @@ namespace PrankChat.Mobile.Droid.Controls
 
         public ExtendedVideoView VideoView
         {
-            get => videoView;
+            get => _videoView;
             set
             {
-                videoView = value;
-                if (videoView is null)
+                _videoView = value;
+                if (_videoView is null)
                 {
                     return;
                 }
 
-                videoView.SetOnVideoViewStateChangedListener(this);
+                _videoView.SetOnVideoViewStateChangedListener(this);
             }
         }
 
@@ -82,7 +82,7 @@ namespace PrankChat.Mobile.Droid.Controls
 
         public bool IsMuted
         {
-            get => isMuted;
+            get => _isMuted;
             set => UpdateSoundState(value);
         }
 
@@ -103,7 +103,7 @@ namespace PrankChat.Mobile.Droid.Controls
                 return;
             }
 
-            this.anchorView = anchorView;
+            _anchorView = anchorView;
             anchorView.SetOnClickListener(new ViewOnClickListener(OnHolderViewClicked));
 
             var frameParams = new LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
@@ -117,8 +117,8 @@ namespace PrankChat.Mobile.Droid.Controls
 
         public void Show()
         {
-            nextHideTimeStamp = DateTime.Now.AddSeconds(DefaultSecondsViewDelayOnScreen);
-            if (isViewAdded)
+            _nextHideTimeStamp = DateTime.Now.AddSeconds(DefaultSecondsViewDelayOnScreen);
+            if (_isViewAdded)
             {
                 Visibility = ViewStates.Visible;
                 ViewStateChanged?.Invoke(Visibility);
@@ -126,7 +126,7 @@ namespace PrankChat.Mobile.Droid.Controls
                 return;
             }
 
-            if (anchorView is null)
+            if (_anchorView is null)
             {
                 return;
             }
@@ -135,8 +135,8 @@ namespace PrankChat.Mobile.Droid.Controls
                                                     ViewGroup.LayoutParams.WrapContent,
                                                     GravityFlags.Bottom);
 
-            anchorView.AddView(this, layoutParameters);
-            isViewAdded = true;
+            _anchorView.AddView(this, layoutParameters);
+            _isViewAdded = true;
 
             ViewStateChanged?.Invoke(Visibility);
             _ = UpdateProgressAsync();
@@ -170,23 +170,23 @@ namespace PrankChat.Mobile.Droid.Controls
 
         public void OnStartTrackingTouch(SeekBar seekBar)
         {
-            isDragging = true;
-            nextHideTimeStamp = DateTime.Now.AddSeconds(DefaultSecondsViewDelayOnScreen);
+            _isDragging = true;
+            _nextHideTimeStamp = DateTime.Now.AddSeconds(DefaultSecondsViewDelayOnScreen);
         }
 
         public void OnStopTrackingTouch(SeekBar seekBar)
         {
-            isDragging = false;
+            _isDragging = false;
         }
 
         public void OnProgressChanged(SeekBar seekBar, int progress, bool fromUser)
         {
-            if (!isDragging)
+            if (!_isDragging)
             {
                 return;
             }
 
-            nextHideTimeStamp = DateTime.Now.AddSeconds(DefaultSecondsViewDelayOnScreen);
+            _nextHideTimeStamp = DateTime.Now.AddSeconds(DefaultSecondsViewDelayOnScreen);
 
             var duration = VideoView.Duration;
             var newPosition = duration * progress / ProgressMultiplier;
@@ -197,41 +197,41 @@ namespace PrankChat.Mobile.Droid.Controls
         private View InflateControllerView()
         {
             var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
-            controllerView = inflater.Inflate(Resource.Layout.video_controller_layout, null);
+            _controllerView = inflater.Inflate(Resource.Layout.video_controller_layout, null);
 
-            InitControllerView(controllerView);
+            InitControllerView(_controllerView);
 
-            return controllerView;
+            return _controllerView;
         }
 
         private void InitControllerView(View controllerView)
         {
-            timeTextView = controllerView.FindViewById<TextView>(Resource.Id.timeline_text_view);
-            seekBar = controllerView.FindViewById<SeekBar>(Resource.Id.play_progress_seek_bar);
-            resumeImageView = controllerView.FindViewById<ImageView>(Resource.Id.resume_image_view);
-            muteImageView = controllerView.FindViewById<ImageView>(Resource.Id.mute_image_view);
+            _timeTextView = controllerView.FindViewById<TextView>(Resource.Id.timeline_text_view);
+            _seekBar = controllerView.FindViewById<SeekBar>(Resource.Id.play_progress_seek_bar);
+            _resumeImageView = controllerView.FindViewById<ImageView>(Resource.Id.resume_image_view);
+            _muteImageView = controllerView.FindViewById<ImageView>(Resource.Id.mute_image_view);
 
-            resumeImageView.SetOnClickListener(new ViewOnClickListener(OnResumeImageClicked));
-            muteImageView.SetOnClickListener(new ViewOnClickListener(OnMuteImageClicked));
+            _resumeImageView.SetOnClickListener(new ViewOnClickListener(OnResumeImageClicked));
+            _muteImageView.SetOnClickListener(new ViewOnClickListener(OnMuteImageClicked));
 
-            seekBar.Max = (int)ProgressMultiplier;
-            seekBar.SetOnSeekBarChangeListener(this);
+            _seekBar.Max = (int)ProgressMultiplier;
+            _seekBar.SetOnSeekBarChangeListener(this);
         }
 
         private void OnMuteImageClicked(View view)
         {
-            nextHideTimeStamp = DateTime.Now.AddSeconds(DefaultSecondsViewDelayOnScreen);
+            _nextHideTimeStamp = DateTime.Now.AddSeconds(DefaultSecondsViewDelayOnScreen);
             IsMuted = !IsMuted;
         }
 
         private void UpdateSoundState(bool value)
         {
-            if (value == isMuted)
+            if (value == _isMuted)
             {
                 return;
             }
 
-            isMuted = value;
+            _isMuted = value;
 
             if (MediaPlayer is null)
             {
@@ -250,18 +250,18 @@ namespace PrankChat.Mobile.Droid.Controls
         private void Mute()
         {
             MediaPlayer.SetVolume(0,0);
-            muteImageView.SetImageResource(Resource.Drawable.ic_sound);
+            _muteImageView.SetImageResource(Resource.Drawable.ic_sound);
         }
 
         private void Unmute()
         {
             MediaPlayer.SetVolume(1, 1);
-            muteImageView.SetImageResource(Resource.Drawable.ic_without_sound);
+            _muteImageView.SetImageResource(Resource.Drawable.ic_without_sound);
         }
 
         private void OnResumeImageClicked(View view)
         {
-            nextHideTimeStamp = DateTime.Now.AddSeconds(DefaultSecondsViewDelayOnScreen);
+            _nextHideTimeStamp = DateTime.Now.AddSeconds(DefaultSecondsViewDelayOnScreen);
 
             if (VideoView.IsPlaying)
             {
@@ -278,40 +278,40 @@ namespace PrankChat.Mobile.Droid.Controls
             var duration = VideoView.Duration;
             var targetPosition = ProgressMultiplier * position / duration;
 
-            seekBar.Progress = (int)targetPosition;
+            _seekBar.Progress = (int)targetPosition;
             SetTimeLineLabelValue(position, duration);
 
             var percent = VideoView.BufferPercentage;
-            seekBar.SecondaryProgress = percent * 10;
+            _seekBar.SecondaryProgress = percent * 10;
         }
 
         private async Task UpdateProgressAsync()
         {
             while (Visibility == ViewStates.Visible)
             {
-                if (nextHideTimeStamp <= DateTime.Now)
+                if (_nextHideTimeStamp <= DateTime.Now)
                 {
                     Hide();
                 }
 
                 await Task.Delay(UpdateTimeLineMillisecondsDelay);
-                if (!isDragging)
+                if (!_isDragging)
                 {
                     SetPorgress();
                 }
 
-                if (IsPlaying || videoView.Duration == 0)
+                if (IsPlaying || _videoView.Duration == 0)
                 {
                     continue;
                 }
 
-                resumeImageView.SetImageResource(Resource.Drawable.ic_mdi_play_circle_outline);
+                _resumeImageView.SetImageResource(Resource.Drawable.ic_mdi_play_circle_outline);
             }
         }
 
         private void SetTimeLineLabelValue(long currentPosition, long totalMiliseconds)
         {
-            timeTextView.Text = $"{GetTimeLineText(currentPosition)}/{GetTimeLineText(totalMiliseconds)}";
+            _timeTextView.Text = $"{GetTimeLineText(currentPosition)}/{GetTimeLineText(totalMiliseconds)}";
         }
 
         private string GetTimeLineText(long timeMiliseconds)
@@ -341,16 +341,16 @@ namespace PrankChat.Mobile.Droid.Controls
         {
             if (disposing)
             {
-                if (videoView != null)
+                if (_videoView != null)
                 {
-                    videoView.SetOnVideoViewStateChangedListener(null);
-                    videoView.Dispose();
+                    _videoView.SetOnVideoViewStateChangedListener(null);
+                    _videoView.Dispose();
                 }
 
-                if (anchorView != null)
+                if (_anchorView != null)
                 {
-                    anchorView.SetOnClickListener(null);
-                    anchorView.Dispose();
+                    _anchorView.SetOnClickListener(null);
+                    _anchorView.Dispose();
                 }
 
                 if (MediaPlayer != null)
@@ -364,32 +364,32 @@ namespace PrankChat.Mobile.Droid.Controls
 
         void ExtendedVideoView.IOnVideoViewStateChangedListener.Pause()
         {
-            if (resumeImageView is null)
+            if (_resumeImageView is null)
             {
                 return;
             }
 
-            resumeImageView.SetImageResource(Resource.Drawable.ic_mdi_play_circle_outline);
+            _resumeImageView.SetImageResource(Resource.Drawable.ic_mdi_play_circle_outline);
         }
 
         void ExtendedVideoView.IOnVideoViewStateChangedListener.Start()
         {
-            if (resumeImageView is null)
+            if (_resumeImageView is null)
             {
                 return;
             }
 
-            resumeImageView.SetImageResource(Resource.Drawable.ic_mdi_pause_circle_outline);
+            _resumeImageView.SetImageResource(Resource.Drawable.ic_mdi_pause_circle_outline);
         }
 
         void ExtendedVideoView.IOnVideoViewStateChangedListener.StopPlayback()
         {
-            if (resumeImageView is null)
+            if (_resumeImageView is null)
             {
                 return;
             }
 
-            resumeImageView.SetImageResource(Resource.Drawable.ic_mdi_play_circle_outline);
+            _resumeImageView.SetImageResource(Resource.Drawable.ic_mdi_play_circle_outline);
         }
     }
 }
