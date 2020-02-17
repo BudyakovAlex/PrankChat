@@ -3,6 +3,7 @@ using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
+using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -16,6 +17,8 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 {
+
+    [MvxModalPresentation(WrapInNavigationController = true)]
     public partial class RegistrationSecondStepView : BaseTransparentBarView<RegistrationSecondStepViewModel>
     {
         protected override void SetupBinding()
