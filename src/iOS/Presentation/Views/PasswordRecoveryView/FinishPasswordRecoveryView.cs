@@ -1,5 +1,6 @@
 ﻿using System;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -8,6 +9,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.PasswordRecoveryView
 {
+    [MvxModalPresentation(WrapInNavigationController = true)]
     public partial class FinishPasswordRecoveryView : BaseTransparentBarView<FinishPasswordRecoveryViewModel>
     {
         protected override void SetupBinding()

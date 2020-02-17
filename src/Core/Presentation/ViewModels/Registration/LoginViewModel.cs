@@ -5,6 +5,7 @@ using MvvmCross.Logging;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -38,7 +39,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             : base(navigationService, errorHandleService, apiService, dialogService)
         {
             _mvxLog = mvxLog;
-
 #if DEBUG
 
             EmailText = "testuser@delete.me";
@@ -66,17 +66,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                 switch (socialNetworkType)
                 {
                     case LoginType.Vk:
-                        break;
-
                     case LoginType.Ok:
-                        break;
-
                     case LoginType.Facebook:
-                        break;
-
                     case LoginType.Gmail:
-                        break;
-
+                        return;
                     case LoginType.UsernameAndPassword:
                         if (!CheckValidation())
                             return;
