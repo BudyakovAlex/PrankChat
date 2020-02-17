@@ -16,7 +16,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
     public class LoginViewModel : BaseViewModel
     {
         private readonly IMvxLog _mvxLog;
-        private readonly ISettingsService _settingsService;
 
         private string _emailText;
         public string EmailText
@@ -36,12 +35,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                               IApiService apiService,
                               IDialogService dialogService,
                               IMvxLog mvxLog,
-                              IErrorHandleService errorHandleService,
-                              ISettingsService settingsService)
+                              IErrorHandleService errorHandleService)
             : base(navigationService, errorHandleService, apiService, dialogService)
         {
             _mvxLog = mvxLog;
-            _settingsService = settingsService;
 #if DEBUG
 
             EmailText = "testuser@delete.me";
@@ -69,17 +66,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                 switch (socialNetworkType)
                 {
                     case LoginType.Vk:
-                        break;
-
                     case LoginType.Ok:
-                        break;
-
                     case LoginType.Facebook:
-                        break;
-
                     case LoginType.Gmail:
-                        break;
-
+                        return;
                     case LoginType.UsernameAndPassword:
                         if (!CheckValidation())
                             return;
@@ -91,11 +81,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                 }
 
                 // todo: not wait
-               if (!await ApiService.GetCurrentUserAsync())
-                {
-                    throw new Exception("Error with login. Unable to get current user");
-                }
-                
+                await ApiService.GetCurrentUserAsync();
                 await NavigationService.ShowMainView();
             }
             catch (Exception ex)

@@ -59,7 +59,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Users
 
-        Task<bool> GetCurrentUserAsync();
+        Task GetCurrentUserAsync();
 
         Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo);
 
