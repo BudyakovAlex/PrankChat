@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -8,6 +9,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 {
+    [MvxModalPresentation(WrapInNavigationController = true)]
     public partial class RegistrationView : BaseTransparentBarView<RegistrationViewModel>
     {
 		protected override void SetupBinding()

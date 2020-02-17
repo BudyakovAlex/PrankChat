@@ -5,6 +5,8 @@ using MvvmCross.Platforms.Ios.Core;
 using PrankChat.Mobile.Core;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
+using PrankChat.Mobile.iOS.PlatformBusinessServices.Crashlytic;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Video;
 using PrankChat.Mobile.iOS.Presentation.Binding;
 using UIKit;
@@ -18,6 +20,7 @@ namespace PrankChat.Mobile.iOS
             base.InitializeFirstChance();
 
             Mvx.IoCProvider.RegisterType<IVideoPlayerService, VideoPlayerService>();
+            Mvx.IoCProvider.RegisterType<ICrashlyticsService, CrashlyticsService>();
         }
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
