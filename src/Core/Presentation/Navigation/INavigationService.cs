@@ -35,6 +35,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowDetailsOrderView(int orderId);
 
+        Task ShowFullScreenVideoView(string videoUrl);
+
         Task ShowDetailsPublicationView();
 
         Task ShowWithdrawalView();

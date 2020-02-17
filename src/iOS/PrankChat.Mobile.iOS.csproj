@@ -249,6 +249,11 @@
     <Compile Include="Presentation\Binding\UIButtonSelectedTargetBinding.cs" />
     <BundleResource Include="Resources\Animations\ripple_animation.json" />
     <Compile Include="Controls\SelectableButton.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Video\FullScreenVideoView.xib" />
+    <Compile Include="Presentation\Views\Video\FullScreenVideoView.cs" />
+    <Compile Include="Presentation\Views\Video\FullScreenVideoView.designer.cs">
+      <DependentUpon>FullScreenVideoView.cs</DependentUpon>
+    </Compile>
     <Compile Include="PlatformBusinessServices\Crashlytic\CrashlyticsService.cs" />
     <BundleResource Include="GoogleService-Info.plist" />
   </ItemGroup>
@@ -702,6 +707,16 @@
     <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\ic_accent_thumbs_up.pdf">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\ic_accent_thumbs_down.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\ic_accent_thumbs_up.pdf" />
+    <ImageAsset Include="Assets.xcassets\FullscreenVideoPlay.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\FullscreenVideoPlay.imageset\FullscreenVideoPlay.pdf" />
+    <ImageAsset Include="Assets.xcassets\FullscreenVideoPause.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\FullscreenVideoPause.imageset\FullscreenVideoPause.pdf" />
+    <ImageAsset Include="Assets.xcassets\FullscreenVideoMute.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\FullscreenVideoMute.imageset\FullscreenVideoMute.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -717,6 +732,10 @@
     <Folder Include="Resources\Animations\" />
     <Folder Include="Assets.xcassets\ic_accent_thumbs_down.imageset\" />
     <Folder Include="Assets.xcassets\ic_accent_thumbs_up.imageset\" />
+    <Folder Include="Presentation\Views\Video\" />
+    <Folder Include="Assets.xcassets\FullscreenVideoPlay.imageset\" />
+    <Folder Include="Assets.xcassets\FullscreenVideoPause.imageset\" />
+    <Folder Include="Assets.xcassets\FullscreenVideoMute.imageset\" />
     <Folder Include="PlatformBusinessServices\Crashlytic\" />
   </ItemGroup>
   <ItemGroup>
