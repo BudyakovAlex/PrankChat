@@ -5,16 +5,16 @@ namespace PrankChat.Mobile.Droid.Presentation.Listeners
 {
     public class MediaPlayerOnPreparedListener : Java.Lang.Object, MediaPlayer.IOnPreparedListener
     {
-        private readonly Action<MediaPlayer> mediaPlayerPreparedAction;
+        private readonly Action<MediaPlayer> _mediaPlayerPreparedAction;
 
         public MediaPlayerOnPreparedListener(Action<MediaPlayer> mediaPlayerPreparedAction)
         {
-            this.mediaPlayerPreparedAction = mediaPlayerPreparedAction;
+            _mediaPlayerPreparedAction = mediaPlayerPreparedAction;
         }
 
         public void OnPrepared(MediaPlayer mp)
         {
-            mediaPlayerPreparedAction?.Invoke(mp);
+            _mediaPlayerPreparedAction?.Invoke(mp);
         }
     }
 }

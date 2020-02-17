@@ -19,13 +19,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
     [MvxActivityPresentation]
     public class FullScreenVideoView : BaseView<FullScreenVideoViewModel>
     {
-        private ExtendedVideoView videoView;
-        private FrameLayout rootView;
-        private FrameLayout topPanel;
-        private CustomMediaControllerView mediaController;
-        private ImageView backImageView;
+        private ExtendedVideoView _videoView;
+        private FrameLayout _rootView;
+        private FrameLayout _topPanel;
+        private CustomMediaControllerView _mediaController;
+        private ImageView _backImageView;
 
-        private int currentPosition;
+        private int _currentPosition;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -42,22 +42,22 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 
         protected override void SetViewProperties()
         {
-            topPanel = FindViewById<FrameLayout>(Resource.Id.top_panel);
-            videoView = FindViewById<ExtendedVideoView>(Resource.Id.video_view);
-            rootView = FindViewById<FrameLayout>(Resource.Id.root_view);
-            backImageView = FindViewById<ImageView>(Resource.Id.back_image_view);
-            topPanel.Visibility = ViewStates.Gone;
+            _topPanel = FindViewById<FrameLayout>(Resource.Id.top_panel);
+            _videoView = FindViewById<ExtendedVideoView>(Resource.Id.video_view);
+            _rootView = FindViewById<FrameLayout>(Resource.Id.root_view);
+            _backImageView = FindViewById<ImageView>(Resource.Id.back_image_view);
+            _topPanel.Visibility = ViewStates.Gone;
 
-            mediaController = new CustomMediaControllerView(this)
+            _mediaController = new CustomMediaControllerView(this)
             {
-                VideoView = videoView,
-                ViewStateChanged = (viewState) => topPanel.Visibility = viewState
+                VideoView = _videoView,
+                ViewStateChanged = (viewState) => _topPanel.Visibility = viewState
             };
 
-            videoView.SetOnPreparedListener(new MediaPlayerOnPreparedListener((mp) => mediaController.MediaPlayer = mp));
+            _videoView.SetOnPreparedListener(new MediaPlayerOnPreparedListener((mp) => _mediaController.MediaPlayer = mp));
 
-            mediaController.SetAnchorView(rootView);
-            videoView.RequestFocus();
+            _mediaController.SetAnchorView(_rootView);
+            _videoView.RequestFocus();
         }
 
         protected override void DoBind()
@@ -66,30 +66,37 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 
             var bindingSet = this.CreateBindingSet<FullScreenVideoView, FullScreenVideoViewModel>();
 
-            bindingSet.Bind(videoView).For(VideoUrlTargetBinding.PropertyName).To(vm => vm.VideoUrl);
-            bindingSet.Bind(mediaController).For(v => v.IsMuted).To(vm => vm.IsMuted);
-            bindingSet.Bind(backImageView).For(v => v.BindClick()).To(vm => vm.GoBackCommand);
+            bindingSet.Bind(_videoView)
+                      .For(VideoUrlTargetBinding.PropertyName)
+                      .To(vm => vm.VideoUrl);
+
+            bindingSet.Bind(_mediaController)
+                      .For(v => v.IsMuted)
+                      .To(vm => vm.IsMuted);
+            bindingSet.Bind(_backImageView)
+                      .For(v => v.BindClick())
+                      .To(vm => vm.GoBackCommand);
 
             bindingSet.Apply();
         }
 
         public override void OnConfigurationChanged(Configuration newConfig)
         {
-            currentPosition = videoView.CurrentPosition;
+            _currentPosition = _videoView.CurrentPosition;
             base.OnConfigurationChanged(newConfig);
         }
 
         protected override void OnSaveInstanceState(Bundle outState)
         {
-            outState.PutInt(nameof(videoView.CurrentPosition), currentPosition);
+            outState.PutInt(nameof(_videoView.CurrentPosition), _currentPosition);
             base.OnSaveInstanceState(outState);
         }
 
         protected override void OnRestoreInstanceState(Bundle savedInstanceState)
         {
             base.OnRestoreInstanceState(savedInstanceState);
-            var position = savedInstanceState.GetInt(nameof(videoView.CurrentPosition), 0);
-            videoView.SeekTo(position);
+            var position = savedInstanceState.GetInt(nameof(_videoView.CurrentPosition), 0);
+            _videoView.SeekTo(position);
         }
 
         protected override void Subscription()

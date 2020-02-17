@@ -10,19 +10,19 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
     {
         public static string PropertyName = "Touch";
 
-        private readonly View view;
+        private readonly View _view;
 
-        private IMvxCommand command;
+        private IMvxCommand _command;
 
         public ViewTouchTargetBinding(View view) : base(view)
         {
-            this.view = view;
-            this.view.Touch += OnViewTouch;
+            _view = view;
+            _view.Touch += OnViewTouch;
         }
 
         public override void SetValue(object value)
         {
-            command = value as IMvxCommand;
+            _command = value as IMvxCommand;
         }
 
         public override Type TargetType => typeof(IMvxCommand);
@@ -33,7 +33,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
         {
             if (isDisposing)
             {
-                view.Touch -= OnViewTouch;
+                _view.Touch -= OnViewTouch;
             }
 
             base.Dispose(isDisposing);
@@ -45,14 +45,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
 
         private void OnViewTouch(object sender, View.TouchEventArgs eventArgs)
         {
-            if (command == null || eventArgs.Event.Action != MotionEventActions.Up)
+            if (_command == null || eventArgs.Event.Action != MotionEventActions.Up)
             {
                 eventArgs.Handled = true;
                 return;
             }
 
             eventArgs.Handled = false;
-            command.Execute();
+            _command.Execute();
         }
     }
 }

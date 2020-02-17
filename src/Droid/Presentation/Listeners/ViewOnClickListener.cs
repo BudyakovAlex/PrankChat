@@ -5,16 +5,16 @@ namespace PrankChat.Mobile.Droid.Presentation.Listeners
 {
     public class ViewOnClickListener : Java.Lang.Object, View.IOnClickListener
     {
-        private readonly Action<View> onClickAction;
+        private readonly Action<View> _onClickAction;
 
         public ViewOnClickListener(Action<View> onClickAction)
         {
-            this.onClickAction = onClickAction;
+            _onClickAction = onClickAction;
         }
 
         public void OnClick(View v)
         {
-            onClickAction?.Invoke(v);
+            _onClickAction?.Invoke(v);
         }
     }
 }
