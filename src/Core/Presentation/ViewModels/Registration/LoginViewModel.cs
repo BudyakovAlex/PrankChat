@@ -5,6 +5,7 @@ using MvvmCross.Logging;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -15,6 +16,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
     public class LoginViewModel : BaseViewModel
     {
         private readonly IMvxLog _mvxLog;
+        private readonly ISettingsService _settingsService;
 
         private string _emailText;
         public string EmailText
@@ -34,11 +36,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                               IApiService apiService,
                               IDialogService dialogService,
                               IMvxLog mvxLog,
-                              IErrorHandleService errorHandleService)
+                              IErrorHandleService errorHandleService,
+                              ISettingsService settingsService)
             : base(navigationService, errorHandleService, apiService, dialogService)
         {
             _mvxLog = mvxLog;
-
+            _settingsService = settingsService;
 #if DEBUG
 
             EmailText = "testuser@delete.me";
@@ -88,7 +91,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                 }
 
                 // todo: not wait
-                await ApiService.GetCurrentUserAsync();
+               if (!await ApiService.GetCurrentUserAsync())
+                {
+                    throw new Exception("Error with login. Unable to get current user");
+                }
+                
                 await NavigationService.ShowMainView();
             }
             catch (Exception ex)
