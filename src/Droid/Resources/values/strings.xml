@@ -197,4 +197,6 @@
     <string name="CreateOrderView_Choose_Time_Period">"Выберите период действия заказа."</string>
     <string name="OrderStatus_WaitFinish">"В ожидании"</string>
     <string name="OrderDetailsView_LoadVideo">"Загрузить видео"</string>
+    <string name="NotificationStatus_Viewed">"Просмотрено"</string>
+    <string name="NotificationStatus_NotViewed">"Непросмотрено"</string>
 </resources>

@@ -2,7 +2,7 @@
 
 namespace PrankChat.Mobile.Core.Models.Data
 {
-    public class VideoMetadataDataModel
+    public class VideoDataModel
     {
         public int Id { get; set; }
 

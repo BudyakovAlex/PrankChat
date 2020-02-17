@@ -637,4 +637,10 @@
   <data name="OrderDetailsView_LoadVideo" xml:space="preserve">
     <value>Загрузить видео</value>
   </data>
+  <data name="NotificationStatus_Viewed" xml:space="preserve">
+    <value>Просмотрено</value>
+  </data>
+  <data name="NotificationStatus_NotViewed" xml:space="preserve">
+    <value>Непросмотрено</value>
+  </data>
 </root>

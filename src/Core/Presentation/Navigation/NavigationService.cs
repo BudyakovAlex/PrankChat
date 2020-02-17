@@ -162,5 +162,12 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         }
 
         #endregion
+
+        public Task ShowProfileUser(int idUser)
+        {
+            return Task.FromResult(0);
+            // TODO change this code for normal navigate to profile other user
+            // return _mvxNavigationService.Navigate<ProfileViewModel, int>(idUser);
+        }
     }
 }
