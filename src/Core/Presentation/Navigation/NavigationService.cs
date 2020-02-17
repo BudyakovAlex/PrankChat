@@ -149,6 +149,12 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return ShowLoginView();
         }
 
+        public Task ShowWebView(string url)
+        {
+            var parameter = new WebViewNavigationParameter(url);
+            return _mvxNavigationService.Navigate<WebViewModel, WebViewNavigationParameter>(parameter);
+        }
+
         #region Dialogs
 
         public Task ShowShareDialog(ShareDialogParameter parameter)

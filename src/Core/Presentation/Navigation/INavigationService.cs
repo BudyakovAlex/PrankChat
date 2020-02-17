@@ -51,6 +51,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowProfileUser(int idUser);
 
+        Task ShowWebView(string url);
+
         #region Dialogs
 
         Task ShowShareDialog(ShareDialogParameter parameter);

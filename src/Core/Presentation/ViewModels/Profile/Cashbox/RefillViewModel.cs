@@ -59,6 +59,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             try
             {
                 var paymentData = await ApiService.RefillAsync(Cost);
+                await NavigationService.ShowWebView(paymentData.PaymentLink);
             }
             catch (Exception ex)
             {

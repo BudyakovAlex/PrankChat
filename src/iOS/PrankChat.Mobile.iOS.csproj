@@ -249,6 +249,13 @@
     <Compile Include="Presentation\Binding\UIButtonSelectedTargetBinding.cs" />
     <BundleResource Include="Resources\Animations\ripple_animation.json" />
     <Compile Include="Controls\SelectableButton.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Web\WebPageView.xib" />
+    <Compile Include="Presentation\Views\Web\WebPageView.cs" />
+    <Compile Include="Presentation\Views\Web\WebPageView.designer.cs">
+      <DependentUpon>WebPageView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Binding\WebViewUrlTargetBinding.cs" />
+    <Compile Include="Controls\CustomWKWebView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -703,6 +710,7 @@
     <Folder Include="Resources\Animations\" />
     <Folder Include="Assets.xcassets\ic_accent_thumbs_down.imageset\" />
     <Folder Include="Assets.xcassets\ic_accent_thumbs_up.imageset\" />
+    <Folder Include="Presentation\Views\Web\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
