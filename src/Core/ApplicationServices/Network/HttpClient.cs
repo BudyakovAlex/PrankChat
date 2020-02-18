@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -175,7 +176,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                     case HttpStatusCode.InternalServerError:
                         var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(response.Content);
-                        throw new InternalServerProblemDetails(problemDetails.Title);
+                        throw new InternalServerProblemDetails(string.Join(Environment.NewLine, new[] { problemDetails.Title }.Concat(problemDetails.InvalidParams?.Select(x => x.ToString()))));
                 }
 
                 if (response.ErrorException != null)
