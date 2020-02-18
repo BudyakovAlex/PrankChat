@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#70000000">
+
+    <ImageView
+        android:id="@+id/resume_image_view"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="27dp"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/ic_mdi_play_circle_outline" />
+
+    <ImageView
+        android:id="@+id/mute_image_view"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="27dp"
+        android:src="@drawable/ic_without_sound"
+        android:tint="@color/applicationWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <SeekBar
+        android:id="@+id/play_progress_seek_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:backgroundTint="@color/description"
+        android:progressTint="@color/accent"
+        android:secondaryProgressTint="@color/applicationWhite"
+        android:thumbTint="@color/accent"
+        app:layout_constraintBottom_toBottomOf="@+id/mute_image_view"
+        app:layout_constraintEnd_toStartOf="@+id/mute_image_view"
+        app:layout_constraintStart_toEndOf="@+id/resume_image_view"
+        app:layout_constraintTop_toTopOf="@+id/resume_image_view" />
+
+    <TextView
+        android:id="@+id/timeline_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="11dp"
+        android:textColor="@color/applicationWhite"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/play_progress_seek_bar"
+        app:layout_constraintStart_toStartOf="@+id/play_progress_seek_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="10:20 / 20:20" />
+</android.support.constraint.ConstraintLayout>

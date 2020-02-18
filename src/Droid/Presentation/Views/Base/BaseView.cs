@@ -1,4 +1,5 @@
-﻿using Acr.UserDialogs;
+﻿using System;
+using Acr.UserDialogs;
 using Android.Content.PM;
 using Android.OS;
 using Android.Views;
@@ -24,9 +25,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             RequestedOrientation = ScreenOrientation.Portrait;
 
             SetContentView(layoutId);
+            SetViewProperties();
+
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             if (toolbar == null)
             {
+                DoBind();
                 return;
             }
 
@@ -71,7 +75,15 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             return base.OnOptionsItemSelected(item);
         }
 
-		protected override void OnStart()
+        protected virtual void DoBind()
+        {
+        }
+
+        protected virtual void SetViewProperties()
+        {
+        }
+
+        protected override void OnStart()
 		{
 			base.OnStart();
 			Subscription();
