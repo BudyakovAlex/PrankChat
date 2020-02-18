@@ -1,21 +1,20 @@
 ﻿using System;
+using System.Reflection;
 using Android.Views;
 using MvvmCross.Binding;
-using MvvmCross.Platforms.Android.Binding.Target;
+using MvvmCross.Binding.Bindings.Target;
 
 namespace PrankChat.Mobile.Droid.Presentation.Bindings
 {
-    internal class BackgroundBinding : MvxAndroidTargetBinding
+    internal class BackgroundBinding : MvxPropertyInfoTargetBinding<View>
     {
-        public static string PropertyName = "Background";
-
-        public BackgroundBinding(object target) : base(target)
-        {
-        }
-
-        public override Type TargetType => typeof(View);
+        public static string TargetBinding = "Background";
 
         public override MvxBindingMode DefaultMode => MvxBindingMode.OneWay;
+
+        public BackgroundBinding(object target, PropertyInfo targetPropertyInfo) : base(target, targetPropertyInfo)
+        {
+        }
 
         protected override void SetValueImpl(object target, object value)
         {

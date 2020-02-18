@@ -1,4 +1,5 @@
 ﻿using Android.Views;
+using Android.Webkit;
 using MvvmCross;
 using MvvmCross.Binding.Bindings.Target.Construction;
 using MvvmCross.Droid.Support.V7.AppCompat;
@@ -19,8 +20,8 @@ namespace PrankChat.Mobile.Droid
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
         {
+            registry.RegisterPropertyInfoBindingFactory(typeof(BackgroundBinding), typeof(View), BackgroundBinding.TargetBinding);
             base.FillTargetFactories(registry);
-            registry.RegisterCustomBindingFactory<View>(BackgroundBinding.PropertyName, view => new BackgroundBinding(view));
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using MvvmCross;
 using MvvmCross.Binding.Bindings.Target.Construction;
-using MvvmCross.IoC;
 using MvvmCross.Platforms.Ios.Core;
 using PrankChat.Mobile.Core;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Video;
 using PrankChat.Mobile.iOS.Presentation.Binding;

@@ -14,8 +14,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Binding
 
         public override MvxBindingMode DefaultMode => MvxBindingMode.OneWay;
 
-        public override Type TargetType => typeof(string);
-
         public WebViewUrlTargetBinding(object target, PropertyInfo targetPropertyInfo) : base(target, targetPropertyInfo)
         {
         }

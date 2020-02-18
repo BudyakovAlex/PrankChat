@@ -17,9 +17,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 
         protected virtual string TitleActionBar => string.Empty;
 
-        protected abstract void Subscription();
-		protected abstract void Unsubscription();
-
 		protected virtual void OnCreate(Bundle savedInstanceState, int layoutId)
         {
             base.OnCreate(savedInstanceState);
@@ -53,8 +50,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             var title = FindViewById<TextView>(Resource.Id.toolbar_title);
             if (title != null)
                 title.Text = TitleActionBar;
+        }
 
-            InitServices();
+        protected virtual void Subscription()
+        {
+        }
+
+        protected virtual void Unsubscription()
+        {
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -83,11 +86,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 		public override void OnBackPressed()
         {
             ViewModel.GoBackCommand.Execute();
-        }
-
-        private void InitServices()
-        {
-            UserDialogs.Init(this);
         }
     }
 }

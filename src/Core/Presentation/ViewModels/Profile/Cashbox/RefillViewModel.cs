@@ -9,13 +9,14 @@ using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System;
+using PrankChat.Mobile.Core.Exceptions;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
     public class RefillViewModel : BaseViewModel
     {
-        private double _cost;
-        public double Cost
+        private double? _cost;
+        public double? Cost
         {
             get => _cost;
             set => SetProperty(ref _cost, value);
@@ -56,10 +57,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         private async Task OnRefillAsync()
         {
+            if (!CheckValidation())
+                return;
+
             try
             {
-                var paymentData = await ApiService.RefillAsync(Cost);
-                await NavigationService.ShowWebView(paymentData.PaymentLink);
+                var paymentData = await ApiService.RefillAsync(Cost.Value);
+                await NavigationService.ShowWebView(paymentData?.PaymentLink);
             }
             catch (Exception ex)
             {
@@ -76,6 +80,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             item.IsSelected = true;
 
             return Task.CompletedTask;
+        }
+
+        private bool CheckValidation()
+        {
+            if (Cost == null || Cost == 0)
+            {
+                ErrorHandleService.HandleException(new UserVisibleException("Сумма не может быть пустой."));
+                return false;
+            }
+
+            return true;
         }
     }
 }
