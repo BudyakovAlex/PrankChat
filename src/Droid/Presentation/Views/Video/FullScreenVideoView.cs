@@ -67,7 +67,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             var bindingSet = this.CreateBindingSet<FullScreenVideoView, FullScreenVideoViewModel>();
 
             bindingSet.Bind(_videoView)
-                      .For(VideoUrlTargetBinding.PropertyName)
+                      .For(VideoUrlTargetBinding.TargetBinding)
                       .To(vm => vm.VideoUrl);
 
             bindingSet.Bind(_mediaController)

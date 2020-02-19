@@ -280,6 +280,24 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #endregion Video
 
+        #region Payment
+
+        public async Task<PaymentDataModel> RefillAsync(double coast)
+        {
+            var refillApiData = new RefillApiData()
+            {
+                Amount = coast,
+            };
+            var data = await _client.Post<RefillApiData, DataApiModel<PaymentApiModel>>($"payment", refillApiData, false);
+            return MappingConfig.Mapper.Map<PaymentDataModel>(data?.Data);
+        }
+
+        public async Task<PaymentDataModel> WithdrawalAsync(double coast)
+        {
+            return null;
+        }
+
+        #endregion Payment
 
         #region Notification
 
@@ -289,6 +307,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<List<NotificationDataModel>>(notificationBundle?.Data);
         }
 
-        #endregion
+        #endregion Notification
     }
 }
