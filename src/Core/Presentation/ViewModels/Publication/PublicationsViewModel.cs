@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
+using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
@@ -23,175 +24,180 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
-	public class PublicationsViewModel : BaseViewModel, IVideoListViewModel
-	{
-		private readonly IPlatformService _platformService;
-		private readonly IVideoPlayerService _videoPlayerService;
-		private readonly ISettingsService _settingsService;
-		private readonly IMvxLog _mvxLog;
-		private readonly Dictionary<DateFilterType, string> _dateFilterTypeTitleMap;
+    public class PublicationsViewModel : BaseViewModel, IVideoListViewModel
+    {
+        private readonly IPlatformService _platformService;
+        private readonly IVideoPlayerService _videoPlayerService;
+        private readonly ISettingsService _settingsService;
+        private readonly IMvxLog _mvxLog;
+        private readonly IMvxMessenger _mvxMessenger;
+        private readonly Dictionary<DateFilterType, string> _dateFilterTypeTitleMap;
 
-		private PublicationType _selectedPublicationType;
-		public PublicationType SelectedPublicationType
-		{
-			get => _selectedPublicationType;
-			set
-			{
-				SetProperty(ref _selectedPublicationType, value);
-				LoadPublicationsCommand.ExecuteAsync().FireAndForget();
-			}
-		}
+        private PublicationType _selectedPublicationType;
 
-		private string _activeFilterName;
-		public string ActiveFilterName
-		{
-			get => _activeFilterName;
-			set => SetProperty(ref _activeFilterName, value);
-		}
+        public PublicationType SelectedPublicationType
+        {
+            get => _selectedPublicationType;
+            set
+            {
+                SetProperty(ref _selectedPublicationType, value);
+                LoadPublicationsCommand.ExecuteAsync().FireAndForget();
+            }
+        }
 
-		private DateFilterType _activeFilter;
-		public DateFilterType ActiveFilter
-		{
-			get => _activeFilter;
-			set
-			{
-				_activeFilter = value;
-				if (_dateFilterTypeTitleMap.TryGetValue(_activeFilter, out var activeFilterName))
-				{
-					ActiveFilterName = activeFilterName;
-				}
-			}
-		}
+        private string _activeFilterName;
 
-		private int _currentlyPlayingItem;
-		public int CurrentlyPlayingItem
-		{
-			get => _currentlyPlayingItem;
-			set => SetProperty(ref _currentlyPlayingItem, value);
-		}
+        public string ActiveFilterName
+        {
+            get => _activeFilterName;
+            set => SetProperty(ref _activeFilterName, value);
+        }
 
-		public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
+        private DateFilterType _activeFilter;
 
-		public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterAsync);
+        public DateFilterType ActiveFilter
+        {
+            get => _activeFilter;
+            set
+            {
+                _activeFilter = value;
+                if (_dateFilterTypeTitleMap.TryGetValue(_activeFilter, out var activeFilterName))
+                {
+                    ActiveFilterName = activeFilterName;
+                }
+            }
+        }
 
-		public MvxAsyncCommand LoadPublicationsCommand => new MvxAsyncCommand(OnLoadPublicationsAsync);
+        private int _currentlyPlayingItem;
 
-		public PublicationsViewModel(INavigationService navigationService,
-									IDialogService dialogService,
-									IApiService apiService,
-									IPlatformService platformService,
-									IVideoPlayerService videoPlayerService,
-									ISettingsService settingsService,
-									IMvxLog mvxLog,
-									IErrorHandleService errorHandleService)
-			: base(navigationService, errorHandleService, apiService, dialogService)
-		{
-			_platformService = platformService;
-			_videoPlayerService = videoPlayerService;
-			_settingsService = settingsService;
-			_mvxLog = mvxLog;
+        public int CurrentlyPlayingItem
+        {
+            get => _currentlyPlayingItem;
+            set => SetProperty(ref _currentlyPlayingItem, value);
+        }
 
-			_dateFilterTypeTitleMap = new Dictionary<DateFilterType, string>
-			{
-				{ DateFilterType.Day, Resources.Publication_Tab_Filter_Day },
-				{ DateFilterType.Week, Resources.Publication_Tab_Filter_Week },
-				{ DateFilterType.Month, Resources.Publication_Tab_Filter_Month },
-				{ DateFilterType.Quarter, Resources.Publication_Tab_Filter_Quarter },
-				{ DateFilterType.HalfYear, Resources.Publication_Tab_Filter_HalfYear },
-			};
-		}
+        public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
 
-		public override Task Initialize()
-		{
-			ActiveFilter = DateFilterType.Month;
-			return LoadPublicationsCommand.ExecuteAsync();
-		}
+        public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterAsync);
 
-		public override void ViewDisappearing()
-		{
-			_videoPlayerService.Pause();
-			base.ViewDisappearing();
-		}
+        public MvxAsyncCommand LoadPublicationsCommand => new MvxAsyncCommand(OnLoadPublicationsAsync);
 
-		public override void ViewAppeared()
-		{
-			base.ViewAppeared();
+        public PublicationsViewModel(INavigationService navigationService,
+                                    IDialogService dialogService,
+                                    IApiService apiService,
+                                    IPlatformService platformService,
+                                    IVideoPlayerService videoPlayerService,
+                                    ISettingsService settingsService,
+                                    IMvxLog mvxLog,
+                                    IErrorHandleService errorHandleService,
+                                    IMvxMessenger mvxMessenger)
+            : base(navigationService, errorHandleService, apiService, dialogService)
+        {
+            _platformService = platformService;
+            _videoPlayerService = videoPlayerService;
+            _settingsService = settingsService;
+            _mvxLog = mvxLog;
+            _mvxMessenger = mvxMessenger;
 
-			_videoPlayerService.Play();
-		}
+            _dateFilterTypeTitleMap = new Dictionary<DateFilterType, string>
+            {
+                { DateFilterType.Day, Resources.Publication_Tab_Filter_Day },
+                { DateFilterType.Week, Resources.Publication_Tab_Filter_Week },
+                { DateFilterType.Month, Resources.Publication_Tab_Filter_Month },
+                { DateFilterType.Quarter, Resources.Publication_Tab_Filter_Quarter },
+                { DateFilterType.HalfYear, Resources.Publication_Tab_Filter_HalfYear },
+            };
+        }
 
-		private async Task OnOpenFilterAsync(CancellationToken arg)
-		{
-			var parametres = _dateFilterTypeTitleMap.Values.ToArray();
-			var selectedFilterName = await DialogService.ShowMenuDialogAsync(parametres, Resources.Cancel);
+        public override Task Initialize()
+        {
+            ActiveFilter = DateFilterType.Month;
+            return LoadPublicationsCommand.ExecuteAsync();
+        }
 
-			if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
-				return;
+        public override void ViewDisappearing()
+        {
+            _videoPlayerService.Pause();
+            base.ViewDisappearing();
+        }
 
-			ActiveFilter = _dateFilterTypeTitleMap.FirstOrDefault(x => x.Value == selectedFilterName).Key;
-			await LoadPublicationsCommand.ExecuteAsync();
-		}
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
 
-		private async Task OnLoadPublicationsAsync()
-		{
-			try
-			{
-				IsBusy = true;
+            _videoPlayerService.Play();
+        }
 
-				switch (SelectedPublicationType)
-				{
-					case PublicationType.Popular:
-						var videos = await ApiService.GetPopularVideoFeedAsync(ActiveFilter);
-						SetVideoList(videos);
-						break;
+        private async Task OnOpenFilterAsync(CancellationToken arg)
+        {
+            var parametres = _dateFilterTypeTitleMap.Values.ToArray();
+            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parametres, Resources.Cancel);
 
-					case PublicationType.Actual:
-						videos = await ApiService.GetActualVideoFeedAsync(ActiveFilter);
-						SetVideoList(videos);
-						break;
+            if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
+                return;
 
-					case PublicationType.MyVideosOfCreatedOrders:
-						videos = await ApiService.GetMyVideoFeedAsync(_settingsService.User.Id, SelectedPublicationType, ActiveFilter);
-						SetVideoList(videos);
-						break;
-				}
+            ActiveFilter = _dateFilterTypeTitleMap.FirstOrDefault(x => x.Value == selectedFilterName).Key;
+            await LoadPublicationsCommand.ExecuteAsync();
+        }
 
-			}
-			catch (Exception ex)
-			{
-				ErrorHandleService.HandleException(new UserVisibleException("Проблема с загрузкой публикаций."));
-				_mvxLog.ErrorException($"[{nameof(PublicationsViewModel)}]", ex);
-			}
-			finally
-			{
-				IsBusy = false;
-			}
-		}
+        private async Task OnLoadPublicationsAsync()
+        {
+            try
+            {
+                IsBusy = true;
 
-		private void SetVideoList(List<VideoDataModel> videoBundle)
-		{
-			var publicationViewModels = videoBundle.Select(publication =>
-				new PublicationItemViewModel(
-					NavigationService,
-					DialogService,
-					_platformService,
-					_videoPlayerService,
-					ApiService,
-					ErrorHandleService,
-					publication.User?.Name,
-					publication.User?.Avatar,
-					publication.Id,
-					publication.Title,
-					publication.StreamUri,
-					publication.ViewsCount,
-					publication.CreatedAt.DateTime,
-					publication.LikesCount,
-					publication.ShareUri,
-					publication.IsLiked));
+                switch (SelectedPublicationType)
+                {
+                    case PublicationType.Popular:
+                        var videos = await ApiService.GetPopularVideoFeedAsync(ActiveFilter);
+                        SetVideoList(videos);
+                        break;
 
-			var list = publicationViewModels.ToList();
+                    case PublicationType.Actual:
+                        videos = await ApiService.GetActualVideoFeedAsync(ActiveFilter);
+                        SetVideoList(videos);
+                        break;
 
-			Items.SwitchTo(publicationViewModels);
-		}
-	}
+                    case PublicationType.MyVideosOfCreatedOrders:
+                        videos = await ApiService.GetMyVideoFeedAsync(_settingsService.User.Id, SelectedPublicationType, ActiveFilter);
+                        SetVideoList(videos);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandleService.HandleException(new UserVisibleException("Проблема с загрузкой публикаций."));
+                _mvxLog.ErrorException($"[{nameof(PublicationsViewModel)}]", ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private void SetVideoList(List<VideoDataModel> videoBundle)
+        {
+            var publicationViewModels = videoBundle.Select(publication =>
+                new PublicationItemViewModel(
+                    NavigationService,
+                    DialogService,
+                    _platformService,
+                    _videoPlayerService,
+                    ApiService,
+                    ErrorHandleService,
+                    _mvxMessenger,
+                    publication.User?.Name,
+                    publication.User?.Avatar,
+                    publication.Id,
+                    publication.Title,
+                    publication.StreamUri,
+                    publication.ViewsCount,
+                    publication.CreatedAt.DateTime,
+                    publication.LikesCount,
+                    publication.ShareUri,
+                    publication.IsLiked));
+
+            Items.SwitchTo(publicationViewModels);
+        }
+    }
 }

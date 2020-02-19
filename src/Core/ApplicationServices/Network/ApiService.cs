@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -252,7 +251,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
             return user;
         }
-        
+
         public async Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
         {
             var userUpdateProfileApiModel = MappingConfig.Mapper.Map<UserUpdateProfileApiModel>(userInfo);
@@ -278,8 +277,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<VideoDataModel>(videoMetadataApiModel.Data);
         }
 
-        #endregion Video
+        public async Task<long?> RegisterVideoViewedFactAsync(int videoId)
+        {
+            var videoApiModel = await _client.UnauthorizedGet<DataApiModel<VideoApiModel>>($"videos/{videoId}/looked");
+            return videoApiModel.Data.ViewsCount;
+        }
 
+        #endregion Video
 
         #region Notification
 
@@ -289,6 +293,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<List<NotificationDataModel>>(notificationBundle?.Data);
         }
 
-        #endregion
+        #endregion Notification
     }
 }

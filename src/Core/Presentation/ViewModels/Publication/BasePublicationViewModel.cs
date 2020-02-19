@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
@@ -10,6 +11,7 @@ using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
@@ -18,8 +20,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     public class BasePublicationViewModel : BaseViewModel
     {
         private readonly IPlatformService _platformService;
+        private readonly IMvxMessenger _mvxMessenger;
         private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
 
+        private MvxSubscriptionToken _updateNumberOfViewsSubscriptionToken;
         private long? _numberOfViews;
         private DateTime _publicationDate;
         private long? _numberOfLikes;
@@ -33,14 +37,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string ProfilePhotoUrl { get; set; }
 
-        #endregion
+        #endregion Profile
 
         #region Video
 
         public string VideoInformationText => $"{_numberOfViews.ToCountViewsString()} • {_publicationDate.ToTimeAgoPublicationString()}";
 
-        public int VideoId { get; set; } 
-        
+        public int VideoId { get; set; }
+
         public string VideoName { get; set; }
 
         public string PlaceholderImageUrl { get; set; }
@@ -50,6 +54,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public IVideoPlayerService VideoPlayerService { get; }
 
         private bool _hasSoundTurnOn;
+
         public bool HasSoundTurnOn
         {
             get => _hasSoundTurnOn;
@@ -57,13 +62,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         }
 
         private bool _isLiked;
+
         public bool IsLiked
         {
             get => _isLiked;
             set => SetProperty(ref _isLiked, value);
         }
 
-        #endregion
+        #endregion Video
 
         public string NumberOfLikesText => $"{Resources.Like} {_numberOfLikes.ToCountString()}";
 
@@ -81,7 +87,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxAsyncCommand ShowFullScreenVideoCommand => new MvxAsyncCommand(ShowFullScreenVideoAsync);
 
-        #endregion
+        #endregion Commands
 
         public BasePublicationViewModel(INavigationService navigationService,
                                         IErrorHandleService errorHandleService,
@@ -97,6 +103,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                         IVideoPlayerService videoPlayerService,
                                         IApiService apiService,
                                         IErrorHandleService errorHandleService,
+                                        IMvxMessenger mvxMessenger,
                                         string profileName,
                                         string profilePhotoUrl,
                                         int videoId,
@@ -110,6 +117,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             : base(navigationService, errorHandleService, apiService, dialogService)
         {
             _platformService = platformService;
+            _mvxMessenger = mvxMessenger;
 
             VideoPlayerService = videoPlayerService;
             ProfileName = profileName;
@@ -123,6 +131,34 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _publicationDate = publicationDate;
             _numberOfLikes = numberOfLikes;
             _shareLink = shareLink;
+
+            Subscribe();
+        }
+
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            Unsubscribe();
+
+            base.ViewDestroy(viewFinishing);
+        }
+
+        private void Subscribe()
+        {
+            _updateNumberOfViewsSubscriptionToken = _mvxMessenger.Subscribe<ViewCountMessage>(viewCount =>
+            {
+                if (viewCount.VideoId == VideoId)
+                {
+                    _numberOfViews = viewCount.ViewsCount;
+                    RaisePropertyChanged(nameof(VideoInformationText));
+                }
+            });
+        }
+
+        private void Unsubscribe()
+        {
+            _mvxMessenger.Unsubscribe<ViewCountMessage>(_updateNumberOfViewsSubscriptionToken);
+            _updateNumberOfViewsSubscriptionToken.Dispose();
+            _updateNumberOfViewsSubscriptionToken = null;
         }
 
         private Task ShowFullScreenVideoAsync()

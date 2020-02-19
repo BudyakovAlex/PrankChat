@@ -1,13 +1,28 @@
-﻿using Android.Widget;
+﻿using System.Threading.Tasks;
+using Android.OS;
+using Android.Widget;
+using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Video.Listeners;
+using Debug = System.Diagnostics.Debug;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 {
     public class VideoPlayer : IVideoPlayer
     {
+        private const int RecheckDelayInMilliseconds = 1000;
+        private readonly IApiService _apiService;
+        private readonly IMvxMessenger _mvxMessenger;
         private VideoView _videoView;
         private bool _isRepeatEnabled;
+
+        public VideoPlayer(IApiService apiService, IMvxMessenger mvxMessenger)
+        {
+            _apiService = apiService;
+            _mvxMessenger = mvxMessenger;
+        }
 
         public bool IsPlaying { get; private set; }
 
@@ -53,6 +68,29 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             else
             {
                 _videoView = null;
+            }
+        }
+
+        public void TryRegisterViewedFact(int id, int registrationDelayInMilliseconds)
+        {
+            var handler = new Handler();
+            handler.PostDelayed(async () => await RegisterAction(id, registrationDelayInMilliseconds), registrationDelayInMilliseconds);
+        }
+
+        private async Task RegisterAction(int id, int registrationDelayInMilliseconds)
+        {
+            if (_videoView.CurrentPosition >= registrationDelayInMilliseconds)
+            {
+                var views = await _apiService.RegisterVideoViewedFactAsync(id);
+                if (views.HasValue)
+                    _mvxMessenger.Publish(new ViewCountMessage(this, id, views.Value));
+
+                Debug.WriteLine($"Views {views}");
+            }
+            else
+            {
+                var handler = new Handler();
+                handler.PostDelayed(async () => await RegisterAction(id, registrationDelayInMilliseconds), RecheckDelayInMilliseconds);
             }
         }
 

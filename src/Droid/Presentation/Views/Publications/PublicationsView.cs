@@ -146,7 +146,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         {
             var videoService = itemViewModel.VideoPlayerService;
             videoService.Player.SetPlatformVideoPlayerContainer(videoView);
-            videoService.Play(itemViewModel.VideoUrl);
+            videoService.Play(itemViewModel.VideoUrl, itemViewModel.VideoId);
         }
 
         private void PauseVideo(PublicationItemViewModel itemViewModel)

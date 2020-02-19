@@ -78,7 +78,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
 			set.Bind(publicationInfoLabel)
 				.To(vm => vm.VideoInformationText)
-				.Mode(MvxBindingMode.OneTime);
+				.Mode(MvxBindingMode.OneWay);
 
 			set.Bind(videoDescriptionButton)
 				.To(vm => vm.VideoDescription)
