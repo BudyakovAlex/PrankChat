@@ -23,6 +23,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private DateTime _publicationDate;
         private long? _numberOfLikes;
         private string _shareLink;
+        private CancellationTokenSource _cancellationSendingLikeTokenSource;
 
         #region Profile
 
@@ -129,8 +130,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             return NavigationService.ShowFullScreenVideoView(VideoUrl);
         }
 
-        private CancellationTokenSource _cts;
-
         private async Task OnLikeAsync()
         {
             IsLiked = !IsLiked;
@@ -144,20 +143,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private async Task SendLike()
         {
-            _cts?.Cancel();
-            if (_cts == null)
+            _cancellationSendingLikeTokenSource?.Cancel();
+            if (_cancellationSendingLikeTokenSource == null)
             {
-                _cts = new CancellationTokenSource();
+                _cancellationSendingLikeTokenSource = new CancellationTokenSource();
             }
 
             try
             {
-                await ApiService.SendLikeAsync(VideoId, IsLiked, _cts.Token);
+                await ApiService.SendLikeAsync(VideoId, IsLiked, _cancellationSendingLikeTokenSource.Token);
             }
             finally
             {
-                _cts?.Dispose();
-                _cts = null;
+                _cancellationSendingLikeTokenSource?.Dispose();
+                _cancellationSendingLikeTokenSource = null;
             }
         }
 
