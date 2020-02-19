@@ -3,6 +3,7 @@ using Android.Views;
 
 namespace PrankChat.Mobile.Droid.Presentation.Listeners
 {
+    //NOTE: default click listener
     public class ViewOnClickListener : Java.Lang.Object, View.IOnClickListener
     {
         private readonly Action<View> _onClickAction;

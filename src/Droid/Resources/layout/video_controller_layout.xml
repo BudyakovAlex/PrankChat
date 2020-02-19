@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#70000000">
-
     <ImageView
         android:id="@+id/resume_image_view"
         android:layout_width="20dp"
@@ -17,7 +16,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/ic_mdi_play_circle_outline" />
-
     <ImageView
         android:id="@+id/mute_image_view"
         android:layout_width="20dp"
@@ -29,7 +27,6 @@
         android:tint="@color/applicationWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
     <SeekBar
         android:id="@+id/play_progress_seek_bar"
         android:layout_width="0dp"
@@ -46,7 +43,6 @@
         app:layout_constraintEnd_toStartOf="@+id/mute_image_view"
         app:layout_constraintStart_toEndOf="@+id/resume_image_view"
         app:layout_constraintTop_toTopOf="@+id/resume_image_view" />
-
     <TextView
         android:id="@+id/timeline_text_view"
         android:layout_width="wrap_content"

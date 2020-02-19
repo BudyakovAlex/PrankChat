@@ -24,6 +24,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             set => SetProperty(ref _isMuted, value);
         }
 
+        public string VideoName { get; private set; }
+
+        public string Description { get; private set; }
+
         public FullScreenVideoViewModel(INavigationService navigationService,
                                         IErrorHandleService errorHandleService,
                                         IApiService apiService,
@@ -35,6 +39,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         public void Prepare(FullScreenVideoParameter parameter)
         {
             VideoUrl = parameter.VideoUrl;
+            VideoName = parameter.VideoName;
+            Description = parameter.Description;
         }
     }
 }

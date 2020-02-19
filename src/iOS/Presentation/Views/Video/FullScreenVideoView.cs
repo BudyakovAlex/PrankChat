@@ -152,10 +152,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private void InitializeOverlayView()
         {
-            _overlayView = new UIView();
-            _overlayView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _overlayView.BackgroundColor = UIColor.Black;
-            _overlayView.Alpha = 0.8f;
+            _overlayView = new UIView
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                BackgroundColor = UIColor.Black,
+                Alpha = 0.8f,
+                Hidden = true
+            };
+
             _overlayView.AddGestureRecognizer(new UITapGestureRecognizer(_ => _overlayView.Hidden = true));
 
             View.AddSubview(_overlayView);
@@ -340,7 +344,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             var hideOverlay = true;
             InvokeOnMainThread(() => hideOverlay = !_overlayView.Hidden
                                                 && _player.TimeControlStatus != AVPlayerTimeControlStatus.Paused);
-
             return hideOverlay;
         }
 

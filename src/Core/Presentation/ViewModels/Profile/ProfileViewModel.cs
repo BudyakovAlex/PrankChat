@@ -167,6 +167,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 					publication.User?.Avatar,
 					publication.Id,
 					publication.Title,
+					publication.Description,
 					publication.StreamUri,
 					publication.ViewsCount,
 					publication.CreatedAt.DateTime,
