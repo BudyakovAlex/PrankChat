@@ -176,7 +176,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                     case HttpStatusCode.InternalServerError:
                         var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(response.Content);
-                        throw new InternalServerProblemDetails(string.Join(Environment.NewLine, new[] { problemDetails.Title }.Concat(problemDetails.InvalidParams?.Select(x => x.ToString()))));
+                        var arrayProblems = new[] { problemDetails.Title }.Concat(problemDetails.InvalidParams?.Select(x => x.ToString()));
+                        throw new InternalServerProblemDetails(string.Join(Environment.NewLine, arrayProblems));
                 }
 
                 if (response.ErrorException != null)
