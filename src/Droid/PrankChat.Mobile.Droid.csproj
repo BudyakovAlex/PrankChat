@@ -494,7 +494,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
-      <Project>{F07949ED-5CCD-4808-9975-5993EA945447}</Project>
+      <Project>{111C2D7F-947C-4570-9D1A-C2102B13245E}</Project>
       <Name>PrankChat.Mobile.Core</Name>
     </ProjectReference>
   </ItemGroup>

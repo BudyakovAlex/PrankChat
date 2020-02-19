@@ -96,8 +96,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			likeLabel.SetSmallTitleStyle();
 			shareLabel.SetSmallTitleStyle();
 			shareLabel.Text = Resources.Share;
-			likeButton.SetBackgroundImage(UIImage.FromBundle("ic_like.png"), UIControlState.Normal);
-			likeButton.SetBackgroundImage(UIImage.FromBundle("ic_like_active.png"), UIControlState.Selected);
+			likeButton.SetImage(UIImage.FromBundle("ic_like.png"), UIControlState.Normal);
+			likeButton.SetImage(UIImage.FromBundle("ic_like_active.png"), UIControlState.Selected);
 
             InitializeVideoControl();
 		}

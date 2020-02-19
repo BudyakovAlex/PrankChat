@@ -18,7 +18,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     public class BasePublicationViewModel : BaseViewModel
     {
         private readonly IPlatformService _platformService;
-        private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
 
         private long? _numberOfViews;
         private DateTime _publicationDate;
@@ -130,29 +129,35 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             return NavigationService.ShowFullScreenVideoView(VideoUrl);
         }
 
+        private CancellationTokenSource _cts;
+
         private async Task OnLikeAsync()
         {
-            await _semaphoreSlim.WaitAsync(0);
+            IsLiked = !IsLiked;
+            _numberOfLikes = IsLiked
+                            ? _numberOfLikes + 1
+                            : _numberOfLikes - 1;
+            await RaisePropertyChanged(nameof(NumberOfLikesText));
+
+            SendLike().FireAndForget();
+        }
+
+        private async Task SendLike()
+        {
+            _cts?.Cancel();
+            if (_cts == null)
+            {
+                _cts = new CancellationTokenSource();
+            }
+
             try
             {
-                IsLiked = !IsLiked;
-                var video = await ApiService.SendLikeAsync(VideoId, IsLiked);
-                if (video != null)
-                {
-                    _numberOfLikes = IsLiked
-                        ? _numberOfLikes + 1
-                        : _numberOfLikes - 1;
-                    await RaisePropertyChanged(nameof(NumberOfLikesText));
-                }
-            }
-            catch (Exception ex)
-            {
-                IsLiked = !IsLiked;
-                ErrorHandleService.HandleException(new UserVisibleException("Невозможно поставить лайк."));
+                await ApiService.SendLikeAsync(VideoId, IsLiked, _cts.Token);
             }
             finally
             {
-                _semaphoreSlim.Release();
+                _cts?.Dispose();
+                _cts = null;
             }
         }
 

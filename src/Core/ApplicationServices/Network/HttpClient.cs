@@ -62,17 +62,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return await ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
-        public Task<TResult> Post<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : class where TResult : new()
+        public Task<TResult> Post<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where TEntity : class where TResult : new()
         {
             var request = new RestRequest(endpoint, Method.POST);
             request.AddJsonBody(item);
-            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
+            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
-        public Task<TResult> Post<TResult>(string endpoint, bool exceptionThrowingEnabled = false) where TResult : new()
+        public Task<TResult> Post<TResult>(string endpoint, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where TResult : new()
         {
             var request = new RestRequest(endpoint, Method.POST);
-            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
+            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
         public Task<TResult> PostVideoFile<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : LoadVideoApiModel where TResult : new()
