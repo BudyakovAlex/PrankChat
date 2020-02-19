@@ -69,7 +69,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #region Commands
 
-        public MvxAsyncCommand LikeCommand => new MvxAsyncCommand(OnLikeAsync);
+        public MvxCommand LikeCommand => new MvxCommand(OnLike);
 
         public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(() => DialogService.ShowShareDialogAsync(_shareLink));
 
@@ -130,14 +130,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             return NavigationService.ShowFullScreenVideoView(VideoUrl);
         }
 
-        private async Task OnLikeAsync()
+        private void OnLike()
         {
             IsLiked = !IsLiked;
             _numberOfLikes = IsLiked
                             ? _numberOfLikes + 1
                             : _numberOfLikes - 1;
-            await RaisePropertyChanged(nameof(NumberOfLikesText));
-
+            RaisePropertyChanged(nameof(NumberOfLikesText));
             SendLike().FireAndForget();
         }
 
