@@ -35,6 +35,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowDetailsOrderView(int orderId);
 
+        Task ShowFullScreenVideoView(string videoUrl);
+
         Task ShowDetailsPublicationView();
 
         Task ShowWithdrawalView();
@@ -50,6 +52,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         Task<bool> CloseView(BaseViewModel viewModel);
 
         Task ShowProfileUser(int idUser);
+
+        Task ShowWebView(string url);
 
         #region Dialogs
 

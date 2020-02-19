@@ -1,4 +1,5 @@
-﻿using Acr.UserDialogs;
+﻿using System;
+using Acr.UserDialogs;
 using Android.Content.PM;
 using Android.OS;
 using Android.Views;
@@ -17,9 +18,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 
         protected virtual string TitleActionBar => string.Empty;
 
-        protected abstract void Subscription();
-		protected abstract void Unsubscription();
-
 		protected virtual void OnCreate(Bundle savedInstanceState, int layoutId)
         {
             base.OnCreate(savedInstanceState);
@@ -27,9 +25,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             RequestedOrientation = ScreenOrientation.Portrait;
 
             SetContentView(layoutId);
+            SetViewProperties();
+
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             if (toolbar == null)
             {
+                DoBind();
                 return;
             }
 
@@ -53,8 +54,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             var title = FindViewById<TextView>(Resource.Id.toolbar_title);
             if (title != null)
                 title.Text = TitleActionBar;
+        }
 
-            InitServices();
+        protected virtual void Subscription()
+        {
+        }
+
+        protected virtual void Unsubscription()
+        {
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -68,7 +75,15 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             return base.OnOptionsItemSelected(item);
         }
 
-		protected override void OnStart()
+        protected virtual void DoBind()
+        {
+        }
+
+        protected virtual void SetViewProperties()
+        {
+        }
+
+        protected override void OnStart()
 		{
 			base.OnStart();
 			Subscription();
@@ -83,11 +98,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 		public override void OnBackPressed()
         {
             ViewModel.GoBackCommand.Execute();
-        }
-
-        private void InitServices()
-        {
-            UserDialogs.Init(this);
         }
     }
 }

@@ -73,11 +73,18 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #endregion Video
 
+        #region Payment
+
+        Task<PaymentDataModel> RefillAsync(double coast);
+
+        Task<PaymentDataModel> WithdrawalAsync(double coast);
+
+        #endregion Payment
+
         #region Notification
 
         Task<List<NotificationDataModel>> GetNotificationsAsync();
 
-        #endregion
-
+        #endregion Notification
     }
 }

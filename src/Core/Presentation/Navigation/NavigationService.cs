@@ -15,6 +15,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
@@ -121,6 +122,12 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<OrderDetailsViewModel, OrderDetailsNavigationParameter>(parameter);
         }
 
+        public Task ShowFullScreenVideoView(string videoUrl)
+        {
+            var parameter = new FullScreenVideoParameter(videoUrl);
+            return _mvxNavigationService.Navigate<FullScreenVideoViewModel, FullScreenVideoParameter>(parameter);
+        }
+
         public Task ShowDetailsPublicationView()
         {
             return _mvxNavigationService.Navigate<PublicationDetailsViewModel>();
@@ -149,6 +156,19 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return ShowLoginView();
         }
 
+        public Task ShowWebView(string url)
+        {
+            var parameter = new WebViewNavigationParameter(url);
+            return _mvxNavigationService.Navigate<WebViewModel, WebViewNavigationParameter>(parameter);
+        }
+        
+        public Task ShowProfileUser(int idUser)
+        {
+            return Task.FromResult(0);
+            // TODO change this code for normal navigate to profile other user
+            // return _mvxNavigationService.Navigate<ProfileViewModel, int>(idUser);
+        }
+
         #region Dialogs
 
         public Task ShowShareDialog(ShareDialogParameter parameter)
@@ -162,12 +182,5 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         }
 
         #endregion
-
-        public Task ShowProfileUser(int idUser)
-        {
-            return Task.FromResult(0);
-            // TODO change this code for normal navigate to profile other user
-            // return _mvxNavigationService.Navigate<ProfileViewModel, int>(idUser);
-        }
     }
 }
