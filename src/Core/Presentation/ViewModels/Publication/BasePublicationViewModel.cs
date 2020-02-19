@@ -19,6 +19,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
     public class BasePublicationViewModel : BaseViewModel
     {
+        private const int RegistrationDelayInMilliseconds = 3000;
         private readonly IPlatformService _platformService;
         private readonly IMvxMessenger _mvxMessenger;
         private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
@@ -163,6 +164,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private Task ShowFullScreenVideoAsync()
         {
+            VideoPlayerService.Player.TryRegisterViewedFact(VideoId, RegistrationDelayInMilliseconds);
             return NavigationService.ShowFullScreenVideoView(VideoUrl);
         }
 
@@ -181,10 +183,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     await RaisePropertyChanged(nameof(NumberOfLikesText));
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
                 IsLiked = !IsLiked;
-                ErrorHandleService.HandleException(new UserVisibleException("Невозможно поставить лайк."));
+                ErrorHandleService.HandleException(new UserVisibleException("Невозможно поставить лайк.", exception));
             }
             finally
             {

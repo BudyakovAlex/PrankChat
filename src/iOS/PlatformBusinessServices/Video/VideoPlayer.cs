@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using AVFoundation;
 using AVKit;
 using CoreMedia;
 using Foundation;
+using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
 {
@@ -14,14 +19,22 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         private int _repeatDelayInSeconds;
         private AVPlayerViewController _currentContainer;
         private NSObject _repeatObserver;
+        private NSObject _viewedFactRegistrationObserver;
         private NSObject _videoEndHandler;
+        private readonly IApiService _apiService;
+        private readonly IMvxMessenger _mvxMessenger;
 
-        public VideoPlayer()
+        public VideoPlayer(IApiService apiService, IMvxMessenger mvxMessenger)
         {
-            _player = new AVQueuePlayer();
-            _player.AutomaticallyWaitsToMinimizeStalling = true;
-            _player.Muted = true;
-            _player.ActionAtItemEnd = AVPlayerActionAtItemEnd.None;
+            _player = new AVQueuePlayer
+            {
+                AutomaticallyWaitsToMinimizeStalling = true,
+                Muted = true,
+                ActionAtItemEnd = AVPlayerActionAtItemEnd.None
+            };
+
+            _apiService = apiService;
+            _mvxMessenger = mvxMessenger;
         }
 
         /// <inheritdoc />>
@@ -53,6 +66,15 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
                 handler: TryRepeatVideo);
 
             _videoEndHandler = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, RepeatEndedItem);
+        }
+
+        public void TryRegisterViewedFact(int id, int registrationDelayInMilliseconds)
+        {
+            var registrationDelayInSeconds = registrationDelayInMilliseconds / 1000;
+            _repeatObserver = _player.AddBoundaryTimeObserver(
+                times: new[] { NSValue.FromCMTime(new CMTime(registrationDelayInSeconds, 1)) },
+                queue: null,
+                handler: () => RegisterViewedVideoFactAsync(id, registrationDelayInSeconds).FireAndForget());
         }
 
         /// <inheritdoc />>
@@ -107,20 +129,31 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing && _player != null)
+            if (disposing)
             {
-                _player.Dispose();
-
                 if (_repeatObserver != null)
                 {
                     _player.RemoveTimeObserver(_repeatObserver);
                     _repeatObserver = null;
                 }
 
+                if (_viewedFactRegistrationObserver != null)
+                {
+                    _player.RemoveTimeObserver(_viewedFactRegistrationObserver);
+                    _viewedFactRegistrationObserver.Dispose();
+                    _viewedFactRegistrationObserver = null;
+                }
+
                 if (_videoEndHandler != null)
                 {
                     NSNotificationCenter.DefaultCenter.RemoveObserver(_videoEndHandler);
+                    _videoEndHandler.Dispose();
                     _videoEndHandler = null;
+                }
+
+                if(_player != null)
+                {
+                    _player.Dispose();
                 }
             }
         }
@@ -133,6 +166,19 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             if (currentTimePosition >= _repeatDelayInSeconds)
             {
                 _player.Seek(new CMTime(0, 1));
+            }
+        }
+
+        private async Task RegisterViewedVideoFactAsync(int id, int registrationDelayInSeconds)
+        {
+            if (_player.CurrentItem.CurrentTime.Value >= registrationDelayInSeconds)
+            {
+                var views = await  _apiService.RegisterVideoViewedFactAsync(id);
+
+                if (views.HasValue)
+                {
+                    _mvxMessenger.Publish(new ViewCountMessage(this, id, views.Value));
+                }
             }
         }
 
