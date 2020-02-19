@@ -22,13 +22,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private const int RegistrationDelayInMilliseconds = 3000;
         private readonly IPlatformService _platformService;
         private readonly IMvxMessenger _mvxMessenger;
-        private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
 
         private MvxSubscriptionToken _updateNumberOfViewsSubscriptionToken;
         private long? _numberOfViews;
         private DateTime _publicationDate;
         private long? _numberOfLikes;
         private string _shareLink;
+        private CancellationTokenSource _cancellationSendingLikeTokenSource;
 
         #region Profile
 
@@ -76,7 +76,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #region Commands
 
-        public MvxAsyncCommand LikeCommand => new MvxAsyncCommand(OnLikeAsync);
+        public MvxCommand LikeCommand => new MvxCommand(OnLike);
 
         public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(() => DialogService.ShowShareDialogAsync(_shareLink));
 
@@ -168,29 +168,32 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             return NavigationService.ShowFullScreenVideoView(VideoUrl);
         }
 
-        private async Task OnLikeAsync()
+        private void OnLike()
         {
-            await _semaphoreSlim.WaitAsync(0);
+            IsLiked = !IsLiked;
+            _numberOfLikes = IsLiked
+                            ? _numberOfLikes + 1
+                            : _numberOfLikes - 1;
+            RaisePropertyChanged(nameof(NumberOfLikesText));
+            SendLike().FireAndForget();
+        }
+
+        private async Task SendLike()
+        {
+            _cancellationSendingLikeTokenSource?.Cancel();
+            if (_cancellationSendingLikeTokenSource == null)
+            {
+                _cancellationSendingLikeTokenSource = new CancellationTokenSource();
+            }
+
             try
             {
-                IsLiked = !IsLiked;
-                var video = await ApiService.SendLikeAsync(VideoId, IsLiked);
-                if (video != null)
-                {
-                    _numberOfLikes = IsLiked
-                        ? _numberOfLikes + 1
-                        : _numberOfLikes - 1;
-                    await RaisePropertyChanged(nameof(NumberOfLikesText));
-                }
-            }
-            catch (Exception exception)
-            {
-                IsLiked = !IsLiked;
-                ErrorHandleService.HandleException(new UserVisibleException("Невозможно поставить лайк.", exception));
+                await ApiService.SendLikeAsync(VideoId, IsLiked, _cancellationSendingLikeTokenSource.Token);
             }
             finally
             {
-                _semaphoreSlim.Release();
+                _cancellationSendingLikeTokenSource?.Dispose();
+                _cancellationSendingLikeTokenSource = null;
             }
         }
 

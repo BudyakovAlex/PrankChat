@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
@@ -48,7 +49,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<List<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType);
 
-        Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked);
+        Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null);
 
         Task<List<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType);
 
@@ -78,6 +79,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         Task<long?> RegisterVideoViewedFactAsync(int videoId);
 
         #endregion Video
+
+        #region Payment
+
+        Task<PaymentDataModel> RefillAsync(double coast);
+
+        Task<PaymentDataModel> WithdrawalAsync(double coast);
+
+        #endregion Payment
 
         #region Notification
 

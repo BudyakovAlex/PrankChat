@@ -7,7 +7,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
 {
     public class VideoUrlTargetBinding : MvxAndroidTargetBinding
     {
-        public static string PropertyName = "VideoUrl";
+        public static string TargetBinding = "VideoUrl";
 
         public VideoUrlTargetBinding(object target) : base(target)
         {

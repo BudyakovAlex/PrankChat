@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
@@ -189,7 +190,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             else
                 videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"videos?actual=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
 
-            return MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle);
+            return MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
         }
 
         public async Task<List<VideoDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
@@ -227,10 +228,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return videoData;
         }
 
-        public async Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked)
+        public async Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
         {
             var url = isChecked ? $"videos/{videoId}/like" : $"videos/{videoId}/like/remove";
-            var data = await _client.Post<DataApiModel<VideoApiModel>>(url);
+            var data = await _client.Post<DataApiModel<VideoApiModel>>(url, cancellationToken: cancellationToken);
             return MappingConfig.Mapper.Map<VideoDataModel>(data?.Data);
         }
 
@@ -284,6 +285,25 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         }
 
         #endregion Video
+
+        #region Payment
+
+        public async Task<PaymentDataModel> RefillAsync(double coast)
+        {
+            var refillApiData = new RefillApiData()
+            {
+                Amount = coast,
+            };
+            var data = await _client.Post<RefillApiData, DataApiModel<PaymentApiModel>>($"payment", refillApiData, false);
+            return MappingConfig.Mapper.Map<PaymentDataModel>(data?.Data);
+        }
+
+        public async Task<PaymentDataModel> WithdrawalAsync(double coast)
+        {
+            return null;
+        }
+
+        #endregion Payment
 
         #region Notification
 

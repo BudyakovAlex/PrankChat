@@ -61,22 +61,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
             paymentMethodsCollectionView.AllowsSelection = true;
             paymentMethodsCollectionView.DelaysContentTouches = false;
         }
-
-        protected override void RegisterKeyboardDismissResponders(List<UIView> views)
-        {
-            views.Add(withdrawButton);
-            views.Add(verticalSeparatorView);
-            views.Add(availableAmountTitleLabel);
-            views.Add(paymentMethodsTitleLabel);
-            views.Add(paymentMethodsCollectionView);
-            base.RegisterKeyboardDismissResponders(views);
-        }
-
-        protected override void RegisterKeyboardDismissTextFields(List<UIView> viewList)
-        {
-            viewList.Add(costTextField);
-            base.RegisterKeyboardDismissTextFields(viewList);
-        }
     }
 }
 
