@@ -29,9 +29,9 @@ namespace PrankChat.Mobile.iOS.Controls
             Initilize();
         }
 
-		[Export("webView:decidePolicyForNavigationAction:decisionHandler:")]
-		public void DecidePolicy(WKWebView webView, WKNavigationAction navigationAction, System.Action<WKNavigationActionPolicy> decisionHandler)
-		{
+        [Export("webView:decidePolicyForNavigationAction:decisionHandler:")]
+        public void DecidePolicy(WKWebView webView, WKNavigationAction navigationAction, System.Action<WKNavigationActionPolicy> decisionHandler)
+        {
             decisionHandler(WKNavigationActionPolicy.Allow);
         }
 
@@ -49,7 +49,7 @@ namespace PrankChat.Mobile.iOS.Controls
                 JavaScriptEnabled = true,
                 JavaScriptCanOpenWindowsAutomatically = true,
             };
-     
+
             NavigationDelegate = this;
             Configuration.Preferences = preferences;
         }

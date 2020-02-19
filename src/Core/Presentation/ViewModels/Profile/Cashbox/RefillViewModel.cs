@@ -60,15 +60,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             if (!CheckValidation())
                 return;
 
-            try
+            var paymentData = await ApiService.RefillAsync(Cost.Value);
+            if (string.IsNullOrWhiteSpace(paymentData?.PaymentLink))
             {
-                var paymentData = await ApiService.RefillAsync(Cost.Value);
-                await NavigationService.ShowWebView(paymentData?.PaymentLink);
+                ErrorHandleService.HandleException(new UserVisibleException("Не получилось пополнить баланс."));
+                return;
             }
-            catch (Exception ex)
-            {
 
-            }
+            await NavigationService.ShowWebView(paymentData?.PaymentLink);
         }
 
         private Task OnSelectionChangedAsync(PaymentMethodItemViewModel item)

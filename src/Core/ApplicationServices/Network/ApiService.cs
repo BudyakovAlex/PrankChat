@@ -288,7 +288,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             {
                 Amount = coast,
             };
-            var data = await _client.Post<RefillApiData, DataApiModel<PaymentApiModel>>($"payment", refillApiData, true);
+            var data = await _client.Post<RefillApiData, DataApiModel<PaymentApiModel>>($"payment", refillApiData, false);
             return MappingConfig.Mapper.Map<PaymentDataModel>(data?.Data);
         }
 

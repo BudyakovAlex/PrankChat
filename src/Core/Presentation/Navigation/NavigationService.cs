@@ -160,7 +160,6 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         {
             var parameter = new WebViewNavigationParameter(url);
             return _mvxNavigationService.Navigate<WebViewModel, WebViewNavigationParameter>(parameter);
-
         }
         
         public Task ShowProfileUser(int idUser)
