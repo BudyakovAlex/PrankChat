@@ -26,8 +26,7 @@ namespace PrankChat.Mobile.Core.Models.Mappings
             CreateMap<RatingOrderDataModel, RatingOrderApiModel>()
                 .ForPath(dest => dest.Customer.Data, opt => opt.MapFrom(src => src.Customer))
                 .ReverseMap();
-            CreateMap<GenderType, string>().ConvertUsing(src => src.ToString().ToLower());
-            CreateMap<ArbitrationValueType, string>().ConvertUsing(src => src.ToString().ToLower());
+            CreateMap<PaymentDataModel, PaymentApiModel>().ReverseMap();
             CreateMap<NotificationDataModel, NotificationApiModel>()
                 .ForPath(dest => dest.RelatedOrder.Data, opt => opt.MapFrom(src => src.RelatedOrder))
                 .ForPath(dest => dest.RelatedUser.Data, opt => opt.MapFrom(src => src.RelatedUser))
@@ -35,6 +34,8 @@ namespace PrankChat.Mobile.Core.Models.Mappings
                 .ForPath(dest => dest.RelationTransaction.Data, opt => opt.MapFrom(src => src.RelationTransaction))
                 .ReverseMap();
             CreateMap<TransactionDataModel, TransactionApiModel>().ReverseMap();
+            CreateMap<GenderType, string>().ConvertUsing(src => src.ToString().ToLower());
+            CreateMap<ArbitrationValueType, string>().ConvertUsing(src => src.ToString().ToLower());
         }
     }
 }

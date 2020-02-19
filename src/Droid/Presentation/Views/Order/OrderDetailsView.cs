@@ -23,13 +23,5 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         {
             base.OnCreate(bundle, Resource.Layout.activity_order_details_view);
         }
-
-        protected override void Subscription()
-        {
-        }
-
-        protected override void Unsubscription()
-        {
-        }
     }
 }

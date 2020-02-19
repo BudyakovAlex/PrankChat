@@ -110,6 +110,8 @@
     <Compile Include="Presentation\Converters\PlaceholderImageConverter.cs" />
     <Compile Include="Presentation\Converters\LikeConverter.cs" />
     <Compile Include="Controls\SelectableButton.cs" />
+    <Compile Include="Presentation\Views\WebPageView.cs" />
+    <Compile Include="Controls\BindableWebView.cs" />
     <Compile Include="Presentation\Views\Video\FullScreenVideoView.cs" />
     <Compile Include="Presentation\Bindings\VideoUrlTargetBinding.cs" />
     <Compile Include="Controls\CustomMediaControllerView.cs" />
@@ -380,6 +382,10 @@
       </SubType>
       <Generator>
       </Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_web_page.axml">
+      <SubType></SubType>
+      <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_full_screen_video.xml">
       <SubType></SubType>
