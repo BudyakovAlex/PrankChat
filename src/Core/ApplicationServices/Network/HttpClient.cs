@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using Newtonsoft.Json;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
@@ -175,7 +177,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                     case HttpStatusCode.InternalServerError:
                         var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(response.Content);
-                        throw new InternalServerProblemDetails(problemDetails.Title);
+                        throw MappingConfig.Mapper.Map<InternalServerProblemDetails>(problemDetails);
                 }
 
                 if (response.ErrorException != null)
