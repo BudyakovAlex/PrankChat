@@ -36,6 +36,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.PasswordRecoveryView
 
             confirmButton.SetLightStyle(Resources.RegistrationView_GoToFeed_Button);
         }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            this.NavigationItem.LeftBarButtonItem = null;
+        }
     }
 }
 
