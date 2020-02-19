@@ -190,7 +190,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             else
                 videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"videos?actual=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
 
-            return MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle);
+            return MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
         }
 
         public async Task<List<VideoDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
