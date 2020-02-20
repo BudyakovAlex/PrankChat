@@ -16,7 +16,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
     [Register(nameof(RegistrationThirdStepView))]
     public class RegistrationThirdStepView : BaseFragment<RegistrationThirdStepViewModel>
     {
-        protected override bool HasBackButton => true;
+        protected override bool HasBackButton => false;
 
         protected override string TitleActionBar => Core.Presentation.Localization.Resources.RegistrationView_StepThree_Title;
 
