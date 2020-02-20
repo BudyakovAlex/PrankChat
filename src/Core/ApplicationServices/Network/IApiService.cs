@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
@@ -49,7 +50,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<List<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType);
 
-        Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked);
+        Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null);
 
         Task<List<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType);
 

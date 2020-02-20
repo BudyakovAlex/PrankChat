@@ -48,6 +48,7 @@
                 <outlet property="videoDescriptionLabel" destination="vbA-AS-FNN" id="3ud-p1-U5y"/>
                 <outlet property="videoImageView" destination="Hm0-rY-ima" id="rhh-gq-NXr"/>
                 <outlet property="videoNameLabel" destination="jYc-9W-b7H" id="7cz-bB-T7x"/>
+                <outlet property="videoView" destination="R1n-QL-LK4" id="gcf-7X-Wuz"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
                 <outlet property="yesButton" destination="vUd-Sn-Jb4" id="rDD-Vn-p1Z"/>
             </connections>
@@ -298,12 +299,31 @@
                                                 <constraint firstItem="Z5m-mt-OK7" firstAttribute="centerX" secondItem="TaU-m9-mYe" secondAttribute="centerX" id="vrf-DW-R7i"/>
                                             </constraints>
                                         </view>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hm0-rY-ima" customClass="MvxCachedImageView">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R1n-QL-LK4">
                                             <rect key="frame" x="32" y="260.99999999999994" width="350" height="204"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hm0-rY-ima" customClass="MvxCachedImageView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="350" height="204"/>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_play" translatesAutoresizingMaskIntoConstraints="NO" id="czg-bA-c2C">
+                                                    <rect key="frame" x="140" y="67" width="70" height="70"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="70" id="5j9-gy-5Kc"/>
+                                                        <constraint firstAttribute="height" constant="70" id="e3A-Jd-YmK"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="204" id="NvT-uQ-6dS"/>
+                                                <constraint firstItem="czg-bA-c2C" firstAttribute="centerY" secondItem="Hm0-rY-ima" secondAttribute="centerY" id="0H3-Ye-7cR"/>
+                                                <constraint firstItem="Hm0-rY-ima" firstAttribute="leading" secondItem="R1n-QL-LK4" secondAttribute="leading" id="2B2-02-4gx"/>
+                                                <constraint firstItem="czg-bA-c2C" firstAttribute="centerX" secondItem="Hm0-rY-ima" secondAttribute="centerX" id="HqA-oJ-3iH"/>
+                                                <constraint firstAttribute="bottom" secondItem="Hm0-rY-ima" secondAttribute="bottom" id="Z7X-GS-QZY"/>
+                                                <constraint firstAttribute="trailing" secondItem="Hm0-rY-ima" secondAttribute="trailing" id="qjc-Qv-Zrj"/>
+                                                <constraint firstItem="Hm0-rY-ima" firstAttribute="top" secondItem="R1n-QL-LK4" secondAttribute="top" id="sq9-RU-k1z"/>
+                                                <constraint firstAttribute="height" constant="204" id="w8w-4A-Jpq"/>
                                             </constraints>
-                                        </imageView>
+                                        </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U9P-vB-rLF">
                                             <rect key="frame" x="89" y="475" width="236" height="79"/>
                                             <subviews>
@@ -442,8 +462,8 @@
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Hm0-rY-ima" firstAttribute="leading" secondItem="zno-k7-38c" secondAttribute="leading" constant="32" id="DtX-Ev-zLb"/>
                                         <constraint firstItem="Hm0-rY-ima" firstAttribute="top" secondItem="RvH-P9-dic" secondAttribute="bottom" constant="10" id="a6H-6P-lE0"/>
+                                        <constraint firstAttribute="trailing" secondItem="R1n-QL-LK4" secondAttribute="trailing" constant="32" id="boc-nW-RqE"/>
                                         <constraint firstItem="RvH-P9-dic" firstAttribute="leading" secondItem="zno-k7-38c" secondAttribute="leading" constant="32" id="jFz-0y-8Jc"/>
                                         <constraint firstAttribute="trailing" secondItem="Hm0-rY-ima" secondAttribute="trailing" constant="32" id="pSI-wa-7sR"/>
                                         <constraint firstAttribute="trailing" secondItem="RvH-P9-dic" secondAttribute="trailing" constant="32" id="tnn-cd-gf6"/>
@@ -521,5 +541,6 @@
     <resources>
         <image name="ic_accent_thumbs_down" width="22" height="20"/>
         <image name="ic_accent_thumbs_up" width="22" height="20"/>
+        <image name="ic_play" width="20" height="20"/>
     </resources>
 </document>

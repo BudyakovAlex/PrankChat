@@ -1,12 +1,9 @@
-﻿using System;
-using MvvmCross.Binding.BindingContext;
+﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
-using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.PasswordRecoveryView
 {
@@ -32,10 +29,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.PasswordRecoveryView
             titleLabel.TextColor = Theme.Color.White;
             titleLabel.Font = Theme.Font.RegularFontOfSize(20);
 
-            emailEditText.Placeholder = Resources.Password_Recovery_View_Email_Placeholder;
-            emailEditText.SetLightStyle();
+            emailEditText.SetLightStyle(Resources.Password_Recovery_View_Email_Placeholder);
 
-            recoverPasswordButton.SetLightStyle(Resources.RegistrationView_GoToFeed_Button);
+            recoverPasswordButton.SetLightStyle(Resources.Password_Recovery_View_Recovery_Button);
         }
 	}
 }

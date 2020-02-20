@@ -15,6 +15,8 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         public string Status { get; set; }
 
+        public string Poster { get; set; }
+
         [JsonProperty("views_count")]
         public long? ViewsCount { get; set; }
 
