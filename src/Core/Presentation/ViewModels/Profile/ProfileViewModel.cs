@@ -27,7 +27,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private readonly IMvxMessenger _mvxMessenger;
 
         private PublicationType _selectedPublicationType;
-
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
@@ -41,7 +40,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         }
 
         private string _price;
-
         public string Price
         {
             get => _price;
@@ -49,7 +47,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         }
 
         private string _ordersValue;
-
         public string OrdersValue
         {
             get => _ordersValue;
@@ -57,7 +54,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         }
 
         private string _completedOrdersValue;
-
         public string CompletedOrdersValue
         {
             get => _completedOrdersValue;
@@ -65,7 +61,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         }
 
         private string _subscribersValue;
-
         public string SubscribersValue
         {
             get => _subscribersValue;
@@ -73,7 +68,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         }
 
         private string _subscriptionsValue;
-
         public string SubscriptionsValue
         {
             get => _subscriptionsValue;

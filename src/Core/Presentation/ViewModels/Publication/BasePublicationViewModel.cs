@@ -54,7 +54,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public IVideoPlayerService VideoPlayerService { get; }
 
         private bool _hasSoundTurnOn;
-
         public bool HasSoundTurnOn
         {
             get => _hasSoundTurnOn;
@@ -62,7 +61,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         }
 
         private bool _isLiked;
-
         public bool IsLiked
         {
             get => _isLiked;
