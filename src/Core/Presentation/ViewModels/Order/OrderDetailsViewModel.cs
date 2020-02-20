@@ -392,7 +392,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private Task OnShowFullVideoAsync()
         {
-            return NavigationService.ShowFullScreenVideoView(VideoUrl);
+            return NavigationService.ShowFullScreenVideoView(VideoUrl, VideoName, VideoDetails);
         }
     }
 }
