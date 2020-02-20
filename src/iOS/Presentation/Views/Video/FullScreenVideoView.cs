@@ -17,6 +17,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 {
+    //TODO: Tech debt, move controls into XIB control, will provide it in other iteration
     [MvxModalPresentation]
     public partial class FullScreenVideoView : BaseView<FullScreenVideoViewModel>
     {
