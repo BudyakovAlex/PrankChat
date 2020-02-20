@@ -4,41 +4,35 @@ using Android.Widget;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Video.Listeners;
-using Debug = System.Diagnostics.Debug;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 {
-    public class VideoPlayer : IVideoPlayer
+    public class VideoPlayer : BaseVideoPlayer
     {
         private const int RecheckDelayInMilliseconds = 1000;
-        private readonly IApiService _apiService;
-        private readonly IMvxMessenger _mvxMessenger;
         private VideoView _videoView;
         private bool _isRepeatEnabled;
 
-        public VideoPlayer(IApiService apiService, IMvxMessenger mvxMessenger)
+        public VideoPlayer(IApiService apiService, IMvxMessenger mvxMessenger) : base(apiService, mvxMessenger)
         {
-            _apiService = apiService;
-            _mvxMessenger = mvxMessenger;
         }
 
-        public bool IsPlaying { get; private set; }
+        public override bool IsPlaying { get; protected set; }
 
-        public bool Muted { get; set; }
+        public override bool Muted { get; set; }
 
-        public void Dispose()
+        public override void Dispose()
         {
             _videoView?.SetOnPreparedListener(null);
         }
 
-        public void EnableRepeat(int repeatDelayInSeconds)
+        public override void EnableRepeat(int repeatDelayInSeconds)
         {
             _isRepeatEnabled = true;
         }
 
-        public void Pause()
+        public override void Pause()
         {
             if (!IsPlaying || _videoView == null)
                 return;
@@ -47,7 +41,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             IsPlaying = false;
         }
 
-        public void Play()
+        public override void Play()
         {
             if (IsPlaying || _videoView == null)
                 return;
@@ -56,7 +50,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             IsPlaying = true;
         }
 
-        public void SetPlatformVideoPlayerContainer(object container)
+        public override void SetPlatformVideoPlayerContainer(object container)
         {
             if (_videoView == container)
                 return;
@@ -71,42 +65,36 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             }
         }
 
-        public void TryRegisterViewedFact(int id, int registrationDelayInMilliseconds)
+        public override void TryRegisterViewedFact(int id, int registrationDelayInMilliseconds)
         {
             var handler = new Handler();
             handler.PostDelayed(async () => await RegisterAction(id, registrationDelayInMilliseconds), registrationDelayInMilliseconds);
         }
 
-        private async Task RegisterAction(int id, int registrationDelayInMilliseconds)
-        {
-            if (_videoView.CurrentPosition >= registrationDelayInMilliseconds)
-            {
-                var views = await _apiService.RegisterVideoViewedFactAsync(id);
-                if (views.HasValue)
-                    _mvxMessenger.Publish(new ViewCountMessage(this, id, views.Value));
-
-                Debug.WriteLine($"Views {views}");
-            }
-            else
-            {
-                var handler = new Handler();
-                handler.PostDelayed(async () => await RegisterAction(id, registrationDelayInMilliseconds), RecheckDelayInMilliseconds);
-            }
-        }
-
-        public void SetSourceUri(string uri)
+        public override void SetSourceUri(string uri)
         {
             _videoView.SetVideoPath(uri);
             _videoView.SetOnPreparedListener(new VideoPlayerOnPreparedListener(_isRepeatEnabled));
         }
 
-        public void Stop()
+        public override void Stop()
         {
             if (!IsPlaying || _videoView == null)
                 return;
 
             _videoView?.StopPlayback();
             IsPlaying = false;
+        }
+
+        private async Task RegisterAction(int id, int registrationDelayInMilliseconds)
+        {
+            var sent = await SendRegisterViewedFactAsync(id, registrationDelayInMilliseconds, _videoView.CurrentPosition);
+
+            if (!sent)
+            {
+                var handler = new Handler();
+                handler.PostDelayed(async () => await RegisterAction(id, registrationDelayInMilliseconds), RecheckDelayInMilliseconds);
+            }
         }
     }
 }

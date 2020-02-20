@@ -34,7 +34,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private readonly Dictionary<DateFilterType, string> _dateFilterTypeTitleMap;
 
         private PublicationType _selectedPublicationType;
-
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
@@ -46,7 +45,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         }
 
         private string _activeFilterName;
-
         public string ActiveFilterName
         {
             get => _activeFilterName;
@@ -54,7 +52,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         }
 
         private DateFilterType _activeFilter;
-
         public DateFilterType ActiveFilter
         {
             get => _activeFilter;
@@ -69,7 +66,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         }
 
         private int _currentlyPlayingItem;
-
         public int CurrentlyPlayingItem
         {
             get => _currentlyPlayingItem;
@@ -126,6 +122,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             base.ViewAppeared();
 
             _videoPlayerService.Play();
+        }
+
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            foreach (var publicationItemViewModel in Items)
+            {
+                publicationItemViewModel.Dispose();
+            }
+
+            base.ViewDestroy(viewFinishing);
         }
 
         private async Task OnOpenFilterAsync(CancellationToken arg)

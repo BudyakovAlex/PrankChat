@@ -129,6 +129,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             _videoPlayerService.Play();
         }
 
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            foreach (var publicationItemViewModel in Items)
+            {
+                publicationItemViewModel.Dispose();
+            }
+
+            base.ViewDestroy(viewFinishing);
+        }
+
         private async Task OnLoadProfileAsync()
         {
             try

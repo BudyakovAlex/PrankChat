@@ -8,7 +8,6 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -17,7 +16,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
-    public class BasePublicationViewModel : BaseViewModel
+    public class BasePublicationViewModel : BaseViewModel, IDisposable
     {
         private const int RegistrationDelayInMilliseconds = 3000;
         private readonly IPlatformService _platformService;
@@ -136,6 +135,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             Subscribe();
         }
 
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Unsubscribe();
+            }
+        }
+
         public override void ViewDestroy(bool viewFinishing = true)
         {
             Unsubscribe();
@@ -158,7 +172,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private void Unsubscribe()
         {
             _mvxMessenger.Unsubscribe<ViewCountMessage>(_updateNumberOfViewsSubscriptionToken);
-            _updateNumberOfViewsSubscriptionToken.Dispose();
+            _updateNumberOfViewsSubscriptionToken?.Dispose();
             _updateNumberOfViewsSubscriptionToken = null;
         }
 
