@@ -95,9 +95,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #endregion
 
-        public string PriceValue => _order?.Price.ToString();
+        public string PriceValue => _order?.Price.ToPriceString();
 
-        public string TimeValue => _order?.FinishIn?.ToTimeWithSpaceString();
+        public string TimeDaysValue => _order?.FinishIn?.Days.ToString("00");
+
+        public string TimeHourValue => _order?.FinishIn?.Hours.ToString("00");
+
+        public string TimeMinutesValue => _order?.FinishIn?.Minutes.ToString("00");
 
         public bool IsUserCustomer => _order?.Customer?.Id == _settingsService.User?.Id;
 

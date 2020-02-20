@@ -266,7 +266,7 @@ namespace PrankChat.Mobile.Droid.Controls
             VideoView.Start();
         }
 
-        private void SetPorgress()
+        private void SetProgress()
         {
             var position = VideoView.CurrentPosition;
             var duration = VideoView.Duration;
@@ -291,7 +291,7 @@ namespace PrankChat.Mobile.Droid.Controls
                 await Task.Delay(UpdateTimeLineMillisecondsDelay);
                 if (!_isDragging)
                 {
-                    SetPorgress();
+                    SetProgress();
                 }
 
                 if (IsPlaying || _videoView.Duration == 0)

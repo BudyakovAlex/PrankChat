@@ -12,7 +12,6 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             if (price == null)
                 return GetStringWithCurrency(DefaultValue);
 
-
             return price?.ToString(GetStringWithCurrency(FormatForPrice)).Replace(',', ' ');
         }
 

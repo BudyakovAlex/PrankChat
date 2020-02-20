@@ -94,9 +94,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UILabel timeTextLabel { get; set; }
 
 		[Outlet]
-		UIKit.UILabel timeValueLabel { get; set; }
-
-		[Outlet]
 		UIKit.UILabel tookOrderTextLabel { get; set; }
 
 		[Outlet]
@@ -116,7 +113,31 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 		[Outlet]
 		UIKit.UIButton yesButton { get; set; }
-		
+
+        [Outlet]
+        UIKit.UILabel daysValueLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel hourValueLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel hourTitleLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel minutesValueLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel minutesTitleLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel daysTitleLabel { get; set; }
+
+        [Outlet]
+        UIKit.UILabel delimiterTimeOneLabel { get; set; }
+
+        [Outlet]
+        UIKit.UILabel delimiterTimeTwoLabel { get; set; }
+
 		void ReleaseDesignerOutlets ()
 		{
 			if (videoView != null) {
@@ -254,11 +275,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				timeTextLabel = null;
 			}
 
-			if (timeValueLabel != null) {
-				timeValueLabel.Dispose ();
-				timeValueLabel = null;
-			}
-
 			if (tookOrderTextLabel != null) {
 				tookOrderTextLabel.Dispose ();
 				tookOrderTextLabel = null;
@@ -292,6 +308,54 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (lottieAnimationView != null) {
 				lottieAnimationView.Dispose ();
 				lottieAnimationView = null;
+			}
+
+			if (daysValueLabel != null)
+			{
+				daysValueLabel.Dispose();
+				daysValueLabel = null;
+			}
+
+			if (hourValueLabel != null)
+			{
+				hourValueLabel.Dispose();
+				hourValueLabel = null;
+			}
+
+			if (hourTitleLabel != null)
+			{
+				hourTitleLabel.Dispose();
+				hourTitleLabel = null;
+			}
+
+			if (minutesValueLabel != null)
+			{
+				minutesValueLabel.Dispose();
+				minutesValueLabel = null;
+			}
+
+			if (minutesTitleLabel != null)
+			{
+				minutesTitleLabel.Dispose();
+				minutesTitleLabel = null;
+			}
+
+			if (daysTitleLabel != null)
+			{
+				daysTitleLabel.Dispose();
+				daysTitleLabel = null;
+			}
+
+			if (delimiterTimeOneLabel != null)
+			{
+				delimiterTimeOneLabel.Dispose();
+				delimiterTimeOneLabel = null;
+			}
+
+			if (delimiterTimeTwoLabel != null)
+			{
+				delimiterTimeTwoLabel.Dispose();
+				delimiterTimeTwoLabel = null;
 			}
 		}
 	}
