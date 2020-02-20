@@ -210,7 +210,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             _playButton.TranslatesAutoresizingMaskIntoConstraints = false;
             _playButton.ContentMode = UIViewContentMode.Center;
             _playButton.AddGestureRecognizer(new UITapGestureRecognizer(PlayButtonTap));
-            _playButton.SetImage(UIImage.FromBundle("FullscreenVideoPause"), UIControlState.Normal);
+            _playButton.SetImage(UIImage.FromBundle("ic_pause"), UIControlState.Normal);
 
             _overlayView.AddSubview(_playButton);
 
@@ -229,7 +229,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             _muteButton.TranslatesAutoresizingMaskIntoConstraints = false;
             _muteButton.ContentMode = UIViewContentMode.Center;
             _muteButton.AddGestureRecognizer(new UITapGestureRecognizer(MuteButtonTap));
-            _muteButton.SetImage(UIImage.FromBundle("FullscreenVideoMute"), UIControlState.Normal);
+            _muteButton.SetImage(UIImage.FromBundle("ic_mute"), UIControlState.Normal);
 
             _overlayView.AddSubview(_muteButton);
 
@@ -449,15 +449,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private void PlayerMutedChanged()
         {
-            var imageName = _player.Muted ? "ic_sound_muted" : "FullscreenVideoMute";
+            var imageName = _player.Muted ? "ic_sound_muted" : "ic_mute";
             _muteButton.SetImage(UIImage.FromBundle(imageName), UIControlState.Normal);
         }
 
         private void PlayerTimeControlStatusChanged()
         {
             var imageName = _player.TimeControlStatus == AVPlayerTimeControlStatus.Paused
-                ? "FullscreenVideoPlay"
-                : "FullscreenVideoPause";
+                ? "ic_play"
+                : "ic_pause";
 
             _playButton.SetImage(UIImage.FromBundle(imageName), UIControlState.Normal);
         }

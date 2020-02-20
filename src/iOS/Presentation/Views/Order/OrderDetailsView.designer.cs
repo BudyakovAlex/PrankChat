@@ -61,6 +61,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIView innerView { get; set; }
 
 		[Outlet]
+		Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
+
+		[Outlet]
 		UIKit.UIButton noButton { get; set; }
 
 		[Outlet]
@@ -109,16 +112,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UILabel videoNameLabel { get; set; }
 
 		[Outlet]
-		UIKit.UIButton yesButton { get; set; }
+		UIKit.UIView videoView { get; set; }
 
-        [Outlet]
-        Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
+		[Outlet]
+		UIKit.UIButton yesButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (customerShortNameLabel != null) {
-				customerShortNameLabel.Dispose ();
-				customerShortNameLabel = null;
+			if (videoView != null) {
+				videoView.Dispose ();
+				videoView = null;
 			}
 
 			if (acceptButton != null) {
@@ -136,6 +139,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				cancelVideoButton = null;
 			}
 
+			if (customerShortNameLabel != null) {
+				customerShortNameLabel.Dispose ();
+				customerShortNameLabel = null;
+			}
+
 			if (decideTextLabel != null) {
 				decideTextLabel.Dispose ();
 				decideTextLabel = null;
@@ -144,11 +152,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (decideView != null) {
 				decideView.Dispose ();
 				decideView = null;
-			}
-
-			if (executorShortNameLabel != null) {
-				executorShortNameLabel.Dispose ();
-				executorShortNameLabel = null;
 			}
 
 			if (decisionView != null) {
@@ -184,6 +187,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (executorNameLabel != null) {
 				executorNameLabel.Dispose ();
 				executorNameLabel = null;
+			}
+
+			if (executorShortNameLabel != null) {
+				executorShortNameLabel.Dispose ();
+				executorShortNameLabel = null;
 			}
 
 			if (executorView != null) {
@@ -281,7 +289,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				yesButton = null;
 			}
 
-            if (lottieAnimationView != null) {
+			if (lottieAnimationView != null) {
 				lottieAnimationView.Dispose ();
 				lottieAnimationView = null;
 			}
