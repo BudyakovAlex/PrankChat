@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PrankChat.Mobile.Core.Infrastructure
+﻿namespace PrankChat.Mobile.Core.Infrastructure
 {
     public static class Constants
     {
@@ -9,6 +7,12 @@ namespace PrankChat.Mobile.Core.Infrastructure
             public const string DateWithSpace = "dd' : 'hh' : 'mm";
             public const string DateMoreSevenDays = "dd MMMM yyyy";
             public const string DateLessSevenDays = "dd MMMM";
+        }
+
+        public static class Delays
+        {
+            public const int ViewedFactRegistrationDelayInMilliseconds = 3000;
+            public const int RepeatDelayInSeconds = 10;
         }
     }
 }

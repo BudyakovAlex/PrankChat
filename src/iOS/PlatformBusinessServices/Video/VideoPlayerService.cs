@@ -1,34 +1,44 @@
 ﻿using System;
 using System.Diagnostics;
+using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Infrastructure;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
 {
-    public class VideoPlayerService : IVideoPlayerService, IDisposable
+    public class VideoPlayerService : BaseVideoPlayerService
     {
-        private const int RepeatDelayInSeconds = 10;
         private IVideoPlayer _player;
+        private readonly IApiService _apiService;
+        private readonly IMvxMessenger _mvxMessenger;
 
-        public IVideoPlayer Player
+        public VideoPlayerService(IApiService apiService, IMvxMessenger mvxMessenger)
+        {
+            _apiService = apiService;
+            _mvxMessenger = mvxMessenger;
+        }
+
+        public override IVideoPlayer Player
         {
             get
             {
                 if (_player == null)
                 {
-                    _player = new VideoPlayer();
-                    _player.EnableRepeat(RepeatDelayInSeconds);
+                    _player = new VideoPlayer(_apiService, _mvxMessenger);
+                    _player.EnableRepeat(Constants.Delays.RepeatDelayInSeconds);
                 }
                 return _player;
             }
         }
 
-        public bool Muted
+        public override bool Muted
         {
             get => _player.Muted;
             set => _player.Muted = value;
         }
 
-        public void Play(string uri)
+        public override void Play(string uri, int id)
         {
             if (_player.IsPlaying)
                 return;
@@ -36,24 +46,25 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             Player.SetSourceUri(uri);
             Debug.WriteLine("Playing next source: " + uri);
             Player.Play();
+            Player.TryRegisterViewedFact(id, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
         }
 
-        public void Play()
+        public override void Play()
         {
             Player.Play();
         }
 
-        public void Pause()
+        public override void Pause()
         {
             Player.Pause();
         }
 
-        public void Stop()
+        public override void Stop()
         {
             Player.Stop();
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
@@ -61,9 +72,9 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing && _player != null)
+            if (disposing)
             {
-                _player.Dispose();
+                _player?.Dispose();
             }
         }
     }

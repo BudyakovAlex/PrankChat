@@ -1,50 +1,55 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using AVFoundation;
 using AVKit;
 using CoreMedia;
 using Foundation;
+using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
 {
-    public class VideoPlayer : IVideoPlayer
+    public class VideoPlayer : BaseVideoPlayer
     {
-        private AVPlayer _player;
+        private readonly AVPlayer _player;
         private int _repeatDelayInSeconds;
         private AVPlayerViewController _currentContainer;
         private NSObject _repeatObserver;
+        private NSObject _viewedFactRegistrationObserver;
         private NSObject _videoEndHandler;
 
-        public VideoPlayer()
+        public VideoPlayer(IApiService apiService, IMvxMessenger mvxMessenger) : base(apiService, mvxMessenger)
         {
-            _player = new AVQueuePlayer();
-            _player.AutomaticallyWaitsToMinimizeStalling = true;
-            _player.Muted = true;
-            _player.ActionAtItemEnd = AVPlayerActionAtItemEnd.None;
+            _player = new AVQueuePlayer
+            {
+                AutomaticallyWaitsToMinimizeStalling = true,
+                Muted = true,
+                ActionAtItemEnd = AVPlayerActionAtItemEnd.None
+            };
         }
 
         /// <inheritdoc />>
-        public bool IsPlaying { get; private set; }
+        public override bool IsPlaying { get; protected set; }
 
         /// <inheritdoc />>
-        public object PlatformPlayerInstance => _player;
-
-        /// <inheritdoc />>
-        public bool Muted
+        public override bool Muted
         {
             get => _player.Muted;
             set => _player.Muted = value;
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
         /// <inheritdoc />>
-        public void EnableRepeat(int repeatDelayInSeconds)
+        public override void EnableRepeat(int repeatDelayInSeconds)
         {
             _repeatDelayInSeconds = repeatDelayInSeconds;
             _repeatObserver = _player.AddBoundaryTimeObserver(
@@ -55,8 +60,17 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             _videoEndHandler = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, RepeatEndedItem);
         }
 
+        public override void TryRegisterViewedFact(int id, int registrationDelayInMilliseconds)
+        {
+            var registrationDelayInSeconds = registrationDelayInMilliseconds / 1000;
+            _repeatObserver = _player.AddBoundaryTimeObserver(
+                times: new[] { NSValue.FromCMTime(new CMTime(registrationDelayInSeconds, 1)) },
+                queue: null,
+                handler: () => RegisterViewedVideoFactAsync(id, registrationDelayInSeconds).FireAndForget());
+        }
+
         /// <inheritdoc />>
-        public void Pause()
+        public override void Pause()
         {
             if (!IsPlaying)
                 return;
@@ -65,7 +79,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             IsPlaying = false;
         }
 
-        public void Play()
+        public override void Play()
         {
             if (IsPlaying)
                 return;
@@ -77,7 +91,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             IsPlaying = true;
         }
 
-        public void Stop()
+        public override void Stop()
         {
             Debug.WriteLine("Play stopped.");
             _player.Seek(new CMTime(0, 1));
@@ -85,7 +99,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             IsPlaying = false;
         }
 
-        public void SetPlatformVideoPlayerContainer(object container)
+        public override void SetPlatformVideoPlayerContainer(object container)
         {
             if (container is AVPlayerViewController viewController)
             {
@@ -100,28 +114,36 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             }
         }
 
-        public void SetSourceUri(string uri)
+        public override void SetSourceUri(string uri)
         {
             _player.ReplaceCurrentItemWithPlayerItem(new AVPlayerItem(new NSUrl(uri)));
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing && _player != null)
+            if (disposing)
             {
-                _player.Dispose();
-
                 if (_repeatObserver != null)
                 {
-                    _player.RemoveTimeObserver(_repeatObserver);
+                    _player?.RemoveTimeObserver(_repeatObserver);
                     _repeatObserver = null;
+                }
+
+                if (_viewedFactRegistrationObserver != null)
+                {
+                    _player?.RemoveTimeObserver(_viewedFactRegistrationObserver);
+                    _viewedFactRegistrationObserver?.Dispose();
+                    _viewedFactRegistrationObserver = null;
                 }
 
                 if (_videoEndHandler != null)
                 {
                     NSNotificationCenter.DefaultCenter.RemoveObserver(_videoEndHandler);
+                    _videoEndHandler?.Dispose();
                     _videoEndHandler = null;
                 }
+
+                _player?.Dispose();
             }
         }
 
@@ -134,6 +156,12 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             {
                 _player.Seek(new CMTime(0, 1));
             }
+        }
+
+        private async Task RegisterViewedVideoFactAsync(int id, int registrationDelayInMilliseconds)
+        {
+            var currentTimeInMilliseconds = (int)_player.CurrentItem.CurrentTime.Seconds * 1000;
+            await SendRegisterViewedFactAsync(id, registrationDelayInMilliseconds, currentTimeInMilliseconds);
         }
 
         private void RepeatEndedItem(NSNotification obj)

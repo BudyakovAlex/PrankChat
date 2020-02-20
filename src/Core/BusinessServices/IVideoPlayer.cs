@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+
 namespace PrankChat.Mobile.Core.BusinessServices
 {
     public interface IVideoPlayer : IDisposable
@@ -18,5 +20,7 @@ namespace PrankChat.Mobile.Core.BusinessServices
         void Stop();
 
         void SetPlatformVideoPlayerContainer(object container);
+
+        void TryRegisterViewedFact(int id, int registrationDelayInMilliseconds);
     }
 }
