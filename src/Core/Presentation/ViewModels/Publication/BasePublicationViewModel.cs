@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -18,7 +19,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
     public class BasePublicationViewModel : BaseViewModel, IDisposable
     {
-        private const int RegistrationDelayInMilliseconds = 3000;
         private readonly IPlatformService _platformService;
         private readonly IMvxMessenger _mvxMessenger;
 
@@ -178,7 +178,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private Task ShowFullScreenVideoAsync()
         {
-            VideoPlayerService.Player.TryRegisterViewedFact(VideoId, RegistrationDelayInMilliseconds);
+            VideoPlayerService.Player.TryRegisterViewedFact(VideoId, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
             return NavigationService.ShowFullScreenVideoView(VideoUrl);
         }
 
