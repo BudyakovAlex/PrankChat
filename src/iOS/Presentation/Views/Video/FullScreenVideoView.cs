@@ -32,6 +32,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private NSObject _playerPerdiodicTimeObserver;
         private AVPlayer _player;
+        private NSObject _playToEndObserver;
         private AVPlayerViewController _controller;
 
         private UIView _overlayView;
@@ -43,6 +44,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         private UIView _watchProgressView;
         private UIView _watchProgressControl;
         private UILabel _timeLabel;
+
+        private UILabel _titleLabel;
+        private UILabel _descriptionLabel;
 
         private NSLayoutConstraint _timePassedWidthConstraint;
         private NSLayoutConstraint _loadProgressViewWidthConstraint;
@@ -65,15 +69,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             NSNotificationCenter.DefaultCenter.AddObserver(this, new Selector(nameof(WillResignActive)), UIApplication.WillResignActiveNotification, null);
             NSNotificationCenter.DefaultCenter.AddObserver(this, new Selector(nameof(DidBecomeActive)), UIApplication.DidBecomeActiveNotification, null);
-        }
-
-        protected override void SetupBinding()
-        {
-            base.SetupBinding();
-
-            var bindingSet = this.CreateBindingSet<FullScreenVideoView, FullScreenVideoViewModel>();
-            bindingSet.Bind(this).For(v => v.VideoUrl).To(vm => vm.VideoUrl);
-            bindingSet.Apply();
         }
 
         public override void ViewWillTransitionToSize(CGSize toSize, IUIViewControllerTransitionCoordinator coordinator)
@@ -105,19 +100,44 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             }
         }
 
-        private void Initialize()
+        protected override void SetupControls()
         {
-            InitializePlayer();
             InitializeOverlayView();
             InitializePlayButton();
             InitializeMuteButton();
             InitializeCloseButton();
+            InitializeVideoInfoLabels();
             InitializeProgressView();
             InitializeLoadProgressView();
             InitializeWatchProgressView();
             InitializeWatchProgressControl();
             InitializeTimeLabel();
+        }
 
+        protected override void SetupBinding()
+        {
+            base.SetupBinding();
+
+            var bindingSet = this.CreateBindingSet<FullScreenVideoView, FullScreenVideoViewModel>();
+
+            bindingSet.Bind(this)
+                      .For(v => v.VideoUrl)
+                      .To(vm => vm.VideoUrl);
+
+            bindingSet.Bind(_titleLabel)
+                      .For(v => v.Text)
+                      .To(vm => vm.VideoName);
+            bindingSet.Bind(_descriptionLabel)
+                      .For(v => v.Text)
+                      .To(vm => vm.Description);
+
+            bindingSet.Apply();
+        }
+
+        private void Initialize()
+        {
+            InitializePlayer();
+         
             UpdateLastActionTicks();
             Task.Run(HideOverlayAsync);
 
@@ -130,6 +150,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             var playerItem = new AVPlayerItem(url);
             _player = new AVPlayer(playerItem);
 
+            if (_playToEndObserver != null)
+            {
+                NSNotificationCenter.DefaultCenter.RemoveObserver(_playToEndObserver);
+            }
+
+            _playToEndObserver = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, OnPlayerPlayedToEnd, playerItem);
+
             _playerPerdiodicTimeObserver = _player.AddPeriodicTimeObserver(new CMTime(1, 2), DispatchQueue.MainQueue, PlayerTimeChanged);
             _player.AddObserver(this, PlayerTimeControlStatusKey, NSKeyValueObservingOptions.New, IntPtr.Zero);
             _player.AddObserver(this, PlayerMutedKey, NSKeyValueObservingOptions.New, IntPtr.Zero);
@@ -137,6 +164,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             _controller = new AVPlayerViewController();
             _controller.Player = _player;
+
             _controller.ShowsPlaybackControls = false;
             _controller.View.AddGestureRecognizer(new UITapGestureRecognizer(_ =>
             {
@@ -148,6 +176,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             View.AddSubview(_controller.View);
             _controller.View.Frame = View.Frame;
             _controller.DidMoveToParentViewController(this);
+
+            View.BringSubviewToFront(_overlayView);
         }
 
         private void InitializeOverlayView()
@@ -319,6 +349,32 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             });
         }
 
+        private void InitializeVideoInfoLabels()
+        {
+            _titleLabel = new UILabel();
+            _titleLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            _titleLabel.TextColor = UIColor.White;
+            _titleLabel.Font = Theme.Font.MediumOfSize(20f);
+
+            _descriptionLabel = new UILabel();
+            _descriptionLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            _descriptionLabel.TextColor = UIColor.White;
+            _descriptionLabel.Font = Theme.Font.MediumOfSize(14f);
+
+            _overlayView.AddSubviews(_titleLabel, _descriptionLabel);
+
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _titleLabel.TopAnchor.ConstraintEqualTo(_closeButton.BottomAnchor, 13f),
+                _titleLabel.LeadingAnchor.ConstraintEqualTo(_overlayView.LeadingAnchor, 13f),
+                _titleLabel.TrailingAnchor.ConstraintEqualTo(_overlayView.TrailingAnchor, -13f),
+
+                _descriptionLabel.TopAnchor.ConstraintEqualTo(_titleLabel.BottomAnchor, 18f),
+                _descriptionLabel.LeadingAnchor.ConstraintEqualTo(_overlayView.LeadingAnchor, 13f),
+                _descriptionLabel.TrailingAnchor.ConstraintEqualTo(_overlayView.TrailingAnchor, -64f),
+            });
+        }
+
         private void UpdateLastActionTicks()
         {
             _lastActionTicks = DateTime.Now.Ticks;
@@ -345,6 +401,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             InvokeOnMainThread(() => hideOverlay = !_overlayView.Hidden
                                                 && _player.TimeControlStatus != AVPlayerTimeControlStatus.Paused);
             return hideOverlay;
+        }
+
+        private void OnPlayerPlayedToEnd(NSNotification notification)
+        {
+            _player.Seek(CMTime.Zero);
+            _player.Play();
+
+            notification.Dispose();
         }
 
         private void PlayerTimeChanged(CMTime _)
@@ -465,6 +529,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
                 _player.Pause();
                 _player.Dispose();
+            }
+
+            if (_playToEndObserver != null)
+            {
+                NSNotificationCenter.DefaultCenter.RemoveObserver(_playToEndObserver);
             }
 
             NSNotificationCenter.DefaultCenter.RemoveObserver(this);
