@@ -226,13 +226,26 @@
                     android:textColor="@color/description"
                     android:text="Название профиля"
                     app:MvxBind="Text StartOrderDate"/>
-                <FFImageLoading.Cross.MvxCachedImageView
-                    android:id="@+id/completed_video"
-                    android:layout_width="match_parent"
-                    android:layout_height="204dp"
-                    android:layout_below="@+id/executor_photo"
+                <!--Video.-->
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    app:MvxBind="ImagePath VideoUrl" />
+                    android:layout_below="@+id/executor_photo"
+                    app:cardCornerRadius="5dp"
+                    app:MvxBind="Click ShowFullVideoCommand; Visibility Visibility(IsVideoAvailable)">
+                    <FFImageLoading.Cross.MvxCachedImageView
+                        android:id="@+id/completed_video"
+                        android:layout_width="match_parent"
+                        android:layout_height="204dp"
+                        android:scaleType="fitXY"
+                        app:MvxBind="ImagePath VideoPlaceholderUrl" />
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_mdi_play_circle_outline"/>
+                </android.support.v7.widget.CardView>
             </RelativeLayout>
             <!--Corresponds to the video-->
             <android.support.percent.PercentRelativeLayout

@@ -79,13 +79,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 			#region Video
 
-			set.Bind(videoImageView)
-				.For(v => v.ImagePath)
-				.To(vm => vm.VideoUrl);
+			set.Bind(videoView)
+	            .For(v => v.BindVisible())
+	            .To(vm => vm.IsVideoAvailable);
 
 			set.Bind(videoImageView)
-				.For(v => v.BindVisible())
-				.To(vm => vm.IsVideoAvailable);
+				.For(v => v.ImagePath)
+				.To(vm => vm.VideoPlaceholderUrl);
+
+			set.Bind(videoImageView)
+				.For(v => v.BindTap())
+				.To(vm => vm.ShowFullVideoCommand);
 
 			#endregion Video
 
@@ -256,6 +260,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 			yesButton.ImageEdgeInsets = new UIEdgeInsets(0, 0, 0, 10);
 			noButton.ImageEdgeInsets = new UIEdgeInsets(0, 0, 0, 10);
+
+			videoImageView.SetCornerRadius(5);
 		}
     }
 }

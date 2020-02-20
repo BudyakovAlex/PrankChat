@@ -10,6 +10,8 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public string Description { get; set; }
 
+        public string Poster { get; set; }
+
         public string Status { get; set; }
 
         public long ViewsCount { get; set; }

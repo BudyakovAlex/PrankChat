@@ -718,12 +718,12 @@
     <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\ic_accent_thumbs_down.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\ic_accent_thumbs_up.pdf" />
-    <ImageAsset Include="Assets.xcassets\FullscreenVideoPlay.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\FullscreenVideoPlay.imageset\FullscreenVideoPlay.pdf" />
-    <ImageAsset Include="Assets.xcassets\FullscreenVideoPause.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\FullscreenVideoPause.imageset\FullscreenVideoPause.pdf" />
-    <ImageAsset Include="Assets.xcassets\FullscreenVideoMute.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\FullscreenVideoMute.imageset\FullscreenVideoMute.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_play.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_play.imageset\FullscreenVideoPlay.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_pause.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_pause.imageset\FullscreenVideoPause.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_mute.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_mute.imageset\FullscreenVideoMute.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -741,10 +741,10 @@
     <Folder Include="Assets.xcassets\ic_accent_thumbs_up.imageset\" />
     <Folder Include="Presentation\Views\Web\" />
     <Folder Include="Presentation\Views\Video\" />
-    <Folder Include="Assets.xcassets\FullscreenVideoPlay.imageset\" />
-    <Folder Include="Assets.xcassets\FullscreenVideoPause.imageset\" />
-    <Folder Include="Assets.xcassets\FullscreenVideoMute.imageset\" />
     <Folder Include="PlatformBusinessServices\Crashlytic\" />
+    <Folder Include="Assets.xcassets\ic_play.imageset\" />
+    <Folder Include="Assets.xcassets\ic_pause.imageset\" />
+    <Folder Include="Assets.xcassets\ic_mute.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
