@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.Content.Res;
+using Android.Media;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -28,6 +29,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
         private TextView _descriptionTextView;
 
         private int _currentPosition;
+
+        public override void OnConfigurationChanged(Configuration newConfig)
+        {
+            _currentPosition = _videoView.CurrentPosition;
+            base.OnConfigurationChanged(newConfig);
+        }
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -61,7 +68,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
                 ViewStateChanged = (viewState) => _topPanel.Visibility = viewState
             };
 
-            _videoView.SetOnPreparedListener(new MediaPlayerOnPreparedListener((mp) => _mediaController.MediaPlayer = mp));
+            _videoView.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepared));
 
             _mediaController.SetAnchorView(_rootView);
             _videoView.RequestFocus();
@@ -96,12 +103,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             bindingSet.Apply();
         }
 
-        public override void OnConfigurationChanged(Configuration newConfig)
-        {
-            _currentPosition = _videoView.CurrentPosition;
-            base.OnConfigurationChanged(newConfig);
-        }
-
         protected override void OnSaveInstanceState(Bundle outState)
         {
             outState.PutInt(nameof(_videoView.CurrentPosition), _currentPosition);
@@ -121,6 +122,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 
         protected override void Unsubscription()
         {
+        }
+
+        private void OnMediaPlayerPrepared(MediaPlayer mediaPlayer)
+        {
+            _mediaController.MediaPlayer = mediaPlayer;
+            _mediaController.MediaPlayer.Looping = true;
         }
     }
 }
