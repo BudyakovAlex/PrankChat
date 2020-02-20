@@ -72,8 +72,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			set.Bind(priceValueLabel)
 				.To(vm => vm.PriceValue);
 
-			set.Bind(timeValueLabel)
-				.To(vm => vm.TimeValue);
+			set.Bind(daysValueLabel)
+				.To(vm => vm.TimeDaysValue);
+
+			set.Bind(hourValueLabel)
+                .To(vm => vm.TimeHourValue);
+
+			set.Bind(minutesValueLabel)
+				.To(vm => vm.TimeMinutesValue);
 
 			#endregion Orders
 
@@ -248,7 +254,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			priceTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Price_Text);
 			priceValueLabel.SetMediumStyle(26, Theme.Color.Text);
 			timeTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Time_Text);
-			timeValueLabel.SetMediumStyle(26, Theme.Color.Text);
+			daysValueLabel.SetMediumStyle(26, Theme.Color.Text);
+			hourValueLabel.SetMediumStyle(26, Theme.Color.Text);
+			minutesValueLabel.SetMediumStyle(26, Theme.Color.Text);
+			delimiterTimeOneLabel.SetMediumStyle(26, Theme.Color.Text);
+			delimiterTimeTwoLabel.SetMediumStyle(26, Theme.Color.Text);
+			daysTitleLabel.SetSmallTitleStyle(Resources.Order_View_Day, 10);
+			hourTitleLabel.SetSmallTitleStyle(Resources.Order_View_Hour, 10);
+			minutesTitleLabel.SetSmallTitleStyle(Resources.Order_View_Minute, 10);
 			downloadVideotextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Download_Text);
 			tookOrderTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Took_The_Order_Text);
 			executorNameLabel.SetTitleStyle();
