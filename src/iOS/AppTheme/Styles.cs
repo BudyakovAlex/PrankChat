@@ -336,20 +336,20 @@ namespace PrankChat.Mobile.iOS.AppTheme
             label.TextColor = Theme.Color.Text;
         }
 
-        public static void SetSmallTitleStyle(this UILabel label, string text = null)
+        public static void SetSmallTitleStyle(this UILabel label, string text = null, int size = 12)
         {
             if (!string.IsNullOrEmpty(text))
                 label.Text = text;
 
-            label.SetMediumStyle(12, Theme.Color.Text);
+            label.SetMediumStyle(size, Theme.Color.Text);
         }
 
-        public static void SetSmallSubtitleStyle(this UILabel label, string text = null)
+        public static void SetSmallSubtitleStyle(this UILabel label, string text = null, int size = 12)
         {
             if (!string.IsNullOrEmpty(text))
                 label.Text = text;
 
-            label.SetRegularStyle(12, Theme.Color.Subtitle);
+            label.SetRegularStyle(size, Theme.Color.Subtitle);
         }
 
         public static void SetMediumStyle(this UILabel label, int size, UIColor color)
