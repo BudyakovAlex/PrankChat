@@ -4,11 +4,10 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
-using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 {
-    [MvxModalPresentation(WrapInNavigationController = true)]
+    [MvxModalPresentation(WrapInNavigationController = false)]
     public partial class RegistrationThirdStepView : BaseTransparentBarView<RegistrationThirdStepViewModel>
     {
 		protected override void SetupBinding()
@@ -31,6 +30,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             confirmationDescriptionLabel.Font = Theme.Font.RegularFontOfSize(14);
 
             finishRegistrationButton.SetLightStyle(Resources.RegistrationView_GoToFeed_Button);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            this.NavigationItem.LeftBarButtonItem = null;
         }
     }
 }
