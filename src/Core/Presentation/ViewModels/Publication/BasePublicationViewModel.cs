@@ -47,6 +47,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string VideoName { get; set; }
 
+        public string Description { get; }
+
         public string PlaceholderImageUrl { get; set; }
 
         public string VideoUrl { get; set; }
@@ -106,6 +108,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                         string profilePhotoUrl,
                                         int videoId,
                                         string videoName,
+                                        string description,
                                         string videoUrl,
                                         long numberOfViews,
                                         DateTime publicationDate,
@@ -122,6 +125,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             ProfilePhotoUrl = profilePhotoUrl;
             VideoId = videoId;
             VideoName = videoName;
+            Description = description;
             VideoUrl = videoUrl;
             IsLiked = isLiked;
 
@@ -177,7 +181,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private Task ShowFullScreenVideoAsync()
         {
             VideoPlayerService.Player.TryRegisterViewedFact(VideoId, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
-            return NavigationService.ShowFullScreenVideoView(VideoUrl);
+            return NavigationService.ShowFullScreenVideoView(VideoUrl, VideoName, Description);
         }
 
         private void OnLike()

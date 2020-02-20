@@ -28,9 +28,6 @@ namespace PrankChat.Mobile.Droid.Controls
         private ImageView _resumeImageView;
         private ImageView _muteImageView;
 
-        private ExtendedVideoView _videoView;
-        private bool _isMuted;
-
         public CustomMediaControllerView(Context context) : base(context)
         {
         }
@@ -51,6 +48,7 @@ namespace PrankChat.Mobile.Droid.Controls
         {
         }
 
+        private ExtendedVideoView _videoView;
         public ExtendedVideoView VideoView
         {
             get => _videoView;
@@ -75,6 +73,7 @@ namespace PrankChat.Mobile.Droid.Controls
 
         public bool IsPlaying => VideoView?.IsPlaying ?? false;
 
+        private bool _isMuted;
         public bool IsMuted
         {
             get => _isMuted;
