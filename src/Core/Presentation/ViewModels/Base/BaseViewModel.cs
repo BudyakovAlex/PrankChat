@@ -16,7 +16,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public double DownsampleWidth { get; } = 100;
 
-        public List<ITransformation> Transformations => new List<ITransformation> { new CircleTransformation() };
+        public virtual List<ITransformation> Transformations => new List<ITransformation> { new CircleTransformation() };
 
         #endregion
 
