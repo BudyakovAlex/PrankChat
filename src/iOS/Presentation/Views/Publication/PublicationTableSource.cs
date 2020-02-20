@@ -53,9 +53,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 return;
 
             var indexPath = TableView.IndexPathsForVisibleRows.FirstOrDefault();
+            if (indexPath == null)
+                return;
+
             var cellToPlay = TableView.CellAt(indexPath) as PublicationItemCell;
             if (cellToPlay != null)
             {
+                // Duration of cell reinitialization load (e.g. tab switch) animation.
                 await Task.Delay(ReinitializeDelayInMilliseconds);
                 PlayFirstVideo(indexPath);
                 _initialized = true;
@@ -64,6 +68,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             {
                 while(cellToPlay == null)
                 {
+                    // Duration of cell init load animation.
                     await Task.Delay(InitializeDelayInMilliseconds);
                     cellToPlay = TableView.CellAt(indexPath) as PublicationItemCell;
                     if (cellToPlay != null)
@@ -116,8 +121,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         private void PlayFirstVideo(NSIndexPath indexPath)
         {
             var cellToPlay = TableView.CellAt(indexPath) as PublicationItemCell;
-            var viewModel = _parentViewModel.Items.ToList()[indexPath.Row];
-            cellToPlay.PlayVideo(viewModel.VideoUrl);
+            var viewModel = _parentViewModel.Items.ElementAtOrDefault(indexPath.Row);
+            cellToPlay?.PlayVideo(viewModel?.VideoUrl);
         }
 
         private void PlayFirstCompletelyVisibleVideoItem()
