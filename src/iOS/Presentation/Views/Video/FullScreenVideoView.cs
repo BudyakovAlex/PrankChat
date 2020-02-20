@@ -352,15 +352,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private void InitializeVideoInfoLabels()
         {
-            _titleLabel = new UILabel();
-            _titleLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            _titleLabel.TextColor = UIColor.White;
-            _titleLabel.Font = Theme.Font.MediumOfSize(20f);
+            _titleLabel = new UILabel
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                TextColor = UIColor.White,
+                Font = Theme.Font.MediumOfSize(20f),
+                LineBreakMode = UILineBreakMode.WordWrap
+            };
 
-            _descriptionLabel = new UILabel();
-            _descriptionLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            _descriptionLabel.TextColor = UIColor.White;
-            _descriptionLabel.Font = Theme.Font.MediumOfSize(14f);
+            _descriptionLabel = new UILabel
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                TextColor = UIColor.White,
+                Font = Theme.Font.MediumOfSize(14f),
+                LineBreakMode = UILineBreakMode.WordWrap
+            };
 
             _overlayView.AddSubviews(_titleLabel, _descriptionLabel);
 
