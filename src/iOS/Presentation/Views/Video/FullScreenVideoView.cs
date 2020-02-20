@@ -357,7 +357,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 TextColor = UIColor.White,
                 Font = Theme.Font.MediumOfSize(20f),
-                LineBreakMode = UILineBreakMode.WordWrap
+                LineBreakMode = UILineBreakMode.WordWrap,
+                Lines = 2
             };
 
             _descriptionLabel = new UILabel
@@ -365,7 +366,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 TextColor = UIColor.White,
                 Font = Theme.Font.MediumOfSize(14f),
-                LineBreakMode = UILineBreakMode.WordWrap
+                LineBreakMode = UILineBreakMode.WordWrap,
+                Lines = 0
             };
 
             _overlayView.AddSubviews(_titleLabel, _descriptionLabel);
