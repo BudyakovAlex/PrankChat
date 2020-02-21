@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Foundation;
 using MvvmCross.Platforms.Ios.Binding.Views;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using UIKit;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
     public class PublicationTableSource : MvxTableViewSource
     {
+        private const int InitializeDelayInMilliseconds = 300;
+        private const int ReinitializeDelayInMilliseconds = 500;
+        private readonly IVideoListViewModel _parentViewModel;
         private PublicationItemCell _previousCellToPlay;
         private bool _initialized;
-        private readonly IVideoListViewModel _parentViewModel;
 
         public PublicationTableSource(UITableView tableView, IVideoListViewModel parentViewModel) : base(tableView)
         {
@@ -28,7 +32,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             set
             {
                 _segment = value;
-                _initialized = false;
+                Reinitialize();
             }
         }
 
@@ -39,25 +43,59 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             set
             {
                 _filterName = value;
-                _initialized = false;
+                Reinitialize();
             }
         }
 
-        public void Initialize()
+        public async Task Initialize()
         {
             if (_initialized)
                 return;
 
-            PlayFirstCompletelyVisibleVideoItem();
+            var indexPath = TableView.IndexPathsForVisibleRows.FirstOrDefault();
+            if (indexPath == null)
+                return;
 
-            _initialized = true;
+            var cellToPlay = TableView.CellAt(indexPath) as PublicationItemCell;
+            if (cellToPlay != null)
+            {
+                // Duration of cell reinitialization load (e.g. tab switch) animation.
+                await Task.Delay(ReinitializeDelayInMilliseconds);
+                PlayFirstVideo(indexPath);
+                _initialized = true;
+            }
+            else
+            {
+                while(cellToPlay == null)
+                {
+                    // Duration of cell init load animation.
+                    await Task.Delay(InitializeDelayInMilliseconds);
+                    cellToPlay = TableView.CellAt(indexPath) as PublicationItemCell;
+                    if (cellToPlay != null)
+                    {
+                        PlayFirstVideo(indexPath);
+                        _initialized = true;
+                    }
+                }
+            }
+        }
+
+        public void Reinitialize()
+        {
+            _initialized = false;
+            Initialize().FireAndForget();
         }
 
         public override void CellDisplayingEnded(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
         {
             base.CellDisplayingEnded(tableView, cell, indexPath);
 
-            Initialize();
+            Initialize().FireAndForget();
+        }
+
+        public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
+        {
+            Initialize().FireAndForget();
         }
 
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
@@ -78,6 +116,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
         {
             return tableView.DequeueReusableCell(PublicationItemCell.CellId);
+        }
+
+        private void PlayFirstVideo(NSIndexPath indexPath)
+        {
+            var cellToPlay = TableView.CellAt(indexPath) as PublicationItemCell;
+            var viewModel = _parentViewModel.Items.ElementAtOrDefault(indexPath.Row);
+            cellToPlay?.PlayVideo(viewModel?.VideoUrl);
         }
 
         private void PlayFirstCompletelyVisibleVideoItem()
@@ -126,7 +171,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             {
                 partiallyVisibleCell.StopVideo();
             }
-
 
             if (completelyVisibleCells.Count > 0
                 && TableView.IndexPathForCell(completelyVisibleCells.LastOrDefault()).Row == _parentViewModel.Items.Count - 1)
