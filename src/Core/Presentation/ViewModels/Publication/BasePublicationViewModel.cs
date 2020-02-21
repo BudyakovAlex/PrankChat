@@ -234,14 +234,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             {
                 await ApiService.ComplainVideoAsync(VideoId, "n/a", "n/a");
             }
-
-            if (result == Resources.Publication_Item_Copy_Link)
+            else if (result == Resources.Publication_Item_Copy_Link)
             {
                 await _platformService.CopyTextAsync(_shareLink);
-                return;
             }
-
-            if (result == Resources.Publication_Item_Subscribe_To_Author)
+            else if (result == Resources.Publication_Item_Subscribe_To_Author)
             {
                 return;
             }
