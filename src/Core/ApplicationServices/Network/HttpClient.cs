@@ -69,6 +69,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
+        public Task Post<TEntity>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : class
+        {
+            var request = new RestRequest(endpoint, Method.POST);
+            request.AddJsonBody(item);
+            return ExecuteTask(request, endpoint, true, exceptionThrowingEnabled);
+        }
+
         public Task<TResult> Post<TResult>(string endpoint, bool exceptionThrowingEnabled = false) where TResult : new()
         {
             var request = new RestRequest(endpoint, Method.POST);

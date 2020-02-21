@@ -133,6 +133,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return Task.CompletedTask;
         }
 
+        public async Task ComplainOrderAsync(int orderId, string title, string description)
+        {
+            var apiModel = new ComplainApiModel()
+            {
+                Title = title,
+                Description = description
+            };
+            var url = $"orders/{orderId}/complaint";
+            await _client.Post(url, apiModel, false);
+        }
+
         public async Task<OrderDataModel> SubscribeOrderAsync(int orderId)
         {
             var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
@@ -252,13 +263,24 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
             return user;
         }
-        
+
         public async Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
         {
             var userUpdateProfileApiModel = MappingConfig.Mapper.Map<UserUpdateProfileApiModel>(userInfo);
             var dataApiModel = await _client.Post<UserUpdateProfileApiModel, DataApiModel<UserApiModel>>("me", userUpdateProfileApiModel);
             var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
             return user;
+        }
+
+        public async Task ComplainUserAsync(int userId, string title, string description)
+        {
+            var apiModel = new ComplainApiModel()
+            {
+                Title = title,
+                Description = description
+            };
+            var url = $"users/{userId}/complaint";
+            await _client.Post(url, apiModel, false);
         }
 
         #endregion Users
@@ -276,6 +298,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             };
             var videoMetadataApiModel = await _client.PostVideoFile<LoadVideoApiModel, DataApiModel<VideoApiModel>>("videos", loadVideoApiModel);
             return MappingConfig.Mapper.Map<VideoDataModel>(videoMetadataApiModel.Data);
+        }
+
+        public async Task ComplainVideoAsync(int videoId, string title, string description)
+        {
+            var apiModel = new ComplainApiModel()
+            {
+                Title = title,
+                Description = description
+            };
+            var url = $"videos/{videoId}/complaint";
+            await _client.Post(url, apiModel, false);
         }
 
         #endregion Video
