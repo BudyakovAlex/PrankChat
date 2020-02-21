@@ -135,13 +135,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task ComplainOrderAsync(int orderId, string title, string description)
         {
-            var apiModel = new ComplainApiModel()
+            var dataApiModel = new ComplainApiModel()
             {
                 Title = title,
                 Description = description
             };
             var url = $"orders/{orderId}/complaint";
-            await _client.Post(url, apiModel, false);
+            await _client.Post(url, dataApiModel);
         }
 
         public async Task<OrderDataModel> SubscribeOrderAsync(int orderId)
@@ -274,13 +274,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task ComplainUserAsync(int userId, string title, string description)
         {
-            var apiModel = new ComplainApiModel()
+            var dataApiModel = new ComplainApiModel()
             {
                 Title = title,
                 Description = description
             };
             var url = $"users/{userId}/complaint";
-            await _client.Post(url, apiModel, false);
+            await _client.Post(url, dataApiModel);
         }
 
         #endregion Users
@@ -308,13 +308,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task ComplainVideoAsync(int videoId, string title, string description)
         {
-            var apiModel = new ComplainApiModel()
+            var dataApiModel = new ComplainApiModel()
             {
                 Title = title,
                 Description = description
             };
             var url = $"videos/{videoId}/complaint";
-            await _client.Post(url, apiModel, false);
+            await _client.Post(url, dataApiModel);
         }
 
         #endregion Video
