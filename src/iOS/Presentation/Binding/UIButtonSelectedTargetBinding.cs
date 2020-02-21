@@ -10,38 +10,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Binding
     {
         public static string TargetBinding = "Selected";
 
-        public override MvxBindingMode DefaultMode
+        public override MvxBindingMode DefaultMode => MvxBindingMode.TwoWay;
+
+        public UIButtonSelectedTargetBinding(object target, PropertyInfo targetPropertyInfo) : base(target, targetPropertyInfo)
         {
-            get { return MvxBindingMode.TwoWay; }
         }
 
-        public UIButtonSelectedTargetBinding(object target, PropertyInfo targetPropertyInfo)
-            : base(target, targetPropertyInfo)
+        protected override void SetValueImpl(object target, object value)
         {
-            var view = View;
-            view.ValueChanged += HandleValueChanged;
-        }
-
-        private void HandleValueChanged(object sender, EventArgs e)
-        {
-            var view = View;
-            if (view == null)
-                return;
-
-            FireValueChanged(view.Selected);
-        }
-
-        protected override void Dispose(bool isDisposing)
-        {
-            base.Dispose(isDisposing);
-            if (isDisposing)
-            {
-                var view = View;
-                if (view != null)
-                {
-                    view.ValueChanged -= HandleValueChanged;
-                }
-            }
+            View.Selected = (bool)value;
         }
     }
 }

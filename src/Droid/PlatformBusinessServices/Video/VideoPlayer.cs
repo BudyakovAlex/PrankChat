@@ -1,29 +1,38 @@
-﻿using Android.Widget;
+﻿using System.Threading.Tasks;
+using Android.OS;
+using Android.Widget;
+using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Video.Listeners;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 {
-    public class VideoPlayer : IVideoPlayer
+    public class VideoPlayer : BaseVideoPlayer
     {
+        private const int RecheckDelayInMilliseconds = 1000;
         private VideoView _videoView;
         private bool _isRepeatEnabled;
 
-        public bool IsPlaying { get; private set; }
+        public VideoPlayer(IApiService apiService, IMvxMessenger mvxMessenger) : base(apiService, mvxMessenger)
+        {
+        }
 
-        public bool Muted { get; set; }
+        public override bool IsPlaying { get; protected set; }
 
-        public void Dispose()
+        public override bool Muted { get; set; }
+
+        public override void Dispose()
         {
             _videoView?.SetOnPreparedListener(null);
         }
 
-        public void EnableRepeat(int repeatDelayInSeconds)
+        public override void EnableRepeat(int repeatDelayInSeconds)
         {
             _isRepeatEnabled = true;
         }
 
-        public void Pause()
+        public override void Pause()
         {
             if (!IsPlaying || _videoView == null)
                 return;
@@ -32,7 +41,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             IsPlaying = false;
         }
 
-        public void Play()
+        public override void Play()
         {
             if (IsPlaying || _videoView == null)
                 return;
@@ -41,7 +50,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             IsPlaying = true;
         }
 
-        public void SetPlatformVideoPlayerContainer(object container)
+        public override void SetPlatformVideoPlayerContainer(object container)
         {
             if (_videoView == container)
                 return;
@@ -56,19 +65,36 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             }
         }
 
-        public void SetSourceUri(string uri)
+        public override void TryRegisterViewedFact(int id, int registrationDelayInMilliseconds)
+        {
+            var handler = new Handler();
+            handler.PostDelayed(async () => await RegisterAction(id, registrationDelayInMilliseconds), registrationDelayInMilliseconds);
+        }
+
+        public override void SetSourceUri(string uri)
         {
             _videoView.SetVideoPath(uri);
             _videoView.SetOnPreparedListener(new VideoPlayerOnPreparedListener(_isRepeatEnabled));
         }
 
-        public void Stop()
+        public override void Stop()
         {
             if (!IsPlaying || _videoView == null)
                 return;
 
             _videoView?.StopPlayback();
             IsPlaying = false;
+        }
+
+        private async Task RegisterAction(int id, int registrationDelayInMilliseconds)
+        {
+            var sent = await SendRegisterViewedFactAsync(id, registrationDelayInMilliseconds, _videoView.CurrentPosition);
+
+            if (!sent)
+            {
+                var handler = new Handler();
+                handler.PostDelayed(async () => await RegisterAction(id, registrationDelayInMilliseconds), RecheckDelayInMilliseconds);
+            }
         }
     }
 }

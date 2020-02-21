@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using FFImageLoading.Transformations;
+using FFImageLoading.Work;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.ViewModels;
@@ -40,7 +43,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #region Video
 
-        public string VideoUrl { get; set; } = "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg";
+        public string VideoUrl => _order?.Video?.StreamUri;
+
+        public string VideoPlaceholderUrl => "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg";// _order?.Video?.Poster;
 
         public string VideoName => _order?.Title;
 
@@ -90,9 +95,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #endregion
 
-        public string PriceValue => _order?.Price.ToString();
+        public string PriceValue => _order?.Price.ToPriceString();
 
-        public string TimeValue => _order?.FinishIn?.ToTimeWithSpaceString();
+        public string TimeDaysValue => _order?.FinishIn?.Days.ToString("00");
+
+        public string TimeHourValue => _order?.FinishIn?.Hours.ToString("00");
+
+        public string TimeMinutesValue => _order?.FinishIn?.Minutes.ToString("00");
 
         public bool IsUserCustomer => _order?.Customer?.Id == _settingsService.User?.Id;
 
@@ -142,6 +151,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public MvxAsyncCommand AcceptOrderCommand => new MvxAsyncCommand(OnAcceptOrderAsync);
 
+        public MvxAsyncCommand ShowFullVideoCommand => new MvxAsyncCommand(OnShowFullVideoAsync);
+
         #endregion Commands
 
         public OrderDetailsViewModel(INavigationService navigationService,
@@ -165,6 +176,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public override Task Initialize()
         {
+            base.Initialize();
             return LoadOrderDetails();
         }
 
@@ -380,6 +392,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = false;
             }
+        }
+
+        private Task OnShowFullVideoAsync()
+        {
+            return NavigationService.ShowFullScreenVideoView(VideoUrl, VideoName, VideoDetails);
         }
     }
 }

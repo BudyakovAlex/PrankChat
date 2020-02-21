@@ -72,20 +72,30 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			set.Bind(priceValueLabel)
 				.To(vm => vm.PriceValue);
 
-			set.Bind(timeValueLabel)
-				.To(vm => vm.TimeValue);
+			set.Bind(daysValueLabel)
+				.To(vm => vm.TimeDaysValue);
+
+			set.Bind(hourValueLabel)
+                .To(vm => vm.TimeHourValue);
+
+			set.Bind(minutesValueLabel)
+				.To(vm => vm.TimeMinutesValue);
 
 			#endregion Orders
 
 			#region Video
 
-			set.Bind(videoImageView)
-				.For(v => v.ImagePath)
-				.To(vm => vm.VideoUrl);
+			set.Bind(videoView)
+	            .For(v => v.BindVisible())
+	            .To(vm => vm.IsVideoAvailable);
 
 			set.Bind(videoImageView)
-				.For(v => v.BindVisible())
-				.To(vm => vm.IsVideoAvailable);
+				.For(v => v.ImagePath)
+				.To(vm => vm.VideoPlaceholderUrl);
+
+			set.Bind(videoImageView)
+				.For(v => v.BindTap())
+				.To(vm => vm.ShowFullVideoCommand);
 
 			#endregion Video
 
@@ -244,7 +254,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			priceTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Price_Text);
 			priceValueLabel.SetMediumStyle(26, Theme.Color.Text);
 			timeTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Time_Text);
-			timeValueLabel.SetMediumStyle(26, Theme.Color.Text);
+			daysValueLabel.SetMediumStyle(26, Theme.Color.Text);
+			hourValueLabel.SetMediumStyle(26, Theme.Color.Text);
+			minutesValueLabel.SetMediumStyle(26, Theme.Color.Text);
+			delimiterTimeOneLabel.SetMediumStyle(26, Theme.Color.Text);
+			delimiterTimeTwoLabel.SetMediumStyle(26, Theme.Color.Text);
+			daysTitleLabel.SetSmallTitleStyle(Resources.Order_View_Day, 10);
+			hourTitleLabel.SetSmallTitleStyle(Resources.Order_View_Hour, 10);
+			minutesTitleLabel.SetSmallTitleStyle(Resources.Order_View_Minute, 10);
 			downloadVideotextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Download_Text);
 			tookOrderTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Took_The_Order_Text);
 			executorNameLabel.SetTitleStyle();
@@ -256,6 +273,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 			yesButton.ImageEdgeInsets = new UIEdgeInsets(0, 0, 0, 10);
 			noButton.ImageEdgeInsets = new UIEdgeInsets(0, 0, 0, 10);
+
+			videoImageView.SetCornerRadius(5);
 		}
     }
 }

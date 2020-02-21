@@ -22,6 +22,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             set.Bind(emailTextField)
                 .To(vm => vm.Email);
 
+            set.Bind(showLoginButton)
+                .To(vm => vm.GoBackCommand);
+
             set.Apply();
 		}
 

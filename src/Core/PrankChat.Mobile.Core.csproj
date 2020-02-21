@@ -36,7 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BusinessServices\" />
     <Folder Include="Presentation\Navigation\" />
     <Folder Include="Presentation\Navigation\Parameters\" />
     <Folder Include="Models\Enums\" />

@@ -3,6 +3,7 @@ using Android.Views;
 
 namespace PrankChat.Mobile.Droid.Presentation.Listeners
 {
+    //NOTE: Use instead click when cell click invokes only after second click, this listener avoid current problem.
     public class ViewOnTouchListener : Java.Lang.Object, View.IOnTouchListener
     {
         private readonly Func<View, MotionEvent, bool> _touchFunc;

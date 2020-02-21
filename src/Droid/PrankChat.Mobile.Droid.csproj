@@ -403,6 +403,10 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\action_bar_back_and_logo.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -500,7 +504,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
-      <Project>{111C2D7F-947C-4570-9D1A-C2102B13245E}</Project>
+      <Project>{F07949ED-5CCD-4808-9975-5993EA945447}</Project>
       <Name>PrankChat.Mobile.Core</Name>
     </ProjectReference>
   </ItemGroup>

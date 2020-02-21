@@ -38,7 +38,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
 			service.Stop();
 			service.Player.SetPlatformVideoPlayerContainer(_avPlayerViewController);
-			service.Play(uri);
+			service.Play(uri, ViewModel.VideoId);
 		}
 
 		public void ContinueVideo()
@@ -96,8 +96,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			likeLabel.SetSmallTitleStyle();
 			shareLabel.SetSmallTitleStyle();
 			shareLabel.Text = Resources.Share;
-			likeButton.SetBackgroundImage(UIImage.FromBundle("ic_like.png"), UIControlState.Normal);
-			likeButton.SetBackgroundImage(UIImage.FromBundle("ic_like_active.png"), UIControlState.Selected);
+			likeButton.SetImage(UIImage.FromBundle("ic_like.png"), UIControlState.Normal);
+			likeButton.SetImage(UIImage.FromBundle("ic_like_active.png"), UIControlState.Selected);
 
             InitializeVideoControl();
 		}
@@ -143,19 +143,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.To(vm => vm.ShowDetailsCommand);
 
 			set.Bind(publicationInfoLabel)
-				.To(vm => vm.VideoInformationText)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.VideoInformationText);
 
 			set.Bind(publicationInfoLabel.Tap())
 				.For(v => v.Command)
 				.To(vm => vm.ShowDetailsCommand);
 
-            // TODO: we should probably move this functionality to the mute button
-			//set.Bind(_avPlayerViewController.View.Tap())
-			//	.For(v => v.Command)
-			//	.To(vm => vm.ToggleSoundCommand);
+            set.Bind(soundImageView.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.ToggleSoundCommand);
 
-			set.Bind(soundImageView)
+            set.Bind(soundImageView)
 				.For(v => v.Hidden)
 				.To(vm => vm.HasSoundTurnOn);
 

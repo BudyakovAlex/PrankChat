@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
@@ -239,10 +239,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return videoData;
         }
 
-        public async Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked)
+        public async Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
         {
             var url = isChecked ? $"videos/{videoId}/like" : $"videos/{videoId}/like/remove";
-            var data = await _client.Post<DataApiModel<VideoApiModel>>(url);
+            var data = await _client.Post<DataApiModel<VideoApiModel>>(url, cancellationToken: cancellationToken);
             return MappingConfig.Mapper.Map<VideoDataModel>(data?.Data);
         }
 
@@ -298,6 +298,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             };
             var videoMetadataApiModel = await _client.PostVideoFile<LoadVideoApiModel, DataApiModel<VideoApiModel>>("videos", loadVideoApiModel);
             return MappingConfig.Mapper.Map<VideoDataModel>(videoMetadataApiModel.Data);
+        }
+
+        public async Task<long?> RegisterVideoViewedFactAsync(int videoId)
+        {
+            var videoApiModel = await _client.UnauthorizedGet<DataApiModel<VideoApiModel>>($"videos/{videoId}/looked");
+            return videoApiModel.Data.ViewsCount;
         }
 
         public async Task ComplainVideoAsync(int videoId, string title, string description)

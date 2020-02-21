@@ -1,5 +1,6 @@
 ﻿using System;
 using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
@@ -19,10 +20,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                                         IVideoPlayerService videoPlayerService,
                                         IApiService apiServices,
                                         IErrorHandleService errorHandleService,
+                                        IMvxMessenger mvxMessenger,
                                         string profileName,
                                         string profilePhotoUrl,
                                         int videoId,
                                         string videoName,
+                                        string videoDescription,
                                         string videoUrl,
                                         long numberOfViews,
                                         DateTime publicationDate,
@@ -35,10 +38,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                     videoPlayerService,
                     apiServices,
                     errorHandleService,
+                    mvxMessenger,
                     profileName,
                     profilePhotoUrl,
                     videoId,
                     videoName,
+                    videoDescription,
                     videoUrl,
                     numberOfViews,
                     publicationDate,

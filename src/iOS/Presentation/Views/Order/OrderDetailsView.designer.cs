@@ -61,6 +61,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIView innerView { get; set; }
 
 		[Outlet]
+		Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
+
+		[Outlet]
 		UIKit.UIButton noButton { get; set; }
 
 		[Outlet]
@@ -91,9 +94,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UILabel timeTextLabel { get; set; }
 
 		[Outlet]
-		UIKit.UILabel timeValueLabel { get; set; }
-
-		[Outlet]
 		UIKit.UILabel tookOrderTextLabel { get; set; }
 
 		[Outlet]
@@ -109,16 +109,40 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UILabel videoNameLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIView videoView { get; set; }
+
+		[Outlet]
 		UIKit.UIButton yesButton { get; set; }
 
         [Outlet]
-        Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
-		
+        UIKit.UILabel daysValueLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel hourValueLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel hourTitleLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel minutesValueLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel minutesTitleLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel daysTitleLabel { get; set; }
+
+        [Outlet]
+        UIKit.UILabel delimiterTimeOneLabel { get; set; }
+
+        [Outlet]
+        UIKit.UILabel delimiterTimeTwoLabel { get; set; }
+
 		void ReleaseDesignerOutlets ()
 		{
-			if (customerShortNameLabel != null) {
-				customerShortNameLabel.Dispose ();
-				customerShortNameLabel = null;
+			if (videoView != null) {
+				videoView.Dispose ();
+				videoView = null;
 			}
 
 			if (acceptButton != null) {
@@ -136,6 +160,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				cancelVideoButton = null;
 			}
 
+			if (customerShortNameLabel != null) {
+				customerShortNameLabel.Dispose ();
+				customerShortNameLabel = null;
+			}
+
 			if (decideTextLabel != null) {
 				decideTextLabel.Dispose ();
 				decideTextLabel = null;
@@ -144,11 +173,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (decideView != null) {
 				decideView.Dispose ();
 				decideView = null;
-			}
-
-			if (executorShortNameLabel != null) {
-				executorShortNameLabel.Dispose ();
-				executorShortNameLabel = null;
 			}
 
 			if (decisionView != null) {
@@ -184,6 +208,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (executorNameLabel != null) {
 				executorNameLabel.Dispose ();
 				executorNameLabel = null;
+			}
+
+			if (executorShortNameLabel != null) {
+				executorShortNameLabel.Dispose ();
+				executorShortNameLabel = null;
 			}
 
 			if (executorView != null) {
@@ -246,11 +275,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				timeTextLabel = null;
 			}
 
-			if (timeValueLabel != null) {
-				timeValueLabel.Dispose ();
-				timeValueLabel = null;
-			}
-
 			if (tookOrderTextLabel != null) {
 				tookOrderTextLabel.Dispose ();
 				tookOrderTextLabel = null;
@@ -281,9 +305,57 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				yesButton = null;
 			}
 
-            if (lottieAnimationView != null) {
+			if (lottieAnimationView != null) {
 				lottieAnimationView.Dispose ();
 				lottieAnimationView = null;
+			}
+
+			if (daysValueLabel != null)
+			{
+				daysValueLabel.Dispose();
+				daysValueLabel = null;
+			}
+
+			if (hourValueLabel != null)
+			{
+				hourValueLabel.Dispose();
+				hourValueLabel = null;
+			}
+
+			if (hourTitleLabel != null)
+			{
+				hourTitleLabel.Dispose();
+				hourTitleLabel = null;
+			}
+
+			if (minutesValueLabel != null)
+			{
+				minutesValueLabel.Dispose();
+				minutesValueLabel = null;
+			}
+
+			if (minutesTitleLabel != null)
+			{
+				minutesTitleLabel.Dispose();
+				minutesTitleLabel = null;
+			}
+
+			if (daysTitleLabel != null)
+			{
+				daysTitleLabel.Dispose();
+				daysTitleLabel = null;
+			}
+
+			if (delimiterTimeOneLabel != null)
+			{
+				delimiterTimeOneLabel.Dispose();
+				delimiterTimeOneLabel = null;
+			}
+
+			if (delimiterTimeTwoLabel != null)
+			{
+				delimiterTimeTwoLabel.Dispose();
+				delimiterTimeTwoLabel = null;
 			}
 		}
 	}

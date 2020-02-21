@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
+using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -36,6 +37,9 @@ namespace PrankChat.Mobile.Core.Models.Mappings
             CreateMap<TransactionDataModel, TransactionApiModel>().ReverseMap();
             CreateMap<GenderType, string>().ConvertUsing(src => src.ToString().ToLower());
             CreateMap<ArbitrationValueType, string>().ConvertUsing(src => src.ToString().ToLower());
+            CreateMap<InternalServerProblemDetails, ProblemDetailsApiModel>()
+                .ForPath(dest => dest.Message, opt => opt.MapFrom(src => src.MessageServerError))
+                .ReverseMap();
         }
     }
 }

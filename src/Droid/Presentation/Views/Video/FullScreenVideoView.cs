@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.Content.Res;
+using Android.Media;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -21,11 +22,19 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
     {
         private ExtendedVideoView _videoView;
         private FrameLayout _rootView;
-        private FrameLayout _topPanel;
+        private LinearLayout _topPanel;
         private CustomMediaControllerView _mediaController;
         private ImageView _backImageView;
+        private TextView _titleTextView;
+        private TextView _descriptionTextView;
 
         private int _currentPosition;
+
+        public override void OnConfigurationChanged(Configuration newConfig)
+        {
+            _currentPosition = _videoView.CurrentPosition;
+            base.OnConfigurationChanged(newConfig);
+        }
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -42,19 +51,24 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 
         protected override void SetViewProperties()
         {
-            _topPanel = FindViewById<FrameLayout>(Resource.Id.top_panel);
             _videoView = FindViewById<ExtendedVideoView>(Resource.Id.video_view);
             _rootView = FindViewById<FrameLayout>(Resource.Id.root_view);
             _backImageView = FindViewById<ImageView>(Resource.Id.back_image_view);
+
+            _titleTextView = FindViewById<TextView>(Resource.Id.video_title_text_view);
+            _descriptionTextView = FindViewById<TextView>(Resource.Id.video_description_text_view);
+
+            _topPanel = FindViewById<LinearLayout>(Resource.Id.top_panel);
             _topPanel.Visibility = ViewStates.Gone;
 
             _mediaController = new CustomMediaControllerView(this)
             {
+                Visibility = ViewStates.Gone,
                 VideoView = _videoView,
                 ViewStateChanged = (viewState) => _topPanel.Visibility = viewState
             };
 
-            _videoView.SetOnPreparedListener(new MediaPlayerOnPreparedListener((mp) => _mediaController.MediaPlayer = mp));
+            _videoView.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepared));
 
             _mediaController.SetAnchorView(_rootView);
             _videoView.RequestFocus();
@@ -73,17 +87,20 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             bindingSet.Bind(_mediaController)
                       .For(v => v.IsMuted)
                       .To(vm => vm.IsMuted);
+
             bindingSet.Bind(_backImageView)
                       .For(v => v.BindClick())
                       .To(vm => vm.GoBackCommand);
 
-            bindingSet.Apply();
-        }
+            bindingSet.Bind(_titleTextView)
+                     .For(v => v.Text)
+                     .To(vm => vm.VideoName);
 
-        public override void OnConfigurationChanged(Configuration newConfig)
-        {
-            _currentPosition = _videoView.CurrentPosition;
-            base.OnConfigurationChanged(newConfig);
+            bindingSet.Bind(_descriptionTextView)
+                     .For(v => v.Text)
+                     .To(vm => vm.Description);
+
+            bindingSet.Apply();
         }
 
         protected override void OnSaveInstanceState(Bundle outState)
@@ -105,6 +122,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 
         protected override void Unsubscription()
         {
+        }
+
+        private void OnMediaPlayerPrepared(MediaPlayer mediaPlayer)
+        {
+            _mediaController.MediaPlayer = mediaPlayer;
+            _mediaController.MediaPlayer.Looping = true;
         }
     }
 }
