@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Exceptions.UserVisible;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -79,7 +80,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             }
             catch (Exception ex)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Проблема с регистрацией пользователя."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Проблема с регистрацией пользователя."));
                 _mvxLog.ErrorException($"[{nameof(RegistrationSecondStepViewModel)}]", ex);
             }
             finally
@@ -92,49 +93,49 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             if (string.IsNullOrWhiteSpace(Login))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Логин не может быть пустым."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Логин не может быть пустым."));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Имя не может быть пустым."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Имя не может быть пустым."));
                 return false;
             }
 
             if (Birthday == null)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("День рождения не может быть пустым."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("День рождения не может быть пустым."));
                 return false;
             }
 
             if ((DateTime.Now.Year - Birthday?.Year) <= 18)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Пользователь не может быть младше 18 лет."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Пользователь не может быть младше 18 лет."));
                 return false;
             }
 
             if (string.IsNullOrEmpty(Password))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Пароль не может быть пустым."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Пароль не может быть пустым."));
                 return false;
             }
 
             if (string.IsNullOrEmpty(RepeatedPassword))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Проверочный пароль не может быть пустым."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Проверочный пароль не может быть пустым."));
                 return false;
             }
 
             if (Password != RepeatedPassword)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Проверочный пароль и пароль не совпадают."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Проверочный пароль и пароль не совпадают."));
                 return false;
             }
 
             if (Gender == null)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Выберите свой пол."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Выберите свой пол."));
                 return false;
             }
 

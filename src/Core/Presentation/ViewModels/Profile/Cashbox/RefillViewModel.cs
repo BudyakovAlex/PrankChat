@@ -10,6 +10,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System;
 using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Exceptions.UserVisible;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
@@ -63,7 +64,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             var paymentData = await ApiService.RefillAsync(Cost.Value);
             if (string.IsNullOrWhiteSpace(paymentData?.PaymentLink))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Не получилось пополнить баланс."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Не получилось пополнить баланс."));
                 return;
             }
 
@@ -85,7 +86,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         {
             if (Cost == null || Cost == 0)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Сумма не может быть пустой."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Сумма не может быть пустой."));
                 return false;
             }
 

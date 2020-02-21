@@ -7,6 +7,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Exceptions.UserVisible;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -86,7 +87,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             }
             catch (Exception ex)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Проблема с входом в приложение. Попробуйте еще раз."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Проблема с входом в приложение. Попробуйте еще раз."));
                 _mvxLog.ErrorException($"[{nameof(LoginViewModel)}]", ex);
             }
             finally
@@ -99,19 +100,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             if (string.IsNullOrWhiteSpace(EmailText))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Email не может быть пустым."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Email не может быть пустым."));
                 return false;
             }
 
             if (!EmailText.IsValidEmail())
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Поле Email введено не правильно."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Поле Email введено не правильно."));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(PasswordText))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Пароль не может быть пустым."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Пароль не может быть пустым."));
                 return false;
             }
 

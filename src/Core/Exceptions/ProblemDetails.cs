@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using PrankChat.Mobile.Core.Models;
 
-namespace PrankChat.Mobile.Core.Exceptions.Network
+namespace PrankChat.Mobile.Core.Exceptions
 {
-    public class InternalServerProblemDetails : Exception
+    public class ProblemDetails : ApplicationException
     {
         public string CodeError { get; set; }
 
@@ -19,9 +19,9 @@ namespace PrankChat.Mobile.Core.Exceptions.Network
 
         public string Type { get; set; }
 
-        public InternalServerProblemDetails() : base(string.Empty) { }
+        public ProblemDetails() : base(string.Empty) { }
 
-        public InternalServerProblemDetails(string message) : base(message)
+        public ProblemDetails(string message) : base(message)
         {
         }
 
@@ -29,7 +29,12 @@ namespace PrankChat.Mobile.Core.Exceptions.Network
         {
             get
             {
-                var arrayProblems = new[] { Title, MessageServerError, base.Message }.Concat(InvalidParams?.Select(x => x.ToString()));
+                var arrayProblems = new List<string> { Title, MessageServerError, base.Message };
+                if (InvalidParams != null && InvalidParams.Count > 0)
+                {
+                    arrayProblems = arrayProblems.Concat(InvalidParams.Select(x => x.ToString())).ToList();
+                }
+
                 return string.Join(Environment.NewLine, arrayProblems);
             }
         }

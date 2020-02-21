@@ -10,6 +10,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Exceptions.UserVisible;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -115,7 +116,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 var user = await ApiService.SendAvatarAsync(file.Path);
                 if (user == null)
                 {
-                    ErrorHandleService.HandleException(new UserVisibleException("Ошибка при загрузке фотографии."));
+                    ErrorHandleService.HandleException(new BaseUserVisibleException("Ошибка при загрузке фотографии."));
                     return;
                 }
 
@@ -130,37 +131,37 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             if (string.IsNullOrWhiteSpace(Login))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Логин не может быть пустым."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Логин не может быть пустым."));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Имя не может быть пустым."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Имя не может быть пустым."));
                 return false;
             }
 
             if (Birthday == null)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("День рождения не может быть пустым."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("День рождения не может быть пустым."));
                 return false;
             }
 
             if (Birthday > DateTime.Now)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Дата дня рождения не может быть польше текущей даты."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Дата дня рождения не может быть польше текущей даты."));
                 return false;
             }
 
             if ((DateTime.Now.Year - Birthday?.Year) <= 18)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Пользователь не может быть младше 18 лет."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Пользователь не может быть младше 18 лет."));
                 return false;
             }
 
             if (Gender == null)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Выберите свой пол."));
+                ErrorHandleService.HandleException(new BaseUserVisibleException("Выберите свой пол."));
                 return false;
             }
 

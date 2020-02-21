@@ -11,6 +11,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Configuration;
+using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
@@ -125,10 +126,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 CheckResponse(request, content, exceptionThrowingEnabled);
                 return content.Content;
             }
-            catch (AuthenticationProblemDetails)
-            {
-                throw;
-            }
             catch (Exception e)
             {
                 throw new NetworkException(e.Message, e);
@@ -150,10 +147,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 CheckResponse(request, content, exceptionThrowingEnabled);
                 return content.Data;
             }
-            catch (AuthenticationProblemDetails)
-            {
-                throw;
-            }
             catch (Exception e)
             {
                 throw new NetworkException(e.Message, e);
@@ -169,22 +162,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     return;
                 }
 
-                switch (response.StatusCode)
+                try
                 {
-                    case HttpStatusCode.Unauthorized:
-                    case HttpStatusCode.Forbidden:
-                        throw JsonConvert.DeserializeObject<AuthenticationProblemDetails>(response.Content);
-
-                    case HttpStatusCode.InternalServerError:
-                        var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(response.Content);
-                        throw MappingConfig.Mapper.Map<InternalServerProblemDetails>(problemDetails);
+                    var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(response.Content);
+                    throw MappingConfig.Mapper.Map<ProblemDetails>(problemDetails);
                 }
-
-                if (response.ErrorException != null)
-                {
-                    _mvxLog.ErrorException(response.ErrorMessage, response?.ErrorException);
-                }
-                else
+                catch (JsonSerializationException)
                 {
                     throw new NetworkException($"Network error - {response.ErrorMessage} with code {response.StatusCode} for request {request.Resource}");
                 }
@@ -192,15 +175,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             catch (Exception ex)
             {
                 _mvxLog.ErrorException(response.StatusCode + response.ErrorMessage, ex);
-                var errorMessages = new List<string>
-                {
-                    ex.Message
-                };
-                _messenger.Publish(new BadRequestErrorMessage(this, errorMessages.AsReadOnly()));
+                _messenger.Publish(new ServerErrorMessage(this, ex));
 
                 if (exceptionThrowingEnabled)
                 {
-                    throw ex;
+                    throw;
                 }
             }
         }
