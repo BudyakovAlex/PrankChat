@@ -25,13 +25,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             set => SetProperty(ref _userImageUrl, value);
         }
 
-        public MvxAsyncCommand ShowContentCommand
-        {
-            get
-            {
-                return new MvxAsyncCommand(() => NavigationService.ShowMainViewContent());
-            }
-        }
+        public MvxAsyncCommand ShowContentCommand { get; }
+
+        public MvxAsyncCommand ShowLoginCommand { get; }
 
         public MainViewModel(INavigationService navigationService,
                              IMvxMessenger messenger,
@@ -43,6 +39,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         {
             _messenger = messenger;
             _settingsService = settingsService;
+
+            ShowContentCommand = new MvxAsyncCommand(NavigationService.ShowMainViewContent);
+            ShowLoginCommand = new MvxAsyncCommand(NavigationService.ShowLoginView);
         }
 
         public override Task Initialize()

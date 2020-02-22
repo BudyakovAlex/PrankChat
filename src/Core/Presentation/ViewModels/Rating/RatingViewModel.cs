@@ -82,16 +82,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
                 Items.Clear();
 
                 var ratingOrders = await ApiService.GetRatingOrdersAsync(ActiveFilter);
-                var items = ratingOrders?.Select(o => new RatingItemViewModel(
-                                                            NavigationService,
-                                                            o.Id,
-                                                            o.Title,
-                                                            o.Customer?.Avatar,
-                                                            o.Customer?.Name,
-                                                            o.Price,
-                                                            o.Likes,
-                                                            o.Dislikes,
-                                                            o.ArbitrationFinishAt ?? DateTime.UtcNow));
+                var items = ratingOrders?.Select(o => new RatingItemViewModel(NavigationService,
+                                                                              IsUserSessionInitialized,
+                                                                              o.Id,
+                                                                              o.Title,
+                                                                              o.Customer?.Avatar,
+                                                                              o.Customer?.Name,
+                                                                              o.Price,
+                                                                              o.Likes,
+                                                                              o.Dislikes,
+                                                                              o.ArbitrationFinishAt ?? DateTime.UtcNow));
                 Items.AddRange(items);
             }
             catch (Exception ex)

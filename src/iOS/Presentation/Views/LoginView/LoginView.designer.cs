@@ -13,6 +13,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 	partial class LoginView
 	{
 		[Outlet]
+		UIKit.UIButton demoButton { get; set; }
+
+		[Outlet]
 		UIKit.UITextField emailTextField { get; set; }
 
 		[Outlet]
@@ -56,9 +59,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (progressBar != null) {
-				progressBar.Dispose ();
-				progressBar = null;
+			if (demoButton != null) {
+				demoButton.Dispose ();
+				demoButton = null;
 			}
 
 			if (emailTextField != null) {
@@ -99,6 +102,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 			if (passwordTextField != null) {
 				passwordTextField.Dispose ();
 				passwordTextField = null;
+			}
+
+			if (progressBar != null) {
+				progressBar.Dispose ();
+				progressBar = null;
 			}
 
 			if (registrationButton != null) {

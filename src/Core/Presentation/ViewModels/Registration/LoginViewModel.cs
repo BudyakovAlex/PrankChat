@@ -5,7 +5,6 @@ using MvvmCross.Logging;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -45,6 +44,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             PasswordText = "123456789";
 #endif
         }
+
+        public MvxAsyncCommand ShowDemoModeCommand => new MvxAsyncCommand(() => NavigationService.ShowMainView());
 
         public MvxAsyncCommand<string> LoginCommand => new MvxAsyncCommand<string>(OnLoginCommand);
 

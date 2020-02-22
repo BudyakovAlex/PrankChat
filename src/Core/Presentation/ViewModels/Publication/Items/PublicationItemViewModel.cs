@@ -6,13 +6,14 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
 {
     public class PublicationItemViewModel : BasePublicationViewModel
     {
-        public MvxAsyncCommand ShowDetailsCommand => new MvxAsyncCommand(NavigationService.ShowDetailsPublicationView);
+        public IMvxAsyncCommand ShowDetailsCommand { get; }
 
         public PublicationItemViewModel(INavigationService navigationService,
                                         IDialogService dialogService,
@@ -51,6 +52,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                     shareLink,
                     isLiked)
         {
+            ShowDetailsCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowDetailsPublicationView, restrictedExecute: ()=> IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }
     }
 }

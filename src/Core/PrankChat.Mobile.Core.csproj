@@ -63,5 +63,6 @@
     <Folder Include="ApplicationServices\Dialogs\" />
     <Folder Include="Presentation\ViewModels\Video\" />
     <Folder Include="BusinessServices\Crashlytic\" />
+    <Folder Include="Commands\" />
   </ItemGroup>
 </Project>

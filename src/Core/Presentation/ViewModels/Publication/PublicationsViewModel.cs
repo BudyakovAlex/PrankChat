@@ -165,6 +165,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                         break;
 
                     case PublicationType.MyVideosOfCreatedOrders:
+                        if (!IsUserSessionInitialized)
+                        {
+                            await NavigationService.ShowLoginView();
+                            return;
+                        }
+
                         videos = await ApiService.GetMyVideoFeedAsync(_settingsService.User.Id, SelectedPublicationType, ActiveFilter);
                         SetVideoList(videos);
                         break;

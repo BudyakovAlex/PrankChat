@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -75,17 +76,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #region Commands
 
-        public MvxCommand LikeCommand => new MvxCommand(OnLike);
+        public IMvxCommand LikeCommand => new MvxRestrictedCommand(OnLike, restrictedExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+
+        public IMvxAsyncCommand BookmarkCommand => new MvxRestrictedAsyncCommand(OnBookmarkAsync, restrictedExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+
+        public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxRestrictedAsyncCommand(ShowFullScreenVideoAsync, restrictedExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
 
         public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(() => DialogService.ShowShareDialogAsync(_shareLink));
-
-        public MvxAsyncCommand BookmarkCommand => new MvxAsyncCommand(OnBookmarkAsync);
 
         public MvxAsyncCommand OpenSettingsCommand => new MvxAsyncCommand(OnOpenSettingAsync);
 
         public MvxCommand ToggleSoundCommand => new MvxCommand(OnToggleSound);
-
-        public MvxAsyncCommand ShowFullScreenVideoCommand => new MvxAsyncCommand(ShowFullScreenVideoAsync);
 
         #endregion Commands
 
@@ -173,7 +174,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private void Unsubscribe()
         {
-            _mvxMessenger.Unsubscribe<ViewCountMessage>(_updateNumberOfViewsSubscriptionToken);
+            _mvxMessenger?.Unsubscribe<ViewCountMessage>(_updateNumberOfViewsSubscriptionToken);
             _updateNumberOfViewsSubscriptionToken?.Dispose();
             _updateNumberOfViewsSubscriptionToken = null;
         }
@@ -243,6 +244,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             if (result == Resources.Publication_Item_Subscribe_To_Author)
             {
+                await NavigationService.ShowLoginView();
                 return;
             }
         }

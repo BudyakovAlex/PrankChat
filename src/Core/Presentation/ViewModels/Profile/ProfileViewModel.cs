@@ -139,6 +139,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             {
                 IsBusy = true;
 
+                if (!IsUserSessionInitialized)
+                {
+                    return;  
+                }
+
                 await ApiService.GetCurrentUserAsync();
                 InitializeProfileData();
                 UpdateProfileVideoCommand.Execute();
@@ -223,7 +228,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             }
             else if (result == Resources.ProfileView_Menu_LogOut)
             {
-                await LogoutUser();
+                await LogoutUserAsync();
             }
         }
 
@@ -231,10 +236,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             var isUpdated = await NavigationService.ShowUpdateProfileView();
             if (isUpdated)
+            {
                 InitializeProfileData();
+            }
         }
 
-        private async Task LogoutUser()
+        private async Task LogoutUserAsync()
         {
             SettingsService.User = null;
             await SettingsService.SetAccessTokenAsync(string.Empty);
@@ -248,7 +255,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
             var user = SettingsService.User;
             if (user == null)
+            {
                 return;
+            }
 
             ProfilePhotoUrl = user.Avatar;
             Price = user.Balance.ToPriceString();
