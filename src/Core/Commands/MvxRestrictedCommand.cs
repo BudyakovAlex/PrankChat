@@ -21,7 +21,7 @@ namespace PrankChat.Mobile.Core.Commands
 			_canExecute = canExecute;
             _restrictedExecute = restrictedExecute;
             _handleFunc = handleFunc;
-        }
+		}
 
 		public bool CanExecute(object parameter)
 		{
