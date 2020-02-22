@@ -8,19 +8,19 @@ namespace PrankChat.Mobile.Core.Commands
     {
         private readonly Func<Task> _execute;
         private readonly Func<bool> _canExecute;
-        private readonly Func<bool> _restrictedExecute;
+        private readonly Func<bool> _restrictedCanExecute;
         private readonly Func<Task> _handleFunc;
 
         public MvxRestrictedAsyncCommand(Func<Task> execute,
-                                    Func<bool> canExecute = null,
-                                    bool allowConcurrentExecutions = false,
-                                    Func<bool> restrictedExecute = null,
-                                    Func<Task> handleFunc = null)
+                                         Func<bool> canExecute = null,
+                                         bool allowConcurrentExecutions = false,
+                                         Func<bool> restrictedCanExecute = null,
+                                         Func<Task> handleFunc = null)
             : base(allowConcurrentExecutions)
         {
             _execute = execute;
             _canExecute = canExecute;
-            _restrictedExecute = restrictedExecute;
+            _restrictedCanExecute = restrictedCanExecute;
             _handleFunc = handleFunc;
         }
 
@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.Core.Commands
 
         protected override Task ExecuteAsyncImpl(object parameter)
         {
-            if (_restrictedExecute?.Invoke() ?? true)
+            if (_restrictedCanExecute?.Invoke() ?? true)
             {
                 return _execute.Invoke();
             }

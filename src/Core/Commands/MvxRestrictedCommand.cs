@@ -43,6 +43,7 @@ namespace PrankChat.Mobile.Core.Commands
 			if (_restrictedExecute?.Invoke() ?? true)
 			{
 			    _execute.Invoke();
+				return;
 			}
 
 			if (_handleFunc is null)

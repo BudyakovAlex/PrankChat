@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
@@ -56,10 +57,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             get { return new MvxAsyncCommand(() => NavigationService.ShowSearchView()); }
         }
 
-        public MvxAsyncCommand ShowNotificationCommand
-        {
-            get { return new MvxAsyncCommand(NavigationService.ShowNotificationView); }
-        }
+        public IMvxAsyncCommand ShowNotificationCommand { get; }
 
         public BaseViewModel(INavigationService navigationService,
                              IErrorHandleService errorHandleService,
@@ -76,6 +74,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             {
                 IsUserSessionInitialized = settingsService.User != null;
             }
+
+            ShowNotificationCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowNotificationView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }
     }
 }

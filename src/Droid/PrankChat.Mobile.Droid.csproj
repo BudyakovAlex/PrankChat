@@ -121,6 +121,8 @@
     <Compile Include="Presentation\Listeners\MediaPlayerOnPreparedListener.cs" />
     <Compile Include="Presentation\Bindings\ViewTouchTargetBinding.cs" />
     <Compile Include="PlatformBusinessServices\Crashlytic\CrashlyticsService.cs" />
+    <Compile Include="Presenters\Attributes\ClearStackActivityPresentationAttribute.cs" />
+    <Compile Include="Presenters\CustomAndroidViewPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -715,6 +717,8 @@
     <Folder Include="Utils\Extensions\" />
     <Folder Include="Presentation\Views\Video\" />
     <Folder Include="PlatformBusinessServices\Crashlytic\" />
+    <Folder Include="Presenters\" />
+    <Folder Include="Presenters\Attributes\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_background.xml" />

@@ -52,7 +52,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                     shareLink,
                     isLiked)
         {
-            ShowDetailsCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowDetailsPublicationView, restrictedExecute: ()=> IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+            ShowDetailsCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowDetailsPublicationView, restrictedCanExecute: ()=> IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }
     }
 }

@@ -166,6 +166,19 @@
         android:layout_below="@+id/social_container"
         android:text="@string/LoginView_CreateAccount_Button"
         app:MvxBind="Click RegistrationCommand" />
+    <TextView
+        android:id="@+id/demo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/applicationWhite"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:autoLink="all"
+        android:layout_below="@+id/create_account_button"
+        android:text="@string/Demo"
+        app:MvxBind="Click ShowDemoModeCommand" />
     <FrameLayout
         android:id="@+id/container_layout"
         android:layout_width="match_parent"

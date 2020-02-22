@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
@@ -22,6 +23,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     {
         private readonly IPlatformService _platformService;
         private readonly IMvxMessenger _mvxMessenger;
+
+        private readonly string[] _restrictedActionsInDemoMode = new[]
+        {
+             Resources.Publication_Item_Complain,
+             Resources.Publication_Item_Subscribe_To_Author
+        };
 
         private MvxSubscriptionToken _updateNumberOfViewsSubscriptionToken;
         private long? _numberOfViews;
@@ -78,9 +85,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public IMvxCommand LikeCommand => new MvxRestrictedCommand(OnLike, restrictedExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
 
-        public IMvxAsyncCommand BookmarkCommand => new MvxRestrictedAsyncCommand(OnBookmarkAsync, restrictedExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+        public IMvxAsyncCommand BookmarkCommand => new MvxRestrictedAsyncCommand(OnBookmarkAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
 
-        public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxRestrictedAsyncCommand(ShowFullScreenVideoAsync, restrictedExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+        public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxRestrictedAsyncCommand(ShowFullScreenVideoAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
 
         public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(() => DialogService.ShowShareDialogAsync(_shareLink));
 
@@ -174,8 +181,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private void Unsubscribe()
         {
+            if (_updateNumberOfViewsSubscriptionToken is null)
+            {
+                return;
+            }
+
             _mvxMessenger?.Unsubscribe<ViewCountMessage>(_updateNumberOfViewsSubscriptionToken);
-            _updateNumberOfViewsSubscriptionToken?.Dispose();
+            _updateNumberOfViewsSubscriptionToken.Dispose();
             _updateNumberOfViewsSubscriptionToken = null;
         }
 
@@ -229,7 +241,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             });
 
             if (string.IsNullOrWhiteSpace(result))
+            {
                 return;
+            }
+
+            if (!IsUserSessionInitialized && _restrictedActionsInDemoMode.Contains(result))
+            {
+                await NavigationService.ShowLoginView();
+                return;
+            }
 
             if (result == Resources.Publication_Item_Complain)
             {

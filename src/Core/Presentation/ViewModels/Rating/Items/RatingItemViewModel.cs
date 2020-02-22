@@ -54,7 +54,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
             _arbitrationFinishAt = arbitrationFinishAt;
             _orderId = orderId;
 
-            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedExecute: () => isUserSessionInitialized, handleFunc: _navigatiobService.ShowLoginView);
+            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigatiobService.ShowLoginView);
         }
 
         private Task OnOpenDetailsOrderAsync()

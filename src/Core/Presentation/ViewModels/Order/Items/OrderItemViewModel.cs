@@ -37,7 +37,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             get => _elapsedTime;
             set
             {
-                if(SetProperty(ref _elapsedTime, value))
+                if (SetProperty(ref _elapsedTime, value))
                 {
                     RaisePropertyChanged(nameof(TimeText));
                 }
@@ -55,7 +55,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                 switch (_status)
                 {
                     case OrderStatusType.New:
-                            return _settingsService.User?.Id == _customerId ? Resources.OrderStatus_MyOrder : Resources.OrderStatus_New;
+                        return _settingsService.User?.Id == _customerId ? Resources.OrderStatus_MyOrder : Resources.OrderStatus_New;
 
                     case OrderStatusType.Rejected:
                         return Resources.OrderStatus_Rejected;
@@ -121,7 +121,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             _customerId = customerId;
 
             Subscribe();
-            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
         }
 
         public void Dispose()
