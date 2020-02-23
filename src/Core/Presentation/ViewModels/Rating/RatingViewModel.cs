@@ -9,8 +9,10 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -21,6 +23,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
     public class RatingViewModel : BaseViewModel
     {
         private readonly IMvxLog _mvxLog;
+        private readonly ISettingsService _settingsService;
         private readonly Dictionary<RatingOrderFilterType, string> _ratingOrderFilterTypeTitleMap;
 
         public MvxObservableCollection<RatingItemViewModel> Items { get; } = new MvxObservableCollection<RatingItemViewModel>();
@@ -54,10 +57,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
                                IDialogService dialogService,
                                IApiService apiService,
                                IMvxLog mvxLog,
-                               IErrorHandleService errorHandleService)
+                               IErrorHandleService errorHandleService,
+                               ISettingsService settingsService)
             : base(navigationService, errorHandleService, apiService, dialogService)
         {
             _mvxLog = mvxLog;
+            _settingsService = settingsService;
 
             _ratingOrderFilterTypeTitleMap = new Dictionary<RatingOrderFilterType, string>
             {
@@ -84,6 +89,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
                 var ratingOrders = await ApiService.GetRatingOrdersAsync(ActiveFilter);
                 var items = ratingOrders?.Select(o => new RatingItemViewModel(
                                                             NavigationService,
+                                                            _settingsService,
                                                             o.Id,
                                                             o.Title,
                                                             o.Customer?.Avatar,
@@ -91,7 +97,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
                                                             o.Price,
                                                             o.Likes,
                                                             o.Dislikes,
-                                                            o.ArbitrationFinishAt ?? DateTime.UtcNow));
+                                                            o.ArbitrationFinishAt ?? DateTime.UtcNow,
+                                                            o.Status ?? OrderStatusType.None,
+                                                            o.Customer.Id));
                 Items.AddRange(items);
             }
             catch (Exception ex)

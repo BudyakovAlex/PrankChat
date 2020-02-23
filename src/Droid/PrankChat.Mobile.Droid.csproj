@@ -69,6 +69,7 @@
     <Compile Include="PlatformBusinessServices\Video\Listeners\VideoPlayerOnPreparedListener.cs" />
     <Compile Include="Presentation\Bindings\BackgroundBinding.cs" />
     <Compile Include="Presentation\Converters\BooleanToResourcePathConverter.cs" />
+    <Compile Include="Presentation\Converters\OrderTypeToBackgroundConverter.cs" />
     <Compile Include="Presentation\Views\Base\BaseFragment.cs" />
     <Compile Include="Presentation\Views\Base\BaseTabFragment.cs" />
     <Compile Include="Presentation\Views\Base\BaseView.cs" />
@@ -251,19 +252,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\order_background.xml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\drawable\button_accent_background.xml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\cell_rating.axml">
       <SubType>
       </SubType>
       <Generator>
@@ -384,24 +373,40 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_web_page.axml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_full_screen_video.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\video_controller_layout.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_mdi_pause_circle_outline.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_mdi_play_circle_outline.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\action_bar_back_and_logo.axml">
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -709,8 +714,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
-    <Folder Include="Presentation\Views\Video\" />
-    <Folder Include="PlatformBusinessServices\Crashlytic\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_background.xml" />
@@ -817,6 +820,15 @@
   </ItemGroup>
   <ItemGroup>
     <GoogleServicesJson Include="google-services.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\not_my_order_background.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\not_moderated_order_background.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\my_order_background.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

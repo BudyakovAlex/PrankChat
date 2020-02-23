@@ -8,7 +8,6 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
@@ -31,13 +30,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public string ProfileShortName { get; }
 
+        public OrderType OrderType
+        {
+            get
+            {
+                return _customerId == _settingsService.User.Id
+                    ? _status == OrderStatusType.New
+                        ? OrderType.MyOrderInModeration
+                        : OrderType.MyOrder
+                        : OrderType.NotMyOrder;
+            }
+        }
+
         private TimeSpan? _elapsedTime;
         public TimeSpan? ElapsedTime
         {
             get => _elapsedTime;
             set
             {
-                if(SetProperty(ref _elapsedTime, value))
+                if (SetProperty(ref _elapsedTime, value))
                 {
                     RaisePropertyChanged(nameof(TimeText));
                 }
@@ -55,7 +66,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                 switch (_status)
                 {
                     case OrderStatusType.New:
-                            return _settingsService.User?.Id == _customerId ? Resources.OrderStatus_MyOrder : Resources.OrderStatus_New;
+                        return _settingsService.User?.Id == _customerId ? Resources.OrderStatus_MyOrder : Resources.OrderStatus_New;
 
                     case OrderStatusType.Rejected:
                         return Resources.OrderStatus_Rejected;
