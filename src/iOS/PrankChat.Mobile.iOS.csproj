@@ -263,6 +263,7 @@
     </Compile>
     <Compile Include="PlatformBusinessServices\Crashlytic\CrashlyticsService.cs" />
     <BundleResource Include="GoogleService-Info.plist" />
+    <Compile Include="Controls\FloatPlaceholderTextField.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

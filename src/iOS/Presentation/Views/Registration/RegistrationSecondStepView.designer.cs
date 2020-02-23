@@ -5,6 +5,7 @@
 // Manual changes to this file may not be handled correctly.
 //
 using Foundation;
+using PrankChat.Mobile.iOS.Controls;
 using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
@@ -13,7 +14,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 	partial class RegistrationSecondStepView
 	{
 		[Outlet]
-		UIKit.UITextField birthdayTextField { get; set; }
+		FloatPlaceholderTextField birthdayTextField { get; set; }
 
 		[Outlet]
 		UIKit.UIView femaleButtonsContainerView { get; set; }
@@ -34,19 +35,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 		UIKit.UIButton maleTitleButton { get; set; }
 
 		[Outlet]
-		UIKit.UITextField nameTextField { get; set; }
+		FloatPlaceholderTextField nameTextField { get; set; }
 
 		[Outlet]
 		UIKit.UIButton nextStepButton { get; set; }
 
 		[Outlet]
-		UIKit.UITextField nicknameTextField { get; set; }
+		FloatPlaceholderTextField nicknameTextField { get; set; }
 
 		[Outlet]
-		UIKit.UITextField passwordRepeatTextField { get; set; }
+		FloatPlaceholderTextField passwordRepeatTextField { get; set; }
 
 		[Outlet]
-		UIKit.UITextField passwordTextField { get; set; }
+		FloatPlaceholderTextField passwordTextField { get; set; }
 
 		[Outlet]
 		UIKit.UIActivityIndicatorView progressBar { get; set; }
