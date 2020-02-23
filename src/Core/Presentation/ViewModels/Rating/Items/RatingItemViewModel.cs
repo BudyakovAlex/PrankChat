@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using FFImageLoading.Transformations;
-using FFImageLoading.Work;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
@@ -17,10 +13,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
     {
         private readonly ISettingsService _settingsService;
         private readonly INavigationService _navigatiobService;
-
-        private DateTime? _arbitrationFinishAt;
         private readonly OrderStatusType _status;
         private readonly int? _customerId;
+
+        private DateTime? _arbitrationFinishAt;
         private int _orderId;
 
         public string OrderTitle { get; }
@@ -52,17 +48,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
         }
 
         public RatingItemViewModel(INavigationService navigatiobService,
-                                  ISettingsService settingsService,
-                                  int orderId,
-                                  string orderTitle,
-                                  string customerPhotoUrl,
-                                  string customerName,
-                                  double? priceText,
-                                  int likes,
-                                  int dislikes,
-                                  DateTime? arbitrationFinishAt,
-                                  OrderStatusType status,
-                                  int? customerId)
+                                   ISettingsService settingsService,
+                                   int orderId,
+                                   string orderTitle,
+                                   string customerPhotoUrl,
+                                   string customerName,
+                                   double? priceText,
+                                   int likes,
+                                   int dislikes,
+                                   DateTime? arbitrationFinishAt,
+                                   OrderStatusType status,
+                                   int? customerId)
         {
             _settingsService = settingsService;
             _navigatiobService = navigatiobService;

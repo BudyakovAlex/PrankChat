@@ -11,6 +11,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             public static UIColor BlackTransparentBackground => UIColor.FromRGBA(0, 0, 0, 0.5f);
             public static UIColor White => UIColor.FromRGB(255, 255, 255);
             public static UIColor Accent => UIColor.FromRGBA(0.427f, 0.157f, 0.745f, 1);
+            public static UIColor AccentDark = UIColor.FromRGB(0.377f, 0.181f, 0.608f);
             public static UIColor Inactive => UIColor.FromRGBA(0.129f, 0.129f, 0.129f, 1);
             public static UIColor GradientHeaderStart => UIColor.FromRGBA(0.231f, 0.553f, 0.929f, 1);
             public static UIColor GradientHeaderEnd => UIColor.FromRGBA(0.427f, 0.157f, 0.745f, 1);
@@ -21,6 +22,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             public static UIColor ButtonBorderPrimary => UIColor.FromRGBA(0.38f, 0.18f, 0.61f, 1.0f);
             public static UIColor TextFieldDarkBorder = UIColor.FromRGBA(0.76f, 0.76f, 0.76f, 1.0f);
             public static UIColor CommentBorder = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.24f);
+            public static UIColor DarkOrange = UIColor.FromRGB(0.831f, 0.502f, 0f);
         }
 
         public class Font

@@ -263,6 +263,8 @@
     </Compile>
     <Compile Include="PlatformBusinessServices\Crashlytic\CrashlyticsService.cs" />
     <BundleResource Include="GoogleService-Info.plist" />
+    <Compile Include="Presentation\Binding\UIImageViewOrderTypeTargetBinding.cs" />
+    <Compile Include="Presentation\Binding\UIButtonOrderTypeTargetBinding.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -724,6 +726,12 @@
     <ImageAsset Include="Assets.xcassets\FullscreenVideoPause.imageset\FullscreenVideoPause.pdf" />
     <ImageAsset Include="Assets.xcassets\FullscreenVideoMute.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\FullscreenVideoMute.imageset\FullscreenVideoMute.pdf" />
+    <ImageAsset Include="Assets.xcassets\OrderTypeMyBackground.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\OrderTypeMyBackground.imageset\OrderTypeMyBackground.pdf" />
+    <ImageAsset Include="Assets.xcassets\OrderTypeMyInModerationBackground.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\OrderTypeMyInModerationBackground.imageset\OrderTypeMyInModerationBackground.pdf" />
+    <ImageAsset Include="Assets.xcassets\OrderTypeNotMyBackground.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\OrderTypeNotMyBackground.imageset\OrderTypeNotMyBackground.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -745,6 +753,9 @@
     <Folder Include="Assets.xcassets\FullscreenVideoPause.imageset\" />
     <Folder Include="Assets.xcassets\FullscreenVideoMute.imageset\" />
     <Folder Include="PlatformBusinessServices\Crashlytic\" />
+    <Folder Include="Assets.xcassets\OrderTypeMyBackground.imageset\" />
+    <Folder Include="Assets.xcassets\OrderTypeMyInModerationBackground.imageset\" />
+    <Folder Include="Assets.xcassets\OrderTypeNotMyBackground.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
