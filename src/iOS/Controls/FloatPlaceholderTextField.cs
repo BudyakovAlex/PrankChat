@@ -25,27 +25,27 @@ namespace PrankChat.Mobile.iOS.Controls
 			set => _floatingLabel.Font = value;
 		}
 
-        public override string Placeholder
-        {
-            get => base.Placeholder;
-            set
-            {
-                base.Placeholder = value;
+		public override string Placeholder
+		{
+			get => base.Placeholder;
+			set
+			{
+				base.Placeholder = value;
 				SetPlaceholderText(value);
 			}
-        }
+		}
 
-        public override NSAttributedString AttributedPlaceholder
-        {
-            get => base.AttributedPlaceholder;
+		public override NSAttributedString AttributedPlaceholder
+		{
+			get => base.AttributedPlaceholder;
 			set
 			{
 				base.AttributedPlaceholder = value;
 				SetPlaceholderText(value.Value);
 			}
-        }
+		}
 
-        public FloatPlaceholderTextField(CGRect frame)
+		public FloatPlaceholderTextField(CGRect frame)
 			: base(frame)
 		{
 			InitializePlaceholder();
@@ -64,9 +64,9 @@ namespace PrankChat.Mobile.iOS.Controls
 				return rect;
 
 			return new CGRect(rect.X,
-                              rect.Y + _floatingLabel.Font.LineHeight / 2.0f,
-                              rect.Size.Width,
-                              rect.Size.Height);
+							  rect.Y + _floatingLabel.Font.LineHeight / 2.0f,
+							  rect.Size.Width,
+							  rect.Size.Height);
 		}
 
 		public override void LayoutSubviews()
@@ -79,7 +79,7 @@ namespace PrankChat.Mobile.iOS.Controls
 				{
 					_floatingLabel.Alpha = 1.0f;
 					_floatingLabel.Frame = new CGRect(_floatingLabel.Frame.Location.X,
-							                          - _floatingLabel.Frame.Size.Height / 2,
+													  -_floatingLabel.Frame.Size.Height / 2,
 													  _floatingLabel.Frame.Size.Width,
 													  _floatingLabel.Frame.Size.Height);
 
@@ -89,9 +89,9 @@ namespace PrankChat.Mobile.iOS.Controls
 				{
 					_floatingLabel.Alpha = 0.0f;
 					_floatingLabel.Frame = new CGRect(_floatingLabel.Frame.Location.X,
-							                          _floatingLabel.Font.LineHeight,
+													  _floatingLabel.Font.LineHeight,
 													  _floatingLabel.Frame.Size.Width,
-                                                      _floatingLabel.Frame.Size.Height);
+													  _floatingLabel.Frame.Size.Height);
 
 					Layer.BorderWidth = 1;
 				}
@@ -110,11 +110,11 @@ namespace PrankChat.Mobile.iOS.Controls
 				}
 				else
 				{
-                    Animate(0.3f,
-                            0.0f,
-						    UIViewAnimationOptions.BeginFromCurrentState | UIViewAnimationOptions.CurveEaseOut,
-						    () => updateLabel(),
-						    () => { });
+					Animate(0.3f,
+							0.0f,
+							UIViewAnimationOptions.BeginFromCurrentState | UIViewAnimationOptions.CurveEaseOut,
+							() => updateLabel(),
+							() => { });
 				}
 			}
 			else
@@ -136,8 +136,8 @@ namespace PrankChat.Mobile.iOS.Controls
 			Placeholder = Placeholder;
 		}
 
-        private void InitializeBorder()
-        {
+		private void InitializeBorder()
+		{
 			BorderStyle = UITextBorderStyle.None;
 
 			var borderWidth = 1.0f;
@@ -186,7 +186,7 @@ namespace PrankChat.Mobile.iOS.Controls
 
 
 		private void SetPlaceholderText(string placeholder)
-        {
+		{
 			if (string.IsNullOrWhiteSpace(placeholder))
 				return;
 
