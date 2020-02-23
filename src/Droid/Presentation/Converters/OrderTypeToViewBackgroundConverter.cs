@@ -5,7 +5,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Droid.Presentation.Converters
 {
-    public class OrderTypeToBackgroundConverter : MvxValueConverter<OrderType, string>
+    public class OrderTypeToViewBackgroundConverter : MvxValueConverter<OrderType, string>
     {
         protected override string Convert(OrderType value, Type targetType, object parameter, CultureInfo culture)
         {
