@@ -56,20 +56,20 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
 
         private UIViewController GetTopViewController(UIWindow window)
         {
-            var rootViewController = Uwrap(window.RootViewController);
+            var rootViewController = Unwrap(window.RootViewController);
             if (rootViewController is UITabBarController tabBarController)
             {
                 var selectedViewController = tabBarController.SelectedViewController;
                 if (selectedViewController != null)
                 {
-                    return Uwrap(selectedViewController);
+                    return Unwrap(selectedViewController);
                 }
             }
 
             return rootViewController;
         }
 
-        private UIViewController Uwrap(UIViewController viewContentroller)
+        private UIViewController Unwrap(UIViewController viewContentroller)
         {
             if (viewContentroller is UINavigationController navigationController)
             {
