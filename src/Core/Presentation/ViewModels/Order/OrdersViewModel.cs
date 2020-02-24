@@ -129,10 +129,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                         x.Title,
                         x.Customer?.Avatar,
                         x.Customer?.Name,
+                        x.Customer?.Id,
                         x.Price,
                         x.ActiveTo?.ToLocalTime(),
-                        x.Status ?? OrderStatusType.None,
-                        x.Customer?.Id));
+                        x.Status ?? OrderStatusType.None));
 
                 Items.SwitchTo(orderItemViewModel);
             }
@@ -176,10 +176,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     newOrderMessage.NewOrder.Title,
                     newOrderMessage.NewOrder.Customer?.Avatar,
                     newOrderMessage.NewOrder?.Customer?.Name,
+                    newOrderMessage.NewOrder.Customer?.Id,
                     newOrderMessage.NewOrder.Price,
                     newOrderMessage.NewOrder.ActiveTo,
-                    newOrderMessage.NewOrder.Status ?? OrderStatusType.None,
-                    newOrderMessage.NewOrder.Customer?.Id);
+                    newOrderMessage.NewOrder.Status ?? OrderStatusType.None);
             Items.Add(newOrderItemViewModel);
         }
     }

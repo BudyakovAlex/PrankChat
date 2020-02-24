@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -41,7 +40,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
         {
             get
             {
-                if (_customerId == _settingsService.User.Id)
+                if (_customerId == _settingsService.User?.Id)
                 {
                     return _status == OrderStatusType.New
                         ? OrderType.MyOrderInModeration
@@ -61,12 +60,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
                                    string orderTitle,
                                    string customerPhotoUrl,
                                    string customerName,
+                                   int? customerId,
                                    double? priceText,
                                    int likes,
                                    int dislikes,
                                    DateTime? arbitrationFinishAt,
-                                   OrderStatusType status,
-                                   int? customerId)
+                                   OrderStatusType status,)
         {
             _settingsService = settingsService;
             _navigatiobService = navigatiobService;

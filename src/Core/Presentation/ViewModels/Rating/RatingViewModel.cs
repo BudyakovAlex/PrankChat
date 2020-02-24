@@ -90,16 +90,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
                 var items = ratingOrders?.Select(o => new RatingItemViewModel(
                                                             NavigationService,
                                                             _settingsService,
+                                                            IsUserSessionInitialized,
                                                             o.Id,
                                                             o.Title,
                                                             o.Customer?.Avatar,
                                                             o.Customer?.Name,
+                                                            o.Customer?.Id,
                                                             o.Price,
                                                             o.Likes,
                                                             o.Dislikes,
                                                             o.ArbitrationFinishAt ?? DateTime.UtcNow,
-                                                            o.Status ?? OrderStatusType.None,
-                                                            o.Customer.Id));
+                                                            o.Status ?? OrderStatusType.None,));
                 Items.AddRange(items);
             }
             catch (Exception ex)
