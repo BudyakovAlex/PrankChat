@@ -8,6 +8,7 @@ using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using Xamarin.Essentials;
 
@@ -37,7 +38,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
             switch (exception)
             {
                 case UserVisibleException _:
-                    DisplayMessage(async () => _dialogService.ShowToast(exception.Message));
+                    DisplayMessage(async () => _dialogService.ShowToast(exception.Message, ToastType.Negative));
                     break;
             }
         }

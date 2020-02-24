@@ -59,7 +59,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
                                IMvxLog mvxLog,
                                IErrorHandleService errorHandleService,
                                ISettingsService settingsService)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _mvxLog = mvxLog;
             _settingsService = settingsService;

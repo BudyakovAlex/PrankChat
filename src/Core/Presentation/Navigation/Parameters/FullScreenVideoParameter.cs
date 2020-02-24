@@ -4,9 +4,15 @@
     {
         public string VideoUrl { get; }
 
-        public FullScreenVideoParameter(string videoUrl)
+        public string VideoName { get; }
+
+        public string Description { get; }
+
+        public FullScreenVideoParameter(string videoUrl, string videoName, string description)
         {
             VideoUrl = videoUrl;
+            VideoName = videoName;
+            Description = description;
         }
     }
 }

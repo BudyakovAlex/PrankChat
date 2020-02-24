@@ -1,10 +1,13 @@
-﻿using Android.Views;
+using Android.Views;
 using Android.Widget;
 using MvvmCross;
 using MvvmCross.Binding.Bindings.Target.Construction;
 using MvvmCross.Droid.Support.V7.AppCompat;
+using MvvmCross.IoC;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
+using PrankChat.Mobile.Droid.ApplicationServices;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Crashlytic;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Video;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
@@ -19,6 +22,7 @@ namespace PrankChat.Mobile.Droid
 
             Mvx.IoCProvider.RegisterType<IVideoPlayerService, VideoPlayerService>();
             Mvx.IoCProvider.RegisterType<ICrashlyticsService, CrashlyticsService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IDialogService, DialogService>();
         }
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)

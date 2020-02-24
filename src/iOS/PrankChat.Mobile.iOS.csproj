@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -263,6 +263,13 @@
     </Compile>
     <Compile Include="PlatformBusinessServices\Crashlytic\CrashlyticsService.cs" />
     <BundleResource Include="GoogleService-Info.plist" />
+    <Compile Include="Controls\FloatPlaceholderTextField.cs" />
+    <Compile Include="ApplicationServices\DialogService.cs" />
+    <InterfaceDefinition Include="Controls\ToastView.xib" />
+    <Compile Include="Controls\ToastView.cs" />
+    <Compile Include="Controls\ToastView.designer.cs">
+      <DependentUpon>ToastView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\Binding\UIImageViewOrderTypeTargetBinding.cs" />
     <Compile Include="Presentation\Binding\UIButtonOrderTypeTargetBinding.cs" />
   </ItemGroup>
@@ -720,12 +727,12 @@
     <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\ic_accent_thumbs_down.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\ic_accent_thumbs_up.pdf" />
-    <ImageAsset Include="Assets.xcassets\FullscreenVideoPlay.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\FullscreenVideoPlay.imageset\FullscreenVideoPlay.pdf" />
-    <ImageAsset Include="Assets.xcassets\FullscreenVideoPause.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\FullscreenVideoPause.imageset\FullscreenVideoPause.pdf" />
-    <ImageAsset Include="Assets.xcassets\FullscreenVideoMute.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\FullscreenVideoMute.imageset\FullscreenVideoMute.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_play.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_play.imageset\FullscreenVideoPlay.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_pause.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_pause.imageset\FullscreenVideoPause.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_mute.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_mute.imageset\FullscreenVideoMute.pdf" />
     <ImageAsset Include="Assets.xcassets\OrderTypeMyBackground.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\OrderTypeMyBackground.imageset\OrderTypeMyBackground.pdf" />
     <ImageAsset Include="Assets.xcassets\OrderTypeMyInModerationBackground.imageset\Contents.json" />
@@ -749,10 +756,11 @@
     <Folder Include="Assets.xcassets\ic_accent_thumbs_up.imageset\" />
     <Folder Include="Presentation\Views\Web\" />
     <Folder Include="Presentation\Views\Video\" />
-    <Folder Include="Assets.xcassets\FullscreenVideoPlay.imageset\" />
-    <Folder Include="Assets.xcassets\FullscreenVideoPause.imageset\" />
-    <Folder Include="Assets.xcassets\FullscreenVideoMute.imageset\" />
     <Folder Include="PlatformBusinessServices\Crashlytic\" />
+    <Folder Include="Assets.xcassets\ic_play.imageset\" />
+    <Folder Include="Assets.xcassets\ic_pause.imageset\" />
+    <Folder Include="Assets.xcassets\ic_mute.imageset\" />
+    <Folder Include="ApplicationServices\" />
     <Folder Include="Assets.xcassets\OrderTypeMyBackground.imageset\" />
     <Folder Include="Assets.xcassets\OrderTypeMyInModerationBackground.imageset\" />
     <Folder Include="Assets.xcassets\OrderTypeNotMyBackground.imageset\" />

@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Commands;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -33,22 +35,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 
         public int Dislikes { get; }
 
-        public MvxAsyncCommand OpenDetailsOrderCommand => new MvxAsyncCommand(OnOpenDetailsOrderAsync);
+        public IMvxAsyncCommand OpenDetailsOrderCommand { get; }
 
         public OrderType OrderType
         {
             get
             {
-                return _customerId == _settingsService.User.Id
-                    ? _status == OrderStatusType.New
+                if (_customerId == _settingsService.User.Id)
+                {
+                    return _status == OrderStatusType.New
                         ? OrderType.MyOrderInModeration
-                        : OrderType.MyOrder
-                        : OrderType.NotMyOrder;
+                        : OrderType.MyOrder;
+                }
+                else
+                {
+                    return OrderType.NotMyOrder;
+                }
             }
         }
 
         public RatingItemViewModel(INavigationService navigatiobService,
                                    ISettingsService settingsService,
+                                   bool isUserSessionInitialized,
                                    int orderId,
                                    string orderTitle,
                                    string customerPhotoUrl,
@@ -73,6 +81,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
             _status = status;
             _customerId = customerId;
             _orderId = orderId;
+
+            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigatiobService.ShowLoginView);
         }
 
         private Task OnOpenDetailsOrderAsync()

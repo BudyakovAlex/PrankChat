@@ -1,4 +1,5 @@
-﻿using MvvmCross.Platforms.Ios.Presenters.Attributes;
+﻿using System.Linq;
+using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
@@ -27,6 +28,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
                 _tabsInitialized = true;
             }
 		}
+
+        public override void ItemSelected(UITabBar tabbar, UITabBarItem item)
+        {
+            var tabPosition = tabbar.Items.ToList().IndexOf(item);
+            ViewModel?.CheckDemoCommand.Execute(tabPosition);
+        }
 
         private void SetTabs()
         {
@@ -64,4 +71,3 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
         }
     }
 }
-

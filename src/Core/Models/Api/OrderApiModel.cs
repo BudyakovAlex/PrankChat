@@ -12,7 +12,7 @@ namespace PrankChat.Mobile.Core.Models.Api
         public int Id { get; set; }
 
         [JsonProperty("price")]
-        public long? Price { get; set; }
+        public double? Price { get; set; }
 
         [JsonProperty("title")]
         public string Title { get; set; }

@@ -4,6 +4,7 @@ using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
+using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -34,11 +35,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         {
             get
             {
-                return _customerId == _settingsService.User.Id
-                    ? _status == OrderStatusType.New
+                if (_customerId == _settingsService.User.Id)
+                {
+                    return _status == OrderStatusType.New
                         ? OrderType.MyOrderInModeration
-                        : OrderType.MyOrder
-                        : OrderType.NotMyOrder;
+                        : OrderType.MyOrder;
+                }
+                else
+                {
+                    return OrderType.NotMyOrder;
+                }
             }
         }
 
@@ -104,7 +110,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             }
         }
 
-        public MvxAsyncCommand OpenDetailsOrderCommand => new MvxAsyncCommand(OnOpenDetailsOrderAsync);
+        public IMvxAsyncCommand OpenDetailsOrderCommand { get; }
 
         public OrderItemViewModel(INavigationService navigationService,
                                   ISettingsService settingsService,
@@ -132,6 +138,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             _customerId = customerId;
 
             Subscribe();
+            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
         }
 
         public void Dispose()

@@ -1,29 +1,42 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Commands;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
-    public class BasePublicationViewModel : BaseViewModel
+    public class BasePublicationViewModel : BaseViewModel, IDisposable
     {
         private readonly IPlatformService _platformService;
-        private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
+        private readonly IMvxMessenger _mvxMessenger;
 
+        private readonly string[] _restrictedActionsInDemoMode = new[]
+        {
+             Resources.Publication_Item_Complain,
+             Resources.Publication_Item_Subscribe_To_Author
+        };
+
+        private MvxSubscriptionToken _updateNumberOfViewsSubscriptionToken;
         private long? _numberOfViews;
         private DateTime _publicationDate;
         private long? _numberOfLikes;
         private string _shareLink;
+        private CancellationTokenSource _cancellationSendingLikeTokenSource;
 
         #region Profile
 
@@ -33,15 +46,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string ProfilePhotoUrl { get; set; }
 
-        #endregion
+        #endregion Profile
 
         #region Video
 
         public string VideoInformationText => $"{_numberOfViews.ToCountViewsString()} • {_publicationDate.ToTimeAgoPublicationString()}";
 
-        public int VideoId { get; set; } 
-        
+        public int VideoId { get; set; }
+
         public string VideoName { get; set; }
+
+        public string Description { get; }
 
         public string PlaceholderImageUrl { get; set; }
 
@@ -63,31 +78,32 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             set => SetProperty(ref _isLiked, value);
         }
 
-        #endregion
+        #endregion Video
 
         public string NumberOfLikesText => $"{Resources.Like} {_numberOfLikes.ToCountString()}";
 
         #region Commands
 
-        public MvxAsyncCommand LikeCommand => new MvxAsyncCommand(OnLikeAsync);
+        public IMvxCommand LikeCommand => new MvxRestrictedCommand(OnLike, restrictedExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+
+        public IMvxAsyncCommand BookmarkCommand => new MvxRestrictedAsyncCommand(OnBookmarkAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+
+        public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxRestrictedAsyncCommand(ShowFullScreenVideoAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
 
         public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(() => DialogService.ShowShareDialogAsync(_shareLink));
-
-        public MvxAsyncCommand BookmarkCommand => new MvxAsyncCommand(OnBookmarkAsync);
 
         public MvxAsyncCommand OpenSettingsCommand => new MvxAsyncCommand(OnOpenSettingAsync);
 
         public MvxCommand ToggleSoundCommand => new MvxCommand(OnToggleSound);
 
-        public MvxAsyncCommand ShowFullScreenVideoCommand => new MvxAsyncCommand(ShowFullScreenVideoAsync);
-
-        #endregion
+        #endregion Commands
 
         public BasePublicationViewModel(INavigationService navigationService,
                                         IErrorHandleService errorHandleService,
                                         IApiService apiService,
-                                        IDialogService dialogService)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+                                        IDialogService dialogService,
+                                        ISettingsService settingsService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
         }
 
@@ -97,25 +113,30 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                         IVideoPlayerService videoPlayerService,
                                         IApiService apiService,
                                         IErrorHandleService errorHandleService,
+                                        IMvxMessenger mvxMessenger,
+                                        ISettingsService settingsService,
                                         string profileName,
                                         string profilePhotoUrl,
                                         int videoId,
                                         string videoName,
+                                        string description,
                                         string videoUrl,
                                         long numberOfViews,
                                         DateTime publicationDate,
                                         long numberOfLikes,
                                         string shareLink,
                                         bool isLiked)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _platformService = platformService;
+            _mvxMessenger = mvxMessenger;
 
             VideoPlayerService = videoPlayerService;
             ProfileName = profileName;
             ProfilePhotoUrl = profilePhotoUrl;
             VideoId = videoId;
             VideoName = videoName;
+            Description = description;
             VideoUrl = videoUrl;
             IsLiked = isLiked;
 
@@ -123,36 +144,88 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _publicationDate = publicationDate;
             _numberOfLikes = numberOfLikes;
             _shareLink = shareLink;
+
+            Subscribe();
+        }
+
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Unsubscribe();
+            }
+        }
+
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            Unsubscribe();
+
+            base.ViewDestroy(viewFinishing);
+        }
+
+        private void Subscribe()
+        {
+            _updateNumberOfViewsSubscriptionToken = _mvxMessenger.Subscribe<ViewCountMessage>(viewCount =>
+            {
+                if (viewCount.VideoId == VideoId)
+                {
+                    _numberOfViews = viewCount.ViewsCount;
+                    RaisePropertyChanged(nameof(VideoInformationText));
+                }
+            });
+        }
+
+        private void Unsubscribe()
+        {
+            if (_updateNumberOfViewsSubscriptionToken is null)
+            {
+                return;
+            }
+
+            _mvxMessenger?.Unsubscribe<ViewCountMessage>(_updateNumberOfViewsSubscriptionToken);
+            _updateNumberOfViewsSubscriptionToken.Dispose();
+            _updateNumberOfViewsSubscriptionToken = null;
         }
 
         private Task ShowFullScreenVideoAsync()
         {
-            return NavigationService.ShowFullScreenVideoView(VideoUrl);
+            VideoPlayerService.Player.TryRegisterViewedFact(VideoId, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
+            return NavigationService.ShowFullScreenVideoView(VideoUrl, VideoName, Description);
         }
 
-        private async Task OnLikeAsync()
+        private void OnLike()
         {
-            await _semaphoreSlim.WaitAsync(0);
+            IsLiked = !IsLiked;
+            _numberOfLikes = IsLiked
+                            ? _numberOfLikes + 1
+                            : _numberOfLikes - 1;
+            RaisePropertyChanged(nameof(NumberOfLikesText));
+            SendLike().FireAndForget();
+        }
+
+        private async Task SendLike()
+        {
+            _cancellationSendingLikeTokenSource?.Cancel();
+            if (_cancellationSendingLikeTokenSource == null)
+            {
+                _cancellationSendingLikeTokenSource = new CancellationTokenSource();
+            }
+
             try
             {
-                IsLiked = !IsLiked;
-                var video = await ApiService.SendLikeAsync(VideoId, IsLiked);
-                if (video != null)
-                {
-                    _numberOfLikes = IsLiked
-                        ? _numberOfLikes + 1
-                        : _numberOfLikes - 1;
-                    await RaisePropertyChanged(nameof(NumberOfLikesText));
-                }
-            }
-            catch (Exception ex)
-            {
-                IsLiked = !IsLiked;
-                ErrorHandleService.HandleException(new UserVisibleException("Невозможно поставить лайк."));
+                await ApiService.SendLikeAsync(VideoId, IsLiked, _cancellationSendingLikeTokenSource.Token);
             }
             finally
             {
-                _semaphoreSlim.Release();
+                _cancellationSendingLikeTokenSource?.Dispose();
+                _cancellationSendingLikeTokenSource = null;
             }
         }
 
@@ -171,10 +244,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             });
 
             if (string.IsNullOrWhiteSpace(result))
+            {
                 return;
+            }
+
+            if (!IsUserSessionInitialized && _restrictedActionsInDemoMode.Contains(result))
+            {
+                await NavigationService.ShowLoginView();
+                return;
+            }
 
             if (result == Resources.Publication_Item_Complain)
             {
+                await ApiService.ComplainVideoAsync(VideoId, "n/a", "n/a");
                 return;
             }
 

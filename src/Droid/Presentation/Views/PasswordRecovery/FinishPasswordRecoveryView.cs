@@ -17,7 +17,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.PasswordRecovery
     [Register(nameof(FinishPasswordRecoveryView))]
     public class FinishPasswordRecoveryView : BaseFragment<FinishPasswordRecoveryViewModel>
     {
-        protected override bool HasBackButton => true;
+        protected override bool HasBackButton => false;
 
         protected override string TitleActionBar => Core.Presentation.Localization.Resources.Password_Recovery_View_Title;
 

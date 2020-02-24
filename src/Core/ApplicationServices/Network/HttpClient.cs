@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using Newtonsoft.Json;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
@@ -62,17 +64,24 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return await ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
-        public Task<TResult> Post<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : class where TResult : new()
+        public Task<TResult> Post<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where TEntity : class where TResult : new()
         {
             var request = new RestRequest(endpoint, Method.POST);
             request.AddJsonBody(item);
-            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
+            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
-        public Task<TResult> Post<TResult>(string endpoint, bool exceptionThrowingEnabled = false) where TResult : new()
+        public Task Post<TEntity>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where TEntity : class
         {
             var request = new RestRequest(endpoint, Method.POST);
-            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
+            request.AddJsonBody(item);
+            return ExecuteTask(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
+        }
+
+        public Task<TResult> Post<TResult>(string endpoint, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where TResult : new()
+        {
+            var request = new RestRequest(endpoint, Method.POST);
+            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
         public Task<TResult> PostVideoFile<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : LoadVideoApiModel where TResult : new()
@@ -175,7 +184,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                     case HttpStatusCode.InternalServerError:
                         var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(response.Content);
-                        throw new InternalServerProblemDetails(problemDetails.Title);
+                        throw MappingConfig.Mapper.Map<InternalServerProblemDetails>(problemDetails);
                 }
 
                 if (response.ErrorException != null)

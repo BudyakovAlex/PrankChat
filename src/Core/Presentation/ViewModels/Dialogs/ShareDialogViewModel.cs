@@ -7,6 +7,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
@@ -30,8 +31,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
                                     IPlatformService platformService,
                                     IErrorHandleService errorHandleService,
                                     IApiService apiService,
-                                    IDialogService dialogService)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+                                    IDialogService dialogService,
+                                    ISettingsService settingsService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _platformService = platformService;
         }

@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using FFImageLoading.Transformations;
 using FFImageLoading.Work;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
@@ -16,7 +19,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public double DownsampleWidth { get; } = 100;
 
-        public List<ITransformation> Transformations => new List<ITransformation> { new CircleTransformation() };
+        public virtual List<ITransformation> Transformations => new List<ITransformation> { new CircleTransformation() };
 
         #endregion
 
@@ -39,6 +42,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             set => SetProperty(ref _isBusy, value);
         }
 
+        public bool IsUserSessionInitialized { get; }
+
         public MvxAsyncCommand GoBackCommand
         {
             get
@@ -52,20 +57,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             get { return new MvxAsyncCommand(() => NavigationService.ShowSearchView()); }
         }
 
-        public MvxAsyncCommand ShowNotificationCommand
-        {
-            get { return new MvxAsyncCommand(NavigationService.ShowNotificationView); }
-        }
+        public IMvxAsyncCommand ShowNotificationCommand { get; }
 
         public BaseViewModel(INavigationService navigationService,
-                            IErrorHandleService errorHandleService,
-                            IApiService apiService,
-                            IDialogService dialogService)
+                             IErrorHandleService errorHandleService,
+                             IApiService apiService,
+                             IDialogService dialogService,
+                             ISettingsService settingsService)
         {
             NavigationService = navigationService;
             ErrorHandleService = errorHandleService;
             ApiService = apiService;
             DialogService = dialogService;
+            IsUserSessionInitialized = settingsService.User != null;
+
+            ShowNotificationCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowNotificationView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }
     }
 }

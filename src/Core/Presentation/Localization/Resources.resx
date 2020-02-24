@@ -418,7 +418,7 @@
     <value>Отменить</value>
   </data>
   <data name="OrderDetailsView_Took_The_Order_Text" xml:space="preserve">
-    <value>Взял заказ:</value>
+    <value>Исполнитель:</value>
   </data>
   <data name="OrderDetailsView_Yes_Button" xml:space="preserve">
     <value>Да</value>
@@ -642,5 +642,8 @@
   </data>
   <data name="NotificationStatus_NotViewed" xml:space="preserve">
     <value>Непросмотрено</value>
+  </data>
+  <data name="Demo" xml:space="preserve">
+    <value>Демо</value>
   </data>
 </root>

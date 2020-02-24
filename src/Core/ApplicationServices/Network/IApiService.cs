@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -32,6 +32,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         Task<List<RatingOrderDataModel>> GetRatingOrdersAsync(RatingOrderFilterType filter);
 
         Task CancelOrderAsync(int orderId);
+        
+        Task ComplainOrderAsync(int orderId, string title, string description);
 
         Task<OrderDataModel> SubscribeOrderAsync(int orderId);
 
@@ -49,7 +51,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<List<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType);
 
-        Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked);
+        Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null);
 
         Task<List<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType);
 
@@ -64,12 +66,23 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo);
 
         Task<UserDataModel> SendAvatarAsync(string path);
+        
+        Task ComplainUserAsync(int userId, string title, string description);
 
         #endregion Users
 
         #region Video
 
         Task<VideoDataModel> SendVideoAsync(int orderId, string path, string title, string description);
+
+        /// <summary>
+        /// Registers the video viewed fact asynchronous.
+        /// </summary>
+        /// <param name="videoId">The video identifier.</param>
+        /// <returns>Video views count.</returns>
+        Task<long?> RegisterVideoViewedFactAsync(int videoId);
+
+        Task ComplainVideoAsync(int videoId, string title, string description);
 
         #endregion Video
 

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
@@ -133,6 +133,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return Task.CompletedTask;
         }
 
+        public Task ComplainOrderAsync(int orderId, string title, string description)
+        {
+            var dataApiModel = new ComplainApiModel()
+            {
+                Title = title,
+                Description = description
+            };
+            var url = $"orders/{orderId}/complaint";
+            return _client.Post(url, dataApiModel);
+        }
+
         public async Task<OrderDataModel> SubscribeOrderAsync(int orderId)
         {
             var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
@@ -228,10 +239,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return videoData;
         }
 
-        public async Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked)
+        public async Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
         {
             var url = isChecked ? $"videos/{videoId}/like" : $"videos/{videoId}/like/remove";
-            var data = await _client.Post<DataApiModel<VideoApiModel>>(url);
+            var data = await _client.Post<DataApiModel<VideoApiModel>>(url, cancellationToken: cancellationToken);
             return MappingConfig.Mapper.Map<VideoDataModel>(data?.Data);
         }
 
@@ -252,13 +263,24 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
             return user;
         }
-        
+
         public async Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
         {
             var userUpdateProfileApiModel = MappingConfig.Mapper.Map<UserUpdateProfileApiModel>(userInfo);
             var dataApiModel = await _client.Post<UserUpdateProfileApiModel, DataApiModel<UserApiModel>>("me", userUpdateProfileApiModel);
             var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
             return user;
+        }
+
+        public Task ComplainUserAsync(int userId, string title, string description)
+        {
+            var dataApiModel = new ComplainApiModel()
+            {
+                Title = title,
+                Description = description
+            };
+            var url = $"users/{userId}/complaint";
+            return _client.Post(url, dataApiModel);
         }
 
         #endregion Users
@@ -276,6 +298,23 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             };
             var videoMetadataApiModel = await _client.PostVideoFile<LoadVideoApiModel, DataApiModel<VideoApiModel>>("videos", loadVideoApiModel);
             return MappingConfig.Mapper.Map<VideoDataModel>(videoMetadataApiModel.Data);
+        }
+
+        public async Task<long?> RegisterVideoViewedFactAsync(int videoId)
+        {
+            var videoApiModel = await _client.UnauthorizedGet<DataApiModel<VideoApiModel>>($"videos/{videoId}/looked");
+            return videoApiModel.Data.ViewsCount;
+        }
+
+        public Task ComplainVideoAsync(int videoId, string title, string description)
+        {
+            var dataApiModel = new ComplainApiModel()
+            {
+                Title = title,
+                Description = description
+            };
+            var url = $"videos/{videoId}/complaint";
+            return _client.Post(url, dataApiModel);
         }
 
         #endregion Video

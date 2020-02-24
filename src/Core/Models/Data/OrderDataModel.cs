@@ -8,7 +8,7 @@ namespace PrankChat.Mobile.Core.Models.Data
     {
         public int Id { get; set; }
 
-        public long? Price { get; set; }
+        public double? Price { get; set; }
 
         public string Title { get; set; }
 
@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public DateTime? TakenToWorkAt { get; set; }
 
-        public TimeSpan? FinishIn => DateTime.Now - ActiveTo?.ToLocalTime();
+        public TimeSpan? FinishIn => ActiveTo?.ToLocalTime() - DateTime.Now;
 
         public UserDataModel Customer { get; set; }
 

@@ -1,6 +1,9 @@
-﻿namespace PrankChat.Mobile.Core.BusinessServices
+﻿using System;
+
+namespace PrankChat.Mobile.Core.BusinessServices
 {
-    public interface IVideoPlayerService
+    public interface IVideoPlayerService : IDisposable
+
     {
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="IVideoPlayerService"/> sound is muted.
@@ -19,7 +22,8 @@
         /// Plays the specified URI. Initialize playback, switch file.
         /// </summary>
         /// <param name="uri">The URI.</param>
-        void Play(string uri);
+        /// <param name="id">The video identifier.</param>
+        void Play(string uri, int id);
 
         /// <summary>
         /// Plays this currently playing URI. Continue playing.
