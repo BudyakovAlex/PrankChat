@@ -205,7 +205,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         private void AddLanguageHeader(IRestRequest request)
         {
             var currentCulture = CultureInfo.CurrentCulture;
-            request.AddHeader(HttpRequestHeader.AcceptLanguage.ToString(), currentCulture.TwoLetterISOLanguageName);
+            request.AddHeader("Accept-Language", currentCulture.TwoLetterISOLanguageName);
         }
 
         private string TryAddIncludeFlag(string apiPoint, IncludeType[] includes)
