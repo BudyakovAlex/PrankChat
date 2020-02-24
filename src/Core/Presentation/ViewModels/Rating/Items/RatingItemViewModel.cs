@@ -14,10 +14,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
     {
         private readonly ISettingsService _settingsService;
         private readonly INavigationService _navigatiobService;
-        private readonly OrderStatusType _status;
 
-        private DateTime? _arbitrationFinishAt;
-        private int _orderId;
+        private readonly int? _customerId;
+        private readonly DateTime? _arbitrationFinishAt;
+        private readonly int _orderId;
 
         public string OrderTitle { get; }
 
@@ -35,7 +35,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 
         public IMvxAsyncCommand OpenDetailsOrderCommand { get; }
 
-        public OrderType OrderType => OrderType.NotMyOrder;
+        public OrderType OrderType => _settingsService.User?.Id == _customerId ? OrderType.MyOrder : OrderType.NotMyOrder;
 
         public RatingItemViewModel(INavigationService navigatiobService,
                                    ISettingsService settingsService,
@@ -47,7 +47,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
                                    double? priceText,
                                    int likes,
                                    int dislikes,
-                                   DateTime? arbitrationFinishAt)
+                                   DateTime? arbitrationFinishAt,
+                                   int? customerId)
         {
             _settingsService = settingsService;
             _navigatiobService = navigatiobService;
@@ -59,6 +60,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
             CustomerShortName = customerName.ToShortenName();
 
             _arbitrationFinishAt = arbitrationFinishAt;
+            _customerId = customerId;
             _orderId = orderId;
 
             OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigatiobService.ShowLoginView);
