@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Presentation.Navigation.Results;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 {
@@ -12,7 +12,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 
         Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null);
 
-        void ShowToast(string text);
+        void ShowToast(string text, ToastType toastType);
         
         Task ShowShareDialogAsync(string url);
 

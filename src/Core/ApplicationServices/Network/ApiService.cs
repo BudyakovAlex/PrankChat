@@ -133,6 +133,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return Task.CompletedTask;
         }
 
+        public Task ComplainOrderAsync(int orderId, string title, string description)
+        {
+            var dataApiModel = new ComplainApiModel()
+            {
+                Title = title,
+                Description = description
+            };
+            var url = $"orders/{orderId}/complaint";
+            return _client.Post(url, dataApiModel);
+        }
+
         public async Task<OrderDataModel> SubscribeOrderAsync(int orderId)
         {
             var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
@@ -261,6 +272,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return user;
         }
 
+        public Task ComplainUserAsync(int userId, string title, string description)
+        {
+            var dataApiModel = new ComplainApiModel()
+            {
+                Title = title,
+                Description = description
+            };
+            var url = $"users/{userId}/complaint";
+            return _client.Post(url, dataApiModel);
+        }
+
         #endregion Users
 
         #region Video
@@ -282,6 +304,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var videoApiModel = await _client.UnauthorizedGet<DataApiModel<VideoApiModel>>($"videos/{videoId}/looked");
             return videoApiModel.Data.ViewsCount;
+        }
+
+        public Task ComplainVideoAsync(int videoId, string title, string description)
+        {
+            var dataApiModel = new ComplainApiModel()
+            {
+                Title = title,
+                Description = description
+            };
+            var url = $"videos/{videoId}/complaint";
+            return _client.Post(url, dataApiModel);
         }
 
         #endregion Video

@@ -256,6 +256,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             if (result == Resources.Publication_Item_Complain)
             {
+                await ApiService.ComplainVideoAsync(VideoId, "n/a", "n/a");
                 return;
             }
 

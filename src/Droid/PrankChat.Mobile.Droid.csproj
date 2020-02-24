@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -123,6 +123,9 @@
     <Compile Include="PlatformBusinessServices\Crashlytic\CrashlyticsService.cs" />
     <Compile Include="Presenters\Attributes\ClearStackActivityPresentationAttribute.cs" />
     <Compile Include="Presenters\CustomAndroidViewPresenter.cs" />
+    <Compile Include="ApplicationServices\DialogService.cs" />
+    <Compile Include="Presentation\Views\Base\IToolbarOwner.cs" />
+    <Compile Include="Extensions\ViewExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -406,6 +409,10 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\action_bar_back_and_logo.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\toast_view.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
@@ -719,6 +726,8 @@
     <Folder Include="PlatformBusinessServices\Crashlytic\" />
     <Folder Include="Presenters\" />
     <Folder Include="Presenters\Attributes\" />
+    <Folder Include="ApplicationServices\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_background.xml" />
