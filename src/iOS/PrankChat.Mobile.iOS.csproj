@@ -721,16 +721,36 @@
     <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\ic_accent_thumbs_up.pdf">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\ic_accent_thumbs_down.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\ic_accent_thumbs_up.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_play.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_play.imageset\FullscreenVideoPlay.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_pause.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_pause.imageset\FullscreenVideoPause.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_mute.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_mute.imageset\FullscreenVideoMute.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\ic_accent_thumbs_down.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\ic_accent_thumbs_up.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_play.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_play.imageset\FullscreenVideoPlay.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_pause.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_pause.imageset\FullscreenVideoPause.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_mute.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_mute.imageset\FullscreenVideoMute.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
