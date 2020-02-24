@@ -14,6 +14,14 @@
     <color name="separator">#F6F6F6</color>
     <color name="gradient_start">#3B8DED</color>
     <color name="gradient_end">#6D28BE</color>
+    <color name="not_my_order_gradient_start">#3B8DED</color>
+    <color name="not_my_order_gradient_end">#265DBC</color>
+    <color name="not_my_order_accent">#6D28BE</color>
+    <color name="my_order_gradient_start">#F9C642</color>
+    <color name="my_order_gradient_end">#FF7F09</color>
+    <color name="my_order_accent">#FF810B</color>
+    <color name="not_moderated_order_gradient_start">#F9F9F9</color>
+    <color name="not_moderated_order_gradient_end">#9A9A9A</color>
     <color name="description">#9E9E9E</color>
     <color name="border">#C3C3C3</color>
     <color name="dark_placeholder">#878787</color>

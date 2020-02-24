@@ -14,16 +14,16 @@
           android:endY="90.5492"
           android:tileMode="clamp">
         <item
-            android:color="#265DBC"
+            android:color="@color/not_my_order_gradient_end"
             android:offset="0" />
         <item
-            android:color="#3B8DED"
+            android:color="@color/not_my_order_gradient_start"
             android:offset="1" />
       </gradient>
     </aapt:attr>
   </path>
   <path
       android:pathData="M144 111.542C83.4036 57.7473 19.4988 97.3492 3.69305 108.734C1.28806 110.466 0 113.255 0 116.219V188C0 193.523 4.47715 198 10 198H278C283.523 198 288 193.523 288 188V132.923C288 124.44 277.602 119.146 270.158 123.217C243.968 137.539 192.906 154.959 144 111.542Z"
-      android:fillColor="#6D28BE"
+      android:fillColor="@color/not_my_order_accent"
       android:fillAlpha="0.2" />
 </vector>
