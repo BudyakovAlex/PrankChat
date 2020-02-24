@@ -98,9 +98,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
                                                             o.Price,
                                                             o.Likes,
                                                             o.Dislikes,
-                                                            o.ArbitrationFinishAt ?? DateTime.UtcNow,
-                                                            o.Status ?? OrderStatusType.None,
-                                                            o.Customer?.Id));
+                                                            o.ArbitrationFinishAt ?? DateTime.UtcNow));
                 Items.AddRange(items);
             }
             catch (Exception ex)

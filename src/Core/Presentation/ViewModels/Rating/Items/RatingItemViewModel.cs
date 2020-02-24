@@ -15,7 +15,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
         private readonly ISettingsService _settingsService;
         private readonly INavigationService _navigatiobService;
         private readonly OrderStatusType _status;
-        private readonly int? _customerId;
 
         private DateTime? _arbitrationFinishAt;
         private int _orderId;
@@ -36,22 +35,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 
         public IMvxAsyncCommand OpenDetailsOrderCommand { get; }
 
-        public OrderType OrderType
-        {
-            get
-            {
-                if (_customerId == _settingsService.User?.Id)
-                {
-                    return _status == OrderStatusType.New
-                        ? OrderType.MyOrderInModeration
-                        : OrderType.MyOrder;
-                }
-                else
-                {
-                    return OrderType.NotMyOrder;
-                }
-            }
-        }
+        public OrderType OrderType => OrderType.NotMyOrder;
 
         public RatingItemViewModel(INavigationService navigatiobService,
                                    ISettingsService settingsService,
@@ -63,9 +47,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
                                    double? priceText,
                                    int likes,
                                    int dislikes,
-                                   DateTime? arbitrationFinishAt,
-                                   OrderStatusType status,
-                                   int? customerId)
+                                   DateTime? arbitrationFinishAt)
         {
             _settingsService = settingsService;
             _navigatiobService = navigatiobService;
@@ -77,8 +59,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
             CustomerShortName = customerName.ToShortenName();
 
             _arbitrationFinishAt = arbitrationFinishAt;
-            _status = status;
-            _customerId = customerId;
             _orderId = orderId;
 
             OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigatiobService.ShowLoginView);
