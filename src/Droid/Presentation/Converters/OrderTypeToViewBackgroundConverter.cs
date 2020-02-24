@@ -13,8 +13,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Converters
             {
                 case OrderType.MyOrder:
                     return "my_order_background";
+
                 case OrderType.MyOrderInModeration:
                     return "not_moderated_order_background";
+
                 case OrderType.NotMyOrder:
                     return "not_my_order_background";
             }

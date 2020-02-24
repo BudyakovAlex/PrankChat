@@ -31,6 +31,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
                         view.SetBackgroundResource(Resource.Drawable.button_accent_background);
                         view.SetTextColor(ContextCompat.GetColorStateList(view.Context, Resource.Color.applicationWhite));
                         break;
+
                     case OrderType.MyOrderInModeration:
                         view.SetBackgroundResource(Resource.Drawable.button_white_secondary_background);
                         view.SetTextColor(ContextCompat.GetColorStateList(view.Context, Resource.Color.applicationBlack));
@@ -38,6 +39,5 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
                 }
             }
         }
-
     }
 }
