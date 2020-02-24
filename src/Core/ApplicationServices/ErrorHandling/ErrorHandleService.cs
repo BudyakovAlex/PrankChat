@@ -39,7 +39,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
             switch (exception)
             {
                 case BaseUserVisibleException _:
-                    DisplayMessage(async () => _dialogService.ShowToast(exception.Message));
+                    DisplayMessage(async () => _dialogService.ShowToast(exception.Message, ToastType.Negative));
                     break;
             }
         }
