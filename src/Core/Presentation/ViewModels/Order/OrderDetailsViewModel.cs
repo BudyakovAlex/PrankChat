@@ -156,13 +156,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         #endregion Commands
 
         public OrderDetailsViewModel(INavigationService navigationService,
-                                    IMvxLog mvxLog,
-                                    ISettingsService settingsService,
-                                    IMediaService mediaService,
-                                    IErrorHandleService errorHandleService,
-                                    IApiService apiService,
-                                    IDialogService dialogService)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+                                     IMvxLog mvxLog,
+                                     ISettingsService settingsService,
+                                     IMediaService mediaService,
+                                     IErrorHandleService errorHandleService,
+                                     IApiService apiService,
+                                     IDialogService dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _mvxLog = mvxLog;
             _settingsService = settingsService;

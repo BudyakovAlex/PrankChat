@@ -9,6 +9,7 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -54,8 +55,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
                                IDialogService dialogService,
                                IApiService apiService,
                                IMvxLog mvxLog,
-                               IErrorHandleService errorHandleService)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+                               IErrorHandleService errorHandleService,
+                               ISettingsService settingsService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _mvxLog = mvxLog;
 

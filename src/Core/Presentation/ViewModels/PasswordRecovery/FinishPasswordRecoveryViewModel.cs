@@ -21,7 +21,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
                                                 IApiService apiService,
                                                 IDialogService dialogService,
                                                 ISettingsService settingsService)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _settingService = settingsService;
         }

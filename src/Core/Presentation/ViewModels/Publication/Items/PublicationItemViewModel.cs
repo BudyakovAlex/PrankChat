@@ -5,6 +5,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -22,6 +23,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                                         IApiService apiServices,
                                         IErrorHandleService errorHandleService,
                                         IMvxMessenger mvxMessenger,
+                                        ISettingsService settingsService,
                                         string profileName,
                                         string profilePhotoUrl,
                                         int videoId,
@@ -40,6 +42,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                     apiServices,
                     errorHandleService,
                     mvxMessenger,
+                    settingsService,
                     profileName,
                     profilePhotoUrl,
                     videoId,

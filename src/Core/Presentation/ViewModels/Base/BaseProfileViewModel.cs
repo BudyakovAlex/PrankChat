@@ -100,7 +100,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
                                     IApiService apiService,
                                     IDialogService dialogService,
                                     ISettingsService settingsService)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             SettingsService = settingsService;
         }

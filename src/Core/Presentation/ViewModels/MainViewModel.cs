@@ -40,7 +40,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                              IErrorHandleService errorHandleService,
                              IApiService apiService,
                              IDialogService dialogService)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _messenger = messenger;
             _settingsService = settingsService;

@@ -26,14 +26,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
     [Activity(LaunchMode = LaunchMode.SingleTop, Theme = "@style/Theme.PrankChat.Base.Dark")]
     public class MainView : BaseView<MainViewModel>
     {
-        private readonly ViewOnTouchListener _viewOnTouchListener;
+        private readonly ViewOnTouchListener _tabViewOnTouchListener;
 
         private TabLayout _tabLayout;
         private string _userImageUrl;
 
         public MainView()
         {
-            _viewOnTouchListener = new ViewOnTouchListener(OnTabItemTouched);
+            _tabViewOnTouchListener = new ViewOnTouchListener(OnTabItemTouched);
         }
 
         public string UserImageUrl
@@ -169,7 +169,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         {
             var tabView = inflater.Inflate(Resource.Layout.tab_button_layout, null);
             tabView.Tag = index;
-            tabView.SetOnTouchListener(_viewOnTouchListener);
+            tabView.SetOnTouchListener(_tabViewOnTouchListener);
 
             var textView = tabView.FindViewById<TextView>(Resource.Id.tab_title);
             var iconView = tabView.FindViewById<MvxCachedImageView>(Resource.Id.tab_icon);
@@ -184,7 +184,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         {
             var tabView = (ImageView)inflater.Inflate(Resource.Layout.central_tab_button_layout, null);
             tabView.Tag = 2;
-            tabView.SetOnTouchListener(_viewOnTouchListener);
+            tabView.SetOnTouchListener(_tabViewOnTouchListener);
 
             tabView.SetImageResource(iconResource);
             var tab = tabLayout.GetTabAt(2);

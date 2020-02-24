@@ -62,18 +62,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         public BaseViewModel(INavigationService navigationService,
                              IErrorHandleService errorHandleService,
                              IApiService apiService,
-                             IDialogService dialogService)
+                             IDialogService dialogService,
+                             ISettingsService settingsService)
         {
             NavigationService = navigationService;
             ErrorHandleService = errorHandleService;
             ApiService = apiService;
             DialogService = dialogService;
-
-            var isSettingsResolved = Mvx.IoCProvider.TryResolve<ISettingsService>(out var settingsService);
-            if (isSettingsResolved)
-            {
-                IsUserSessionInitialized = settingsService.User != null;
-            }
+            IsUserSessionInitialized = settingsService.User != null;
 
             ShowNotificationCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowNotificationView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }

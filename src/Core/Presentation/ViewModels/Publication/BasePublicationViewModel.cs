@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -100,8 +101,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public BasePublicationViewModel(INavigationService navigationService,
                                         IErrorHandleService errorHandleService,
                                         IApiService apiService,
-                                        IDialogService dialogService)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+                                        IDialogService dialogService,
+                                        ISettingsService settingsService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
         }
 
@@ -112,6 +114,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                         IApiService apiService,
                                         IErrorHandleService errorHandleService,
                                         IMvxMessenger mvxMessenger,
+                                        ISettingsService settingsService,
                                         string profileName,
                                         string profilePhotoUrl,
                                         int videoId,
@@ -123,7 +126,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                         long numberOfLikes,
                                         string shareLink,
                                         bool isLiked)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _platformService = platformService;
             _mvxMessenger = mvxMessenger;
