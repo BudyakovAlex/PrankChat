@@ -1,26 +1,24 @@
-﻿using System.Linq;
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
+using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
+using FFImageLoading;
 using FFImageLoading.Cross;
+using FFImageLoading.Transformations;
+using MvvmCross.Binding;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+using Plugin.Permissions;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
+using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Utils.Helpers;
 using Localization = PrankChat.Mobile.Core.Presentation.Localization.Resources;
-using MvvmCross.Binding.BindingContext;
-using FFImageLoading;
-using FFImageLoading.Transformations;
-using Android.Runtime;
-using Plugin.Permissions;
-using MvvmCross.Binding;
-using PrankChat.Mobile.Droid.Presentation.Listeners;
-using System;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {
@@ -28,7 +26,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
     [Activity(LaunchMode = LaunchMode.SingleTop, Theme = "@style/Theme.PrankChat.Base.Dark")]
     public class MainView : BaseView<MainViewModel>
     {
-        private readonly int[] _skipTabIndexesInDemoMode = new[] { 2, 4 };
         private readonly ViewOnTouchListener _viewOnTouchListener;
 
         private TabLayout _tabLayout;
@@ -128,13 +125,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
         private void TabLayoutOnTabSelected(object sender, TabLayout.TabSelectedEventArgs e)
         {
-            if (!ViewModel.IsUserSessionInitialized &&
-                _skipTabIndexesInDemoMode.Contains(e.Tab.Position))
-            {
-                ViewModel.ShowLoginCommand.Execute();
-                return;
-            }
-
             var iconView = e.Tab.View.FindViewById<ImageView>(Resource.Id.tab_icon);
             var textView = e.Tab.View.FindViewById<TextView>(Resource.Id.tab_title);
 
@@ -213,18 +203,16 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
                 return false;
             }
 
-            if (!ViewModel.IsUserSessionInitialized &&
-               _skipTabIndexesInDemoMode.Contains(index) &&
+            if (!ViewModel.CanSwitchTabs(index) &&
                 motionEvent.Action != MotionEventActions.Up)
             {
                 return true;
             }
 
-            if (!ViewModel.IsUserSessionInitialized &&
-                _skipTabIndexesInDemoMode.Contains(index) &&
+            if (!ViewModel.CanSwitchTabs(index) &&
                 motionEvent.Action == MotionEventActions.Up)
             {
-                ViewModel.ShowLoginCommand.Execute();
+                ViewModel.CheckDemoCommand.Execute(index);
                 return true;
             }
 

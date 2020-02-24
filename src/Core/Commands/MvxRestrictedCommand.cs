@@ -13,9 +13,9 @@ namespace PrankChat.Mobile.Core.Commands
         private readonly Action _execute;
 
         public MvxRestrictedCommand(Action execute,
-            Func<bool> canExecute = null,
-            Func<bool> restrictedExecute = null,
-            Func<Task> handleFunc = null)
+                                    Func<bool> canExecute = null,
+                                    Func<bool> restrictedExecute = null,
+                                    Func<Task> handleFunc = null)
         {
             _execute = execute;
             _canExecute = canExecute;

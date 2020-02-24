@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -16,6 +17,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly IMvxMessenger _messenger;
         private readonly ISettingsService _settingsService;
 
+        private readonly int[] _skipTabIndexesInDemoMode = new[] { 2, 4 };
+
         private MvxSubscriptionToken _updateAvatarToken;
 
         private string _userImageUrl;
@@ -28,6 +31,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         public MvxAsyncCommand ShowContentCommand { get; }
 
         public MvxAsyncCommand ShowLoginCommand { get; }
+
+        public IMvxAsyncCommand<int> CheckDemoCommand { get; }
 
         public MainViewModel(INavigationService navigationService,
                              IMvxMessenger messenger,
@@ -42,6 +47,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
             ShowContentCommand = new MvxAsyncCommand(NavigationService.ShowMainViewContent);
             ShowLoginCommand = new MvxAsyncCommand(NavigationService.ShowLoginView);
+            CheckDemoCommand = new MvxAsyncCommand<int>(CheckDemoModeAsync);
         }
 
         public override Task Initialize()
@@ -62,9 +68,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             base.ViewDestroy(viewFinishing);
         }
 
+        public bool CanSwitchTabs(int position)
+        {
+            if (!IsUserSessionInitialized &&
+                _skipTabIndexesInDemoMode.Contains(position))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         private void Subscription()
         {
             _updateAvatarToken = _messenger.Subscribe<UpdateAvatarMessage>(UpdateUserAvatar);
+        }
+
+        private async Task CheckDemoModeAsync(int position)
+        {
+            if (!CanSwitchTabs(position))
+            {
+                await NavigationService.ShowLoginView();
+            }
         }
 
         private void Unsubscription()

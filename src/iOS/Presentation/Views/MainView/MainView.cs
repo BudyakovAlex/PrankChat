@@ -11,8 +11,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
     [MvxRootPresentation]
     public partial class MainView : MvxTabBarViewController<MainViewModel>
     {
-        private readonly int[] _skipTabIndexesInDemoMode = new[] { 2, 4 };
-
         private bool _tabsInitialized;
 
 		public override void ViewDidLoad()
@@ -34,12 +32,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
         public override void ItemSelected(UITabBar tabbar, UITabBarItem item)
         {
             var tabPosition = tabbar.Items.ToList().IndexOf(item);
-            if (!ViewModel.IsUserSessionInitialized &&
-                _skipTabIndexesInDemoMode.Contains(tabPosition))
-            {
-                ViewModel.ShowLoginCommand.Execute();
-                return;
-            }
+            ViewModel?.CheckDemoCommand.Execute(tabPosition);
         }
 
         private void SetTabs()
