@@ -2,12 +2,14 @@
 
 namespace PrankChat.Mobile.Core.ApplicationServices.ExternalAuth
 {
-    interface IExternalAuthService
+    public interface IExternalAuthService
     {
-        void InitializeVkontakteAsync();
-        Task<LoginResult> LoginWithVkontakteAsync();
+        void InitializeVkontakteAsync();  
 
+        Task<string> LoginWithVkontakteAsync();
+        
         void InitializeFacebookAsync();
-        Task<LoginResult> LoginWithFacebookAsync();
+
+        Task<string> LoginWithFacebookAsync();
     }
 }
