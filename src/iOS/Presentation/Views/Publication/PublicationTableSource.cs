@@ -52,7 +52,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             if (_initialized)
                 return;
 
-            var indexPath = TableView.IndexPathsForVisibleRows.FirstOrDefault();
+            var indexPath = TableView.IndexPathsForVisibleRows?.FirstOrDefault();
             if (indexPath == null)
                 return;
 

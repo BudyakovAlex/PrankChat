@@ -473,6 +473,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             float leftPadding = 14,
             float rightPadding = 0)
         {
+
             textField.Layer.BorderWidth = 1;
             textField.Layer.CornerRadius = 3;
 

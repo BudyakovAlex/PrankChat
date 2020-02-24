@@ -156,6 +156,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task OnLoadVideoFeedAsync()
         {
+            if (SettingsService.User == null)
+                return;
+
             try
             {
                 IsBusy = true;
