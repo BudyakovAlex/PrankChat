@@ -21,7 +21,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Converters
                     return "not_my_order_background";
             }
 
-            return null;
+            throw new ArgumentOutOfRangeException();
         }
     }
 }

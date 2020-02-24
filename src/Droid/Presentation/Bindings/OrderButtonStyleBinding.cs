@@ -36,6 +36,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
                         view.SetBackgroundResource(Resource.Drawable.button_white_secondary_background);
                         view.SetTextColor(ContextCompat.GetColorStateList(view.Context, Resource.Color.applicationBlack));
                         break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
