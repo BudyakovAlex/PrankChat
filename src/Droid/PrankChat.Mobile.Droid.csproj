@@ -121,6 +121,8 @@
     <Compile Include="Presentation\Listeners\MediaPlayerOnPreparedListener.cs" />
     <Compile Include="Presentation\Bindings\ViewTouchTargetBinding.cs" />
     <Compile Include="PlatformBusinessServices\Crashlytic\CrashlyticsService.cs" />
+    <Compile Include="Presenters\Attributes\ClearStackActivityPresentationAttribute.cs" />
+    <Compile Include="Presenters\CustomAndroidViewPresenter.cs" />
     <Compile Include="ApplicationServices\DialogService.cs" />
     <Compile Include="Presentation\Views\Base\IToolbarOwner.cs" />
     <Compile Include="Extensions\ViewExtensions.cs" />

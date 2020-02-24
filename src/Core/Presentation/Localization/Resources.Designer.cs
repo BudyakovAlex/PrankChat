@@ -1072,5 +1072,11 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("NotificationStatus_NotViewed", resourceCulture);
             }
         }
+        
+        public static string Demo {
+            get {
+                return ResourceManager.GetString("Demo", resourceCulture);
+            }
+        }
     }
 }

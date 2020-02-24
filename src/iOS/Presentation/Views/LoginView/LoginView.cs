@@ -27,6 +27,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             set.Bind(registrationButton)
                 .To(vm => vm.RegistrationCommand);
 
+            set.Bind(demoButton)
+               .To(vm => vm.ShowDemoModeCommand);
+
             set.Bind(resetPasswordButton)
                 .To(vm => vm.ResetPasswordCommand);
 
@@ -92,6 +95,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             registrationButton.SetTitle(Resources.LoginView_CreateAccount_Button, UIControlState.Normal);
             registrationButton.SetTitleColor(Theme.Color.White, UIControlState.Normal);
             registrationButton.SetLinkStyle(Theme.Font.RegularFontOfSize(16));
+
+            demoButton.SetTitle(Resources.Demo, UIControlState.Normal);
+            demoButton.SetTitleColor(Theme.Color.White, UIControlState.Normal);
+            demoButton.SetLinkStyle(Theme.Font.RegularFontOfSize(16));
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)

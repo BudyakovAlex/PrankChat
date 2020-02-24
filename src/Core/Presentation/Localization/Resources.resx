@@ -643,4 +643,7 @@
   <data name="NotificationStatus_NotViewed" xml:space="preserve">
     <value>Непросмотрено</value>
   </data>
+  <data name="Demo" xml:space="preserve">
+    <value>Демо</value>
+  </data>
 </root>

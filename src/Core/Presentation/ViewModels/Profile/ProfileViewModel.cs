@@ -24,6 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
     {
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
+        private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _mvxMessenger;
 
         private PublicationType _selectedPublicationType;
@@ -100,6 +101,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             _platformService = platformService;
             _videoPlayerService = videoPlayerService;
+            _settingsService = settingsService;
             _mvxMessenger = mvxMessenger;
         }
 
@@ -138,6 +140,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             try
             {
                 IsBusy = true;
+
+                if (!IsUserSessionInitialized)
+                {
+                    return;  
+                }
 
                 await ApiService.GetCurrentUserAsync();
                 InitializeProfileData();
@@ -178,6 +185,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                     ApiService,
                     ErrorHandleService,
                     _mvxMessenger,
+                    _settingsService,
                     publication.User?.Name,
                     publication.User?.Avatar,
                     publication.Id,
@@ -226,7 +234,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             }
             else if (result == Resources.ProfileView_Menu_LogOut)
             {
-                await LogoutUser();
+                await LogoutUserAsync();
             }
         }
 
@@ -234,10 +242,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             var isUpdated = await NavigationService.ShowUpdateProfileView();
             if (isUpdated)
+            {
                 InitializeProfileData();
+            }
         }
 
-        private async Task LogoutUser()
+        private async Task LogoutUserAsync()
         {
             SettingsService.User = null;
             await SettingsService.SetAccessTokenAsync(string.Empty);
@@ -249,10 +259,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             base.InitializeProfileData();
 
-            var user = SettingsService.User;
-            if (user == null)
+            if (!IsUserSessionInitialized)
+            {
                 return;
+            }
 
+            var user = SettingsService.User;
             ProfilePhotoUrl = user.Avatar;
             Price = user.Balance.ToPriceString();
             OrdersValue = user.OrdersExecuteCount.ToCountString();

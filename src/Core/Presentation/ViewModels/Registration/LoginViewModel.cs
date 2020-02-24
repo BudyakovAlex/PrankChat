@@ -35,8 +35,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                               IApiService apiService,
                               IDialogService dialogService,
                               IMvxLog mvxLog,
-                              IErrorHandleService errorHandleService)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+                              IErrorHandleService errorHandleService,
+                              ISettingsService settingsService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _mvxLog = mvxLog;
 #if DEBUG
@@ -45,6 +46,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             PasswordText = "123456789";
 #endif
         }
+
+        public MvxAsyncCommand ShowDemoModeCommand => new MvxAsyncCommand(() => NavigationService.ShowMainView());
 
         public MvxAsyncCommand<string> LoginCommand => new MvxAsyncCommand<string>(OnLoginCommand);
 

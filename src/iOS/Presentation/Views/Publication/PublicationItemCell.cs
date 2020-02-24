@@ -168,6 +168,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.For(v => v.Command)
 				.To(vm => vm.LikeCommand);
 
+			set.Bind(bookmarkButton.Tap())
+			   .For(v => v.Command)
+			   .To(vm => vm.BookmarkCommand);
+
 			set.Bind(likeLabel)
 				.To(vm => vm.NumberOfLikesText)
 				.Mode(MvxBindingMode.OneWay);

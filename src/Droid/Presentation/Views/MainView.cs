@@ -1,24 +1,24 @@
-﻿using System.Linq;
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
+using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
+using FFImageLoading;
 using FFImageLoading.Cross;
+using FFImageLoading.Transformations;
+using MvvmCross.Binding;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+using Plugin.Permissions;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
+using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Utils.Helpers;
 using Localization = PrankChat.Mobile.Core.Presentation.Localization.Resources;
-using MvvmCross.Binding.BindingContext;
-using FFImageLoading;
-using FFImageLoading.Transformations;
-using Android.Runtime;
-using Plugin.Permissions;
-using MvvmCross.Binding;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {
@@ -26,9 +26,16 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
     [Activity(LaunchMode = LaunchMode.SingleTop, Theme = "@style/Theme.PrankChat.Base.Dark")]
     public class MainView : BaseView<MainViewModel>
     {
-        private TabLayout _tabLayout;
+        private readonly ViewOnTouchListener _tabViewOnTouchListener;
 
+        private TabLayout _tabLayout;
         private string _userImageUrl;
+
+        public MainView()
+        {
+            _tabViewOnTouchListener = new ViewOnTouchListener(OnTabItemTouched);
+        }
+
         public string UserImageUrl
         {
             get => _userImageUrl;
@@ -161,8 +168,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         private void InitTab(int index, int iconResource, string title, TabLayout tabLayout, LayoutInflater inflater)
         {
             var tabView = inflater.Inflate(Resource.Layout.tab_button_layout, null);
+            tabView.Tag = index;
+            tabView.SetOnTouchListener(_tabViewOnTouchListener);
+
             var textView = tabView.FindViewById<TextView>(Resource.Id.tab_title);
             var iconView = tabView.FindViewById<MvxCachedImageView>(Resource.Id.tab_icon);
+
             textView.Text = title;
             iconView.SetImageResource(iconResource);
             var tab = tabLayout.GetTabAt(index);
@@ -172,9 +183,40 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         private void InitCentralTab(int iconResource, TabLayout tabLayout, LayoutInflater inflater)
         {
             var tabView = (ImageView)inflater.Inflate(Resource.Layout.central_tab_button_layout, null);
+            tabView.Tag = 2;
+            tabView.SetOnTouchListener(_tabViewOnTouchListener);
+
             tabView.SetImageResource(iconResource);
             var tab = tabLayout.GetTabAt(2);
             tab.SetCustomView(tabView);
+        }
+
+        private bool OnTabItemTouched(View view, MotionEvent motionEvent)
+        {
+            if (view.Tag == null)
+            {
+                return false;
+            }
+
+            if (!int.TryParse(view.Tag.ToString(), out var index))
+            {
+                return false;
+            }
+
+            if (!ViewModel.CanSwitchTabs(index) &&
+                motionEvent.Action != MotionEventActions.Up)
+            {
+                return true;
+            }
+
+            if (!ViewModel.CanSwitchTabs(index) &&
+                motionEvent.Action == MotionEventActions.Up)
+            {
+                ViewModel.CheckDemoCommand.Execute(index);
+                return true;
+            }
+
+            return false;
         }
 
         private void UpdateProfileTabImage(TabLayout tabLayout)
@@ -185,8 +227,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
                 .Retry(3, 200)
                 .DownSample(50, 50)
                 .Transform(new CircleTransformation())
-                .LoadingPlaceholder(Resources.GetResourceName(Resource.Drawable.ic_image_background), FFImageLoading.Work.ImageSource.CompiledResource)
-                .ErrorPlaceholder(Resources.GetResourceName(Resource.Drawable.ic_image_background))
+                .LoadingPlaceholder(base.Resources.GetResourceName(Resource.Drawable.ic_image_background), FFImageLoading.Work.ImageSource.CompiledResource)
+                .ErrorPlaceholder(base.Resources.GetResourceName(Resource.Drawable.ic_image_background))
                 .Into(iconView);
         }
     }
