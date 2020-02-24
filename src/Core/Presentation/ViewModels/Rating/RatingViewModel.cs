@@ -9,6 +9,8 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -53,8 +55,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
                                IDialogService dialogService,
                                IApiService apiService,
                                IMvxLog mvxLog,
-                               IErrorHandleService errorHandleService)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+                               IErrorHandleService errorHandleService,
+                               ISettingsService settingsService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _mvxLog = mvxLog;
 
@@ -81,16 +84,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
                 Items.Clear();
 
                 var ratingOrders = await ApiService.GetRatingOrdersAsync(ActiveFilter);
-                var items = ratingOrders?.Select(o => new RatingItemViewModel(
-                                                            NavigationService,
-                                                            o.Id,
-                                                            o.Title,
-                                                            o.Customer?.Avatar,
-                                                            o.Customer?.Name,
-                                                            o.Price,
-                                                            o.Likes,
-                                                            o.Dislikes,
-                                                            o.ArbitrationFinishAt ?? DateTime.UtcNow));
+                var items = ratingOrders?.Select(o => new RatingItemViewModel(NavigationService,
+                                                                              IsUserSessionInitialized,
+                                                                              o.Id,
+                                                                              o.Title,
+                                                                              o.Customer?.Avatar,
+                                                                              o.Customer?.Name,
+                                                                              o.Price,
+                                                                              o.Likes,
+                                                                              o.Dislikes,
+                                                                              o.ArbitrationFinishAt ?? DateTime.UtcNow));
                 Items.AddRange(items);
             }
             catch (Exception ex)

@@ -42,6 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="BusinessServices\" />
     <Folder Include="Presentation\Navigation\" />
     <Folder Include="Presentation\Navigation\Parameters\" />
     <Folder Include="Models\Enums\" />
@@ -67,5 +68,6 @@
     <Folder Include="ApplicationServices\Dialogs\" />
     <Folder Include="Presentation\ViewModels\Video\" />
     <Folder Include="BusinessServices\Crashlytic\" />
+    <Folder Include="Commands\" />
   </ItemGroup>
 </Project>

@@ -80,15 +80,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public MvxAsyncCommand LoadPublicationsCommand => new MvxAsyncCommand(OnLoadPublicationsAsync);
 
         public PublicationsViewModel(INavigationService navigationService,
-                                    IDialogService dialogService,
-                                    IApiService apiService,
-                                    IPlatformService platformService,
-                                    IVideoPlayerService videoPlayerService,
-                                    ISettingsService settingsService,
-                                    IMvxLog mvxLog,
-                                    IErrorHandleService errorHandleService,
-                                    IMvxMessenger mvxMessenger)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+                                     IDialogService dialogService,
+                                     IApiService apiService,
+                                     IPlatformService platformService,
+                                     IVideoPlayerService videoPlayerService,
+                                     ISettingsService settingsService,
+                                     IMvxLog mvxLog,
+                                     IErrorHandleService errorHandleService,
+                                     IMvxMessenger mvxMessenger)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _platformService = platformService;
             _videoPlayerService = videoPlayerService;
@@ -166,6 +166,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                         break;
 
                     case PublicationType.MyVideosOfCreatedOrders:
+                        if (!IsUserSessionInitialized)
+                        {
+                            await NavigationService.ShowLoginView();
+                            return;
+                        }
+
                         videos = await ApiService.GetMyVideoFeedAsync(_settingsService.User.Id, SelectedPublicationType, ActiveFilter);
                         SetVideoList(videos);
                         break;
@@ -193,6 +199,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     ApiService,
                     ErrorHandleService,
                     _mvxMessenger,
+                    _settingsService,
                     publication.User?.Name,
                     publication.User?.Avatar,
                     publication.Id,

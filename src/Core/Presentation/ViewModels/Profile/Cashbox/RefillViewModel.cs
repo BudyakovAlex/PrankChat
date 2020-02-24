@@ -9,6 +9,9 @@ using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
+using System;
+using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
@@ -37,8 +40,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         public RefillViewModel(INavigationService navigationService,
                                IErrorHandleService errorHandleService,
                                IApiService apiService,
-                               IDialogService dialogService)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+                               IDialogService dialogService,
+                               ISettingsService settingsService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
         }
 

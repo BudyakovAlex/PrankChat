@@ -122,7 +122,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsVideoLoadAvailable => _order?.Status == OrderStatusType.InWork && IsUserExecutor;
 
-        public bool IsVideoAvailable => _order.Video != null;
+        public bool IsVideoAvailable => _order?.Video != null;
 
         public bool IsExecutorAvailable => _order?.Executor != null;
 
@@ -157,13 +157,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         #endregion Commands
 
         public OrderDetailsViewModel(INavigationService navigationService,
-                                    IMvxLog mvxLog,
-                                    ISettingsService settingsService,
-                                    IMediaService mediaService,
-                                    IErrorHandleService errorHandleService,
-                                    IApiService apiService,
-                                    IDialogService dialogService)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+                                     IMvxLog mvxLog,
+                                     ISettingsService settingsService,
+                                     IMediaService mediaService,
+                                     IErrorHandleService errorHandleService,
+                                     IApiService apiService,
+                                     IDialogService dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _mvxLog = mvxLog;
             _settingsService = settingsService;

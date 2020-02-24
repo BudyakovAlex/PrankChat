@@ -84,7 +84,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                     IMvxMessenger mvxMessenger,
                                     ISettingsService settingsService,
                                     IErrorHandleService errorHandleService)
-            : base(navigationService, errorHandleService, apiService, dialogService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _mvxMessenger = mvxMessenger;
             _settingsService = settingsService;

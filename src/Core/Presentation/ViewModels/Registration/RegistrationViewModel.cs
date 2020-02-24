@@ -3,6 +3,8 @@ using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -24,7 +26,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         public RegistrationViewModel(INavigationService navigationService,
                                      IDialogService dialogService,
                                      IApiService apiService,
-                                     IErrorHandleService errorHandleService) : base(navigationService, errorHandleService, apiService, dialogService)
+                                     IErrorHandleService errorHandleService,
+                                     ISettingsService settingsService) : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
         }
 

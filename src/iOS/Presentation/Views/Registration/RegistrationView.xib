@@ -42,7 +42,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xp9-Pw-UGE">
                             <rect key="frame" x="16" y="0.0" width="343" height="614.5"/>
                             <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rDO-aA-F6X">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rDO-aA-F6X" customClass="FloatPlaceholderTextField">
                                     <rect key="frame" x="0.0" y="10" width="343" height="46"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="46" id="y5u-Td-YZn"/>
