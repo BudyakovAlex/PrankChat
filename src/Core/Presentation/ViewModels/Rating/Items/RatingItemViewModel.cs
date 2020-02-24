@@ -60,12 +60,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
                                    string orderTitle,
                                    string customerPhotoUrl,
                                    string customerName,
-                                   int? customerId,
                                    double? priceText,
                                    int likes,
                                    int dislikes,
                                    DateTime? arbitrationFinishAt,
-                                   OrderStatusType status)
+                                   OrderStatusType status,
+                                   int? customerId)
         {
             _settingsService = settingsService;
             _navigatiobService = navigatiobService;

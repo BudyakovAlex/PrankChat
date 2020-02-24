@@ -119,10 +119,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                                   string orderTitle,
                                   string profilePhotoUrl,
                                   string profileName,
-                                  int? customerId,
                                   double? price,
                                   DateTime? activeTo,
-                                  OrderStatusType status)
+                                  OrderStatusType status,
+                                  int? customerId)
         {
             _navigationService = navigationService;
             _settingsService = settingsService;
