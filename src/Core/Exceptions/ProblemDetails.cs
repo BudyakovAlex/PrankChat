@@ -29,13 +29,13 @@ namespace PrankChat.Mobile.Core.Exceptions
         {
             get
             {
-                var arrayProblems = new List<string> { Title, MessageServerError, base.Message };
+                var text = new List<string> { MessageServerError };
                 if (InvalidParams != null && InvalidParams.Count > 0)
                 {
-                    arrayProblems = arrayProblems.Concat(InvalidParams.Select(x => x.ToString())).ToList();
+                    text = text.Concat(InvalidParams.Select(x => x.ToString())).ToList();
                 }
 
-                return string.Join(Environment.NewLine, arrayProblems);
+                return string.Join(Environment.NewLine, text);
             }
         }
     }

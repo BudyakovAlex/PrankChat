@@ -13,6 +13,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.UserVisible;
+using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -144,31 +145,36 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             if (string.IsNullOrWhiteSpace(Title))
             {
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Название заказа не может быть пустым."));
+                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.LogError(this, "Title can't be empty.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Description))
             {
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Описание заказа не может быть пустым."));
+                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.LogError(this, "Description can't be empty.");
                 return false;
             }
 
             if (Price == null)
             {
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Цена не может быть пустой."));
+                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.LogError(this, "Price can't be empty.");
                 return false;
             }
 
             if (Price <= 0)
             {
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Цена не может быть меньше или равна нулю."));
+                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.LogError(this, "Description can't be lower than zero.");
                 return false;
             }
 
             if (ActiveFor == null)
             {
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Выберите период действия заказа."));
+                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.LogError(this, "Order period can't be empty.");
                 return false;
             }
 

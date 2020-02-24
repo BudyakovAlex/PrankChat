@@ -1,10 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PrankChat.Mobile.Core.Exceptions.UserVisible.Forbidden
 {
-    class UserIsOrderMemberException
+    public class UserIsOrderMemberException : BaseUserVisibleException
     {
+        public UserIsOrderMemberException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        public UserIsOrderMemberException(string message) : base(message)
+        {
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -117,7 +118,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             {
                 _mvxLog.Debug($"[HTTP] {request.Method} {endpoint}");
                 if (includeAccessToken)
-                    await AddAuthorizationHeader(request);
+                    await AddAuthorizationHeaderAsync(request);
+                
+                AddLanguageHeader(request);
 
                 var content = cancellationToken.HasValue
                     ? await _client.ExecuteAsync<string>(request, cancellationToken.Value)
@@ -138,7 +141,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             {
                 _mvxLog.Debug($"[HTTP] {request.Method} {endpoint}");
                 if (includeAccessToken)
-                    await AddAuthorizationHeader(request);
+                    await AddAuthorizationHeaderAsync(request);
+
+                AddLanguageHeader(request);
 
                 var content = cancellationToken.HasValue
                     ? await _client.ExecuteAsync<T>(request, cancellationToken.Value)
@@ -184,10 +189,16 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             }
         }
 
-        private async Task AddAuthorizationHeader(IRestRequest request)
+        private async Task AddAuthorizationHeaderAsync(IRestRequest request)
         {
             var accessToken = await _settingsService.GetAccessTokenAsync();
             request.AddHeader(HttpRequestHeader.Authorization.ToString(), $"Bearer {accessToken}");
+        }
+
+        private void AddLanguageHeader(IRestRequest request)
+        {
+            var currentCulture = CultureInfo.CurrentCulture;
+            request.AddHeader(HttpRequestHeader.AcceptLanguage.ToString(), currentCulture.TwoLetterISOLanguageName);
         }
 
         private string TryAddIncludeFlag(string apiPoint, IncludeType[] includes)

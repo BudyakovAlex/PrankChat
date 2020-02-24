@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using System.Linq;
+using MvvmCross.Logging;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
-using System;
-using PrankChat.Mobile.Core.Exceptions;
-using PrankChat.Mobile.Core.Exceptions.UserVisible;
+using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
@@ -64,11 +62,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             var paymentData = await ApiService.RefillAsync(Cost.Value);
             if (string.IsNullOrWhiteSpace(paymentData?.PaymentLink))
             {
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Не получилось пополнить баланс."));
+                ErrorHandleService.LogError(this, "Can't resolve payment link, payment process aborted.");
                 return;
             }
 
-            await NavigationService.ShowWebView(paymentData?.PaymentLink);
+            await NavigationService.ShowWebView(paymentData.PaymentLink);
         }
 
         private Task OnSelectionChangedAsync(PaymentMethodItemViewModel item)
@@ -86,7 +84,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         {
             if (Cost == null || Cost == 0)
             {
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Сумма не может быть пустой."));
+                ErrorHandleService.HandleException(new ValidationException(string.Empty));
                 return false;
             }
 

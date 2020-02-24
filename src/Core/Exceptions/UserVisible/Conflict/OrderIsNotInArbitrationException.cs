@@ -1,10 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PrankChat.Mobile.Core.Exceptions.UserVisible.Conflict
 {
-    class OrderIsNotInArbitrationException
+    public class OrderIsNotInArbitrationException : BaseUserVisibleException
     {
+        public OrderIsNotInArbitrationException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        public OrderIsNotInArbitrationException(string message) : base(message)
+        {
+        }
     }
 }

@@ -1,10 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PrankChat.Mobile.Core.Exceptions.UserVisible.NotFound
 {
-    class NotFoundHttpException
+    public class NotFoundHttpException : BaseUserVisibleException
     {
+        public NotFoundHttpException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        public NotFoundHttpException(string message) : base(message)
+        {
+        }
     }
 }

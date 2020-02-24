@@ -9,8 +9,6 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.Exceptions;
-using PrankChat.Mobile.Core.Exceptions.UserVisible;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -97,8 +95,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(RatingViewModel)}", ex);
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Проблема с загрузкой оценок."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Error on load ratings.");
             }
             finally
             {
@@ -108,8 +106,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
 
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
-            var parametres = _ratingOrderFilterTypeTitleMap.Values.ToArray();
-            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parametres, Resources.Cancel);
+            var parameters = _ratingOrderFilterTypeTitleMap.Values.ToArray();
+            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parameters, Resources.Cancel);
 
             if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
                 return;

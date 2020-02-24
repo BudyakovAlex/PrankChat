@@ -1,10 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PrankChat.Mobile.Core.Exceptions.UserVisible.Forbidden
 {
-    class NegativeReplenishmentException
+    public class NegativeReplenishmentException : BaseUserVisibleException
     {
+        public NegativeReplenishmentException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        public NegativeReplenishmentException(string message) : base(message)
+        {
+        }
     }
 }

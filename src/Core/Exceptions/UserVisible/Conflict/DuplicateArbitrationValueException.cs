@@ -1,10 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PrankChat.Mobile.Core.Exceptions.UserVisible.Conflict
 {
-    class DuplicateArbitrationValueException
+    public class DuplicateArbitrationValueException : BaseUserVisibleException
     {
+        public DuplicateArbitrationValueException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        public DuplicateArbitrationValueException(string message) : base(message)
+        {
+        }
     }
 }

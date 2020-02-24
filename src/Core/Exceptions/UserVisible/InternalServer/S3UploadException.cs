@@ -1,10 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PrankChat.Mobile.Core.Exceptions.UserVisible.InternalServer
 {
-    class S3UploadException
+    public class S3UploadException : BaseUserVisibleException
     {
+        public S3UploadException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        public S3UploadException(string message) : base(message)
+        {
+        }
     }
 }

@@ -1,10 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PrankChat.Mobile.Core.Exceptions.UserVisible.Conflict
 {
-    class UserHasAlreadyLeftLikeException
+    public class UserHasAlreadyLeftLikeException : BaseUserVisibleException
     {
+        public UserHasAlreadyLeftLikeException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        public UserHasAlreadyLeftLikeException(string message) : base(message)
+        {
+        }
     }
 }

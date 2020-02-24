@@ -1,10 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PrankChat.Mobile.Core.Exceptions.UserVisible.Unprocessable
 {
-    class InvalidVerificationCodeException
+    public class InvalidVerificationCodeException : BaseUserVisibleException
     {
+        public InvalidVerificationCodeException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        public InvalidVerificationCodeException(string message) : base(message)
+        {
+        }
     }
 }

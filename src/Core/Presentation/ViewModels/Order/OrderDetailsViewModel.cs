@@ -195,8 +195,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Проблема с загрузкой детальной страницы заказ."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Error on loading order page.");
             }
             finally
             {
@@ -233,8 +233,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Неудачная попытка подписаться на заказ."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Order subscription failed.");
             }
             finally
             {
@@ -253,8 +253,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Неудачная попытка отписаться от заказ."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Error on order unsubscription.");
             }
             finally
             {
@@ -300,8 +300,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Неудачная отправка заказа на спор."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Error on argue initialization.", ex);
             }
             finally
             {
@@ -320,8 +320,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Ошибка в подтверждении заказа."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Error on accept order.", ex);
             }
             finally
             {
@@ -360,8 +360,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Ошибка в подтверждении заказа."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Order confirmation error.", ex);
 
                 IsYesSelected = !IsYesSelected;
             }
@@ -384,8 +384,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Ошибка в подтверждении заказа."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Error on order voting.");
 
                 IsYesSelected = !IsYesSelected;
             }

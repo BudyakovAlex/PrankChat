@@ -290,11 +290,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<PaymentDataModel> RefillAsync(double coast)
         {
-            var refillApiData = new RefillApiData()
+            var refillApiData = new RefillApiData
             {
-                Amount = coast,
+                Amount = coast
             };
-            var data = await _client.Post<RefillApiData, DataApiModel<PaymentApiModel>>($"payment", refillApiData, false);
+
+            var data = await _client.Post<RefillApiData, DataApiModel<PaymentApiModel>>("payment", refillApiData);
             return MappingConfig.Mapper.Map<PaymentDataModel>(data?.Data);
         }
 

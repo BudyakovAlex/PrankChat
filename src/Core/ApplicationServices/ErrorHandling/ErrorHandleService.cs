@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
+using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
@@ -22,10 +23,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
 
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
         private readonly IDialogService _dialogService;
+        private readonly IMvxLogProvider _logProvider;
 
-        public ErrorHandleService(IMvxMessenger messenger, IDialogService dialogService)
+        public ErrorHandleService(IMvxMessenger messenger, IDialogService dialogService, IMvxLogProvider logProvider)
         {
             _dialogService = dialogService;
+            _logProvider = logProvider;
 
             messenger.Subscribe<ServerErrorMessage>(OnServerErrorEvent, MvxReference.Strong);
         }
@@ -38,6 +41,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
                     DisplayMessage(async () => _dialogService.ShowToast(exception.Message));
                     break;
             }
+        }
+
+        public void LogError(object sender, string message, Exception exception = null)
+        {
+            var senderType = sender.GetType();
+            var logger = _logProvider.GetLogFor(senderType);
+            logger.Log(MvxLogLevel.Error, () => message, exception);
         }
 
         private void OnServerErrorEvent(ServerErrorMessage e)

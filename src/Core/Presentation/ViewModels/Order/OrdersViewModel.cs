@@ -139,8 +139,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrdersViewModel)}", ex);
-                ErrorHandleService.HandleException(new BaseUserVisibleException("Ошибка в загрузке заказов."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Order list loading error occured.");
             }
             finally
             {
