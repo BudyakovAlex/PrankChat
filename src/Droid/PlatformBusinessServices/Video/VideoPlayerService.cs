@@ -13,6 +13,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
         private readonly IApiService _apiService;
         private readonly IMvxMessenger _mvxMessenger;
         private IVideoPlayer _player;
+        private int _currentVideoId;
 
         public VideoPlayerService(IApiService apiService, IMvxMessenger mvxMessenger)
         {
@@ -44,10 +45,14 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             if (_player.IsPlaying)
                 return;
 
-            Player.SetSourceUri(uri);
-            Debug.WriteLine("Playing next source: " + uri);
-            Player.Play();
-            Player.TryRegisterViewedFact(id, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
+            if (_currentVideoId != id)
+            {
+                Player.SetSourceUri(uri);
+                _currentVideoId = id;
+                Player.Play();
+                Player.TryRegisterViewedFact(id, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
+                Debug.WriteLine("Playing next source: " + uri);
+            }
         }
 
         public override void Play()
