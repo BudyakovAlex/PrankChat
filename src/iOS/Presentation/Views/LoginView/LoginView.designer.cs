@@ -17,7 +17,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 		UIKit.UIButton demoButton { get; set; }
 			
 		[Outlet]
-		FloatPlaceholderTextField emailTextField
+		FloatPlaceholderTextField emailTextField { get; set; }
 
 		[Outlet]
 		UIKit.UIButton facebookButton { get; set; }
