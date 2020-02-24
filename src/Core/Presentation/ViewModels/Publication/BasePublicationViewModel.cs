@@ -264,7 +264,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             if (result == Resources.Publication_Item_Subscribe_To_Author)
             {
-                await NavigationService.ShowLoginView();
                 return;
             }
         }

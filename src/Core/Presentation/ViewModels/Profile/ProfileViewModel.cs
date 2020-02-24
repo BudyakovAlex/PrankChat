@@ -256,12 +256,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             base.InitializeProfileData();
 
-            var user = SettingsService.User;
-            if (user == null)
+            if (!IsUserSessionInitialized)
             {
                 return;
             }
 
+            var user = SettingsService.User;
             ProfilePhotoUrl = user.Avatar;
             Price = user.Balance.ToPriceString();
             OrdersValue = user.OrdersExecuteCount.ToCountString();
