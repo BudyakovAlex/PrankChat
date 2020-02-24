@@ -145,35 +145,35 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             if (string.IsNullOrWhiteSpace(Title))
             {
-                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Title, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Title can't be empty.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Description))
             {
-                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Description, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Description can't be empty.");
                 return false;
             }
 
             if (Price == null)
             {
-                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Price, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Price can't be empty.");
                 return false;
             }
 
             if (Price <= 0)
             {
-                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Price, ValidationErrorType.LowerThanRequired, 0.ToString()));
                 ErrorHandleService.LogError(this, "Description can't be lower than zero.");
                 return false;
             }
 
             if (ActiveFor == null)
             {
-                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_OrderPeriod, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Order period can't be empty.");
                 return false;
             }

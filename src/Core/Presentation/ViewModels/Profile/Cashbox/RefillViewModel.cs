@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using System;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Presentation.Localization;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
@@ -88,7 +89,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         {
             if (Cost == null || Cost == 0)
             {
-                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Cost, ValidationErrorType.CanNotMatch, 0.ToString()));
                 return false;
             }
 

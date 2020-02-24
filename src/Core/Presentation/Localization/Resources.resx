@@ -643,7 +643,64 @@
   <data name="NotificationStatus_NotViewed" xml:space="preserve">
     <value>Непросмотрено</value>
   </data>
+  <data name="Validation_Field_Title" xml:space="preserve">
+    <value>Заголовок</value>
+  </data>
+  <data name="Validation_Field_Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Validation_Field_Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="Validation_Field_OrderPeriod" xml:space="preserve">
+    <value>Период</value>
+  </data>
+  <data name="Validation_Field_Cost" xml:space="preserve">
+    <value>Стоимость</value>
+  </data>
+  <data name="Validation_Field_Login" xml:space="preserve">
+    <value>Логин</value>
+  </data>
+  <data name="Validation_Field_Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Validation_Field_Birthday" xml:space="preserve">
+    <value>День рождения</value>
+  </data>
+  <data name="Validation_Field_Gender" xml:space="preserve">
+    <value>Пол</value>
+  </data>
+  <data name="Validation_Field_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Validation_Field_Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Validation_Field_PasswordRepeat" xml:space="preserve">
+    <value>Повтор пароля</value>
+  </data>
+  <data name="Validation_Error_Empty" xml:space="preserve">
+    <value>{0} не может быть пустым.</value>
+  </data>
+  <data name="Validation_Error_GreaterThanRequired" xml:space="preserve">
+    <value>{0} не может быть больше чем {1}.</value>
+  </data>
+  <data name="Validation_Error_LowerThanRequired" xml:space="preserve">
+    <value>{0} не может быть меньше чем {1}.</value>
+  </data>
+  <data name="Validation_Error_NotMatch" xml:space="preserve">
+    <value>{0} не совпадает с {1}.</value>
+  </data>
+  <data name="Validation_Error_CanNotMatch" xml:space="preserve">
+    <value>{0} не может быть равно {1}.</value>
+  </data>
+  <data name="Validation_Error_Invalid" xml:space="preserve">
+    <value>{0} имеет неверный формат.</value>
+  </data>
   <data name="Demo" xml:space="preserve">
     <value>Демо</value>
+  </data>
+  <data name="com.crashlytics.android.build_id" xml:space="preserve">
+    <value>e9e6beb9c4284289ac68b9ab76a9ee56</value>
   </data>
 </root>

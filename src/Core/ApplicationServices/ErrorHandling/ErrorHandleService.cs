@@ -11,6 +11,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Exceptions.UserVisible;
+using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using Xamarin.Essentials;
@@ -38,6 +39,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
         {
             switch (exception)
             {
+                case ValidationException validationException:
+                    var message = GetValidationErrorLocalizedMessage(validationException);
+                    DisplayMessage(async () => _dialogService.ShowToast(message, ToastType.Negative));
+                    break;
+
                 case BaseUserVisibleException _:
                     DisplayMessage(async () => _dialogService.ShowToast(exception.Message, ToastType.Negative));
                     break;
@@ -58,15 +64,40 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
             switch (exception)
             {
                 case NetworkException _:
-                    DisplayMessage(async () => await _dialogService.ShowAlertAsync(Resources.Error_Unexpected_Network));
-                    break;
+                    DisplayMessage(async () => await _dialogService.ShowAlertAsync(Resources.Error_Unexpected_Server));
+                    return;
 
                 case ProblemDetails problemDetails:
-                    DisplayMessage(async () => await _dialogService.ShowAlertAsync(problemDetails.Message, problemDetails.Title));
+                    DisplayMessage(async () => _dialogService.ShowToast(problemDetails.Message, ToastType.Negative));
                     break;
             }
+        }
 
-            DisplayMessage(async () => await _dialogService.ShowAlertAsync(Resources.Error_Unexpected_Server));
+        private string GetValidationErrorLocalizedMessage(ValidationException exception)
+        {
+            switch (exception.ErrorType)
+            {
+                case ValidationErrorType.Empty:
+                    return string.Format(Resources.Validation_Error_Empty, exception.LocalizedFieldName);
+
+                case ValidationErrorType.CanNotMatch:
+                    return string.Format(Resources.Validation_Error_CanNotMatch, exception.LocalizedFieldName, exception.RelativeValue);
+
+                case ValidationErrorType.GreaterThanRequired:
+                    return string.Format(Resources.Validation_Error_GreaterThanRequired, exception.LocalizedFieldName, exception.RelativeValue);
+
+                case ValidationErrorType.LowerThanRequired:
+                    return string.Format(Resources.Validation_Error_LowerThanRequired, exception.LocalizedFieldName, exception.RelativeValue);
+
+                case ValidationErrorType.NotMatch:
+                    return string.Format(Resources.Validation_Error_NotMatch, exception.LocalizedFieldName, exception.RelativeValue);
+
+                case ValidationErrorType.Invalid:
+                    return string.Format(Resources.Validation_Error_Invalid, exception.LocalizedFieldName);
+
+                default:
+                    return string.Empty;
+            }
         }
 
         private string FormatErrorMessages(IReadOnlyList<string> errorMessages)

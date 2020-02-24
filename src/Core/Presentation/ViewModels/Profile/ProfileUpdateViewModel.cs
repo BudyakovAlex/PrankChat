@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.UserVisible;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -132,42 +133,42 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             if (string.IsNullOrWhiteSpace(Login))
             {
-                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Login, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Login can't be empty.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Name, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Name can't be empty.");
                 return false;
             }
 
             if (Birthday == null)
             {
-                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Birthday can't be empty.");
                 return false;
             }
 
             if (Birthday > DateTime.Now)
             {
-                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.GreaterThanRequired));
                 ErrorHandleService.LogError(this, "Birthday date can't be greater than current date.");
                 return false;
             }
 
-            if ((DateTime.Now.Year - Birthday?.Year) <= 18)
+            if ((DateTime.Now.Year - Birthday?.Year) <= Constants.Age.AdultAge)
             {
-                ErrorHandleService.HandleException(new ValidationException(string.Empty));
-                ErrorHandleService.LogError(this, "User can't be younger than 18 years.");
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.LowerThanRequired, Constants.Age.AdultAge.ToString()));
+                ErrorHandleService.LogError(this, $"User can't be younger than {Constants.Age.AdultAge} years.");
                 return false;
             }
 
             if (Gender == null)
             {
-                ErrorHandleService.HandleException(new ValidationException(string.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Gender, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Gender can't be empty.");
                 return false;
             }
