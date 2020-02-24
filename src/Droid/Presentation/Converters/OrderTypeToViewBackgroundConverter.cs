@@ -20,6 +20,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Converters
                 case OrderType.NotMyOrder:
                     return "not_my_order_background";
             }
+
             return null;
         }
     }
