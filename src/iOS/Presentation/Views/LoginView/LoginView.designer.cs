@@ -5,6 +5,7 @@
 // Manual changes to this file may not be handled correctly.
 //
 using Foundation;
+using PrankChat.Mobile.iOS.Controls;
 using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
@@ -13,7 +14,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 	partial class LoginView
 	{
 		[Outlet]
-		UIKit.UITextField emailTextField { get; set; }
+		FloatPlaceholderTextField emailTextField { get; set; }
 
 		[Outlet]
 		UIKit.UIButton facebookButton { get; set; }
@@ -34,7 +35,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 		UIKit.UIButton okButton { get; set; }
 
 		[Outlet]
-		UIKit.UITextField passwordTextField { get; set; }
+		FloatPlaceholderTextField passwordTextField { get; set; }
 
 		[Outlet]
 		UIKit.UIActivityIndicatorView progressBar { get; set; }

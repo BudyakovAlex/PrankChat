@@ -5,6 +5,7 @@
 // Manual changes to this file will not be maintained.
 //
 using Foundation;
+using PrankChat.Mobile.iOS.Controls;
 using System;
 using System.CodeDom.Compiler;
 
@@ -18,7 +19,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 
 
         [Outlet]
-        UIKit.UITextField emailTextField { get; set; }
+        FloatPlaceholderTextField emailTextField { get; set; }
 
 
         [Outlet]

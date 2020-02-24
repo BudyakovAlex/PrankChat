@@ -5,6 +5,7 @@
 // Manual changes to this file may not be handled correctly.
 //
 using Foundation;
+using PrankChat.Mobile.iOS.Controls;
 using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
@@ -14,7 +15,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 	{
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
-		UIKit.UITextField birthdayTextField { get; set; }
+		FloatPlaceholderTextField birthdayTextField { get; set; }
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
@@ -30,7 +31,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
-		UIKit.UITextField emailTextField { get; set; }
+		FloatPlaceholderTextField emailTextField { get; set; }
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
@@ -46,7 +47,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
-		UIKit.UITextField loginTextField { get; set; }
+		FloatPlaceholderTextField loginTextField { get; set; }
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
@@ -62,7 +63,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
-		UIKit.UITextField nameTextField { get; set; }
+		FloatPlaceholderTextField nameTextField { get; set; }
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]

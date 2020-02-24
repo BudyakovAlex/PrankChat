@@ -33,16 +33,16 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MyT-Nl-9Q6">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MyT-Nl-9Q6">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dP4-hK-p69">
                             <rect key="frame" x="16" y="0.0" width="343" height="667"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="WeL-qQ-SdX">
-                                    <rect key="frame" x="0.0" y="0.0" width="343" height="294"/>
+                                    <rect key="frame" x="0.0" y="5" width="343" height="294"/>
                                     <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NMl-tL-te4">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NMl-tL-te4" customClass="FloatPlaceholderTextField">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="46"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="46" id="8he-WC-iyi"/>
@@ -50,7 +50,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" textContentType="username"/>
                                         </textField>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ouE-yp-Yy4">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ouE-yp-Yy4" customClass="FloatPlaceholderTextField">
                                             <rect key="frame" x="0.0" y="62" width="343" height="46"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="46" id="ni0-gH-47O"/>
@@ -58,7 +58,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="name"/>
                                         </textField>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LSK-6X-VPD">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LSK-6X-VPD" customClass="FloatPlaceholderTextField">
                                             <rect key="frame" x="0.0" y="124" width="343" height="46"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="46" id="9fK-iq-ibi"/>
@@ -66,7 +66,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IdI-5m-Blj">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IdI-5m-Blj" customClass="FloatPlaceholderTextField">
                                             <rect key="frame" x="0.0" y="186" width="343" height="46"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="46" id="Tix-jM-4eb"/>
@@ -74,7 +74,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" textContentType="password"/>
                                         </textField>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dke-T3-ken">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dke-T3-ken" customClass="FloatPlaceholderTextField">
                                             <rect key="frame" x="0.0" y="248" width="343" height="46"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="46" id="VHC-n2-KxX"/>
@@ -85,13 +85,13 @@
                                     </subviews>
                                 </stackView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhy-0X-kl9">
-                                    <rect key="frame" x="150.5" y="310" width="42" height="20.5"/>
+                                    <rect key="frame" x="150.5" y="315" width="42" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GK0-wQ-u5P">
-                                    <rect key="frame" x="112.5" y="348.5" width="118" height="38"/>
+                                    <rect key="frame" x="112.5" y="353.5" width="118" height="38"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cQT-e9-fE0">
                                             <rect key="frame" x="0.0" y="0.0" width="46" height="38"/>
@@ -168,7 +168,7 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vRl-An-stw">
-                                    <rect key="frame" x="91.5" y="412.5" width="160" height="36"/>
+                                    <rect key="frame" x="91.5" y="417.5" width="160" height="36"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="36" id="5CJ-P6-ejF"/>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="MJN-m5-Dip"/>
@@ -176,13 +176,13 @@
                                     <state key="normal" title="Next step"/>
                                 </button>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Lmz-yn-GFE">
-                                    <rect key="frame" x="231.5" y="412.5" width="20" height="36"/>
+                                    <rect key="frame" x="231.5" y="417.5" width="20" height="36"/>
                                 </activityIndicatorView>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="Lmz-yn-GFE" firstAttribute="trailing" secondItem="vRl-An-stw" secondAttribute="trailing" id="4Cp-eD-4Sp"/>
                                 <constraint firstItem="vRl-An-stw" firstAttribute="centerX" secondItem="dP4-hK-p69" secondAttribute="centerX" id="5BW-C5-A5g"/>
-                                <constraint firstItem="WeL-qQ-SdX" firstAttribute="top" secondItem="dP4-hK-p69" secondAttribute="top" id="C9G-3t-QBH"/>
+                                <constraint firstItem="WeL-qQ-SdX" firstAttribute="top" secondItem="dP4-hK-p69" secondAttribute="top" constant="5" id="C9G-3t-QBH"/>
                                 <constraint firstItem="Lmz-yn-GFE" firstAttribute="centerY" secondItem="vRl-An-stw" secondAttribute="centerY" id="Ci1-vW-SxH"/>
                                 <constraint firstItem="GK0-wQ-u5P" firstAttribute="centerX" secondItem="dP4-hK-p69" secondAttribute="centerX" id="Hvf-75-aiJ"/>
                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GK0-wQ-u5P" secondAttribute="trailing" id="IFa-NZ-jIm"/>
