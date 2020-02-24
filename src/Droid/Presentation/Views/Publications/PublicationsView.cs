@@ -80,6 +80,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
         private void PlayFirstCompletelyVisibleVideoItem()
         {
+            Debug.WriteLine("PlayFirstCompletelyVisibleVideoItem [Start]");
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
             var layoutManager = (LinearLayoutManager)_publicationRecyclerView.GetLayoutManager();
             var firstVisibleItemPosition = layoutManager.FindFirstVisibleItemPosition();
             var visibleItemsCount = layoutManager.ChildCount;
@@ -114,12 +117,19 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             {
                 var centralItemView = layoutManager.FindViewByPosition(centralVisibleItemIndexToPlay);
                 if (centralItemView != null)
+                {
                     itemToPlay = new KeyValuePair<int, View>(centralVisibleItemIndexToPlay, centralItemView);
+                }
                 else
+                {
+                    watch.Stop();
+                    var elapsedMilliseconds = watch.ElapsedMilliseconds;
+                    Debug.WriteLine($"Return 1: {elapsedMilliseconds}");
                     return;
+                }
             }
 
-            Debug.WriteLine("Play activated:");
+            
 
             foreach (var partiallyVisibleItem in partiallyVisibleItems)
             {
@@ -132,7 +142,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             // TODO: Needs to resolve problem when playback has been successful from second attempt load only.
             // After that necessary to enable double-play blocker (mentioned below) again.
             if (_currentPlayingItemPosition == itemToPlay.Key && _currentPlayingItemPosition != -1)
+            {
+                watch.Stop();
+                var elapsedMilliseconds = watch.ElapsedMilliseconds;
+                Debug.WriteLine($"Return 2: {elapsedMilliseconds}");
+
                 return;
+            }
 
             _currentPlayingItemPosition = itemToPlay.Key;
 
@@ -140,17 +156,24 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             {
                 PlayVideo(visibleViewModel, videoItemView);
             }
+
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            Debug.WriteLine($"Return 3: {elapsedMs}");
         }
 
         private void PlayVideo(PublicationItemViewModel itemViewModel, VideoView videoView)
         {
+            Debug.WriteLine("PlayVideo [Start]");
             var videoService = itemViewModel.VideoPlayerService;
             videoService.Player.SetPlatformVideoPlayerContainer(videoView);
             videoService.Play(itemViewModel.VideoUrl, itemViewModel.VideoId);
+            Debug.WriteLine("PlayVideo [End]");
         }
 
         private void PauseVideo(PublicationItemViewModel itemViewModel)
         {
+            Debug.WriteLine("PauseVideo [Start]");
             itemViewModel.VideoPlayerService.Stop();
         }
 
