@@ -21,6 +21,8 @@ namespace PrankChat.Mobile.iOS.AppTheme
             public static UIColor ButtonBorderPrimary => UIColor.FromRGBA(0.38f, 0.18f, 0.61f, 1.0f);
             public static UIColor TextFieldDarkBorder = UIColor.FromRGBA(0.76f, 0.76f, 0.76f, 1.0f);
             public static UIColor CommentBorder = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.24f);
+            public static UIColor PositiveToastBackground = UIColor.FromRGB(134, 213, 73);
+            public static UIColor NegativeToastBackground = UIColor.FromRGB(213, 81, 73);
         }
 
         public class Font

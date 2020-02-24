@@ -1,17 +1,18 @@
-﻿using System;
-using Acr.UserDialogs;
-using Android.Content.PM;
+﻿using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Droid.Support.V7.AppCompat;
-using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using Toolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 {
-    public abstract class BaseView<TMvxViewModel> : MvxAppCompatActivity<TMvxViewModel> where TMvxViewModel : BaseViewModel
+    public abstract class BaseView<TMvxViewModel> : MvxAppCompatActivity<TMvxViewModel>, IToolbarOwner
+        where TMvxViewModel : BaseViewModel
     {
+        public Toolbar Toolbar { get; private set; }
+
         protected virtual bool HasBackButton => false;
 
         protected virtual bool HasActionBarVisible => true;
@@ -27,14 +28,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             SetContentView(layoutId);
             SetViewProperties();
 
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            if (toolbar == null)
+            Toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            if (Toolbar == null)
             {
                 DoBind();
                 return;
             }
 
-            SetSupportActionBar(toolbar);
+            SetSupportActionBar(Toolbar);
             SupportActionBar.SetDisplayShowCustomEnabled(true);
             SupportActionBar.SetHomeButtonEnabled(true);
             SupportActionBar.SetDisplayHomeAsUpEnabled(HasBackButton);

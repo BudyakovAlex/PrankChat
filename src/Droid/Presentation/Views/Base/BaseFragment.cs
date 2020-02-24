@@ -4,11 +4,15 @@ using Android.Widget;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using Toolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 {
-    public abstract class BaseFragment<TMvxViewModel> : MvxFragment<TMvxViewModel> where TMvxViewModel : BaseViewModel
+    public abstract class BaseFragment<TMvxViewModel> : MvxFragment<TMvxViewModel>, IToolbarOwner
+        where TMvxViewModel : BaseViewModel
     {
+        public Toolbar Toolbar { get; private set; }
+
         protected virtual bool HasBackButton => false;
 
         protected virtual string TitleActionBar => string.Empty;
@@ -18,8 +22,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = this.BindingInflate(resourceId, null);
 
-            var toolbar = view.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            if (toolbar == null)
+            Toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
+            if (Toolbar == null)
             {
                 return view;
             }
