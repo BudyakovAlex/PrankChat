@@ -65,7 +65,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
                                    int likes,
                                    int dislikes,
                                    DateTime? arbitrationFinishAt,
-                                   OrderStatusType status,)
+                                   OrderStatusType status)
         {
             _settingsService = settingsService;
             _navigatiobService = navigatiobService;

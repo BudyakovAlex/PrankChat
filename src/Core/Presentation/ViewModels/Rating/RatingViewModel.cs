@@ -100,7 +100,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating
                                                             o.Likes,
                                                             o.Dislikes,
                                                             o.ArbitrationFinishAt ?? DateTime.UtcNow,
-                                                            o.Status ?? OrderStatusType.None,));
+                                                            o.Status ?? OrderStatusType.None));
                 Items.AddRange(items);
             }
             catch (Exception ex)
