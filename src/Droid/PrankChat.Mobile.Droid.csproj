@@ -127,6 +127,9 @@
     <Compile Include="ApplicationServices\DialogService.cs" />
     <Compile Include="Presentation\Views\Base\IToolbarOwner.cs" />
     <Compile Include="Extensions\ViewExtensions.cs" />
+    <Compile Include="ApplicationServices\Callback\FacebookCallback.cs" />
+    <Compile Include="ApplicationServices\Callback\VkontakteCallback.cs" />
+    <Compile Include="DroidApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -743,6 +746,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
+    <Folder Include="ApplicationServices\Callback\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_background.xml" />

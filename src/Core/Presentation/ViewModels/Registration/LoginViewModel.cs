@@ -4,6 +4,7 @@ using MvvmCross.Commands;
 using MvvmCross.Logging;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
@@ -15,6 +16,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class LoginViewModel : BaseViewModel
     {
+        private readonly IExternalAuthService _externalAuthService;
+
         private readonly IMvxLog _mvxLog;
 
         private string _emailText;
@@ -33,12 +36,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         public LoginViewModel(INavigationService navigationService,
                               IApiService apiService,
+                              IExternalAuthService externalAuthService,
                               IDialogService dialogService,
                               IMvxLog mvxLog,
                               IErrorHandleService errorHandleService,
                               ISettingsService settingsService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
+            _externalAuthService = externalAuthService;
             _mvxLog = mvxLog;
 #if DEBUG
 
@@ -69,8 +74,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                 switch (socialNetworkType)
                 {
                     case LoginType.Vk:
+                        await _externalAuthService.LoginWithVkontakteAsync();
+                        break;
                     case LoginType.Ok:
                     case LoginType.Facebook:
+                        await _externalAuthService.LoginWithFacebookAsync();
+                        break;
                     case LoginType.Gmail:
                         return;
                     case LoginType.UsernameAndPassword:
