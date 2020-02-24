@@ -9,7 +9,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Binding
 {
     public class UIButtonOrderTypeTargetBinding : MvxTargetBinding<UIButton, OrderType>
     {
-        public static string TargetBinding = "UIButtonOrderType";
+        public static string TargetBinding = "ButtonOrderType";
 
         public UIButtonOrderTypeTargetBinding(UIButton target)
             : base(target)
