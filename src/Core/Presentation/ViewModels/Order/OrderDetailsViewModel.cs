@@ -121,7 +121,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsVideoLoadAvailable => _order?.Status == OrderStatusType.InWork && IsUserExecutor;
 
-        public bool IsVideoAvailable => _order.Video != null;
+        public bool IsVideoAvailable => _order?.Video != null;
 
         public bool IsExecutorAvailable => _order?.Executor != null;
 

@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
-using MvvmCross.Navigation;
 using Plugin.DeviceInfo;
 using Plugin.DeviceInfo.Abstractions;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 {
-    public class DialogService : IDialogService
+    public abstract class BaseDialogService : IDialogService
     {
         private readonly INavigationService _navigationService;
 
-        public DialogService(INavigationService navigationService)
+        protected BaseDialogService(INavigationService navigationService)
         {
             _navigationService = navigationService;
         }
@@ -42,11 +41,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
                 return UserDialogs.Instance.ActionSheetAsync(null, cancelText, null, cancellationToken, itemStrings);
             }
             return UserDialogs.Instance.ActionSheetAsync(null, cancelItemString, null, cancellationToken, itemStrings);
-        }
-
-        public void ShowToast(string text)
-        {
-            UserDialogs.Instance.Toast(text);
         }
 
         public Task ShowShareDialogAsync(string url)
@@ -87,5 +81,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
             var result = await _navigationService.ShowArrayDialog(new ArrayDialogParameter(items, title));
             return result?.SelectedItem;
         }
+
+        public abstract void ShowToast(string text, ToastType toastType);
     }
 }
