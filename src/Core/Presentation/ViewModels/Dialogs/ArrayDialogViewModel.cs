@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
@@ -21,7 +22,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 
         public List<string> Items { get; } = new List<string>();
 
-        public string SelectdItem { get; set; }
+        private string _selectdItem;
+        public string SelectdItem
+        {
+            get => _selectdItem;
+            set => SetProperty(ref _selectdItem, value);
+        }
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
@@ -39,6 +45,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
         public void Prepare(ArrayDialogParameter parameter)
         {
             Items.AddRange(parameter.Items);
+            SelectdItem = Items.FirstOrDefault();
             Title = parameter.Title;
         }
 
