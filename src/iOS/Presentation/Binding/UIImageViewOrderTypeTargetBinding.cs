@@ -27,9 +27,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Binding
         {
             switch (orderType)
             {
-                case OrderType.MyOrder:             return "OrderTypeMyBackground";
-                case OrderType.MyOrderInModeration: return "OrderTypeMyInModerationBackground";
-                case OrderType.NotMyOrder:          return "OrderTypeNotMyBackground";
+                case OrderType.MyOrder:             return "bg_order_type_my";
+                case OrderType.MyOrderInModeration: return "bg_order_type_my_in_moderation";
+                case OrderType.NotMyOrder:          return "bg_order_type_not_my";
                 default: throw new ArgumentOutOfRangeException();
             }
         }
