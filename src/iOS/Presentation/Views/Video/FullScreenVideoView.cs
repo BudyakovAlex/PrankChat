@@ -11,13 +11,11 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using ObjCRuntime;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
-using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 {
-    //TODO: Tech debt, move controls into XIB control, will provide it in other iteration
     [MvxModalPresentation]
     public partial class FullScreenVideoView : BaseView<FullScreenVideoViewModel>
     {
@@ -35,22 +33,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         private AVPlayer _player;
         private NSObject _playToEndObserver;
         private AVPlayerViewController _controller;
-
-        private UIView _overlayView;
-        private UIButton _playButton;
-        private UIButton _muteButton;
-        private UIButton _closeButton;
-        private UIView _progressView;
-        private UIView _loadProgressView;
-        private UIView _watchProgressView;
-        private UIView _watchProgressControl;
-        private UILabel _timeLabel;
-
-        private UILabel _titleLabel;
-        private UILabel _descriptionLabel;
-
-        private NSLayoutConstraint _timePassedWidthConstraint;
-        private NSLayoutConstraint _loadProgressViewWidthConstraint;
 
         public string VideoUrl
         {
@@ -103,16 +85,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         protected override void SetupControls()
         {
-            InitializeOverlayView();
-            InitializePlayButton();
-            InitializeMuteButton();
-            InitializeCloseButton();
-            InitializeVideoInfoLabels();
-            InitializeProgressView();
-            InitializeLoadProgressView();
-            InitializeWatchProgressView();
-            InitializeWatchProgressControl();
-            InitializeTimeLabel();
+            overlayView.AddGestureRecognizer(new UITapGestureRecognizer(_ => overlayView.Hidden = true));
+
+            playButton.AddGestureRecognizer(new UITapGestureRecognizer(PlayButtonTap));
+
+            muteButton.AddGestureRecognizer(new UITapGestureRecognizer(MuteButtonTap));
+
+            closeButton.AddGestureRecognizer(new UITapGestureRecognizer(CloseButtonTap));
+
+            watchProgressControl.Layer.CornerRadius = 5f;
+
+            watchProgressControlContainer.AddGestureRecognizer(new UIPanGestureRecognizer(WatchProgressControlContainerPan));
         }
 
         protected override void SetupBinding()
@@ -125,10 +108,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                       .For(v => v.VideoUrl)
                       .To(vm => vm.VideoUrl);
 
-            bindingSet.Bind(_titleLabel)
+            bindingSet.Bind(titleLabel)
                       .For(v => v.Text)
                       .To(vm => vm.VideoName);
-            bindingSet.Bind(_descriptionLabel)
+            bindingSet.Bind(descriptionLabel)
                       .For(v => v.Text)
                       .To(vm => vm.Description);
 
@@ -170,7 +153,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             _controller.View.AddGestureRecognizer(new UITapGestureRecognizer(_ =>
             {
                 UpdateLastActionTicks();
-                _overlayView.Hidden = false;
+                overlayView.Hidden = false;
             }));
 
             AddChildViewController(_controller);
@@ -178,210 +161,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             _controller.View.Frame = View.Frame;
             _controller.DidMoveToParentViewController(this);
 
-            View.BringSubviewToFront(_overlayView);
-        }
-
-        private void InitializeOverlayView()
-        {
-            _overlayView = new UIView
-            {
-                TranslatesAutoresizingMaskIntoConstraints = false,
-                BackgroundColor = UIColor.Black,
-                Alpha = 0.8f,
-                Hidden = true
-            };
-
-            _overlayView.AddGestureRecognizer(new UITapGestureRecognizer(_ => _overlayView.Hidden = true));
-
-            View.AddSubview(_overlayView);
-
-            NSLayoutConstraint.ActivateConstraints(new []
-            {
-                _overlayView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _overlayView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
-                _overlayView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _overlayView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
-            });
-        }
-
-        private void InitializePlayButton()
-        {
-            _playButton = new UIButton();
-            _playButton.TranslatesAutoresizingMaskIntoConstraints = false;
-            _playButton.ContentMode = UIViewContentMode.Center;
-            _playButton.AddGestureRecognizer(new UITapGestureRecognizer(PlayButtonTap));
-            _playButton.SetImage(UIImage.FromBundle("ic_pause"), UIControlState.Normal);
-
-            _overlayView.AddSubview(_playButton);
-
-            NSLayoutConstraint.ActivateConstraints(new []
-            {
-                _playButton.LeadingAnchor.ConstraintEqualTo(_overlayView.SafeAreaLayoutGuide.LeadingAnchor),
-                _playButton.BottomAnchor.ConstraintEqualTo(_overlayView.BottomAnchor, -20f),
-                _playButton.HeightAnchor.ConstraintEqualTo(52f),
-                _playButton.WidthAnchor.ConstraintEqualTo(52f)
-            });
-        }
-
-        private void InitializeMuteButton()
-        {
-            _muteButton = new UIButton();
-            _muteButton.TranslatesAutoresizingMaskIntoConstraints = false;
-            _muteButton.ContentMode = UIViewContentMode.Center;
-            _muteButton.AddGestureRecognizer(new UITapGestureRecognizer(MuteButtonTap));
-            _muteButton.SetImage(UIImage.FromBundle("ic_mute"), UIControlState.Normal);
-
-            _overlayView.AddSubview(_muteButton);
-
-            NSLayoutConstraint.ActivateConstraints(new []
-            {
-                _muteButton.TrailingAnchor.ConstraintEqualTo(_overlayView.SafeAreaLayoutGuide.TrailingAnchor),
-                _muteButton.BottomAnchor.ConstraintEqualTo(_overlayView.BottomAnchor, -20f),
-                _muteButton.HeightAnchor.ConstraintEqualTo(52f),
-                _muteButton.WidthAnchor.ConstraintEqualTo(52f)
-            });
-        }
-
-        private void InitializeCloseButton()
-        {
-            _closeButton = new UIButton();
-            _closeButton.TranslatesAutoresizingMaskIntoConstraints = false;
-            _closeButton.ContentMode = UIViewContentMode.Center;
-            _closeButton.AddGestureRecognizer(new UITapGestureRecognizer(CloseButtonTap));
-            _closeButton.SetImage(UIImage.FromBundle("ic_back"), UIControlState.Normal);
-
-            _overlayView.AddSubview(_closeButton);
-
-            NSLayoutConstraint.ActivateConstraints(new[]
-            {
-                _closeButton.TopAnchor.ConstraintEqualTo(_overlayView.SafeAreaLayoutGuide.TopAnchor),
-                _closeButton.LeadingAnchor.ConstraintEqualTo(_overlayView.SafeAreaLayoutGuide.LeadingAnchor),
-                _closeButton.HeightAnchor.ConstraintEqualTo(52f),
-                _closeButton.WidthAnchor.ConstraintEqualTo(52f)
-            });
-        }
-
-        private void InitializeProgressView()
-        {
-            _progressView = new UIView();
-            _progressView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _progressView.BackgroundColor = UIColor.White;
-            _progressView.Alpha = 0.5f;
-
-            _overlayView.AddSubview(_progressView);
-
-            NSLayoutConstraint.ActivateConstraints(new []
-            {
-                _progressView.LeadingAnchor.ConstraintEqualTo(_playButton.TrailingAnchor),
-                _progressView.TrailingAnchor.ConstraintEqualTo(_muteButton.LeadingAnchor),
-                _progressView.CenterYAnchor.ConstraintEqualTo(_muteButton.CenterYAnchor),
-                _progressView.HeightAnchor.ConstraintEqualTo(2f),
-            });
-        }
-
-        private void InitializeLoadProgressView()
-        {
-            _loadProgressView = new UIView();
-            _loadProgressView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _loadProgressView.BackgroundColor = UIColor.White;
-            _loadProgressView.Alpha = 0.5f;
-
-            _overlayView.AddSubview(_loadProgressView);
-
-            NSLayoutConstraint.ActivateConstraints(new []
-            {
-                _loadProgressView.LeadingAnchor.ConstraintEqualTo(_progressView.LeadingAnchor),
-                _loadProgressView.TopAnchor.ConstraintEqualTo(_progressView.TopAnchor),
-                _loadProgressView.BottomAnchor.ConstraintEqualTo(_progressView.BottomAnchor),
-                _loadProgressViewWidthConstraint = _loadProgressView.WidthAnchor.ConstraintEqualTo(0f)
-            });
-        }
-
-        private void InitializeWatchProgressView()
-        {
-            _watchProgressView = new UIView();
-            _watchProgressView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _watchProgressView.BackgroundColor = Theme.Color.Accent;
-
-            _overlayView.AddSubview(_watchProgressView);
-
-            NSLayoutConstraint.ActivateConstraints(new []
-            {
-                _watchProgressView.LeadingAnchor.ConstraintEqualTo(_progressView.LeadingAnchor),
-                _watchProgressView.TopAnchor.ConstraintEqualTo(_progressView.TopAnchor),
-                _watchProgressView.BottomAnchor.ConstraintEqualTo(_progressView.BottomAnchor),
-                _timePassedWidthConstraint = _watchProgressView.WidthAnchor.ConstraintEqualTo(0f)
-            });
-        }
-
-        private void InitializeWatchProgressControl()
-        {
-            _watchProgressControl = new UIView();
-            _watchProgressControl.TranslatesAutoresizingMaskIntoConstraints = false;
-            _watchProgressControl.BackgroundColor = Theme.Color.Accent;
-            _watchProgressControl.Layer.CornerRadius = 5f;
-            _watchProgressControl.AddGestureRecognizer(new UIPanGestureRecognizer(WatchProgressControlPan));
-
-            _overlayView.AddSubview(_watchProgressControl);
-
-            NSLayoutConstraint.ActivateConstraints(new []
-            {
-                _watchProgressControl.TrailingAnchor.ConstraintEqualTo(_watchProgressView.TrailingAnchor, 5f),
-                _watchProgressControl.CenterYAnchor.ConstraintEqualTo(_watchProgressView.CenterYAnchor),
-                _watchProgressControl.WidthAnchor.ConstraintEqualTo(10f),
-                _watchProgressControl.HeightAnchor.ConstraintEqualTo(10f)
-            });
-        }
-
-        private void InitializeTimeLabel()
-        {
-            _timeLabel = new UILabel();
-            _timeLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            _timeLabel.TextColor = UIColor.White;
-            _timeLabel.Font = Theme.Font.MediumOfSize(12f);
-            _timeLabel.Text = "0:00";
-
-            _overlayView.AddSubview(_timeLabel);
-
-            NSLayoutConstraint.ActivateConstraints(new []
-            {
-                _timeLabel.LeadingAnchor.ConstraintEqualTo(_progressView.LeadingAnchor),
-                _timeLabel.BottomAnchor.ConstraintEqualTo(_progressView.BottomAnchor, -11f)
-            });
-        }
-
-        private void InitializeVideoInfoLabels()
-        {
-            _titleLabel = new UILabel
-            {
-                TranslatesAutoresizingMaskIntoConstraints = false,
-                TextColor = UIColor.White,
-                Font = Theme.Font.MediumOfSize(20f),
-                LineBreakMode = UILineBreakMode.WordWrap,
-                Lines = 2
-            };
-
-            _descriptionLabel = new UILabel
-            {
-                TranslatesAutoresizingMaskIntoConstraints = false,
-                TextColor = UIColor.White,
-                Font = Theme.Font.MediumOfSize(14f),
-                LineBreakMode = UILineBreakMode.WordWrap,
-                Lines = 0
-            };
-
-            _overlayView.AddSubviews(_titleLabel, _descriptionLabel);
-
-            NSLayoutConstraint.ActivateConstraints(new[]
-            {
-                _titleLabel.TopAnchor.ConstraintEqualTo(_closeButton.BottomAnchor, 13f),
-                _titleLabel.LeadingAnchor.ConstraintEqualTo(_overlayView.LeadingAnchor, 13f),
-                _titleLabel.TrailingAnchor.ConstraintEqualTo(_overlayView.TrailingAnchor, -13f),
-
-                _descriptionLabel.TopAnchor.ConstraintEqualTo(_titleLabel.BottomAnchor, 18f),
-                _descriptionLabel.LeadingAnchor.ConstraintEqualTo(_overlayView.LeadingAnchor, 13f),
-                _descriptionLabel.TrailingAnchor.ConstraintEqualTo(_overlayView.TrailingAnchor, -64f),
-            });
+            View.BringSubviewToFront(overlayView);
         }
 
         private void UpdateLastActionTicks()
@@ -395,7 +175,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             {
                 if (GetHideOverlay() && (DateTime.Now.Ticks - _lastActionTicks >= ThreeSecondsTicks))
                 {
-                    InvokeOnMainThread(() => _overlayView.Hidden = true);
+                    InvokeOnMainThread(() => overlayView.Hidden = true);
                 }
                 else
                 {
@@ -407,7 +187,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         private bool GetHideOverlay()
         {
             var hideOverlay = true;
-            InvokeOnMainThread(() => hideOverlay = !_overlayView.Hidden
+            InvokeOnMainThread(() => hideOverlay = !overlayView.Hidden
                                                 && _player.TimeControlStatus != AVPlayerTimeControlStatus.Paused);
             return hideOverlay;
         }
@@ -429,7 +209,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             var time = GetTextRepresentation(_player.CurrentItem.CurrentTime);
             var duration = GetTextRepresentation(_player.CurrentItem.Duration);
-            _timeLabel.Text = $"{time} / {duration}";
+            timeLabel.Text = $"{time} / {duration}";
 
             UpdateTimePassedWidthConstraint();
         }
@@ -451,14 +231,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             }
 
             var ratio = _player.CurrentItem.CurrentTime.Seconds / _player.CurrentItem.Duration.Seconds;
-            var width = (nfloat) ratio * _progressView.Frame.Width;
-            _timePassedWidthConstraint.Constant = width;
+            var width = (nfloat) ratio * progressView.Frame.Width;
+            watchProgressViewWidthConstraint.Constant = width;
         }
 
         private void PlayerMutedChanged()
         {
             var imageName = _player.Muted ? "ic_sound_muted" : "ic_mute";
-            _muteButton.SetImage(UIImage.FromBundle(imageName), UIControlState.Normal);
+            muteButton.SetImage(UIImage.FromBundle(imageName), UIControlState.Normal);
         }
 
         private void PlayerTimeControlStatusChanged()
@@ -467,7 +247,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                 ? "ic_play"
                 : "ic_pause";
 
-            _playButton.SetImage(UIImage.FromBundle(imageName), UIControlState.Normal);
+            playButton.SetImage(UIImage.FromBundle(imageName), UIControlState.Normal);
         }
 
         private void PlayerItemLoadedTimeRangesChanged()
@@ -480,8 +260,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             var value = _player.CurrentItem.LoadedTimeRanges.Last();
             var seconds = value.CMTimeRangeValue.Start.Seconds + value.CMTimeRangeValue.Duration.Seconds;
             var ratio = seconds / _player.CurrentItem.Duration.Seconds;
-            var width = (nfloat) ratio * _progressView.Frame.Width;
-            _loadProgressViewWidthConstraint.Constant = width;
+            var width = (nfloat) ratio * progressView.Frame.Width;
+            loadProgressViewWidthConstraint.Constant = width;
         }
 
         private void PlayButtonTap()
@@ -503,11 +283,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             UpdateLastActionTicks();
         }
 
-        private void WatchProgressControlPan(UIPanGestureRecognizer recognizer)
+        private void WatchProgressControlContainerPan(UIPanGestureRecognizer recognizer)
         {
-            var point = recognizer.LocationInView(_overlayView);
-            var newWidth = point.X - _watchProgressView.Frame.X;
-            var ratio = newWidth / _progressView.Frame.Width;
+            var point = recognizer.LocationInView(overlayView);
+            var newWidth = point.X - watchProgressView.Frame.X;
+            var ratio = newWidth / progressView.Frame.Width;
             var value = ratio * _player.CurrentItem.Duration.Seconds;
             _player.Seek(new CMTime((long) value, 1));
 
