@@ -14,5 +14,10 @@
             public const int ViewedFactRegistrationDelayInMilliseconds = 3000;
             public const int RepeatDelayInSeconds = 10;
         }
+
+        public static class Age
+        {
+            public const int AdultAge = 18;
+        }
     }
 }
