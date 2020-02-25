@@ -46,10 +46,6 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
             return token;
         }
 
-        public void InitializeVkontakteAsync()
-        {
-        }
-
         public async Task<string> LoginWithVkontakteAsync()
         {
             var currentContext = _mvxAndroidCurrentTopActivity.Activity;

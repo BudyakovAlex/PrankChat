@@ -271,8 +271,9 @@
       <DependentUpon>ToastView.cs</DependentUpon>
     </Compile>
     <Compile Include="ApplicationServices\ExternalAuth\ExternalAuthService.cs" />
-    <Compile Include="ApplicationServices\Callbacks\VkontakteCallback.cs" />
+    <Compile Include="ApplicationServices\Callbacks\VkontakteDelegate.cs" />
     <Compile Include="ApplicationServices\Callbacks\FacebookCallback.cs" />
+    <Compile Include="Utils\Helpers\DeviceHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

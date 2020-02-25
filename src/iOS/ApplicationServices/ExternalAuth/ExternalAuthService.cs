@@ -1,29 +1,59 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Facebook.LoginKit;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
+using PrankChat.Mobile.iOS.ApplicationServices.Callbacks;
+using PrankChat.Mobile.iOS.Utils.Helpers;
+using VKontakte;
 
 namespace PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth
 {
     public class ExternalAuthService : IExternalAuthService
     {
+        private readonly string[] _facebookPermissions = { @"public_profile", @"email" };
+
+        private readonly string[] _permissions = { VKPermissions.Email, VKPermissions.Offline };
+
+        private readonly LoginManager _facebookLoginManager;
+
+        public ExternalAuthService()
+        {
+            _facebookLoginManager = new LoginManager();
+        }
+
         public Task<string> LoginWithFacebookAsync()
         {
-            throw new NotImplementedException();
+            var completionSource = new TaskCompletionSource<string>();
+            FacebookCallback.Instance.CompletionSource = completionSource;
+
+            _facebookLoginManager.LogIn(_facebookPermissions, DeviceHelper.GetCurrentViewController(), FacebookCallback.Instance.LoginManagerLoginHandler);
+            return completionSource.Task;
         }
 
         public Task<string> LoginWithVkontakteAsync()
         {
-            throw new NotImplementedException();
+            VKSdk.Instance.RegisterDelegate(VkontakteDelegate.Instance);
+            VKSdk.Instance.UiDelegate = VkontakteDelegate.Instance;
+
+            var completionSource = new TaskCompletionSource<string>();
+            VKSdk.Authorize(_permissions);
+            VkontakteDelegate.Instance.CompletionSource = completionSource;
+
+            return completionSource.Task;
         }
 
         public void LogoutFromFacebook()
         {
-            throw new NotImplementedException();
+            _facebookLoginManager.LogOut();
         }
 
         public void LogoutFromVkontakte()
         {
-            throw new NotImplementedException();
+            VKSdk.ForceLogout();
+        }
+
+        public void Logout()
+        {
+            _facebookLoginManager.LogOut();
         }
     }
 }
