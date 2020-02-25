@@ -19,7 +19,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.ArrayPicker
 
             set.Bind(_pickerViewModel)
                 .For(p => p.SelectedItem)
-                .To(vm => vm.SelectdItem);
+                .To(vm => vm.SelectedItem);
 
             set.Bind(_pickerViewModel)
                 .For(p => p.ItemsSource)

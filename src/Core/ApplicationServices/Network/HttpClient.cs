@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -11,6 +12,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Configuration;
+using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
@@ -123,7 +125,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             {
                 _mvxLog.Debug($"[HTTP] {request.Method} {endpoint}");
                 if (includeAccessToken)
-                    await AddAuthorizationHeader(request);
+                {
+                    await AddAuthorizationHeaderAsync(request);
+                }
+
+                AddLanguageHeader(request);
 
                 var content = cancellationToken.HasValue
                     ? await _client.ExecuteAsync<string>(request, cancellationToken.Value)
@@ -131,10 +137,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                 CheckResponse(request, content, exceptionThrowingEnabled);
                 return content.Content;
-            }
-            catch (AuthenticationProblemDetails)
-            {
-                throw;
             }
             catch (Exception e)
             {
@@ -148,7 +150,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             {
                 _mvxLog.Debug($"[HTTP] {request.Method} {endpoint}");
                 if (includeAccessToken)
-                    await AddAuthorizationHeader(request);
+                {
+                    await AddAuthorizationHeaderAsync(request);
+                }
+
+                AddLanguageHeader(request);
 
                 var content = cancellationToken.HasValue
                     ? await _client.ExecuteAsync<T>(request, cancellationToken.Value)
@@ -156,10 +162,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                 CheckResponse(request, content, exceptionThrowingEnabled);
                 return content.Data;
-            }
-            catch (AuthenticationProblemDetails)
-            {
-                throw;
             }
             catch (Exception e)
             {
@@ -176,22 +178,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     return;
                 }
 
-                switch (response.StatusCode)
+                try
                 {
-                    case HttpStatusCode.Unauthorized:
-                    case HttpStatusCode.Forbidden:
-                        throw JsonConvert.DeserializeObject<AuthenticationProblemDetails>(response.Content);
-
-                    case HttpStatusCode.InternalServerError:
-                        var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(response.Content);
-                        throw MappingConfig.Mapper.Map<InternalServerProblemDetails>(problemDetails);
+                    var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(response.Content);
+                    var problemDetailsData = MappingConfig.Mapper.Map<ProblemDetailsDataModel>(problemDetails);
+                    throw problemDetailsData;
                 }
-
-                if (response.ErrorException != null)
-                {
-                    _mvxLog.ErrorException(response.ErrorMessage, response?.ErrorException);
-                }
-                else
+                catch (JsonSerializationException)
                 {
                     throw new NetworkException($"Network error - {response.ErrorMessage} with code {response.StatusCode} for request {request.Resource}");
                 }
@@ -199,23 +192,25 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             catch (Exception ex)
             {
                 _mvxLog.ErrorException(response.StatusCode + response.ErrorMessage, ex);
-                var errorMessages = new List<string>
-                {
-                    ex.Message
-                };
-                _messenger.Publish(new BadRequestErrorMessage(this, errorMessages.AsReadOnly()));
+                _messenger.Publish(new ServerErrorMessage(this, ex));
 
                 if (exceptionThrowingEnabled)
                 {
-                    throw ex;
+                    throw;
                 }
             }
         }
 
-        private async Task AddAuthorizationHeader(IRestRequest request)
+        private async Task AddAuthorizationHeaderAsync(IRestRequest request)
         {
             var accessToken = await _settingsService.GetAccessTokenAsync();
             request.AddHeader(HttpRequestHeader.Authorization.ToString(), $"Bearer {accessToken}");
+        }
+
+        private void AddLanguageHeader(IRestRequest request)
+        {
+            var currentCulture = CultureInfo.CurrentCulture;
+            request.AddHeader("Accept-Language", currentCulture.TwoLetterISOLanguageName);
         }
 
         private string TryAddIncludeFlag(string apiPoint, IncludeType[] includes)

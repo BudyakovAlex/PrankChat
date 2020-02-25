@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="com.crashlytics.android.build_id">e9e6beb9c4284289ac68b9ab76a9ee56</string>
+<resources>
     <integer name="com_vk_sdk_AppId">7333690</integer>
     <string name="Close">"Закрыть"</string>
     <string name="app_name">"Prank Chat"</string>
@@ -23,7 +22,6 @@
     <string name="Error_Unexpected_Server">"Возникла непредвиденная ошибка на сервере. Мы уже получили информацию об этом и работаем над устранением проблемы."</string>
     <string name="Error_Unexpected_Not_Found">"Не удалось получить запрошенные данные."</string>
     <string name="Error_Unexpected_Network">"Возникла неожиданная сетевая ошибка, пожалуйста, попробуйте снова."</string>
-    <string name="Demo">Демо"</string>
     <string name="LoginView_Email_Placeholder">"Введите email"</string>
     <string name="LoginView_Password_Placeholder">"Введите пароль"</string>
     <string name="LoginView_ForgotPassword_Title">"Востановление пароля"</string>
@@ -200,4 +198,24 @@
     <string name="OrderDetailsView_LoadVideo">"Загрузить видео"</string>
     <string name="NotificationStatus_Viewed">"Просмотрено"</string>
     <string name="NotificationStatus_NotViewed">"Непросмотрено"</string>
+    <string name="Validation_Field_Title">"Заголовок"</string>
+    <string name="Validation_Field_Description">"Описание"</string>
+    <string name="Validation_Field_Price">"Цена"</string>
+    <string name="Validation_Field_OrderPeriod">"Период"</string>
+    <string name="Validation_Field_Cost">"Стоимость"</string>
+    <string name="Validation_Field_Login">"Логин"</string>
+    <string name="Validation_Field_Name">"Имя"</string>
+    <string name="Validation_Field_Birthday">"День рождения"</string>
+    <string name="Validation_Field_Gender">"Пол"</string>
+    <string name="Validation_Field_Email">"E-mail"</string>
+    <string name="Validation_Field_Password">"Пароль"</string>
+    <string name="Validation_Field_PasswordRepeat">"Повтор пароля"</string>
+    <string name="Validation_Error_Empty">"{0} не может быть пустым."</string>
+    <string name="Validation_Error_GreaterThanRequired">"{0} не может быть больше чем {1}."</string>
+    <string name="Validation_Error_LowerThanRequired">"{0} не может быть меньше чем {1}."</string>
+    <string name="Validation_Error_NotMatch">"{0} не совпадает с {1}."</string>
+    <string name="Validation_Error_CanNotMatch">"{0} не может быть равно {1}."</string>
+    <string name="Validation_Error_Invalid">"{0} имеет неверный формат."</string>
+    <string name="Demo">"Демо"</string>
+    <string name="com.crashlytics.android.build_id">"e9e6beb9c4284289ac68b9ab76a9ee56"</string>
 </resources>

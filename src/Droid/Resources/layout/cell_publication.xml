@@ -142,6 +142,7 @@
         android:textColor="@color/applicationBlack"
         android:text="@string/Share"
         app:MvxBind="Click ShareCommand"/>
+    <!--TODO: Make it button visible after video saving will become available.-->
     <ImageButton
         android:id="@+id/bookmark_button"
         android:layout_width="14dp"
@@ -153,5 +154,6 @@
         app:layout_constraintTop_toBottomOf="@+id/video_file"
         app:layout_constraintHorizontal_bias="1"
         android:layout_marginRight="3dp"
-        android:layout_marginTop="11dp"/>
+        android:layout_marginTop="11dp"
+        android:visibility="invisible"/>
 </android.support.constraint.ConstraintLayout>

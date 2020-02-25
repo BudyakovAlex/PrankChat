@@ -8,7 +8,10 @@ using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Exceptions.UserVisible;
+using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
@@ -98,8 +101,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             }
             catch (Exception ex)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Проблема с входом в приложение. Попробуйте еще раз."));
-                _mvxLog.ErrorException($"[{nameof(LoginViewModel)}]", ex);
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Can't sign into application.", ex);
             }
             finally
             {
@@ -111,19 +114,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             if (string.IsNullOrWhiteSpace(EmailText))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Email не может быть пустым."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Email, ValidationErrorType.Empty));
+                ErrorHandleService.LogError(this, "E-mail field can't be empty.");
                 return false;
             }
 
             if (!EmailText.IsValidEmail())
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Поле Email введено не правильно."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Email, ValidationErrorType.Invalid));
+                ErrorHandleService.LogError(this, "E-mail field value is incorrect.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(PasswordText))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Пароль не может быть пустым."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Password, ValidationErrorType.Empty));
+                ErrorHandleService.LogError(this, "Password field can't be empty.");
                 return false;
             }
 

@@ -1,11 +1,11 @@
 ﻿using System;
-using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 
@@ -26,8 +26,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
         protected override void SetupControls()
         {
             base.SetupControls();
-
-            innerView.SetCornerRadius(10);
 
             orderTitleLabel.SetScreenTitleStyle();
 
@@ -52,12 +50,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             statusOrderLabel.SetMediumStyle(14, Theme.Color.White);
             statusOrderLabel.Text = Resources.Order_View_My_Task;
 
-            orderDetailsButton.SetDarkStyle(Resources.Order_View_Details);
+            orderDetailsButton.TitleLabel.Text = Resources.Order_View_Details;
         }
 
         protected override void SetBindings()
         {
             var set = this.CreateBindingSet<OrderItemCell, OrderItemViewModel>();
+
+            set.Bind(this)
+                .For(v => v.BindTap())
+                .To(vm => vm.OpenDetailsOrderCommand)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(backgroundImageView)
+                .For(UIImageViewOrderTypeTargetBinding.TargetBinding)
+                .To(vm => vm.OrderType);
 
             set.Bind(profilePhotoImage)
                 .For(v => v.DownsampleWidth)
@@ -90,6 +97,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.OpenDetailsOrderCommand)
                 .Mode(MvxBindingMode.OneTime);
 
+            set.Bind(orderDetailsButton)
+                .For(UIButtonOrderTypeTargetBinding.TargetBinding)
+                .To(vm => vm.OrderType);
+
             set.Bind(statusOrderLabel)
                 .To(vm => vm.StatusText)
                 .Mode(MvxBindingMode.OneTime);
@@ -107,4 +118,3 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
         }
     }
 }
-

@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ApplicationServices\Network\Errors\**" />
+    <EmbeddedResource Remove="ApplicationServices\Network\Errors\**" />
+    <None Remove="ApplicationServices\Network\Errors\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.0.35" />
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="MvvmCross" Version="6.4.3" />
@@ -57,9 +63,7 @@
     <Folder Include="ApplicationServices\Platforms\" />
     <Folder Include="Models\Data\FilterTypes\" />
     <Folder Include="ApplicationServices\Network\JsonSerializers\Converters\" />
-    <Folder Include="Exceptions\" />
     <Folder Include="Exceptions\Network\" />
-    <Folder Include="ApplicationServices\Network\Errors\" />
     <Folder Include="ApplicationServices\Timer\" />
     <Folder Include="ApplicationServices\Dialogs\" />
     <Folder Include="Presentation\ViewModels\Video\" />

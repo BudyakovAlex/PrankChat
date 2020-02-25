@@ -37,6 +37,7 @@ namespace PrankChat.Mobile.Droid
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
         {
             base.FillTargetFactories(registry);
+            registry.RegisterCustomBindingFactory<Button>(OrderButtonStyleBinding.TargetBinding, button => new OrderButtonStyleBinding(button));
             registry.RegisterCustomBindingFactory<View>(BackgroundBinding.TargetBinding, view => new BackgroundBinding(view));
             registry.RegisterCustomBindingFactory<VideoView>(VideoUrlTargetBinding.TargetBinding, view => new VideoUrlTargetBinding(view));
             registry.RegisterCustomBindingFactory<View>(ViewTouchTargetBinding.TargetBinding, view => new ViewTouchTargetBinding(view));
