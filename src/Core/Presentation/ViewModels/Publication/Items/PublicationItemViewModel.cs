@@ -7,7 +7,6 @@ using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
@@ -55,7 +54,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                     shareLink,
                     isLiked)
         {
-            ShowDetailsCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowDetailsPublicationView, restrictedCanExecute: ()=> IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+            // TODO: Unblock this after video details page will be completed
+            // ShowDetailsCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowDetailsPublicationView, restrictedCanExecute: ()=> IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }
     }
 }
