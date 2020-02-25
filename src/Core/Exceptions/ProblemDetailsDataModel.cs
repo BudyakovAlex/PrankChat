@@ -5,7 +5,7 @@ using PrankChat.Mobile.Core.Models;
 
 namespace PrankChat.Mobile.Core.Exceptions
 {
-    public class ProblemDetails : ApplicationException
+    public class ProblemDetailsDataModel : ApplicationException
     {
         public string CodeError { get; set; }
 
@@ -19,9 +19,9 @@ namespace PrankChat.Mobile.Core.Exceptions
 
         public string Type { get; set; }
 
-        public ProblemDetails() : base(string.Empty) { }
+        public ProblemDetailsDataModel() : base(string.Empty) { }
 
-        public ProblemDetails(string message) : base(message)
+        public ProblemDetailsDataModel(string message) : base(message)
         {
         }
 

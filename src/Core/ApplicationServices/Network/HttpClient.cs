@@ -181,7 +181,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 try
                 {
                     var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(response.Content);
-                    throw MappingConfig.Mapper.Map<ProblemDetails>(problemDetails);
+                    var problemDetailsData = MappingConfig.Mapper.Map<ProblemDetailsDataModel>(problemDetails);
+                    throw problemDetailsData;
                 }
                 catch (JsonSerializationException)
                 {

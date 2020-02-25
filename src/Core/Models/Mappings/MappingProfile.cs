@@ -38,7 +38,7 @@ namespace PrankChat.Mobile.Core.Models.Mappings
             CreateMap<TransactionDataModel, TransactionApiModel>().ReverseMap();
             CreateMap<GenderType, string>().ConvertUsing(src => src.ToString().ToLower());
             CreateMap<ArbitrationValueType, string>().ConvertUsing(src => src.ToString().ToLower());
-            CreateMap<ProblemDetails, ProblemDetailsApiModel>()
+            CreateMap<ProblemDetailsDataModel, ProblemDetailsApiModel>()
                 .ForPath(dest => dest.Message, opt => opt.MapFrom(src => src.MessageServerError))
                 .ReverseMap();
         }
