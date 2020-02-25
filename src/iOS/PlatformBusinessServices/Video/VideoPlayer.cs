@@ -62,6 +62,10 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         public override void TryRegisterViewedFact(int id, int registrationDelayInMilliseconds)
         {
             var registrationDelayInSeconds = registrationDelayInMilliseconds / 1000;
+
+            if (_viewedFactRegistrationObserver != null)
+                RemoveViewedFactRegistrationObserver();
+
             _viewedFactRegistrationObserver = _player.AddBoundaryTimeObserver(
                 times: new[] { NSValue.FromCMTime(new CMTime(registrationDelayInSeconds, 1)) },
                 queue: null,
