@@ -8,6 +8,9 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Exceptions.UserVisible;
+using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -79,8 +82,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             }
             catch (Exception ex)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Проблема с регистрацией пользователя."));
-                _mvxLog.ErrorException($"[{nameof(RegistrationSecondStepViewModel)}]", ex);
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "User registration error occured.", ex);
             }
             finally
             {
@@ -92,49 +95,57 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             if (string.IsNullOrWhiteSpace(Login))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Логин не может быть пустым."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Login, ValidationErrorType.Empty));
+                ErrorHandleService.LogError(this, "Login can't be empty.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Имя не может быть пустым."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Name, ValidationErrorType.Empty));
+                ErrorHandleService.LogError(this, "Name can't be empty.");
                 return false;
             }
 
             if (Birthday == null)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("День рождения не может быть пустым."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.Empty));
+                ErrorHandleService.LogError(this, "Birthday can't be empty.");
                 return false;
             }
 
-            if ((DateTime.Now.Year - Birthday?.Year) <= 18)
+            if ((DateTime.Now.Year - Birthday?.Year) <= Constants.Age.AdultAge)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Пользователь не может быть младше 18 лет."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.LowerThanRequired, Constants.Age.AdultAge.ToString()));
+                ErrorHandleService.LogError(this, $"User can't be younger than {Constants.Age.AdultAge} years.");
                 return false;
             }
 
             if (string.IsNullOrEmpty(Password))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Пароль не может быть пустым."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Password, ValidationErrorType.Empty));
+                ErrorHandleService.LogError(this, "Password can't be empty.");
                 return false;
             }
 
             if (string.IsNullOrEmpty(RepeatedPassword))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Проверочный пароль не может быть пустым."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_PasswordRepeat, ValidationErrorType.Empty));
+                ErrorHandleService.LogError(this, "Password repeat can't be empty.");
                 return false;
             }
 
             if (Password != RepeatedPassword)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Проверочный пароль и пароль не совпадают."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Password, ValidationErrorType.NotMatch, Resources.Validation_Field_PasswordRepeat));
+                ErrorHandleService.LogError(this, "Password and repeated password values don't match.");
                 return false;
             }
 
             if (Gender == null)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Выберите свой пол."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Gender, ValidationErrorType.Empty));
+                ErrorHandleService.LogError(this, "Gender can't be empty.");
                 return false;
             }
 

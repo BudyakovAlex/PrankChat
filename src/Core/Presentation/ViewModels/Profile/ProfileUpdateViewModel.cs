@@ -10,6 +10,9 @@ using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Exceptions.UserVisible;
+using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -115,7 +118,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 var user = await ApiService.SendAvatarAsync(file.Path);
                 if (user == null)
                 {
-                    ErrorHandleService.HandleException(new UserVisibleException("Ошибка при загрузке фотографии."));
+                    ErrorHandleService.LogError(this, "User is null after avatar loading. Aborting.");
                     return;
                 }
 
@@ -130,37 +133,43 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             if (string.IsNullOrWhiteSpace(Login))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Логин не может быть пустым."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Login, ValidationErrorType.Empty));
+                ErrorHandleService.LogError(this, "Login can't be empty.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Имя не может быть пустым."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Name, ValidationErrorType.Empty));
+                ErrorHandleService.LogError(this, "Name can't be empty.");
                 return false;
             }
 
             if (Birthday == null)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("День рождения не может быть пустым."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.Empty));
+                ErrorHandleService.LogError(this, "Birthday can't be empty.");
                 return false;
             }
 
             if (Birthday > DateTime.Now)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Дата дня рождения не может быть польше текущей даты."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.GreaterThanRequired));
+                ErrorHandleService.LogError(this, "Birthday date can't be greater than current date.");
                 return false;
             }
 
-            if ((DateTime.Now.Year - Birthday?.Year) <= 18)
+            if ((DateTime.Now.Year - Birthday?.Year) <= Constants.Age.AdultAge)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Пользователь не может быть младше 18 лет."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.LowerThanRequired, Constants.Age.AdultAge.ToString()));
+                ErrorHandleService.LogError(this, $"User can't be younger than {Constants.Age.AdultAge} years.");
                 return false;
             }
 
             if (Gender == null)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Выберите свой пол."));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Gender, ValidationErrorType.Empty));
+                ErrorHandleService.LogError(this, "Gender can't be empty.");
                 return false;
             }
 

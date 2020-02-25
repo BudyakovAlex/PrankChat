@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Exceptions.UserVisible;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -138,8 +139,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrdersViewModel)}", ex);
-                ErrorHandleService.HandleException(new UserVisibleException("Ошибка в загрузке заказов."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Order list loading error occured.");
             }
             finally
             {
