@@ -50,6 +50,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Mediaes
                 PhotoSize = PhotoSize.Medium,
                 AllowCropping = true,
                 SaveToAlbum = true,
+                SaveMetaData = false,
             };
             return await CrossMedia.Current.TakePhotoAsync(option);
         }
