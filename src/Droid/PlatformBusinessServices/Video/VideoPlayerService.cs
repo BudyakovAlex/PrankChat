@@ -42,17 +42,14 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         public override void Play(string uri, int id)
         {
-            if (_player.IsPlaying)
+            if (_currentVideoId == id)
                 return;
 
-            if (_currentVideoId != id)
-            {
-                Player.SetSourceUri(uri);
-                _currentVideoId = id;
-                Player.Play();
-                Player.TryRegisterViewedFact(id, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
-                Debug.WriteLine("Playing next source: " + uri);
-            }
+            Player.SetSourceUri(uri);
+            _currentVideoId = id;
+            Player.Play();
+            Player.TryRegisterViewedFact(id, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
+            Debug.WriteLine("Playing next source: " + uri);
         }
 
         public override void Play()

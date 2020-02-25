@@ -82,6 +82,7 @@
     <Compile Include="Presentation\Views\Profile\Cashbox\WithdrawalView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileUpdateView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileView.cs" />
+    <Compile Include="Presentation\Views\Publications\PublicationsLinearLayoutManager.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsRecyclerAdapter.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsView.cs" />
     <Compile Include="Presentation\Views\RatingView.cs" />
