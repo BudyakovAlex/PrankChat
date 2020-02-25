@@ -22,11 +22,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 
         public List<string> Items { get; } = new List<string>();
 
-        private string _selectdItem;
-        public string SelectdItem
+        private string _selectedItem;
+        public string SelectedItem
         {
-            get => _selectdItem;
-            set => SetProperty(ref _selectdItem, value);
+            get => _selectedItem;
+            set => SetProperty(ref _selectedItem, value);
         }
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
@@ -45,14 +45,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
         public void Prepare(ArrayDialogParameter parameter)
         {
             Items.AddRange(parameter.Items);
-            SelectdItem = Items.FirstOrDefault();
+            SelectedItem = Items.FirstOrDefault();
             Title = parameter.Title;
         }
 
         private void OnSelectItem(string item)
         {
             if (string.IsNullOrWhiteSpace(item))
-                item = SelectdItem;
+                item = SelectedItem;
 
             CloseCompletionSource.SetResult(new ArrayDialogResult(item));
             NavigationService.CloseView(this).FireAndForget();
