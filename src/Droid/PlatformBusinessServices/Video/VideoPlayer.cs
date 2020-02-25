@@ -55,6 +55,8 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             if (_videoView == container)
                 return;
 
+            Stop();
+
             if (container is VideoView videoView)
             {
                 _videoView = videoView;
