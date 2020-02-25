@@ -99,6 +99,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			likeButton.SetImage(UIImage.FromBundle("ic_like.png"), UIControlState.Normal);
 			likeButton.SetImage(UIImage.FromBundle("ic_like_active.png"), UIControlState.Selected);
 
+            // TODO: Unhide this button when video saving will be available.
+            bookmarkButton.Hidden = true;
+
             InitializeVideoControl();
 		}
 
