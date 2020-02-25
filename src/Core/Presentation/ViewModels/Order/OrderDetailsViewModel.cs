@@ -115,7 +115,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsTakeOrderAvailable => !IsUserCustomer && _order?.Status == OrderStatusType.New;
 
-        public bool IsCancelOrderAvailable => false;
+        public bool IsCancelOrderAvailable => IsUserCustomer && _order?.Status == OrderStatusType.New;
 
         public bool IsExecuteOrderAvailable => false;
 
