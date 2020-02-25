@@ -70,7 +70,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             switch (orderFilterType)
             {
                 case OrderFilterType.New:
-                    endpoint = $"{endpoint}?is_active=1";
+                    endpoint = $"{endpoint}?status={OrderStatusType.New.GetEnumMemberAttrValue()}";
                     break;
 
                 case OrderFilterType.InProgress:
