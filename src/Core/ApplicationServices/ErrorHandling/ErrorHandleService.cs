@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Acr.UserDialogs;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -20,7 +17,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
 {
     public class ErrorHandleService : IErrorHandleService
     {
-        private const string ListMark = "-";
         private const int ZeroSkipDelay = 0;
 
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
@@ -41,11 +37,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
             {
                 case ValidationException validationException:
                     var message = GetValidationErrorLocalizedMessage(validationException);
-                    DisplayMessage(async () => _dialogService.ShowToast(message, ToastType.Negative));
+                    _dialogService.ShowToast(message, ToastType.Negative);
                     break;
 
-                case BaseUserVisibleException _:
-                    DisplayMessage(async () => _dialogService.ShowToast(exception.Message, ToastType.Negative));
+                case BaseUserVisibleException baseUserVisibleException:
+                    _dialogService.ShowToast(exception.Message, ToastType.Negative);
                     break;
             }
         }
@@ -63,12 +59,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
 
             switch (exception)
             {
-                case NetworkException _:
+                case NetworkException networkException:
                     DisplayMessage(async () => await _dialogService.ShowAlertAsync(Resources.Error_Unexpected_Server));
                     return;
 
                 case ProblemDetails problemDetails:
-                    DisplayMessage(async () => _dialogService.ShowToast(problemDetails.Message, ToastType.Negative));
+                    _dialogService.ShowToast(problemDetails.Message, ToastType.Negative);
                     break;
             }
         }
@@ -100,39 +96,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
             }
         }
 
-        private string FormatErrorMessages(IReadOnlyList<string> errorMessages)
-        {
-            var result = string.Empty;
-
-            if (errorMessages.Count == 1)
-            {
-                return errorMessages.SingleOrDefault();
-            }
-
-            foreach (var errorMessage in errorMessages)
-            {
-                result += ListMark + " " + errorMessage;
-                if (errorMessage != errorMessages.Last())
-                {
-                    result += "\n\n";
-                }
-            }
-
-            return result;
-        }
-
-        private bool TryDisplayInternalErrorMessages(IReadOnlyList<string> errorMessages)
-        {
-            if (errorMessages != null && errorMessages.Count > 0)
-            {
-                UserDialogs.Instance.Alert(FormatErrorMessages(errorMessages));
-                return true;
-            }
-
-            return false;
-        }
-
-        private void DisplayMessage(Func<Task> messageAction, IReadOnlyList<string> errorMessages = null)
+        private void DisplayMessage(Func<Task> messageAction)
         {
             MainThread.InvokeOnMainThreadAsync(async () =>
             {
@@ -143,11 +107,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
 
                 try
                 {
-                    if (errorMessages != null && errorMessages.Count > 0 && TryDisplayInternalErrorMessages(errorMessages))
-                    {
-                        return;
-                    }
-
                     await messageAction.Invoke();
                 }
                 finally

@@ -125,8 +125,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             {
                 _mvxLog.Debug($"[HTTP] {request.Method} {endpoint}");
                 if (includeAccessToken)
+                {
                     await AddAuthorizationHeaderAsync(request);
-                
+                }
+
                 AddLanguageHeader(request);
 
                 var content = cancellationToken.HasValue
@@ -148,7 +150,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             {
                 _mvxLog.Debug($"[HTTP] {request.Method} {endpoint}");
                 if (includeAccessToken)
+                {
                     await AddAuthorizationHeaderAsync(request);
+                }
 
                 AddLanguageHeader(request);
 

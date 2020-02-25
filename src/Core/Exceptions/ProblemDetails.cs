@@ -32,7 +32,7 @@ namespace PrankChat.Mobile.Core.Exceptions
                 var text = new List<string> { MessageServerError };
                 if (InvalidParams != null && InvalidParams.Count > 0)
                 {
-                    text = text.Concat(InvalidParams.Select(x => x.ToString())).ToList();
+                    text = text.Concat(InvalidParams.Select(itemInvalidParameter => itemInvalidParameter.ToString())).ToList();
                 }
 
                 return string.Join(Environment.NewLine, text);
