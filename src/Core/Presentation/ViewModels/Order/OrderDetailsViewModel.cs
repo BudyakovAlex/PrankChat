@@ -216,7 +216,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             var order = await ApiService.TakeOrderAsync(_orderId);
             if (order != null)
             {
-                _order.Status = OrderStatusType.InWork;
+                _order.Status = order.Status;
                 _order.Executor = _settingsService.User;
                 await RaiseAllPropertiesChanged();
             }
@@ -295,6 +295,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 var order = await ApiService.ArgueOrderAsync(_orderId);
                 if (order != null)
                 {
+                    _order.Status = order.Status;
                     await RaiseAllPropertiesChanged();
                 }
             }
