@@ -169,12 +169,12 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
 
         private void RemoveViewedFactRegistrationObserver()
         {
-            if (_viewedFactRegistrationObserver != null)
-            {
-                _player?.RemoveTimeObserver(_viewedFactRegistrationObserver);
-                _viewedFactRegistrationObserver?.Dispose();
-                _viewedFactRegistrationObserver = null;
-            }
+            if (_viewedFactRegistrationObserver == null)
+                return;
+
+            _player?.RemoveTimeObserver(_viewedFactRegistrationObserver);
+            _viewedFactRegistrationObserver?.Dispose();
+            _viewedFactRegistrationObserver = null;
         }
     }
 }
