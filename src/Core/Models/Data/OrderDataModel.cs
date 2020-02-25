@@ -33,5 +33,9 @@ namespace PrankChat.Mobile.Core.Models.Data
         public VideoDataModel Video { get; set; }
 
         public ArbitrationValueType? MyArbitrationValue { get; set; }
+
+        public int? NegativeArbitrationValuesCount { get; set; }
+
+        public int? PositiveArbitrationValuesCount { get; set; }
     }
 }

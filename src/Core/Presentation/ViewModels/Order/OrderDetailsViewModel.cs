@@ -68,9 +68,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #region Decide
 
-        public int LikesCount { get; set; } = 100;
+        public int LikesCount => _order.PositiveArbitrationValuesCount ?? 0;
 
-        public int DisikesCount { get; set; } = 100;
+        public int DisikesCount => _order.NegativeArbitrationValuesCount ?? 0;
 
         public string YesText => $"{Resources.OrderDetailsView_Yes_Button} {LikesCount}";
 
@@ -356,8 +356,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             try
             {
                 IsYesSelected = !IsYesSelected;
-                _order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Positive);
-                _order.MyArbitrationValue = ArbitrationValueType.Positive;
+                var order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Positive);
+                if (order != null)
+                {
+                    _order.MyArbitrationValue = order.MyArbitrationValue;
+                    _order.PositiveArbitrationValuesCount = order.PositiveArbitrationValuesCount;
+                    _order.NegativeArbitrationValuesCount = order.NegativeArbitrationValuesCount;
+                }
             }
             catch (Exception ex)
             {
@@ -380,8 +385,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             try
             {
                 IsNoSelected = !IsNoSelected;
-                _order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Negative);
-                _order.MyArbitrationValue = ArbitrationValueType.Negative;
+                var order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Negative);
+                if (order != null)
+                {
+                    _order.MyArbitrationValue = order.MyArbitrationValue;
+                    _order.PositiveArbitrationValuesCount = order.PositiveArbitrationValuesCount;
+                    _order.NegativeArbitrationValuesCount = order.NegativeArbitrationValuesCount;
+                }
             }
             catch (Exception ex)
             {
