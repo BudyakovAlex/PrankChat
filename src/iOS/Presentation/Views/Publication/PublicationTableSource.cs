@@ -80,12 +80,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             }
         }
 
-        public void Reinitialize()
-        {
-            _initialized = false;
-            Initialize().FireAndForget();
-        }
-
         public override void CellDisplayingEnded(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
         {
             base.CellDisplayingEnded(tableView, cell, indexPath);
@@ -116,6 +110,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
         {
             return tableView.DequeueReusableCell(PublicationItemCell.CellId);
+        }
+
+        private void Reinitialize()
+        {
+            _initialized = false;
+            Initialize().FireAndForget();
         }
 
         private void PlayFirstVideo(NSIndexPath indexPath)
