@@ -270,6 +270,8 @@
     <Compile Include="Controls\ToastView.designer.cs">
       <DependentUpon>ToastView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\Binding\UIImageViewOrderTypeTargetBinding.cs" />
+    <Compile Include="Presentation\Binding\UIButtonOrderTypeTargetBinding.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -731,6 +733,12 @@
     <ImageAsset Include="Assets.xcassets\ic_pause.imageset\FullscreenVideoPause.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_mute.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_mute.imageset\FullscreenVideoMute.pdf" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_my.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_my.imageset\OrderTypeMyBackground.pdf" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\OrderTypeMyInModerationBackground.pdf" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_not_my.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_not_my.imageset\OrderTypeNotMyBackground.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -753,6 +761,9 @@
     <Folder Include="Assets.xcassets\ic_pause.imageset\" />
     <Folder Include="Assets.xcassets\ic_mute.imageset\" />
     <Folder Include="ApplicationServices\" />
+    <Folder Include="Assets.xcassets\bg_order_type_my.imageset\" />
+    <Folder Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\" />
+    <Folder Include="Assets.xcassets\bg_order_type_not_my.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

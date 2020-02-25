@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/not_moderated_order_card" />
+    <item android:drawable="@drawable/not_moderated_order_border" />
+</layer-list>

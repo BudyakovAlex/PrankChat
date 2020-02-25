@@ -13,6 +13,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 	partial class OrderItemCell
 	{
 		[Outlet]
+		UIKit.UIImageView backgroundImageView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel dayLabel { get; set; }
 
 		[Outlet]
@@ -53,9 +56,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (profileShortNameLabel != null) {
-				profileShortNameLabel.Dispose ();
-				profileShortNameLabel = null;
+			if (backgroundImageView != null) {
+				backgroundImageView.Dispose ();
+				backgroundImageView = null;
 			}
 
 			if (dayLabel != null) {
@@ -106,6 +109,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (profilePhotoImage != null) {
 				profilePhotoImage.Dispose ();
 				profilePhotoImage = null;
+			}
+
+			if (profileShortNameLabel != null) {
+				profileShortNameLabel.Dispose ();
+				profileShortNameLabel = null;
 			}
 
 			if (statusOrderLabel != null) {
