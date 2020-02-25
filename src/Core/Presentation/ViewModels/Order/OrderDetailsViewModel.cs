@@ -330,15 +330,30 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnCancelOrderAsync()
         {
+
             var result = await DialogService.ShowConfirmAsync(Resources.OrderDetails_View_Cancel_Title,
                                                    Resources.Attention,
                                                    Resources.Ok,
                                                    Resources.Cancel);
-
             if (!result)
                 return;
 
-            await ApiService.CancelOrderAsync(_orderId);
+            try
+            {
+                IsBusy = true;
+
+                _order = await ApiService.CancelOrderAsync(_orderId);
+                await RaiseAllPropertiesChanged();
+            }
+            catch (Exception ex)
+            {
+                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
+                ErrorHandleService.HandleException(new UserVisibleException("Ошибка завершения заказа."));
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private Task OnExecuteOrderAsync()
