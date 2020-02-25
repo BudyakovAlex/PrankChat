@@ -9,7 +9,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 
         public static string ToPriceString(this double? price)
         {
-            if (price == null)
+            if (price == null || price == 0)
                 return GetStringWithCurrency(DefaultValue);
 
             return price?.ToString(GetStringWithCurrency(FormatForPrice)).Replace(',', ' ');
