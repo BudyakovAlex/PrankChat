@@ -38,6 +38,12 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("my_arbitration_value")]
         public ArbitrationValueType? MyArbitrationValue { get; set; }
 
+        [JsonProperty("negative_arbitration_values_count")]
+        public int? NegativeArbitrationValuesCount { get; set; }
+
+        [JsonProperty("positive_arbitration_values_count")]
+        public int? PositiveArbitrationValuesCount { get; set; }
+
         [JsonProperty("customer")]
         public DataApiModel<UserApiModel> Customer { get; set; }
 

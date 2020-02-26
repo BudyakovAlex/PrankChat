@@ -130,7 +130,7 @@
             android:text="Registration"
             android:layout_marginRight="8dp"
             android:src="@drawable/ic_vk"
-            app:MvxBind="Click LoginCommand, CommandParameter=Gmail" />
+            app:MvxBind="Click LoginCommand, CommandParameter=Vk" />
         <ImageButton
             android:layout_width="45dp"
             android:layout_height="45dp"

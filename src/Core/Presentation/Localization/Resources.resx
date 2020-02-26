@@ -703,8 +703,11 @@
   <data name="com.crashlytics.android.build_id" xml:space="preserve">
     <value>e9e6beb9c4284289ac68b9ab76a9ee56</value>
   </data>
+<<<<<<< HEAD
   <data name="Error_Cost_Not_Empty" xml:space="preserve">
     <value>Стоимость не может быть пустой!</value>
     <comment>Fuzzy</comment>
   </data>
+=======
+>>>>>>> development
 </root>

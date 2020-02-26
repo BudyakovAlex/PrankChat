@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Exceptions.UserVisible;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -67,9 +68,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #region Decide
 
-        public int LikesCount { get; set; } = 100;
+        public int LikesCount => _order.PositiveArbitrationValuesCount ?? 0;
 
-        public int DisikesCount { get; set; } = 100;
+        public int DisikesCount => _order.NegativeArbitrationValuesCount ?? 0;
 
         public string YesText => $"{Resources.OrderDetailsView_Yes_Button} {LikesCount}";
 
@@ -194,8 +195,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                ErrorHandleService.HandleException(new UserVisibleException("Проблема с загрузкой детальной страницы заказ."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Error on loading order page.");
             }
             finally
             {
@@ -215,7 +216,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             var order = await ApiService.TakeOrderAsync(_orderId);
             if (order != null)
             {
-                _order.Status = OrderStatusType.InWork;
+                _order.Status = order.Status;
                 _order.Executor = _settingsService.User;
                 await RaiseAllPropertiesChanged();
             }
@@ -232,8 +233,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                ErrorHandleService.HandleException(new UserVisibleException("Неудачная попытка подписаться на заказ."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Order subscription failed.");
             }
             finally
             {
@@ -252,8 +253,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                ErrorHandleService.HandleException(new UserVisibleException("Неудачная попытка отписаться от заказ."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Error on order unsubscription.");
             }
             finally
             {
@@ -294,13 +295,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 var order = await ApiService.ArgueOrderAsync(_orderId);
                 if (order != null)
                 {
+                    _order.Status = order.Status;
                     await RaiseAllPropertiesChanged();
                 }
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                ErrorHandleService.HandleException(new UserVisibleException("Неудачная отправка заказа на спор."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Error on argue initialization.", ex);
             }
             finally
             {
@@ -319,8 +321,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                ErrorHandleService.HandleException(new UserVisibleException("Ошибка в подтверждении заказа."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Error on accept order.", ex);
             }
             finally
             {
@@ -354,13 +356,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             try
             {
                 IsYesSelected = !IsYesSelected;
-                _order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Positive);
-                _order.MyArbitrationValue = ArbitrationValueType.Positive;
+                var order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Positive);
+                if (order != null)
+                {
+                    _order.MyArbitrationValue = order.MyArbitrationValue;
+                    _order.PositiveArbitrationValuesCount = order.PositiveArbitrationValuesCount;
+                    _order.NegativeArbitrationValuesCount = order.NegativeArbitrationValuesCount;
+                }
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                ErrorHandleService.HandleException(new UserVisibleException("Ошибка в подтверждении заказа."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Order confirmation error.", ex);
 
                 IsYesSelected = !IsYesSelected;
             }
@@ -378,13 +385,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             try
             {
                 IsNoSelected = !IsNoSelected;
-                _order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Negative);
-                _order.MyArbitrationValue = ArbitrationValueType.Negative;
+                var order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Negative);
+                if (order != null)
+                {
+                    _order.MyArbitrationValue = order.MyArbitrationValue;
+                    _order.PositiveArbitrationValuesCount = order.PositiveArbitrationValuesCount;
+                    _order.NegativeArbitrationValuesCount = order.NegativeArbitrationValuesCount;
+                }
             }
             catch (Exception ex)
             {
-                _mvxLog.DebugException($"{nameof(OrderDetailsViewModel)}", ex);
-                ErrorHandleService.HandleException(new UserVisibleException("Ошибка в подтверждении заказа."));
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Error on order voting.");
 
                 IsYesSelected = !IsYesSelected;
             }

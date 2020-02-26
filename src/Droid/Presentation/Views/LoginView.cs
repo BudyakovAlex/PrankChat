@@ -1,8 +1,11 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Widget;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using PrankChat.Mobile.Droid.ApplicationServices.Callback;
+using PrankChat.Mobile.Droid.ApplicationServices.Callbacks;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Presenters.Attributes;
 
@@ -32,6 +35,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
         protected override void Unsubscription()
         {
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            FacebookCallback.Instance.OnActivityResult(requestCode, (int)resultCode, data);
+            VkontakteCallback.Instance.OnActivityResultAsync(requestCode, resultCode, data);
         }
     }
 }

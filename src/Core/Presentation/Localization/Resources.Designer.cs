@@ -1192,11 +1192,14 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("com.crashlytics.android.build_id", resourceCulture);
             }
         }
+<<<<<<< HEAD
         
         public static string Error_Cost_Not_Empty {
             get {
                 return ResourceManager.GetString("Error_Cost_Not_Empty", resourceCulture);
             }
         }
+=======
+>>>>>>> development
     }
 }

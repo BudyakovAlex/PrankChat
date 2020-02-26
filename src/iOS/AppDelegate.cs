@@ -3,6 +3,7 @@ using Foundation;
 using MvvmCross.Platforms.Ios.Core;
 using PrankChat.Mobile.Core;
 using UIKit;
+using VKontakte;
 
 namespace PrankChat.Mobile.iOS
 {
@@ -33,6 +34,7 @@ namespace PrankChat.Mobile.iOS
         {
             // Restart any tasks that were paused (or not yet started) while the application was inactive.
             // If the application was previously in the background, optionally refresh the user interface.
+            Facebook.CoreKit.AppEvents.ActivateApp();
         }
 
         public override void WillTerminate(UIApplication application)
@@ -45,11 +47,27 @@ namespace PrankChat.Mobile.iOS
             InitializeFirebase();
             base.FinishedLaunching(application);
         }
+        public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+        {
+            Facebook.CoreKit.Profile.EnableUpdatesOnAccessTokenChange(true);
+            Facebook.CoreKit.ApplicationDelegate.SharedInstance.FinishedLaunching(application, launchOptions);
+
+            //TODO: move it to config, add correct id
+            VKSdk.Initialize("7333690");
+            return base.FinishedLaunching(application, launchOptions);
+        }
 
         private void InitializeFirebase()
         {
             Firebase.Core.App.Configure();
             Crashlytics.Configure();
+        }
+
+        public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
+        {
+            return VKSdk.ProcessOpenUrl(url, sourceApplication)
+                || Facebook.CoreKit.ApplicationDelegate.SharedInstance.OpenUrl(application, url, sourceApplication, annotation)
+                || base.OpenUrl(application, url, sourceApplication, annotation);
         }
     }
 }

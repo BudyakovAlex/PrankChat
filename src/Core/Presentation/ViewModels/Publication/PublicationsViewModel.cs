@@ -14,6 +14,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Exceptions.UserVisible;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -136,8 +137,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
-            var parametres = _dateFilterTypeTitleMap.Values.ToArray();
-            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parametres, Resources.Cancel);
+            var parameters = _dateFilterTypeTitleMap.Values.ToArray();
+            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parameters, Resources.Cancel);
 
             if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
                 return;
@@ -178,8 +179,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             }
             catch (Exception ex)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Проблема с загрузкой публикаций."));
-                _mvxLog.ErrorException($"[{nameof(PublicationsViewModel)}]", ex);
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Error on publication list loading.");
             }
             finally
             {

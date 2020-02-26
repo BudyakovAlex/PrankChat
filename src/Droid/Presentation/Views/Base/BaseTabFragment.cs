@@ -20,17 +20,5 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
                 }
             }
         }
-
-        public override void OnStart()
-        {
-            base.OnStart();
-            Subscription();
-        }
-
-        public override void OnStop()
-        {
-            base.OnStop();
-            Unsubscription();
-        }
     }
 }

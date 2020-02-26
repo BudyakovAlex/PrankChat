@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -65,10 +65,13 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationServices\ExternalAuthService.cs" />
     <Compile Include="Controls\ApplicationSwipeViewPager.cs" />
     <Compile Include="PlatformBusinessServices\Video\Listeners\VideoPlayerOnPreparedListener.cs" />
+    <Compile Include="Presentation\Bindings\OrderButtonStyleBinding.cs" />
     <Compile Include="Presentation\Bindings\BackgroundBinding.cs" />
     <Compile Include="Presentation\Converters\BooleanToResourcePathConverter.cs" />
+    <Compile Include="Presentation\Converters\OrderTypeToViewBackgroundConverter.cs" />
     <Compile Include="Presentation\Views\Base\BaseFragment.cs" />
     <Compile Include="Presentation\Views\Base\BaseTabFragment.cs" />
     <Compile Include="Presentation\Views\Base\BaseView.cs" />
@@ -82,6 +85,7 @@
     <Compile Include="Presentation\Views\Profile\Cashbox\WithdrawalView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileUpdateView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileView.cs" />
+    <Compile Include="Presentation\Views\Publications\PublicationsLinearLayoutManager.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsRecyclerAdapter.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsView.cs" />
     <Compile Include="Presentation\Views\RatingView.cs" />
@@ -126,6 +130,9 @@
     <Compile Include="ApplicationServices\DialogService.cs" />
     <Compile Include="Presentation\Views\Base\IToolbarOwner.cs" />
     <Compile Include="Extensions\ViewExtensions.cs" />
+    <Compile Include="ApplicationServices\Callbacks\FacebookCallback.cs" />
+    <Compile Include="ApplicationServices\Callbacks\VkontakteCallback.cs" />
+    <Compile Include="DroidApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -256,19 +263,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\order_background.xml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\drawable\button_accent_background.xml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\cell_rating.axml">
       <SubType>
       </SubType>
       <Generator>
@@ -389,32 +384,60 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_web_page.axml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_full_screen_video.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\video_controller_layout.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_mdi_pause_circle_outline.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_mdi_play_circle_outline.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\action_bar_back_and_logo.axml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\not_moderated_order_border.xml">
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\not_moderated_order_background.xml">
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\action_bar_back_and_logo.axml">
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\toast_view.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -498,11 +521,17 @@
     <PackageReference Include="Xamarin.Android.Fabric">
       <Version>1.4.3.4</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Facebook.Android">
+      <Version>5.11.2</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Core">
       <Version>71.1601.0</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Analytics">
       <Version>71.1630.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.VKontakte.Android">
+      <Version>1.6.7</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -722,12 +751,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
-    <Folder Include="Presentation\Views\Video\" />
-    <Folder Include="PlatformBusinessServices\Crashlytic\" />
-    <Folder Include="Presenters\" />
-    <Folder Include="Presenters\Attributes\" />
-    <Folder Include="ApplicationServices\" />
-    <Folder Include="Extensions\" />
+    <Folder Include="ApplicationServices\Callbacks\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_background.xml" />
@@ -834,6 +858,20 @@
   </ItemGroup>
   <ItemGroup>
     <GoogleServicesJson Include="google-services.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\not_my_order_background.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\not_moderated_order_card.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\button_white_secondary_background.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\my_order_background.xml" />
+    <AndroidResource Include="Resources\layout\cell_rating.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

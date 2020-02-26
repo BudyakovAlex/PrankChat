@@ -1,11 +1,11 @@
 using System;
-using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
@@ -28,8 +28,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
         {
             base.SetupControls();
 
-            innerView.SetCornerRadius(10);
-
             orderTitleLabel.SetScreenTitleStyle();
 
             timeLablel.SetMediumStyle(10, Theme.Color.White);
@@ -50,7 +48,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
             orderTimeLabel.SetMediumStyle(22, Theme.Color.White);
             priceValueLabel.SetMediumStyle(26, Theme.Color.White);
 
-            orderDetailsButton.SetDarkStyle(Resources.RateView_Vote_Button);
+            orderDetailsButton.TitleLabel.Text = Resources.RateView_Vote_Button;
 
             thumbsUpButton.SetImage(UIImage.FromBundle("ic_thumbs_up").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
 
@@ -64,6 +62,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
         protected override void SetBindings()
         {
             var set = this.CreateBindingSet<RatingItemCell, RatingItemViewModel>();
+
+            set.Bind(backgroundImageView)
+                .For(UIImageViewOrderTypeTargetBinding.TargetBinding)
+                .To(vm => vm.OrderType);
 
             set.Bind(profilePhotoImage)
                 .For(v => v.DownsampleWidth)
@@ -97,6 +99,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
                 .To(vm => vm.OpenDetailsOrderCommand)
                 .Mode(MvxBindingMode.OneTime);
 
+            set.Bind(orderDetailsButton)
+                .For(UIButtonOrderTypeTargetBinding.TargetBinding)
+                .To(vm => vm.OrderType);
+
             set.Bind(thumbsUpValueLabel)
                 .To(vm => vm.Likes);
 
@@ -114,4 +120,3 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
         }
     }
 }
-

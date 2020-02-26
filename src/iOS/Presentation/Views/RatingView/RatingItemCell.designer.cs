@@ -13,6 +13,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 	partial class RatingItemCell
 	{
 		[Outlet]
+		UIKit.UIImageView backgroundImageView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel customerShortNameLabel { get; set; }
 
 		[Outlet]
@@ -62,6 +65,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (backgroundImageView != null) {
+				backgroundImageView.Dispose ();
+				backgroundImageView = null;
+			}
+
 			if (customerShortNameLabel != null) {
 				customerShortNameLabel.Dispose ();
 				customerShortNameLabel = null;

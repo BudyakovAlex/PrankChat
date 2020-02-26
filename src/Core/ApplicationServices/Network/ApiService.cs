@@ -20,6 +20,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
     {
         private readonly ISettingsService _settingsService;
         private readonly HttpClient _client;
+        private readonly IMvxLog _log;
 
         public ApiService(ISettingsService settingsService,
                           IMvxLogProvider logProvider,
@@ -27,9 +28,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             _settingsService = settingsService;
 
-            var log = logProvider.GetLogFor<ApiService>();
+            _log = logProvider.GetLogFor<ApiService>();
             var configuration = ConfigurationProvider.GetConfiguration();
-            _client = new HttpClient(configuration.BaseAddress, configuration.ApiVersion, settingsService, log, messenger);
+            _client = new HttpClient(configuration.BaseAddress, configuration.ApiVersion, settingsService, _log, messenger);
         }
 
         #region Authorize
@@ -70,7 +71,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             switch (orderFilterType)
             {
                 case OrderFilterType.New:
-                    endpoint = $"{endpoint}?is_active=1";
+                    endpoint = $"{endpoint}?status={OrderStatusType.New.GetEnumMemberAttrValue()}";
                     break;
 
                 case OrderFilterType.InProgress:
@@ -303,6 +304,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<long?> RegisterVideoViewedFactAsync(int videoId)
         {
             var videoApiModel = await _client.UnauthorizedGet<DataApiModel<VideoApiModel>>($"videos/{videoId}/looked");
+            _log.Log(MvxLogLevel.Debug, () => $"Registered {videoApiModel.Data.ViewsCount} for video with id {videoId}");
             return videoApiModel.Data.ViewsCount;
         }
 
@@ -323,11 +325,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<PaymentDataModel> RefillAsync(double coast)
         {
-            var refillApiData = new RefillApiData()
+            var refillApiData = new RefillApiData
             {
-                Amount = coast,
+                Amount = coast
             };
-            var data = await _client.Post<RefillApiData, DataApiModel<PaymentApiModel>>($"payment", refillApiData, false);
+
+            var data = await _client.Post<RefillApiData, DataApiModel<PaymentApiModel>>("payment", refillApiData);
             return MappingConfig.Mapper.Map<PaymentDataModel>(data?.Data);
         }
 

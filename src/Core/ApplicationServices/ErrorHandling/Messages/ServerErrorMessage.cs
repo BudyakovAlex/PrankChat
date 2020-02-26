@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using MvvmCross.Plugin.Messenger;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages
 {
-    internal class ServerErrorMessage : BaseErrorMessage
+    internal class ServerErrorMessage : MvxMessage
     {
-        public ServerErrorMessage(object sender, IReadOnlyList<string> errorMessages = null) : base(sender, errorMessages)
+        public Exception Error { get; }
+
+        public ServerErrorMessage(object sender, Exception problemError) : base(sender)
         {
+            Error = problemError;
         }
     }
 }

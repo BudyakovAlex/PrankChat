@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Acr.UserDialogs;
+using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Exceptions.Network;
+using PrankChat.Mobile.Core.Exceptions.UserVisible;
+using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using Xamarin.Essentials;
@@ -16,81 +17,86 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
 {
     public class ErrorHandleService : IErrorHandleService
     {
-        private const string ListMark = "-";
         private const int ZeroSkipDelay = 0;
 
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
-        private readonly IMvxMessenger _messenger;
         private readonly IDialogService _dialogService;
+        private readonly IMvxLogProvider _logProvider;
 
-        public ErrorHandleService(IMvxMessenger messenger, IDialogService dialogService)
+        public ErrorHandleService(IMvxMessenger messenger, IDialogService dialogService, IMvxLogProvider logProvider)
         {
-            _messenger = messenger;
             _dialogService = dialogService;
+            _logProvider = logProvider;
 
-            _messenger.Subscribe<BadRequestErrorMessage>(OnBadRequestErrorEvent, MvxReference.Strong);
-            _messenger.Subscribe<NotFoundErrorMessage>(OnNotFoundErrorEvent, MvxReference.Strong);
-            _messenger.Subscribe<ServerErrorMessage>(OnServerErrorEvent, MvxReference.Strong);
+            messenger.Subscribe<ServerErrorMessage>(OnServerErrorEvent, MvxReference.Strong);
         }
 
         public void HandleException(Exception exception)
         {
             switch (exception)
             {
-                case UserVisibleException _:
-                    DisplayMessage(async () => _dialogService.ShowToast(exception.Message, ToastType.Negative));
+                case ValidationException validationException:
+                    var message = GetValidationErrorLocalizedMessage(validationException);
+                    _dialogService.ShowToast(message, ToastType.Negative);
+                    break;
+
+                case BaseUserVisibleException baseUserVisibleException:
+                    _dialogService.ShowToast(exception.Message, ToastType.Negative);
                     break;
             }
         }
 
-        private void OnNotFoundErrorEvent(NotFoundErrorMessage e)
+        public void LogError(object sender, string message, Exception exception = null)
         {
-            DisplayMessage(async () => await _dialogService.ShowAlertAsync(Resources.Error_Unexpected_Not_Found), e.ErrorMessages);
-        }
-
-        private void OnBadRequestErrorEvent(BadRequestErrorMessage e)
-        {
-            DisplayMessage(async () => await _dialogService.ShowAlertAsync(Resources.Error_Unexpected_Network), e.ErrorMessages);
+            var senderType = sender.GetType();
+            var logger = _logProvider.GetLogFor(senderType);
+            logger.Log(MvxLogLevel.Error, () => message, exception);
         }
 
         private void OnServerErrorEvent(ServerErrorMessage e)
         {
-            DisplayMessage(async () => await _dialogService.ShowAlertAsync(Resources.Error_Unexpected_Server));
+            var exception = e.Error;
+
+            switch (exception)
+            {
+                case NetworkException networkException:
+                    DisplayMessage(async () => await _dialogService.ShowAlertAsync(Resources.Error_Unexpected_Server));
+                    return;
+
+                case ProblemDetailsDataModel problemDetails:
+                    _dialogService.ShowToast(problemDetails.Message, ToastType.Negative);
+                    break;
+            }
         }
 
-        private string FormatErrorMessages(IReadOnlyList<string> errorMessages)
+        private string GetValidationErrorLocalizedMessage(ValidationException exception)
         {
-            var result = string.Empty;
-
-            if (errorMessages.Count == 1)
+            switch (exception.ErrorType)
             {
-                return errorMessages.SingleOrDefault();
-            }
+                case ValidationErrorType.Empty:
+                    return string.Format(Resources.Validation_Error_Empty, exception.LocalizedFieldName);
 
-            foreach (var errorMessage in errorMessages)
-            {
-                result += ListMark + " " + errorMessage;
-                if (errorMessage != errorMessages.Last())
-                {
-                    result += "\n\n";
-                }
-            }
+                case ValidationErrorType.CanNotMatch:
+                    return string.Format(Resources.Validation_Error_CanNotMatch, exception.LocalizedFieldName, exception.RelativeValue);
 
-            return result;
+                case ValidationErrorType.GreaterThanRequired:
+                    return string.Format(Resources.Validation_Error_GreaterThanRequired, exception.LocalizedFieldName, exception.RelativeValue);
+
+                case ValidationErrorType.LowerThanRequired:
+                    return string.Format(Resources.Validation_Error_LowerThanRequired, exception.LocalizedFieldName, exception.RelativeValue);
+
+                case ValidationErrorType.NotMatch:
+                    return string.Format(Resources.Validation_Error_NotMatch, exception.LocalizedFieldName, exception.RelativeValue);
+
+                case ValidationErrorType.Invalid:
+                    return string.Format(Resources.Validation_Error_Invalid, exception.LocalizedFieldName);
+
+                default:
+                    return string.Empty;
+            }
         }
 
-        private bool TryDisplayInternalErrorMessages(IReadOnlyList<string> errorMessages)
-        {
-            if (errorMessages != null && errorMessages.Count > 0)
-            {
-                UserDialogs.Instance.Alert(FormatErrorMessages(errorMessages));
-                return true;
-            }
-
-            return false;
-        }
-
-        private void DisplayMessage(Func<Task> messageAction, IReadOnlyList<string> errorMessages = null)
+        private void DisplayMessage(Func<Task> messageAction)
         {
             MainThread.InvokeOnMainThreadAsync(async () =>
             {
@@ -101,11 +107,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
 
                 try
                 {
-                    if (errorMessages != null && errorMessages.Count > 0 && TryDisplayInternalErrorMessages(errorMessages))
-                    {
-                        return;
-                    }
-
                     await messageAction.Invoke();
                 }
                 finally
