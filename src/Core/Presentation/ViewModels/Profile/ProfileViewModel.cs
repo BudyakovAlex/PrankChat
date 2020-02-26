@@ -265,6 +265,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             }
 
             var user = SettingsService.User;
+            if (user == null)
+            {
+                return;
+            }
             ProfilePhotoUrl = user.Avatar;
             Price = user.Balance.ToPriceString();
             OrdersValue = user.OrdersExecuteCount.ToCountString();
