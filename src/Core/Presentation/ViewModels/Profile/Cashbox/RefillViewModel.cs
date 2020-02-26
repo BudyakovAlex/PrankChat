@@ -67,11 +67,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             var paymentData = await ApiService.RefillAsync(Cost.Value);
             if (string.IsNullOrWhiteSpace(paymentData?.PaymentLink))
             {
-<<<<<<< HEAD
-                ErrorHandleService.HandleException(new UserVisibleException(Resources.Error_Cost_Not_Empty));
-=======
                 ErrorHandleService.LogError(this, "Can't resolve payment link, payment process aborted.");
->>>>>>> development
                 return;
             }
 
@@ -93,11 +89,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         {
             if (Cost == null || Cost == 0)
             {
-<<<<<<< HEAD
-                ErrorHandleService.HandleException(new UserVisibleException(Resources.Error_Cost_Not_Empty));
-=======
                 ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Cost, ValidationErrorType.CanNotMatch, 0.ToString()));
->>>>>>> development
                 return false;
             }
 

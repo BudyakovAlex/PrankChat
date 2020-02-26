@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<<<<<<< HEAD
-=======
-    <integer name="com_vk_sdk_AppId">7333690</integer>
->>>>>>> development
     <string name="Close">"Закрыть"</string>
     <string name="app_name">"Prank Chat"</string>
     <string name="Home_Tab">"Главная"</string>
@@ -221,10 +217,4 @@
     <string name="Validation_Error_Invalid">"{0} имеет неверный формат."</string>
     <string name="Demo">"Демо"</string>
     <string name="com.crashlytics.android.build_id">"e9e6beb9c4284289ac68b9ab76a9ee56"</string>
-<<<<<<< HEAD
-
-    <!-- Fuzzy -->
-    <string name="Error_Cost_Not_Empty">"Стоимость не может быть пустой!"</string>
-=======
->>>>>>> development
 </resources>
