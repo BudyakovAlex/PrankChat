@@ -73,6 +73,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             hideExecuterCheckboxImageView.AddGestureRecognizer(new UITapGestureRecognizer(OnCheckboxTapped));
             hideExecuterCheckboxImageView.UserInteractionEnabled = true;
 
+            //TODO: Hide executor functionality not implemented.
+            hideExecuterCheckboxImageView.Hidden = true;
+            hideExecutorCheckboxLabel.Hidden = true;
+
             hideExecutorCheckboxLabel.Text = Resources.CreateOrderView_HideExecutor_Button;
             hideExecutorCheckboxLabel.SetRegularStyle(14, Theme.Color.Black);
             hideExecutorCheckboxLabel.UserInteractionEnabled = true;
