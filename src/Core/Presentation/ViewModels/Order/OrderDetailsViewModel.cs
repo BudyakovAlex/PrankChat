@@ -154,6 +154,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public MvxAsyncCommand ShowFullVideoCommand => new MvxAsyncCommand(OnShowFullVideoAsync);
 
+        public MvxAsyncCommand LoadOrderDetailsCommand => new MvxAsyncCommand(LoadOrderDetailsAsync);
+
         #endregion Commands
 
         public OrderDetailsViewModel(INavigationService navigationService,
@@ -178,10 +180,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public override Task Initialize()
         {
             base.Initialize();
-            return LoadOrderDetails();
+            return LoadOrderDetailsAsync();
         }
 
-        private async Task LoadOrderDetails()
+        private async Task LoadOrderDetailsAsync()
         {
             try
             {
