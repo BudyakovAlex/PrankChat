@@ -138,6 +138,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
         [Outlet]
         UIKit.UILabel delimiterTimeTwoLabel { get; set; }
 
+        [Outlet]
+        UIKit.UIScrollView rootScrollView { get; set; }
+
 		void ReleaseDesignerOutlets ()
 		{
 			if (videoView != null) {
@@ -357,6 +360,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				delimiterTimeTwoLabel.Dispose();
 				delimiterTimeTwoLabel = null;
 			}
+
+            if (rootScrollView != null)
+            {
+				rootScrollView.Dispose();
+				rootScrollView = null;
+            }
 		}
 	}
 }
