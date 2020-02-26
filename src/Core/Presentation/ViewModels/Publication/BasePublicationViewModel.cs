@@ -240,7 +240,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             {
                 Resources.Publication_Item_Complain,
                 Resources.Publication_Item_Copy_Link,
-                Resources.Publication_Item_Subscribe_To_Author
+                // TODO: Subscription functionality not implemented.
+                //Resources.Publication_Item_Subscribe_To_Author
             });
 
             if (string.IsNullOrWhiteSpace(result))
@@ -266,10 +267,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 return;
             }
 
-            if (result == Resources.Publication_Item_Subscribe_To_Author)
-            {
-                return;
-            }
+            // TODO: Subscription functionality not implemented.
+            //if (result == Resources.Publication_Item_Subscribe_To_Author)
+            //{
+            //    return;
+            //}
         }
 
         private void OnToggleSound()
