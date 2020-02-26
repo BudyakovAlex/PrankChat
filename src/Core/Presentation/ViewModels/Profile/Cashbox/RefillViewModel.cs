@@ -88,7 +88,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         {
             if (Cost == null || Cost == 0)
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Сумма не может быть пустой."));
+                ErrorHandleService.HandleException(new UserVisibleException(Resources.Error_Cost_Not_Empty));
                 return false;
             }
 
