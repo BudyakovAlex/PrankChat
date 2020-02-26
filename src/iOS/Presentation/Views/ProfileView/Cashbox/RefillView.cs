@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Foundation;
+﻿using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -27,7 +26,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
             set.Bind(refillButton)
                 .To(vm => vm.RefillCommand);
-
+             
             set.Bind(costTextField)
                 .To(vm => vm.Cost);
 
