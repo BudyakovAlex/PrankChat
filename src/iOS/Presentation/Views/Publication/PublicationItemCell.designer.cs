@@ -43,6 +43,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UILabel shareLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIView shareView { get; set; }
+
+		[Outlet]
 		UIKit.UIImageView soundImageView { get; set; }
 
 		[Outlet]
@@ -53,9 +56,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (profileShortNameLabel != null) {
-				profileShortNameLabel.Dispose ();
-				profileShortNameLabel = null;
+			if (shareView != null) {
+				shareView.Dispose ();
+				shareView = null;
 			}
 
 			if (bookmarkButton != null) {
@@ -86,6 +89,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			if (profileNameLabel != null) {
 				profileNameLabel.Dispose ();
 				profileNameLabel = null;
+			}
+
+			if (profileShortNameLabel != null) {
+				profileShortNameLabel.Dispose ();
+				profileShortNameLabel = null;
 			}
 
 			if (publicationInfoLabel != null) {
