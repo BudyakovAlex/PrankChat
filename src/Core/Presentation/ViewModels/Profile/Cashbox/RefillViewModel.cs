@@ -11,6 +11,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Presentation.Localization;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
@@ -65,7 +66,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             var paymentData = await ApiService.RefillAsync(Cost.Value);
             if (string.IsNullOrWhiteSpace(paymentData?.PaymentLink))
             {
-                ErrorHandleService.HandleException(new UserVisibleException("Не получилось пополнить баланс."));
+                ErrorHandleService.HandleException(new UserVisibleException(Resources.Error_Cost_Not_Empty));
                 return;
             }
 
