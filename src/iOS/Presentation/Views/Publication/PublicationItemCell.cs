@@ -183,13 +183,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.To(vm => vm.OpenSettingsCommand)
 				.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(shareButton)
+			set.Bind(shareView)
+				.For(v => v.BindTap())
 				.To(vm => vm.ShareCommand)
+				.Mode(MvxBindingMode.OneTime);
+
+			set.Bind(shareButton)
+	            .To(vm => vm.ShareCommand)
 				.Mode(MvxBindingMode.OneTime);
 
 			set.Bind(shareLabel.Tap())
 				.For(v => v.Command)
-				.To(vm => vm.ShareCommand);
+				.To(vm => vm.ShareCommand)
+				.Mode(MvxBindingMode.OneTime);
 
 			set.Bind(profileShortNameLabel)
 				.To(vm => vm.ProfileShortName)
