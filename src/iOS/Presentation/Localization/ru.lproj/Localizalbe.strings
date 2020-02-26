@@ -195,3 +195,26 @@
 "OrderDetailsView_LoadVideo" = "Загрузить видео";
 "NotificationStatus_Viewed" = "Просмотрено";
 "NotificationStatus_NotViewed" = "Непросмотрено";
+"Validation_Field_Title" = "Заголовок";
+"Validation_Field_Description" = "Описание";
+"Validation_Field_Price" = "Цена";
+"Validation_Field_OrderPeriod" = "Период";
+"Validation_Field_Cost" = "Стоимость";
+"Validation_Field_Login" = "Логин";
+"Validation_Field_Name" = "Имя";
+"Validation_Field_Birthday" = "День рождения";
+"Validation_Field_Gender" = "Пол";
+"Validation_Field_Email" = "E-mail";
+"Validation_Field_Password" = "Пароль";
+"Validation_Field_PasswordRepeat" = "Повтор пароля";
+"Validation_Error_Empty" = "{0} не может быть пустым.";
+"Validation_Error_GreaterThanRequired" = "{0} не может быть больше чем {1}.";
+"Validation_Error_LowerThanRequired" = "{0} не может быть меньше чем {1}.";
+"Validation_Error_NotMatch" = "{0} не совпадает с {1}.";
+"Validation_Error_CanNotMatch" = "{0} не может быть равно {1}.";
+"Validation_Error_Invalid" = "{0} имеет неверный формат.";
+"Demo" = "Демо";
+"com.crashlytics.android.build_id" = "e9e6beb9c4284289ac68b9ab76a9ee56";
+
+/*Fuzzy*/
+"Error_Cost_Not_Empty" = "Стоимость не может быть пустой!";
