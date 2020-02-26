@@ -12,6 +12,7 @@ namespace PrankChat.Mobile.iOS.Controls
 	public class FloatPlaceholderTextField : UITextField
 	{
 		private UILabel _floatingLabel;
+		private bool _isBorderInitilize;
 
 		[DisplayName("Label Color"), Export("FloatingLabelTextColor"), Browsable(true)]
 		public UIColor FloatingLabelTextColor { get; set; } = UIColor.White;
@@ -73,6 +74,8 @@ namespace PrankChat.Mobile.iOS.Controls
 		{
 			base.LayoutSubviews();
 
+			TryInitializeBorder();
+
 			Action updateLabel = () =>
 			{
 				if (!string.IsNullOrEmpty(Text))
@@ -110,7 +113,7 @@ namespace PrankChat.Mobile.iOS.Controls
 				}
 				else
 				{
-					Animate(0.3f,
+                    Animate(0.3f,
 							0.0f,
 							UIViewAnimationOptions.BeginFromCurrentState | UIViewAnimationOptions.CurveEaseOut,
 							() => updateLabel(),
@@ -124,7 +127,7 @@ namespace PrankChat.Mobile.iOS.Controls
 			}
 		}
 
-		private void InitializePlaceholder()
+        private void InitializePlaceholder()
 		{
 			_floatingLabel = new UILabel
 			{
@@ -136,10 +139,14 @@ namespace PrankChat.Mobile.iOS.Controls
 			Placeholder = Placeholder;
 		}
 
-		private void InitializeBorder()
+		private void TryInitializeBorder()
 		{
-			BorderStyle = UITextBorderStyle.None;
+			if (_isBorderInitilize)
+				return;
 
+			_isBorderInitilize = true;
+
+			BorderStyle = UITextBorderStyle.None;
 			var borderWidth = 1.0f;
 
 			var leftLine = new CALayer
@@ -184,7 +191,6 @@ namespace PrankChat.Mobile.iOS.Controls
 			Layer.AddSublayer(topRightLine);
 		}
 
-
 		private void SetPlaceholderText(string placeholder)
 		{
 			if (string.IsNullOrWhiteSpace(placeholder))
@@ -196,8 +202,6 @@ namespace PrankChat.Mobile.iOS.Controls
 											  _floatingLabel.Font.LineHeight,
 											  _floatingLabel.Frame.Size.Width,
 											  _floatingLabel.Frame.Size.Height);
-
-			InitializeBorder();
 		}
 	}
 }
