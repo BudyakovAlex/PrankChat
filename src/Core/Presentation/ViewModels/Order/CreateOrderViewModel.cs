@@ -90,7 +90,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public override void Prepare()
         {
-            CurrencySign = "₽";
+            CurrencySign = Resources.Currency;
             base.Prepare();
         }
 
