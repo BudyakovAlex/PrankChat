@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Foundation;
+﻿using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views;
 using PrankChat.Mobile.Core.Presentation.Localization;
