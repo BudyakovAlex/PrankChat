@@ -94,7 +94,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public MvxCommand<GenderType> SelectGenderCommand => new MvxCommand<GenderType>(OnSelectGender);
 
-
         public BaseProfileViewModel(INavigationService navigationService,
                                     IErrorHandleService errorHandleService,
                                     IApiService apiService,

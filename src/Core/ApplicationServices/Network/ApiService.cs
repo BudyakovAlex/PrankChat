@@ -54,6 +54,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             var authTokenModel = await _client.Post<AuthorizationApiModel>("auth/logout", true);
         }
 
+        public async Task RefreshTokenAsync()
+        {
+            var authTokenModel = await _client.Post<DataApiModel<AccessTokenApiModel>>("auth/refresh", true);
+            await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
+        }
+
         #endregion Authorize
 
         #region Orders

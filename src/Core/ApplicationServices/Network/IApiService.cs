@@ -17,6 +17,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task LogoutAsync();
 
+        Task RefreshTokenAsync();
+
         #endregion Authorize
 
         #region Orders
