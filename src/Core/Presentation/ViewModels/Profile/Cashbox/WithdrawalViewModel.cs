@@ -7,6 +7,8 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -15,8 +17,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
     public class WithdrawalViewModel : BaseViewModel
     {
-        private string _cost;
-        public string Cost
+        private double? _cost;
+        public double? Cost
         {
             get => _cost;
             set => SetProperty(ref _cost, value);
@@ -49,7 +51,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                                    ISettingsService settingsService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
-            AvailableForWithdrawal = $"{Resources.CashboxView_WithdrawalAvailable_Title} {"75 000"} {"₽"}";
+            AvailableForWithdrawal = $"{Resources.CashboxView_WithdrawalAvailable_Title} {settingsService.User?.Balance.ToPriceString()}";
         }
 
         public override Task Initialize()
@@ -66,6 +68,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         private Task OnWithdrawAsync()
         {
+            if (!CheckValidation())
+                return Task.CompletedTask;
+
             return Task.CompletedTask;
         }
 
@@ -78,6 +83,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             item.IsSelected = true;
 
             return Task.CompletedTask;
+        }
+
+        private bool CheckValidation()
+        {
+            if (Cost == null || Cost == 0)
+            {
+                ErrorHandleService.HandleException(new UserVisibleException(Resources.Error_Cost_Not_Empty));
+                return false;
+            }
+
+            return true;
         }
     }
 }
