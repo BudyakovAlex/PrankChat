@@ -180,7 +180,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public override Task Initialize()
         {
             base.Initialize();
-            return LoadOrderDetailsAsync();
+            return LoadOrderDetailsCommand.ExecuteAsync();
         }
 
         private async Task LoadOrderDetailsAsync()
