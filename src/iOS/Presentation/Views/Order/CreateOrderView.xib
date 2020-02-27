@@ -61,7 +61,7 @@
                                                 <constraint firstAttribute="height" constant="46" id="zyV-Cl-4jU"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" textContentType="tel"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
                                         </textField>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZDI-0s-1IO">
                                             <rect key="frame" x="0.0" y="220" width="382" height="46"/>

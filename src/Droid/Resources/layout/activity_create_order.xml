@@ -56,6 +56,7 @@
             android:textSize="14sp"
             android:textAlignment="viewEnd"
             android:maxLines="1"
+            android:inputType="number"
             android:textColor="@color/applicationBlack"
             app:MvxBind="Text Price" />
     </android.support.design.widget.TextInputLayout>
