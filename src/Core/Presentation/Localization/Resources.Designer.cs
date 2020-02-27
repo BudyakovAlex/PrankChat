@@ -1073,9 +1073,123 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
             }
         }
         
+        public static string Validation_Field_Title {
+            get {
+                return ResourceManager.GetString("Validation_Field_Title", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Field_Description {
+            get {
+                return ResourceManager.GetString("Validation_Field_Description", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Field_Price {
+            get {
+                return ResourceManager.GetString("Validation_Field_Price", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Field_OrderPeriod {
+            get {
+                return ResourceManager.GetString("Validation_Field_OrderPeriod", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Field_Cost {
+            get {
+                return ResourceManager.GetString("Validation_Field_Cost", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Field_Login {
+            get {
+                return ResourceManager.GetString("Validation_Field_Login", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Field_Name {
+            get {
+                return ResourceManager.GetString("Validation_Field_Name", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Field_Birthday {
+            get {
+                return ResourceManager.GetString("Validation_Field_Birthday", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Field_Gender {
+            get {
+                return ResourceManager.GetString("Validation_Field_Gender", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Field_Email {
+            get {
+                return ResourceManager.GetString("Validation_Field_Email", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Field_Password {
+            get {
+                return ResourceManager.GetString("Validation_Field_Password", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Field_PasswordRepeat {
+            get {
+                return ResourceManager.GetString("Validation_Field_PasswordRepeat", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Error_Empty {
+            get {
+                return ResourceManager.GetString("Validation_Error_Empty", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Error_GreaterThanRequired {
+            get {
+                return ResourceManager.GetString("Validation_Error_GreaterThanRequired", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Error_LowerThanRequired {
+            get {
+                return ResourceManager.GetString("Validation_Error_LowerThanRequired", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Error_NotMatch {
+            get {
+                return ResourceManager.GetString("Validation_Error_NotMatch", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Error_CanNotMatch {
+            get {
+                return ResourceManager.GetString("Validation_Error_CanNotMatch", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Error_Invalid {
+            get {
+                return ResourceManager.GetString("Validation_Error_Invalid", resourceCulture);
+            }
+        }
+        
         public static string Demo {
             get {
                 return ResourceManager.GetString("Demo", resourceCulture);
+            }
+        }
+        
+        public static string com_crashlytics_android_build_id {
+            get {
+                return ResourceManager.GetString("com.crashlytics.android.build_id", resourceCulture);
             }
         }
     }

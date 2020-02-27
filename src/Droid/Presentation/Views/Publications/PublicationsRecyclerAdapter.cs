@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Android.Runtime;
 using Android.Support.V7.Widget;
 using MvvmCross.Droid.Support.V7.RecyclerView;
@@ -30,7 +31,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
                 && holder is RecyclerView.ViewHolder viewHolder
                 && viewHolder.LayoutPosition != InactivatedPosition)
             {
-                var itemViewModel = viewModel.Items[viewHolder.LayoutPosition];
+                var itemViewModel = viewModel.Items.ElementAtOrDefault(viewHolder.LayoutPosition);
                 StopVideo(itemViewModel);
             }
 
@@ -39,8 +40,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
         private void StopVideo(PublicationItemViewModel itemViewModel)
         {
-            var videoService = itemViewModel.VideoPlayerService;
-            videoService.Stop();
+            var videoService = itemViewModel?.VideoPlayerService;
+            videoService?.Stop();
         }
     }
 }

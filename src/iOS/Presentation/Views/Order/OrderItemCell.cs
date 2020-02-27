@@ -57,6 +57,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
         {
             var set = this.CreateBindingSet<OrderItemCell, OrderItemViewModel>();
 
+            set.Bind(this)
+                .For(v => v.BindTap())
+                .To(vm => vm.OpenDetailsOrderCommand)
+                .Mode(MvxBindingMode.OneTime);
+
             set.Bind(backgroundImageView)
                 .For(UIImageViewOrderTypeTargetBinding.TargetBinding)
                 .To(vm => vm.OrderType);

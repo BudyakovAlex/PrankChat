@@ -99,6 +99,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			likeButton.SetImage(UIImage.FromBundle("ic_like.png"), UIControlState.Normal);
 			likeButton.SetImage(UIImage.FromBundle("ic_like_active.png"), UIControlState.Selected);
 
+            // TODO: Unhide this button when video saving will be available.
+            bookmarkButton.Hidden = true;
+
             InitializeVideoControl();
 		}
 
@@ -180,13 +183,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.To(vm => vm.OpenSettingsCommand)
 				.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(shareButton)
+			set.Bind(shareView)
+				.For(v => v.BindTap())
 				.To(vm => vm.ShareCommand)
+				.Mode(MvxBindingMode.OneTime);
+
+			set.Bind(shareButton)
+	            .To(vm => vm.ShareCommand)
 				.Mode(MvxBindingMode.OneTime);
 
 			set.Bind(shareLabel.Tap())
 				.For(v => v.Command)
-				.To(vm => vm.ShareCommand);
+				.To(vm => vm.ShareCommand)
+				.Mode(MvxBindingMode.OneTime);
 
 			set.Bind(profileShortNameLabel)
 				.To(vm => vm.ProfileShortName)

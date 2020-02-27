@@ -2,6 +2,7 @@
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
+using MvvmCross.Platforms.Ios.Views;
 using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
@@ -15,6 +16,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
 	public partial class OrderDetailsView : BaseGradientBarView<OrderDetailsViewModel>
 	{
+		private MvxUIRefreshControl _refreshControl;
+
 		protected override void SetupBinding()
 		{
 			var set = this.CreateBindingSet<OrderDetailsView, OrderDetailsViewModel>();
@@ -102,7 +105,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			#region Subscribe and Unsubscribe
 
 			set.Bind(subscriptionButton)
-				.To(vm => vm.SubscribeTheOrderCommand);
+				.To(vm => vm.SubscribeOrderCommand);
 
 			set.Bind(subscriptionButton)
 				.For(v => v.BindVisible())
@@ -232,6 +235,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				.For(v => v.BindVisible())
 				.To(vm => vm.IsBusy);
 
+			set.Bind(_refreshControl)
+			   .For(v => v.IsRefreshing)
+			   .To(vm => vm.IsBusy);
+
+			set.Bind(_refreshControl)
+				.For(v => v.RefreshCommand)
+				.To(vm => vm.LoadOrderDetailsCommand);
+
 			set.Apply();
 		}
 
@@ -275,6 +286,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			noButton.ImageEdgeInsets = new UIEdgeInsets(0, 0, 0, 10);
 
 			videoImageView.SetCornerRadius(5);
+
+			rootScrollView.RefreshControl = _refreshControl = new MvxUIRefreshControl();
 		}
     }
 }

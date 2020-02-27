@@ -8,7 +8,6 @@ using Foundation;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
@@ -63,7 +62,11 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         public override void TryRegisterViewedFact(int id, int registrationDelayInMilliseconds)
         {
             var registrationDelayInSeconds = registrationDelayInMilliseconds / 1000;
-            _repeatObserver = _player.AddBoundaryTimeObserver(
+
+            if (_viewedFactRegistrationObserver != null)
+                RemoveViewedFactRegistrationObserver();
+
+            _viewedFactRegistrationObserver = _player.AddBoundaryTimeObserver(
                 times: new[] { NSValue.FromCMTime(new CMTime(registrationDelayInSeconds, 1)) },
                 queue: null,
                 handler: () => RegisterViewedVideoFactAsync(id, registrationDelayInSeconds).FireAndForget());
@@ -129,12 +132,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
                     _repeatObserver = null;
                 }
 
-                if (_viewedFactRegistrationObserver != null)
-                {
-                    _player?.RemoveTimeObserver(_viewedFactRegistrationObserver);
-                    _viewedFactRegistrationObserver?.Dispose();
-                    _viewedFactRegistrationObserver = null;
-                }
+                RemoveViewedFactRegistrationObserver();
 
                 if (_videoEndHandler != null)
                 {
@@ -161,12 +159,26 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         private async Task RegisterViewedVideoFactAsync(int id, int registrationDelayInMilliseconds)
         {
             var currentTimeInMilliseconds = (int)_player.CurrentItem.CurrentTime.Seconds * 1000;
-            await SendRegisterViewedFactAsync(id, registrationDelayInMilliseconds, currentTimeInMilliseconds);
+            if (currentTimeInMilliseconds >= registrationDelayInMilliseconds)
+            {
+                await SendRegisterViewedFactAsync(id, registrationDelayInMilliseconds, currentTimeInMilliseconds);
+                RemoveViewedFactRegistrationObserver();
+            }
         }
 
         private void RepeatEndedItem(NSNotification obj)
         {
             _player.Seek(new CMTime(0, 1));
+        }
+
+        private void RemoveViewedFactRegistrationObserver()
+        {
+            if (_viewedFactRegistrationObserver == null)
+                return;
+
+            _player?.RemoveTimeObserver(_viewedFactRegistrationObserver);
+            _viewedFactRegistrationObserver?.Dispose();
+            _viewedFactRegistrationObserver = null;
         }
     }
 }
