@@ -1,4 +1,5 @@
-﻿using MvvmCross.Binding;
+﻿using System;
+using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
@@ -7,7 +8,6 @@ using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
@@ -18,23 +18,39 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 {
-	[MvxTabPresentation(TabName = "Profile", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
-	public partial class ProfileView : BaseTabbedView<ProfileViewModel>
-	{
-		private MvxUIRefreshControl _refreshControl;
+    [MvxTabPresentation(TabName = "Profile", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
+    public partial class ProfileView : BaseTabbedView<ProfileViewModel>
+    {
+        private MvxUIRefreshControl _refreshControlProfile;
 
-		public PublicationTableSource PublicationTableSource { get; private set; }
+        public PublicationTableSource PublicationTableSource { get; private set; }
 
-		public override void ViewDidAppear(bool animated)
-		{
-			base.ViewDidAppear(animated);
+        public override void ViewDidAppear(bool animated)
+        {
+            base.ViewDidAppear(animated);
 
-			PublicationTableSource.Initialize();
-		}
+            PublicationTableSource.Initialize();
+        }
 
         protected override void SetupBinding()
         {
             var set = this.CreateBindingSet<ProfileView, ProfileViewModel>();
+
+            set.Bind(_refreshControlProfile)
+                .For(v => v.IsRefreshing)
+                .To(vm => vm.IsBusy);
+
+            set.Bind(_refreshControlProfile)
+                .For(v => v.RefreshCommand)
+                .To(vm => vm.LoadProfileCommand);
+
+            set.Bind(PublicationTableSource)
+                .To(vm => vm.Items);
+
+            set.Bind(PublicationTableSource)
+                .For(v => v.Segment)
+                .To(vm => vm.SelectedPublicationType)
+                .WithConversion<PublicationTypeConverter>();
 
             set.Bind(profileImageView)
                 .For(v => v.DownsampleWidth)
@@ -51,11 +67,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .To(vm => vm.ProfilePhotoUrl)
                 .Mode(MvxBindingMode.OneWay);
 
-			set.Bind(profileImageView)
-				.For(v => v.ImagePath)
-				.To(vm => vm.ProfilePhotoUrl)
-				.WithConversion<PlaceholderImageConverter>()
-				.Mode(MvxBindingMode.OneWay);	
+            set.Bind(profileImageView)
+                .For(v => v.ImagePath)
+                .To(vm => vm.ProfilePhotoUrl)
+                .WithConversion<PlaceholderImageConverter>()
+                .Mode(MvxBindingMode.OneWay);
 
             set.Bind(profileDescriptionLabel)
                 .To(vm => vm.Name)
@@ -81,17 +97,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             set.Bind(subscriptionsValueLabel)
                 .To(vm => vm.SubscriptionsValue);
-
-            set.Bind(PublicationTableSource)
-                .To(vm => vm.Items);
-
-            set.Bind(_refreshControl)
-                .For(v => v.IsRefreshing)
-                .To(vm => vm.IsBusy);
-
-            set.Bind(_refreshControl)
-                .For(v => v.RefreshCommand)
-                .To(vm => vm.UpdateProfileVideoCommand);
 
             set.Bind(PublicationTableSource)
                 .For(v => v.Segment)
@@ -140,6 +145,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             segmentedControl.SelectedSegment = 0;
             segmentedControl.ValueChanged += SegmentedControl_ValueChanged;
+
+            rootScrollView.RefreshControl = _refreshControlProfile = new MvxUIRefreshControl();
         }
 
         private void SegmentedControl_ValueChanged(object sender, System.EventArgs e)
@@ -163,9 +170,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
             tableView.SetVideoListStyle(PublicationItemCell.EstimatedHeight);
             tableView.ContentInset = new UIEdgeInsets(10, 0, 0, 0);
-
-            _refreshControl = new MvxUIRefreshControl();
-            tableView.RefreshControl = _refreshControl;
         }
     }
 }
