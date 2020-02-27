@@ -7,7 +7,8 @@
     app:contentPaddingLeft="16dp"
     app:contentPaddingRight="16dp"
     app:contentPaddingTop="8dp"
-    app:contentPaddingBottom="8dp">
+    app:contentPaddingBottom="8dp"
+    app:MvxBind="Click OpenDetailsOrderCommand">
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
