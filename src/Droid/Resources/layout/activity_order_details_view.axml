@@ -204,7 +204,7 @@
 					android:layout_gravity="center_horizontal"
 					android:text="@string/OrderDetailsView_Subscribe_Button"
 					style="@style/Theme.PrankChat.Button.Accent"
-					app:MvxBind="Click SubscribeTheOrderCommand; Visibility Visibility(IsSubscribeAvailable)"/>
+					app:MvxBind="Click SubscribeOrderCommand; Visibility Visibility(IsSubscribeAvailable)"/>
 				<Button
 					android:layout_width="wrap_content"
 					android:layout_height="36dp"
