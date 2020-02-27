@@ -131,7 +131,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<OrderDataModel> CancelOrderAsync(int orderId)
         {
-            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/finish", true);
+            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/cancel", false);
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
