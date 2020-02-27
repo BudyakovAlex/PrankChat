@@ -51,6 +51,7 @@
                 <outlet property="videoView" destination="R1n-QL-LK4" id="gcf-7X-Wuz"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
                 <outlet property="yesButton" destination="vUd-Sn-Jb4" id="rDD-Vn-p1Z"/>
+                <outlet property="rootScrollView" destination="dIr-NI-Bz0" id="eqX-Vn-Bz0"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

@@ -134,7 +134,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public MvxAsyncCommand TakeOrderCommand => new MvxAsyncCommand(OnTakeOrderAsync);
 
-        public MvxAsyncCommand SubscribeTheOrderCommand => new MvxAsyncCommand(OnSubscribeOrderAsync);
+        public MvxAsyncCommand SubscribeOrderCommand => new MvxAsyncCommand(OnSubscribeOrderAsync);
 
         public MvxAsyncCommand UnsubscribeOrderCommand => new MvxAsyncCommand(OnUnsubscribeOrderAsync);
 
@@ -153,6 +153,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public MvxAsyncCommand AcceptOrderCommand => new MvxAsyncCommand(OnAcceptOrderAsync);
 
         public MvxAsyncCommand ShowFullVideoCommand => new MvxAsyncCommand(OnShowFullVideoAsync);
+
+        public MvxAsyncCommand LoadOrderDetailsCommand => new MvxAsyncCommand(LoadOrderDetailsAsync);
 
         #endregion Commands
 
@@ -178,10 +180,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public override Task Initialize()
         {
             base.Initialize();
-            return LoadOrderDetails();
+            return LoadOrderDetailsCommand.ExecuteAsync();
         }
 
-        private async Task LoadOrderDetails()
+        private async Task LoadOrderDetailsAsync()
         {
             try
             {

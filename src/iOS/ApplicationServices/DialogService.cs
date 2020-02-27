@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using CoreFoundation;
 using CoreGraphics;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -54,29 +55,19 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
             DispatchQueue.MainQueue.DispatchAfter(time, () => toast.RemoveFromSuperview());
         }
 
-        private UIViewController GetTopViewController(UIWindow window)
+        public static UIViewController GetTopViewController(UIWindow window)
         {
-            var rootViewController = Unwrap(window.RootViewController);
-            if (rootViewController is UITabBarController tabBarController)
+            var rootViewController = window.RootViewController;
+            while (rootViewController.PresentedViewController != null)
             {
-                var selectedViewController = tabBarController.SelectedViewController;
-                if (selectedViewController != null)
-                {
-                    return Unwrap(selectedViewController);
-                }
+                rootViewController = rootViewController.PresentedViewController;
             }
 
+            if (rootViewController is UINavigationController navController)
+            {
+                rootViewController = navController.ViewControllers.LastOrDefault();
+            }
             return rootViewController;
-        }
-
-        private UIViewController Unwrap(UIViewController viewContentroller)
-        {
-            if (viewContentroller is UINavigationController navigationController)
-            {
-                return navigationController.TopViewController;
-            }
-
-            return viewContentroller;
         }
     }
 }
