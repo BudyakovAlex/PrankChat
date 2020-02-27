@@ -105,7 +105,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			#region Subscribe and Unsubscribe
 
 			set.Bind(subscriptionButton)
-				.To(vm => vm.SubscribeeOOrderCommand);
+				.To(vm => vm.SubscribeOrderCommand);
 
 			set.Bind(subscriptionButton)
 				.For(v => v.BindVisible())
