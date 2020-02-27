@@ -112,14 +112,14 @@
 							android:textColor="@color/inactive"
 							android:textSize="26sp"
 							android:text="01"
-                            app:MvxBind="Text TimeDaysValue"/>
+							app:MvxBind="Text TimeDaysValue"/>
 						<TextView
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:layout_gravity="center_horizontal"
-                            android:textSize="12sp"
-                                   android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
+							android:textSize="12sp"
+							android:layout_marginLeft="5dp"
+							android:layout_marginRight="5dp"
 							android:textColor="@color/inactive"
 							android:text="@string/Order_View_Day"/>
 					</LinearLayout>
@@ -128,7 +128,7 @@
 						android:layout_height="wrap_content"
 						android:layout_marginLeft="1dp"
 						android:layout_marginRight="4dp"
-                        android:layout_marginTop="-1dp"
+						android:layout_marginTop="-1dp"
 						android:textColor="@color/inactive"
 						android:textSize="26sp"
 						android:text=":"/>
@@ -144,14 +144,14 @@
 							android:textColor="@color/inactive"
 							android:textSize="26sp"
 							android:text="23"
-                            app:MvxBind="Text TimeHourValue"/>
+							app:MvxBind="Text TimeHourValue"/>
 						<TextView
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:layout_gravity="center_horizontal"
-                            android:textSize="12sp"
-                                   android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
+							android:textSize="12sp"
+							android:layout_marginLeft="5dp"
+							android:layout_marginRight="5dp"
 							android:textColor="@color/inactive"
 							android:text="@string/Order_View_Hour"/>
 					</LinearLayout>
@@ -160,7 +160,7 @@
 						android:layout_height="wrap_content"
 						android:layout_marginLeft="4dp"
 						android:layout_marginRight="1dp"
-                        android:layout_marginTop="-1dp"
+						android:layout_marginTop="-1dp"
 						android:textColor="@color/inactive"
 						android:textSize="26sp"
 						android:text=":"/>
@@ -176,15 +176,15 @@
 							android:textColor="@color/inactive"
 							android:textSize="26sp"
 							android:text="50"
-                            app:MvxBind="Text TimeMinutesValue"/>
+							app:MvxBind="Text TimeMinutesValue"/>
 						<TextView
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:layout_gravity="center_horizontal"
-                            android:textAlignment="center"
-                            android:textSize="12sp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
+							android:textAlignment="center"
+							android:textSize="12sp"
+							android:layout_marginLeft="5dp"
+							android:layout_marginRight="5dp"
 							android:textColor="@color/inactive"
 							android:text="@string/Order_View_Minute"/>
 					</LinearLayout>
