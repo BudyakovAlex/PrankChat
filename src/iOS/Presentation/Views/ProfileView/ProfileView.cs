@@ -73,6 +73,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .WithConversion<PlaceholderImageConverter>()
                 .Mode(MvxBindingMode.OneWay);
 
+            set.Bind(profileImageView.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.ShowUpdateProfileCommand);
+
             set.Bind(profileDescriptionLabel)
                 .To(vm => vm.Name)
                 .Mode(MvxBindingMode.OneWay);
@@ -98,14 +102,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             set.Bind(subscriptionsValueLabel)
                 .To(vm => vm.SubscriptionsValue);
 
-            set.Bind(PublicationTableSource)
-                .For(v => v.Segment)
-                .To(vm => vm.SelectedPublicationType)
-                .WithConversion<PublicationTypeConverter>();
 
-            set.Bind(profileImageView.Tap())
-                .For(v => v.Command)
-                .To(vm => vm.ShowUpdateProfileCommand);
 
             set.Bind(profileShortNameLabel)
                 .To(vm => vm.ProfileShortName);
