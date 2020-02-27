@@ -122,10 +122,9 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<OrderDetailsViewModel, OrderDetailsNavigationParameter>(parameter);
         }
 
-        public Task ShowFullScreenVideoView(string videoUrl, string videoName, string description)
+        public Task ShowFullScreenVideoView(FullScreenVideoParameter fullScreenVideoParameter)
         {
-            var parameter = new FullScreenVideoParameter(videoUrl, videoName, description);
-            return _mvxNavigationService.Navigate<FullScreenVideoViewModel, FullScreenVideoParameter>(parameter);
+            return _mvxNavigationService.Navigate<FullScreenVideoViewModel, FullScreenVideoParameter>(fullScreenVideoParameter);
         }
 
         public Task ShowDetailsPublicationView()

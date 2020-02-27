@@ -16,11 +16,12 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
-    public class BasePublicationViewModel : BaseViewModel, IDisposable
+    public class BasePublicationViewModel : LikeableViewModel, IDisposable
     {
         private readonly IPlatformService _platformService;
         private readonly IMvxMessenger _mvxMessenger;
@@ -34,9 +35,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private MvxSubscriptionToken _updateNumberOfViewsSubscriptionToken;
         private long? _numberOfViews;
         private DateTime _publicationDate;
-        private long? _numberOfLikes;
         private string _shareLink;
-        private CancellationTokenSource _cancellationSendingLikeTokenSource;
 
         #region Profile
 
@@ -50,9 +49,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #region Video
 
-        public string VideoInformationText => $"{_numberOfViews.ToCountViewsString()} • {_publicationDate.ToTimeAgoPublicationString()}";
-
-        public int VideoId { get; set; }
+        public string VideoInformationText => $"{NumberOfLikes.ToCountViewsString()} • {_publicationDate.ToTimeAgoPublicationString()}";
 
         public string VideoName { get; set; }
 
@@ -71,20 +68,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             set => SetProperty(ref _hasSoundTurnOn, value);
         }
 
-        private bool _isLiked;
-        public bool IsLiked
-        {
-            get => _isLiked;
-            set => SetProperty(ref _isLiked, value);
-        }
-
         #endregion Video
 
-        public string NumberOfLikesText => $"{Resources.Like} {_numberOfLikes.ToCountString()}";
+        public string NumberOfLikesText => $"{Resources.Like} {NumberOfLikes.ToCountString()}";
 
         #region Commands
-
-        public IMvxCommand LikeCommand => new MvxRestrictedCommand(OnLike, restrictedExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
 
         public IMvxAsyncCommand BookmarkCommand => new MvxRestrictedAsyncCommand(OnBookmarkAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
 
@@ -139,10 +127,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             Description = description;
             VideoUrl = videoUrl;
             IsLiked = isLiked;
+            NumberOfLikes = numberOfLikes;
 
             _numberOfViews = numberOfViews;
             _publicationDate = publicationDate;
-            _numberOfLikes = numberOfLikes;
             _shareLink = shareLink;
 
             Subscribe();
@@ -161,6 +149,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             {
                 Unsubscribe();
             }
+        }
+
+        protected override void OnLikeChanged()
+        {
+            RaisePropertyChanged(nameof(NumberOfLikesText));
         }
 
         public override void ViewDestroy(bool viewFinishing = true)
@@ -197,36 +190,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private Task ShowFullScreenVideoAsync()
         {
             VideoPlayerService.Player.TryRegisterViewedFact(VideoId, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
-            return NavigationService.ShowFullScreenVideoView(VideoUrl, VideoName, Description);
-        }
 
-        private void OnLike()
-        {
-            IsLiked = !IsLiked;
-            _numberOfLikes = IsLiked
-                            ? _numberOfLikes + 1
-                            : _numberOfLikes - 1;
-            RaisePropertyChanged(nameof(NumberOfLikesText));
-            SendLike().FireAndForget();
-        }
-
-        private async Task SendLike()
-        {
-            _cancellationSendingLikeTokenSource?.Cancel();
-            if (_cancellationSendingLikeTokenSource == null)
-            {
-                _cancellationSendingLikeTokenSource = new CancellationTokenSource();
-            }
-
-            try
-            {
-                await ApiService.SendLikeAsync(VideoId, IsLiked, _cancellationSendingLikeTokenSource.Token);
-            }
-            finally
-            {
-                _cancellationSendingLikeTokenSource?.Dispose();
-                _cancellationSendingLikeTokenSource = null;
-            }
+            var navigationParams = new FullScreenVideoParameter(VideoId, VideoUrl, VideoName, Description, _shareLink);
+            return NavigationService.ShowFullScreenVideoView(navigationParams);
         }
 
         private Task OnBookmarkAsync()

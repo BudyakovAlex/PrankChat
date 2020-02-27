@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using FFImageLoading.Transformations;
-using FFImageLoading.Work;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.ViewModels;
@@ -11,8 +8,6 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Exceptions;
-using PrankChat.Mobile.Core.Exceptions.UserVisible;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -410,7 +405,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private Task OnShowFullVideoAsync()
         {
-            return NavigationService.ShowFullScreenVideoView(VideoUrl, VideoName, VideoDetails);
+            if (_order?.Video is null)
+            {
+                return Task.CompletedTask;
+            }
+
+            var navigationParams = new FullScreenVideoParameter(_order.Video.Id, VideoUrl, VideoName, VideoDetails, _order.Video.ShareUri);
+            return NavigationService.ShowFullScreenVideoView(navigationParams);
         }
     }
 }
