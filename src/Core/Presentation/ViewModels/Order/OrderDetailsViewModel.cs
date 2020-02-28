@@ -63,9 +63,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #region Decide
 
-        public int LikesCount => _order.PositiveArbitrationValuesCount ?? 0;
+        public int LikesCount => _order?.PositiveArbitrationValuesCount ?? 0;
 
-        public int DisikesCount => _order.NegativeArbitrationValuesCount ?? 0;
+        public int DisikesCount => _order?.NegativeArbitrationValuesCount ?? 0;
 
         public string YesText => $"{Resources.OrderDetailsView_Yes_Button} {LikesCount}";
 

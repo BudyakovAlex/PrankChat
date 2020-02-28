@@ -5,6 +5,7 @@ using Android.Media;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using FFImageLoading.Cross;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -13,6 +14,7 @@ using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
+using PrankChat.Mobile.Droid.Providers;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 {
@@ -27,6 +29,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
         private ImageView _backImageView;
         private TextView _titleTextView;
         private TextView _descriptionTextView;
+        private View _profileView;
+        private MvxCachedImageView _profileImageView;
+        private View _likeView;
+        private TextView _likeTextView;
+        private ImageView _shareImageView;
 
         private int _currentPosition;
 
@@ -51,15 +58,25 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 
         protected override void SetViewProperties()
         {
-            _videoView = FindViewById<ExtendedVideoView>(Resource.Id.video_view);
             _rootView = FindViewById<FrameLayout>(Resource.Id.root_view);
             _backImageView = FindViewById<ImageView>(Resource.Id.back_image_view);
-
             _titleTextView = FindViewById<TextView>(Resource.Id.video_title_text_view);
             _descriptionTextView = FindViewById<TextView>(Resource.Id.video_description_text_view);
-
             _topPanel = FindViewById<LinearLayout>(Resource.Id.top_panel);
-            _topPanel.Visibility = ViewStates.Gone;
+            _profileView = FindViewById<View>(Resource.Id.profile_view);
+            _likeView = FindViewById<View>(Resource.Id.like_view);
+            _likeTextView = FindViewById<TextView>(Resource.Id.like_text_view);
+            _shareImageView = FindViewById<ImageView>(Resource.Id.share_image_view);
+
+            _profileImageView = FindViewById<MvxCachedImageView>(Resource.Id.profile_image_view);
+            _profileImageView.ClipToOutline = true;
+            _profileImageView.OutlineProvider = new OutlineProvider((view, outline) =>
+            {
+                outline.SetRoundRect(0, 0, view.Width, view.Height, view.Width / 2);
+            });
+
+            _videoView = FindViewById<ExtendedVideoView>(Resource.Id.video_view);
+            _videoView.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepared));
 
             _mediaController = new CustomMediaControllerView(this)
             {
@@ -67,8 +84,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
                 VideoView = _videoView,
                 ViewStateChanged = (viewState) => _topPanel.Visibility = viewState
             };
-
-            _videoView.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepared));
 
             _mediaController.SetAnchorView(_rootView);
             _videoView.RequestFocus();
@@ -99,6 +114,33 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             bindingSet.Bind(_descriptionTextView)
                      .For(v => v.Text)
                      .To(vm => vm.Description);
+
+            // TODO: add show profile click binding
+            //bindingSet.Bind(_profileView)
+            //          .For(v => v.BindClick())
+            //          .To(vm => vm.)
+
+
+            // TODO: add profile image binding
+            //bindingSet.Bind(_profileImageView)
+            //          .For(v => v.ImagePath)
+            //          .To(vm => vm.);
+
+            bindingSet.Bind(_likeView)
+                      .For(v => v.BindClick())
+                      .To(vm => vm.LikeCommand);
+
+            bindingSet.Bind(_likeView)
+                      .For(v => v.Activated)
+                      .To(vm => vm.IsLiked);
+
+            bindingSet.Bind(_likeTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.NumberOfLikesPresentation);
+
+            bindingSet.Bind(_shareImageView)
+                      .For(v => v.BindClick())
+                      .To(vm => vm.ShareCommand);
 
             bindingSet.Apply();
         }

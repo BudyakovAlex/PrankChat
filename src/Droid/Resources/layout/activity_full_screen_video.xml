@@ -1,49 +1,136 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/applicationBlack">
+
     <PrankChat.Mobile.Droid.Controls.ExtendedVideoView
         android:id="@+id/video_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center" />
-    <LinearLayout
+
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/top_panel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black_with_opacity"
-        android:orientation="vertical">
+        android:visibility="gone"
+        tools:visibility="visible">
+
         <ImageView
             android:id="@+id/back_image_view"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:scaleType="center"
-            android:src="@drawable/ic_back_arrow" />
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/video_title_text_view"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="13dp"
             android:layout_marginTop="13dp"
             android:layout_marginEnd="13dp"
-            android:layout_marginBottom="18dp"
             android:textColor="@color/applicationWhite"
             android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back_image_view"
             tools:text="Обнять ежа" />
+
         <TextView
             android:id="@+id/video_description_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="13dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="18dp"
             android:layout_marginEnd="64dp"
-            android:layout_marginBottom="18dp"
+            android:layout_marginRight="64dp"
             android:lineSpacingExtra="3dp"
             android:textColor="@color/applicationWhite"
             android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/share_image_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/video_title_text_view"
             tools:text="Снять видео, как Вы обнимаете маленького колючего ежика, в течении 5 секунд. Если продержите ежика минуту, получите респект!" />
-    </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/profile_view"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/like_view"
+            app:layout_constraintEnd_toEndOf="@+id/like_view"
+            app:layout_constraintStart_toStartOf="@+id/like_view">
+
+            <ffimageloading.cross.MvxCachedImageView
+                android:id="@+id/profile_image_view"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:foreground="@drawable/border_full_screen_video_profile_photo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_plus"
+                app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
+                app:layout_constraintEnd_toEndOf="@+id/profile_image_view" />
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/like_view"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.95"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/share_image_view"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:duplicateParentState="true"
+                android:scaleType="center"
+                android:src="@drawable/ic_like_active"
+                android:tint="@color/selector_full_screen_video_like_color" />
+
+            <TextView
+                android:id="@+id/like_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/applicationWhite"
+                android:textSize="12sp"
+                tools:text="18,2 k" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/share_image_view"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="60dp"
+            android:alpha="0.95"
+            android:scaleType="center"
+            android:src="@drawable/ic_share_up"
+            android:tint="@color/applicationWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 </FrameLayout>
