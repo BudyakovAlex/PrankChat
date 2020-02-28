@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/resume_image_view"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
         android:layout_marginBottom="10dp"
         android:scaleType="center"
         android:src="@drawable/ic_mdi_play_circle_outline"
@@ -18,8 +18,8 @@
 
     <ImageView
         android:id="@+id/mute_image_view"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
         android:layout_marginBottom="10dp"
         android:scaleType="center"
         android:src="@drawable/ic_without_sound"

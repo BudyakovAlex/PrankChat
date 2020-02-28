@@ -64,8 +64,8 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/profile_view"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toTopOf="@+id/like_view"
             app:layout_constraintEnd_toEndOf="@+id/like_view"
@@ -91,8 +91,8 @@
 
         <LinearLayout
             android:id="@+id/like_view"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
             android:layout_marginBottom="20dp"
             android:alpha="0.95"
             android:gravity="center"
@@ -123,9 +123,9 @@
 
         <ImageView
             android:id="@+id/share_image_view"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginBottom="60dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginBottom="72dp"
             android:alpha="0.95"
             android:scaleType="center"
             android:src="@drawable/ic_share_up"
