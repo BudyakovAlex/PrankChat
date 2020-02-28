@@ -16,6 +16,7 @@ using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
@@ -30,12 +31,14 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             _settingsService = settingsService;
         }
 
-        public async Task AppStart()
+        public Task AppStart()
         {
-            if (_settingsService.User == null)
-                await ShowLoginView();
-            else
-                await ShowMainView();
+            if (VersionTracking.IsFirstLaunchEver || _settingsService.User != null)
+            {
+                return ShowMainView();
+            }
+
+            return ShowLoginView();
         }
 
         public Task ShowCashboxView()
