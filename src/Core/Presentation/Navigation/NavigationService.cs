@@ -97,6 +97,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<NotificationViewModel>();
         }
 
+        //TODO: add correct logic for opening comments
         public Task ShowCommentsView()
         {
             return _mvxNavigationService.Navigate<CommentsViewModel>();

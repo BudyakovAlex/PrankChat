@@ -126,16 +126,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                       .For(v => v.Text)
                       .To(vm => vm.Description);
 
-            //TODO: add show profile tap binding
-            //bindingSet.Bind(profileView)
-            //          .For(v => v.BindTap())
-            //          .To(vm => vm.)
+          //TODO: add show profile tap binding
+          //bindingSet.Bind(profileView)
+          //          .For(v => v.BindTap())
+          //          .To(vm => vm.)
 
-
-            // TODO: add profile image binding
-            //bindingSet.Bind(profileImageView)
-            //          .For(v => v.ImagePath)
-            //          .To(vm => vm.);
+            bindingSet.Bind(profileImageView)
+                      .For(v => v.ImagePath)
+                      .To(vm => vm.ProfilePhotoUrl);
 
             bindingSet.Bind(likeView)
                       .For(v => v.BindTap())

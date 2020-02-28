@@ -1,4 +1,5 @@
-﻿using MvvmCross.Commands;
+﻿using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
@@ -22,10 +23,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
                                         ISettingsService settingsService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
-            ShareCommand = new MvxAsyncCommand(() => DialogService.ShowShareDialogAsync(_shareLink));
+            ShareCommand = new MvxAsyncCommand(ShareAsync);
+            OpenCommentsCommand = new MvxAsyncCommand(NavigationService.ShowCommentsView);
         }
 
         public MvxAsyncCommand ShareCommand { get; }
+
+        public MvxAsyncCommand OpenCommentsCommand { get; }
 
         private string _videoUrl;
         public string VideoUrl
@@ -45,6 +49,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         public string Description { get; private set; }
 
+        public string ProfilePhotoUrl { get; private set; }
+
         public string NumberOfLikesPresentation => NumberOfLikes.ToCountViewsString();
 
         public void Prepare(FullScreenVideoParameter parameter)
@@ -53,7 +59,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             VideoUrl = parameter.VideoUrl;
             VideoName = parameter.VideoName;
             Description = parameter.Description;
+            ProfilePhotoUrl = parameter.ProfilePhotoUrl;
+
             _shareLink = parameter.ShareLink;
+        }
+
+        private Task ShareAsync()
+        {
+            return DialogService.ShowShareDialogAsync(_shareLink);
         }
     }
 }

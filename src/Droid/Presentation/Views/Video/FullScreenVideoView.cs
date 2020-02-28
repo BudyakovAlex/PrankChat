@@ -120,11 +120,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             //          .For(v => v.BindClick())
             //          .To(vm => vm.)
 
-
-            // TODO: add profile image binding
-            //bindingSet.Bind(_profileImageView)
-            //          .For(v => v.ImagePath)
-            //          .To(vm => vm.);
+            bindingSet.Bind(_profileImageView)
+                      .For(v => v.ImagePath)
+                      .To(vm => vm.ProfilePhotoUrl);
 
             bindingSet.Bind(_likeView)
                       .For(v => v.BindClick())

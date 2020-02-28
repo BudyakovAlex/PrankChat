@@ -12,17 +12,21 @@
 
         public string ShareLink { get; }
 
+        public string ProfilePhotoUrl { get; set; }
+
         public FullScreenVideoParameter(int videoId,
                                         string videoUrl,
                                         string videoName,
                                         string description,
-                                        string shareLink)
+                                        string shareLink,
+                                        string profilePhotoUrl)
         {
             VideoId = videoId;
             VideoUrl = videoUrl;
             VideoName = videoName;
             Description = description;
             ShareLink = shareLink;
+            ProfilePhotoUrl = profilePhotoUrl;
         }
     }
 }

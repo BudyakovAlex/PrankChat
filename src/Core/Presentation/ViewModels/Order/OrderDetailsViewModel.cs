@@ -410,7 +410,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return Task.CompletedTask;
             }
 
-            var navigationParams = new FullScreenVideoParameter(_order.Video.Id, VideoUrl, VideoName, VideoDetails, _order.Video.ShareUri);
+            var navigationParams = new FullScreenVideoParameter(_order.Video.Id, VideoUrl, VideoName, VideoDetails, _order.Video.ShareUri, ProfilePhotoUrl);
             return NavigationService.ShowFullScreenVideoView(navigationParams);
         }
     }

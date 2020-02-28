@@ -191,7 +191,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         {
             VideoPlayerService.Player.TryRegisterViewedFact(VideoId, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
 
-            var navigationParams = new FullScreenVideoParameter(VideoId, VideoUrl, VideoName, Description, _shareLink);
+            var navigationParams = new FullScreenVideoParameter(VideoId, VideoUrl, VideoName, Description, _shareLink, ProfilePhotoUrl);
             return NavigationService.ShowFullScreenVideoView(navigationParams);
         }
 
