@@ -45,9 +45,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
         private void OnLike()
         {
             IsLiked = !IsLiked;
-            NumberOfLikes = IsLiked
-                ? NumberOfLikes + 1
-                : NumberOfLikes - 1;
+
+            var totalLikes = IsLiked ? NumberOfLikes + 1 : NumberOfLikes - 1;
+            NumberOfLikes = totalLikes > 0 ? totalLikes : 0;
+
             OnLikeChanged();
             SendLikeAsync().FireAndForget();
         }
