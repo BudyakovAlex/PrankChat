@@ -19,6 +19,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 		UIKit.UILabel descriptionLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIImageView likeImageView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel likeLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIStackView likeView { get; set; }
+
+		[Outlet]
 		UIKit.UIView loadProgressView { get; set; }
 
 		[Outlet]
@@ -34,7 +43,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 		UIKit.UIButton playButton { get; set; }
 
 		[Outlet]
+		FFImageLoading.Cross.MvxCachedImageView profileImageView { get; set; }
+
+		[Outlet]
+		UIKit.UIView profileView { get; set; }
+
+		[Outlet]
 		UIKit.UIView progressView { get; set; }
+
+		[Outlet]
+		UIKit.UIButton shareButton { get; set; }
 
 		[Outlet]
 		UIKit.UILabel timeLabel { get; set; }
@@ -56,14 +74,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (watchProgressViewWidthConstraint != null) {
-				watchProgressViewWidthConstraint.Dispose ();
-				watchProgressViewWidthConstraint = null;
+			if (likeView != null) {
+				likeView.Dispose ();
+				likeView = null;
 			}
 
-			if (loadProgressViewWidthConstraint != null) {
-				loadProgressViewWidthConstraint.Dispose ();
-				loadProgressViewWidthConstraint = null;
+			if (profileImageView != null) {
+				profileImageView.Dispose ();
+				profileImageView = null;
+			}
+
+			if (profileView != null) {
+				profileView.Dispose ();
+				profileView = null;
 			}
 
 			if (closeButton != null) {
@@ -71,14 +94,34 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 				closeButton = null;
 			}
 
+			if (likeImageView != null) {
+				likeImageView.Dispose ();
+				likeImageView = null;
+			}
+
+			if (shareButton != null) {
+				shareButton.Dispose ();
+				shareButton = null;
+			}
+
 			if (descriptionLabel != null) {
 				descriptionLabel.Dispose ();
 				descriptionLabel = null;
 			}
 
+			if (likeLabel != null) {
+				likeLabel.Dispose ();
+				likeLabel = null;
+			}
+
 			if (loadProgressView != null) {
 				loadProgressView.Dispose ();
 				loadProgressView = null;
+			}
+
+			if (loadProgressViewWidthConstraint != null) {
+				loadProgressViewWidthConstraint.Dispose ();
+				loadProgressViewWidthConstraint = null;
 			}
 
 			if (muteButton != null) {
@@ -124,6 +167,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 			if (watchProgressView != null) {
 				watchProgressView.Dispose ();
 				watchProgressView = null;
+			}
+
+			if (watchProgressViewWidthConstraint != null) {
+				watchProgressViewWidthConstraint.Dispose ();
+				watchProgressViewWidthConstraint = null;
 			}
 		}
 	}

@@ -92,7 +92,6 @@
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_marginBottom="20dp"
-            android:alpha="0.95"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/share_image_view"
@@ -101,6 +100,7 @@
             <ImageView
                 android:layout_width="26dp"
                 android:layout_height="26dp"
+                android:alpha="0.95"
                 android:duplicateParentState="true"
                 android:scaleType="center"
                 android:src="@drawable/ic_like_active"
@@ -111,6 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:alpha="0.95"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxLines="1"
