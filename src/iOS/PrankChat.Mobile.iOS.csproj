@@ -91,11 +91,6 @@
     <Compile Include="Presentation\Views\PasswordRecoveryView\PasswordRecoveryView.designer.cs">
       <DependentUpon>PasswordRecoveryView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\ProfileView\ProfileView.xib" />
-    <Compile Include="Presentation\Views\ProfileView\ProfileView.cs" />
-    <Compile Include="Presentation\Views\ProfileView\ProfileView.designer.cs">
-      <DependentUpon>ProfileView.cs</DependentUpon>
-    </Compile>
     <InterfaceDefinition Include="Presentation\Views\RatingView\RatingView.xib" />
     <Compile Include="Presentation\Views\RatingView\RatingView.cs" />
     <Compile Include="Presentation\Views\RatingView\RatingView.designer.cs">
@@ -276,6 +271,11 @@
     <Compile Include="Presentation\Binding\UIButtonOrderTypeTargetBinding.cs" />
     <Compile Include="ApplicationServices\Callbacks\FacebookCallback.cs" />
     <Compile Include="Utils\Helpers\DeviceHelper.cs" />
+    <InterfaceDefinition Include="Presentation\Views\ProfileView\ProfileView.xib" />
+    <Compile Include="Presentation\Views\ProfileView\ProfileView.cs" />
+    <Compile Include="Presentation\Views\ProfileView\ProfileView.designer.cs">
+      <DependentUpon>ProfileView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
