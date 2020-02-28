@@ -31,18 +31,14 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             _settingsService = settingsService;
         }
 
-        public async Task AppStart()
+        public Task AppStart()
         {
-            if (VersionTracking.IsFirstLaunchEver)
+            if (VersionTracking.IsFirstLaunchEver || _settingsService.User != null)
             {
-                await ShowMainView();
-                return;
+                return ShowMainView();
             }
 
-            if (_settingsService.User == null)
-                await ShowLoginView();
-            else
-                await ShowMainView();
+            return ShowLoginView();
         }
 
         public Task ShowCashboxView()
