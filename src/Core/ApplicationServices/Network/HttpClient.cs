@@ -178,6 +178,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     return;
                 }
 
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    _messenger.Publish(new UnauthorizedMessage(this));
+                    return;
+                }
+
                 try
                 {
                     var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(response.Content);

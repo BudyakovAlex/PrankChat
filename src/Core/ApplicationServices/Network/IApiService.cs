@@ -17,6 +17,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task LogoutAsync();
 
+        Task RefreshTokenAsync();
+
         #endregion Authorize
 
         #region Orders
@@ -31,7 +33,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<List<RatingOrderDataModel>> GetRatingOrdersAsync(RatingOrderFilterType filter);
 
-        Task CancelOrderAsync(int orderId);
+        Task<OrderDataModel> CancelOrderAsync(int orderId);
         
         Task ComplainOrderAsync(int orderId, string title, string description);
 

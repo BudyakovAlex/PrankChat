@@ -63,6 +63,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
         {
             var set = this.CreateBindingSet<RatingItemCell, RatingItemViewModel>();
 
+            set.Bind(this)
+                .For(v => v.BindTap())
+                .To(vm => vm.OpenDetailsOrderCommand)
+                .Mode(MvxBindingMode.OneTime);
+
             set.Bind(backgroundImageView)
                 .For(UIImageViewOrderTypeTargetBinding.TargetBinding)
                 .To(vm => vm.OrderType);

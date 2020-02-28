@@ -33,6 +33,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public IDialogService DialogService { get; }
 
+        public ISettingsService SettingsService { get; }
+
         #endregion
 
         private bool _isBusy;
@@ -42,7 +44,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             set => SetProperty(ref _isBusy, value);
         }
 
-        public bool IsUserSessionInitialized { get; }
+        public bool IsUserSessionInitialized => SettingsService.User != null;
 
         public MvxAsyncCommand GoBackCommand
         {
@@ -69,7 +71,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             ErrorHandleService = errorHandleService;
             ApiService = apiService;
             DialogService = dialogService;
-            IsUserSessionInitialized = settingsService.User != null;
+            DialogService = dialogService;
+            SettingsService = settingsService;
 
             ShowNotificationCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowNotificationView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }

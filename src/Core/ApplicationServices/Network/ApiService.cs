@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -19,6 +21,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
     public class ApiService : IApiService
     {
         private readonly ISettingsService _settingsService;
+        private readonly IMvxMessenger _messenger;
         private readonly HttpClient _client;
         private readonly IMvxLog _log;
 
@@ -27,10 +30,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                           IMvxMessenger messenger)
         {
             _settingsService = settingsService;
+            _messenger = messenger;
 
             _log = logProvider.GetLogFor<ApiService>();
             var configuration = ConfigurationProvider.GetConfiguration();
             _client = new HttpClient(configuration.BaseAddress, configuration.ApiVersion, settingsService, _log, messenger);
+
+            _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
         #region Authorize
@@ -52,6 +58,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task LogoutAsync()
         {
             var authTokenModel = await _client.Post<AuthorizationApiModel>("auth/logout", true);
+        }
+
+        public async Task RefreshTokenAsync()
+        {
+            var authTokenModel = await _client.Post<DataApiModel<AccessTokenApiModel>>("auth/refresh", true);
+            await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
         #endregion Authorize
@@ -129,9 +141,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<List<RatingOrderDataModel>>(data?.Data);
         }
 
-        public Task CancelOrderAsync(int orderId)
+        public async Task<OrderDataModel> CancelOrderAsync(int orderId)
         {
-            return Task.CompletedTask;
+            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/cancel", false);
+            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
         public Task ComplainOrderAsync(int orderId, string title, string description)
@@ -350,5 +363,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         }
 
         #endregion Notification
+
+        private void OnUnauthorizedUser(UnauthorizedMessage obj)
+        {
+            if (_settingsService.User == null)
+                return;
+
+            RefreshTokenAsync().FireAndForget();
+        }
     }
 }
