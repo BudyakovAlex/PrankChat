@@ -143,7 +143,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             segmentedControl.SelectedSegment = 0;
             segmentedControl.ValueChanged += SegmentedControl_ValueChanged;
 
-            rootScrollView.RefreshControl = _refreshControlProfile = new MvxUIRefreshControl();
+            _refreshControlProfile = new MvxUIRefreshControl();
+            rootScrollView.RefreshControl = _refreshControlProfile;
         }
 
         private void SegmentedControl_ValueChanged(object sender, System.EventArgs e)
