@@ -99,6 +99,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             demoButton.SetTitle(Resources.Demo, UIControlState.Normal);
             demoButton.SetTitleColor(Theme.Color.White, UIControlState.Normal);
             demoButton.SetLinkStyle(Theme.Font.RegularFontOfSize(16));
+
+            //TODO: uncomment when will be provided logic on vm
+            okButton.Hidden = true;
+            gmailButton.Hidden = true;
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)

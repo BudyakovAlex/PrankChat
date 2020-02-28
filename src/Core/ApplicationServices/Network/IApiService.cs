@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
 {
@@ -12,6 +13,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         #region Authorize
 
         Task AuthorizeAsync(string email, string password);
+
+        Task<bool> AuthorizeExternalAsync(string authToken, LoginType loginType);
 
         Task RegisterAsync(UserRegistrationDataModel userInfo);
 
