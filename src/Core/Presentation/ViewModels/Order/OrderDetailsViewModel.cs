@@ -116,7 +116,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsTakeOrderAvailable => !IsUserCustomer && _order?.Status == OrderStatusType.New;
 
-        public bool IsCancelOrderAvailable => false;
+        public bool IsCancelOrderAvailable => IsUserCustomer && _order?.Status == OrderStatusType.New;
 
         public bool IsExecuteOrderAvailable => false;
 
@@ -334,15 +334,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnCancelOrderAsync()
         {
+
             var result = await DialogService.ShowConfirmAsync(Resources.OrderDetails_View_Cancel_Title,
                                                    Resources.Attention,
                                                    Resources.Ok,
                                                    Resources.Cancel);
-
             if (!result)
                 return;
 
-            await ApiService.CancelOrderAsync(_orderId);
+            IsBusy = true;
+
+            var order = await ApiService.CancelOrderAsync(_orderId);
+            if (order != null)
+            {
+                _order.Status = order.Status;
+                await RaiseAllPropertiesChanged();
+            }
+
+            IsBusy = false;
         }
 
         private Task OnExecuteOrderAsync()

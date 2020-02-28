@@ -141,9 +141,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<List<RatingOrderDataModel>>(data?.Data);
         }
 
-        public Task CancelOrderAsync(int orderId)
+        public async Task<OrderDataModel> CancelOrderAsync(int orderId)
         {
-            return Task.CompletedTask;
+            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/cancel", false);
+            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
         public Task ComplainOrderAsync(int orderId, string title, string description)
