@@ -102,19 +102,20 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 
             bindingSet.Bind(_mediaController)
                       .For(v => v.IsMuted)
-                      .To(vm => vm.IsMuted);
+                      .To(vm => vm.IsMuted)
+                      .TwoWay();
 
             bindingSet.Bind(_backImageView)
                       .For(v => v.BindClick())
                       .To(vm => vm.GoBackCommand);
 
             bindingSet.Bind(_titleTextView)
-                     .For(v => v.Text)
-                     .To(vm => vm.VideoName);
+                      .For(v => v.Text)
+                      .To(vm => vm.VideoName);
 
             bindingSet.Bind(_descriptionTextView)
-                     .For(v => v.Text)
-                     .To(vm => vm.Description);
+                      .For(v => v.Text)
+                      .To(vm => vm.Description);
 
             // TODO: add show profile click binding
             //bindingSet.Bind(_profileView)

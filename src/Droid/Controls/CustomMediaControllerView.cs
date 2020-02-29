@@ -61,7 +61,16 @@ namespace PrankChat.Mobile.Droid.Controls
 
         public Action<ViewStates> ViewStateChanged { get; set; }
 
-        public MediaPlayer MediaPlayer { get; set; }
+        private MediaPlayer _mediaPlayer;
+        public MediaPlayer MediaPlayer
+        {
+            get => _mediaPlayer;
+            set
+            {
+                _mediaPlayer = value;
+                UpdateSoundState(_isMuted);
+            }
+        }
 
         public int AudioSessionId => VideoView?.AudioSessionId ?? 0;
 
@@ -72,6 +81,8 @@ namespace PrankChat.Mobile.Droid.Controls
         public int Duration => VideoView?.Duration ?? 0;
 
         public bool IsPlaying => VideoView?.IsPlaying ?? false;
+
+        public event EventHandler IsMutedChanged;
 
         private bool _isMuted;
         public bool IsMuted
@@ -216,15 +227,11 @@ namespace PrankChat.Mobile.Droid.Controls
         {
             _nextHideTimeStamp = DateTime.Now.AddSeconds(DefaultSecondsViewDelayOnScreen);
             IsMuted = !IsMuted;
+            IsMutedChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void UpdateSoundState(bool value)
         {
-            if (value == _isMuted)
-            {
-                return;
-            }
-
             _isMuted = value;
 
             if (MediaPlayer is null)
