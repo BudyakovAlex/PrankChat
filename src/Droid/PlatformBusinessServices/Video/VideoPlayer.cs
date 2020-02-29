@@ -31,11 +31,11 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
                 _isMuted = value;
                 if (_isMuted)
                 {
-                    _mediaPlayer?.SetVolume(1, 1);
+                    _mediaPlayer?.SetVolume(0, 0);
                     return;
                 }
 
-                _mediaPlayer?.SetVolume(0, 0);
+                _mediaPlayer?.SetVolume(1, 1);
             }
         }
 
