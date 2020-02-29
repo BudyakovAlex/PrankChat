@@ -35,7 +35,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         {
             get
             {
-                if (_customerId == _settingsService.User.Id)
+                if (_customerId == _settingsService.User?.Id)
                 {
                     return _status == OrderStatusType.New
                         ? OrderType.MyOrderInModeration
