@@ -14,6 +14,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.UserVisible;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -108,7 +109,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
                 return;
 
-            ActiveFilter = _orderFilterTypeTitleMap.FirstOrDefault(x => x.Value == selectedFilterName).Key;
+            ActiveFilter = _orderFilterTypeTitleMap.FirstOrDefault(kv => kv.Value == selectedFilterName).Key;
             await LoadOrdersCommand.ExecuteAsync();
         }
 
@@ -121,19 +122,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 var orders = await ApiService.GetOrdersAsync(ActiveFilter);
                 Items.Clear();
 
-                var orderItemViewModel = orders.Select(x =>
-                    new OrderItemViewModel(
-                        NavigationService,
-                        _settingsService,
-                        _mvxMessenger,
-                        x.Id,
-                        x.Title,
-                        x.Customer?.Avatar,
-                        x.Customer?.Name,
-                        x.Price,
-                        x.ActiveTo?.ToLocalTime(),
-                        x.Status ?? OrderStatusType.None,
-                        x.Customer?.Id));
+                var orderItemViewModel = orders.Where(order => order.Status != OrderStatusType.Cancelled ||
+                                                     (order.ActiveTo.HasValue &&
+                                                      order.ActiveTo > DateTime.Now))
+                                               .OrderBy(order => _settingsService.User.GetOrderType(order.Customer?.Id, order.Status ?? OrderStatusType.New))
+                                               .Select(ProduceOrderViewModel)
+                                               .ToList();
 
                 Items.SwitchTo(orderItemViewModel);
             }
@@ -146,6 +140,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = false;
             }
+        }
+
+        private OrderItemViewModel ProduceOrderViewModel(OrderDataModel order)
+        {
+            return new OrderItemViewModel(NavigationService,
+                                          _settingsService,
+                                          _mvxMessenger,
+                                          order.Id,
+                                          order.Title,
+                                          order.Customer?.Avatar,
+                                          order.Customer?.Name,
+                                          order.Price,
+                                          order.ActiveTo?.ToLocalTime(),
+                                          order.Status ?? OrderStatusType.None,
+                                          order.Customer?.Id);
         }
 
         private void Subscription()

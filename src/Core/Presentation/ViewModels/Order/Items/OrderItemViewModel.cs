@@ -31,22 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public string ProfileShortName { get; }
 
-        public OrderType OrderType
-        {
-            get
-            {
-                if (_customerId == _settingsService.User?.Id)
-                {
-                    return _status == OrderStatusType.New
-                        ? OrderType.MyOrderInModeration
-                        : OrderType.MyOrder;
-                }
-                else
-                {
-                    return OrderType.NotMyOrder;
-                }
-            }
-        }
+        public OrderType OrderType => _settingsService.User.GetOrderType(_customerId, _status);
 
         private TimeSpan? _elapsedTime;
         public TimeSpan? ElapsedTime
