@@ -766,6 +766,8 @@
     <ImageAsset Include="Assets.xcassets\ic_mute.imageset\FullscreenVideoMute.pdf">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_plus.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_plus.imageset\ic_plus.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -793,6 +795,7 @@
     <Folder Include="Assets.xcassets\bg_order_type_my.imageset\" />
     <Folder Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\" />
     <Folder Include="Assets.xcassets\bg_order_type_not_my.imageset\" />
+    <Folder Include="Assets.xcassets\ic_plus.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
