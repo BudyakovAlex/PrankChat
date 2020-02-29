@@ -5,6 +5,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
@@ -38,11 +39,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             private set => SetProperty(ref _videoUrl, value);
         }
 
-        private bool _isMuted;
         public bool IsMuted
         {
-            get => _isMuted;
-            set => SetProperty(ref _isMuted, value);
+            get => Xamarin.Essentials.Preferences.Get(Constants.Keys.MuteStateKey, false);
+            set
+            {
+                Xamarin.Essentials.Preferences.Set(Constants.Keys.MuteStateKey, value);
+                RaisePropertyChanged();
+            }
         }
 
         public string VideoName { get; private set; }

@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
+using Android.Media;
 using Android.OS;
 using Android.Widget;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Droid.PlatformBusinessServices.Video.Listeners;
+using PrankChat.Mobile.Droid.Presentation.Listeners;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 {
@@ -12,6 +13,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
     {
         private const int RecheckDelayInMilliseconds = 1000;
         private VideoView _videoView;
+        private MediaPlayer _mediaPlayer;
         private bool _isRepeatEnabled;
 
         public VideoPlayer(IApiService apiService, IMvxMessenger mvxMessenger) : base(apiService, mvxMessenger)
@@ -20,7 +22,22 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         public override bool IsPlaying { get; protected set; }
 
-        public override bool Muted { get; set; }
+        private bool _isMuted;
+        public override bool Muted
+        {
+            get => _isMuted;
+            set
+            {
+                _isMuted = value;
+                if (_isMuted)
+                {
+                    _mediaPlayer?.SetVolume(0, 0);
+                    return;
+                }
+
+                _mediaPlayer?.SetVolume(1, 1);
+            }
+        }
 
         public override void Dispose()
         {
@@ -76,7 +93,14 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
         public override void SetSourceUri(string uri)
         {
             _videoView.SetVideoPath(uri);
-            _videoView.SetOnPreparedListener(new VideoPlayerOnPreparedListener(_isRepeatEnabled));
+            _videoView.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepeared));
+        }
+
+        private void OnMediaPlayerPrepeared(MediaPlayer mediaPlayer)
+        {
+            _mediaPlayer = mediaPlayer;
+            mediaPlayer.Looping = _isRepeatEnabled;
+            mediaPlayer.SetVolume(0, 0);
         }
 
         public override void Stop()
