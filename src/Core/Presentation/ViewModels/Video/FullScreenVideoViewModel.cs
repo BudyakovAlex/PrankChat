@@ -51,7 +51,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         public string ProfilePhotoUrl { get; private set; }
 
-        public string NumberOfLikesPresentation => NumberOfLikes.ToCountViewsString();
+        public string NumberOfLikesPresentation => NumberOfLikes.ToCountString();
 
         public void Prepare(FullScreenVideoParameter parameter)
         {
@@ -60,8 +60,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             VideoName = parameter.VideoName;
             Description = parameter.Description;
             ProfilePhotoUrl = parameter.ProfilePhotoUrl;
+            NumberOfLikes = parameter.NumberOfLikes;
+            IsLiked = parameter.IsLiked;
 
             _shareLink = parameter.ShareLink;
+        }
+
+        protected override void OnLikeChanged()
+        {
+            RaisePropertyChanged(nameof(NumberOfLikesPresentation));
         }
 
         private Task ShareAsync()

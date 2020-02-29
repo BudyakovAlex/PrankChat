@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.Content.Res;
 using Android.Media;
 using Android.OS;
+using Android.Support.Constraints;
 using Android.Views;
 using Android.Widget;
 using FFImageLoading.Cross;
@@ -24,7 +25,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
     {
         private ExtendedVideoView _videoView;
         private FrameLayout _rootView;
-        private LinearLayout _topPanel;
+        private ConstraintLayout _topPanel;
         private CustomMediaControllerView _mediaController;
         private ImageView _backImageView;
         private TextView _titleTextView;
@@ -62,7 +63,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             _backImageView = FindViewById<ImageView>(Resource.Id.back_image_view);
             _titleTextView = FindViewById<TextView>(Resource.Id.video_title_text_view);
             _descriptionTextView = FindViewById<TextView>(Resource.Id.video_description_text_view);
-            _topPanel = FindViewById<LinearLayout>(Resource.Id.top_panel);
+            _topPanel = FindViewById<ConstraintLayout>(Resource.Id.top_panel);
             _profileView = FindViewById<View>(Resource.Id.profile_view);
             _likeView = FindViewById<View>(Resource.Id.like_view);
             _likeTextView = FindViewById<TextView>(Resource.Id.like_text_view);
