@@ -8,9 +8,11 @@ using CoreGraphics;
 using CoreMedia;
 using Foundation;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using ObjCRuntime;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
+using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -25,7 +27,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private const int ThreeSecondsTicks = 30_000_000;
 
-        private string _videoUrl;
         private bool _wasPlaying;
         private long _lastActionTicks;
 
@@ -34,6 +35,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         private NSObject _playToEndObserver;
         private AVPlayerViewController _controller;
 
+        private string _videoUrl;
         public string VideoUrl
         {
             get => _videoUrl;
@@ -41,6 +43,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             {
                 _videoUrl = value;
                 Initialize();
+            }
+        }
+
+        private bool _isLiked;
+        public bool IsLiked
+        {
+            get => _isLiked;
+            set
+            {
+                _isLiked = value;
+                likeImageView.TintColor = _isLiked ? Theme.Color.Accent : Theme.Color.White;
             }
         }
 
@@ -93,8 +106,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             closeButton.AddGestureRecognizer(new UITapGestureRecognizer(CloseButtonTap));
 
-            watchProgressControl.Layer.CornerRadius = 5f;
-
             watchProgressControlContainer.AddGestureRecognizer(new UIPanGestureRecognizer(WatchProgressControlContainerPan));
         }
 
@@ -115,13 +126,50 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                       .For(v => v.Text)
                       .To(vm => vm.Description);
 
+          //TODO: add show profile tap binding
+          //bindingSet.Bind(profileView)
+          //          .For(v => v.BindTap())
+          //          .To(vm => vm.)
+
+            bindingSet.Bind(profileImageView)
+                      .For(v => v.ImagePath)
+                      .To(vm => vm.ProfilePhotoUrl);
+
+            bindingSet.Bind(likeView)
+                      .For(v => v.BindTap())
+                      .To(vm => vm.LikeCommand);
+
+            bindingSet.Bind(this)
+                      .For(v => v.IsLiked)
+                      .To(vm => vm.IsLiked);
+
+            bindingSet.Bind(likeLabel)
+                      .For(v => v.Text)
+                      .To(vm => vm.NumberOfLikesPresentation);
+
+            bindingSet.Bind(shareButton)
+                      .For(v => v.BindTouchUpInside())
+                      .To(vm => vm.ShareCommand);
+
             bindingSet.Apply();
+        }
+
+        protected override void SetCommonStyles()
+        {
+            base.SetCommonStyles();
+
+            profileImageView.ClipsToBounds = true;
+            profileImageView.Layer.CornerRadius = 20f;
+            profileImageView.Layer.BorderColor = Theme.Color.White.CGColor;
+            profileImageView.Layer.BorderWidth = 1f;
+
+            watchProgressControl.Layer.CornerRadius = 5f;
         }
 
         private void Initialize()
         {
             InitializePlayer();
-         
+
             UpdateLastActionTicks();
             Task.Run(HideOverlayAsync);
 

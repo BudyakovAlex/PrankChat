@@ -69,5 +69,7 @@
     <Folder Include="Presentation\ViewModels\Video\" />
     <Folder Include="BusinessServices\Crashlytic\" />
     <Folder Include="Commands\" />
+    <Folder Include="Presentation\ViewModels\Shared\" />
+    <Folder Include="Presentation\ViewModels\Shared\Abstract\" />
   </ItemGroup>
 </Project>
