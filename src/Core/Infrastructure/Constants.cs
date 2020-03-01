@@ -19,5 +19,10 @@
         {
             public const int AdultAge = 18;
         }
+
+        public static class Keys
+        {
+            public const string MuteStateKey = nameof(MuteStateKey);
+        }
     }
 }

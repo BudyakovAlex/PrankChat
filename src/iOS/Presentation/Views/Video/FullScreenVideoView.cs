@@ -57,6 +57,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             }
         }
 
+        public event EventHandler IsMutedChanged;
+
+        private bool _isMuted;
+        public bool IsMuted
+        {
+            get => _isMuted;
+            set
+            {
+                _isMuted = value;
+                if (_player is null)
+                {
+                    return;
+                }
+
+                _player.Muted = value;
+            }
+        }
+
         private bool IsPlayerInvalid => _player?.CurrentItem == null || _player.CurrentItem.Duration.IsIndefinite;
 
         public override void ViewDidLoad()
@@ -143,6 +161,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                       .For(v => v.IsLiked)
                       .To(vm => vm.IsLiked);
 
+            bindingSet.Bind(this)
+                      .For(v => v.IsMuted)
+                      .To(vm => vm.IsMuted)
+                      .TwoWay();
+
             bindingSet.Bind(likeLabel)
                       .For(v => v.Text)
                       .To(vm => vm.NumberOfLikesPresentation);
@@ -180,7 +203,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         {
             var url = new NSUrl(_videoUrl);
             var playerItem = new AVPlayerItem(url);
-            _player = new AVPlayer(playerItem);
+            _player = new AVPlayer(playerItem)
+            {
+                Muted = _isMuted
+            };
+
+            PlayerMutedChanged();
 
             if (_playToEndObserver != null)
             {
@@ -344,7 +372,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private void MuteButtonTap()
         {
-            _player.Muted = !_player.Muted;
+            IsMuted = !_player.Muted;
+            IsMutedChanged?.Invoke(this, EventArgs.Empty);
+
             UpdateLastActionTicks();
         }
 
