@@ -2,17 +2,17 @@
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
-    public class RegistrationViewModel : BaseViewModel
+    public class RegistrationViewModel : ExternalAuthViewModel
     {
         private string _email;
         public string Email
@@ -23,12 +23,26 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         public MvxAsyncCommand ShowSecondStepCommand => new MvxAsyncCommand(OnShowSecondStepAsync);
 
+        public MvxAsyncCommand<LoginType> LoginCommand => new MvxAsyncCommand<LoginType>(LoginAsync);
+
         public RegistrationViewModel(INavigationService navigationService,
                                      IDialogService dialogService,
                                      IApiService apiService,
                                      IErrorHandleService errorHandleService,
-                                     ISettingsService settingsService) : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+                                     ISettingsService settingsService,
+                                     IExternalAuthService externalAuthService) : base(navigationService, errorHandleService, apiService, dialogService, settingsService, externalAuthService)
         {
+        }
+
+        private async Task LoginAsync(LoginType loginType)
+        {
+            var result = await TryLoginWithExternalServicesAsync(loginType);
+            if (!result)
+            {
+                return;
+            }
+
+            await NavigateAfterLoginAsync();
         }
 
         private Task OnShowSecondStepAsync()

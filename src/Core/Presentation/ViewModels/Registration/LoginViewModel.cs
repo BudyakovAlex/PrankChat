@@ -11,13 +11,11 @@ using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
-    public class LoginViewModel : BaseViewModel
+    public class LoginViewModel : ExternalAuthViewModel
     {
-        private readonly IExternalAuthService _externalAuthService;
         private readonly IMvxLog _mvxLog;
 
         private string _emailText;
@@ -41,9 +39,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                               IMvxLog mvxLog,
                               IErrorHandleService errorHandleService,
                               ISettingsService settingsService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService, externalAuthService)
         {
-            _externalAuthService = externalAuthService;
             _mvxLog = mvxLog;
 #if DEBUG
 
@@ -96,9 +93,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                         break;
                 }
 
-                // todo: not wait
-                await ApiService.GetCurrentUserAsync();
-                await NavigationService.ShowMainView();
+                await NavigateAfterLoginAsync();
             }
             catch (Exception ex)
             {
@@ -109,30 +104,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             {
                 IsBusy = false;
             }
-        }
-
-        private async Task<bool> TryLoginWithExternalServicesAsync(LoginType loginType)
-        {
-            string token;
-            switch (loginType)
-            {
-                case LoginType.Vk:
-                    token = await _externalAuthService.LoginWithVkontakteAsync();
-                    break;
-                case LoginType.Facebook:
-                    token = await _externalAuthService.LoginWithFacebookAsync();
-                    break;
-                default:
-                    return false;
-            }
-
-            if (string.IsNullOrEmpty(token))
-            {
-                return false;
-            }
-
-            var result = await ApiService.AuthorizeExternalAsync(token, loginType);
-            return result;
         }
 
         private bool CheckValidation()
