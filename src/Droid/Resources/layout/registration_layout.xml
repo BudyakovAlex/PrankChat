@@ -70,6 +70,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
             android:src="@drawable/ic_odnoklassniki"
+            android:visibility="gone"
             app:MvxBind="Click LoginCommand, CommandParameter=Ok" />
         <ImageButton
             android:layout_width="45dp"
@@ -84,6 +85,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
             android:src="@drawable/ic_gmail"
+            android:visibility="gone"
             app:MvxBind="Click LoginCommand, CommandParameter=Gmail" />
     </LinearLayout>
     <LinearLayout

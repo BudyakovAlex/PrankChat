@@ -15,6 +15,7 @@ using PrankChat.Mobile.Core.Models.Api.Base;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
 {
@@ -22,8 +23,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
     {
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _messenger;
-        private readonly HttpClient _client;
         private readonly IMvxLog _log;
+        private readonly HttpClient _client;
 
         public ApiService(ISettingsService settingsService,
                           IMvxLogProvider logProvider,
@@ -46,6 +47,28 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             var loginModel = new AuthorizationApiModel { Email = email, Password = password };
             var authTokenModel = await _client.UnauthorizedPost<AuthorizationApiModel, DataApiModel<AccessTokenApiModel>>("auth/login", loginModel, true);
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
+        }
+
+        public async Task<bool> AuthorizeExternalAsync(string authToken, LoginType loginType)
+        {
+            var loginTypePath = GetAuthPathByLoginType(loginType);
+            var loginModel = new { token = authToken };
+            var authTokenModel = await _client.UnauthorizedPost<object, DataApiModel<AccessTokenApiModel>>($"social/auth/{loginTypePath}", loginModel, true);
+            await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
+            return authTokenModel?.Data?.AccessToken != null;
+        }
+
+        private string GetAuthPathByLoginType(LoginType loginType)
+        {
+            switch (loginType)
+            {
+                case LoginType.Vk:
+                    return "vk";
+                case LoginType.Facebook:
+                    return "fb";
+                default:
+                    throw new ArgumentException();
+            }
         }
 
         public async Task RegisterAsync(UserRegistrationDataModel userInfo)

@@ -25,6 +25,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             set.Bind(showLoginButton)
                 .To(vm => vm.GoBackCommand);
 
+            set.Bind(vkButton)
+                .To(vm => vm.LoginCommand)
+                .CommandParameter(nameof(LoginType.Vk));
+
+            set.Bind(okButton)
+                .To(vm => vm.LoginCommand)
+                .CommandParameter(nameof(LoginType.Ok));
+
+            set.Bind(facebookButton)
+                .To(vm => vm.LoginCommand)
+                .CommandParameter(nameof(LoginType.Facebook));
+
             set.Apply();
 		}
 
@@ -54,6 +66,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             showLoginButton.SetLinkStyle(Theme.Font.RegularFontOfSize(16));
 
             nextStepButton.SetLightStyle(Resources.LoginView_Continue_Button);
+
+            //TODO: uncomment when will be provided logic on vm
+            okButton.Hidden = true;
+            gmailButton.Hidden = true;
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)
