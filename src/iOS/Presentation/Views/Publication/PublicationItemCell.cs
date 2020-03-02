@@ -152,14 +152,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.For(v => v.Command)
 				.To(vm => vm.ShowDetailsCommand);
 
-            set.Bind(soundImageView.Tap())
-                .For(v => v.Command)
-                .To(vm => vm.ToggleSoundCommand);
-
-            set.Bind(soundImageView)
-				.For(v => v.Hidden)
-				.To(vm => vm.HasSoundTurnOn);
-
 			set.Bind(likeButton)
 				.To(vm => vm.LikeCommand);
 
