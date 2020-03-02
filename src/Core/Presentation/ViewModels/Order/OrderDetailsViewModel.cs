@@ -125,6 +125,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsDecisionVideoAvailable => _order?.Status == OrderStatusType.WaitFinish && IsUserCustomer;
 
+        public bool IsTimeAvailable => _order?.FinishIn != null && _order?.FinishIn > new TimeSpan();
+
         #region Commands
 
         public MvxAsyncCommand TakeOrderCommand => new MvxAsyncCommand(OnTakeOrderAsync);
