@@ -109,9 +109,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsUnsubscribeAvailable => false; // IsUserListener;
 
-        public bool IsTakeOrderAvailable => !IsUserCustomer && _order?.Status == OrderStatusType.New;
+        public bool IsTakeOrderAvailable => !IsUserCustomer && _order?.Status == OrderStatusType.Active;
 
-        public bool IsCancelOrderAvailable => IsUserCustomer && _order?.Status == OrderStatusType.New;
+        public bool IsCancelOrderAvailable => IsUserCustomer && _order?.Status == OrderStatusType.Active;
 
         public bool IsExecuteOrderAvailable => false;
 
@@ -315,8 +315,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = true;
 
-                _order = await ApiService.AcceptOrderAsync(_orderId);
-                await RaiseAllPropertiesChanged();
+                var order = await ApiService.AcceptOrderAsync(_orderId);
+                if (order != null)
+                {
+                    _order.Status = order.Status;
+                    await RaiseAllPropertiesChanged();
+                }
             }
             catch (Exception ex)
             {

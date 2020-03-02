@@ -87,7 +87,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                         return Resources.OrderStatus_WaitFinish;
 
                     case OrderStatusType.Finished:
-                        return Resources.OrderStatus_InWork;
+                        return Resources.OrderStatus_Finished;
 
                     default:
                         return string.Empty;
