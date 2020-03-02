@@ -84,6 +84,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			set.Bind(minutesValueLabel)
 				.To(vm => vm.TimeMinutesValue);
 
+			set.Bind(timeView)
+	            .For(v => v.BindVisible())
+	            .To(vm => vm.IsTimeAvailable);
+
 			#endregion Orders
 
 			#region Video
