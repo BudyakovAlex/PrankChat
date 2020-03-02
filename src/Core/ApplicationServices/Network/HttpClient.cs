@@ -43,13 +43,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return await ExecuteTask<TResult>(request, endpoint, false, exceptionThrowingEnabled);
         }
 
-        public Task<string> UnauthorizedPost<TEntity>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : class
-        {
-            var request = new RestRequest(endpoint, Method.POST);
-            request.AddJsonBody(item);
-            return ExecuteTask(request, endpoint, false, exceptionThrowingEnabled);
-        }
-
         public async Task<TResult> UnauthorizedPost<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false)
             where TEntity : class
             where TResult : class, new()
@@ -105,21 +98,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
-        public async Task Delete<TEntity>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : class
-        {
-            var request = new RestRequest(endpoint, Method.DELETE);
-            request.AddJsonBody(item);
-            await ExecuteTask(request, endpoint, true, exceptionThrowingEnabled);
-        }
-
-        public async Task Put<TEntity>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : class
-        {
-            var request = new RestRequest(endpoint, Method.PUT);
-            request.AddJsonBody(item);
-            await ExecuteTask(request, endpoint, true, exceptionThrowingEnabled);
-        }
-
-        private async Task<string> ExecuteTask(IRestRequest request, string endpoint, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
+        private async Task ExecuteTask(IRestRequest request, string endpoint, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
         {
             try
             {
@@ -132,11 +111,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 AddLanguageHeader(request);
 
                 var content = cancellationToken.HasValue
-                    ? await _client.ExecuteAsync<string>(request, cancellationToken.Value)
-                    : await _client.ExecuteAsync<string>(request);
+                    ? await _client.ExecuteAsync(request, request.Method, cancellationToken.Value)
+                    : await _client.ExecuteAsync(request, request.Method);
 
                 CheckResponse(request, content, exceptionThrowingEnabled);
-                return content.Content;
             }
             catch (Exception e)
             {

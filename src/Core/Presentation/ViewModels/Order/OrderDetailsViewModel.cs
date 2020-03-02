@@ -315,8 +315,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = true;
 
-                _order = await ApiService.AcceptOrderAsync(_orderId);
-                await RaiseAllPropertiesChanged();
+                var order = await ApiService.AcceptOrderAsync(_orderId);
+                if (order != null)
+                {
+                    _order.Status = order.Status;
+                    await RaiseAllPropertiesChanged();
+                }
             }
             catch (Exception ex)
             {

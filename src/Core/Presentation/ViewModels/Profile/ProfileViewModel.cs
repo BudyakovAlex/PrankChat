@@ -194,7 +194,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                     publication.StreamUri,
                     publication.ViewsCount,
                     publication.CreatedAt.DateTime,
-                    publication.RepostsCount,
+                    publication.LikesCount,
                     publication.ShareUri,
                     publication.IsLiked));
 
