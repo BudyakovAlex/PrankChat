@@ -22,8 +22,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class RegistrationSecondStepViewModel : BaseProfileViewModel, IMvxViewModel<RegistrationNavigationParameter>
     {
-        private readonly IMvxLog _mvxLog;
-
         private string _password;
         public string Password
         {
@@ -43,12 +41,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         public RegistrationSecondStepViewModel(INavigationService navigationService,
                                                IDialogService dialogService,
                                                IApiService apiService,
-                                               IMvxLog mvxLog,
                                                IErrorHandleService errorHandleService,
                                                ISettingsService settingsService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
-            _mvxLog = mvxLog;
         }
 
         public void Prepare(RegistrationNavigationParameter parameter)

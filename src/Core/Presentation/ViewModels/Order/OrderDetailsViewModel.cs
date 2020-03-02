@@ -370,6 +370,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     _order.MyArbitrationValue = order.MyArbitrationValue;
                     _order.PositiveArbitrationValuesCount = order.PositiveArbitrationValuesCount;
                     _order.NegativeArbitrationValuesCount = order.NegativeArbitrationValuesCount;
+                    await RaiseAllPropertiesChanged();
                 }
             }
             catch (Exception ex)
@@ -399,6 +400,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     _order.MyArbitrationValue = order.MyArbitrationValue;
                     _order.PositiveArbitrationValuesCount = order.PositiveArbitrationValuesCount;
                     _order.NegativeArbitrationValuesCount = order.NegativeArbitrationValuesCount;
+                    await RaiseAllPropertiesChanged();
                 }
             }
             catch (Exception ex)
@@ -406,7 +408,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 ErrorHandleService.HandleException(ex);
                 ErrorHandleService.LogError(this, "Error on order voting.");
 
-                IsYesSelected = !IsYesSelected;
+                IsNoSelected = !IsNoSelected;
             }
             finally
             {
