@@ -32,7 +32,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
                 .To(vm => vm.Name);
 
             set.Bind(birthdayTextField)
-                .To(vm => vm.Birthday);
+                .To(vm => vm.BirthdayText);
 
             set.Bind(birthdayTextField.Tap())
                 .For(v => v.Command)
