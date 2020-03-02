@@ -46,9 +46,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UIView shareView { get; set; }
 
 		[Outlet]
-		UIKit.UIImageView soundImageView { get; set; }
-
-		[Outlet]
 		UIKit.UILabel videoNameLabel { get; set; }
 
 		[Outlet]
@@ -56,11 +53,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (shareView != null) {
-				shareView.Dispose ();
-				shareView = null;
-			}
-
 			if (bookmarkButton != null) {
 				bookmarkButton.Dispose ();
 				bookmarkButton = null;
@@ -111,9 +103,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				shareLabel = null;
 			}
 
-			if (soundImageView != null) {
-				soundImageView.Dispose ();
-				soundImageView = null;
+			if (shareView != null) {
+				shareView.Dispose ();
+				shareView = null;
 			}
 
 			if (videoNameLabel != null) {
