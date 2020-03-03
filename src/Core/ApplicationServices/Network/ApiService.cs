@@ -52,8 +52,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<bool> AuthorizeExternalAsync(string authToken, LoginType loginType)
         {
             var loginTypePath = GetAuthPathByLoginType(loginType);
-            var loginModel = new { token = authToken };
-            var authTokenModel = await _client.UnauthorizedPost<object, DataApiModel<AccessTokenApiModel>>($"social/auth/{loginTypePath}", loginModel, true);
+            var loginModel = new ExternalAuthorizationApiModel { Token = authToken };
+            var authTokenModel = await _client.UnauthorizedPost<ExternalAuthorizationApiModel, DataApiModel<AccessTokenApiModel>>($"auth/social/{loginTypePath}", loginModel, true);
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
             return authTokenModel?.Data?.AccessToken != null;
         }
