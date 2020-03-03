@@ -10,6 +10,9 @@ namespace PrankChat.Mobile.iOS
     [Register("AppDelegate")]
     public class AppDelegate : MvxApplicationDelegate<Setup, App>
     {
+        //TODO: move it to config
+        private const string VkAppId = "7343996";
+
         public override void OnResignActivation(UIApplication application)
         {
             // Invoked when the application is about to move from active to inactive state.
@@ -52,8 +55,7 @@ namespace PrankChat.Mobile.iOS
             Facebook.CoreKit.Profile.EnableUpdatesOnAccessTokenChange(true);
             Facebook.CoreKit.ApplicationDelegate.SharedInstance.FinishedLaunching(application, launchOptions);
 
-            //TODO: move it to config, add correct id
-            VKSdk.Initialize("7333690");
+            VKSdk.Initialize(VkAppId);
             return base.FinishedLaunching(application, launchOptions);
         }
 
