@@ -87,13 +87,14 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>vk7333690</string>
+			<string>vk7343996</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb1052355475141532</string>
-				<string>vk7333690</string>
+				<string>vk7343996</string>
 			</array>
 		</dict>
+		<dict/>
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to the camera to take photos.</string>
