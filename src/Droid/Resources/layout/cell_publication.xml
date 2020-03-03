@@ -116,23 +116,9 @@
         android:src="@drawable/ic_share"
         android:background="@null"
         app:layout_constraintLeft_toRightOf="@+id/like_text"
-        app:layout_constraintRight_toLeftOf="@+id/share_text"
         app:layout_constraintTop_toBottomOf="@+id/video_file"
         android:layout_marginTop="11dp"
         android:layout_marginLeft="19dp"
-        app:MvxBind="Click ShareCommand"/>
-    <TextView
-        android:id="@+id/share_text"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintLeft_toRightOf="@+id/share_button"
-        app:layout_constraintTop_toTopOf="@+id/share_button"
-        app:layout_constraintBottom_toBottomOf="@+id/share_button"
-        app:layout_constraintVertical_bias="0.5"
-        android:layout_marginLeft="8dp"
-        android:textSize="12sp"
-        android:textColor="@color/applicationBlack"
-        android:text="@string/Share"
         app:MvxBind="Click ShareCommand"/>
     <!--TODO: Make it button visible after video saving will become available.-->
     <ImageButton
@@ -141,7 +127,7 @@
         android:layout_height="18dp"
         android:src="@drawable/ic_bookmark"
         android:background="@null"
-        app:layout_constraintLeft_toRightOf="@+id/share_text"
+        app:layout_constraintLeft_toRightOf="@+id/share_button"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/video_file"
         app:layout_constraintHorizontal_bias="1"

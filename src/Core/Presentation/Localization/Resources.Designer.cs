@@ -143,12 +143,6 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
             }
         }
         
-        public static string Like {
-            get {
-                return ResourceManager.GetString("Like", resourceCulture);
-            }
-        }
-        
         public static string Share {
             get {
                 return ResourceManager.GetString("Share", resourceCulture);

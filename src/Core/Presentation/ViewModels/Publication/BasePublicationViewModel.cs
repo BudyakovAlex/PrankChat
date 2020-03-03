@@ -70,7 +70,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #endregion Video
 
-        public string NumberOfLikesText => $"{Resources.Like} {NumberOfLikes.ToCountString()}";
+        public string NumberOfLikesText => NumberOfLikes.ToCountString();
 
         #region Commands
 
