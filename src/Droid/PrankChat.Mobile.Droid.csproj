@@ -39,6 +39,7 @@
     <AndroidSupportedAbis>x86;x86_64;armeabi-v7a</AndroidSupportedAbis>
     <AndroidDexTool>d8</AndroidDexTool>
     <AndroidLinkTool>r8</AndroidLinkTool>
+<AndroidEnableMultiDex>true</AndroidEnableMultiDex>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -53,7 +54,6 @@
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <AndroidUseAapt2>false</AndroidUseAapt2>
-    <AndroidLinkTool>r8</AndroidLinkTool>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android.Export" />
