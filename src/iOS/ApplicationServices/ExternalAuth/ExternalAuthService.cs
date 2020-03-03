@@ -18,6 +18,7 @@ namespace PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth
         public ExternalAuthService()
         {
             _facebookLoginManager = new LoginManager();
+            VKSdk.Initialize(AppDelegate.VkAppId);
         }
 
         public Task<string> LoginWithFacebookAsync()
@@ -35,7 +36,7 @@ namespace PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth
             VKSdk.Instance.UiDelegate = VkontakteDelegate.Instance;
 
             var completionSource = new TaskCompletionSource<string>();
-            VKSdk.Authorize(_permissions);
+            VKSdk.Authorize(_permissions, VKAuthorizationOptions.DisableSafariController);
             VkontakteDelegate.Instance.CompletionSource = completionSource;
 
             return completionSource.Task;
