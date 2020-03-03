@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="com_vk_sdk_AppId">7343996</integer>
     <string name="Close">"Закрыть"</string>
     <string name="app_name">"Prank Chat"</string>
     <string name="Home_Tab">"Главная"</string>
@@ -17,7 +16,6 @@
     <string name="Publication_Tab_Filter_HalfYear">"За полгода"</string>
     <string name="Cancel">"Отмена"</string>
     <string name="Search_View_Search_Placeholder">"Поиск"</string>
-    <string name="Like">"Лайк"</string>
     <string name="Share">"Поделиться"</string>
     <string name="Error_Unexpected_Server">"Возникла непредвиденная ошибка на сервере. Мы уже получили информацию об этом и работаем над устранением проблемы."</string>
     <string name="Error_Unexpected_Not_Found">"Не удалось получить запрошенные данные."</string>
@@ -54,7 +52,7 @@
     <string name="Password_Recovery_View_Attention">"Внимание!"</string>
     <string name="Password_Recovery_View_Finish_Text">"На почту отправлено письмо с ссылкой для восстановления пароля."</string>
     <string name="ProfileView_Menu_Favourites">"Избранные видео"</string>
-    <string name="ProfileView_Menu_TaskSubscriptions">"Подписки на задания"</string>
+    <string name="ProfileView_Menu_TaskSubscriptions">"Подписки на заказ"</string>
     <string name="ProfileView_Menu_Faq">"FAQ"</string>
     <string name="ProfileView_Menu_Support">"Справки/отзывы"</string>
     <string name="ProfileView_Menu_Settings">"Настройки"</string>
@@ -73,21 +71,21 @@
     <string name="Order_View_Hour">"Часа"</string>
     <string name="Order_View_Minute">"Минут"</string>
     <string name="Order_View_Details">"Подробнее"</string>
-    <string name="Order_View_New_Task">"Новое задание"</string>
-    <string name="Order_View_My_Task">"Мое задание"</string>
-    <string name="OrdersView_Filter_AllTasks">"Все задания"</string>
-    <string name="OrdersView_Filter_NewTasks">"Новые задания"</string>
-    <string name="OrdersView_Filter_CurrentTasks">"Задания в исполнении"</string>
-    <string name="OrdersView_Filter_MyTasks">"Мои задания"</string>
-    <string name="RateView_Filter_AllTasks">"Все задания в споре"</string>
-    <string name="RateView_Filter_MyTasks">"Мои задания в споре"</string>
-    <string name="RateView_Filter_NewTasks">"Новые задания в споре"</string>
+    <string name="Order_View_New_Task">"Новый заказ"</string>
+    <string name="Order_View_My_Task">"Мои заказы"</string>
+    <string name="OrdersView_Filter_AllTasks">"Все заказы"</string>
+    <string name="OrdersView_Filter_NewTasks">"Новые заказы"</string>
+    <string name="OrdersView_Filter_CurrentTasks">"Заказ в исполнении"</string>
+    <string name="OrdersView_Filter_MyTasks">"Мои заказы"</string>
+    <string name="RateView_Filter_AllTasks">"Все заказы в споре"</string>
+    <string name="RateView_Filter_MyTasks">"Мои заказы в споре"</string>
+    <string name="RateView_Filter_NewTasks">"Новые заказы в споре"</string>
     <string name="RateView_Title_Label">"Оценка"</string>
     <string name="OrdersView_Title_Label">"Заказы"</string>
-    <string name="RateView_Vote_Button">"Голосовать"</string>
+    <string name="RateView_Vote_Button">"Оценить"</string>
     <string name="CreateOrderView_Title">"Создание заказа"</string>
     <string name="CreateOrderView_Name_Placeholder">"Название заказа"</string>
-    <string name="CreateOrderView_Description_Placeholder">"Описание задания"</string>
+    <string name="CreateOrderView_Description_Placeholder">"Описание заказа"</string>
     <string name="CreateOrderView_Price_Placeholder">"10 000 ₽"</string>
     <string name="CreateOrderView_CompleteDate_Placeholder">"Дата исполнения"</string>
     <string name="CreateOrderView_HideExecutor_Button">"Скрыть исполнителя"</string>
@@ -108,7 +106,7 @@
     <string name="OrderDetailsView_Argue_Button">"В спор"</string>
     <string name="OrderDetailsView_Corresponds_To_Video_Text">"Соответствует видео заказу?"</string>
     <string name="CreateOrderView_PriceTitle_Placeholder">"Цена"</string>
-    <string name="OrderDetailsView_Title">"Задание"</string>
+    <string name="OrderDetailsView_Title">"Заказ"</string>
     <string name="CashboxView_Title">"Касса"</string>
     <string name="CashboxView_Fillup_Tab">"Пополнение"</string>
     <string name="CashboxView_Withdrawal_Tab">"Снятие"</string>
@@ -218,4 +216,5 @@
     <string name="Validation_Error_Invalid">"{0} имеет неверный формат."</string>
     <string name="Demo">"Демо"</string>
     <string name="com.crashlytics.android.build_id">"e9e6beb9c4284289ac68b9ab76a9ee56"</string>
+    <integer name="com_vk_sdk_AppId">7343996</integer>
 </resources>

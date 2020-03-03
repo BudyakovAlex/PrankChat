@@ -40,12 +40,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UIButton shareButton { get; set; }
 
 		[Outlet]
-		UIKit.UILabel shareLabel { get; set; }
-
-		[Outlet]
-		UIKit.UIView shareView { get; set; }
-
-		[Outlet]
 		UIKit.UILabel videoNameLabel { get; set; }
 
 		[Outlet]
@@ -96,16 +90,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			if (shareButton != null) {
 				shareButton.Dispose ();
 				shareButton = null;
-			}
-
-			if (shareLabel != null) {
-				shareLabel.Dispose ();
-				shareLabel = null;
-			}
-
-			if (shareView != null) {
-				shareView.Dispose ();
-				shareView = null;
 			}
 
 			if (videoNameLabel != null) {

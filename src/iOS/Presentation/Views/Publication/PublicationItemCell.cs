@@ -94,8 +94,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			publicationInfoLabel.SetSmallSubtitleStyle();
 			videoNameLabel.SetTitleStyle();
 			likeLabel.SetSmallTitleStyle();
-			shareLabel.SetSmallTitleStyle();
-			shareLabel.Text = Resources.Share;
 			likeButton.SetImage(UIImage.FromBundle("ic_like.png"), UIControlState.Normal);
 			likeButton.SetImage(UIImage.FromBundle("ic_like_active.png"), UIControlState.Selected);
 
@@ -175,18 +173,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.To(vm => vm.OpenSettingsCommand)
 				.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(shareView)
-				.For(v => v.BindTap())
-				.To(vm => vm.ShareCommand)
-				.Mode(MvxBindingMode.OneTime);
-
 			set.Bind(shareButton)
 	            .To(vm => vm.ShareCommand)
-				.Mode(MvxBindingMode.OneTime);
-
-			set.Bind(shareLabel.Tap())
-				.For(v => v.Command)
-				.To(vm => vm.ShareCommand)
 				.Mode(MvxBindingMode.OneTime);
 
 			set.Bind(profileShortNameLabel)
