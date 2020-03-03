@@ -45,6 +45,7 @@
 	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>fbauth2</string>
 		<string>vk</string>
 		<string>vk-share</string>
 		<string>vkauthorize</string>
@@ -93,6 +94,8 @@
 				<string>fb1052355475141532</string>
 				<string>vk7343996</string>
 			</array>
+			<key>CFBundleURLTypes</key>
+			<string>Editor</string>
 		</dict>
 		<dict/>
 	</array>
