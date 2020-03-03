@@ -14,13 +14,13 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
-    public class OrderDetailsViewModel : BaseViewModel, IMvxViewModel<OrderDetailsNavigationParameter>
+    public class OrderDetailsViewModel : BaseViewModel, IMvxViewModel<OrderDetailsNavigationParameter, OrderDetailsResult>
     {
-        private readonly IMvxLog _mvxLog;
         private readonly ISettingsService _settingsService;
         private readonly IMediaService _mediaService;
 
@@ -127,6 +127,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsTimeAvailable => _order?.FinishIn != null && _order?.FinishIn > new TimeSpan();
 
+        public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
+
         #region Commands
 
         public MvxAsyncCommand TakeOrderCommand => new MvxAsyncCommand(OnTakeOrderAsync);
@@ -156,7 +158,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         #endregion Commands
 
         public OrderDetailsViewModel(INavigationService navigationService,
-                                     IMvxLog mvxLog,
                                      ISettingsService settingsService,
                                      IMediaService mediaService,
                                      IErrorHandleService errorHandleService,
@@ -164,7 +165,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                      IDialogService dialogService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
-            _mvxLog = mvxLog;
             _settingsService = settingsService;
             _mediaService = mediaService;
         }
@@ -178,6 +178,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             base.Initialize();
             return LoadOrderDetailsCommand.ExecuteAsync();
+        }
+
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
+                CloseCompletionSource?.SetResult(new OrderDetailsResult(_order));
+
+            base.ViewDestroy(viewFinishing);
         }
 
         private async Task LoadOrderDetailsAsync()
