@@ -40,8 +40,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
                     _dialogService.ShowToast(message, ToastType.Negative);
                     break;
 
-                case BaseUserVisibleException baseUserVisibleException:
-                    _dialogService.ShowToast(exception.Message, ToastType.Negative);
+                case BaseUserVisibleException ex when !string.IsNullOrWhiteSpace(ex.Message):
+                    _dialogService.ShowToast(ex.Message, ToastType.Negative);
                     break;
             }
         }
@@ -63,7 +63,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
                     DisplayMessage(async () => await _dialogService.ShowAlertAsync(Resources.Error_Unexpected_Server));
                     return;
 
-                case ProblemDetailsDataModel problemDetails:
+                case ProblemDetailsDataModel problemDetails when !string.IsNullOrWhiteSpace(problemDetails.Message):
                     _dialogService.ShowToast(problemDetails.Message, ToastType.Negative);
                     break;
             }
