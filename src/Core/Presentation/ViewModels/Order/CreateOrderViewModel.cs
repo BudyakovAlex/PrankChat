@@ -121,7 +121,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                         newOrder.Customer = _settingsService.User;
 
                     _mvxMessenger.Publish(new NewOrderMessage(this, newOrder));
-                    await NavigationService.ShowDetailsOrderView(newOrder.Id);
+                    await NavigationService.ShowOrderDetailsView(newOrder.Id);
                     SetDefaultData();
                 }
             }

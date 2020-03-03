@@ -14,6 +14,7 @@ using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Publication;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
@@ -29,7 +30,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         {
             base.ViewDidAppear(animated);
 
-            PublicationTableSource.Initialize();
+            PublicationTableSource.Initialize().FireAndForget();
         }
 
         protected override void SetupBinding()
@@ -101,8 +102,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             set.Bind(subscriptionsValueLabel)
                 .To(vm => vm.SubscriptionsValue);
-
-
 
             set.Bind(profileShortNameLabel)
                 .To(vm => vm.ProfileShortName);

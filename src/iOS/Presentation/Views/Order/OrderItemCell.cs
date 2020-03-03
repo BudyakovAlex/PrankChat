@@ -103,7 +103,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             set.Bind(statusOrderLabel)
                 .To(vm => vm.StatusText)
-                .Mode(MvxBindingMode.OneTime);
+                .Mode(MvxBindingMode.OneWay);
 
             set.Bind(profileShortNameLabel)
                 .To(vm => vm.ProfileShortName)

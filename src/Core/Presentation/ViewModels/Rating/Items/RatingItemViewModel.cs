@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
     public class RatingItemViewModel : BaseItemViewModel
     {
         private readonly ISettingsService _settingsService;
-        private readonly INavigationService _navigatiobService;
+        private readonly INavigationService _navigationService;
 
         private readonly int? _customerId;
         private readonly DateTime? _arbitrationFinishAt;
@@ -29,9 +29,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 
         public string PriceText { get; }
 
-        public int Likes { get; }
+        private int _likes;
+        public int Likes
+        {
+            get => _likes;
+            set => SetProperty(ref _likes, value);
+        }
 
-        public int Dislikes { get; }
+        private int _dislikes;
+        public int Dislikes
+        {
+            get => _dislikes;
+            set => SetProperty(ref _dislikes, value);
+        }
 
         public IMvxAsyncCommand OpenDetailsOrderCommand { get; }
 
@@ -51,7 +61,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
                                    int? customerId)
         {
             _settingsService = settingsService;
-            _navigatiobService = navigatiobService;
+            _navigationService = navigatiobService;
             OrderTitle = orderTitle;
             ProfilePhotoUrl = customerPhotoUrl;
             PriceText = priceText.ToPriceString();
@@ -63,12 +73,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
             _customerId = customerId;
             _orderId = orderId;
 
-            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigatiobService.ShowLoginView);
+            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigationService.ShowLoginView);
         }
 
-        private Task OnOpenDetailsOrderAsync()
+        private async Task OnOpenDetailsOrderAsync()
         {
-            return _navigatiobService.ShowDetailsOrderView(_orderId);
+            var result = await _navigationService.ShowOrderDetailsView(_orderId);
+            if (result == null)
+                return;
+
+            Likes = result.PositiveArbitrationValuesCount ?? 0;
+            Dislikes = result.NegativeArbitrationValuesCount ?? 0;
         }
     }
 }
