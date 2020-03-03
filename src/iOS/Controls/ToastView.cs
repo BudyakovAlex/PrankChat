@@ -33,9 +33,14 @@ namespace PrankChat.Mobile.iOS.Controls
         {
             switch (toastType)
             {
-                case ToastType.Positive: return Theme.Color.PositiveToastBackground;
-                case ToastType.Negative: return Theme.Color.NegativeToastBackground;
-                default: throw new ArgumentOutOfRangeException();
+                case ToastType.Positive:
+                    return Theme.Color.PositiveToastBackground;
+
+                case ToastType.Negative:
+                    return Theme.Color.NegativeToastBackground;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }
