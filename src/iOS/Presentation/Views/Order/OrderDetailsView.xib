@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -41,6 +41,7 @@
                 <outlet property="profileNameLabel" destination="vvt-dl-Fj6" id="nBT-Ke-AF7"/>
                 <outlet property="progressBarView" destination="q5a-93-Vf4" id="k8Y-OM-8lh"/>
                 <outlet property="rootScrollView" destination="dIr-NI-Bz0" id="eqX-Vn-Bz0"/>
+                <outlet property="stackViewToPriceValueLabelConstraint" destination="BZb-ft-S3e" id="pKe-7J-iF7"/>
                 <outlet property="startDateLabel" destination="D4g-mL-hRY" id="SgQ-Uu-gjg"/>
                 <outlet property="subscriptionButton" destination="Onx-cQ-Wlm" id="CsO-OV-hAE"/>
                 <outlet property="takeOrderButton" destination="J2s-7N-AFI" id="5dZ-j5-Mtb"/>
@@ -191,6 +192,7 @@
                                         <constraint firstItem="xjj-SR-E3U" firstAttribute="centerX" secondItem="lxr-9T-6W4" secondAttribute="centerX" id="L4i-Zy-yoT"/>
                                         <constraint firstItem="Wwj-KB-qLU" firstAttribute="height" secondItem="oqr-ZR-OMU" secondAttribute="height" id="MHz-bu-Lnh"/>
                                         <constraint firstItem="fgw-m1-dbe" firstAttribute="trailing" secondItem="lxr-9T-6W4" secondAttribute="leading" id="PDJ-JT-Uim"/>
+                                        <constraint firstAttribute="bottom" secondItem="ihP-Vz-Rgk" secondAttribute="bottom" constant="8.6699999999999999" id="UMT-Xw-tHV"/>
                                         <constraint firstItem="fgw-m1-dbe" firstAttribute="height" relation="lessThanOrEqual" secondItem="oqr-ZR-OMU" secondAttribute="height" priority="250" id="ZF0-2p-MxW"/>
                                         <constraint firstItem="ihP-Vz-Rgk" firstAttribute="centerX" secondItem="oqr-ZR-OMU" secondAttribute="centerX" id="aRa-rW-4OG"/>
                                         <constraint firstItem="lxr-9T-6W4" firstAttribute="width" secondItem="oqr-ZR-OMU" secondAttribute="width" multiplier="0.994595" id="atB-0g-J8p"/>
@@ -203,7 +205,6 @@
                                         <constraint firstItem="dtV-y1-5vf" firstAttribute="trailing" secondItem="Wwj-KB-qLU" secondAttribute="leading" id="m4X-P2-9bR"/>
                                         <constraint firstItem="dtV-y1-5vf" firstAttribute="centerY" secondItem="Wwj-KB-qLU" secondAttribute="centerY" id="nsm-ig-cqW"/>
                                         <constraint firstItem="oqr-ZR-OMU" firstAttribute="top" secondItem="dPw-wW-QbF" secondAttribute="bottom" constant="10" id="qVC-FS-9k5"/>
-                                        <constraint firstAttribute="height" constant="70" id="sCQ-e1-UEk"/>
                                     </constraints>
                                 </view>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zno-k7-38c">
@@ -486,6 +487,7 @@
                                 <constraint firstItem="Eih-lT-HNC" firstAttribute="centerY" secondItem="AQ9-l1-aXq" secondAttribute="centerY" id="6cf-kb-2QC"/>
                                 <constraint firstAttribute="trailing" secondItem="jYc-9W-b7H" secondAttribute="trailing" constant="32" id="6gg-nR-T4H"/>
                                 <constraint firstAttribute="trailing" secondItem="vvt-dl-Fj6" secondAttribute="trailing" constant="32" id="AWj-i3-GvN"/>
+                                <constraint firstItem="zno-k7-38c" firstAttribute="top" secondItem="FBt-DS-M9m" secondAttribute="bottom" id="BZb-ft-S3e"/>
                                 <constraint firstItem="FBt-DS-M9m" firstAttribute="top" secondItem="t60-ur-KeT" secondAttribute="bottom" constant="7" id="FGs-au-H3v"/>
                                 <constraint firstItem="8yk-T8-Mnm" firstAttribute="leading" secondItem="MTy-Ls-Uj1" secondAttribute="leading" constant="67" id="Hwr-O0-3ZF"/>
                                 <constraint firstItem="vvt-dl-Fj6" firstAttribute="leading" secondItem="MTy-Ls-Uj1" secondAttribute="leading" constant="32" id="I02-Pl-Pul"/>
@@ -503,6 +505,11 @@
                                 <constraint firstAttribute="trailing" secondItem="zno-k7-38c" secondAttribute="trailing" id="ww0-ui-wg9"/>
                                 <constraint firstItem="t60-ur-KeT" firstAttribute="centerX" secondItem="MTy-Ls-Uj1" secondAttribute="centerX" id="yxE-mz-q75"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="BZb-ft-S3e"/>
+                                </mask>
+                            </variation>
                         </view>
                     </subviews>
                     <constraints>
@@ -539,7 +546,7 @@
                 <constraint firstAttribute="bottom" secondItem="dIr-NI-Bz0" secondAttribute="bottom" id="tm6-aT-PCh"/>
                 <constraint firstItem="dIr-NI-Bz0" firstAttribute="top" secondItem="2" secondAttribute="top" id="vIz-X5-mbs"/>
             </constraints>
-            <point key="canvasLocation" x="24.637681159420293" y="51.5625"/>
+            <point key="canvasLocation" x="24.637681159420293" y="51.358695652173914"/>
         </view>
     </objects>
     <resources>

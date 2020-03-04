@@ -15,7 +15,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
 
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle, Resource.Layout.registration_layout);
+            base.OnCreate(bundle, Resource.Layout.activity_registration);
 
             var textViewLogin = this.FindViewById<TextView>(Resource.Id.go_to_login_text_view);
             textViewLogin.PaintFlags |= Android.Graphics.PaintFlags.UnderlineText;

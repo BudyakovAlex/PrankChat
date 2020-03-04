@@ -8,6 +8,7 @@ using MvvmCross.Platforms.Ios.Binding.Views;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using UIKit;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
@@ -61,7 +62,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             {
                 // Duration of cell reinitialization load (e.g. tab switch) animation.
                 await Task.Delay(ReinitializeDelayInMilliseconds);
-                PlayFirstVideo(indexPath);
+                PlayFirstCompletelyVisibleVideoItem();
                 _initialized = true;
             }
             else
@@ -73,7 +74,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                     cellToPlay = TableView.CellAt(indexPath) as PublicationItemCell;
                     if (cellToPlay != null)
                     {
-                        PlayFirstVideo(indexPath);
+                        PlayFirstCompletelyVisibleVideoItem();
                         _initialized = true;
                     }
                 }
@@ -116,13 +117,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         {
             _initialized = false;
             Initialize().FireAndForget();
-        }
-
-        private void PlayFirstVideo(NSIndexPath indexPath)
-        {
-            var cellToPlay = TableView.CellAt(indexPath) as PublicationItemCell;
-            var viewModel = _parentViewModel.Items.ElementAtOrDefault(indexPath.Row);
-            cellToPlay?.PlayVideo(viewModel?.VideoUrl);
         }
 
         private void PlayFirstCompletelyVisibleVideoItem()
@@ -169,19 +163,64 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             foreach (var partiallyVisibleCell in partiallyVisibleCells)
             {
-                partiallyVisibleCell.StopVideo();
+                StopVideo(partiallyVisibleCell);
             }
 
             if (completelyVisibleCells.Count > 0
                 && TableView.IndexPathForCell(completelyVisibleCells.LastOrDefault()).Row == _parentViewModel.Items.Count - 1)
             {
-                completelyVisibleCells.ForEach(c => c.PlayVideo(_parentViewModel.Items.ToList()[TableView.IndexPathForCell(c).Row].VideoUrl));
+                completelyVisibleCells.ForEach(c => PlayVideo(c));
             }
             else
             {
-                var viewModel = _parentViewModel.Items.ToList()[TableView.IndexPathForCell(cellToPlay).Row];
-                cellToPlay.PlayVideo(viewModel.VideoUrl);
+                PlayVideo(cellToPlay);
             }
+        }
+
+        private void PlayVideo(PublicationItemCell cell)
+        {
+            var viewModel = GetItemViewModelFor(cell);
+            var service = viewModel.VideoPlayerService;
+            if (service.Player.IsPlaying)
+                return;
+
+            service.Stop();
+            service.Player.SetPlatformVideoPlayerContainer(null);
+            service.Player.SetPlatformVideoPlayerContainer(cell.AVPlayerViewControllerInstance);
+            service.Play(viewModel.VideoUrl, viewModel.VideoId);
+        }
+
+        private void ContinueVideo(PublicationItemCell cell)
+        {
+            var viewModel = GetItemViewModelFor(cell);
+            if (!viewModel.VideoPlayerService.Player.IsPlaying)
+                return;
+
+            viewModel.VideoPlayerService.Play();
+        }
+
+        private void PauseVideo(PublicationItemCell cell)
+        {
+            var viewModel = GetItemViewModelFor(cell);
+            if (!viewModel.VideoPlayerService.Player.IsPlaying)
+                return;
+
+            viewModel.VideoPlayerService.Pause();
+        }
+
+        private void StopVideo(PublicationItemCell cell)
+        {
+            var viewModel = GetItemViewModelFor(cell);
+            if (!viewModel.VideoPlayerService.Player.IsPlaying)
+                return;
+
+            viewModel.VideoPlayerService.Stop();
+            cell.AVPlayerViewControllerInstance.Player = null;
+        }
+
+        private PublicationItemViewModel GetItemViewModelFor(PublicationItemCell cell)
+        {
+            return _parentViewModel.Items.ElementAt(TableView.IndexPathForCell(cell).Row);
         }
 
         private bool IsCompletelyVisible(PublicationItemCell publicationCell)
