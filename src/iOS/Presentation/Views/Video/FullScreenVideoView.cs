@@ -116,6 +116,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         protected override void SetupControls()
         {
+            likeImageView.Image = likeImageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+
             overlayView.AddGestureRecognizer(new UITapGestureRecognizer(_ => overlayView.Hidden = true));
 
             playButton.AddGestureRecognizer(new UITapGestureRecognizer(PlayButtonTap));
