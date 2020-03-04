@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using AVFoundation;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
@@ -17,6 +18,8 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         {
             _apiService = apiService;
             _mvxMessenger = mvxMessenger;
+
+            AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
         }
 
         public override IVideoPlayer Player

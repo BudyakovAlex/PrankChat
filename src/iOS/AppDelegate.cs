@@ -50,10 +50,12 @@ namespace PrankChat.Mobile.iOS
             InitializeFirebase();
             base.FinishedLaunching(application);
         }
+
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
             Facebook.CoreKit.Profile.EnableUpdatesOnAccessTokenChange(true);
             Facebook.CoreKit.ApplicationDelegate.SharedInstance.FinishedLaunching(application, launchOptions);
+            InitializeFirebase();
 
             return base.FinishedLaunching(application, launchOptions);
         }

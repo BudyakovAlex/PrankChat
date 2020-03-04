@@ -17,7 +17,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
     {
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle, Resource.Layout.login_layout);
+            base.OnCreate(bundle, Resource.Layout.activity_login);
 
             var forgotPasswordButton = FindViewById<TextView>(Resource.Id.reset_password_button);
             forgotPasswordButton.PaintFlags = forgotPasswordButton.PaintFlags | PaintFlags.UnderlineText;
