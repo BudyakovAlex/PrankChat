@@ -6,7 +6,6 @@ using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
-using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Binding;
@@ -18,7 +17,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
     public partial class PublicationItemCell : BaseTableCell<PublicationItemCell, PublicationItemViewModel>
 	{
-		private AVPlayerViewController _avPlayerViewController;
+		public AVPlayerViewController AVPlayerViewControllerInstance { get; private set; }
 
 		static PublicationItemCell()
 		{
@@ -30,44 +29,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			// Note: this .ctor should not contain any initialization logic.
 		}
 
-		public void PlayVideo(string uri)
-		{
-			var service = ViewModel.VideoPlayerService;
-			if (service.Player.IsPlaying)
-				return;
-
-			service.Stop();
-			service.Player.SetPlatformVideoPlayerContainer(_avPlayerViewController);
-			service.Play(uri, ViewModel.VideoId);
-		}
-
-		public void ContinueVideo()
-		{
-			var service = ViewModel.VideoPlayerService;
-			if (!service.Player.IsPlaying)
-				return;
-
-			service.Play();
-		}
-
-		public void PauseVideo()
-		{
-			var service = ViewModel.VideoPlayerService;
-			if (!service.Player.IsPlaying)
-				return;
-
-			service.Pause();
-		}
-
-		public void StopVideo()
-		{
-			if (!ViewModel.VideoPlayerService.Player.IsPlaying)
-				return;
-
-			ViewModel.VideoPlayerService.Stop();
-			_avPlayerViewController.Player = null;
-		}
-
 		public CGRect GetVideoBounds(UITableView tableView)
 		{
 			return videoView.ConvertRectToView(videoView.Bounds, tableView);
@@ -75,7 +36,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
 		public override void PrepareForReuse()
 		{
-			StopVideo();
+			PauseVideo();
 			base.PrepareForReuse();
 		}
 
@@ -193,13 +154,30 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			set.Apply();
 		}
 
+		private void StopVideo()
+		{
+			if (AVPlayerViewControllerInstance == null)
+				return;
+
+			AVPlayerViewControllerInstance.Player?.Pause();
+			AVPlayerViewControllerInstance.Player = null;
+		}
+
+        private void PauseVideo()
+        {
+			if (AVPlayerViewControllerInstance == null)
+				return;
+
+			AVPlayerViewControllerInstance.Player?.Pause();
+		}
+
 		private void InitializeVideoControl()
 		{
-			_avPlayerViewController = new AVPlayerViewController();
-			_avPlayerViewController.View.Frame = new CGRect(0, 0, videoView.Frame.Width, videoView.Frame.Height);
-			_avPlayerViewController.ShowsPlaybackControls = false;
-			_avPlayerViewController.VideoGravity = AVLayerVideoGravity.ResizeAspectFill;
-			videoView.Add(_avPlayerViewController.View);
+			AVPlayerViewControllerInstance = new AVPlayerViewController();
+			AVPlayerViewControllerInstance.View.Frame = new CGRect(0, 0, videoView.Frame.Width, videoView.Frame.Height);
+			AVPlayerViewControllerInstance.ShowsPlaybackControls = false;
+			AVPlayerViewControllerInstance.VideoGravity = AVLayerVideoGravity.ResizeAspectFill;
+			videoView.Add(AVPlayerViewControllerInstance.View);
 		}
 	}
 }
