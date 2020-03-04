@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="@color/applicationWhite"
+            android:singleLine="true"
             app:MvxBind="Text Login" />
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
@@ -43,6 +44,7 @@
             android:layout_height="match_parent"
             android:textSize="14sp"
             android:textColor="@color/applicationWhite"
+            android:singleLine="true"
             app:MvxBind="Text Name" />
     </android.support.design.widget.TextInputLayout>
     <RelativeLayout
@@ -87,6 +89,8 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="@color/applicationWhite"
+            android:singleLine="true"
+            android:inputType="textPassword"
             app:MvxBind="Text Password" />
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
@@ -104,6 +108,8 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="@color/applicationWhite"
+            android:singleLine="true"
+            android:inputType="textPassword"
             app:MvxBind="Text RepeatedPassword" />
     </android.support.design.widget.TextInputLayout>
     <TextView

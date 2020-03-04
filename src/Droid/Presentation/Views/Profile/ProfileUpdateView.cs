@@ -15,7 +15,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle, Resource.Layout.profile_update_layout);
+            base.OnCreate(bundle, Resource.Layout.activity_profile_update);
 
             var textViewChangePassword = this.FindViewById<TextView>(Resource.Id.text_view_change_password);
             if (textViewChangePassword != null)

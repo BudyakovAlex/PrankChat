@@ -23,7 +23,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            var view = base.OnCreateView(inflater, container, savedInstanceState, Resource.Layout.registration_second_step_layout);
+            var view = base.OnCreateView(inflater, container, savedInstanceState, Resource.Layout.fragment_registration_second_step);
             return view;
         }
 
