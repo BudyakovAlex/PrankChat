@@ -333,7 +333,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                 return;
             }
 
-            var value = _player.CurrentItem.LoadedTimeRanges.Last();
+            var value = _player.CurrentItem.LoadedTimeRanges.LastOrDefault();
+            if (value == null)
+                return;
+
             var seconds = value.CMTimeRangeValue.Start.Seconds + value.CMTimeRangeValue.Duration.Seconds;
             var ratio = seconds / _player.CurrentItem.Duration.Seconds;
             var width = (nfloat) ratio * progressView.Frame.Width;

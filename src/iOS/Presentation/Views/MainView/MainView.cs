@@ -29,6 +29,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
             }
 		}
 
+        public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
+        {
+            return UIInterfaceOrientationMask.Portrait;
+        }
+
         public override void ItemSelected(UITabBar tabbar, UITabBarItem item)
         {
             var tabPosition = tabbar.Items.ToList().IndexOf(item);
