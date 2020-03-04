@@ -109,6 +109,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIScrollView rootScrollView { get; set; }
 
 		[Outlet]
+		UIKit.NSLayoutConstraint stackViewToPriceValueLabelConstraint { get; set; }
+
+		[Outlet]
 		UIKit.UILabel startDateLabel { get; set; }
 
 		[Outlet]
@@ -146,11 +149,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (timeView != null) {
-				timeView.Dispose ();
-				timeView = null;
-			}
-
 			if (acceptButton != null) {
 				acceptButton.Dispose ();
 				acceptButton = null;
@@ -171,6 +169,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				customerShortNameLabel = null;
 			}
 
+			if (daysTitleLabel != null) {
+				daysTitleLabel.Dispose ();
+				daysTitleLabel = null;
+			}
+
+			if (daysValueLabel != null) {
+				daysValueLabel.Dispose ();
+				daysValueLabel = null;
+			}
+
 			if (decideTextLabel != null) {
 				decideTextLabel.Dispose ();
 				decideTextLabel = null;
@@ -184,6 +192,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (decisionView != null) {
 				decisionView.Dispose ();
 				decisionView = null;
+			}
+
+			if (delimiterTimeOneLabel != null) {
+				delimiterTimeOneLabel.Dispose ();
+				delimiterTimeOneLabel = null;
+			}
+
+			if (delimiterTimeTwoLabel != null) {
+				delimiterTimeTwoLabel.Dispose ();
+				delimiterTimeTwoLabel = null;
 			}
 
 			if (downloadButton != null) {
@@ -226,6 +244,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				executorView = null;
 			}
 
+			if (hourTitleLabel != null) {
+				hourTitleLabel.Dispose ();
+				hourTitleLabel = null;
+			}
+
+			if (hourValueLabel != null) {
+				hourValueLabel.Dispose ();
+				hourValueLabel = null;
+			}
+
 			if (innerView != null) {
 				innerView.Dispose ();
 				innerView = null;
@@ -234,6 +262,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (lottieAnimationView != null) {
 				lottieAnimationView.Dispose ();
 				lottieAnimationView = null;
+			}
+
+			if (minutesTitleLabel != null) {
+				minutesTitleLabel.Dispose ();
+				minutesTitleLabel = null;
+			}
+
+			if (minutesValueLabel != null) {
+				minutesValueLabel.Dispose ();
+				minutesValueLabel = null;
 			}
 
 			if (noButton != null) {
@@ -266,6 +304,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				progressBarView = null;
 			}
 
+			if (rootScrollView != null) {
+				rootScrollView.Dispose ();
+				rootScrollView = null;
+			}
+
 			if (startDateLabel != null) {
 				startDateLabel.Dispose ();
 				startDateLabel = null;
@@ -284,6 +327,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (timeTextLabel != null) {
 				timeTextLabel.Dispose ();
 				timeTextLabel = null;
+			}
+
+			if (timeView != null) {
+				timeView.Dispose ();
+				timeView = null;
 			}
 
 			if (tookOrderTextLabel != null) {
@@ -316,54 +364,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				videoView = null;
 			}
 
+			if (stackViewToPriceValueLabelConstraint != null) {
+				stackViewToPriceValueLabelConstraint.Dispose ();
+				stackViewToPriceValueLabelConstraint = null;
+			}
+
 			if (yesButton != null) {
 				yesButton.Dispose ();
 				yesButton = null;
-			}
-
-			if (daysValueLabel != null) {
-				daysValueLabel.Dispose ();
-				daysValueLabel = null;
-			}
-
-			if (hourValueLabel != null) {
-				hourValueLabel.Dispose ();
-				hourValueLabel = null;
-			}
-
-			if (hourTitleLabel != null) {
-				hourTitleLabel.Dispose ();
-				hourTitleLabel = null;
-			}
-
-			if (minutesValueLabel != null) {
-				minutesValueLabel.Dispose ();
-				minutesValueLabel = null;
-			}
-
-			if (minutesTitleLabel != null) {
-				minutesTitleLabel.Dispose ();
-				minutesTitleLabel = null;
-			}
-
-			if (daysTitleLabel != null) {
-				daysTitleLabel.Dispose ();
-				daysTitleLabel = null;
-			}
-
-			if (delimiterTimeOneLabel != null) {
-				delimiterTimeOneLabel.Dispose ();
-				delimiterTimeOneLabel = null;
-			}
-
-			if (delimiterTimeTwoLabel != null) {
-				delimiterTimeTwoLabel.Dispose ();
-				delimiterTimeTwoLabel = null;
-			}
-
-			if (rootScrollView != null) {
-				rootScrollView.Dispose ();
-				rootScrollView = null;
 			}
 		}
 	}

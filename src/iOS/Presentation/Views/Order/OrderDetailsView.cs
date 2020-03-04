@@ -4,6 +4,7 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Views;
 using MvvmCross.Plugin.Visibility;
+using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -84,9 +85,50 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			set.Bind(minutesValueLabel)
 				.To(vm => vm.TimeMinutesValue);
 
+			set.Bind(timeTextLabel)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsTimeAvailable);
+
+			set.Bind(daysTitleLabel)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsTimeAvailable);
+
+			set.Bind(daysValueLabel)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsTimeAvailable);
+
+			set.Bind(delimiterTimeOneLabel)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsTimeAvailable);
+
+			set.Bind(delimiterTimeTwoLabel)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsTimeAvailable);
+
+			set.Bind(hourTitleLabel)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsTimeAvailable);
+
+			set.Bind(hourValueLabel)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsTimeAvailable);
+
+			set.Bind(minutesTitleLabel)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsTimeAvailable);
+
+			set.Bind(minutesValueLabel)
+				.For(v => v.BindVisible())
+				.To(vm => vm.IsTimeAvailable);
+
 			set.Bind(timeView)
 	            .For(v => v.BindVisible())
 	            .To(vm => vm.IsTimeAvailable);
+
+			set.Bind(stackViewToPriceValueLabelConstraint)
+				.For(v => v.Active)
+				.To(vm => vm.IsTimeAvailable)
+                .WithConversion<MvxInvertedBooleanConverter>();
 
 			#endregion Orders
 
