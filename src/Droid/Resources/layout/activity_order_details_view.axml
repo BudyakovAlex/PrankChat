@@ -218,7 +218,8 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="26dp"
-					android:orientation="vertical">
+					android:orientation="vertical"
+                    app:MvxBind="Visibility Visibility(IsVideoLoadAvailable)">
 					<TextView
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
@@ -226,38 +227,40 @@
 						android:textSize="12sp"
 						android:textColor="@color/inactive"
 						android:text="@string/OrderDetailsView_Download_Text"/>
-					<ImageButton
-						android:layout_width="37.5dp"
-						android:layout_height="37.5dp"
+					<Button
+						android:layout_width="wrap_content"
+						android:layout_height="36dp"
 						android:layout_marginTop="14.5dp"
 						android:layout_gravity="center_horizontal"
 						android:background="@null"
-						android:src="@drawable/ic_download"
+                        android:text="@string/OrderDetailsView_LoadVideo"
+                        style="@style/Theme.PrankChat.Button.Accent"
 						app:MvxBind="Click LoadVideoCommand"/>
-					<Button
-						android:layout_width="wrap_content"
-						android:layout_height="36dp"
-						android:layout_marginTop="26dp"
-						android:layout_gravity="center_horizontal"
-						android:text="@string/OrderDetailsView_Execute_Button"
-						style="@style/Theme.PrankChat.Button.Accent"
-						app:MvxBind="Click ExecuteOrderCommand"/>
-					<Button
-						android:layout_width="wrap_content"
-						android:layout_height="36dp"
-						android:layout_marginTop="26dp"
-						android:layout_gravity="center_horizontal"
-						android:text="@string/OrderDetailsView_Cancel_Button"
-						android:textColor="@color/accent"
-						android:background="@drawable/border_accent"
-						style="@style/Theme.PrankChat.Button"
-						app:MvxBind="Click CancelOrderCommand"/>
 				</LinearLayout>
+                <Button
+					android:layout_width="wrap_content"
+					android:layout_height="36dp"
+					android:layout_marginTop="26dp"
+					android:layout_gravity="center_horizontal"
+					android:text="@string/OrderDetailsView_Execute_Button"
+					style="@style/Theme.PrankChat.Button.Accent"
+					app:MvxBind="Click ExecuteOrderCommand; Visibility Visibility(IsExecuteOrderAvailable)"/>
+				<Button
+					android:layout_width="wrap_content"
+					android:layout_height="36dp"
+					android:layout_marginTop="26dp"
+					android:layout_gravity="center_horizontal"
+					android:text="@string/OrderDetailsView_Cancel_Button"
+					android:textColor="@color/accent"
+					android:background="@drawable/border_accent"
+					style="@style/Theme.PrankChat.Button"
+					app:MvxBind="Click CancelOrderCommand; Visibility Visibility(IsCancelOrderAvailable)"/>
 				<!--Took the order.-->
 				<RelativeLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="26dp">
+					android:layout_marginTop="26dp"
+                    app:MvxBind="Visibility Visibility(IsExecutorAvailable);">
 					<View
 						android:id="@+id/separator"
 						android:layout_width="match_parent"
@@ -382,28 +385,24 @@
 						app:MvxBind="Click YesCommand; Selected IsYesSelected; Text YesText"/>
 				</android.support.percent.PercentRelativeLayout>
 				<!--Decide-->
-				<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="26dp"
-					android:orientation="vertical"
-					android:gravity="center_horizontal">
-					<Button
-						android:layout_width="wrap_content"
-						android:layout_height="36dp"
-						android:text="@string/OrderDetailsView_Accept_Button"
-						style="@style/Theme.PrankChat.Button.Accent"
-						app:MvxBind="Click AcceptOrderCommand"/>
-					<Button
-						android:layout_width="wrap_content"
-						android:layout_height="36dp"
-						android:layout_marginTop="10dp"
-						android:text="@string/OrderDetailsView_Argue_Button"
-						android:textColor="@color/accent"
-						android:background="@null"
-						style="@style/Theme.PrankChat.Button"
-						app:MvxBind="Click ArqueOrderCommand"/>
-				</LinearLayout>
+				<Button
+					android:layout_width="wrap_content"
+					android:layout_height="36dp"
+                    android:layout_marginTop="26dp"
+                    android:layout_gravity="center_horizontal"
+					android:text="@string/OrderDetailsView_Accept_Button"
+					style="@style/Theme.PrankChat.Button.Accent"
+					app:MvxBind="Click AcceptOrderCommand; Visibility Visibility(IsDecisionVideoAvailable)"/>
+				<Button
+					android:layout_width="wrap_content"
+					android:layout_height="36dp"
+					android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
+					android:text="@string/OrderDetailsView_Argue_Button"
+					android:textColor="@color/accent"
+					android:background="@null"
+					style="@style/Theme.PrankChat.Button"
+					app:MvxBind="Click ArqueOrderCommand; Visibility Visibility(IsDecisionVideoAvailable)"/>
 			</LinearLayout>
 		</ScrollView>
 	</MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout>
