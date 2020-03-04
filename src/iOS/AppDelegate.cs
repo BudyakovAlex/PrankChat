@@ -66,11 +66,12 @@ namespace PrankChat.Mobile.iOS
             Crashlytics.Configure();
         }
 
+        [Export("application:openURL:sourceApplication:annotation:")]
         public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
         {
             return VKSdk.ProcessOpenUrl(url, sourceApplication)
-                || Facebook.CoreKit.ApplicationDelegate.SharedInstance.OpenUrl(application, url, sourceApplication, annotation)
-                || base.OpenUrl(application, url, sourceApplication, annotation);
+               || Facebook.CoreKit.ApplicationDelegate.SharedInstance.OpenUrl(application, url, sourceApplication, annotation)
+               || base.OpenUrl(application, url, sourceApplication, annotation);
         }
     }
 }
