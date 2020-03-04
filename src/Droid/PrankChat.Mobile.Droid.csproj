@@ -451,6 +451,10 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_profile_update.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -559,13 +563,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\registration_layout.xml" />
+    <AndroidResource Include="Resources\layout\activity_registration.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\registration_second_step_layout.xml" />
+    <AndroidResource Include="Resources\layout\fragment_registration_second_step.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\registration_third_step_layout.xml" />
+    <AndroidResource Include="Resources\layout\fragment_registration_third_step.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\orders_layout.xml" />
@@ -577,7 +581,7 @@
     <AndroidResource Include="Resources\layout\publications_layout.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\login_layout.xml" />
+    <AndroidResource Include="Resources\layout\activity_login.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\notifications_layout.xml" />
@@ -862,11 +866,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\xml\network_security_config.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\profile_update_layout.xml">
-      <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>

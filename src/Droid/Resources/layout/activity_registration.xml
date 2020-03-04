@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="@color/applicationWhite"
+            android:singleLine="true"
             app:MvxBind="Text Email" />
     </android.support.design.widget.TextInputLayout>
     <TextView
