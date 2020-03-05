@@ -14,8 +14,8 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                 return GetStringWithCurrency(DefaultValue);
 
             return price?.ToString(GetStringWithCurrency(FormatForPrice), CultureInfo.CurrentCulture)
-                           .Replace(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
-                           .Replace(CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, " ");
+                         .Replace(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
+                         .Replace(CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, " ");
         }
 
         private static string GetStringWithCurrency(string value)
