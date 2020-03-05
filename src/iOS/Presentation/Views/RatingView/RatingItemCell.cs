@@ -12,116 +12,116 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 {
-    public partial class RatingItemCell : BaseTableCell<RatingItemCell, RatingItemViewModel>
-    {
-        static RatingItemCell()
-        {
-            EstimatedHeight = 215;
-        }
+	public partial class RatingItemCell : BaseTableCell<RatingItemCell, RatingItemViewModel>
+	{
+		static RatingItemCell()
+		{
+			EstimatedHeight = 215;
+		}
 
-        protected RatingItemCell(IntPtr handle) : base(handle)
-        {
-            // Note: this .ctor should not contain any initialization logic.
-        }
+		protected RatingItemCell(IntPtr handle) : base(handle)
+		{
+			// Note: this .ctor should not contain any initialization logic.
+		}
 
-        protected override void SetupControls()
-        {
-            base.SetupControls();
+		protected override void SetupControls()
+		{
+			base.SetupControls();
 
-            orderTitleLabel.SetScreenTitleStyle();
+			orderTitleLabel.SetScreenTitleStyle();
 
-            timeLablel.SetMediumStyle(10, Theme.Color.White);
-            timeLablel.Text = Resources.Order_View_Time_Text;
+			timeLablel.SetMediumStyle(10, Theme.Color.White);
+			timeLablel.Text = Resources.Order_View_Time_Text;
 
-            priceLable.SetMediumStyle(10, Theme.Color.White);
-            priceLable.Text = Resources.Order_View_Price_Text;
+			priceLable.SetMediumStyle(10, Theme.Color.White);
+			priceLable.Text = Resources.Order_View_Price_Text;
 
-            dayLabel.SetRegularStyle(10, Theme.Color.White);
-            dayLabel.Text = Resources.Order_View_Day;
+			dayLabel.SetRegularStyle(10, Theme.Color.White);
+			dayLabel.Text = Resources.Order_View_Day;
 
-            hourLabel.SetRegularStyle(10, Theme.Color.White);
-            hourLabel.Text = Resources.Order_View_Hour;
+			hourLabel.SetRegularStyle(10, Theme.Color.White);
+			hourLabel.Text = Resources.Order_View_Hour;
 
-            minuteLabel.SetRegularStyle(10, Theme.Color.White);
-            minuteLabel.Text = Resources.Order_View_Minute;
+			minuteLabel.SetRegularStyle(10, Theme.Color.White);
+			minuteLabel.Text = Resources.Order_View_Minute;
 
-            orderTimeLabel.SetMediumStyle(22, Theme.Color.White);
-            priceValueLabel.SetMediumStyle(26, Theme.Color.White);
+			orderTimeLabel.SetMediumStyle(22, Theme.Color.White);
+			priceValueLabel.SetMediumStyle(26, Theme.Color.White);
 
-            orderDetailsButton.TitleLabel.Text = Resources.RateView_Vote_Button;
+			orderDetailsButton.TitleLabel.Text = Resources.RateView_Vote_Button;
 
-            thumbsUpButton.SetImage(UIImage.FromBundle("ic_thumbs_up").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+			thumbsUpButton.SetImage(UIImage.FromBundle("ic_thumbs_up").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
 
-            thumbsDownButton.SetImage(UIImage.FromBundle("ic_thumbs_down").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+			thumbsDownButton.SetImage(UIImage.FromBundle("ic_thumbs_down").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
 
-            thumbsUpValueLabel.SetMediumStyle(14, Theme.Color.White);
+			thumbsUpValueLabel.SetMediumStyle(14, Theme.Color.White);
 
-            thumbsDownValueLabel.SetMediumStyle(14, Theme.Color.White);
-        }
+			thumbsDownValueLabel.SetMediumStyle(14, Theme.Color.White);
+		}
 
-        protected override void SetBindings()
-        {
-            var set = this.CreateBindingSet<RatingItemCell, RatingItemViewModel>();
+		protected override void SetBindings()
+		{
+			var set = this.CreateBindingSet<RatingItemCell, RatingItemViewModel>();
 
-            set.Bind(this)
-                .For(v => v.BindTap())
-                .To(vm => vm.OpenDetailsOrderCommand)
-                .Mode(MvxBindingMode.OneTime);
+			set.Bind(this)
+				.For(v => v.BindTap())
+				.To(vm => vm.OpenDetailsOrderCommand)
+				.Mode(MvxBindingMode.OneTime);
 
-            set.Bind(backgroundImageView)
-                .For(UIImageViewOrderTypeTargetBinding.TargetBinding)
-                .To(vm => vm.OrderType);
+			set.Bind(backgroundImageView)
+				.For(UIImageViewOrderTypeTargetBinding.TargetBinding)
+				.To(vm => vm.OrderType);
 
-            set.Bind(profilePhotoImage)
-                .For(v => v.DownsampleWidth)
-                .To(vm => vm.DownsampleWidth)
-                .Mode(MvxBindingMode.OneTime);
+			set.Bind(profilePhotoImage)
+				.For(v => v.DownsampleWidth)
+				.To(vm => vm.DownsampleWidth)
+				.Mode(MvxBindingMode.OneTime);
 
-            set.Bind(profilePhotoImage)
-                .For(v => v.Transformations)
-                .To(vm => vm.Transformations)
-                .Mode(MvxBindingMode.OneTime);
+			set.Bind(profilePhotoImage)
+				.For(v => v.Transformations)
+				.To(vm => vm.Transformations)
+				.Mode(MvxBindingMode.OneTime);
 
-            set.Bind(profilePhotoImage)
-                .For(v => v.ImagePath)
-                .To(vm => vm.ProfilePhotoUrl)
-                .WithConversion<PlaceholderImageConverter>()
-                .Mode(MvxBindingMode.OneTime);
+			set.Bind(profilePhotoImage)
+				.For(v => v.ImagePath)
+				.To(vm => vm.ProfilePhotoUrl)
+				.WithConversion<PlaceholderImageConverter>()
+				.Mode(MvxBindingMode.OneTime);
 
-            set.Bind(orderTitleLabel)
-                .To(vm => vm.OrderTitle)
-                .Mode(MvxBindingMode.OneTime);
+			set.Bind(orderTitleLabel)
+				.To(vm => vm.OrderTitle)
+				.Mode(MvxBindingMode.OneTime);
 
-            set.Bind(orderTimeLabel)
-                .To(vm => vm.TimeText)
-                .Mode(MvxBindingMode.OneTime);
+			set.Bind(orderTimeLabel)
+				.To(vm => vm.TimeText)
+				.Mode(MvxBindingMode.OneTime);
 
-            set.Bind(priceValueLabel)
-                .To(vm => vm.PriceText)
-                .Mode(MvxBindingMode.OneTime);
+			set.Bind(priceValueLabel)
+				.To(vm => vm.PriceText)
+				.Mode(MvxBindingMode.OneTime);
 
-            set.Bind(orderDetailsButton)
-                .To(vm => vm.OpenDetailsOrderCommand)
-                .Mode(MvxBindingMode.OneTime);
+			set.Bind(orderDetailsButton)
+				.To(vm => vm.OpenDetailsOrderCommand)
+				.Mode(MvxBindingMode.OneTime);
 
-            set.Bind(orderDetailsButton)
-                .For(UIButtonOrderTypeTargetBinding.TargetBinding)
-                .To(vm => vm.OrderType);
+			set.Bind(orderDetailsButton)
+				.For(UIButtonOrderTypeTargetBinding.TargetBinding)
+				.To(vm => vm.OrderType);
 
-            set.Bind(thumbsUpValueLabel)
-                .To(vm => vm.Likes);
+			set.Bind(thumbsUpValueLabel)
+				.To(vm => vm.Likes);
 
-            set.Bind(thumbsDownValueLabel)
-                .To(vm => vm.Dislikes);
+			set.Bind(thumbsDownValueLabel)
+				.To(vm => vm.Dislikes);
 
-            set.Bind(customerShortNameLabel)
-                .To(vm => vm.CustomerShortName);
+			set.Bind(customerShortNameLabel)
+				.To(vm => vm.ProfileShortName);
 
-            set.Bind(customerShortNameLabel)
-                .For(v => v.BindHidden())
-                .To(vm => vm.ProfilePhotoUrl);
+			set.Bind(customerShortNameLabel)
+				.For(v => v.BindHidden())
+				.To(vm => vm.ProfilePhotoUrl);
 
-            set.Apply();
-        }
-    }
+			set.Apply();
+		}
+	}
 }

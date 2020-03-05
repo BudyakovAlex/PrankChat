@@ -110,7 +110,6 @@
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
     <Compile Include="Presentation\Dialogs\ArrayDialog.cs" />
-    <Compile Include="Presentation\Converters\PlaceholderImageConverter.cs" />
     <Compile Include="Presentation\Converters\LikeConverter.cs" />
     <Compile Include="Controls\SelectableButton.cs" />
     <Compile Include="Presentation\Views\WebPageView.cs" />
@@ -133,6 +132,7 @@
     <Compile Include="ApplicationServices\Callbacks\VkontakteCallback.cs" />
     <Compile Include="DroidApplication.cs" />
     <Compile Include="Providers\OutlineProvider.cs" />
+    <Compile Include="Controls\CircleCachedImageView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

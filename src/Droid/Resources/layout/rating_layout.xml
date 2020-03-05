@@ -38,6 +38,6 @@
         android:id="@+id/publication_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:MvxItemTemplate="@layout/cell_order"
+        app:MvxItemTemplate="@layout/cell_rating"
         app:MvxBind="ItemsSource Items"/>
 </LinearLayout>

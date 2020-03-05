@@ -88,8 +88,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             set => SetProperty(ref _description, value);
         }
 
-        protected ISettingsService SettingsService { get; set; }
-
         public MvxAsyncCommand SelectBirthdayCommand => new MvxAsyncCommand(OnSelectBirthdayAsync);
 
         public MvxCommand<GenderType> SelectGenderCommand => new MvxCommand<GenderType>(OnSelectGender);
@@ -101,7 +99,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
                                     ISettingsService settingsService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
-            SettingsService = settingsService;
         }
 
         public override Task Initialize()

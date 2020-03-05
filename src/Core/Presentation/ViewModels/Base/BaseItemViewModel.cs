@@ -7,10 +7,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {
     public abstract class BaseItemViewModel : MvxNotifyPropertyChanged
     {
-        public virtual double DownsampleWidth { get; } = 100;
-
-        public virtual List<ITransformation> Transformations => new List<ITransformation> { new CircleTransformation() };
-
         private bool _isBusy;
         public bool IsBusy
         {

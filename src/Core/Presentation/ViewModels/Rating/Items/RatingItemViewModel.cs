@@ -25,7 +25,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 
         public string TimeText => (_arbitrationFinishAt - DateTime.UtcNow)?.ToTimeWithSpaceString();
 
-        public string CustomerShortName { get; }
+        public string ProfileShortName { get; }
 
         public string PriceText { get; }
 
@@ -67,7 +67,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
             PriceText = priceText.ToPriceString();
             Likes = likes;
             Dislikes = dislikes;
-            CustomerShortName = customerName.ToShortenName();
+            ProfileShortName = customerName.ToShortenName();
 
             _arbitrationFinishAt = arbitrationFinishAt;
             _customerId = customerId;

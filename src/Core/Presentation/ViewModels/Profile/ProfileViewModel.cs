@@ -24,7 +24,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
     {
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
-        private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _mvxMessenger;
 
         private PublicationType _selectedPublicationType;
@@ -101,7 +100,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             _platformService = platformService;
             _videoPlayerService = videoPlayerService;
-            _settingsService = settingsService;
             _mvxMessenger = mvxMessenger;
         }
 
@@ -185,7 +183,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                     ApiService,
                     ErrorHandleService,
                     _mvxMessenger,
-                    _settingsService,
+                    SettingsService,
                     publication.User?.Name,
                     publication.User?.Avatar,
                     publication.Id,
