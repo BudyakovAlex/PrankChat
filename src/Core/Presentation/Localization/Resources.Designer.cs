@@ -1181,6 +1181,18 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
             }
         }
         
+        public static string LinkCopied {
+            get {
+                return ResourceManager.GetString("LinkCopied", resourceCulture);
+            }
+        }
+        
+        public static string ComplainSuccessful {
+            get {
+                return ResourceManager.GetString("ComplainSuccessful", resourceCulture);
+            }
+        }
+        
         public static string com_crashlytics_android_build_id {
             get {
                 return ResourceManager.GetString("com.crashlytics.android.build_id", resourceCulture);

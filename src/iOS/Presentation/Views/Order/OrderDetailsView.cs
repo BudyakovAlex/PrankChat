@@ -1,9 +1,6 @@
-﻿using CoreGraphics;
-using MvvmCross.Binding;
-using MvvmCross.Binding.BindingContext;
+﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Views;
-using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
@@ -18,6 +15,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
     public partial class OrderDetailsView : BaseGradientBarView<OrderDetailsViewModel>
     {
         private MvxUIRefreshControl _refreshControl;
+        private UIBarButtonItem _rightBarButtonItem;
 
         protected override void SetupBinding()
         {
@@ -289,11 +287,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .For(v => v.RefreshCommand)
                 .To(vm => vm.LoadOrderDetailsCommand);
 
+            set.Bind(_rightBarButtonItem)
+                .To(vm => vm.OpenSettingsCommand);
+
             set.Apply();
         }
 
         protected override void SetupControls()
         {
+            InitializeRightBarButtonItem();
+
             Title = Resources.OrderDetailsView_Title;
 
             takeOrderButton.SetDarkStyle(Resources.OrderDetailsView_Take_Order_Button);
@@ -334,6 +337,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             videoImageView.SetCornerRadius(5);
 
             rootScrollView.RefreshControl = _refreshControl = new MvxUIRefreshControl();
+        }
+
+        private void InitializeRightBarButtonItem()
+        {
+            _rightBarButtonItem = new UIBarButtonItem
+            {
+                Title = string.Empty,
+                Image = UIImage.FromBundle("ic_three_dots").ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate),
+                TintColor = Theme.Color.White
+            };
+
+            NavigationItem.RightBarButtonItem = _rightBarButtonItem;
         }
     }
 }
