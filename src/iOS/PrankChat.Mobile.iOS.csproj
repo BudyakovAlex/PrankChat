@@ -768,6 +768,8 @@
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_plus.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_plus.imageset\ic_plus.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\ThreeDots.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -796,6 +798,7 @@
     <Folder Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\" />
     <Folder Include="Assets.xcassets\bg_order_type_not_my.imageset\" />
     <Folder Include="Assets.xcassets\ic_plus.imageset\" />
+    <Folder Include="Assets.xcassets\ic_three_dots.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

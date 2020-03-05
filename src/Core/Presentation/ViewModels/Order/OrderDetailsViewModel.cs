@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
-using MvvmCross.Logging;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
@@ -154,6 +153,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public MvxAsyncCommand ShowFullVideoCommand => new MvxAsyncCommand(OnShowFullVideoAsync);
 
         public MvxAsyncCommand LoadOrderDetailsCommand => new MvxAsyncCommand(LoadOrderDetailsAsync);
+
+        public MvxAsyncCommand OpenSettingsCommand => new MvxAsyncCommand(OpenSettingsAsync);
 
         #endregion Commands
 
@@ -444,6 +445,41 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                                                 _order.Video.LikesCount,
                                                                 _order.Video.IsLiked);
             return NavigationService.ShowFullScreenVideoView(navigationParams);
+        }
+
+        private async Task OpenSettingsAsync()
+        {
+            var result = await DialogService.ShowMenuDialogAsync(new[]
+            {
+                Resources.Publication_Item_Complain,
+                Resources.Publication_Item_Copy_Link
+            });
+
+            if (string.IsNullOrWhiteSpace(result))
+            {
+                return;
+            }
+
+            if (result == Resources.Publication_Item_Complain)
+            {
+                if (!IsUserSessionInitialized)
+                {
+                    await NavigationService.ShowLoginView();
+                    return;
+                }
+
+                await ApiService.ComplainOrderAsync(_orderId, "n/a", "n/a");
+                DialogService.ShowToast(Resources.ComplainSuccessful, ToastType.Positive);
+                return;
+            }
+
+            // TODO: where to get copy link?
+            //if (result == Resources.Publication_Item_Copy_Link)
+            //{
+            //    await _platformService.CopyTextAsync(_shareLink);
+            //    DialogService.ShowToast(Resources.LinkCopied, ToastType.Positive);
+            //    return;
+            //}
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
@@ -13,6 +12,7 @@ using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -231,12 +231,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             if (result == Resources.Publication_Item_Complain)
             {
                 await ApiService.ComplainVideoAsync(VideoId, "n/a", "n/a");
+                DialogService.ShowToast(Resources.ComplainSuccessful, ToastType.Positive);
                 return;
             }
 
             if (result == Resources.Publication_Item_Copy_Link)
             {
                 await _platformService.CopyTextAsync(_shareLink);
+                DialogService.ShowToast(Resources.LinkCopied, ToastType.Positive);
                 return;
             }
 
