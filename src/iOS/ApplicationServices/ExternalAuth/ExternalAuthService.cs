@@ -30,8 +30,9 @@ namespace PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth
             return completionSource.Task;
         }
 
-        public Task<string> LoginWithVkontakteAsync()
+        public async Task<string> LoginWithVkontakteAsync()
         {
+            VKSdk.WakeUpSession(_permissions, (state, error) => {});
             VKSdk.Instance.RegisterDelegate(VkontakteDelegate.Instance);
             VKSdk.Instance.UiDelegate = VkontakteDelegate.Instance;
 
@@ -39,7 +40,11 @@ namespace PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth
             VKSdk.Authorize(_permissions, VKAuthorizationOptions.DisableSafariController);
             VkontakteDelegate.Instance.CompletionSource = completionSource;
 
-            return completionSource.Task;
+            var token = await completionSource.Task;
+            VKSdk.Instance.UnregisterDelegate(VkontakteDelegate.Instance);
+            VKSdk.Instance.UiDelegate = null;
+
+            return token;
         }
 
         public void LogoutFromFacebook()
