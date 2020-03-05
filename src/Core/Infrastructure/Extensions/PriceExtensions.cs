@@ -1,4 +1,5 @@
-﻿using PrankChat.Mobile.Core.Presentation.Localization;
+﻿using System.Globalization;
+using PrankChat.Mobile.Core.Presentation.Localization;
 
 namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
@@ -12,7 +13,9 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             if (price == null || price == 0)
                 return GetStringWithCurrency(DefaultValue);
 
-            return price?.ToString(GetStringWithCurrency(FormatForPrice)).Replace(',', ' ');
+            return price?.ToString(GetStringWithCurrency(FormatForPrice), CultureInfo.CurrentCulture)
+                           .Replace(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
+                           .Replace(CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, " ");
         }
 
         private static string GetStringWithCurrency(string value)
