@@ -706,4 +706,10 @@
   <data name="FinishPasswordRecoveryView_GoToLogin_Button" xml:space="preserve">
     <value>Войти в аккаунт</value>
   </data>
+  <data name="LinkCopied" xml:space="preserve">
+    <value>Ссылка скопирована</value>
+  </data>
+  <data name="ComplainSuccessful" xml:space="preserve">
+    <value>Отправлено модератору</value>
+  </data>
 </root>

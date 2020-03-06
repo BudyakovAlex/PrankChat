@@ -1198,19 +1198,15 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("FinishPasswordRecoveryView_GoToLogin_Button", resourceCulture);
             }
         }
-
-        public static string LinkCopied
-        {
-            get
-            {
+        
+        public static string LinkCopied {
+            get {
                 return ResourceManager.GetString("LinkCopied", resourceCulture);
             }
         }
-
-        public static string ComplainSuccessful
-        {
-            get
-            {
+        
+        public static string ComplainSuccessful {
+            get {
                 return ResourceManager.GetString("ComplainSuccessful", resourceCulture);
             }
         }
