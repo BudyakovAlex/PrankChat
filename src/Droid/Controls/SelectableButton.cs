@@ -2,22 +2,30 @@
 using Android.App;
 using Android.Content;
 using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.Runtime;
 using Android.Support.V4.Content;
 using Android.Util;
 using Android.Widget;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Droid.Controls
 {
     public class SelectableButton : Button
     {
-        public override bool Selected
+        private Drawable _drawableForSelectedState;
+        private Drawable _drawableForUnselectedState;
+        private string _typeArbitrationButton;
+        private GradientDrawable _shape;
+
+        private ArbitrationValueType? _arbitrationValue;
+        public ArbitrationValueType? ArbitrationValue
         {
-            get => base.Selected;
+            get => _arbitrationValue;
             set
             {
-                base.Selected = value;
-                ChangeSelectedState(value);
+                _arbitrationValue = value;
+                ChangeSelectedState();
             }
         }
 
@@ -27,47 +35,83 @@ namespace PrankChat.Mobile.Droid.Controls
 
         public SelectableButton(Context context) : base(context)
         {
-            Initialize();
+            Initialize(context);
         }
 
         public SelectableButton(Context context, IAttributeSet attrs) : base(context, attrs)
         {
-            Initialize();
+            Initialize(context, attrs);
         }
 
         public SelectableButton(Context context, IAttributeSet attrs, int defStyleAttr) : base(context, attrs, defStyleAttr)
         {
-            Initialize();
+            Initialize(context, attrs);
         }
 
         public SelectableButton(Context context, IAttributeSet attrs, int defStyleAttr, int defStyleRes) : base(context, attrs, defStyleAttr, defStyleRes)
         {
-            Initialize();
+            Initialize(context, attrs);
         }
 
         protected SelectableButton(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
-            Initialize();
         }
 
         #endregion
 
-        private void Initialize()
+        private void Initialize(Context context, IAttributeSet attrs = null)
         {
-            SetTextColor(ContextCompat.GetColorStateList(Application.Context, Resource.Color.accent));
+            if (attrs != null)
+            {
+                var array = context.ObtainStyledAttributes(attrs, Resource.Styleable.SelectableButton, 0, 0);
+
+                _drawableForSelectedState = array.GetDrawable(Resource.Styleable.SelectableButton_selected_drawable);
+                _drawableForUnselectedState = array.GetDrawable(Resource.Styleable.SelectableButton_unselected_drawable);
+                _typeArbitrationButton = array.GetNonResourceString(Resource.Styleable.SelectableButton_type_arbitration);
+
+                array.Recycle();
+            }
+
+            _shape = new GradientDrawable();
+            _shape.SetShape(ShapeType.Rectangle);
+            _shape.SetStroke(3, GetColorStateList(Resource.Color.accent));
+            _shape.SetCornerRadius(15);
+            ChangeSelectedState();
         }
 
-        private void ChangeSelectedState(bool isSelected)
+        private void ChangeSelectedState()
         {
-            Alpha = isSelected ? 1 : Transparency;
-            if (isSelected)
+            if ((_arbitrationValue == ArbitrationValueType.Positive && _typeArbitrationButton == "positive") ||
+                (_arbitrationValue == ArbitrationValueType.Negative && _typeArbitrationButton == "negative") ||
+                _arbitrationValue == null)
             {
-                SetBackgroundResource(Resource.Drawable.border_accent);
+                SetPositiveStyle();
             }
             else
             {
-                SetBackgroundResource(0);
+                SetNegativeStyle();
             }
+            SetBackgroundDrawable(_shape);
         }
+
+        private void SetPositiveStyle()
+        {
+            SetStyle(1f, Resource.Color.applicationWhite, _drawableForSelectedState, Resource.Color.accent);
+        }
+
+        private void SetNegativeStyle()
+        {
+            SetStyle(Transparency, Resource.Color.accent, _drawableForUnselectedState, Resource.Color.applicationWhite);
+        }
+
+        private void SetStyle(float alpha, int textColor, Drawable leftDrawable, int backgroundColor)
+        {
+            Alpha = alpha;
+            SetTextColor(GetColorStateList(textColor));
+            SetCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, null, null);
+            _shape.SetColor(GetColorStateList(backgroundColor));
+        }
+
+        private Android.Content.Res.ColorStateList GetColorStateList(int id) => ContextCompat.GetColorStateList(Application.Context, id);
     }
 }
