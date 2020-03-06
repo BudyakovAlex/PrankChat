@@ -37,7 +37,6 @@ namespace PrankChat.Mobile.iOS
         {
             // Restart any tasks that were paused (or not yet started) while the application was inactive.
             // If the application was previously in the background, optionally refresh the user interface.
-            Facebook.CoreKit.AppEvents.ActivateApp();
         }
 
         public override void WillTerminate(UIApplication application)
@@ -47,15 +46,15 @@ namespace PrankChat.Mobile.iOS
 
         public override void FinishedLaunching(UIApplication application)
         {
-            InitializeFirebase();
+            //InitializeFirebase();
             base.FinishedLaunching(application);
         }
 
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
-            Facebook.CoreKit.Profile.EnableUpdatesOnAccessTokenChange(true);
-            Facebook.CoreKit.ApplicationDelegate.SharedInstance.FinishedLaunching(application, launchOptions);
-            InitializeFirebase();
+            //Facebook.CoreKit.Profile.EnableUpdatesOnAccessTokenChange(true);
+            //Facebook.CoreKit.ApplicationDelegate.SharedInstance.FinishedLaunching(application, launchOptions);
+            //InitializeFirebase();
 
             return base.FinishedLaunching(application, launchOptions);
         }
