@@ -23,7 +23,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.PasswordRecovery
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            var view = base.OnCreateView(inflater, container, savedInstanceState, Resource.Layout.finish_password_recovery_layout);
+            var view = base.OnCreateView(inflater, container, savedInstanceState, Resource.Layout.fragment_finish_password_recovery);
             return view;
         }
 

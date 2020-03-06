@@ -217,4 +217,6 @@
     <string name="Demo">"Демо"</string>
     <string name="com.crashlytics.android.build_id">"e9e6beb9c4284289ac68b9ab76a9ee56"</string>
     <integer name="com_vk_sdk_AppId">7343996</integer>
+    <string name="FinishPasswordRecoveryView_GoToFeed_Button">"Перейти в ленту"</string>
+    <string name="FinishPasswordRecoveryView_GoToLogin_Button">"Войти в аккаунт"</string>
 </resources>

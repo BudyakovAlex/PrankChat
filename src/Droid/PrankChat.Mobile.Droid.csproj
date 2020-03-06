@@ -240,7 +240,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\finish_password_recovery_layout.xml">
+    <AndroidResource Include="Resources\layout\fragment_finish_password_recovery.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -353,7 +353,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\activity_create_order.xml">
+    <AndroidResource Include="Resources\layout\fragment_create_order.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -595,7 +595,7 @@
     <AndroidResource Include="Resources\layout\notifications_layout.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\password_recovery_layout.xml" />
+    <AndroidResource Include="Resources\layout\fragment_password_recovery.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\profile_layout.xml" />

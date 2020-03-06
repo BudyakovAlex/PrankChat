@@ -1,31 +1,50 @@
 // WARNING
 //
-// This file has been generated automatically by Visual Studio from the outlets and
-// actions declared in your storyboard file.
-// Manual changes to this file will not be maintained.
+// This file has been generated automatically by Visual Studio to store outlets and
+// actions made in the UI designer. If it is removed, they will be lost.
+// Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using System;
 using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.PasswordRecoveryView
 {
-    [Register ("PasswordRecoveryView")]
-    partial class PasswordRecoveryView
-    {
-        [Outlet]
-        UIKit.UITextField emailEditText { get; set; }
+	[Register ("PasswordRecoveryView")]
+	partial class PasswordRecoveryView
+	{
+		[Outlet]
+		UIKit.UITextField emailEditText { get; set; }
 
+		[Outlet]
+		UIKit.UIActivityIndicatorView progresBar { get; set; }
 
-        [Outlet]
-        UIKit.UIButton recoverPasswordButton { get; set; }
+		[Outlet]
+		UIKit.UIButton recoverPasswordButton { get; set; }
 
+		[Outlet]
+		UIKit.UILabel titleLabel { get; set; }
+		
+		void ReleaseDesignerOutlets ()
+		{
+			if (emailEditText != null) {
+				emailEditText.Dispose ();
+				emailEditText = null;
+			}
 
-        [Outlet]
-        UIKit.UILabel titleLabel { get; set; }
+			if (recoverPasswordButton != null) {
+				recoverPasswordButton.Dispose ();
+				recoverPasswordButton = null;
+			}
 
-        void ReleaseDesignerOutlets ()
-        {
-        }
-    }
+			if (titleLabel != null) {
+				titleLabel.Dispose ();
+				titleLabel = null;
+			}
+
+			if (progresBar != null) {
+				progresBar.Dispose ();
+				progresBar = null;
+			}
+		}
+	}
 }

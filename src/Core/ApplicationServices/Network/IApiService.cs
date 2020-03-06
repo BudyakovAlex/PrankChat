@@ -22,6 +22,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task RefreshTokenAsync();
 
+        Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email);
+
         #endregion Authorize
 
         #region Orders
