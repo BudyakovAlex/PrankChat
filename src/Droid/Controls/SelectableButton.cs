@@ -1,7 +1,6 @@
 ﻿using System;
 using Android.App;
 using Android.Content;
-using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Runtime;
 using Android.Support.V4.Content;
@@ -16,7 +15,7 @@ namespace PrankChat.Mobile.Droid.Controls
         private Drawable _drawableForSelectedState;
         private Drawable _drawableForUnselectedState;
         private string _typeArbitrationButton;
-        private GradientDrawable _shape;
+        private GradientDrawable backgroundDrawable;
 
         private ArbitrationValueType? _arbitrationValue;
         public ArbitrationValueType? ArbitrationValue
@@ -72,10 +71,11 @@ namespace PrankChat.Mobile.Droid.Controls
                 array.Recycle();
             }
 
-            _shape = new GradientDrawable();
-            _shape.SetShape(ShapeType.Rectangle);
-            _shape.SetStroke(3, GetColorStateList(Resource.Color.accent));
-            _shape.SetCornerRadius(15);
+            backgroundDrawable = new GradientDrawable();
+            backgroundDrawable.SetShape(ShapeType.Rectangle);
+            backgroundDrawable.SetStroke(3, GetColorStateList(Resource.Color.accent));
+            backgroundDrawable.SetCornerRadius(15);
+
             ChangeSelectedState();
         }
 
@@ -91,7 +91,7 @@ namespace PrankChat.Mobile.Droid.Controls
             {
                 SetNegativeStyle();
             }
-            SetBackgroundDrawable(_shape);
+            SetBackgroundDrawable(backgroundDrawable);
         }
 
         private void SetPositiveStyle()
@@ -109,7 +109,7 @@ namespace PrankChat.Mobile.Droid.Controls
             Alpha = alpha;
             SetTextColor(GetColorStateList(textColor));
             SetCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, null, null);
-            _shape.SetColor(GetColorStateList(backgroundColor));
+            backgroundDrawable.SetColor(GetColorStateList(backgroundColor));
         }
 
         private Android.Content.Res.ColorStateList GetColorStateList(int id) => ContextCompat.GetColorStateList(Application.Context, id);
