@@ -63,7 +63,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             switch (item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    ViewModel.GoBackCommand.Execute();
+                    OnBackPressed();
                     break;
             }
             return base.OnOptionsItemSelected(item);
