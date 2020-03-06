@@ -72,7 +72,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public ArbitrationValueType? SelectedArbitration => _order.MyArbitrationValue;
 
-        public bool IsDecideEnabled => true; // SelectedArbitration == null;
+        public bool IsDecideEnabled => SelectedArbitration == null;
 
         private bool _isNoSelected;
         public bool IsNoSelected
