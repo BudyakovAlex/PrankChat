@@ -66,10 +66,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public int LikesCount => _order?.PositiveArbitrationValuesCount ?? 0;
 
         public int DisikesCount => _order?.NegativeArbitrationValuesCount ?? 0;
+     
+        public string YesText => SelectedArbitration == null ? Resources.OrderDetailsView_Yes_Button : LikesCount.ToString();
 
-        public string YesText => $"{Resources.OrderDetailsView_Yes_Button} {LikesCount}";
-
-        public string NoText => $"{Resources.OrderDetailsView_No_Button} {DisikesCount}";
+        public string NoText => SelectedArbitration == null ? Resources.OrderDetailsView_No_Button : DisikesCount.ToString();
 
         public ArbitrationValueType? SelectedArbitration => _order.MyArbitrationValue;
 
