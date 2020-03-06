@@ -11,6 +11,9 @@ namespace PrankChat.Mobile.iOS.Controls
     [Register("CircleCachedImageView"), DesignTimeVisible(true)]
     public class CircleCachedImageView : MvxCachedImageView
     {
+        private const int ImageSize = 50;
+        private const int PlaceholderTextSize = 16;
+
         private UILabel _placeholderLabel;
 
         private string _placeholderText;
@@ -52,8 +55,8 @@ namespace PrankChat.Mobile.iOS.Controls
 
         private void Initilize()
         {
-            DownsampleHeight = 50;
-            DownsampleWidth = 50;
+            DownsampleHeight = ImageSize;
+            DownsampleWidth = ImageSize;
 
             BackgroundColor = Theme.Color.Accent;
             Layer.CornerRadius = Bounds.Height / 2;
@@ -75,7 +78,7 @@ namespace PrankChat.Mobile.iOS.Controls
         {
             _placeholderLabel = new UILabel
             {
-                Font = UIFont.BoldSystemFontOfSize(16),
+                Font = UIFont.BoldSystemFontOfSize(PlaceholderTextSize),
                 TextColor = UIColor.White
             };
             AddSubview(_placeholderLabel);

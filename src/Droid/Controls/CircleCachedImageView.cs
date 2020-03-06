@@ -10,7 +10,10 @@ namespace PrankChat.Mobile.Droid.Controls
 {
     public class CircleCachedImageView : MvxCachedImageView
     {
-        private TextPaint _textPaint;
+        private const int ImageSize = 50;
+        private const int PlaceholderTextSize = 16;
+
+        private TextPaint _placeholderPaint;
 
         public string PlaceholderText { get; set; }
 
@@ -31,8 +34,8 @@ namespace PrankChat.Mobile.Droid.Controls
 
         private void Initilize()
         {
-            DownsampleHeight = 50;
-            DownsampleWidth = 50;
+            DownsampleHeight = ImageSize;
+            DownsampleWidth = ImageSize;
 
             SetScaleType(ScaleType.CenterCrop);
             SetBackgroundResource(Resource.Drawable.ic_image_background);
@@ -46,29 +49,29 @@ namespace PrankChat.Mobile.Droid.Controls
             path.AddRoundRect(rect, radius, radius, Path.Direction.Cw);
             canvas.ClipPath(path);
 
-            DrawText(canvas);
+            DrawPlaceholder(canvas);
 
             base.OnDraw(canvas);
         }
 
-        private void DrawText(Canvas canvas)
+        private void DrawPlaceholder(Canvas canvas)
         {
             if (string.IsNullOrWhiteSpace(PlaceholderText))
                 return;
 
-            _textPaint = new TextPaint
+            _placeholderPaint = new TextPaint
             {
                 Color = Color.White,
-                TextSize = 16 * Resources.DisplayMetrics.Density,
+                TextSize = PlaceholderTextSize * Resources.DisplayMetrics.Density,
                 TextAlign = Paint.Align.Center,
             };
             var textBounds = new Rect();
-            _textPaint.GetTextBounds(PlaceholderText, 0, PlaceholderText.Length, textBounds);
-            _textPaint.SetTypeface(Typeface.Create(Typeface.Default, TypefaceStyle.Bold));
+            _placeholderPaint.GetTextBounds(PlaceholderText, 0, PlaceholderText.Length, textBounds);
+            _placeholderPaint.SetTypeface(Typeface.Create(Typeface.Default, TypefaceStyle.Bold));
 
             var textDrawX = Width / 2;
-            var textDrawY = (int)((Height / 2) - ((_textPaint.Descent() + _textPaint.Ascent()) / 2));
-            canvas.DrawText(PlaceholderText, textDrawX, textDrawY, _textPaint);
+            var textDrawY = (int)((Height / 2) - ((_placeholderPaint.Descent() + _placeholderPaint.Ascent()) / 2));
+            canvas.DrawText(PlaceholderText, textDrawX, textDrawY, _placeholderPaint);
         }
     }
 }
