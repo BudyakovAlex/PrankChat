@@ -24,23 +24,13 @@
 				android:layout_height="wrap_content"
 				android:paddingLeft="32dp"
 				android:paddingRight="32dp">
-				<FrameLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="16dp">
-					<FFImageLoading.Cross.MvxCachedImageView
-						android:id="@+id/user_photo"
-						android:layout_width="85dp"
-						android:layout_height="85dp"
-						android:layout_gravity="center_horizontal"
-						app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneTime; DrawableId PlaceholderImage(ProfilePhotoUrl); Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_gravity="center"
-						android:textColor="@color/applicationWhite"
-						app:MvxBind="Text ProfileShortName; Visibility InvertedVisibility(ProfilePhotoUrl);"/>
-				</FrameLayout>
+                <CircleCachedImageView
+                    android:id="@+id/user_photo"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="center_horizontal"
+                    app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneWay; PlaceholderText ProfileShortName, Mode = OneWay" />
 				<TextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -277,24 +267,14 @@
 						android:textSize="12sp"
 						android:textColor="@color/inactive"
 						android:text="@string/OrderDetailsView_Took_The_Order_Text"/>
-					<FrameLayout
-						android:id="@+id/executor_photo"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginTop="15dp"
-						android:layout_alignParentLeft="true"
-						android:layout_below="@+id/take_the_order_text">
-						<FFImageLoading.Cross.MvxCachedImageView
-							android:layout_width="42dp"
-							android:layout_height="42dp"
-							app:MvxBind="ImagePath ExecutorPhotoUrl; DrawableId PlaceholderImage(ExecutorPhotoUrl); Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_gravity="center"
-							android:textColor="@color/applicationWhite"
-							app:MvxBind="Text ExecutorShortName; Visibility InvertedVisibility(ExecutorPhotoUrl);"/>
-					</FrameLayout>
+                    <CircleCachedImageView
+                        android:id="@+id/executor_photo"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/take_the_order_text"
+                        app:MvxBind="ImagePath ExecutorPhotoUrl; PlaceholderText ExecutorShortName" />
 					<TextView
 						android:id="@+id/executor_name"
 						android:layout_width="match_parent"

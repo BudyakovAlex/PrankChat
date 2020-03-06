@@ -6,6 +6,7 @@ using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
@@ -24,9 +25,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
     {
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
-        private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _mvxMessenger;
-
+        private readonly IExternalAuthService _externalAuthService;
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
         {
@@ -96,13 +96,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                                 IVideoPlayerService videoPlayerService,
                                 IErrorHandleService errorHandleService,
                                 ISettingsService settingsService,
-                                IMvxMessenger mvxMessenger)
+                                IMvxMessenger mvxMessenger,
+                                IExternalAuthService externalAuthService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _platformService = platformService;
             _videoPlayerService = videoPlayerService;
-            _settingsService = settingsService;
             _mvxMessenger = mvxMessenger;
+            _externalAuthService = externalAuthService;
         }
 
         public override Task Initialize()
@@ -185,7 +186,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                     ApiService,
                     ErrorHandleService,
                     _mvxMessenger,
-                    _settingsService,
+                    SettingsService,
                     publication.User?.Name,
                     publication.User?.Avatar,
                     publication.Id,
@@ -252,6 +253,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             SettingsService.User = null;
             await SettingsService.SetAccessTokenAsync(string.Empty);
             //_apiService.LogoutAsync().FireAndForget();
+            _externalAuthService.LogoutFromFacebook();
+            _externalAuthService.LogoutFromVkontakte();
             await NavigationService.Logout();
         }
 

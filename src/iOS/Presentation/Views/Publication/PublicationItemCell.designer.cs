@@ -25,13 +25,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UIButton moreButton { get; set; }
 
 		[Outlet]
-		FFImageLoading.Cross.MvxCachedImageView profileImage { get; set; }
+		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profileImage { get; set; }
 
 		[Outlet]
 		UIKit.UILabel profileNameLabel { get; set; }
-
-		[Outlet]
-		UIKit.UILabel profileShortNameLabel { get; set; }
 
 		[Outlet]
 		UIKit.UILabel publicationInfoLabel { get; set; }
@@ -75,11 +72,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			if (profileNameLabel != null) {
 				profileNameLabel.Dispose ();
 				profileNameLabel = null;
-			}
-
-			if (profileShortNameLabel != null) {
-				profileShortNameLabel.Dispose ();
-				profileShortNameLabel = null;
 			}
 
 			if (publicationInfoLabel != null) {

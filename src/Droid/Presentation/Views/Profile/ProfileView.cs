@@ -1,11 +1,6 @@
-﻿using System.Collections.Generic;
-using Android.OS;
+﻿using Android.OS;
 using Android.Runtime;
 using Android.Views;
-using FFImageLoading.Cross;
-using FFImageLoading.Transformations;
-using FFImageLoading.Work;
-using MvvmCross.Droid.Support.V4;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels;

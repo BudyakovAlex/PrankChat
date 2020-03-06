@@ -1,9 +1,6 @@
-﻿using CoreGraphics;
-using MvvmCross.Binding;
-using MvvmCross.Binding.BindingContext;
+﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Views;
-using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
@@ -18,6 +15,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
     public partial class OrderDetailsView : BaseGradientBarView<OrderDetailsViewModel>
     {
         private MvxUIRefreshControl _refreshControl;
+        private UIBarButtonItem _rightBarButtonItem;
 
         protected override void SetupBinding()
         {
@@ -26,27 +24,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             #region Customer
 
             set.Bind(profileImageView)
-                .For(v => v.DownsampleWidth)
-                .To(vm => vm.DownsampleWidth);
-
-            set.Bind(profileImageView)
-                .For(v => v.Transformations)
-                .To(vm => vm.Transformations);
-
-            set.Bind(profileImageView)
                 .For(v => v.ImagePath)
-                .WithConversion<PlaceholderImageConverter>()
                 .To(vm => vm.ProfilePhotoUrl);
+
+            set.Bind(profileImageView)
+                .For(v => v.PlaceholderText)
+                .To(vm => vm.ProfileShortName);
 
             set.Bind(profileNameLabel)
                 .To(vm => vm.ProfileName);
-
-            set.Bind(customerShortNameLabel)
-                .To(vm => vm.ProfileShortName);
-
-            set.Bind(customerShortNameLabel)
-                .For(v => v.BindHidden())
-                .To(vm => vm.ProfilePhotoUrl);
 
             #endregion Customer
 
@@ -210,17 +196,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             #region Executor
 
             set.Bind(executorImageView)
-                .For(v => v.DownsampleWidth)
-                .To(vm => vm.DownsampleWidth);
-
-            set.Bind(executorImageView)
-                .For(v => v.Transformations)
-                .To(vm => vm.Transformations);
-
-            set.Bind(executorImageView)
                 .For(v => v.ImagePath)
-                .WithConversion<PlaceholderImageConverter>()
                 .To(vm => vm.ExecutorPhotoUrl);
+
+            set.Bind(executorImageView)
+                .For(v => v.PlaceholderText)
+                .To(vm => vm.ExecutorShortName);
 
             set.Bind(executorNameLabel)
                 .To(vm => vm.ExecutorName);
@@ -231,13 +212,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             set.Bind(executorView)
                 .For(v => v.BindVisible())
                 .To(vm => vm.IsExecutorAvailable);
-
-            set.Bind(executorShortNameLabel)
-                .To(vm => vm.ExecutorShortName);
-
-            set.Bind(executorShortNameLabel)
-                .For(v => v.BindHidden())
-                .To(vm => vm.ExecutorPhotoUrl);
 
             #endregion Executor
 
@@ -289,11 +263,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .For(v => v.RefreshCommand)
                 .To(vm => vm.LoadOrderDetailsCommand);
 
+            set.Bind(_rightBarButtonItem)
+                .To(vm => vm.OpenSettingsCommand);
+
             set.Apply();
         }
 
         protected override void SetupControls()
         {
+            InitializeRightBarButtonItem();
+
             Title = Resources.OrderDetailsView_Title;
 
             takeOrderButton.SetDarkStyle(Resources.OrderDetailsView_Take_Order_Button);
@@ -334,6 +313,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             videoImageView.SetCornerRadius(5);
 
             rootScrollView.RefreshControl = _refreshControl = new MvxUIRefreshControl();
+        }
+
+        private void InitializeRightBarButtonItem()
+        {
+            _rightBarButtonItem = new UIBarButtonItem
+            {
+                Title = string.Empty,
+                Image = UIImage.FromBundle("ic_three_dots").ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate),
+                TintColor = Theme.Color.White
+            };
+
+            NavigationItem.RightBarButtonItem = _rightBarButtonItem;
         }
     }
 }

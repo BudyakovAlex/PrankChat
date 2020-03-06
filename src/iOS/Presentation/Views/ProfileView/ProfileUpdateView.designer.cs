@@ -5,7 +5,6 @@
 // Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using PrankChat.Mobile.iOS.Controls;
 using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
@@ -15,7 +14,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 	{
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
-		FloatPlaceholderTextField birthdayTextField { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField birthdayTextField { get; set; }
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
@@ -31,7 +30,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
-		FloatPlaceholderTextField emailTextField { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField emailTextField { get; set; }
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
@@ -47,7 +46,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
-		FloatPlaceholderTextField loginTextField { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField loginTextField { get; set; }
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
@@ -63,14 +62,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
-		FloatPlaceholderTextField nameTextField { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField nameTextField { get; set; }
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
-		FFImageLoading.Cross.MvxCachedImageView profileImage { get; set; }
-
-		[Outlet]
-		UIKit.UILabel profileShortNameLabel { get; set; }
+		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profileImage { get; set; }
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
@@ -90,11 +86,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (profileShortNameLabel != null) {
-				profileShortNameLabel.Dispose ();
-				profileShortNameLabel = null;
-			}
-
 			if (birthdayTextField != null) {
 				birthdayTextField.Dispose ();
 				birthdayTextField = null;

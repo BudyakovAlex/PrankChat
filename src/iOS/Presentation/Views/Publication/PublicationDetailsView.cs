@@ -24,16 +24,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.To(vm => vm.CommentatorName);
 
 			set.Bind(commentatorPhotoImageView)
-				.For(v => v.DownsampleWidth)
-				.To(vm => vm.DownsampleWidth)
-				.Mode(MvxBindingMode.OneTime);
-
-			set.Bind(commentatorPhotoImageView)
-				.For(v => v.Transformations)
-				.To(vm => vm.Transformations)
-				.Mode(MvxBindingMode.OneTime);
-
-			set.Bind(commentatorPhotoImageView)
 				.For(v => v.ImagePath)
 				.To(vm => vm.CommentatorPhotoUrl)
 				.Mode(MvxBindingMode.OneTime);
@@ -60,20 +50,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.Mode(MvxBindingMode.OneTime);
 
 			set.Bind(profilePhotoImageView)
-				.For(v => v.DownsampleWidth)
-				.To(vm => vm.DownsampleWidth)
-				.Mode(MvxBindingMode.OneTime);
-
-			set.Bind(profilePhotoImageView)
-				.For(v => v.Transformations)
-				.To(vm => vm.Transformations)
-				.Mode(MvxBindingMode.OneTime);
-
-			set.Bind(profilePhotoImageView)
 				.For(v => v.ImagePath)
 				.To(vm => vm.ProfilePhotoUrl)
-				.WithConversion<PlaceholderImageConverter>()
 				.Mode(MvxBindingMode.OneTime);
+
+			set.Bind(profilePhotoImageView)
+	            .For(v => v.PlaceholderText)
+	            .To(vm => vm.ProfileShortName)
+	            .Mode(MvxBindingMode.OneTime);
 
 			set.Bind(publicationInfoLabel)
 				.To(vm => vm.VideoInformationText);
@@ -89,15 +73,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
 			set.Bind(videoNameLabel)
 				.To(vm => vm.VideoName)
-				.Mode(MvxBindingMode.OneTime);
-
-			set.Bind(profileShortNameLabel)
-				.To(vm => vm.ProfileShortName)
-				.Mode(MvxBindingMode.OneTime);
-
-			set.Bind(profileShortNameLabel)
-				.For(v => v.BindHidden())
-				.To(vm => vm.ProfilePhotoUrl)
 				.Mode(MvxBindingMode.OneTime);
 
 			set.Apply();

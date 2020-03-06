@@ -697,6 +697,12 @@
   <data name="Demo" xml:space="preserve">
     <value>Демо</value>
   </data>
+  <data name="LinkCopied" xml:space="preserve">
+    <value>Ссылка скопирована</value>
+  </data>
+  <data name="ComplainSuccessful" xml:space="preserve">
+    <value>Отправлено модератору</value>
+  </data>  
   <data name="com.crashlytics.android.build_id" xml:space="preserve">
     <value>e9e6beb9c4284289ac68b9ab76a9ee56</value>
   </data>

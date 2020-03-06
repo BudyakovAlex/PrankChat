@@ -43,10 +43,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UILabel priceValueLabel { get; set; }
 
 		[Outlet]
-		FFImageLoading.Cross.MvxCachedImageView profilePhotoImage { get; set; }
-
-		[Outlet]
-		UIKit.UILabel profileShortNameLabel { get; set; }
+		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profilePhotoImage { get; set; }
 
 		[Outlet]
 		UIKit.UILabel statusOrderLabel { get; set; }
@@ -109,11 +106,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (profilePhotoImage != null) {
 				profilePhotoImage.Dispose ();
 				profilePhotoImage = null;
-			}
-
-			if (profileShortNameLabel != null) {
-				profileShortNameLabel.Dispose ();
-				profileShortNameLabel = null;
 			}
 
 			if (statusOrderLabel != null) {

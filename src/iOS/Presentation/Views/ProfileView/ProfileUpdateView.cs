@@ -63,22 +63,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             set.Bind(profileImage)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)
-                .WithConversion<PlaceholderImageConverter>()
                 .Mode(MvxBindingMode.OneWay);
-
-            set.Bind(profileImage)
-                .For(v => v.DownsampleWidth)
-                .To(vm => vm.DownsampleWidth)
-                .Mode(MvxBindingMode.OneTime);
-
-            set.Bind(profileImage)
-                .For(v => v.Transformations)
-                .To(vm => vm.Transformations)
-                .Mode(MvxBindingMode.OneTime);
 
             set.Bind(profileImage.Tap())
                 .For(v => v.Command)
                 .To(vm => vm.ChangeProfilePhotoCommand);
+
+            set.Bind(profileImage)
+                .For(v => v.PlaceholderText)
+                .To(vm => vm.ProfileShortName);
 
             set.Bind(changeProfilePhotoLabel.Tap())
                 .For(v => v.Command)
@@ -99,13 +92,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             set.Bind(maleIconButton)
                 .For(UIButtonSelectedTargetBinding.TargetBinding)
                 .To(vm => vm.IsGenderMale);
-
-            set.Bind(profileShortNameLabel)
-                .To(vm => vm.ProfileShortName);
-
-            set.Bind(profileShortNameLabel)
-                .For(v => v.BindHidden())
-                .To(vm => vm.ProfilePhotoUrl);
 
             set.Bind(descriptionTextField)
                 .For(v => v.Text)
