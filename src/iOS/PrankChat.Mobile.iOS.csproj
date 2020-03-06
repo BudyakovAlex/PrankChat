@@ -235,7 +235,6 @@
       <DependentUpon>ArrayPickerController.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Dialogs\BaseDialog.cs" />
-    <Compile Include="Presentation\Converters\PlaceholderImageConverter.cs" />
     <InterfaceDefinition Include="Presentation\Views\ProfileView\ProfileUpdateView.xib" />
     <Compile Include="Presentation\Views\ProfileView\ProfileUpdateView.cs" />
     <Compile Include="Presentation\Views\ProfileView\ProfileUpdateView.designer.cs">
@@ -276,6 +275,7 @@
     <Compile Include="Presentation\Views\ProfileView\ProfileView.designer.cs">
       <DependentUpon>ProfileView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CircleCachedImageView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

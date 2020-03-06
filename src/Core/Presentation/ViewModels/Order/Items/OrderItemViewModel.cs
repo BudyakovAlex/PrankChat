@@ -114,8 +114,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 			_mvxMessenger = mvxMessenger;
 
 			Title = orderTitle;
-			ProfilePhotoUrl = profilePhotoUrl;
-			PriceText = price.ToPriceString();
+            ProfilePhotoUrl = profilePhotoUrl;
+            PriceText = price.ToPriceString();
 			ProfileShortName = profileName.ToShortenName();
 			_activeTo = activeTo;
 			_status = status;

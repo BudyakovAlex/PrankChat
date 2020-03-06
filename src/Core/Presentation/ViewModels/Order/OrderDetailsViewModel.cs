@@ -34,7 +34,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string ProfileName => _order?.Customer?.Name;
 
-        public string ProfileShortName => _order?.Customer?.Name?.ToShortenName();
+        public string ProfileShortName => ProfileName?.ToShortenName();
 
         #endregion Profile
 
@@ -56,7 +56,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string ExecutorName => _order?.Executor?.Name;
 
-        public string ExecutorShortName => _order?.Executor?.Name.ToShortenName();
+        public string ExecutorShortName => _order?.Executor?.Name?.ToShortenName();
 
         public string StartOrderDate => _order?.TakenToWorkAt?.ToShortDateString();
 

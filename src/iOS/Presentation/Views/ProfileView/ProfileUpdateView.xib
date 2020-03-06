@@ -23,7 +23,6 @@
                 <outlet property="maleTitleButton" destination="phy-bg-W0V" id="gqu-ke-nlr"/>
                 <outlet property="nameTextField" destination="LSK-6X-VPD" id="name-outlet-LSK-6X-VPD"/>
                 <outlet property="profileImage" destination="EHp-Y2-CQM" id="name-outlet-EHp-Y2-CQM"/>
-                <outlet property="profileShortNameLabel" destination="mmf-kH-1G2" id="bw5-4X-tPA"/>
                 <outlet property="progressBar" destination="Lmz-yn-GFE" id="hMm-NN-5HC"/>
                 <outlet property="saveButton" destination="vRl-An-stw" id="name-outlet-vRl-An-stw"/>
                 <outlet property="scrollView" destination="MyT-Nl-9Q6" id="kLY-CR-UDs"/>
@@ -42,19 +41,13 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dP4-hK-p69">
                             <rect key="frame" x="16" y="0.0" width="343" height="756"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EHp-Y2-CQM" customClass="MvxCachedImageView">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EHp-Y2-CQM" customClass="CircleCachedImageView">
                                     <rect key="frame" x="121.5" y="16" width="100" height="100"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="100" id="2tc-ef-sdY"/>
                                         <constraint firstAttribute="width" constant="100" id="s3n-xd-zvs"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmf-kH-1G2">
-                                    <rect key="frame" x="150.5" y="56" width="42" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49l-Qm-0ex">
                                     <rect key="frame" x="150.5" y="132" width="42" height="20.5"/>
                                     <attributedString key="attributedText">
@@ -238,13 +231,11 @@
                                 <constraint firstItem="dhy-0X-kl9" firstAttribute="top" secondItem="WeL-qQ-SdX" secondAttribute="bottom" constant="16" id="0ss-Og-TLH"/>
                                 <constraint firstItem="GK0-wQ-u5P" firstAttribute="centerX" secondItem="dP4-hK-p69" secondAttribute="centerX" id="2wU-Fn-pRa"/>
                                 <constraint firstAttribute="trailing" secondItem="WeL-qQ-SdX" secondAttribute="trailing" id="9KL-P2-25B"/>
-                                <constraint firstItem="mmf-kH-1G2" firstAttribute="centerY" secondItem="EHp-Y2-CQM" secondAttribute="centerY" id="E0T-6X-wJN"/>
                                 <constraint firstItem="8bo-Kv-Lx4" firstAttribute="top" secondItem="vRl-An-stw" secondAttribute="bottom" constant="16" id="Kgq-u2-lfI"/>
                                 <constraint firstAttribute="bottom" secondItem="8bo-Kv-Lx4" secondAttribute="bottom" constant="50" id="Kl9-c4-6e3"/>
                                 <constraint firstItem="49l-Qm-0ex" firstAttribute="centerX" secondItem="dP4-hK-p69" secondAttribute="centerX" id="MuS-9y-gyu"/>
                                 <constraint firstItem="EHp-Y2-CQM" firstAttribute="top" secondItem="dP4-hK-p69" secondAttribute="top" constant="16" id="Rwh-y1-Qtk"/>
                                 <constraint firstItem="dhy-0X-kl9" firstAttribute="centerX" secondItem="dP4-hK-p69" secondAttribute="centerX" id="VlS-ce-IPU"/>
-                                <constraint firstItem="mmf-kH-1G2" firstAttribute="centerX" secondItem="EHp-Y2-CQM" secondAttribute="centerX" id="Wm1-Gv-RVx"/>
                                 <constraint firstItem="vRl-An-stw" firstAttribute="centerX" secondItem="dP4-hK-p69" secondAttribute="centerX" id="Wss-th-A9e"/>
                                 <constraint firstItem="EHp-Y2-CQM" firstAttribute="centerX" secondItem="dP4-hK-p69" secondAttribute="centerX" id="Wwk-mh-Ci9"/>
                                 <constraint firstItem="Lmz-yn-GFE" firstAttribute="centerY" secondItem="vRl-An-stw" secondAttribute="centerY" id="Xbi-s9-iYc"/>
