@@ -461,7 +461,7 @@
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_more_white.xml">
       <SubType></SubType>
-      <Generator></Generator>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
