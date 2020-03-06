@@ -33,7 +33,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string ProfileName => _order?.Customer?.Name;
 
-        public string ProfileShortName => _order?.Customer?.Name?.ToShortenName();
+        public string ProfileShortName => ProfileName?.ToShortenName();
 
         #endregion Profile
 

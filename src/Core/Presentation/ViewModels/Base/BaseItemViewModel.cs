@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using FFImageLoading.Transformations;
-using FFImageLoading.Work;
-using MvvmCross.ViewModels;
+﻿using MvvmCross.ViewModels;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {

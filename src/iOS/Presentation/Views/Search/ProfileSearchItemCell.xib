@@ -19,19 +19,13 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="crE-Ne-yIc">
                         <rect key="frame" x="15" y="7" width="290" height="42"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m56-nj-zh9" customClass="MvxCachedImageView">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m56-nj-zh9" customClass="CircleCachedImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="42" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="42" id="CGH-4u-g4o"/>
                                     <constraint firstAttribute="height" constant="42" id="IBX-lp-kLm"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tnl-wl-7KN">
-                                <rect key="frame" x="0.0" y="10.5" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Pg-nZ-3Ht">
                                 <rect key="frame" x="57" y="5" width="31" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -47,8 +41,6 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Tnl-wl-7KN" firstAttribute="centerY" secondItem="m56-nj-zh9" secondAttribute="centerY" id="783-5V-Gwn"/>
-                            <constraint firstItem="Tnl-wl-7KN" firstAttribute="centerX" secondItem="m56-nj-zh9" secondAttribute="centerX" id="7NY-52-mcE"/>
                             <constraint firstAttribute="bottom" secondItem="m56-nj-zh9" secondAttribute="bottom" id="Jsh-A4-PrC"/>
                             <constraint firstItem="0Pg-nZ-3Ht" firstAttribute="leading" secondItem="m56-nj-zh9" secondAttribute="trailing" constant="15" id="TOI-tM-u3Z"/>
                             <constraint firstItem="dad-WS-eUH" firstAttribute="leading" secondItem="m56-nj-zh9" secondAttribute="trailing" constant="15" id="Uhl-0p-MIX"/>
@@ -73,7 +65,6 @@
                 <outlet property="profileDescriptionLabel" destination="dad-WS-eUH" id="cDP-Cm-0QK"/>
                 <outlet property="profileImageView" destination="m56-nj-zh9" id="7h4-yD-Ea0"/>
                 <outlet property="profileNameLabel" destination="0Pg-nZ-3Ht" id="UHx-Il-XFP"/>
-                <outlet property="profileShortNameLabel" destination="Tnl-wl-7KN" id="8pk-NW-ilt"/>
             </connections>
             <point key="canvasLocation" x="24" y="56.671664167916049"/>
         </tableViewCell>

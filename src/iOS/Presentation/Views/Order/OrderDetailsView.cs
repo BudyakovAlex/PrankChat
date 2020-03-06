@@ -26,27 +26,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             #region Customer
 
             set.Bind(profileImageView)
-                .For(v => v.DownsampleWidth)
-                .To(vm => vm.DownsampleWidth);
-
-            set.Bind(profileImageView)
-                .For(v => v.Transformations)
-                .To(vm => vm.Transformations);
-
-            set.Bind(profileImageView)
                 .For(v => v.ImagePath)
-                .WithConversion<PlaceholderImageConverter>()
                 .To(vm => vm.ProfilePhotoUrl);
+
+            set.Bind(profileImageView)
+                .For(v => v.PlaceholderText)
+                .To(vm => vm.ProfileShortName)
+                .Mode(MvxBindingMode.OneWay);
 
             set.Bind(profileNameLabel)
                 .To(vm => vm.ProfileName);
-
-            set.Bind(customerShortNameLabel)
-                .To(vm => vm.ProfileShortName);
-
-            set.Bind(customerShortNameLabel)
-                .For(v => v.BindHidden())
-                .To(vm => vm.ProfilePhotoUrl);
 
             #endregion Customer
 
@@ -210,17 +199,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             #region Executor
 
             set.Bind(executorImageView)
-                .For(v => v.DownsampleWidth)
-                .To(vm => vm.DownsampleWidth);
-
-            set.Bind(executorImageView)
-                .For(v => v.Transformations)
-                .To(vm => vm.Transformations);
-
-            set.Bind(executorImageView)
                 .For(v => v.ImagePath)
-                .WithConversion<PlaceholderImageConverter>()
                 .To(vm => vm.ExecutorPhotoUrl);
+
+            set.Bind(executorImageView)
+                .For(v => v.PlaceholderText)
+                .To(vm => vm.ExecutorShortName);
 
             set.Bind(executorNameLabel)
                 .To(vm => vm.ExecutorName);
@@ -231,13 +215,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             set.Bind(executorView)
                 .For(v => v.BindVisible())
                 .To(vm => vm.IsExecutorAvailable);
-
-            set.Bind(executorShortNameLabel)
-                .To(vm => vm.ExecutorShortName);
-
-            set.Bind(executorShortNameLabel)
-                .For(v => v.BindHidden())
-                .To(vm => vm.ExecutorPhotoUrl);
 
             #endregion Executor
 

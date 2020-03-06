@@ -67,19 +67,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.OrderType);
 
             set.Bind(profilePhotoImage)
-                .For(v => v.DownsampleWidth)
-                .To(vm => vm.DownsampleWidth)
-                .Mode(MvxBindingMode.OneTime);
-
-            set.Bind(profilePhotoImage)
-                .For(v => v.Transformations)
-                .To(vm => vm.Transformations)
-                .Mode(MvxBindingMode.OneTime);
-
-            set.Bind(profilePhotoImage)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)
-                .WithConversion<PlaceholderImageConverter>()
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(profilePhotoImage)
+                .For(v => v.PlaceholderText)
+                .To(vm => vm.ProfileShortName)
                 .Mode(MvxBindingMode.OneTime);
 
             set.Bind(orderTitleLabel)
@@ -104,15 +98,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             set.Bind(statusOrderLabel)
                 .To(vm => vm.StatusText)
                 .Mode(MvxBindingMode.OneWay);
-
-            set.Bind(profileShortNameLabel)
-                .To(vm => vm.ProfileShortName)
-                .Mode(MvxBindingMode.OneTime);
-
-            set.Bind(profileShortNameLabel)
-                .For(v => v.BindHidden())
-                .To(vm => vm.ProfilePhotoUrl)
-                .Mode(MvxBindingMode.OneTime);
 
             set.Apply();
         }

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,7 +18,6 @@
                 <outlet property="priceLabel" destination="cpW-tW-Dot" id="cpW-tW-DoH"/>
                 <outlet property="profileDescriptionLabel" destination="dM1-eD-p8l" id="dM1-kD-pSl"/>
                 <outlet property="profileImageView" destination="TEx-X9-V1p" id="TEx-X9-V1S"/>
-                <outlet property="profileShortNameLabel" destination="RKc-xa-waY" id="RKc-xS-waY"/>
                 <outlet property="refillButton" destination="DeB-xN-m46" id="DkB-zN-m46"/>
                 <outlet property="rootScrollView" destination="cRs-9l-VPT" id="cRs-9l-xYz"/>
                 <outlet property="segmentedControl" destination="gCO-si-5Xs" id="gCO-si-5Zs"/>
@@ -44,7 +44,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EcH-8v-uiq">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="199"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TEx-X9-V1p" userLabel="Profile Image View" customClass="MvxCachedImageView">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TEx-X9-V1p" userLabel="Profile Image View" customClass="CircleCachedImageView">
                                             <rect key="frame" x="16" y="16" width="100" height="100"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="100" id="V36-dd-vX0"/>
@@ -58,12 +58,6 @@
                                                 <constraint firstAttribute="width" constant="35" id="uUb-wg-d1k"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKc-xa-waY" userLabel="Profile Short Name Label">
-                                            <rect key="frame" x="45" y="56" width="42" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dM1-eD-p8l" userLabel="Profile Description Label">
                                             <rect key="frame" x="131" y="16" width="267" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -240,14 +234,12 @@
                                         <constraint firstItem="tGa-rU-oaR" firstAttribute="trailing" secondItem="TEx-X9-V1p" secondAttribute="trailing" id="IDh-mp-8iH"/>
                                         <constraint firstItem="MbG-dJ-o4m" firstAttribute="top" secondItem="cpW-tW-Dot" secondAttribute="bottom" constant="10" id="J9Q-zf-pOD"/>
                                         <constraint firstItem="TEx-X9-V1p" firstAttribute="top" secondItem="EcH-8v-uiq" secondAttribute="top" constant="16" id="KKN-a3-r3T"/>
-                                        <constraint firstItem="RKc-xa-waY" firstAttribute="centerY" secondItem="TEx-X9-V1p" secondAttribute="centerY" id="QMJ-tO-Hyo"/>
                                         <constraint firstItem="tGa-rU-oaR" firstAttribute="bottom" secondItem="TEx-X9-V1p" secondAttribute="bottom" id="T0R-nr-34F"/>
                                         <constraint firstAttribute="trailing" secondItem="dM1-eD-p8l" secondAttribute="trailing" constant="16" id="Z2Y-3A-wSS"/>
                                         <constraint firstItem="cpW-tW-Dot" firstAttribute="leading" secondItem="TEx-X9-V1p" secondAttribute="trailing" constant="15" id="acD-QF-e2i"/>
                                         <constraint firstItem="TEx-X9-V1p" firstAttribute="leading" secondItem="EcH-8v-uiq" secondAttribute="leading" constant="16" id="bx7-ys-GiK"/>
                                         <constraint firstItem="cpW-tW-Dot" firstAttribute="top" secondItem="dM1-eD-p8l" secondAttribute="bottom" constant="15" id="cMy-CB-bFk"/>
                                         <constraint firstItem="dM1-eD-p8l" firstAttribute="leading" secondItem="TEx-X9-V1p" secondAttribute="trailing" constant="15" id="jCW-d7-80M"/>
-                                        <constraint firstItem="RKc-xa-waY" firstAttribute="centerX" secondItem="TEx-X9-V1p" secondAttribute="centerX" id="nzQ-gd-nro"/>
                                     </constraints>
                                 </view>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gCO-si-5Xs">
@@ -305,6 +297,6 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_change_profile" width="16" height="16"/>
+        <image name="ic_change_profile" width="30" height="30"/>
     </resources>
 </document>

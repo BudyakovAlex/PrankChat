@@ -223,7 +223,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="3dp"
-            app:MvxBind="Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath CommentatorPhotoUrl, Mode = OneTime" />
+            app:MvxBind="DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath CommentatorPhotoUrl, Mode = OneTime" />
         <TextView
             android:id="@+id/commentator_name"
             android:layout_width="match_parent"

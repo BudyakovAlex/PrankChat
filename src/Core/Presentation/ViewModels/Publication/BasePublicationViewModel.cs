@@ -136,7 +136,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             Subscribe();
         }
 
-
         public void Dispose()
         {
             Dispose(true);

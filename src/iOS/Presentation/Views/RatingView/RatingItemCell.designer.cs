@@ -16,9 +16,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 		UIKit.UIImageView backgroundImageView { get; set; }
 
 		[Outlet]
-		UIKit.UILabel customerShortNameLabel { get; set; }
-
-		[Outlet]
 		UIKit.UILabel dayLabel { get; set; }
 
 		[Outlet]
@@ -46,7 +43,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 		UIKit.UILabel priceValueLabel { get; set; }
 
 		[Outlet]
-		FFImageLoading.Cross.MvxCachedImageView profilePhotoImage { get; set; }
+		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profilePhotoImage { get; set; }
 
 		[Outlet]
 		UIKit.UIButton thumbsDownButton { get; set; }
@@ -68,11 +65,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 			if (backgroundImageView != null) {
 				backgroundImageView.Dispose ();
 				backgroundImageView = null;
-			}
-
-			if (customerShortNameLabel != null) {
-				customerShortNameLabel.Dispose ();
-				customerShortNameLabel = null;
 			}
 
 			if (dayLabel != null) {
