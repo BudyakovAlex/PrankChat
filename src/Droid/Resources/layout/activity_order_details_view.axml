@@ -24,13 +24,13 @@
 				android:layout_height="wrap_content"
 				android:paddingLeft="32dp"
 				android:paddingRight="32dp">
-				<CircleCachedImageView
-					android:id="@+id/user_photo"
-					android:layout_width="85dp"
-					android:layout_height="85dp"
+                <CircleCachedImageView
+                    android:id="@+id/user_photo"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
                     android:layout_marginTop="16dp"
-					android:layout_gravity="center_horizontal"
-					app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneWay; PlaceholderText ProfileShortName, Mode = OneWay" />
+                    android:layout_gravity="center_horizontal"
+                    app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneWay; PlaceholderText ProfileShortName, Mode = OneWay" />
 				<TextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -267,7 +267,7 @@
 						android:textSize="12sp"
 						android:textColor="@color/inactive"
 						android:text="@string/OrderDetailsView_Took_The_Order_Text"/>
-					<CircleCachedImageView
+                    <CircleCachedImageView
                         android:id="@+id/executor_photo"
                         android:layout_width="42dp"
                         android:layout_height="42dp"
