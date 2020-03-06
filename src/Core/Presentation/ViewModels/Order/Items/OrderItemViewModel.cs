@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
@@ -21,9 +22,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
 		private DateTime? _activeTo;
 		private OrderStatusType _status;
-		private int _orderId;
 		private int? _customerId;
 		private MvxSubscriptionToken _timerTickMessageToken;
+
+		public int OrderId { get; }
 
 		public string Title { get; }
 
@@ -119,7 +121,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 			ProfileShortName = profileName.ToShortenName();
 			_activeTo = activeTo;
 			_status = status;
-			_orderId = orderId;
+			OrderId = orderId;
 			_customerId = customerId;
 
 			Subscribe();
@@ -161,11 +163,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
 		private async Task OnOpenDetailsOrderAsync()
 		{
-			var result = await _navigationService.ShowOrderDetailsView(_orderId);
+			var result = await _navigationService.ShowOrderDetailsView(OrderId);
 			if (result == null)
 				return;
 
 			_status = result.Status ?? OrderStatusType.None;
+            if (_status == OrderStatusType.Cancelled || _status == OrderStatusType.Finished)
+            {
+				_mvxMessenger.Publish(new RemoveOrderMessage(this, OrderId));
+				return;
+			}
+
 			await RaisePropertyChanged(nameof(StatusText));
 			await RaisePropertyChanged(nameof(OrderType));
 		}

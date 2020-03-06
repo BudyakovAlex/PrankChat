@@ -27,10 +27,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     {
         private readonly IMvxMessenger _mvxMessenger;
         private readonly ISettingsService _settingsService;
-        private readonly IMvxLog _mvxLog;
         private readonly Dictionary<OrderFilterType, string> _orderFilterTypeTitleMap;
 
         private MvxSubscriptionToken _newOrderMessageToken;
+        private MvxSubscriptionToken _removeOrderMessageToken;
 
         public MvxObservableCollection<OrderItemViewModel> Items { get; } = new MvxObservableCollection<OrderItemViewModel>();
 
@@ -63,13 +63,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                IDialogService dialogService,
                                IApiService apiService,
                                IMvxMessenger mvxMessenger,
-                               IMvxLog mvxLog,
                                ISettingsService settingsService,
                                IErrorHandleService errorHandleService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _mvxMessenger = mvxMessenger;
-            _mvxLog = mvxLog;
             _settingsService = settingsService;
 
             _orderFilterTypeTitleMap = new Dictionary<OrderFilterType, string>
@@ -158,6 +156,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private void Subscription()
         {
             _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<NewOrderMessage>(OnNewOrderMessenger);
+            _removeOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<RemoveOrderMessage>(OnRemoveOrderMessage);
         }
 
         private void Unsubscription()
@@ -168,7 +167,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 _newOrderMessageToken.Dispose();
             }
 
-            foreach(var item in Items)
+            if (_removeOrderMessageToken != null)
+            {
+                _mvxMessenger.Unsubscribe<RemoveOrderMessage>(_removeOrderMessageToken);
+                _removeOrderMessageToken.Dispose();
+            }
+
+            foreach (var item in Items)
             {
                 item.Dispose();
             }
@@ -189,6 +194,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     newOrderMessage.NewOrder.Status ?? OrderStatusType.None,
                     newOrderMessage.NewOrder.Customer?.Id);
             Items.Add(newOrderItemViewModel);
+        }
+
+        private void OnRemoveOrderMessage(RemoveOrderMessage message)
+        {
+            var deletedItem = Items.FirstOrDefault(order => order.OrderId == message.OrderId);
+            if (deletedItem == null)
+                return;
+
+            Items.Remove(deletedItem);
+            deletedItem.Dispose();
         }
     }
 }
