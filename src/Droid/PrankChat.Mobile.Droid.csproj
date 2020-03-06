@@ -455,6 +455,10 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\menu\order_details_menu.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
     <AndroidResource Include="Resources\values\attrs.xml">
       <SubType></SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>

@@ -60,18 +60,17 @@ namespace PrankChat.Mobile.iOS
             return base.FinishedLaunching(application, launchOptions);
         }
 
-        private void InitializeFirebase()
-        {
-            Firebase.Core.App.Configure();
-            Crashlytics.Configure();
-        }
-
-        [Export("application:openURL:sourceApplication:annotation:")]
         public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
         {
             return VKSdk.ProcessOpenUrl(url, sourceApplication)
                || Facebook.CoreKit.ApplicationDelegate.SharedInstance.OpenUrl(application, url, sourceApplication, annotation)
                || base.OpenUrl(application, url, sourceApplication, annotation);
+        }
+
+        private void InitializeFirebase()
+        {
+            Firebase.Core.App.Configure();
+            Crashlytics.Configure();
         }
     }
 }
