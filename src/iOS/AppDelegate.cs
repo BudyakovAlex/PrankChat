@@ -62,8 +62,8 @@ namespace PrankChat.Mobile.iOS
 
         public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
         {
-            return VKSdk.ProcessOpenUrl(url, sourceApplication)
-               || Facebook.CoreKit.ApplicationDelegate.SharedInstance.OpenUrl(application, url, sourceApplication, annotation)
+            return VKSdk.ProcessOpenUrl(url, sourceApplication ?? string.Empty)
+               || Facebook.CoreKit.ApplicationDelegate.SharedInstance.OpenUrl(application, url, sourceApplication ?? string.Empty, annotation)
                || base.OpenUrl(application, url, sourceApplication, annotation);
         }
 
