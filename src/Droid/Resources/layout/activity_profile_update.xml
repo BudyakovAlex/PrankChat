@@ -17,23 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <CircleCachedImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
-                <FFImageLoading.Cross.MvxCachedImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    app:MvxBind="ImagePath PlaceholderImage(ProfilePhotoUrl); Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; Click ChangeProfilePhotoCommand;"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/applicationWhite"
-                    app:MvxBind="Text ProfileShortName; Visibility InvertedVisibility(ProfilePhotoUrl);"/>
-            </FrameLayout>
+                android:layout_marginBottom="10dp"
+                app:MvxBind="ImagePath ProfilePhotoUrl; Click ChangeProfilePhotoCommand; PlaceholderText ProfileShortName, Mode = OneTime"/>
             <TextView
                 android:id="@+id/text_view_change_photo"
                 android:layout_width="wrap_content"

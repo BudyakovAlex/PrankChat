@@ -5,6 +5,7 @@
 // Manual changes to this file may not be handled correctly.
 //
 using Foundation;
+using PrankChat.Mobile.iOS.Controls;
 using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
@@ -16,7 +17,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 		UIKit.UILabel commentDateLabel { get; set; }
 
 		[Outlet]
-		FFImageLoading.Cross.MvxCachedImageView profileImageView { get; set; }
+		CircleCachedImageView profileImageView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel profileNameLabel { get; set; }

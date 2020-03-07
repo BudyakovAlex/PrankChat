@@ -89,6 +89,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
+        public async Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email)
+        {
+            var recoverPasswordModel = new RecoverPasswordApiModel { Email = email, };
+            var result = await _client.UnauthorizedPost<RecoverPasswordApiModel, RecoverPasswordResultApiModel>("auth/password/email", recoverPasswordModel, false);
+            return MappingConfig.Mapper.Map<RecoverPasswordResultDataModel>(result);
+        }
+
         #endregion Authorize
 
         #region Orders

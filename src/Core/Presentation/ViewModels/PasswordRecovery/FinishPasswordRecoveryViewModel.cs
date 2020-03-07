@@ -12,9 +12,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
 {
     public class FinishPasswordRecoveryViewModel : BaseViewModel
     {
-        private readonly ISettingsService _settingService;
+        public MvxAsyncCommand ShowLoginCommand => new MvxAsyncCommand(OnShowLoginAsync);
 
-        public MvxAsyncCommand FinishRecoveringPasswordCommand => new MvxAsyncCommand(OnFinishRecoverPassword);
+        public MvxAsyncCommand ShowPublicationCommand => new MvxAsyncCommand(OnShowPublicationAsync);
 
         public FinishPasswordRecoveryViewModel(INavigationService navigationService,
                                                 IErrorHandleService errorHandleService,
@@ -23,13 +23,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
                                                 ISettingsService settingsService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
-            _settingService = settingsService;
         }
 
-        private Task OnFinishRecoverPassword()
+        private Task OnShowLoginAsync()
         {
-            if (_settingService.User == null)
-                return NavigationService.ShowLoginView();
+            return NavigationService.ShowLoginView();
+        }
+
+        private Task OnShowPublicationAsync()
+        {
             return NavigationService.ShowMainView();
         }
     }

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -82,6 +82,7 @@
     <Compile Include="Presentation\Views\Profile\Cashbox\CashboxView.cs" />
     <Compile Include="Presentation\Views\Profile\Cashbox\RefillView.cs" />
     <Compile Include="Presentation\Views\Profile\Cashbox\WithdrawalView.cs" />
+    <Compile Include="Presentation\Views\Profile\ImageCrop\ImageCropView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileUpdateView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileView.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsLinearLayoutManager.cs" />
@@ -110,7 +111,6 @@
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
     <Compile Include="Presentation\Dialogs\ArrayDialog.cs" />
-    <Compile Include="Presentation\Converters\PlaceholderImageConverter.cs" />
     <Compile Include="Presentation\Converters\LikeConverter.cs" />
     <Compile Include="Controls\SelectableButton.cs" />
     <Compile Include="Presentation\Views\WebPageView.cs" />
@@ -133,6 +133,7 @@
     <Compile Include="ApplicationServices\Callbacks\VkontakteCallback.cs" />
     <Compile Include="DroidApplication.cs" />
     <Compile Include="Providers\OutlineProvider.cs" />
+    <Compile Include="Controls\CircleCachedImageView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -240,7 +241,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\finish_password_recovery_layout.xml">
+    <AndroidResource Include="Resources\layout\fragment_finish_password_recovery.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -353,7 +354,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\activity_create_order.xml">
+    <AndroidResource Include="Resources\layout\fragment_create_order.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -459,10 +460,22 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_more_white.xml">
+      <SubType></SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
     <AndroidResource Include="Resources\values\attrs.xml">
       <SubType></SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_thumbs_down.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_thumbs_up.xml">
+      <SubType></SubType>
+      <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_thumbs_down.xml">
       <SubType></SubType>
@@ -502,6 +515,15 @@
     </PackageReference>
     <PackageReference Include="MvvmCross.Droid.Support.Core.Utils">
       <Version>6.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugins.ImageCropper">
+      <Version>1.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Annotations">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Exif">
+      <Version>28.0.0.3</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
       <Version>1.3.1</Version>
@@ -604,7 +626,7 @@
     <AndroidResource Include="Resources\layout\notifications_layout.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\password_recovery_layout.xml" />
+    <AndroidResource Include="Resources\layout\fragment_password_recovery.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\profile_layout.xml" />
@@ -901,6 +923,18 @@
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\my_order_background.xml" />
     <AndroidResource Include="Resources\layout\cell_rating.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_image_crop.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\image_crop_menu.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_button_accept.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_button_rotate.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

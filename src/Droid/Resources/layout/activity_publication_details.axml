@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
-        <FFImageLoading.Cross.MvxCachedImageView
+        <CircleCachedImageView
             android:id="@+id/user_photo"
             android:layout_width="42dp"
             android:layout_height="42dp"
@@ -23,16 +23,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="7dp"
             android:layout_marginLeft="3dp"
-            app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneTime; DrawableId PlaceholderImage(ProfilePhotoUrl), Mode = OneTime; Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/applicationWhite"
-            app:layout_constraintLeft_toLeftOf="@+id/user_photo"
-            app:layout_constraintRight_toRightOf="@+id/user_photo"
-            app:layout_constraintTop_toTopOf="@+id/user_photo"
-            app:layout_constraintBottom_toBottomOf="@+id/user_photo"
-            app:MvxBind="Text ProfileShortName, Mode = OneTime; Visibility InvertedVisibility(ProfilePhotoUrl), Mode = OneTime;"/>
+            app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneTime; PlaceholderText ProfileShortName, Mode = OneTime" />
         <TextView
             android:id="@+id/user_name"
             android:layout_width="0dp"
@@ -232,7 +223,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="3dp"
-            app:MvxBind="Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath CommentatorPhotoUrl, Mode = OneTime" />
+            app:MvxBind="DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath CommentatorPhotoUrl, Mode = OneTime" />
         <TextView
             android:id="@+id/commentator_name"
             android:layout_width="match_parent"
