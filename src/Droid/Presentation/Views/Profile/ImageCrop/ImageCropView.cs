@@ -21,21 +21,17 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.ImageCrop
 
         public override void OnBackPressed()
         {
-            ViewModel.Cancel();
+            ViewModel.CancelCommand.Execute();
         }
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.activity_image_crop);
 
+            _cropImageView = FindViewById<CropImageView>(Resource.Id.image_crop);
             var imagePath = ViewModel.ImageFilePath;
-            _cropImageView = new CropImageView(ApplicationContext);
-            _cropImageView.LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
-            _cropImageView.SetAspectRatio(1, 1);
             var bitmap = BitmapFactory.DecodeFile(imagePath);
             _cropImageView.SetImageBitmap(bitmap);
-            var contentView = FindViewById<ViewGroup>(Resource.Id.image_crop_container);
-            contentView.AddView(_cropImageView);
         }
 
         public override bool OnPrepareOptionsMenu(IMenu menu)
@@ -75,7 +71,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.ImageCrop
                 cropped.Compress(Bitmap.CompressFormat.Png, 100, fileStream);
             }
 
-            ViewModel.SetResultPath(path);
+            ViewModel.SetResultPathCommand.Execute(path);
         }
     }
 }

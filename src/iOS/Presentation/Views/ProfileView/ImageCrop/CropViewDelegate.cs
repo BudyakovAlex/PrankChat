@@ -32,7 +32,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.ImageCrop
 
                 var path = Path.Combine(Xamarin.Essentials.FileSystem.CacheDirectory, Guid.NewGuid().ToString());
                 File.WriteAllBytes(path, image.AsPNG().ToArray());
-                _viewModel.SetResultPath(path);
+                _viewModel.SetResultPathCommand.Execute(path);
             }
             catch (Exception)
             {
@@ -50,7 +50,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.ImageCrop
 
         public override void DidFinishCancelled(TOCropViewController cropViewController, bool cancelled)
         {
-            _viewModel.Cancel();
+            _viewModel.CancelCommand.Execute();
         }
     }
 }

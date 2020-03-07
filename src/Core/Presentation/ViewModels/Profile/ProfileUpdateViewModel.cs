@@ -27,8 +27,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private bool _isUserPhotoUpdated;
 
-        public bool IsProfilePhotoUploading { get; set; }
-
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
         public MvxAsyncCommand SaveProfileCommand => new MvxAsyncCommand(OnSaveProfileAsync);

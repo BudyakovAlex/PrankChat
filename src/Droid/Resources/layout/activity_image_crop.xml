@@ -10,9 +10,9 @@
         layout="@layout/action_bar_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <LinearLayout
+    <com.theartofdev.edmodo.cropper.CropImageView
+        android:id="@+id/image_crop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-		android:layout_below="@+id/action_bar"
-        android:id="@+id/image_crop_container"/>
+        android:layout_below="@+id/action_bar"/>
 </RelativeLayout>
