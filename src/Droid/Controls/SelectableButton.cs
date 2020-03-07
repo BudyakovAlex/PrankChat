@@ -3,6 +3,7 @@ using Android.App;
 using Android.Content;
 using Android.Graphics.Drawables;
 using Android.Runtime;
+using Android.Support.Design.Button;
 using Android.Support.V4.Content;
 using Android.Util;
 using Android.Widget;
@@ -10,7 +11,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Droid.Controls
 {
-    public class SelectableButton : Button
+    public class SelectableButton : MaterialButton
     {
         private Drawable _drawableForSelectedState;
         private Drawable _drawableForUnselectedState;
@@ -32,6 +33,10 @@ namespace PrankChat.Mobile.Droid.Controls
 
         #region Constructions
 
+        protected SelectableButton(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
+        {
+        }
+
         public SelectableButton(Context context) : base(context)
         {
             Initialize(context);
@@ -45,15 +50,6 @@ namespace PrankChat.Mobile.Droid.Controls
         public SelectableButton(Context context, IAttributeSet attrs, int defStyleAttr) : base(context, attrs, defStyleAttr)
         {
             Initialize(context, attrs);
-        }
-
-        public SelectableButton(Context context, IAttributeSet attrs, int defStyleAttr, int defStyleRes) : base(context, attrs, defStyleAttr, defStyleRes)
-        {
-            Initialize(context, attrs);
-        }
-
-        protected SelectableButton(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
-        {
         }
 
         #endregion
@@ -71,10 +67,18 @@ namespace PrankChat.Mobile.Droid.Controls
                 array.Recycle();
             }
 
+            SetAllCaps(false);
+
             backgroundDrawable = new GradientDrawable();
             backgroundDrawable.SetShape(ShapeType.Rectangle);
-            backgroundDrawable.SetStroke(3, GetColorStateList(Resource.Color.accent));
+            backgroundDrawable.SetStroke(3, GetColorStateList(Resource.Color.applicationTransparent));
             backgroundDrawable.SetCornerRadius(15);
+
+            IconGravity = IconGravityTextStart;
+            IconTint = null;
+            IconPadding = (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, 20f, Resources.DisplayMetrics);
+            BackgroundTintList = null;
+            TextAlignment = Android.Views.TextAlignment.Center;
 
             ChangeSelectedState();
         }
@@ -91,7 +95,6 @@ namespace PrankChat.Mobile.Droid.Controls
             {
                 SetNegativeStyle();
             }
-            SetBackgroundDrawable(backgroundDrawable);
         }
 
         private void SetPositiveStyle()
@@ -108,8 +111,9 @@ namespace PrankChat.Mobile.Droid.Controls
         {
             Alpha = alpha;
             SetTextColor(GetColorStateList(textColor));
-            SetCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, null, null);
             backgroundDrawable.SetColor(GetColorStateList(backgroundColor));
+            Icon = leftDrawable;
+            Background = backgroundDrawable;
         }
 
         private Android.Content.Res.ColorStateList GetColorStateList(int id) => ContextCompat.GetColorStateList(Application.Context, id);
