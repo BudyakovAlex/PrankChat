@@ -138,7 +138,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             changePasswordLabel.AttributedText = new NSAttributedString(Resources.ProfileUpdateView_ChangePassword, underlineStyle: NSUnderlineStyle.Single);
             changePasswordLabel.TextColor = UIColor.White;
 
-
             changeProfilePhotoLabel.AttributedText = new NSAttributedString(Resources.ProfileUpdateView_PhotoChange_Title, underlineStyle: NSUnderlineStyle.Single);
             changeProfilePhotoLabel.TextColor = UIColor.White;
 

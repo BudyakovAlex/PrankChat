@@ -60,7 +60,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             ErrorHandleService = errorHandleService;
             ApiService = apiService;
             DialogService = dialogService;
-            DialogService = dialogService;
             SettingsService = settingsService;
 
             ShowNotificationCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowNotificationView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);

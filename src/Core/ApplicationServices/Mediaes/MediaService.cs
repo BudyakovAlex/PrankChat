@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Plugin.Permissions;
@@ -48,7 +47,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Mediaes
             var option = new StoreCameraMediaOptions
             {
                 PhotoSize = PhotoSize.Medium,
-                AllowCropping = true,
                 SaveToAlbum = true,
                 SaveMetaData = false,
             };

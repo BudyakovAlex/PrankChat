@@ -45,6 +45,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowCashboxContent();
 
+        Task<ImageCropPathResult> ShowImageCropView(string filePath);
+
         Task Logout();
 
         Task<bool> ShowUpdateProfileView();
