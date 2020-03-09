@@ -70,7 +70,7 @@ namespace PrankChat.Mobile.Droid.Controls
 
             backgroundDrawable = new GradientDrawable();
             backgroundDrawable.SetShape(ShapeType.Rectangle);
-            backgroundDrawable.SetStroke(3, GetColorStateList(Resource.Color.applicationTransparent));
+            backgroundDrawable.SetStroke(3, GetColorStateList(Resource.Color.accent));
             backgroundDrawable.SetCornerRadius(15);
 
             IconGravity = IconGravityTextStart;
