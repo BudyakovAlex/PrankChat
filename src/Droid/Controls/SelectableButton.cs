@@ -6,7 +6,6 @@ using Android.Runtime;
 using Android.Support.Design.Button;
 using Android.Support.V4.Content;
 using Android.Util;
-using Android.Widget;
 using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Droid.Controls

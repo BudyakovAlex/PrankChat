@@ -58,7 +58,7 @@
                 android:textColor="@color/description"
                 app:MvxBind="Text Price, Mode=OneWay" />
             <!-- Buttons section row -->
-            <Button
+            <android.support.design.button.MaterialButton
                 android:id="@+id/profile_refill_button"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
@@ -74,7 +74,7 @@
                 android:text="@string/ProfileView_Refill"
                 style="@style/Theme.PrankChat.Button.Accent"
                 app:MvxBind="Click ShowRefillCommand" />
-            <Button
+            <android.support.design.button.MaterialButton
                 android:id="@+id/profile_withdrawal_button"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"

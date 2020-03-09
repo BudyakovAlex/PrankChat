@@ -92,19 +92,23 @@
         <item name="android:paddingLeft">30dp</item>
         <item name="android:paddingRight">30dp</item>
         <item name="android:stateListAnimator">@null</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
     </style>
 
     <style name="Theme.PrankChat.Button.White" parent="Theme.PrankChat.Button">
+        <item name="backgroundTint">@null</item>
         <item name="android:textColor">@color/accent</item>
         <item name="android:background">@drawable/button_white_background</item>
     </style>
 
-    <style name="Theme.PrankChat.Button.Accent" parent="Theme.PrankChat.Button.White">
+    <style name="Theme.PrankChat.Button.Accent" parent="Theme.PrankChat.Button">
         <item name="android:textColor">@color/applicationWhite</item>
         <item name="android:background">@drawable/button_accent_background</item>
     </style>
 
     <style name="Theme.PrankChat.Button.Borderless" parent="Theme.PrankChat.Button.White">
+        <item name="backgroundTint">@null</item>
         <item name="android:textColor">@color/accent</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
