@@ -1,6 +1,7 @@
 ﻿using System;
 using Android.App;
 using Android.Content;
+using Android.Content.Res;
 using Android.Graphics.Drawables;
 using Android.Runtime;
 using Android.Support.Design.Button;
@@ -15,7 +16,7 @@ namespace PrankChat.Mobile.Droid.Controls
         private Drawable _drawableForSelectedState;
         private Drawable _drawableForUnselectedState;
         private string _typeArbitrationButton;
-        private GradientDrawable backgroundDrawable;
+        private GradientDrawable _backgroundDrawable;
 
         private ArbitrationValueType? _arbitrationValue;
         public ArbitrationValueType? ArbitrationValue
@@ -34,30 +35,31 @@ namespace PrankChat.Mobile.Droid.Controls
 
         protected SelectableButton(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
+            Initialize();
         }
 
         public SelectableButton(Context context) : base(context)
         {
-            Initialize(context);
+            Initialize();
         }
 
         public SelectableButton(Context context, IAttributeSet attrs) : base(context, attrs)
         {
-            Initialize(context, attrs);
+            Initialize(attrs);
         }
 
         public SelectableButton(Context context, IAttributeSet attrs, int defStyleAttr) : base(context, attrs, defStyleAttr)
         {
-            Initialize(context, attrs);
+            Initialize(attrs);
         }
 
         #endregion
 
-        private void Initialize(Context context, IAttributeSet attrs = null)
+        private void Initialize(IAttributeSet attrs = null)
         {
             if (attrs != null)
             {
-                var array = context.ObtainStyledAttributes(attrs, Resource.Styleable.SelectableButton, 0, 0);
+                var array = Context.ObtainStyledAttributes(attrs, Resource.Styleable.SelectableButton, 0, 0);
 
                 _drawableForSelectedState = array.GetDrawable(Resource.Styleable.SelectableButton_selected_drawable);
                 _drawableForUnselectedState = array.GetDrawable(Resource.Styleable.SelectableButton_unselected_drawable);
@@ -68,10 +70,10 @@ namespace PrankChat.Mobile.Droid.Controls
 
             SetAllCaps(false);
 
-            backgroundDrawable = new GradientDrawable();
-            backgroundDrawable.SetShape(ShapeType.Rectangle);
-            backgroundDrawable.SetStroke(3, GetColorStateList(Resource.Color.accent));
-            backgroundDrawable.SetCornerRadius(15);
+            _backgroundDrawable = new GradientDrawable();
+            _backgroundDrawable.SetShape(ShapeType.Rectangle);
+            _backgroundDrawable.SetStroke(3, GetColorStateList(Resource.Color.accent));
+            _backgroundDrawable.SetCornerRadius(15);
 
             IconGravity = IconGravityTextStart;
             IconTint = null;
@@ -110,11 +112,14 @@ namespace PrankChat.Mobile.Droid.Controls
         {
             Alpha = alpha;
             SetTextColor(GetColorStateList(textColor));
-            backgroundDrawable.SetColor(GetColorStateList(backgroundColor));
+            _backgroundDrawable.SetColor(GetColorStateList(backgroundColor));
             Icon = leftDrawable;
-            Background = backgroundDrawable;
+            Background = _backgroundDrawable;
         }
 
-        private Android.Content.Res.ColorStateList GetColorStateList(int id) => ContextCompat.GetColorStateList(Application.Context, id);
+        private ColorStateList GetColorStateList(int id)
+        {
+            return ContextCompat.GetColorStateList(Application.Context, id);
+        }
     }
 }
