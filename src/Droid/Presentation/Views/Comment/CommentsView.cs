@@ -20,13 +20,5 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Comment
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.activity_comments_view);
         }
-
-		protected override void Subscription()
-		{
-		}
-
-		protected override void Unsubscription()
-		{
-		}
 	}
 }

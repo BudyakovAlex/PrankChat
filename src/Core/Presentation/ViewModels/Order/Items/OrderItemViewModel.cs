@@ -45,8 +45,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 				{
 					RaisePropertyChanged(nameof(TimeText));
 				}
+
+                if (!IsTimeAvailable)
+                {
+					Unsubscribe();
+				}
 			}
 		}
+
+		public bool IsTimeAvailable => _elapsedTime > new TimeSpan();
 
 		public string TimeText => _elapsedTime?.ToTimeWithSpaceString();
 
@@ -158,7 +165,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
 		private void OnTimerTick(TimerTickMessage message)
 		{
-			ElapsedTime = DateTime.Now - _activeTo?.ToLocalTime();
+			ElapsedTime = _activeTo?.ToLocalTime() - DateTime.Now;
 		}
 
 		private async Task OnOpenDetailsOrderAsync()

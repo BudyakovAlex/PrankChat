@@ -118,12 +118,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 var orders = await ApiService.GetOrdersAsync(ActiveFilter);
                 Items.Clear();
 
-                var orderItemViewModel = orders.Where(order => order.Status != OrderStatusType.Cancelled ||
-                                                     (order.ActiveTo.HasValue &&
-                                                      order.ActiveTo > DateTime.Now))
-                                               .OrderBy(order => _settingsService.User.GetOrderType(order.Customer?.Id, order.Status ?? OrderStatusType.New))
-                                               .Select(ProduceOrderViewModel)
-                                               .ToList();
+                var orderItemViewModel = orders.OrderBy(order => _settingsService.User.GetOrderType(order.Customer?.Id, order.Status ?? OrderStatusType.New))
+                                               .Select(ProduceOrderViewModel);
 
                 Items.SwitchTo(orderItemViewModel);
             }
@@ -148,7 +144,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                           order.Customer?.Avatar,
                                           order.Customer?.Name,
                                           order.Price,
-                                          order.ActiveTo?.ToLocalTime(),
+                                          order.ActiveTo,
                                           order.Status ?? OrderStatusType.None,
                                           order.Customer?.Id);
         }
