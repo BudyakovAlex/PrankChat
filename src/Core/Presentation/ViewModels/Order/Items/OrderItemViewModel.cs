@@ -48,8 +48,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
                 if (!IsTimeAvailable)
                 {
-					Unsubscribe();
-				}
+                    Unsubscribe();
+                }
 			}
 		}
 
