@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Data

@@ -73,7 +73,7 @@
             android:textSize="30sp"
             android:textColor="@color/applicationWhite"
             android:text="01 : 34 : 59"
-            app:MvxBind="Text TimeText"/>
+            app:MvxBind="Text TimeText; Visibility Invisible(IsTimeAvailable)"/>
         <TextView
             android:id="@+id/day_text"
             android:layout_width="wrap_content"
@@ -87,7 +87,8 @@
             android:gravity="center"
             android:textSize="12sp"
             android:textColor="@color/applicationWhite"
-            android:text="@string/Order_View_Day"/>
+            android:text="@string/Order_View_Day"
+            app:MvxBind="Visibility Invisible(IsTimeAvailable)"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,7 +98,8 @@
             android:gravity="center"
             android:textSize="12sp"
             android:textColor="@color/applicationWhite"
-            android:text="@string/Order_View_Hour"/>
+            android:text="@string/Order_View_Hour"
+            app:MvxBind="Visibility Invisible(IsTimeAvailable)"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,7 +111,8 @@
             android:gravity="center"
             android:textSize="12sp"
             android:textColor="@color/applicationWhite"
-            android:text="@string/Order_View_Minute"/>
+            android:text="@string/Order_View_Minute"
+            app:MvxBind="Visibility Invisible(IsTimeAvailable)"/>
         <TextView
             android:id="@+id/price_value_text"
             android:layout_width="wrap_content"

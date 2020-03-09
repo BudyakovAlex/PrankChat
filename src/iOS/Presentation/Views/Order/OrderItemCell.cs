@@ -2,6 +2,7 @@
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
+using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -97,6 +98,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             set.Bind(statusOrderLabel)
                 .To(vm => vm.StatusText)
+                .Mode(MvxBindingMode.OneWay);
+
+            set.Bind(orderTimeLabel)
+                .For(v => v.BindVisibility())
+                .To(vm => vm.IsTimeAvailable)
+                .WithConversion<MvxVisibilityValueConverter>()
+                .Mode(MvxBindingMode.OneWay);
+
+            set.Bind(titleTimeView)
+                .For(v => v.BindVisibility())
+                .To(vm => vm.IsTimeAvailable)
+                .WithConversion<MvxVisibilityValueConverter>()
                 .Mode(MvxBindingMode.OneWay);
 
             set.Apply();
