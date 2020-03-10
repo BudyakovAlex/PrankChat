@@ -97,7 +97,7 @@
         android:layout_marginTop="26dp"
         android:layout_below="@+id/forgot_password_container"
         android:text="@string/LoginView_Continue_Button"
-        style="@style/Theme.PrankChat.Button.White"
+        style="@style/Theme.PrankChat.Button.Borderless"
         app:MvxBind="Click LoginCommand, CommandParameter=UsernameAndPassword" />
     <ProgressBar
         android:id="@+id/progressBar"
