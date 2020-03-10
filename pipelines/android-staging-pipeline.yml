@@ -39,7 +39,6 @@ steps:
     sed -i -e "s/<AndroidPackageFormat>apk<\/AndroidPackageFormat>/<AndroidPackageFormat>aab<\/AndroidPackageFormat>/g" $(PATH_TO_ANDROID_PROJECT_FILE)
     cat $(PATH_TO_ANDROID_PROJECT_FILE) | xargs echo -e
   displayName: 'Change package format to App Bundle'
-  enabled: false
 
 - task: XamarinAndroid@1
   displayName: 'Build Xamarin.Android project **/*Droid*.csproj'
