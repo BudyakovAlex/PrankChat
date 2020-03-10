@@ -38,6 +38,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
         android:text="@string/RegistrationView_GoToFeed_Button"
-        style="@style/Theme.PrankChat.Button.White"
+        style="@style/Theme.PrankChat.Button.Borderless"
         app:MvxBind="Click FinishRegistrationCommand" />
 </LinearLayout>

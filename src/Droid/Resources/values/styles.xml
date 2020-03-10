@@ -151,7 +151,7 @@
     <style name="Theme.PrankChat.Button.SelectableStyle" parent="Theme.PrankChat.Button">
         <item name="android:background">@drawable/selectable_button_selector</item>
         <item name="android:textColor">@color/selectable_button_color_states</item>
-        <item name="android:paddingLeft">40dp</item>
-        <item name="android:paddingRight">35dp</item>
+        <item name="android:paddingLeft">45dp</item>
+        <item name="android:paddingRight">45dp</item>
     </style>
 </resources>
