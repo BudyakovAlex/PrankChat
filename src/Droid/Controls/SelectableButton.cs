@@ -31,30 +31,31 @@ namespace PrankChat.Mobile.Droid.Controls
 
         protected SelectableButton(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
+            Initialize();
         }
 
         public SelectableButton(Context context) : base(context)
         {
-            Initialize(context);
+            Initialize();
         }
 
         public SelectableButton(Context context, IAttributeSet attrs) : base(context, attrs)
         {
-            Initialize(context, attrs);
+            Initialize(attrs);
         }
 
         public SelectableButton(Context context, IAttributeSet attrs, int defStyleAttr) : base(context, attrs, defStyleAttr)
         {
-            Initialize(context, attrs);
+            Initialize(attrs);
         }
 
         #endregion
 
-        private void Initialize(Context context, IAttributeSet attrs = null)
+        private void Initialize(IAttributeSet attrs = null)
         {
             if (attrs != null)
             {
-                var array = context.ObtainStyledAttributes(attrs, Resource.Styleable.SelectableButton, 0, 0);
+                var array = Context.ObtainStyledAttributes(attrs, Resource.Styleable.SelectableButton, 0, 0);
 
                 _drawableForSelectedState = array.GetDrawable(Resource.Styleable.SelectableButton_selected_drawable);
                 _drawableForUnselectedState = array.GetDrawable(Resource.Styleable.SelectableButton_unselected_drawable);
