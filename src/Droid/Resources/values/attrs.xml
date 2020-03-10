@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SelectableButton">
+        <attr name="selected_drawable" format="integer"/>
+        <attr name="unselected_drawable" format="integer"/>
+        <attr name="type_arbitration" format="string"/>
+    </declare-styleable>
+</resources>

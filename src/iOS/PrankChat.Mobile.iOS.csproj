@@ -248,7 +248,6 @@
     <Compile Include="Presentation\Views\Web\WebPageView.designer.cs">
       <DependentUpon>WebPageView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Binding\WebViewUrlTargetBinding.cs" />
     <Compile Include="Controls\CustomWKWebView.cs" />
     <InterfaceDefinition Include="Presentation\Views\Video\FullScreenVideoView.xib" />
     <Compile Include="Presentation\Views\Video\FullScreenVideoView.cs" />

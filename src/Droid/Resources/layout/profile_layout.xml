@@ -83,7 +83,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="10dp"
                 android:text="@string/ProfileView_Withdrawal"
-                style="@style/Theme.PrankChat.Button.Borderless"
+                style="@style/Theme.PrankChat.Button.White"
                 app:MvxBind="Click ShowWithdrawalCommand" />
             <!-- Values section row -->
             <TextView

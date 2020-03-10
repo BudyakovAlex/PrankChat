@@ -1,10 +1,15 @@
-﻿using MvvmCross.Binding.BindingContext;
+﻿using System;
+using CoreFoundation;
+using Foundation;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Converters;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
@@ -16,6 +21,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _rightBarButtonItem;
+
+        private ArbitrationValueType? _arbitrationValue;
+        public ArbitrationValueType? ArbitrationValue
+        {
+            get => _arbitrationValue;
+            set
+            {
+                _arbitrationValue = value;
+                UpdateStyleArbitrationButtons();
+            }
+        }
 
         protected override void SetupBinding()
         {
@@ -176,10 +192,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .For(v => v.BindTitle())
                 .To(vm => vm.NoText);
 
-            set.Bind(noButton)
-                .For(UIButtonSelectedTargetBinding.TargetBinding)
-                .To(vm => vm.IsNoSelected);
-
             set.Bind(yesButton)
                 .To(vm => vm.YesCommand);
 
@@ -187,9 +199,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .For(v => v.BindTitle())
                 .To(vm => vm.YesText);
 
-            set.Bind(yesButton)
-                .For(UIButtonSelectedTargetBinding.TargetBinding)
-                .To(vm => vm.IsYesSelected);
+            set.Bind(this)
+                .For(v => v.ArbitrationValue)
+                .To(vm => vm.SelectedArbitration);
 
             #endregion Decide View
 
@@ -309,6 +321,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             yesButton.ImageEdgeInsets = new UIEdgeInsets(0, 0, 0, 10);
             noButton.ImageEdgeInsets = new UIEdgeInsets(0, 0, 0, 10);
+            SetStyleForButton(yesButton, "up");
+            SetStyleForButton(noButton, "down");
+
+            UpdateStyleArbitrationButtons();
 
             videoImageView.SetCornerRadius(5);
 
@@ -325,6 +341,34 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             };
 
             NavigationItem.RightBarButtonItem = _rightBarButtonItem;
+        }
+        
+        private void SetStyleForButton(UIButton button, string type)
+        {
+            button.BackgroundColor = Theme.Color.AccentDark;
+            button.SetTitleColor(UIColor.White, UIControlState.Selected);
+            button.SetTitleColor(Theme.Color.AccentDark, UIControlState.Normal);
+            button.SetSelectableImageStyle($"ic_accent_thumbs_{type}", $"ic_thumbs_{type}");
+            button.UserInteractionEnabled = true;
+        }
+        
+        private void UpdateStyleArbitrationButtons()
+        {
+            if (_arbitrationValue == null)
+            {
+                yesButton.Selected = true;
+                noButton.Selected = true;
+                return;
+            }
+
+            var selectedButton = _arbitrationValue == ArbitrationValueType.Positive ? yesButton : noButton;
+            var deselectedButton = _arbitrationValue == ArbitrationValueType.Positive ? noButton : yesButton;
+
+            selectedButton.Selected = true;
+            selectedButton.Layer.BackgroundColor = Theme.Color.AccentDark.CGColor;
+
+            deselectedButton.Selected = false;
+            deselectedButton.SetBorderlessStyle(borderColor: Theme.Color.AccentDark);
         }
     }
 }
