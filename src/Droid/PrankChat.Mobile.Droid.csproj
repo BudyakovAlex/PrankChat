@@ -134,6 +134,7 @@
     <Compile Include="DroidApplication.cs" />
     <Compile Include="Providers\OutlineProvider.cs" />
     <Compile Include="Controls\CircleCachedImageView.cs" />
+    <Compile Include="Presentation\Converters\InvisibleConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

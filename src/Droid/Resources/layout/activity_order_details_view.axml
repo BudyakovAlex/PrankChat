@@ -83,13 +83,15 @@
 					android:gravity="center_horizontal"
 					android:textSize="12sp"
 					android:textColor="@color/inactive"
-					android:text="@string/OrderDetailsView_Time_Text"/>
+					android:text="@string/OrderDetailsView_Time_Text"
+					app:MvxBind="Visibility Visibility(IsTimeAvailable)"/>
 				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="16dp"
 					android:gravity="center_horizontal"
-					android:orientation="horizontal">
+					android:orientation="horizontal"
+					app:MvxBind="Visibility Visibility(IsTimeAvailable)">
 					<LinearLayout
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"

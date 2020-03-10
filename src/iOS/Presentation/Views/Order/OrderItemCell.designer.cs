@@ -50,6 +50,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 		[Outlet]
 		UIKit.UILabel timeLablel { get; set; }
+
+		[Outlet]
+		UIKit.UIView titleTimeView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -116,6 +119,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (timeLablel != null) {
 				timeLablel.Dispose ();
 				timeLablel = null;
+			}
+
+			if (titleTimeView != null) {
+				titleTimeView.Dispose ();
+				titleTimeView = null;
 			}
 		}
 	}
