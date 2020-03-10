@@ -345,7 +345,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
         
         private void SetStyleForButton(UIButton button, string type)
         {
-
             button.BackgroundColor = Theme.Color.AccentDark;
             button.SetTitleColor(UIColor.White, UIControlState.Selected);
             button.SetTitleColor(Theme.Color.AccentDark, UIControlState.Normal);
