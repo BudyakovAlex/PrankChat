@@ -1,21 +1,18 @@
 ﻿using System;
-using Android.App;
 using Android.Content;
 using Android.Graphics.Drawables;
 using Android.Runtime;
-using Android.Support.Design.Button;
-using Android.Support.V4.Content;
 using Android.Util;
+using Android.Widget;
 using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Droid.Controls
 {
-    public class SelectableButton : MaterialButton
+    public class SelectableButton : Button
     {
         private Drawable _drawableForSelectedState;
         private Drawable _drawableForUnselectedState;
         private string _typeArbitrationButton;
-        private GradientDrawable backgroundDrawable;
 
         private ArbitrationValueType? _arbitrationValue;
         public ArbitrationValueType? ArbitrationValue
@@ -66,19 +63,6 @@ namespace PrankChat.Mobile.Droid.Controls
                 array.Recycle();
             }
 
-            SetAllCaps(false);
-
-            backgroundDrawable = new GradientDrawable();
-            backgroundDrawable.SetShape(ShapeType.Rectangle);
-            backgroundDrawable.SetStroke(3, GetColorStateList(Resource.Color.accent));
-            backgroundDrawable.SetCornerRadius(15);
-
-            IconGravity = IconGravityTextStart;
-            IconTint = null;
-            IconPadding = (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, 20f, Resources.DisplayMetrics);
-            BackgroundTintList = null;
-            TextAlignment = Android.Views.TextAlignment.Center;
-
             ChangeSelectedState();
         }
 
@@ -88,33 +72,19 @@ namespace PrankChat.Mobile.Droid.Controls
                 (_arbitrationValue == ArbitrationValueType.Negative && _typeArbitrationButton == "negative") ||
                 _arbitrationValue == null)
             {
-                SetPositiveStyle();
+                SetStyle(true, 1f, _drawableForSelectedState);
             }
             else
             {
-                SetNegativeStyle();
+                SetStyle(false, 0.5f, _drawableForUnselectedState);
             }
         }
 
-        private void SetPositiveStyle()
+        private void SetStyle(bool enabled, float alpha, Drawable leftDrawable)
         {
-            SetStyle(1f, Resource.Color.applicationWhite, _drawableForSelectedState, Resource.Color.accent);
-        }
-
-        private void SetNegativeStyle()
-        {
-            SetStyle(Transparency, Resource.Color.accent, _drawableForUnselectedState, Resource.Color.applicationWhite);
-        }
-
-        private void SetStyle(float alpha, int textColor, Drawable leftDrawable, int backgroundColor)
-        {
+            Enabled = enabled;
             Alpha = alpha;
-            SetTextColor(GetColorStateList(textColor));
-            backgroundDrawable.SetColor(GetColorStateList(backgroundColor));
-            Icon = leftDrawable;
-            Background = backgroundDrawable;
+            SetCompoundDrawablesRelativeWithIntrinsicBounds(leftDrawable, null, null, null);
         }
-
-        private Android.Content.Res.ColorStateList GetColorStateList(int id) => ContextCompat.GetColorStateList(Application.Context, id);
     }
 }
