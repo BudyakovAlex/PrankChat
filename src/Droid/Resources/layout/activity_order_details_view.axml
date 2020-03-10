@@ -338,38 +338,38 @@
 						android:textColor="@color/applicationBlack"
 						android:text="@string/OrderDetailsView_Corresponds_To_Video_Text"/>
 					<PrankChat.Mobile.Droid.Controls.SelectableButton
-                        android:id="@+id/yes_button"
-                        android:layout_height="36dp"
-                        android:layout_width="match_parent"
-                        app:layout_widthPercent="40%"
-                        android:layout_marginTop="26dp"
+						android:id="@+id/yes_button"
+						android:layout_height="36dp"
+						android:layout_width="match_parent"
+						app:layout_widthPercent="40%"
+						android:layout_marginTop="26dp"
 						android:layout_marginRight="10dp"
-                        android:layout_below="@+id/corresponds_title_text_view"
-                        android:layout_toLeftOf="@+id/space"
+						android:layout_below="@+id/corresponds_title_text_view"
+						android:layout_toLeftOf="@+id/space"
 						style="@style/Theme.PrankChat.Button.SelectableStyle"
-                        app:unselected_drawable="@drawable/ic_accent_thumbs_up"
-                        app:selected_drawable="@drawable/ic_thumbs_up"
-                        app:type_arbitration="positive"
-                        app:MvxBind="Click YesCommand; ArbitrationValue SelectedArbitration; Text YesText"/>
+						app:unselected_drawable="@drawable/ic_accent_thumbs_up"
+						app:selected_drawable="@drawable/ic_thumbs_up"
+						app:type_arbitration="positive"
+						app:MvxBind="Click YesCommand; ArbitrationValue SelectedArbitration; Text YesText"/>
 					<Space
 						android:id="@+id/space"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_centerHorizontal="true"/>
 					<PrankChat.Mobile.Droid.Controls.SelectableButton
-                        android:id="@+id/no_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        app:layout_widthPercent="40%"
-                        android:layout_marginTop="26dp"
+						android:id="@+id/no_button"
+						android:layout_width="match_parent"
+						android:layout_height="36dp"
+						app:layout_widthPercent="40%"
+						android:layout_marginTop="26dp"
 						android:layout_marginLeft="10dp"
-                        android:layout_below="@+id/corresponds_title_text_view"
-                        android:layout_toRightOf="@+id/space"
+						android:layout_below="@+id/corresponds_title_text_view"
+						android:layout_toRightOf="@+id/space"
 						style="@style/Theme.PrankChat.Button.SelectableStyle"
-                        app:unselected_drawable="@drawable/ic_accent_thumbs_down"
-                        app:selected_drawable="@drawable/ic_thumbs_down"
-                        app:type_arbitration="negative"
-                        app:MvxBind="Click NoCommand; ArbitrationValue SelectedArbitration; Text NoText"/>
+						app:unselected_drawable="@drawable/ic_accent_thumbs_down"
+						app:selected_drawable="@drawable/ic_thumbs_down"
+						app:type_arbitration="negative"
+						app:MvxBind="Click NoCommand; ArbitrationValue SelectedArbitration; Text NoText"/>
 				</android.support.percent.PercentRelativeLayout>
 				<!--Decide-->
 				<Button
