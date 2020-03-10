@@ -1,6 +1,5 @@
 pool:
-  name: Default
-  # vmImage: 'macOS-10.14'
+  vmImage: 'macOS-10.14'
   demands:
   - xcode
   - Xamarin.iOS
@@ -30,11 +29,9 @@ steps:
    echo "##vso[task.setvariable variable=PKG_CONFIG_PATH;]$MONOPREFIX/lib/pkgconfig:$MONOPREFIX/share/pkgconfig:$PKG_CONFIG_PATH"
    echo "##vso[task.setvariable variable=PATH;]$MONOPREFIX/bin:$PATH"
   displayName: 'SET MONO $(MONO_VERSION)'
-  enabled: false
 
 - bash: 'sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)'
   displayName: 'SET SDK to Mono $(MONO_VERSION)'
-  enabled: false
 
 - task: InstallAppleCertificate@2
   displayName: 'Install an Apple certificate'

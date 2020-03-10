@@ -1,6 +1,5 @@
 pool:
-  name: Default
-  # vmImage: 'windows-latest'
+  vmImage: 'windows-latest'
   demands:
   - MSBuild
   - Xamarin.Android
@@ -41,9 +40,6 @@ steps:
     cat $(PATH_TO_ANDROID_PROJECT_FILE) | xargs echo -e
   displayName: 'Change package format to App Bundle'
   enabled: false
-
-- powershell: '(Get-Content -path $(PATH_TO_ANDROID_PROJECT_FILE) -Raw) -replace ''<AndroidPackageFormat>apk</AndroidPackageFormat>'',''<AndroidPackageFormat>aab</AndroidPackageFormat>'''
-  displayName: 'Change package format to App Bundle'
 
 - task: XamarinAndroid@1
   displayName: 'Build Xamarin.Android project **/*Droid*.csproj'

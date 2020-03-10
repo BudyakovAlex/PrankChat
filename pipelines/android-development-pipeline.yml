@@ -1,6 +1,5 @@
 pool:
-  name: Default
-  # vmImage: 'windows-latest'
+  vmImage: 'windows-latest'
   demands:
   - MSBuild
   - Xamarin.Android
