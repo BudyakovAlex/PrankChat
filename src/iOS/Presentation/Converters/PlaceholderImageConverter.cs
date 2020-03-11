@@ -10,7 +10,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Converters
         protected override string Convert(string value, Type targetType, object parameter, CultureInfo culture)
         {
             if (string.IsNullOrWhiteSpace(value))
-                return "res:ic_image_background.jpg";
+                return "res:ic_notification_user.jpg";
 
             return value;
         }

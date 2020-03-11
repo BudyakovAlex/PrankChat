@@ -770,6 +770,8 @@
     <ImageAsset Include="Assets.xcassets\ic_plus.imageset\ic_plus.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\ThreeDots.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Userpic.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -799,6 +801,7 @@
     <Folder Include="Assets.xcassets\bg_order_type_not_my.imageset\" />
     <Folder Include="Assets.xcassets\ic_plus.imageset\" />
     <Folder Include="Assets.xcassets\ic_three_dots.imageset\" />
+    <Folder Include="Assets.xcassets\ic_notification_user.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

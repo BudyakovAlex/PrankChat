@@ -16,10 +16,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 		UIKit.UILabel dateLabel { get; set; }
 
 		[Outlet]
-		UIKit.UILabel descriptionLabel { get; set; }
-
-		[Outlet]
-		UIKit.UILabel profileNameLabel { get; set; }
+		UIKit.UILabel profileNameAndDescriptionLabel { get; set; }
 
 		[Outlet]
 		FFImageLoading.Cross.MvxCachedImageView profilePhotoImageView { get; set; }
@@ -42,14 +39,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 				dateLabel = null;
 			}
 
-			if (descriptionLabel != null) {
-				descriptionLabel.Dispose ();
-				descriptionLabel = null;
-			}
-
-			if (profileNameLabel != null) {
-				profileNameLabel.Dispose ();
-				profileNameLabel = null;
+			if (profileNameAndDescriptionLabel != null) {
+				profileNameAndDescriptionLabel.Dispose ();
+				profileNameAndDescriptionLabel = null;
 			}
 
 			if (profilePhotoImageView != null) {

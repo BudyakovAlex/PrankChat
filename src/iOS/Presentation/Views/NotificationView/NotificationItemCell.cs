@@ -14,6 +14,40 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 {
     public partial class NotificationItemCell : BaseTableCell<NotificationItemCell, NotificationItemViewModel>
     {
+        private string _profileName;
+        public string ProfileName
+        {
+            get => _profileName;
+            set
+            {
+                _profileName = value;
+                SetDataToLabel();
+            }
+        }
+
+        private string _title;
+        public string Title
+        {
+            get => _title;
+            set
+            {
+                _title = value;
+                SetDataToLabel();
+            }
+        }
+
+        private string _descriptionText;
+        public string DescriptionText
+        {
+            get => _descriptionText;
+            set
+            {
+                _descriptionText = value;
+                SetDataToLabel();
+            }
+        }
+
+
         static NotificationItemCell()
         {
             EstimatedHeight = 56;
@@ -28,8 +62,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
         {
             base.SetupControls();
 
-            profileNameLabel.SetSmallTitleStyle();
-            descriptionLabel.SetSmallTitleStyle();
+            profileNameAndDescriptionLabel.SetSmallTitleStyle();
             dateLabel.SetSmallSubtitleStyle();
             statusLabel.SetSmallSubtitleStyle();
         }
@@ -58,11 +91,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
                 .For(v => v.Command)
                 .To(vm => vm.ShowUserProfileCommand);
 
-            set.Bind(profileNameLabel)
+            set.Bind(this)
+                .For(v => v.ProfileName)
                 .To(vm => vm.ProfileName)
                 .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(descriptionLabel)
+            set.Bind(this)
+                .For(v => v.Title)
+                .To(vm => vm.Title)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(this)
+                .For(v => v.DescriptionText)
                 .To(vm => vm.Description)
                 .Mode(MvxBindingMode.OneTime);
 
@@ -84,6 +124,32 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
                 .Mode(MvxBindingMode.OneTime);
 
             set.Apply();
+        }
+
+        private void SetDataToLabel()
+        {
+            string s = SetString("", _profileName);
+            s = SetString(s, _title, "  ");
+            int length = s.Length;
+            s = SetString(s, _descriptionText, $"{Environment.NewLine}{Environment.NewLine}");
+
+            var attributedString = new NSMutableAttributedString(s);
+            attributedString.AddAttribute(UIStringAttributeKey.Font, UIFont.SystemFontOfSize(profileNameAndDescriptionLabel.Font.PointSize, UIFontWeight.Bold), new NSRange(0, _profileName?.Length ?? 0));
+            if (s.Length > length)
+                attributedString.AddAttribute(UIStringAttributeKey.Font, UIFont.SystemFontOfSize(6), new NSRange(length, 2));
+
+            profileNameAndDescriptionLabel.AttributedText = attributedString;
+        }
+
+        private string SetString(string first, string second = null, string delimiter = "")
+        {
+            if (!string.IsNullOrWhiteSpace(second))
+            {
+                if (!string.IsNullOrWhiteSpace(first))
+                    first += delimiter;
+                first += second;
+            }
+            return first;
         }
     }
 }
