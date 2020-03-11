@@ -9,7 +9,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Converters
         protected override int Convert(string value, Type targetType, object parameter, CultureInfo culture)
         {
             if (string.IsNullOrWhiteSpace(value))
-                return Resource.Drawable.ic_image_background;
+                return Resource.Drawable.ic_notification_user;
 
             return 0;
         }

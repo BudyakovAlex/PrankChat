@@ -17,7 +17,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.PasswordRecoveryView
             var set = this.CreateBindingSet<FinishPasswordRecoveryView, FinishPasswordRecoveryViewModel>();
 
             set.Bind(confirmButton)
-                .To(vm => vm.FinishRecoveringPasswordCommand);
+                .To(vm => vm.ShowLoginCommand);
+
+            set.Bind(showPublicationButton)
+                .To(vm => vm.ShowPublicationCommand);
 
             set.Apply();
         }
@@ -34,7 +37,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.PasswordRecoveryView
             messageLabel.TextColor = Theme.Color.White;
             messageLabel.Font = Theme.Font.RegularFontOfSize(14);
 
-            confirmButton.SetLightStyle(Resources.RegistrationView_GoToFeed_Button);
+            confirmButton.SetLightStyle(Resources.FinishPasswordRecoveryView_GoToLogin_Button);
+
+            showPublicationButton.SetTitle(Resources.FinishPasswordRecoveryView_GoToFeed_Button, UIControlState.Normal);
+            showPublicationButton.SetTitleColor(Theme.Color.White, UIControlState.Normal);
+            showPublicationButton.SetLinkStyle(Theme.Font.RegularFontOfSize(16));
         }
 
         public override void ViewDidLoad()

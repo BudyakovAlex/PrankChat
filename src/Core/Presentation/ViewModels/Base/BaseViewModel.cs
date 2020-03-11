@@ -1,7 +1,4 @@
 ﻿using System.Collections.Generic;
-using FFImageLoading.Transformations;
-using FFImageLoading.Work;
-using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -15,14 +12,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {
     public abstract class BaseViewModel : MvxViewModel
     {
-        #region Image
-
-        public double DownsampleWidth { get; } = 100;
-
-        public virtual List<ITransformation> Transformations => new List<ITransformation> { new CircleTransformation() };
-
-        #endregion
-
         #region Services
 
         public INavigationService NavigationService { get; }
@@ -70,7 +59,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             NavigationService = navigationService;
             ErrorHandleService = errorHandleService;
             ApiService = apiService;
-            DialogService = dialogService;
             DialogService = dialogService;
             SettingsService = settingsService;
 

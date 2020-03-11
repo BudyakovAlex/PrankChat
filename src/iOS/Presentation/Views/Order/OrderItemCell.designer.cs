@@ -43,16 +43,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UILabel priceValueLabel { get; set; }
 
 		[Outlet]
-		FFImageLoading.Cross.MvxCachedImageView profilePhotoImage { get; set; }
-
-		[Outlet]
-		UIKit.UILabel profileShortNameLabel { get; set; }
+		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profilePhotoImage { get; set; }
 
 		[Outlet]
 		UIKit.UILabel statusOrderLabel { get; set; }
 
 		[Outlet]
 		UIKit.UILabel timeLablel { get; set; }
+
+		[Outlet]
+		UIKit.UIView titleTimeView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -111,11 +111,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				profilePhotoImage = null;
 			}
 
-			if (profileShortNameLabel != null) {
-				profileShortNameLabel.Dispose ();
-				profileShortNameLabel = null;
-			}
-
 			if (statusOrderLabel != null) {
 				statusOrderLabel.Dispose ();
 				statusOrderLabel = null;
@@ -124,6 +119,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (timeLablel != null) {
 				timeLablel.Dispose ();
 				timeLablel = null;
+			}
+
+			if (titleTimeView != null) {
+				titleTimeView.Dispose ();
+				titleTimeView = null;
 			}
 		}
 	}

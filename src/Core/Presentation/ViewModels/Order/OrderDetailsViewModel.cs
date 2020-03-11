@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
@@ -22,6 +23,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     {
         private readonly ISettingsService _settingsService;
         private readonly IMediaService _mediaService;
+        private readonly IPlatformService _platformService;
 
         private int _orderId;
         private OrderDataModel _order;
@@ -32,7 +34,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string ProfileName => _order?.Customer?.Name;
 
-        public string ProfileShortName => _order?.Customer?.Name?.ToShortenName();
+        public string ProfileShortName => ProfileName?.ToShortenName();
 
         #endregion Profile
 
@@ -54,7 +56,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string ExecutorName => _order?.Executor?.Name;
 
-        public string ExecutorShortName => _order?.Executor?.Name.ToShortenName();
+        public string ExecutorShortName => _order?.Executor?.Name?.ToShortenName();
 
         public string StartOrderDate => _order?.TakenToWorkAt?.ToShortDateString();
 
@@ -66,9 +68,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public int DisikesCount => _order?.NegativeArbitrationValuesCount ?? 0;
 
-        public string YesText => $"{Resources.OrderDetailsView_Yes_Button} {LikesCount}";
+        public string YesText => SelectedArbitration == null ? Resources.OrderDetailsView_Yes_Button : LikesCount.ToString();
 
-        public string NoText => $"{Resources.OrderDetailsView_No_Button} {DisikesCount}";
+        public string NoText => SelectedArbitration == null ? Resources.OrderDetailsView_No_Button : DisikesCount.ToString();
 
         public ArbitrationValueType? SelectedArbitration => _order.MyArbitrationValue;
 
@@ -163,11 +165,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                      IMediaService mediaService,
                                      IErrorHandleService errorHandleService,
                                      IApiService apiService,
-                                     IDialogService dialogService)
+                                     IDialogService dialogService,
+                                     IPlatformService platformService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _settingsService = settingsService;
             _mediaService = mediaService;
+            _platformService = platformService;
         }
 
         public void Prepare(OrderDetailsNavigationParameter parameter)
@@ -473,13 +477,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return;
             }
 
-            // TODO: where to get copy link?
-            //if (result == Resources.Publication_Item_Copy_Link)
-            //{
-            //    await _platformService.CopyTextAsync(_shareLink);
-            //    DialogService.ShowToast(Resources.LinkCopied, ToastType.Positive);
-            //    return;
-            //}
+            if (result == Resources.Publication_Item_Copy_Link)
+            {
+                await _platformService.CopyTextAsync(_order.Video.ShareUri);
+                DialogService.ShowToast(Resources.LinkCopied, ToastType.Positive);
+                return;
+            }
         }
     }
 }

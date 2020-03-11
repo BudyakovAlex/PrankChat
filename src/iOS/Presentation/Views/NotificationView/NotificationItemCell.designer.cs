@@ -19,21 +19,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 		UIKit.UILabel profileNameAndDescriptionLabel { get; set; }
 
 		[Outlet]
-		FFImageLoading.Cross.MvxCachedImageView profilePhotoImageView { get; set; }
-
-		[Outlet]
-		UIKit.UILabel profileShortNameLabel { get; set; }
+		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profilePhotoImageView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel statusLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (profileShortNameLabel != null) {
-				profileShortNameLabel.Dispose ();
-				profileShortNameLabel = null;
-			}
-
 			if (dateLabel != null) {
 				dateLabel.Dispose ();
 				dateLabel = null;

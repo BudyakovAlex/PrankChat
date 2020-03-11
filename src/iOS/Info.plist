@@ -91,13 +91,11 @@
 			<string>vk7343996</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1052355475141532</string>
 				<string>vk7343996</string>
 			</array>
-			<key>CFBundleURLTypes</key>
+			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 		</dict>
-		<dict/>
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to the camera to take photos.</string>

@@ -72,24 +72,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
             var set = this.CreateBindingSet<NotificationItemCell, NotificationItemViewModel>();
 
             set.Bind(profilePhotoImageView)
-                .For(v => v.DownsampleWidth)
-                .To(vm => vm.DownsampleWidth)
-                .Mode(MvxBindingMode.OneTime);
-
-            set.Bind(profilePhotoImageView)
-                .For(v => v.Transformations)
-                .To(vm => vm.Transformations)
-                .Mode(MvxBindingMode.OneTime);
-
-            set.Bind(profilePhotoImageView)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ImageUrl)
-                .WithConversion<PlaceholderImageConverter>()
                 .Mode(MvxBindingMode.OneTime);
 
             set.Bind(profilePhotoImageView.Tap())
                 .For(v => v.Command)
                 .To(vm => vm.ShowUserProfileCommand);
+
+            set.Bind(profilePhotoImageView)
+                .For(v => v.PlaceholderText)
+                .To(vm => vm.ProfileShortName)
+                .Mode(MvxBindingMode.OneTime);
 
             set.Bind(this)
                 .For(v => v.ProfileName)
@@ -112,15 +106,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 
             set.Bind(statusLabel)
                 .To(vm => vm.Status)
-                .Mode(MvxBindingMode.OneTime);
-
-            set.Bind(profileShortNameLabel)
-                .To(vm => vm.ProfileShortName)
-                .Mode(MvxBindingMode.OneTime);
-
-            set.Bind(profileShortNameLabel)
-                .For(v => v.BindHidden())
-                .To(vm => vm.ImageUrl)
                 .Mode(MvxBindingMode.OneTime);
 
             set.Apply();

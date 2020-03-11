@@ -9,13 +9,9 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Exceptions;
-using PrankChat.Mobile.Core.Exceptions.UserVisible;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -79,6 +75,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                     Description = Description
                 };
 
+                if (_isUserPhotoUpdated)
+                {
+                    var user = await ApiService.SendAvatarAsync(ProfilePhotoUrl);
+                    if (user == null)
+                    {
+                        ErrorHandleService.LogError(this, "User is null after avatar loading. Aborting.");
+                    }
+                }
+
                 SettingsService.User = await ApiService.UpdateProfileAsync(dataModel);
 
                 CloseCompletionSource.SetResult(new ProfileUpdateResult(true, _isUserPhotoUpdated));
@@ -115,15 +120,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
             if (file != null)
             {
-                var user = await ApiService.SendAvatarAsync(file.Path);
-                if (user == null)
-                {
-                    ErrorHandleService.LogError(this, "User is null after avatar loading. Aborting.");
+                var croppedImagePath = await NavigationService.ShowImageCropView(file.Path);
+                if (croppedImagePath == null)
                     return;
-                }
 
-                ProfilePhotoUrl = file.Path;
-                SettingsService.User = user;
+                ProfilePhotoUrl = null;
+                ProfilePhotoUrl = croppedImagePath.FilePath;
                 _isUserPhotoUpdated = true;
                 _messenger.Publish(new UpdateAvatarMessage(this));
             }

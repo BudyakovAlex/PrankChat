@@ -235,7 +235,6 @@
       <DependentUpon>ArrayPickerController.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Dialogs\BaseDialog.cs" />
-    <Compile Include="Presentation\Converters\PlaceholderImageConverter.cs" />
     <InterfaceDefinition Include="Presentation\Views\ProfileView\ProfileUpdateView.xib" />
     <Compile Include="Presentation\Views\ProfileView\ProfileUpdateView.cs" />
     <Compile Include="Presentation\Views\ProfileView\ProfileUpdateView.designer.cs">
@@ -249,7 +248,6 @@
     <Compile Include="Presentation\Views\Web\WebPageView.designer.cs">
       <DependentUpon>WebPageView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Binding\WebViewUrlTargetBinding.cs" />
     <Compile Include="Controls\CustomWKWebView.cs" />
     <InterfaceDefinition Include="Presentation\Views\Video\FullScreenVideoView.xib" />
     <Compile Include="Presentation\Views\Video\FullScreenVideoView.cs" />
@@ -276,6 +274,13 @@
     <Compile Include="Presentation\Views\ProfileView\ProfileView.designer.cs">
       <DependentUpon>ProfileView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CircleCachedImageView.cs" />
+    <Compile Include="Presentation\Views\ProfileView\ImageCrop\ImageCropView.cs" />
+    <Compile Include="Presentation\Views\ProfileView\ImageCrop\ImageCropView.designer.cs">
+      <DependentUpon>ImageCropView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\ProfileView\ImageCrop\ImageCropView.xib" />
+    <Compile Include="Presentation\Views\ProfileView\ImageCrop\CropViewDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -328,6 +333,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.VKontakte.iOS">
       <Version>1.3.16</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugins.ImageCropper">
+      <Version>1.2.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -802,6 +810,7 @@
     <Folder Include="Assets.xcassets\ic_plus.imageset\" />
     <Folder Include="Assets.xcassets\ic_three_dots.imageset\" />
     <Folder Include="Assets.xcassets\ic_notification_user.imageset\" />
+    <Folder Include="Presentation\Views\ProfileView\ImageCrop\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

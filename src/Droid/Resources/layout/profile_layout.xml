@@ -14,13 +14,13 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingTop="16dp">
-            <FFImageLoading.Cross.MvxCachedImageView
+            <CircleCachedImageView
                 android:id="@+id/profile_photo"
                 android:layout_width="85dp"
                 android:layout_height="85dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:MvxBind="ImagePath ProfilePhotoUrl; DrawableId PlaceholderImage(ProfilePhotoUrl); Transformations Transformations, Mode = OneTime; DownsampleWidth DownsampleWidth, Mode = OneTime; Click ShowUpdateProfileCommand"/>
+                app:MvxBind="ImagePath ProfilePhotoUrl; PlaceholderText ProfileShortName, Mode = OneTime; Click ShowUpdateProfileCommand"/>
             <ImageView
                 android:id="@+id/profile_change_icon"
                 android:layout_width="30dp"
@@ -28,15 +28,6 @@
                 android:src="@drawable/ic_change_profile"
                 app:layout_constraintBottom_toBottomOf="@id/profile_photo"
                 app:layout_constraintRight_toRightOf="@id/profile_photo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/applicationWhite"
-                app:layout_constraintLeft_toLeftOf="@+id/profile_photo"
-                app:layout_constraintRight_toRightOf="@+id/profile_photo"
-                app:layout_constraintTop_toTopOf="@+id/profile_photo"
-                app:layout_constraintBottom_toBottomOf="@+id/profile_photo"
-                app:MvxBind="Text ProfileShortName, Mode = OneTime; Visibility InvertedVisibility(ProfilePhotoUrl), Mode = OneTime;"/>
             <TextView
                 android:id="@+id/profile_description"
                 android:layout_width="0dp"
@@ -92,7 +83,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="10dp"
                 android:text="@string/ProfileView_Withdrawal"
-                style="@style/Theme.PrankChat.Button.Borderless"
+                style="@style/Theme.PrankChat.Button.White"
                 app:MvxBind="Click ShowWithdrawalCommand" />
             <!-- Values section row -->
             <TextView

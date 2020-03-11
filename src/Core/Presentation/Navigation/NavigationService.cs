@@ -172,6 +172,12 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 			// return _mvxNavigationService.Navigate<ProfileViewModel, int>(idUser);
 		}
 
+		public Task<ImageCropPathResult> ShowImageCropView(string filePath)
+		{
+			var parameter = new ImagePathNavigationParameter(filePath);
+			return _mvxNavigationService.Navigate<ImageCropViewModel, ImagePathNavigationParameter, ImageCropPathResult>(parameter);
+		}
+
 		#region Dialogs
 
 		public Task ShowShareDialog(ShareDialogParameter parameter)
@@ -184,6 +190,6 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 			return _mvxNavigationService.Navigate<ArrayDialogViewModel, ArrayDialogParameter, ArrayDialogResult>(parameter);
 		}
 
-		#endregion
-	}
+        #endregion
+    }
 }

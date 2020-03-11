@@ -22,9 +22,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIButton cancelVideoButton { get; set; }
 
 		[Outlet]
-		UIKit.UILabel customerShortNameLabel { get; set; }
-
-		[Outlet]
 		UIKit.UILabel daysTitleLabel { get; set; }
 
 		[Outlet]
@@ -58,13 +55,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIButton executeVideoButton { get; set; }
 
 		[Outlet]
-		FFImageLoading.Cross.MvxCachedImageView executorImageView { get; set; }
+		PrankChat.Mobile.iOS.Controls.CircleCachedImageView executorImageView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel executorNameLabel { get; set; }
-
-		[Outlet]
-		UIKit.UILabel executorShortNameLabel { get; set; }
 
 		[Outlet]
 		UIKit.UIView executorView { get; set; }
@@ -97,7 +91,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UILabel priceValueLabel { get; set; }
 
 		[Outlet]
-		FFImageLoading.Cross.MvxCachedImageView profileImageView { get; set; }
+		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profileImageView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel profileNameLabel { get; set; }
@@ -164,11 +158,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				cancelVideoButton = null;
 			}
 
-			if (customerShortNameLabel != null) {
-				customerShortNameLabel.Dispose ();
-				customerShortNameLabel = null;
-			}
-
 			if (daysTitleLabel != null) {
 				daysTitleLabel.Dispose ();
 				daysTitleLabel = null;
@@ -232,11 +221,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (executorNameLabel != null) {
 				executorNameLabel.Dispose ();
 				executorNameLabel = null;
-			}
-
-			if (executorShortNameLabel != null) {
-				executorShortNameLabel.Dispose ();
-				executorShortNameLabel = null;
 			}
 
 			if (executorView != null) {
@@ -309,6 +293,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				rootScrollView = null;
 			}
 
+			if (stackViewToPriceValueLabelConstraint != null) {
+				stackViewToPriceValueLabelConstraint.Dispose ();
+				stackViewToPriceValueLabelConstraint = null;
+			}
+
 			if (startDateLabel != null) {
 				startDateLabel.Dispose ();
 				startDateLabel = null;
@@ -362,11 +351,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (videoView != null) {
 				videoView.Dispose ();
 				videoView = null;
-			}
-
-			if (stackViewToPriceValueLabelConstraint != null) {
-				stackViewToPriceValueLabelConstraint.Dispose ();
-				stackViewToPriceValueLabelConstraint = null;
 			}
 
 			if (yesButton != null) {

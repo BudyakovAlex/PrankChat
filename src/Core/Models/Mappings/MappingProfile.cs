@@ -41,6 +41,7 @@ namespace PrankChat.Mobile.Core.Models.Mappings
             CreateMap<ProblemDetailsDataModel, ProblemDetailsApiModel>()
                 .ForPath(dest => dest.Message, opt => opt.MapFrom(src => src.MessageServerError))
                 .ReverseMap();
+            CreateMap<RecoverPasswordResultDataModel, RecoverPasswordResultApiModel>().ReverseMap();
         }
     }
 }

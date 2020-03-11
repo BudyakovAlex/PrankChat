@@ -28,7 +28,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
-            var view = this.BindingInflate(Resource.Layout.activity_create_order, null);
+            var view = this.BindingInflate(Resource.Layout.fragment_create_order, null);
             _priceEditText = view.FindViewById<TextInputEditText>(Resource.Id.create_order_price_edit_text);
             _priceEditText.TextChanged += PriceEditTextOnTextChanged;
             return view;

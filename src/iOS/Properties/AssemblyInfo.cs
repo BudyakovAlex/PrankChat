@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Foundation;
 using UIKit;
+using VKontakte;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -40,3 +41,6 @@ using UIKit;
 
 [assembly: Preserve(typeof(UISearchBar), AllMembers = true)]
 [assembly: Preserve(typeof(System.Convert), AllMembers = true)]
+[assembly: Preserve(typeof(VKSdk), AllMembers = true)]
+[assembly: Preserve(typeof(VKSdkUIDelegate), AllMembers = true)]
+[assembly: Preserve(typeof(VKSdkDelegate), AllMembers = true)]
