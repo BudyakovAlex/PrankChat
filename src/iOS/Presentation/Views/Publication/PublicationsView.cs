@@ -29,15 +29,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.To(vm => vm.SelectedPublicationType)
 				.WithConversion<PublicationTypeConverter>();
 
-            set.Bind(PublicationTableSource)
-                .For(v => v.Segment)
-                .To(vm => vm.SelectedPublicationType)
-                .WithConversion<PublicationTypeConverter>();
-
-            set.Bind(PublicationTableSource)
-                .For(v => v.FilterName)
-                .To(vm => vm.ActiveFilterName);
-
             set.Bind(filterContainerView.Tap())
                 .For(v => v.Command)
                 .To(vm => vm.OpenFilterCommand);
@@ -101,7 +92,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         private void InitializeTableView()
         {
-            PublicationTableSource = new PublicationTableSource(tableView, ViewModel);
+            PublicationTableSource = new PublicationTableSource(tableView);
             tableView.Source = PublicationTableSource;
             tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
             tableView.SetVideoListStyle(PublicationItemCell.EstimatedHeight);

@@ -9,7 +9,6 @@ using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Binding;
-using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -74,25 +73,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
 			set.Bind(profileImage)
 				.For(v => v.ImagePath)
-				.To(vm => vm.ProfilePhotoUrl)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.ProfilePhotoUrl);
 
 			set.Bind(profileImage)
-	            .For(v => v.PlaceholderText)
-	            .To(vm => vm.ProfileShortName)
-	            .Mode(MvxBindingMode.OneTime);
+				.For(v => v.PlaceholderText)
+				.To(vm => vm.ProfileShortName);
 
 			set.Bind(profileNameLabel)
-				.To(vm => vm.ProfileName)
-				.Mode(MvxBindingMode.OneTime);
+			   .To(vm => vm.ProfileName);
 
 			set.Bind(profileNameLabel.Tap())
 				.For(v => v.Command)
 				.To(vm => vm.ShowDetailsCommand);
 
 			set.Bind(videoNameLabel)
-				.To(vm => vm.VideoName)
-				.Mode(MvxBindingMode.OneTime);
+				.To(vm => vm.VideoName);
 
 			set.Bind(videoNameLabel.Tap())
 				.For(v => v.Command)

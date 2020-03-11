@@ -7,6 +7,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 {
     public abstract class BaseTableCell<TCell, TViewModel> : MvxTableViewCell
+        where TViewModel : class
     {
         private const int DefaultCellHeight = 40;
 
@@ -31,7 +32,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         public void SetupCell()
         {
-            InitializeViewModel();
+            BindingContext.DataContextChanged += (o, e) => ViewModel = BindingContext.DataContext as TViewModel;
             SetupControls();
             SetBindings();
         }
@@ -45,18 +46,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         protected virtual void SetBindings()
         {
-        }
-
-        private void InitializeViewModel()
-        {
-            if (BindingContext?.DataContext is TViewModel viewModel)
-            {
-                ViewModel = viewModel;
-            }
-            else
-            {
-                throw new ArgumentNullException($"Binding context doesn't attached to {typeof(TCell).Name}, expected view model type is {typeof(TViewModel).Name}");
-            }
         }
     }
 }

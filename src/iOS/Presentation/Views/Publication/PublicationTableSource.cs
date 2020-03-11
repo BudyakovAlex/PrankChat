@@ -1,96 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Foundation;
 using MvvmCross.Platforms.Ios.Binding.Views;
-using PrankChat.Mobile.Core.Presentation.ViewModels;
-using UIKit;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
+using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
     public class PublicationTableSource : MvxTableViewSource
     {
-        private const int InitializeDelayInMilliseconds = 300;
-        private const int ReinitializeDelayInMilliseconds = 500;
-        private readonly IVideoListViewModel _parentViewModel;
-        private PublicationItemCell _previousCellToPlay;
-        private bool _initialized;
+        private const int InitializeDelayInMilliseconds = 200;
 
-        public PublicationTableSource(UITableView tableView, IVideoListViewModel parentViewModel) : base(tableView)
+        private PublicationItemCell _previousVideoCell;
+
+        public PublicationTableSource(UITableView tableView) : base(tableView)
         {
             UseAnimations = true;
-            _parentViewModel = parentViewModel;
         }
 
-        private int _segment;
-        public int Segment
+        public override void ScrollAnimationEnded(UIScrollView scrollView)
         {
-            get => _segment;
-            set
-            {
-                _segment = value;
-                Reinitialize();
-            }
+            StopVideo(_previousVideoCell);
+            PrepareCellsFowPlayingVideoAsync().FireAndForget();
         }
 
-        private string _filterName;
-        public string FilterName
+        public override void DecelerationEnded(UIScrollView scrollView)
         {
-            get => _filterName;
-            set
-            {
-                _filterName = value;
-                Reinitialize();
-            }
+            StopVideo(_previousVideoCell);
+            PrepareCellsFowPlayingVideoAsync().FireAndForget();
         }
 
-        public async Task Initialize()
+        public override void DraggingEnded(UIScrollView scrollView, bool willDecelerate)
         {
-            if (_initialized)
-                return;
-
-            var indexPath = TableView.IndexPathsForVisibleRows?.FirstOrDefault();
-            if (indexPath == null)
-                return;
-
-            var cellToPlay = TableView.CellAt(indexPath) as PublicationItemCell;
-            if (cellToPlay != null)
-            {
-                // Duration of cell reinitialization load (e.g. tab switch) animation.
-                await Task.Delay(ReinitializeDelayInMilliseconds);
-                PlayFirstCompletelyVisibleVideoItem();
-                _initialized = true;
-            }
-            else
-            {
-                while(cellToPlay == null)
-                {
-                    // Duration of cell init load animation.
-                    await Task.Delay(InitializeDelayInMilliseconds);
-                    cellToPlay = TableView.CellAt(indexPath) as PublicationItemCell;
-                    if (cellToPlay != null)
-                    {
-                        PlayFirstCompletelyVisibleVideoItem();
-                        _initialized = true;
-                    }
-                }
-            }
-        }
-
-        public override void CellDisplayingEnded(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
-        {
-            base.CellDisplayingEnded(tableView, cell, indexPath);
-
-            Initialize().FireAndForget();
-        }
-
-        public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
-        {
-            Initialize().FireAndForget();
+            StopVideo(_previousVideoCell);
+            PrepareCellsFowPlayingVideoAsync().FireAndForget();
         }
 
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
@@ -98,91 +43,41 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             return UITableView.AutomaticDimension;
         }
 
-        public override void DecelerationEnded(UIScrollView scrollView)
-        {
-            PlayFirstCompletelyVisibleVideoItem();
-        }
-
-        public override void DraggingEnded(UIScrollView scrollView, bool willDecelerate)
-        {
-            PlayFirstCompletelyVisibleVideoItem();
-        }
-
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
         {
             return tableView.DequeueReusableCell(PublicationItemCell.CellId);
         }
 
-        private void Reinitialize()
+        private async Task PrepareCellsFowPlayingVideoAsync()
         {
-            _initialized = false;
-            Initialize().FireAndForget();
-        }
+            var firstCompletelyVisibleCell = TableView.VisibleCells.OfType<PublicationItemCell>()
+                                                                   .ToList()
+                                                                   .FirstOrDefault(cell => IsCompletelyVisible(cell));
+            await Task.Delay(InitializeDelayInMilliseconds);
 
-        private void PlayFirstCompletelyVisibleVideoItem()
-        {
-            var indexPaths = TableView.IndexPathsForVisibleRows;
-            if (indexPaths.Length == 0)
-                return;
-
-            PublicationItemCell cellToPlay = null;
-            var visibleCellsCollection = indexPaths.Select(indexPath => TableView.CellAt(indexPath) as PublicationItemCell);
-            var visibleCells = visibleCellsCollection.ToList();
-            var centralCellToPlay = visibleCells[indexPaths.Length / 2];
-            var completelyVisibleCells = new List<PublicationItemCell>();
-            var partiallyVisibleCells = new List<PublicationItemCell>();
-            foreach (var visibleCell in visibleCells)
+            var newVisibleCell = TableView.VisibleCells.OfType<PublicationItemCell>()
+                                                       .ToList()
+                                                       .FirstOrDefault(cell => IsCompletelyVisible(cell));
+            if (firstCompletelyVisibleCell == newVisibleCell)
             {
-                if (visibleCell == null)
-                    continue;
-
-                if (IsCompletelyVisible(visibleCell))
-                {
-                    completelyVisibleCells.Add(visibleCell);
-                }
-                else
-                {
-                    partiallyVisibleCells.Add(visibleCell);
-                }
-            }
-
-            cellToPlay = completelyVisibleCells.FirstOrDefault();
-
-            if (cellToPlay == null)
-                if (centralCellToPlay != null)
-                    cellToPlay = centralCellToPlay;
-                else
-                    return;
-
-            Debug.WriteLine("Play activated:" + TableView.IndexPathForCell(cellToPlay).Row);
-
-            if (cellToPlay == _previousCellToPlay)
-                return;
-
-            _previousCellToPlay = cellToPlay;
-
-            foreach (var partiallyVisibleCell in partiallyVisibleCells)
-            {
-                StopVideo(partiallyVisibleCell);
-            }
-
-            if (completelyVisibleCells.Count > 0
-                && TableView.IndexPathForCell(completelyVisibleCells.LastOrDefault()).Row == _parentViewModel.Items.Count - 1)
-            {
-                completelyVisibleCells.ForEach(c => PlayVideo(c));
-            }
-            else
-            {
-                PlayVideo(cellToPlay);
+                PlayVideo(newVisibleCell);
             }
         }
 
         private void PlayVideo(PublicationItemCell cell)
         {
-            var viewModel = GetItemViewModelFor(cell);
+            var viewModel = cell?.ViewModel;
+            if (viewModel is null)
+            {
+                return;
+            }
+
+            _previousVideoCell = cell;
             var service = viewModel.VideoPlayerService;
             if (service.Player.IsPlaying)
+            {
                 return;
+            }
 
             service.Stop();
             service.Player.SetPlatformVideoPlayerContainer(null);
@@ -190,37 +85,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             service.Play(viewModel.VideoUrl, viewModel.VideoId);
         }
 
-        private void ContinueVideo(PublicationItemCell cell)
-        {
-            var viewModel = GetItemViewModelFor(cell);
-            if (!viewModel.VideoPlayerService.Player.IsPlaying)
-                return;
-
-            viewModel.VideoPlayerService.Play();
-        }
-
-        private void PauseVideo(PublicationItemCell cell)
-        {
-            var viewModel = GetItemViewModelFor(cell);
-            if (!viewModel.VideoPlayerService.Player.IsPlaying)
-                return;
-
-            viewModel.VideoPlayerService.Pause();
-        }
-
         private void StopVideo(PublicationItemCell cell)
         {
-            var viewModel = GetItemViewModelFor(cell);
-            if (!viewModel.VideoPlayerService.Player.IsPlaying)
+            var viewModel = cell?.ViewModel;
+            if (viewModel is null)
+            {
                 return;
+            }
+
+            if (!viewModel.VideoPlayerService.Player.IsPlaying)
+            {
+                return;
+            }
 
             viewModel.VideoPlayerService.Stop();
             cell.AVPlayerViewControllerInstance.Player = null;
-        }
-
-        private PublicationItemViewModel GetItemViewModelFor(PublicationItemCell cell)
-        {
-            return _parentViewModel.Items.ElementAt(TableView.IndexPathForCell(cell).Row);
         }
 
         private bool IsCompletelyVisible(PublicationItemCell publicationCell)

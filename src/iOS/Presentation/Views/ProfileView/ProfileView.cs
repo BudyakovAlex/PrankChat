@@ -1,20 +1,15 @@
-﻿using System;
-using MvvmCross.Binding;
+﻿using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
-using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
-using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Publication;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
@@ -25,13 +20,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         private MvxUIRefreshControl _refreshControlProfile;
 
         public PublicationTableSource PublicationTableSource { get; private set; }
-
-        public override void ViewDidAppear(bool animated)
-        {
-            base.ViewDidAppear(animated);
-
-            PublicationTableSource.Initialize().FireAndForget();
-        }
 
         protected override void SetupBinding()
         {
@@ -47,11 +35,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             set.Bind(PublicationTableSource)
                 .To(vm => vm.Items);
-
-            set.Bind(PublicationTableSource)
-                .For(v => v.Segment)
-                .To(vm => vm.SelectedPublicationType)
-                .WithConversion<PublicationTypeConverter>();
 
             set.Bind(profileImageView)
                 .For(v => v.ImagePath)
@@ -149,7 +132,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         private void InitializeTableView()
         {
-            PublicationTableSource = new PublicationTableSource(tableView, ViewModel);
+            PublicationTableSource = new PublicationTableSource(tableView);
             tableView.Source = PublicationTableSource;
             tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
             tableView.SetVideoListStyle(PublicationItemCell.EstimatedHeight);
@@ -157,4 +140,3 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         }
     }
 }
-
