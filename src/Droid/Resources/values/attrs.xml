@@ -5,8 +5,4 @@
         <attr name="unselected_drawable" format="integer"/>
         <attr name="type_arbitration" format="string"/>
     </declare-styleable>
-
-    <declare-styleable name="NotificationTextView">
-        <attr name="profile_name" format="string"/>
-    </declare-styleable>
 </resources>

@@ -38,7 +38,7 @@ namespace PrankChat.Mobile.Droid.Controls
             DownsampleWidth = ImageSize;
 
             SetScaleType(ScaleType.CenterCrop);
-            SetBackgroundResource(Resource.Drawable.ic_image_background);
+            SetBackgroundResource(Resource.Drawable.ic_notification_user);
         }
 
         protected override void OnDraw(Canvas canvas)
