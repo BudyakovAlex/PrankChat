@@ -7,6 +7,7 @@ using MvvmCross.IoC;
 using MvvmCross.Platforms.Android.Presenters;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
 using PrankChat.Mobile.Droid.ApplicationServices;
@@ -27,6 +28,7 @@ namespace PrankChat.Mobile.Droid
             Mvx.IoCProvider.RegisterType<ICrashlyticsService, CrashlyticsService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IDialogService, DialogService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IExternalAuthService, ExternalAuthService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISettingsService, SettingsService>();
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()

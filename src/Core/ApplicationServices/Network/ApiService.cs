@@ -392,6 +392,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<List<NotificationDataModel>>(notificationBundle?.Data);
         }
 
+        public async Task SendNotificationTokenAsync(string token)
+        {
+
+        }
+
         #endregion Notification
 
         private void OnUnauthorizedUser(UnauthorizedMessage obj)

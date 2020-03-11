@@ -24,5 +24,10 @@
         {
             public const string MuteStateKey = nameof(MuteStateKey);
         }
+
+        public static class Notification
+        {
+            public const string ChannelId = "classtag_notification_channel";
+        }
     }
 }
