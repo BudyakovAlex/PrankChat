@@ -1,23 +1,18 @@
 ﻿using System;
-using MvvmCross.Binding.BindingContext;
+using Foundation;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
-using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
-using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Web
 {
     public partial class WebPageView : BaseView<WebViewModel>
     {
-        protected override void SetupBinding()
+        protected override void SetupControls()
         {
-            var set = this.CreateBindingSet<WebPageView, WebViewModel>();
+            base.SetupControls();
 
-            set.Bind(webView)
-                .For(WebViewUrlTargetBinding.TargetBinding)
-                .To(vm => vm.Url);
-
-            set.Apply();
+            var nsurl = NSUrl.FromString(ViewModel.Url);
+            webView.LoadRequest(new NSUrlRequest(nsurl));
         }
     }
 }
