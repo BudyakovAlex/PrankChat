@@ -133,7 +133,6 @@
     <Compile Include="ApplicationServices\Callbacks\VkontakteCallback.cs" />
     <Compile Include="DroidApplication.cs" />
     <Compile Include="Providers\OutlineProvider.cs" />
-    <Compile Include="Controls\NotificationTextView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -457,10 +456,6 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\menu\order_details_menu.xml">
-      <SubType></SubType>
-      <Generator></Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\drawable\ic_notification_user.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
