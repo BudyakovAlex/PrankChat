@@ -432,12 +432,6 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\action_bar_back_and_logo.axml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\toast_view.xml">
       <SubType>
       </SubType>
@@ -513,6 +507,10 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\notification_dot.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\action_bar_back_and_logo.axml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

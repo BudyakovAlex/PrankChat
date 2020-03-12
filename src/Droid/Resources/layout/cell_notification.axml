@@ -1,49 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <CircleCachedImageView
-        android:id="@+id/profile_photo"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="15dp"
-        local:MvxBind="ImagePath ImageUrl, Mode = OneTime; PlaceholderText ProfileShortName, Mode = OneTime; Click ShowUserProfileCommand" />
-    <PrankChat.Mobile.Droid.Controls.NotificationTextView
-        android:id="@+id/name_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/profile_photo"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="13dp"
-        android:textSize="12sp"
-        android:textColor="@color/applicationBlack"
-        local:MvxBind="ProfileName ProfileName, Mode = OneTime; Title Title, Mode = OneTime; DescriptionText Description, Mode = OneTime"/>
-    <!--Second line-->
-    <TextView
-        android:id="@+id/date_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/profile_photo"
-        android:layout_below="@+id/name_text_view"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="11dp"
-        android:textSize="12sp"
-        android:textColor="@color/description"
-        android:singleLine="true"
-        local:MvxBind="Text DateText, Mode = OneTime"/>
-    <TextView
-        android:id="@+id/status_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/date_text_view"
-        android:layout_below="@+id/name_text_view"
-        android:layout_marginLeft="7dp"
-        android:layout_marginTop="11dp"
-        android:textSize="12sp"
-        android:textColor="@color/description"
-        android:singleLine="true"
-        local:MvxBind="Text Status, Mode = OneTime"/>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:local="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+	<CircleCachedImageView
+		android:id="@+id/profile_photo"
+		android:layout_width="42dp"
+		android:layout_height="42dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginLeft="15dp"
+		local:MvxBind="ImagePath ImageUrl, Mode = OneTime; PlaceholderText ProfileShortName, Mode = OneTime; Click ShowUserProfileCommand" />
+	<View
+		android:layout_width="13dp"
+		android:layout_height="13dp"
+		android:background="@drawable/notification_dot"
+		android:layout_alignRight="@+id/profile_photo"
+		android:layout_alignTop="@+id/profile_photo"
+		local:MvxBind="Visibility IsDelivered"/>
+	<PrankChat.Mobile.Droid.Controls.NotificationTextView
+		android:id="@+id/name_text_view"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_toRightOf="@+id/profile_photo"
+        android:layout_alignParentRight="true"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="13dp"
+        android:layout_marginRight="15dp"
+		android:textSize="12sp"
+		android:textColor="@color/applicationBlack"
+		local:MvxBind="ProfileName ProfileName, Mode = OneTime; Title Title, Mode = OneTime; DescriptionText Description, Mode = OneTime"/>
+	<!--Second line-->
+	<TextView
+		android:id="@+id/date_text_view"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_toRightOf="@+id/profile_photo"
+		android:layout_below="@+id/name_text_view"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="11dp"
+		android:textSize="12sp"
+		android:textColor="@color/description"
+		android:singleLine="true"
+		local:MvxBind="Text DateText, Mode = OneTime"/>
 </RelativeLayout>
