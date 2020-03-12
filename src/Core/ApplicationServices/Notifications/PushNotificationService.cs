@@ -22,7 +22,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
             MvxLog = mvxLog;
         }
 
-        public async Task UpdateToken()
+        public async Task UpdateTokenAsync()
         {
             if (string.IsNullOrWhiteSpace(SettingsService.PushToken))
             {
@@ -30,8 +30,18 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
                 return;
             }
 
-            await ApiService.SendNotificationTokenAsync(SettingsService.PushToken);
-            SettingsService.IsPushnTokenSend = true;
+            if (SettingsService.User == null)
+                return;
+
+            try
+            {
+                await ApiService.SendNotificationTokenAsync(SettingsService.PushToken);
+                SettingsService.IsPushnTokenSend = true;
+            }
+            catch (Exception)
+            {
+                SettingsService.IsPushnTokenSend = false;
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -30,7 +31,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                                      IApiService apiService,
                                      IErrorHandleService errorHandleService,
                                      ISettingsService settingsService,
-                                     IExternalAuthService externalAuthService) : base(navigationService, errorHandleService, apiService, dialogService, settingsService, externalAuthService)
+                                     IExternalAuthService externalAuthService,
+                                     IPushNotificationService pushNotificationService) : base(navigationService, errorHandleService, apiService, dialogService, settingsService, externalAuthService, pushNotificationService)
         {
         }
 

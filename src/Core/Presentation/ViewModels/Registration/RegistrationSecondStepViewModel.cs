@@ -6,6 +6,7 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.UserVisible;
@@ -22,6 +23,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class RegistrationSecondStepViewModel : BaseProfileViewModel, IMvxViewModel<RegistrationNavigationParameter>
     {
+        private readonly IPushNotificationService _pushNotificationService;
+
         private string _password;
         public string Password
         {
@@ -42,9 +45,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                                                IDialogService dialogService,
                                                IApiService apiService,
                                                IErrorHandleService errorHandleService,
-                                               ISettingsService settingsService)
+                                               ISettingsService settingsService,
+                                               IPushNotificationService pushNotificationService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
+            _pushNotificationService = pushNotificationService;
         }
 
         public void Prepare(RegistrationNavigationParameter parameter)
@@ -74,6 +79,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                 await ApiService.RegisterAsync(userInfo);
                 // todo: not wait
                 await ApiService.GetCurrentUserAsync();
+                await _pushNotificationService.UpdateTokenAsync();
                 await NavigationService.ShowRegistrationThirdStepView();
             }
             catch (Exception ex)

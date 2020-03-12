@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
+using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Configuration;
@@ -392,9 +393,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<List<NotificationDataModel>>(notificationBundle?.Data);
         }
 
-        public async Task SendNotificationTokenAsync(string token)
+        public Task SendNotificationTokenAsync(string token)
         {
-
+            var pushNotificationApiMode = new PushNotificationApiMode()
+            {
+                Token = token,
+                DeviceId = CrossDeviceInfo.Current.Id,
+            };
+            return _client.Post("me/device", pushNotificationApiMode, true);
         }
 
         #endregion Notification

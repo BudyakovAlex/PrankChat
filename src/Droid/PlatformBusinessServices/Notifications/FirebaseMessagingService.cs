@@ -4,8 +4,11 @@ using Android.Content;
 using Android.Runtime;
 using Firebase.Messaging;
 using MvvmCross;
+using Newtonsoft.Json;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 {
@@ -29,28 +32,23 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 
         public override void OnMessageReceived(RemoteMessage message)
         {
-            //var title = string.Empty;
-            //var body = string.Empty;
-            //var url = string.Empty;
+            message.Data.TryGetValue("key", out var key);
+            message.Data.TryGetValue("value", out var value);
 
-            //if (_intercomPushClient.IsIntercomPush(remoteMessage.Data))
-            //{
-            //	_intercomPushClient.HandlePush(Application, remoteMessage.Data);
+            value = null;
 
-            //	remoteMessage.Data.TryGetValue("title", out title);
-            //	remoteMessage.Data.TryGetValue("message", out body);
-            //	remoteMessage.Data.TryGetValue("uri", out url);
-            //}
-            //else
+            //if (string.IsNullOrWhiteSpace(value))
             //{
-            //	remoteMessage.Data.TryGetValue("pinpoint.notification.title", out title);
-            //	remoteMessage.Data.TryGetValue("pinpoint.notification.body", out body);
-            //	remoteMessage.Data.TryGetValue("pinpoint.deeplink", out url);
+            //    NotificationWrapper.Instance.ScheduleLocalNotification("empty", "empty");
             //}
 
-            //ScheduleLocalNotification();
+            var notificationDataModel = JsonConvert.DeserializeObject<DataApiModel<NotificationApiModel>>(value);
+            if (notificationDataModel?.Data == null)
+            {
+                NotificationWrapper.Instance.ScheduleLocalNotification("empty", "empty");
+            }
 
-            //NotificationWrapper.ScheduleLocalNotification();
+            NotificationWrapper.Instance.ScheduleLocalNotification(notificationDataModel?.Data?.Title, notificationDataModel?.Data?.Description);
         }
 	}
 }

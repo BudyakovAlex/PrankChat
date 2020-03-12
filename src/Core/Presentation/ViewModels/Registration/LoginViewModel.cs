@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -38,8 +39,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                               IDialogService dialogService,
                               IMvxLog mvxLog,
                               IErrorHandleService errorHandleService,
-                              ISettingsService settingsService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService, externalAuthService)
+                              ISettingsService settingsService,
+                              IPushNotificationService pushNotificationService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService, externalAuthService, pushNotificationService)
         {
             _mvxLog = mvxLog;
 #if DEBUG
@@ -74,15 +76,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                     case LoginType.Facebook:
                         var isLoggedIn = await TryLoginWithExternalServicesAsync(socialNetworkType);
                         if (!isLoggedIn)
-                        {
                             return;
-                        }
-
                         break;
 
                     case LoginType.Ok:
                     case LoginType.Gmail:
                         return;
+
                     case LoginType.UsernameAndPassword:
                         if (!CheckValidation())
                             return;

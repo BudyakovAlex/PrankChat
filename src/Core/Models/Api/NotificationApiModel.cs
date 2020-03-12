@@ -17,6 +17,8 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         public NotificationType? Type { get; set; }
 
+        public string Description { get; set; }
+
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
 

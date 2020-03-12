@@ -55,7 +55,7 @@ namespace PrankChat.Mobile.Core
                 return Task.CompletedTask;
 
             var pushNotificationService = Mvx.IoCProvider.Resolve<IPushNotificationService>();
-            return pushNotificationService.UpdateToken();
+            return pushNotificationService.UpdateTokenAsync();
         }
     }
 }
