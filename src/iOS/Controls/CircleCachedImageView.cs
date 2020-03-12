@@ -13,8 +13,11 @@ namespace PrankChat.Mobile.iOS.Controls
     {
         private const int ImageSize = 50;
         private const int PlaceholderTextSize = 16;
+        private const string DefaultImagePath = "res:ic_notification_user.png";
 
         private UILabel _placeholderLabel;
+        private bool _haveImage => ImagePath != null;
+
 
         private string _placeholderText;
         public string PlaceholderText
@@ -87,14 +90,24 @@ namespace PrankChat.Mobile.iOS.Controls
         private void SetPlaceholderText(string placeholder)
         {
             if (string.IsNullOrWhiteSpace(placeholder))
+            {
+                if (!_haveImage)
+                {
+                    ImagePath = DefaultImagePath;
+                }
                 return;
-
+            }
+            
             _placeholderLabel.Text = placeholder;
             _placeholderLabel.SizeToFit();
             _placeholderLabel.Frame = new CGRect(Bounds.Width / 2 - _placeholderLabel.Frame.Size.Width / 2,
                                            Bounds.Height / 2 - _placeholderLabel.Frame.Size.Height / 2,
                                            _placeholderLabel.Frame.Size.Width,
                                            _placeholderLabel.Frame.Size.Height);
+            if (!_haveImage)
+            {
+                _placeholderLabel.Alpha = 1;
+            }
         }
     }
 }
