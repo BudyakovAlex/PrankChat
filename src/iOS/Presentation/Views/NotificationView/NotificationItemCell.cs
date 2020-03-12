@@ -4,6 +4,7 @@ using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
+using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Converters;
@@ -64,7 +65,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 
             profileNameAndDescriptionLabel.SetSmallTitleStyle();
             dateLabel.SetSmallSubtitleStyle();
-            statusLabel.SetSmallSubtitleStyle();
         }
 
         protected override void SetBindings()
@@ -104,8 +104,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
                 .To(vm => vm.DateText)
                 .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(statusLabel)
-                .To(vm => vm.Status)
+            set.Bind(isReadedView)
+                .For(v => v.BindVisibility())
+                .To(vm => vm.IsDelivered)
                 .Mode(MvxBindingMode.OneTime);
 
             set.Apply();

@@ -29,51 +29,44 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GZ9-vI-cBG">
-                        <rect key="frame" x="72" y="26.5" width="31" height="14.5"/>
+                        <rect key="frame" x="72" y="26.5" width="233" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-<<<<<<< HEAD
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BLK-gL-Cbz">
-                        <rect key="frame" x="15" y="17.5" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t0Z-NX-ZGu">
-                        <rect key="frame" x="111" y="26.5" width="31" height="14.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-=======
->>>>>>> development
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2nL-Pk-9b6" userLabel="Is Rreaded View">
+                        <rect key="frame" x="44" y="7" width="13" height="13"/>
+                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="13" id="a0E-vr-PfZ"/>
+                            <constraint firstAttribute="width" constant="13" id="jwe-qI-AKx"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="Xpp-fe-axI" secondAttribute="trailing" constant="15" id="0hF-K7-NWe"/>
-                    <constraint firstItem="t0Z-NX-ZGu" firstAttribute="centerY" secondItem="GZ9-vI-cBG" secondAttribute="centerY" id="B1m-Y5-qxj"/>
+                    <constraint firstItem="2nL-Pk-9b6" firstAttribute="top" secondItem="zIM-KU-aec" secondAttribute="top" id="Ca2-vN-CkD"/>
                     <constraint firstItem="Xpp-fe-axI" firstAttribute="leading" secondItem="zIM-KU-aec" secondAttribute="trailing" constant="15" id="D8R-pQ-aFM"/>
                     <constraint firstItem="Xpp-fe-axI" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" constant="6" id="ELj-F6-Jli"/>
+                    <constraint firstAttribute="trailing" secondItem="GZ9-vI-cBG" secondAttribute="trailing" constant="15" id="GBC-kb-24y"/>
                     <constraint firstItem="zIM-KU-aec" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="15" id="IIq-XT-sdC"/>
+                    <constraint firstItem="2nL-Pk-9b6" firstAttribute="trailing" secondItem="zIM-KU-aec" secondAttribute="trailing" id="IXW-Xp-x9B"/>
                     <constraint firstItem="GZ9-vI-cBG" firstAttribute="leading" secondItem="zIM-KU-aec" secondAttribute="trailing" constant="15" id="PVo-b8-NDX"/>
-                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="t0Z-NX-ZGu" secondAttribute="trailing" constant="15" id="TBi-FM-MAT"/>
                     <constraint firstItem="GZ9-vI-cBG" firstAttribute="top" secondItem="Xpp-fe-axI" secondAttribute="bottom" constant="6" id="aKD-ro-E65"/>
-                    <constraint firstItem="t0Z-NX-ZGu" firstAttribute="leading" secondItem="GZ9-vI-cBG" secondAttribute="trailing" constant="8" id="aKw-jp-P6s"/>
                     <constraint firstAttribute="bottom" secondItem="GZ9-vI-cBG" secondAttribute="bottom" constant="14" id="ctb-0f-zbm"/>
                     <constraint firstItem="zIM-KU-aec" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" constant="7" id="ryC-m9-Dfa"/>
-<<<<<<< HEAD
-                    <constraint firstItem="BLK-gL-Cbz" firstAttribute="centerX" secondItem="zIM-KU-aec" secondAttribute="centerX" id="sWj-UA-T4i"/>
-=======
-                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2lk-fL-tw4" secondAttribute="trailing" constant="15" id="tgk-Vn-w17"/>
->>>>>>> development
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="dateLabel" destination="GZ9-vI-cBG" id="mOg-si-HGV"/>
+                <outlet property="isReadedView" destination="2nL-Pk-9b6" id="2nU-Pk-sI6"/>
                 <outlet property="profileNameAndDescriptionLabel" destination="Xpp-fe-axI" id="CNJ-5b-m8n"/>
                 <outlet property="profilePhotoImageView" destination="zIM-KU-aec" id="r3N-W4-Dyf"/>
-                <outlet property="statusLabel" destination="t0Z-NX-ZGu" id="KBV-E4-eD5"/>
             </connections>
             <point key="canvasLocation" x="24.637681159420293" y="39.84375"/>
         </tableViewCell>

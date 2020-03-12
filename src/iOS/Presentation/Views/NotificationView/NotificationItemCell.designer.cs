@@ -21,8 +21,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 		[Outlet]
 		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profilePhotoImageView { get; set; }
 
-		[Outlet]
-		UIKit.UILabel statusLabel { get; set; }
+        [Outlet]
+        UIKit.UIView isReadedView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -41,10 +41,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 				profilePhotoImageView = null;
 			}
 
-			if (statusLabel != null) {
-				statusLabel.Dispose ();
-				statusLabel = null;
-			}
+            if (isReadedView != null) {
+				isReadedView.Dispose ();
+				isReadedView = null;
+            }
 		}
 	}
 }
