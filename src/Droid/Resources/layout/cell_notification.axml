@@ -17,7 +17,7 @@
 		android:background="@drawable/notification_dot"
 		android:layout_alignRight="@+id/profile_photo"
 		android:layout_alignTop="@+id/profile_photo"
-		local:MvxBind="Visibility IsDelivered"/>
+		local:MvxBind="Visibility InvertedVisibility(IsDelivered)"/>
 	<PrankChat.Mobile.Droid.Controls.NotificationTextView
 		android:id="@+id/name_text_view"
 		android:layout_width="wrap_content"
