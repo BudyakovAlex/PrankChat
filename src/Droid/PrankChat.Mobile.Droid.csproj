@@ -39,12 +39,7 @@
     <AndroidSupportedAbis>x86;x86_64;armeabi-v7a</AndroidSupportedAbis>
     <AndroidDexTool>d8</AndroidDexTool>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
-    <AotAssemblies>false</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
-    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-    <BundleAssemblies>false</BundleAssemblies>
     <AndroidUseAapt2>true</AndroidUseAapt2>
-    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -59,12 +54,7 @@
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <AndroidUseAapt2>true</AndroidUseAapt2>
-    <AotAssemblies>false</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
-    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-    <BundleAssemblies>false</BundleAssemblies>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
-    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <AndroidSupportedAbis>x86_64;arm64-v8a</AndroidSupportedAbis>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
   </PropertyGroup>
@@ -100,7 +90,6 @@
     <Compile Include="Presentation\Views\Profile\ProfileUpdateView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileView.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsLinearLayoutManager.cs" />
-    <Compile Include="Presentation\Views\Publications\PublicationsRecyclerAdapter.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsView.cs" />
     <Compile Include="Presentation\Views\RatingView.cs" />
     <Compile Include="Presentation\Views\Registration\RegistrationSecondStepView.cs" />
@@ -149,6 +138,14 @@
     <Compile Include="Providers\OutlineProvider.cs" />
     <Compile Include="Controls\CircleCachedImageView.cs" />
     <Compile Include="Presentation\Converters\InvisibleConverter.cs" />
+    <Compile Include="Presentation\Adapters\RecycleViewBindableAdapter.cs" />
+    <Compile Include="Presentation\Adapters\TemplateSelectors\ITemplateSelector.cs" />
+    <Compile Include="Presentation\Adapters\TemplateSelectors\TemplateSelector.cs" />
+    <Compile Include="Presentation\Adapters\TemplateSelectors\TemplateSelectorItem.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Abstract\INestedCardViewHolder.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Publications\PublicationItemViewHolder.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Abstract\CardViewHolder.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Abstract\CardViewHolder{TViewModel}.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -828,6 +825,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
+    <Folder Include="Presentation\Adapters\" />
+    <Folder Include="Presentation\Adapters\TemplateSelectors\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\Abstract\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\Publications\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />

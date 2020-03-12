@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Android.App;
 using Android.Graphics;
 using Android.OS;
@@ -10,6 +7,7 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -17,6 +15,9 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
+using PrankChat.Mobile.Droid.Presentation.Adapters;
+using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
+using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using static Android.Support.Design.Widget.TabLayout;
@@ -33,13 +34,17 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private MvxRecyclerView _publicationRecyclerView;
         private StateScrollListener _stateScrollListener;
         private PublicationsLinearLayoutManager _layoutManager;
-        private int _currentPlayingItemPosition = -1;
+        private RecycleViewBindableAdapter _adapter;
+
+        private PublicationItemViewModel _previousPublicationViewModel;
+        public bool _isRecyclerLayoutInitialized;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = this.BindingInflate(Resource.Layout.publications_layout, null);
             InitializeControls(view);
+            DoBind();
             return view;
         }
 
@@ -59,76 +64,95 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             _layoutManager.LayoutCompleted -= LayoutManagerOnLayoutCompleted;
         }
 
+        private void DoBind()
+        {
+            var bindingSet = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
+
+            bindingSet.Bind(_adapter)
+                      .For(v => v.ItemsSource)
+                      .To(vm => vm.Items);
+
+            bindingSet.Apply();
+        }
+
         private void InitializeControls(View view)
         {
             _publicationTypeTabLayout = view.FindViewById<TabLayout>(Resource.Id.publication_type_tab_layout);
             _publicationRecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.publication_recycler_view);
             var dividerItemDecoration = new DividerItemDecoration(Application.Context, LinearLayoutManager.Vertical);
-            _publicationRecyclerView.AddItemDecoration(dividerItemDecoration);
-            _publicationRecyclerView.Adapter = new PublicationsRecyclerAdapter((IMvxAndroidBindingContext)BindingContext);
+
             _layoutManager = new PublicationsLinearLayoutManager(Context);
             _publicationRecyclerView.SetLayoutManager(_layoutManager);
+
+            _adapter = new RecycleViewBindableAdapter((IMvxAndroidBindingContext)BindingContext, onViewDetachedFromWindow: OnViewHolderDetached);
+            _publicationRecyclerView.Adapter = _adapter;
+            _publicationRecyclerView.ItemTemplateSelector = new TemplateSelector()
+                .AddElement<PublicationItemViewModel, PublicationItemViewHolder>(Resource.Layout.cell_publication);
+
+            _publicationRecyclerView.AddItemDecoration(dividerItemDecoration);
             _stateScrollListener = new StateScrollListener();
             _publicationRecyclerView.AddOnScrollListener(_stateScrollListener);
         }
 
-        private void StateScrollListenerFinishScroll(object sender, System.EventArgs e)
+        private void OnViewHolderDetached(Java.Lang.Object holder)
         {
-            PlayFirstCompletelyVisibleVideoItem();
+            if (holder is PublicationItemViewHolder viewHolder)
+            {
+                PauseVideo(viewHolder.ViewModel);
+            }
+        }
+
+        private void StateScrollListenerFinishScroll(object sender, EventArgs e)
+        {
+            PlayVisibleVideoItem();
         }
 
         private void LayoutManagerOnLayoutCompleted(object sender, EventArgs e)
         {
-            PlayFirstCompletelyVisibleVideoItem();
+            if (_isRecyclerLayoutInitialized)
+            {
+                return;
+            }
+
+            _isRecyclerLayoutInitialized = true;
+            PlayVisibleVideoItem();
         }
 
-        private void PlayFirstCompletelyVisibleVideoItem()
+        private void PlayVisibleVideoItem()
         {
-            var visibleItemsCount = _layoutManager.ChildCount;
-            var firstVisibleItemPosition = _layoutManager.FindFirstVisibleItemPosition();
-            var completelyVisibleItems = new Dictionary<int, VideoView>();
-            var partiallyVisibleItems = new Dictionary<int, VideoView>();
+            var firstCompletelyVisibleItemPosition = _layoutManager.FindFirstCompletelyVisibleItemPosition();
+            var lastCompletelyVisibleItemPosition = _layoutManager.FindLastCompletelyVisibleItemPosition();
 
-            for (var i = firstVisibleItemPosition; i < firstVisibleItemPosition + visibleItemsCount; i++)
+            var targetPosition = firstCompletelyVisibleItemPosition;
+            if (firstCompletelyVisibleItemPosition == -1)
             {
-                var videoView = GetVideoViewForItemByPosition(_layoutManager, i);
-                var isCompletelyVisible = IsCompletelyVisible(videoView);
-
-                if (isCompletelyVisible)
-                    completelyVisibleItems.Add(i, videoView);
-                else
-                    partiallyVisibleItems.Add(i, videoView);
+                targetPosition = lastCompletelyVisibleItemPosition;
             }
 
-            var itemToPlay = completelyVisibleItems.FirstOrDefault();
-            if (itemToPlay.Value == null)
+            targetPosition = targetPosition == -1
+                ? _layoutManager.FindFirstVisibleItemPosition()
+                : targetPosition;
+
+            var viewHolder = _publicationRecyclerView.FindViewHolderForAdapterPosition(targetPosition);
+            if (viewHolder is PublicationItemViewHolder itemViewHolder)
             {
-                itemToPlay = GetCentralVideoItem(_layoutManager);
+                PlayVideo(itemViewHolder.ViewModel, itemViewHolder.VideoView);
             }
-
-            if (itemToPlay.Value == null)
-                itemToPlay = GetCentralVideoItem(_layoutManager);
-
-            if (_currentPlayingItemPosition == itemToPlay.Key && _currentPlayingItemPosition != -1)
-                return;
-
-            PauseAllVideoItems(partiallyVisibleItems);
-
-            var visibleViewModel = (PublicationItemViewModel)_publicationRecyclerView.Adapter.GetItem(itemToPlay.Key);
-
-            if (visibleViewModel == null || itemToPlay.Value == null)
-                return;
-
-            PlayVideo(visibleViewModel, itemToPlay.Value);
-            _currentPlayingItemPosition = itemToPlay.Key;
         }
 
         private void PlayVideo(PublicationItemViewModel itemViewModel, VideoView videoView)
         {
+            if (_previousPublicationViewModel != null &&
+                _previousPublicationViewModel.VideoPlayerService != null)
+            {
+                _previousPublicationViewModel.VideoPlayerService.Stop();
+            }
+
             Debug.WriteLine("PlayVideo [Start]");
             var videoService = itemViewModel.VideoPlayerService;
             videoService.Player.SetPlatformVideoPlayerContainer(videoView);
             videoService.Play(itemViewModel.VideoUrl, itemViewModel.VideoId);
+            _previousPublicationViewModel = itemViewModel;
             Debug.WriteLine("PlayVideo [End]");
         }
 
@@ -138,52 +162,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             itemViewModel.VideoPlayerService.Pause();
         }
 
-        private VideoView GetVideoViewForItemByPosition(LinearLayoutManager layoutManager, int index)
-        {
-            var itemView = layoutManager.FindViewByPosition(index);
-            return itemView.FindViewById<VideoView>(Resource.Id.video_file);
-        }
-
-        private KeyValuePair<int, VideoView> GetCentralVideoItem(LinearLayoutManager layoutManager)
-        {
-            var visibleItemsCount = layoutManager.ChildCount;
-            var centralChild = layoutManager.GetChildAt(visibleItemsCount / 2);
-            if (centralChild == null)
-                return new KeyValuePair<int, VideoView>(0, null);
-
-            var centralVisibleItemIndexToPlay = layoutManager.GetPosition(centralChild);
-            var centralItemView = layoutManager.FindViewByPosition(centralVisibleItemIndexToPlay);
-            if (centralItemView == null)
-                return new KeyValuePair<int, VideoView>(centralVisibleItemIndexToPlay, null);
-
-            var centralVideoView = centralItemView.FindViewById<VideoView>(Resource.Id.video_file);
-            return new KeyValuePair<int, VideoView>(centralVisibleItemIndexToPlay, centralVideoView);
-        }
-
-        private bool IsCompletelyVisible(VideoView videoView)
-        {
-            var videoViewBounds = new Rect();
-            videoView.GetLocalVisibleRect(videoViewBounds);
-            return videoView.IsShown
-                    && videoViewBounds.Height() == videoView.Height
-                    && videoViewBounds.Width() == videoView.Width;
-        }
-
-        private void PauseAllVideoItems(Dictionary<int, VideoView> itemsToPause)
-        {
-            foreach (var partiallyVisibleItem in itemsToPause)
-            {
-                var partiallyVisibleItemViewModel = (PublicationItemViewModel)_publicationRecyclerView.Adapter.GetItem(partiallyVisibleItem.Key);
-                PauseVideo(partiallyVisibleItemViewModel);
-            }
-        }
-
-        private void PublicationTypeTabLayoutTabUnselected(object sender, TabLayout.TabUnselectedEventArgs e)
+        private void PublicationTypeTabLayoutTabUnselected(object sender, TabUnselectedEventArgs e)
         {
             SetTypefaceStyle(e.Tab, TypefaceStyle.Normal);
         }
 
-        private void PublicationTypeTabLayoutTabSelected(object sender, TabLayout.TabSelectedEventArgs e)
+        private void PublicationTypeTabLayoutTabSelected(object sender, TabSelectedEventArgs e)
         {
             SetTypefaceStyle(e.Tab, TypefaceStyle.Bold);
 
