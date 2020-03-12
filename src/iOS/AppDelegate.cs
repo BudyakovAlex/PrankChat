@@ -1,17 +1,33 @@
-﻿using Firebase.Crashlytics;
+﻿using System.Threading.Tasks;
+using Firebase.CloudMessaging;
+using Firebase.Crashlytics;
+using Firebase.InstanceID;
 using Foundation;
+using MvvmCross;
 using MvvmCross.Platforms.Ios.Core;
 using PrankChat.Mobile.Core;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using UIKit;
+using UserNotifications;
 using VKontakte;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.iOS
 {
     [Register("AppDelegate")]
-    public class AppDelegate : MvxApplicationDelegate<Setup, App>
+    public class AppDelegate : MvxApplicationDelegate<Setup, App>, IUNUserNotificationCenterDelegate, IMessagingDelegate
     {
         //TODO: move it to config
         public const string VkAppId = "7343996";
+
+        //public override bool WillFinishLaunching(UIApplication application, NSDictionary launchOptions)
+        //{
+        //    RegisterForPushNotifications();
+
+        //    InstanceId.Notifications.ObserveTokenRefresh(TokenRefreshNotification);
+
+        //    return base.WillFinishLaunching(application, launchOptions);
+        //}
 
         public override void OnResignActivation(UIApplication application)
         {
@@ -71,6 +87,42 @@ namespace PrankChat.Mobile.iOS
         {
             Firebase.Core.App.Configure();
             Crashlytics.Configure();
+        }
+
+        private void RegisterForPushNotifications()
+        {
+            Messaging.SharedInstance.AutoInitEnabled = true;
+
+            Messaging.SharedInstance.Delegate = this;
+
+            Messaging.SharedInstance.ShouldEstablishDirectChannel = true;
+
+            // iOS 10 or later
+            var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
+
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.Current.Delegate = this;
+
+            UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
+            {
+                if (granted)
+                    InvokeOnMainThread(() => UIApplication.SharedApplication.RegisterForRemoteNotifications());
+            });
+        }
+
+        private void TokenRefreshNotification(object sender, NSNotificationEventArgs e)
+        {
+            SetPushToken().FireAndForget();
+        }
+
+        private async Task SetPushToken()
+        {
+            var token = await InstanceId.SharedInstance.GetInstanceIdAsync();
+            if (token == null)
+                return;
+
+            var settingService = Mvx.IoCProvider.Resolve<ISettingsService>();
+            settingService.PushToken = token.Token;
         }
     }
 }
