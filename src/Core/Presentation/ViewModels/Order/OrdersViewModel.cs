@@ -145,6 +145,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                           order.Customer?.Name,
                                           order.Price,
                                           order.ActiveTo,
+                                          order.DurationInHours,
                                           order.Status ?? OrderStatusType.None,
                                           order.Customer?.Id);
         }
@@ -187,6 +188,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     newOrderMessage.NewOrder?.Customer?.Name,
                     newOrderMessage.NewOrder.Price,
                     newOrderMessage.NewOrder.ActiveTo,
+                    newOrderMessage.NewOrder.DurationInHours,
                     newOrderMessage.NewOrder.Status ?? OrderStatusType.None,
                     newOrderMessage.NewOrder.Customer?.Id);
             Items.Add(newOrderItemViewModel);

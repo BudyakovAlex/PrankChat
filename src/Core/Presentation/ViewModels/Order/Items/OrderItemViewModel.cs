@@ -24,6 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 		private OrderStatusType _status;
 		private int? _customerId;
 		private MvxSubscriptionToken _timerTickMessageToken;
+		private TimeSpan _duration;
 
 		public int OrderId { get; }
 
@@ -115,6 +116,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 								  string profileName,
 								  double? price,
 								  DateTime? activeTo,
+                                  int durationInHours,
 								  OrderStatusType status,
 								  int? customerId)
 		{
@@ -127,6 +129,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             PriceText = price.ToPriceString();
 			ProfileShortName = profileName.ToShortenName();
 			_activeTo = activeTo;
+			_duration = TimeSpan.FromHours(durationInHours);
 			_status = status;
 			OrderId = orderId;
 			_customerId = customerId;
@@ -165,7 +168,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
 		private void OnTimerTick(TimerTickMessage message)
 		{
-			ElapsedTime = _activeTo?.ToLocalTime() - DateTime.Now;
+            if (_activeTo == null && _status == OrderStatusType.Active)
+            {
+				ElapsedTime = _duration;
+            }
+            else
+            {
+				ElapsedTime = _activeTo?.ToLocalTime() - DateTime.Now;
+			}
 		}
 
 		private async Task OnOpenDetailsOrderAsync()

@@ -30,8 +30,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             orderTitleLabel.SetScreenTitleStyle();
 
-            timeLablel.SetMediumStyle(10, Theme.Color.White);
-            timeLablel.Text = Resources.Order_View_Time_Text;
+            timeLabel.SetMediumStyle(10, Theme.Color.White);
+            timeLabel.Text = Resources.Order_View_Time_Text;
 
             priceLable.SetMediumStyle(10, Theme.Color.White);
             priceLable.Text = Resources.Order_View_Price_Text;
@@ -101,16 +101,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .Mode(MvxBindingMode.OneWay);
 
             set.Bind(orderTimeLabel)
-                .For(v => v.BindVisibility())
-                .To(vm => vm.IsTimeAvailable)
-                .WithConversion<MvxVisibilityValueConverter>()
-                .Mode(MvxBindingMode.OneWay);
+                .For(v => v.BindVisible())
+                .To(vm => vm.IsTimeAvailable);
 
             set.Bind(titleTimeView)
-                .For(v => v.BindVisibility())
-                .To(vm => vm.IsTimeAvailable)
-                .WithConversion<MvxVisibilityValueConverter>()
-                .Mode(MvxBindingMode.OneWay);
+                .For(v => v.BindVisible())
+                .To(vm => vm.IsTimeAvailable);
+
+            set.Bind(timeLabel)
+                .For(v => v.BindVisible())
+                .To(vm => vm.IsTimeAvailable);
 
             set.Apply();
         }
