@@ -89,7 +89,6 @@
     <Compile Include="Presentation\Views\Profile\ImageCrop\ImageCropView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileUpdateView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileView.cs" />
-    <Compile Include="Presentation\Views\Publications\PublicationsLinearLayoutManager.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsView.cs" />
     <Compile Include="Presentation\Views\RatingView.cs" />
     <Compile Include="Presentation\Views\Registration\RegistrationSecondStepView.cs" />
