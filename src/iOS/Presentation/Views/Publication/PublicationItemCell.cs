@@ -35,7 +35,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
 		public override void PrepareForReuse()
 		{
-			PauseVideo();
+			StopVideo();
 			base.PrepareForReuse();
 		}
 
@@ -50,6 +50,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			base.SetupControls();
 
 			videoView.SetPreviewStyle();
+
 			profileNameLabel.SetMainTitleStyle();
 			publicationInfoLabel.SetSmallSubtitleStyle();
 			videoNameLabel.SetTitleStyle();
@@ -136,19 +137,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
 		private void StopVideo()
 		{
-			if (AVPlayerViewControllerInstance == null)
-				return;
+			ViewModel?.VideoPlayerService?.Stop();
 
-			AVPlayerViewControllerInstance.Player?.Pause();
-			AVPlayerViewControllerInstance.Player = null;
-		}
-
-        private void PauseVideo()
-        {
-			if (AVPlayerViewControllerInstance == null)
-				return;
-
-			AVPlayerViewControllerInstance.Player?.Pause();
+			if (AVPlayerViewControllerInstance != null)
+			{
+				AVPlayerViewControllerInstance.Player = null;
+			}
 		}
 
 		private void InitializeVideoControl()

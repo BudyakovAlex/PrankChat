@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Foundation;
+using MvvmCross.Binding.Extensions;
 using MvvmCross.Platforms.Ios.Binding.Views;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using UIKit;
@@ -11,7 +13,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
     public class PublicationTableSource : MvxTableViewSource
     {
-        private const int InitializeDelayInMilliseconds = 200;
+        private const int FirstInitDelayInMiliseconds = 200;
 
         private PublicationItemCell _previousVideoCell;
 
@@ -20,22 +22,38 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             UseAnimations = true;
         }
 
-        public override void ScrollAnimationEnded(UIScrollView scrollView)
+        protected override void CollectionChangedOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
-            StopVideo(_previousVideoCell);
-            PrepareCellsFowPlayingVideoAsync().FireAndForget();
+            base.CollectionChangedOnCollectionChanged(sender, args);
+            StartVideoIfNeedAsync(ItemsSource.Count()).FireAndForget();
+        }
+
+        private async Task StartVideoIfNeedAsync(int itemsCount)
+        {
+            await Task.Delay(FirstInitDelayInMiliseconds);
+
+            if (itemsCount != ItemsSource.Count())
+            {
+                return;
+            }
+
+            PrepareCellsForPlayingVideoAsync().FireAndForget();
         }
 
         public override void DecelerationEnded(UIScrollView scrollView)
         {
             StopVideo(_previousVideoCell);
-            PrepareCellsFowPlayingVideoAsync().FireAndForget();
+            PrepareCellsForPlayingVideoAsync().FireAndForget();
         }
 
         public override void DraggingEnded(UIScrollView scrollView, bool willDecelerate)
         {
-            StopVideo(_previousVideoCell);
-            PrepareCellsFowPlayingVideoAsync().FireAndForget();
+            if (willDecelerate)
+            {
+                return;
+            }
+
+            PrepareCellsForPlayingVideoAsync().FireAndForget();
         }
 
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
@@ -48,52 +66,53 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             return tableView.DequeueReusableCell(PublicationItemCell.CellId);
         }
 
-        private async Task PrepareCellsFowPlayingVideoAsync()
+        private Task PrepareCellsForPlayingVideoAsync()
         {
-            var firstCompletelyVisibleCell = TableView.VisibleCells.OfType<PublicationItemCell>()
-                                                                   .ToList()
-                                                                   .FirstOrDefault(cell => IsCompletelyVisible(cell));
-            await Task.Delay(InitializeDelayInMilliseconds);
-
-            var newVisibleCell = TableView.VisibleCells.OfType<PublicationItemCell>()
-                                                       .ToList()
-                                                       .FirstOrDefault(cell => IsCompletelyVisible(cell));
-            if (firstCompletelyVisibleCell == newVisibleCell)
+            var publicalitionCells = TableView.VisibleCells.OfType<PublicationItemCell>().ToList();
+            if (publicalitionCells.Count == 0)
             {
-                PlayVideo(newVisibleCell);
+                return Task.CompletedTask;
             }
+
+            var cellToPlay = publicalitionCells.FirstOrDefault(cell => IsCompletelyVisible(cell));
+            var lastCompletelyVisibleCell = publicalitionCells.LastOrDefault(cell => IsCompletelyVisible(cell));
+
+            var indexPath = TableView.IndexPathForCell(lastCompletelyVisibleCell);
+            if (indexPath.Row == ItemsSource.Count() - 1)
+            {
+                cellToPlay = lastCompletelyVisibleCell;
+            }
+
+            PlayVideo(cellToPlay);
+            return Task.CompletedTask;
         }
 
         private void PlayVideo(PublicationItemCell cell)
         {
+            StopVideo(_previousVideoCell);
+
             var viewModel = cell?.ViewModel;
             if (viewModel is null)
             {
                 return;
             }
 
-            _previousVideoCell = cell;
             var service = viewModel.VideoPlayerService;
             if (service.Player.IsPlaying)
             {
                 return;
             }
 
-            service.Stop();
-            service.Player.SetPlatformVideoPlayerContainer(null);
-            service.Player.SetPlatformVideoPlayerContainer(cell.AVPlayerViewControllerInstance);
             service.Play(viewModel.VideoUrl, viewModel.VideoId);
+            service.Player.SetPlatformVideoPlayerContainer(cell.AVPlayerViewControllerInstance);
+            _previousVideoCell = cell;
         }
 
         private void StopVideo(PublicationItemCell cell)
         {
             var viewModel = cell?.ViewModel;
-            if (viewModel is null)
-            {
-                return;
-            }
-
-            if (!viewModel.VideoPlayerService.Player.IsPlaying)
+            if (viewModel is null ||
+                !viewModel.VideoPlayerService.Player.IsPlaying)
             {
                 return;
             }

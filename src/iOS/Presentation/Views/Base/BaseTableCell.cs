@@ -28,11 +28,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         public static int EstimatedHeight { get; protected set; } = DefaultCellHeight;
 
-        public TViewModel ViewModel { get; private set; }
+        public TViewModel ViewModel => BindingContext.DataContext as TViewModel;
 
         public void SetupCell()
         {
-            BindingContext.DataContextChanged += (o, e) => ViewModel = BindingContext.DataContext as TViewModel;
             SetupControls();
             SetBindings();
         }

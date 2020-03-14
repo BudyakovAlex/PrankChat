@@ -37,6 +37,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private RecycleViewBindableAdapter _adapter;
 
         private PublicationItemViewModel _previousPublicationViewModel;
+        private VideoView _previousVideoView;
 
         public bool _isRecyclerLayoutInitialized;
 
@@ -139,12 +140,20 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private void PlayVideo(PublicationItemViewModel itemViewModel, VideoView videoView)
         {
             if (_previousPublicationViewModel != null &&
-                _previousPublicationViewModel.VideoPlayerService != null)
+                _previousPublicationViewModel.VideoPlayerService != null &&
+                _previousVideoView != null)
             {
                 StopVideo(_previousPublicationViewModel);
+                _previousVideoView.SetBackgroundColor(Color.Black);
             }
 
             Debug.WriteLine("PlayVideo [Start]");
+
+            if (itemViewModel?.VideoPlayerService is null ||
+                videoView is null)
+            {
+                return;
+            }
 
             var videoService = itemViewModel.VideoPlayerService;
             if (itemViewModel.VideoPlayerService.Player.IsPlaying)
@@ -152,9 +161,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
                 return;
             }
 
+            videoView.SetBackgroundColor(Color.Transparent);
             videoService.Player.SetPlatformVideoPlayerContainer(videoView);
             videoService.Play(itemViewModel.VideoUrl, itemViewModel.VideoId);
             _previousPublicationViewModel = itemViewModel;
+            _previousVideoView = videoView;
 
             Debug.WriteLine("PlayVideo [End]");
         }

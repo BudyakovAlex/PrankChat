@@ -102,4 +102,3 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         }
     }
 }
-
