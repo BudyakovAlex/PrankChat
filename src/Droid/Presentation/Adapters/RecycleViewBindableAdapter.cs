@@ -48,7 +48,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters
             var viewHolder = Activator.CreateInstance(templateSelector.GetItemViewHolderType(viewType),
                                                       itemBindingContext.BindingInflate(viewType, parent, false),
                                                       itemBindingContext) as MvxRecyclerViewHolder;
-            viewHolder.ThrowIfNull(nameof(viewHolder));
+            viewHolder.ThrowIfNull();
 
             viewHolder.Click += (e, a) => ItemClick?.Execute(viewHolder.DataContext);
 

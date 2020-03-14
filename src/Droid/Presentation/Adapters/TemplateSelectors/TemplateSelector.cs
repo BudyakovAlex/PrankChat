@@ -21,7 +21,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors
 
         public TemplateSelector(IEnumerable<TemplateSelectorItem> items)
         {
-            items.ThrowIfNull(nameof(items));
+            items.ThrowIfNull();
 
             if (items is null || items.Any())
             {
@@ -54,10 +54,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors
 
         public void AddElement(TemplateSelectorItem item)
         {
-            item.ThrowIfNull(nameof(item));
+            item.ThrowIfNull();
 
-            item.ItemType.Name.ThrowIfNull(nameof(item.ItemType));
-            item.ViewHolderType.Name.ThrowIfNull(nameof(item.ViewHolderType));
+            item.ItemType.Name.ThrowIfNull();
+            item.ViewHolderType.Name.ThrowIfNull();
 
             var viewTypeId = $"{item.ItemType.Name}.{item.ViewHolderType}".GetHashCode();
 
