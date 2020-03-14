@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Foundation;
 using MvvmCross.Binding.Extensions;
 using MvvmCross.Platforms.Ios.Binding.Views;
+using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using UIKit;
 
@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
     public class PublicationTableSource : MvxTableViewSource
     {
-        private const int FirstInitDelayInMiliseconds = 200;
+        private const int DelayMiliseconds = 200;
 
         private PublicationItemCell _previousVideoCell;
 
@@ -22,22 +22,31 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             UseAnimations = true;
         }
 
-        protected override void CollectionChangedOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        private MvxInteraction _itemsChangedInteraction;
+        public MvxInteraction ItemsChangedInteraction
         {
-            base.CollectionChangedOnCollectionChanged(sender, args);
-            StartVideoIfNeedAsync(ItemsSource.Count()).FireAndForget();
+            get => _itemsChangedInteraction;
+            set
+            {
+                if (_itemsChangedInteraction != null)
+                {
+                    _itemsChangedInteraction.Requested -= OnDataSetChanged;
+                }
+
+                _itemsChangedInteraction = value;
+                _itemsChangedInteraction.Requested += OnDataSetChanged;
+            }
         }
 
-        private async Task StartVideoIfNeedAsync(int itemsCount)
+        private void OnDataSetChanged(object sender, EventArgs e)
         {
-            await Task.Delay(FirstInitDelayInMiliseconds);
+            PlayVideoAfterReloadDataAsync().FireAndForget();
+        }
 
-            if (itemsCount != ItemsSource.Count())
-            {
-                return;
-            }
-
-            PrepareCellsForPlayingVideoAsync().FireAndForget();
+        private async Task PlayVideoAfterReloadDataAsync()
+        {
+            await Task.Delay(DelayMiliseconds);
+            await PrepareCellsForPlayingVideoAsync();
         }
 
         public override void DecelerationEnded(UIScrollView scrollView)
@@ -126,6 +135,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             var videoRect = publicationCell.GetVideoBounds(TableView);
             Debug.WriteLine($"Video rect Y: {videoRect.Y}, Table view Y: {TableView.Bounds.Y}");
             return TableView.Bounds.Contains(videoRect);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _itemsChangedInteraction != null)
+            {
+                _itemsChangedInteraction.Requested -= OnDataSetChanged;
+            }
+
+            base.Dispose(disposing);
         }
     }
 }

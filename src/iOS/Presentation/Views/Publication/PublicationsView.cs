@@ -22,32 +22,36 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         protected override void SetupBinding()
 		{
-			var set = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
+			var bindingSet = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
 
-			set.Bind(publicationTypeSegment)
-				.For(v => v.SelectedSegment)
-				.To(vm => vm.SelectedPublicationType)
-				.WithConversion<PublicationTypeConverter>();
+			bindingSet.Bind(publicationTypeSegment)
+				      .For(v => v.SelectedSegment)
+				      .To(vm => vm.SelectedPublicationType)
+				      .WithConversion<PublicationTypeConverter>();
 
-            set.Bind(filterContainerView.Tap())
-                .For(v => v.Command)
-                .To(vm => vm.OpenFilterCommand);
+            bindingSet.Bind(filterContainerView.Tap())
+                      .For(v => v.Command)
+                      .To(vm => vm.OpenFilterCommand);
 
-            set.Bind(filterTitleLabel)
-                .To(vm => vm.ActiveFilterName);
+            bindingSet.Bind(filterTitleLabel)
+                      .To(vm => vm.ActiveFilterName);
 
-            set.Bind(PublicationTableSource)
-                .To(vm => vm.Items);
+            bindingSet.Bind(PublicationTableSource)
+                      .To(vm => vm.Items);
 
-            set.Bind(_refreshControl)
-                .For(v => v.IsRefreshing)
-                .To(vm => vm.IsBusy);
+            bindingSet.Bind(PublicationTableSource)
+                      .For(v => v.ItemsChangedInteraction)
+                      .To(vm => vm.ItemsChangedInteraction);
 
-            set.Bind(_refreshControl)
-                .For(v => v.RefreshCommand)
-                .To(vm => vm.LoadPublicationsCommand);
+            bindingSet.Bind(_refreshControl)
+                      .For(v => v.IsRefreshing)
+                      .To(vm => vm.IsBusy);
 
-            set.Apply();
+            bindingSet.Bind(_refreshControl)
+                      .For(v => v.RefreshCommand)
+                      .To(vm => vm.LoadPublicationsCommand);
+
+            bindingSet.Apply();
 		}
 
 		protected override void SetupControls()

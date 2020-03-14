@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -43,6 +42,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 LoadPublicationsCommand.ExecuteAsync().FireAndForget();
             }
         }
+
+        public MvxInteraction ItemsChangedInteraction { get; }
 
         private string _activeFilterName;
         public string ActiveFilterName
@@ -103,6 +104,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 { DateFilterType.Quarter, Resources.Publication_Tab_Filter_Quarter },
                 { DateFilterType.HalfYear, Resources.Publication_Tab_Filter_HalfYear },
             };
+
+            ItemsChangedInteraction = new MvxInteraction();
         }
 
         public override Task Initialize()
@@ -212,6 +215,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     publication.IsLiked));
 
             Items.SwitchTo(publicationViewModels);
+            ItemsChangedInteraction.Raise();
         }
     }
 }
