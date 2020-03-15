@@ -47,10 +47,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters
 
             var viewHolder = Activator.CreateInstance(templateSelector.GetItemViewHolderType(viewType),
                                                       itemBindingContext.BindingInflate(viewType, parent, false),
-                                                      itemBindingContext) as MvxRecyclerViewHolder;
+                                                      itemBindingContext) as CardViewHolder;
             viewHolder.ThrowIfNull();
-
-            viewHolder.Click += (e, a) => ItemClick?.Execute(viewHolder.DataContext);
+            viewHolder.ClickCommand = ItemClick;
 
             if (viewHolder is INestedCardViewHolder nestedHolder)
             {
@@ -60,7 +59,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters
                 nestedHolder.NestedRecyclerView.SetRecycledViewPool(ViewPool);
             }
 
-            viewHolder.LongClick += (e, a) => ItemLongClick?.Execute(viewHolder.DataContext);
+            viewHolder.LongClickCommand = ItemLongClick;
             return viewHolder;
         }
 
