@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using Foundation;
 using MvvmCross.Binding.Extensions;
+using MvvmCross.Commands;
 using MvvmCross.Platforms.Ios.Binding.Views;
 using UIKit;
 
@@ -14,21 +15,21 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
         {
         }
 
-        public ICommand LoadNextPageCommand { get; set; }
+        public MvxAsyncCommand LoadMoreItemsCommand { get; set; }
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            if (CanLoadNextPage(indexPath.Row))
+            if (CanMoreItems(indexPath.Row))
             {
-                LoadNextPageCommand?.Execute(null);
+                LoadMoreItemsCommand?.Execute(null);
             }
 
             return base.GetCell(tableView, indexPath);
         }
 
-        protected virtual bool CanLoadNextPage(int lastVisiblePosition)
+        protected virtual bool CanMoreItems(int lastVisiblePosition)
         {
-            return ItemsSource.Count() * VisibleCellsMultiplier < lastVisiblePosition;
+            return !LoadMoreItemsCommand.IsRunning && ItemsSource.Count() * VisibleCellsMultiplier < lastVisiblePosition;
         }
     }
 }

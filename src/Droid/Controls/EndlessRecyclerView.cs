@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Windows.Input;
 using Android.Content;
 using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Util;
+using MvvmCross.Commands;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 
@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.Droid.Controls
             Initialize(context);
         }
 
-        public ICommand LoadMoreCommand { get; set; }
+        public MvxAsyncCommand LoadMoreItemsCommand { get; set; }
 
         private bool _hasNextPage;
         public bool HasNextPage
@@ -76,7 +76,7 @@ namespace PrankChat.Mobile.Droid.Controls
 
         private void OnLoadMore()
         {
-            LoadMoreCommand?.Execute(null);
+            LoadMoreItemsCommand?.Execute();
         }
 
         protected override void Dispose(bool disposing)

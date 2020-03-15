@@ -24,5 +24,10 @@
         {
             public const string MuteStateKey = nameof(MuteStateKey);
         }
+
+        public static class Pagination
+        {
+            public const int DefaultPaginationSize = 100;
+        }
     }
 }
