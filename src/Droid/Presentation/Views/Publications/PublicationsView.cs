@@ -100,14 +100,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
                       .To(vm => vm.ItemsChangedInteraction)
                       .OneWay();
 
-            //TODO: Uncomment when will be ready on VM
-            //bindingSet.Bind(_publicationRecyclerView)
-            //          .For(v => v.LoadMoreCommand)
-            //          .To(vm => vm.LoadNextPageCommand);
+            bindingSet.Bind(_publicationRecyclerView)
+                      .For(v => v.LoadMoreItemsCommand)
+                      .To(vm => vm.Pagination.LoadMoreItemsCommand);
 
-            //bindingSet.Bind(_publicationRecyclerView)
-            //          .For(v => v.HasNextPage)
-            //          .To(vm => vm.HasNextPage);
+            bindingSet.Bind(_publicationRecyclerView)
+                      .For(v => v.HasNextPage)
+                      .To(vm => vm.Pagination.HasNextPage);
 
             bindingSet.Apply();
         }

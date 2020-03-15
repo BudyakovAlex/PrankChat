@@ -43,13 +43,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                       .For(v => v.ItemsChangedInteraction)
                       .To(vm => vm.ItemsChangedInteraction);
 
+            bindingSet.Bind(PublicationTableSource)
+                      .For(v => v.LoadMoreItemsCommand)
+                      .To(vm => vm.Pagination.LoadMoreItemsCommand);
+
             bindingSet.Bind(_refreshControl)
                       .For(v => v.IsRefreshing)
                       .To(vm => vm.IsBusy);
 
             bindingSet.Bind(_refreshControl)
                       .For(v => v.RefreshCommand)
-                      .To(vm => vm.LoadPublicationsCommand);
+                      .To(vm => vm.RefreshDataCommand);
 
             bindingSet.Apply();
 		}

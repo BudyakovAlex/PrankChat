@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
+using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 
@@ -56,13 +57,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Publications
 
-        Task<List<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType);
-
         Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null);
 
-        Task<List<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType);
+        Task<PaginationModel<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page);
 
-        Task<List<VideoDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null);
+        Task<PaginationModel<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType, int page);
+
+        Task<PaginationModel<VideoDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, int page, DateFilterType? dateFilterType = null);
 
         #endregion Publications
 
