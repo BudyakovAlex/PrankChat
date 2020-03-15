@@ -59,11 +59,10 @@ namespace PrankChat.Mobile.Droid.Controls
             if (_hasNextPage)
             {
                 AddOnScrollListener(_scrollChangedListener);
+                return;
             }
-            else
-            {
-                RemoveOnScrollListener(_scrollChangedListener);
-            }
+
+            RemoveOnScrollListener(_scrollChangedListener);
         }
 
         private void Initialize(Context context)
