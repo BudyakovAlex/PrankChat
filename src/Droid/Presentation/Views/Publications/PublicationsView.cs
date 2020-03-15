@@ -9,7 +9,6 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using MvvmCross.ViewModels;
@@ -18,6 +17,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
+using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Adapters;
 using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications;
@@ -36,7 +36,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
         private TabLayout _publicationTypeTabLayout;
         private Typeface _unselectedTypeface;
-        private MvxRecyclerView _publicationRecyclerView;
+
+        private EndlessRecyclerView _publicationRecyclerView;
+
         private StateScrollListener _stateScrollListener;
         private LinearLayoutManager _layoutManager;
         private RecycleViewBindableAdapter _adapter;
@@ -98,13 +100,22 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
                       .To(vm => vm.ItemsChangedInteraction)
                       .OneWay();
 
+            //TODO: Uncomment when will be ready on VM
+            //bindingSet.Bind(_publicationRecyclerView)
+            //          .For(v => v.LoadMoreCommand)
+            //          .To(vm => vm.LoadNextPageCommand);
+
+            //bindingSet.Bind(_publicationRecyclerView)
+            //          .For(v => v.HasNextPage)
+            //          .To(vm => vm.HasNextPage);
+
             bindingSet.Apply();
         }
 
         private void InitializeControls(View view)
         {
             _publicationTypeTabLayout = view.FindViewById<TabLayout>(Resource.Id.publication_type_tab_layout);
-            _publicationRecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.publication_recycler_view);
+            _publicationRecyclerView = view.FindViewById<EndlessRecyclerView>(Resource.Id.publication_recycler_view);
             var dividerItemDecoration = new DividerItemDecoration(Application.Context, LinearLayoutManager.Vertical);
 
             _layoutManager = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);

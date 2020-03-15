@@ -145,6 +145,9 @@
     <Compile Include="Presentation\Adapters\ViewHolders\Publications\PublicationItemViewHolder.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Abstract\CardViewHolder.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Abstract\CardViewHolder{TViewModel}.cs" />
+    <Compile Include="Controls\EndlessRecyclerView.cs" />
+    <Compile Include="Presentation\Listeners\EndlessScrollChangedListener.cs" />
+    <Compile Include="Presentation\Listeners\OnLoadMoreListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

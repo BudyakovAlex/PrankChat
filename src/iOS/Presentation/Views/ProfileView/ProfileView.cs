@@ -36,6 +36,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             set.Bind(PublicationTableSource)
                 .To(vm => vm.Items);
 
+            //TODO: Uncomment when will be ready on VM
+            //set.Bind(PublicationTableSource)
+            //   .For(v => v.LoadNextPageCommand)
+            //   .To(vm => vm.LoadNextPageCommand);
+
             set.Bind(profileImageView)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)

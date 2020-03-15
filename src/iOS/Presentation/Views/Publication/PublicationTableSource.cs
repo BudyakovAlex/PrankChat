@@ -4,14 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Foundation;
 using MvvmCross.Binding.Extensions;
-using MvvmCross.Platforms.Ios.Binding.Views;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
-    public class PublicationTableSource : MvxTableViewSource
+    public class PublicationTableSource : PagedTableViewSource
     {
         private const int DelayMiliseconds = 200;
 

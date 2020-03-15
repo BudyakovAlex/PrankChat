@@ -58,7 +58,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         app:MvxBind="Refreshing IsBusy; RefreshCommand LoadPublicationsCommand">
-        <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+        <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
             android:id="@+id/publication_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
