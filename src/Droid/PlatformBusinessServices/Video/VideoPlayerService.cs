@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
@@ -64,6 +63,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         public override void Stop()
         {
+            _currentVideoId = 0;
             Player.Stop();
         }
 
