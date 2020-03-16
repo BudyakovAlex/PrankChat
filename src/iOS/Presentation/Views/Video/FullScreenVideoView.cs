@@ -18,7 +18,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 {
-    [MvxModalPresentation]
+    [MvxModalPresentation(ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext)]
     public partial class FullScreenVideoView : BaseView<FullScreenVideoViewModel>
     {
         private const string PlayerTimeControlStatusKey = "timeControlStatus";
@@ -26,14 +26,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         private const string PlayerMutedKey = "muted";
 
         private const int ThreeSecondsTicks = 30_000_000;
+        private const double AnimationDuration = 0.5d;
 
         private bool _wasPlaying;
         private long _lastActionTicks;
+        private nfloat _oldY;
 
         private NSObject _playerPerdiodicTimeObserver;
         private AVPlayer _player;
         private NSObject _playToEndObserver;
         private AVPlayerViewController _controller;
+
+        public event EventHandler IsMutedChanged;
 
         private string _videoUrl;
         public string VideoUrl
@@ -56,8 +60,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                 likeImageView.TintColor = _isLiked ? Theme.Color.Accent : Theme.Color.White;
             }
         }
-
-        public event EventHandler IsMutedChanged;
 
         private bool _isMuted;
         public bool IsMuted
@@ -124,9 +126,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             muteButton.AddGestureRecognizer(new UITapGestureRecognizer(MuteButtonTap));
 
-            closeButton.AddGestureRecognizer(new UITapGestureRecognizer(CloseButtonTap));
+            closeButton.AddGestureRecognizer(new UITapGestureRecognizer(Close));
 
             watchProgressControlContainer.AddGestureRecognizer(new UIPanGestureRecognizer(WatchProgressControlContainerPan));
+
+            View.AddGestureRecognizer(new UIPanGestureRecognizer(ViewPan));
         }
 
         protected override void SetupBinding()
@@ -349,11 +353,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         {
             if (_player.TimeControlStatus == AVPlayerTimeControlStatus.Paused)
             {
-                if ((int) _player.CurrentItem.CurrentTime.Seconds == (int) _player.CurrentItem.Duration.Seconds)
-                {
-                    _player.Seek(new CMTime(0, 1));
-                }
-
                 _player.Play();
             }
             else
@@ -383,7 +382,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             UpdateLastActionTicks();
         }
 
-        private void CloseButtonTap()
+        private void Close()
         {
             if (_controller != null)
             {
@@ -411,6 +410,57 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             NSNotificationCenter.DefaultCenter.RemoveObserver(this);
 
             ViewModel.GoBackCommand.ExecuteAsync();
+        }
+
+        private void ViewPan(UIPanGestureRecognizer recognizer)
+        {
+            switch (recognizer.State)
+            {
+                case UIGestureRecognizerState.Began:
+                    _oldY = recognizer.LocationInView(View).Y;
+                    break;
+
+                case UIGestureRecognizerState.Changed:
+                    var newY = recognizer.LocationInView(View).Y;
+                    var differenceY = newY - _oldY;
+
+                    var y = View.Frame.Y + differenceY;
+                    if (y < 0)
+                    {
+                        View.Frame = new CGRect(0f, 0f, View.Frame.Width, View.Frame.Height);
+                        _oldY = newY;
+                    }
+                    else
+                    {
+                        View.Frame = new CGRect(0f, y, View.Frame.Width, View.Frame.Height);
+                        _oldY = newY - differenceY;
+                    }
+
+                    recognizer.SetTranslation(CGPoint.Empty, View);
+                    break;
+
+                case UIGestureRecognizerState.Ended:
+                case UIGestureRecognizerState.Cancelled:
+                case UIGestureRecognizerState.Failed:
+                    if (View.Frame.Y < View.Frame.Height / 2f)
+                    {
+                        UIView.Animate(AnimationDuration, () => View.Frame = new CGRect(0f, 0f, View.Frame.Width, View.Frame.Height));
+                    }
+                    else
+                    {
+                        UIView.AnimateNotify(
+                            AnimationDuration,
+                            () => View.Frame = new CGRect(0f, View.Frame.Height, View.Frame.Width, View.Frame.Height),
+                            isFinished =>
+                            {
+                                if (isFinished)
+                                {
+                                    Close();
+                                }
+                            });
+                    }
+                    break;
+            }
         }
 
         [Export(nameof(WillResignActive))]

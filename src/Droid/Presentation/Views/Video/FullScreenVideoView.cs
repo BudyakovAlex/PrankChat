@@ -7,6 +7,7 @@ using Android.Support.Constraints;
 using Android.Views;
 using Android.Widget;
 using FFImageLoading.Cross;
+using Java.Lang;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -19,10 +20,12 @@ using PrankChat.Mobile.Droid.Providers;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 {
-    [Activity(ConfigurationChanges = ConfigChanges.Orientation)]
+    [Activity(ConfigurationChanges = ConfigChanges.Orientation, Theme = "@style/Theme.PrankChat.Translucent")]
     [MvxActivityPresentation]
-    public class FullScreenVideoView : BaseView<FullScreenVideoViewModel>
+    public class FullScreenVideoView : BaseView<FullScreenVideoViewModel>, View.IOnTouchListener
     {
+        private const int AnimationDuration = 500;
+
         private ExtendedVideoView _videoView;
         private FrameLayout _rootView;
         private ConstraintLayout _topPanel;
@@ -37,6 +40,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
         private ImageView _shareImageView;
 
         private int _currentPosition;
+        private float _lastY;
 
         public override void OnConfigurationChanged(Configuration newConfig)
         {
@@ -59,7 +63,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 
         protected override void SetViewProperties()
         {
-            _rootView = FindViewById<FrameLayout>(Resource.Id.root_view);
             _backImageView = FindViewById<ImageView>(Resource.Id.back_image_view);
             _titleTextView = FindViewById<TextView>(Resource.Id.video_title_text_view);
             _descriptionTextView = FindViewById<TextView>(Resource.Id.video_description_text_view);
@@ -68,6 +71,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             _likeView = FindViewById<View>(Resource.Id.like_view);
             _likeTextView = FindViewById<TextView>(Resource.Id.like_text_view);
             _shareImageView = FindViewById<ImageView>(Resource.Id.share_image_view);
+
+            _rootView = FindViewById<FrameLayout>(Resource.Id.root_view);
+            _rootView.SetOnTouchListener(this);
 
             _profileImageView = FindViewById<MvxCachedImageView>(Resource.Id.profile_image_view);
             _profileImageView.ClipToOutline = true;
@@ -158,18 +164,52 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             _videoView.SeekTo(position);
         }
 
-        protected override void Subscription()
-        {
-        }
-
-        protected override void Unsubscription()
-        {
-        }
-
         private void OnMediaPlayerPrepared(MediaPlayer mediaPlayer)
         {
             _mediaController.MediaPlayer = mediaPlayer;
             _mediaController.MediaPlayer.Looping = true;
+        }
+
+        bool View.IOnTouchListener.OnTouch(View view, MotionEvent motionEvent)
+        {
+            switch (motionEvent.Action)
+            {
+                case MotionEventActions.Down:
+                    _lastY = motionEvent.RawY;
+                    return true;
+
+                case MotionEventActions.Move:
+                    var y = view.TranslationY + (motionEvent.RawY - _lastY);
+                    view.TranslationY = y > 0 ? y : 0;
+
+                    _lastY = motionEvent.RawY;
+                    return true;
+
+                case MotionEventActions.Cancel:
+                case MotionEventActions.Outside:
+                case MotionEventActions.Up:
+                    if (view.TranslationY < view.MeasuredHeight / 2)
+                    {
+                        view
+                            .Animate()
+                            .TranslationY(0f)
+                            .SetDuration(AnimationDuration)
+                            .Start();
+                    }
+                    else
+                    {
+                        view
+                            .Animate()
+                            .TranslationY(view.MeasuredHeight)
+                            .SetDuration(AnimationDuration)
+                            .WithEndAction(new Runnable(() => ViewModel.GoBackCommand.ExecuteAsync()))
+                            .Start();
+                    }
+                    return true;
+
+                default:
+                    return false;
+            }
         }
     }
 }
