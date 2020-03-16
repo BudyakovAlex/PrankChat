@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         private const string PlayerMutedKey = "muted";
 
         private const int ThreeSecondsTicks = 30_000_000;
-        private const double AnimationDuration = 0.5d;
+        private const double AnimationDuration = 0.3d;
 
         private bool _wasPlaying;
         private long _lastActionTicks;
@@ -421,46 +421,57 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                     break;
 
                 case UIGestureRecognizerState.Changed:
-                    var newY = recognizer.LocationInView(View).Y;
-                    var differenceY = newY - _oldY;
-
-                    var y = View.Frame.Y + differenceY;
-                    if (y < 0)
-                    {
-                        View.Frame = new CGRect(0f, 0f, View.Frame.Width, View.Frame.Height);
-                        _oldY = newY;
-                    }
-                    else
-                    {
-                        View.Frame = new CGRect(0f, y, View.Frame.Width, View.Frame.Height);
-                        _oldY = newY - differenceY;
-                    }
-
-                    recognizer.SetTranslation(CGPoint.Empty, View);
+                    RecalculateTranslation(recognizer);
                     break;
 
                 case UIGestureRecognizerState.Ended:
                 case UIGestureRecognizerState.Cancelled:
                 case UIGestureRecognizerState.Failed:
-                    if (View.Frame.Y < View.Frame.Height / 2f)
-                    {
-                        UIView.Animate(AnimationDuration, () => View.Frame = new CGRect(0f, 0f, View.Frame.Width, View.Frame.Height));
-                    }
-                    else
-                    {
-                        UIView.AnimateNotify(
-                            AnimationDuration,
-                            () => View.Frame = new CGRect(0f, View.Frame.Height, View.Frame.Width, View.Frame.Height),
-                            isFinished =>
-                            {
-                                if (isFinished)
-                                {
-                                    Close();
-                                }
-                            });
-                    }
+                    AnimateTranslation();
                     break;
             }
+        }
+
+        private void AnimateTranslation()
+        {
+            if (View.Frame.Y < View.Frame.Height / 2f)
+            {
+                UIView.Animate(AnimationDuration, () => View.Frame = new CGRect(0f, 0f, View.Frame.Width, View.Frame.Height));
+                return;
+            }
+
+            UIView.AnimateNotify(AnimationDuration, 0, UIViewAnimationOptions.CurveEaseOut,
+                () =>
+                {
+                    View.Frame = new CGRect(0f, View.Frame.Height, View.Frame.Width, View.Frame.Height);
+                },
+                isFinished =>
+                {
+                    if (isFinished)
+                    {
+                        Close();
+                    }
+                });
+        }
+
+        private void RecalculateTranslation(UIPanGestureRecognizer recognizer)
+        {
+            var newY = recognizer.LocationInView(View).Y;
+            var differenceY = newY - _oldY;
+
+            var y = View.Frame.Y + differenceY;
+            if (y < 0)
+            {
+                View.Frame = new CGRect(0f, 0f, View.Frame.Width, View.Frame.Height);
+                _oldY = newY;
+            }
+            else
+            {
+                View.Frame = new CGRect(0f, y, View.Frame.Width, View.Frame.Height);
+                _oldY = newY - differenceY;
+            }
+
+            recognizer.SetTranslation(CGPoint.Empty, View);
         }
 
         [Export(nameof(WillResignActive))]
