@@ -188,7 +188,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
                 case MotionEventActions.Cancel:
                 case MotionEventActions.Outside:
                 case MotionEventActions.Up:
-                    if (view.TranslationY < view.MeasuredHeight / 2)
+                    if (view.TranslationY < view.Height / 2)
                     {
                         view
                             .Animate()
@@ -200,7 +200,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
                     {
                         view
                             .Animate()
-                            .TranslationY(view.MeasuredHeight)
+                            .TranslationY(view.Height)
                             .SetDuration(AnimationDuration)
                             .WithEndAction(new Runnable(() => ViewModel.GoBackCommand.ExecuteAsync()))
                             .Start();
