@@ -228,16 +228,16 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         #region Publications
 
 
-        public async Task<PaginationModel<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page)
+        public async Task<PaginationModel<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
             BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
             if (_settingsService.User == null)
             {
-                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"videos?popular=true&date_from={dateFilterType.GetDateString()}&page={page}", false, IncludeType.User);
+                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"videos?popular=true&date_from={dateFilterType.GetDateString()}&page={page}&items_per_page={pageSize}", false, IncludeType.User);
             }
             else
             {
-                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"videos?popular=true&date_from={dateFilterType.GetDateString()}&page={page}", false, IncludeType.User);
+                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"videos?popular=true&date_from={dateFilterType.GetDateString()}&page={page}&items_per_page={pageSize}", false, IncludeType.User);
             }
 
             var mappedModels = MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
@@ -246,16 +246,16 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return new PaginationModel<VideoDataModel>(mappedModels, totalItemsCount);
         }
 
-        public async Task<PaginationModel<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType, int page)
+        public async Task<PaginationModel<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
             BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
             if (_settingsService.User == null)
             {
-                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"videos?actual=true&date_from={dateFilterType.GetDateString()}&page={page}", false, IncludeType.User);
+                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"videos?actual=true&date_from={dateFilterType.GetDateString()}&page={page}&items_per_page={pageSize}", false, IncludeType.User);
             }
             else
             {
-                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"videos?actual=true&date_from={dateFilterType.GetDateString()}&page={page}", false, IncludeType.User);
+                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"videos?actual=true&date_from={dateFilterType.GetDateString()}&page={page}&items_per_page={pageSize}", false, IncludeType.User);
             }
 
             var mappedModels = MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
@@ -264,14 +264,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return new PaginationModel<VideoDataModel>(mappedModels, totalItemsCount);
         }
 
-        public async Task<PaginationModel<VideoDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, int page, DateFilterType? dateFilterType = null)
+        public async Task<PaginationModel<VideoDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, int page, int pageSize, DateFilterType? dateFilterType = null)
         {
             if (_settingsService.User == null)
             {
                 return new PaginationModel<VideoDataModel>();
             }
 
-            var endpoint = $"orders?page={page}";
+            var endpoint = $"orders?page={page}&items_per_page={pageSize}";
             switch (publicationType)
             {
                 case PublicationType.MyVideosOfCreatedOrders:

@@ -11,6 +11,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -167,7 +168,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             {
                 IsBusy = true;
 
-                var paginationModel = await ApiService.GetMyVideoFeedAsync(SettingsService.User.Id, SelectedPublicationType, 1);
+                var paginationModel = await ApiService.GetMyVideoFeedAsync(SettingsService.User.Id, SelectedPublicationType, 1, Constants.Pagination.DefaultPaginationSize);
                 SetVideoList(paginationModel.Items);
             }
             finally
