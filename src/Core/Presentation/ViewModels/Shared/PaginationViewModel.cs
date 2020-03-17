@@ -26,13 +26,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
 
         public MvxAsyncCommand LoadMoreItemsCommand { get; }
 
-        public int TotalItemsCount { get; private set; }
+        public long TotalItemsCount { get; private set; }
 
         public int CurrentPaginationIndex { get; private set; }
 
-        public int LoadedItemsCount { get; private set; }
+        public long LoadedItemsCount { get; private set; }
 
-        public void SetTotalItemsCount(int totalItemsCount)
+        public void SetTotalItemsCount(long totalItemsCount)
         {
             TotalItemsCount = totalItemsCount;
             RaisePropertyChanged(nameof(TotalItemsCount));

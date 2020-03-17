@@ -177,11 +177,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 switch (SelectedPublicationType)
                 {
                     case PublicationType.Popular:
-                        pageContainer = await ApiService.GetPopularVideoFeedAsync(ActiveFilter, page);
+                        pageContainer = await ApiService.GetPopularVideoFeedAsync(ActiveFilter, page, pageSize);
                         break;
                         
                     case PublicationType.Actual:
-                        pageContainer = await ApiService.GetActualVideoFeedAsync(ActiveFilter, page);
+                        pageContainer = await ApiService.GetActualVideoFeedAsync(ActiveFilter, page, pageSize);
                        
                         break;
 
@@ -192,7 +192,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                             return 0;
                         }
 
-                        pageContainer = await ApiService.GetMyVideoFeedAsync(_settingsService.User.Id, SelectedPublicationType, page, ActiveFilter);
+                        pageContainer = await ApiService.GetMyVideoFeedAsync(_settingsService.User.Id, SelectedPublicationType, page, pageSize, ActiveFilter);
                         break;
                 }
 
@@ -212,6 +212,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private int SetVideoList(PaginationModel<VideoDataModel> videoBundle, int page)
         {
+            Pagination.SetTotalItemsCount(videoBundle.TotalCount);
             var publicationViewModels = videoBundle.Items.Select(publication =>
                 new PublicationItemViewModel(NavigationService,
                                              DialogService,

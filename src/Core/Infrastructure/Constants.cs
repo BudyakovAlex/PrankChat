@@ -27,7 +27,7 @@
 
         public static class Pagination
         {
-            public const int DefaultPaginationSize = 100;
+            public const int DefaultPaginationSize = 20;
         }
     }
 }
