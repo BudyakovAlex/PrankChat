@@ -71,5 +71,6 @@
     <Folder Include="Commands\" />
     <Folder Include="Presentation\ViewModels\Shared\" />
     <Folder Include="Presentation\ViewModels\Shared\Abstract\" />
+    <Folder Include="Models\Data\Shared\" />
   </ItemGroup>
 </Project>

@@ -105,17 +105,18 @@
 
     <style name="Theme.PrankChat.Button.White" parent="Theme.PrankChat.Button">
         <item name="android:textColor">@color/accent</item>
-        <item name="android:background">@drawable/button_white_background</item>
+        <item name="android:background">@color/applicationWhite</item>
     </style>
 
-    <style name="Theme.PrankChat.Button.Accent" parent="Theme.PrankChat.Button.White">
+    <style name="Theme.PrankChat.Button.Accent" parent="Theme.PrankChat.Button">
         <item name="android:textColor">@color/applicationWhite</item>
         <item name="android:background">@drawable/button_accent_background</item>
     </style>
 
     <style name="Theme.PrankChat.Button.Borderless" parent="Theme.PrankChat.Button.White">
+        <item name="backgroundTint">@null</item>
         <item name="android:textColor">@color/accent</item>
-        <item name="android:background">@android:color/transparent</item>
+        <item name="android:background">@drawable/button_white_bordered_background</item>
     </style>
 
     <style name="Theme.PrankChat.TextView.ProfileView.ValueLabel" parent="Theme.PrankChat.Base">
@@ -154,5 +155,12 @@
     <style name="Theme.PrankChat.DialogStyle" parent="Base.Theme.AppCompat.Light.Dialog.Alert">
         <item name="windowFixedWidthMajor">65%</item>
         <item name="windowFixedWidthMinor">65%</item>
+    </style>
+
+    <style name="Theme.PrankChat.Button.SelectableStyle" parent="Theme.PrankChat.Button">
+        <item name="android:background">@drawable/selectable_button_selector</item>
+        <item name="android:textColor">@color/selectable_button_color_states</item>
+        <item name="android:paddingLeft">45dp</item>
+        <item name="android:paddingRight">45dp</item>
     </style>
 </resources>

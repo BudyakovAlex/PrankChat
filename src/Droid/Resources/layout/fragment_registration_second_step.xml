@@ -158,7 +158,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="@string/RegistrationView_Register_Button"
-            style="@style/Theme.PrankChat.Button.White"
+            style="@style/Theme.PrankChat.Button.Borderless"
             app:MvxBind="Click UserRegistrationCommand" />
         <ProgressBar
             android:id="@+id/progressBar"

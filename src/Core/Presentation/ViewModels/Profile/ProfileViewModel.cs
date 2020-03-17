@@ -157,6 +157,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             }
         }
 
+        //TODO: add pagination here
         private async Task OnLoadVideoFeedAsync()
         {
             if (SettingsService.User == null)
@@ -166,8 +167,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             {
                 IsBusy = true;
 
-                var videos = await ApiService.GetMyVideoFeedAsync(SettingsService.User.Id, SelectedPublicationType);
-                SetVideoList(videos);
+                var paginationModel = await ApiService.GetMyVideoFeedAsync(SettingsService.User.Id, SelectedPublicationType, 1);
+                SetVideoList(paginationModel.Items);
             }
             finally
             {
