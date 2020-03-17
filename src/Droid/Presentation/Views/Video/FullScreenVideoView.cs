@@ -22,9 +22,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 {
     [Activity(ConfigurationChanges = ConfigChanges.Orientation, Theme = "@style/Theme.PrankChat.Translucent")]
     [MvxActivityPresentation]
-    public class FullScreenVideoView : BaseView<FullScreenVideoViewModel>, View.IOnTouchListener
+    public class FullScreenVideoView : BaseView<FullScreenVideoViewModel>
     {
-        private const int AnimationDuration = 500;
+        private const int AnimationDuration = 300;
 
         private ExtendedVideoView _videoView;
         private FrameLayout _rootView;
@@ -73,7 +73,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             _shareImageView = FindViewById<ImageView>(Resource.Id.share_image_view);
 
             _rootView = FindViewById<FrameLayout>(Resource.Id.root_view);
-            _rootView.SetOnTouchListener(this);
+            _rootView.SetOnTouchListener(new ViewOnTouchListener(OnRootViewTouched));
 
             _profileImageView = FindViewById<MvxCachedImageView>(Resource.Id.profile_image_view);
             _profileImageView.ClipToOutline = true;
@@ -170,7 +170,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             _mediaController.MediaPlayer.Looping = true;
         }
 
-        bool View.IOnTouchListener.OnTouch(View view, MotionEvent motionEvent)
+        private bool OnRootViewTouched(View view, MotionEvent motionEvent)
         {
             switch (motionEvent.Action)
             {
@@ -181,35 +181,37 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
                 case MotionEventActions.Move:
                     var y = view.TranslationY + (motionEvent.RawY - _lastY);
                     view.TranslationY = y > 0 ? y : 0;
-
                     _lastY = motionEvent.RawY;
                     return true;
 
                 case MotionEventActions.Cancel:
                 case MotionEventActions.Outside:
                 case MotionEventActions.Up:
-                    if (view.TranslationY < view.Height / 2)
-                    {
-                        view
-                            .Animate()
-                            .TranslationY(0f)
-                            .SetDuration(AnimationDuration)
-                            .Start();
-                    }
-                    else
-                    {
-                        view
-                            .Animate()
-                            .TranslationY(view.Height)
-                            .SetDuration(AnimationDuration)
-                            .WithEndAction(new Runnable(() => ViewModel.GoBackCommand.ExecuteAsync()))
-                            .Start();
-                    }
+                    AnimateTranslation(view);
+                    _rootView.PerformClick();
                     return true;
 
                 default:
                     return false;
             }
+        }
+
+        private void AnimateTranslation(View view)
+        {
+            if (view.TranslationY < view.Height / 2)
+            {
+                view.Animate()
+                    .TranslationY(0f)
+                    .SetDuration(AnimationDuration)
+                    .Start();
+                return;
+            }
+
+            view.Animate()
+                .TranslationY(view.Height)
+                .SetDuration(AnimationDuration)
+                .WithEndAction(new Runnable(() => ViewModel.GoBackCommand.ExecuteAsync()))
+                .Start();
         }
     }
 }
