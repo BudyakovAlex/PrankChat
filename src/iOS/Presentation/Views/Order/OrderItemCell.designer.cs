@@ -49,7 +49,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UILabel statusOrderLabel { get; set; }
 
 		[Outlet]
-		UIKit.UILabel timeLablel { get; set; }
+		UIKit.UILabel timeLabel { get; set; }
 
 		[Outlet]
 		UIKit.UIView titleTimeView { get; set; }
@@ -116,9 +116,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				statusOrderLabel = null;
 			}
 
-			if (timeLablel != null) {
-				timeLablel.Dispose ();
-				timeLablel = null;
+			if (timeLabel != null) {
+				timeLabel.Dispose ();
+				timeLabel = null;
 			}
 
 			if (titleTimeView != null) {

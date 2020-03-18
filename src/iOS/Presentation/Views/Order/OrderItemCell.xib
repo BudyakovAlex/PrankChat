@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -163,7 +163,7 @@
                 <outlet property="priceValueLabel" destination="KYU-7N-avq" id="j95-87-nhd"/>
                 <outlet property="profilePhotoImage" destination="6p4-9h-jvI" id="Aax-tE-Gaz"/>
                 <outlet property="statusOrderLabel" destination="EnA-dL-8i6" id="g6x-3p-dpe"/>
-                <outlet property="timeLablel" destination="kad-ba-gr4" id="Agk-Ml-nL4"/>
+                <outlet property="timeLabel" destination="kad-ba-gr4" id="zxB-ny-2xK"/>
                 <outlet property="titleTimeView" destination="PEU-em-5SV" id="tav-dl-wqj"/>
             </connections>
             <point key="canvasLocation" x="-240.80000000000001" y="149.77511244377811"/>

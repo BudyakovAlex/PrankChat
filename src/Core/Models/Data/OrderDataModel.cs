@@ -17,6 +17,8 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public DateTime? ActiveTo { get; set; }
 
+        public int DurationInHours { get; set; }
+
         public bool? AutoProlongation { get; set; }
 
         public DateTime? CreatedAt { get; set; }
