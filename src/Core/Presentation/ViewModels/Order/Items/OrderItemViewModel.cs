@@ -116,7 +116,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 								  string profileName,
 								  double? price,
 								  DateTime? activeTo,
-                                  int durationInHours,
+								  int durationInHours,
 								  OrderStatusType status,
 								  int? customerId)
 		{
@@ -168,12 +168,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
 		private void OnTimerTick(TimerTickMessage message)
 		{
-            if (_activeTo == null && _status == OrderStatusType.Active)
-            {
+			if (_activeTo == null && _status == OrderStatusType.Active)
+			{
 				ElapsedTime = _duration;
-            }
-            else
-            {
+			}
+			else
+			{
 				ElapsedTime = _activeTo?.ToLocalTime() - DateTime.Now;
 			}
 		}
