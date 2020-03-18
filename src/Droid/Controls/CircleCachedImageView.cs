@@ -14,8 +14,7 @@ namespace PrankChat.Mobile.Droid.Controls
         private const int PlaceholderTextSize = 16;
 
         private TextPaint _placeholderPaint;
-        private bool HaveImage => ImagePath != null;
-        
+
         public string PlaceholderText { get; set; }
 
         public CircleCachedImageView(Context context) : base(context)
@@ -59,7 +58,7 @@ namespace PrankChat.Mobile.Droid.Controls
         {
             if (string.IsNullOrWhiteSpace(PlaceholderText))
             {
-                if (!HaveImage)
+                if (string.IsNullOrWhiteSpace(ImagePath))
                 {
                     SetImageResource(Resource.Drawable.ic_notification_user);
                 }

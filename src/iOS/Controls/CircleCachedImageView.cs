@@ -16,8 +16,8 @@ namespace PrankChat.Mobile.iOS.Controls
         private const string DefaultImagePath = "res:ic_notification_user.png";
 
         private UILabel _placeholderLabel;
-        private bool _haveImage => ImagePath != null;
 
+        private bool HaveImage => ImagePath != null;
 
         private string _placeholderText;
         public string PlaceholderText
@@ -91,7 +91,7 @@ namespace PrankChat.Mobile.iOS.Controls
         {
             if (string.IsNullOrWhiteSpace(placeholder))
             {
-                if (!_haveImage)
+                if (!HaveImage)
                 {
                     ImagePath = DefaultImagePath;
                 }
@@ -104,7 +104,7 @@ namespace PrankChat.Mobile.iOS.Controls
                                            Bounds.Height / 2 - _placeholderLabel.Frame.Size.Height / 2,
                                            _placeholderLabel.Frame.Size.Width,
                                            _placeholderLabel.Frame.Size.Height);
-            if (!_haveImage)
+            if (!HaveImage)
             {
                 _placeholderLabel.Alpha = 1;
             }
