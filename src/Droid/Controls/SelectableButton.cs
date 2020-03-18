@@ -13,12 +13,13 @@ namespace PrankChat.Mobile.Droid.Controls
     {
         private const string PositiveString = "positive";
         private const string NegativeString = "negative";
+        private const int Padding = 10;
 
         private Drawable _drawableForSelectedState;
         private Drawable _drawableForUnselectedState;
         private Drawable _currentDrawable;
         private string _typeArbitrationButton;
-        private int _horizontalSpacingInDIP;
+        private int _horizontalPaddingInDp;
 
         private ArbitrationValueType? _arbitrationValue;
         public ArbitrationValueType? ArbitrationValue
@@ -67,7 +68,7 @@ namespace PrankChat.Mobile.Droid.Controls
 
                 array.Recycle();
             }
-            _horizontalSpacingInDIP = (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, 10, Resources.DisplayMetrics);
+            _horizontalPaddingInDp = (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, Padding, Resources.DisplayMetrics);
             ChangeSelectedState();
         }
 
@@ -90,30 +91,34 @@ namespace PrankChat.Mobile.Droid.Controls
             Enabled = enabled;
             Alpha = alpha;
             _currentDrawable = currentDrawable;
-            this.Invalidate();
+            Invalidate();
         }
 
         protected override void OnDraw(Canvas canvas)
         {
             var textBounds = new Rect();
-            this.Paint.GetTextBounds(this.Text, 0, this.Text.Length, textBounds);
+            Paint.GetTextBounds(Text, 0, Text.Length, textBounds);
 
-            var fullWidth = _currentDrawable.IntrinsicWidth + _horizontalSpacingInDIP + textBounds.Width();
+            var fullWidth = _currentDrawable.IntrinsicWidth + _horizontalPaddingInDp + textBounds.Width();
             var leftSideIcon = canvas.Width / 2 - fullWidth / 2;
             var verticalCenter = canvas.Height / 2;
-            var leftSideText = leftSideIcon + _currentDrawable.IntrinsicWidth + _horizontalSpacingInDIP;
+            var leftSideText = leftSideIcon + _currentDrawable.IntrinsicWidth + _horizontalPaddingInDp;
 
-
-            _currentDrawable.SetBounds(leftSideIcon, verticalCenter - _currentDrawable.IntrinsicHeight / 2,
-                                       leftSideText - _horizontalSpacingInDIP, verticalCenter + _currentDrawable.IntrinsicHeight / 2);
+            _currentDrawable.SetBounds(leftSideIcon,
+                                       verticalCenter - _currentDrawable.IntrinsicHeight / 2,
+                                       leftSideText - _horizontalPaddingInDp,
+                                       verticalCenter + _currentDrawable.IntrinsicHeight / 2);
             _currentDrawable.Draw(canvas);
 
             var textPaint = new Paint(PaintFlags.AntiAlias)
             {
-                TextSize = this.TextSize,
-                Color = new Color(this.CurrentTextColor)
+                TextSize = TextSize,
+                Color = new Color(CurrentTextColor)
             };
-            canvas.DrawText(this.Text, leftSideText, canvas.Height / 2 - (textPaint.Descent() + textPaint.Ascent()) / 2, textPaint);
+            canvas.DrawText(Text,
+                            leftSideText,
+                            canvas.Height / 2 - (textPaint.Descent() + textPaint.Ascent()) / 2,
+                            textPaint);
         }
     }
 }
