@@ -109,21 +109,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             subscriptionsValueLabel.SetBoldTitleStyle();
             subscriptionsTitleLabel.SetSmallSubtitleStyle(Resources.ProfileView_Subscriptions_Subtitle);
 
-            segmentedControl.SetStyle(new string[] {
-                Resources.ProfileView_MyOrders_Tab,
-                Resources.ProfileView_CompletedOrders_Tab
-            });
+            MyOrdersTabLabel.SetTitleStyle(Resources.ProfileView_MyOrders_Tab);
+            ExecutedOrdersTabLabel.SetTitleStyle(Resources.ProfileView_CompletedOrders_Tab);
 
-            segmentedControl.SelectedSegment = 0;
-            segmentedControl.ValueChanged += SegmentedControl_ValueChanged;
+            MyOrdersTabView.AddGestureRecognizer(new UITapGestureRecognizer(() => SetSelectedTab(0)));
+            ExecutedOrdersTabView.AddGestureRecognizer(new UITapGestureRecognizer(() => SetSelectedTab(1)));
 
             _refreshControlProfile = new MvxUIRefreshControl();
             rootScrollView.RefreshControl = _refreshControlProfile;
+            ApplySelectedTabStyle(0);
         }
 
-        private void SegmentedControl_ValueChanged(object sender, System.EventArgs e)
+        public void SetSelectedTab(int index)
         {
-            switch (segmentedControl.SelectedSegment)
+            ApplySelectedTabStyle(index);
+            switch (index)
             {
                 case 0:
                     ViewModel.SelectedPublicationType = PublicationType.MyVideosOfCreatedOrders;
@@ -133,6 +133,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                     ViewModel.SelectedPublicationType = PublicationType.CompletedVideosAssignmentsByMe;
                     break;
             }
+        }
+
+        private void ApplySelectedTabStyle(int index)
+        {
+            var isFirstTabSelected = index == 0;
+
+            MyOrdersTabIndicatorView.Hidden = !isFirstTabSelected;
+            ExecutedOrdersTabIndicatorView.Hidden = isFirstTabSelected;
+
+            if (isFirstTabSelected)
+            {
+                MyOrdersTabLabel.SetMainTitleStyle();
+                ExecutedOrdersTabLabel.SetTitleStyle();
+                return;
+            }
+
+            ExecutedOrdersTabLabel.SetMainTitleStyle();
+            MyOrdersTabLabel.SetTitleStyle();
         }
 
         private void InitializeTableView()
