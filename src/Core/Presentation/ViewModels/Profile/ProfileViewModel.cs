@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
@@ -184,7 +185,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                     NavigationService,
                     DialogService,
                     _platformService,
-                    _videoPlayerService,
+                    Mvx.IoCProvider.Resolve<IVideoPlayerService>(),
                     ApiService,
                     ErrorHandleService,
                     _mvxMessenger,
