@@ -29,5 +29,10 @@
         {
             public const string ChannelId = "classtag_notification_channel";
         }
+        
+        public static class Pagination
+        {
+            public const int DefaultPaginationSize = 20;
+        }
     }
 }

@@ -22,41 +22,40 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         protected override void SetupBinding()
 		{
-			var set = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
+			var bindingSet = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
 
-			set.Bind(publicationTypeSegment)
-				.For(v => v.SelectedSegment)
-				.To(vm => vm.SelectedPublicationType)
-				.WithConversion<PublicationTypeConverter>();
+			bindingSet.Bind(publicationTypeSegment)
+				      .For(v => v.SelectedSegment)
+				      .To(vm => vm.SelectedPublicationType)
+				      .WithConversion<PublicationTypeConverter>();
 
-            set.Bind(PublicationTableSource)
-                .For(v => v.Segment)
-                .To(vm => vm.SelectedPublicationType)
-                .WithConversion<PublicationTypeConverter>();
+            bindingSet.Bind(filterContainerView.Tap())
+                      .For(v => v.Command)
+                      .To(vm => vm.OpenFilterCommand);
 
-            set.Bind(PublicationTableSource)
-                .For(v => v.FilterName)
-                .To(vm => vm.ActiveFilterName);
+            bindingSet.Bind(filterTitleLabel)
+                      .To(vm => vm.ActiveFilterName);
 
-            set.Bind(filterContainerView.Tap())
-                .For(v => v.Command)
-                .To(vm => vm.OpenFilterCommand);
+            bindingSet.Bind(PublicationTableSource)
+                      .To(vm => vm.Items);
 
-            set.Bind(filterTitleLabel)
-                .To(vm => vm.ActiveFilterName);
+            bindingSet.Bind(PublicationTableSource)
+                      .For(v => v.ItemsChangedInteraction)
+                      .To(vm => vm.ItemsChangedInteraction);
 
-            set.Bind(PublicationTableSource)
-                .To(vm => vm.Items);
+            bindingSet.Bind(PublicationTableSource)
+                      .For(v => v.LoadMoreItemsCommand)
+                      .To(vm => vm.Pagination.LoadMoreItemsCommand);
 
-            set.Bind(_refreshControl)
-                .For(v => v.IsRefreshing)
-                .To(vm => vm.IsBusy);
+            bindingSet.Bind(_refreshControl)
+                      .For(v => v.IsRefreshing)
+                      .To(vm => vm.IsBusy);
 
-            set.Bind(_refreshControl)
-                .For(v => v.RefreshCommand)
-                .To(vm => vm.LoadPublicationsCommand);
+            bindingSet.Bind(_refreshControl)
+                      .For(v => v.RefreshCommand)
+                      .To(vm => vm.RefreshDataCommand);
 
-            set.Apply();
+            bindingSet.Apply();
 		}
 
 		protected override void SetupControls()
@@ -101,7 +100,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         private void InitializeTableView()
         {
-            PublicationTableSource = new PublicationTableSource(tableView, ViewModel);
+            PublicationTableSource = new PublicationTableSource(tableView);
             tableView.Source = PublicationTableSource;
             tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
             tableView.SetVideoListStyle(PublicationItemCell.EstimatedHeight);
@@ -111,4 +110,3 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         }
     }
 }
-

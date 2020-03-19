@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.Content;
+using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Runtime;
 using Android.Util;
@@ -10,9 +11,15 @@ namespace PrankChat.Mobile.Droid.Controls
 {
     public class SelectableButton : Button
     {
+        private const string PositiveString = "positive";
+        private const string NegativeString = "negative";
+        private const int Padding = 10;
+
         private Drawable _drawableForSelectedState;
         private Drawable _drawableForUnselectedState;
+        private Drawable _currentDrawable;
         private string _typeArbitrationButton;
+        private int _horizontalPaddingInDp;
 
         private ArbitrationValueType? _arbitrationValue;
         public ArbitrationValueType? ArbitrationValue
@@ -24,8 +31,6 @@ namespace PrankChat.Mobile.Droid.Controls
                 ChangeSelectedState();
             }
         }
-
-        public float Transparency { get; set; } = 0.5f;
 
         #region Constructions
 
@@ -63,14 +68,14 @@ namespace PrankChat.Mobile.Droid.Controls
 
                 array.Recycle();
             }
-
+            _horizontalPaddingInDp = (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, Padding, Resources.DisplayMetrics);
             ChangeSelectedState();
         }
 
         private void ChangeSelectedState()
         {
-            if ((_arbitrationValue == ArbitrationValueType.Positive && _typeArbitrationButton == "positive") ||
-                (_arbitrationValue == ArbitrationValueType.Negative && _typeArbitrationButton == "negative") ||
+            if ((_arbitrationValue == ArbitrationValueType.Positive && _typeArbitrationButton == PositiveString) ||
+                (_arbitrationValue == ArbitrationValueType.Negative && _typeArbitrationButton == NegativeString) ||
                 _arbitrationValue == null)
             {
                 SetStyle(true, 1f, _drawableForSelectedState);
@@ -81,11 +86,39 @@ namespace PrankChat.Mobile.Droid.Controls
             }
         }
 
-        private void SetStyle(bool enabled, float alpha, Drawable leftDrawable)
+        private void SetStyle(bool enabled, float alpha, Drawable currentDrawable)
         {
             Enabled = enabled;
             Alpha = alpha;
-            SetCompoundDrawablesRelativeWithIntrinsicBounds(leftDrawable, null, null, null);
+            _currentDrawable = currentDrawable;
+            Invalidate();
+        }
+
+        protected override void OnDraw(Canvas canvas)
+        {
+            var textBounds = new Rect();
+            Paint.GetTextBounds(Text, 0, Text.Length, textBounds);
+
+            var fullWidth = _currentDrawable.IntrinsicWidth + _horizontalPaddingInDp + textBounds.Width();
+            var leftSideIcon = canvas.Width / 2 - fullWidth / 2;
+            var verticalCenter = canvas.Height / 2;
+            var leftSideText = leftSideIcon + _currentDrawable.IntrinsicWidth + _horizontalPaddingInDp;
+
+            _currentDrawable.SetBounds(leftSideIcon,
+                                       verticalCenter - _currentDrawable.IntrinsicHeight / 2,
+                                       leftSideText - _horizontalPaddingInDp,
+                                       verticalCenter + _currentDrawable.IntrinsicHeight / 2);
+            _currentDrawable.Draw(canvas);
+
+            var textPaint = new Paint(PaintFlags.AntiAlias)
+            {
+                TextSize = TextSize,
+                Color = new Color(CurrentTextColor)
+            };
+            canvas.DrawText(Text,
+                            leftSideText,
+                            canvas.Height / 2 - (textPaint.Descent() + textPaint.Ascent()) / 2,
+                            textPaint);
         }
     }
 }

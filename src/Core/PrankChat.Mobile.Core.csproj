@@ -72,5 +72,6 @@
     <Folder Include="Presentation\ViewModels\Shared\" />
     <Folder Include="Presentation\ViewModels\Shared\Abstract\" />
     <Folder Include="ApplicationServices\Notifications\" />
+    <Folder Include="Models\Data\Shared\" />
   </ItemGroup>
 </Project>

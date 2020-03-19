@@ -22,6 +22,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		UIKit.UILabel completedOrdersValueLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIView ExecutedOrdersTabIndicatorView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel ExecutedOrdersTabLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIView ExecutedOrdersTabView { get; set; }
+
+		[Outlet]
+		UIKit.UIView MyOrdersTabIndicatorView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel MyOrdersTabLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIView MyOrdersTabView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel ordersTitleLabel { get; set; }
 
 		[Outlet]
@@ -43,9 +61,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		UIKit.UIScrollView rootScrollView { get; set; }
 
 		[Outlet]
-		UIKit.UISegmentedControl segmentedControl { get; set; }
-
-		[Outlet]
 		UIKit.UILabel subscribersTitleLabel { get; set; }
 
 		[Outlet]
@@ -65,19 +80,34 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (rootScrollView != null) {
-				rootScrollView.Dispose ();
-				rootScrollView = null;
+			if (ExecutedOrdersTabLabel != null) {
+				ExecutedOrdersTabLabel.Dispose ();
+				ExecutedOrdersTabLabel = null;
 			}
 
-			if (tableView != null) {
-				tableView.Dispose ();
-				tableView = null;
+			if (ExecutedOrdersTabIndicatorView != null) {
+				ExecutedOrdersTabIndicatorView.Dispose ();
+				ExecutedOrdersTabIndicatorView = null;
 			}
 
-			if (profileImageView != null) {
-				profileImageView.Dispose ();
-				profileImageView = null;
+			if (ExecutedOrdersTabView != null) {
+				ExecutedOrdersTabView.Dispose ();
+				ExecutedOrdersTabView = null;
+			}
+
+			if (MyOrdersTabLabel != null) {
+				MyOrdersTabLabel.Dispose ();
+				MyOrdersTabLabel = null;
+			}
+
+			if (MyOrdersTabView != null) {
+				MyOrdersTabView.Dispose ();
+				MyOrdersTabView = null;
+			}
+
+			if (MyOrdersTabIndicatorView != null) {
+				MyOrdersTabIndicatorView.Dispose ();
+				MyOrdersTabIndicatorView = null;
 			}
 
 			if (changeProfileImageView != null) {
@@ -85,34 +115,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 				changeProfileImageView = null;
 			}
 
-			if (profileDescriptionLabel != null) {
-				profileDescriptionLabel.Dispose ();
-				profileDescriptionLabel = null;
-			}
-
-			if (priceLabel != null) {
-				priceLabel.Dispose ();
-				priceLabel = null;
-			}
-
-			if (refillButton != null) {
-				refillButton.Dispose ();
-				refillButton = null;
-			}
-
-			if (withdrawalButton != null) {
-				withdrawalButton.Dispose ();
-				withdrawalButton = null;
-			}
-
-			if (ordersValueLabel != null) {
-				ordersValueLabel.Dispose ();
-				ordersValueLabel = null;
-			}
-
-			if (ordersTitleLabel != null) {
-				ordersTitleLabel.Dispose ();
-				ordersTitleLabel = null;
+			if (completedOrdersTitleLabel != null) {
+				completedOrdersTitleLabel.Dispose ();
+				completedOrdersTitleLabel = null;
 			}
 
 			if (completedOrdersValueLabel != null) {
@@ -120,14 +125,39 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 				completedOrdersValueLabel = null;
 			}
 
-			if (completedOrdersTitleLabel != null) {
-				completedOrdersTitleLabel.Dispose ();
-				completedOrdersTitleLabel = null;
+			if (ordersTitleLabel != null) {
+				ordersTitleLabel.Dispose ();
+				ordersTitleLabel = null;
 			}
 
-			if (subscribersValueLabel != null) {
-				subscribersValueLabel.Dispose ();
-				subscribersValueLabel = null;
+			if (ordersValueLabel != null) {
+				ordersValueLabel.Dispose ();
+				ordersValueLabel = null;
+			}
+
+			if (priceLabel != null) {
+				priceLabel.Dispose ();
+				priceLabel = null;
+			}
+
+			if (profileDescriptionLabel != null) {
+				profileDescriptionLabel.Dispose ();
+				profileDescriptionLabel = null;
+			}
+
+			if (profileImageView != null) {
+				profileImageView.Dispose ();
+				profileImageView = null;
+			}
+
+			if (refillButton != null) {
+				refillButton.Dispose ();
+				refillButton = null;
+			}
+
+			if (rootScrollView != null) {
+				rootScrollView.Dispose ();
+				rootScrollView = null;
 			}
 
 			if (subscribersTitleLabel != null) {
@@ -135,9 +165,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 				subscribersTitleLabel = null;
 			}
 
-			if (subscriptionsValueLabel != null) {
-				subscriptionsValueLabel.Dispose ();
-				subscriptionsValueLabel = null;
+			if (subscribersValueLabel != null) {
+				subscribersValueLabel.Dispose ();
+				subscribersValueLabel = null;
 			}
 
 			if (subscriptionsTitleLabel != null) {
@@ -145,9 +175,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 				subscriptionsTitleLabel = null;
 			}
 
-			if (segmentedControl != null) {
-				segmentedControl.Dispose ();
-				segmentedControl = null;
+			if (subscriptionsValueLabel != null) {
+				subscriptionsValueLabel.Dispose ();
+				subscriptionsValueLabel = null;
+			}
+
+			if (tableView != null) {
+				tableView.Dispose ();
+				tableView = null;
+			}
+
+			if (withdrawalButton != null) {
+				withdrawalButton.Dispose ();
+				withdrawalButton = null;
 			}
 		}
 	}

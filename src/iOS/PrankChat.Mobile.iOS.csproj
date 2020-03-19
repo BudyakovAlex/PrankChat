@@ -281,6 +281,7 @@
     </Compile>
     <InterfaceDefinition Include="Presentation\Views\ProfileView\ImageCrop\ImageCropView.xib" />
     <Compile Include="Presentation\Views\ProfileView\ImageCrop\CropViewDelegate.cs" />
+    <Compile Include="Presentation\SourcesAndDelegates\PagedTableViewSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -817,6 +818,7 @@
     <Folder Include="Assets.xcassets\ic_plus.imageset\" />
     <Folder Include="Assets.xcassets\ic_three_dots.imageset\" />
     <Folder Include="Presentation\Views\ProfileView\ImageCrop\" />
+    <Folder Include="Presentation\SourcesAndDelegates\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

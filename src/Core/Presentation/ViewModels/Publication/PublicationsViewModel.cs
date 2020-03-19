@@ -13,13 +13,15 @@ using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
@@ -38,10 +40,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             get => _selectedPublicationType;
             set
             {
-                SetProperty(ref _selectedPublicationType, value);
-                LoadPublicationsCommand.ExecuteAsync().FireAndForget();
+                if (SetProperty(ref _selectedPublicationType, value))
+                {
+                    RefreshDataCommand.Execute();
+                }
             }
         }
+
+        public PaginationViewModel Pagination { get; }
+
+        public MvxInteraction ItemsChangedInteraction { get; }
 
         private string _activeFilterName;
         public string ActiveFilterName
@@ -73,9 +81,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
 
-        public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterAsync);
+        public MvxAsyncCommand OpenFilterCommand { get; }
 
-        public MvxAsyncCommand LoadPublicationsCommand => new MvxAsyncCommand(OnLoadPublicationsAsync);
+        public MvxAsyncCommand RefreshDataCommand { get; }
 
         public PublicationsViewModel(INavigationService navigationService,
                                      IDialogService dialogService,
@@ -102,12 +110,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 { DateFilterType.Quarter, Resources.Publication_Tab_Filter_Quarter },
                 { DateFilterType.HalfYear, Resources.Publication_Tab_Filter_HalfYear },
             };
+
+            ItemsChangedInteraction = new MvxInteraction();
+            Pagination = new PaginationViewModel(OnLoadPublicationsAsync, Constants.Pagination.DefaultPaginationSize);
+
+            OpenFilterCommand = new MvxAsyncCommand(OnOpenFilterAsync);
+            RefreshDataCommand = new MvxAsyncCommand(RefreshDataAsync);
         }
 
         public override Task Initialize()
         {
             ActiveFilter = DateFilterType.Month;
-            return LoadPublicationsCommand.ExecuteAsync();
+            return Pagination.LoadMoreItemsCommand.ExecuteAsync();
         }
 
         public override void ViewDisappearing()
@@ -133,52 +147,62 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             base.ViewDestroy(viewFinishing);
         }
 
+        private Task RefreshDataAsync()
+        {
+            Pagination.Reset();
+            return Pagination.LoadMoreItemsCommand.ExecuteAsync();
+        }
+
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
             var parameters = _dateFilterTypeTitleMap.Values.ToArray();
             var selectedFilterName = await DialogService.ShowMenuDialogAsync(parameters, Resources.Cancel);
 
             if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
+            {
                 return;
+            }
 
             ActiveFilter = _dateFilterTypeTitleMap.FirstOrDefault(x => x.Value == selectedFilterName).Key;
-            await LoadPublicationsCommand.ExecuteAsync();
+            await RefreshDataCommand.ExecuteAsync();
         }
 
-        private async Task OnLoadPublicationsAsync()
+        private async Task<int> OnLoadPublicationsAsync(int page, int pageSize)
         {
             try
             {
                 IsBusy = true;
 
+                PaginationModel<VideoDataModel> pageContainer = null;
                 switch (SelectedPublicationType)
                 {
                     case PublicationType.Popular:
-                        var videos = await ApiService.GetPopularVideoFeedAsync(ActiveFilter);
-                        SetVideoList(videos);
+                        pageContainer = await ApiService.GetPopularVideoFeedAsync(ActiveFilter, page, pageSize);
                         break;
-
+                        
                     case PublicationType.Actual:
-                        videos = await ApiService.GetActualVideoFeedAsync(ActiveFilter);
-                        SetVideoList(videos);
+                        pageContainer = await ApiService.GetActualVideoFeedAsync(ActiveFilter, page, pageSize);
+                       
                         break;
 
                     case PublicationType.MyVideosOfCreatedOrders:
                         if (!IsUserSessionInitialized)
                         {
                             await NavigationService.ShowLoginView();
-                            return;
+                            return 0;
                         }
 
-                        videos = await ApiService.GetMyVideoFeedAsync(_settingsService.User.Id, SelectedPublicationType, ActiveFilter);
-                        SetVideoList(videos);
+                        pageContainer = await ApiService.GetMyVideoFeedAsync(_settingsService.User.Id, SelectedPublicationType, page, pageSize, ActiveFilter);
                         break;
                 }
+
+                return SetVideoList(pageContainer, page);
             }
             catch (Exception ex)
             {
                 ErrorHandleService.HandleException(ex);
                 ErrorHandleService.LogError(this, "Error on publication list loading.");
+                return 0;
             }
             finally
             {
@@ -186,31 +210,41 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             }
         }
 
-        private void SetVideoList(List<VideoDataModel> videoBundle)
+        private int SetVideoList(PaginationModel<VideoDataModel> videoBundle, int page)
         {
-            var publicationViewModels = videoBundle.Select(publication =>
-                new PublicationItemViewModel(
-                    NavigationService,
-                    DialogService,
-                    _platformService,
-                    _videoPlayerService,
-                    ApiService,
-                    ErrorHandleService,
-                    _mvxMessenger,
-                    _settingsService,
-                    publication.User?.Name,
-                    publication.User?.Avatar,
-                    publication.Id,
-                    publication.Title,
-                    publication.Description,
-                    publication.StreamUri,
-                    publication.ViewsCount,
-                    publication.CreatedAt.DateTime,
-                    publication.LikesCount,
-                    publication.ShareUri,
-                    publication.IsLiked));
+            Pagination.SetTotalItemsCount(videoBundle.TotalCount);
+            var publicationViewModels = videoBundle.Items.Select(publication =>
+                new PublicationItemViewModel(NavigationService,
+                                             DialogService,
+                                             _platformService,
+                                             _videoPlayerService,
+                                             ApiService,
+                                             ErrorHandleService,
+                                             _mvxMessenger,
+                                             _settingsService,
+                                             publication.User?.Name,
+                                             publication.User?.Avatar,
+                                             publication.Id,
+                                             publication.Title,
+                                             publication.Description,
+                                             publication.StreamUri,
+                                             publication.ViewsCount,
+                                             publication.CreatedAt.DateTime,
+                                             publication.LikesCount,
+                                             publication.ShareUri,
+                                             publication.IsLiked)).ToList();
 
-            Items.SwitchTo(publicationViewModels);
+            if (page > 1)
+            {
+                Items.AddRange(publicationViewModels);
+            }
+            else
+            {
+                Items.SwitchTo(publicationViewModels);
+            }
+
+            ItemsChangedInteraction.Raise();
+            return publicationViewModels.Count;
         }
     }
 }
