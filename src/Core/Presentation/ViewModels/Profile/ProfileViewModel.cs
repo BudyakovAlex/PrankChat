@@ -236,20 +236,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 order.Customer?.Name,
                 order.Price,
                 order.ActiveTo,
+                order.DurationInHours,
                 order.Status ?? OrderStatusType.None,
                 order.Customer?.Id)));
         }
 
         protected virtual async Task<IEnumerable<OrderDataModel>> GetOrdersAsync()
         {
-            var orders = await ApiService.GetOrdersAsync(OrderFilterType.MyOwn);
 
             switch (SelectedOrderType)
             {
                 case ProfileOrderType.MyOrders:
-                    return orders.Where(order => order.Customer?.Id == SettingsService.User?.Id);
+                    {
+                        return await ApiService.GetOrdersAsync(OrderFilterType.MyOwn);
+                    }
                 case ProfileOrderType.OrdersCompletedByMe:
-                    return orders.Where(order => order.Executor?.Id == SettingsService.User?.Id && order.Status == OrderStatusType.Finished);
+                    {
+                        var orders = await ApiService.GetOrdersAsync(OrderFilterType.InProgress);
+                        return orders.Where(order => order.Status == OrderStatusType.Finished);
+                    }
             }
 
             return Enumerable.Empty<OrderDataModel>();
