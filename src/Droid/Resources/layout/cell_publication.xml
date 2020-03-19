@@ -127,8 +127,7 @@
         android:layout_marginRight="3dp"
         android:layout_marginTop="11dp"
         android:visibility="invisible"/>
-
-    <ImageView
+    <ffimageloading.cross.MvxCachedImageView
         android:id="@+id/stub_image_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -138,8 +137,8 @@
         app:layout_constraintStart_toStartOf="@+id/video_file"
         app:layout_constraintTop_toBottomOf="@+id/video_name"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/button_accent_background" />
-
+        android:scaleType="centerCrop"
+        app:MvxBind="ImagePath VideoPlaceholderImageUrl"/>
     <ProgressBar
         android:id="@+id/loading_progress_bar"
         style="?android:attr/progressBarStyle"

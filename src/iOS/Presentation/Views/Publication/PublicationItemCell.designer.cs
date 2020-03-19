@@ -40,7 +40,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UIButton shareButton { get; set; }
 
 		[Outlet]
-		UIKit.UIImageView StubImageView { get; set; }
+		FFImageLoading.Cross.MvxCachedImageView StubImageView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel videoNameLabel { get; set; }
@@ -53,11 +53,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			if (StubImageView != null) {
 				StubImageView.Dispose ();
 				StubImageView = null;
-			}
-
-			if (LoadingActivityIndicator != null) {
-				LoadingActivityIndicator.Dispose ();
-				LoadingActivityIndicator = null;
 			}
 
 			if (bookmarkButton != null) {
@@ -73,6 +68,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			if (likeLabel != null) {
 				likeLabel.Dispose ();
 				likeLabel = null;
+			}
+
+			if (LoadingActivityIndicator != null) {
+				LoadingActivityIndicator.Dispose ();
+				LoadingActivityIndicator = null;
 			}
 
 			if (moreButton != null) {

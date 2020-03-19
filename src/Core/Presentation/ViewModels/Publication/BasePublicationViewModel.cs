@@ -59,6 +59,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string VideoUrl { get; set; }
 
+        //TODO: will be replaced when BE side will provide field for stub image
+        public string VideoPlaceholderImageUrl => "https://dummyimage.com/600x400/401340/5860db.jpg&text=Here+will+be+your+video+stub";
+
         public IVideoPlayerService VideoPlayerService { get; }
 
         private bool _hasSoundTurnOn;

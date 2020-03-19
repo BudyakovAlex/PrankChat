@@ -119,7 +119,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             // TODO: Unhide this button when video saving will be available.
             bookmarkButton.Hidden = true;
-			StubImageView.BackgroundColor = UIColor.Red;
 
             InitializeVideoControl();
 		}
@@ -191,6 +190,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			set.Bind(videoView)
 				.For(v => v.BindTap())
 				.To(vm => vm.ShowFullScreenVideoCommand);
+
+			set.Bind(StubImageView)
+				.For(v => v.ImagePath)
+				.To(vm => vm.VideoPlaceholderImageUrl);
 
 			set.Apply();
 		}

@@ -148,6 +148,7 @@
     <Compile Include="Controls\EndlessRecyclerView.cs" />
     <Compile Include="Presentation\Listeners\EndlessScrollChangedListener.cs" />
     <Compile Include="Presentation\Listeners\OnLoadMoreListener.cs" />
+    <Compile Include="Presentation\Listeners\MediaPlayerOnInfoListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

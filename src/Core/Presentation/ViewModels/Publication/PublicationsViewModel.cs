@@ -180,10 +180,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     case PublicationType.Popular:
                         pageContainer = await ApiService.GetPopularVideoFeedAsync(ActiveFilter, page, pageSize);
                         break;
-                        
+
                     case PublicationType.Actual:
                         pageContainer = await ApiService.GetActualVideoFeedAsync(ActiveFilter, page, pageSize);
-                       
+
                         break;
 
                     case PublicationType.MyVideosOfCreatedOrders:
