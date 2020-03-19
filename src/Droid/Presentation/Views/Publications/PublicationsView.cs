@@ -162,6 +162,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             var viewHolder = _publicationRecyclerView.FindViewHolderForAdapterPosition(targetPosition);
             if (viewHolder is PublicationItemViewHolder itemViewHolder)
             {
+                itemViewHolder.LoadingProgressBar.Visibility = ViewStates.Visible;
                 PlayVideo(itemViewHolder.ViewModel, itemViewHolder.VideoView);
             }
 
