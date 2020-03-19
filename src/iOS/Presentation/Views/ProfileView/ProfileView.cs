@@ -126,11 +126,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             switch (index)
             {
                 case 0:
-                    ViewModel.SelectedPublicationType = PublicationType.MyVideosOfCreatedOrders;
+                    ViewModel.SelectedOrderType = ProfileOrderType.MyOrders;
                     break;
 
                 case 1:
-                    ViewModel.SelectedPublicationType = PublicationType.CompletedVideosAssignmentsByMe;
+                    ViewModel.SelectedOrderType = ProfileOrderType.OrdersCompletedByMe;
                     break;
             }
         }

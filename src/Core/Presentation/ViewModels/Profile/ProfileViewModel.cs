@@ -14,27 +14,30 @@ using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
-    public class ProfileViewModel : BaseProfileViewModel, IVideoListViewModel
+    public class ProfileViewModel : BaseProfileViewModel
     {
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly IMvxMessenger _mvxMessenger;
         private readonly IExternalAuthService _externalAuthService;
-        private PublicationType _selectedPublicationType;
-        public PublicationType SelectedPublicationType
+
+        private ProfileOrderType _selectedOrderType;
+        public ProfileOrderType SelectedOrderType
         {
-            get => _selectedPublicationType;
+            get => _selectedOrderType;
             set
             {
-                if (SetProperty(ref _selectedPublicationType, value))
+                if (SetProperty(ref _selectedOrderType, value))
                 {
                     LoadProfileCommand.Execute();
                 }
@@ -76,7 +79,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             set => SetProperty(ref _subscriptionsValue, value);
         }
 
-        public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
+        public MvxObservableCollection<OrderItemViewModel> Items { get; set; } = new MvxObservableCollection<OrderItemViewModel>();
 
         public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(OnShowMenuAsync);
 
@@ -85,8 +88,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         public MvxAsyncCommand ShowWithdrawalCommand => new MvxAsyncCommand(NavigationService.ShowWithdrawalView);
 
         public MvxAsyncCommand LoadProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
-
-        public MvxAsyncCommand UpdateProfileVideoCommand => new MvxAsyncCommand(OnLoadVideoFeedAsync);
 
         public MvxAsyncCommand ShowUpdateProfileCommand => new MvxAsyncCommand(OnShowUpdateProfileAsync);
 
@@ -109,7 +110,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public override Task Initialize()
         {
-            SelectedPublicationType = PublicationType.MyVideosOfCreatedOrders;
+            SelectedOrderType = ProfileOrderType.MyOrders;
             return base.Initialize();
         }
 
@@ -129,11 +130,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public override void ViewDestroy(bool viewFinishing = true)
         {
-            foreach (var publicationItemViewModel in Items)
-            {
-                publicationItemViewModel.Dispose();
-            }
-
             base.ViewDestroy(viewFinishing);
         }
 
@@ -145,63 +141,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
                 if (!IsUserSessionInitialized)
                 {
-                    return;  
+                    return;
                 }
 
                 await ApiService.GetCurrentUserAsync();
-                InitializeProfileData();
-                UpdateProfileVideoCommand.Execute();
+                await InitializeProfileData();
             }
             finally
             {
                 IsBusy = false;
             }
-        }
-
-        //TODO: add pagination here
-        private async Task OnLoadVideoFeedAsync()
-        {
-            if (SettingsService.User == null)
-                return;
-
-            try
-            {
-                IsBusy = true;
-
-                var paginationModel = await ApiService.GetMyVideoFeedAsync(SettingsService.User.Id, SelectedPublicationType, 1, Constants.Pagination.DefaultPaginationSize);
-                SetVideoList(paginationModel.Items);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        private void SetVideoList(IEnumerable<VideoDataModel> videos)
-        {
-            var publicationViewModels = videos.Select(publication =>
-                new PublicationItemViewModel(
-                    NavigationService,
-                    DialogService,
-                    _platformService,
-                    _videoPlayerService,
-                    ApiService,
-                    ErrorHandleService,
-                    _mvxMessenger,
-                    SettingsService,
-                    publication.User?.Name,
-                    publication.User?.Avatar,
-                    publication.Id,
-                    publication.Title,
-                    publication.Description,
-                    publication.StreamUri,
-                    publication.ViewsCount,
-                    publication.CreatedAt.DateTime,
-                    publication.LikesCount,
-                    publication.ShareUri,
-                    publication.IsLiked));
-
-            Items.SwitchTo(publicationViewModels);
         }
 
         private async Task OnShowMenuAsync()
@@ -246,7 +195,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             var isUpdated = await NavigationService.ShowUpdateProfileView();
             if (isUpdated)
             {
-                InitializeProfileData();
+                await InitializeProfileData();
             }
         }
 
@@ -254,15 +203,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             SettingsService.User = null;
             await SettingsService.SetAccessTokenAsync(string.Empty);
-            //_apiService.LogoutAsync().FireAndForget();
             _externalAuthService.LogoutFromFacebook();
             _externalAuthService.LogoutFromVkontakte();
             await NavigationService.Logout();
         }
 
-        protected override void InitializeProfileData()
+        protected override async Task InitializeProfileData()
         {
-            base.InitializeProfileData();
+            await base.InitializeProfileData();
 
             if (!IsUserSessionInitialized)
             {
@@ -276,6 +224,35 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             CompletedOrdersValue = user.OrdersExecuteFinishedCount.ToCountString();
             SubscribersValue = user.SubscribersCount.ToCountString();
             SubscriptionsValue = user.SubscriptionsCount.ToCountString();
+
+            var orders = await GetOrders();
+            Items.SwitchTo(orders.Select(order => new OrderItemViewModel(
+                NavigationService,
+                SettingsService,
+                _mvxMessenger,
+                order.Id,
+                order.Title,
+                order.Customer?.Avatar,
+                order.Customer?.Name,
+                order.Price,
+                order.ActiveTo,
+                order.Status ?? OrderStatusType.None,
+                order.Customer?.Id)));
+        }
+
+        protected virtual async Task<IEnumerable<OrderDataModel>> GetOrders()
+        {
+            var orders = await ApiService.GetOrdersAsync(OrderFilterType.MyOwn);
+
+            switch (SelectedOrderType)
+            {
+                case ProfileOrderType.MyOrders:
+                    return orders.Where(order => order.Customer?.Id == SettingsService.User?.Id);
+                case ProfileOrderType.OrdersCompletedByMe:
+                    return orders.Where(order => order.Executor?.Id == SettingsService.User?.Id && order.Status == OrderStatusType.Finished);
+            }
+
+            return Enumerable.Empty<OrderDataModel>();
         }
     }
 }

@@ -186,7 +186,7 @@
             android:id="@+id/profile_publication_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:MvxItemTemplate="@layout/cell_publication"
+            app:MvxItemTemplate="@layout/cell_order"
             app:MvxBind="ItemsSource Items" />
     </LinearLayout>
 </MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout>
