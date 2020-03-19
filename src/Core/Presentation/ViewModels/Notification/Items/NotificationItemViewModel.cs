@@ -7,6 +7,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
+using System.ComponentModel;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 {
@@ -71,7 +72,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
                     break;
 
                 default:
-                    break;
+                    throw new InvalidEnumArgumentException(nameof(_notificationType), (int)_notificationType, typeof(NotificationType));
             }
         }
 

@@ -6,6 +6,8 @@ using Android.Media;
 using Android.OS;
 using Android.Support.V4.App;
 using Firebase.Messaging;
+using MvvmCross;
+using MvvmCross.Logging;
 using PrankChat.Mobile.Core.Infrastructure;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
@@ -29,18 +31,16 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             var resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(Application.Context);
             if (resultCode != ConnectionResult.Success)
             {
-                //if (GoogleApiAvailability.Instance.IsUserResolvableError(resultCode))
-                //{
-                //    MvxLog.Error(nameof(NotificationHelper), GoogleApiAvailability.Instance.GetErrorString(resultCode));
-                //}
-                //else
-                //{
-                //    MvxLog.Error(nameof(NotificationHelper), "This device is not supported");
-                //}
-
+                if (GoogleApiAvailability.Instance.IsUserResolvableError(resultCode))
+                {
+                    Mvx.IoCProvider.Resolve<IMvxLog>().Error(GoogleApiAvailability.Instance.GetErrorString(resultCode), nameof(NotificationWrapper));
+                }
+                else
+                {
+                    Mvx.IoCProvider.Resolve<IMvxLog>().Error("This device is not supported", nameof(NotificationWrapper));
+                }
                 return false;
             }
-
             return true;
         }
 
