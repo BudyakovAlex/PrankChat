@@ -225,7 +225,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             SubscribersValue = user.SubscribersCount.ToCountString();
             SubscriptionsValue = user.SubscriptionsCount.ToCountString();
 
-            var orders = await GetOrders();
+            var orders = await GetOrdersAsync();
             Items.SwitchTo(orders.Select(order => new OrderItemViewModel(
                 NavigationService,
                 SettingsService,
@@ -240,7 +240,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 order.Customer?.Id)));
         }
 
-        protected virtual async Task<IEnumerable<OrderDataModel>> GetOrders()
+        protected virtual async Task<IEnumerable<OrderDataModel>> GetOrdersAsync()
         {
             var orders = await ApiService.GetOrdersAsync(OrderFilterType.MyOwn);
 
