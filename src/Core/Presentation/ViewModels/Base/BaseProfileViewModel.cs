@@ -103,8 +103,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public override Task Initialize()
         {
-            InitializeProfileData();
-            return base.Initialize();
+            return Task.WhenAll(InitializeProfileData(), base.Initialize());
         }
 
         private async Task OnSelectBirthdayAsync()
@@ -121,11 +120,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             Gender = genderType;
         }
 
-        protected virtual void InitializeProfileData()
+        protected virtual Task InitializeProfileData()
         {
             var user = SettingsService.User;
             if (user == null)
-                return;
+                return Task.CompletedTask;
 
             Email = user.Email;
             Name = user.Name;
@@ -134,6 +133,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             Gender = user.Sex;
             ProfilePhotoUrl = user.Avatar;
             Description = user.Description;
+
+            return Task.CompletedTask;
         }
     }
 }
