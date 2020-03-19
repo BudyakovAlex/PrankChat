@@ -101,10 +101,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         {
         }
 
-        public override async Task Initialize()
+        public override Task Initialize()
         {
-            await InitializeProfileData();
-            base.Initialize();
+            return Task.WhenAll(InitializeProfileData(), base.Initialize());
         }
 
         private async Task OnSelectBirthdayAsync()

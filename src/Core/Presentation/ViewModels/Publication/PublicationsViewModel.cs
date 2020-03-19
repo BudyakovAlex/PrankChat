@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
@@ -179,10 +180,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     case PublicationType.Popular:
                         pageContainer = await ApiService.GetPopularVideoFeedAsync(ActiveFilter, page, pageSize);
                         break;
-                        
+
                     case PublicationType.Actual:
                         pageContainer = await ApiService.GetActualVideoFeedAsync(ActiveFilter, page, pageSize);
-                       
+
                         break;
 
                     case PublicationType.MyVideosOfCreatedOrders:
@@ -217,7 +218,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 new PublicationItemViewModel(NavigationService,
                                              DialogService,
                                              _platformService,
-                                             _videoPlayerService,
+                                             Mvx.IoCProvider.Resolve<IVideoPlayerService>(),
                                              ApiService,
                                              ErrorHandleService,
                                              _mvxMessenger,

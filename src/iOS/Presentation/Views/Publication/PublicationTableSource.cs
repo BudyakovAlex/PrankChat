@@ -112,13 +112,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 return;
             }
 
-            service.Play(viewModel.VideoUrl, viewModel.VideoId);
             service.Player.SetPlatformVideoPlayerContainer(cell.AVPlayerViewControllerInstance);
+            cell.AddObserverForPeriodicTime();
+            service.Play(viewModel.VideoUrl, viewModel.VideoId);
+
             _previousVideoCell = cell;
         }
 
         private void StopVideo(PublicationItemCell cell)
         {
+            cell?.ShowStub();
+
             var viewModel = cell?.ViewModel;
             if (viewModel is null ||
                 !viewModel.VideoPlayerService.Player.IsPlaying)
