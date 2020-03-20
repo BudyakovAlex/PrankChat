@@ -8,12 +8,12 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
     {
         public static CompetitionPhase GetPhase(this CompetitionApiModel competition)
         {
-            if (competition.NewTerm < DateTime.UtcNow)
+            if (competition.NewTerm > DateTime.UtcNow)
             {
                 return CompetitionPhase.New;
             }
 
-            if (competition.VoteTerm < DateTime.UtcNow)
+            if (competition.VoteTerm > DateTime.UtcNow)
             {
                 return CompetitionPhase.Voting;
             }
