@@ -4,22 +4,21 @@ using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
     public class CompetitionItemViewModel : BaseItemViewModel, IDisposable
     {
         private MvxSubscriptionToken _timerTickMessageToken;
         private readonly IMvxMessenger _mvxMessenger;
 
+        public string Id { get; }
         public string Title { get; }
         public string Description { get; }
         public int PrizePool { get; }
         public CompetitionPhase Phase { get; }
         public int LikesCount { get; }
-        private DateTime VoteTerm { get; }
-        private DateTime NewTerm { get; }
-        private string Id { get; }
-
+        public DateTime VoteTerm { get; }
+        public DateTime NewTerm { get; }
 
         private TimeSpan? _nextPhaseCountdown;
         public TimeSpan? NextPhaseCountdown
@@ -34,17 +33,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             }
         }
 
-
-        public CompetitionItemViewModel(
-            IMvxMessenger mvxMessenger,
-            string title,
-            string description,
-            DateTime newTerm,
-            DateTime voteTerm,
-            int prizePool,
-            CompetitionPhase phase,
-            int likesCount,
-            string id)
+        public CompetitionItemViewModel(IMvxMessenger mvxMessenger,
+                                        string id,
+                                        string title,
+                                        string description,
+                                        DateTime newTerm,
+                                        DateTime voteTerm,
+                                        int prizePool,
+                                        CompetitionPhase phase,
+                                        int likesCount)
         {
             _mvxMessenger = mvxMessenger;
             VoteTerm = voteTerm;
@@ -82,18 +79,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         private void OnTimerTick(TimerTickMessage message)
         {
-            if (Phase == CompetitionPhase.New && NewTerm < DateTime.UtcNow)
+            switch (Phase)
             {
-                NextPhaseCountdown = DateTime.UtcNow - NewTerm;
-            }
-            else if (Phase == CompetitionPhase.Voting && VoteTerm < DateTime.UtcNow)
-            {
-                NextPhaseCountdown = DateTime.UtcNow - VoteTerm;
-            }
-            else
-            {
-                NextPhaseCountdown = TimeSpan.Zero;
-                Unsubsribe();
+                case CompetitionPhase.New when NewTerm < DateTime.UtcNow:
+                    NextPhaseCountdown = DateTime.UtcNow - NewTerm;
+                    break;
+                case CompetitionPhase.Voting when VoteTerm < DateTime.UtcNow:
+                    NextPhaseCountdown = DateTime.UtcNow - VoteTerm;
+                    break;
+                default:
+                    NextPhaseCountdown = TimeSpan.Zero;
+                    Unsubsribe();
+                    break;
             }
         }
     }
