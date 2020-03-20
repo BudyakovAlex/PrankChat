@@ -18,6 +18,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         public int LikesCount { get; }
         private DateTime VoteTerm { get; }
         private DateTime NewTerm { get; }
+        private string Id { get; }
 
 
         private TimeSpan? _nextPhaseCountdown;
@@ -42,7 +43,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             DateTime voteTerm,
             int prizePool,
             CompetitionPhase phase,
-            int likesCount)
+            int likesCount,
+            string id)
         {
             _mvxMessenger = mvxMessenger;
             VoteTerm = voteTerm;
@@ -53,13 +55,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             PrizePool = prizePool;
             Phase = phase;
             LikesCount = likesCount;
+            Id = id;
 
             Subscribe();
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Unsubsribe();
         }
 
         private void Subscribe()
