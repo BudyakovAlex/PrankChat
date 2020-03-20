@@ -11,16 +11,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
     public class CompetitionsSectionViewModel : BaseItemViewModel, IDisposable
     {
-        public string Title { get; }
         public CompetitionPhase Phase { get; }
         public List<CompetitionItemViewModel> Items { get; }
 
         public CompetitionsSectionViewModel(IMvxMessenger mvxMessenger,
-                                            string title,
                                             CompetitionPhase phase,
                                             List<CompetitionApiModel> competitions)
         {
-            Title = title;
             Phase = phase;
             Items = competitions.Select(competition => new CompetitionItemViewModel(mvxMessenger,
                                                                                     competition.Id,
@@ -32,7 +29,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                                                                     phase,
                                                                                     competition.LikesCount)).ToList();
         }
-
+        
         public void Dispose()
         {
             Items.ForEach(x => x.Dispose());
