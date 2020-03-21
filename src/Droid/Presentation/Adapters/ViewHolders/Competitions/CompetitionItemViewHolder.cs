@@ -3,9 +3,13 @@ using Android.Widget;
 using FFImageLoading.Cross;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
+using PrankChat.Mobile.Core.Converters;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract;
+using PrankChat.Mobile.Droid.Presentation.Bindings;
+using PrankChat.Mobile.Droid.Presentation.Converters;
 using PrankChat.Mobile.Droid.Utils.Helpers;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
@@ -71,23 +75,130 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
 
             var bindingSet = this.CreateBindingSet<CompetitionItemViewHolder, CompetitionItemViewModel>();
 
-            bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.Title);
-            bindingSet.Bind(_descriptionTextView).For(v => v.Text).To(vm => vm.Description);
+            bindingSet.Bind(_titleTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.Title);
 
-            bindingSet.Bind(_termTimerTextView).For(v => v.Text).To(vm => vm.Description);
-            bindingSet.Bind(_termTitle).For(v => v.Text).To(vm => vm.Description);
+            bindingSet.Bind(_descriptionTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.Description);
 
-            bindingSet.Bind(_daysTextView).For(v => v.Text).To(vm => vm.NextPhaseCountdown);
-            bindingSet.Bind(_hoursTextView).For(v => v.Text).To(vm => vm.NextPhaseCountdown);
-            bindingSet.Bind(_minutesTextView).For(v => v.Text).To(vm => vm.NextPhaseCountdown);
+            bindingSet.Bind(_termTitle)
+                      .For(v => v.Text)
+                      .To(vm => vm.Phase)
+                      .WithConversion<CompetitionPhaseToTermTitleConverter>();
 
-            bindingSet.Bind(_prizeTextView).For(v => v.Text).To(vm => vm.PrizePool);
-            bindingSet.Bind(_numberTextView).For(v => v.Text).To(vm => vm.Id);
+            bindingSet.Bind(_daysTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.NextPhaseCountdown);
 
-            bindingSet.Bind(_likesTextView).For(v => v.Text).To(vm => vm.LikesCount);
+            bindingSet.Bind(_hoursTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.NextPhaseCountdown);
 
-            //bindingSet.Bind(_placeholderImageView).For(v => v.ImagePath).To(vm => vm.ImagePath);
-            //bindingSet.Bind(_actionButton).For(v => v.Text).To(vm => vm.Phase).WithConversion();
+            bindingSet.Bind(_minutesTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.NextPhaseCountdown);
+
+            bindingSet.Bind(_prizeTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.PrizePoolPresentation);
+
+            bindingSet.Bind(_numberTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.Id);
+
+            bindingSet.Bind(_likesTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.LikesCount);
+
+            bindingSet.Bind(_numberTextView)
+                      .For(v => v.Visibility)
+                      .To(vm => vm.Phase)
+                      .WithConversion<CompetitionPhaseToVisibilityConverter>();
+
+            bindingSet.Bind(_likesImageView)
+                      .For(v => v.Visibility)
+                      .To(vm => vm.Phase)
+                      .WithConversion<CompetitionPhaseToVisibilityConverter>();
+
+            bindingSet.Bind(_likesTextView)
+                      .For(v => v.Visibility)
+                      .To(vm => vm.Phase)
+                      .WithConversion<CompetitionPhaseToVisibilityConverter>();
+
+            bindingSet.Bind(_termTimerTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.NextPhaseCountdown)
+                      .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateWithSpace);
+
+            bindingSet.Bind(_termFromTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.VoteTerm)
+                      .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
+
+            bindingSet.Bind(_termToTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.NewTerm)
+                      .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
+
+            bindingSet.Bind(_borderFrame)
+                      .For(BackgroundColorBinding.TargetBinding)
+                      .To(vm => vm.Phase)
+                      .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
+
+            bindingSet.Bind(_backgroundFrame)
+                      .For(BackgroundColorBinding.TargetBinding)
+                      .To(vm => vm.Phase)
+                      .WithConversion<CompetitionPhaseToBackgroundConverter>();
+
+            bindingSet.Bind(_placeholderImageView)
+                      .For(v => v.ImagePath)
+                      .To(vm => vm.ImageUrl);
+
+            bindingSet.Bind(_actionButton)
+                      .For(v => v.Text)
+                      .To(vm => vm.Phase)
+                      .WithConversion<CompetitionPhaseToActionButtonTitleConverter>();
+
+            bindingSet.Bind(_termLinearLayout)
+                      .For(v => v.Visibility)
+                      .To(vm => vm.IsFinished)
+                      .WithConversion<BoolToGoneConverter>();
+
+            bindingSet.Bind(_termTimerTextView)
+                      .For(v => v.Visibility)
+                      .To(vm => vm.IsFinished)
+                      .WithConversion<BoolToGoneInvertedConverter>();
+
+            bindingSet.Bind(_daysTextView)
+                      .For(v => v.Visibility)
+                      .To(vm => vm.IsFinished)
+                      .WithConversion<BoolToGoneInvertedConverter>();
+
+            bindingSet.Bind(_hoursTextView)
+                      .For(v => v.Visibility)
+                      .To(vm => vm.IsFinished)
+                      .WithConversion<BoolToGoneInvertedConverter>();
+
+            bindingSet.Bind(_minutesTextView)
+                      .For(v => v.Visibility)
+                      .To(vm => vm.IsFinished)
+                      .WithConversion<BoolToGoneInvertedConverter>();
+
+            //bindingSet.Bind(_daysTextView)
+            //          .For(v => v.Text)
+            //          .To(vm => vm.Days);
+
+            //bindingSet.Bind(_hoursTextView)
+            //          .For(v => v.Text)
+            //          .To(vm => vm.Hours);
+
+            //bindingSet.Bind(_minutesTextView)
+            //          .For(v => v.Text)
+            //          .To(vm => vm.Minutes);
+
+            bindingSet.Apply();
         }
     }
 }

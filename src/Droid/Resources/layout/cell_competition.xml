@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/border_frame"
-    android:background="@color/my_order_accent">
+    tools:background="@color/competition_vote_border">
 
     <FrameLayout
         android:id="@+id/background_frame"
@@ -78,6 +78,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
+                android:scaleType="centerCrop"
                 app:layout_constraintTop_toBottomOf="@+id/title_text_view"
                 app:srcCompat="@drawable/button_accent_background" />
 

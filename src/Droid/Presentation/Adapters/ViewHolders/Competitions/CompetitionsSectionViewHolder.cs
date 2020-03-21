@@ -5,6 +5,7 @@ using Android.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
+using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Droid.Decorators;
@@ -12,15 +13,22 @@ using PrankChat.Mobile.Droid.LayoutManagers;
 using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract;
 using PrankChat.Mobile.Droid.Presentation.Converters;
+using PrankChat.Mobile.Droid.Presentation.Listeners;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
 {
-    public class CompetitionsSectionViewHolder : CardViewHolder
+    public class CompetitionsSectionViewHolder : CardViewHolder, INestedCardViewHolder
     {
         public TextView _titleTextView;
         public MvxRecyclerView _sectionRecyclerView;
         public ImageView _leftImageView;
         public ImageView _rightImageView;
+        private RecycleViewBindableAdapter _adapter;
+        private CustomLinearLayoutManager _layoutManager;
+
+        public int RecycledViewsVisibleCount => 5;
+
+        public RecyclerView NestedRecyclerView => _sectionRecyclerView;
 
         public CompetitionsSectionViewHolder(View view, IMvxAndroidBindingContext context) : base(view, context)
         {
@@ -38,7 +46,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
 
             bindingSet.Bind(_titleTextView)
                       .For(v => v.Text)
-                      .To(vm => vm.Phase);
+                      .To(vm => vm.Phase)
+                      .WithConversion<CompetitionPhaseToSectionTitleConverter>();
 
             bindingSet.Bind(_leftImageView)
                       .For(v => v.Visibility)
@@ -61,7 +70,36 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             _leftImageView = view.FindViewById<ImageView>(Resource.Id.left_navigation_image);
             _rightImageView = view.FindViewById<ImageView>(Resource.Id.right_navigation_image);
 
+            var viewOnClickListener = new ViewOnClickListener(OnNavigationImageClicked);
+            _leftImageView.SetOnClickListener(viewOnClickListener);
+            _rightImageView.SetOnClickListener(viewOnClickListener);
+
             InitRecyclerView(view);
+        }
+
+        private void OnNavigationImageClicked(View view)
+        {
+            var position = _layoutManager.FindFirstCompletelyVisibleItemPosition();
+            switch (view.Id)
+            {
+                case Resource.Id.left_navigation_image:
+                    if (position == 0)
+                    {
+                        return;
+                    }
+
+                    _sectionRecyclerView.SmoothScrollToPosition(position - 1);
+                    break;
+
+                case Resource.Id.right_navigation_image:
+                    if (position == _adapter.ItemCount - 1)
+                    {
+                        return;
+                    }
+
+                    _sectionRecyclerView.SmoothScrollToPosition(position + 1);
+                    break;
+            }
         }
 
         private void InitRecyclerView(View view)
@@ -69,15 +107,15 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             _sectionRecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.section_recycler_view);
 
             var offset = Application.Context.Resources.GetDimensionPixelSize(Resource.Dimension.card_offset);
-            var layoutManager = new CustomLinearLayoutManager(view.Context, LinearLayoutManager.Horizontal, false, 1)
+            _layoutManager = new CustomLinearLayoutManager(view.Context, LinearLayoutManager.Horizontal, false, 1)
             {
                 Offset = offset
             };
 
-            _sectionRecyclerView.SetLayoutManager(layoutManager);
+            _sectionRecyclerView.SetLayoutManager(_layoutManager);
 
-            var adapter = new RecycleViewBindableAdapter((IMvxAndroidBindingContext)BindingContext);
-            _sectionRecyclerView.Adapter = adapter;
+            _adapter = new RecycleViewBindableAdapter((IMvxAndroidBindingContext)BindingContext);
+            _sectionRecyclerView.Adapter = _adapter;
             _sectionRecyclerView.ItemTemplateSelector = new TemplateSelector()
                 .AddElement<CompetitionItemViewModel, CompetitionItemViewHolder>(Resource.Layout.cell_competition);
 

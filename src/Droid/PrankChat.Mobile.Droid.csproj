@@ -158,6 +158,11 @@
     <Compile Include="Decorators\DecoratorBase.cs" />
     <Compile Include="Decorators\PagerDecorator.cs" />
     <Compile Include="Presentation\Converters\BoolToGoneConverter.cs" />
+    <Compile Include="Presentation\Converters\CompetitionPhaseToBorderBackgroundConverter.cs" />
+    <Compile Include="Presentation\Converters\CompetitionPhaseToBackgroundConverter.cs" />
+    <Compile Include="Presentation\Converters\CompetitionPhaseToVisibilityConverter.cs" />
+    <Compile Include="Presentation\Converters\BoolToGoneInvertedConverter.cs" />
+    <Compile Include="Presentation\Bindings\BackgroundColorBinding.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

@@ -41,6 +41,7 @@ namespace PrankChat.Mobile.Droid
             registry.RegisterCustomBindingFactory<View>(BackgroundBinding.TargetBinding, view => new BackgroundBinding(view));
             registry.RegisterCustomBindingFactory<VideoView>(VideoUrlTargetBinding.TargetBinding, view => new VideoUrlTargetBinding(view));
             registry.RegisterCustomBindingFactory<View>(ViewTouchTargetBinding.TargetBinding, view => new ViewTouchTargetBinding(view));
+            registry.RegisterCustomBindingFactory<View>(BackgroundColorBinding.TargetBinding, view => new BackgroundColorBinding(view));
         }
     }
 }

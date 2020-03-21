@@ -1,6 +1,7 @@
 ﻿using System;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
@@ -8,16 +9,32 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
     public class CompetitionItemViewModel : BaseItemViewModel, IDisposable
     {
-        private MvxSubscriptionToken _timerTickMessageToken;
         private readonly IMvxMessenger _mvxMessenger;
 
+        private MvxSubscriptionToken _timerTickMessageToken;
+
         public string Id { get; }
+
         public string Title { get; }
+
         public string Description { get; }
+
         public int PrizePool { get; }
+
+        public string PrizePoolPresentation => $"{PrizePool} ₽";
+
         public CompetitionPhase Phase { get; }
-        public int LikesCount { get; }
+
+        public bool IsFinished => Phase == CompetitionPhase.Finished;
+
+        public int? LikesCount { get; }
+
+        public string LikesCountString => LikesCount.ToCountString();
+
+        public string LikesPresentation { get; }
+
         public DateTime VoteTerm { get; }
+
         public DateTime NewTerm { get; }
 
         private TimeSpan? _nextPhaseCountdown;
@@ -33,6 +50,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             }
         }
 
+        public string ImageUrl { get; }
+
         public CompetitionItemViewModel(IMvxMessenger mvxMessenger,
                                         string id,
                                         string title,
@@ -41,12 +60,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                                         DateTime voteTerm,
                                         int prizePool,
                                         CompetitionPhase phase,
+                                        string imageUrl,
                                         int likesCount)
         {
             _mvxMessenger = mvxMessenger;
             VoteTerm = voteTerm;
             NewTerm = newTerm;
 
+            ImageUrl = imageUrl;
             Title = title;
             Description = description;
             PrizePool = prizePool;

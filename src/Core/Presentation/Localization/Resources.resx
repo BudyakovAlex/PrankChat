@@ -712,4 +712,34 @@
   <data name="ComplainSuccessful" xml:space="preserve">
     <value>Отправлено модератору</value>
   </data>
+  <data name="Competitions_Voting" xml:space="preserve">
+    <value>Голосование</value>
+  </data>
+  <data name="Competitions_New" xml:space="preserve">
+    <value>Новые</value>
+  </data>
+  <data name="Competitions_Finished" xml:space="preserve">
+    <value>Итоги</value>
+  </data>
+     <data name="Competitions_Voting_Term" xml:space="preserve">
+    <value>До конца голосования:</value>
+  </data>
+  <data name="Competitions_New_Term" xml:space="preserve">
+    <value>До начала голосования:</value>
+  </data>
+  <data name="Competitions_Finished_Term" xml:space="preserve">
+    <value>Период проведения конкурса:</value>
+  </data>
+  <data name="Competitions_See" xml:space="preserve">
+    <value>Смотреть</value>
+  </data>
+  <data name="Competitions_More" xml:space="preserve">
+    <value>Подробнее</value>
+  </data>
+  <data name="Competitions_Participate" xml:space="preserve">
+    <value>Принять участие</value>
+  </data>
+  <data name="Competitions_Prize_Pool" xml:space="preserve">
+    <value>Призовой фонд турнира:</value>
+  </data>
 </root>

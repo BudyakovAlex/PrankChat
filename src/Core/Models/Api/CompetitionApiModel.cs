@@ -1,6 +1,4 @@
 ﻿using System;
-using Newtonsoft.Json;
-using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Api
 {
@@ -9,6 +7,8 @@ namespace PrankChat.Mobile.Core.Models.Api
         public string Id { get; set; }
 
         public string Title { get; set; }
+
+        public string ImageUrl { get; set; }
 
         public string Description { get; set; }
 

@@ -31,14 +31,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         private CompetitionItemViewModel ProduceItemViewModel(CompetitionApiModel competition)
         {
             return new CompetitionItemViewModel(_mvxMessenger,
-                                                 competition.Id,
-                                                 competition.Title,
-                                                 competition.Description,
-                                                 competition.NewTerm,
-                                                 competition.VoteTerm,
-                                                 competition.PrizePool,
-                                                 Phase,
-                                                 competition.LikesCount);
+                                                competition.Id,
+                                                competition.Title,
+                                                competition.Description,
+                                                competition.NewTerm,
+                                                competition.VoteTerm,
+                                                competition.PrizePool,
+                                                Phase,
+                                                competition.ImageUrl,
+                                                competition.LikesCount);
         }
 
         public void Dispose()

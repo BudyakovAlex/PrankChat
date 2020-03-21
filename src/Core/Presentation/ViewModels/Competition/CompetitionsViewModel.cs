@@ -35,50 +35,62 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         {
             var competitions = new List<CompetitionApiModel>() {
                 new CompetitionApiModel() {
-                    Id = "0001",
+                    Id = "#0001",
                     Title = "Конкурс роботов",
                     Description = "Описание конкурса",
                     LikesCount = 99,
+                    PrizePool = 200000000,
+                    ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png",
                     NewTerm = DateTime.UtcNow.AddDays(-5),
                     VoteTerm = DateTime.UtcNow.AddDays(1)
                 },
                 new CompetitionApiModel() {
-                    Id = "0002",
+                    Id = "#0002",
                     Title = "Конкурс котов",
                     Description = "Описание конкурса",
                     LikesCount = 99,
+                    PrizePool = 2000000,
+                    ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png",
                     NewTerm = DateTime.UtcNow.AddDays(5),
                     VoteTerm = DateTime.UtcNow.AddDays(8)
                 },
                 new CompetitionApiModel() {
-                    Id = "0003",
+                    Id = "#0003",
                     Title = "Конкурс собак",
                     Description = "Описание конкурса",
                     LikesCount = 99,
+                    PrizePool = 2000000,
+                    ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png",
                     NewTerm = DateTime.UtcNow.AddDays(-5),
                     VoteTerm = DateTime.UtcNow.AddDays(-3)
                 },
                 new CompetitionApiModel() {
-                    Id = "0004",
+                    Id = "#0004",
                     Title = "Конкурс мышей",
                     Description = "Описание конкурса",
                     LikesCount = 99,
+                    PrizePool = 2000000,
+                    ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png",
                     NewTerm = DateTime.UtcNow.AddDays(-3),
                     VoteTerm = DateTime.UtcNow.AddDays(4)
                 },
                     new CompetitionApiModel() {
-                    Id = "0005",
+                    Id = "#0005",
                     Title = "Конкурс брокеров",
                     Description = "Описание конкурса",
                     LikesCount = 99,
+                    PrizePool = 2000000,
+                    ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png",
                     NewTerm = DateTime.UtcNow.AddDays(3),
                     VoteTerm = DateTime.UtcNow.AddDays(9)
                 },
                 new CompetitionApiModel() {
-                    Id = "0006",
+                    Id = "#0006",
                     Title = "Конкурс машин",
                     Description = "Описание конкурса",
                     LikesCount = 99,
+                    PrizePool = 1000000,
+                    ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png",
                     NewTerm = DateTime.UtcNow.AddDays(-45),
                     VoteTerm = DateTime.UtcNow.AddDays(-3)
                 },

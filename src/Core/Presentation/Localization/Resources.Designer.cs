@@ -1210,5 +1210,65 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("ComplainSuccessful", resourceCulture);
             }
         }
+        
+        public static string Competitions_Voting {
+            get {
+                return ResourceManager.GetString("Competitions_Voting", resourceCulture);
+            }
+        }
+        
+        public static string Competitions_New {
+            get {
+                return ResourceManager.GetString("Competitions_New", resourceCulture);
+            }
+        }
+        
+        public static string Competitions_Finished {
+            get {
+                return ResourceManager.GetString("Competitions_Finished", resourceCulture);
+            }
+        }
+        
+        public static string Competitions_Voting_Term {
+            get {
+                return ResourceManager.GetString("Competitions_Voting_Term", resourceCulture);
+            }
+        }
+        
+        public static string Competitions_New_Term {
+            get {
+                return ResourceManager.GetString("Competitions_New_Term", resourceCulture);
+            }
+        }
+        
+        public static string Competitions_Finished_Term {
+            get {
+                return ResourceManager.GetString("Competitions_Finished_Term", resourceCulture);
+            }
+        }
+        
+        public static string Competitions_See {
+            get {
+                return ResourceManager.GetString("Competitions_See", resourceCulture);
+            }
+        }
+        
+        public static string Competitions_More {
+            get {
+                return ResourceManager.GetString("Competitions_More", resourceCulture);
+            }
+        }
+        
+        public static string Competitions_Participate {
+            get {
+                return ResourceManager.GetString("Competitions_Participate", resourceCulture);
+            }
+        }
+        
+        public static string Competitions_Prize_Pool {
+            get {
+                return ResourceManager.GetString("Competitions_Prize_Pool", resourceCulture);
+            }
+        }
     }
 }
