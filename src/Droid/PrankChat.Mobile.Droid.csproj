@@ -149,6 +149,9 @@
     <Compile Include="Presentation\Listeners\EndlessScrollChangedListener.cs" />
     <Compile Include="Presentation\Listeners\OnLoadMoreListener.cs" />
     <Compile Include="Presentation\Listeners\MediaPlayerOnInfoListener.cs" />
+    <Compile Include="Presentation\Views\Competitions\CompetitionsView.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionItemViewHolder.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionsSectionViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -507,6 +510,22 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_competitions.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\cell_competitions_section.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\cell_competition.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\bg_white_with_corners.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -833,6 +852,8 @@
     <Folder Include="Presentation\Adapters\ViewHolders\" />
     <Folder Include="Presentation\Adapters\ViewHolders\Abstract\" />
     <Folder Include="Presentation\Adapters\ViewHolders\Publications\" />
+    <Folder Include="Presentation\Views\Competitions\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\Competitions\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />

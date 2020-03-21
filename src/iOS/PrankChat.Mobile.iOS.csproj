@@ -810,6 +810,7 @@
     <Folder Include="Assets.xcassets\ic_three_dots.imageset\" />
     <Folder Include="Presentation\Views\ProfileView\ImageCrop\" />
     <Folder Include="Presentation\SourcesAndDelegates\" />
+    <Folder Include="Presentation\Views\Competitions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
