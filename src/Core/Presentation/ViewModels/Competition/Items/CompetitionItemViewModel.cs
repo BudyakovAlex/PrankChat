@@ -102,10 +102,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         {
             switch (Phase)
             {
-                case CompetitionPhase.New when NewTerm < DateTime.UtcNow:
+                case CompetitionPhase.New when NewTerm > DateTime.UtcNow:
                     NextPhaseCountdown = DateTime.UtcNow - NewTerm;
                     break;
-                case CompetitionPhase.Voting when VoteTerm < DateTime.UtcNow:
+                case CompetitionPhase.Voting when VoteTerm > DateTime.UtcNow:
                     NextPhaseCountdown = DateTime.UtcNow - VoteTerm;
                     break;
                 default:
