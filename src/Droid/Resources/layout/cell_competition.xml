@@ -11,7 +11,7 @@
         android:id="@+id/background_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="2dp"
+        android:layout_margin="3dp"
         android:background="@color/my_order_gradient_start"
         tools:ignore="UselessParent">
 

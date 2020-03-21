@@ -48,7 +48,7 @@
     <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
         android:id="@+id/section_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="575dp"
+        android:layout_height="580dp"
         android:layout_marginTop="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -5,6 +5,7 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract;
@@ -16,8 +17,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
 {
     public class CompetitionItemViewHolder : CardViewHolder
     {
-        private const int CardCornerRadius = 15;
-
         private TextView _titleTextView;
         private TextView _descriptionTextView;
         private TextView _termTitle;
@@ -26,6 +25,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
         private TextView _hoursTextView;
         private TextView _minutesTextView;
         private TextView _prizeTextView;
+        private TextView _prizeTitleTextView;
         private TextView _numberTextView;
         private TextView _likesTextView;
         private TextView _termFromTextView;
@@ -63,10 +63,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             _actionButton = view.FindViewById<Button>(Resource.Id.action_button);
             _borderFrame = view.FindViewById<FrameLayout>(Resource.Id.border_frame);
             _backgroundFrame = view.FindViewById<FrameLayout>(Resource.Id.background_frame);
+            _prizeTitleTextView = view.FindViewById<TextView>(Resource.Id.prize_title_text_view);
 
-            var cornersInPx = DisplayUtils.DpToPx(CardCornerRadius);
-            _borderFrame.SetRoundedCorners(cornersInPx);
-            _backgroundFrame.SetRoundedCorners(cornersInPx);
+            _prizeTitleTextView.Text = Resources.Competitions_Prize_Pool;
+
+            _borderFrame.SetRoundedCorners(DisplayUtils.DpToPx(15));
+            _backgroundFrame.SetRoundedCorners(DisplayUtils.DpToPx(13));
         }
 
         public override void BindData()
