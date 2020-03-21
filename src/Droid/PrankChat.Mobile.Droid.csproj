@@ -155,6 +155,9 @@
     <Compile Include="Utils\Helpers\DisplayUtils.cs" />
     <Compile Include="LayoutManagers\CustomLinearLayoutManager.cs" />
     <Compile Include="LayoutManagers\SafeLinearLayoutManager.cs" />
+    <Compile Include="Decorators\DecoratorBase.cs" />
+    <Compile Include="Decorators\PagerDecorator.cs" />
+    <Compile Include="Presentation\Converters\BoolToGoneConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -529,6 +532,18 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\values\dimens_card_decorations.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\img_navigation_arrow_left.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\img_navigation_arrow_right.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -858,6 +873,7 @@
     <Folder Include="Presentation\Views\Competitions\" />
     <Folder Include="Presentation\Adapters\ViewHolders\Competitions\" />
     <Folder Include="LayoutManagers\" />
+    <Folder Include="Decorators\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />

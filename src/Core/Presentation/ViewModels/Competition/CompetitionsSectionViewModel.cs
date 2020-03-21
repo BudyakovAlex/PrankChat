@@ -11,28 +11,39 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
     public class CompetitionsSectionViewModel : BaseItemViewModel, IDisposable
     {
+        private readonly IMvxMessenger _mvxMessenger;
+
         public CompetitionPhase Phase { get; }
+
         public List<CompetitionItemViewModel> Items { get; }
+
+        public bool HasNavigationControls => Items.Count > 1;
 
         public CompetitionsSectionViewModel(IMvxMessenger mvxMessenger,
                                             CompetitionPhase phase,
                                             List<CompetitionApiModel> competitions)
         {
+            _mvxMessenger = mvxMessenger;
             Phase = phase;
-            Items = competitions.Select(competition => new CompetitionItemViewModel(mvxMessenger,
-                                                                                    competition.Id,
-                                                                                    competition.Title,
-                                                                                    competition.Description,
-                                                                                    competition.NewTerm,
-                                                                                    competition.VoteTerm,
-                                                                                    competition.PrizePool,
-                                                                                    phase,
-                                                                                    competition.LikesCount)).ToList();
+            Items = competitions.Select(ProduceItemViewModel).ToList();
         }
-        
+
+        private CompetitionItemViewModel ProduceItemViewModel(CompetitionApiModel competition)
+        {
+            return new CompetitionItemViewModel(_mvxMessenger,
+                                                 competition.Id,
+                                                 competition.Title,
+                                                 competition.Description,
+                                                 competition.NewTerm,
+                                                 competition.VoteTerm,
+                                                 competition.PrizePool,
+                                                 Phase,
+                                                 competition.LikesCount);
+        }
+
         public void Dispose()
         {
-            Items.ForEach(x => x.Dispose());
+            Items.ForEach(item => item.Dispose());
         }
     }
 }

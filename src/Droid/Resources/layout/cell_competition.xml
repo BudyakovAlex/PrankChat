@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/border_frame"
-    tools:background="@color/my_order_accent">
+    android:background="@color/my_order_accent">
 
     <FrameLayout
         android:id="@+id/background_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
-        tools:background="@color/my_order_gradient_start"
+        android:background="@color/my_order_gradient_start"
         tools:ignore="UselessParent">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="592dp">
+            android:layout_height="572dp">
 
             <View
                 android:id="@+id/background_view"

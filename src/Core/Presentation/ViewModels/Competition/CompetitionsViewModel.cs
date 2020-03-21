@@ -84,9 +84,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 },
             };
 
-            var groupedItems = competitions.GroupBy(x => x.GetPhase());
-
-            var sections = groupedItems.Select(group => new CompetitionsSectionViewModel(_mvxMessenger, group.Key, group.ToList()));
+            var sections = competitions.GroupBy(competition => competition.GetPhase())
+                                           .Select(group => new CompetitionsSectionViewModel(_mvxMessenger, group.Key, group.ToList()))
+                                           .ToList();
             Items.SwitchTo(sections);
 
             return Task.CompletedTask;
