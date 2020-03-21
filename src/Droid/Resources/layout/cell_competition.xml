@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:cardBackgroundColor="@color/my_order_accent"
-    app:cardCornerRadius="15dp">
+    android:id="@+id/border_frame"
+    tools:background="@color/my_order_accent">
 
-    <android.support.v7.widget.CardView
+    <FrameLayout
+        android:id="@+id/background_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
-        tools:cardBackgroundColor="@color/my_order_gradient_start"
-        app:cardCornerRadius="15dp">
+        tools:background="@color/my_order_gradient_start"
+        tools:ignore="UselessParent">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,7 +24,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:background="@drawable/bg_white_with_corners"
-                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -215,7 +215,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/number_text_view"
                 app:layout_constraintEnd_toStartOf="@+id/likes_text_view"
                 app:layout_constraintTop_toTopOf="@+id/number_text_view"
-                app:srcCompat="@drawable/ic_accent_thumbs_up" />
+                android:src="@drawable/ic_accent_thumbs_up" />
 
             <TextView
                 android:id="@+id/likes_text_view"
@@ -228,7 +228,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/likes_image_view"
                 tools:text="100k" />
-            
+
             <Button
                 android:id="@+id/action_button"
                 android:layout_width="0dp"
@@ -242,6 +242,45 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="подробнее" />
+
+            <LinearLayout
+                android:id="@+id/term_linear_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/first_divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/term_title_text_view">
+
+                <TextView
+                    android:id="@+id/term_to_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_item_tab"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/first_divider"
+                    app:layout_constraintTop_toBottomOf="@+id/term_title_text_view"
+                    tools:text="20.01.2020" />
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:background="@color/text_item_tab" />
+
+                <TextView
+                    android:id="@+id/term_from_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_item_tab"
+                    android:textSize="16sp"
+                    tools:text="21.12.2019" />
+            </LinearLayout>
         </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
-</android.support.v7.widget.CardView>
+    </FrameLayout>
+</FrameLayout>

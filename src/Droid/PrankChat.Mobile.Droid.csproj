@@ -152,6 +152,9 @@
     <Compile Include="Presentation\Views\Competitions\CompetitionsView.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionItemViewHolder.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionsSectionViewHolder.cs" />
+    <Compile Include="Utils\Helpers\DisplayUtils.cs" />
+    <Compile Include="LayoutManagers\CustomLinearLayoutManager.cs" />
+    <Compile Include="LayoutManagers\SafeLinearLayoutManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -854,6 +857,7 @@
     <Folder Include="Presentation\Adapters\ViewHolders\Publications\" />
     <Folder Include="Presentation\Views\Competitions\" />
     <Folder Include="Presentation\Adapters\ViewHolders\Competitions\" />
+    <Folder Include="LayoutManagers\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />
