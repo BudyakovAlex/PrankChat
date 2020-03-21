@@ -241,15 +241,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         protected virtual async Task<IEnumerable<OrderDataModel>> GetOrdersAsync()
         {
-
             switch (SelectedOrderType)
             {
                 case ProfileOrderType.MyOrders:
-                    return await ApiService.GetOrdersAsync(OrderFilterType.MyOwn);
-
                 case ProfileOrderType.OrdersCompletedByMe:
-                    var orders = await ApiService.GetOrdersAsync(OrderFilterType.InProgress);
-                    return orders.Where(order => order.Status == OrderStatusType.Finished);
+                    var filterEnum = SelectedOrderType == ProfileOrderType.MyOrders ? OrderFilterType.MyOwn : OrderFilterType.InProgress;
+                    var orders = await ApiService.GetOrdersAsync(filterEnum);
+                    return orders.OrderBy(x => x.Status);
             }
 
             return Enumerable.Empty<OrderDataModel>();

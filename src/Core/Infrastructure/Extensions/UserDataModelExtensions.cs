@@ -9,12 +9,18 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
         {
             if (customerId == userDataModel?.Id)
             {
-                return orderStatusType == OrderStatusType.New
-                    ? OrderType.MyOrderInModeration
-                    : OrderType.MyOrder;
+                switch (orderStatusType)
+                {
+                    case OrderStatusType.New:
+                        return OrderType.MyOrderInModeration;
+                    case OrderStatusType.Finished:
+                        return OrderType.MyOrderCompleted;
+                    default:
+                        return OrderType.MyOrder;
+                }
             }
 
-            return OrderType.NotMyOrder;
+            return orderStatusType == OrderStatusType.Finished ? OrderType.NotMyOrderCompleted : OrderType.NotMyOrder;
         }
     }
 }
