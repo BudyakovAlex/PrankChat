@@ -36,6 +36,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Binding
                 case OrderType.NotMyOrder:
                     return "bg_order_type_not_my";
 
+                case OrderType.MyOrderCompleted:
+                case OrderType.NotMyOrderCompleted:
+                    return "bg_order_type_completed";
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
