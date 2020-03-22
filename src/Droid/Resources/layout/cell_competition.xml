@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/border_frame"
+    tools:background="@color/competition_vote_border">
+
+    <FrameLayout
+        android:id="@+id/background_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:background="@color/my_order_gradient_start"
+        tools:ignore="UselessParent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="572dp">
+
+            <View
+                android:id="@+id/background_view"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_white_with_corners"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/placeholder_image_view" />
+
+            <View
+                android:id="@+id/third_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:background="@color/gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/number_text_view" />
+
+            <View
+                android:id="@+id/second_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:background="@color/gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/prize_text_view" />
+
+            <TextView
+                android:id="@+id/title_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:textColor="@color/applicationWhite"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text=" asd asd as das das das das das d asd as as asd as d as d " />
+
+            <ffimageloading.cross.MvxCachedImageView
+                android:id="@+id/placeholder_image_view"
+                android:layout_width="0dp"
+                android:layout_height="155dp"
+                android:layout_marginTop="9dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toBottomOf="@+id/title_text_view"
+                app:srcCompat="@drawable/button_accent_background" />
+
+            <TextView
+                android:id="@+id/description_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:textColor="@color/applicationWhite"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/term_title_text_view"
+                app:layout_constraintEnd_toEndOf="@+id/placeholder_image_view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_text_view"
+                tools:text="Прими участие в турнире “Клонов” бесплатно! Обладатель лучшего видео по итогам голосвания участников, получит 100 000 рублей на свой реальный счет..." />
+
+            <TextView
+                android:id="@+id/term_title_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:textColor="@color/text_item_tab"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/placeholder_image_view"
+                tools:text="До конца голосования:" />
+
+            <TextView
+                android:id="@+id/term_timer_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/text_item_tab"
+                android:textSize="26sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/term_title_text_view"
+                tools:text="10 : 10 : 20" />
+
+            <TextView
+                android:id="@+id/days_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/text_item_tab"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/hours_text_view"
+                app:layout_constraintStart_toStartOf="@+id/term_timer_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/term_timer_text_view"
+                tools:text="дней" />
+
+            <TextView
+                android:id="@+id/hours_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/text_item_tab"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/term_timer_text_view"
+                app:layout_constraintStart_toStartOf="@+id/term_timer_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/term_timer_text_view"
+                tools:text="часов" />
+
+            <TextView
+                android:id="@+id/minutes_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/text_item_tab"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/hours_text_view"
+                app:layout_constraintEnd_toEndOf="@+id/term_timer_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/term_timer_text_view"
+                tools:text="минут" />
+
+            <View
+                android:id="@+id/first_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:background="@color/gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_goneMarginTop="36dp"
+                app:layout_constraintTop_toBottomOf="@+id/term_linear_layout" />
+
+            <TextView
+                android:id="@+id/prize_title_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/text_item_tab"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/first_divider"
+                tools:text="Призовой фонд турнира:" />
+
+            <TextView
+                android:id="@+id/prize_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:textColor="@color/text_item_tab"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/prize_title_text_view"
+                tools:text="10 238 876 ₽" />
+
+            <TextView
+                android:id="@+id/number_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/accent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/second_divider"
+                tools:text="#999 999" />
+
+            <ImageView
+                android:id="@+id/likes_image_view"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="9dp"
+                app:layout_constraintBottom_toBottomOf="@+id/number_text_view"
+                app:layout_constraintEnd_toStartOf="@+id/likes_text_view"
+                app:layout_constraintTop_toTopOf="@+id/number_text_view"
+                android:src="@drawable/ic_accent_thumbs_up" />
+
+            <TextView
+                android:id="@+id/likes_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:textColor="@color/accent"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/likes_image_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/likes_image_view"
+                tools:text="100k" />
+
+            <Button
+                android:id="@+id/action_button"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/accent"
+                android:textColor="@color/applicationWhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="подробнее" />
+
+            <LinearLayout
+                android:id="@+id/term_linear_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/term_timer_text_view"
+                app:layout_goneMarginTop="8dp">
+
+                <TextView
+                    android:id="@+id/term_to_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_item_tab"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/first_divider"
+                    app:layout_constraintTop_toBottomOf="@+id/term_title_text_view"
+                    tools:text="20.01.2020" />
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:background="@color/text_item_tab" />
+
+                <TextView
+                    android:id="@+id/term_from_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_item_tab"
+                    android:textSize="16sp"
+                    tools:text="21.12.2019" />
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+    </FrameLayout>
+</FrameLayout>
