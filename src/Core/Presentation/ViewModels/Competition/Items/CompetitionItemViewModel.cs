@@ -21,21 +21,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public int PrizePool { get; }
 
-        public string PrizePoolPresentation => $"{PrizePool} ₽";
-
         public CompetitionPhase Phase { get; }
 
-        public bool IsFinished => Phase == CompetitionPhase.Finished;
 
         public int? LikesCount { get; }
-
-        public string LikesCountString => LikesCount.ToCountString();
 
         public string LikesPresentation { get; }
 
         public DateTime VoteTerm { get; }
 
         public DateTime NewTerm { get; }
+
+        public bool IsFinished => Phase == CompetitionPhase.Finished;
+
+        public string LikesCountString => LikesCount.ToCountString();
+
+        public string PrizePoolPresentation => $"{PrizePool} ₽";
+
+        public string DaysText { get; } = "дней";
+
+        public string HoursText { get; } = "часов";
+
+        public string MinutesText { get; } = "минут";
 
         private TimeSpan? _nextPhaseCountdown;
         public TimeSpan? NextPhaseCountdown

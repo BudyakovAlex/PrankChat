@@ -188,17 +188,17 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .To(vm => vm.IsFinished)
                       .WithConversion<BoolToGoneInvertedConverter>();
 
-            //bindingSet.Bind(_daysTextView)
-            //          .For(v => v.Text)
-            //          .To(vm => vm.Days);
+            bindingSet.Bind(_daysTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.DaysText);
 
-            //bindingSet.Bind(_hoursTextView)
-            //          .For(v => v.Text)
-            //          .To(vm => vm.Hours);
+            bindingSet.Bind(_hoursTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.HoursText);
 
-            //bindingSet.Bind(_minutesTextView)
-            //          .For(v => v.Text)
-            //          .To(vm => vm.Minutes);
+            bindingSet.Bind(_minutesTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.MinutesText);
 
             bindingSet.Apply();
         }
