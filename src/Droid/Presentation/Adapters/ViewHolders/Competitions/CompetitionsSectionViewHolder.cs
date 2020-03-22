@@ -12,6 +12,7 @@ using PrankChat.Mobile.Droid.Decorators;
 using PrankChat.Mobile.Droid.LayoutManagers;
 using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract;
+using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presentation.Converters;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 
@@ -25,6 +26,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
         public ImageView _rightImageView;
         private RecycleViewBindableAdapter _adapter;
         private CustomLinearLayoutManager _layoutManager;
+        private View _leftDivider;
+        private View _rightDivider;
 
         public int RecycledViewsVisibleCount => 5;
 
@@ -59,12 +62,25 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .To(vm => vm.HasNavigationControls)
                       .WithConversion<BoolToGoneConverter>();
 
+            bindingSet.Bind(_leftDivider)
+                      .For(BackgroundColorBinding.TargetBinding)
+                      .To(vm => vm.Phase)
+                      .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
+
+            bindingSet.Bind(_rightDivider)
+                      .For(BackgroundColorBinding.TargetBinding)
+                      .To(vm => vm.Phase)
+                      .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
+
             bindingSet.Apply();
         }
 
         protected override void DoInit(View view)
         {
             base.DoInit(view);
+
+            _leftDivider = view.FindViewById<View>(Resource.Id.first_divider);
+            _rightDivider = view.FindViewById<View>(Resource.Id.second_divider);
 
             _titleTextView = view.FindViewById<TextView>(Resource.Id.title_text_view);
             _leftImageView = view.FindViewById<ImageView>(Resource.Id.left_navigation_image);

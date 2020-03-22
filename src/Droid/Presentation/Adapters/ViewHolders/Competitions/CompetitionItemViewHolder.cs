@@ -49,9 +49,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             _descriptionTextView = view.FindViewById<TextView>(Resource.Id.description_text_view);
             _termTitle = view.FindViewById<TextView>(Resource.Id.term_title_text_view);
             _termTimerTextView = view.FindViewById<TextView>(Resource.Id.term_timer_text_view);
-            _daysTextView = view.FindViewById<TextView>(Resource.Id.time_days_text_view);
-            _hoursTextView = view.FindViewById<TextView>(Resource.Id.time_hours_text_view);
-            _minutesTextView = view.FindViewById<TextView>(Resource.Id.time_minutes_text_view);
+            _daysTextView = view.FindViewById<TextView>(Resource.Id.days_text_view);
+            _hoursTextView = view.FindViewById<TextView>(Resource.Id.hours_text_view);
+            _minutesTextView = view.FindViewById<TextView>(Resource.Id.minutes_text_view);
             _prizeTextView = view.FindViewById<TextView>(Resource.Id.prize_text_view);
             _numberTextView = view.FindViewById<TextView>(Resource.Id.number_text_view);
             _termFromTextView = view.FindViewById<TextView>(Resource.Id.term_from_text_view);
@@ -89,18 +89,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .For(v => v.Text)
                       .To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToTermTitleConverter>();
-
-            bindingSet.Bind(_daysTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.NextPhaseCountdown);
-
-            bindingSet.Bind(_hoursTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.NextPhaseCountdown);
-
-            bindingSet.Bind(_minutesTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.NextPhaseCountdown);
 
             bindingSet.Bind(_prizeTextView)
                       .For(v => v.Text)
