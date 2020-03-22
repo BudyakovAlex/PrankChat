@@ -112,7 +112,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
 
             bindingSet.Bind(_likesTextView)
                       .For(v => v.Text)
-                      .To(vm => vm.LikesCount);
+                      .To(vm => vm.LikesCountString);
 
             bindingSet.Bind(_numberTextView)
                       .For(v => v.Visibility)

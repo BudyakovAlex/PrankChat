@@ -1,27 +1,26 @@
 ﻿using System.Threading.Tasks;
 using MvvmCross.Navigation;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Rating;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Presentation.Navigation.Results;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using Xamarin.Essentials;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
-	public class NavigationService : INavigationService
+    public class NavigationService : INavigationService
 	{
 		private readonly IMvxNavigationService _mvxNavigationService;
 		private readonly ISettingsService _settingsService;
@@ -87,7 +86,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 		{
 			return Task.WhenAll(
 				_mvxNavigationService.Navigate<PublicationsViewModel>(),
-				_mvxNavigationService.Navigate<CompetitionsViewModel>(),
+				_mvxNavigationService.Navigate<RatingViewModel>(),
 				_mvxNavigationService.Navigate<CreateOrderViewModel>(),
 				_mvxNavigationService.Navigate<OrdersViewModel>(),
 				_mvxNavigationService.Navigate<ProfileViewModel>());

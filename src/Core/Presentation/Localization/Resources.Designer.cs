@@ -1199,6 +1199,30 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
             }
         }
         
+        public static string com_vk_sdk_AppId {
+            get {
+                return ResourceManager.GetString("com_vk_sdk_AppId", resourceCulture);
+            }
+        }
+        
+        public static string Count_Days {
+            get {
+                return ResourceManager.GetString("Count_Days", resourceCulture);
+            }
+        }
+        
+        public static string Count_Hours {
+            get {
+                return ResourceManager.GetString("Count_Hours", resourceCulture);
+            }
+        }
+        
+        public static string Count_Minutes {
+            get {
+                return ResourceManager.GetString("Count_Minutes", resourceCulture);
+            }
+        }
+        
         public static string LinkCopied {
             get {
                 return ResourceManager.GetString("LinkCopied", resourceCulture);
@@ -1235,12 +1259,6 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
             }
         }
         
-        public static string Competitions_New_Term {
-            get {
-                return ResourceManager.GetString("Competitions_New_Term", resourceCulture);
-            }
-        }
-        
         public static string Competitions_Finished_Term {
             get {
                 return ResourceManager.GetString("Competitions_Finished_Term", resourceCulture);
@@ -1268,6 +1286,12 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         public static string Competitions_Prize_Pool {
             get {
                 return ResourceManager.GetString("Competitions_Prize_Pool", resourceCulture);
+            }
+        }
+        
+        public static string Competitions_New_Term {
+            get {
+                return ResourceManager.GetString("Competitions_New_Term", resourceCulture);
             }
         }
     }

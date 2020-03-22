@@ -23,10 +23,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public CompetitionPhase Phase { get; }
 
-
         public int? LikesCount { get; }
-
-        public string LikesPresentation { get; }
 
         public DateTime VoteTerm { get; }
 
@@ -93,7 +90,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         private void Subscribe()
         {
             _timerTickMessageToken = _mvxMessenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong);
-
         }
 
         public void Unsubsribe()

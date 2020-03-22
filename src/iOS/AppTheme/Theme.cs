@@ -25,6 +25,12 @@ namespace PrankChat.Mobile.iOS.AppTheme
             public static UIColor PositiveToastBackground = UIColor.FromRGB(134, 213, 73);
             public static UIColor NegativeToastBackground = UIColor.FromRGB(213, 81, 73);
             public static UIColor DarkOrange = UIColor.FromRGB(0.831f, 0.502f, 0f);
+            public static UIColor CompetitionPhaseNewPrimary => UIColor.FromRGBA(0.43f, 0.16f, 0.75f, 1f);
+            public static UIColor CompetitionPhaseNewSecondary => UIColor.FromRGBA(0.23f, 0.55f, 0.93f, 1.0f);
+            public static UIColor CompetitionPhaseVotingPrimary => UIColor.FromRGBA(1.0f, 0.5f, 0.03f, 1.0f);
+            public static UIColor CompetitionPhaseVotingSecondary => UIColor.FromRGBA(0.98f, 0.77f, 0.26f, 1.0f);
+            public static UIColor CompetitionPhaseFinishedPrimary => UIColor.FromRGBA(0.6f, 0.6f, 0.6f, 1.0f);
+            public static UIColor CompetitionPhaseFinishedSecondary => UIColor.FromRGBA(0.98f, 0.98f, 0.98f, 1.0f);
         }
 
         public class Font
