@@ -3,6 +3,7 @@ using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
@@ -37,23 +38,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public string PrizePoolPresentation => $"{PrizePool} ₽";
 
-        public string DaysText { get; } = "дней";
+        public string DaysText { get; } = Resources.Count_Days;
 
-        public string HoursText { get; } = "часов";
+        public string HoursText { get; } = Resources.Count_Hours;
 
-        public string MinutesText { get; } = "минут";
+        public string MinutesText { get; } = Resources.Count_Minutes;
 
         private TimeSpan? _nextPhaseCountdown;
         public TimeSpan? NextPhaseCountdown
         {
             get => _nextPhaseCountdown;
-            set
-            {
-                if (SetProperty(ref _nextPhaseCountdown, value))
-                {
-                    RaisePropertyChanged(nameof(NextPhaseCountdown));
-                }
-            }
+            set => SetProperty(ref _nextPhaseCountdown, value);
         }
 
         public CompetitionItemViewModel(IMvxMessenger mvxMessenger,
