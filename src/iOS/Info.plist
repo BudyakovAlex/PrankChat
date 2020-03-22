@@ -105,9 +105,5 @@
 	<string>Our application needs permission to write photos.</string>
 	<key>FacebookAppID</key>
 	<string>1052355475141532</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>remote-notification</string>
-	</array>
 </dict>
 </plist>
