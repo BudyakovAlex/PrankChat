@@ -24,6 +24,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Binding
             {
                 case OrderType.MyOrder:
                 case OrderType.MyOrderInModeration:
+                case OrderType.MyOrderCompleted:
+                case OrderType.NotMyOrderCompleted:
                     Target.BackgroundColor = Theme.Color.White;
                     Target.SetTitleColor(Theme.Color.Black, UIControlState.Normal);
                     Target.Layer.CornerRadius = 4f;

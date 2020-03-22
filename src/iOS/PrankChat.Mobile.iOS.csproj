@@ -799,6 +799,8 @@
     <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\ThreeDots.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\mdi_arrow_left_alt.pdf" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\bg_order_type_completed.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf" />
   </ItemGroup>
@@ -833,6 +835,7 @@
     <Folder Include="Presentation\Views\ProfileView\ImageCrop\" />
     <Folder Include="Presentation\SourcesAndDelegates\" />
     <Folder Include="Presentation\Views\Competition\" />
+    <Folder Include="Assets.xcassets\bg_order_type_completed.imageset\" />
     <Folder Include="Assets.xcassets\ic_arrow_left_alt.imageset\" />
     <Folder Include="Assets.xcassets\ic_arrow_right_alt.imageset\" />
     <Folder Include="Assets.xcassets\dsadad.imageset\" />
