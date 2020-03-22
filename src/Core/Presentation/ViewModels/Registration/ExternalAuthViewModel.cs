@@ -55,7 +55,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             // todo: not wait
             await ApiService.GetCurrentUserAsync();
-            await _pushNotificationService.UpdateTokenAsync();
+            await _pushNotificationService.TryUpdateTokenAsync();
             await NavigationService.ShowMainView();
         }
     }

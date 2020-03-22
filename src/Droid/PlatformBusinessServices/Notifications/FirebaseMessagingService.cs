@@ -11,6 +11,8 @@ using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using MvvmCross.Logging;
+using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 {
@@ -30,6 +32,17 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
         {
             var settingService = Mvx.IoCProvider.Resolve<ISettingsService>();
             settingService.PushToken = token;
+
+            try
+            {
+                var pushNotificationService = Mvx.IoCProvider.Resolve<IPushNotificationService>();
+                pushNotificationService.TryUpdateTokenAsync().FireAndForget();
+            }
+            catch (Exception ex)
+            {
+                var log = Mvx.IoCProvider.Resolve<IMvxLog>();
+                log.ErrorException("Can not resolve IPushNotificationService", ex);
+            }
         }
 
         public override void OnMessageReceived(RemoteMessage message)
@@ -37,60 +50,8 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             message.Data.TryGetValue("key", out string key);
             message.Data.TryGetValue("value", out var value);
 
-            var notificationType = key?.ToEnum<NotificationType>();
-            if (notificationType == null)
-            {
-                // TODO: Implement the logic for showing push notification when the key is empty.
-            }
-            else
-            {
-                var shouldShowPush = ShouldShowPush(notificationType.Value);
-                if (!shouldShowPush)
-                    return;
-            }
-
-            var notificationDataModel = JsonConvert.DeserializeObject<DataApiModel<NotificationApiModel>>(value);
-            if (notificationDataModel?.Data == null)
-            {
-                if (notificationType != null)
-                {
-                    // TODO: Implement the logic for showing push notification when the key is empty.
-                }
-
-                // TODO: Implement the logic for showing push notification when the key is empty.
-                NotificationWrapper.Instance.ScheduleLocalNotification("empty", "empty");
-            }
-
-            NotificationWrapper.Instance.ScheduleLocalNotification(notificationDataModel?.Data?.Title, notificationDataModel?.Data?.Description);
-        }
-
-        private bool ShouldShowPush(NotificationType notificationType)
-        {
-            switch (notificationType)
-            {
-                case NotificationType.OrderEvent:
-                    return true;
-
-                case NotificationType.WalletEvent:
-                    return true;
-
-                case NotificationType.SubscriptionEvent:
-                    return true;
-
-                case NotificationType.LikeEvent:
-                    return true;
-
-                case NotificationType.CommentEvent:
-                    return true;
-
-                case NotificationType.ExecutorEvent:
-                    return true;
-
-                default:
-                    // TODO: Add the error log. We dosen`t check type of notification.
-                    return true;
-
-            }
+            var pushNotificationData = PushNotificationService.GenerateNotificationData(key, value);
+            NotificationWrapper.Instance.ScheduleLocalNotification(pushNotificationData.Title, pushNotificationData.Body);
         }
     }
 }

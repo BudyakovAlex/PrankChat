@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Firebase.CloudMessaging;
 using Firebase.Crashlytics;
-using Firebase.InstanceID;
 using Foundation;
 using MvvmCross;
 using MvvmCross.Platforms.Ios.Core;
@@ -11,6 +9,14 @@ using UIKit;
 using UserNotifications;
 using VKontakte;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.iOS.Delegates;
+using System.Runtime.InteropServices;
+using System;
+using PrankChat.Mobile.Core.ApplicationServices.Notifications;
+using MvvmCross.Logging;
+using Firebase.InstanceID;
+using Firebase.CloudMessaging;
+using PrankChat.Mobile.iOS.PlatformBusinessServices;
 
 namespace PrankChat.Mobile.iOS
 {
@@ -20,35 +26,6 @@ namespace PrankChat.Mobile.iOS
         //TODO: move it to config
         public const string VkAppId = "7343996";
 
-        //public override bool WillFinishLaunching(UIApplication application, NSDictionary launchOptions)
-        //{
-        //    RegisterForPushNotifications();
-
-        //    InstanceId.Notifications.ObserveTokenRefresh(TokenRefreshNotification);
-
-        //    return base.WillFinishLaunching(application, launchOptions);
-        //}
-
-        public override void OnResignActivation(UIApplication application)
-        {
-            // Invoked when the application is about to move from active to inactive state.
-            // This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message)
-            // or when the user quits the application and it begins the transition to the background state.
-            // Games should use this method to pause the game.
-        }
-
-        public override void DidEnterBackground(UIApplication application)
-        {
-            // Use this method to release shared resources, save user data, invalidate timers and store the application state.
-            // If your application supports background execution this method is called instead of WillTerminate when the user quits.
-        }
-
-        public override void WillEnterForeground(UIApplication application)
-        {
-            // Called as part of the transition from background to active state.
-            // Here you can undo many of the changes made on entering the background.
-        }
-
         public override void OnActivated(UIApplication application)
         {
             // Restart any tasks that were paused (or not yet started) while the application was inactive.
@@ -56,22 +33,17 @@ namespace PrankChat.Mobile.iOS
             Facebook.CoreKit.AppEvents.ActivateApp();
         }
 
-        public override void WillTerminate(UIApplication application)
-        {
-            // Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
-        }
-
-        public override void FinishedLaunching(UIApplication application)
+        public override bool WillFinishLaunching(UIApplication application, NSDictionary launchOptions)
         {
             InitializeFirebase();
-            base.FinishedLaunching(application);
+            InitializePushNotification();
+            return true;
         }
 
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
             Facebook.CoreKit.Profile.EnableUpdatesOnAccessTokenChange(true);
             Facebook.CoreKit.ApplicationDelegate.SharedInstance.FinishedLaunching(application, launchOptions);
-            InitializeFirebase();
 
             return base.FinishedLaunching(application, launchOptions);
         }
@@ -83,46 +55,110 @@ namespace PrankChat.Mobile.iOS
                || base.OpenUrl(application, url, sourceApplication, annotation);
         }
 
+        public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
+        {
+            HandleBackgroundNotification(userInfo);
+        }
+
+        [Export("userNotificationCenter:willPresentNotification:withCompletionHandler:")]
+        public void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
+        {
+            HandleForegroundNotification(notification.Request.Content.UserInfo);
+        }
+
         private void InitializeFirebase()
         {
             Firebase.Core.App.Configure();
             Crashlytics.Configure();
         }
 
-        private void RegisterForPushNotifications()
+        private void InitializePushNotification()
         {
-            Messaging.SharedInstance.AutoInitEnabled = true;
-
+            UNUserNotificationCenter.Current.Delegate = this;
             Messaging.SharedInstance.Delegate = this;
 
-            Messaging.SharedInstance.ShouldEstablishDirectChannel = true;
+            InstanceId.Notifications.ObserveTokenRefresh(TokenRefreshNotification);
 
             // iOS 10 or later
             var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
-
-            // For iOS 10 display notification (sent via APNS)
-            UNUserNotificationCenter.Current.Delegate = this;
-
             UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
             {
                 if (granted)
                     InvokeOnMainThread(() => UIApplication.SharedApplication.RegisterForRemoteNotifications());
             });
+
+            var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
+            var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
+            UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
+            UIApplication.SharedApplication.RegisterForRemoteNotifications();
         }
 
         private void TokenRefreshNotification(object sender, NSNotificationEventArgs e)
         {
-            SetPushToken().FireAndForget();
+            var settingService = Mvx.IoCProvider.Resolve<ISettingsService>();
+            settingService.PushToken = Messaging.SharedInstance.FcmToken;
+
+            try
+            {
+                var pushNotificationService = Mvx.IoCProvider.Resolve<IPushNotificationService>();
+                pushNotificationService.TryUpdateTokenAsync().FireAndForget();
+            }
+            catch (Exception ex)
+            {
+                var log = Mvx.IoCProvider.Resolve<IMvxLog>();
+                log.ErrorException("Can not resolve IPushNotificationService", ex);
+            }
         }
 
-        private async Task SetPushToken()
+        /// <summary>
+        /// Handles foreground notifications.
+        /// </summary>
+        private void HandleForegroundNotification(NSDictionary userInfo)
         {
-            var token = await InstanceId.SharedInstance.GetInstanceIdAsync();
-            if (token == null)
-                return;
+            var payload = HandleNotificationPayload(userInfo);
+            ShowLocalNotification(payload.title, payload.body);
+        }
 
-            var settingService = Mvx.IoCProvider.Resolve<ISettingsService>();
-            settingService.PushToken = token.Token;
+        private void HandleBackgroundNotification(NSDictionary userInfo)
+        {
+            var payload = HandleNotificationPayload(userInfo);
+            //TryNavigateToSignalDetails(payload.signalId);
+        }
+
+        private void ShowLocalNotification(string title, string body)
+        {
+            NotificationWrapper.Instance.ScheduleLocalNotification(title, body);
+        }
+
+        private (string body, string title) HandleNotificationPayload(NSDictionary userInfo)
+        {
+            if (!(userInfo["aps"] is NSDictionary apsDictionary))
+            {
+                return (string.Empty, string.Empty);
+            }
+
+            var body = string.Empty;
+            var title = string.Empty;
+            if (apsDictionary["alert"] is NSDictionary)
+            {
+                var alertDictionary = apsDictionary["alert"] as NSDictionary;
+
+                if (alertDictionary.ContainsKey(new NSString("title")))
+                {
+                    title = alertDictionary["title"].ToString();
+                }
+
+                if (alertDictionary.ContainsKey(new NSString("body")))
+                {
+                    body = alertDictionary["body"].ToString();
+                }
+            }
+            else
+            {
+                body = apsDictionary["alert"].ToString();
+            }
+
+            return (title, body);
         }
     }
 }

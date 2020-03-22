@@ -9,7 +9,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
 
         string PushToken { get; set; }
 
-        bool IsPushnTokenSend { get; set; }
+        bool IsPushTokenSend { get; set; }
 
         Task<string> GetAccessTokenAsync();
 

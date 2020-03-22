@@ -282,6 +282,8 @@
     <InterfaceDefinition Include="Presentation\Views\ProfileView\ImageCrop\ImageCropView.xib" />
     <Compile Include="Presentation\Views\ProfileView\ImageCrop\CropViewDelegate.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\PagedTableViewSource.cs" />
+    <Compile Include="Delegates\PrankChatNotificationDelegate.cs" />
+    <Compile Include="PlatformBusinessServices\NotificationWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -323,9 +325,6 @@
     <PackageReference Include="Xamarin.Firebase.iOS.Crashlytics">
       <Version>3.14.0.3</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Firebase.iOS.Core">
-      <Version>6.6.0</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
       <Version>1.5.1</Version>
     </PackageReference>
@@ -338,14 +337,11 @@
     <PackageReference Include="Xam.Plugins.ImageCropper">
       <Version>1.2.0</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Firebase.iOS.CloudMessaging">
-      <Version>4.1.1.2</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Build.Download">
       <Version>0.10.0</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Firebase.iOS.InstanceID">
-      <Version>4.3.0</Version>
+    <PackageReference Include="Xamarin.Firebase.iOS.CloudMessaging">
+      <Version>4.1.1.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -819,6 +815,7 @@
     <Folder Include="Assets.xcassets\ic_three_dots.imageset\" />
     <Folder Include="Presentation\Views\ProfileView\ImageCrop\" />
     <Folder Include="Presentation\SourcesAndDelegates\" />
+    <Folder Include="Delegates\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

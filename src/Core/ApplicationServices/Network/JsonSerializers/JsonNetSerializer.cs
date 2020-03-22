@@ -8,13 +8,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers
 {
     public class JsonNetSerializer : IRestSerializer
     {
-        private JsonSerializerSettings _settings;
+        public static JsonSerializerSettings Settings { get; set; }
 
         public string Serialize(object obj) =>
             JsonConvert.SerializeObject(obj);
 
         public T Deserialize<T>(IRestResponse response) =>
-            JsonConvert.DeserializeObject<T>(response.Content, _settings);
+            JsonConvert.DeserializeObject<T>(response.Content, Settings);
 
         public string Serialize(Parameter parameter) =>
             JsonConvert.SerializeObject(parameter.Value);
@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers
         public JsonNetSerializer()
         {
             var resolver = new DefaultContractResolver();
-            _settings = new JsonSerializerSettings
+            Settings = new JsonSerializerSettings
             {
                 ContractResolver = resolver,
                 Converters = { new IgnoreUnexpectedArraysConverter(resolver) },

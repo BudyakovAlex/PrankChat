@@ -23,14 +23,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
             set
             {
                 Preferences.Set(nameof(PushToken), value);
-                IsPushnTokenSend = false;
+                IsPushTokenSend = false;
             }
         }
 
-        public bool IsPushnTokenSend
+        public bool IsPushTokenSend
         {
-            get => Preferences.Get(nameof(IsPushnTokenSend), false);
-            set => Preferences.Set(nameof(IsPushnTokenSend), value);
+            get => Preferences.Get(nameof(IsPushTokenSend), false);
+            set => Preferences.Set(nameof(IsPushTokenSend), value);
         }
 
         public Task<string> GetAccessTokenAsync()

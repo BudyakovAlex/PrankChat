@@ -41,21 +41,5 @@ namespace PrankChat.Mobile.Core
             var mappingTypes = CreatableTypes().EndingWith("MappingProfile").AsTypes().Select(c => c.ImplementationType);
             MappingConfig.Configure(mappingTypes);
         }
-
-        public override Task Startup()
-        {
-            TrySendNotificationToken().FireAndForget();
-            return base.Startup();
-        }
-
-        private Task TrySendNotificationToken()
-        {
-            var settingService = Mvx.IoCProvider.Resolve<ISettingsService>();
-            if (string.IsNullOrEmpty(settingService.PushToken) || settingService.IsPushnTokenSend)
-                return Task.CompletedTask;
-
-            var pushNotificationService = Mvx.IoCProvider.Resolve<IPushNotificationService>();
-            return pushNotificationService.UpdateTokenAsync();
-        }
     }
 }
