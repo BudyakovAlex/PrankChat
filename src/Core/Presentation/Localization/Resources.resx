@@ -706,6 +706,18 @@
   <data name="FinishPasswordRecoveryView_GoToLogin_Button" xml:space="preserve">
     <value>Войти в аккаунт</value>
   </data>
+  <data name="com_vk_sdk_AppId" xml:space="preserve">
+    <value>7343996</value>
+  </data>
+  <data name="Count_Days" xml:space="preserve">
+    <value>Дней</value>
+  </data>
+  <data name="Count_Hours" xml:space="preserve">
+    <value>Часов</value>
+  </data>
+  <data name="Count_Minutes" xml:space="preserve">
+    <value>Минут</value>
+  </data>
   <data name="LinkCopied" xml:space="preserve">
     <value>Ссылка скопирована</value>
   </data>
@@ -721,11 +733,8 @@
   <data name="Competitions_Finished" xml:space="preserve">
     <value>Итоги</value>
   </data>
-     <data name="Competitions_Voting_Term" xml:space="preserve">
+  <data name="Competitions_Voting_Term" xml:space="preserve">
     <value>До конца голосования:</value>
-  </data>
-  <data name="Competitions_New_Term" xml:space="preserve">
-    <value>До начала голосования:</value>
   </data>
   <data name="Competitions_Finished_Term" xml:space="preserve">
     <value>Период проведения конкурса:</value>
@@ -741,5 +750,8 @@
   </data>
   <data name="Competitions_Prize_Pool" xml:space="preserve">
     <value>Призовой фонд турнира:</value>
+  </data>
+  <data name="Competitions_New_Term" xml:space="preserve">
+    <value>До начала голосования:</value>
   </data>
 </root>

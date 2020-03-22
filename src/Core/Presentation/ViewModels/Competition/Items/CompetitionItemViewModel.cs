@@ -32,6 +32,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public DateTime NewTerm { get; }
 
+        public string ImageUrl { get; }
+
         public bool IsFinished => Phase == CompetitionPhase.Finished;
 
         public string LikesCountString => LikesCount.ToCountString();
@@ -56,8 +58,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                 }
             }
         }
-
-        public string ImageUrl { get; }
 
         public CompetitionItemViewModel(IMvxMessenger mvxMessenger,
                                         string id,
