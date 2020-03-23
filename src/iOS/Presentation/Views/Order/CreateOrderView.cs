@@ -44,10 +44,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             set.Bind(createButton)
                 .To(vm => vm.CreateCommand);
 
-            set.Bind(progressBar)
-                .For(v => v.BindHidden())
-                .To(vm => vm.IsBusy)
-                .WithConversion<MvxInvertedBooleanConverter>();
+            set.Bind(progressBarView)
+                .For(v => v.BindVisible())
+                .To(vm => vm.IsBusy);
 
             set.Apply();
 		}
@@ -83,7 +82,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             hideExecutorCheckboxLabel.AddGestureRecognizer(new UITapGestureRecognizer(OnCheckboxTapped));
 
             createButton.SetDarkStyle(Resources.CreateOrderView_Create_Button);
-		}
+
+            lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
+            lottieAnimationView.LoopAnimation = true;
+            lottieAnimationView.Play();
+        }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)
         {
