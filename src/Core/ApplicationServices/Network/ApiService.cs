@@ -114,7 +114,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             switch (orderFilterType)
             {
                 case OrderFilterType.New:
-                    endpoint = $"{endpoint}?status={OrderStatusType.New.GetEnumMemberAttrValue()}";
+                    endpoint = $"{endpoint}?status={OrderStatusType.Active.GetEnumMemberAttrValue()}";
                     break;
 
                 case OrderFilterType.InProgress:

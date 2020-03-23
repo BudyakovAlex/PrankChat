@@ -118,10 +118,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 var orders = await ApiService.GetOrdersAsync(ActiveFilter);
                 Items.Clear();
 
-                var orderItemViewModel = orders.OrderBy(order => _settingsService.User.GetOrderType(order.Customer?.Id, order.Status ?? OrderStatusType.New))
-                                               .Select(ProduceOrderViewModel);
+                var orderSortComparer = new OrderSortComparer(SettingsService.User.Id, ActiveFilter);
+                var sortedOrderList = orders
+                    .OrderByDescending(c => c.CreatedAt)
+                    .ThenByDescending(c => c, orderSortComparer);
 
-                Items.SwitchTo(orderItemViewModel);
+                var viewModelList = sortedOrderList.Select(ProduceOrderViewModel);
+
+                Items.SwitchTo(viewModelList);
             }
             catch (Exception ex)
             {
