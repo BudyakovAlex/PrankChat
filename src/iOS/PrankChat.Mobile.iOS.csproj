@@ -300,6 +300,11 @@
     </Compile>
     <Compile Include="Presentation\Views\Competition\CompetitionItemCollectionViewSource.cs" />
     <Compile Include="Presentation\Converters\CompetitionPhaseToHiddenConverter.cs" />
+    <InterfaceDefinition Include="Presentation\Dialogs\DatePicker\DatePickerController.xib" />
+    <Compile Include="Presentation\Dialogs\DatePicker\DatePickerController.cs" />
+    <Compile Include="Presentation\Dialogs\DatePicker\DatePickerController.designer.cs">
+      <DependentUpon>DatePickerController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -839,6 +844,7 @@
     <Folder Include="Assets.xcassets\ic_arrow_left_alt.imageset\" />
     <Folder Include="Assets.xcassets\ic_arrow_right_alt.imageset\" />
     <Folder Include="Assets.xcassets\dsadad.imageset\" />
+    <Folder Include="Presentation\Dialogs\DatePicker\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

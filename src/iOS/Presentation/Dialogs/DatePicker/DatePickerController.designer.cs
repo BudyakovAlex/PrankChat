@@ -7,35 +7,35 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace PrankChat.Mobile.iOS.Presentation.Dialogs.ArrayPicker
+namespace PrankChat.Mobile.iOS.Presentation.Dialogs.DatePicker
 {
-	[Register ("ArrayPickerController")]
-	partial class ArrayPickerController
+	[Register ("DatePickerController")]
+	partial class DatePickerController
 	{
 		[Outlet]
-		UIKit.UIPickerView arrayPickerView { get; set; }
+		UIKit.UIBarButtonItem cancelButton { get; set; }
 
 		[Outlet]
-		UIKit.UIBarButtonItem cancelButton { get; set; }
+		UIKit.UIDatePicker datePicker { get; set; }
 
 		[Outlet]
 		UIKit.UIBarButtonItem doneButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (arrayPickerView != null) {
-				arrayPickerView.Dispose ();
-				arrayPickerView = null;
-			}
-
-			if (doneButton != null) {
-				doneButton.Dispose ();
-				doneButton = null;
+			if (datePicker != null) {
+				datePicker.Dispose ();
+				datePicker = null;
 			}
 
 			if (cancelButton != null) {
 				cancelButton.Dispose ();
 				cancelButton = null;
+			}
+
+			if (doneButton != null) {
+				doneButton.Dispose ();
+				doneButton = null;
 			}
 		}
 	}
