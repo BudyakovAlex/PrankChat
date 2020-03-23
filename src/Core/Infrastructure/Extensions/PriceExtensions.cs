@@ -18,6 +18,13 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                          .Replace(CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, " ");
         }
 
+        public static double? PriceToDouble(this string price)
+        {
+            var value = price?.Replace(Resources.Currency, string.Empty).Replace(" ", string.Empty);
+            double.TryParse(value, out var result);
+            return result;
+        }
+
         private static string GetStringWithCurrency(string value)
         {
             return $"{value} {Resources.Currency}";
