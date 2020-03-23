@@ -49,20 +49,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             set => SetProperty(ref _description, value);
         }
 
-        private string _currencySign;
-        public string CurrencySign
-        {
-            get => _currencySign;
-            set => _currencySign = value;
-        }
-
-        private long? _price;
-        public long? Price
+        private double? _price;
+        public double? Price
         {
             get => _price;
             set
             {
-                //var price = value.EndsWith(_currencySign) ? value : value + _currencySign;
                 SetProperty(ref _price, value);
             }
         }
@@ -88,12 +80,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             _mvxMessenger = mvxMessenger;
             _settingsService = settingsService;
-        }
-
-        public override void Prepare()
-        {
-            CurrencySign = Resources.Currency;
-            base.Prepare();
         }
 
         private async Task OnCreateAsync()

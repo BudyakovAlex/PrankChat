@@ -32,7 +32,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.Description);
 
             set.Bind(priceTextField)
-                .To(vm => vm.Price);
+                .To(vm => vm.Price)
+                .WithConversion<PriceConverter>();
 
             set.Bind(completeDateTextField)
                 .To(vm => vm.ActiveFor.Title);

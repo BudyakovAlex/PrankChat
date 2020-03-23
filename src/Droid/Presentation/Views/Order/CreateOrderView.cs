@@ -37,9 +37,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         private void PriceEditTextOnTextChanged(object sender, TextChangedEventArgs e)
         {
             var text = e.Text.ToString();
-            if (text.EndsWith(ViewModel.CurrencySign))
+            if (text.EndsWith(Core.Presentation.Localization.Resources.Currency))
             {
-                _priceEditText.SetSelection(text.Length - 1);
+                _priceEditText.SetSelection(text.Length - 2);
             }
         }
 
