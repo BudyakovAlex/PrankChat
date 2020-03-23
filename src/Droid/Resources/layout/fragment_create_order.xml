@@ -67,8 +67,6 @@
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:layout_marginTop="16dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
             android:paddingLeft="14dp"
             android:paddingRight="14dp"
             android:gravity="center_vertical"
@@ -99,7 +97,7 @@
             android:layout_marginTop="32dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
             android:text="@string/CreateOrderView_Create_Button"
             style="@style/Theme.PrankChat.Button.Accent"
             app:MvxBind="Click CreateCommand"/>
