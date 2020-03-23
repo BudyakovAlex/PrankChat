@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 	partial class CreateOrderView
 	{
 		[Outlet]
-		UIKit.UITextField completeDateTextField { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField completeDateTextField { get; set; }
 
 		[Outlet]
 		UIKit.UIButton createButton { get; set; }
@@ -28,10 +28,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UILabel hideExecutorCheckboxLabel { get; set; }
 
 		[Outlet]
-		UIKit.UITextField nameTextField { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField nameTextField { get; set; }
 
 		[Outlet]
-		UIKit.UITextField priceTextField { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField priceTextField { get; set; }
 
 		[Outlet]
 		UIKit.UIActivityIndicatorView progressBar { get; set; }
@@ -44,11 +44,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (progressBar != null) {
-				progressBar.Dispose ();
-				progressBar = null;
-			}
-
 			if (completeDateTextField != null) {
 				completeDateTextField.Dispose ();
 				completeDateTextField = null;
@@ -82,6 +77,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (priceTextField != null) {
 				priceTextField.Dispose ();
 				priceTextField = null;
+			}
+
+			if (progressBar != null) {
+				progressBar.Dispose ();
+				progressBar = null;
 			}
 
 			if (scrollView != null) {

@@ -3,7 +3,6 @@ using System.ComponentModel;
 using CoreAnimation;
 using CoreGraphics;
 using Foundation;
-using PrankChat.Mobile.iOS.AppTheme;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Controls
@@ -16,9 +15,6 @@ namespace PrankChat.Mobile.iOS.Controls
 
 		[DisplayName("Label Color"), Export("FloatingLabelTextColor"), Browsable(true)]
 		public UIColor FloatingLabelTextColor { get; set; } = UIColor.White;
-
-		[DisplayName("Label Active Color"), Export("FloatingLabelActiveTextColor"), Browsable(true)]
-		public UIColor FloatingLabelActiveTextColor { get; set; } = UIColor.White;
 
 		public UIFont FloatingLabelFont
 		{
@@ -102,7 +98,7 @@ namespace PrankChat.Mobile.iOS.Controls
 
 			if (IsFirstResponder)
 			{
-				_floatingLabel.TextColor = FloatingLabelActiveTextColor;
+                _floatingLabel.TextColor = UIColor.FromCGColor(Layer.BorderColor);
 
 				var shouldFloat = !string.IsNullOrEmpty(Text);
 				var isFloating = _floatingLabel.Alpha == 1f;
@@ -122,7 +118,7 @@ namespace PrankChat.Mobile.iOS.Controls
 			}
 			else
 			{
-				_floatingLabel.TextColor = FloatingLabelTextColor;
+				_floatingLabel.TextColor = UIColor.FromCGColor(Layer.BorderColor);
 				updateLabel();
 			}
 		}
