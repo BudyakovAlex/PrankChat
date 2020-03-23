@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
@@ -86,7 +87,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 		{
 			return Task.WhenAll(
 				_mvxNavigationService.Navigate<PublicationsViewModel>(),
-				_mvxNavigationService.Navigate<RatingViewModel>(),
+				_mvxNavigationService.Navigate<CompetitionsViewModel>(),
 				_mvxNavigationService.Navigate<CreateOrderViewModel>(),
 				_mvxNavigationService.Navigate<OrdersViewModel>(),
 				_mvxNavigationService.Navigate<ProfileViewModel>());

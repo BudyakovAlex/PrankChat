@@ -138,7 +138,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
 
             bindingSet.Bind(_backgroundFrame)
-                      .For(BackgroundColorBinding.TargetBinding)
+                      .For(BackgroundResourceBinding.TargetBinding)
                       .To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToBackgroundConverter>();
 
