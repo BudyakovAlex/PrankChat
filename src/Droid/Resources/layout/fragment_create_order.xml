@@ -61,7 +61,7 @@
                 android:maxLines="1"
                 android:inputType="number"
                 android:textColor="@color/applicationBlack"
-                app:MvxBind="Text Price" />
+                app:MvxBind="Text Price(Price)" />
         </android.support.design.widget.TextInputLayout>
         <TextView
             android:layout_width="match_parent"
