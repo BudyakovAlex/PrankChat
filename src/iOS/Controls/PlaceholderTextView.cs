@@ -152,7 +152,7 @@ namespace PrankChat.Mobile.iOS.Controls
             {
                 
                 NSLayoutConstraint.Create(_placeholderLabel, NSLayoutAttribute.Top, NSLayoutRelation.Equal, this, NSLayoutAttribute.Top, 1.0f, 17.0f),
-                NSLayoutConstraint.Create(_placeholderLabel, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, this, NSLayoutAttribute.Leading, 1.0f, 24.0f)
+                NSLayoutConstraint.Create(_placeholderLabel, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, this, NSLayoutAttribute.Leading, 1.0f, 22.0f)
             };
             NSLayoutConstraint.ActivateConstraints(newConstraints);
 
