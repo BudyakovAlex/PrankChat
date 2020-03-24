@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using CoreAnimation;
 using CoreGraphics;
@@ -13,6 +14,8 @@ namespace PrankChat.Mobile.iOS.Controls
     {
         private UILabel _floatingLabel;
         private bool _isBorderInitilize;
+
+        private CALayer _topBorderLine;
 
         [DisplayName("Label Color"), Export("FloatingLabelTextColor"), Browsable(true)]
         public UIColor FloatingLabelTextColor { get; set; } = UIColor.White;
@@ -68,6 +71,20 @@ namespace PrankChat.Mobile.iOS.Controls
             InitializePlaceholder();
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (_floatingLabel != null)
+            {
+                _floatingLabel.RemoveFromSuperview();
+                _floatingLabel.Dispose();
+                _floatingLabel = null;
+            }
+
+            Changed -= OnTextChanged;
+
+            base.Dispose(disposing);
+        }
+
         private void InitializePlaceholder()
         {
             _floatingLabel = new UILabel
@@ -77,6 +94,8 @@ namespace PrankChat.Mobile.iOS.Controls
 
             AddSubview(_floatingLabel);
             Placeholder = Placeholder;
+
+            Layer.BorderWidth = 0;
 
             Changed += OnTextChanged;
         }
@@ -88,12 +107,17 @@ namespace PrankChat.Mobile.iOS.Controls
 
             _isBorderInitilize = true;
 
-            var borderWidth = 1.0f;
+            Layer.BorderWidth = 0;
+            TextContainer.MaximumNumberOfLines = 3;
+            Layer.MasksToBounds = true;
 
+            var borderY = _floatingLabel.Frame.Size.Height / 2;
+
+            var borderWidth = 1.0f;
             var leftLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(0, _floatingLabel.Frame.Size.Height / 2, 1, Frame.Size.Height),
+                Frame = new CGRect(0, borderY, 1, Frame.Size.Height - borderY),
                 BorderWidth = borderWidth
             };
             Layer.AddSublayer(leftLine);
@@ -101,7 +125,7 @@ namespace PrankChat.Mobile.iOS.Controls
             var rightLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(Frame.Size.Width, _floatingLabel.Frame.Size.Height / 2, 1, Frame.Size.Height),
+                Frame = new CGRect(Frame.Size.Width - borderWidth, borderY, Frame.Size.Width, Frame.Size.Height - borderY),
                 BorderWidth = borderWidth
             };
             Layer.AddSublayer(rightLine);
@@ -117,7 +141,7 @@ namespace PrankChat.Mobile.iOS.Controls
             var topLeftLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(0, _floatingLabel.Frame.Size.Height / 2, _floatingLabel.Frame.Location.X, 1),
+                Frame = new CGRect(0, borderY, _floatingLabel.Frame.Location.X, 1),
                 BorderWidth = borderWidth
             };
             Layer.AddSublayer(topLeftLine);
@@ -126,10 +150,18 @@ namespace PrankChat.Mobile.iOS.Controls
             var topRightLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(topRightLineX, _floatingLabel.Frame.Size.Height / 2, Frame.Width - topRightLineX, 1),
+                Frame = new CGRect(topRightLineX, borderY, Frame.Width - topRightLineX, 1),
                 BorderWidth = borderWidth
             };
             Layer.AddSublayer(topRightLine);
+
+            _topBorderLine = new CALayer
+            {
+                BorderColor = Layer.BorderColor,
+                Frame = new CGRect(0, borderY, Frame.Width, 1),
+                BorderWidth = borderWidth
+            };
+            Layer.AddSublayer(_topBorderLine);
         }
 
         private void SetPlaceholderText(string placeholder)
@@ -161,7 +193,7 @@ namespace PrankChat.Mobile.iOS.Controls
                                                   _floatingLabel.Frame.Size.Width,
                                                   _floatingLabel.Frame.Size.Height);
 
-                Layer.BorderWidth = 0;
+                _topBorderLine.Hidden = true;
             }
             else
             {
@@ -171,22 +203,8 @@ namespace PrankChat.Mobile.iOS.Controls
                                                   _floatingLabel.Frame.Size.Width,
                                                   _floatingLabel.Frame.Size.Height);
 
-                Layer.BorderWidth = 1;
+                _topBorderLine.Hidden = false;
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (_floatingLabel != null)
-            {
-                _floatingLabel.RemoveFromSuperview();
-                _floatingLabel.Dispose();
-                _floatingLabel = null;
-            }
-
-            Changed -= OnTextChanged;
-
-            base.Dispose(disposing);
         }
     }
 }
