@@ -1,9 +1,15 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
+using CoreFoundation;
 using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Converters;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
+using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -15,39 +21,28 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 {
     public partial class NotificationItemCell : BaseTableCell<NotificationItemCell, NotificationItemViewModel>
     {
-        private string _profileName;
+        private NSLayoutConstraint _leftAnchorTitleLabelConstraint;
+        private NSLayoutConstraint _topAnchorDateCreateConstraint;
+
         public string ProfileName
         {
-            get => _profileName;
+            get => profileNameLabel.Text;
             set
             {
-                _profileName = value;
-                SetDataToLabel();
+                profileNameLabel.Text = value;
+                UpdateConstraintStatus(value, _leftAnchorTitleLabelConstraint);
             }
         }
 
-        private string _title;
-        public string Title
+        public string NotificationDescription
         {
-            get => _title;
+            get => descriptionLabel.Text;
             set
             {
-                _title = value;
-                SetDataToLabel();
+                descriptionLabel.Text = value;
+                UpdateConstraintStatus(value, _topAnchorDateCreateConstraint);
             }
         }
-
-        private string _descriptionText;
-        public string DescriptionText
-        {
-            get => _descriptionText;
-            set
-            {
-                _descriptionText = value;
-                SetDataToLabel();
-            }
-        }
-
 
         static NotificationItemCell()
         {
@@ -63,8 +58,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
         {
             base.SetupControls();
 
-            profileNameAndDescriptionLabel.SetSmallTitleStyle();
+            profileNameLabel.SetSmallTitleStyle();
+            descriptionLabel.SetSmallTitleStyle();
             dateLabel.SetSmallSubtitleStyle();
+            titleLabel.SetSmallTitleStyle();
+
+            _leftAnchorTitleLabelConstraint = titleLabel.LeadingAnchor.ConstraintEqualTo(profileNameLabel.TrailingAnchor);
+            _topAnchorDateCreateConstraint = dateLabel.TopAnchor.ConstraintEqualTo(descriptionLabel.TopAnchor);
         }
 
         protected override void SetBindings()
@@ -85,20 +85,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
                 .To(vm => vm.ProfileShortName)
                 .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(this)
-                .For(v => v.ProfileName)
-                .To(vm => vm.ProfileName)
-                .Mode(MvxBindingMode.OneTime);
-
-            set.Bind(this)
-                .For(v => v.Title)
+            set.Bind(titleLabel)
                 .To(vm => vm.Title)
                 .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(this)
-                .For(v => v.DescriptionText)
+            set.Bind(descriptionLabel)
                 .To(vm => vm.Description)
                 .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(descriptionLabel)
+                .For(v => v.BindVisibility())
+                .To(vm => vm.Description)
+                .WithConversion<MvxVisibilityValueConverter>();
 
             set.Bind(dateLabel)
                 .To(vm => vm.DateText)
@@ -109,33 +107,29 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
                 .To(vm => vm.IsDelivered)
                 .Mode(MvxBindingMode.OneTime);
 
+            set.Bind(this)
+                .For(v => v.ProfileName)
+                .To(vm => vm.ProfileName)
+                .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(this)
+                .For(v => v.NotificationDescription)
+                .To(vm => vm.Description)
+                .Mode(MvxBindingMode.OneTime);
+
             set.Apply();
         }
 
-        private void SetDataToLabel()
+        private void UpdateConstraintStatus(string text, NSLayoutConstraint constraint)
         {
-            string s = SetString("", _profileName);
-            s = SetString(s, _title, "  ");
-            int length = s.Length;
-            s = SetString(s, _descriptionText, $"{Environment.NewLine}{Environment.NewLine}");
-
-            var attributedString = new NSMutableAttributedString(s);
-            attributedString.AddAttribute(UIStringAttributeKey.Font, UIFont.SystemFontOfSize(profileNameAndDescriptionLabel.Font.PointSize, UIFontWeight.Bold), new NSRange(0, _profileName?.Length ?? 0));
-            if (s.Length > length)
-                attributedString.AddAttribute(UIStringAttributeKey.Font, UIFont.SystemFontOfSize(6), new NSRange(length, 2));
-
-            profileNameAndDescriptionLabel.AttributedText = attributedString;
-        }
-
-        private string SetString(string first, string second = null, string delimiter = "")
-        {
-            if (!string.IsNullOrWhiteSpace(second))
+            if (string.IsNullOrWhiteSpace(text))
             {
-                if (!string.IsNullOrWhiteSpace(first))
-                    first += delimiter;
-                first += second;
+                constraint.Active = true;
             }
-            return first;
+            else
+            {
+                constraint.Active = false;
+            }
         }
     }
 }
