@@ -28,6 +28,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UILabel hideExecutorCheckboxLabel { get; set; }
 
 		[Outlet]
+		Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
+
+		[Outlet]
 		UIKit.UITextField nameTextField { get; set; }
 
 		[Outlet]
@@ -37,6 +40,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIActivityIndicatorView progressBar { get; set; }
 
 		[Outlet]
+		UIKit.UIView progressBarView { get; set; }
+
+		[Outlet]
 		UIKit.UIScrollView scrollView { get; set; }
 
 		[Outlet]
@@ -44,11 +50,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (progressBar != null) {
-				progressBar.Dispose ();
-				progressBar = null;
-			}
-
 			if (completeDateTextField != null) {
 				completeDateTextField.Dispose ();
 				completeDateTextField = null;
@@ -82,6 +83,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (priceTextField != null) {
 				priceTextField.Dispose ();
 				priceTextField = null;
+			}
+
+			if (progressBarView != null) {
+				progressBarView.Dispose ();
+				progressBarView = null;
+			}
+
+			if (lottieAnimationView != null) {
+				lottieAnimationView.Dispose ();
+				lottieAnimationView = null;
+			}
+
+			if (progressBar != null) {
+				progressBar.Dispose ();
+				progressBar = null;
 			}
 
 			if (scrollView != null) {
