@@ -292,7 +292,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             acceptButton.SetDarkStyle(Resources.OrderDetailsView_Accept_Button);
             arqueButton.SetBorderlessStyle(Resources.OrderDetailsView_Argue_Button);
             downloadButton.SetDarkStyle(Resources.OrderDetailsView_LoadVideo);
-            cancelVideoButton.SetBorderlessStyle(Resources.OrderDetailsView_Cancel_Button, Theme.Color.Accent);
+            cancelVideoButton.SetDarkStyle(Resources.OrderDetailsView_Cancel_Button);
 
             profileNameLabel.SetTitleStyle();
             videoNameLabel.SetBoldTitleStyle();
