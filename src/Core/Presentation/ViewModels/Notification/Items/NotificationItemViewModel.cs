@@ -64,9 +64,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
                 case NotificationType.LikeEvent:
                 case NotificationType.CommentEvent:
                 case NotificationType.ExecutorEvent:
-                    ProfileName = user.Name;
-                    ImageUrl = user.Avatar;
-                    _userId = user.Id;
+                    ProfileName = user?.Name;
+                    ImageUrl = user?.Avatar;
+                    _userId = user?.Id;
                     break;
 
                 default:
