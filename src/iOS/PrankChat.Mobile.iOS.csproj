@@ -808,8 +808,6 @@
     <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\bg_order_type_completed.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_video_upload.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_video_upload.imageset\Vector%281%29.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -847,7 +845,6 @@
     <Folder Include="Assets.xcassets\ic_arrow_right_alt.imageset\" />
     <Folder Include="Assets.xcassets\dsadad.imageset\" />
     <Folder Include="Presentation\Dialogs\DatePicker\" />
-    <Folder Include="Assets.xcassets\ic_video_upload.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

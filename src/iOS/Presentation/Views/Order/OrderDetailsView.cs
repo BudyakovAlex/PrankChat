@@ -144,6 +144,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             #endregion Video
 
+            set.Bind(orderActionsContainerView)
+                .For(v => v.BindVisible())
+                .To(vm => vm.IsAnyOrderActionAvailable);
+
             #region Subscribe and Unsubscribe
 
             set.Bind(subscriptionButton)
@@ -287,7 +291,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             executeVideoButton.SetDarkStyle(Resources.OrderDetailsView_Execute_Button);
             acceptButton.SetDarkStyle(Resources.OrderDetailsView_Accept_Button);
             arqueButton.SetBorderlessStyle(Resources.OrderDetailsView_Argue_Button);
-            downloadButton.SetSelectableImageStyle("ic_video_upload", "ic_video_upload");
+            downloadButton.SetDarkStyle(Resources.OrderDetailsView_LoadVideo);
             cancelVideoButton.SetBorderlessStyle(Resources.OrderDetailsView_Cancel_Button, Theme.Color.Accent);
 
             profileNameLabel.SetTitleStyle();
@@ -321,6 +325,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             UpdateStyleArbitrationButtons();
 
             videoImageView.SetCornerRadius(5);
+            videoImageView.ContentMode = UIViewContentMode.ScaleAspectFill;
 
             rootScrollView.RefreshControl = _refreshControl = new MvxUIRefreshControl();
         }
