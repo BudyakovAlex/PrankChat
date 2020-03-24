@@ -147,7 +147,6 @@
     <Compile Include="ApplicationServices\Callbacks\VkontakteCallback.cs" />
     <Compile Include="DroidApplication.cs" />
     <Compile Include="Providers\OutlineProvider.cs" />
-    <Compile Include="Controls\NotificationTextView.cs" />
     <Compile Include="Controls\CircleCachedImageView.cs" />
     <Compile Include="Presentation\Converters\InvisibleConverter.cs" />
   </ItemGroup>
