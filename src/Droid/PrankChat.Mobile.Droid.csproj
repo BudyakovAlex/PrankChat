@@ -165,6 +165,8 @@
     <Compile Include="Presentation\Bindings\BackgroundColorBinding.cs" />
     <Compile Include="Presentation\Bindings\BackgroundResourceBinding.cs" />
     <Compile Include="Presentation\Views\Competitions\CompetitionDetailsView.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionDetailsHeaderViewHolder.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionVideoViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

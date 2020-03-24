@@ -1,6 +1,7 @@
 ﻿using System;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -29,6 +30,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         public DateTime VoteTerm { get; }
 
         public DateTime NewTerm { get; }
+
+        public string Duration => $"{VoteTerm.ToString(Constants.Formats.DateTimeFormat)} - {NewTerm.ToString(Constants.Formats.DateTimeFormat)}";
 
         public string ImageUrl { get; }
 
