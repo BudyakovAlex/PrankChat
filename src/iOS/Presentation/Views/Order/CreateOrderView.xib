@@ -15,9 +15,10 @@
                 <outlet property="descriptionTextView" destination="rmz-NQ-RXf" id="6K3-nF-Nhf"/>
                 <outlet property="hideExecuterCheckboxImageView" destination="ffI-un-2WW" id="Xhv-BV-Vvy"/>
                 <outlet property="hideExecutorCheckboxLabel" destination="XJw-V4-peh" id="W31-ba-m63"/>
+                <outlet property="lottieAnimationView" destination="vbs-Iv-n1K" id="Mhs-Nd-S84"/>
                 <outlet property="nameTextField" destination="jJE-mS-9rl" id="fGM-8d-NSn"/>
                 <outlet property="priceTextField" destination="xEE-mS-qWc" id="FWK-pw-ghP"/>
-                <outlet property="progressBar" destination="fvd-b3-Z4Y" id="bjA-Jr-I7a"/>
+                <outlet property="progressBarView" destination="T6O-o6-bRu" id="kK8-Zv-8Pb"/>
                 <outlet property="scrollView" destination="SnW-tf-9KZ" id="3QE-9r-TDm"/>
                 <outlet property="stackView" destination="BDc-xh-Ib0" id="3p5-Fu-2kC"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
@@ -95,25 +96,18 @@
                                     </constraints>
                                     <state key="normal" title="Button"/>
                                 </button>
-                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="fvd-b3-Z4Y">
-                                    <rect key="frame" x="251" y="330" width="20" height="36"/>
-                                </activityIndicatorView>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="fvd-b3-Z4Y" firstAttribute="bottom" secondItem="kIc-F7-6ov" secondAttribute="bottom" id="26G-wj-BAn"/>
                                 <constraint firstItem="BDc-xh-Ib0" firstAttribute="leading" secondItem="fQO-fP-Hac" secondAttribute="leading" id="5f7-WZ-vCp"/>
                                 <constraint firstItem="ffI-un-2WW" firstAttribute="leading" secondItem="fQO-fP-Hac" secondAttribute="leading" id="6W3-af-mwy"/>
                                 <constraint firstItem="kIc-F7-6ov" firstAttribute="centerX" secondItem="fQO-fP-Hac" secondAttribute="centerX" id="9LB-gc-Fe5"/>
-                                <constraint firstItem="fvd-b3-Z4Y" firstAttribute="top" secondItem="kIc-F7-6ov" secondAttribute="top" id="AJB-kA-dCp"/>
                                 <constraint firstItem="ffI-un-2WW" firstAttribute="top" secondItem="BDc-xh-Ib0" secondAttribute="bottom" constant="16" id="J6P-mf-xI0"/>
                                 <constraint firstAttribute="trailing" secondItem="BDc-xh-Ib0" secondAttribute="trailing" id="NRe-tK-e1i"/>
                                 <constraint firstAttribute="trailing" secondItem="XJw-V4-peh" secondAttribute="trailing" id="O7L-hx-ypQ"/>
-                                <constraint firstItem="fvd-b3-Z4Y" firstAttribute="trailing" secondItem="kIc-F7-6ov" secondAttribute="trailing" id="Xsr-yx-iBm"/>
                                 <constraint firstAttribute="bottom" secondItem="kIc-F7-6ov" secondAttribute="bottom" constant="10" id="fEA-iT-MsE"/>
                                 <constraint firstItem="kIc-F7-6ov" firstAttribute="top" secondItem="ffI-un-2WW" secondAttribute="bottom" constant="30" id="hda-A2-YMu"/>
                                 <constraint firstItem="BDc-xh-Ib0" firstAttribute="top" secondItem="fQO-fP-Hac" secondAttribute="top" id="j5q-Er-23j"/>
                                 <constraint firstItem="XJw-V4-peh" firstAttribute="centerY" secondItem="ffI-un-2WW" secondAttribute="centerY" id="jkB-sw-9Aj"/>
-                                <constraint firstItem="fvd-b3-Z4Y" firstAttribute="centerY" secondItem="kIc-F7-6ov" secondAttribute="centerY" id="qdM-am-gpf"/>
                                 <constraint firstItem="XJw-V4-peh" firstAttribute="leading" secondItem="ffI-un-2WW" secondAttribute="trailing" constant="8" id="yYd-ty-4ko"/>
                             </constraints>
                         </view>
@@ -130,17 +124,38 @@
                     <viewLayoutGuide key="contentLayoutGuide" id="Z1g-f4-Ybj"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="Syb-Dd-aq1"/>
                 </scrollView>
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T6O-o6-bRu">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vbs-Iv-n1K" userLabel="Lottie Animation View" customClass="LOTAnimationView">
+                            <rect key="frame" x="107" y="348" width="200" height="200"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="200" id="MtE-l3-2En"/>
+                                <constraint firstAttribute="width" constant="200" id="l9E-Ep-f1k"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="vbs-Iv-n1K" firstAttribute="centerX" secondItem="T6O-o6-bRu" secondAttribute="centerX" id="C9V-rx-JjI"/>
+                        <constraint firstItem="vbs-Iv-n1K" firstAttribute="centerY" secondItem="T6O-o6-bRu" secondAttribute="centerY" id="JeD-yU-Kfx"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="D3T-L9-vT4" firstAttribute="top" secondItem="SnW-tf-9KZ" secondAttribute="top" id="7Mq-72-mPW"/>
+                <constraint firstItem="T6O-o6-bRu" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="92u-Oe-vPt"/>
                 <constraint firstItem="SnW-tf-9KZ" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="J88-xb-MgG"/>
+                <constraint firstAttribute="bottom" secondItem="T6O-o6-bRu" secondAttribute="bottom" id="fgX-E8-XGC"/>
                 <constraint firstAttribute="bottom" secondItem="SnW-tf-9KZ" secondAttribute="bottom" id="g59-1a-Egf"/>
+                <constraint firstItem="T6O-o6-bRu" firstAttribute="top" secondItem="2" secondAttribute="top" id="hQk-iS-9er"/>
+                <constraint firstItem="D3T-L9-vT4" firstAttribute="trailing" secondItem="T6O-o6-bRu" secondAttribute="trailing" id="jr1-V7-UOY"/>
                 <constraint firstItem="SnW-tf-9KZ" firstAttribute="bottom" secondItem="D3T-L9-vT4" secondAttribute="bottom" constant="34" id="lQG-XC-RDb"/>
                 <constraint firstAttribute="trailing" secondItem="SnW-tf-9KZ" secondAttribute="trailing" id="sHG-oo-foM"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="D3T-L9-vT4"/>
-            <point key="canvasLocation" x="24.800000000000001" y="51.724137931034484"/>
+            <point key="canvasLocation" x="24.637681159420293" y="51.5625"/>
         </view>
     </objects>
 </document>

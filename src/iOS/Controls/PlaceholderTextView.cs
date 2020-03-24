@@ -3,6 +3,7 @@ using System.ComponentModel;
 using CoreAnimation;
 using CoreGraphics;
 using Foundation;
+using PrankChat.Mobile.iOS.AppTheme;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Controls
@@ -71,7 +72,7 @@ namespace PrankChat.Mobile.iOS.Controls
         {
             _floatingLabel = new UILabel
             {
-                Font = UIFont.BoldSystemFontOfSize(12),
+                Font = Theme.Font.RegularFontOfSize(12),
             };
 
             AddSubview(_floatingLabel);
@@ -92,7 +93,7 @@ namespace PrankChat.Mobile.iOS.Controls
             var leftLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(0, 0, 1, Frame.Size.Height),
+                Frame = new CGRect(0, _floatingLabel.Frame.Size.Height / 2, 1, Frame.Size.Height),
                 BorderWidth = borderWidth
             };
             Layer.AddSublayer(leftLine);
@@ -100,7 +101,7 @@ namespace PrankChat.Mobile.iOS.Controls
             var rightLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(Frame.Size.Width - 1, 0, 1, Frame.Size.Height),
+                Frame = new CGRect(Frame.Size.Width, _floatingLabel.Frame.Size.Height / 2, 1, Frame.Size.Height),
                 BorderWidth = borderWidth
             };
             Layer.AddSublayer(rightLine);
@@ -116,7 +117,7 @@ namespace PrankChat.Mobile.iOS.Controls
             var topLeftLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(0, 0, _floatingLabel.Frame.Location.X, 1),
+                Frame = new CGRect(0, _floatingLabel.Frame.Size.Height / 2, _floatingLabel.Frame.Location.X, 1),
                 BorderWidth = borderWidth
             };
             Layer.AddSublayer(topLeftLine);
@@ -125,7 +126,7 @@ namespace PrankChat.Mobile.iOS.Controls
             var topRightLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(topRightLineX, 0, Frame.Width - topRightLineX, 1),
+                Frame = new CGRect(topRightLineX, _floatingLabel.Frame.Size.Height / 2, Frame.Width - topRightLineX, 1),
                 BorderWidth = borderWidth
             };
             Layer.AddSublayer(topRightLine);
@@ -154,21 +155,21 @@ namespace PrankChat.Mobile.iOS.Controls
             TryInitializeBorder();
             if (!string.IsNullOrEmpty(Text))
             {
-                _floatingLabel.Font = _floatingLabel.Font.WithSize(12);
-                _floatingLabel.Frame = new CGRect(_floatingLabel.Frame.Location.X,
-                                                    -_floatingLabel.Frame.Size.Height / 2,
-                                                    _floatingLabel.Frame.Size.Width,
-                                                    _floatingLabel.Frame.Size.Height);
+                _floatingLabel.Font = Theme.Font.RegularFontOfSize(12);
+                _floatingLabel.Frame = new CGRect(20,
+                                                  0,
+                                                  _floatingLabel.Frame.Size.Width,
+                                                  _floatingLabel.Frame.Size.Height);
 
                 Layer.BorderWidth = 0;
             }
             else
             {
-                _floatingLabel.Font = _floatingLabel.Font.WithSize(Font.PointSize);
-                _floatingLabel.Frame = new CGRect(_floatingLabel.Frame.Location.X,
-                                                    _floatingLabel.Font.LineHeight,
-                                                    _floatingLabel.Frame.Size.Width,
-                                                    _floatingLabel.Frame.Size.Height);
+                _floatingLabel.Font = Theme.Font.RegularFontOfSize(Font.PointSize);
+                _floatingLabel.Frame = new CGRect(14,
+                                                  _floatingLabel.Font.LineHeight,
+                                                  _floatingLabel.Frame.Size.Width,
+                                                  _floatingLabel.Frame.Size.Height);
 
                 Layer.BorderWidth = 1;
             }

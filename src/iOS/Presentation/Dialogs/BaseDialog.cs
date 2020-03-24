@@ -21,7 +21,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs
         public override void ViewWillDisappear(bool animated)
         {
             SetCommonBackground(false);
-
+            ViewModel.ViewDestroy(true);
             base.ViewWillDisappear(animated);
         }
 

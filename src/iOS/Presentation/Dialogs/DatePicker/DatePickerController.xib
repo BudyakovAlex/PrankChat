@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DatePickerController">
+            <connections>
+                <outlet property="cancelButton" destination="gc6-ua-JSZ" id="I8s-Li-5aD"/>
+                <outlet property="datePicker" destination="sqg-o6-D3a" id="lPT-dp-C36"/>
+                <outlet property="doneButton" destination="YZ6-ZM-ZtE" id="GIi-3P-D3V"/>
+                <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="sqg-o6-D3a">
+                    <rect key="frame" x="0.0" y="520" width="414" height="216"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </datePicker>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btp-gU-nCc">
+                    <rect key="frame" x="0.0" y="476" width="414" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <items>
+                        <barButtonItem systemItem="cancel" id="gc6-ua-JSZ">
+                            <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="7QF-5G-ywv"/>
+                        <barButtonItem style="done" systemItem="done" id="YZ6-ZM-ZtE"/>
+                    </items>
+                </toolbar>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="btp-gU-nCc" firstAttribute="leading" secondItem="2" secondAttribute="leading" symbolic="YES" id="CgF-D8-Dj3"/>
+                <constraint firstItem="sqg-o6-D3a" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="Pvx-12-GCq"/>
+                <constraint firstItem="sqg-o6-D3a" firstAttribute="top" secondItem="btp-gU-nCc" secondAttribute="bottom" id="iZQ-2L-4sA"/>
+                <constraint firstAttribute="trailing" secondItem="btp-gU-nCc" secondAttribute="trailing" symbolic="YES" id="maz-tz-74V"/>
+                <constraint firstAttribute="bottom" secondItem="sqg-o6-D3a" secondAttribute="bottom" id="weL-Zw-1Ua"/>
+                <constraint firstAttribute="trailing" secondItem="sqg-o6-D3a" secondAttribute="trailing" id="zEE-ZR-ue8"/>
+            </constraints>
+            <point key="canvasLocation" x="34" y="54"/>
+        </view>
+    </objects>
+</document>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -505,25 +506,30 @@
                     <viewLayoutGuide key="contentLayoutGuide" id="ETo-9Y-L35"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="ZZz-I3-Av7"/>
                 </scrollView>
-                <view alpha="0.5" contentMode="scaleToFill" id="q5a-93-Vf4">
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5a-93-Vf4">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P27-eA-GzC" userLabel="Lottie Animation View" customClass="LOTAnimationView">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            <rect key="frame" x="107" y="268" width="200" height="200"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="Dxy-ys-rSM"/>
+                                <constraint firstAttribute="height" constant="200" id="rrF-cC-bXp"/>
+                            </constraints>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="P27-eA-GzC" firstAttribute="centerY" secondItem="q5a-93-Vf4" secondAttribute="centerY" id="7Pv-UO-Kh0"/>
-                        <constraint firstItem="P27-eA-GzC" firstAttribute="width" secondItem="q5a-93-Vf4" secondAttribute="width" priority="250" id="8jK-z6-bnd"/>
                         <constraint firstItem="P27-eA-GzC" firstAttribute="centerX" secondItem="q5a-93-Vf4" secondAttribute="centerX" id="R5W-cS-LPs"/>
-                        <constraint firstItem="P27-eA-GzC" firstAttribute="height" secondItem="q5a-93-Vf4" secondAttribute="height" priority="250" id="lsD-fd-PlE"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="q5a-93-Vf4" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="TV4-wT-fxS"/>
+                <constraint firstAttribute="trailing" secondItem="q5a-93-Vf4" secondAttribute="trailing" id="acK-br-1vu"/>
+                <constraint firstItem="q5a-93-Vf4" firstAttribute="top" secondItem="2" secondAttribute="top" id="c8e-qo-cxm"/>
+                <constraint firstAttribute="bottom" secondItem="q5a-93-Vf4" secondAttribute="bottom" id="jTT-xW-fVU"/>
                 <constraint firstItem="dIr-NI-Bz0" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="omf-l6-zhb"/>
                 <constraint firstAttribute="trailing" secondItem="dIr-NI-Bz0" secondAttribute="trailing" id="snq-Je-dso"/>
                 <constraint firstAttribute="bottom" secondItem="dIr-NI-Bz0" secondAttribute="bottom" id="tm6-aT-PCh"/>

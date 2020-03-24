@@ -3,6 +3,7 @@ using System.ComponentModel;
 using CoreAnimation;
 using CoreGraphics;
 using Foundation;
+using PrankChat.Mobile.iOS.AppTheme;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Controls
@@ -77,7 +78,7 @@ namespace PrankChat.Mobile.iOS.Controls
 				if (!string.IsNullOrEmpty(Text))
 				{
 					_floatingLabel.Alpha = 1.0f;
-					_floatingLabel.Frame = new CGRect(_floatingLabel.Frame.Location.X,
+					_floatingLabel.Frame = new CGRect(20,
 													  -_floatingLabel.Frame.Size.Height / 2,
 													  _floatingLabel.Frame.Size.Width,
 													  _floatingLabel.Frame.Size.Height);
@@ -87,7 +88,7 @@ namespace PrankChat.Mobile.iOS.Controls
 				else
 				{
 					_floatingLabel.Alpha = 0.0f;
-					_floatingLabel.Frame = new CGRect(_floatingLabel.Frame.Location.X,
+					_floatingLabel.Frame = new CGRect(20,
 													  _floatingLabel.Font.LineHeight,
 													  _floatingLabel.Frame.Size.Width,
 													  _floatingLabel.Frame.Size.Height);
@@ -128,7 +129,7 @@ namespace PrankChat.Mobile.iOS.Controls
 			_floatingLabel = new UILabel
 			{
 				Alpha = 0.0f,
-				Font = UIFont.BoldSystemFontOfSize(12),
+				Font = Theme.Font.RegularFontOfSize(12),
 			};
 
 			AddSubview(_floatingLabel);

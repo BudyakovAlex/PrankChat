@@ -185,7 +185,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             textView.AttributedPlaceholder = new NSAttributedString(placeholder ?? string.Empty, placeholderAttributes);
             textView.Layer.BorderWidth = 1;
             textView.Layer.CornerRadius = 3;
-            textView.TextContainerInset = new UIEdgeInsets(17, 24, 17, 14);
+            textView.TextContainerInset = new UIEdgeInsets(17, 14, 17, 14);
             textView.TextContainer.LineFragmentPadding = 0;
             textView.ScrollEnabled = true;
             textView.Editable = true;
@@ -471,7 +471,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             string placeholder = null,
             UIImage rightImage = null,
             float leftPadding = 14,
-            float rightPadding = 0)
+            float rightPadding = 14)
         {
 
             textField.Layer.BorderWidth = 1;
