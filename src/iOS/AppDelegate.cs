@@ -93,10 +93,13 @@ namespace PrankChat.Mobile.iOS
             UIApplication.SharedApplication.RegisterForRemoteNotifications();
         }
 
-        private void TokenRefreshNotification(object sender, NSNotificationEventArgs e)
+        private async void TokenRefreshNotification(object sender, NSNotificationEventArgs e)
         {
             var settingService = Mvx.IoCProvider.Resolve<ISettingsService>();
-            settingService.PushToken = Messaging.SharedInstance.FcmToken;
+            //settingService.PushToken = Messaging.SharedInstance.FcmToken;
+
+            var result = await InstanceId.SharedInstance.GetInstanceIdAsync();
+            settingService.PushToken = result?.Token;
 
             try
             {
