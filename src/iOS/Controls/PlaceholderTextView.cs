@@ -100,7 +100,7 @@ namespace PrankChat.Mobile.iOS.Controls
             Changed += OnTextChanged;
         }
 
-        private void TryInitializeBorder()
+        public void TryInitializeBorder()
         {
             if (_isBorderInitilize)
                 return;
@@ -111,13 +111,13 @@ namespace PrankChat.Mobile.iOS.Controls
             TextContainer.MaximumNumberOfLines = 3;
             Layer.MasksToBounds = true;
 
-            var borderY = _floatingLabel.Frame.Size.Height / 2;
+            var borderY = _floatingLabel.Frame.Height / 2;
 
             var borderWidth = 1.0f;
             var leftLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(0, borderY, 1, Frame.Size.Height - borderY),
+                Frame = new CGRect(0, borderY, 1, Frame.Height - borderY),
                 BorderWidth = borderWidth
             };
             Layer.AddSublayer(leftLine);
@@ -125,7 +125,7 @@ namespace PrankChat.Mobile.iOS.Controls
             var rightLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(Frame.Size.Width - borderWidth, borderY, Frame.Size.Width, Frame.Size.Height - borderY),
+                Frame = new CGRect(Frame.Width - borderWidth, borderY, borderWidth, Frame.Height - borderY),
                 BorderWidth = borderWidth
             };
             Layer.AddSublayer(rightLine);
@@ -133,7 +133,7 @@ namespace PrankChat.Mobile.iOS.Controls
             var bottomLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(0, Frame.Size.Height - borderWidth, Frame.Size.Width, 1),
+                Frame = new CGRect(0, Frame.Height - borderWidth, Frame.Width, 1),
                 BorderWidth = borderWidth
             };
             Layer.AddSublayer(bottomLine);
@@ -184,7 +184,7 @@ namespace PrankChat.Mobile.iOS.Controls
 
         private void UpdatePlaceholderFrame()
         {
-            TryInitializeBorder();
+            //TryInitializeBorder();
             if (!string.IsNullOrEmpty(Text))
             {
                 _floatingLabel.Font = Theme.Font.RegularFontOfSize(12);
