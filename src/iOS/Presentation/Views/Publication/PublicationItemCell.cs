@@ -51,18 +51,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		public void ShowStub()
 		{
 			StubImageView.Hidden = false;
+			LoadingActivityIndicator.Hidden = true;
 		}
 
 		private void PlayerTimeChanged(CMTime obj)
         {
 			if (obj.Value > 0)
 			{
-				LoadingActivityIndicator.Hidden = true;
-				StubImageView.Hidden = true;
-
 				_isObserverRemoved = true;
 				if (_playerPerdiodicTimeObserver != null)
 				{
+					LoadingActivityIndicator.Hidden = true;
+					StubImageView.Hidden = true;
+
 					AVPlayerViewControllerInstance.Player?.RemoveTimeObserver(_playerPerdiodicTimeObserver);
 					_playerPerdiodicTimeObserver = null;
 				}

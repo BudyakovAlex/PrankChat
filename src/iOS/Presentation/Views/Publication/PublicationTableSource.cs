@@ -86,10 +86,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             var cellToPlay = publicalitionCells.FirstOrDefault(cell => IsCompletelyVisible(cell));
             var lastCompletelyVisibleCell = publicalitionCells.LastOrDefault(cell => IsCompletelyVisible(cell));
 
-            var indexPath = TableView.IndexPathForCell(lastCompletelyVisibleCell);
-            if (indexPath.Row == ItemsSource.Count() - 1)
+            var index = lastCompletelyVisibleCell is null ? -1 : TableView.IndexPathForCell(lastCompletelyVisibleCell)?.Row;
+            if (index == ItemsSource.Count() - 1)
             {
                 cellToPlay = lastCompletelyVisibleCell;
+            }
+
+            if (cellToPlay is null)
+            {
+                return Task.CompletedTask;
             }
 
             PlayVideo(cellToPlay);
