@@ -16,6 +16,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.ArrayPicker
 		UIKit.UIPickerView arrayPickerView { get; set; }
 
 		[Outlet]
+		UIKit.UIBarButtonItem cancelButton { get; set; }
+
+		[Outlet]
 		UIKit.UIBarButtonItem doneButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -28,6 +31,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.ArrayPicker
 			if (doneButton != null) {
 				doneButton.Dispose ();
 				doneButton = null;
+			}
+
+			if (cancelButton != null) {
+				cancelButton.Dispose ();
+				cancelButton = null;
 			}
 		}
 	}

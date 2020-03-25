@@ -1,20 +1,15 @@
-﻿using System;
-using MvvmCross.Binding;
+﻿using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
-using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
-using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
-using PrankChat.Mobile.iOS.Presentation.Views.Publication;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.iOS.Presentation.Views.Order;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
@@ -24,14 +19,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
     {
         private MvxUIRefreshControl _refreshControlProfile;
 
-        public PublicationTableSource PublicationTableSource { get; private set; }
-
-        public override void ViewDidAppear(bool animated)
-        {
-            base.ViewDidAppear(animated);
-
-            PublicationTableSource.Initialize().FireAndForget();
-        }
+        public OrdersTableSource OrdersTableSource { get; private set; }
 
         protected override void SetupBinding()
         {
@@ -45,13 +33,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .For(v => v.RefreshCommand)
                 .To(vm => vm.LoadProfileCommand);
 
-            set.Bind(PublicationTableSource)
-                .To(vm => vm.Items);
+            set.Bind(OrdersTableSource)
+               .To(vm => vm.Items);
 
-            set.Bind(PublicationTableSource)
-                .For(v => v.Segment)
-                .To(vm => vm.SelectedPublicationType)
-                .WithConversion<PublicationTypeConverter>();
+            //TODO: Uncomment when will be ready on VM
+            //set.Bind(PublicationTableSource)
+            //   .For(v => v.LoadNextPageCommand)
+            //   .To(vm => vm.LoadNextPageCommand);
 
             set.Bind(profileImageView)
                 .For(v => v.ImagePath)
@@ -121,40 +109,59 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             subscriptionsValueLabel.SetBoldTitleStyle();
             subscriptionsTitleLabel.SetSmallSubtitleStyle(Resources.ProfileView_Subscriptions_Subtitle);
 
-            segmentedControl.SetStyle(new string[] {
-                Resources.ProfileView_MyOrders_Tab,
-                Resources.ProfileView_CompletedOrders_Tab
-            });
+            MyOrdersTabLabel.SetTitleStyle(Resources.ProfileView_MyOrders_Tab);
+            ExecutedOrdersTabLabel.SetTitleStyle(Resources.ProfileView_CompletedOrders_Tab);
 
-            segmentedControl.SelectedSegment = 0;
-            segmentedControl.ValueChanged += SegmentedControl_ValueChanged;
+            MyOrdersTabView.AddGestureRecognizer(new UITapGestureRecognizer(() => SetSelectedTab(0)));
+            ExecutedOrdersTabView.AddGestureRecognizer(new UITapGestureRecognizer(() => SetSelectedTab(1)));
 
             _refreshControlProfile = new MvxUIRefreshControl();
             rootScrollView.RefreshControl = _refreshControlProfile;
+            ApplySelectedTabStyle(0);
         }
 
-        private void SegmentedControl_ValueChanged(object sender, System.EventArgs e)
+        public void SetSelectedTab(int index)
         {
-            switch (segmentedControl.SelectedSegment)
+            ApplySelectedTabStyle(index);
+            switch (index)
             {
                 case 0:
-                    ViewModel.SelectedPublicationType = PublicationType.MyVideosOfCreatedOrders;
+                    ViewModel.SelectedOrderType = ProfileOrderType.MyOrders;
                     break;
 
                 case 1:
-                    ViewModel.SelectedPublicationType = PublicationType.CompletedVideosAssignmentsByMe;
+                    ViewModel.SelectedOrderType = ProfileOrderType.OrdersCompletedByMe;
                     break;
             }
         }
 
+        private void ApplySelectedTabStyle(int index)
+        {
+            var isFirstTabSelected = index == 0;
+
+            MyOrdersTabIndicatorView.Hidden = !isFirstTabSelected;
+            ExecutedOrdersTabIndicatorView.Hidden = isFirstTabSelected;
+
+            if (isFirstTabSelected)
+            {
+                MyOrdersTabLabel.SetMainTitleStyle();
+                ExecutedOrdersTabLabel.SetTitleStyle();
+                return;
+            }
+
+            ExecutedOrdersTabLabel.SetMainTitleStyle();
+            MyOrdersTabLabel.SetTitleStyle();
+        }
+
         private void InitializeTableView()
         {
-            PublicationTableSource = new PublicationTableSource(tableView, ViewModel);
-            tableView.Source = PublicationTableSource;
-            tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
-            tableView.SetVideoListStyle(PublicationItemCell.EstimatedHeight);
+            OrdersTableSource = new OrdersTableSource(tableView);
+            tableView.Source = OrdersTableSource;
+            tableView.SeparatorColor = Theme.Color.Separator;
+            tableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
+
+            tableView.RegisterNibForCellReuse(OrderItemCell.Nib, OrderItemCell.CellId);
             tableView.ContentInset = new UIEdgeInsets(10, 0, 0, 0);
         }
     }
 }
-

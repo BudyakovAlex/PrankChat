@@ -3,13 +3,10 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Infrastructure;
-using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -32,7 +29,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.Description);
 
             set.Bind(priceTextField)
-                .To(vm => vm.Price);
+                .To(vm => vm.Price)
+                .WithConversion<PriceConverter>();
 
             set.Bind(completeDateTextField)
                 .To(vm => vm.ActiveFor.Title);
@@ -44,10 +42,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             set.Bind(createButton)
                 .To(vm => vm.CreateCommand);
 
-            set.Bind(progressBar)
-                .For(v => v.BindHidden())
-                .To(vm => vm.IsBusy)
-                .WithConversion<MvxInvertedBooleanConverter>();
+            set.Bind(progressBarView)
+                .For(v => v.BindVisible())
+                .To(vm => vm.IsBusy);
 
             set.Apply();
 		}
@@ -83,7 +80,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             hideExecutorCheckboxLabel.AddGestureRecognizer(new UITapGestureRecognizer(OnCheckboxTapped));
 
             createButton.SetDarkStyle(Resources.CreateOrderView_Create_Button);
-		}
+
+            lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
+            lottieAnimationView.LoopAnimation = true;
+            lottieAnimationView.Play();
+        }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)
         {

@@ -7,6 +7,7 @@
             public const string DateWithSpace = "dd' : 'hh' : 'mm";
             public const string DateMoreSevenDays = "dd MMMM yyyy";
             public const string DateLessSevenDays = "dd MMMM";
+            public const string DateTimeFormat = "dd.MM.yyyy";
         }
 
         public static class Delays
@@ -23,6 +24,11 @@
         public static class Keys
         {
             public const string MuteStateKey = nameof(MuteStateKey);
+        }
+
+        public static class Pagination
+        {
+            public const int DefaultPaginationSize = 20;
         }
     }
 }

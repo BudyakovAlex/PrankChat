@@ -3,7 +3,6 @@
     package="com.prankapps.prankchat">
 
     <uses-sdk
-        android:minSdkVersion="22"
         android:targetSdkVersion="29" />
     <application
         android:allowBackup="true"

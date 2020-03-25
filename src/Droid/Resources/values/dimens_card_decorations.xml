@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <dimen name="card_offset">32dp</dimen>
+    <dimen name="card_decoration_horizontal_left_first">16dp</dimen>
+    <dimen name="card_decoration_horizontal_right_last">16dp</dimen>
+    <dimen name="card_decoration_horizontal_left">4dp</dimen>
+    <dimen name="card_decoration_horizontal_top">0dp</dimen>
+    <dimen name="card_decoration_horizontal_right">4dp</dimen>
+    <dimen name="card_decoration_horizontal_bottom">0dp</dimen>
+    <dimen name="card_decoration_medium_padding">16dp</dimen>
+    <dimen name="card_first_last_padding">20dp</dimen>
+</resources>

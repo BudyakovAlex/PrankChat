@@ -39,12 +39,7 @@
     <AndroidSupportedAbis>x86;x86_64;armeabi-v7a</AndroidSupportedAbis>
     <AndroidDexTool>d8</AndroidDexTool>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
-    <AotAssemblies>false</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
-    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-    <BundleAssemblies>false</BundleAssemblies>
     <AndroidUseAapt2>true</AndroidUseAapt2>
-    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -59,12 +54,7 @@
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <AndroidUseAapt2>true</AndroidUseAapt2>
-    <AotAssemblies>false</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
-    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-    <BundleAssemblies>false</BundleAssemblies>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
-    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <AndroidSupportedAbis>x86_64;arm64-v8a</AndroidSupportedAbis>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
   </PropertyGroup>
@@ -99,8 +89,6 @@
     <Compile Include="Presentation\Views\Profile\ImageCrop\ImageCropView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileUpdateView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileView.cs" />
-    <Compile Include="Presentation\Views\Publications\PublicationsLinearLayoutManager.cs" />
-    <Compile Include="Presentation\Views\Publications\PublicationsRecyclerAdapter.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsView.cs" />
     <Compile Include="Presentation\Views\RatingView.cs" />
     <Compile Include="Presentation\Views\Registration\RegistrationSecondStepView.cs" />
@@ -149,6 +137,32 @@
     <Compile Include="Providers\OutlineProvider.cs" />
     <Compile Include="Controls\CircleCachedImageView.cs" />
     <Compile Include="Presentation\Converters\InvisibleConverter.cs" />
+    <Compile Include="Presentation\Adapters\RecycleViewBindableAdapter.cs" />
+    <Compile Include="Presentation\Adapters\TemplateSelectors\ITemplateSelector.cs" />
+    <Compile Include="Presentation\Adapters\TemplateSelectors\TemplateSelector.cs" />
+    <Compile Include="Presentation\Adapters\TemplateSelectors\TemplateSelectorItem.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Abstract\INestedCardViewHolder.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Publications\PublicationItemViewHolder.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Abstract\CardViewHolder.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Abstract\CardViewHolder{TViewModel}.cs" />
+    <Compile Include="Controls\EndlessRecyclerView.cs" />
+    <Compile Include="Presentation\Listeners\EndlessScrollChangedListener.cs" />
+    <Compile Include="Presentation\Listeners\OnLoadMoreListener.cs" />
+    <Compile Include="Presentation\Listeners\MediaPlayerOnInfoListener.cs" />
+    <Compile Include="Presentation\Views\Competitions\CompetitionsView.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionItemViewHolder.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionsSectionViewHolder.cs" />
+    <Compile Include="Utils\Helpers\DisplayUtils.cs" />
+    <Compile Include="LayoutManagers\CustomLinearLayoutManager.cs" />
+    <Compile Include="LayoutManagers\SafeLinearLayoutManager.cs" />
+    <Compile Include="Decorators\DecoratorBase.cs" />
+    <Compile Include="Decorators\PagerDecorator.cs" />
+    <Compile Include="Presentation\Converters\BoolToGoneConverter.cs" />
+    <Compile Include="Presentation\Converters\CompetitionPhaseToBorderBackgroundConverter.cs" />
+    <Compile Include="Presentation\Converters\CompetitionPhaseToBackgroundConverter.cs" />
+    <Compile Include="Presentation\Converters\CompetitionPhaseToVisibilityConverter.cs" />
+    <Compile Include="Presentation\Converters\BoolToGoneInvertedConverter.cs" />
+    <Compile Include="Presentation\Bindings\BackgroundColorBinding.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -517,6 +531,34 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_competitions.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\cell_competitions_section.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\cell_competition.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\bg_white_with_corners.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\values\dimens_card_decorations.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\img_navigation_arrow_left.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\img_navigation_arrow_right.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -838,6 +880,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
+    <Folder Include="Presentation\Adapters\" />
+    <Folder Include="Presentation\Adapters\TemplateSelectors\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\Abstract\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\Publications\" />
+    <Folder Include="Presentation\Views\Competitions\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\Competitions\" />
+    <Folder Include="LayoutManagers\" />
+    <Folder Include="Decorators\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />

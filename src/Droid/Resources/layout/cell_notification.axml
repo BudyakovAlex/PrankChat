@@ -23,7 +23,7 @@
 		local:MvxBind="Visibility InvertedVisibility(IsDelivered)"/>
 	<TextView
 		android:id="@+id/name_text_view"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="15dp"
 		android:layout_marginTop="8dp"
@@ -42,25 +42,28 @@
 		local:MvxBind="Visibility InvertedVisibility(ProfileName)"/>
 	<TextView
 		android:id="@+id/title_text_view"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="8dp"
 		android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
 		android:textColor="@color/applicationBlack"
 		android:textSize="12sp"
 		android:singleLine="true"
 		local:layout_constraintLeft_toRightOf="@+id/space_view"
 		local:layout_constraintTop_toTopOf="parent"
+        local:layout_constraintRight_toRightOf="parent"
 		local:MvxBind="Text Title, Mode = OneTime"/>
 	<TextView
 		android:id="@+id/description_text_view"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="13dp"
+		android:layout_marginTop="8dp"
 		android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
 		android:textSize="12sp"
 		android:textColor="@color/applicationBlack"
-		android:singleLine="true"
+        local:layout_constraintRight_toRightOf="parent"
 		local:layout_constraintLeft_toRightOf="@+id/profile_photo"
 		local:layout_constraintTop_toBottomOf="@+id/title_text_view"
 		local:MvxBind="Text Description, Mode = OneTime; Visibility Visibility(Description)"/>
@@ -69,7 +72,7 @@
 		android:id="@+id/date_text_view"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="11dp"
+		android:layout_marginTop="8dp"
 		android:layout_marginLeft="15dp"
 		android:textSize="12sp"
 		android:textColor="@color/description"

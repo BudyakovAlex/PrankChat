@@ -14,6 +14,7 @@ using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Api.Base;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
+using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 
@@ -226,42 +227,59 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Publications
 
-        public async Task<List<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType)
+
+        public async Task<PaginationModel<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
             BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
             if (_settingsService.User == null)
-                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"videos?popular=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
+            {
+                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"videos?popular=true&date_from={dateFilterType.GetDateString()}&page={page}&items_per_page={pageSize}", false, IncludeType.User);
+            }
             else
-                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"videos?popular=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
+            {
+                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"videos?popular=true&date_from={dateFilterType.GetDateString()}&page={page}&items_per_page={pageSize}", false, IncludeType.User);
+            }
 
-            return MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
+            var mappedModels = MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
+            var paginationData = videoMetadataBundle.Meta.FirstOrDefault();
+            var totalItemsCount = paginationData.Value?.Total ?? mappedModels.Count;
+            return new PaginationModel<VideoDataModel>(mappedModels, totalItemsCount);
         }
 
-        public async Task<List<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType)
+        public async Task<PaginationModel<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
             BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
             if (_settingsService.User == null)
-                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"videos?actual=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
+            {
+                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"videos?actual=true&date_from={dateFilterType.GetDateString()}&page={page}&items_per_page={pageSize}", false, IncludeType.User);
+            }
             else
-                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"videos?actual=true&date_from={dateFilterType.GetDateString()}", false, IncludeType.User);
+            {
+                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"videos?actual=true&date_from={dateFilterType.GetDateString()}&page={page}&items_per_page={pageSize}", false, IncludeType.User);
+            }
 
-            return MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
+            var mappedModels = MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
+            var paginationData = videoMetadataBundle.Meta.FirstOrDefault();
+            var totalItemsCount = paginationData.Value?.Total ?? mappedModels.Count;
+            return new PaginationModel<VideoDataModel>(mappedModels, totalItemsCount);
         }
 
-        public async Task<List<VideoDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, DateFilterType? dateFilterType = null)
+        public async Task<PaginationModel<VideoDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, int page, int pageSize, DateFilterType? dateFilterType = null)
         {
             if (_settingsService.User == null)
-                return new List<VideoDataModel>();
+            {
+                return new PaginationModel<VideoDataModel>();
+            }
 
-            var endpoint = "orders";
+            var endpoint = $"orders?page={page}&items_per_page={pageSize}";
             switch (publicationType)
             {
                 case PublicationType.MyVideosOfCreatedOrders:
-                    endpoint += $"?customer_id={userId}";
+                    endpoint += $"&customer_id={userId}";
                     break;
 
                 case PublicationType.CompletedVideosAssignmentsByMe:
-                    endpoint += $"?executor_id={userId}";
+                    endpoint += $"&executor_id={userId}";
                     break;
 
                 default:
@@ -271,8 +289,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             if (dateFilterType.HasValue)
                 endpoint += $"&date_from={dateFilterType.Value.GetDateString()}";
 
-            var dataApiModel = await _client.Get<DataApiModel<List<OrderApiModel>>>(endpoint, false, IncludeType.Videos, IncludeType.Customer);
+            var dataApiModel = await _client.Get<BaseBundleApiModel<OrderDataModel>>(endpoint, false, IncludeType.Videos, IncludeType.Customer);
             var orderDataModel = MappingConfig.Mapper.Map<List<OrderDataModel>>(dataApiModel?.Data);
+
             var videoData = orderDataModel?.Where(o => o.Video != null)
                                            .Select(o =>
                                            {
@@ -280,7 +299,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                                                return o.Video;
                                            })
                                            .ToList();
-            return videoData;
+       
+            var paginationData = dataApiModel.Meta.FirstOrDefault();
+            var totalItemsCount = paginationData.Value?.Total ?? videoData.Count;
+            return new PaginationModel<VideoDataModel>(videoData, totalItemsCount);
         }
 
         public async Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)

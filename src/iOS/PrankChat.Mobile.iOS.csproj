@@ -281,6 +281,30 @@
     </Compile>
     <InterfaceDefinition Include="Presentation\Views\ProfileView\ImageCrop\ImageCropView.xib" />
     <Compile Include="Presentation\Views\ProfileView\ImageCrop\CropViewDelegate.cs" />
+    <Compile Include="Presentation\SourcesAndDelegates\PagedTableViewSource.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionsView.xib" />
+    <Compile Include="Presentation\Views\Competition\CompetitionsView.cs" />
+    <Compile Include="Presentation\Views\Competition\CompetitionsView.designer.cs">
+      <DependentUpon>CompetitionsView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionsSectionCell.xib" />
+    <Compile Include="Presentation\Views\Competition\CompetitionsSectionCell.cs" />
+    <Compile Include="Presentation\Views\Competition\CompetitionsSectionCell.designer.cs">
+      <DependentUpon>CompetitionsSectionCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\SourcesAndDelegates\TableViewSource.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionItemCell.xib" />
+    <Compile Include="Presentation\Views\Competition\CompetitionItemCell.cs" />
+    <Compile Include="Presentation\Views\Competition\CompetitionItemCell.designer.cs">
+      <DependentUpon>CompetitionItemCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Views\Competition\CompetitionItemCollectionViewSource.cs" />
+    <Compile Include="Presentation\Converters\CompetitionPhaseToHiddenConverter.cs" />
+    <InterfaceDefinition Include="Presentation\Dialogs\DatePicker\DatePickerController.xib" />
+    <Compile Include="Presentation\Dialogs\DatePicker\DatePickerController.cs" />
+    <Compile Include="Presentation\Dialogs\DatePicker\DatePickerController.designer.cs">
+      <DependentUpon>DatePickerController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -782,6 +806,12 @@
     <ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Userpic.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Group 106.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\mdi_arrow_left_alt.pdf" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\bg_order_type_completed.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -814,6 +844,13 @@
     <Folder Include="Assets.xcassets\ic_notification_user.imageset\" />
     <Folder Include="Presentation\Views\ProfileView\ImageCrop\" />
     <Folder Include="Assets.xcassets\ic_have_notification.imageset\" />
+    <Folder Include="Presentation\SourcesAndDelegates\" />
+    <Folder Include="Presentation\Views\Competition\" />
+    <Folder Include="Assets.xcassets\bg_order_type_completed.imageset\" />
+    <Folder Include="Assets.xcassets\ic_arrow_left_alt.imageset\" />
+    <Folder Include="Assets.xcassets\ic_arrow_right_alt.imageset\" />
+    <Folder Include="Assets.xcassets\dsadad.imageset\" />
+    <Folder Include="Presentation\Dialogs\DatePicker\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
