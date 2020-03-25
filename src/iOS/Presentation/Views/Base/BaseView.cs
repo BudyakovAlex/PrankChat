@@ -24,6 +24,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             SetupControls();
             SetCommonControlStyles();
             SetupBinding();
+            Subscription();
+        }
+
+        public override void ViewDidUnload()
+        {
+            Unsubscription();
+            base.ViewDidUnload();
         }
 
         public override UIStatusBarStyle PreferredStatusBarStyle()
@@ -39,6 +46,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
         }
 
         protected virtual void SetupControls()
+        {
+            // nothing do
+        }
+
+        protected virtual void Subscription()
+        {
+            // nothing do
+        }
+
+        protected virtual void Unsubscription()
         {
             // nothing do
         }
