@@ -181,7 +181,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             string placeholder = null)
         {
             textView.AttributedPlaceholder = new NSAttributedString(placeholder ?? string.Empty, placeholderAttributes);
-            //textView.TextContainerInset = new UIEdgeInsets(17, 14, 17, 14);
+            textView.TextContainerInset = new UIEdgeInsets(17, 14, 17, 14);
             textView.TextContainer.LineFragmentPadding = 0;
             textView.ScrollEnabled = true;
             textView.Editable = true;

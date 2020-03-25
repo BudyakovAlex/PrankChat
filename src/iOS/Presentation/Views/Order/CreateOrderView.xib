@@ -20,7 +20,7 @@
                 <outlet property="priceTextField" destination="xEE-mS-qWc" id="FWK-pw-ghP"/>
                 <outlet property="progressBarView" destination="T6O-o6-bRu" id="kK8-Zv-8Pb"/>
                 <outlet property="scrollView" destination="SnW-tf-9KZ" id="3QE-9r-TDm"/>
-                <outlet property="stackView" destination="BDc-xh-Ib0" id="3p5-Fu-2kC"/>
+                <outlet property="stackView" destination="BDc-xh-Ib0" id="8KE-Ue-yVR"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
             </connections>
         </placeholder>
@@ -35,7 +35,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQO-fP-Hac">
                             <rect key="frame" x="16" y="16" width="382" height="376"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="BDc-xh-Ib0">
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="BDc-xh-Ib0">
                                     <rect key="frame" x="0.0" y="0.0" width="382" height="266"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jJE-mS-9rl" customClass="FloatPlaceholderTextField">

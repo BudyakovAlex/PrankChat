@@ -12,30 +12,14 @@ namespace PrankChat.Mobile.iOS.Controls
     [Register("PlaceholderTextView"), DesignTimeVisible(true)]
     public class PlaceholderTextView : UITextView
     {
+        private const float BorderWidth = 1;
+        private const float FloatLabelX = 20;
+
+        private readonly UIFont _floatPlaceholderFont = Theme.Font.RegularFontOfSize(12);
+
         private UILabel _floatingLabel;
-        private bool _isBorderInitilize;
-
         private CALayer _topBorderLine;
-
-        [DisplayName("Label Color"), Export("FloatingLabelTextColor"), Browsable(true)]
-        public UIColor FloatingLabelTextColor { get; set; } = UIColor.White;
-
-        public UIFont FloatingLabelFont
-        {
-            get => _floatingLabel.Font;
-            set => _floatingLabel.Font = value;
-        }
-
-        private string _placeholder;
-        public string Placeholder
-        {
-            get => _placeholder;
-            set
-            {
-                _placeholder = value;
-                SetPlaceholderText(value);
-            }
-        }
+        private bool _isBorderInitilize;
 
         private NSAttributedString _attributedPlaceholder;
         public NSAttributedString AttributedPlaceholder
@@ -54,7 +38,6 @@ namespace PrankChat.Mobile.iOS.Controls
             set
             {
                 base.Text = value;
-                _floatingLabel.TextColor = UIColor.FromCGColor(Layer.BorderColor);
                 UpdatePlaceholderFrame();
             }
         }
@@ -87,16 +70,8 @@ namespace PrankChat.Mobile.iOS.Controls
 
         private void InitializePlaceholder()
         {
-            _floatingLabel = new UILabel
-            {
-                Font = Theme.Font.RegularFontOfSize(12),
-            };
-
+            _floatingLabel = new UILabel();
             AddSubview(_floatingLabel);
-            Placeholder = Placeholder;
-
-            Layer.BorderWidth = 0;
-
             Changed += OnTextChanged;
         }
 
@@ -111,55 +86,55 @@ namespace PrankChat.Mobile.iOS.Controls
             TextContainer.MaximumNumberOfLines = 3;
             Layer.MasksToBounds = true;
 
-            var borderY = _floatingLabel.Frame.Height / 2;
+            var borderY = _floatingLabel.Frame.Size.Height / 2;
 
-            var borderWidth = 1.0f;
             var leftLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(0, borderY, 1, Frame.Height - borderY),
-                BorderWidth = borderWidth
+                Frame = new CGRect(0, borderY, 1, Frame.Size.Height - borderY),
+                BorderWidth = BorderWidth
             };
             Layer.AddSublayer(leftLine);
 
             var rightLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(Frame.Width - borderWidth, borderY, borderWidth, Frame.Height - borderY),
-                BorderWidth = borderWidth
+                Frame = new CGRect(Frame.Size.Width - BorderWidth, borderY, BorderWidth, Frame.Size.Height - borderY),
+                BorderWidth = BorderWidth
             };
             Layer.AddSublayer(rightLine);
 
             var bottomLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(0, Frame.Height - borderWidth, Frame.Width, 1),
-                BorderWidth = borderWidth
+                Frame = new CGRect(0, Frame.Size.Height - BorderWidth, Frame.Size.Width, 1),
+                BorderWidth = BorderWidth
             };
             Layer.AddSublayer(bottomLine);
 
             var topLeftLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(0, borderY, _floatingLabel.Frame.Location.X, 1),
-                BorderWidth = borderWidth
+                Frame = new CGRect(0, borderY, FloatLabelX, 1),
+                BorderWidth = BorderWidth
             };
             Layer.AddSublayer(topLeftLine);
 
-            var topRightLineX = _floatingLabel.Frame.Location.X + _floatingLabel.Frame.Width;
+            var floatPlaceholderSize = CalculateFloatPlaceholderSize(AttributedPlaceholder?.Value);
+            var topRightLineX = floatPlaceholderSize.Width + topLeftLine.Bounds.Width;
             var topRightLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(topRightLineX, borderY, Frame.Width - topRightLineX, 1),
-                BorderWidth = borderWidth
+                Frame = new CGRect(topRightLineX, borderY, Frame.Size.Width - topRightLineX, 1),
+                BorderWidth = BorderWidth
             };
             Layer.AddSublayer(topRightLine);
 
             _topBorderLine = new CALayer
             {
                 BorderColor = Layer.BorderColor,
-                Frame = new CGRect(0, borderY, Frame.Width, 1),
-                BorderWidth = borderWidth
+                Frame = new CGRect(0, borderY, Frame.Size.Width, 1),
+                BorderWidth = BorderWidth
             };
             Layer.AddSublayer(_topBorderLine);
         }
@@ -170,11 +145,13 @@ namespace PrankChat.Mobile.iOS.Controls
                 return;
 
             _floatingLabel.Text = placeholder;
+
+            _floatingLabel.AttributedText = AttributedPlaceholder;
             _floatingLabel.SizeToFit();
-            _floatingLabel.Frame = new CGRect(20,
-                                              _floatingLabel.Font.LineHeight,
-                                              _floatingLabel.Frame.Size.Width,
-                                              _floatingLabel.Frame.Size.Height);
+            _floatingLabel.Frame = new CGRect(FloatLabelX,
+                                                _floatingLabel.Font.LineHeight,
+                                                _floatingLabel.Frame.Size.Width,
+                                                _floatingLabel.Frame.Size.Height);
         }
 
         private void OnTextChanged(object sender, EventArgs e)
@@ -184,11 +161,12 @@ namespace PrankChat.Mobile.iOS.Controls
 
         private void UpdatePlaceholderFrame()
         {
-            //TryInitializeBorder();
             if (!string.IsNullOrEmpty(Text))
             {
-                _floatingLabel.Font = Theme.Font.RegularFontOfSize(12);
-                _floatingLabel.Frame = new CGRect(20,
+                _floatingLabel.Font = _floatPlaceholderFont;
+                _floatingLabel.TextColor = UIColor.FromCGColor(Layer.BorderColor);
+                _floatingLabel.SizeToFit();
+                _floatingLabel.Frame = new CGRect(FloatLabelX,
                                                   0,
                                                   _floatingLabel.Frame.Size.Width,
                                                   _floatingLabel.Frame.Size.Height);
@@ -197,14 +175,19 @@ namespace PrankChat.Mobile.iOS.Controls
             }
             else
             {
-                _floatingLabel.Font = Theme.Font.RegularFontOfSize(Font.PointSize);
+                _floatingLabel.AttributedText = AttributedPlaceholder;
+                _floatingLabel.SizeToFit();
                 _floatingLabel.Frame = new CGRect(14,
                                                   _floatingLabel.Font.LineHeight,
                                                   _floatingLabel.Frame.Size.Width,
                                                   _floatingLabel.Frame.Size.Height);
-
                 _topBorderLine.Hidden = false;
             }
+        }
+
+        private CGSize CalculateFloatPlaceholderSize(string text)
+        {
+            return text.StringSize(_floatPlaceholderFont);
         }
     }
 }

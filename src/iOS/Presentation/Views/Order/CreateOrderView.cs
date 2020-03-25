@@ -94,6 +94,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
             lottieAnimationView.LoopAnimation = true;
             lottieAnimationView.Play();
+
+            stackView.SetCustomSpacing(8, stackView.ArrangedSubviews[0]);
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)
