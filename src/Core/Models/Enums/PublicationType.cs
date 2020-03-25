@@ -5,6 +5,5 @@
         Popular,
         Actual,
         MyVideosOfCreatedOrders,
-        CompletedVideosAssignmentsByMe,
     }
 }

@@ -198,7 +198,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 
         private void AnimateTranslation(View view)
         {
-            if (view.TranslationY < view.Height / 2)
+            if (view.TranslationY < view.Height / 4)
             {
                 view.Animate()
                     .TranslationY(0f)

@@ -17,9 +17,6 @@ namespace PrankChat.Mobile.iOS.Controls
 		[DisplayName("Label Color"), Export("FloatingLabelTextColor"), Browsable(true)]
 		public UIColor FloatingLabelTextColor { get; set; } = UIColor.White;
 
-		[DisplayName("Label Active Color"), Export("FloatingLabelActiveTextColor"), Browsable(true)]
-		public UIColor FloatingLabelActiveTextColor { get; set; } = UIColor.White;
-
 		public UIFont FloatingLabelFont
 		{
 			get => _floatingLabel.Font;
@@ -81,7 +78,7 @@ namespace PrankChat.Mobile.iOS.Controls
 				if (!string.IsNullOrEmpty(Text))
 				{
 					_floatingLabel.Alpha = 1.0f;
-					_floatingLabel.Frame = new CGRect(_floatingLabel.Frame.Location.X,
+					_floatingLabel.Frame = new CGRect(20,
 													  -_floatingLabel.Frame.Size.Height / 2,
 													  _floatingLabel.Frame.Size.Width,
 													  _floatingLabel.Frame.Size.Height);
@@ -91,7 +88,7 @@ namespace PrankChat.Mobile.iOS.Controls
 				else
 				{
 					_floatingLabel.Alpha = 0.0f;
-					_floatingLabel.Frame = new CGRect(_floatingLabel.Frame.Location.X,
+					_floatingLabel.Frame = new CGRect(20,
 													  _floatingLabel.Font.LineHeight,
 													  _floatingLabel.Frame.Size.Width,
 													  _floatingLabel.Frame.Size.Height);
@@ -102,7 +99,7 @@ namespace PrankChat.Mobile.iOS.Controls
 
 			if (IsFirstResponder)
 			{
-				_floatingLabel.TextColor = FloatingLabelActiveTextColor;
+                _floatingLabel.TextColor = UIColor.FromCGColor(Layer.BorderColor);
 
 				var shouldFloat = !string.IsNullOrEmpty(Text);
 				var isFloating = _floatingLabel.Alpha == 1f;
@@ -122,7 +119,7 @@ namespace PrankChat.Mobile.iOS.Controls
 			}
 			else
 			{
-				_floatingLabel.TextColor = FloatingLabelTextColor;
+				_floatingLabel.TextColor = UIColor.FromCGColor(Layer.BorderColor);
 				updateLabel();
 			}
 		}
@@ -132,7 +129,7 @@ namespace PrankChat.Mobile.iOS.Controls
 			_floatingLabel = new UILabel
 			{
 				Alpha = 0.0f,
-				Font = UIFont.BoldSystemFontOfSize(12),
+				Font = Theme.Font.RegularFontOfSize(12),
 			};
 
 			AddSubview(_floatingLabel);

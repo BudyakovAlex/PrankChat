@@ -142,6 +142,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             changeProfilePhotoLabel.TextColor = UIColor.White;
 
             descriptionTextField.SetLightStyle(Resources.ProfileUpdateView_Description_Placeholder);
+            descriptionTextField.TryInitializeBorder();
+
+            stackView.SetCustomSpacing(8, stackView.ArrangedSubviews[2]);
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)

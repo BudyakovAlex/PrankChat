@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
+using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Infrastructure;
-using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -20,8 +18,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
     {
         private UIImage _checkedImage;
         private UIImage _uncheckedImage;
+        private UITextPosition _position;
 
-		protected override void SetupBinding()
+        protected override void SetupBinding()
 		{
 			var set = this.CreateBindingSet<CreateOrderView, CreateOrderViewModel>();
 
@@ -45,15 +44,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             set.Bind(createButton)
                 .To(vm => vm.CreateCommand);
 
-            set.Bind(progressBar)
-                .For(v => v.BindHidden())
-                .To(vm => vm.IsBusy)
-                .WithConversion<MvxInvertedBooleanConverter>();
+            set.Bind(progressBarView)
+                .For(v => v.BindVisible())
+                .To(vm => vm.IsBusy);
 
             set.Apply();
 		}
 
-		protected override void SetupControls()
+        public override void ViewDidAppear(bool animated)
+        {
+            descriptionTextView.TryInitializeBorder();
+
+            base.ViewDidAppear(animated);
+        }
+
+        protected override void SetupControls()
 		{
             _checkedImage = UIImage.FromBundle("ic_checkbox_checked");
             _uncheckedImage = UIImage.FromBundle("ic_checkbox_unchecked");
@@ -84,7 +89,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             hideExecutorCheckboxLabel.AddGestureRecognizer(new UITapGestureRecognizer(OnCheckboxTapped));
 
             createButton.SetDarkStyle(Resources.CreateOrderView_Create_Button);
-		}
+
+            lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
+            lottieAnimationView.LoopAnimation = true;
+            lottieAnimationView.Play();
+
+            stackView.SetCustomSpacing(8, stackView.ArrangedSubviews[0]);
+        }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)
         {
@@ -102,6 +113,33 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             viewList.Add(priceTextField);
 
             base.RegisterKeyboardDismissTextFields(viewList);
+        }
+
+        protected override void Subscription()
+        {
+            priceTextField.EditingChanged += PriceTextField_EditingChanged;
+        }
+
+        protected override void Unsubscription()
+        {
+            priceTextField.EditingChanged -= PriceTextField_EditingChanged;
+        }
+
+        private void PriceTextField_EditingChanged(object sender, System.EventArgs e)
+        {
+            var text = priceTextField.Text;
+            if (string.IsNullOrWhiteSpace(text))
+                return;
+
+            if (text.EndsWith(Resources.Currency))
+            {
+                var position = priceTextField.GetPosition(priceTextField.EndOfDocument, -2);
+                if (_position == position)
+                    return;
+
+                _position = position;
+                priceTextField.SelectedTextRange = priceTextField.GetTextRange(_position, _position);
+            }
         }
 
         private void OnCheckboxTapped()
