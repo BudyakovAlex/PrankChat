@@ -780,12 +780,24 @@
     <ImageAsset Include="Assets.xcassets\ic_play.imageset\FullscreenVideoPlay.pdf">
       <Visible>false</Visible>
     </ImageAsset>
-     <ImageAsset Include="Assets.xcassets\bg_order_type_my.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\bg_order_type_my.imageset\OrderTypeMyBackground.pdf" />
-    <ImageAsset Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\OrderTypeMyInModerationBackground.pdf" />
-    <ImageAsset Include="Assets.xcassets\bg_order_type_not_my.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\bg_order_type_not_my.imageset\OrderTypeNotMyBackground.pdf" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_my.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_my.imageset\OrderTypeMyBackground.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\OrderTypeMyInModerationBackground.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_not_my.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_not_my.imageset\OrderTypeNotMyBackground.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_pause.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -798,16 +810,36 @@
     <ImageAsset Include="Assets.xcassets\ic_mute.imageset\FullscreenVideoMute.pdf">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_plus.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_plus.imageset\ic_plus.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\ThreeDots.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\mdi_arrow_left_alt.pdf" />
-    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\bg_order_type_completed.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_plus.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_plus.imageset\ic_plus.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\ThreeDots.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\mdi_arrow_left_alt.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\bg_order_type_completed.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
