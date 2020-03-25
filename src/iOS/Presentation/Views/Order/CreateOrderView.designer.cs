@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 	partial class CreateOrderView
 	{
 		[Outlet]
-		UIKit.UITextField completeDateTextField { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField completeDateTextField { get; set; }
 
 		[Outlet]
 		UIKit.UIButton createButton { get; set; }
@@ -31,13 +31,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
 
 		[Outlet]
-		UIKit.UITextField nameTextField { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField nameTextField { get; set; }
 
 		[Outlet]
-		UIKit.UITextField priceTextField { get; set; }
-
-		[Outlet]
-		UIKit.UIActivityIndicatorView progressBar { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField priceTextField { get; set; }
 
 		[Outlet]
 		UIKit.UIView progressBarView { get; set; }
@@ -50,6 +47,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (stackView != null) {
+				stackView.Dispose ();
+				stackView = null;
+			}
+
 			if (completeDateTextField != null) {
 				completeDateTextField.Dispose ();
 				completeDateTextField = null;
@@ -75,6 +77,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				hideExecutorCheckboxLabel = null;
 			}
 
+			if (lottieAnimationView != null) {
+				lottieAnimationView.Dispose ();
+				lottieAnimationView = null;
+			}
+
 			if (nameTextField != null) {
 				nameTextField.Dispose ();
 				nameTextField = null;
@@ -90,24 +97,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				progressBarView = null;
 			}
 
-			if (lottieAnimationView != null) {
-				lottieAnimationView.Dispose ();
-				lottieAnimationView = null;
-			}
-
-			if (progressBar != null) {
-				progressBar.Dispose ();
-				progressBar = null;
-			}
-
 			if (scrollView != null) {
 				scrollView.Dispose ();
 				scrollView = null;
-			}
-
-			if (stackView != null) {
-				stackView.Dispose ();
-				stackView = null;
 			}
 		}
 	}
