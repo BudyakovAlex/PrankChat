@@ -167,6 +167,8 @@
     <Compile Include="Presentation\Views\Competitions\CompetitionDetailsView.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionDetailsHeaderViewHolder.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionVideoViewHolder.cs" />
+    <Compile Include="Presentation\Views\Competitions\CompetitionRulesView.cs" />
+    <Compile Include="Presentation\Views\Competitions\CompetitionPrizePoolView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -225,7 +227,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\action_bar_transparent.axml">
+    <AndroidResource Include="Resources\layout\action_bar_transparent.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -574,6 +576,14 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\cell_competition_video.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_competition_prize_pool.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_competition_rules.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

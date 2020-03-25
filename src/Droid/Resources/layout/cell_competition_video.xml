@@ -9,33 +9,32 @@
     android:paddingRight="16dp"
     android:paddingBottom="11dp">
     <CircleCachedImageView
-        android:id="@+id/user_photo"
+        android:id="@+id/user_photo_image_view"
         android:layout_width="42dp"
         android:layout_height="42dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="7dp"
-        android:layout_marginStart="3dp"/>
+        android:layout_marginTop="14dp"
+        android:layout_marginStart="24dp"/>
 
     <TextView
-        android:id="@+id/user_name"
+        android:id="@+id/user_name_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
         android:textColor="@color/applicationBlack"
         android:textSize="14sp"
         android:textStyle="normal|bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/user_photo"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/user_photo_image_view"
+        app:layout_constraintTop_toTopOf="@+id/user_photo_image_view"
         tools:text="Some User" />
     <TextView
-        android:id="@+id/video_info"
+        android:id="@+id/video_info_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@+id/user_photo"
-        app:layout_constraintTop_toBottomOf="@+id/user_name"
+        app:layout_constraintLeft_toRightOf="@+id/user_photo_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/user_name_text_view"
         android:layout_marginStart="10dp"
         tools:text="140.8k просмотров"
         android:layout_marginTop="8dp"
@@ -46,12 +45,14 @@
         android:id="@+id/video_file"
         android:layout_width="0dp"
         android:layout_height="246dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="16dp"
+        android:layout_marginRight="24dp"
         android:background="@color/applicationBlack"
         android:focusableInTouchMode="true"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/video_info" />
+        app:layout_constraintTop_toBottomOf="@+id/video_info_text_view" />
 
     <ffimageloading.cross.MvxCachedImageView
         android:id="@+id/stub_image_view"
@@ -81,7 +82,58 @@
         android:layout_marginStart="7dp"
         tools:text="11 месяцев назад"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/video_info"
-        app:layout_constraintStart_toEndOf="@+id/video_info"
-        app:layout_constraintTop_toTopOf="@+id/video_info" />
+        app:layout_constraintBottom_toBottomOf="@+id/video_info_text_view"
+        app:layout_constraintStart_toEndOf="@+id/video_info_text_view"
+        app:layout_constraintTop_toTopOf="@+id/video_info_text_view" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/like_button"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/selectable_button_selector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/video_file">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintHorizontal_bias="0.92"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView"
+            app:srcCompat="@drawable/ic_accent_thumbs_up"
+            tools:tint="@color/applicationWhite" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/applicationWhite"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.54"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="100k" />
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/separator"
+        app:layout_goneMarginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/like_button" />
 </android.support.constraint.ConstraintLayout>
