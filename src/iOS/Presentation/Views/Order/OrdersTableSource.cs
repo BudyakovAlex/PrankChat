@@ -1,12 +1,12 @@
 ﻿using System;
 using Foundation;
-using MvvmCross.Platforms.Ios.Binding.Views;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
+using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
-    public class OrdersTableSource : MvxTableViewSource
+    public class OrdersTableSource : PagedTableViewSource
     {
         public OrdersTableSource(UITableView tableView) : base(tableView)
         {

@@ -5,14 +5,16 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {
-    public class BaseProfileViewModel : BaseViewModel
+    public class BaseProfileViewModel : PaginationViewModel
     {
         private string _email;
         public string Email
@@ -97,7 +99,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
                                     IApiService apiService,
                                     IDialogService dialogService,
                                     ISettingsService settingsService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+            : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
         }
 

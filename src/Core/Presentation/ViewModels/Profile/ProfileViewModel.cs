@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
@@ -11,9 +10,11 @@ using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
+using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -223,8 +224,31 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             SubscribersValue = user.SubscribersCount.ToCountString();
             SubscriptionsValue = user.SubscriptionsCount.ToCountString();
 
-            var orders = await GetOrdersAsync();
-            Items.SwitchTo(orders.Select(order => new OrderItemViewModel(
+            LoadMoreItemsAsync().FireAndForget();
+        }
+
+        protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = Constants.Pagination.DefaultPaginationSize)
+        {
+            var items = await GetOrdersAsync(page, pageSize);
+            return SetList(items, page);
+        }
+
+        protected virtual async Task<PaginationModel<OrderDataModel>> GetOrdersAsync(int page, int pageSize)
+        {
+            switch (SelectedOrderType)
+            {
+                case ProfileOrderType.MyOrders:
+                case ProfileOrderType.OrdersCompletedByMe:
+                    var filterEnum = SelectedOrderType == ProfileOrderType.MyOrders ? OrderFilterType.MyOwn : OrderFilterType.InProgress;
+                    return await ApiService.GetOrdersAsync(filterEnum, page, pageSize);
+            }
+
+            return new PaginationModel<OrderDataModel>();
+        }
+
+        private OrderItemViewModel ProduceOrderItemViewModel(OrderDataModel order)
+        {
+            return new OrderItemViewModel(
                 NavigationService,
                 SettingsService,
                 _mvxMessenger,
@@ -236,22 +260,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 order.ActiveTo,
                 order.DurationInHours,
                 order.Status ?? OrderStatusType.None,
-                order.Customer?.Id)));
+                order.Customer?.Id);
         }
 
-        protected virtual async Task<IEnumerable<OrderDataModel>> GetOrdersAsync()
+        private int SetList(PaginationModel<OrderDataModel> orderDataModel, int page)
         {
-            switch (SelectedOrderType)
+            SetTotalItemsCount(orderDataModel.TotalCount);
+            var orderViewModels = orderDataModel.Items.Select(order => ProduceOrderItemViewModel(order)).ToList();
+
+            if (page > 1)
             {
-                case ProfileOrderType.MyOrders:
-                case ProfileOrderType.OrdersCompletedByMe:
-                    var filterEnum = SelectedOrderType == ProfileOrderType.MyOrders ? OrderFilterType.MyOwn : OrderFilterType.InProgress;
-                    // TODO: Implement pagination.
-                    var result = await ApiService.GetOrdersAsync(filterEnum, 1, 1);
-                    return result.Items.OrderBy(c => c.Status);
+                Items.AddRange(orderViewModels);
+            }
+            else
+            {
+                Items.SwitchTo(orderViewModels);
             }
 
-            return Enumerable.Empty<OrderDataModel>();
+            return orderViewModels.Count;
         }
     }
 }

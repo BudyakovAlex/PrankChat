@@ -55,8 +55,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        public MvxInteraction ItemsChangedInteraction { get; }
-
         public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterAsync);
 
         public MvxAsyncCommand LoadOrdersCommand => new MvxAsyncCommand(RefreshOrdersAsync);
@@ -79,8 +77,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 { OrderFilterType.InProgress, Resources.OrdersView_Filter_CurrentTasks },
                 { OrderFilterType.MyOwn, Resources.OrdersView_Filter_MyTasks }
             };
-
-            ItemsChangedInteraction = new MvxInteraction();
         }
 
         public override Task Initialize()
@@ -178,7 +174,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 Items.SwitchTo(orderViewModels);
             }
 
-            ItemsChangedInteraction.Raise();
             return orderViewModels.Count;
         }
 
