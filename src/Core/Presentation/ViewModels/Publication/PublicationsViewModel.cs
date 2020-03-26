@@ -216,8 +216,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             Pagination.SetTotalItemsCount(videoBundle.TotalCount);
             var publicationViewModels = videoBundle.Items.Select(publication =>
             {
-                var videoUrl = publication.MarkedStreamUri ?? publication.StreamUri;
-
                 return new PublicationItemViewModel(NavigationService,
                              DialogService,
                              _platformService,
@@ -231,7 +229,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                              publication.Id,
                              publication.Title,
                              publication.Description,
-                             videoUrl,
+                             publication.StreamUri,
                              publication.ViewsCount,
                              publication.CreatedAt.DateTime,
                              publication.LikesCount,
