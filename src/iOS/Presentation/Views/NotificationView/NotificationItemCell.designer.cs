@@ -16,10 +16,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 		UIKit.UILabel dateLabel { get; set; }
 
 		[Outlet]
-		UIKit.UILabel profileNameLabel { get; set; }
-
-		[Outlet]
-		UIKit.UILabel titleLabel { get; set; }
+		UIKit.UILabel profileNameAndTitleLabel { get; set; }
 
 		[Outlet]
 		UIKit.UILabel descriptionLabel { get; set; }
@@ -37,14 +34,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 				dateLabel = null;
 			}
 
-			if (profileNameLabel != null) {
-				profileNameLabel.Dispose ();
-				profileNameLabel = null;
-			}
-
-			if (titleLabel != null) {
-				titleLabel.Dispose();
-				titleLabel = null;
+			if (profileNameAndTitleLabel != null) {
+				profileNameAndTitleLabel.Dispose();
+				profileNameAndTitleLabel = null;
 			}
 
 			if (descriptionLabel != null) {

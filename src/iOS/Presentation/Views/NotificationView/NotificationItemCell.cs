@@ -21,16 +21,27 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 {
     public partial class NotificationItemCell : BaseTableCell<NotificationItemCell, NotificationItemViewModel>
     {
-        private NSLayoutConstraint _leftAnchorTitleLabelConstraint;
         private NSLayoutConstraint _topAnchorDateCreateConstraint;
 
+        private string _profileName;
         public string ProfileName
         {
-            get => profileNameLabel.Text;
+            get => _profileName;
             set
             {
-                profileNameLabel.Text = value;
-                UpdateConstraintStatus(value, _leftAnchorTitleLabelConstraint);
+                _profileName = value;
+                UpdateTitleLabel();
+            }
+        }
+
+        private string _title;
+        public string Title
+        {
+            get => _title;
+            set
+            {
+                _title = value;
+                UpdateTitleLabel();
             }
         }
 
@@ -40,7 +51,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
             set
             {
                 descriptionLabel.Text = value;
-                UpdateConstraintStatus(value, _topAnchorDateCreateConstraint);
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    _topAnchorDateCreateConstraint.Active = true;
+                }
+                else
+                {
+                    _topAnchorDateCreateConstraint.Active = false;
+                }
             }
         }
 
@@ -58,12 +76,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
         {
             base.SetupControls();
 
-            profileNameLabel.SetSmallTitleStyle();
             descriptionLabel.SetSmallTitleStyle();
             dateLabel.SetSmallSubtitleStyle();
-            titleLabel.SetSmallTitleStyle();
+            profileNameAndTitleLabel.SetSmallTitleStyle();
 
-            _leftAnchorTitleLabelConstraint = titleLabel.LeadingAnchor.ConstraintEqualTo(profileNameLabel.TrailingAnchor);
             _topAnchorDateCreateConstraint = dateLabel.TopAnchor.ConstraintEqualTo(descriptionLabel.TopAnchor);
         }
 
@@ -85,18 +101,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
                 .To(vm => vm.ProfileShortName)
                 .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(titleLabel)
+            set.Bind(profileNameAndTitleLabel)
                 .To(vm => vm.Title)
                 .Mode(MvxBindingMode.OneTime);
-
-            set.Bind(descriptionLabel)
-                .To(vm => vm.Description)
-                .Mode(MvxBindingMode.OneTime);
-
-            set.Bind(descriptionLabel)
-                .For(v => v.BindVisibility())
-                .To(vm => vm.Description)
-                .WithConversion<MvxVisibilityValueConverter>();
 
             set.Bind(dateLabel)
                 .To(vm => vm.DateText)
@@ -117,19 +124,30 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
                 .To(vm => vm.Description)
                 .Mode(MvxBindingMode.OneTime);
 
+            set.Bind(this)
+                .For(v => v.Title)
+                .To(vm => vm.Title)
+                .Mode(MvxBindingMode.OneTime);
+
             set.Apply();
         }
 
-        private void UpdateConstraintStatus(string text, NSLayoutConstraint constraint)
+        private void UpdateTitleLabel()
         {
-            if (string.IsNullOrWhiteSpace(text))
+            var haveProfileName = !string.IsNullOrWhiteSpace(_profileName);
+            var text = string.Join(haveProfileName ? "  " : "", _profileName, _title);
+            var attributedString = new NSMutableAttributedString(text);
+            profileNameAndTitleLabel.AttributedText = attributedString;
+            var paragraphStyle = new NSMutableParagraphStyle();
+            paragraphStyle.LineSpacing = 2.5f;
+            attributedString.AddAttribute(UIStringAttributeKey.ParagraphStyle, paragraphStyle, new NSRange(0, text.Length));
+
+            if (haveProfileName)
             {
-                constraint.Active = true;
+                attributedString.AddAttribute(UIStringAttributeKey.Font, Theme.Font.BoldOfSize(Theme.Font.MediumFontSize), new NSRange(0, _profileName.Length));
             }
-            else
-            {
-                constraint.Active = false;
-            }
+
+            profileNameAndTitleLabel.AttributedText = attributedString;
         }
     }
 }

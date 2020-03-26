@@ -35,45 +35,36 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ja-e6-646" userLabel="Profile Name Label">
-                        <rect key="frame" x="72" y="7" width="31" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hC5-LM-IXa" userLabel="Profile Name And Title Label">
+                        <rect key="frame" x="72" y="7" width="233" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hC5-LM-IXa" userLabel="Title Label">
-                        <rect key="frame" x="113" y="7" width="31" height="15"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMp-u4-kui" userLabel="Description Label">
-                        <rect key="frame" x="72" y="26" width="31" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMp-u4-kui" userLabel="Description Label">
+                        <rect key="frame" x="72" y="25.5" width="31" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmo-tj-xLs" userLabel="Date Label">
-                        <rect key="frame" x="72" y="45" width="31" height="15"/>
+                        <rect key="frame" x="72" y="44" width="31" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="hC5-LM-IXa" firstAttribute="leading" secondItem="8ja-e6-646" secondAttribute="trailing" constant="10" id="5uY-jv-oK7"/>
-                    <constraint firstItem="8ja-e6-646" firstAttribute="leading" secondItem="zIM-KU-aec" secondAttribute="trailing" constant="15" id="6vh-4y-d4t"/>
                     <constraint firstItem="dmo-tj-xLs" firstAttribute="leading" secondItem="zIM-KU-aec" secondAttribute="trailing" constant="15" id="9Wf-cJ-YBg"/>
                     <constraint firstItem="hC5-LM-IXa" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" constant="7" id="C5l-Vb-DQG"/>
                     <constraint firstItem="2nL-Pk-9b6" firstAttribute="top" secondItem="zIM-KU-aec" secondAttribute="top" id="Ca2-vN-CkD"/>
+                    <constraint firstAttribute="trailing" secondItem="hC5-LM-IXa" secondAttribute="trailing" priority="750" constant="15" id="DXd-OG-AGP"/>
                     <constraint firstItem="fMp-u4-kui" firstAttribute="leading" secondItem="zIM-KU-aec" secondAttribute="trailing" constant="15" id="F7E-pk-UVQ"/>
-                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hC5-LM-IXa" secondAttribute="trailing" priority="1" constant="15" id="FYn-cD-ooM"/>
                     <constraint firstItem="zIM-KU-aec" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="15" id="IIq-XT-sdC"/>
                     <constraint firstItem="2nL-Pk-9b6" firstAttribute="trailing" secondItem="zIM-KU-aec" secondAttribute="trailing" id="IXW-Xp-x9B"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fMp-u4-kui" secondAttribute="trailing" constant="15" id="Jf2-J7-0cU"/>
-                    <constraint firstItem="8ja-e6-646" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" constant="7" id="KJI-Ug-Xwh"/>
+                    <constraint firstItem="hC5-LM-IXa" firstAttribute="leading" secondItem="zIM-KU-aec" secondAttribute="trailing" constant="15" id="LBO-wD-kVB"/>
                     <constraint firstAttribute="bottom" secondItem="dmo-tj-xLs" secondAttribute="bottom" priority="250" constant="6" id="POy-FN-Mf0"/>
-                    <constraint firstItem="hC5-LM-IXa" firstAttribute="leading" secondItem="zIM-KU-aec" secondAttribute="trailing" priority="2" constant="15" id="dnL-jK-gSI"/>
                     <constraint firstItem="dmo-tj-xLs" firstAttribute="top" secondItem="fMp-u4-kui" secondAttribute="bottom" constant="4" id="g4i-qo-6aC"/>
                     <constraint firstItem="fMp-u4-kui" firstAttribute="top" secondItem="hC5-LM-IXa" secondAttribute="bottom" constant="4" id="hh0-0D-gn6"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zIM-KU-aec" secondAttribute="bottom" constant="7" id="mla-kT-Wqi"/>
@@ -85,9 +76,8 @@
                 <outlet property="dateLabel" destination="dmo-tj-xLs" id="r3K-W4-Ddf"/>
                 <outlet property="descriptionLabel" destination="fMp-u4-kui" id="r3L-A4-Dyf"/>
                 <outlet property="isReadedView" destination="2nL-Pk-9b6" id="2nU-Pk-sI6"/>
-                <outlet property="profileNameLabel" destination="8ja-e6-646" id="r3Z-W4-Dyf"/>
                 <outlet property="profilePhotoImageView" destination="zIM-KU-aec" id="r3N-W4-Dyf"/>
-                <outlet property="titleLabel" destination="hC5-LM-IXa" id="r3N-W4-DOf"/>
+                <outlet property="profileNameAndTitleLabel" destination="hC5-LM-IXa" id="r3N-W4-DOf"/>
             </connections>
             <point key="canvasLocation" x="24.637681159420293" y="43.526785714285715"/>
         </tableViewCell>

@@ -21,39 +21,20 @@
 		local:layout_constraintRight_toRightOf="@+id/profile_photo"
 		local:layout_constraintTop_toTopOf="@+id/profile_photo"
 		local:MvxBind="Visibility InvertedVisibility(IsDelivered)"/>
-	<TextView
-		android:id="@+id/name_text_view"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_marginLeft="15dp"
-		android:layout_marginTop="8dp"
-		android:textSize="12sp"
-		android:textColor="@color/applicationBlack"
-		android:textStyle="normal|bold"
-		local:layout_constraintTop_toTopOf="parent"
-		local:layout_constraintLeft_toRightOf="@+id/profile_photo"
-		local:MvxBind="Text ProfileName, Mode = OneTime; Visibility Visibility(ProfileName)"/>
-	<View
-		android:id="@+id/space_view"
-		android:layout_width="5dp"
-		android:layout_height="5dp"
-		android:layout_marginTop="8dp"
-		local:layout_constraintLeft_toRightOf="@+id/name_text_view"
-		local:MvxBind="Visibility InvertedVisibility(ProfileName)"/>
-	<TextView
+	<PrankChat.Mobile.Droid.Controls.NotificationTextView
 		android:id="@+id/title_text_view"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="8dp"
-		android:layout_marginLeft="10dp"
+		android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
 		android:textColor="@color/applicationBlack"
 		android:textSize="12sp"
-		android:singleLine="true"
-		local:layout_constraintLeft_toRightOf="@+id/space_view"
+        android:lineSpacingExtra="3dp"
+		local:layout_constraintLeft_toRightOf="@+id/profile_photo"
 		local:layout_constraintTop_toTopOf="parent"
         local:layout_constraintRight_toRightOf="parent"
-		local:MvxBind="Text Title, Mode = OneTime"/>
+		local:MvxBind="Title Title, Mode = OneTime; ProfileName ProfileName, Mode = OneTime"/>
 	<TextView
 		android:id="@+id/description_text_view"
 		android:layout_width="0dp"

@@ -35,6 +35,8 @@ namespace PrankChat.Mobile.iOS.AppTheme
 
         public class Font
         {
+            public const int MediumFontSize = 12;
+
             public static UIFont BlackOfSize(nfloat fontSize)
             {
                 return UIFont.SystemFontOfSize(fontSize, UIFontWeight.Black);
