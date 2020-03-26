@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using CoreAnimation;
 using CoreGraphics;
 using Foundation;
+using PrankChat.Mobile.iOS.AppTheme;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Controls
@@ -9,60 +12,23 @@ namespace PrankChat.Mobile.iOS.Controls
     [Register("PlaceholderTextView"), DesignTimeVisible(true)]
     public class PlaceholderTextView : UITextView
     {
-        private UILabel _placeholderLabel;
-        private NSLayoutConstraint[] _placeholderConstraints;
+        private const float BorderWidth = 1;
+        private const float FloatLabelX = 20;
 
-        public string Placeholder
-        {
-            get => _placeholderLabel.Text;
-            set => _placeholderLabel.Text = value;
-        }
+        private readonly UIFont _floatPlaceholderFont = Theme.Font.RegularFontOfSize(12);
 
+        private UILabel _floatingLabel;
+        private CALayer _topBorderLine;
+        private bool _isBorderInitilize;
+
+        private NSAttributedString _attributedPlaceholder;
         public NSAttributedString AttributedPlaceholder
         {
-            get => _placeholderLabel.AttributedText;
-            set => _placeholderLabel.AttributedText = value;
-        }
-
-        public UIColor PlaceholderColor
-        {
-            get => _placeholderLabel.TextColor;
-            set => _placeholderLabel.TextColor = value;
-        }
-
-        public UIFont PlaceholderFont
-        {
-            get => _placeholderLabel.Font;
-            set => _placeholderLabel.Font = value;
-        }
-
-        public override UITextAlignment TextAlignment
-        {
-            get => base.TextAlignment;
+            get => _attributedPlaceholder;
             set
             {
-                base.TextAlignment = value;
-                _placeholderLabel.TextAlignment = value;
-            }
-        }
-
-        public override UIFont Font
-        {
-            get => base.Font;
-            set
-            {
-                base.Font = value;
-                _placeholderLabel.Font = value;
-            }
-        }
-
-        public override UIEdgeInsets TextContainerInset
-        {
-            get => base.TextContainerInset;
-            set
-            {
-                base.TextContainerInset = value;
-                UpdateConstraintsForPlaceholder();
+                _attributedPlaceholder = value;
+                SetPlaceholderText(value.Value);
             }
         }
 
@@ -72,114 +38,156 @@ namespace PrankChat.Mobile.iOS.Controls
             set
             {
                 base.Text = value;
-                UpdateVisibilityPlaceholder();
+                UpdatePlaceholderFrame();
             }
         }
 
-        #region Constructors
-
-        public PlaceholderTextView()
+        public PlaceholderTextView(CGRect frame)
+            : base(frame)
         {
-            Initialize();
+            InitializePlaceholder();
         }
 
-        public PlaceholderTextView(NSCoder coder) : base(coder)
+        public PlaceholderTextView(IntPtr handle)
+            : base(handle)
         {
-            Initialize();
-        }
-
-        public PlaceholderTextView(CGRect frame) : base(frame)
-        {
-            Initialize();
-        }
-
-        protected PlaceholderTextView(NSObjectFlag t) : base(t)
-        {
-            Initialize();
-        }
-
-        protected internal PlaceholderTextView(IntPtr handle) : base(handle)
-        {
-            Initialize();
-        }
-
-        #endregion
-
-        public override void LayoutSubviews()
-        {
-            base.LayoutSubviews();
-            _placeholderLabel.PreferredMaxLayoutWidth = TextContainer.Size.Width - TextContainer.LineFragmentPadding * 2.0f;
-        }
-
-        private void Initialize()
-        {
-            _placeholderLabel = new UILabel()
-            {
-                Lines = 0,
-                BackgroundColor = UIColor.Clear,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-
-            ShouldBeginEditing = t =>
-            {
-                UpdateVisibilityPlaceholder();
-                return true;
-            };
-
-            ShouldEndEditing = t =>
-            {
-                UpdateVisibilityPlaceholder();
-                return true;
-            };
-
-            Changed += OnTextChanged;
-
-            AddSubview(_placeholderLabel);
-            UpdateConstraintsForPlaceholder();
-        }
-
-        private void UpdateVisibilityPlaceholder()
-        {
-            _placeholderLabel.Hidden = !string.IsNullOrWhiteSpace(Text);
-        }
-
-        private void UpdateConstraintsForPlaceholder()
-        {
-            if (_placeholderLabel == null)
-                return;
-
-            var newConstraints = new[]
-            {
-                
-                NSLayoutConstraint.Create(_placeholderLabel, NSLayoutAttribute.Top, NSLayoutRelation.Equal, this, NSLayoutAttribute.Top, 1.0f, 17.0f),
-                NSLayoutConstraint.Create(_placeholderLabel, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, this, NSLayoutAttribute.Leading, 1.0f, 22.0f)
-            };
-            NSLayoutConstraint.ActivateConstraints(newConstraints);
-
-            if (_placeholderConstraints != null)
-                RemoveConstraints(_placeholderConstraints);
-
-            _placeholderConstraints = newConstraints;
-            AddConstraints(_placeholderConstraints);
-        }
-
-        private void OnTextChanged(object sender, EventArgs e)
-        {
-            UpdateVisibilityPlaceholder();
+            InitializePlaceholder();
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (_placeholderLabel != null)
+            if (_floatingLabel != null)
             {
-                _placeholderLabel.RemoveFromSuperview();
-                _placeholderLabel.Dispose();
-                _placeholderLabel = null;
+                _floatingLabel.RemoveFromSuperview();
+                _floatingLabel.Dispose();
+                _floatingLabel = null;
             }
 
             Changed -= OnTextChanged;
 
             base.Dispose(disposing);
+        }
+
+        private void InitializePlaceholder()
+        {
+            _floatingLabel = new UILabel();
+            AddSubview(_floatingLabel);
+            Changed += OnTextChanged;
+        }
+
+        public void TryInitializeBorder()
+        {
+            if (_isBorderInitilize)
+                return;
+
+            _isBorderInitilize = true;
+
+            Layer.BorderWidth = 0;
+            TextContainer.MaximumNumberOfLines = 3;
+            Layer.MasksToBounds = true;
+
+            var borderY = _floatingLabel.Frame.Size.Height / 2;
+
+            var leftLine = new CALayer
+            {
+                BorderColor = Layer.BorderColor,
+                Frame = new CGRect(0, borderY, 1, Frame.Size.Height - borderY),
+                BorderWidth = BorderWidth
+            };
+            Layer.AddSublayer(leftLine);
+
+            var rightLine = new CALayer
+            {
+                BorderColor = Layer.BorderColor,
+                Frame = new CGRect(Frame.Size.Width - BorderWidth, borderY, BorderWidth, Frame.Size.Height - borderY),
+                BorderWidth = BorderWidth
+            };
+            Layer.AddSublayer(rightLine);
+
+            var bottomLine = new CALayer
+            {
+                BorderColor = Layer.BorderColor,
+                Frame = new CGRect(0, Frame.Size.Height - BorderWidth, Frame.Size.Width, 1),
+                BorderWidth = BorderWidth
+            };
+            Layer.AddSublayer(bottomLine);
+
+            var topLeftLine = new CALayer
+            {
+                BorderColor = Layer.BorderColor,
+                Frame = new CGRect(0, borderY, FloatLabelX, 1),
+                BorderWidth = BorderWidth
+            };
+            Layer.AddSublayer(topLeftLine);
+
+            var floatPlaceholderSize = CalculateFloatPlaceholderSize(AttributedPlaceholder?.Value);
+            var topRightLineX = floatPlaceholderSize.Width + topLeftLine.Bounds.Width;
+            var topRightLine = new CALayer
+            {
+                BorderColor = Layer.BorderColor,
+                Frame = new CGRect(topRightLineX, borderY, Frame.Size.Width - topRightLineX, 1),
+                BorderWidth = BorderWidth
+            };
+            Layer.AddSublayer(topRightLine);
+
+            _topBorderLine = new CALayer
+            {
+                BorderColor = Layer.BorderColor,
+                Frame = new CGRect(0, borderY, Frame.Size.Width, 1),
+                BorderWidth = BorderWidth
+            };
+            Layer.AddSublayer(_topBorderLine);
+        }
+
+        private void SetPlaceholderText(string placeholder)
+        {
+            if (string.IsNullOrWhiteSpace(placeholder))
+                return;
+
+            _floatingLabel.Text = placeholder;
+
+            _floatingLabel.AttributedText = AttributedPlaceholder;
+            _floatingLabel.SizeToFit();
+            _floatingLabel.Frame = new CGRect(FloatLabelX,
+                                                _floatingLabel.Font.LineHeight,
+                                                _floatingLabel.Frame.Size.Width,
+                                                _floatingLabel.Frame.Size.Height);
+        }
+
+        private void OnTextChanged(object sender, EventArgs e)
+        {
+            UpdatePlaceholderFrame();
+        }
+
+        private void UpdatePlaceholderFrame()
+        {
+            if (!string.IsNullOrEmpty(Text))
+            {
+                _floatingLabel.Font = _floatPlaceholderFont;
+                _floatingLabel.TextColor = UIColor.FromCGColor(Layer.BorderColor);
+                _floatingLabel.SizeToFit();
+                _floatingLabel.Frame = new CGRect(FloatLabelX,
+                                                  0,
+                                                  _floatingLabel.Frame.Size.Width,
+                                                  _floatingLabel.Frame.Size.Height);
+
+                _topBorderLine.Hidden = true;
+            }
+            else
+            {
+                _floatingLabel.AttributedText = AttributedPlaceholder;
+                _floatingLabel.SizeToFit();
+                _floatingLabel.Frame = new CGRect(14,
+                                                  _floatingLabel.Font.LineHeight,
+                                                  _floatingLabel.Frame.Size.Width,
+                                                  _floatingLabel.Frame.Size.Height);
+                _topBorderLine.Hidden = false;
+            }
+        }
+
+        private CGSize CalculateFloatPlaceholderSize(string text)
+        {
+            return text.StringSize(_floatPlaceholderFont);
         }
     }
 }

@@ -29,6 +29,9 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("stream_url")]
         public string StreamUri { get; set; }
 
+        [JsonProperty("marked_stream_url")]
+        public string MarkedStreamUri { get; set; }
+
         [JsonProperty("share_url")]
         public string ShareUri { get; set; }
 

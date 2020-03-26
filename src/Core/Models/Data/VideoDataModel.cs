@@ -22,6 +22,8 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public string StreamUri { get; set; }
 
+        public string MarkedStreamUri { get; set; }
+
         public string ShareUri { get; set; }
 
         public bool IsLiked { get; set; }
