@@ -26,7 +26,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
-    public class PublicationsViewModel : BaseViewModel, IVideoListViewModel
+    public class PublicationsViewModel : PaginationViewModel, IVideoListViewModel
     {
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
@@ -43,12 +43,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             {
                 if (SetProperty(ref _selectedPublicationType, value))
                 {
-                    RefreshDataCommand.Execute();
+                    ReloadItemsCommand.Execute();
                 }
             }
         }
-
-        public PaginationViewModel Pagination { get; }
 
         public MvxInteraction ItemsChangedInteraction { get; }
 
@@ -84,8 +82,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxAsyncCommand OpenFilterCommand { get; }
 
-        public MvxAsyncCommand RefreshDataCommand { get; }
-
         public PublicationsViewModel(INavigationService navigationService,
                                      IDialogService dialogService,
                                      IApiService apiService,
@@ -95,7 +91,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                      IMvxLog mvxLog,
                                      IErrorHandleService errorHandleService,
                                      IMvxMessenger mvxMessenger)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+            : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _platformService = platformService;
             _videoPlayerService = videoPlayerService;
@@ -113,16 +109,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             };
 
             ItemsChangedInteraction = new MvxInteraction();
-            Pagination = new PaginationViewModel(OnLoadPublicationsAsync, Constants.Pagination.DefaultPaginationSize);
 
             OpenFilterCommand = new MvxAsyncCommand(OnOpenFilterAsync);
-            RefreshDataCommand = new MvxAsyncCommand(RefreshDataAsync);
         }
 
         public override Task Initialize()
         {
             ActiveFilter = DateFilterType.Month;
-            return Pagination.LoadMoreItemsCommand.ExecuteAsync();
+            return LoadMoreItemsCommand.ExecuteAsync();
         }
 
         public override void ViewDisappearing()
@@ -148,12 +142,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             base.ViewDestroy(viewFinishing);
         }
 
-        private Task RefreshDataAsync()
-        {
-            Pagination.Reset();
-            return Pagination.LoadMoreItemsCommand.ExecuteAsync();
-        }
-
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
             var parameters = _dateFilterTypeTitleMap.Values.ToArray();
@@ -165,10 +153,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             }
 
             ActiveFilter = _dateFilterTypeTitleMap.FirstOrDefault(x => x.Value == selectedFilterName).Key;
-            await RefreshDataCommand.ExecuteAsync();
+            await ReloadItemsCommand.ExecuteAsync();
         }
 
-        private async Task<int> OnLoadPublicationsAsync(int page, int pageSize)
+        protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
             try
             {
@@ -213,7 +201,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private int SetVideoList(PaginationModel<VideoDataModel> videoBundle, int page)
         {
-            Pagination.SetTotalItemsCount(videoBundle.TotalCount);
+            SetTotalItemsCount(videoBundle.TotalCount);
             var publicationViewModels = videoBundle.Items.Select(publication =>
                 new PublicationItemViewModel(NavigationService,
                                              DialogService,

@@ -4,26 +4,26 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
-using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
+using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
-    public class OrdersViewModel : BaseViewModel
+    public class OrdersViewModel : PaginationViewModel
     {
         private readonly IMvxMessenger _mvxMessenger;
         private readonly ISettingsService _settingsService;
@@ -55,9 +55,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
+        public MvxInteraction ItemsChangedInteraction { get; }
+
         public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterAsync);
 
-        public MvxAsyncCommand LoadOrdersCommand => new MvxAsyncCommand(OnLoadOrdersAsync);
+        public MvxAsyncCommand LoadOrdersCommand => new MvxAsyncCommand(RefreshOrdersAsync);
 
         public OrdersViewModel(INavigationService navigationService,
                                IDialogService dialogService,
@@ -65,7 +67,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                IMvxMessenger mvxMessenger,
                                ISettingsService settingsService,
                                IErrorHandleService errorHandleService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+            : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _mvxMessenger = mvxMessenger;
             _settingsService = settingsService;
@@ -77,6 +79,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 { OrderFilterType.InProgress, Resources.OrdersView_Filter_CurrentTasks },
                 { OrderFilterType.MyOwn, Resources.OrdersView_Filter_MyTasks }
             };
+
+            ItemsChangedInteraction = new MvxInteraction();
         }
 
         public override Task Initialize()
@@ -97,6 +101,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             base.ViewDestroy(viewFinishing);
         }
 
+        private Task RefreshOrdersAsync()
+        {
+            Reset();
+            return LoadMoreItemsAsync();
+        }
+
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
             var parametres = _orderFilterTypeTitleMap.Values.ToArray();
@@ -109,28 +119,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             await LoadOrdersCommand.ExecuteAsync();
         }
 
-        private async Task OnLoadOrdersAsync()
+        protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
             try
             {
                 IsBusy = true;
 
-                var orders = await ApiService.GetOrdersAsync(ActiveFilter);
-                Items.Clear();
+                var orders = await ApiService.GetOrdersAsync(ActiveFilter, page, pageSize);
 
-                var orderSortComparer = new OrderSortComparer(SettingsService.User.Id, ActiveFilter);
-                var sortedOrderList = orders
-                    .OrderByDescending(c => c.CreatedAt)
-                    .ThenByDescending(c => c, orderSortComparer);
+                //var orderSortComparer = new OrderSortComparer(SettingsService.User.Id, ActiveFilter);
+                //var sortedOrderList = orders
+                //    .OrderByDescending(c => c.CreatedAt)
+                //    .ThenByDescending(c => c, orderSortComparer);
 
-                var viewModelList = sortedOrderList.Select(ProduceOrderViewModel);
+                //var viewModelList = sortedOrderList.Select(ProduceOrderViewModel);
 
-                Items.SwitchTo(viewModelList);
+                return SetList(orders, page);
             }
             catch (Exception ex)
             {
                 ErrorHandleService.HandleException(ex);
                 ErrorHandleService.LogError(this, "Order list loading error occured.");
+                return 0;
             }
             finally
             {
@@ -152,6 +162,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                           order.DurationInHours,
                                           order.Status ?? OrderStatusType.None,
                                           order.Customer?.Id);
+        }
+
+        private int SetList(PaginationModel<OrderDataModel> orderDataModel, int page)
+        {
+            SetTotalItemsCount(orderDataModel.TotalCount);
+            var orderViewModels = orderDataModel.Items.Select(order => ProduceOrderViewModel(order)).ToList();
+
+            if (page > 1)
+            {
+                Items.AddRange(orderViewModels);
+            }
+            else
+            {
+                Items.SwitchTo(orderViewModels);
+            }
+
+            ItemsChangedInteraction.Raise();
+            return orderViewModels.Count;
         }
 
         private void Subscription()

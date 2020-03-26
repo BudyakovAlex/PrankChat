@@ -246,8 +246,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 case ProfileOrderType.MyOrders:
                 case ProfileOrderType.OrdersCompletedByMe:
                     var filterEnum = SelectedOrderType == ProfileOrderType.MyOrders ? OrderFilterType.MyOwn : OrderFilterType.InProgress;
-                    var orders = await ApiService.GetOrdersAsync(filterEnum);
-                    return orders.OrderBy(x => x.Status);
+                    // TODO: Implement pagination.
+                    var result = await ApiService.GetOrdersAsync(filterEnum, 1, 1);
+                    return result.Items.OrderBy(c => c.Status);
             }
 
             return Enumerable.Empty<OrderDataModel>();
