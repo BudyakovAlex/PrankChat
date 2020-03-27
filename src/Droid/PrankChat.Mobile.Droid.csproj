@@ -169,6 +169,7 @@
     <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionVideoViewHolder.cs" />
     <Compile Include="Presentation\Views\Competitions\CompetitionRulesView.cs" />
     <Compile Include="Presentation\Views\Competitions\CompetitionPrizePoolView.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionPrizePoolItemViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -584,6 +585,10 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_competition_rules.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\cell_competiton_prize_pool.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

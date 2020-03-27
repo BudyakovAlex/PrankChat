@@ -4,6 +4,7 @@ using System.Linq;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 
@@ -12,6 +13,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
     public class CompetitionsSectionViewModel : BaseItemViewModel, IDisposable
     {
         private readonly IMvxMessenger _mvxMessenger;
+        private readonly INavigationService _navigationService;
 
         public CompetitionPhase Phase { get; }
 
@@ -20,26 +22,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         public bool HasNavigationControls => Items.Count > 1;
 
         public CompetitionsSectionViewModel(IMvxMessenger mvxMessenger,
+                                            INavigationService navigationService,
                                             CompetitionPhase phase,
                                             List<CompetitionApiModel> competitions)
         {
             _mvxMessenger = mvxMessenger;
+            _navigationService = navigationService;
+
             Phase = phase;
             Items = competitions.Select(ProduceItemViewModel).ToList();
         }
 
         private CompetitionItemViewModel ProduceItemViewModel(CompetitionApiModel competition)
         {
-            return new CompetitionItemViewModel(_mvxMessenger,
-                                                competition.Id,
-                                                competition.Title,
-                                                competition.Description,
-                                                competition.NewTerm,
-                                                competition.VoteTerm,
-                                                competition.PrizePool,
-                                                Phase,
-                                                competition.ImageUrl,
-                                                competition.LikesCount);
+            return new CompetitionItemViewModel(_mvxMessenger, _navigationService, competition);
         }
 
         public void Dispose()

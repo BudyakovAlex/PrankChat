@@ -1,8 +1,8 @@
-﻿using System;
-using Android.Views;
+﻿using Android.Views;
 using Android.Widget;
 using FFImageLoading.Cross;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -55,7 +55,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             _numberTextView = view.FindViewById<TextView>(Resource.Id.number_text_view);
             _durationTextView = view.FindViewById<TextView>(Resource.Id.duration_text_view);
             _termLinearLayout = view.FindViewById<LinearLayout>(Resource.Id.term_linear_layout);
-            _likesTextView = view.FindViewById<TextView>(Resource.Id.likes_text_view);
+            _likesTextView = view.FindViewById<TextView>(Resource.Id.like_text_view);
             _likesImageView = view.FindViewById<ImageView>(Resource.Id.likes_image_view);
             _placeholderImageView = view.FindViewById<MvxCachedImageView>(Resource.Id.placeholder_image_view);
             _prizeTitleTextView = view.FindViewById<TextView>(Resource.Id.prize_title_text_view);
@@ -71,7 +71,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
         {
             base.BindData();
 
-            var bindingSet = this.CreateBindingSet<CompetitionDetailsHeaderViewHolder, CompetitionItemViewModel>();
+            var bindingSet = this.CreateBindingSet<CompetitionDetailsHeaderViewHolder, CompetitionDetailsHeaderViewModel>();
 
             bindingSet.Bind(_titleTextView)
                       .For(v => v.Text)
@@ -92,7 +92,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
 
             bindingSet.Bind(_numberTextView)
                       .For(v => v.Text)
-                      .To(vm => vm.Id);
+                      .To(vm => vm.Number);
 
             bindingSet.Bind(_likesTextView)
                       .For(v => v.Text)
@@ -121,6 +121,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_durationTextView)
                       .For(v => v.Text)
                       .To(vm => vm.Duration);
+
+            bindingSet.Bind(_durationTextView)
+                      .For(v => v.Visibility)
+                      .To(vm => vm.IsFinished)
+                      .WithConversion<BoolToGoneConverter>();
 
             bindingSet.Bind(_placeholderImageView)
                       .For(v => v.ImagePath)
@@ -162,6 +167,23 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_minutesTextView)
                       .For(v => v.Text)
                       .To(vm => vm.MinutesText);
+
+            bindingSet.Bind(_loadVideoButton)
+                      .For(v => v.BindClick())
+                      .To(vm => vm.LoadVideoCommand);
+
+            bindingSet.Bind(_loadVideoButton)
+                      .For(v => v.Visibility)
+                      .To(vm => vm.CanLoadVideo)
+                      .WithConversion<BoolToGoneConverter>();
+
+            bindingSet.Bind(_rulesButton)
+                      .For(v => v.BindClick())
+                      .To(vm => vm.OpenRulesCommand);
+
+            bindingSet.Bind(_resultsButton)
+                      .For(v => v.BindClick())
+                      .To(vm => vm.OpenPrizePoolCommand);
 
             bindingSet.Apply();
         }

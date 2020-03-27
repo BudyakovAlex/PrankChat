@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MvvmCross.Navigation;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
@@ -191,6 +192,21 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 			return _mvxNavigationService.Navigate<ArrayDialogViewModel, ArrayDialogParameter, ArrayDialogResult>(parameter);
 		}
 
-        #endregion
-    }
+        public Task ShowCompetitionDetailsView(CompetitionApiModel competitionApiModel)
+        {
+			return _mvxNavigationService.Navigate<CompetitionDetailsViewModel, CompetitionApiModel>(competitionApiModel);
+		}
+
+		public Task ShowCompetitionPrizePoolView(int competitionId)
+        {
+			return _mvxNavigationService.Navigate<CompetitionPrizePoolViewModel, int>(competitionId);
+		}
+
+		public Task ShowCompetitionRulesView(string content)
+        {
+			return _mvxNavigationService.Navigate<CompetitionRulesViewModel, string>(content);
+		}
+
+		#endregion
+	}
 }

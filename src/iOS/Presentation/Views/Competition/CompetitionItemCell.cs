@@ -136,7 +136,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             bindingSet.Bind(idLabel)
                       .For(v => v.Text)
-                      .To(vm => vm.Id);
+                      .To(vm => vm.Number);
 
             bindingSet.Bind(idLabel)
                       .For(v => v.Hidden)

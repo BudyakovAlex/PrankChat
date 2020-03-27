@@ -1,10 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
         android:id="@+id/competition_details_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-</FrameLayout>
+</LinearLayout>

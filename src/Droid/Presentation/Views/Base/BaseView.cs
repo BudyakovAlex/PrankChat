@@ -56,6 +56,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             var title = FindViewById<TextView>(Resource.Id.toolbar_title);
             if (title != null)
                 title.Text = TitleActionBar;
+
+            DoBind();
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

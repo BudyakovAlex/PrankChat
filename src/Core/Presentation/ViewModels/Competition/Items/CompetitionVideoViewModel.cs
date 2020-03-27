@@ -17,6 +17,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         public DateTime PublicationDate { get; }
         public bool IsLiked { get; }
         public bool IsMyPublication { get; }
+        public bool IsVotingCompleted { get; }
+
+        public bool CanVoteVideo => !IsVotingCompleted && !IsMyPublication;
 
         public ICommand LikeCommand { get; }
 
@@ -26,7 +29,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                                          string likesCount,
                                          string viewsCount,
                                          DateTime publicationDate,
-                                         bool isLiked)
+                                         bool isLiked,
+                                         bool isMyPublication,
+                                         bool isVotingCompleted)
         {
             VideoUrl = videoUrl;
             UserName = userName;
@@ -35,7 +40,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             ViewsCount = viewsCount;
             PublicationDate = publicationDate;
             IsLiked = isLiked;
-
+            IsMyPublication = isMyPublication;
+            IsVotingCompleted = isVotingCompleted;
             LikeCommand = new MvxAsyncCommand(LikeAsync);
         }
 
