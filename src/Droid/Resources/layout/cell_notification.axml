@@ -22,32 +22,32 @@
 		local:layout_constraintTop_toTopOf="@+id/profile_photo"
 		local:MvxBind="Visibility InvertedVisibility(IsDelivered)"/>
 	<PrankChat.Mobile.Droid.Controls.NotificationTextView
-		android:id="@+id/title_text_view"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="8dp"
-		android:layout_marginLeft="15dp"
+        android:id="@+id/title_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-		android:textColor="@color/applicationBlack"
-		android:textSize="12sp"
+        android:textColor="@color/applicationBlack"
+        android:textSize="12sp"
         android:lineSpacingExtra="3dp"
-		local:layout_constraintLeft_toRightOf="@+id/profile_photo"
-		local:layout_constraintTop_toTopOf="parent"
+        local:layout_constraintLeft_toRightOf="@+id/profile_photo"
+        local:layout_constraintTop_toTopOf="parent"
         local:layout_constraintRight_toRightOf="parent"
-		local:MvxBind="Title Title, Mode = OneTime; ProfileName ProfileName, Mode = OneTime"/>
+        local:MvxBind="Title Title, Mode = OneTime; ProfileName ProfileName, Mode = OneTime"/>
 	<TextView
-		android:id="@+id/description_text_view"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="8dp"
-		android:layout_marginLeft="15dp"
+        android:id="@+id/description_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-		android:textSize="12sp"
-		android:textColor="@color/applicationBlack"
+        android:textSize="12sp"
+        android:textColor="@color/applicationBlack"
         local:layout_constraintRight_toRightOf="parent"
-		local:layout_constraintLeft_toRightOf="@+id/profile_photo"
-		local:layout_constraintTop_toBottomOf="@+id/title_text_view"
-		local:MvxBind="Text Description, Mode = OneTime; Visibility Visibility(Description)"/>
+        local:layout_constraintLeft_toRightOf="@+id/profile_photo"
+        local:layout_constraintTop_toBottomOf="@+id/title_text_view"
+        local:MvxBind="Text Description, Mode = OneTime; Visibility Visibility(Description)"/>
 	<!--Second line-->
 	<TextView
 		android:id="@+id/date_text_view"
