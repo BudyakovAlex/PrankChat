@@ -71,6 +71,7 @@
     <Compile Include="ApplicationServices\ExternalAuthService.cs" />
     <Compile Include="Controls\ApplicationSwipeViewPager.cs" />
     <Compile Include="PlatformBusinessServices\Video\Listeners\VideoPlayerOnPreparedListener.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Orders\OrderItemViewHolder.cs" />
     <Compile Include="Presentation\Bindings\OrderButtonStyleBinding.cs" />
     <Compile Include="Presentation\Bindings\BackgroundBinding.cs" />
     <Compile Include="Presentation\Converters\BooleanToResourcePathConverter.cs" />
