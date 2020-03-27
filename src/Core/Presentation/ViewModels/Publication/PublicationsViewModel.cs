@@ -215,25 +215,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         {
             Pagination.SetTotalItemsCount(videoBundle.TotalCount);
             var publicationViewModels = videoBundle.Items.Select(publication =>
-                new PublicationItemViewModel(NavigationService,
-                                             DialogService,
-                                             _platformService,
-                                             Mvx.IoCProvider.Resolve<IVideoPlayerService>(),
-                                             ApiService,
-                                             ErrorHandleService,
-                                             _mvxMessenger,
-                                             _settingsService,
-                                             publication.User?.Name,
-                                             publication.User?.Avatar,
-                                             publication.Id,
-                                             publication.Title,
-                                             publication.Description,
-                                             publication.StreamUri,
-                                             publication.ViewsCount,
-                                             publication.CreatedAt.DateTime,
-                                             publication.LikesCount,
-                                             publication.ShareUri,
-                                             publication.IsLiked)).ToList();
+            {
+                return new PublicationItemViewModel(NavigationService,
+                             DialogService,
+                             _platformService,
+                             Mvx.IoCProvider.Resolve<IVideoPlayerService>(),
+                             ApiService,
+                             ErrorHandleService,
+                             _mvxMessenger,
+                             _settingsService,
+                             publication.User?.Name,
+                             publication.User?.Avatar,
+                             publication.Id,
+                             publication.Title,
+                             publication.Description,
+                             publication.StreamUri,
+                             publication.ViewsCount,
+                             publication.CreatedAt.DateTime,
+                             publication.LikesCount,
+                             publication.ShareUri,
+                             publication.IsLiked);
+            }).ToList();
+
 
             if (page > 1)
             {

@@ -232,6 +232,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 _order.Status = order.Status;
                 _order.Executor = _settingsService.User;
+                _order.ActiveTo = order.ActiveTo;
                 await RaiseAllPropertiesChanged();
             }
         }
