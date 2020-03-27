@@ -802,6 +802,10 @@
     <ImageAsset Include="Assets.xcassets\ic_plus.imageset\ic_plus.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\ThreeDots.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Userpic.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Group 106.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\mdi_arrow_left_alt.pdf" />
     <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\Contents.json" />
@@ -837,7 +841,9 @@
     <Folder Include="Assets.xcassets\bg_order_type_not_my.imageset\" />
     <Folder Include="Assets.xcassets\ic_plus.imageset\" />
     <Folder Include="Assets.xcassets\ic_three_dots.imageset\" />
+    <Folder Include="Assets.xcassets\ic_notification_user.imageset\" />
     <Folder Include="Presentation\Views\ProfileView\ImageCrop\" />
+    <Folder Include="Assets.xcassets\ic_have_notification.imageset\" />
     <Folder Include="Presentation\SourcesAndDelegates\" />
     <Folder Include="Presentation\Views\Competition\" />
     <Folder Include="Assets.xcassets\bg_order_type_completed.imageset\" />

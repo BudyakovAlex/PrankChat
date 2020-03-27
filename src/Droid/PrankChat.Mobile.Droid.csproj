@@ -163,6 +163,7 @@
     <Compile Include="Presentation\Converters\CompetitionPhaseToVisibilityConverter.cs" />
     <Compile Include="Presentation\Converters\BoolToGoneInvertedConverter.cs" />
     <Compile Include="Presentation\Bindings\BackgroundColorBinding.cs" />
+    <Compile Include="Controls\NotificationTextView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -445,12 +446,6 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\action_bar_back_and_logo.axml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\toast_view.xml">
       <SubType>
       </SubType>
@@ -518,6 +513,22 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\color\selectable_button_color_states.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_notification_user.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\notification_dot.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\action_bar_back_and_logo.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_have_notification.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

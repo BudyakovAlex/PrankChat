@@ -57,7 +57,13 @@ namespace PrankChat.Mobile.Droid.Controls
         private void DrawPlaceholder(Canvas canvas)
         {
             if (string.IsNullOrWhiteSpace(PlaceholderText))
+            {
+                if (string.IsNullOrWhiteSpace(ImagePath))
+                {
+                    SetImageResource(Resource.Drawable.ic_notification_user);
+                }
                 return;
+            }
 
             _placeholderPaint = new TextPaint
             {
