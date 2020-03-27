@@ -754,4 +754,13 @@
   <data name="Competitions_New_Term" xml:space="preserve">
     <value>До начала голосования:</value>
   </data>
+  <data name="Competition_Load_Video" xml:space="preserve">
+    <value>Загрузить видео</value>
+  </data>
+  <data name="Competition_Rules" xml:space="preserve">
+    <value>Правила конкурса</value>
+  </data>
+  <data name="Competition_Results" xml:space="preserve">
+    <value>Результаты</value>
+  </data>
 </root>

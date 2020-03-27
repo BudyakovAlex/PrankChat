@@ -232,3 +232,6 @@
 "Competitions_Participate" = "Принять участие";
 "Competitions_Prize_Pool" = "Призовой фонд турнира:";
 "Competitions_New_Term" = "До начала голосования:";
+"Competition_Load_Video" = "Загрузить видео";
+"Competition_Rules" = "Правила конкурса";
+"Competition_Results" = "Результаты";

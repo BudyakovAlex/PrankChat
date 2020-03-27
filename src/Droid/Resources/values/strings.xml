@@ -234,4 +234,7 @@
     <string name="Competitions_Participate">"Принять участие"</string>
     <string name="Competitions_Prize_Pool">"Призовой фонд турнира:"</string>
     <string name="Competitions_New_Term">"До начала голосования:"</string>
+    <string name="Competition_Load_Video">"Загрузить видео"</string>
+    <string name="Competition_Rules">"Правила конкурса"</string>
+    <string name="Competition_Results">"Результаты"</string>
 </resources>

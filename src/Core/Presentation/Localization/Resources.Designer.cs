@@ -1294,5 +1294,23 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Competitions_New_Term", resourceCulture);
             }
         }
+        
+        public static string Competition_Load_Video {
+            get {
+                return ResourceManager.GetString("Competition_Load_Video", resourceCulture);
+            }
+        }
+        
+        public static string Competition_Rules {
+            get {
+                return ResourceManager.GetString("Competition_Rules", resourceCulture);
+            }
+        }
+        
+        public static string Competition_Results {
+            get {
+                return ResourceManager.GetString("Competition_Results", resourceCulture);
+            }
+        }
     }
 }
