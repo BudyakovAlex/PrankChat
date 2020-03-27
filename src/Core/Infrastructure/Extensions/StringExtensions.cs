@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
+using CreditCardValidator;
 
 namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
@@ -25,6 +27,11 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                 return name;
 
             return name.Substring(0, ShortenCountForname).ToUpper();
+        }
+
+        public static bool IsDigit(this char source)
+        {
+            return source >= '0' && source <= '9';
         }
     }
 }

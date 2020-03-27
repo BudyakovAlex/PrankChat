@@ -19,6 +19,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 		UIKit.UILabel availableAmountTitleLabel { get; set; }
 
 		[Outlet]
+		UIKit.UITextField cardNumberEditText { get; set; }
+
+		[Outlet]
 		UIKit.UITextField costTextField { get; set; }
 
 		[Outlet]
@@ -41,6 +44,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (attachDocumentButton != null) {
+				attachDocumentButton.Dispose ();
+				attachDocumentButton = null;
+			}
+
 			if (availableAmountTitleLabel != null) {
 				availableAmountTitleLabel.Dispose ();
 				availableAmountTitleLabel = null;
@@ -51,9 +59,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				costTextField = null;
 			}
 
+			if (creditCardView != null) {
+				creditCardView.Dispose ();
+				creditCardView = null;
+			}
+
+			if (pendingVerifyUserView != null) {
+				pendingVerifyUserView.Dispose ();
+				pendingVerifyUserView = null;
+			}
+
 			if (questionImageView != null) {
 				questionImageView.Dispose ();
 				questionImageView = null;
+			}
+
+			if (verifyUserView != null) {
+				verifyUserView.Dispose ();
+				verifyUserView = null;
 			}
 
 			if (verticalSeparatorView != null) {
@@ -66,24 +89,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				withdrawButton = null;
 			}
 
-			if (creditCardView != null) {
-				creditCardView.Dispose ();
-				creditCardView = null;
-			}
-
-			if (verifyUserView != null) {
-				verifyUserView.Dispose ();
-				verifyUserView = null;
-			}
-
-			if (pendingVerifyUserView != null) {
-				pendingVerifyUserView.Dispose ();
-				pendingVerifyUserView = null;
-			}
-
-			if (attachDocumentButton != null) {
-				attachDocumentButton.Dispose ();
-				attachDocumentButton = null;
+			if (cardNumberEditText != null) {
+				cardNumberEditText.Dispose ();
+				cardNumberEditText = null;
 			}
 		}
 	}

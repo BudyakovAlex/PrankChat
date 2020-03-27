@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using CreditCardValidator;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
@@ -21,6 +22,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
     public class WithdrawalViewModel : BaseViewModel
     {
         private readonly IMediaService _mediaService;
+        private bool _isNewCard;
 
         private double? _cost;
         public double? Cost
@@ -34,6 +36,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         {
             get => _availableForWithdrawal;
             set => SetProperty(ref _availableForWithdrawal, value);
+        }
+
+        private string _cardNumber;
+        public string CardNumber
+        {
+            get => _cardNumber;
+            set
+            {
+                _cardNumber = value.VisualCardNumber();
+                RaisePropertyChanged(nameof(CardNumber));
+                //SetProperty(ref _cardNumber, value);
+            }
         }
 
         public ICommand WithdrawCommand => new MvxAsyncCommand(OnWithdrawAsync);
@@ -87,6 +101,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             if (Cost == null || Cost == 0)
             {
                 ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Cost, ValidationErrorType.CanNotMatch, 0.ToString()));
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(CardNumber))// || (!_isNewCard && ))
+            {
+                ErrorHandleService.HandleException(new ValidationException("Карта не может быть пустой", ValidationErrorType.CanNotMatch, 0.ToString()));
                 return false;
             }
 

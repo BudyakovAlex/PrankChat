@@ -1,6 +1,7 @@
 ﻿using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views;
+using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -26,6 +27,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
             set.Bind(attachDocumentButton)
                 .To(vm => vm.AttachFileCommand);
+
+            set.Bind(cardNumberEditText)
+                .To(vm => vm.CardNumber);
 
             set.Apply();
         }

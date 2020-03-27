@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="attachDocumentButton" destination="V2l-sj-awN" id="6En-Qe-Zsk"/>
                 <outlet property="availableAmountTitleLabel" destination="f9W-P3-O8q" id="w8S-Tp-uKl"/>
+                <outlet property="cardNumberEditText" destination="Y4X-kf-gBK" id="hau-ll-8eq"/>
                 <outlet property="costTextField" destination="fUl-V6-XRJ" id="waC-SE-XT1"/>
                 <outlet property="creditCardView" destination="trf-7M-n3X" id="4s4-eH-0Le"/>
                 <outlet property="pendingVerifyUserView" destination="4o5-7G-iHi" id="qrH-fH-vF0"/>
