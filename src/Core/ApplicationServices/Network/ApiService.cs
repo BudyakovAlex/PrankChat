@@ -391,6 +391,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return null;
         }
 
+        public async Task<DocumentDataModel> SendVerifyDocumentAsync(string path)
+        {
+            var dataApiModel = await _client.PostPhotoFile<DataApiModel<DocumentApiModel>>("me/document", path);
+            var user = MappingConfig.Mapper.Map<DocumentDataModel>(dataApiModel?.Data);
+            return user;
+        }
+
         #endregion Payment
 
         #region Notification

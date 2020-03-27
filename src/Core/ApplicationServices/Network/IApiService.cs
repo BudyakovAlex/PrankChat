@@ -100,6 +100,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<PaymentDataModel> WithdrawalAsync(double coast);
 
+        Task<DocumentDataModel> SendVerifyDocumentAsync(string path);
+
         #endregion Payment
 
         #region Notification

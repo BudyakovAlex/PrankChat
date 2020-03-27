@@ -11,18 +11,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 {
     public partial class WithdrawalView : BaseGradientBarView<WithdrawalViewModel>
     {
-        public MvxCollectionViewSource DataSource { get; private set; }
-
         protected override void SetupBinding()
         {
             var set = this.CreateBindingSet<WithdrawalView, WithdrawalViewModel>();
-
-            set.Bind(DataSource)
-                .To(vm => vm.Items);
-
-            set.Bind(DataSource)
-                .For(v => v.SelectionChangedCommand)
-                .To(vm => vm.SelectionChangedCommand);
 
             set.Bind(withdrawButton)
                 .To(vm => vm.WithdrawCommand);
@@ -32,6 +23,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
             set.Bind(costTextField)
                 .To(vm => vm.Cost);
+
+            set.Bind(attachDocumentButton)
+                .To(vm => vm.AttachFileCommand);
 
             set.Apply();
         }
@@ -45,19 +39,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
             availableAmountTitleLabel.SetRegularStyle(14, Theme.Color.Black);
 
-            paymentMethodsTitleLabel.Text = Resources.CashboxView_WithdrawalMethodSelect_Title;
-            paymentMethodsTitleLabel.SetRegularStyle(14, Theme.Color.Subtitle);
-
             verticalSeparatorView.BackgroundColor = Theme.Color.Accent;
 
             questionImageView.Image = UIImage.FromBundle("ic_question");
-
-            DataSource = new PaymentMethodsCollectionViewSource(paymentMethodsCollectionView, new NSString(PaymentMethodCell.CellId));
-            paymentMethodsCollectionView.Source = DataSource;
-            paymentMethodsCollectionView.RegisterNibForCell(PaymentMethodCell.Nib, PaymentMethodCell.CellId);
-            paymentMethodsCollectionView.UserInteractionEnabled = true;
-            paymentMethodsCollectionView.AllowsSelection = true;
-            paymentMethodsCollectionView.DelaysContentTouches = false;
         }
     }
 }

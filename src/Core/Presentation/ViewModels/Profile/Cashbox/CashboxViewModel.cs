@@ -7,6 +7,7 @@ using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -32,11 +33,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                                 IErrorHandleService errorHandleService,
                                 IApiService apiService,
                                 IDialogService dialogService,
-                                ISettingsService settingsService)
+                                ISettingsService settingsService,
+                                IMediaService mediaService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             Items.Add(new RefillViewModel(navigationService, errorHandleService, apiService, dialogService, settingsService));
-            Items.Add(new WithdrawalViewModel(navigationService, errorHandleService, apiService, dialogService, settingsService));
+            Items.Add(new WithdrawalViewModel(navigationService, errorHandleService, apiService, dialogService, settingsService, mediaService));
         }
 
         public override async Task Initialize()

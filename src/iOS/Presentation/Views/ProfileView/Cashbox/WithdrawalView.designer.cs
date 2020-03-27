@@ -13,19 +13,25 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 	partial class WithdrawalView
 	{
 		[Outlet]
+		UIKit.UIButton attachDocumentButton { get; set; }
+
+		[Outlet]
 		UIKit.UILabel availableAmountTitleLabel { get; set; }
 
 		[Outlet]
 		UIKit.UITextField costTextField { get; set; }
 
 		[Outlet]
-		UIKit.UICollectionView paymentMethodsCollectionView { get; set; }
+		UIKit.UIView creditCardView { get; set; }
 
 		[Outlet]
-		UIKit.UILabel paymentMethodsTitleLabel { get; set; }
+		UIKit.UIView pendingVerifyUserView { get; set; }
 
 		[Outlet]
 		UIKit.UIImageView questionImageView { get; set; }
+
+		[Outlet]
+		UIKit.UIView verifyUserView { get; set; }
 
 		[Outlet]
 		UIKit.UIView verticalSeparatorView { get; set; }
@@ -35,24 +41,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (costTextField != null) {
-				costTextField.Dispose ();
-				costTextField = null;
-			}
-
-			if (withdrawButton != null) {
-				withdrawButton.Dispose ();
-				withdrawButton = null;
-			}
-
-			if (verticalSeparatorView != null) {
-				verticalSeparatorView.Dispose ();
-				verticalSeparatorView = null;
-			}
-
 			if (availableAmountTitleLabel != null) {
 				availableAmountTitleLabel.Dispose ();
 				availableAmountTitleLabel = null;
+			}
+
+			if (costTextField != null) {
+				costTextField.Dispose ();
+				costTextField = null;
 			}
 
 			if (questionImageView != null) {
@@ -60,14 +56,34 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				questionImageView = null;
 			}
 
-			if (paymentMethodsTitleLabel != null) {
-				paymentMethodsTitleLabel.Dispose ();
-				paymentMethodsTitleLabel = null;
+			if (verticalSeparatorView != null) {
+				verticalSeparatorView.Dispose ();
+				verticalSeparatorView = null;
 			}
 
-			if (paymentMethodsCollectionView != null) {
-				paymentMethodsCollectionView.Dispose ();
-				paymentMethodsCollectionView = null;
+			if (withdrawButton != null) {
+				withdrawButton.Dispose ();
+				withdrawButton = null;
+			}
+
+			if (creditCardView != null) {
+				creditCardView.Dispose ();
+				creditCardView = null;
+			}
+
+			if (verifyUserView != null) {
+				verifyUserView.Dispose ();
+				verifyUserView = null;
+			}
+
+			if (pendingVerifyUserView != null) {
+				pendingVerifyUserView.Dispose ();
+				pendingVerifyUserView = null;
+			}
+
+			if (attachDocumentButton != null) {
+				attachDocumentButton.Dispose ();
+				attachDocumentButton = null;
 			}
 		}
 	}
