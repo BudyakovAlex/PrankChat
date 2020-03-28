@@ -112,6 +112,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsTakeOrderAvailable => !IsUserCustomer && _order?.Status == OrderStatusType.Active;
 
+        public bool IsAnyOrderActionAvailable => IsTakeOrderAvailable || IsSubscribeAvailable || IsUnsubscribeAvailable;
+
         public bool IsCancelOrderAvailable => IsUserCustomer && _order?.Status == OrderStatusType.Active;
 
         public bool IsExecuteOrderAvailable => false;
@@ -120,7 +122,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsVideoAvailable => _order?.Video != null;
 
-        public bool IsExecutorAvailable => _order?.Executor != null;
+        public bool IsExecutorAvailable => _order?.Executor != null && _order.Executor.Id != _settingsService.User?.Id;
 
         public bool IsDecideVideoAvailable => _order?.Status == OrderStatusType.InArbitration && IsUserGuest;
 
@@ -230,6 +232,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 _order.Status = order.Status;
                 _order.Executor = _settingsService.User;
+                _order.ActiveTo = order.ActiveTo;
                 await RaiseAllPropertiesChanged();
             }
         }

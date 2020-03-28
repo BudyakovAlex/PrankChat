@@ -45,7 +45,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task AuthorizeAsync(string email, string password)
         {
-            var loginModel = new AuthorizationApiModel { Email = email, Password = password };
+            var loginModel = new AuthorizationApiModel { Email = email.ToLower(), Password = password };
             var authTokenModel = await _client.UnauthorizedPost<AuthorizationApiModel, DataApiModel<AccessTokenApiModel>>("auth/login", loginModel, true);
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
@@ -92,7 +92,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email)
         {
-            var recoverPasswordModel = new RecoverPasswordApiModel { Email = email, };
+            var recoverPasswordModel = new RecoverPasswordApiModel { Email = email.ToLower(), };
             var result = await _client.UnauthorizedPost<RecoverPasswordApiModel, RecoverPasswordResultApiModel>("auth/password/email", recoverPasswordModel, false);
             return MappingConfig.Mapper.Map<RecoverPasswordResultDataModel>(result);
         }
@@ -276,15 +276,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 return new PaginationModel<VideoDataModel>();
             }
 
-            var endpoint = $"orders?page={page}&items_per_page={pageSize}";
+            var endpoint = string.Empty;
             switch (publicationType)
             {
                 case PublicationType.MyVideosOfCreatedOrders:
-                    endpoint += $"&customer_id={userId}";
-                    break;
-
-                case PublicationType.CompletedVideosAssignmentsByMe:
-                    endpoint += $"&executor_id={userId}";
+                    endpoint = $"videos?page={page}&items_per_page={pageSize}&user_id={userId}";
                     break;
 
                 default:
@@ -294,20 +290,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             if (dateFilterType.HasValue)
                 endpoint += $"&date_from={dateFilterType.Value.GetDateString()}";
 
-            var dataApiModel = await _client.Get<BaseBundleApiModel<OrderDataModel>>(endpoint, false, IncludeType.Videos, IncludeType.Customer);
-            var orderDataModel = MappingConfig.Mapper.Map<List<OrderDataModel>>(dataApiModel?.Data);
-
-            var videoData = orderDataModel?.Where(o => o.Video != null)
-                                           .Select(o =>
-                                           {
-                                               o.Video.User = o.Customer;
-                                               return o.Video;
-                                           })
-                                           .ToList();
-       
+            var dataApiModel = await _client.Get<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.User);
+            var orderDataModel = MappingConfig.Mapper.Map<List<VideoDataModel>>(dataApiModel?.Data);
             var paginationData = dataApiModel.Meta.FirstOrDefault();
-            var totalItemsCount = paginationData.Value?.Total ?? videoData.Count;
-            return new PaginationModel<VideoDataModel>(videoData, totalItemsCount);
+            var totalItemsCount = paginationData.Value?.Total ?? orderDataModel.Count;
+            return new PaginationModel<VideoDataModel>(orderDataModel, totalItemsCount);
         }
 
         public async Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)

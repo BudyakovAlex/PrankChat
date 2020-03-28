@@ -83,9 +83,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
 		UIKit.UILabel sexSelectTitleLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIStackView stackView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (stackView != null) {
+				stackView.Dispose ();
+				stackView = null;
+			}
+
 			if (birthdayTextField != null) {
 				birthdayTextField.Dispose ();
 				birthdayTextField = null;

@@ -85,6 +85,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIButton noButton { get; set; }
 
 		[Outlet]
+		UIKit.UIView orderActionsContainerView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel priceTextLabel { get; set; }
 
 		[Outlet]
@@ -256,6 +259,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (minutesValueLabel != null) {
 				minutesValueLabel.Dispose ();
 				minutesValueLabel = null;
+			}
+
+			if (orderActionsContainerView != null) {
+				orderActionsContainerView.Dispose ();
+				orderActionsContainerView = null;
 			}
 
 			if (noButton != null) {
