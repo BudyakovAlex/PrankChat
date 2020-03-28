@@ -9,7 +9,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
@@ -33,8 +33,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         public override Task Initialize()
         {
-            var competitions = new List<CompetitionApiModel>() {
-                new CompetitionApiModel() {
+            var competitions = new List<CompetitionDataModel>() {
+                new CompetitionDataModel() {
                     Number = "#0001",
                     Title = "Конкурс роботов",
                     Description = "Описание конкурса",
@@ -45,7 +45,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                     NewTerm = DateTime.UtcNow.AddDays(-5),
                     VoteTerm = DateTime.UtcNow.AddDays(1)
                 },
-                new CompetitionApiModel() {
+                new CompetitionDataModel() {
                     Number = "#0002",
                     Title = "Конкурс котов",
                     Description = "Описание конкурса",
@@ -56,7 +56,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                     NewTerm = DateTime.UtcNow.AddDays(5),
                     VoteTerm = DateTime.UtcNow.AddDays(8)
                 },
-                new CompetitionApiModel() {
+                new CompetitionDataModel() {
                     Number = "#0003",
                     Title = "Конкурс собак",
                     Description = "Описание конкурса",
@@ -67,7 +67,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                     NewTerm = DateTime.UtcNow.AddDays(-5),
                     VoteTerm = DateTime.UtcNow.AddDays(-3)
                 },
-                new CompetitionApiModel() {
+                new CompetitionDataModel() {
                     Number = "#0004",
                     Title = "Конкурс мышей",
                     Description = "Описание конкурса",
@@ -78,7 +78,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                     NewTerm = DateTime.UtcNow.AddDays(-3),
                     VoteTerm = DateTime.UtcNow.AddDays(4)
                 },
-                    new CompetitionApiModel() {
+                new CompetitionDataModel() {
                     Number = "#0005",
                     Title = "Конкурс брокеров",
                     Description = "Описание конкурса",
@@ -89,7 +89,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                     NewTerm = DateTime.UtcNow.AddDays(3),
                     VoteTerm = DateTime.UtcNow.AddDays(9)
                 },
-                new CompetitionApiModel() {
+                new CompetitionDataModel() {
                     Number = "#0006",
                     Title = "Конкурс машин",
                     Description = "Описание конкурса",

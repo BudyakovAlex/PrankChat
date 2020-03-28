@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         public CompetitionsSectionViewModel(IMvxMessenger mvxMessenger,
                                             INavigationService navigationService,
                                             CompetitionPhase phase,
-                                            List<CompetitionApiModel> competitions)
+                                            List<CompetitionDataModel> competitions)
         {
             _mvxMessenger = mvxMessenger;
             _navigationService = navigationService;
@@ -33,7 +33,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             Items = competitions.Select(ProduceItemViewModel).ToList();
         }
 
-        private CompetitionItemViewModel ProduceItemViewModel(CompetitionApiModel competition)
+        private CompetitionItemViewModel ProduceItemViewModel(CompetitionDataModel competition)
         {
             return new CompetitionItemViewModel(_mvxMessenger, _navigationService, competition);
         }

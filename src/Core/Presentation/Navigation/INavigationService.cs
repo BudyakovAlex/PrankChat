@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -38,7 +38,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowDetailsPublicationView();
 
-        Task ShowCompetitionDetailsView(CompetitionApiModel competitionApiModel);
+        Task ShowCompetitionDetailsView(CompetitionDataModel competition);
 
         Task ShowCompetitionPrizePoolView(int competitionId);
 

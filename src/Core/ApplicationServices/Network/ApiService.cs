@@ -444,5 +444,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             var totalItemsCount = paginationData.Value?.Total ?? mappedModels.Count;
             return new PaginationModel<TDataModel>(mappedModels, totalItemsCount);
         }
+
+        public Task<List<CompetitionDataModel>> GetCompetitionsAsync(int competitionId, int page, int pageSize)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

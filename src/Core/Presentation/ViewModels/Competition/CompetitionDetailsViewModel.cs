@@ -19,12 +19,12 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
-    public class CompetitionDetailsViewModel : PaginationViewModel, IMvxViewModel<CompetitionApiModel>
+    public class CompetitionDetailsViewModel : PaginationViewModel, IMvxViewModel<CompetitionDataModel>
     {
         private readonly IMvxMessenger _mvxMessenger;
         private readonly IMediaService _mediaService;
 
-        private CompetitionApiModel _competition;
+        private CompetitionDataModel _competition;
         private CompetitionDetailsHeaderViewModel _header;
 
         public MvxObservableCollection<BaseItemViewModel> Items { get; }
@@ -43,7 +43,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             Items = new MvxObservableCollection<BaseItemViewModel>();
         }
 
-        public void Prepare(CompetitionApiModel parameter)
+        public void Prepare(CompetitionDataModel parameter)
         {
             _competition = parameter;
             _header = new CompetitionDetailsHeaderViewModel(_mvxMessenger,

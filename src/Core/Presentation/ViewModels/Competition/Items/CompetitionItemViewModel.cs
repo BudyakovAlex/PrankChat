@@ -6,7 +6,7 @@ using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -18,35 +18,35 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
     {
         private readonly IMvxMessenger _mvxMessenger;
         private readonly INavigationService _navigationService;
-        private readonly CompetitionApiModel _competitionApiModel;
+        private readonly CompetitionDataModel _competition;
 
         private MvxSubscriptionToken _timerTickMessageToken;
 
-        public int Id => _competitionApiModel.Id;
+        public int Id => _competition.Id;
 
-        public string Number => _competitionApiModel.Number;
+        public string Number => _competition.Number;
 
-        public string Title => _competitionApiModel.Title;
+        public string Title => _competition.Title;
 
-        public string Description => _competitionApiModel.Description;
+        public string Description => _competition.Description;
 
-        public string HtmlContent => _competitionApiModel.HtmlContent;
+        public string HtmlContent => _competition.HtmlContent;
 
-        public int PrizePool => _competitionApiModel.PrizePool;
+        public int PrizePool => _competition.PrizePool;
 
-        public CompetitionPhase Phase => _competitionApiModel.GetPhase();
+        public CompetitionPhase Phase => _competition.GetPhase();
 
-        public int? LikesCount => _competitionApiModel.LikesCount;
+        public int? LikesCount => _competition.LikesCount;
 
-        public bool CanLoadVideo => Phase == CompetitionPhase.New && !_competitionApiModel.HasLoadedVideo;
+        public bool CanLoadVideo => Phase == CompetitionPhase.New && !_competition.HasLoadedVideo;
 
-        public DateTime VoteTerm => _competitionApiModel.VoteTerm;
+        public DateTime VoteTerm => _competition.VoteTerm;
 
-        public DateTime NewTerm => _competitionApiModel.NewTerm;
+        public DateTime NewTerm => _competition.NewTerm;
 
         public string Duration => $"{VoteTerm.ToString(Constants.Formats.DateTimeFormat)} - {NewTerm.ToString(Constants.Formats.DateTimeFormat)}";
 
-        public string ImageUrl => _competitionApiModel.ImageUrl;
+        public string ImageUrl => _competition.ImageUrl;
 
         public bool IsFinished => Phase == CompetitionPhase.Finished;
 
@@ -71,11 +71,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public CompetitionItemViewModel(IMvxMessenger mvxMessenger,
                                         INavigationService navigationService,
-                                        CompetitionApiModel competitionApiModel)
+                                        CompetitionDataModel competition)
         {
             _mvxMessenger = mvxMessenger;
             _navigationService = navigationService;
-            _competitionApiModel = competitionApiModel;
+            _competition = competition;
 
             Subscribe();
             ActionCommand = new MvxAsyncCommand(ExecuteActionAsync);
@@ -102,7 +102,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         private Task ExecuteActionAsync()
         {
-            return _navigationService.ShowCompetitionDetailsView(_competitionApiModel);
+            return _navigationService.ShowCompetitionDetailsView(_competition);
         }
 
         private void OnTimerTick(TimerTickMessage message)

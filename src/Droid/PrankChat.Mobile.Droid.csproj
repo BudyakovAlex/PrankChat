@@ -175,6 +175,7 @@
     <Compile Include="Presentation\Bindings\ImageViewTintColorTargetBinding.cs" />
     <Compile Include="Presentation\Converters\BoolToResourceConverter.cs" />
     <Compile Include="Presentation\Bindings\TextColorTargetBinding.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Abstract\Video\VideoCardViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -607,6 +608,10 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\competition_like_button_selector.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -938,6 +943,7 @@
     <Folder Include="LayoutManagers\" />
     <Folder Include="Decorators\" />
     <Folder Include="Resources\drawable-v24\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\Abstract\Video\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />
