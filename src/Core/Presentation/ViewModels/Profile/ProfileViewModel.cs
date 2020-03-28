@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
@@ -8,12 +6,13 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
+using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -24,7 +23,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
     public class ProfileViewModel : BaseProfileViewModel
     {
-        private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly IMvxMessenger _mvxMessenger;
         private readonly IExternalAuthService _externalAuthService;
@@ -91,7 +89,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public ProfileViewModel(INavigationService navigationService,
                                 IDialogService dialogService,
-                                IPlatformService platformService,
                                 IApiService apiService,
                                 IVideoPlayerService videoPlayerService,
                                 IErrorHandleService errorHandleService,
@@ -100,7 +97,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                                 IExternalAuthService externalAuthService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
-            _platformService = platformService;
             _videoPlayerService = videoPlayerService;
             _mvxMessenger = mvxMessenger;
             _externalAuthService = externalAuthService;
@@ -124,11 +120,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             base.ViewAppeared();
 
             _videoPlayerService.Play();
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            base.ViewDestroy(viewFinishing);
         }
 
         private async Task OnLoadProfileAsync()
@@ -223,8 +214,31 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             SubscribersValue = user.SubscribersCount.ToCountString();
             SubscriptionsValue = user.SubscriptionsCount.ToCountString();
 
-            var orders = await GetOrdersAsync();
-            Items.SwitchTo(orders.Select(order => new OrderItemViewModel(
+            LoadMoreItemsAsync().FireAndForget();
+        }
+
+        protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = Constants.Pagination.DefaultPaginationSize)
+        {
+            var items = await GetOrdersAsync(page, pageSize);
+            return SetList(items, page, ProduceOrderItemViewModel, Items);
+        }
+
+        protected virtual async Task<PaginationModel<OrderDataModel>> GetOrdersAsync(int page, int pageSize)
+        {
+            switch (SelectedOrderType)
+            {
+                case ProfileOrderType.MyOrders:
+                    return await ApiService.GetOrdersAsync(OrderFilterType.MyOwn, page, pageSize);
+                case ProfileOrderType.OrdersCompletedByMe:
+                    return await ApiService.GetOrdersAsync(OrderFilterType.MyCompleted, page, pageSize);
+            }
+
+            return new PaginationModel<OrderDataModel>();
+        }
+
+        private OrderItemViewModel ProduceOrderItemViewModel(OrderDataModel order)
+        {
+            return new OrderItemViewModel(
                 NavigationService,
                 SettingsService,
                 _mvxMessenger,
@@ -236,21 +250,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 order.ActiveTo,
                 order.DurationInHours,
                 order.Status ?? OrderStatusType.None,
-                order.Customer?.Id)));
-        }
-
-        protected virtual async Task<IEnumerable<OrderDataModel>> GetOrdersAsync()
-        {
-            switch (SelectedOrderType)
-            {
-                case ProfileOrderType.MyOrders:
-                case ProfileOrderType.OrdersCompletedByMe:
-                    var filterEnum = SelectedOrderType == ProfileOrderType.MyOrders ? OrderFilterType.MyOwn : OrderFilterType.InProgress;
-                    var orders = await ApiService.GetOrdersAsync(filterEnum);
-                    return orders.OrderBy(x => x.Status);
-            }
-
-            return Enumerable.Empty<OrderDataModel>();
+                order.Customer?.Id);
         }
     }
 }

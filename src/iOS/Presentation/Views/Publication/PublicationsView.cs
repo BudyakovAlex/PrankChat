@@ -45,7 +45,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             bindingSet.Bind(PublicationTableSource)
                       .For(v => v.LoadMoreItemsCommand)
-                      .To(vm => vm.Pagination.LoadMoreItemsCommand);
+                      .To(vm => vm.LoadMoreItemsCommand);
 
             bindingSet.Bind(_refreshControl)
                       .For(v => v.IsRefreshing)
@@ -53,7 +53,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             bindingSet.Bind(_refreshControl)
                       .For(v => v.RefreshCommand)
-                      .To(vm => vm.RefreshDataCommand);
+                      .To(vm => vm.ReloadItemsCommand);
 
             bindingSet.Apply();
 		}
