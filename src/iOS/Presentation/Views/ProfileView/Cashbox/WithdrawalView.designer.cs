@@ -28,10 +28,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 		UIKit.UIView creditCardView { get; set; }
 
 		[Outlet]
+		UIKit.UITextField firstNameTextField { get; set; }
+
+		[Outlet]
 		UIKit.UIView pendingVerifyUserView { get; set; }
 
 		[Outlet]
 		UIKit.UIImageView questionImageView { get; set; }
+
+		[Outlet]
+		UIKit.UITextField surnameTextField { get; set; }
 
 		[Outlet]
 		UIKit.UIView verifyUserView { get; set; }
@@ -92,6 +98,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 			if (cardNumberEditText != null) {
 				cardNumberEditText.Dispose ();
 				cardNumberEditText = null;
+			}
+
+			if (firstNameTextField != null) {
+				firstNameTextField.Dispose ();
+				firstNameTextField = null;
+			}
+
+			if (surnameTextField != null) {
+				surnameTextField.Dispose ();
+				surnameTextField = null;
 			}
 		}
 	}

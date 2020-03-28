@@ -14,8 +14,10 @@
                 <outlet property="cardNumberEditText" destination="Y4X-kf-gBK" id="hau-ll-8eq"/>
                 <outlet property="costTextField" destination="fUl-V6-XRJ" id="waC-SE-XT1"/>
                 <outlet property="creditCardView" destination="trf-7M-n3X" id="4s4-eH-0Le"/>
+                <outlet property="firstNameTextField" destination="7vW-hy-ACx" id="o3s-1k-mqP"/>
                 <outlet property="pendingVerifyUserView" destination="4o5-7G-iHi" id="qrH-fH-vF0"/>
                 <outlet property="questionImageView" destination="3tp-mi-m32" id="5Gd-3B-7TB"/>
+                <outlet property="surnameTextField" destination="tod-0w-40G" id="8Be-uS-2Tj"/>
                 <outlet property="verifyUserView" destination="iri-iZ-AbZ" id="Y0k-XE-rfy"/>
                 <outlet property="verticalSeparatorView" destination="ntb-zT-DjX" id="dqT-sw-X7a"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>

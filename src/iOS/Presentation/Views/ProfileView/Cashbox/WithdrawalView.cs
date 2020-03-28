@@ -31,6 +31,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
             set.Bind(cardNumberEditText)
                 .To(vm => vm.CardNumber);
 
+            set.Bind(firstNameTextField)
+                .To(vm => vm.Name);
+
+            set.Bind(surnameTextField)
+                .To(vm => vm.Surname);
+
             set.Apply();
         }
 

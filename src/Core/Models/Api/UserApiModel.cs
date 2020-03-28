@@ -24,6 +24,9 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         public string Description { get; set; }
 
+        [JsonProperty("document_verified_at")]
+        public DateTime? DocumentVerifiedAt { get; set; }
+
         [JsonProperty("orders_own_count")]
         public int? OrdersOwnCount { get; set; }
 

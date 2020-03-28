@@ -43,6 +43,8 @@ namespace PrankChat.Mobile.Core.Models.Mappings
                 .ReverseMap();
             CreateMap<RecoverPasswordResultDataModel, RecoverPasswordResultApiModel>().ReverseMap();
             CreateMap<DocumentDataModel, DocumentApiModel>().ReverseMap();
+            CreateMap<CardDataModel, CardApiModel>().ReverseMap();
+            CreateMap<WithdrawalDataModel, WithdrawalApiModel>().ReverseMap();
         }
     }
 }

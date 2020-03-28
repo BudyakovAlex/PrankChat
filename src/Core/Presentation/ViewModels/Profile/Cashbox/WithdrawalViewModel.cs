@@ -13,6 +13,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -22,7 +23,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
     public class WithdrawalViewModel : BaseViewModel
     {
         private readonly IMediaService _mediaService;
-        private bool _isNewCard;
+        private CardDataModel _currentCard;
 
         private double? _cost;
         public double? Cost
@@ -44,15 +45,31 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             get => _cardNumber;
             set
             {
-                _cardNumber = value.VisualCardNumber();
-                RaisePropertyChanged(nameof(CardNumber));
-                //SetProperty(ref _cardNumber, value);
+                //_cardNumber = value.VisualCardNumber();
+                //RaisePropertyChanged(nameof(CardNumber));
+                SetProperty(ref _cardNumber, value);
             }
+        }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetProperty(ref _name, value);
+        }
+
+        private string _surname;
+        public string Surname
+        {
+            get => _surname;
+            set => SetProperty(ref _surname, value);
         }
 
         public ICommand WithdrawCommand => new MvxAsyncCommand(OnWithdrawAsync);
 
         public ICommand AttachFileCommand => new MvxAsyncCommand(OnAttachFileAsync);
+
+        public ICommand DeleteCardCommand => new MvxAsyncCommand(OnDeleteCardAsync);
 
         public WithdrawalViewModel(INavigationService navigationService,
                                    IErrorHandleService errorHandleService,
@@ -66,12 +83,45 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             AvailableForWithdrawal = $"{Resources.CashboxView_WithdrawalAvailable_Title} {settingsService.User?.Balance.ToPriceString()}";
         }
 
-        private Task OnWithdrawAsync()
+        public override Task Initialize()
+        {
+            return GetUserCard();
+        }
+
+        private async Task OnWithdrawAsync()
         {
             if (!CheckValidation())
-                return Task.CompletedTask;
+                return;
 
-            return Task.CompletedTask;
+            try
+            {
+                IsBusy = true;
+
+                if (_currentCard == null)
+                {
+                    _currentCard = await ApiService.SaveCardAsync(CardNumber, $"{Name} {Surname}");
+                }
+
+                if (_currentCard == null)
+                {
+                    ErrorHandleService.HandleException(new ValidationException("Карта не может быть пустой", ValidationErrorType.CanNotMatch, 0.ToString()));
+                    return;
+                }
+
+                var video = await ApiService.WithdrawalAsync(Cost.Value, _currentCard.Id);
+                if (video != null)
+                {
+                    await RaiseAllPropertiesChanged();
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: Add the log.
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private async Task OnAttachFileAsync()
@@ -84,8 +134,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 if (file == null)
                     return;
 
-                var video = await ApiService.SendVerifyDocumentAsync(file.Path);
-                if (video != null)
+                var document = await ApiService.SendVerifyDocumentAsync(file.Path);
+                if (document != null)
                 {
                     await RaiseAllPropertiesChanged();
                 }
@@ -94,6 +144,43 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             {
                 IsBusy = false;
             }
+        }
+
+        private async Task OnDeleteCardAsync()
+        {
+            if (_currentCard == null)
+                return;
+
+            try
+            {
+                IsBusy = true;
+
+                await ApiService.DeleteCardAsync(_currentCard.Id);
+                _currentCard = null;
+            }
+            catch (Exception ex)
+            {
+                // TODO: Add the log.
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task GetUserCard()
+        {
+            try
+            {
+                IsBusy = true;
+
+                _currentCard = await ApiService.GetCardsAsync();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
         }
 
         private bool CheckValidation()

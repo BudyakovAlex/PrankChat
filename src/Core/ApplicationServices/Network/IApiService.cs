@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
@@ -77,6 +78,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         
         Task ComplainUserAsync(int userId, string title, string description);
 
+        Task<DocumentDataModel> SendVerifyDocumentAsync(string path);
+
+        Task<CardDataModel> SaveCardAsync(string number, string userName);
+
+        Task<CardDataModel> GetCardsAsync();
+
+        Task DeleteCardAsync(int id);
+
         #endregion Users
 
         #region Video
@@ -98,9 +107,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<PaymentDataModel> RefillAsync(double coast);
 
-        Task<PaymentDataModel> WithdrawalAsync(double coast);
-
-        Task<DocumentDataModel> SendVerifyDocumentAsync(string path);
+        Task<WithdrawalDataModel> WithdrawalAsync(double coast, int cardId);
 
         #endregion Payment
 

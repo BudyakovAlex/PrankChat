@@ -227,7 +227,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Publications
 
-
         public async Task<PaginationModel<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
             BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
@@ -312,7 +311,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<UserDataModel> SendAvatarAsync(string path)
         {
-            var dataApiModel = await _client.PostPhotoFile<DataApiModel<UserApiModel>>("me/picture", path);
+            var dataApiModel = await _client.PostPhotoFile<DataApiModel<UserApiModel>>("me/picture", path, "avatar");
             var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
             return user;
         }
@@ -334,6 +333,37 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             };
             var url = $"users/{userId}/complaint";
             return _client.Post(url, dataApiModel);
+        }
+
+        public async Task<DocumentDataModel> SendVerifyDocumentAsync(string path)
+        {
+            var dataApiModel = await _client.PostPhotoFile<DataApiModel<DocumentApiModel>>("user/dcs", path, "document");
+            var user = MappingConfig.Mapper.Map<DocumentDataModel>(dataApiModel?.Data);
+            return user;
+        }
+
+        public async Task<CardDataModel> SaveCardAsync(string number, string userName)
+        {
+            var createCreditCard = new CreateCardApiModel()
+            {
+                Number = number,
+                CardUserName = userName,
+            };
+            var dataApiModel = await _client.Post<CreateCardApiModel, DataApiModel<CardApiModel>>("me/card", createCreditCard, true);
+            var user = MappingConfig.Mapper.Map<CardDataModel>(dataApiModel?.Data);
+            return user;
+        }
+
+        public async Task<CardDataModel> GetCardsAsync()
+        {
+            var dataApiModel = await _client.Get<DataApiModel<List<CardApiModel>>>("user/cards");
+            var data = MappingConfig.Mapper.Map<List<CardDataModel>>(dataApiModel?.Data);
+            return data?.FirstOrDefault();
+        }
+
+        public Task DeleteCardAsync(int id)
+        {
+            return _client.Post($"me/card/{id}", true);
         }
 
         #endregion Users
@@ -386,16 +416,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<PaymentDataModel>(data?.Data);
         }
 
-        public async Task<PaymentDataModel> WithdrawalAsync(double coast)
+        public async Task<WithdrawalDataModel> WithdrawalAsync(double coast, int cardId)
         {
-            return null;
-        }
+            var createWithdrawalApiModel = new CreateWithdrawalApiModel()
+            {
+                Amount = coast,
+                CreditCardId = cardId,
+            };
 
-        public async Task<DocumentDataModel> SendVerifyDocumentAsync(string path)
-        {
-            var dataApiModel = await _client.PostPhotoFile<DataApiModel<DocumentApiModel>>("me/document", path);
-            var user = MappingConfig.Mapper.Map<DocumentDataModel>(dataApiModel?.Data);
-            return user;
+            var dataApiModel = await _client.Post<CreateWithdrawalApiModel, DataApiModel<WithdrawalApiModel>>("payment/withdrawal/create", createWithdrawalApiModel);
+            var data = MappingConfig.Mapper.Map<WithdrawalDataModel>(dataApiModel?.Data);
+            return data;
         }
 
         #endregion Payment
