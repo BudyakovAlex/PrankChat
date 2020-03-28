@@ -218,7 +218,7 @@
     <string name="com.crashlytics.android.build_id">"e9e6beb9c4284289ac68b9ab76a9ee56"</string>
     <string name="FinishPasswordRecoveryView_GoToFeed_Button">"Перейти в ленту"</string>
     <string name="FinishPasswordRecoveryView_GoToLogin_Button">"Войти в аккаунт"</string>
-    <integer name="com_vk_sdk_AppId">7343996</integer>
+    <string name="com_vk_sdk_AppId">"7343996"</string>
     <string name="Count_Days">"Дней"</string>
     <string name="Count_Hours">"Часов"</string>
     <string name="Count_Minutes">"Минут"</string>
@@ -234,4 +234,12 @@
     <string name="Competitions_Participate">"Принять участие"</string>
     <string name="Competitions_Prize_Pool">"Призовой фонд турнира:"</string>
     <string name="Competitions_New_Term">"До начала голосования:"</string>
+    <string name="Competition_Load_Video">"Загрузить видео"</string>
+    <string name="Competition_Rules">"Правила конкурса"</string>
+    <string name="Competition_Results">"Результаты"</string>
+    <string name="WithdrawalView_FirstName_Placeholder">"Имя"</string>
+    <string name="WithdrawalView_LastName_Placeholder">"Фамилия"</string>
+    <string name="WithdrawalView_CardNumber_Placeholder">"Номер карты"</string>
+    <string name="WithdrawalView_AttachFile_Button">"Прикрепить файл"</string>
+    <string name="WithdrawalView_Revoke_Button">"Отозвать"</string>
 </resources>

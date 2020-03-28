@@ -232,3 +232,11 @@
 "Competitions_Participate" = "Принять участие";
 "Competitions_Prize_Pool" = "Призовой фонд турнира:";
 "Competitions_New_Term" = "До начала голосования:";
+"Competition_Load_Video" = "Загрузить видео";
+"Competition_Rules" = "Правила конкурса";
+"Competition_Results" = "Результаты";
+"WithdrawalView_FirstName_Placeholder" = "Имя";
+"WithdrawalView_LastName_Placeholder" = "Фамилия";
+"WithdrawalView_CardNumber_Placeholder" = "Номер карты";
+"WithdrawalView_AttachFile_Button" = "Прикрепить файл";
+"WithdrawalView_Revoke_Button" = "Отозвать";

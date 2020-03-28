@@ -1294,5 +1294,53 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Competitions_New_Term", resourceCulture);
             }
         }
+        
+        public static string Competition_Load_Video {
+            get {
+                return ResourceManager.GetString("Competition_Load_Video", resourceCulture);
+            }
+        }
+        
+        public static string Competition_Rules {
+            get {
+                return ResourceManager.GetString("Competition_Rules", resourceCulture);
+            }
+        }
+        
+        public static string Competition_Results {
+            get {
+                return ResourceManager.GetString("Competition_Results", resourceCulture);
+            }
+        }
+        
+        public static string WithdrawalView_FirstName_Placeholder {
+            get {
+                return ResourceManager.GetString("WithdrawalView_FirstName_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string WithdrawalView_LastName_Placeholder {
+            get {
+                return ResourceManager.GetString("WithdrawalView_LastName_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string WithdrawalView_CardNumber_Placeholder {
+            get {
+                return ResourceManager.GetString("WithdrawalView_CardNumber_Placeholder", resourceCulture);
+            }
+        }
+        
+        public static string WithdrawalView_AttachFile_Button {
+            get {
+                return ResourceManager.GetString("WithdrawalView_AttachFile_Button", resourceCulture);
+            }
+        }
+        
+        public static string WithdrawalView_Revoke_Button {
+            get {
+                return ResourceManager.GetString("WithdrawalView_Revoke_Button", resourceCulture);
+            }
+        }
     }
 }

@@ -1,7 +1,6 @@
-﻿using Foundation;
-using MvvmCross.Binding.BindingContext;
+﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
-using MvvmCross.Platforms.Ios.Binding.Views;
+using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
@@ -30,11 +29,31 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
             set.Bind(cardNumberEditText)
                 .To(vm => vm.CardNumber);
 
+            set.Bind(cardNumberEditText)
+                .For(v => v.Hidden)
+                .To(vm => vm.IsPresavedWithdrawalAvailable);
+
+            set.Bind(savedCardNumberEditText.Tap())
+                .For(v => v.Command)
+                .To(vm => vm.OpenCardOptionsCommand);
+
+            set.Bind(savedCardNumberEditText)
+                .For(v => v.Hidden)
+                .To(vm => vm.IsPresavedWithdrawalAvailable)
+                .WithConversion<MvxInvertedBooleanConverter>();
+
+            set.Bind(savedCardNumberEditText)
+                .To(vm => vm.CurrentCardNumber);
+
             set.Bind(firstNameTextField)
                 .To(vm => vm.Name);
 
             set.Bind(surnameTextField)
                 .To(vm => vm.Surname);
+
+            set.Bind(nameContainerStackView)
+                .For(v => v.Hidden)
+                .To(vm => vm.IsPresavedWithdrawalAvailable);
 
             set.Bind(withdrawButton)
                 .To(vm => vm.WithdrawCommand);
@@ -83,14 +102,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
         protected override void SetupControls()
         {
-            cardNumberEditText.SetDarkStyle("Номер карты");
-            firstNameTextField.SetDarkStyle("Имя");
-            surnameTextField.SetDarkStyle("Фамилия");
+            cardNumberEditText.SetDarkStyle(Resources.WithdrawalView_CardNumber_Placeholder, UIImage.FromBundle("ic_credit_card"));
+            savedCardNumberEditText.SetDarkStyle(
+                Resources.WithdrawalView_CardNumber_Placeholder,
+                UIImage.FromBundle("ic_credit_card"),
+                UIImage.FromBundle("ic_arrow_dropdown"));
+
+            firstNameTextField.SetDarkStyle(Resources.WithdrawalView_FirstName_Placeholder);
+            surnameTextField.SetDarkStyle(Resources.WithdrawalView_LastName_Placeholder);
             costTextField.SetDarkStyle(Resources.CashboxView_Price_Placeholder);
             costTextField.TextAlignment = UITextAlignment.Right;
 
-            attachDocumentButton.SetDarkStyle("Прикрепить файл");
-            cancelWithdrawalButton.SetDarkStyle("Отозвать");
+            attachDocumentButton.SetDarkStyle(Resources.WithdrawalView_AttachFile_Button);
+            cancelWithdrawalButton.SetDarkStyle(Resources.WithdrawalView_Revoke_Button);
             withdrawButton.SetDarkStyle(Resources.CashboxView_Withdrawal_Button);
 
             availableAmountTitleLabel.SetRegularStyle(14, Theme.Color.Black);

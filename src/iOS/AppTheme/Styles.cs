@@ -143,7 +143,13 @@ namespace PrankChat.Mobile.iOS.AppTheme
             searchBar.TintColor = Theme.Color.Text;
         }
 
-        public static void SetLightStyle(this UITextField textField, string placeholder = null, UIImage rightImage = null, float leftPadding = 14, float rightPadding = 0)
+        public static void SetLightStyle(
+            this UITextField textField,
+            string placeholder = null,
+            UIImage leftImage = null,
+            UIImage rightImage = null,
+            float leftPadding = 14,
+            float rightPadding = 0)
         {
             textField.TextColor = Theme.Color.White;
             textField.BackgroundColor = UIColor.Clear;
@@ -156,10 +162,16 @@ namespace PrankChat.Mobile.iOS.AppTheme
                 ForegroundColor = Theme.Color.White
             };
 
-            textField.SetStyle(placeholderAttributes, placeholder, rightImage, leftPadding, rightPadding);
+            textField.SetStyle(placeholderAttributes, placeholder, leftImage, rightImage, leftPadding, rightPadding);
         }
 
-        public static void SetDarkStyle(this UITextField textField, string placeholder = null, UIImage rightImage = null, float leftPadding = 14, float rightPadding = 0)
+        public static void SetDarkStyle(
+            this UITextField textField,
+            string placeholder = null,
+            UIImage leftImage = null,
+            UIImage rightImage = null,
+            float leftPadding = 14,
+            float rightPadding = 0)
         {
             textField.TextColor = Theme.Color.Text;
             textField.BackgroundColor = UIColor.Clear;
@@ -172,7 +184,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
                 ForegroundColor = Theme.Color.Subtitle
             };
 
-            textField.SetStyle(placeholderAttributes, placeholder, rightImage, leftPadding, rightPadding);
+            textField.SetStyle(placeholderAttributes, placeholder, leftImage, rightImage, leftPadding, rightPadding);
         }
 
         public static void SetStyle(
@@ -465,6 +477,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             this UITextField textField,
             UIStringAttributes placeholderAttributes,
             string placeholder = null,
+            UIImage leftImage = null,
             UIImage rightImage = null,
             float leftPadding = 14,
             float rightPadding = 14)
@@ -484,17 +497,35 @@ namespace PrankChat.Mobile.iOS.AppTheme
             textField.RightViewMode = UITextFieldViewMode.Always;
 
             textField.TrySetRightImage(rightImage);
+            textField.TrySetLeftImage(leftImage);
 
             return textField;
         }
 
-        private static UITextField TrySetRightImage(this UITextField textField, UIImage image)
+        private static UITextField TrySetLeftImage(this UITextField textField, UIImage image, int leftPadding = 7, int rightPadding = 15)
         {
             if (image != null)
             {
-                var imageView = new UIImageView(image);
-                var imageContainer = new UIView(new CGRect(0, 0, 35, 22));
-                imageContainer.ContentMode = UIViewContentMode.Center;
+                var imageView = new UIImageView(new CGRect(leftPadding, 0, image.Size.Width, image.Size.Height));
+                imageView.Image = image;
+                var imageContainer = new UIView(new CGRect(0, 0, leftPadding + image.Size.Width + rightPadding, image.Size.Height));
+                imageContainer.ContentMode = UIViewContentMode.Left;
+                imageContainer.AddSubview(imageView);
+                textField.LeftView = imageContainer;
+                textField.LeftViewMode = UITextFieldViewMode.Always;
+            }
+
+            return textField;
+        }
+
+        private static UITextField TrySetRightImage(this UITextField textField, UIImage image, int leftPadding = 10, int rightPadding = 16)
+        {
+            if (image != null)
+            {
+                var imageView = new UIImageView(new CGRect(leftPadding, 0, image.Size.Width, image.Size.Height));
+                imageView.Image = image;
+                var imageContainer = new UIView(new CGRect(0, 0, leftPadding + image.Size.Width + rightPadding, image.Size.Height));
+                imageContainer.ContentMode = UIViewContentMode.Right;
                 imageContainer.AddSubview(imageView);
                 textField.RightView = imageContainer;
                 textField.RightViewMode = UITextFieldViewMode.Always;

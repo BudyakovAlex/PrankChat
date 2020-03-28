@@ -13,6 +13,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 	partial class WithdrawalView
 	{
 		[Outlet]
+		UIKit.UIStackView amountContainerStackView { get; set; }
+
+		[Outlet]
 		UIKit.UIButton attachDocumentButton { get; set; }
 
 		[Outlet]
@@ -37,6 +40,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 		Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
 
 		[Outlet]
+		UIKit.UIStackView nameContainerStackView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel pendingVerifyUserLabel { get; set; }
 
 		[Outlet]
@@ -59,6 +65,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
 		[Outlet]
 		UIKit.UIImageView questionImageView { get; set; }
+
+		[Outlet]
+		UIKit.UITextField savedCardNumberEditText { get; set; }
 
 		[Outlet]
 		UIKit.UITextField surnameTextField { get; set; }
@@ -90,9 +99,29 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				availableAmountTitleLabel = null;
 			}
 
+			if (cancelWithdrawalButton != null) {
+				cancelWithdrawalButton.Dispose ();
+				cancelWithdrawalButton = null;
+			}
+
+			if (cardNumberEditText != null) {
+				cardNumberEditText.Dispose ();
+				cardNumberEditText = null;
+			}
+
+			if (amountContainerStackView != null) {
+				amountContainerStackView.Dispose ();
+				amountContainerStackView = null;
+			}
+
 			if (costTextField != null) {
 				costTextField.Dispose ();
 				costTextField = null;
+			}
+
+			if (nameContainerStackView != null) {
+				nameContainerStackView.Dispose ();
+				nameContainerStackView = null;
 			}
 
 			if (creditCardView != null) {
@@ -100,14 +129,74 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				creditCardView = null;
 			}
 
+			if (firstNameTextField != null) {
+				firstNameTextField.Dispose ();
+				firstNameTextField = null;
+			}
+
+			if (lottieAnimationView != null) {
+				lottieAnimationView.Dispose ();
+				lottieAnimationView = null;
+			}
+
+			if (pendingVerifyUserLabel != null) {
+				pendingVerifyUserLabel.Dispose ();
+				pendingVerifyUserLabel = null;
+			}
+
+			if (pendingVerifyUserSeparator != null) {
+				pendingVerifyUserSeparator.Dispose ();
+				pendingVerifyUserSeparator = null;
+			}
+
 			if (pendingVerifyUserView != null) {
 				pendingVerifyUserView.Dispose ();
 				pendingVerifyUserView = null;
 			}
 
+			if (pendingWithdrawalLabel != null) {
+				pendingWithdrawalLabel.Dispose ();
+				pendingWithdrawalLabel = null;
+			}
+
+			if (pendingWithdrawalSeparator != null) {
+				pendingWithdrawalSeparator.Dispose ();
+				pendingWithdrawalSeparator = null;
+			}
+
+			if (pendingWithdrawalView != null) {
+				pendingWithdrawalView.Dispose ();
+				pendingWithdrawalView = null;
+			}
+
+			if (progressBarView != null) {
+				progressBarView.Dispose ();
+				progressBarView = null;
+			}
+
 			if (questionImageView != null) {
 				questionImageView.Dispose ();
 				questionImageView = null;
+			}
+
+			if (savedCardNumberEditText != null) {
+				savedCardNumberEditText.Dispose ();
+				savedCardNumberEditText = null;
+			}
+
+			if (surnameTextField != null) {
+				surnameTextField.Dispose ();
+				surnameTextField = null;
+			}
+
+			if (verifyUserLabel != null) {
+				verifyUserLabel.Dispose ();
+				verifyUserLabel = null;
+			}
+
+			if (verifyUserSeparator != null) {
+				verifyUserSeparator.Dispose ();
+				verifyUserSeparator = null;
 			}
 
 			if (verifyUserView != null) {
@@ -123,71 +212,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 			if (withdrawButton != null) {
 				withdrawButton.Dispose ();
 				withdrawButton = null;
-			}
-
-			if (cardNumberEditText != null) {
-				cardNumberEditText.Dispose ();
-				cardNumberEditText = null;
-			}
-
-			if (firstNameTextField != null) {
-				firstNameTextField.Dispose ();
-				firstNameTextField = null;
-			}
-
-			if (surnameTextField != null) {
-				surnameTextField.Dispose ();
-				surnameTextField = null;
-			}
-
-			if (verifyUserLabel != null) {
-				verifyUserLabel.Dispose ();
-				verifyUserLabel = null;
-			}
-
-			if (pendingVerifyUserLabel != null) {
-				pendingVerifyUserLabel.Dispose ();
-				pendingVerifyUserLabel = null;
-			}
-
-			if (verifyUserSeparator != null) {
-				verifyUserSeparator.Dispose ();
-				verifyUserSeparator = null;
-			}
-
-			if (pendingVerifyUserSeparator != null) {
-				pendingVerifyUserSeparator.Dispose ();
-				pendingVerifyUserSeparator = null;
-			}
-
-			if (pendingWithdrawalView != null) {
-				pendingWithdrawalView.Dispose ();
-				pendingWithdrawalView = null;
-			}
-
-			if (pendingWithdrawalSeparator != null) {
-				pendingWithdrawalSeparator.Dispose ();
-				pendingWithdrawalSeparator = null;
-			}
-
-			if (pendingWithdrawalLabel != null) {
-				pendingWithdrawalLabel.Dispose ();
-				pendingWithdrawalLabel = null;
-			}
-
-			if (progressBarView != null) {
-				progressBarView.Dispose ();
-				progressBarView = null;
-			}
-
-			if (lottieAnimationView != null) {
-				lottieAnimationView.Dispose ();
-				lottieAnimationView = null;
-			}
-
-			if (cancelWithdrawalButton != null) {
-				cancelWithdrawalButton.Dispose ();
-				cancelWithdrawalButton = null;
 			}
 		}
 	}

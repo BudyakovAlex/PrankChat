@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using CreditCardValidator;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
@@ -52,6 +49,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
         }
 
+        public string CurrentCardNumber => _currentCard?.Number ?? string.Empty;
+
         private string _name;
         public string Name
         {
@@ -73,6 +72,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         public bool IsWithdrawalAvailable => !IsAttachDocumentAvailable && !IsDocumentPending && _lastWithdrawalDataModel == null;
 
         public bool IsWithdrawalPending => !IsAttachDocumentAvailable && !IsDocumentPending && _lastWithdrawalDataModel != null;
+
+        public bool IsPresavedWithdrawalAvailable => _currentCard != null && IsWithdrawalAvailable;
 
         public ICommand WithdrawCommand => new MvxAsyncCommand(OnWithdrawAsync);
 
@@ -123,8 +124,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                     _currentCard = card;
                 }
 
-                var video = await ApiService.WithdrawalAsync(Cost.Value, _currentCard.Id);
-                if (video != null)
+                var result = await ApiService.WithdrawalAsync(Cost.Value, _currentCard.Id);
+                if (result != null)
                 {
                     await RaiseAllPropertiesChanged();
                 }
@@ -233,7 +234,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 {
                     IsBusy = false;
                 }
-
             }
         }
 
