@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -16,18 +17,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
         {
             var set = this.CreateBindingSet<WithdrawalView, WithdrawalViewModel>();
 
-            set.Bind(withdrawButton)
-                .To(vm => vm.WithdrawCommand);
+            #region CreditCardView
 
-            set.Bind(availableAmountTitleLabel)
-                .To(vm => vm.AvailableForWithdrawal);
+            set.Bind(creditCardView)
+                .For(v => v.BindVisible())
+                .To(vm => vm.IsWithdrawalAvailable);
 
             set.Bind(costTextField)
                 .To(vm => vm.Cost)
                 .WithConversion<PriceConverter>();
-
-            set.Bind(attachDocumentButton)
-                .To(vm => vm.AttachFileCommand);
 
             set.Bind(cardNumberEditText)
                 .To(vm => vm.CardNumber);
@@ -37,6 +35,48 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
             set.Bind(surnameTextField)
                 .To(vm => vm.Surname);
+
+            set.Bind(withdrawButton)
+                .To(vm => vm.WithdrawCommand);
+
+            set.Bind(availableAmountTitleLabel)
+                .To(vm => vm.AvailableForWithdrawal);
+
+            #endregion
+
+            #region PendingWithdrawalView
+
+            set.Bind(pendingWithdrawalView)
+                .For(v => v.BindVisible())
+                .To(vm => vm.IsWithdrawalPending);
+
+            #endregion
+
+            #region VerifyUserView
+
+            set.Bind(verifyUserView)
+                .For(v => v.BindVisible())
+                .To(vm => vm.IsAttachDocumentAvailable);
+
+            set.Bind(attachDocumentButton)
+                .To(vm => vm.AttachFileCommand);
+
+            #endregion
+
+            #region PendingVerifyUserView
+
+            set.Bind(pendingVerifyUserView)
+                .For(v => v.BindVisible())
+                .To(vm => vm.IsDocumentPending);
+
+            set.Bind(cancelWithdrawalButton)
+                .To(vm => vm.CancelWithdrawCommand);
+
+            #endregion
+
+            set.Bind(progressBarView)
+                .For(v => v.BindVisible())
+                .To(vm => vm.IsBusy);
 
             set.Apply();
         }
@@ -50,6 +90,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
             costTextField.TextAlignment = UITextAlignment.Right;
 
             attachDocumentButton.SetDarkStyle("Прикрепить файл");
+            cancelWithdrawalButton.SetDarkStyle("Отозвать");
             withdrawButton.SetDarkStyle(Resources.CashboxView_Withdrawal_Button);
 
             availableAmountTitleLabel.SetRegularStyle(14, Theme.Color.Black);
@@ -63,6 +104,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
             pendingWithdrawalSeparator.BackgroundColor = Theme.Color.Accent;
 
             questionImageView.Image = UIImage.FromBundle("ic_question");
+
+            lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
+            lottieAnimationView.LoopAnimation = true;
+            lottieAnimationView.Play();
         }
     }
 }

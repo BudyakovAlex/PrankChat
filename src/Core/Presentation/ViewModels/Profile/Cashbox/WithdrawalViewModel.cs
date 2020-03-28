@@ -66,9 +66,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             set => SetProperty(ref _surname, value);
         }
 
-        public bool IsAttachDocumentAvailable => SettingsService.User?.DocumentVerifiedAt == null;
+        public bool IsAttachDocumentAvailable => SettingsService.User?.DocumentVerifiedAt == null && SettingsService.User?.Document == null;
 
         public bool IsDocumentPending => SettingsService.User?.DocumentVerifiedAt == null && SettingsService.User?.Document != null;
+
+        public bool IsWithdrawalAvailable => !IsAttachDocumentAvailable && !IsDocumentPending && _lastWithdrawalDataModel == null;
+
+        public bool IsWithdrawalPending => !IsAttachDocumentAvailable && !IsDocumentPending && _lastWithdrawalDataModel != null;
 
         public ICommand WithdrawCommand => new MvxAsyncCommand(OnWithdrawAsync);
 
@@ -77,6 +81,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         public ICommand AttachFileCommand => new MvxAsyncCommand(OnAttachFileAsync);
 
         public ICommand DeleteCardCommand => new MvxAsyncCommand(OnDeleteCardAsync);
+
+        public ICommand OpenCardOptionsCommand => new MvxAsyncCommand(OnOpenCardOptionsAsync);
 
         public WithdrawalViewModel(INavigationService navigationService,
                                    IErrorHandleService errorHandleService,
@@ -146,7 +152,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 var document = await ApiService.SendVerifyDocumentAsync(file.Path);
                 if (document != null)
                 {
-                    SettingsService.User.Document = document;
+                    var user = SettingsService.User;
+                    user.Document = document;
+                    SettingsService.User = user;
                     await RaiseAllPropertiesChanged();
                 }
             }
@@ -201,6 +209,31 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        private async Task OnOpenCardOptionsAsync()
+        {
+            var result = await DialogService.ShowMenuDialogAsync(new string[] { "Удалить карту" }, Resources.Close);
+            if (result == "Удалить карту")
+            {
+                try
+                {
+                    IsBusy = true;
+
+                    await ApiService.DeleteCardAsync(_currentCard.Id);
+                    _currentCard = null;
+                    await RaiseAllPropertiesChanged();
+                }
+                catch (Exception ex)
+                {
+                    // TODO: Add the log.
+                }
+                finally
+                {
+                    IsBusy = false;
+                }
+
             }
         }
 

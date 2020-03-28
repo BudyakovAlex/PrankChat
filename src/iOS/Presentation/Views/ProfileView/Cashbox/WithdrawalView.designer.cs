@@ -19,6 +19,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 		UIKit.UILabel availableAmountTitleLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIButton cancelWithdrawalButton { get; set; }
+
+		[Outlet]
 		UIKit.UITextField cardNumberEditText { get; set; }
 
 		[Outlet]
@@ -29,6 +32,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
 		[Outlet]
 		UIKit.UITextField firstNameTextField { get; set; }
+
+		[Outlet]
+		Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel pendingVerifyUserLabel { get; set; }
@@ -47,6 +53,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
 		[Outlet]
 		UIKit.UIView pendingWithdrawalView { get; set; }
+
+		[Outlet]
+		UIKit.UIView progressBarView { get; set; }
 
 		[Outlet]
 		UIKit.UIImageView questionImageView { get; set; }
@@ -164,6 +173,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 			if (pendingWithdrawalLabel != null) {
 				pendingWithdrawalLabel.Dispose ();
 				pendingWithdrawalLabel = null;
+			}
+
+			if (progressBarView != null) {
+				progressBarView.Dispose ();
+				progressBarView = null;
+			}
+
+			if (lottieAnimationView != null) {
+				lottieAnimationView.Dispose ();
+				lottieAnimationView = null;
+			}
+
+			if (cancelWithdrawalButton != null) {
+				cancelWithdrawalButton.Dispose ();
+				cancelWithdrawalButton = null;
 			}
 		}
 	}

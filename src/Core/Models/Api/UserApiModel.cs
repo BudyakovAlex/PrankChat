@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers.Converters;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 
@@ -28,7 +29,10 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("document_verified_at")]
         public DateTime? DocumentVerifiedAt { get; set; }
 
-        public DocumentApiModel Document { get; set; }
+        public DataApiModel<UserApiModel> Executor { get; set; }
+
+        [JsonProperty("document")]
+        public DataApiModel<DocumentApiModel> Document { get; set; }
 
         [JsonProperty("orders_own_count")]
         public int? OrdersOwnCount { get; set; }

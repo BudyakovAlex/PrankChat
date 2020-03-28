@@ -109,26 +109,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         public override Task Initialize()
         {
             SelectedOrderType = ProfileOrderType.MyOrders;
-            return base.Initialize();
+            base.Initialize();
+            return LoadProfileCommand.ExecuteAsync();
         }
 
         public override void ViewDisappearing()
         {
             _videoPlayerService.Pause();
-
             base.ViewDisappearing();
         }
 
         public override void ViewAppeared()
         {
             base.ViewAppeared();
-
             _videoPlayerService.Play();
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            base.ViewDestroy(viewFinishing);
         }
 
         private async Task OnLoadProfileAsync()
@@ -136,12 +130,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             try
             {
                 IsBusy = true;
-
-                if (!IsUserSessionInitialized)
-                {
-                    return;
-                }
-
                 await ApiService.GetCurrentUserAsync();
                 await InitializeProfileData();
             }
