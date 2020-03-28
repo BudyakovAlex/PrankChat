@@ -20,7 +20,6 @@ using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 
@@ -185,7 +184,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                         break;
                 }
 
-                return SetVideoList(pageContainer, page);
+                return SetList(pageContainer, page, ProducePublicationItemViewModel, Items);
             }
             catch (Exception ex)
             {
@@ -199,41 +198,34 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             }
         }
 
-        private int SetVideoList(PaginationModel<VideoDataModel> videoBundle, int page)
+        private PublicationItemViewModel ProducePublicationItemViewModel(VideoDataModel publication)
         {
-            SetTotalItemsCount(videoBundle.TotalCount);
-            var publicationViewModels = videoBundle.Items.Select(publication =>
-                new PublicationItemViewModel(NavigationService,
-                                             DialogService,
-                                             _platformService,
-                                             Mvx.IoCProvider.Resolve<IVideoPlayerService>(),
-                                             ApiService,
-                                             ErrorHandleService,
-                                             _mvxMessenger,
-                                             _settingsService,
-                                             publication.User?.Name,
-                                             publication.User?.Avatar,
-                                             publication.Id,
-                                             publication.Title,
-                                             publication.Description,
-                                             publication.StreamUri,
-                                             publication.ViewsCount,
-                                             publication.CreatedAt.DateTime,
-                                             publication.LikesCount,
-                                             publication.ShareUri,
-                                             publication.IsLiked)).ToList();
+            return new PublicationItemViewModel(NavigationService,
+                DialogService,
+                _platformService,
+                Mvx.IoCProvider.Resolve<IVideoPlayerService>(),
+                ApiService,
+                ErrorHandleService,
+                _mvxMessenger,
+                _settingsService,
+                publication.User?.Name,
+                publication.User?.Avatar,
+                publication.Id,
+                publication.Title,
+                publication.Description,
+                publication.StreamUri,
+                publication.ViewsCount,
+                publication.CreatedAt.DateTime,
+                publication.LikesCount,
+                publication.ShareUri,
+                publication.IsLiked);
+        }
 
-            if (page > 1)
-            {
-                Items.AddRange(publicationViewModels);
-            }
-            else
-            {
-                Items.SwitchTo(publicationViewModels);
-            }
-
+        protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        {
+            var count = base.SetList(dataModel, page, produceItemViewModel, items);
             ItemsChangedInteraction.Raise();
-            return publicationViewModels.Count;
+            return count;
         }
     }
 }

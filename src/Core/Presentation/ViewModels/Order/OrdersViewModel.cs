@@ -120,10 +120,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             try
             {
                 IsBusy = true;
-
                 var orders = await ApiService.GetOrdersAsync(ActiveFilter, page, pageSize);
-
-                return SetList(orders, page);
+                return SetList(orders, page, ProduceOrderViewModel, Items);
             }
             catch (Exception ex)
             {
@@ -151,23 +149,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                           order.DurationInHours,
                                           order.Status ?? OrderStatusType.None,
                                           order.Customer?.Id);
-        }
-
-        private int SetList(PaginationModel<OrderDataModel> orderDataModel, int page)
-        {
-            SetTotalItemsCount(orderDataModel.TotalCount);
-            var orderViewModels = orderDataModel.Items.Select(order => ProduceOrderViewModel(order)).ToList();
-
-            if (page > 1)
-            {
-                Items.AddRange(orderViewModels);
-            }
-            else
-            {
-                Items.SwitchTo(orderViewModels);
-            }
-
-            return orderViewModels.Count;
         }
 
         private void Subscription()

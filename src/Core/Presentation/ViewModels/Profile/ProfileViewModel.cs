@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
@@ -7,7 +6,6 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -25,7 +23,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
     public class ProfileViewModel : BaseProfileViewModel
     {
-        private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly IMvxMessenger _mvxMessenger;
         private readonly IExternalAuthService _externalAuthService;
@@ -92,7 +89,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public ProfileViewModel(INavigationService navigationService,
                                 IDialogService dialogService,
-                                IPlatformService platformService,
                                 IApiService apiService,
                                 IVideoPlayerService videoPlayerService,
                                 IErrorHandleService errorHandleService,
@@ -101,7 +97,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                                 IExternalAuthService externalAuthService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
-            _platformService = platformService;
             _videoPlayerService = videoPlayerService;
             _mvxMessenger = mvxMessenger;
             _externalAuthService = externalAuthService;
@@ -125,11 +120,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             base.ViewAppeared();
 
             _videoPlayerService.Play();
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            base.ViewDestroy(viewFinishing);
         }
 
         private async Task OnLoadProfileAsync()
@@ -230,7 +220,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = Constants.Pagination.DefaultPaginationSize)
         {
             var items = await GetOrdersAsync(page, pageSize);
-            return SetList(items, page);
+            return SetList(items, page, ProduceOrderItemViewModel, Items);
         }
 
         protected virtual async Task<PaginationModel<OrderDataModel>> GetOrdersAsync(int page, int pageSize)
@@ -261,23 +251,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 order.DurationInHours,
                 order.Status ?? OrderStatusType.None,
                 order.Customer?.Id);
-        }
-
-        private int SetList(PaginationModel<OrderDataModel> orderDataModel, int page)
-        {
-            SetTotalItemsCount(orderDataModel.TotalCount);
-            var orderViewModels = orderDataModel.Items.Select(order => ProduceOrderItemViewModel(order)).ToList();
-
-            if (page > 1)
-            {
-                Items.AddRange(orderViewModels);
-            }
-            else
-            {
-                Items.SwitchTo(orderViewModels);
-            }
-
-            return orderViewModels.Count;
         }
     }
 }

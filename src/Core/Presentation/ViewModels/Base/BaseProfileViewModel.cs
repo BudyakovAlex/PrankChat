@@ -108,20 +108,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             return Task.WhenAll(InitializeProfileData(), base.Initialize());
         }
 
-        private async Task OnSelectBirthdayAsync()
-        {
-            var result = await DialogService.ShowDateDialogAsync(Birthday);
-            if (result.HasValue)
-            {
-                Birthday = result.Value;
-            }
-        }
-
-        private void OnSelectGender(GenderType genderType)
-        {
-            Gender = genderType;
-        }
-
         protected virtual Task InitializeProfileData()
         {
             var user = SettingsService.User;
@@ -137,6 +123,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             Description = user.Description;
 
             return Task.CompletedTask;
+        }
+
+        private async Task OnSelectBirthdayAsync()
+        {
+            var result = await DialogService.ShowDateDialogAsync(Birthday);
+            if (result.HasValue)
+            {
+                Birthday = result.Value;
+            }
+        }
+
+        private void OnSelectGender(GenderType genderType)
+        {
+            Gender = genderType;
         }
     }
 }
