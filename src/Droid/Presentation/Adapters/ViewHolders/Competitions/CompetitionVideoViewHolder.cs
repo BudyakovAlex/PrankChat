@@ -1,4 +1,5 @@
-﻿using Android.Support.Constraints;
+﻿using System;
+using Android.Support.Constraints;
 using Android.Views;
 using Android.Widget;
 using FFImageLoading.Cross;
@@ -8,6 +9,8 @@ using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract;
+using PrankChat.Mobile.Droid.Presentation.Bindings;
+using PrankChat.Mobile.Droid.Presentation.Converters;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
 {
@@ -40,7 +43,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             _userPhotoImageView = view.FindViewById<CircleCachedImageView>(Resource.Id.user_photo_image_view);
             _loadingProgressBar = view.FindViewById<ProgressBar>(Resource.Id.loading_progress_bar);
             _likeImageView = view.FindViewById<ImageView>(Resource.Id.likes_image_view);
-            _likeTextView = view.FindViewById<TextView>(Resource.Id.likes_text_view);
+            _likeTextView = view.FindViewById<TextView>(Resource.Id.like_text_view);
             _likeButton = view.FindViewById<ConstraintLayout>(Resource.Id.like_button);
         }
 
@@ -74,9 +77,24 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .For(v => v.BindClick())
                       .To(vm => vm.LikeCommand);
 
+            bindingSet.Bind(_likeButton)
+                      .For(v => v.Visibility)
+                      .To(vm => vm.CanVoteVideo)
+                      .WithConversion<BoolToGoneConverter>();
+
             bindingSet.Bind(_stubImageView)
                       .For(v => v.ImagePath)
                       .To(vm => vm.StubImageUrl);
+
+            bindingSet.Bind(_likeTextView)
+                      .For(TextColorTargetBinding.TargetBinding)
+                      .To(vm => vm.IsLiked)
+                      .WithConversion(BoolToResourceConverter.Name, new Tuple<int, int>(Resource.Color.applicationWhite, Resource.Color.primary_button_border));
+
+            bindingSet.Bind(_likeImageView)
+                      .For(ImageViewTintColorTargetBinding.TargetBinding)
+                      .To(vm => vm.IsLiked)
+                      .WithConversion(BoolToResourceConverter.Name, new Tuple<int, int>(Resource.Color.applicationWhite, Resource.Color.primary_button_border));
 
             bindingSet.Apply();
         }

@@ -99,19 +99,19 @@
         app:layout_constraintTop_toBottomOf="@+id/video_file">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/likes_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/textView"
-            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintBottom_toBottomOf="@+id/like_text_view"
+            app:layout_constraintEnd_toStartOf="@+id/like_text_view"
             app:layout_constraintHorizontal_bias="0.92"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/like_text_view"
             app:srcCompat="@drawable/ic_accent_thumbs_up"
             tools:tint="@color/applicationWhite" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/like_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/applicationWhite"

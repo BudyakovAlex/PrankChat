@@ -171,6 +171,9 @@
     <Compile Include="Presentation\Views\Competitions\CompetitionRulesView.cs" />
     <Compile Include="Presentation\Views\Competitions\CompetitionPrizePoolView.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionPrizePoolItemViewHolder.cs" />
+    <Compile Include="Presentation\Bindings\ImageViewTintColorTargetBinding.cs" />
+    <Compile Include="Presentation\Converters\BoolToResourceConverter.cs" />
+    <Compile Include="Presentation\Bindings\TextColorTargetBinding.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

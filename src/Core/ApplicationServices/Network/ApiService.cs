@@ -410,5 +410,23 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
             RefreshTokenAsync().FireAndForget();
         }
+
+        public async Task<PaginationModel<VideoDataModel>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize)
+        {
+            BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
+            if (_settingsService.User == null)
+            {
+                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
+            }
+            else
+            {
+                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
+            }
+
+            var mappedModels = MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
+            var paginationData = videoMetadataBundle.Meta.FirstOrDefault();
+            var totalItemsCount = paginationData.Value?.Total ?? mappedModels.Count;
+            return new PaginationModel<VideoDataModel>(mappedModels, totalItemsCount);
+        }
     }
 }

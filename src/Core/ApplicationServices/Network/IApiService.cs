@@ -107,5 +107,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         Task<List<NotificationDataModel>> GetNotificationsAsync();
 
         #endregion Notification
+
+        #region Competitions
+
+        Task<PaginationModel<VideoDataModel>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize);
+
+        #endregion
     }
 }
