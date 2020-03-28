@@ -2,6 +2,8 @@
 using System.Windows.Input;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
@@ -19,18 +21,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public CompetitionDetailsHeaderViewModel(IMvxMessenger mvxMessenger,
                                                  INavigationService navigationService,
+                                                 IMvxAsyncCommand loadVideoCommand,
                                                  CompetitionApiModel competitionApiModel) : base(mvxMessenger, navigationService, competitionApiModel)
         {
+            _navigationService = navigationService;
+
+            LoadVideoCommand = loadVideoCommand;
             OpenPrizePoolCommand = new MvxAsyncCommand(OpenPrizePoolAsync);
             OpenRulesCommand = new MvxAsyncCommand(OpenRulesAsync);
-            LoadVideoCommand = new MvxAsyncCommand(LoadVideoAsync);
-            _navigationService = navigationService;
         }
 
-        private async Task LoadVideoAsync()
-        {
-            //TODO: add logic here
-        }
 
         private Task OpenRulesAsync()
         {
