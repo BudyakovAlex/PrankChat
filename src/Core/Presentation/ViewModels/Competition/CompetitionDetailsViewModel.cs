@@ -8,7 +8,6 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -55,35 +54,41 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             //TODO: add loading logic
             Items.AddRange(new[]
             {
-                new CompetitionVideoViewModel("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                new CompetitionVideoViewModel(ApiService,
+                                              1,
+                                              "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                                               "Test user",
                                               "https://gravatar.com/avatar/7758426a877b824026e74b99d0223158?s=400&d=robohash&r=x",
-                                              "100",
-                                              "100k",
+                                              100,
+                                              10000,
                                               DateTime.Now,
                                               true,
                                               false,
                                               true),
 
-                new CompetitionVideoViewModel("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                new CompetitionVideoViewModel(ApiService,
+                                              2,
+                                              "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                                               "Test user",
                                               "https://gravatar.com/avatar/7758426a877b824026e74b99d0223158?s=400&d=robohash&r=x",
-                                              "100",
-                                              "100k",
+                                              100,
+                                              10000,
                                               DateTime.Now,
                                               false,
                                               true,
                                               true),
 
-                 new CompetitionVideoViewModel("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                   new CompetitionVideoViewModel(ApiService,
+                                              3,
+                                              "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                                               "Test user",
                                               "https://gravatar.com/avatar/7758426a877b824026e74b99d0223158?s=400&d=robohash&r=x",
-                                              "100",
-                                              "100k",
+                                              100,
+                                              10000,
                                               DateTime.Now,
                                               false,
                                               false,
-                                              false)
+                                              false),
             });
         }
 
@@ -103,7 +108,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 if (video != null)
                 {
                     _competition.HasLoadedVideo = true;
-                    Items.Add(new CompetitionVideoViewModel(video.StreamUri,
+                    Items.Add(new CompetitionVideoViewModel(ApiService,
+                                                            video.Id,
+                                                            video.StreamUri,
                                                             video.User.Name,
                                                             video.User.Avatar,
                                                             video.LikesCount,
