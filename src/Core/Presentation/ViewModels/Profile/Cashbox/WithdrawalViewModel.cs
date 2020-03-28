@@ -24,6 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
     {
         private readonly IMediaService _mediaService;
         private CardDataModel _currentCard;
+        private WithdrawalDataModel _lastWithdrawalDataModel;
 
         private double? _cost;
         public double? Cost
@@ -65,7 +66,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             set => SetProperty(ref _surname, value);
         }
 
+        public bool IsAttachDocumentAvailable => SettingsService.User?.DocumentVerifiedAt == null;
+
+        public bool IsDocumentPending => SettingsService.User?.DocumentVerifiedAt == null && SettingsService.User?.Document != null;
+
         public ICommand WithdrawCommand => new MvxAsyncCommand(OnWithdrawAsync);
+
+        public ICommand CancelWithdrawCommand => new MvxAsyncCommand(OnCancelWithdrawAsync);
 
         public ICommand AttachFileCommand => new MvxAsyncCommand(OnAttachFileAsync);
 
@@ -83,10 +90,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             AvailableForWithdrawal = $"{Resources.CashboxView_WithdrawalAvailable_Title} {settingsService.User?.Balance.ToPriceString()}";
         }
 
-        public override Task Initialize()
+        public override async Task Initialize()
         {
-            base.Initialize();
-            return GetUserCard();
+            await base.Initialize();
+            await GetUserCard();
+            await GetWithdrawals();
         }
 
         private async Task OnWithdrawAsync()
@@ -100,13 +108,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
                 if (_currentCard == null)
                 {
-                    _currentCard = await ApiService.SaveCardAsync(CardNumber, $"{Name} {Surname}");
-                }
-
-                if (_currentCard == null)
-                {
-                    ErrorHandleService.HandleException(new ValidationException("Карта не может быть пустой", ValidationErrorType.CanNotMatch, 0.ToString()));
-                    return;
+                    var card = await ApiService.SaveCardAsync(CardNumber, $"{Name} {Surname}");
+                    if (card == null)
+                    {
+                        ErrorHandleService.HandleException(new ValidationException("Карта не может быть пустой", ValidationErrorType.CanNotMatch, 0.ToString()));
+                        return;
+                    }
+                    _currentCard = card;
                 }
 
                 var video = await ApiService.WithdrawalAsync(Cost.Value, _currentCard.Id);
@@ -138,6 +146,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 var document = await ApiService.SendVerifyDocumentAsync(file.Path);
                 if (document != null)
                 {
+                    SettingsService.User.Document = document;
                     await RaiseAllPropertiesChanged();
                 }
             }
@@ -158,6 +167,32 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
                 await ApiService.DeleteCardAsync(_currentCard.Id);
                 _currentCard = null;
+                await RaiseAllPropertiesChanged();
+            }
+            catch (Exception ex)
+            {
+                // TODO: Add the log.
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task OnCancelWithdrawAsync()
+        {
+            if (_lastWithdrawalDataModel == null)
+            {
+                 ErrorHandleService.HandleException(new ValidationException("Не удается отменить транзакцию для вывода средств", ValidationErrorType.CanNotMatch, 0.ToString()));
+                return;
+            }
+
+            try
+            {
+                IsBusy = true;
+                await ApiService.GetOrderDetailsAsync(_lastWithdrawalDataModel.Id);
+                _lastWithdrawalDataModel = null;
+                await RaiseAllPropertiesChanged();
             }
             catch (Exception ex)
             {
@@ -181,7 +216,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             {
                 IsBusy = false;
             }
+        }
 
+        private async Task GetWithdrawals()
+        {
+            try
+            {
+                IsBusy = true;
+
+                var withdrawals = await ApiService.GetWithdrawalsAsync();
+                _lastWithdrawalDataModel = withdrawals?.FirstOrDefault();
+                await RaiseAllPropertiesChanged();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private bool CheckValidation()
@@ -192,9 +242,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 return false;
             }
 
-            if (string.IsNullOrEmpty(CardNumber))// || (!_isNewCard && ))
+            if (string.IsNullOrEmpty(CardNumber))
             {
                 ErrorHandleService.HandleException(new ValidationException("Карта не может быть пустой", ValidationErrorType.CanNotMatch, 0.ToString()));
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Name))
+            {
+                ErrorHandleService.HandleException(new ValidationException("Имя владельца карты не может быть пустым", ValidationErrorType.CanNotMatch, 0.ToString()));
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Surname))
+            {
+                ErrorHandleService.HandleException(new ValidationException("Фамилия владельца карты не может быть пустым", ValidationErrorType.CanNotMatch, 0.ToString()));
                 return false;
             }
 

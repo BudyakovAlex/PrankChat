@@ -109,6 +109,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<WithdrawalDataModel> WithdrawalAsync(double coast, int cardId);
 
+        Task<List<WithdrawalDataModel>> GetWithdrawalsAsync();
+
+        Task CancelWithdrawalAsync(int withdrawalId);
+
         #endregion Payment
 
         #region Notification
