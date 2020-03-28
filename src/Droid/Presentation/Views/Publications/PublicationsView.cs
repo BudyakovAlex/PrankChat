@@ -102,7 +102,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
             bindingSet.Bind(_publicationRecyclerView)
                       .For(v => v.LoadMoreItemsCommand)
-                      .To(vm => vm.Pagination.LoadMoreItemsCommand);
+                      .To(vm => vm.LoadMoreItemsCommand);
 
             bindingSet.Apply();
         }

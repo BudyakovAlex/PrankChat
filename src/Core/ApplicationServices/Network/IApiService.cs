@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel orderInfo);
 
-        Task<List<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType);
+        Task<PaginationModel<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize);
 
         Task<OrderDataModel> GetOrderDetailsAsync(int orderId);
 

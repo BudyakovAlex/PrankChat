@@ -3,6 +3,6 @@
     public enum ProfileOrderType
     {
         MyOrders,
-        OrdersCompletedByMe,
+        OrdersCompletedByMe
     }
 }

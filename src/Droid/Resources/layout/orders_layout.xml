@@ -34,10 +34,8 @@
                 android:src="@drawable/ic_filter_arrow" />
         </LinearLayout>
     </RelativeLayout>
-    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+    <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
         android:id="@+id/publication_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:MvxItemTemplate="@layout/cell_order"
-        app:MvxBind="ItemsSource Items"/>
+        android:layout_height="match_parent"/>
 </LinearLayout>

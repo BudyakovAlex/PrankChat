@@ -7,7 +7,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
     {
         public static OrderType GetOrderType(this UserDataModel userDataModel, int? customerId, OrderStatusType orderStatusType)
         {
-            if (customerId == userDataModel?.Id)
+            if (customerId.HasValue && userDataModel?.Id == customerId)
             {
                 switch (orderStatusType)
                 {
@@ -22,5 +22,6 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 
             return orderStatusType == OrderStatusType.Finished ? OrderType.NotMyOrderCompleted : OrderType.NotMyOrder;
         }
+
     }
 }
