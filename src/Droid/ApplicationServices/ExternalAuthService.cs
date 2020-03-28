@@ -13,12 +13,12 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
     public class ExternalAuthService : IExternalAuthService
     {
         //TODO: move to config
-        private const string FacebookAppId = "1052355475141532";
+        private const string FacebookAppId = "621471715102522";
 
         private readonly IMvxAndroidCurrentTopActivity _mvxAndroidCurrentTopActivity;
 
         //TODO: move to config
-        private readonly string[] _facebookPermissions = { @"public_profile", @"email", "user_friends" };
+        private readonly string[] _facebookPermissions = { @"public_profile", @"email" };
         private readonly string[] _vkontaktePermissions = { VKScope.Email, VKScope.Offline };
 
         public ExternalAuthService(IMvxAndroidCurrentTopActivity mvxAndroidCurrentTopActivity)
