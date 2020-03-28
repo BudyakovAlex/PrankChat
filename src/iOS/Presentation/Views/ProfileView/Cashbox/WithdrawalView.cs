@@ -23,7 +23,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
                 .To(vm => vm.AvailableForWithdrawal);
 
             set.Bind(costTextField)
-                .To(vm => vm.Cost);
+                .To(vm => vm.Cost)
+                .WithConversion<PriceConverter>();
 
             set.Bind(attachDocumentButton)
                 .To(vm => vm.AttachFileCommand);
@@ -42,14 +43,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
         protected override void SetupControls()
         {
+            cardNumberEditText.SetDarkStyle("Номер карты");
+            firstNameTextField.SetDarkStyle("Имя");
+            surnameTextField.SetDarkStyle("Фамилия");
             costTextField.SetDarkStyle(Resources.CashboxView_Price_Placeholder);
             costTextField.TextAlignment = UITextAlignment.Right;
 
+            attachDocumentButton.SetDarkStyle("Прикрепить файл");
             withdrawButton.SetDarkStyle(Resources.CashboxView_Withdrawal_Button);
 
             availableAmountTitleLabel.SetRegularStyle(14, Theme.Color.Black);
+            verifyUserLabel.SetRegularStyle(14, Theme.Color.Black);
+            pendingVerifyUserLabel.SetRegularStyle(14, Theme.Color.Black);
+            pendingWithdrawalLabel.SetRegularStyle(14, Theme.Color.Black);
 
             verticalSeparatorView.BackgroundColor = Theme.Color.Accent;
+            verifyUserSeparator.BackgroundColor = Theme.Color.Accent;
+            pendingVerifyUserSeparator.BackgroundColor = Theme.Color.Accent;
+            pendingWithdrawalSeparator.BackgroundColor = Theme.Color.Accent;
 
             questionImageView.Image = UIImage.FromBundle("ic_question");
         }

@@ -349,14 +349,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 Number = number,
                 CardUserName = userName,
             };
-            var dataApiModel = await _client.Post<CreateCardApiModel, DataApiModel<CardApiModel>>("me/card", createCreditCard, true);
+            var dataApiModel = await _client.Post<CreateCardApiModel, DataApiModel<CardApiModel>>("me/cards", createCreditCard, true);
             var user = MappingConfig.Mapper.Map<CardDataModel>(dataApiModel?.Data);
             return user;
         }
 
         public async Task<CardDataModel> GetCardsAsync()
         {
-            var dataApiModel = await _client.Get<DataApiModel<List<CardApiModel>>>("user/cards");
+            var dataApiModel = await _client.Get<DataApiModel<List<CardApiModel>>>("me/cards");
             var data = MappingConfig.Mapper.Map<List<CardDataModel>>(dataApiModel?.Data);
             return data?.FirstOrDefault();
         }

@@ -85,6 +85,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         public override Task Initialize()
         {
+            base.Initialize();
             return GetUserCard();
         }
 

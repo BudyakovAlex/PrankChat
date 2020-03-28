@@ -31,13 +31,34 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 		UIKit.UITextField firstNameTextField { get; set; }
 
 		[Outlet]
+		UIKit.UILabel pendingVerifyUserLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIView pendingVerifyUserSeparator { get; set; }
+
+		[Outlet]
 		UIKit.UIView pendingVerifyUserView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel pendingWithdrawalLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIView pendingWithdrawalSeparator { get; set; }
+
+		[Outlet]
+		UIKit.UIView pendingWithdrawalView { get; set; }
 
 		[Outlet]
 		UIKit.UIImageView questionImageView { get; set; }
 
 		[Outlet]
 		UIKit.UITextField surnameTextField { get; set; }
+
+		[Outlet]
+		UIKit.UILabel verifyUserLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIView verifyUserSeparator { get; set; }
 
 		[Outlet]
 		UIKit.UIView verifyUserView { get; set; }
@@ -108,6 +129,41 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 			if (surnameTextField != null) {
 				surnameTextField.Dispose ();
 				surnameTextField = null;
+			}
+
+			if (verifyUserLabel != null) {
+				verifyUserLabel.Dispose ();
+				verifyUserLabel = null;
+			}
+
+			if (pendingVerifyUserLabel != null) {
+				pendingVerifyUserLabel.Dispose ();
+				pendingVerifyUserLabel = null;
+			}
+
+			if (verifyUserSeparator != null) {
+				verifyUserSeparator.Dispose ();
+				verifyUserSeparator = null;
+			}
+
+			if (pendingVerifyUserSeparator != null) {
+				pendingVerifyUserSeparator.Dispose ();
+				pendingVerifyUserSeparator = null;
+			}
+
+			if (pendingWithdrawalView != null) {
+				pendingWithdrawalView.Dispose ();
+				pendingWithdrawalView = null;
+			}
+
+			if (pendingWithdrawalSeparator != null) {
+				pendingWithdrawalSeparator.Dispose ();
+				pendingWithdrawalSeparator = null;
+			}
+
+			if (pendingWithdrawalLabel != null) {
+				pendingWithdrawalLabel.Dispose ();
+				pendingWithdrawalLabel = null;
 			}
 		}
 	}

@@ -15,9 +15,16 @@
                 <outlet property="costTextField" destination="fUl-V6-XRJ" id="waC-SE-XT1"/>
                 <outlet property="creditCardView" destination="trf-7M-n3X" id="4s4-eH-0Le"/>
                 <outlet property="firstNameTextField" destination="7vW-hy-ACx" id="o3s-1k-mqP"/>
+                <outlet property="pendingVerifyUserLabel" destination="O4u-u6-gqA" id="3FT-fq-o5g"/>
+                <outlet property="pendingVerifyUserSeparator" destination="Ea3-HK-uaZ" id="HIR-vJ-Ycm"/>
                 <outlet property="pendingVerifyUserView" destination="4o5-7G-iHi" id="qrH-fH-vF0"/>
+                <outlet property="pendingWithdrawalLabel" destination="zRc-kC-cFh" id="Tum-E6-LzS"/>
+                <outlet property="pendingWithdrawalSeparator" destination="wBX-Va-2w1" id="TIW-Ex-p8P"/>
+                <outlet property="pendingWithdrawalView" destination="wlD-4q-d9c" id="MUv-CR-Bt7"/>
                 <outlet property="questionImageView" destination="3tp-mi-m32" id="5Gd-3B-7TB"/>
                 <outlet property="surnameTextField" destination="tod-0w-40G" id="8Be-uS-2Tj"/>
+                <outlet property="verifyUserLabel" destination="s4f-1l-0VN" id="8dn-W0-qhx"/>
+                <outlet property="verifyUserSeparator" destination="br0-HW-AQ4" id="0vX-R8-QDj"/>
                 <outlet property="verifyUserView" destination="iri-iZ-AbZ" id="Y0k-XE-rfy"/>
                 <outlet property="verticalSeparatorView" destination="ntb-zT-DjX" id="dqT-sw-X7a"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
@@ -30,19 +37,19 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="trf-7M-n3X">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="188"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="195"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fUl-V6-XRJ">
-                            <rect key="frame" x="16" y="100" width="174" height="36"/>
+                            <rect key="frame" x="16" y="106" width="174" height="37"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="36" id="LZ6-q5-gfb"/>
                                 <constraint firstAttribute="width" constant="174" id="YQw-TT-Daw"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="37" id="t9y-aS-djW"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntb-zT-DjX">
-                            <rect key="frame" x="16" y="152" width="3" height="36"/>
+                            <rect key="frame" x="16" y="159" width="3" height="36"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="3" id="hbM-ij-2PH"/>
@@ -50,35 +57,44 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9W-P3-O8q">
-                            <rect key="frame" x="35" y="159.5" width="42" height="21"/>
+                            <rect key="frame" x="35" y="166.5" width="42" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3tp-mi-m32">
-                            <rect key="frame" x="87" y="160" width="20" height="20"/>
+                            <rect key="frame" x="87" y="167" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="DDP-oW-1MU"/>
                                 <constraint firstAttribute="width" constant="20" id="iZ7-tu-RDb"/>
                             </constraints>
                         </imageView>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y4X-kf-gBK">
-                            <rect key="frame" x="16" y="0.0" width="343" height="34"/>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y4X-kf-gBK" customClass="FloatPlaceholderTextField">
+                            <rect key="frame" x="16" y="0.0" width="343" height="37"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="37" id="8dH-5g-xCd"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="cc-number"/>
                         </textField>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7vW-hy-ACx">
-                            <rect key="frame" x="16" y="50" width="163.5" height="34"/>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7vW-hy-ACx" customClass="FloatPlaceholderTextField">
+                            <rect key="frame" x="16" y="53" width="163.5" height="37"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="37" id="tpa-hF-a94"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" textContentType="name"/>
                         </textField>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tod-0w-40G">
-                            <rect key="frame" x="195.5" y="50" width="163.5" height="34"/>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tod-0w-40G" customClass="FloatPlaceholderTextField">
+                            <rect key="frame" x="195.5" y="53" width="163.5" height="37"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="37" id="6uo-ie-IP7"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" textContentType="family-name"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bNP-XT-Sbu">
-                            <rect key="frame" x="206" y="100" width="153" height="36"/>
+                            <rect key="frame" x="206" y="106.5" width="153" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="QFw-4w-ehV"/>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Tev-hj-aOw"/>
@@ -112,7 +128,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iri-iZ-AbZ">
-                    <rect key="frame" x="0.0" y="188" width="375" height="153.5"/>
+                    <rect key="frame" x="0.0" y="195" width="375" height="153.5"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="br0-HW-AQ4">
                             <rect key="frame" x="16" y="0.0" width="3" height="101.5"/>
@@ -151,7 +167,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4o5-7G-iHi">
-                    <rect key="frame" x="0.0" y="341.5" width="375" height="41"/>
+                    <rect key="frame" x="0.0" y="348.5" width="375" height="41"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ea3-HK-uaZ">
                             <rect key="frame" x="16" y="0.0" width="3" height="41"/>
@@ -179,7 +195,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wlD-4q-d9c">
-                    <rect key="frame" x="0.0" y="390.5" width="375" height="301.5"/>
+                    <rect key="frame" x="0.0" y="389.5" width="375" height="301.5"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wBX-Va-2w1">
                             <rect key="frame" x="16" y="0.0" width="3" height="96.5"/>
@@ -313,7 +329,7 @@
                 <constraint firstAttribute="trailing" secondItem="4o5-7G-iHi" secondAttribute="trailing" id="Lsv-d1-lEW"/>
                 <constraint firstItem="4o5-7G-iHi" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="Nbg-kP-OgE"/>
                 <constraint firstAttribute="trailing" secondItem="wlD-4q-d9c" secondAttribute="trailing" id="O8D-r2-2D2"/>
-                <constraint firstItem="wlD-4q-d9c" firstAttribute="top" secondItem="4o5-7G-iHi" secondAttribute="bottom" constant="8" symbolic="YES" id="PeT-fh-2CF"/>
+                <constraint firstItem="wlD-4q-d9c" firstAttribute="top" secondItem="4o5-7G-iHi" secondAttribute="bottom" id="PeT-fh-2CF"/>
                 <constraint firstAttribute="trailing" secondItem="iri-iZ-AbZ" secondAttribute="trailing" id="bjx-N4-Ksl"/>
                 <constraint firstItem="trf-7M-n3X" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="bvh-m6-BKE"/>
             </constraints>
