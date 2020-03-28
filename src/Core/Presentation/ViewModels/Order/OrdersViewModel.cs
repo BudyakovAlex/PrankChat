@@ -105,8 +105,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
-            var parametres = _orderFilterTypeTitleMap.Values.ToArray();
-            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parametres, Resources.Cancel);
+            var parameters = _orderFilterTypeTitleMap.Values.ToArray();
+            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parameters, Resources.Cancel);
 
             if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
                 return;
@@ -122,13 +122,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 IsBusy = true;
 
                 var orders = await ApiService.GetOrdersAsync(ActiveFilter, page, pageSize);
-
-                //var orderSortComparer = new OrderSortComparer(SettingsService.User.Id, ActiveFilter);
-                //var sortedOrderList = orders
-                //    .OrderByDescending(c => c.CreatedAt)
-                //    .ThenByDescending(c => c, orderSortComparer);
-
-                //var viewModelList = sortedOrderList.Select(ProduceOrderViewModel);
 
                 return SetList(orders, page);
             }

@@ -110,18 +110,19 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<PaginationModel<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize)
         {
-            string endpoint = $"orders?page={page}&items_per_page={pageSize}";
+            var endpoint = $"orders?page={page}&items_per_page={pageSize}&order_property=created_at";
             switch (orderFilterType)
             {
+                case OrderFilterType.All:
+                    endpoint = $"{endpoint}";
+                    break;
+
                 case OrderFilterType.New:
                     endpoint = $"{endpoint}&status={OrderStatusType.Active.GetEnumMemberAttrValue()}";
                     break;
 
                 case OrderFilterType.InProgress:
-                    if (_settingsService.User == null)
-                        return new PaginationModel<OrderDataModel>();
-
-                    endpoint = $"{endpoint}&executor_id={_settingsService.User.Id}";
+                    endpoint = $"{endpoint}&states[]={OrderStatusType.InWork.GetEnumMemberAttrValue()}&states[]={OrderStatusType.WaitFinish.GetEnumMemberAttrValue()}";
                     break;
 
                 case OrderFilterType.MyOwn:
@@ -129,6 +130,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                         return new PaginationModel<OrderDataModel>();
 
                     endpoint = $"{endpoint}&customer_id={_settingsService.User.Id}";
+                    break;
+
+                case OrderFilterType.MyCompleted:
+                    if (_settingsService.User == null)
+                        return new PaginationModel<OrderDataModel>();
+
+                    endpoint = $"{endpoint}&status={OrderStatusType.Finished.GetEnumMemberAttrValue()}&executor_id={_settingsService.User.Id}";
                     break;
             }
 

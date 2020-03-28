@@ -238,9 +238,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             switch (SelectedOrderType)
             {
                 case ProfileOrderType.MyOrders:
+                    return await ApiService.GetOrdersAsync(OrderFilterType.MyOwn, page, pageSize);
                 case ProfileOrderType.OrdersCompletedByMe:
-                    var filterEnum = SelectedOrderType == ProfileOrderType.MyOrders ? OrderFilterType.MyOwn : OrderFilterType.InProgress;
-                    return await ApiService.GetOrdersAsync(filterEnum, page, pageSize);
+                    return await ApiService.GetOrdersAsync(OrderFilterType.MyCompleted, page, pageSize);
             }
 
             return new PaginationModel<OrderDataModel>();
