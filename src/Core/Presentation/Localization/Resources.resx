@@ -754,4 +754,32 @@
   <data name="Competitions_New_Term" xml:space="preserve">
     <value>До начала голосования:</value>
   </data>
+  <data name="Competition_Load_Video" xml:space="preserve">
+    <value>Загрузить видео</value>
+  </data>
+  <data name="Competition_Rules" xml:space="preserve">
+    <value>Правила конкурса</value>
+  </data>
+  <data name="Competition_Results" xml:space="preserve">
+    <value>Результаты</value>
+  </data>
+  <data name="WithdrawalView_FirstName_Placeholder" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="WithdrawalView_LastName_Placeholder" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="WithdrawalView_CardNumber_Placeholder" xml:space="preserve">
+    <value>Номер карты</value>
+  </data>
+  <data name="WithdrawalView_AttachFile_Button" xml:space="preserve">
+    <value>Прикрепить файл</value>
+  </data>
+  <data name="WithdrawalView_Revoke_Button" xml:space="preserve">
+    <value>Отозвать</value>
+  </data>
+  <data name="Login_Without_Registration" xml:space="preserve">
+    <value>Войти без регистрации</value>
+    <comment>Fuzzy</comment>
+  </data>
 </root>

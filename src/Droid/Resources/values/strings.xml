@@ -234,4 +234,15 @@
     <string name="Competitions_Participate">"Принять участие"</string>
     <string name="Competitions_Prize_Pool">"Призовой фонд турнира:"</string>
     <string name="Competitions_New_Term">"До начала голосования:"</string>
+    <string name="Competition_Load_Video">"Загрузить видео"</string>
+    <string name="Competition_Rules">"Правила конкурса"</string>
+    <string name="Competition_Results">"Результаты"</string>
+    <string name="WithdrawalView_FirstName_Placeholder">"Имя"</string>
+    <string name="WithdrawalView_LastName_Placeholder">"Фамилия"</string>
+    <string name="WithdrawalView_CardNumber_Placeholder">"Номер карты"</string>
+    <string name="WithdrawalView_AttachFile_Button">"Прикрепить файл"</string>
+    <string name="WithdrawalView_Revoke_Button">"Отозвать"</string>
+
+    <!-- Fuzzy -->
+    <string name="Login_Without_Registration">"Войти без регистрации"</string>
 </resources>

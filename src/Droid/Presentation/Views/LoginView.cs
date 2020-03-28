@@ -24,9 +24,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
             var createAccountButton = FindViewById<TextView>(Resource.Id.create_account_button);
             createAccountButton.PaintFlags = createAccountButton.PaintFlags | PaintFlags.UnderlineText;
-
-            var demoButton = FindViewById<TextView>(Resource.Id.demo_button);
-            demoButton.PaintFlags = demoButton.PaintFlags | PaintFlags.UnderlineText;
         }
 
         protected override void Subscription()
