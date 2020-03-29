@@ -158,8 +158,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             tableView.Source = OrdersTableSource;
             tableView.SeparatorColor = Theme.Color.Separator;
             tableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
-
-            tableView.RegisterNibForCellReuse(OrderItemCell.Nib, OrderItemCell.CellId);
             tableView.ContentInset = new UIEdgeInsets(10, 0, 0, 0);
         }
     }

@@ -91,11 +91,6 @@
     <Compile Include="Presentation\Views\PasswordRecoveryView\PasswordRecoveryView.designer.cs">
       <DependentUpon>PasswordRecoveryView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\RatingView\RatingView.xib" />
-    <Compile Include="Presentation\Views\RatingView\RatingView.cs" />
-    <Compile Include="Presentation\Views\RatingView\RatingView.designer.cs">
-      <DependentUpon>RatingView.cs</DependentUpon>
-    </Compile>
     <InterfaceDefinition Include="Presentation\Views\Order\OrdersView.xib" />
     <Compile Include="Presentation\Views\Order\OrdersView.cs" />
     <Compile Include="Presentation\Views\Order\OrdersView.designer.cs">
@@ -163,7 +158,6 @@
       <DependentUpon>OrderItemCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Views\Base\BaseTabbedView.cs" />
-    <Compile Include="Presentation\Views\RatingView\RatingTableSource.cs" />
     <InterfaceDefinition Include="Presentation\Views\RatingView\RatingItemCell.xib" />
     <Compile Include="Presentation\Views\RatingView\RatingItemCell.cs" />
     <Compile Include="Presentation\Views\RatingView\RatingItemCell.designer.cs">
