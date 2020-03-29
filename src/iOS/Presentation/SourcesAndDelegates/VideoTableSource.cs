@@ -6,18 +6,19 @@ using Foundation;
 using MvvmCross.Binding.Extensions;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
+using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
-namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
+namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
 {
-    public class PublicationTableSource : PagedTableViewSource
+    public class VideoTableSource : TableViewSource
     {
         private const int DelayMiliseconds = 200;
 
-        private PublicationItemCell _previousVideoCell;
+        private BaseVideoTableCell _previousVideoCell;
 
-        public PublicationTableSource(UITableView tableView) : base(tableView)
+        public VideoTableSource(UITableView tableView)
+            : base(tableView)
         {
             UseAnimations = true;
         }
@@ -36,17 +37,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 _itemsChangedInteraction = value;
                 _itemsChangedInteraction.Requested += OnDataSetChanged;
             }
-        }
-
-        private void OnDataSetChanged(object sender, EventArgs e)
-        {
-            PlayVideoAfterReloadDataAsync().FireAndForget();
-        }
-
-        private async Task PlayVideoAfterReloadDataAsync()
-        {
-            await Task.Delay(DelayMiliseconds);
-            await PrepareCellsForPlayingVideoAsync();
         }
 
         public override void DecelerationEnded(UIScrollView scrollView)
@@ -70,14 +60,30 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             return UITableView.AutomaticDimension;
         }
 
-        protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
+        protected override void Dispose(bool disposing)
         {
-            return tableView.DequeueReusableCell(PublicationItemCell.CellId);
+            if (disposing && _itemsChangedInteraction != null)
+            {
+                _itemsChangedInteraction.Requested -= OnDataSetChanged;
+            }
+
+            base.Dispose(disposing);
+        }
+
+        private void OnDataSetChanged(object sender, EventArgs e)
+        {
+            PlayVideoAfterReloadDataAsync().FireAndForget();
+        }
+
+        private async Task PlayVideoAfterReloadDataAsync()
+        {
+            await Task.Delay(DelayMiliseconds);
+            await PrepareCellsForPlayingVideoAsync();
         }
 
         private Task PrepareCellsForPlayingVideoAsync()
         {
-            var publicalitionCells = TableView.VisibleCells.OfType<PublicationItemCell>().ToList();
+            var publicalitionCells = TableView.VisibleCells.OfType<BaseVideoTableCell>().ToList();
             if (publicalitionCells.Count == 0)
             {
                 return Task.CompletedTask;
@@ -101,7 +107,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             return Task.CompletedTask;
         }
 
-        private void PlayVideo(PublicationItemCell cell)
+        private void PlayVideo(BaseVideoTableCell cell)
         {
             StopVideo(_previousVideoCell);
 
@@ -124,7 +130,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             _previousVideoCell = cell;
         }
 
-        private void StopVideo(PublicationItemCell cell)
+        private void StopVideo(BaseVideoTableCell cell)
         {
             cell?.ShowStub();
 
@@ -139,21 +145,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             cell.AVPlayerViewControllerInstance.Player = null;
         }
 
-        private bool IsCompletelyVisible(PublicationItemCell publicationCell)
+        private bool IsCompletelyVisible(BaseVideoTableCell publicationCell)
         {
             var videoRect = publicationCell.GetVideoBounds(TableView);
             Debug.WriteLine($"Video rect Y: {videoRect.Y}, Table view Y: {TableView.Bounds.Y}");
             return TableView.Bounds.Contains(videoRect);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && _itemsChangedInteraction != null)
-            {
-                _itemsChangedInteraction.Requested -= OnDataSetChanged;
-            }
-
-            base.Dispose(disposing);
         }
     }
 }

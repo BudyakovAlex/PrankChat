@@ -6,14 +6,43 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 {
-    public abstract class BaseTableCell<TCell, TViewModel> : MvxTableViewCell
-        where TViewModel : class
+    public abstract class BaseTableCell : MvxTableViewCell
     {
         private const int DefaultCellHeight = 40;
 
-        protected BaseTableCell(IntPtr handle) : base(handle)
+        protected BaseTableCell(IntPtr handle)
+            : base(handle)
         {
             this.DelayBind(SetupCell);
+        }
+
+        public static int EstimatedHeight { get; protected set; } = DefaultCellHeight;
+
+        protected virtual void SetupControls()
+        {
+            BackgroundColor = UIColor.Clear;
+            ContentView.BackgroundColor = UIColor.Clear;
+            SelectionStyle = UITableViewCellSelectionStyle.Gray;
+        }
+
+        protected virtual void SetBindings()
+        {
+        }
+
+        private void SetupCell()
+        {
+            SetupControls();
+            SetBindings();
+        }
+    }
+
+    public abstract class BaseTableCell<TCell, TViewModel> : BaseTableCell
+        where TCell : BaseTableCell
+        where TViewModel : class
+    {
+        protected BaseTableCell(IntPtr handle)
+            : base(handle)
+        {
         }
 
         static BaseTableCell()
@@ -26,25 +55,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         public static UINib Nib { get; }
 
-        public static int EstimatedHeight { get; protected set; } = DefaultCellHeight;
-
         public TViewModel ViewModel => BindingContext.DataContext as TViewModel;
-
-        public void SetupCell()
-        {
-            SetupControls();
-            SetBindings();
-        }
-
-        protected virtual void SetupControls()
-        {
-            BackgroundColor = UIColor.Clear;
-            SelectionStyle = UITableViewCellSelectionStyle.Gray;
-            ContentView.BackgroundColor = UIColor.Clear;
-        }
-
-        protected virtual void SetBindings()
-        {
-        }
     }
 }

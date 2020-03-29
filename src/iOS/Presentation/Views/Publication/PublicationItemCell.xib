@@ -52,7 +52,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUy-yv-U1B" customClass="VideoView">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUy-yv-U1B">
                         <rect key="frame" x="16" y="126.5" width="378" height="216"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -90,7 +90,7 @@
                         <state key="normal" title="Button" image="ic_share"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bc-Te-k2D">
-                        <rect key="frame" x="378" y="352" width="14" height="22"/>
+                        <rect key="frame" x="364" y="345" width="28" height="36"/>
                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                         <state key="normal" image="ic_bookmark"/>
                     </button>
@@ -132,16 +132,16 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="LoadingActivityIndicator" destination="x4k-Bg-x2O" id="6dE-1q-MbP"/>
-                <outlet property="StubImageView" destination="Zq5-Qh-ec4" id="Gck-H7-FUK"/>
                 <outlet property="bookmarkButton" destination="3bc-Te-k2D" id="6J2-HR-UQP"/>
                 <outlet property="likeButton" destination="BXs-ef-I9v" id="S0C-ak-W9Z"/>
                 <outlet property="likeLabel" destination="Kam-d9-irM" id="cam-QN-BGK"/>
+                <outlet property="loadingActivityIndicator" destination="x4k-Bg-x2O" id="cuw-yg-KA1"/>
                 <outlet property="moreButton" destination="4BB-gN-kDu" id="yYK-uy-gD1"/>
                 <outlet property="profileImage" destination="kAU-Il-kDS" id="0jc-Qm-QfR"/>
                 <outlet property="profileNameLabel" destination="fjE-FD-JYU" id="7iM-Cc-3Wv"/>
                 <outlet property="publicationInfoLabel" destination="n9k-fi-DBx" id="02W-8E-rCE"/>
                 <outlet property="shareButton" destination="RUb-8g-dpe" id="w3c-7X-0PG"/>
+                <outlet property="stubImageView" destination="Zq5-Qh-ec4" id="kMD-Dc-EOL"/>
                 <outlet property="videoNameLabel" destination="5WK-d7-xgu" id="pqj-yG-F5C"/>
                 <outlet property="videoView" destination="QUy-yv-U1B" id="Pr3-Ez-3fB"/>
             </connections>

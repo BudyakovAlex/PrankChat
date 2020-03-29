@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using CoreAnimation;
 using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
@@ -19,6 +18,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
     public partial class CompetitionItemCell : BaseCollectionCell<CompetitionItemCell, CompetitionItemViewModel>
     {
         private CompetitionPhase _phase;
+        private CAGradientLayer _titleGradientSublayer;
 
         protected CompetitionItemCell(IntPtr handle)
             : base(handle)
@@ -31,35 +31,25 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             set
             {
                 _phase = value;
-
-                SetTitleBackground(_phase);
-
-                var color = GetPrimaryColor(_phase);
-                likeButton.TintColor = color;
-                idLabel.TextColor = color;
-
-                Layer.BorderColor = color.CGColor;
-                Layer.ShadowColor = color.CGColor;
-                Layer.ShadowOffset = CGSize.Empty;
-                Layer.ShadowOpacity = 1f;
-                Layer.ShadowRadius = 5f;
-                Layer.ShadowPath = UIBezierPath.FromRoundedRect(Bounds, Layer.CornerRadius).CGPath;
-                Layer.MasksToBounds = false;
+                PhaseChanged(_phase);
             }
         }
 
         protected override void SetupControls()
         {
-            Layer.CornerRadius = 15f;
-            Layer.BorderWidth = 3f;
-            titleContainer.Layer.CornerRadius = Layer.CornerRadius;
-            titleContainer.BackgroundColor = UIColor.Clear;
+            InitializeLayer();
+            InitializeTitleContainer();
 
             prizeTitleLabel.Text = Resources.Competitions_Prize_Pool;
             button.SetDarkStyle(string.Empty);
+        }
 
-            SetNeedsLayout();
-            LayoutIfNeeded();
+        public override void LayoutSubviews()
+        {
+            base.LayoutSubviews();
+
+            _titleGradientSublayer.Frame = titleContainer.Bounds;
+            Layer.ShadowPath = UIBezierPath.FromRoundedRect(Bounds, Layer.CornerRadius).CGPath;
         }
 
         protected override void SetBindings()
@@ -90,9 +80,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
                       .WithConversion<CompetitionPhaseToTermTitleConverter>();
 
             bindingSet.Bind(timeContainer)
-                      .For(v => v.Hidden)
-                      .To(vm => vm.IsFinished)
-                      .WithConversion<MvxInvertedBooleanConverter>();
+                      .For(v => v.BindVisible())
+                      .To(vm => vm.IsFinished);
 
             bindingSet.Bind(timeLabel)
                       .For(v => v.Text)
@@ -157,23 +146,51 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
                       .To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToActionButtonTitleConverter>();
 
+            bindingSet.Bind(button)
+                      .For(v => v.BindTouchUpInside())
+                      .To(vm => vm.ActionCommand);
+
             bindingSet.Apply();
         }
 
-        private void SetTitleBackground(CompetitionPhase phase)
+        private void InitializeLayer()
         {
-            var gradientLayer = new CAGradientLayer
+            Layer.CornerRadius = 15f;
+            Layer.BorderWidth = 3f;
+            Layer.ShadowOffset = CGSize.Empty;
+            Layer.ShadowOpacity = 1f;
+            Layer.ShadowRadius = 5f;
+            Layer.MasksToBounds = false;
+            Layer.RasterizationScale = UIScreen.MainScreen.Scale;
+            Layer.ShouldRasterize = true;
+        }
+
+        private void InitializeTitleContainer()
+        {
+            titleContainer.Layer.CornerRadius = Layer.CornerRadius;
+            titleContainer.BackgroundColor = UIColor.Clear;
+
+            _titleGradientSublayer = new CAGradientLayer
             {
-                Frame = titleContainer.Bounds,
                 CornerRadius = titleContainer.Layer.CornerRadius,
                 MaskedCorners = CACornerMask.MinXMinYCorner | CACornerMask.MaxXMinYCorner,
-                Colors = GetGradient(phase),
                 StartPoint = new CGPoint(0f, 1f),
                 EndPoint = new CGPoint(1f, 1f)
             };
 
-            titleContainer.Layer.Sublayers.OfType<CAGradientLayer>().ForEach(x => x.RemoveFromSuperLayer());
-            titleContainer.Layer.InsertSublayer(gradientLayer, 0);
+            titleContainer.Layer.InsertSublayer(_titleGradientSublayer, 0);
+        }
+
+        private void PhaseChanged(CompetitionPhase phase)
+        {
+            var color = GetPrimaryColor(phase);
+            likeButton.TintColor = color;
+            idLabel.TextColor = color;
+
+            Layer.BorderColor = color.CGColor;
+            Layer.ShadowColor = color.CGColor;
+
+            _titleGradientSublayer.Colors = GetGradient(_phase);
         }
 
         private UIColor GetPrimaryColor(CompetitionPhase phase)
