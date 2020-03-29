@@ -91,7 +91,6 @@
     <Compile Include="Presentation\Views\Profile\ProfileUpdateView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileView.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsView.cs" />
-    <Compile Include="Presentation\Views\RatingView.cs" />
     <Compile Include="Presentation\Views\Registration\RegistrationSecondStepView.cs" />
     <Compile Include="Presentation\Views\Registration\RegistrationView.cs" />
     <Compile Include="Presentation\Views\Registration\RegistrationThirdStepView.cs" />
@@ -761,9 +760,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\profile_layout.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\rating_layout.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_notification.xml">

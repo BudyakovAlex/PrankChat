@@ -1,10 +1,12 @@
 ﻿using Android.OS;
 using Android.Runtime;
+using Android.Support.Design.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
@@ -19,7 +21,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 {
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(OrdersView))]
-    public class OrdersView : BaseTabFragment<OrdersViewModel>
+    public class OrdersView : BaseTabFragment<OrdersViewModel>, TabLayout.IOnTabSelectedListener
     {
         private EndlessRecyclerView _endlessRecyclerView;
         private LinearLayoutManager _layoutManager;
@@ -53,6 +55,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 
             _stateScrollListener = new StateScrollListener();
             _endlessRecyclerView.AddOnScrollListener(_stateScrollListener);
+
+            var tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
+            tabLayout.AddOnTabSelectedListener(this);
         }
 
         private void DoBind()
@@ -77,5 +82,27 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 		protected override void Unsubscription()
 		{
 		}
-	}
+
+        public void OnTabReselected(TabLayout.Tab tab)
+        {
+        }
+
+        public void OnTabSelected(TabLayout.Tab tab)
+        {
+            switch (tab.Position)
+            {
+                case 0:
+                    ViewModel.TabType = OrdersTabType.Order;
+                    break;
+
+                case 1:
+                    ViewModel.TabType = OrdersTabType.Rating;
+                    break;
+            }
+        }
+
+        public void OnTabUnselected(TabLayout.Tab tab)
+        {
+        }
+    }
 }
