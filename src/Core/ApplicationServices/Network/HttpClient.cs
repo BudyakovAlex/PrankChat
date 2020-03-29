@@ -59,12 +59,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return await ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
-        public Task Post(string endpoint, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
-        {
-            var request = new RestRequest(endpoint, Method.POST);
-            return ExecuteTask(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
-        }
-
         public Task<TResult> Post<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where TEntity : class where TResult : new()
         {
             var request = new RestRequest(endpoint, Method.POST);
@@ -102,6 +96,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             request.AddFile(propertyName, path);
             request.AlwaysMultipartFormData = true;
             return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
+        }
+
+        public Task Delete(string endpoint, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
+        {
+            var request = new RestRequest(endpoint, Method.DELETE);
+            return ExecuteTask(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
         private async Task ExecuteTask(IRestRequest request, string endpoint, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)

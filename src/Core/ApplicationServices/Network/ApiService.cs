@@ -346,7 +346,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var createCreditCard = new CreateCardApiModel()
             {
-                Number = number,
+                Number = number.WithoutSpace(),
                 CardUserName = userName,
             };
             var dataApiModel = await _client.Post<CreateCardApiModel, DataApiModel<CardApiModel>>("me/cards", createCreditCard, true);
@@ -363,7 +363,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public Task DeleteCardAsync(int id)
         {
-            return _client.Post($"me/card/{id}", true);
+            return _client.Delete($"me/cards/{id}", true);
         }
 
         #endregion Users
@@ -424,21 +424,21 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 CreditCardId = cardId,
             };
 
-            var dataApiModel = await _client.Post<CreateWithdrawalApiModel, DataApiModel<WithdrawalApiModel>>("payment/withdrawal", createWithdrawalApiModel);
+            var dataApiModel = await _client.Post<CreateWithdrawalApiModel, DataApiModel<WithdrawalApiModel>>("withdrawal", createWithdrawalApiModel);
             var data = MappingConfig.Mapper.Map<WithdrawalDataModel>(dataApiModel?.Data);
             return data;
         }
 
         public async Task<List<WithdrawalDataModel>> GetWithdrawalsAsync()
         {
-            var dataApiModel = await _client.Get<DataApiModel<List<WithdrawalApiModel>>> ("payment/withdrawal");
+            var dataApiModel = await _client.Get<DataApiModel<List<WithdrawalApiModel>>> ("withdrawal");
             var data = MappingConfig.Mapper.Map<List<WithdrawalDataModel>>(dataApiModel?.Data);
             return data;
         }
 
         public Task CancelWithdrawalAsync(int withdrawalId)
         {
-            return _client.Post($"withdrawal/{withdrawalId}/delete", true);
+            return _client.Delete($"withdrawal/{withdrawalId}", true);
         }
 
         #endregion Payment

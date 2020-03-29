@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace PrankChat.Mobile.Core.Models.Api
 {
@@ -8,9 +9,12 @@ namespace PrankChat.Mobile.Core.Models.Api
         public int Id { get; set; }
 
         [JsonProperty("amount")]
-        public double Amount { get; set; }
+        public double? Amount { get; set; }
 
         [JsonProperty("status")]
         public string Status { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime? CreatedAt { get; set; }
     }
 }

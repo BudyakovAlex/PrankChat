@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using CreditCardValidator;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.Core.Infrastructure
 {
@@ -9,15 +10,10 @@ namespace PrankChat.Mobile.Core.Infrastructure
         private static readonly InternationalCardHelper _instance = new InternationalCardHelper();
         public static InternationalCardHelper Instance = _instance;
 
-        private static IReadOnlyDictionary<CardPatternType, string> GroupSizeToPatternMap = new Dictionary<CardPatternType, string>
+        public InternationalCardHelper()
         {
-            { CardPatternType.Default16, GenerateCardPattern(4, 4, 4, 4) },
-            { CardPatternType.ChinaUnionPay19, GenerateCardPattern(6, 13) },
-            { CardPatternType.DinersClub14, GenerateCardPattern(4, 6, 4) },
-            { CardPatternType.Maestro13, GenerateCardPattern(4, 4, 5) },
-            { CardPatternType.Maestro15, GenerateCardPattern(4, 4, 5) },
-            { CardPatternType.Maestro19, GenerateCardPattern(4, 4, 4, 4, 3) }
-        };
+
+        }
 
         public bool IsValidCreditCard(string cardNumber)
         {
@@ -29,78 +25,90 @@ namespace PrankChat.Mobile.Core.Infrastructure
             if (string.IsNullOrWhiteSpace(cardNumber))
                 return string.Empty;
 
-            cardNumber = cardNumber.Replace(" ", string.Empty);
+            cardNumber = cardNumber.WithoutSpace();
             if (cardNumber.Length <= 4)
                 return cardNumber;
 
             var cardType = cardNumber.CreditCardBrandIgnoreLength();
-            var pattern = GetVerifiedPattern(cardType, cardNumber.Length);
-            var match = Regex.Match(cardNumber, pattern);
-            var replacement = GetReplacementPattern(match.Groups.Count);
-            var formattedNumber = Regex.Replace(cardNumber, pattern, replacement);
+            var mask = GetCardMask(cardType, cardNumber.Length);
+
+            var pattern = GetPattern(cardNumber.DigitCount());
+            var replacement = GetReplacement(mask, cardNumber.DigitCount());
+            var formattedNumber = Regex.Replace(cardNumber.StripAllNonNumericChars(), pattern, replacement);
             return formattedNumber;
         }
 
-        private string GetReplacementPattern(int groupCount)
+        private string GetCardMask(CardIssuer cardType, int cardLenght)
+        {
+            switch (cardType)
+            {
+                case CardIssuer.Unknown:
+                case CardIssuer.Visa:
+                case CardIssuer.Switch:
+                case CardIssuer.RuPay:
+                case CardIssuer.MasterCard:
+                case CardIssuer.Laser:
+                case CardIssuer.JCB:
+                case CardIssuer.Hipercard:
+                case CardIssuer.Discover:
+                case CardIssuer.Dankort:
+                case CardIssuer.AmericanExpress:
+                    return "#### #### #### ####";
+
+                case CardIssuer.ChinaUnionPay:
+                    if (cardLenght <= 16)
+                        return "#### #### #### ####";
+                    else
+                        return "###### #############";
+
+                case CardIssuer.DinersClub:
+                    if (cardLenght <= 14)
+                        return "#### ###### ####";
+                    else
+                        return "#### #### #### ####";
+
+                case CardIssuer.Maestro:
+                    if (cardLenght <= 13)
+                        return "#### #### #####";
+
+                    if (cardLenght <= 15)
+                        return "#### ###### #####";
+
+                    if (cardLenght <= 15)
+                        return "#### #### #### ####";
+                    else
+                        return "#### #### #### #### ###";
+            }
+            return "";
+        }
+
+        private string GetPattern(int digitCount)
         {
             var pattern = string.Empty;
-            var finalCount = groupCount - 1;
-            for (var i = 1; i < finalCount; i++)
+            for (int i = 0; i < digitCount; i++)
             {
-                pattern += $"${i} ";
+                pattern += @"(\d)";
             }
-
-            pattern += $"${finalCount}";
-
             return pattern;
         }
 
-        private string GetVerifiedPattern(CardIssuer cardIssuer, int numberLenght)
+        private string GetReplacement(string mask, int digitCount)
         {
-            if (cardIssuer == CardIssuer.Maestro)
+            var replacement = string.Empty;
+            var currentDigitIndex = 0;
+            for (int i = 0; i < mask.Length; i++)
             {
-                if (numberLenght <= 13)
-                    return GroupSizeToPatternMap[CardPatternType.Maestro13];
+                if (mask[i].IsDigit() || mask[i] == '#')
+                {
+                    if (currentDigitIndex == digitCount)
+                        break;
 
-                if (numberLenght <= 15)
-                    return GroupSizeToPatternMap[CardPatternType.Maestro15];
-
-                if (numberLenght <= 19)
-                    return GroupSizeToPatternMap[CardPatternType.Maestro19];
+                    replacement += $"${++currentDigitIndex}";
+                }
+                else
+                    replacement += mask[i];
             }
-
-            if(cardIssuer == CardIssuer.DinersClub && numberLenght <= 14)
-                return GroupSizeToPatternMap[CardPatternType.DinersClub14];
-
-            if (numberLenght <= 16)
-                return GroupSizeToPatternMap[CardPatternType.Default16];
-
-            if (cardIssuer == CardIssuer.ChinaUnionPay && numberLenght <= 19)
-                return GroupSizeToPatternMap[CardPatternType.ChinaUnionPay19];
-
-            return string.Empty;
-        }
-
-        private static string GenerateCardPattern(params int[] groupSizes)
-        {
-            var pattern = @"^";
-
-            for (var i = 0; i < groupSizes.Length; i++)
-            {
-                pattern += @"([\d]{" + groupSizes[i] + @"})";
-            }
-
-            return pattern;
-        }
-
-        public enum CardPatternType
-        {
-            Default16,
-            ChinaUnionPay19,
-            DinersClub14,
-            Maestro13,
-            Maestro15,
-            Maestro19
+            return replacement;
         }
     }
 }

@@ -69,6 +69,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
                 .For(v => v.BindVisible())
                 .To(vm => vm.IsWithdrawalPending);
 
+            set.Bind(dateValueLabel)
+                .To(vm => vm.CreateAtWithdrawal);
+
+            set.Bind(costValueLabel)
+                .To(vm => vm.AmountValue);
+
             #endregion
 
             #region VerifyUserView
@@ -128,6 +134,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
             pendingWithdrawalSeparator.BackgroundColor = Theme.Color.Accent;
 
             questionImageView.Image = UIImage.FromBundle("ic_question");
+
+            statusValueLabel.SetRegularStyle(12, Theme.Color.Black);
+            statusValueLabel.Text = "В ожидании";
+            statusTitleLabel.SetRegularStyle(12, Theme.Color.Black);
+            statusTitleLabel.Text = "Дата создания";
+
+            costValueLabel.SetRegularStyle(12, Theme.Color.Black);
+            costTitleLabel.SetRegularStyle(12, Theme.Color.Black);
+            costTitleLabel.Text = "Сумма";
+
+            dateValueLabel.SetRegularStyle(12, Theme.Color.Black);
+            dateTitleLabel.SetRegularStyle(12, Theme.Color.Black);
+            dateTitleLabel.Text = "Статус";
 
             lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
             lottieAnimationView.LoopAnimation = true;

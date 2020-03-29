@@ -31,7 +31,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 		UIKit.UITextField costTextField { get; set; }
 
 		[Outlet]
+		UIKit.UILabel costTitleLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel costValueLabel { get; set; }
+
+		[Outlet]
 		UIKit.UIView creditCardView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel dateTitleLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel dateValueLabel { get; set; }
 
 		[Outlet]
 		UIKit.UITextField firstNameTextField { get; set; }
@@ -70,6 +82,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 		UIKit.UITextField savedCardNumberEditText { get; set; }
 
 		[Outlet]
+		UIKit.UILabel statusTitleLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel statusValueLabel { get; set; }
+
+		[Outlet]
 		UIKit.UITextField surnameTextField { get; set; }
 
 		[Outlet]
@@ -89,6 +107,41 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (statusValueLabel != null) {
+				statusValueLabel.Dispose ();
+				statusValueLabel = null;
+			}
+
+			if (statusTitleLabel != null) {
+				statusTitleLabel.Dispose ();
+				statusTitleLabel = null;
+			}
+
+			if (costValueLabel != null) {
+				costValueLabel.Dispose ();
+				costValueLabel = null;
+			}
+
+			if (costTitleLabel != null) {
+				costTitleLabel.Dispose ();
+				costTitleLabel = null;
+			}
+
+			if (dateValueLabel != null) {
+				dateValueLabel.Dispose ();
+				dateValueLabel = null;
+			}
+
+			if (dateTitleLabel != null) {
+				dateTitleLabel.Dispose ();
+				dateTitleLabel = null;
+			}
+
+			if (amountContainerStackView != null) {
+				amountContainerStackView.Dispose ();
+				amountContainerStackView = null;
+			}
+
 			if (attachDocumentButton != null) {
 				attachDocumentButton.Dispose ();
 				attachDocumentButton = null;
@@ -109,19 +162,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				cardNumberEditText = null;
 			}
 
-			if (amountContainerStackView != null) {
-				amountContainerStackView.Dispose ();
-				amountContainerStackView = null;
-			}
-
 			if (costTextField != null) {
 				costTextField.Dispose ();
 				costTextField = null;
-			}
-
-			if (nameContainerStackView != null) {
-				nameContainerStackView.Dispose ();
-				nameContainerStackView = null;
 			}
 
 			if (creditCardView != null) {
@@ -137,6 +180,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 			if (lottieAnimationView != null) {
 				lottieAnimationView.Dispose ();
 				lottieAnimationView = null;
+			}
+
+			if (nameContainerStackView != null) {
+				nameContainerStackView.Dispose ();
+				nameContainerStackView = null;
 			}
 
 			if (pendingVerifyUserLabel != null) {

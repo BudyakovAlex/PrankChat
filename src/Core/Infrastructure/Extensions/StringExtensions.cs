@@ -29,9 +29,39 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             return name.Substring(0, ShortenCountForname).ToUpper();
         }
 
+        public static string WithoutSpace(this string source)
+        {
+            return source.Replace(" ", string.Empty);
+        }
+
+        public static int DigitCount(this string source)
+        {
+            var digitCount = 0;
+            foreach (char ch in source)
+            {
+                if (ch.IsDigit())
+                    digitCount++;
+            }
+
+            return digitCount;
+        }
+
         public static bool IsDigit(this char source)
         {
             return source >= '0' && source <= '9';
+        }
+
+        /// <summary>
+        /// Fixes all non numeric chars
+        /// </summary>
+        public static string StripAllNonNumericChars(this string target)
+        {
+            if (string.IsNullOrWhiteSpace(target))
+                return target;
+
+            const string pattern = @"[\D\+]+";
+            target = Regex.Replace(target, pattern, string.Empty, RegexOptions.Singleline);
+            return target;
         }
     }
 }
