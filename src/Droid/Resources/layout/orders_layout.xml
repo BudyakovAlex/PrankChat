@@ -30,10 +30,11 @@
 
         <TextView
             android:id="@+id/filter_button_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="17dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="17dp"
+            android:layout_weight="1"
             android:textColor="@color/filter"
             android:textSize="14sp"
             app:MvxBind="Text ActiveFilterName" />
