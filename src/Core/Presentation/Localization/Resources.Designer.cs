@@ -1349,15 +1349,21 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
             }
         }
         
-        public static string Competition_Prize_Pool_Raiting {
+        public static string Competition_Prize_Pool_Rating {
             get {
-                return ResourceManager.GetString("Competition_Prize_Pool_Raiting", resourceCulture);
+                return ResourceManager.GetString("Competition_Prize_Pool_Rating", resourceCulture);
             }
         }
         
         public static string Competition_Prize_Pool_Participant {
             get {
                 return ResourceManager.GetString("Competition_Prize_Pool_Participant", resourceCulture);
+            }
+        }
+        
+        public static string Competition_Prize_Pool {
+            get {
+                return ResourceManager.GetString("Competition_Prize_Pool", resourceCulture);
             }
         }
     }
