@@ -6,6 +6,7 @@ using Plugin.DeviceInfo;
 using PrankChat.Mobile.iOS.Utils.Helpers;
 using Foundation;
 using PrankChat.Mobile.iOS.Controls;
+using System.Linq;
 
 namespace PrankChat.Mobile.iOS.AppTheme
 {
@@ -459,6 +460,83 @@ namespace PrankChat.Mobile.iOS.AppTheme
             title = title.ToLowerInvariant();
             var attributedTitle = new NSAttributedString(title, titleAttributes);
             button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
+        }
+
+        public static UIStackView SetTabsStyle(this UIStackView stackView, string[] titles, Action<int> tapAction)
+        {
+            foreach (var view in stackView.ArrangedSubviews)
+            {
+                var titleLabel = view.Subviews.FirstOrDefault(item => item is UILabel) as UILabel;
+                if (titleLabel is null)
+                {
+                    continue;
+                }
+
+                var index = stackView.ArrangedSubviews.ToList().IndexOf(view);
+                var title = titles.ElementAtOrDefault(index);
+                titleLabel.Text = title ?? string.Empty;
+                view.AddGestureRecognizer(new UITapGestureRecognizer(() => tapAction?.Invoke(index)));
+
+                var indicatorView = view.Subviews.FirstOrDefault(item => !(item is UILabel));
+                var isSelectedTab = index == 0;
+
+                if (indicatorView != null)
+                {
+                    indicatorView.Hidden = !isSelectedTab;
+                }
+
+                if (isSelectedTab)
+                {
+                    titleLabel.SetMainTitleStyle();
+                    continue;
+                }
+
+                titleLabel.SetTitleStyle();
+            }
+
+            return stackView;
+        }
+
+        public static void SetSelectedTabStyle(this UIStackView stackView, int index)
+        {
+            var elementPosition = 0;
+            foreach (var view in stackView.ArrangedSubviews)
+            {
+                if (elementPosition == index)
+                {
+                    ++elementPosition;
+                    var activeIndicatorView = view.Subviews.FirstOrDefault(item => !(item is UILabel));
+                    if (activeIndicatorView != null)
+                    {
+                        activeIndicatorView.Hidden = false;
+                    }
+
+                    var activeTitleLabel = view.Subviews.FirstOrDefault(item => item is UILabel) as UILabel;
+                    if (activeTitleLabel is null)
+                    {
+                        continue;
+                    }
+
+                    activeTitleLabel.SetMainTitleStyle();
+                    continue;
+                }
+
+                ++elementPosition;
+                var indicatorView = view.Subviews.FirstOrDefault(item => !(item is UILabel));
+                if (indicatorView != null)
+                {
+                    indicatorView.Hidden = true;
+                }
+
+                var titleLabel = view.Subviews.FirstOrDefault(item => item is UILabel) as UILabel;
+                if (titleLabel is null)
+                {
+                    continue;
+                }
+
+                titleLabel.SetTitleStyle();
+                continue;
+            }
         }
 
         private static UITextField SetStyle(
