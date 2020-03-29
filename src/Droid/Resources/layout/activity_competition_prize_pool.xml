@@ -17,7 +17,7 @@
         android:gravity="center"
         android:textColor="@color/applicationWhite"
         android:textSize="12sp"
-        tools:text="Призовой фонд" />
+        android:text="@string/Competition_Prize_Pool" />
 
     <TextView
         android:id="@+id/prize_pool_text_view"
@@ -49,7 +49,7 @@
             android:textColor="@color/dark_placeholder"
             android:textSize="13sp"
             android:layout_marginStart="68dp"
-            tools:text="Участник" />
+            android:text="@string/Competition_Prize_Pool_Participant" />
         <TextView
             android:id="@+id/rating_text_view"
             android:layout_width="match_parent"
@@ -59,7 +59,7 @@
             android:gravity="end"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="68dp"
-            tools:text="Рейтинг" />
+            android:text="@string/Competition_Prize_Pool_Rating"/>
     </LinearLayout>
 
     <View
