@@ -83,6 +83,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .For(v => v.ImagePath)
                       .To(vm => vm.StubImageUrl);
 
+            bindingSet.Bind(VideoView)
+                      .For(ViewTouchTargetBinding.TargetBinding)
+                      .To(vm => vm.ShowFullScreenVideoCommand);
+
             bindingSet.Bind(_likeTextView)
                       .For(TextColorTargetBinding.TargetBinding)
                       .To(vm => vm.IsLiked)

@@ -4,7 +4,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
@@ -12,14 +16,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
     public class CompetitionVideoViewModel : BaseItemViewModel
     {
         private readonly IApiService _apiService;
-
+        private readonly INavigationService _navigationService;
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
 
         public ICommand LikeCommand { get; }
 
+        public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxAsyncCommand(ShowFullScreenVideoAsync);
+
+        public IVideoPlayerService VideoPlayerService { get; }
+
         public int Id { get; }
         public string VideoUrl { get; }
+        public string ShareLink { get; }
         public string UserName { get; }
+        public string VideoName { get; }
+        public string Description { get; }
         public string AvatarUrl { get; }
         public string StubImageUrl { get; }
         public DateTime PublicationDate { get; }
@@ -64,8 +75,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         }
 
         public CompetitionVideoViewModel(IApiService apiService,
+                                         IVideoPlayerService videoPlayerService,
+                                         INavigationService navigationService,
                                          int id,
                                          string videoUrl,
+                                         string shareLink,
+                                         string videoName,
+                                         string description,
                                          string userName,
                                          string avatarUrl,
                                          long numberOfLikes,
@@ -76,8 +92,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                                          bool isVotingCompleted)
         {
             _apiService = apiService;
+            _navigationService = navigationService;
+
+            VideoPlayerService = videoPlayerService;
+
             Id = id;
             VideoUrl = videoUrl;
+            ShareLink = shareLink;
+            VideoName = videoName;
+            Description = description;
             UserName = userName;
             AvatarUrl = avatarUrl;
             NumberOfLikes = numberOfLikes;
@@ -86,6 +109,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             IsLiked = isLiked;
             IsMyPublication = isMyPublication;
             IsVotingCompleted = isVotingCompleted;
+
             LikeCommand = new MvxCommand(OnLike);
         }
 
@@ -116,6 +140,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                 _cancellationSendingLikeTokenSource?.Dispose();
                 _cancellationSendingLikeTokenSource = null;
             }
+        }
+
+        private Task ShowFullScreenVideoAsync()
+        {
+            VideoPlayerService.Player.TryRegisterViewedFact(Id, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
+
+            var navigationParams = new FullScreenVideoParameter(Id,
+                                                                VideoUrl,
+                                                                VideoName,
+                                                                Description,
+                                                                ShareLink,
+                                                                AvatarUrl,
+                                                                NumberOfLikes,
+                                                                IsLiked);
+            return _navigationService.ShowFullScreenVideoView(navigationParams);
         }
     }
 }

@@ -7,9 +7,9 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -22,6 +22,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
     public class CompetitionDetailsViewModel : PaginationViewModel, IMvxViewModel<CompetitionDataModel>
     {
         private readonly IMvxMessenger _mvxMessenger;
+        private readonly IVideoPlayerService _videoPlayerService;
         private readonly IMediaService _mediaService;
 
         private CompetitionDataModel _competition;
@@ -31,6 +32,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         public CompetitionDetailsViewModel(IMvxMessenger mvxMessenger,
                                            INavigationService navigationService,
+                                           IVideoPlayerService videoPlayerService,
                                            IErrorHandleService errorHandleService,
                                            IApiService apiService,
                                            IMediaService mediaService,
@@ -38,6 +40,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                            ISettingsService settingsService) : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _mvxMessenger = mvxMessenger;
+            _videoPlayerService = videoPlayerService;
             _mediaService = mediaService;
 
             Items = new MvxObservableCollection<BaseItemViewModel>();
@@ -67,16 +70,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         private CompetitionVideoViewModel ProduceVideoItemViewModel(VideoDataModel videoDataModel)
         {
             return new CompetitionVideoViewModel(ApiService,
-                                              videoDataModel.Id,
-                                              videoDataModel.StreamUri,
-                                              videoDataModel.User.Name,
-                                              videoDataModel.User.Avatar,
-                                              videoDataModel.LikesCount,
-                                              videoDataModel.ViewsCount,
-                                              videoDataModel.CreatedAt.UtcDateTime,
-                                              videoDataModel.IsLiked,
-                                              videoDataModel.User.Id == SettingsService.User.Id,
-                                              _competition.GetPhase() == CompetitionPhase.Voting);
+                                                 _videoPlayerService,
+                                                 NavigationService,
+                                                 videoDataModel.Id,
+                                                 videoDataModel.StreamUri,
+                                                 videoDataModel.ShareUri,
+                                                 videoDataModel.Title,
+                                                 videoDataModel.Description,
+                                                 videoDataModel.User.Name,
+                                                 videoDataModel.User.Avatar,
+                                                 videoDataModel.LikesCount,
+                                                 videoDataModel.ViewsCount,
+                                                 videoDataModel.CreatedAt.UtcDateTime,
+                                                 videoDataModel.IsLiked,
+                                                 videoDataModel.User.Id == SettingsService.User.Id,
+                                                 _competition.GetPhase() == CompetitionPhase.Voting);
         }
 
         private async Task LoadVideoAsync()
@@ -96,8 +104,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 {
                     _competition.HasLoadedVideo = true;
                     Items.Add(new CompetitionVideoViewModel(ApiService,
+                                                            _videoPlayerService,
+                                                            NavigationService,
                                                             video.Id,
                                                             video.StreamUri,
+                                                            video.ShareUri,
+                                                            video.Title,
+                                                            video.Description,
                                                             video.User.Name,
                                                             video.User.Avatar,
                                                             video.LikesCount,
