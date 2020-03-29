@@ -844,6 +844,8 @@
     <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_competitions.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_competitions.imageset\ic_competitions-1.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -883,6 +885,7 @@
     <Folder Include="Assets.xcassets\ic_arrow_right_alt.imageset\" />
     <Folder Include="Assets.xcassets\dsadad.imageset\" />
     <Folder Include="Presentation\Dialogs\DatePicker\" />
+    <Folder Include="Assets.xcassets\ic_competitions.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

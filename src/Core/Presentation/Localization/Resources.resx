@@ -792,4 +792,7 @@
   <data name="Competition_Prize_Pool" xml:space="preserve">
     <value>Призовой фонд</value>
   </data>
+  <data name="Competitions_Tab" xml:space="preserve">
+    <value>Конкурсы</value>
+  </data>
 </root>

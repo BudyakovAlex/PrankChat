@@ -1366,5 +1366,11 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Competition_Prize_Pool", resourceCulture);
             }
         }
+        
+        public static string Competitions_Tab {
+            get {
+                return ResourceManager.GetString("Competitions_Tab", resourceCulture);
+            }
+        }
     }
 }
