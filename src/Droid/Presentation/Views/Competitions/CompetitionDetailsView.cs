@@ -136,7 +136,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
 
             videoView.SetBackgroundColor(Color.Transparent);
             videoService.Player.SetPlatformVideoPlayerContainer(videoView);
-            videoService.Play(itemViewHolder.ViewModel.VideoUrl, itemViewHolder.ViewModel.Id);
+            videoService.Play(itemViewHolder.ViewModel.VideoUrl, itemViewHolder.ViewModel.VideoId);
             _previousVideoViewHolder = itemViewHolder;
             _previousVideoView = videoView;
 

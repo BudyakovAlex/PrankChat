@@ -13,7 +13,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
-    public class CompetitionVideoViewModel : BaseItemViewModel
+    public class CompetitionVideoViewModel : BaseItemViewModel, IVideoItemViewModel
     {
         private readonly IApiService _apiService;
         private readonly INavigationService _navigationService;
@@ -25,7 +25,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public IVideoPlayerService VideoPlayerService { get; }
 
-        public int Id { get; }
+        public int VideoId { get; }
         public string VideoUrl { get; }
         public string ShareLink { get; }
         public string UserName { get; }
@@ -96,7 +96,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
             VideoPlayerService = videoPlayerService;
 
-            Id = id;
+            VideoId = id;
             VideoUrl = videoUrl;
             ShareLink = shareLink;
             VideoName = videoName;
@@ -133,7 +133,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
             try
             {
-                await _apiService.SendLikeAsync(Id, IsLiked, _cancellationSendingLikeTokenSource.Token);
+                await _apiService.SendLikeAsync(VideoId, IsLiked, _cancellationSendingLikeTokenSource.Token);
             }
             finally
             {
@@ -144,9 +144,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         private Task ShowFullScreenVideoAsync()
         {
-            VideoPlayerService.Player.TryRegisterViewedFact(Id, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
+            VideoPlayerService.Player.TryRegisterViewedFact(VideoId, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
 
-            var navigationParams = new FullScreenVideoParameter(Id,
+            var navigationParams = new FullScreenVideoParameter(VideoId,
                                                                 VideoUrl,
                                                                 VideoName,
                                                                 Description,

@@ -1,11 +1,11 @@
 ﻿using System;
-using UIKit;
 using CoreAnimation;
 using CoreGraphics;
-using Plugin.DeviceInfo;
-using PrankChat.Mobile.iOS.Utils.Helpers;
 using Foundation;
+using Plugin.DeviceInfo;
 using PrankChat.Mobile.iOS.Controls;
+using PrankChat.Mobile.iOS.Utils.Helpers;
+using UIKit;
 
 namespace PrankChat.Mobile.iOS.AppTheme
 {
@@ -408,7 +408,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
         }
 
-        public static void SetBorderlessStyle(this UIView view, string title = "", UIColor borderColor = null)
+        public static void SetBorderlessStyle(this UIView view, string title = "", UIColor borderColor = null, UIColor textColor = null)
         {
             if (borderColor != null)
             {
@@ -423,14 +423,14 @@ namespace PrankChat.Mobile.iOS.AppTheme
 
             view.BackgroundColor = UIColor.Clear;
 
-            var titleAttributes = new UIStringAttributes
-            {
-                Font = Theme.Font.MediumOfSize(14),
-                ForegroundColor = Theme.Color.Accent
-            };
-
             if (view is UIButton button)
             {
+                var titleAttributes = new UIStringAttributes
+                {
+                    Font = Theme.Font.MediumOfSize(14),
+                    ForegroundColor = textColor ?? Theme.Color.Accent
+                };
+
                 var attributedTitle = new NSAttributedString(title, titleAttributes);
                 button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
             }

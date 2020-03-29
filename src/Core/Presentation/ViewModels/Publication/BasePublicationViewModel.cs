@@ -17,11 +17,12 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
-    public class BasePublicationViewModel : LikeableViewModel, IDisposable
+    public class BasePublicationViewModel : LikeableViewModel, IVideoItemViewModel, IDisposable
     {
         private readonly IPlatformService _platformService;
         private readonly IMvxMessenger _mvxMessenger;
