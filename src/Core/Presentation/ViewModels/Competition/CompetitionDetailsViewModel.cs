@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
@@ -64,7 +65,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
             var pageContainer = await ApiService.GetCompetitionVideosAsync(_competition.Id, page, pageSize);
-            return SetList(pageContainer, page, ProduceVideoItemViewModel, Items);
+            var count = SetList(pageContainer, page, ProduceVideoItemViewModel, Items);
+
+            _header.CanLoadVideo = _competition.GetPhase() == CompetitionPhase.New &&
+                                                              !Items.OfType<CompetitionVideoViewModel>().Any(video => video.IsMyPublication);
+            return count;
         }
 
         private CompetitionVideoViewModel ProduceVideoItemViewModel(VideoDataModel videoDataModel)
@@ -102,7 +107,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 var video = await ApiService.SendVideoAsync(_competition.Id, file.Path, _competition.Title, _competition.Description);
                 if (video != null)
                 {
-                    _competition.HasLoadedVideo = true;
+                    _header.CanLoadVideo = false;
                     Items.Add(new CompetitionVideoViewModel(ApiService,
                                                             _videoPlayerService,
                                                             NavigationService,

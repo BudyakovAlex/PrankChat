@@ -6,8 +6,6 @@ namespace PrankChat.Mobile.Core.Models.Data
     {
         public int Id { get; set; }
 
-        public string Number { get; set; }
-
         public string Title { get; set; }
 
         public string ImageUrl { get; set; }
@@ -16,14 +14,22 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public string HtmlContent { get; set; }
 
+        public string Type { get; set; }
+
+        public string Status { get; set; }
+
         public int PrizePool { get; set; }
 
         public int? LikesCount { get; set; }
 
-        public bool HasLoadedVideo { get; set; }
+        public int? VideosCount { get; set; }
 
-        public DateTime VoteTerm { get; set; }
+        public DateTime VoteTo { get; set; }
 
-        public DateTime NewTerm { get; set; }
+        public DateTime UploadVideoTo { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime ActiveTo { get; set; }
     }
 }

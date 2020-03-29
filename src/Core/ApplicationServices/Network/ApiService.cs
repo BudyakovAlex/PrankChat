@@ -425,6 +425,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return CreatePaginationResult<VideoApiModel, VideoDataModel>(videoMetadataBundle);
         }
 
+        public async Task<PaginationModel<CompetitionDataModel>> GetCompetitionsAsync(int page, int pageSize)
+        {
+            var endpoint = $"competitions?page={page}&items_per_page={pageSize}";
+            var data = await _client.Get<BaseBundleApiModel<CompetitionApiModel>>(endpoint);
+            return CreatePaginationResult<CompetitionApiModel, CompetitionDataModel>(data);
+        }
+
         #endregion
 
         private void OnUnauthorizedUser(UnauthorizedMessage obj)
@@ -443,11 +450,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             var paginationData = data.Meta.FirstOrDefault();
             var totalItemsCount = paginationData.Value?.Total ?? mappedModels.Count;
             return new PaginationModel<TDataModel>(mappedModels, totalItemsCount);
-        }
-
-        public Task<List<CompetitionDataModel>> GetCompetitionsAsync(int competitionId, int page, int pageSize)
-        {
-            throw new NotImplementedException();
         }
     }
 }

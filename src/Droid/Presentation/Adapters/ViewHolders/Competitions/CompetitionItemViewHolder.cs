@@ -125,12 +125,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
 
             bindingSet.Bind(_termFromTextView)
                       .For(v => v.Text)
-                      .To(vm => vm.VoteTerm)
+                      .To(vm => vm.CreatedAt)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
 
             bindingSet.Bind(_termToTextView)
                       .For(v => v.Text)
-                      .To(vm => vm.NewTerm)
+                      .To(vm => vm.ActiveTo)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
 
             bindingSet.Bind(_borderFrame)

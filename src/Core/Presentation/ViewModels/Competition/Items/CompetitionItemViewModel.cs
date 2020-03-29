@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public int Id => _competition.Id;
 
-        public string Number => _competition.Number;
+        public string Number => string.Format(Constants.Formats.NumberFormat, _competition.Id);
 
         public string Title => _competition.Title;
 
@@ -38,13 +38,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public int? LikesCount => _competition.LikesCount;
 
-        public bool CanLoadVideo => Phase == CompetitionPhase.New && !_competition.HasLoadedVideo;
+        public DateTime VoteTo => _competition.VoteTo;
 
-        public DateTime VoteTerm => _competition.VoteTerm;
+        public DateTime UploadVideoTo => _competition.UploadVideoTo;
 
-        public DateTime NewTerm => _competition.NewTerm;
+        public DateTime ActiveTo => _competition.ActiveTo;
 
-        public string Duration => $"{VoteTerm.ToString(Constants.Formats.DateTimeFormat)} - {NewTerm.ToString(Constants.Formats.DateTimeFormat)}";
+        public DateTime CreatedAt => _competition.CreatedAt;
+
+        public string Duration => $"{CreatedAt.ToString(Constants.Formats.DateTimeFormat)} - {ActiveTo.ToString(Constants.Formats.DateTimeFormat)}";
 
         public string ImageUrl => _competition.ImageUrl;
 
@@ -52,7 +54,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public string LikesCountString => LikesCount.ToCountString();
 
-        public string PrizePoolPresentation => $"{PrizePool} ₽";
+        public string PrizePoolPresentation => string.Format(Constants.Formats.MoneyFormat, PrizePool);
 
         public string DaysText { get; } = Resources.Count_Days;
 
@@ -109,11 +111,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         {
             switch (Phase)
             {
-                case CompetitionPhase.New when NewTerm > DateTime.UtcNow:
-                    NextPhaseCountdown = DateTime.UtcNow - NewTerm;
+                case CompetitionPhase.New when UploadVideoTo > DateTime.UtcNow:
+                    NextPhaseCountdown = UploadVideoTo - DateTime.UtcNow;
                     break;
-                case CompetitionPhase.Voting when VoteTerm > DateTime.UtcNow:
-                    NextPhaseCountdown = DateTime.UtcNow - VoteTerm;
+
+                case CompetitionPhase.Voting when VoteTo > DateTime.UtcNow:
+                    NextPhaseCountdown = VoteTo - DateTime.UtcNow;
                     break;
                 default:
                     NextPhaseCountdown = TimeSpan.Zero;

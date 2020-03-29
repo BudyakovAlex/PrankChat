@@ -2,9 +2,6 @@
 using System.Windows.Input;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
@@ -19,6 +16,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         public ICommand LoadVideoCommand { get; set; }
 
         public ICommand OpenRulesCommand { get; set; }
+
+        private bool _canLoadVideo;
+        public bool CanLoadVideo
+        {
+            get => _canLoadVideo;
+            set => SetProperty(ref _canLoadVideo, value);
+        }
 
         public CompetitionDetailsHeaderViewModel(IMvxMessenger mvxMessenger,
                                                  INavigationService navigationService,

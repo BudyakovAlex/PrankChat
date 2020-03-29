@@ -4,9 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <MvxSwipeRefreshLayout
+        android:id="@+id/refresh_view"
         android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        app:MvxBind="Refreshing IsBusy; RefreshCommand LoadPublicationsCommand">
+        android:layout_width="match_parent">
         <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
             android:id="@+id/competitions_recycler_view"
             android:layout_width="match_parent"

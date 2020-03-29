@@ -117,12 +117,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             bindingSet.Bind(termFromLabel)
                       .For(v => v.Text)
-                      .To(vm => vm.NewTerm)
+                      .To(vm => vm.CreatedAt)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
 
             bindingSet.Bind(termToLabel)
                       .For(v => v.Text)
-                      .To(vm => vm.VoteTerm)
+                      .To(vm => vm.ActiveTo)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
 
             bindingSet.Bind(prizeLabel)
