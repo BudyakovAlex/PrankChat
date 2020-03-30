@@ -96,8 +96,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         public ICommand AttachFileCommand => new MvxAsyncCommand(OnAttachFileAsync);
 
-        public ICommand DeleteCardCommand => new MvxAsyncCommand(OnDeleteCardAsync);
-
         public ICommand OpenCardOptionsCommand => new MvxAsyncCommand(OnOpenCardOptionsAsync);
 
         public WithdrawalViewModel(INavigationService navigationService,
@@ -182,29 +180,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
         }
 
-        private async Task OnDeleteCardAsync()
-        {
-            if (_currentCard == null)
-                return;
-
-            try
-            {
-                IsBusy = true;
-
-                await ApiService.DeleteCardAsync(_currentCard.Id);
-                _currentCard = null;
-                await RaiseAllPropertiesChanged();
-            }
-            catch (Exception ex)
-            {
-                // TODO: Add the log.
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
         private async Task OnCancelWithdrawAsync()
         {
             if (_lastWithdrawalDataModel == null)
@@ -239,9 +214,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 {
                     IsBusy = true;
 
-                    await ApiService.DeleteCardAsync(_currentCard.Id);
-                    _currentCard = null;
-                    await RaiseAllPropertiesChanged();
+                    await DeleteCard();
                 }
                 catch (Exception ex)
                 {
@@ -277,6 +250,33 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 var withdrawals = await ApiService.GetWithdrawalsAsync();
                 _lastWithdrawalDataModel = withdrawals?.FirstOrDefault();
                 await RaiseAllPropertiesChanged();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task DeleteCard()
+        {
+            if (_currentCard == null)
+                return;
+
+            try
+            {
+                IsBusy = true;
+
+                var result = await DialogService.ShowConfirmAsync("Вы уверены что хотите удалить данную карту?", "Внимание!", "Удалить", Resources.Cancel);
+                if (!result)
+                    return;
+
+                await ApiService.DeleteCardAsync(_currentCard.Id);
+                _currentCard = null;
+                await RaiseAllPropertiesChanged();
+            }
+            catch (Exception ex)
+            {
+                // TODO: Add the log.
             }
             finally
             {
