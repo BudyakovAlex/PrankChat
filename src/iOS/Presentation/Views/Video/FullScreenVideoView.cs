@@ -18,7 +18,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 {
-    [MvxModalPresentation(ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext)]
+    [MvxModalPresentation(ModalPresentationStyle = UIModalPresentationStyle.FullScreen)]
     public partial class FullScreenVideoView : BaseView<FullScreenVideoViewModel>
     {
         private const string PlayerTimeControlStatusKey = "timeControlStatus";
