@@ -120,6 +120,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
         private void TabLayoutOnTabSelected(object sender, TabLayout.TabSelectedEventArgs e)
         {
+            if (e.Tab == null)
+                return;
+
             var iconView = e.Tab.View.FindViewById<ImageView>(Resource.Id.tab_icon);
             var textView = e.Tab.View.FindViewById<TextView>(Resource.Id.tab_title);
 
@@ -183,7 +186,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
             tabView.SetImageResource(iconResource);
             var tab = tabLayout.GetTabAt(2);
-            tab.SetCustomView(tabView);
+            if (tab != null)
+                tab.SetCustomView(tabView);
         }
 
         private bool OnTabItemTouched(View view, MotionEvent motionEvent)
