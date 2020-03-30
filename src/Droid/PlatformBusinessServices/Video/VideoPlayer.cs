@@ -3,6 +3,7 @@ using Android.Media;
 using Android.OS;
 using Android.Widget;
 using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
@@ -11,13 +12,16 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 {
     public class VideoPlayer : BaseVideoPlayer
     {
+        private readonly IErrorHandleService _errorHandleService;
+
         private const int RecheckDelayInMilliseconds = 1000;
         private VideoView _videoView;
         private MediaPlayer _mediaPlayer;
         private bool _isRepeatEnabled;
 
-        public VideoPlayer(IApiService apiService, IMvxMessenger mvxMessenger) : base(apiService, mvxMessenger)
+        public VideoPlayer(IApiService apiService, IMvxMessenger mvxMessenger, IErrorHandleService errorHandleService) : base(apiService, mvxMessenger)
         {
+            _errorHandleService = errorHandleService;
         }
 
         public override bool IsPlaying { get; protected set; }
@@ -114,6 +118,12 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         private async Task RegisterAction(int id, int registrationDelayInMilliseconds)
         {
+            if (_videoView == null)
+            {
+                _errorHandleService.LogError(nameof(VideoPlayer), $"{nameof(_videoView)} is null.");
+                return;
+            }
+
             var sent = await SendRegisterViewedFactAsync(id, registrationDelayInMilliseconds, _videoView.CurrentPosition);
 
             if (!sent)

@@ -23,7 +23,10 @@ using Localization = PrankChat.Mobile.Core.Presentation.Localization.Resources;
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {
     [MvxActivityPresentation]
-    [Activity(LaunchMode = LaunchMode.SingleTop, Theme = "@style/Theme.PrankChat.Base.Dark")]
+    [Activity(LaunchMode = LaunchMode.SingleTop,
+        Theme = "@style/Theme.PrankChat.Base.Dark",
+        ScreenOrientation = ScreenOrientation.Portrait,
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainView : BaseView<MainViewModel>
     {
         private readonly ViewOnTouchListener _tabViewOnTouchListener;
