@@ -80,7 +80,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .Mode(MvxBindingMode.OneTime);
 
             set.Bind(orderTimeLabel)
-                .To(vm => vm.TimeText);
+                .To(vm => vm.TimeText)
+                .Mode(MvxBindingMode.OneWay);
 
             set.Bind(priceValueLabel)
                 .To(vm => vm.PriceText)
