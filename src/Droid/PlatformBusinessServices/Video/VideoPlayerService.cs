@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -9,15 +10,17 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 {
     public class VideoPlayerService : BaseVideoPlayerService 
     {
+        private readonly IErrorHandleService _errorHandleService;
         private readonly IApiService _apiService;
         private readonly IMvxMessenger _mvxMessenger;
         private IVideoPlayer _player;
         private int _currentVideoId;
 
-        public VideoPlayerService(IApiService apiService, IMvxMessenger mvxMessenger)
+        public VideoPlayerService(IApiService apiService, IMvxMessenger mvxMessenger, IErrorHandleService errorHandleService)
         {
             _apiService = apiService;
             _mvxMessenger = mvxMessenger;
+            _errorHandleService = errorHandleService;
         }
 
         public override IVideoPlayer Player
@@ -26,7 +29,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             {
                 if (_player == null)
                 {
-                    _player = new VideoPlayer(_apiService, _mvxMessenger);
+                    _player = new VideoPlayer(_apiService, _mvxMessenger, _errorHandleService);
                     _player.EnableRepeat(Constants.Delays.RepeatDelayInSeconds);
                 }
                 return _player;
