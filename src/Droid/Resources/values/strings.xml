@@ -242,4 +242,30 @@
     <string name="WithdrawalView_CardNumber_Placeholder">"Номер карты"</string>
     <string name="WithdrawalView_AttachFile_Button">"Прикрепить файл"</string>
     <string name="WithdrawalView_Revoke_Button">"Отозвать"</string>
+
+    <!-- Fuzzy -->
+    <string name="Login_Without_Registration">"Войти без регистрации"</string>
+
+    <!-- Fuzzy -->
+    <string name="Competition_Prize_Pool_Rating">"Рейтинг"</string>
+    <string name="Competition_Prize_Pool_Participant">"Учасник"</string>
+    <string name="Competition_Prize_Pool">"Призовой фонд"</string>
+    <string name="Competitions_Tab">"Конкурсы"</string>
+    <string name="WithdrawalView_Empty_Card_Error">"Карта не может быть пустой."</string>
+    <string name="WithdrawalView_Cancel_Withdrawal_Error">"Не удается отменить транзакцию для вывода средств"</string>
+    <string name="WithdrawalView_Delete_Card_Text">"Удалить карту"</string>
+    <string name="Delete">"Удалить"</string>
+    <string name="WithdrawalView_Delete_Card_Question">"Вы уверены что хотите удалить данную карту?"</string>
+    <string name="WithdrawalView_Verify_User_Text">"Для того чтобы вывести средства со своего счета, Вам необходимо подтвердить свою личность прикрепив селфи с паспортом в развернутом виде."</string>
+    <string name="WithdrawalView_Attach_File">"Прикрепить файл"</string>
+    <string name="WithdrawalView_Pendng_Verify_User_Text">"Ваш запрос обрабатывается, время ожидания может составить до 24 часов"</string>
+    <string name="WithdrawalView_Card_Number">"Номер карты"</string>
+    <string name="WithdrawalView_Surname">"Фамилия"</string>
+    <string name="WithdrawalView_Name">"Имя"</string>
+    <string name="WithdrawalView_Cost">"Сумма"</string>
+    <string name="WithdrawalView_Pending_Withdrawal_Text">"В данный момент идет обработка Вашего запроса на вывод средств."</string>
+    <string name="WithdrawalView_Create_Date">"Дата создания"</string>
+    <string name="WithdrawalView_Status_Text">"Статус"</string>
+    <string name="WithdrawalView_Pending">"В ожидании"</string>
+    <string name="WithdrawalView_Withdraw_Text">"Отозвать"</string>
 </resources>

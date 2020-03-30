@@ -30,13 +30,13 @@
                 android:layout_marginLeft="16dp"
                 android:textColor="@color/applicationBlack"
                 android:textSize="14sp"
-                android:text="Для того чтобы вывести средства со своего счета, Вам необходимо подтвердить свою личность прикрепив селфи с паспортом в развернутом виде."/>
+                android:text="@string/WithdrawalView_Verify_User_Text"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_marginTop="16dp"
                 android:layout_below="@+id/verify_user_separator"
-                android:text="Прикрепить файл"
+                android:text="@string/WithdrawalView_Attach_File"
                 style="@style/Theme.PrankChat.Button.Accent"
                 app:MvxBind="Click AttachFileCommand" />
         </RelativeLayout>
@@ -57,7 +57,7 @@
                 android:layout_marginLeft="16dp"
                 android:textColor="@color/applicationBlack"
                 android:textSize="14sp"
-                android:text="Ваш запрос обрабатывается, время ожидания может составить до 24 часов"/>
+                android:text="@string/WithdrawalView_Pendng_Verify_User_Text"/>
         </LinearLayout>
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:boxStrokeWidth="1dp"
                 android:textColorHint="@color/dark_placeholder"
-                android:hint="Номер карты"
+                android:hint="@string/WithdrawalView_Card_Number"
                 style="@style/Theme.PrankChat.TextFieldLayout.Dark"
                 app:MvxBind="Visibility Invisible(IsPresavedWithdrawalAvailable)">
                 <android.support.design.widget.TextInputEditText
@@ -84,8 +84,6 @@
                     android:inputType="number"
                     android:textColor="@color/applicationBlack"
                     android:drawableLeft="@drawable/ic_card"
-                    android:editable="false"
-                    android:enabled="false"
                     android:focusable="false"
                     android:cursorVisible="true"
                     app:MvxBind="Text CurrentCardNumber; Click OpenCardOptionsCommand" />
@@ -99,7 +97,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:boxStrokeWidth="1dp"
                 android:textColorHint="@color/dark_placeholder"
-                android:hint="Номер карты"
+                android:hint="@string/WithdrawalView_Card_Number"
                 style="@style/Theme.PrankChat.TextFieldLayout.Dark"
                 app:MvxBind="Visibility InvertedInvisible(IsPresavedWithdrawalAvailable)">
                 <android.support.design.widget.TextInputEditText
@@ -123,7 +121,7 @@
                 android:layout_marginEnd="8dp"
                 app:boxStrokeWidth="1dp"
                 android:textColorHint="@color/dark_placeholder"
-                android:hint="Имя"
+                android:hint="@string/WithdrawalView_Name"
                 style="@style/Theme.PrankChat.TextFieldLayout.Dark"
                 app:MvxBind="Visibility InvertedVisibility(IsPresavedWithdrawalAvailable)">
                 <android.support.design.widget.TextInputEditText
@@ -144,7 +142,7 @@
                 android:layout_marginStart="8dp"
                 app:boxStrokeWidth="1dp"
                 android:textColorHint="@color/dark_placeholder"
-                android:hint="Фамилия"
+                android:hint="@string/WithdrawalView_Surname"
                 style="@style/Theme.PrankChat.TextFieldLayout.Dark"
                 app:MvxBind="Visibility InvertedVisibility(IsPresavedWithdrawalAvailable)">
                 <android.support.design.widget.TextInputEditText
@@ -165,7 +163,7 @@
                 android:layout_marginRight="16dp"
                 app:boxStrokeWidth="1dp"
                 android:gravity="right|center_vertical"
-                android:hint="Сумма"
+                android:hint="@string/WithdrawalView_Cost"
                 android:textColorHint="@color/dark_placeholder"
                 style="@style/Theme.PrankChat.TextFieldLayout.Dark">
                 <android.support.design.widget.TextInputEditText
@@ -228,7 +226,6 @@
                 android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_question_black" />
         </android.support.constraint.ConstraintLayout>
-
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -258,7 +255,7 @@
                 android:layout_marginLeft="16dp"
                 android:textColor="@color/applicationBlack"
                 android:textSize="14sp"
-                android:text="В данный момент идет обработка Вашего запроса на вывод средств."/>
+                android:text="@string/WithdrawalView_Pending_Withdrawal_Text"/>
             <TextView
                 android:id="@+id/pending_withdrawal_date_title"
                 android:layout_width="0dp"
@@ -269,7 +266,7 @@
                 android:layout_marginTop="36dp"
                 android:textColor="@color/applicationBlack"
                 android:textSize="14sp"
-                android:text="Дата создания"/>
+                android:text="@string/WithdrawalView_Create_Date"/>
             <TextView
                 android:id="@+id/pending_withdrawal_date_value"
                 android:layout_width="0dp"
@@ -301,7 +298,7 @@
                 android:layout_marginTop="36dp"
                 android:textColor="@color/applicationBlack"
                 android:textSize="14sp"
-                android:text="Сумма"/>
+                android:text="@string/WithdrawalView_Cost"/>
             <TextView
                 android:id="@+id/pending_withdrawal_cost_value"
                 android:layout_width="0dp"
@@ -323,7 +320,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/pending_withdrawal_cost_title"
                 android:layout_marginTop="10dp"/>
-
             <TextView
                 android:id="@+id/pending_withdrawal_status_title"
                 android:layout_width="0dp"
@@ -334,7 +330,7 @@
                 android:layout_marginTop="36dp"
                 android:textColor="@color/applicationBlack"
                 android:textSize="14sp"
-                android:text="Статус"/>
+                android:text="@string/WithdrawalView_Status_Text"/>
             <TextView
                 android:id="@+id/pending_withdrawal_status_value"
                 android:layout_width="0dp"
@@ -356,7 +352,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/pending_withdrawal_status_title"
                 android:layout_marginTop="10dp"
-                android:text="В ожидании"/>
+                android:text="@string/WithdrawalView_Pending"/>
             <Button
                 android:id="@+id/cancel_withdrawal_button"
                 android:layout_width="0dp"
@@ -365,7 +361,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/pending_withdrawal_status_line"
                 android:layout_marginTop="16dp"
-                android:text="Отозвать"
+                android:text="@string/WithdrawalView_Withdraw_Text"
                 style="@style/Theme.PrankChat.Button.Accent"
                 app:MvxBind="Click CancelWithdrawCommand" />
         </android.support.constraint.ConstraintLayout>

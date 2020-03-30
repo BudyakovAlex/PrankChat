@@ -136,17 +136,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
             questionImageView.Image = UIImage.FromBundle("ic_question");
 
             statusValueLabel.SetRegularStyle(12, Theme.Color.Black);
-            statusValueLabel.Text = "В ожидании";
+            statusValueLabel.Text = Resources.WithdrawalView_Pending;
             statusTitleLabel.SetRegularStyle(12, Theme.Color.Black);
-            statusTitleLabel.Text = "Дата создания";
+            statusTitleLabel.Text = Resources.WithdrawalView_Create_Date;
 
             costValueLabel.SetRegularStyle(12, Theme.Color.Black);
             costTitleLabel.SetRegularStyle(12, Theme.Color.Black);
-            costTitleLabel.Text = "Сумма";
+            costTitleLabel.Text = Resources.WithdrawalView_Cost;
 
             dateValueLabel.SetRegularStyle(12, Theme.Color.Black);
             dateTitleLabel.SetRegularStyle(12, Theme.Color.Black);
-            dateTitleLabel.Text = "Статус";
+            dateTitleLabel.Text = Resources.WithdrawalView_Status_Text;
 
             lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
             lottieAnimationView.LoopAnimation = true;

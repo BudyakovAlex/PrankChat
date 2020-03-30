@@ -240,3 +240,29 @@
 "WithdrawalView_CardNumber_Placeholder" = "Номер карты";
 "WithdrawalView_AttachFile_Button" = "Прикрепить файл";
 "WithdrawalView_Revoke_Button" = "Отозвать";
+
+/*Fuzzy*/
+"Login_Without_Registration" = "Войти без регистрации";
+
+/*Fuzzy*/
+"Competition_Prize_Pool_Rating" = "Рейтинг";
+"Competition_Prize_Pool_Participant" = "Учасник";
+"Competition_Prize_Pool" = "Призовой фонд";
+"Competitions_Tab" = "Конкурсы";
+"WithdrawalView_Empty_Card_Error" = "Карта не может быть пустой.";
+"WithdrawalView_Cancel_Withdrawal_Error" = "Не удается отменить транзакцию для вывода средств";
+"WithdrawalView_Delete_Card_Text" = "Удалить карту";
+"Delete" = "Удалить";
+"WithdrawalView_Delete_Card_Question" = "Вы уверены что хотите удалить данную карту?";
+"WithdrawalView_Verify_User_Text" = "Для того чтобы вывести средства со своего счета, Вам необходимо подтвердить свою личность прикрепив селфи с паспортом в развернутом виде.";
+"WithdrawalView_Attach_File" = "Прикрепить файл";
+"WithdrawalView_Pendng_Verify_User_Text" = "Ваш запрос обрабатывается, время ожидания может составить до 24 часов";
+"WithdrawalView_Card_Number" = "Номер карты";
+"WithdrawalView_Surname" = "Фамилия";
+"WithdrawalView_Name" = "Имя";
+"WithdrawalView_Cost" = "Сумма";
+"WithdrawalView_Pending_Withdrawal_Text" = "В данный момент идет обработка Вашего запроса на вывод средств.";
+"WithdrawalView_Create_Date" = "Дата создания";
+"WithdrawalView_Status_Text" = "Статус";
+"WithdrawalView_Pending" = "В ожидании";
+"WithdrawalView_Withdraw_Text" = "Отозвать";

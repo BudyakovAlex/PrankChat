@@ -131,7 +131,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                     var card = await ApiService.SaveCardAsync(CardNumber, $"{Name} {Surname}");
                     if (card == null)
                     {
-                        ErrorHandleService.HandleException(new ValidationException("Карта не может быть пустой", ValidationErrorType.CanNotMatch));
+                        ErrorHandleService.HandleException(new ValidationException(Resources.WithdrawalView_Empty_Card_Error, ValidationErrorType.CanNotMatch));
                         return;
                     }
                     _currentCard = card;
@@ -184,7 +184,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         {
             if (_lastWithdrawalDataModel == null)
             {
-                 ErrorHandleService.HandleException(new ValidationException("Не удается отменить транзакцию для вывода средств", ValidationErrorType.CanNotMatch, 0.ToString()));
+                 ErrorHandleService.HandleException(new ValidationException(Resources.WithdrawalView_Cancel_Withdrawal_Error, ValidationErrorType.CanNotMatch, 0.ToString()));
                 return;
             }
 
@@ -207,23 +207,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         private async Task OnOpenCardOptionsAsync()
         {
-            var result = await DialogService.ShowMenuDialogAsync(new string[] { "Удалить карту" }, Resources.Close);
-            if (result == "Удалить карту")
+            var result = await DialogService.ShowMenuDialogAsync(new string[] { Resources.WithdrawalView_Delete_Card_Text }, Resources.Close);
+            if (result == Resources.WithdrawalView_Delete_Card_Text)
             {
-                try
-                {
-                    IsBusy = true;
-
-                    await DeleteCard();
-                }
-                catch (Exception ex)
-                {
-                    // TODO: Add the log.
-                }
-                finally
-                {
-                    IsBusy = false;
-                }
+                await DeleteCard();
             }
         }
 
@@ -266,7 +253,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             {
                 IsBusy = true;
 
-                var result = await DialogService.ShowConfirmAsync("Вы уверены что хотите удалить данную карту?", "Внимание!", "Удалить", Resources.Cancel);
+                var result = await DialogService.ShowConfirmAsync(Resources.WithdrawalView_Delete_Card_Question, Resources.Attention, Resources.Delete, Resources.Cancel);
                 if (!result)
                     return;
 
@@ -294,7 +281,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
             if (_currentCard == null && string.IsNullOrEmpty(CardNumber))
             {
-                ErrorHandleService.HandleException(new ValidationException("Карта не может быть пустой", ValidationErrorType.CanNotMatch));
+                ErrorHandleService.HandleException(new ValidationException(Resources.WithdrawalView_Cancel_Withdrawal_Error, ValidationErrorType.CanNotMatch));
                 return false;
             }
 
