@@ -135,7 +135,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                                             video.ViewsCount,
                                                             video.CreatedAt.UtcDateTime,
                                                             video.IsLiked,
-                                                            video.User.Id == SettingsService.User.Id,
+                                                            true,
                                                             false));
 
                     await _header.RaisePropertyChanged(nameof(_header.CanLoadVideo));
