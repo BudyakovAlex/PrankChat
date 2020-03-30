@@ -18,6 +18,8 @@
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7lf-tg-guw" customClass="MvxCachedImageView">
                         <rect key="frame" x="0.0" y="0.0" width="388" height="582"/>
+                        <color key="backgroundColor" red="0.42745098039215684" green="0.15686274509803921" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="256" text="Конкурс “Клонов”" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccj-Ml-3kJ">
                         <rect key="frame" x="26" y="19" width="336" height="36"/>
