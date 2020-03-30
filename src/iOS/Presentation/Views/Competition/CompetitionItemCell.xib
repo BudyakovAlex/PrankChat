@@ -38,6 +38,7 @@
                     </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lwJ-Xo-LAN" customClass="MvxCachedImageView">
                         <rect key="frame" x="0.0" y="52" width="436" height="155"/>
+                        <color key="backgroundColor" red="0.42745098039215684" green="0.15686274509803921" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="155" id="jsQ-2H-OaW"/>
                         </constraints>

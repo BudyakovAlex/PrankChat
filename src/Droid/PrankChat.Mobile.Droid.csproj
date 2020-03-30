@@ -91,7 +91,6 @@
     <Compile Include="Presentation\Views\Profile\ProfileUpdateView.cs" />
     <Compile Include="Presentation\Views\Profile\ProfileView.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationsView.cs" />
-    <Compile Include="Presentation\Views\RatingView.cs" />
     <Compile Include="Presentation\Views\Registration\RegistrationSecondStepView.cs" />
     <Compile Include="Presentation\Views\Registration\RegistrationView.cs" />
     <Compile Include="Presentation\Views\Registration\RegistrationThirdStepView.cs" />
@@ -164,7 +163,18 @@
     <Compile Include="Presentation\Converters\CompetitionPhaseToVisibilityConverter.cs" />
     <Compile Include="Presentation\Converters\BoolToGoneInvertedConverter.cs" />
     <Compile Include="Presentation\Bindings\BackgroundColorBinding.cs" />
+    <Compile Include="Presentation\Bindings\BackgroundResourceBinding.cs" />
     <Compile Include="Controls\NotificationTextView.cs" />
+    <Compile Include="Presentation\Views\Competitions\CompetitionDetailsView.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionDetailsHeaderViewHolder.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionVideoViewHolder.cs" />
+    <Compile Include="Presentation\Views\Competitions\CompetitionRulesView.cs" />
+    <Compile Include="Presentation\Views\Competitions\CompetitionPrizePoolView.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionPrizePoolItemViewHolder.cs" />
+    <Compile Include="Presentation\Bindings\ImageViewTintColorTargetBinding.cs" />
+    <Compile Include="Presentation\Converters\BoolToResourceConverter.cs" />
+    <Compile Include="Presentation\Bindings\TextColorTargetBinding.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Abstract\Video\VideoCardViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -223,7 +233,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\action_bar_transparent.axml">
+    <AndroidResource Include="Resources\layout\action_bar_transparent.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -561,11 +571,55 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\bg_competition_orange.xml">
+     <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_prankchat_icon.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\bg_competition_blue.xml">
+     <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable\bg_splash_screen.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\bg_competition_gray.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_competition_details.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\cell_competition_details_header.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\cell_competition_video.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_competition_prize_pool.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_competition_rules.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\cell_competiton_prize_pool.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\competition_like_button_selector.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_competitions.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
@@ -714,9 +768,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\profile_layout.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\rating_layout.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_notification.xml">
@@ -899,6 +950,8 @@
     <Folder Include="Presentation\Adapters\ViewHolders\Competitions\" />
     <Folder Include="LayoutManagers\" />
     <Folder Include="Decorators\" />
+    <Folder Include="Resources\drawable-v24\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\Abstract\Video\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />
@@ -1068,9 +1121,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_launcher_background.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-v24\ic_launcher_background.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

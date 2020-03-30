@@ -12,11 +12,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Converters
             switch (value)
             {
                 case CompetitionPhase.Voting:
-                    return Resource.Color.competition_vote_background;
+                    return Resource.Drawable.bg_competition_orange;
                 case CompetitionPhase.New:
-                    return Resource.Color.competition_new_background;
+                    return Resource.Drawable.bg_competition_blue;
                 case CompetitionPhase.Finished:
-                    return Resource.Color.competition_finished_background;
+                    return Resource.Drawable.bg_competition_gray;
                 default:
                     return 0;
             }

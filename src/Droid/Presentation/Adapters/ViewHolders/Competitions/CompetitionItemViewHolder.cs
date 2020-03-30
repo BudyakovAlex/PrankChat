@@ -2,6 +2,7 @@
 using Android.Widget;
 using FFImageLoading.Cross;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -96,7 +97,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
 
             bindingSet.Bind(_numberTextView)
                       .For(v => v.Text)
-                      .To(vm => vm.Id);
+                      .To(vm => vm.Number);
 
             bindingSet.Bind(_likesTextView)
                       .For(v => v.Text)
@@ -124,12 +125,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
 
             bindingSet.Bind(_termFromTextView)
                       .For(v => v.Text)
-                      .To(vm => vm.VoteTerm)
+                      .To(vm => vm.CreatedAt)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
 
             bindingSet.Bind(_termToTextView)
                       .For(v => v.Text)
-                      .To(vm => vm.NewTerm)
+                      .To(vm => vm.ActiveTo)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
 
             bindingSet.Bind(_borderFrame)
@@ -138,7 +139,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
 
             bindingSet.Bind(_backgroundFrame)
-                      .For(BackgroundColorBinding.TargetBinding)
+                      .For(BackgroundResourceBinding.TargetBinding)
                       .To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToBackgroundConverter>();
 
@@ -150,6 +151,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .For(v => v.Text)
                       .To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToActionButtonTitleConverter>();
+
+            bindingSet.Bind(_actionButton)
+                      .For(v => v.BindClick())
+                      .To(vm => vm.ActionCommand);
 
             bindingSet.Bind(_termLinearLayout)
                       .For(v => v.Visibility)

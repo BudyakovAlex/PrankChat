@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/border_frame"
-    tools:background="@color/competition_vote_border">
+    tools:background="@color/competition_new_border"
+    android:id="@+id/border_frame">
 
     <FrameLayout
         android:id="@+id/background_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:background="@color/my_order_gradient_start"
+        android:layout_margin="2dp"
+        tools:background="@drawable/bg_competition_blue"
         tools:ignore="UselessParent">
 
         <android.support.constraint.ConstraintLayout

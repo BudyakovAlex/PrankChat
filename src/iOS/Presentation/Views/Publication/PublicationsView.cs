@@ -6,8 +6,10 @@ using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
+using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -18,7 +20,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
     {
         private MvxUIRefreshControl _refreshControl;
 
-        public PublicationTableSource PublicationTableSource { get; private set; }
+        public VideoTableSource PublicationTableSource { get; private set; }
 
         protected override void SetupBinding()
 		{
@@ -101,9 +103,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         private void InitializeTableView()
         {
-            PublicationTableSource = new PublicationTableSource(tableView);
+            PublicationTableSource = new VideoTableSource(tableView);
+            PublicationTableSource.Register<PublicationItemViewModel>(PublicationItemCell.Nib, PublicationItemCell.CellId);
+
             tableView.Source = PublicationTableSource;
-            tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
             tableView.SetVideoListStyle(PublicationItemCell.EstimatedHeight);
 
             _refreshControl = new MvxUIRefreshControl();
