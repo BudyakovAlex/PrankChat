@@ -458,6 +458,32 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #endregion Notification
 
+        #region Competitions
+
+        public async Task<PaginationModel<VideoDataModel>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize)
+        {
+            BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
+            if (_settingsService.User == null)
+            {
+                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
+            }
+            else
+            {
+                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
+            }
+
+            return CreatePaginationResult<VideoApiModel, VideoDataModel>(videoMetadataBundle);
+        }
+
+        public async Task<PaginationModel<CompetitionDataModel>> GetCompetitionsAsync(int page, int pageSize)
+        {
+            var endpoint = $"competitions?page={page}&items_per_page={pageSize}";
+            var data = await _client.Get<BaseBundleApiModel<CompetitionApiModel>>(endpoint);
+            return CreatePaginationResult<CompetitionApiModel, CompetitionDataModel>(data);
+        }
+
+        #endregion
+
         private void OnUnauthorizedUser(UnauthorizedMessage obj)
         {
             if (_settingsService.User == null)

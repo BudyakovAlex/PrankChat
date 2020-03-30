@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="133" id="cxk-wN-pdQ" customClass="CompetitionPrizePoolItemCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="133"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cxk-wN-pdQ" id="YTl-1W-gDM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="133"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWh-hm-jOT">
+                        <rect key="frame" x="16" y="58" width="59" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="cLi-IN-GFj">
+                        <rect key="frame" x="75" y="0.0" width="229" height="132"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Example" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7q-e4-aAe">
+                                <rect key="frame" x="0.0" y="0.0" width="114.5" height="132"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="1 000 00000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nxs-U7-MaA">
+                                <rect key="frame" x="114.5" y="0.0" width="114.5" height="132"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tr1-kd-bUq">
+                        <rect key="frame" x="16" y="132" width="288" height="1"/>
+                        <color key="backgroundColor" red="0.25490196079999999" green="0.1450980392" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="dGa-co-0Si"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="aWh-hm-jOT" firstAttribute="centerY" secondItem="cLi-IN-GFj" secondAttribute="centerY" id="0hh-KU-iYJ"/>
+                    <constraint firstItem="cLi-IN-GFj" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="75" id="450-6o-o40"/>
+                    <constraint firstAttribute="bottom" secondItem="Tr1-kd-bUq" secondAttribute="bottom" id="CJK-4D-AXY"/>
+                    <constraint firstItem="cLi-IN-GFj" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" id="SXh-y2-c7R"/>
+                    <constraint firstItem="aWh-hm-jOT" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="16" id="T6v-z4-TGZ"/>
+                    <constraint firstItem="cLi-IN-GFj" firstAttribute="leading" secondItem="aWh-hm-jOT" secondAttribute="trailing" id="UqI-bb-ajV"/>
+                    <constraint firstAttribute="trailing" secondItem="cLi-IN-GFj" secondAttribute="trailing" constant="16" id="X6f-3f-IuC"/>
+                    <constraint firstItem="Tr1-kd-bUq" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="16" id="cv2-dG-iEO"/>
+                    <constraint firstAttribute="trailing" secondItem="Tr1-kd-bUq" secondAttribute="trailing" constant="16" id="mcX-6Q-k0E"/>
+                    <constraint firstItem="Tr1-kd-bUq" firstAttribute="top" secondItem="cLi-IN-GFj" secondAttribute="bottom" id="nX0-Ce-cK1"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="participantLabel" destination="V7q-e4-aAe" id="WEU-5b-Xyh"/>
+                <outlet property="positionLabel" destination="aWh-hm-jOT" id="lNV-MR-ChB"/>
+                <outlet property="ratingLabel" destination="nxs-U7-MaA" id="DL2-bM-73u"/>
+            </connections>
+            <point key="canvasLocation" x="33.333333333333336" y="83.370535714285708"/>
+        </tableViewCell>
+    </objects>
+</document>

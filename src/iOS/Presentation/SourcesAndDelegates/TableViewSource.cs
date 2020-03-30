@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Foundation;
-using MvvmCross.Platforms.Ios.Binding.Views;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
 {
-    public class TableViewSource : MvxTableViewSource
+    public class TableViewSource : PagedTableViewSource
     {
         private readonly Dictionary<Type, string> _reuseIdentifierDictionary = new Dictionary<Type, string>();
 
@@ -17,7 +15,7 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
         }
 
         public TableViewSource Register<TViewModel>(UINib nib, string reuseIdentifier)
-            where TViewModel : BaseItemViewModel
+            where TViewModel : class
         {
             _reuseIdentifierDictionary.Add(typeof(TViewModel), reuseIdentifier);
             TableView.RegisterNibForCellReuse(nib, reuseIdentifier);

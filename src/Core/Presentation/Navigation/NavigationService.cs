@@ -1,11 +1,14 @@
 ﻿using System.Threading.Tasks;
 using MvvmCross.Navigation;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
@@ -86,7 +89,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 		{
 			return Task.WhenAll(
 				_mvxNavigationService.Navigate<PublicationsViewModel>(),
-				_mvxNavigationService.Navigate<RatingViewModel>(),
+				_mvxNavigationService.Navigate<CompetitionsViewModel>(),
 				_mvxNavigationService.Navigate<CreateOrderViewModel>(),
 				_mvxNavigationService.Navigate<OrdersViewModel>(),
 				_mvxNavigationService.Navigate<ProfileViewModel>());
@@ -190,6 +193,21 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 			return _mvxNavigationService.Navigate<ArrayDialogViewModel, ArrayDialogParameter, ArrayDialogResult>(parameter);
 		}
 
-        #endregion
-    }
+        public Task ShowCompetitionDetailsView(CompetitionDataModel competition)
+        {
+			return _mvxNavigationService.Navigate<CompetitionDetailsViewModel, CompetitionDataModel>(competition);
+		}
+
+		public Task ShowCompetitionPrizePoolView(CompetitionDataModel competition)
+        {
+			return _mvxNavigationService.Navigate<CompetitionPrizePoolViewModel, CompetitionDataModel>(competition);
+		}
+
+		public Task ShowCompetitionRulesView(string content)
+        {
+			return _mvxNavigationService.Navigate<CompetitionRulesViewModel, string>(content);
+		}
+
+		#endregion
+	}
 }

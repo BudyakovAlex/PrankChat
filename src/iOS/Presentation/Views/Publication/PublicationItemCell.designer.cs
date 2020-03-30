@@ -22,7 +22,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UILabel likeLabel { get; set; }
 
 		[Outlet]
-		UIKit.UIActivityIndicatorView LoadingActivityIndicator { get; set; }
+		UIKit.UIActivityIndicatorView loadingActivityIndicator { get; set; }
 
 		[Outlet]
 		UIKit.UIButton moreButton { get; set; }
@@ -40,7 +40,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UIButton shareButton { get; set; }
 
 		[Outlet]
-		FFImageLoading.Cross.MvxCachedImageView StubImageView { get; set; }
+		FFImageLoading.Cross.MvxCachedImageView stubImageView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel videoNameLabel { get; set; }
@@ -50,11 +50,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (StubImageView != null) {
-				StubImageView.Dispose ();
-				StubImageView = null;
-			}
-
 			if (bookmarkButton != null) {
 				bookmarkButton.Dispose ();
 				bookmarkButton = null;
@@ -70,9 +65,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				likeLabel = null;
 			}
 
-			if (LoadingActivityIndicator != null) {
-				LoadingActivityIndicator.Dispose ();
-				LoadingActivityIndicator = null;
+			if (loadingActivityIndicator != null) {
+				loadingActivityIndicator.Dispose ();
+				loadingActivityIndicator = null;
 			}
 
 			if (moreButton != null) {
@@ -98,6 +93,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			if (shareButton != null) {
 				shareButton.Dispose ();
 				shareButton = null;
+			}
+
+			if (stubImageView != null) {
+				stubImageView.Dispose ();
+				stubImageView = null;
 			}
 
 			if (videoNameLabel != null) {

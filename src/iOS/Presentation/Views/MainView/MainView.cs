@@ -47,7 +47,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
             if (TabBar.Items?.Length > 0)
             {
                 InitTab(0, "ic_home", Resources.Home_Tab);
-                InitTab(1, "ic_rate", Resources.Rate_Tab);
+                InitTab(1, "ic_competitions", Resources.Competitions_Tab);
                 InitCentralTab("ic_create_order");
                 InitTab(3, "ic_orders", Resources.Orders_Tab);
                 InitTab(4, "ic_profile", Resources.Profile_Tab);
