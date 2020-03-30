@@ -147,7 +147,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
             catch (Exception ex)
             {
-                // TODO: Add the log.
+                ErrorHandleService.HandleException(ex);
             }
             finally
             {
@@ -197,7 +197,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
             catch (Exception ex)
             {
-                // TODO: Add the log.
+                ErrorHandleService.HandleException(ex);
             }
             finally
             {
@@ -263,7 +263,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
             catch (Exception ex)
             {
-                // TODO: Add the log.
+                ErrorHandleService.HandleException(ex);
             }
             finally
             {
