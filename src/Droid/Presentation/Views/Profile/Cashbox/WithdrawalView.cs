@@ -1,4 +1,5 @@
-﻿using Android.Graphics;
+﻿using System;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
@@ -19,6 +20,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
     public class WithdrawalView : BaseFragment<WithdrawalViewModel>
     {
         private TextInputEditText _costEditText;
+        private TextInputEditText _cardEditText;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -29,17 +31,20 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
             availableAmountTextView.PaintFlags = availableAmountTextView.PaintFlags | PaintFlags.UnderlineText;
 
             _costEditText = view.FindViewById<TextInputEditText>(Resource.Id.credit_cost_text_input_edit_text);
+            _cardEditText = view.FindViewById<TextInputEditText>(Resource.Id.credit_card_text_input_edit_text);
             return view;
         }
 
         protected override void Subscription()
         {
             _costEditText.TextChanged += PriceEditTextOnTextChanged;
+            _cardEditText.TextChanged += CardEditTextOnTextChanged;
         }
 
         protected override void Unsubscription()
         {
             _costEditText.TextChanged -= PriceEditTextOnTextChanged;
+            _cardEditText.TextChanged -= CardEditTextOnTextChanged;
         }
 
         private void PriceEditTextOnTextChanged(object sender, TextChangedEventArgs e)
@@ -49,6 +54,15 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
             {
                 _costEditText.SetSelection(text.Length - 2);
             }
+        }
+
+        private void CardEditTextOnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var text = e.Text.ToString();
+            if (string.IsNullOrWhiteSpace(text))
+                return;
+
+            _cardEditText.SetSelection(text.Length);
         }
     }
 }
