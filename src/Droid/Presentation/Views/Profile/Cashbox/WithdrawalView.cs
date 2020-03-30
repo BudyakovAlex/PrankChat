@@ -22,6 +22,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            Context.SetTheme(Resource.Style.Theme_PrankChat_Base_Dark);
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = this.BindingInflate(Resource.Layout.withdrawal_layout, null);
             var availableAmountTextView = view.FindViewById<TextView>(Resource.Id.withdrawal_available_amount_text);
