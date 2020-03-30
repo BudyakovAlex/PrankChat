@@ -26,7 +26,12 @@
         <item name="colorPrimaryDark">@color/border</item>
         <item name="colorPrimaryDark">@color/border</item>
     </style>
-    
+
+    <style name="Theme.PrankChat.Splash" parent="Theme.PrankChat.Base">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/bg_splash_screen</item>
+    </style>
+
     <style name="Theme.PrankChat.Translucent" parent="Theme.PrankChat.Base.Dark">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
