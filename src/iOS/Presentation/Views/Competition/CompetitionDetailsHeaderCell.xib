@@ -146,7 +146,8 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <color key="backgroundColor" red="0.13333333333333333" green="0.039215686274509803" blue="0.24313725490196078" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="uwj-fU-fGQ" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" id="0UN-ek-gNj"/>
                     <constraint firstItem="1N7-3Z-440" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="32" id="0cL-NX-eKx"/>

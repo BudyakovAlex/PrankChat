@@ -17,6 +17,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             Title = Resources.Competition_Results;
 
+            titleLabel.Text = Resources.Competition_Prize_Pool;
+            participantLabel.Text = Resources.Competition_Prize_Pool_Participant;
+            ratingLabel.Text = Resources.Competition_Prize_Pool_Rating;
+
             _source = new TableViewSource(tableView)
                 .Register<CompetitionPrizePoolItemViewModel>(CompetitionPrizePoolItemCell.Nib, CompetitionPrizePoolItemCell.CellId);
 
