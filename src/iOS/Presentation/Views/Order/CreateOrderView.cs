@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
@@ -72,8 +71,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             priceTextField.SetDarkStyle(Resources.CreateOrderView_Price_Placeholder, rightPadding: 14);
             priceTextField.TextAlignment = UITextAlignment.Right;
 
-            var calendarImage = UIImage.FromBundle("ic_calendar_accent");
-            completeDateTextField.SetDarkStyle(Resources.CreateOrderView_CompleteDate_Placeholder, calendarImage);
+            completeDateTextField.SetDarkStyle(Resources.CreateOrderView_CompleteDate_Placeholder, rightImage: UIImage.FromBundle("ic_calendar_accent"));
 
             UpdateCheckboxState();
             hideExecuterCheckboxImageView.AddGestureRecognizer(new UITapGestureRecognizer(OnCheckboxTapped));

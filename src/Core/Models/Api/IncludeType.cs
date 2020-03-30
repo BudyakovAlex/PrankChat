@@ -26,5 +26,8 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         [EnumMember(Value = "order")]
         Order,
+
+        [EnumMember(Value = "document")]
+        Document,
     }
 }

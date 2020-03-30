@@ -110,15 +110,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             nameTextField.SetLightStyle(Resources.ProfileUpdateView_Name_Placeholder);
 
-            birthdayTextField.SetLightStyle(Resources.ProfileUpdateView_Birthday_Placeholder);
-            var imageView = new UIImageView(UIImage.FromBundle("ic_calendar"));
-            var imageContainer = new UIView(new CGRect(0, 0, 35, 22))
-            {
-                ContentMode = UIViewContentMode.Center
-            };
-            imageContainer.AddSubview(imageView);
-            birthdayTextField.RightView = imageContainer;
-            birthdayTextField.RightViewMode = UITextFieldViewMode.Always;
+            birthdayTextField.SetLightStyle(Resources.ProfileUpdateView_Birthday_Placeholder, rightImage: UIImage.FromBundle("ic_calendar"));
 
             sexSelectTitleLabel.Text = Resources.ProfileUpdateView_GenderSelect_Title;
             sexSelectTitleLabel.TextColor = Theme.Color.White;

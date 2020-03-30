@@ -807,6 +807,16 @@
     <ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Userpic.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Group 106.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\mdi_arrow_left_alt.pdf" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\bg_order_type_completed.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_credit_card.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_credit_card.imageset\ic_credit_card.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_dropdown.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_dropdown.imageset\Polygon.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\ThreeDots.pdf">
       <Visible>false</Visible>
     </ImageAsset>
@@ -892,6 +902,8 @@
     <Folder Include="Presentation\Dialogs\DatePicker\" />
     <Folder Include="Assets.xcassets\ic_competitions.imageset\" />
     <Folder Include="Assets.xcassets\ic_prankcaht_icon.imageset\" />
+    <Folder Include="Assets.xcassets\ic_credit_card.imageset\" />
+    <Folder Include="Assets.xcassets\ic_arrow_dropdown.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

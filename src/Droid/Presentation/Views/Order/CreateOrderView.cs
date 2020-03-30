@@ -33,15 +33,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             return view;
         }
 
-        private void PriceEditTextOnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            var text = e.Text.ToString();
-            if (text.EndsWith(Core.Presentation.Localization.Resources.Currency))
-            {
-                _priceEditText.SetSelection(text.Length - 2);
-            }
-        }
-
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
             menu.Clear();
@@ -55,6 +46,15 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         protected override void Unsubscription()
         {
             _priceEditText.TextChanged -= PriceEditTextOnTextChanged;
+        }
+
+        private void PriceEditTextOnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var text = e.Text.ToString();
+            if (text.EndsWith(Core.Presentation.Localization.Resources.Currency))
+            {
+                _priceEditText.SetSelection(text.Length - 2);
+            }
         }
     }
 }

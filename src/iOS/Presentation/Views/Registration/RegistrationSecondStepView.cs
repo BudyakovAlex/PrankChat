@@ -79,13 +79,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 
             nameTextField.SetLightStyle(Resources.RegistrationView_Name_Placeholder);
 
-            birthdayTextField.SetLightStyle(Resources.RegistrationView_Birthday_Placeholder);
-            var imageView = new UIImageView(UIImage.FromBundle("ic_calendar"));
-            var imageContainer = new UIView(new CGRect(0, 0, 35, 22));
-            imageContainer.ContentMode = UIViewContentMode.Center;
-            imageContainer.AddSubview(imageView);
-            birthdayTextField.RightView = imageContainer;
-            birthdayTextField.RightViewMode = UITextFieldViewMode.Always;
+            birthdayTextField.SetLightStyle(Resources.RegistrationView_Birthday_Placeholder, rightImage: UIImage.FromBundle("ic_calendar"));
 
             passwordTextField.SetLightStyle(Resources.RegistrationView_Password_Placeholder);
             passwordTextField.SecureTextEntry = true;

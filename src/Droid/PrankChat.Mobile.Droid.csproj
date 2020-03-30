@@ -175,6 +175,7 @@
     <Compile Include="Presentation\Converters\BoolToResourceConverter.cs" />
     <Compile Include="Presentation\Bindings\TextColorTargetBinding.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Abstract\Video\VideoCardViewHolder.cs" />
+    <Compile Include="Presentation\Converters\InvertedInvisibleConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -587,6 +588,10 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_card.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable\bg_competition_gray.xml">
       <SubType></SubType>
       <Generator></Generator>
@@ -691,7 +696,7 @@
       <Version>28.0.0.3</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Build.Download">
-      <Version>0.8.0</Version>
+      <Version>0.10.0</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Fragment">
       <Version>28.0.0.3</Version>
