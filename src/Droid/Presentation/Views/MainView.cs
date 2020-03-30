@@ -2,7 +2,6 @@
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
 using Android.Views;
@@ -13,7 +12,6 @@ using FFImageLoading.Transformations;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using Plugin.Permissions;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
@@ -110,7 +108,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             _tabLayout.SetTabTextColors(Resource.Color.applicationBlack, Resource.Color.inactive);
             var inflater = LayoutInflater.FromContext(Application.Context);
             InitTab(0, Resource.Drawable.ic_home, Localization.Home_Tab, _tabLayout, inflater);
-            InitTab(1, Resource.Drawable.ic_rate, Localization.Rate_Tab, _tabLayout, inflater);
+            InitTab(1, Resource.Drawable.ic_competitions, Localization.Competitions_Tab, _tabLayout, inflater);
             InitCentralTab(Resource.Drawable.ic_create_order, _tabLayout, inflater);
             InitTab(3, Resource.Drawable.ic_orders, Localization.Orders_Tab, _tabLayout, inflater);
             InitTab(4, Resource.Drawable.ic_image_background, Localization.Profile_Tab, _tabLayout, inflater);

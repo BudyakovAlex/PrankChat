@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ffimageloading.cross.MvxCachedImageView
+        android:id="@+id/placeholder_image_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:background="@color/accent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[11]" />
+
+    <TextView
+        android:id="@+id/title_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="26dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/applicationWhite"
+        android:textSize="30sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/placeholder_image_view"
+        tools:text="Конкурс “Клонов”" />
+
+    <TextView
+        android:id="@+id/term_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:textColor="@color/applicationWhite"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_text_view"
+        tools:text="До конца голосования" />
+
+    <TextView
+        android:id="@+id/term_timer_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/applicationWhite"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/term_title_text_view"
+        tools:text="23 : 02 : 20" />
+
+    <TextView
+        android:id="@+id/days_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/applicationWhite"
+        android:textSize="8sp"
+        app:layout_constraintStart_toStartOf="@+id/term_timer_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/term_timer_text_view"
+        tools:text="дней" />
+
+    <TextView
+        android:id="@+id/hours_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/applicationWhite"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="@+id/term_timer_text_view"
+        app:layout_constraintStart_toStartOf="@+id/term_timer_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/term_timer_text_view"
+        tools:text="часов" />
+
+    <TextView
+        android:id="@+id/minutes_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/applicationWhite"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="@+id/term_timer_text_view"
+        app:layout_constraintTop_toTopOf="@+id/hours_text_view"
+        tools:text="минут" />
+
+    <TextView
+        android:id="@+id/duration_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/applicationWhite"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_goneMarginTop="18dp"
+        app:layout_constraintTop_toBottomOf="@+id/hours_text_view"
+        tools:text="01.01.2020 - 01.08.2020" />
+
+    <TextView
+        android:id="@+id/prize_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:textColor="@color/applicationWhite"
+        android:textSize="12sp"
+        app:layout_goneMarginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/duration_text_view"
+        tools:text="Призовой фонд" />
+
+    <TextView
+        android:id="@+id/prize_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/applicationWhite"
+        android:textSize="46sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/prize_title_text_view"
+        tools:text="100 000 ₽" />
+
+    <Button
+        android:id="@+id/results_button"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="50dp"
+        android:text="@string/Competition_Results"
+        android:textSize="14sp"
+        android:textAllCaps="false"
+        android:textColor="@color/applicationWhite"
+        android:background="@drawable/border_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rules_button" />
+
+    <Button
+        android:id="@+id/rules_button"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="32dp"
+        app:layout_goneMarginTop="36dp"
+        android:textSize="14sp"
+        android:textAllCaps="false"
+        android:text="@string/Competition_Rules"
+        android:textColor="@color/applicationWhite"
+        android:background="@drawable/border_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/load_video_button" />
+
+    <Button
+        android:id="@+id/load_video_button"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:background="@drawable/button_accent_background"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:textSize="14sp"
+        android:textAllCaps="false"
+        android:text="@string/Competition_Load_Video"
+        android:textColor="@color/applicationWhite"
+        app:layout_goneMarginTop="43dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/number_text_view" />
+
+    <TextView
+        android:id="@+id/number_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="60dp"
+        android:textColor="@color/applicationWhite"
+        app:layout_constraintStart_toStartOf="@+id/placeholder_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/description_text_view"
+        tools:text="#999 999" />
+
+    <ImageView
+        android:id="@+id/likes_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        android:tint="@color/applicationWhite"
+        app:layout_constraintBottom_toBottomOf="@+id/number_text_view"
+        app:layout_constraintEnd_toStartOf="@+id/like_text_view"
+        app:layout_constraintTop_toTopOf="@+id/number_text_view"
+        app:srcCompat="@drawable/ic_accent_thumbs_up" />
+
+    <TextView
+        android:id="@+id/like_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        tools:text="100k"
+        android:textColor="@color/applicationWhite"
+        app:layout_constraintBottom_toBottomOf="@+id/likes_image_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/likes_image_view" />
+
+    <TextView
+        android:id="@+id/description_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/applicationWhite"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/prize_text_view"
+        tools:text="Оденьтесь в костюм “Штурмовика” и разыграйте своих друзей. Для участия в конкурсе достаточно загрузить Ваше видео!" />
+</android.support.constraint.ConstraintLayout>
