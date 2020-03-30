@@ -20,7 +20,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.DatePicker
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            datePicker.Date = _currentDate.ToNSDate();
+            datePicker.Date = _currentDate.Date.ToNSDate();
             datePicker.BackgroundColor = Theme.Color.White;
 
             doneButton.Title = Resources.Select;
