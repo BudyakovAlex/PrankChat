@@ -42,7 +42,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string VideoUrl => _order?.Video?.StreamUri;
 
-        public string VideoPlaceholderUrl => "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg";// _order?.Video?.Poster;
+        public string VideoPlaceholderUrl => _order?.Video?.Poster;
 
         public string VideoName => _order?.Title;
 
