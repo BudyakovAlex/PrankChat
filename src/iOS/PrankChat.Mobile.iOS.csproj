@@ -423,9 +423,6 @@
     <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Group 108.pdf">
-      <Visible>false</Visible>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_back.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -793,6 +790,7 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\ItunesArtwork%402x-1.png" />
     <ImageAsset Include="Assets.xcassets\ic_prankcaht_icon.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_prankcaht_icon.imageset\Group.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Group 108.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
