@@ -1474,5 +1474,11 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("WithdrawalView_Withdraw_Text", resourceCulture);
             }
         }
+        
+        public static string Competiton_Prize_Pool_Place {
+            get {
+                return ResourceManager.GetString("Competiton_Prize_Pool_Place", resourceCulture);
+            }
+        }
     }
 }
