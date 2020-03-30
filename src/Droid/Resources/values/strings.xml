@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="com_vk_sdk_AppId">7343996</integer>
     <string name="Close">"Закрыть"</string>
     <string name="app_name">"Prank Chat"</string>
     <string name="Home_Tab">"Главная"</string>
@@ -125,16 +124,16 @@
     <string name="ShareDialog_CopyLink_Label">"Коп. ссылку"</string>
     <string name="ShareDialog_ShareInstagram_Label">"В Instagram"</string>
     <string name="ShareDialog_LinkShareTitle">"Поделиться ссылкой"</string>
-    <string name="OrderStatus_New">"Новое"</string>
+    <string name="OrderStatus_New">"На модерации"</string>
     <string name="OrderStatus_Rejected">"Отменен модератором"</string>
     <string name="OrderStatus_Cancelled">"Отменен"</string>
-    <string name="OrderStatus_Active">"Ожидает исполнителя"</string>
-    <string name="OrderStatus_InWork">"Выполняется"</string>
+    <string name="OrderStatus_Active">"Новый"</string>
+    <string name="OrderStatus_InWork">"В работе"</string>
     <string name="OrderStatus_InArbitration">"В споре"</string>
     <string name="OrderStatus_ProcessCloseArbitration">"Закрытие спора"</string>
     <string name="OrderStatus_ClosedAfterArbitrationCustomerWin">"Закрыт после спора в пользу заказчика"</string>
     <string name="OrderStatus_ClosedAfterArbitrationExecutorWin">"Закрыт после спора в пользу исполнителя"</string>
-    <string name="OrderStatus_Finished">"Завершён"</string>
+    <string name="OrderStatus_Finished">"Выполненный"</string>
     <string name="Ok">"Ок"</string>
     <string name="Attention">"Внимание!"</string>
     <string name="OrderDetailsView_TakeOrderTitle">"Взять заказ"</string>
@@ -219,6 +218,7 @@
     <string name="com.crashlytics.android.build_id">"e9e6beb9c4284289ac68b9ab76a9ee56"</string>
     <string name="FinishPasswordRecoveryView_GoToFeed_Button">"Перейти в ленту"</string>
     <string name="FinishPasswordRecoveryView_GoToLogin_Button">"Войти в аккаунт"</string>
+    <string name="com_vk_sdk_AppId">"7343996"</string>
     <string name="Count_Days">"Дней"</string>
     <string name="Count_Hours">"Часов"</string>
     <string name="Count_Minutes">"Минут"</string>
@@ -245,6 +245,8 @@
 
     <!-- Fuzzy -->
     <string name="Login_Without_Registration">"Войти без регистрации"</string>
+
+    <!-- Fuzzy -->
     <string name="Competition_Prize_Pool_Rating">"Рейтинг"</string>
     <string name="Competition_Prize_Pool_Participant">"Учасник"</string>
     <string name="Competition_Prize_Pool">"Призовой фонд"</string>
@@ -266,4 +268,5 @@
     <string name="WithdrawalView_Status_Text">"Статус"</string>
     <string name="WithdrawalView_Pending">"В ожидании"</string>
     <string name="WithdrawalView_Withdraw_Text">"Отозвать"</string>
+    <string name="Competiton_Prize_Pool_Place">"Место"</string>
 </resources>
