@@ -9,7 +9,7 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>This app needs access to calendar to pick date and time.</string>
 	<key>CFBundleDisplayName</key>
-	<string>PrankChat.Mobile.iOS</string>
+	<string>PrankChat</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.prankapps.prankchat</string>
 	<key>CFBundleShortVersionString</key>
@@ -49,20 +49,20 @@
 		<string>vk</string>
 		<string>vk-share</string>
 		<string>vkauthorize</string>
-		<string>fbapi</string> 
-		<string>fbapi20130214</string> 
-		<string>fbapi20130410</string> 
-		<string>fbapi20130702</string> 
-		<string>fbapi20131010</string> 
-		<string>fbapi20131219</string> 
-		<string>fbapi20140410</string> 
-		<string>fbapi20140116</string> 
-		<string>fbapi20150313</string> 
-		<string>fbapi20150629</string> 
-		<string>fbapi20160328</string> 
-		<string>fbauth</string> 
-		<string>fbauth2</string> 
-		<string>fbshareextension</string> 
+		<string>fbapi</string>
+		<string>fbapi20130214</string>
+		<string>fbapi20130410</string>
+		<string>fbapi20130702</string>
+		<string>fbapi20131010</string>
+		<string>fbapi20131219</string>
+		<string>fbapi20140410</string>
+		<string>fbapi20140116</string>
+		<string>fbapi20150313</string>
+		<string>fbapi20150629</string>
+		<string>fbapi20160328</string>
+		<string>fbauth</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
@@ -112,9 +112,9 @@
 			<string>Editor</string>
 		</dict>
 	</array>
-	<key>FacebookAppID</key> 
-	<string>621471715102522</string> 
-	<key>FacebookDisplayName</key> 
+	<key>FacebookAppID</key>
+	<string>621471715102522</string>
+	<key>FacebookDisplayName</key>
 	<string>Prankchat</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to the camera to take photos.</string>
