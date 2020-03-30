@@ -120,23 +120,23 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 if (video != null)
                 {
                     _header.CanLoadVideo = false;
-                    Items.Add(new CompetitionVideoViewModel(ApiService,
-                                                            _videoPlayerService,
-                                                            NavigationService,
-                                                            video.Poster,
-                                                            video.Id,
-                                                            video.StreamUri,
-                                                            video.ShareUri,
-                                                            video.Title,
-                                                            video.Description,
-                                                            video.User.Name,
-                                                            video.User.Avatar,
-                                                            video.LikesCount,
-                                                            video.ViewsCount,
-                                                            video.CreatedAt.UtcDateTime,
-                                                            video.IsLiked,
-                                                            true,
-                                                            false));
+                    Items.Insert(1, new CompetitionVideoViewModel(ApiService,
+                                                                  _videoPlayerService,
+                                                                  NavigationService,
+                                                                  video.Poster,
+                                                                  video.Id,
+                                                                  video.StreamUri,
+                                                                  video.ShareUri,
+                                                                  video.Title,
+                                                                  video.Description,
+                                                                  SettingsService.User?.Name,
+                                                                  SettingsService.User?.Avatar,
+                                                                  video.LikesCount,
+                                                                  video.ViewsCount,
+                                                                  video.CreatedAt.UtcDateTime,
+                                                                  video.IsLiked,
+                                                                  true,
+                                                                  false));
 
                     await _header.RaisePropertyChanged(nameof(_header.CanLoadVideo));
                 }
