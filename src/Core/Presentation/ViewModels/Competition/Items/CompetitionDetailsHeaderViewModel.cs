@@ -11,6 +11,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
     {
         private readonly INavigationService _navigationService;
 
+        private readonly CompetitionDataModel _competition;
+
         public ICommand OpenPrizePoolCommand { get; set; }
 
         public ICommand LoadVideoCommand { get; set; }
@@ -30,12 +32,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                                                  CompetitionDataModel competition) : base(mvxMessenger, navigationService, competition)
         {
             _navigationService = navigationService;
+            _competition = competition;
 
             LoadVideoCommand = loadVideoCommand;
             OpenPrizePoolCommand = new MvxAsyncCommand(OpenPrizePoolAsync);
             OpenRulesCommand = new MvxAsyncCommand(OpenRulesAsync);
         }
-
 
         private Task OpenRulesAsync()
         {
@@ -44,7 +46,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         private Task OpenPrizePoolAsync()
         {
-            return _navigationService.ShowCompetitionPrizePoolView(Id);
+            return _navigationService.ShowCompetitionPrizePoolView(_competition);
         }
     }
 }

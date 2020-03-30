@@ -22,7 +22,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             base.DoInit(view);
 
             _numberTextView = view.FindViewById<TextView>(Resource.Id.number_text_view);
-            _userTextView = view.FindViewById<TextView>(Resource.Id.user_name_text_view);
+            _userTextView = view.FindViewById<TextView>(Resource.Id.participant_text_view);
             _raitingTextView = view.FindViewById<TextView>(Resource.Id.rating_text_view);
         }
 

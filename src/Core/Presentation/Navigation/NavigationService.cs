@@ -198,9 +198,9 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 			return _mvxNavigationService.Navigate<CompetitionDetailsViewModel, CompetitionDataModel>(competition);
 		}
 
-		public Task ShowCompetitionPrizePoolView(int competitionId)
+		public Task ShowCompetitionPrizePoolView(CompetitionDataModel competition)
         {
-			return _mvxNavigationService.Navigate<CompetitionPrizePoolViewModel, int>(competitionId);
+			return _mvxNavigationService.Navigate<CompetitionPrizePoolViewModel, CompetitionDataModel>(competition);
 		}
 
 		public Task ShowCompetitionRulesView(string content)

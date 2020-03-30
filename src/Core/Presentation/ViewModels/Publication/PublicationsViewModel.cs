@@ -208,6 +208,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 ErrorHandleService,
                 _mvxMessenger,
                 _settingsService,
+                publication.Poster,
                 publication.User?.Name,
                 publication.User?.Avatar,
                 publication.Id,

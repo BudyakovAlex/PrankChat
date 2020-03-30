@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PrankChat.Mobile.Core.Models.Data
 {
@@ -24,7 +25,9 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public int? VideosCount { get; set; }
 
-        public DateTime VoteTo { get; set; }
+        public List<string> PrizePoolList { get; set; }
+
+        public DateTime? VoteTo { get; set; }
 
         public DateTime UploadVideoTo { get; set; }
 

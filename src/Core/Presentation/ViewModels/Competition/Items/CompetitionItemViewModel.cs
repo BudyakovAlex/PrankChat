@@ -38,7 +38,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public int? LikesCount => _competition.LikesCount;
 
-        public DateTime VoteTo => _competition.VoteTo;
+        public DateTime? VoteTo => _competition.VoteTo;
 
         public DateTime UploadVideoTo => _competition.UploadVideoTo;
 

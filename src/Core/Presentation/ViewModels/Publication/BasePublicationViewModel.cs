@@ -60,8 +60,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string VideoUrl { get; set; }
 
-        //TODO: will be replaced when BE side will provide field for stub image
-        public string VideoPlaceholderImageUrl => "https://dummyimage.com/600x400/401340/5860db.jpg&text=Here+will+be+your+video+stub";
+        public string VideoPlaceholderImageUrl { get; }
 
         public IVideoPlayerService VideoPlayerService { get; }
 
@@ -107,6 +106,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                         IErrorHandleService errorHandleService,
                                         IMvxMessenger mvxMessenger,
                                         ISettingsService settingsService,
+                                        string poster,
                                         string profileName,
                                         string profilePhotoUrl,
                                         int videoId,
@@ -132,6 +132,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             VideoUrl = videoUrl;
             IsLiked = isLiked;
             NumberOfLikes = numberOfLikes;
+            VideoPlaceholderImageUrl = poster;
 
             _numberOfViews = numberOfViews;
             _publicationDate = publicationDate;

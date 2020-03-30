@@ -7,7 +7,7 @@
 
     <ffimageloading.cross.MvxCachedImageView
         android:id="@+id/placeholder_image_view"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"

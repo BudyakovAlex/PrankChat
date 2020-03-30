@@ -795,4 +795,58 @@
   <data name="Competitions_Tab" xml:space="preserve">
     <value>Конкурсы</value>
   </data>
+  <data name="WithdrawalView_Empty_Card_Error" xml:space="preserve">
+    <value>Карта не может быть пустой.</value>
+  </data>
+  <data name="WithdrawalView_Cancel_Withdrawal_Error" xml:space="preserve">
+    <value>Не удается отменить транзакцию для вывода средств</value>
+  </data>
+  <data name="WithdrawalView_Delete_Card_Text" xml:space="preserve">
+    <value>Удалить карту</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="WithdrawalView_Delete_Card_Question" xml:space="preserve">
+    <value>Вы уверены что хотите удалить данную карту?</value>
+  </data>
+  <data name="WithdrawalView_Verify_User_Text" xml:space="preserve">
+    <value>Для того чтобы вывести средства со своего счета, Вам необходимо подтвердить свою личность прикрепив селфи с паспортом в развернутом виде.</value>
+  </data>
+  <data name="WithdrawalView_Attach_File" xml:space="preserve">
+    <value>Прикрепить файл</value>
+  </data>
+  <data name="WithdrawalView_Pendng_Verify_User_Text" xml:space="preserve">
+    <value>Ваш запрос обрабатывается, время ожидания может составить до 24 часов</value>
+  </data>
+  <data name="WithdrawalView_Card_Number" xml:space="preserve">
+    <value>Номер карты</value>
+  </data>
+  <data name="WithdrawalView_Surname" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="WithdrawalView_Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="WithdrawalView_Cost" xml:space="preserve">
+    <value>Сумма</value>
+  </data>
+  <data name="WithdrawalView_Pending_Withdrawal_Text" xml:space="preserve">
+    <value>В данный момент идет обработка Вашего запроса на вывод средств.</value>
+  </data>
+  <data name="WithdrawalView_Create_Date" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="WithdrawalView_Status_Text" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="WithdrawalView_Pending" xml:space="preserve">
+    <value>В ожидании</value>
+  </data>
+  <data name="WithdrawalView_Withdraw_Text" xml:space="preserve">
+    <value>Отозвать</value>
+  </data>
+  <data name="Competiton_Prize_Pool_Place" xml:space="preserve">
+    <value>Место</value>
+  </data>
 </root>

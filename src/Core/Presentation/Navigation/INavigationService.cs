@@ -40,7 +40,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowCompetitionDetailsView(CompetitionDataModel competition);
 
-        Task ShowCompetitionPrizePoolView(int competitionId);
+        Task ShowCompetitionPrizePoolView(CompetitionDataModel competition);
 
         Task ShowCompetitionRulesView(string content);
 

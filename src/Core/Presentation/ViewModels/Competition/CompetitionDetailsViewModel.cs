@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
@@ -12,6 +13,7 @@ using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -72,11 +74,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             return count;
         }
 
+        protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        {
+            SetTotalItemsCount(dataModel.TotalCount);
+            var orderViewModels = dataModel.Items.Select(produceItemViewModel).ToList();
+
+            items.AddRange(orderViewModels);
+            return orderViewModels.Count;
+        }
+
         private CompetitionVideoViewModel ProduceVideoItemViewModel(VideoDataModel videoDataModel)
         {
             return new CompetitionVideoViewModel(ApiService,
                                                  _videoPlayerService,
                                                  NavigationService,
+                                                 videoDataModel.Poster,
                                                  videoDataModel.Id,
                                                  videoDataModel.StreamUri,
                                                  videoDataModel.ShareUri,
@@ -111,6 +123,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                     Items.Add(new CompetitionVideoViewModel(ApiService,
                                                             _videoPlayerService,
                                                             NavigationService,
+                                                            video.Poster,
                                                             video.Id,
                                                             video.StreamUri,
                                                             video.ShareUri,

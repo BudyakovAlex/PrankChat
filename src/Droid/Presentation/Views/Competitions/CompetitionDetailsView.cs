@@ -122,7 +122,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
             Debug.WriteLine("PlayVideo [Start]");
 
             if (itemViewHolder?.ViewModel?.VideoPlayerService is null ||
-                videoView is null)
+                videoView is null ||
+                itemViewHolder?.ViewModel?.VideoUrl is null)
             {
                 return;
             }

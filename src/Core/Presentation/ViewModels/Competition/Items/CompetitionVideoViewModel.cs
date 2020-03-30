@@ -77,6 +77,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         public CompetitionVideoViewModel(IApiService apiService,
                                          IVideoPlayerService videoPlayerService,
                                          INavigationService navigationService,
+                                         string poster,
                                          int id,
                                          string videoUrl,
                                          string shareLink,
@@ -95,7 +96,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             _navigationService = navigationService;
 
             VideoPlayerService = videoPlayerService;
-
+            StubImageUrl = poster;
             VideoId = id;
             VideoUrl = videoUrl;
             ShareLink = shareLink;
