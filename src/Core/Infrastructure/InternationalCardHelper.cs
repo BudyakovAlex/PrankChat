@@ -10,11 +10,6 @@ namespace PrankChat.Mobile.Core.Infrastructure
         private static readonly InternationalCardHelper _instance = new InternationalCardHelper();
         public static InternationalCardHelper Instance = _instance;
 
-        public InternationalCardHelper()
-        {
-
-        }
-
         public bool IsValidCreditCard(string cardNumber)
         {
             return cardNumber.CreditCardBrandIgnoreLength() != CardIssuer.Unknown;

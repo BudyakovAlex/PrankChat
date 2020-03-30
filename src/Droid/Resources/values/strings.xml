@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <integer name="com_vk_sdk_AppId">"7343996"</integer>
     <string name="Close">"Закрыть"</string>
     <string name="app_name">"Prank Chat"</string>
     <string name="Home_Tab">"Главная"</string>
@@ -218,7 +219,6 @@
     <string name="com.crashlytics.android.build_id">"e9e6beb9c4284289ac68b9ab76a9ee56"</string>
     <string name="FinishPasswordRecoveryView_GoToFeed_Button">"Перейти в ленту"</string>
     <string name="FinishPasswordRecoveryView_GoToLogin_Button">"Войти в аккаунт"</string>
-    <string name="com_vk_sdk_AppId">"7343996"</string>
     <string name="Count_Days">"Дней"</string>
     <string name="Count_Hours">"Часов"</string>
     <string name="Count_Minutes">"Минут"</string>
