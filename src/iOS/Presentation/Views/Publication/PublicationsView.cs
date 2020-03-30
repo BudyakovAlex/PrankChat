@@ -3,7 +3,7 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
-using PrankChat.Mobile.Core.Converters;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
@@ -25,11 +25,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         protected override void SetupBinding()
 		{
 			var bindingSet = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
-
-			bindingSet.Bind(publicationTypeSegment)
-				      .For(v => v.SelectedSegment)
-				      .To(vm => vm.SelectedPublicationType)
-				      .WithConversion<PublicationTypeConverter>();
 
             bindingSet.Bind(filterContainerView.Tap())
                       .For(v => v.Command)
@@ -65,11 +60,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			InitializeNavigationBar();
             InitializeTableView();
 
-            publicationTypeSegment.SetStyle(new string[] {
+            publicationTypeStackView.SetTabsStyle(new string[] {
 				Resources.Popular_Publication_Tab,
 				Resources.Actual_Publication_Tab,
 				Resources.MyFeed_Publication_Tab,
-			});
+			}, OnTabSelected);
 
             topSeparatorView.BackgroundColor = Theme.Color.Separator;
             filterArrowImageView.Image = UIImage.FromBundle("ic_filter_arrow");
@@ -84,6 +79,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         protected override void RegisterKeyboardDismissTextFields(List<UIView> viewList)
         {
             // Fix to select cell
+        }
+
+        private void OnTabSelected(int position)
+        {
+            publicationTypeStackView.SetSelectedTabStyle(position);
+            ViewModel.SelectedPublicationType = (PublicationType)position;
         }
 
         private void InitializeNavigationBar()
