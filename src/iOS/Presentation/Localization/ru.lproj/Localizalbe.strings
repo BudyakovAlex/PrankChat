@@ -122,16 +122,16 @@
 "ShareDialog_CopyLink_Label" = "Коп. ссылку";
 "ShareDialog_ShareInstagram_Label" = "В Instagram";
 "ShareDialog_LinkShareTitle" = "Поделиться ссылкой";
-"OrderStatus_New" = "Новое";
+"OrderStatus_New" = "На модерации";
 "OrderStatus_Rejected" = "Отменен модератором";
 "OrderStatus_Cancelled" = "Отменен";
-"OrderStatus_Active" = "Ожидает исполнителя";
-"OrderStatus_InWork" = "Выполняется";
+"OrderStatus_Active" = "Новый";
+"OrderStatus_InWork" = "В работе";
 "OrderStatus_InArbitration" = "В споре";
 "OrderStatus_ProcessCloseArbitration" = "Закрытие спора";
 "OrderStatus_ClosedAfterArbitrationCustomerWin" = "Закрыт после спора в пользу заказчика";
 "OrderStatus_ClosedAfterArbitrationExecutorWin" = "Закрыт после спора в пользу исполнителя";
-"OrderStatus_Finished" = "Завершён";
+"OrderStatus_Finished" = "Выполненный";
 "Ok" = "Ок";
 "Attention" = "Внимание!";
 "OrderDetailsView_TakeOrderTitle" = "Взять заказ";
@@ -243,3 +243,27 @@
 
 /*Fuzzy*/
 "Login_Without_Registration" = "Войти без регистрации";
+
+/*Fuzzy*/
+"Competition_Prize_Pool_Rating" = "Рейтинг";
+"Competition_Prize_Pool_Participant" = "Учасник";
+"Competition_Prize_Pool" = "Призовой фонд";
+"Competitions_Tab" = "Конкурсы";
+"WithdrawalView_Empty_Card_Error" = "Карта не может быть пустой.";
+"WithdrawalView_Cancel_Withdrawal_Error" = "Не удается отменить транзакцию для вывода средств";
+"WithdrawalView_Delete_Card_Text" = "Удалить карту";
+"Delete" = "Удалить";
+"WithdrawalView_Delete_Card_Question" = "Вы уверены что хотите удалить данную карту?";
+"WithdrawalView_Verify_User_Text" = "Для того чтобы вывести средства со своего счета, Вам необходимо подтвердить свою личность прикрепив селфи с паспортом в развернутом виде.";
+"WithdrawalView_Attach_File" = "Прикрепить файл";
+"WithdrawalView_Pendng_Verify_User_Text" = "Ваш запрос обрабатывается, время ожидания может составить до 24 часов";
+"WithdrawalView_Card_Number" = "Номер карты";
+"WithdrawalView_Surname" = "Фамилия";
+"WithdrawalView_Name" = "Имя";
+"WithdrawalView_Cost" = "Сумма";
+"WithdrawalView_Pending_Withdrawal_Text" = "В данный момент идет обработка Вашего запроса на вывод средств.";
+"WithdrawalView_Create_Date" = "Дата создания";
+"WithdrawalView_Status_Text" = "Статус";
+"WithdrawalView_Pending" = "В ожидании";
+"WithdrawalView_Withdraw_Text" = "Отозвать";
+"Competiton_Prize_Pool_Place" = "Место";

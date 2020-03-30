@@ -89,9 +89,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 
             passwordTextField.SetLightStyle(Resources.RegistrationView_Password_Placeholder);
             passwordTextField.SecureTextEntry = true;
+            passwordTextField.TextContentType = UITextContentType.OneTimeCode;
 
             passwordRepeatTextField.SetLightStyle(Resources.RegistrationView_PasswordRepeat_Placeholder);
             passwordRepeatTextField.SecureTextEntry = true;
+            passwordTextField.TextContentType = UITextContentType.OneTimeCode;
 
             sexSelectTitleLabel.Text = Resources.RegistrationView_GenderSelect_Title;
             sexSelectTitleLabel.TextColor = Theme.Color.White;
