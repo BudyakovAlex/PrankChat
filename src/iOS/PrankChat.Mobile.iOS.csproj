@@ -792,6 +792,8 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-76x76%402x.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-83.5x83.5%402x.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\ItunesArtwork%402x-1.png" />
+    <ImageAsset Include="Assets.xcassets\ic_prankcaht_icon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_prankcaht_icon.imageset\Group.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Group 108.pdf" />
   </ItemGroup>
   <ItemGroup>
@@ -832,6 +834,7 @@
     <Folder Include="Assets.xcassets\ic_arrow_right_alt.imageset\" />
     <Folder Include="Assets.xcassets\dsadad.imageset\" />
     <Folder Include="Presentation\Dialogs\DatePicker\" />
+    <Folder Include="Assets.xcassets\ic_prankcaht_icon.imageset\" />
     <Folder Include="Assets.xcassets\ic_credit_card.imageset\" />
     <Folder Include="Assets.xcassets\ic_arrow_dropdown.imageset\" />
   </ItemGroup>
