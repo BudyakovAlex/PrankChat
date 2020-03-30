@@ -1,15 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<FrameLayout android:layout_height="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <MvxSwipeRefreshLayout
-        android:id="@+id/refresh_view"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants">
+
+    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+        android:id="@+id/competitions_recycler_view"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
-        <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
-            android:id="@+id/competitions_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </MvxSwipeRefreshLayout>
+        android:descendantFocusability="blocksDescendants" />
 </FrameLayout>
