@@ -146,9 +146,15 @@
                                         <constraint firstAttribute="height" constant="45" id="CvY-Rw-5vO"/>
                                     </constraints>
                                 </stackView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OES-Rl-OvU">
-                                    <rect key="frame" x="20" y="417.5" width="303" height="30"/>
-                                    <state key="normal" title="Button"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OES-Rl-OvU">
+                                    <rect key="frame" x="114.5" y="417.5" width="114" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="w1S-Y5-3fM"/>
+                                    </constraints>
+                                    <inset key="contentEdgeInsets" minX="30" minY="0.0" maxX="30" maxY="0.0"/>
+                                    <state key="normal" title="Button">
+                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    </state>
                                 </button>
                             </subviews>
                             <constraints>
@@ -175,12 +181,11 @@
                                 <constraint firstItem="ET3-2r-7cv" firstAttribute="centerX" secondItem="HGZ-VA-QRD" secondAttribute="centerX" id="d6F-XF-OYZ"/>
                                 <constraint firstItem="ET3-2r-7cv" firstAttribute="top" secondItem="xNg-ZQ-Oho" secondAttribute="bottom" constant="16" id="h6O-nN-bHE"/>
                                 <constraint firstItem="nAJ-a9-g7E" firstAttribute="centerX" secondItem="HGZ-VA-QRD" secondAttribute="centerX" id="iJX-MP-ga3"/>
-                                <constraint firstAttribute="trailing" secondItem="OES-Rl-OvU" secondAttribute="trailing" constant="20" id="lst-h1-HJ6"/>
                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nAJ-a9-g7E" secondAttribute="trailing" constant="16" id="lye-3f-zdt"/>
                                 <constraint firstItem="nAJ-a9-g7E" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HGZ-VA-QRD" secondAttribute="leading" constant="16" id="rdt-ip-MnG"/>
-                                <constraint firstItem="OES-Rl-OvU" firstAttribute="leading" secondItem="HGZ-VA-QRD" secondAttribute="leading" constant="20" id="uqK-hq-3nH"/>
                                 <constraint firstItem="kTq-FK-K6A" firstAttribute="trailing" secondItem="LAK-AZ-oxm" secondAttribute="trailing" constant="-10" id="vB3-m5-euS"/>
                                 <constraint firstAttribute="trailing" secondItem="DKl-JP-yCC" secondAttribute="trailing" constant="20" id="wMW-rq-MvJ"/>
+                                <constraint firstItem="OES-Rl-OvU" firstAttribute="centerX" secondItem="HGZ-VA-QRD" secondAttribute="centerX" id="xri-2d-AwC"/>
                                 <constraint firstItem="xNg-ZQ-Oho" firstAttribute="top" secondItem="LAK-AZ-oxm" secondAttribute="bottom" constant="26" id="zKl-3i-VVB"/>
                             </constraints>
                         </view>

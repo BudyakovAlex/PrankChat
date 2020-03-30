@@ -4,26 +4,26 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
-using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
+using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
-    public class OrdersViewModel : BaseViewModel
+    public class OrdersViewModel : PaginationViewModel
     {
         private readonly IMvxMessenger _mvxMessenger;
         private readonly ISettingsService _settingsService;
@@ -57,7 +57,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public MvxAsyncCommand OpenFilterCommand => new MvxAsyncCommand(OnOpenFilterAsync);
 
-        public MvxAsyncCommand LoadOrdersCommand => new MvxAsyncCommand(OnLoadOrdersAsync);
+        public MvxAsyncCommand LoadOrdersCommand => new MvxAsyncCommand(RefreshOrdersAsync);
 
         public OrdersViewModel(INavigationService navigationService,
                                IDialogService dialogService,
@@ -65,7 +65,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                IMvxMessenger mvxMessenger,
                                ISettingsService settingsService,
                                IErrorHandleService errorHandleService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+            : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _mvxMessenger = mvxMessenger;
             _settingsService = settingsService;
@@ -97,10 +97,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             base.ViewDestroy(viewFinishing);
         }
 
+        private Task RefreshOrdersAsync()
+        {
+            Reset();
+            return LoadMoreItemsAsync();
+        }
+
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
-            var parametres = _orderFilterTypeTitleMap.Values.ToArray();
-            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parametres, Resources.Cancel);
+            var parameters = _orderFilterTypeTitleMap.Values.ToArray();
+            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parameters, Resources.Cancel);
 
             if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
                 return;
@@ -109,24 +115,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             await LoadOrdersCommand.ExecuteAsync();
         }
 
-        private async Task OnLoadOrdersAsync()
+        protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
             try
             {
                 IsBusy = true;
-
-                var orders = await ApiService.GetOrdersAsync(ActiveFilter);
-                Items.Clear();
-
-                var orderItemViewModel = orders.OrderBy(order => _settingsService.User.GetOrderType(order.Customer?.Id, order.Status ?? OrderStatusType.New))
-                                               .Select(ProduceOrderViewModel);
-
-                Items.SwitchTo(orderItemViewModel);
+                var orders = await ApiService.GetOrdersAsync(ActiveFilter, page, pageSize);
+                return SetList(orders, page, ProduceOrderViewModel, Items);
             }
             catch (Exception ex)
             {
                 ErrorHandleService.HandleException(ex);
                 ErrorHandleService.LogError(this, "Order list loading error occured.");
+                return 0;
             }
             finally
             {

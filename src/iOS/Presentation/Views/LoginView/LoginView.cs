@@ -82,6 +82,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             resetPasswordButton.SetLinkStyle(Theme.Font.RegularFontOfSize(12));
 
             loginButton.SetLightStyle(Resources.LoginView_Continue_Button);
+            demoButton.SetLightStyle(Resources.Login_Without_Registration);
 
             socialNetworksTitleLabel.Text = Resources.LoginView_AltLogin_Title;
             socialNetworksTitleLabel.Font = Theme.Font.RegularFontOfSize(12);
@@ -95,10 +96,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             registrationButton.SetTitle(Resources.LoginView_CreateAccount_Button, UIControlState.Normal);
             registrationButton.SetTitleColor(Theme.Color.White, UIControlState.Normal);
             registrationButton.SetLinkStyle(Theme.Font.RegularFontOfSize(16));
-
-            demoButton.SetTitle(Resources.Demo, UIControlState.Normal);
-            demoButton.SetTitleColor(Theme.Color.White, UIControlState.Normal);
-            demoButton.SetLinkStyle(Theme.Font.RegularFontOfSize(16));
 
             //TODO: uncomment when will be provided logic on vm
             okButton.Hidden = true;

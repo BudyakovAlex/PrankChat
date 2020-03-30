@@ -245,8 +245,6 @@
 
     <!-- Fuzzy -->
     <string name="Login_Without_Registration">"Войти без регистрации"</string>
-
-    <!-- Fuzzy -->
     <string name="Competition_Prize_Pool_Rating">"Рейтинг"</string>
     <string name="Competition_Prize_Pool_Participant">"Учасник"</string>
     <string name="Competition_Prize_Pool">"Призовой фонд"</string>

@@ -38,8 +38,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.IsBusy);
 
             set.Bind(_refreshControl)
+                .For(v => v.IsRefreshing)
+                .To(vm => vm.IsBusy);
+
+            set.Bind(_refreshControl)
                 .For(v => v.RefreshCommand)
-                .To(vm => vm.LoadOrdersCommand);
+                .To(vm => vm.ReloadItemsCommand);
+
+            set.Bind(OrdersTableSource)
+                .For(v => v.LoadMoreItemsCommand)
+                .To(vm => vm.LoadMoreItemsCommand);
 
             set.Apply();
 		}

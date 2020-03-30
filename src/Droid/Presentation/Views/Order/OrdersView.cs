@@ -1,10 +1,18 @@
 ﻿using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.Widget;
 using Android.Views;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
+using PrankChat.Mobile.Droid.Controls;
+using PrankChat.Mobile.Droid.Presentation.Adapters;
+using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
+using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders;
+using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Order
@@ -13,14 +21,56 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
     [Register(nameof(OrdersView))]
     public class OrdersView : BaseTabFragment<OrdersViewModel>
     {
+        private EndlessRecyclerView _endlessRecyclerView;
+        private LinearLayoutManager _layoutManager;
+        private RecycleViewBindableAdapter _adapter;
+        private StateScrollListener _stateScrollListener;
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = this.BindingInflate(Resource.Layout.orders_layout, null);
+
+            InitializeControls(view);
+            DoBind();
+           
             return view;
         }
 
-		protected override void Subscription()
+        private void InitializeControls(View view)
+        {
+            _endlessRecyclerView = view.FindViewById<EndlessRecyclerView>(Resource.Id.publication_recycler_view);
+
+            _layoutManager = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
+            _endlessRecyclerView.SetLayoutManager(_layoutManager);
+            _endlessRecyclerView.HasNextPage = true;
+
+            _adapter = new RecycleViewBindableAdapter((IMvxAndroidBindingContext)BindingContext);
+            _endlessRecyclerView.Adapter = _adapter;
+
+            _endlessRecyclerView.ItemTemplateSelector = new TemplateSelector()
+                .AddElement<OrderItemViewModel, OrderItemViewHolder>(Resource.Layout.cell_order);
+
+            _stateScrollListener = new StateScrollListener();
+            _endlessRecyclerView.AddOnScrollListener(_stateScrollListener);
+        }
+
+        private void DoBind()
+        {
+            var bindingSet = this.CreateBindingSet<OrdersView, OrdersViewModel>();
+
+            bindingSet.Bind(_adapter)
+                .For(v => v.ItemsSource)
+                .To(vm => vm.Items);
+
+            bindingSet.Bind(_endlessRecyclerView)
+                .For(v => v.LoadMoreItemsCommand)
+                .To(vm => vm.LoadMoreItemsCommand);
+
+            bindingSet.Apply();
+        }
+
+        protected override void Subscription()
 		{
 		}
 
