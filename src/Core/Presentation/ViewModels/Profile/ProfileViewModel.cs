@@ -139,11 +139,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             var items = new string[]
             {
-                Resources.ProfileView_Menu_Favourites,
-                Resources.ProfileView_Menu_TaskSubscriptions,
-                Resources.ProfileView_Menu_Faq,
-                Resources.ProfileView_Menu_Support,
-                Resources.ProfileView_Menu_Settings,
+                // TODO: These features will be implemented.
+                //Resources.ProfileView_Menu_Favourites,
+                //Resources.ProfileView_Menu_TaskSubscriptions,
+                //Resources.ProfileView_Menu_Faq,
+                //Resources.ProfileView_Menu_Support,
+                //Resources.ProfileView_Menu_Settings,
                 Resources.ProfileView_Menu_LogOut,
             };
 

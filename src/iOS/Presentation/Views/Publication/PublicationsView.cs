@@ -71,16 +71,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             filterTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
         }
 
-        protected override void RegisterKeyboardDismissResponders(List<UIView> views)
-        {
-            // Fix to select cell
-        }
-
-        protected override void RegisterKeyboardDismissTextFields(List<UIView> viewList)
-        {
-            // Fix to select cell
-        }
-
         private void OnTabSelected(int position)
         {
             publicationTypeStackView.SetSelectedTabStyle(position);
@@ -93,7 +83,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                 NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand),
-                NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
+                // TODO: This feature will be implemented.
+                //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
             }, true);
 
             var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
