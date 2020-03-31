@@ -135,16 +135,26 @@
                     <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wUU-wE-gzE">
+                    <rect key="frame" x="0.0" y="40" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="jxX-ak-XVR"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="CK2-0Y-xta" secondAttribute="trailing" id="1Ff-h0-Wt1"/>
+                <constraint firstItem="wUU-wE-gzE" firstAttribute="top" secondItem="Ps7-G4-5Up" secondAttribute="bottom" id="CLx-c7-lDs"/>
                 <constraint firstAttribute="trailing" secondItem="Ps7-G4-5Up" secondAttribute="trailing" id="ESe-Hf-SOs"/>
                 <constraint firstItem="CK2-0Y-xta" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="H32-hD-jb7"/>
                 <constraint firstAttribute="bottom" secondItem="LkW-dw-85P" secondAttribute="bottom" id="QEh-81-sNB"/>
                 <constraint firstItem="Ps7-G4-5Up" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="SzY-VA-gwb"/>
                 <constraint firstItem="CK2-0Y-xta" firstAttribute="top" secondItem="Ps7-G4-5Up" secondAttribute="bottom" id="VNk-qe-sEe"/>
+                <constraint firstAttribute="trailing" secondItem="wUU-wE-gzE" secondAttribute="trailing" id="dtm-oD-jnH"/>
                 <constraint firstItem="Ps7-G4-5Up" firstAttribute="top" secondItem="2" secondAttribute="top" id="fKd-Gb-fId"/>
+                <constraint firstItem="wUU-wE-gzE" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="mRa-2t-P6S"/>
                 <constraint firstItem="LkW-dw-85P" firstAttribute="top" secondItem="CK2-0Y-xta" secondAttribute="bottom" id="ncN-PP-YoX"/>
                 <constraint firstAttribute="trailing" secondItem="LkW-dw-85P" secondAttribute="trailing" id="sUj-v4-4es"/>
                 <constraint firstItem="LkW-dw-85P" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="uws-B0-G7H"/>

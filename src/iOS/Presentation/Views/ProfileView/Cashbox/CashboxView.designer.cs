@@ -16,7 +16,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		UIKit.UIScrollView scrollView { get; set; }
 
 		[Outlet]
-		UIKit.UISegmentedControl segmentedControl { get; set; }
+		UIKit.UIStackView tabsStackView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -25,9 +25,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 				scrollView = null;
 			}
 
-			if (segmentedControl != null) {
-				segmentedControl.Dispose ();
-				segmentedControl = null;
+			if (tabsStackView != null) {
+				tabsStackView.Dispose ();
+				tabsStackView = null;
 			}
 		}
 	}
