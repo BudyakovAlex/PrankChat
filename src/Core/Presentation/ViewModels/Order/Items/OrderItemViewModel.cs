@@ -66,7 +66,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                 switch (_status)
                 {
                     case OrderStatusType.New:
-                        return _settingsService.User?.Id == _customerId ? Resources.OrderStatus_MyOrder : Resources.OrderStatus_New;
+                        return Resources.OrderStatus_New;
 
                     case OrderStatusType.Rejected:
                         return Resources.OrderStatus_Rejected;
