@@ -163,6 +163,14 @@
                     <rect key="frame" x="0.0" y="81" width="375" height="586"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eeV-rz-XSl">
+                    <rect key="frame" x="0.0" y="40" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="hVl-Xz-pgf"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="Wm6-v0-fL0"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -170,12 +178,15 @@
                 <constraint firstItem="vlZ-gR-qMH" firstAttribute="top" secondItem="PG4-Nb-SO4" secondAttribute="bottom" id="49E-Lb-0B1"/>
                 <constraint firstAttribute="trailing" secondItem="Hir-Od-QZo" secondAttribute="trailing" id="8iw-SM-Pdo"/>
                 <constraint firstAttribute="trailing" secondItem="PG4-Nb-SO4" secondAttribute="trailing" id="Nye-Oh-D8Z"/>
+                <constraint firstItem="eeV-rz-XSl" firstAttribute="top" secondItem="h4E-Pk-NSH" secondAttribute="bottom" id="Yt8-Ee-b20"/>
                 <constraint firstItem="vlZ-gR-qMH" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="Yv2-fs-lyI"/>
+                <constraint firstAttribute="trailing" secondItem="eeV-rz-XSl" secondAttribute="trailing" id="aFA-nO-t3V"/>
                 <constraint firstItem="Hir-Od-QZo" firstAttribute="top" secondItem="h4E-Pk-NSH" secondAttribute="bottom" id="bZy-OO-uJC"/>
                 <constraint firstItem="h4E-Pk-NSH" firstAttribute="top" secondItem="CnJ-C3-cqW" secondAttribute="top" id="cRl-Qn-nkI"/>
                 <constraint firstItem="PG4-Nb-SO4" firstAttribute="top" secondItem="Hir-Od-QZo" secondAttribute="bottom" id="dlN-PG-sWG"/>
                 <constraint firstItem="PG4-Nb-SO4" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="ete-Fo-x5b"/>
                 <constraint firstAttribute="trailing" secondItem="h4E-Pk-NSH" secondAttribute="trailing" id="ftt-u3-yEa"/>
+                <constraint firstItem="eeV-rz-XSl" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="mTb-on-OpM"/>
                 <constraint firstAttribute="bottom" secondItem="vlZ-gR-qMH" secondAttribute="bottom" id="qsQ-BW-FsU"/>
                 <constraint firstAttribute="trailing" secondItem="vlZ-gR-qMH" secondAttribute="trailing" id="sEK-pY-YaH"/>
                 <constraint firstItem="Hir-Od-QZo" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="xvv-OY-Nfz"/>
