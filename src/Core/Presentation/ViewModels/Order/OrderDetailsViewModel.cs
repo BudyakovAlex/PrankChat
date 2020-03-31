@@ -458,8 +458,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             var result = await DialogService.ShowMenuDialogAsync(new[]
             {
-                Resources.Publication_Item_Complain,
-                Resources.Publication_Item_Copy_Link
+                Resources.Publication_Item_Complain
+                // TODO: uncomment this when functionality will be available
+                //Resources.Publication_Item_Copy_Link
             });
 
             if (string.IsNullOrWhiteSpace(result))
