@@ -125,7 +125,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             switch (index)
             {
                 case 0:
-                    ViewModel.SelectedOrderType = ProfileOrderType.MyOrders;
+                    ViewModel.SelectedOrderType = ProfileOrderType.MyOrdered;
                     break;
 
                 case 1:

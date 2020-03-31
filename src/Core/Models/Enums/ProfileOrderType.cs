@@ -2,7 +2,7 @@
 {
     public enum ProfileOrderType
     {
-        MyOrders,
+        MyOrdered,
         OrdersCompletedByMe
     }
 }
