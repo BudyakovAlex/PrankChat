@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>722959635287-tuph65ura0hgoangoq81um5g45iqf63v.apps.googleusercontent.com</string>
+	<string>722959635287-tju1dsr597gsqc3qb7pbpso01908uqe4.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.722959635287-tuph65ura0hgoangoq81um5g45iqf63v</string>
+	<string>com.googleusercontent.apps.722959635287-tju1dsr597gsqc3qb7pbpso01908uqe4</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDA0CCavi7xlyPR9-0fe0O8635PZ7XecYE</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.prankapps.prankchat</string>
+	<string>com.capaalex.prankchat</string>
 	<key>PROJECT_ID</key>
 	<string>prankchatapp</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:722959635287:ios:3d5a8862dd0e4c40d4a412</string>
+	<string>1:722959635287:ios:9d6fa2bd086f52add4a412</string>
 	<key>DATABASE_URL</key>
 	<string>https://prankchatapp.firebaseio.com</string>
 </dict>
