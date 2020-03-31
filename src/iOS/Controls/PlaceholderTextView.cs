@@ -68,6 +68,12 @@ namespace PrankChat.Mobile.iOS.Controls
             base.Dispose(disposing);
         }
 
+        public override void LayoutSubviews()
+        {
+            base.LayoutSubviews();
+            TryInitializeBorder();
+        }
+
         private void InitializePlaceholder()
         {
             _floatingLabel = new UILabel();
@@ -75,7 +81,7 @@ namespace PrankChat.Mobile.iOS.Controls
             Changed += OnTextChanged;
         }
 
-        public void TryInitializeBorder()
+        private void TryInitializeBorder()
         {
             if (_isBorderInitilize)
                 return;

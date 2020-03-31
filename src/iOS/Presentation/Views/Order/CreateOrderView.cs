@@ -50,13 +50,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             set.Apply();
 		}
 
-        public override void ViewDidAppear(bool animated)
-        {
-            descriptionTextView.TryInitializeBorder();
-
-            base.ViewDidAppear(animated);
-        }
-
         protected override void SetupControls()
 		{
             _checkedImage = UIImage.FromBundle("ic_checkbox_checked");
