@@ -307,10 +307,10 @@
     <value>подписки</value>
   </data>
   <data name="ProfileView_MyOrders_Tab" xml:space="preserve">
-    <value>Мои заказы</value>
+    <value>Я заказал</value>
   </data>
   <data name="ProfileView_CompletedOrders_Tab" xml:space="preserve">
-    <value>Исполненные заказы</value>
+    <value>Я исполняю</value>
   </data>
   <data name="Order_View_Time_Text" xml:space="preserve">
     <value>Время заказа:</value>
