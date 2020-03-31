@@ -10,8 +10,6 @@
 	<string>This app needs access to calendar to pick date and time.</string>
 	<key>CFBundleDisplayName</key>
 	<string>PrankChat</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.prankapps.prankchat</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -122,5 +120,7 @@
 	<string>This app needs access to photos.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Our application needs permission to write photos.</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.capaalex.prankchat</string>
 </dict>
 </plist>
