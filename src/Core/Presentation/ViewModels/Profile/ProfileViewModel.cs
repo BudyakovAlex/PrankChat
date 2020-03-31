@@ -104,7 +104,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public override Task Initialize()
         {
-            SelectedOrderType = ProfileOrderType.MyOrders;
+            SelectedOrderType = ProfileOrderType.MyOrdered;
             base.Initialize();
             return LoadProfileCommand.ExecuteAsync();
         }
@@ -220,10 +220,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             switch (SelectedOrderType)
             {
-                case ProfileOrderType.MyOrders:
-                    return await ApiService.GetOrdersAsync(OrderFilterType.MyOwn, page, pageSize);
+                case ProfileOrderType.MyOrdered:
+                    return await ApiService.GetOrdersAsync(OrderFilterType.MyOrdered, page, pageSize);
                 case ProfileOrderType.OrdersCompletedByMe:
-                    return await ApiService.GetOrdersAsync(OrderFilterType.MyCompleted, page, pageSize);
+                    return await ApiService.GetOrdersAsync(OrderFilterType.MyCompletion, page, pageSize);
             }
 
             return new PaginationModel<OrderDataModel>();

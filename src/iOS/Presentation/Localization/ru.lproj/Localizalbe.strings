@@ -61,8 +61,8 @@
 "ProfileView_Completed_Subtitle" = "выполнено";
 "ProfileView_Subscribers_Subtitle" = "подписчики";
 "ProfileView_Subscriptions_Subtitle" = "подписки";
-"ProfileView_MyOrders_Tab" = "Мои заказы";
-"ProfileView_CompletedOrders_Tab" = "Исполненные заказы";
+"ProfileView_MyOrders_Tab" = "Я заказал";
+"ProfileView_CompletedOrders_Tab" = "Я исполняю";
 "Order_View_Time_Text" = "Время заказа:";
 "Order_View_Price_Text" = "Сумма зкакза:";
 "Order_View_Day" = "День";
