@@ -331,6 +331,7 @@
     </Compile>
     <Compile Include="Presentation\Views\Base\BaseVideoTableCell.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\VideoTableSource.cs" />
+    <Compile Include="Infrastructure\Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

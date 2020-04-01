@@ -8,15 +8,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 {
     public abstract class BaseTableCell : MvxTableViewCell
     {
-        private const int DefaultCellHeight = 40;
-
         protected BaseTableCell(IntPtr handle)
             : base(handle)
         {
             this.DelayBind(SetupCell);
         }
-
-        public static int EstimatedHeight { get; protected set; } = DefaultCellHeight;
 
         protected virtual void SetupControls()
         {

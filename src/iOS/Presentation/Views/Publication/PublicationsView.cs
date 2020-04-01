@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
@@ -107,7 +108,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             PublicationTableSource.Register<PublicationItemViewModel>(PublicationItemCell.Nib, PublicationItemCell.CellId);
 
             tableView.Source = PublicationTableSource;
-            tableView.SetVideoListStyle(PublicationItemCell.EstimatedHeight);
+            tableView.SetVideoListStyle(Constants.CellHeights.PublicationItemCellHeight);
 
             _refreshControl = new MvxUIRefreshControl();
             tableView.RefreshControl = _refreshControl;

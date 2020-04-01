@@ -2,6 +2,7 @@
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
@@ -51,7 +52,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
             tableView.Source = SearchTableSource;
             tableView.RegisterNibForCellReuse(ProfileSearchItemCell.Nib, ProfileSearchItemCell.CellId);
             tableView.SetStyle();
-            tableView.RowHeight = ProfileSearchItemCell.EstimatedHeight;
+            tableView.RowHeight = Constants.CellHeights.ProfileSearchItemCellHeight;
             tableView.UserInteractionEnabled = true;
             tableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
         }

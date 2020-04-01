@@ -12,11 +12,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
     public partial class OrderItemCell : BaseTableCell<OrderItemCell, OrderItemViewModel>
     {
-        static OrderItemCell()
-        {
-            EstimatedHeight = 215;
-        }
-
         protected OrderItemCell(IntPtr handle) : base(handle)
         {
             // Note: this .ctor should not contain any initialization logic.

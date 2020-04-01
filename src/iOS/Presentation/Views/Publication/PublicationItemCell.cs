@@ -18,11 +18,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		{
 		}
 
-		static PublicationItemCell()
-		{
-			EstimatedHeight = 334;
-		}
-
 		protected override UIView VideoView => videoView;
 
 		protected override UIActivityIndicatorView LoadingActivityIndicator => loadingActivityIndicator;

@@ -8,6 +8,7 @@ using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
 using MvvmCross.Binding;
 using UIKit;
+using PrankChat.Mobile.iOS.Infrastructure;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 {
@@ -50,7 +51,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
             tableView.RegisterNibForCellReuse(NotificationItemCell.Nib, NotificationItemCell.CellId);
             tableView.SetStyle();
             tableView.RowHeight = UITableView.AutomaticDimension;
-            tableView.EstimatedRowHeight = NotificationItemCell.EstimatedHeight;
+            tableView.EstimatedRowHeight = Constants.CellHeights.NotificationItemCellHeight;
             tableView.UserInteractionEnabled = true;
             tableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
 
