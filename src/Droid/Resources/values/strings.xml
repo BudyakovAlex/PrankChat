@@ -63,8 +63,8 @@
     <string name="ProfileView_Completed_Subtitle">"выполнено"</string>
     <string name="ProfileView_Subscribers_Subtitle">"подписчики"</string>
     <string name="ProfileView_Subscriptions_Subtitle">"подписки"</string>
-    <string name="ProfileView_MyOrders_Tab">"Мои заказы"</string>
-    <string name="ProfileView_CompletedOrders_Tab">"Исполненные заказы"</string>
+    <string name="ProfileView_MyOrders_Tab">"Я заказал"</string>
+    <string name="ProfileView_CompletedOrders_Tab">"Я исполняю"</string>
     <string name="Order_View_Time_Text">"Время заказа:"</string>
     <string name="Order_View_Price_Text">"Сумма зкакза:"</string>
     <string name="Order_View_Day">"День"</string>
@@ -218,7 +218,7 @@
     <string name="com.crashlytics.android.build_id">"e9e6beb9c4284289ac68b9ab76a9ee56"</string>
     <string name="FinishPasswordRecoveryView_GoToFeed_Button">"Перейти в ленту"</string>
     <string name="FinishPasswordRecoveryView_GoToLogin_Button">"Войти в аккаунт"</string>
-    <integer name="com_vk_sdk_AppId">7343996</integer>
+    <string name="com_vk_sdk_AppId">"7343996"</string>
     <string name="Count_Days">"Дней"</string>
     <string name="Count_Hours">"Часов"</string>
     <string name="Count_Minutes">"Минут"</string>

@@ -224,7 +224,6 @@
 						android:layout_height="36dp"
 						android:layout_marginTop="14.5dp"
 						android:layout_gravity="center_horizontal"
-						android:background="@null"
 						android:text="@string/OrderDetailsView_LoadVideo"
 						style="@style/Theme.PrankChat.Button.Accent"
 						app:MvxBind="Click LoadVideoCommand"/>

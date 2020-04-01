@@ -74,7 +74,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             switch (tab.Position)
             {
                 case 0:
-                    ViewModel.SelectedOrderType = ProfileOrderType.MyOrders;
+                    ViewModel.SelectedOrderType = ProfileOrderType.MyOrdered;
                     break;
                 case 1:
                     ViewModel.SelectedOrderType = ProfileOrderType.OrdersCompletedByMe;
