@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
@@ -80,7 +81,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             OrdersTableSource = new OrdersTableSource(tableView);
             tableView.Source = OrdersTableSource;
             tableView.SetStyle();
-            tableView.RowHeight = OrderItemCell.EstimatedHeight;
+            tableView.RowHeight = Constants.CellHeights.OrderItemCellHeight;
+
             tableView.UserInteractionEnabled = true;
             tableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
 

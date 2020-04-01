@@ -1,19 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using CoreFoundation;
 using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Converters;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
-using MvvmCross.Plugin.Visibility;
-using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -60,11 +52,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
                     _topAnchorDateCreateConstraint.Active = false;
                 }
             }
-        }
-
-        static NotificationItemCell()
-        {
-            EstimatedHeight = 56;
         }
 
         protected NotificationItemCell(IntPtr handle) : base(handle)
