@@ -13,11 +13,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
     {
         private bool _tabsInitialized;
 
-		public override void ViewDidLoad()
-		{
-			base.ViewDidLoad();
-		}
-
 		public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);

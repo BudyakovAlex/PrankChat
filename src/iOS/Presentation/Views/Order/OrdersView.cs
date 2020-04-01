@@ -98,7 +98,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                 NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand),
-                NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
+                // TODO: This feature will be implemented.
+                //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
             }, true);
         }
 

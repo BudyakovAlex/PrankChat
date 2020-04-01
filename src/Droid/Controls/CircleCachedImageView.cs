@@ -62,6 +62,10 @@ namespace PrankChat.Mobile.Droid.Controls
                 {
                     SetImageResource(Resource.Drawable.ic_notification_user);
                 }
+                else
+                {
+                    SetImageResource(0);
+                }
                 return;
             }
 
