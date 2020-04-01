@@ -119,6 +119,11 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
 
         public override void SetSourceUri(string uri)
         {
+            if (string.IsNullOrEmpty(uri))
+            {
+                return;
+            }
+
             _player.ReplaceCurrentItemWithPlayerItem(new AVPlayerItem(new NSUrl(uri)));
         }
 

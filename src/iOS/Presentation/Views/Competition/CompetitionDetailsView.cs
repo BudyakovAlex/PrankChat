@@ -8,15 +8,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 {
     public partial class CompetitionDetailsView : BaseView<CompetitionDetailsViewModel>
     {
-        private TableViewSource _source;
+        private VideoTableSource _source;
 
         protected override void SetupControls()
         {
             base.SetupControls();
 
-            _source = new TableViewSource(tableView)
-                .Register<CompetitionDetailsHeaderViewModel>(CompetitionDetailsHeaderCell.Nib, CompetitionDetailsHeaderCell.CellId)
-                .Register<CompetitionVideoViewModel>(CompetitionVideoCell.Nib, CompetitionVideoCell.CellId);
+            _source = new VideoTableSource(tableView);
+            _source.Register<CompetitionDetailsHeaderViewModel>(CompetitionDetailsHeaderCell.Nib, CompetitionDetailsHeaderCell.CellId);
+            _source.Register<CompetitionVideoViewModel>(CompetitionVideoCell.Nib, CompetitionVideoCell.CellId);
 
             tableView.Source = _source;
         }

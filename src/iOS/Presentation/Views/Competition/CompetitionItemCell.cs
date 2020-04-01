@@ -80,7 +80,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
                       .WithConversion<CompetitionPhaseToTermTitleConverter>();
 
             bindingSet.Bind(timeContainer)
-                      .For(v => v.BindVisible())
+                      .For(v => v.Hidden)
                       .To(vm => vm.IsFinished);
 
             bindingSet.Bind(timeLabel)
@@ -101,7 +101,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
                       .To(vm => vm.MinutesText);
 
             bindingSet.Bind(termContainer)
-                      .For(v => v.Hidden)
+                      .For(v => v.BindVisible())
                       .To(vm => vm.IsFinished);
 
             bindingSet.Bind(termFromLabel)
