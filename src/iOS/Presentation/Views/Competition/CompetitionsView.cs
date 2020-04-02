@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
+using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
@@ -13,6 +14,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
     public partial class CompetitionsView : BaseTabbedView<CompetitionsViewModel>
     {
         private TableViewSource _source;
+        private MvxUIRefreshControl _refreshControl;
 
         protected override void SetupControls()
         {
@@ -29,6 +31,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             tableView.Source = _source;
             tableView.ContentInset = new UIEdgeInsets(16f, 0, 0f, 0f);
+
+            _refreshControl = new MvxUIRefreshControl
+            {
+                TintColor = UIColor.White
+            };
+
+            tableView.RefreshControl = _refreshControl;
         }
 
         protected override void SetupBinding()
@@ -40,6 +49,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             bindingSet.Bind(_source)
                       .For(v => v.ItemsSource)
                       .To(vm => vm.Items);
+
+            bindingSet.Bind(_refreshControl)
+                      .For(v => v.IsRefreshing)
+                      .To(vm => vm.IsBusy);
+
+            bindingSet.Bind(_refreshControl)
+                      .For(v => v.RefreshCommand)
+                      .To(vm => vm.LoadDataCommand);
 
             bindingSet.Apply();
         }

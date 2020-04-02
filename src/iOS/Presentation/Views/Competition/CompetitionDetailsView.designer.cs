@@ -13,6 +13,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 	partial class CompetitionDetailsView
 	{
 		[Outlet]
+		UIKit.UIView loadingView { get; set; }
+
+		[Outlet]
+		Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
+
+		[Outlet]
 		UIKit.UITableView tableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -20,6 +26,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 			if (tableView != null) {
 				tableView.Dispose ();
 				tableView = null;
+			}
+
+			if (loadingView != null) {
+				loadingView.Dispose ();
+				loadingView = null;
+			}
+
+			if (lottieAnimationView != null) {
+				lottieAnimationView.Dispose ();
+				lottieAnimationView = null;
 			}
 		}
 	}

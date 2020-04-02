@@ -3,6 +3,7 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -20,10 +21,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
     public class CompetitionsView : BaseTabFragment<CompetitionsViewModel>
     {
         private RecycleViewBindableAdapter _adapter;
-
-        public CompetitionsView()
-        {
-        }
+        private MvxSwipeRefreshLayout _refreshView;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -50,11 +48,21 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
                       .For(v => v.ItemsSource)
                       .To(vm => vm.Items);
 
+            bindingSet.Bind(_refreshView)
+                      .For(v => v.Refreshing)
+                      .To(vm => vm.IsBusy);
+
+            bindingSet.Bind(_refreshView)
+                      .For(v => v.RefreshCommand)
+                      .To(vm => vm.LoadDataCommand);
+
             bindingSet.Apply();
         }
 
         private void InitializeControls(View view)
         {
+            _refreshView = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swipe_refresh);
+
             var competitionsRecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.competitions_recycler_view);
             var layoutManager = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
             competitionsRecyclerView.SetLayoutManager(layoutManager);

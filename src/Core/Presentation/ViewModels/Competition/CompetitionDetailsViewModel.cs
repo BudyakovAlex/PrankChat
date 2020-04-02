@@ -33,6 +33,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         public MvxObservableCollection<BaseItemViewModel> Items { get; }
 
+        public IMvxAsyncCommand RefreshDataCommand { get; }
+
+        private bool _isRefreshing;
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set => SetProperty(ref _isRefreshing, value);
+        }
+
         public CompetitionDetailsViewModel(IMvxMessenger mvxMessenger,
                                            INavigationService navigationService,
                                            IVideoPlayerService videoPlayerService,
@@ -47,6 +56,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             _mediaService = mediaService;
 
             Items = new MvxObservableCollection<BaseItemViewModel>();
+
+            RefreshDataCommand = new MvxAsyncCommand(RefreshDataAsync);
         }
 
         public void Prepare(CompetitionDataModel parameter)
@@ -81,6 +92,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
             items.AddRange(orderViewModels);
             return orderViewModels.Count;
+        }
+
+        private async Task RefreshDataAsync()
+        {
+            try
+            {
+                IsRefreshing = true;
+                Items.ReplaceWith(new []{ _header });
+                await LoadMoreItemsAsync();
+            }
+            finally
+            {
+                IsRefreshing = false;
+            }
         }
 
         private CompetitionVideoViewModel ProduceVideoItemViewModel(VideoDataModel videoDataModel)

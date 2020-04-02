@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -24,18 +27,34 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                      ISettingsService settingsService) : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _mvxMessenger = mvxMessenger;
+            LoadDataCommand = new MvxAsyncCommand(LoadDataAsync);
         }
+
+        public IMvxAsyncCommand LoadDataCommand { get; }
 
         public MvxObservableCollection<CompetitionsSectionViewModel> Items { get; set; } = new MvxObservableCollection<CompetitionsSectionViewModel>();
 
-        public override async Task Initialize()
+        public override Task Initialize()
         {
-            var competitionsPage = await ApiService.GetCompetitionsAsync(1, 100);
+            return LoadDataCommand.ExecuteAsync();
+        }
 
-            var sections = competitionsPage.Items.GroupBy(competition => competition.GetPhase())
-                                                 .Select(group => new CompetitionsSectionViewModel(_mvxMessenger, NavigationService, group.Key, group.ToList()))
-                                                 .ToList();
-            Items.SwitchTo(sections);
+        private async Task LoadDataAsync()
+        {
+            try
+            {
+                IsBusy = true;
+                var competitionsPage = await ApiService.GetCompetitionsAsync(1, 100);
+
+                var sections = competitionsPage.Items.GroupBy(competition => competition.GetPhase())
+                                                     .Select(group => new CompetitionsSectionViewModel(_mvxMessenger, NavigationService, group.Key, group.ToList()))
+                                                     .ToList();
+                Items.SwitchTo(sections);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

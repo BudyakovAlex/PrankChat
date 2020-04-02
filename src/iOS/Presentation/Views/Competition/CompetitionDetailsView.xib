@@ -10,6 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CompetitionDetailsView">
             <connections>
+                <outlet property="loadingView" destination="biS-Cm-Oh1" id="cIS-QY-SWi"/>
+                <outlet property="lottieAnimationView" destination="qMB-1Y-41d" id="DW6-Xn-4j8"/>
                 <outlet property="tableView" destination="Lbp-9a-mkH" id="DJi-yj-JMv"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
             </connections>
@@ -23,12 +25,33 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="biS-Cm-Oh1">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qMB-1Y-41d" userLabel="Lottie Animation View" customClass="LOTAnimationView">
+                            <rect key="frame" x="107" y="348" width="200" height="200"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="0bt-OZ-O0I"/>
+                                <constraint firstAttribute="height" constant="200" id="ukx-cE-5XQ"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="qMB-1Y-41d" firstAttribute="centerY" secondItem="biS-Cm-Oh1" secondAttribute="centerY" id="MXw-G1-ejy"/>
+                        <constraint firstItem="qMB-1Y-41d" firstAttribute="centerX" secondItem="biS-Cm-Oh1" secondAttribute="centerX" id="PaJ-Ne-E8m"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Lbp-9a-mkH" firstAttribute="top" secondItem="djZ-kn-Rzn" secondAttribute="top" id="7w2-QO-ewz"/>
+                <constraint firstAttribute="trailing" secondItem="biS-Cm-Oh1" secondAttribute="trailing" id="CAV-HL-pb1"/>
+                <constraint firstItem="biS-Cm-Oh1" firstAttribute="top" secondItem="2" secondAttribute="top" id="FiJ-h4-CGz"/>
                 <constraint firstItem="Lbp-9a-mkH" firstAttribute="leading" secondItem="djZ-kn-Rzn" secondAttribute="leading" id="V7T-b4-uw4"/>
+                <constraint firstItem="biS-Cm-Oh1" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="XtV-uV-fL8"/>
                 <constraint firstItem="djZ-kn-Rzn" firstAttribute="trailing" secondItem="Lbp-9a-mkH" secondAttribute="trailing" id="t08-x4-z5w"/>
+                <constraint firstAttribute="bottom" secondItem="biS-Cm-Oh1" secondAttribute="bottom" id="w3I-OY-cJc"/>
                 <constraint firstItem="djZ-kn-Rzn" firstAttribute="bottom" secondItem="Lbp-9a-mkH" secondAttribute="bottom" id="yT0-SK-aHF"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
