@@ -184,7 +184,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         private void PhaseChanged(CompetitionPhase phase)
         {
             var color = GetPrimaryColor(phase);
-            likeButton.TintColor = color;
             idLabel.TextColor = color;
 
             Layer.BorderColor = color.CGColor;
