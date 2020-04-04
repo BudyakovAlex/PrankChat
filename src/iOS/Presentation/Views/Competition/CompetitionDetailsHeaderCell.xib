@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,43 +22,63 @@
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="256" text="Конкурс “Клонов”" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccj-Ml-3kJ">
-                        <rect key="frame" x="26" y="19" width="336" height="36"/>
+                        <rect key="frame" x="26" y="19" width="336" height="37"/>
                         <fontDescription key="fontDescription" type="italicSystem" pointSize="30"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
+                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <size key="shadowOffset" width="1" height="1"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="254" verticalHuggingPriority="254" verticalCompressionResistancePriority="751" text="До конца голосования:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mde-3v-Pen">
-                        <rect key="frame" x="0.0" y="81" width="388" height="14.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="254" verticalHuggingPriority="254" verticalCompressionResistancePriority="749" text="До конца голосования:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mde-3v-Pen">
+                        <rect key="frame" x="0.0" y="82" width="388" height="15.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
+                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <size key="shadowOffset" width="1" height="1"/>
+                    </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01.01.2020 - 01.08.2020" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYu-gD-1CS">
+                        <rect key="frame" x="0.0" y="113.5" width="388" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <size key="shadowOffset" width="1" height="1"/>
                     </label>
                     <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PYJ-Qn-3to">
-                        <rect key="frame" x="142" y="111.5" width="104" height="39"/>
+                        <rect key="frame" x="141.5" y="107.5" width="105" height="38"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01 : 23 : 59" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TUL-5K-bF1">
-                                <rect key="frame" x="0.0" y="0.0" width="104" height="24"/>
+                                <rect key="frame" x="0.0" y="0.0" width="105" height="25"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="shadowOffset" width="1" height="1"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="день" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rnK-n6-WVD">
-                                <rect key="frame" x="3" y="29" width="19.5" height="10"/>
+                                <rect key="frame" x="3" y="27" width="20.5" height="11"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="shadowOffset" width="1" height="1"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="часа" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E0e-np-hNH">
-                                <rect key="frame" x="42.5" y="29" width="19" height="10"/>
+                                <rect key="frame" x="42.5" y="27" width="20" height="11"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="shadowOffset" width="1" height="1"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="минут" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YxP-Zk-K87">
-                                <rect key="frame" x="76" y="29" width="25" height="10"/>
+                                <rect key="frame" x="76" y="27" width="26" height="11"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="shadowOffset" width="1" height="1"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -70,36 +90,36 @@
                             <constraint firstAttribute="trailing" secondItem="TUL-5K-bF1" secondAttribute="trailing" id="WQJ-n2-D1Y"/>
                             <constraint firstAttribute="bottom" secondItem="rnK-n6-WVD" secondAttribute="bottom" id="WnA-vf-eDz"/>
                             <constraint firstItem="E0e-np-hNH" firstAttribute="centerX" secondItem="TUL-5K-bF1" secondAttribute="centerX" id="Zws-8v-MEc"/>
-                            <constraint firstItem="YxP-Zk-K87" firstAttribute="top" secondItem="TUL-5K-bF1" secondAttribute="bottom" constant="5" id="eRx-YE-FlH"/>
+                            <constraint firstItem="YxP-Zk-K87" firstAttribute="top" secondItem="TUL-5K-bF1" secondAttribute="bottom" constant="2" id="eRx-YE-FlH"/>
                             <constraint firstItem="TUL-5K-bF1" firstAttribute="top" secondItem="PYJ-Qn-3to" secondAttribute="top" id="l5n-BH-cUe"/>
-                            <constraint firstItem="E0e-np-hNH" firstAttribute="top" secondItem="TUL-5K-bF1" secondAttribute="bottom" constant="5" id="l6j-op-6aS"/>
+                            <constraint firstItem="E0e-np-hNH" firstAttribute="top" secondItem="TUL-5K-bF1" secondAttribute="bottom" constant="2" id="l6j-op-6aS"/>
                             <constraint firstItem="rnK-n6-WVD" firstAttribute="leading" secondItem="TUL-5K-bF1" secondAttribute="leading" constant="3" id="luQ-7e-Wqj"/>
-                            <constraint firstItem="rnK-n6-WVD" firstAttribute="top" secondItem="TUL-5K-bF1" secondAttribute="bottom" constant="5" id="m0X-aG-ofr"/>
+                            <constraint firstItem="rnK-n6-WVD" firstAttribute="top" secondItem="TUL-5K-bF1" secondAttribute="bottom" constant="2" id="m0X-aG-ofr"/>
                         </constraints>
                     </view>
-                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01.01.2020 - 01.08.2020" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYu-gD-1CS">
-                        <rect key="frame" x="0.0" y="111.5" width="388" height="19.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Призовой фонд" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwj-fU-fGQ">
-                        <rect key="frame" x="0.0" y="151.5" width="388" height="16"/>
+                        <rect key="frame" x="0.0" y="153.5" width="388" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
+                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <size key="shadowOffset" width="1" height="1"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" verticalCompressionResistancePriority="751" text="10 238 876 ₽" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WlC-Nw-ICl">
-                        <rect key="frame" x="0.0" y="187.5" width="388" height="55"/>
+                        <rect key="frame" x="0.0" y="185.5" width="388" height="56"/>
                         <fontDescription key="fontDescription" type="italicSystem" pointSize="46"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
+                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <size key="shadowOffset" width="1" height="1"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="256" text="Оденьтесь в костюм “Штурмовика” и разыграйте своих друзей. Для участия в конкурсе достаточно загрузить Ваше видео!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfz-hX-UhX">
-                        <rect key="frame" x="16" y="258.5" width="356" height="50.5"/>
+                        <rect key="frame" x="16" y="257.5" width="356" height="51.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
+                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <size key="shadowOffset" width="1" height="1"/>
                     </label>
                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1N7-3Z-440">
                         <rect key="frame" x="32" y="352" width="324" height="36"/>
@@ -129,17 +149,15 @@
                         </state>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8H0-Tm-jGz">
-                        <rect key="frame" x="282" y="350" width="66" height="52"/>
+                        <rect key="frame" x="252" y="350" width="96" height="52"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="52" id="do2-hO-JVa"/>
                         </constraints>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
-                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
-                        <state key="normal" title="10k" image="ic_thumbs_up">
-                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </state>
+                        <inset key="contentEdgeInsets" minX="30" minY="0.0" maxX="20" maxY="0.0"/>
+                        <inset key="titleEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="10" maxY="0.0"/>
+                        <state key="normal" title="10k" image="ic_thumbs_up"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wDS-oQ-M01">
                         <rect key="frame" x="40" y="367.5" width="36" height="17"/>
@@ -159,7 +177,7 @@
                     <constraint firstAttribute="bottom" secondItem="PO7-hc-3Nk" secondAttribute="bottom" constant="50" id="A6e-3V-YMp"/>
                     <constraint firstItem="ccj-Ml-3kJ" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" constant="19" id="CAc-OE-vM9"/>
                     <constraint firstAttribute="trailing" secondItem="kfz-hX-UhX" secondAttribute="trailing" constant="16" id="Dy6-vl-Tl6"/>
-                    <constraint firstItem="WlC-Nw-ICl" firstAttribute="top" secondItem="uwj-fU-fGQ" secondAttribute="bottom" constant="20" id="I3P-ab-Loi"/>
+                    <constraint firstItem="WlC-Nw-ICl" firstAttribute="top" secondItem="uwj-fU-fGQ" secondAttribute="bottom" constant="15" id="I3P-ab-Loi"/>
                     <constraint firstAttribute="trailing" secondItem="ccj-Ml-3kJ" secondAttribute="trailing" constant="26" id="KuG-S1-7Wd"/>
                     <constraint firstAttribute="trailing" secondItem="8H0-Tm-jGz" secondAttribute="trailing" constant="40" id="MIK-31-BSR"/>
                     <constraint firstItem="mde-3v-Pen" firstAttribute="top" secondItem="ccj-Ml-3kJ" secondAttribute="bottom" constant="26" id="SrE-1g-ajT"/>
@@ -179,7 +197,7 @@
                     <constraint firstItem="wDS-oQ-M01" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="40" id="e8o-fb-LrC"/>
                     <constraint firstItem="7lf-tg-guw" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" id="eJK-zu-icc"/>
                     <constraint firstItem="kfz-hX-UhX" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="16" id="gm0-Ar-bDh"/>
-                    <constraint firstItem="PYJ-Qn-3to" firstAttribute="top" secondItem="mde-3v-Pen" secondAttribute="bottom" constant="16" id="jNk-R1-sFU"/>
+                    <constraint firstItem="PYJ-Qn-3to" firstAttribute="top" secondItem="mde-3v-Pen" secondAttribute="bottom" constant="10" id="jNk-R1-sFU"/>
                     <constraint firstItem="WlC-Nw-ICl" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" id="lOr-RE-dE5"/>
                     <constraint firstItem="mde-3v-Pen" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" id="m0D-ap-s4D"/>
                     <constraint firstItem="Wqp-4j-Uml" firstAttribute="top" secondItem="1N7-3Z-440" secondAttribute="bottom" constant="36" id="qii-Aw-6gF"/>

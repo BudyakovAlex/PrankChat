@@ -17,6 +17,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
     {
         private readonly IApiService _apiService;
         private readonly INavigationService _navigationService;
+
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
 
         public ICommand LikeCommand { get; }
@@ -65,6 +66,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public string LikesCount => CountExtensions.ToCountString(NumberOfLikes);
         public string ViewsCount => CountExtensions.ToCountViewsString(NumberOfViews);
+        public string PublicationDateString => PublicationDate.ToTimeAgoPublicationString();
         public bool CanVoteVideo => !IsVotingCompleted && !IsMyPublication;
 
         private bool _isLiked;

@@ -60,7 +60,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
 
             bindingSet.Bind(_postDateTextView)
                       .For(v => v.Text)
-                      .To(vm => vm.PublicationDate);
+                      .To(vm => vm.PublicationDateString);
 
             bindingSet.Bind(_likeTextView)
                       .For(v => v.Text)

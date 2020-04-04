@@ -112,7 +112,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             bindingSet.Bind(postDateLabel)
                       .For(v => v.Text)
-                      .To(vm => vm.PublicationDate);
+                      .To(vm => vm.PublicationDateString);
 
             bindingSet.Bind(videoView)
                       .For(v => v.BindTap())
