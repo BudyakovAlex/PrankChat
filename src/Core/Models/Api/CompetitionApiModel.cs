@@ -33,6 +33,7 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("price")]
         public int PrizePool { get; set; }
 
+        [JsonProperty("likes")]
         public int? LikesCount { get; set; }
 
         [JsonProperty("videos_count")]

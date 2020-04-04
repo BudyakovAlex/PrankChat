@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         public string StubImageUrl { get; }
         public DateTime PublicationDate { get; }
         public bool IsMyPublication { get; }
-        public bool IsVotingCompleted { get; }
+        public bool IsVotingAvailable { get; }
 
         private long _numberOfLikes;
         public long NumberOfLikes
@@ -66,8 +66,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public string LikesCount => CountExtensions.ToCountString(NumberOfLikes);
         public string ViewsCount => CountExtensions.ToCountViewsString(NumberOfViews);
+
         public string PublicationDateString => PublicationDate.ToTimeAgoPublicationString();
-        public bool CanVoteVideo => !IsVotingCompleted && !IsMyPublication;
+
+        public bool CanVoteVideo => IsVotingAvailable && !IsMyPublication;
 
         private bool _isLiked;
         public bool IsLiked
@@ -92,7 +94,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                                          DateTime publicationDate,
                                          bool isLiked,
                                          bool isMyPublication,
-                                         bool isVotingCompleted)
+                                         bool isVotingAvailable)
         {
             _apiService = apiService;
             _navigationService = navigationService;
@@ -111,13 +113,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             PublicationDate = publicationDate;
             IsLiked = isLiked;
             IsMyPublication = isMyPublication;
-            IsVotingCompleted = isVotingCompleted;
+            IsVotingAvailable = isVotingAvailable;
 
             LikeCommand = new MvxCommand(OnLike);
         }
 
         private void OnLike()
         {
+            if (IsLiked)
+            {
+                return;
+            }
+
             IsLiked = !IsLiked;
 
             var totalLikes = IsLiked ? NumberOfLikes + 1 : NumberOfLikes - 1;
