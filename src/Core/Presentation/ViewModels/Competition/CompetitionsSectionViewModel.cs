@@ -12,6 +12,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
     public class CompetitionsSectionViewModel : BaseItemViewModel, IDisposable
     {
+        private readonly bool _isUserSessionInitialized;
         private readonly IMvxMessenger _mvxMessenger;
         private readonly INavigationService _navigationService;
 
@@ -21,11 +22,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         public bool HasNavigationControls => Items.Count > 1;
 
-        public CompetitionsSectionViewModel(IMvxMessenger mvxMessenger,
+        public CompetitionsSectionViewModel(bool isUserSessionInitialized,
+                                            IMvxMessenger mvxMessenger,
                                             INavigationService navigationService,
                                             CompetitionPhase phase,
                                             List<CompetitionDataModel> competitions)
         {
+            _isUserSessionInitialized = isUserSessionInitialized;
             _mvxMessenger = mvxMessenger;
             _navigationService = navigationService;
 
@@ -35,7 +38,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         private CompetitionItemViewModel ProduceItemViewModel(CompetitionDataModel competition)
         {
-            return new CompetitionItemViewModel(_mvxMessenger, _navigationService, competition);
+            return new CompetitionItemViewModel(_isUserSessionInitialized, _mvxMessenger, _navigationService, competition);
         }
 
         public void Dispose()

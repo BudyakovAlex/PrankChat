@@ -63,7 +63,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         public void Prepare(CompetitionDataModel parameter)
         {
             _competition = parameter;
-            _header = new CompetitionDetailsHeaderViewModel(_mvxMessenger,
+            _header = new CompetitionDetailsHeaderViewModel(IsUserSessionInitialized,
+                                                            _mvxMessenger,
                                                             NavigationService,
                                                             new MvxAsyncCommand(LoadVideoAsync),
                                                             parameter);

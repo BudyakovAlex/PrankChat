@@ -4,6 +4,7 @@ using System.Windows.Input;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
+using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
@@ -71,7 +72,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public ICommand ActionCommand { get; }
 
-        public CompetitionItemViewModel(IMvxMessenger mvxMessenger,
+        public CompetitionItemViewModel(bool isUserSessionInitialized,
+                                        IMvxMessenger mvxMessenger,
                                         INavigationService navigationService,
                                         CompetitionDataModel competition)
         {
@@ -80,7 +82,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             _competition = competition;
 
             Subscribe();
-            ActionCommand = new MvxAsyncCommand(ExecuteActionAsync);
+            ActionCommand = new MvxRestrictedAsyncCommand(ExecuteActionAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigationService.ShowLoginView);
         }
 
         public void Dispose()

@@ -26,10 +26,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             set => SetProperty(ref _canLoadVideo, value);
         }
 
-        public CompetitionDetailsHeaderViewModel(IMvxMessenger mvxMessenger,
+        public CompetitionDetailsHeaderViewModel(bool isUserSessionInitialized,
+                                                 IMvxMessenger mvxMessenger,
                                                  INavigationService navigationService,
                                                  IMvxAsyncCommand loadVideoCommand,
-                                                 CompetitionDataModel competition) : base(mvxMessenger, navigationService, competition)
+                                                 CompetitionDataModel competition) : base(isUserSessionInitialized, mvxMessenger, navigationService, competition)
         {
             _navigationService = navigationService;
             _competition = competition;

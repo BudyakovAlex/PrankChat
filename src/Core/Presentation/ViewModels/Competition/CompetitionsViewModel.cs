@@ -47,7 +47,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 var competitionsPage = await ApiService.GetCompetitionsAsync(1, 100);
 
                 var sections = competitionsPage.Items.GroupBy(competition => competition.GetPhase())
-                                                     .Select(group => new CompetitionsSectionViewModel(_mvxMessenger, NavigationService, group.Key, group.ToList()))
+                                                     .Select(group => new CompetitionsSectionViewModel(IsUserSessionInitialized, _mvxMessenger, NavigationService, group.Key, group.ToList()))
                                                      .ToList();
                 Items.SwitchTo(sections);
             }
