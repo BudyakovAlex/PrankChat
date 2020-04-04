@@ -87,8 +87,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
         {
-            SetTotalItemsCount(dataModel.TotalCount);
-            var orderViewModels = dataModel.Items.Select(produceItemViewModel).ToList();
+            SetTotalItemsCount(dataModel?.TotalCount ?? 0);
+            var orderViewModels = dataModel?.Items?.Select(produceItemViewModel).ToList();
 
             items.AddRange(orderViewModels);
             return orderViewModels.Count;

@@ -269,4 +269,5 @@
     <string name="WithdrawalView_Pending">"В ожидании"</string>
     <string name="WithdrawalView_Withdraw_Text">"Отозвать"</string>
     <string name="Competiton_Prize_Pool_Place">"Место"</string>
+    <string name="Orders_In_Dispute">"В споре"</string>
 </resources>

@@ -849,4 +849,7 @@
   <data name="Competiton_Prize_Pool_Place" xml:space="preserve">
     <value>Место</value>
   </data>
+  <data name="Orders_In_Dispute" xml:space="preserve">
+    <value>В споре</value>
+  </data>
 </root>

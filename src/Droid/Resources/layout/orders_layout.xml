@@ -16,7 +16,7 @@
 
         <android.support.design.widget.TabItem android:text="@string/Orders_Tab" />
 
-        <android.support.design.widget.TabItem android:text="@string/Rate_Tab" />
+        <android.support.design.widget.TabItem android:text="@string/Orders_In_Dispute" />
     </android.support.design.widget.TabLayout>
 
     <LinearLayout
