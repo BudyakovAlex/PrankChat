@@ -191,9 +191,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
             _status = result.Status ?? OrderStatusType.None;
             _activeTo = result.ActiveTo;
-            if (_status == OrderStatusType.Cancelled || _status == OrderStatusType.Finished)
+            if (_status == OrderStatusType.Cancelled || _status == OrderStatusType.Finished || _status == OrderStatusType.InArbitration)
             {
-                _mvxMessenger.Publish(new RemoveOrderMessage(this, OrderId));
+                _mvxMessenger.Publish(new RemoveOrderMessage(this, OrderId, _status));
                 return;
             }
 

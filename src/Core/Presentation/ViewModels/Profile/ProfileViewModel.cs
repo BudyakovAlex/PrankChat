@@ -223,6 +223,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             {
                 case ProfileOrderType.MyOrdered:
                     return await ApiService.GetOrdersAsync(OrderFilterType.MyOrdered, page, pageSize);
+
                 case ProfileOrderType.OrdersCompletedByMe:
                     return await ApiService.GetOrdersAsync(OrderFilterType.MyCompletion, page, pageSize);
             }

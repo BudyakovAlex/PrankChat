@@ -155,7 +155,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
-            if (TabType == OrdersTabType.Rating)
+            if (TabType == OrdersTabType.Arbitration)
             {
                 return 0;
             }
@@ -188,7 +188,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 case OrdersTabType.Order:
                     return LoadMoreItemsAsync();
 
-                case OrdersTabType.Rating:
+                case OrdersTabType.Arbitration:
                     return LoadRatingOrdersAsync();
 
                 default:
@@ -203,7 +203,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 case OrdersTabType.Order:
                     return OpenOrderFilterAsync();
 
-                case OrdersTabType.Rating:
+                case OrdersTabType.Arbitration:
                     return OpenRatingFilterAsync();
 
                 default:
@@ -270,6 +270,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private void OnRemoveOrderMessage(RemoveOrderMessage message)
         {
+            if (message.Status == OrderStatusType.InArbitration && TabType == OrdersTabType.Arbitration)
+                return;
+
             var deletedItem = Items.OfType<OrderItemViewModel>().FirstOrDefault(order => order.OrderId == message.OrderId);
             if (deletedItem == null)
             {
