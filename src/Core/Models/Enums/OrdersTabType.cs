@@ -3,6 +3,6 @@
     public enum OrdersTabType
     {
         Order,
-        Rating
+        Arbitration,
     }
 }

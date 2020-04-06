@@ -96,7 +96,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
                     break;
 
                 case 1:
-                    ViewModel.TabType = OrdersTabType.Rating;
+                    ViewModel.TabType = OrdersTabType.Arbitration;
                     break;
             }
         }
