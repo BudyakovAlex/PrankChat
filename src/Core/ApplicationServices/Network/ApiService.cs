@@ -139,6 +139,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     endpoint = $"{endpoint}" +
                                $"&customer_id={_settingsService.User.Id}" +
                                $"&states[]={OrderStatusType.New.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.Active.GetEnumMemberAttrValue()}" +
                                $"&states[]={OrderStatusType.InWork.GetEnumMemberAttrValue()}" +
                                $"&states[]={OrderStatusType.WaitFinish.GetEnumMemberAttrValue()}" +
                                $"&states[]={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}" +
