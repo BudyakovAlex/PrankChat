@@ -132,11 +132,30 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     endpoint = $"{endpoint}&customer_id={_settingsService.User.Id}";
                     break;
 
-                case OrderFilterType.MyCompleted:
+                case OrderFilterType.MyOrdered:
                     if (_settingsService.User == null)
                         return new PaginationModel<OrderDataModel>();
 
-                    endpoint = $"{endpoint}&status={OrderStatusType.Finished.GetEnumMemberAttrValue()}&executor_id={_settingsService.User.Id}";
+                    endpoint = $"{endpoint}" +
+                               $"&customer_id={_settingsService.User.Id}" +
+                               $"&states[]={OrderStatusType.New.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.Active.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.InWork.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.WaitFinish.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.Finished.GetEnumMemberAttrValue()}";
+                    break;
+
+                case OrderFilterType.MyCompletion:
+                    if (_settingsService.User == null)
+                        return new PaginationModel<OrderDataModel>();
+
+                    endpoint = $"{endpoint}" +
+                               $"&executor_id={_settingsService.User.Id}" +
+                               $"&states[]={OrderStatusType.InWork.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.WaitFinish.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.Finished.GetEnumMemberAttrValue()}";
                     break;
             }
 

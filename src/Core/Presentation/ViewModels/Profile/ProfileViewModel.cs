@@ -222,10 +222,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             switch (SelectedOrderType)
             {
                 case ProfileOrderType.MyOrdered:
-                    return await ApiService.GetOrdersAsync(OrderFilterType.MyOwn, page, pageSize);
+                    return await ApiService.GetOrdersAsync(OrderFilterType.MyOrdered, page, pageSize);
 
                 case ProfileOrderType.OrdersCompletedByMe:
-                    return await ApiService.GetOrdersAsync(OrderFilterType.MyCompleted, page, pageSize);
+                    return await ApiService.GetOrdersAsync(OrderFilterType.MyCompletion, page, pageSize);
             }
 
             return new PaginationModel<OrderDataModel>();
