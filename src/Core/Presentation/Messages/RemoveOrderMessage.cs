@@ -1,5 +1,6 @@
 ﻿using System;
 using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Presentation.Messages
 {
@@ -7,9 +8,12 @@ namespace PrankChat.Mobile.Core.Presentation.Messages
     {
         public int OrderId { get; }
 
-        public RemoveOrderMessage(object sender, int orderId) : base(sender)
+        public OrderStatusType Status { get; }
+
+        public RemoveOrderMessage(object sender, int orderId, OrderStatusType status) : base(sender)
         {
             OrderId = orderId;
+            Status = status;
         }
     }
 }

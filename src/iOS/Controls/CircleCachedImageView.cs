@@ -91,10 +91,7 @@ namespace PrankChat.Mobile.iOS.Controls
         {
             if (string.IsNullOrWhiteSpace(placeholder))
             {
-                if (!HaveImage)
-                {
-                    ImagePath = DefaultImagePath;
-                }
+                ImagePath = HaveImage ? string.Empty : DefaultImagePath;
                 return;
             }
             
