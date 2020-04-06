@@ -132,29 +132,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     endpoint = $"{endpoint}&customer_id={_settingsService.User.Id}";
                     break;
 
-                case OrderFilterType.MyOrdered:
+                case OrderFilterType.MyCompleted:
                     if (_settingsService.User == null)
                         return new PaginationModel<OrderDataModel>();
 
-                    endpoint = $"{endpoint}" +
-                               $"&customer_id={_settingsService.User.Id}" +
-                               $"&states[]={OrderStatusType.New.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.InWork.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.WaitFinish.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.Finished.GetEnumMemberAttrValue()}";
-                    break;
-
-                case OrderFilterType.MyCompletion:
-                    if (_settingsService.User == null)
-                        return new PaginationModel<OrderDataModel>();
-
-                    endpoint = $"{endpoint}" +
-                               $"&executor_id={_settingsService.User.Id}" +
-                               $"&states[]={OrderStatusType.InWork.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.WaitFinish.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.Finished.GetEnumMemberAttrValue()}";
+                    endpoint = $"{endpoint}&status={OrderStatusType.Finished.GetEnumMemberAttrValue()}&executor_id={_settingsService.User.Id}";
                     break;
             }
 

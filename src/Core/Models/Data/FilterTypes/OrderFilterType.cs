@@ -6,7 +6,6 @@
         New,
         InProgress,
         MyOwn,
-        MyOrdered,
-        MyCompletion
+        MyCompleted,
     }
 }
