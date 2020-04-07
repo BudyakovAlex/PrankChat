@@ -50,8 +50,9 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             message.Data.TryGetValue("key", out string key);
             message.Data.TryGetValue("value", out var value);
 
+
             var pushNotificationData = PushNotificationService.GenerateNotificationData(key, value);
-            NotificationWrapper.Instance.ScheduleLocalNotification(pushNotificationData.Title, pushNotificationData.Body);
+            NotificationWrapper.Instance.ScheduleLocalNotification(message.GetNotification().Title, message.GetNotification().Body);
         }
     }
 }
