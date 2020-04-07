@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="11dp">
+    <CircleCachedImageView
+        android:id="@+id/user_photo_image_view"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="14dp"
+        android:layout_marginStart="24dp"/>
+
+    <TextView
+        android:id="@+id/user_name_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/applicationBlack"
+        android:textSize="14sp"
+        android:textStyle="normal|bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/user_photo_image_view"
+        app:layout_constraintTop_toTopOf="@+id/user_photo_image_view"
+        tools:text="Some User" />
+    <TextView
+        android:id="@+id/video_info_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/user_photo_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/user_name_text_view"
+        android:layout_marginStart="10dp"
+        tools:text="140.8k просмотров"
+        android:layout_marginTop="8dp"
+        android:singleLine="true"
+        android:textSize="12sp"/>
+
+    <VideoView
+        android:id="@+id/video_file"
+        android:layout_width="0dp"
+        android:layout_height="246dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="24dp"
+        android:background="@color/applicationBlack"
+        android:focusableInTouchMode="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/video_info_text_view" />
+
+    <ffimageloading.cross.MvxCachedImageView
+        android:id="@+id/stub_image_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/video_file"
+        app:layout_constraintEnd_toEndOf="@+id/video_file"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/video_file"
+        app:layout_constraintTop_toTopOf="@+id/video_file" />
+
+    <ProgressBar
+        android:id="@+id/loading_progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/video_file"
+        app:layout_constraintEnd_toEndOf="@+id/video_file"
+        app:layout_constraintStart_toStartOf="@+id/stub_image_view"
+        app:layout_constraintTop_toTopOf="@+id/video_file" />
+
+    <TextView
+        android:id="@+id/post_date_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        tools:text="11 месяцев назад"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/video_info_text_view"
+        app:layout_constraintStart_toEndOf="@+id/video_info_text_view"
+        app:layout_constraintTop_toTopOf="@+id/video_info_text_view" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/like_button"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/competition_like_button_selector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/video_file">
+
+        <ImageView
+            android:id="@+id/likes_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/like_text_view"
+            app:layout_constraintEnd_toStartOf="@+id/like_text_view"
+            app:layout_constraintHorizontal_bias="0.92"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/like_text_view"
+            app:srcCompat="@drawable/ic_accent_thumbs_up" />
+
+        <TextView
+            android:id="@+id/like_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_button_border"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.54"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="100k" />
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/separator"
+        app:layout_goneMarginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/like_button" />
+</android.support.constraint.ConstraintLayout>

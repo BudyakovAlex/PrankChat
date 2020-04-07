@@ -1,11 +1,8 @@
 ﻿using System;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Platforms.Ios.Binding;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Search;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -13,11 +10,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 {
     public partial class ProfileSearchItemCell : BaseTableCell<ProfileSearchItemCell, ProfileSearchItemViewModel>
     {
-        static ProfileSearchItemCell()
-        {
-            EstimatedHeight = 56;
-        }
-
         protected ProfileSearchItemCell(IntPtr handle) : base(handle)
         {
             // Note: this .ctor should not contain any initialization logic.

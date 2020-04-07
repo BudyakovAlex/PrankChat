@@ -307,10 +307,10 @@
     <value>подписки</value>
   </data>
   <data name="ProfileView_MyOrders_Tab" xml:space="preserve">
-    <value>Мои заказы</value>
+    <value>Я заказал</value>
   </data>
   <data name="ProfileView_CompletedOrders_Tab" xml:space="preserve">
-    <value>Исполненные заказы</value>
+    <value>Я исполняю</value>
   </data>
   <data name="Order_View_Time_Text" xml:space="preserve">
     <value>Время заказа:</value>
@@ -490,7 +490,7 @@
     <value>Поделиться ссылкой</value>
   </data>
   <data name="OrderStatus_New" xml:space="preserve">
-    <value>Новое</value>
+    <value>На модерации</value>
   </data>
   <data name="OrderStatus_Rejected" xml:space="preserve">
     <value>Отменен модератором</value>
@@ -499,10 +499,10 @@
     <value>Отменен</value>
   </data>
   <data name="OrderStatus_Active" xml:space="preserve">
-    <value>Ожидает исполнителя</value>
+    <value>Новый</value>
   </data>
   <data name="OrderStatus_InWork" xml:space="preserve">
-    <value>Выполняется</value>
+    <value>В работе</value>
   </data>
   <data name="OrderStatus_InArbitration" xml:space="preserve">
     <value>В споре</value>
@@ -517,7 +517,7 @@
     <value>Закрыт после спора в пользу исполнителя</value>
   </data>
   <data name="OrderStatus_Finished" xml:space="preserve">
-    <value>Завершён</value>
+    <value>Выполненный</value>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>Ок</value>
@@ -706,10 +706,150 @@
   <data name="FinishPasswordRecoveryView_GoToLogin_Button" xml:space="preserve">
     <value>Войти в аккаунт</value>
   </data>
+  <data name="com_vk_sdk_AppId" xml:space="preserve">
+    <value>7343996</value>
+  </data>
+  <data name="Count_Days" xml:space="preserve">
+    <value>Дней</value>
+  </data>
+  <data name="Count_Hours" xml:space="preserve">
+    <value>Часов</value>
+  </data>
+  <data name="Count_Minutes" xml:space="preserve">
+    <value>Минут</value>
+  </data>
   <data name="LinkCopied" xml:space="preserve">
     <value>Ссылка скопирована</value>
   </data>
   <data name="ComplainSuccessful" xml:space="preserve">
     <value>Отправлено модератору</value>
+  </data>
+  <data name="Competitions_Voting" xml:space="preserve">
+    <value>Голосование</value>
+  </data>
+  <data name="Competitions_New" xml:space="preserve">
+    <value>Новые</value>
+  </data>
+  <data name="Competitions_Finished" xml:space="preserve">
+    <value>Итоги</value>
+  </data>
+  <data name="Competitions_Voting_Term" xml:space="preserve">
+    <value>До конца голосования:</value>
+  </data>
+  <data name="Competitions_Finished_Term" xml:space="preserve">
+    <value>Период проведения конкурса:</value>
+  </data>
+  <data name="Competitions_See" xml:space="preserve">
+    <value>Смотреть</value>
+  </data>
+  <data name="Competitions_More" xml:space="preserve">
+    <value>Подробнее</value>
+  </data>
+  <data name="Competitions_Participate" xml:space="preserve">
+    <value>Принять участие</value>
+  </data>
+  <data name="Competitions_Prize_Pool" xml:space="preserve">
+    <value>Призовой фонд турнира:</value>
+  </data>
+  <data name="Competitions_New_Term" xml:space="preserve">
+    <value>До начала голосования:</value>
+  </data>
+  <data name="Competition_Load_Video" xml:space="preserve">
+    <value>Загрузить видео</value>
+  </data>
+  <data name="Competition_Rules" xml:space="preserve">
+    <value>Правила конкурса</value>
+  </data>
+  <data name="Competition_Results" xml:space="preserve">
+    <value>Результаты</value>
+  </data>
+  <data name="WithdrawalView_FirstName_Placeholder" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="WithdrawalView_LastName_Placeholder" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="WithdrawalView_CardNumber_Placeholder" xml:space="preserve">
+    <value>Номер карты</value>
+  </data>
+  <data name="WithdrawalView_AttachFile_Button" xml:space="preserve">
+    <value>Прикрепить файл</value>
+  </data>
+  <data name="WithdrawalView_Revoke_Button" xml:space="preserve">
+    <value>Отозвать</value>
+  </data>
+  <data name="Login_Without_Registration" xml:space="preserve">
+    <value>Войти без регистрации</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Competition_Prize_Pool_Rating" xml:space="preserve">
+    <value>Рейтинг</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Competition_Prize_Pool_Participant" xml:space="preserve">
+    <value>Учасник</value>
+  </data>
+  <data name="Competition_Prize_Pool" xml:space="preserve">
+    <value>Призовой фонд</value>
+  </data>
+  <data name="Competitions_Tab" xml:space="preserve">
+    <value>Конкурсы</value>
+  </data>
+  <data name="WithdrawalView_Empty_Card_Error" xml:space="preserve">
+    <value>Карта не может быть пустой.</value>
+  </data>
+  <data name="WithdrawalView_Cancel_Withdrawal_Error" xml:space="preserve">
+    <value>Не удается отменить транзакцию для вывода средств</value>
+  </data>
+  <data name="WithdrawalView_Delete_Card_Text" xml:space="preserve">
+    <value>Удалить карту</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="WithdrawalView_Delete_Card_Question" xml:space="preserve">
+    <value>Вы уверены что хотите удалить данную карту?</value>
+  </data>
+  <data name="WithdrawalView_Verify_User_Text" xml:space="preserve">
+    <value>Для того чтобы вывести средства со своего счета, Вам необходимо подтвердить свою личность прикрепив селфи с паспортом в развернутом виде.</value>
+  </data>
+  <data name="WithdrawalView_Attach_File" xml:space="preserve">
+    <value>Прикрепить файл</value>
+  </data>
+  <data name="WithdrawalView_Pendng_Verify_User_Text" xml:space="preserve">
+    <value>Ваш запрос обрабатывается, время ожидания может составить до 24 часов</value>
+  </data>
+  <data name="WithdrawalView_Card_Number" xml:space="preserve">
+    <value>Номер карты</value>
+  </data>
+  <data name="WithdrawalView_Surname" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="WithdrawalView_Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="WithdrawalView_Cost" xml:space="preserve">
+    <value>Сумма</value>
+  </data>
+  <data name="WithdrawalView_Pending_Withdrawal_Text" xml:space="preserve">
+    <value>В данный момент идет обработка Вашего запроса на вывод средств.</value>
+  </data>
+  <data name="WithdrawalView_Create_Date" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="WithdrawalView_Status_Text" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="WithdrawalView_Pending" xml:space="preserve">
+    <value>В ожидании</value>
+  </data>
+  <data name="WithdrawalView_Withdraw_Text" xml:space="preserve">
+    <value>Отозвать</value>
+  </data>
+  <data name="Competiton_Prize_Pool_Place" xml:space="preserve">
+    <value>Место</value>
+  </data>
+  <data name="Orders_In_Dispute" xml:space="preserve">
+    <value>В споре</value>
   </data>
 </root>

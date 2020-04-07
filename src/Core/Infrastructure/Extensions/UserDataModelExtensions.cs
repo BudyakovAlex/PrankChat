@@ -7,14 +7,21 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
     {
         public static OrderType GetOrderType(this UserDataModel userDataModel, int? customerId, OrderStatusType orderStatusType)
         {
-            if (customerId == userDataModel?.Id)
+            if (customerId.HasValue && userDataModel?.Id == customerId)
             {
-                return orderStatusType == OrderStatusType.New
-                    ? OrderType.MyOrderInModeration
-                    : OrderType.MyOrder;
+                switch (orderStatusType)
+                {
+                    case OrderStatusType.New:
+                        return OrderType.MyOrderInModeration;
+                    case OrderStatusType.Finished:
+                        return OrderType.MyOrderCompleted;
+                    default:
+                        return OrderType.MyOrder;
+                }
             }
 
-            return OrderType.NotMyOrder;
+            return orderStatusType == OrderStatusType.Finished ? OrderType.NotMyOrderCompleted : OrderType.NotMyOrder;
         }
+
     }
 }

@@ -7,6 +7,7 @@ namespace PrankChat.Mobile.Droid
     [Activity(Label = "PrankChat",
         MainLauncher = true,
         NoHistory = true,
+        Theme = "@style/Theme.PrankChat.Splash",
         ScreenOrientation = ScreenOrientation.Portrait)]
     public class SplashScreen : MvxSplashScreenAppCompatActivity
     {

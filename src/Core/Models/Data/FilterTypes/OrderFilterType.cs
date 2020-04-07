@@ -5,6 +5,8 @@
         All,
         New,
         InProgress,
-        MyOwn
+        MyOwn,
+        MyOrdered,
+        MyCompletion
     }
 }

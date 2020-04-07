@@ -42,7 +42,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string VideoUrl => _order?.Video?.StreamUri;
 
-        public string VideoPlaceholderUrl => "https://ksassets.timeincuk.net/wp/uploads/sites/55/2019/04/GettyImages-1136749971-920x584.jpg";// _order?.Video?.Poster;
+        public string VideoPlaceholderUrl => _order?.Video?.Poster;
 
         public string VideoName => _order?.Title;
 
@@ -112,6 +112,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsTakeOrderAvailable => !IsUserCustomer && _order?.Status == OrderStatusType.Active;
 
+        public bool IsAnyOrderActionAvailable => IsTakeOrderAvailable || IsSubscribeAvailable || IsUnsubscribeAvailable;
+
         public bool IsCancelOrderAvailable => IsUserCustomer && _order?.Status == OrderStatusType.Active;
 
         public bool IsExecuteOrderAvailable => false;
@@ -120,7 +122,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsVideoAvailable => _order?.Video != null;
 
-        public bool IsExecutorAvailable => _order?.Executor != null;
+        public bool IsExecutorAvailable => _order?.Executor != null && _order.Executor.Id != _settingsService.User?.Id;
 
         public bool IsDecideVideoAvailable => _order?.Status == OrderStatusType.InArbitration && IsUserGuest;
 
@@ -230,6 +232,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 _order.Status = order.Status;
                 _order.Executor = _settingsService.User;
+                _order.ActiveTo = order.ActiveTo;
                 await RaiseAllPropertiesChanged();
             }
         }
@@ -455,8 +458,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             var result = await DialogService.ShowMenuDialogAsync(new[]
             {
-                Resources.Publication_Item_Complain,
-                Resources.Publication_Item_Copy_Link
+                Resources.Publication_Item_Complain
+                // TODO: uncomment this when functionality will be available
+                //Resources.Publication_Item_Copy_Link
             });
 
             if (string.IsNullOrWhiteSpace(result))

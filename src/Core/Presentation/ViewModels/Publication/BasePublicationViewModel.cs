@@ -17,11 +17,12 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
-    public class BasePublicationViewModel : LikeableViewModel, IDisposable
+    public class BasePublicationViewModel : LikeableViewModel, IVideoItemViewModel, IDisposable
     {
         private readonly IPlatformService _platformService;
         private readonly IMvxMessenger _mvxMessenger;
@@ -58,6 +59,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public string PlaceholderImageUrl { get; set; }
 
         public string VideoUrl { get; set; }
+
+        public string VideoPlaceholderImageUrl { get; }
 
         public IVideoPlayerService VideoPlayerService { get; }
 
@@ -103,6 +106,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                         IErrorHandleService errorHandleService,
                                         IMvxMessenger mvxMessenger,
                                         ISettingsService settingsService,
+                                        string poster,
                                         string profileName,
                                         string profilePhotoUrl,
                                         int videoId,
@@ -128,6 +132,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             VideoUrl = videoUrl;
             IsLiked = isLiked;
             NumberOfLikes = numberOfLikes;
+            VideoPlaceholderImageUrl = poster;
 
             _numberOfViews = numberOfViews;
             _publicationDate = publicationDate;

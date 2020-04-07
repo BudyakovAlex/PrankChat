@@ -2,23 +2,16 @@
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
-using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Binding;
-using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
     public partial class OrderItemCell : BaseTableCell<OrderItemCell, OrderItemViewModel>
     {
-        static OrderItemCell()
-        {
-            EstimatedHeight = 215;
-        }
-
         protected OrderItemCell(IntPtr handle) : base(handle)
         {
             // Note: this .ctor should not contain any initialization logic.
@@ -82,7 +75,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .Mode(MvxBindingMode.OneTime);
 
             set.Bind(orderTimeLabel)
-                .To(vm => vm.TimeText);
+                .To(vm => vm.TimeText)
+                .Mode(MvxBindingMode.OneWay);
 
             set.Bind(priceValueLabel)
                 .To(vm => vm.PriceText)

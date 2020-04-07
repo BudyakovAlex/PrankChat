@@ -16,7 +16,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
         private readonly INavigationService _navigationService;
 
         private NotificationType? _notificationType;
-        private bool _isDelivered;
         private int? _userId;
 
         public string ProfileName { get; }
@@ -29,7 +28,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         public string DateText { get; }
 
-        public string Status => _isDelivered ? Resources.NotificationStatus_Viewed : Resources.NotificationStatus_NotViewed;
+        public bool IsDelivered { get; }
 
         public string Title { get; }
 
@@ -49,7 +48,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
             Description = description;
             DateText = createdAt?.ToTimeAgoCommentString();
 
-            _isDelivered = isDelivered ?? false;
+            IsDelivered = isDelivered ?? false;
             _notificationType = type;
 
             switch (_notificationType)

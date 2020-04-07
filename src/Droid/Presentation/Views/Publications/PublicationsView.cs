@@ -43,7 +43,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private LinearLayoutManager _layoutManager;
         private RecycleViewBindableAdapter _adapter;
 
-        private PublicationItemViewModel _previousPublicationViewModel;
+        private PublicationItemViewHolder _previousPublicationViewHolder;
         private VideoView _previousVideoView;
 
         private MvxInteraction _itemsChangedInteraction;
@@ -102,7 +102,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
             bindingSet.Bind(_publicationRecyclerView)
                       .For(v => v.LoadMoreItemsCommand)
-                      .To(vm => vm.Pagination.LoadMoreItemsCommand);
+                      .To(vm => vm.LoadMoreItemsCommand);
 
             bindingSet.Apply();
         }
@@ -162,49 +162,57 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             var viewHolder = _publicationRecyclerView.FindViewHolderForAdapterPosition(targetPosition);
             if (viewHolder is PublicationItemViewHolder itemViewHolder)
             {
-                PlayVideo(itemViewHolder.ViewModel, itemViewHolder.VideoView);
+                itemViewHolder.LoadingProgressBar.Visibility = ViewStates.Visible;
+                PlayVideo(itemViewHolder, itemViewHolder.VideoView);
             }
 
             return Task.CompletedTask;
         }
 
-        private void PlayVideo(PublicationItemViewModel itemViewModel, VideoView videoView)
+        private void PlayVideo(PublicationItemViewHolder itemViewHolder, VideoView videoView)
         {
-            if (_previousPublicationViewModel != null &&
-                _previousPublicationViewModel.VideoPlayerService != null &&
+            if (_previousPublicationViewHolder?.ViewModel != null &&
+                _previousPublicationViewHolder.ViewModel.VideoPlayerService != null &&
                 _previousVideoView != null)
             {
-                StopVideo(_previousPublicationViewModel);
+                StopVideo(_previousPublicationViewHolder);
                 _previousVideoView.SetBackgroundColor(Color.Black);
             }
 
             Debug.WriteLine("PlayVideo [Start]");
 
-            if (itemViewModel?.VideoPlayerService is null ||
+            if (itemViewHolder?.ViewModel?.VideoPlayerService is null ||
                 videoView is null)
             {
                 return;
             }
 
-            var videoService = itemViewModel.VideoPlayerService;
-            if (itemViewModel.VideoPlayerService.Player.IsPlaying)
+            if (itemViewHolder.ViewModel.VideoPlayerService.Player.IsPlaying)
             {
                 return;
             }
 
+            var videoService = itemViewHolder.ViewModel.VideoPlayerService;
+
             videoView.SetBackgroundColor(Color.Transparent);
             videoService.Player.SetPlatformVideoPlayerContainer(videoView);
-            videoService.Play(itemViewModel.VideoUrl, itemViewModel.VideoId);
-            _previousPublicationViewModel = itemViewModel;
+            videoService.Play(itemViewHolder.ViewModel.VideoUrl, itemViewHolder.ViewModel.VideoId);
+            _previousPublicationViewHolder = itemViewHolder;
             _previousVideoView = videoView;
 
             Debug.WriteLine("PlayVideo [End]");
         }
 
-        private void StopVideo(PublicationItemViewModel itemViewModel)
+        private void StopVideo(PublicationItemViewHolder viewHolder)
         {
             Debug.WriteLine("StopVideo [Start]");
-            itemViewModel.VideoPlayerService.Stop();
+            if (viewHolder is null)
+            {
+                return;
+            }
+
+            viewHolder.StubImageView.Visibility = ViewStates.Visible;
+            viewHolder.ViewModel.VideoPlayerService.Stop();
         }
 
         private void PublicationTypeTabLayoutTabUnselected(object sender, TabUnselectedEventArgs e)

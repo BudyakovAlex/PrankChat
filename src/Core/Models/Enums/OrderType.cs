@@ -4,6 +4,8 @@
     {
         MyOrder,
         MyOrderInModeration,
-        NotMyOrder
+        NotMyOrder,
+        MyOrderCompleted,
+        NotMyOrderCompleted
     }
 }

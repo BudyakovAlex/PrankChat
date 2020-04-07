@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
@@ -31,7 +32,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel orderInfo);
 
-        Task<List<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType);
+        Task<PaginationModel<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize);
 
         Task<OrderDataModel> GetOrderDetailsAsync(int orderId);
 
@@ -77,6 +78,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         
         Task ComplainUserAsync(int userId, string title, string description);
 
+        Task<DocumentDataModel> SendVerifyDocumentAsync(string path);
+
+        Task<CardDataModel> SaveCardAsync(string number, string userName);
+
+        Task<CardDataModel> GetCardsAsync();
+
+        Task DeleteCardAsync(int id);
+
         #endregion Users
 
         #region Video
@@ -98,7 +107,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<PaymentDataModel> RefillAsync(double coast);
 
-        Task<PaymentDataModel> WithdrawalAsync(double coast);
+        Task<WithdrawalDataModel> WithdrawalAsync(double coast, int cardId);
+
+        Task<List<WithdrawalDataModel>> GetWithdrawalsAsync();
+
+        Task CancelWithdrawalAsync(int withdrawalId);
 
         #endregion Payment
 
@@ -109,5 +122,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         Task SendNotificationTokenAsync(string token);
 
         #endregion Notification
+
+        #region Competitions
+
+        Task<PaginationModel<VideoDataModel>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize);
+
+        Task<PaginationModel<CompetitionDataModel>> GetCompetitionsAsync(int page, int pageSize);
+
+        #endregion
     }
 }

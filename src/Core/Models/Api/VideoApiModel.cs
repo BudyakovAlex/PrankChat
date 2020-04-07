@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -15,6 +14,7 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         public string Status { get; set; }
 
+        [JsonProperty("poster")]
         public string Poster { get; set; }
 
         [JsonProperty("views_count")]
@@ -28,6 +28,9 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         [JsonProperty("stream_url")]
         public string StreamUri { get; set; }
+
+        [JsonProperty("marked_stream_url")]
+        public string MarkedStreamUri { get; set; }
 
         [JsonProperty("share_url")]
         public string ShareUri { get; set; }

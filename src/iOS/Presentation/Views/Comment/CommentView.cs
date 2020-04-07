@@ -3,6 +3,7 @@ using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -46,7 +47,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
             tableView.Source = CommentTableSource;
             tableView.RegisterNibForCellReuse(CommentItemCell.Nib, CommentItemCell.CellId);
             tableView.SetStyle();
-            tableView.RowHeight = CommentItemCell.EstimatedHeight;
+            tableView.RowHeight = Constants.CellHeights.CommentItemCellHeight;
             tableView.UserInteractionEnabled = true;
             tableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
             tableView.AllowsSelection = false;

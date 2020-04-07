@@ -3,11 +3,14 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
-using PrankChat.Mobile.Core.Converters;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
+using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -18,16 +21,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
     {
         private MvxUIRefreshControl _refreshControl;
 
-        public PublicationTableSource PublicationTableSource { get; private set; }
+        public VideoTableSource PublicationTableSource { get; private set; }
 
         protected override void SetupBinding()
 		{
 			var bindingSet = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
-
-			bindingSet.Bind(publicationTypeSegment)
-				      .For(v => v.SelectedSegment)
-				      .To(vm => vm.SelectedPublicationType)
-				      .WithConversion<PublicationTypeConverter>();
 
             bindingSet.Bind(filterContainerView.Tap())
                       .For(v => v.Command)
@@ -45,7 +43,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             bindingSet.Bind(PublicationTableSource)
                       .For(v => v.LoadMoreItemsCommand)
-                      .To(vm => vm.Pagination.LoadMoreItemsCommand);
+                      .To(vm => vm.LoadMoreItemsCommand);
 
             bindingSet.Bind(_refreshControl)
                       .For(v => v.IsRefreshing)
@@ -53,7 +51,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             bindingSet.Bind(_refreshControl)
                       .For(v => v.RefreshCommand)
-                      .To(vm => vm.RefreshDataCommand);
+                      .To(vm => vm.ReloadItemsCommand);
 
             bindingSet.Apply();
 		}
@@ -63,25 +61,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			InitializeNavigationBar();
             InitializeTableView();
 
-            publicationTypeSegment.SetStyle(new string[] {
+            publicationTypeStackView.SetTabsStyle(new string[] {
 				Resources.Popular_Publication_Tab,
 				Resources.Actual_Publication_Tab,
 				Resources.MyFeed_Publication_Tab,
-			});
+			}, OnTabSelected);
 
             topSeparatorView.BackgroundColor = Theme.Color.Separator;
             filterArrowImageView.Image = UIImage.FromBundle("ic_filter_arrow");
             filterTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
         }
 
-        protected override void RegisterKeyboardDismissResponders(List<UIView> views)
+        private void OnTabSelected(int position)
         {
-            // Fix to select cell
-        }
-
-        protected override void RegisterKeyboardDismissTextFields(List<UIView> viewList)
-        {
-            // Fix to select cell
+            publicationTypeStackView.SetSelectedTabStyle(position);
+            ViewModel.SelectedPublicationType = (PublicationType)position;
         }
 
         private void InitializeNavigationBar()
@@ -90,7 +84,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                 NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand),
-                NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
+                // TODO: This feature will be implemented.
+                //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
             }, true);
 
             var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
@@ -100,10 +95,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         private void InitializeTableView()
         {
-            PublicationTableSource = new PublicationTableSource(tableView);
+            PublicationTableSource = new VideoTableSource(tableView);
+            PublicationTableSource.Register<PublicationItemViewModel>(PublicationItemCell.Nib, PublicationItemCell.CellId);
+
             tableView.Source = PublicationTableSource;
-            tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
-            tableView.SetVideoListStyle(PublicationItemCell.EstimatedHeight);
+            tableView.SetVideoListStyle(Constants.CellHeights.PublicationItemCellHeight);
 
             _refreshControl = new MvxUIRefreshControl();
             tableView.RefreshControl = _refreshControl;

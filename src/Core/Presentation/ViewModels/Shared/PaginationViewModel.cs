@@ -1,30 +1,43 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Models.Data.Shared;
+using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
 {
-    public class PaginationViewModel : MvxViewModel
+    public class PaginationViewModel : BaseViewModel
     {
         private const int DefaultPageIndex = 1;
 
-        private readonly Func<int, int, Task<int>> _loadMoreItemsFunc;
         private readonly int _paginationSize;
 
-        public PaginationViewModel(Func<int, int, Task<int>> loadMoreItemsFunc, int paginationSize)
+        public PaginationViewModel(int paginationSize,
+                                    INavigationService navigationService,
+                                    IErrorHandleService errorHandleService,
+                                    IApiService apiService,
+                                    IDialogService dialogService,
+                                    ISettingsService settingsService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
-            loadMoreItemsFunc.ThrowIfNull();
-
-             _loadMoreItemsFunc = loadMoreItemsFunc;
             _paginationSize = paginationSize;
 
-            LoadMoreItemsCommand = new MvxAsyncCommand(LoadMoreItemsAsync, CanLoadMoreItems);
+            LoadMoreItemsCommand = new MvxAsyncCommand(LoadMoreItemsInternalAsync, CanLoadMoreItems);
+            ReloadItemsCommand = new MvxAsyncCommand(ReloadItemsAsync);
             CurrentPaginationIndex = DefaultPageIndex;
         }
 
         public MvxAsyncCommand LoadMoreItemsCommand { get; }
+
+        public MvxAsyncCommand ReloadItemsCommand { get; }
 
         public long TotalItemsCount { get; private set; }
 
@@ -47,11 +60,33 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
             LoadMoreItemsCommand.RaiseCanExecuteChanged();
         }
 
+        protected virtual Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = Constants.Pagination.DefaultPaginationSize)
+        {
+            return Task.FromResult(0);
+        }
+
         public bool HasNextPage => CanLoadMoreItems();
 
-        private async Task LoadMoreItemsAsync()
+        protected virtual int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
         {
-            var loadedItems = await _loadMoreItemsFunc.Invoke(CurrentPaginationIndex, _paginationSize);
+            SetTotalItemsCount(dataModel.TotalCount);
+            var viewModels = dataModel.Items.Select(produceItemViewModel).ToList();
+
+            if (page > 1)
+            {
+                items.AddRange(viewModels);
+            }
+            else
+            {
+                items.SwitchTo(viewModels);
+            }
+
+            return viewModels.Count;
+        }
+
+        private async Task LoadMoreItemsInternalAsync()
+        {
+            var loadedItems = await LoadMoreItemsAsync(CurrentPaginationIndex, _paginationSize);
 
             ++CurrentPaginationIndex;
             LoadedItemsCount += loadedItems;
@@ -60,6 +95,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
                                RaisePropertyChanged(nameof(CurrentPaginationIndex)),
                                RaisePropertyChanged(nameof(HasNextPage)));
             LoadMoreItemsCommand.RaiseCanExecuteChanged();
+        }
+
+        private Task ReloadItemsAsync()
+        {
+            Reset();
+            return LoadMoreItemsInternalAsync();
         }
 
         private bool CanLoadMoreItems()

@@ -28,6 +28,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.ArrayPicker
             set.Bind(doneButton)
                 .To(vm => vm.SelectItemCommand);
 
+            set.Bind(cancelButton)
+                .To(vm => vm.GoBackCommand);
+
             set.Apply();
         }
 
@@ -37,6 +40,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.ArrayPicker
             arrayPickerView.Model = _pickerViewModel;
             arrayPickerView.ShowSelectionIndicator = true;
             doneButton.Title = Resources.Select;
+            cancelButton.Title = Resources.Cancel;
         }
     }
 }

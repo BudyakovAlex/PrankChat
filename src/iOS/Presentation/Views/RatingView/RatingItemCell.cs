@@ -14,11 +14,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 {
 	public partial class RatingItemCell : BaseTableCell<RatingItemCell, RatingItemViewModel>
 	{
-		static RatingItemCell()
-		{
-			EstimatedHeight = 215;
-		}
-
 		protected RatingItemCell(IntPtr handle) : base(handle)
 		{
 			// Note: this .ctor should not contain any initialization logic.

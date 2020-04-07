@@ -9,7 +9,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
-using PrankChat.Mobile.iOS.Presentation.Views.Publication;
+using PrankChat.Mobile.iOS.Presentation.Views.Order;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
@@ -19,7 +19,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
     {
         private MvxUIRefreshControl _refreshControlProfile;
 
-        public PublicationTableSource PublicationTableSource { get; private set; }
+        public OrdersTableSource OrdersTableSource { get; private set; }
 
         protected override void SetupBinding()
         {
@@ -33,13 +33,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 .For(v => v.RefreshCommand)
                 .To(vm => vm.LoadProfileCommand);
 
-            set.Bind(PublicationTableSource)
-                .To(vm => vm.Items);
+            set.Bind(OrdersTableSource)
+               .To(vm => vm.Items);
 
-            //TODO: Uncomment when will be ready on VM
-            //set.Bind(PublicationTableSource)
-            //   .For(v => v.LoadNextPageCommand)
-            //   .To(vm => vm.LoadNextPageCommand);
+            set.Bind(OrdersTableSource)
+               .For(v => v.LoadMoreItemsCommand)
+               .To(vm => vm.LoadMoreItemsCommand);
 
             set.Bind(profileImageView)
                 .For(v => v.ImagePath)
@@ -126,11 +125,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             switch (index)
             {
                 case 0:
-                    ViewModel.SelectedPublicationType = PublicationType.MyVideosOfCreatedOrders;
+                    ViewModel.SelectedOrderType = ProfileOrderType.MyOrdered;
                     break;
 
                 case 1:
-                    ViewModel.SelectedPublicationType = PublicationType.CompletedVideosAssignmentsByMe;
+                    ViewModel.SelectedOrderType = ProfileOrderType.OrdersCompletedByMe;
                     break;
             }
         }
@@ -155,10 +154,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         private void InitializeTableView()
         {
-            PublicationTableSource = new PublicationTableSource(tableView);
-            tableView.Source = PublicationTableSource;
-            tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
-            tableView.SetVideoListStyle(PublicationItemCell.EstimatedHeight);
+            OrdersTableSource = new OrdersTableSource(tableView);
+            tableView.Source = OrdersTableSource;
+            tableView.SeparatorColor = Theme.Color.Separator;
+            tableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
             tableView.ContentInset = new UIEdgeInsets(10, 0, 0, 0);
         }
     }

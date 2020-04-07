@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.Core.Configuration
@@ -8,6 +9,7 @@ namespace PrankChat.Mobile.Core.Configuration
     {
         private const string DevAddress = "https://dev.prankchat.store";
         private const string StageAddress = "https://stage.prankchat.store";
+        private const string ProdAddress = "https://api.prank.chat";
 
         public string BaseAddress { get; }
 
@@ -20,7 +22,7 @@ namespace PrankChat.Mobile.Core.Configuration
             BaseAddress = StageAddress;
             ApiVersion = new Version(1, 0);
 
-            // TODO: We sould get data from server. It`s hot fix.
+            // TODO: We should get data from server. It`s hot fix.
             Periods = new List<PeriodDataModel>()
             {
                 new PeriodDataModel(1, "1 час"),

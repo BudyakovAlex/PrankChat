@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using CoreFoundation;
 using CoreGraphics;
+using MvvmCross.Base;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.iOS.Controls;
+using PrankChat.Mobile.iOS.Presentation.Dialogs.DatePicker;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.ApplicationServices
@@ -15,9 +18,40 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
         private const double ToastAnimationDuration = 0.5d;
         private const double ToastDuration = 2d;
 
-        public DialogService(INavigationService navigationService)
+        private readonly IMvxMainThreadAsyncDispatcher _dispatcher;
+
+        public DialogService(INavigationService navigationService, IMvxMainThreadAsyncDispatcher dispatcher)
             : base(navigationService)
         {
+            _dispatcher = dispatcher;
+        }
+
+        public override Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null)
+        {
+            var keyWindow = UIApplication.SharedApplication.KeyWindow;
+            if (keyWindow == null)
+            {
+                return null;
+            }
+            var topViewController = GetTopViewController(keyWindow);
+
+            var tcs = new TaskCompletionSource<DateTime?>();
+            _dispatcher.ExecuteOnMainThreadAsync(() =>
+            {
+                var resultAction = new Action<DateTime?>((selectedDate) =>
+                {
+                    topViewController.DismissModalViewController(true);
+                    tcs.TrySetResult(selectedDate);
+                });
+
+                var datePicker = new DatePickerController(initialDateTime ?? DateTime.Now, resultAction)
+                {
+                    ModalTransitionStyle = UIModalTransitionStyle.CrossDissolve,
+                    ModalPresentationStyle = UIModalPresentationStyle.Custom,
+                };
+                topViewController.PresentViewController(datePicker, true, null);
+            });
+            return tcs.Task;
         }
 
         public override void ShowToast(string text, ToastType toastType)

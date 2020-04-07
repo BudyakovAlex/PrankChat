@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers.Converters;
 using PrankChat.Mobile.Core.Models.Enums;

@@ -90,12 +90,18 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
-        public Task<TResult> PostPhotoFile<TResult>(string endpoint, string path, bool exceptionThrowingEnabled = false) where TResult : new()
+        public Task<TResult> PostPhotoFile<TResult>(string endpoint, string path, string propertyName, bool exceptionThrowingEnabled = false) where TResult : new()
         {
             var request = new RestRequest(endpoint, Method.POST);
-            request.AddFile("avatar", path);
+            request.AddFile(propertyName, path);
             request.AlwaysMultipartFormData = true;
             return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
+        }
+
+        public Task Delete(string endpoint, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
+        {
+            var request = new RestRequest(endpoint, Method.DELETE);
+            return ExecuteTask(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
         private async Task ExecuteTask(IRestRequest request, string endpoint, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)

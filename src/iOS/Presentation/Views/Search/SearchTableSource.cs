@@ -1,8 +1,8 @@
 ﻿using System;
 using Foundation;
 using MvvmCross.Platforms.Ios.Binding.Views;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Search;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items;
+using PrankChat.Mobile.iOS.Infrastructure;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Search
@@ -25,7 +25,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            return ProfileSearchItemCell.EstimatedHeight;
+            return Constants.CellHeights.ProfileSearchItemCellHeight;
         }
     }
 }

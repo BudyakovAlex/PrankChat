@@ -1,7 +1,4 @@
-﻿using System;
-using CoreFoundation;
-using Foundation;
-using MvvmCross.Binding.BindingContext;
+﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Converters;
@@ -9,9 +6,6 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Controls;
-using PrankChat.Mobile.iOS.Presentation.Binding;
-using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -149,6 +143,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.ShowFullVideoCommand);
 
             #endregion Video
+
+            set.Bind(orderActionsContainerView)
+                .For(v => v.BindVisible())
+                .To(vm => vm.IsAnyOrderActionAvailable);
 
             #region Subscribe and Unsubscribe
 
@@ -294,7 +292,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             acceptButton.SetDarkStyle(Resources.OrderDetailsView_Accept_Button);
             arqueButton.SetBorderlessStyle(Resources.OrderDetailsView_Argue_Button);
             downloadButton.SetDarkStyle(Resources.OrderDetailsView_LoadVideo);
-            cancelVideoButton.SetBorderlessStyle(Resources.OrderDetailsView_Cancel_Button, Theme.Color.Accent);
+            cancelVideoButton.SetDarkStyle(Resources.OrderDetailsView_Cancel_Button);
 
             profileNameLabel.SetTitleStyle();
             videoNameLabel.SetBoldTitleStyle();
@@ -327,6 +325,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             UpdateStyleArbitrationButtons();
 
             videoImageView.SetCornerRadius(5);
+            videoImageView.ContentMode = UIViewContentMode.ScaleAspectFill;
 
             rootScrollView.RefreshControl = _refreshControl = new MvxUIRefreshControl();
         }

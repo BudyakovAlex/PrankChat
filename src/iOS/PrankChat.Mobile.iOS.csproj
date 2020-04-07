@@ -47,9 +47,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignKey>iPhone Developer: Alexey Sorochan (KR99U2SW6N)</CodesignKey>
+    <CodesignKey>Apple Development: Anton Chepelev (BCDQ5WV3X7)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignProvision>Development Provision Profile Mart 2020</CodesignProvision>
+    <CodesignProvision>Development Profile Apr 2020</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -90,11 +90,6 @@
     <Compile Include="Presentation\Views\PasswordRecoveryView\PasswordRecoveryView.cs" />
     <Compile Include="Presentation\Views\PasswordRecoveryView\PasswordRecoveryView.designer.cs">
       <DependentUpon>PasswordRecoveryView.cs</DependentUpon>
-    </Compile>
-    <InterfaceDefinition Include="Presentation\Views\RatingView\RatingView.xib" />
-    <Compile Include="Presentation\Views\RatingView\RatingView.cs" />
-    <Compile Include="Presentation\Views\RatingView\RatingView.designer.cs">
-      <DependentUpon>RatingView.cs</DependentUpon>
     </Compile>
     <InterfaceDefinition Include="Presentation\Views\Order\OrdersView.xib" />
     <Compile Include="Presentation\Views\Order\OrdersView.cs" />
@@ -149,7 +144,6 @@
     <Compile Include="Presentation\Views\Publication\PublicationItemCell.designer.cs">
       <DependentUpon>PublicationItemCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Views\Publication\PublicationTableSource.cs" />
     <Compile Include="Presentation\Views\Base\BaseGradientBarView.cs" />
     <Compile Include="Presentation\Views\Base\BaseTransparentBarView.cs" />
     <InterfaceDefinition Include="Presentation\Views\PasswordRecoveryView\FinishPasswordRecoveryView.xib" />
@@ -164,7 +158,6 @@
       <DependentUpon>OrderItemCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Views\Base\BaseTabbedView.cs" />
-    <Compile Include="Presentation\Views\RatingView\RatingTableSource.cs" />
     <InterfaceDefinition Include="Presentation\Views\RatingView\RatingItemCell.xib" />
     <Compile Include="Presentation\Views\RatingView\RatingItemCell.cs" />
     <Compile Include="Presentation\Views\RatingView\RatingItemCell.designer.cs">
@@ -284,6 +277,63 @@
     <Compile Include="Presentation\SourcesAndDelegates\PagedTableViewSource.cs" />
     <Compile Include="Delegates\PrankChatNotificationDelegate.cs" />
     <Compile Include="PlatformBusinessServices\NotificationWrapper.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionsView.xib" />
+    <Compile Include="Presentation\Views\Competition\CompetitionsView.cs" />
+    <Compile Include="Presentation\Views\Competition\CompetitionsView.designer.cs">
+      <DependentUpon>CompetitionsView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionsSectionCell.xib" />
+    <Compile Include="Presentation\Views\Competition\CompetitionsSectionCell.cs" />
+    <Compile Include="Presentation\Views\Competition\CompetitionsSectionCell.designer.cs">
+      <DependentUpon>CompetitionsSectionCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\SourcesAndDelegates\TableViewSource.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionItemCell.xib" />
+    <Compile Include="Presentation\Views\Competition\CompetitionItemCell.cs" />
+    <Compile Include="Presentation\Views\Competition\CompetitionItemCell.designer.cs">
+      <DependentUpon>CompetitionItemCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Views\Competition\CompetitionItemCollectionViewSource.cs" />
+    <Compile Include="Presentation\Converters\CompetitionPhaseToHiddenConverter.cs" />
+    <InterfaceDefinition Include="Presentation\Dialogs\DatePicker\DatePickerController.xib" />
+    <Compile Include="Presentation\Dialogs\DatePicker\DatePickerController.cs" />
+    <Compile Include="Presentation\Dialogs\DatePicker\DatePickerController.designer.cs">
+      <DependentUpon>DatePickerController.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionRulesView.xib" />
+    <Compile Include="Presentation\Views\Competition\CompetitionRulesView.cs" />
+    <Compile Include="Presentation\Views\Competition\CompetitionRulesView.designer.cs">
+      <DependentUpon>CompetitionRulesView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Binding\WKWebViewHtmlStringTargetBinding.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionPrizePoolView.xib" />
+    <Compile Include="Presentation\Views\Competition\CompetitionPrizePoolView.cs" />
+    <Compile Include="Presentation\Views\Competition\CompetitionPrizePoolView.designer.cs">
+      <DependentUpon>CompetitionPrizePoolView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionPrizePoolItemCell.xib" />
+    <Compile Include="Presentation\Views\Competition\CompetitionPrizePoolItemCell.cs" />
+    <Compile Include="Presentation\Views\Competition\CompetitionPrizePoolItemCell.designer.cs">
+      <DependentUpon>CompetitionPrizePoolItemCell.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionDetailsView.xib" />
+    <Compile Include="Presentation\Views\Competition\CompetitionDetailsView.cs" />
+    <Compile Include="Presentation\Views\Competition\CompetitionDetailsView.designer.cs">
+      <DependentUpon>CompetitionDetailsView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionDetailsHeaderCell.xib" />
+    <Compile Include="Presentation\Views\Competition\CompetitionDetailsHeaderCell.cs" />
+    <Compile Include="Presentation\Views\Competition\CompetitionDetailsHeaderCell.designer.cs">
+      <DependentUpon>CompetitionDetailsHeaderCell.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionVideoCell.xib" />
+    <Compile Include="Presentation\Views\Competition\CompetitionVideoCell.cs" />
+    <Compile Include="Presentation\Views\Competition\CompetitionVideoCell.designer.cs">
+      <DependentUpon>CompetitionVideoCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Views\Base\BaseVideoTableCell.cs" />
+    <Compile Include="Presentation\SourcesAndDelegates\VideoTableSource.cs" />
+    <Compile Include="Infrastructure\Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -348,45 +398,6 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon1024.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon167.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon120.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon152.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon180.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon29.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon40.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon58.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon76.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon80.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon87.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon60.png">
-      <Visible>false</Visible>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_home.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -442,9 +453,6 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Group 108.pdf">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_back.imageset\Contents.json">
@@ -762,12 +770,24 @@
     <ImageAsset Include="Assets.xcassets\ic_play.imageset\FullscreenVideoPlay.pdf">
       <Visible>false</Visible>
     </ImageAsset>
-     <ImageAsset Include="Assets.xcassets\bg_order_type_my.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\bg_order_type_my.imageset\OrderTypeMyBackground.pdf" />
-    <ImageAsset Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\OrderTypeMyInModerationBackground.pdf" />
-    <ImageAsset Include="Assets.xcassets\bg_order_type_not_my.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\bg_order_type_not_my.imageset\OrderTypeNotMyBackground.pdf" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_my.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_my.imageset\OrderTypeMyBackground.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\OrderTypeMyInModerationBackground.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_not_my.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_not_my.imageset\OrderTypeNotMyBackground.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_pause.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -780,10 +800,73 @@
     <ImageAsset Include="Assets.xcassets\ic_mute.imageset\FullscreenVideoMute.pdf">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_plus.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_plus.imageset\ic_plus.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\ThreeDots.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_plus.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_plus.imageset\ic_plus.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Userpic.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Group 106.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\mdi_arrow_left_alt.pdf" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\bg_order_type_completed.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_credit_card.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_credit_card.imageset\ic_credit_card.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_dropdown.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_dropdown.imageset\Polygon.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\ThreeDots.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\mdi_arrow_left_alt.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\bg_order_type_completed.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_competitions.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_competitions.imageset\ic_competitions-1.pdf" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-20x20%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-20x20%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-29x29%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-29x29%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-40x40%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-40x40%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-60x60%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-60x60%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-20x20%401x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-20x20%402x-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-29x29%401x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-29x29%402x-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-40x40%401x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-40x40%402x-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-76x76%401x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-76x76%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-83.5x83.5%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\ItunesArtwork%402x-1.png" />
+    <ImageAsset Include="Assets.xcassets\ic_prankcaht_icon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_prankcaht_icon.imageset\Group.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Group 108.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -813,9 +896,21 @@
     <Folder Include="Assets.xcassets\bg_order_type_not_my.imageset\" />
     <Folder Include="Assets.xcassets\ic_plus.imageset\" />
     <Folder Include="Assets.xcassets\ic_three_dots.imageset\" />
+    <Folder Include="Assets.xcassets\ic_notification_user.imageset\" />
     <Folder Include="Presentation\Views\ProfileView\ImageCrop\" />
+    <Folder Include="Assets.xcassets\ic_have_notification.imageset\" />
     <Folder Include="Presentation\SourcesAndDelegates\" />
     <Folder Include="Delegates\" />
+    <Folder Include="Presentation\Views\Competition\" />
+    <Folder Include="Assets.xcassets\bg_order_type_completed.imageset\" />
+    <Folder Include="Assets.xcassets\ic_arrow_left_alt.imageset\" />
+    <Folder Include="Assets.xcassets\ic_arrow_right_alt.imageset\" />
+    <Folder Include="Assets.xcassets\dsadad.imageset\" />
+    <Folder Include="Presentation\Dialogs\DatePicker\" />
+    <Folder Include="Assets.xcassets\ic_competitions.imageset\" />
+    <Folder Include="Assets.xcassets\ic_prankcaht_icon.imageset\" />
+    <Folder Include="Assets.xcassets\ic_credit_card.imageset\" />
+    <Folder Include="Assets.xcassets\ic_arrow_dropdown.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

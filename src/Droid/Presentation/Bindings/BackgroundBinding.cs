@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Reflection;
 using Android.Views;
 using MvvmCross.Binding;
-using MvvmCross.Binding.Bindings.Target;
 using MvvmCross.Platforms.Android.Binding.Target;
 
 namespace PrankChat.Mobile.Droid.Presentation.Bindings

@@ -18,7 +18,9 @@ namespace PrankChat.Mobile.Core.Models.Mappings
                 .ReverseMap();
             CreateMap<PaginationInfoDataModel, PaginationInfoApiModel>().ReverseMap();
             CreateMap<CreateOrderDataModel, CreateOrderApiModel>().ReverseMap();
-            CreateMap<UserDataModel, UserApiModel>().ReverseMap();
+            CreateMap<UserDataModel, UserApiModel>()
+                .ForPath(dest => dest.Document.Data, opt => opt.MapFrom(src => src.Document))
+                .ReverseMap();
             CreateMap<OrderDataModel, OrderApiModel>()
                 .ForPath(dest => dest.Customer.Data, opt => opt.MapFrom(src => src.Customer))
                 .ForPath(dest => dest.Executor.Data, opt => opt.MapFrom(src => src.Executor))
@@ -29,6 +31,7 @@ namespace PrankChat.Mobile.Core.Models.Mappings
                 .ForPath(dest => dest.Customer.Data, opt => opt.MapFrom(src => src.Customer))
                 .ReverseMap();
             CreateMap<PaymentDataModel, PaymentApiModel>().ReverseMap();
+            CreateMap<CompetitionDataModel, CompetitionApiModel>().ReverseMap();
             CreateMap<NotificationDataModel, NotificationApiModel>()
                 .ForPath(dest => dest.RelatedOrder.Data, opt => opt.MapFrom(src => src.RelatedOrder))
                 .ForPath(dest => dest.RelatedUser.Data, opt => opt.MapFrom(src => src.RelatedUser))
@@ -42,6 +45,9 @@ namespace PrankChat.Mobile.Core.Models.Mappings
                 .ForPath(dest => dest.Message, opt => opt.MapFrom(src => src.MessageServerError))
                 .ReverseMap();
             CreateMap<RecoverPasswordResultDataModel, RecoverPasswordResultApiModel>().ReverseMap();
+            CreateMap<DocumentDataModel, DocumentApiModel>().ReverseMap();
+            CreateMap<CardDataModel, CardApiModel>().ReverseMap();
+            CreateMap<WithdrawalDataModel, WithdrawalApiModel>().ReverseMap();
         }
     }
 }

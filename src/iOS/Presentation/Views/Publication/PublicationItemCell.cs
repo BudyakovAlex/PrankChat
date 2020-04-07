@@ -1,7 +1,4 @@
 ﻿using System;
-using AVFoundation;
-using AVKit;
-using CoreGraphics;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
@@ -14,43 +11,24 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
-    public partial class PublicationItemCell : BaseTableCell<PublicationItemCell, PublicationItemViewModel>
+    public partial class PublicationItemCell : BaseVideoTableCell<PublicationItemCell, PublicationItemViewModel>
 	{
-		public AVPlayerViewController AVPlayerViewControllerInstance { get; private set; }
-
-		static PublicationItemCell()
+		protected PublicationItemCell(IntPtr handle)
+            : base(handle)
 		{
-			EstimatedHeight = 334;
 		}
 
-		protected PublicationItemCell(IntPtr handle) : base(handle)
-		{
-			// Note: this .ctor should not contain any initialization logic.
-		}
+		protected override UIView VideoView => videoView;
 
-		public CGRect GetVideoBounds(UITableView tableView)
-		{
-			return videoView.ConvertRectToView(videoView.Bounds, tableView);
-		}
+		protected override UIActivityIndicatorView LoadingActivityIndicator => loadingActivityIndicator;
 
-		public override void PrepareForReuse()
-		{
-			StopVideo();
-			base.PrepareForReuse();
-		}
-
-		protected override void Dispose(bool disposing)
-		{
-			StopVideo();
-			base.Dispose(disposing);
-		}
+		protected override UIImageView StubImageView => stubImageView;
 
 		protected override void SetupControls()
 		{
 			base.SetupControls();
 
 			videoView.SetPreviewStyle();
-
 			profileNameLabel.SetMainTitleStyle();
 			publicationInfoLabel.SetSmallSubtitleStyle();
 			videoNameLabel.SetTitleStyle();
@@ -60,8 +38,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             // TODO: Unhide this button when video saving will be available.
             bookmarkButton.Hidden = true;
-
-            InitializeVideoControl();
 		}
 
 		protected override void SetBindings()
@@ -132,26 +108,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.For(v => v.BindTap())
 				.To(vm => vm.ShowFullScreenVideoCommand);
 
+			set.Bind(stubImageView)
+				.For(v => v.ImagePath)
+				.To(vm => vm.VideoPlaceholderImageUrl);
+
 			set.Apply();
-		}
-
-		private void StopVideo()
-		{
-			ViewModel?.VideoPlayerService?.Stop();
-
-			if (AVPlayerViewControllerInstance != null)
-			{
-				AVPlayerViewControllerInstance.Player = null;
-			}
-		}
-
-		private void InitializeVideoControl()
-		{
-			AVPlayerViewControllerInstance = new AVPlayerViewController();
-			AVPlayerViewControllerInstance.View.Frame = new CGRect(0, 0, videoView.Frame.Width, videoView.Frame.Height);
-			AVPlayerViewControllerInstance.ShowsPlaybackControls = false;
-			AVPlayerViewControllerInstance.VideoGravity = AVLayerVideoGravity.ResizeAspectFill;
-			videoView.Add(AVPlayerViewControllerInstance.View);
 		}
 	}
 }

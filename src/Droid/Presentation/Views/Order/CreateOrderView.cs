@@ -30,17 +30,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = this.BindingInflate(Resource.Layout.fragment_create_order, null);
             _priceEditText = view.FindViewById<TextInputEditText>(Resource.Id.create_order_price_edit_text);
-            _priceEditText.TextChanged += PriceEditTextOnTextChanged;
             return view;
-        }
-
-        private void PriceEditTextOnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            var text = e.Text.ToString();
-            if (text.EndsWith(ViewModel.CurrencySign))
-            {
-                _priceEditText.SetSelection(text.Length - 1);
-            }
         }
 
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
@@ -50,10 +40,21 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 
         protected override void Subscription()
         {
+            _priceEditText.TextChanged += PriceEditTextOnTextChanged;
         }
 
         protected override void Unsubscription()
         {
+            _priceEditText.TextChanged -= PriceEditTextOnTextChanged;
+        }
+
+        private void PriceEditTextOnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var text = e.Text.ToString();
+            if (text.EndsWith(Core.Presentation.Localization.Resources.Currency))
+            {
+                _priceEditText.SetSelection(text.Length - 2);
+            }
         }
     }
 }

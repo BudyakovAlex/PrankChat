@@ -93,7 +93,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email)
         {
-            var recoverPasswordModel = new RecoverPasswordApiModel { Email = email, };
+            var recoverPasswordModel = new RecoverPasswordApiModel { Email = email.ToLower(), };
             var result = await _client.UnauthorizedPost<RecoverPasswordApiModel, RecoverPasswordResultApiModel>("auth/password/email", recoverPasswordModel, false);
             return MappingConfig.Mapper.Map<RecoverPasswordResultDataModel>(result);
         }
@@ -109,32 +109,59 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<OrderDataModel>(newOrder?.Data);
         }
 
-        public async Task<List<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType)
+        public async Task<PaginationModel<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize)
         {
-            string endpoint = "orders";
+            var endpoint = $"orders?page={page}&items_per_page={pageSize}&order_property=created_at";
             switch (orderFilterType)
             {
+                case OrderFilterType.All:
+                    endpoint = $"{endpoint}";
+                    break;
+
                 case OrderFilterType.New:
-                    endpoint = $"{endpoint}?status={OrderStatusType.New.GetEnumMemberAttrValue()}";
+                    endpoint = $"{endpoint}&status={OrderStatusType.Active.GetEnumMemberAttrValue()}";
                     break;
 
                 case OrderFilterType.InProgress:
-                    if (_settingsService.User == null)
-                        return new List<OrderDataModel>();
-
-                    endpoint = $"{endpoint}?executor_id={_settingsService.User.Id}";
+                    endpoint = $"{endpoint}&states[]={OrderStatusType.InWork.GetEnumMemberAttrValue()}&states[]={OrderStatusType.WaitFinish.GetEnumMemberAttrValue()}";
                     break;
 
                 case OrderFilterType.MyOwn:
                     if (_settingsService.User == null)
-                        return new List<OrderDataModel>();
+                        return new PaginationModel<OrderDataModel>();
 
-                    endpoint = $"{endpoint}?customer_id={_settingsService.User.Id}";
+                    endpoint = $"{endpoint}&customer_id={_settingsService.User.Id}";
+                    break;
+
+                case OrderFilterType.MyOrdered:
+                    if (_settingsService.User == null)
+                        return new PaginationModel<OrderDataModel>();
+
+                    endpoint = $"{endpoint}" +
+                               $"&customer_id={_settingsService.User.Id}" +
+                               $"&states[]={OrderStatusType.New.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.Active.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.InWork.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.WaitFinish.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.Finished.GetEnumMemberAttrValue()}";
+                    break;
+
+                case OrderFilterType.MyCompletion:
+                    if (_settingsService.User == null)
+                        return new PaginationModel<OrderDataModel>();
+
+                    endpoint = $"{endpoint}" +
+                               $"&executor_id={_settingsService.User.Id}" +
+                               $"&states[]={OrderStatusType.InWork.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.WaitFinish.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.Finished.GetEnumMemberAttrValue()}";
                     break;
             }
 
-            var data = await _client.Get<DataApiModel<List<OrderApiModel>>>(endpoint, includes: IncludeType.Customer);
-            return MappingConfig.Mapper.Map<List<OrderDataModel>>(data.Data);
+            var data = await _client.Get<BaseBundleApiModel<OrderApiModel>>(endpoint, includes: IncludeType.Customer);
+            return CreatePaginationResult<OrderApiModel, OrderDataModel>(data);
         }
 
         public async Task<OrderDataModel> GetOrderDetailsAsync(int orderId)
@@ -228,7 +255,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Publications
 
-
         public async Task<PaginationModel<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
             BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
@@ -241,10 +267,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"videos?popular=true&date_from={dateFilterType.GetDateString()}&page={page}&items_per_page={pageSize}", false, IncludeType.User);
             }
 
-            var mappedModels = MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
-            var paginationData = videoMetadataBundle.Meta.FirstOrDefault();
-            var totalItemsCount = paginationData.Value?.Total ?? mappedModels.Count;
-            return new PaginationModel<VideoDataModel>(mappedModels, totalItemsCount);
+            return CreatePaginationResult<VideoApiModel, VideoDataModel>(videoMetadataBundle);
         }
 
         public async Task<PaginationModel<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
@@ -272,15 +295,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 return new PaginationModel<VideoDataModel>();
             }
 
-            var endpoint = $"orders?page={page}&items_per_page={pageSize}";
+            var endpoint = string.Empty;
             switch (publicationType)
             {
                 case PublicationType.MyVideosOfCreatedOrders:
-                    endpoint += $"&customer_id={userId}";
-                    break;
-
-                case PublicationType.CompletedVideosAssignmentsByMe:
-                    endpoint += $"&executor_id={userId}";
+                    endpoint = $"videos?page={page}&items_per_page={pageSize}&user_id={userId}";
                     break;
 
                 default:
@@ -290,20 +309,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             if (dateFilterType.HasValue)
                 endpoint += $"&date_from={dateFilterType.Value.GetDateString()}";
 
-            var dataApiModel = await _client.Get<BaseBundleApiModel<OrderDataModel>>(endpoint, false, IncludeType.Videos, IncludeType.Customer);
-            var orderDataModel = MappingConfig.Mapper.Map<List<OrderDataModel>>(dataApiModel?.Data);
-
-            var videoData = orderDataModel?.Where(o => o.Video != null)
-                                           .Select(o =>
-                                           {
-                                               o.Video.User = o.Customer;
-                                               return o.Video;
-                                           })
-                                           .ToList();
-       
+            var dataApiModel = await _client.Get<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.User);
+            var orderDataModel = MappingConfig.Mapper.Map<List<VideoDataModel>>(dataApiModel?.Data);
             var paginationData = dataApiModel.Meta.FirstOrDefault();
-            var totalItemsCount = paginationData.Value?.Total ?? videoData.Count;
-            return new PaginationModel<VideoDataModel>(videoData, totalItemsCount);
+            var totalItemsCount = paginationData.Value?.Total ?? orderDataModel.Count;
+            return new PaginationModel<VideoDataModel>(orderDataModel, totalItemsCount);
         }
 
         public async Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
@@ -319,14 +329,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task GetCurrentUserAsync()
         {
-            var dataApiModel = await _client.Get<DataApiModel<UserApiModel>>("me");
+            var dataApiModel = await _client.Get<DataApiModel<UserApiModel>>("me", includes: IncludeType.Document);
             var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
             _settingsService.User = user;
         }
 
         public async Task<UserDataModel> SendAvatarAsync(string path)
         {
-            var dataApiModel = await _client.PostPhotoFile<DataApiModel<UserApiModel>>("me/picture", path);
+            var dataApiModel = await _client.PostPhotoFile<DataApiModel<UserApiModel>>("me/picture", path, "avatar");
             var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
             return user;
         }
@@ -348,6 +358,37 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             };
             var url = $"users/{userId}/complaint";
             return _client.Post(url, dataApiModel);
+        }
+
+        public async Task<DocumentDataModel> SendVerifyDocumentAsync(string path)
+        {
+            var dataApiModel = await _client.PostPhotoFile<DataApiModel<DocumentApiModel>>("user/dcs", path, "document");
+            var user = MappingConfig.Mapper.Map<DocumentDataModel>(dataApiModel?.Data);
+            return user;
+        }
+
+        public async Task<CardDataModel> SaveCardAsync(string number, string userName)
+        {
+            var createCreditCard = new CreateCardApiModel()
+            {
+                Number = number.WithoutSpace(),
+                CardUserName = userName,
+            };
+            var dataApiModel = await _client.Post<CreateCardApiModel, DataApiModel<CardApiModel>>("me/cards", createCreditCard, true);
+            var user = MappingConfig.Mapper.Map<CardDataModel>(dataApiModel?.Data);
+            return user;
+        }
+
+        public async Task<CardDataModel> GetCardsAsync()
+        {
+            var dataApiModel = await _client.Get<DataApiModel<List<CardApiModel>>>("me/cards");
+            var data = MappingConfig.Mapper.Map<List<CardDataModel>>(dataApiModel?.Data);
+            return data?.FirstOrDefault();
+        }
+
+        public Task DeleteCardAsync(int id)
+        {
+            return _client.Delete($"me/cards/{id}", true);
         }
 
         #endregion Users
@@ -400,9 +441,29 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<PaymentDataModel>(data?.Data);
         }
 
-        public async Task<PaymentDataModel> WithdrawalAsync(double coast)
+        public async Task<WithdrawalDataModel> WithdrawalAsync(double coast, int cardId)
         {
-            return null;
+            var createWithdrawalApiModel = new CreateWithdrawalApiModel()
+            {
+                Amount = coast,
+                CreditCardId = cardId,
+            };
+
+            var dataApiModel = await _client.Post<CreateWithdrawalApiModel, DataApiModel<WithdrawalApiModel>>("withdrawal", createWithdrawalApiModel);
+            var data = MappingConfig.Mapper.Map<WithdrawalDataModel>(dataApiModel?.Data);
+            return data;
+        }
+
+        public async Task<List<WithdrawalDataModel>> GetWithdrawalsAsync()
+        {
+            var dataApiModel = await _client.Get<DataApiModel<List<WithdrawalApiModel>>> ("withdrawal");
+            var data = MappingConfig.Mapper.Map<List<WithdrawalDataModel>>(dataApiModel?.Data);
+            return data;
+        }
+
+        public Task CancelWithdrawalAsync(int withdrawalId)
+        {
+            return _client.Delete($"withdrawal/{withdrawalId}", true);
         }
 
         #endregion Payment
@@ -427,12 +488,48 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #endregion Notification
 
+        #region Competitions
+
+        public async Task<PaginationModel<VideoDataModel>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize)
+        {
+            BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
+            if (_settingsService.User == null)
+            {
+                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
+            }
+            else
+            {
+                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
+            }
+
+            return CreatePaginationResult<VideoApiModel, VideoDataModel>(videoMetadataBundle);
+        }
+
+        public async Task<PaginationModel<CompetitionDataModel>> GetCompetitionsAsync(int page, int pageSize)
+        {
+            var endpoint = $"competitions?page={page}&items_per_page={pageSize}";
+            var data = await _client.Get<BaseBundleApiModel<CompetitionApiModel>>(endpoint);
+            return CreatePaginationResult<CompetitionApiModel, CompetitionDataModel>(data);
+        }
+
+        #endregion
+
         private void OnUnauthorizedUser(UnauthorizedMessage obj)
         {
             if (_settingsService.User == null)
                 return;
 
             RefreshTokenAsync().FireAndForget();
+        }
+
+        private PaginationModel<TDataModel> CreatePaginationResult<TApiModel, TDataModel>(BaseBundleApiModel<TApiModel> data)
+            where TDataModel : class
+            where TApiModel : class
+        {
+            var mappedModels = MappingConfig.Mapper.Map<List<TDataModel>>(data?.Data ?? new List<TApiModel>());
+            var paginationData = data.Meta?.FirstOrDefault();
+            var totalItemsCount = paginationData?.Value?.Total ?? mappedModels.Count;
+            return new PaginationModel<TDataModel>(mappedModels, totalItemsCount);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Views;
@@ -19,21 +18,36 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             SetupScrollView();
         }
 
+        public event EventHandler SelectedTabChanged;
+
+        private int _selectedTab;
+        public int SelectedTab
+        {
+            get => _selectedTab;
+            set
+            {
+                _selectedTab = value;
+                tabsStackView.SetSelectedTabStyle(value);
+            }
+        }
+
         protected override void SetupBinding()
         {
-            var set = this.CreateBindingSet<CashboxView, CashboxViewModel>();
+            var bindingSet = this.CreateBindingSet<CashboxView, CashboxViewModel>();
 
-            set.Bind(segmentedControl)
-                .To(vm => vm.SelectedPage);
+            bindingSet.Bind(this)
+                      .For(v => v.SelectedTab)
+                      .To(vm => vm.SelectedPage);
 
-            set.Apply();
+            bindingSet.Apply();
         }
 
         protected override void SetupControls()
         {
             ViewModel.PropertyChanged += ViewModelPropertyChanged;
             Title = Resources.CreateOrderView_Title;
-            segmentedControl.SetStyle(new[] { Resources.CashboxView_Fillup_Tab, Resources.CashboxView_Withdrawal_Tab });
+
+            tabsStackView.SetTabsStyle(new string[] { Resources.CashboxView_Fillup_Tab, Resources.CashboxView_Withdrawal_Tab }, OnTabSelected);
         }
 
         private void HandleScrollViewDecelerationEnded(object sender, EventArgs e)
@@ -52,6 +66,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             {
                 SetPageOffset(ViewModel.SelectedPage, true);
             }
+        }
+
+        private void OnTabSelected(int position)
+        {
+            SelectedTab = position;
+            SelectedTabChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void SetPageOffset(int pageIndex, bool animated)

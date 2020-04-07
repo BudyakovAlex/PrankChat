@@ -182,11 +182,9 @@
             <android.support.design.widget.TabItem
                 android:text="@string/ProfileView_CompletedOrders_Tab" />
         </android.support.design.widget.TabLayout>
-        <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+        <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
             android:id="@+id/profile_publication_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:MvxItemTemplate="@layout/cell_publication"
-            app:MvxBind="ItemsSource Items" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout>

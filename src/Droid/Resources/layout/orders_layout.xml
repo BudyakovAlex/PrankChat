@@ -1,43 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <LinearLayout
-            android:layout_width="wrap_content"
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        style="@style/Theme.PrankChat.Publication.TabLayout"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.design.widget.TabItem android:text="@string/Orders_Tab" />
+
+        <android.support.design.widget.TabItem android:text="@string/Orders_In_Dispute" />
+    </android.support.design.widget.TabLayout>
+
+    <LinearLayout
+        android:id="@+id/filter_view"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        app:MvxBind="Click OpenFilterCommand"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout">
+
+        <TextView
+            android:id="@+id/filter_button_title"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:orientation="horizontal"
-            app:MvxBind="Click OpenFilterCommand">
-            <TextView
-                android:id="@+id/filter_button_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="17dp"
-                android:textColor="@color/filter"
-                android:textSize="14sp"
-                app:MvxBind="Text ActiveFilterName"/>
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="5dp"
-                android:layout_marginRight="23dp"
-                android:layout_marginTop="2dp"
-                android:layout_gravity="center_vertical"
-                android:layout_toRightOf="@id/filter_button_title"
-                android:src="@drawable/ic_filter_arrow" />
-        </LinearLayout>
-    </RelativeLayout>
-    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+            android:layout_marginEnd="17dp"
+            android:layout_weight="1"
+            android:gravity="end|center_vertical"
+            android:textColor="@color/filter"
+            android:textSize="14sp"
+            app:MvxBind="Text ActiveFilterName"
+            tools:text="Все заказы" />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="23dp"
+            android:src="@drawable/ic_filter_arrow" />
+    </LinearLayout>
+
+    <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
         android:id="@+id/publication_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:MvxItemTemplate="@layout/cell_order"
-        app:MvxBind="ItemsSource Items"/>
-</LinearLayout>
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filter_view" />
+</android.support.constraint.ConstraintLayout>

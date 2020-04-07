@@ -52,13 +52,16 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUy-yv-U1B" customClass="VideoView">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUy-yv-U1B">
                         <rect key="frame" x="16" y="126.5" width="378" height="216"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="216" id="1XT-xl-VPp"/>
                         </constraints>
                     </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zq5-Qh-ec4" customClass="MvxCachedImageView">
+                        <rect key="frame" x="16" y="126.5" width="378" height="216"/>
+                    </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BXs-ef-I9v">
                         <rect key="frame" x="18" y="353.5" width="20" height="18.5"/>
                         <constraints>
@@ -87,22 +90,31 @@
                         <state key="normal" title="Button" image="ic_share"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bc-Te-k2D">
-                        <rect key="frame" x="378" y="352" width="14" height="22"/>
+                        <rect key="frame" x="364" y="345" width="28" height="36"/>
                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                         <state key="normal" image="ic_bookmark"/>
                     </button>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="x4k-Bg-x2O">
+                        <rect key="frame" x="195" y="224.5" width="20" height="20"/>
+                        <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </activityIndicatorView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="RUb-8g-dpe" firstAttribute="centerY" secondItem="BXs-ef-I9v" secondAttribute="centerY" id="Aal-Il-xtE"/>
                     <constraint firstItem="kAU-Il-kDS" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="15" id="BSw-x9-Cx1"/>
+                    <constraint firstItem="x4k-Bg-x2O" firstAttribute="centerY" secondItem="Zq5-Qh-ec4" secondAttribute="centerY" id="FmL-71-eBg"/>
                     <constraint firstItem="n9k-fi-DBx" firstAttribute="top" secondItem="fjE-FD-JYU" secondAttribute="bottom" constant="5" id="Gi3-bN-7uJ"/>
                     <constraint firstItem="kAU-Il-kDS" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" constant="7" id="Jgv-cc-U0l"/>
                     <constraint firstAttribute="bottom" secondItem="BXs-ef-I9v" secondAttribute="bottom" constant="11" id="LK6-Aj-QqH"/>
                     <constraint firstItem="fjE-FD-JYU" firstAttribute="leading" secondItem="kAU-Il-kDS" secondAttribute="trailing" constant="8" id="Lof-8N-Rt7"/>
                     <constraint firstItem="Kam-d9-irM" firstAttribute="leading" secondItem="BXs-ef-I9v" secondAttribute="trailing" constant="8" id="NsB-TG-aVd"/>
+                    <constraint firstItem="Zq5-Qh-ec4" firstAttribute="top" secondItem="QUy-yv-U1B" secondAttribute="top" id="O8D-X7-tuN"/>
                     <constraint firstItem="RUb-8g-dpe" firstAttribute="leading" secondItem="BXs-ef-I9v" secondAttribute="leading" constant="70" id="PKi-ql-Lbq"/>
+                    <constraint firstItem="x4k-Bg-x2O" firstAttribute="centerX" secondItem="Zq5-Qh-ec4" secondAttribute="centerX" id="PSl-gr-x4X"/>
+                    <constraint firstItem="Zq5-Qh-ec4" firstAttribute="leading" secondItem="QUy-yv-U1B" secondAttribute="leading" id="STS-bc-89t"/>
                     <constraint firstItem="BXs-ef-I9v" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="18" id="X0f-Iv-SIt"/>
                     <constraint firstAttribute="trailing" secondItem="3bc-Te-k2D" secondAttribute="trailing" constant="18" id="XM8-GI-K08"/>
+                    <constraint firstItem="Zq5-Qh-ec4" firstAttribute="trailing" secondItem="QUy-yv-U1B" secondAttribute="trailing" id="Xtu-Jm-LbA"/>
                     <constraint firstItem="QUy-yv-U1B" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="16" id="bXA-z0-Rjm"/>
                     <constraint firstItem="4BB-gN-kDu" firstAttribute="centerY" secondItem="kAU-Il-kDS" secondAttribute="centerY" id="cjh-Fi-YBB"/>
                     <constraint firstItem="Kam-d9-irM" firstAttribute="centerY" secondItem="BXs-ef-I9v" secondAttribute="centerY" id="eJA-k9-7bz"/>
@@ -111,6 +123,7 @@
                     <constraint firstAttribute="trailing" secondItem="4BB-gN-kDu" secondAttribute="trailing" constant="20" id="hCf-Gv-Bnd"/>
                     <constraint firstItem="BXs-ef-I9v" firstAttribute="top" secondItem="QUy-yv-U1B" secondAttribute="bottom" constant="11" id="hw1-Np-tbz"/>
                     <constraint firstItem="fjE-FD-JYU" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" constant="9" id="lJi-Kc-AyP"/>
+                    <constraint firstItem="Zq5-Qh-ec4" firstAttribute="bottom" secondItem="QUy-yv-U1B" secondAttribute="bottom" id="prp-sy-d1s"/>
                     <constraint firstAttribute="trailing" secondItem="5WK-d7-xgu" secondAttribute="trailing" constant="16" id="psH-ZY-ayA"/>
                     <constraint firstItem="3bc-Te-k2D" firstAttribute="centerY" secondItem="BXs-ef-I9v" secondAttribute="centerY" id="tqg-En-gWu"/>
                     <constraint firstItem="n9k-fi-DBx" firstAttribute="leading" secondItem="kAU-Il-kDS" secondAttribute="trailing" constant="8" id="tve-vl-Iir"/>
@@ -122,11 +135,13 @@
                 <outlet property="bookmarkButton" destination="3bc-Te-k2D" id="6J2-HR-UQP"/>
                 <outlet property="likeButton" destination="BXs-ef-I9v" id="S0C-ak-W9Z"/>
                 <outlet property="likeLabel" destination="Kam-d9-irM" id="cam-QN-BGK"/>
+                <outlet property="loadingActivityIndicator" destination="x4k-Bg-x2O" id="cuw-yg-KA1"/>
                 <outlet property="moreButton" destination="4BB-gN-kDu" id="yYK-uy-gD1"/>
                 <outlet property="profileImage" destination="kAU-Il-kDS" id="0jc-Qm-QfR"/>
                 <outlet property="profileNameLabel" destination="fjE-FD-JYU" id="7iM-Cc-3Wv"/>
                 <outlet property="publicationInfoLabel" destination="n9k-fi-DBx" id="02W-8E-rCE"/>
                 <outlet property="shareButton" destination="RUb-8g-dpe" id="w3c-7X-0PG"/>
+                <outlet property="stubImageView" destination="Zq5-Qh-ec4" id="kMD-Dc-EOL"/>
                 <outlet property="videoNameLabel" destination="5WK-d7-xgu" id="pqj-yG-F5C"/>
                 <outlet property="videoView" destination="QUy-yv-U1B" id="Pr3-Ez-3fB"/>
             </connections>

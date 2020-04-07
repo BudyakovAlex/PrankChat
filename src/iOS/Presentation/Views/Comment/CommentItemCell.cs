@@ -13,11 +13,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 {
     public partial class CommentItemCell : BaseTableCell<CommentItemCell, CommentItemViewModel>
     {
-        static CommentItemCell()
-        {
-            EstimatedHeight = 50;
-        }
-
         protected CommentItemCell(IntPtr handle) : base(handle)
         {
             // Note: this .ctor should not contain any initialization logic.
