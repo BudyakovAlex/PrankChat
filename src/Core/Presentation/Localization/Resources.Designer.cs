@@ -1618,5 +1618,17 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Complaint_Unacceptable_Information_In_Profile", resourceCulture);
             }
         }
+        
+        public static string Order_Add {
+            get {
+                return ResourceManager.GetString("Order_Add", resourceCulture);
+            }
+        }
+        
+        public static string Order_Create_Message {
+            get {
+                return ResourceManager.GetString("Order_Create_Message", resourceCulture);
+            }
+        }
     }
 }

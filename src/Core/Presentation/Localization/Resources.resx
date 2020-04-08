@@ -921,4 +921,10 @@
   <data name="Complaint_Unacceptable_Information_In_Profile" xml:space="preserve">
     <value>Неприемлемая информация в профиле</value>
   </data>
+  <data name="Order_Add" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="Order_Create_Message" xml:space="preserve">
+    <value>Вы уверены что хотите создать заказ? </value>
+  </data>
 </root>
