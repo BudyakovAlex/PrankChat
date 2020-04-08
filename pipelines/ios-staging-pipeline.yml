@@ -44,10 +44,10 @@ steps:
   inputs:
     provProfileSecureFile: '$(PROVISION_APPSTORE_FILE)'
 
-- task: NuGetToolInstaller@1
-  displayName: 'Use NuGet 4.x'
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet $(NUGET_VERSION)'
   inputs:
-    versionSpec: 4.x
+    versionSpec: $(NUGET_VERSION)
 
 - task: NuGetCommand@2
   displayName: 'NuGet restore'
