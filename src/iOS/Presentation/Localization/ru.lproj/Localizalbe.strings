@@ -268,3 +268,31 @@
 "WithdrawalView_Withdraw_Text" = "Отозвать";
 "Competiton_Prize_Pool_Place" = "Место";
 "Orders_In_Dispute" = "В споре";
+"OnBoarding_Go_To_Main" = "Перейти в ленту";
+
+/*Fuzzy*/
+"OnBoarding_First_Title" = "Смотри смешные видео";
+"OnBoarding_Second_Title" = "Создавай свой заказ и получай видео";
+"OnBoarding_Third_Title" = "Выполняй заказы и получай деньги";
+"OnBoarding_Fourth_Title" = "участвуй в конкурсах";
+"OnBoarding_Fifth_Title" = "Делай смешно !!!";
+"OnBoarding_First_Description" = "В ленте каждый автор PrankChat публикует свое эксклюзивное видео которого еще нет ни где. Просматривай и наслаждайся";
+"OnBoarding_Second_Description" = "Напиши любой заказ и пользователи PrankChat его экранизируют. Публикуй видео и становись знаменитым";
+
+/*Fuzzy*/
+"OnBoarding_Third_Description" = "Пользователи PrankChat публикуют заказы по которым ты можешь снять свое видео и получить оплату";
+"OnBoarding_Fourth_Description" = "PrankChat регулярно проводит конкурсы на лучшее видео с денежными призами. Участие бесплатное";
+"OnBoarding_Fifth_Description" = "Публикуй свое видео и стань известным";
+"Complaint_Spam" = "Это спам";
+"Complaint_Naked_Content" = "Порнография и нагота";
+"Complaint_Hostile_Utterances" = "Оскорбления или травля";
+"Complaint_Dangerous_Organizations" = "Насилие или опасные организации";
+"Complaint_Rights_Violation" = "Нарушение авторских прав";
+"Complaint_Cheating" = "Мошенничество или обман";
+"Complaint_Complete_Message" = "Спасибо, что сообщили нам об этом";
+"Complaint_Other" = "Прочее";
+"Complaint_Wrong_Name" = "Использует чужое имя";
+
+/*Fuzzy*/
+"Complaint_Unacceptable_Content" = "Неприемлемый контент";
+"Complaint_Unacceptable_Information_In_Profile" = "Неприемлемая информация в профиле";

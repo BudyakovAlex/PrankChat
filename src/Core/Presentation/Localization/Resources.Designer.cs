@@ -1486,5 +1486,137 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Orders_In_Dispute", resourceCulture);
             }
         }
+        
+        public static string OnBoarding_Go_To_Main {
+            get {
+                return ResourceManager.GetString("OnBoarding_Go_To_Main", resourceCulture);
+            }
+        }
+        
+        public static string OnBoarding_First_Title {
+            get {
+                return ResourceManager.GetString("OnBoarding_First_Title", resourceCulture);
+            }
+        }
+        
+        public static string OnBoarding_Second_Title {
+            get {
+                return ResourceManager.GetString("OnBoarding_Second_Title", resourceCulture);
+            }
+        }
+        
+        public static string OnBoarding_Third_Title {
+            get {
+                return ResourceManager.GetString("OnBoarding_Third_Title", resourceCulture);
+            }
+        }
+        
+        public static string OnBoarding_Fourth_Title {
+            get {
+                return ResourceManager.GetString("OnBoarding_Fourth_Title", resourceCulture);
+            }
+        }
+        
+        public static string OnBoarding_Fifth_Title {
+            get {
+                return ResourceManager.GetString("OnBoarding_Fifth_Title", resourceCulture);
+            }
+        }
+        
+        public static string OnBoarding_First_Description {
+            get {
+                return ResourceManager.GetString("OnBoarding_First_Description", resourceCulture);
+            }
+        }
+        
+        public static string OnBoarding_Second_Description {
+            get {
+                return ResourceManager.GetString("OnBoarding_Second_Description", resourceCulture);
+            }
+        }
+        
+        public static string OnBoarding_Third_Description {
+            get {
+                return ResourceManager.GetString("OnBoarding_Third_Description", resourceCulture);
+            }
+        }
+        
+        public static string OnBoarding_Fourth_Description {
+            get {
+                return ResourceManager.GetString("OnBoarding_Fourth_Description", resourceCulture);
+            }
+        }
+        
+        public static string OnBoarding_Fifth_Description {
+            get {
+                return ResourceManager.GetString("OnBoarding_Fifth_Description", resourceCulture);
+            }
+        }
+        
+        public static string Complaint_Spam {
+            get {
+                return ResourceManager.GetString("Complaint_Spam", resourceCulture);
+            }
+        }
+        
+        public static string Complaint_Naked_Content {
+            get {
+                return ResourceManager.GetString("Complaint_Naked_Content", resourceCulture);
+            }
+        }
+        
+        public static string Complaint_Hostile_Utterances {
+            get {
+                return ResourceManager.GetString("Complaint_Hostile_Utterances", resourceCulture);
+            }
+        }
+        
+        public static string Complaint_Dangerous_Organizations {
+            get {
+                return ResourceManager.GetString("Complaint_Dangerous_Organizations", resourceCulture);
+            }
+        }
+        
+        public static string Complaint_Rights_Violation {
+            get {
+                return ResourceManager.GetString("Complaint_Rights_Violation", resourceCulture);
+            }
+        }
+        
+        public static string Complaint_Cheating {
+            get {
+                return ResourceManager.GetString("Complaint_Cheating", resourceCulture);
+            }
+        }
+        
+        public static string Complaint_Complete_Message {
+            get {
+                return ResourceManager.GetString("Complaint_Complete_Message", resourceCulture);
+            }
+        }
+        
+        public static string Complaint_Other {
+            get {
+                return ResourceManager.GetString("Complaint_Other", resourceCulture);
+            }
+        }
+        
+        public static string Complaint_Wrong_Name {
+            get {
+                return ResourceManager.GetString("Complaint_Wrong_Name", resourceCulture);
+            }
+        }
+        
+        public static string Complaint_Unacceptable_Content {
+            get {
+                return ResourceManager.GetString("Complaint_Unacceptable_Content", resourceCulture);
+            }
+        }
+        
+        public static string Complaint_Unacceptable_Information_In_Profile {
+            get {
+                return ResourceManager.GetString("Complaint_Unacceptable_Information_In_Profile", resourceCulture);
+            }
+        }
     }
 }
