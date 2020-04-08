@@ -19,7 +19,7 @@ namespace PrankChat.Mobile.Core.Configuration
 
         public ApplicationConfiguration()
         {
-            BaseAddress = StageAddress;
+            BaseAddress = ProdAddress;
             ApiVersion = new Version(1, 0);
 
             // TODO: We should get data from server. It`s hot fix.
