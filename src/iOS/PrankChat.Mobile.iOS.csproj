@@ -158,10 +158,10 @@
       <DependentUpon>OrderItemCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Views\Base\BaseTabbedView.cs" />
-    <InterfaceDefinition Include="Presentation\Views\RatingView\RatingItemCell.xib" />
-    <Compile Include="Presentation\Views\RatingView\RatingItemCell.cs" />
-    <Compile Include="Presentation\Views\RatingView\RatingItemCell.designer.cs">
-      <DependentUpon>RatingItemCell.cs</DependentUpon>
+    <InterfaceDefinition Include="Presentation\Views\ArbitrationView\ArbitrationItemCell.xib" />
+    <Compile Include="Presentation\Views\ArbitrationView\ArbitrationItemCell.cs" />
+    <Compile Include="Presentation\Views\ArbitrationView\ArbitrationItemCell.designer.cs">
+      <DependentUpon>ArbitrationItemCell.cs</DependentUpon>
     </Compile>
     <InterfaceDefinition Include="Presentation\Views\Order\OrderDetailsView.xib" />
     <Compile Include="Presentation\Views\Order\OrderDetailsView.cs" />

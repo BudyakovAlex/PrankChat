@@ -16,9 +16,9 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
@@ -28,12 +28,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly IMvxMessenger _mvxMessenger;
         private readonly ISettingsService _settingsService;
 
-        private readonly Dictionary<RatingOrderFilterType, string> _ratingOrderFilterTypeTitleMap =
-            new Dictionary<RatingOrderFilterType, string>
+        private readonly Dictionary<ArbitrationOrderFilterType, string> _arbitrationOrderFilterTypeTitleMap =
+            new Dictionary<ArbitrationOrderFilterType, string>
             {
-                { RatingOrderFilterType.All, Resources.RateView_Filter_AllTasks },
-                { RatingOrderFilterType.New, Resources.RateView_Filter_NewTasks },
-                { RatingOrderFilterType.My, Resources.RateView_Filter_MyTasks },
+                { ArbitrationOrderFilterType.All, Resources.RateView_Filter_AllTasks },
+                { ArbitrationOrderFilterType.New, Resources.RateView_Filter_NewTasks },
+                { ArbitrationOrderFilterType.My, Resources.RateView_Filter_MyTasks },
             };
 
         private readonly Dictionary<OrderFilterType, string> _orderFilterTypeTitleMap =
@@ -48,11 +48,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private MvxSubscriptionToken _newOrderMessageToken;
         private MvxSubscriptionToken _removeOrderMessageToken;
         private string _activeOrderFilterName = string.Empty;
-        private string _activeRatingFilterName = string.Empty;
+        private string _activeArbitrationFilterName = string.Empty;
 
         public MvxObservableCollection<BaseItemViewModel> Items { get; } = new MvxObservableCollection<BaseItemViewModel>();
 
-        public string ActiveFilterName => TabType == OrdersTabType.Order ? _activeOrderFilterName : _activeRatingFilterName;
+        public string ActiveFilterName => TabType == OrdersTabType.Order ? _activeOrderFilterName : _activeArbitrationFilterName;
 
         private OrderFilterType _orderFilterType;
         public OrderFilterType OrderFilterType
@@ -69,16 +69,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private RatingOrderFilterType _ratingFilterType;
-        public RatingOrderFilterType RatingFilterType
+        private ArbitrationOrderFilterType _arbitrationFilterType;
+        public ArbitrationOrderFilterType ArbitrationFilterType
         {
-            get => _ratingFilterType;
+            get => _arbitrationFilterType;
             set
             {
-                _ratingFilterType = value;
-                if (_ratingOrderFilterTypeTitleMap.TryGetValue(_ratingFilterType, out var activeFilterName))
+                _arbitrationFilterType = value;
+                if (_arbitrationOrderFilterTypeTitleMap.TryGetValue(_arbitrationFilterType, out var activeFilterName))
                 {
-                    _activeRatingFilterName = activeFilterName;
+                    _activeArbitrationFilterName = activeFilterName;
                     RaisePropertyChanged(nameof(ActiveFilterName));
                 }
             }
@@ -122,7 +122,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public override Task Initialize()
         {
             OrderFilterType = OrderFilterType.All;
-            RatingFilterType = RatingOrderFilterType.All;
+            ArbitrationFilterType = ArbitrationOrderFilterType.All;
             TabType = OrdersTabType.Order;
 
             return LoadDataCommand.ExecuteAsync();
@@ -189,7 +189,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     return LoadMoreItemsAsync();
 
                 case OrdersTabType.Arbitration:
-                    return LoadRatingOrdersAsync();
+                    return LoadArbitrationOrdersAsync();
 
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -204,7 +204,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     return OpenOrderFilterAsync();
 
                 case OrdersTabType.Arbitration:
-                    return OpenRatingFilterAsync();
+                    return OpenArbitrationFilterAsync();
 
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -283,14 +283,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             deletedItem.Dispose();
         }
 
-        private async Task LoadRatingOrdersAsync()
+        private async Task LoadArbitrationOrdersAsync()
         {
             try
             {
                 IsBusy = true;
 
-                var ratingOrders = await ApiService.GetRatingOrdersAsync(RatingFilterType);
-                var items = ratingOrders?.Select(o => new RatingItemViewModel(
+                var arbitrationOrders = await ApiService.GetArbitrationOrdersAsync(ArbitrationFilterType);
+                var items = arbitrationOrders?.Select(o => new ArbitrationItemViewModel(
                                                             NavigationService,
                                                             _settingsService,
                                                             IsUserSessionInitialized,
@@ -308,7 +308,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             catch (Exception ex)
             {
                 ErrorHandleService.HandleException(ex);
-                ErrorHandleService.LogError(this, "Error on load ratings.");
+                ErrorHandleService.LogError(this, "Error on load arbitration orders.");
             }
             finally
             {
@@ -316,16 +316,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private async Task OpenRatingFilterAsync()
+        private async Task OpenArbitrationFilterAsync()
         {
-            var parameters = _ratingOrderFilterTypeTitleMap.Values.ToArray();
+            var parameters = _arbitrationOrderFilterTypeTitleMap.Values.ToArray();
             var selectedFilterName = await DialogService.ShowMenuDialogAsync(parameters, Resources.Cancel);
             if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
             {
                 return;
             }
 
-            RatingFilterType = _ratingOrderFilterTypeTitleMap.FirstOrDefault(x => x.Value == selectedFilterName).Key;
+            ArbitrationFilterType = _arbitrationOrderFilterTypeTitleMap.FirstOrDefault(x => x.Value == selectedFilterName).Key;
             await LoadDataCommand.ExecuteAsync();
         }
     }

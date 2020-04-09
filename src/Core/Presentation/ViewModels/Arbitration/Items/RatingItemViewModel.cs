@@ -8,9 +8,9 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
 {
-    public class RatingItemViewModel : BaseItemViewModel
+    public class ArbitrationItemViewModel : BaseItemViewModel
     {
         private readonly ISettingsService _settingsService;
         private readonly INavigationService _navigationService;
@@ -47,7 +47,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items
 
         public OrderType OrderType => _settingsService.User?.Id == _customerId ? OrderType.MyOrder : OrderType.NotMyOrder;
 
-        public RatingItemViewModel(INavigationService navigatiobService,
+        public ArbitrationItemViewModel(INavigationService navigatiobService,
                                    ISettingsService settingsService,
                                    bool isUserSessionInitialized,
                                    int orderId,

@@ -114,7 +114,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             switch (orderFilterType)
             {
                 case OrderFilterType.All:
-                    endpoint = $"{endpoint}";
+                    endpoint = "filter/orders/all";
                     break;
 
                 case OrderFilterType.New:
@@ -175,28 +175,28 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
-        public async Task<List<RatingOrderDataModel>> GetRatingOrdersAsync(RatingOrderFilterType filter)
+        public async Task<List<ArbitrationOrderDataModel>> GetArbitrationOrdersAsync(ArbitrationOrderFilterType filter)
         {
             string endpoint = $"orders?status={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}";
             switch (filter)
             {
-                case RatingOrderFilterType.All:
+                case ArbitrationOrderFilterType.All:
                     // Nothing to do. We should use the 'orders' endpoint to get all rating orders.
                     break;
 
-                case RatingOrderFilterType.New:
+                case ArbitrationOrderFilterType.New:
                     endpoint = $"{endpoint}&date_from={DateFilterType.Day.GetDateString()}";
                     break;
 
-                case RatingOrderFilterType.My:
+                case ArbitrationOrderFilterType.My:
                     if (_settingsService.User == null)
-                        return new List<RatingOrderDataModel>();
+                        return new List<ArbitrationOrderDataModel>();
 
                     endpoint = $"{endpoint}&customer_id={_settingsService.User.Id}";
                     break;
             }
-            var data = await _client.Get<DataApiModel<List<RatingOrderApiModel>>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
-            return MappingConfig.Mapper.Map<List<RatingOrderDataModel>>(data?.Data);
+            var data = await _client.Get<DataApiModel<List<ArbitrationOrderApiModel>>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
+            return MappingConfig.Mapper.Map<List<ArbitrationOrderDataModel>>(data?.Data);
         }
 
         public async Task<OrderDataModel> CancelOrderAsync(int orderId)
