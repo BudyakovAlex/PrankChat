@@ -17,6 +17,7 @@ using MvvmCross.Logging;
 using Firebase.InstanceID;
 using Firebase.CloudMessaging;
 using PrankChat.Mobile.iOS.PlatformBusinessServices;
+using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
 
 namespace PrankChat.Mobile.iOS
 {
@@ -25,6 +26,8 @@ namespace PrankChat.Mobile.iOS
     {
         //TODO: move it to config
         public const string VkAppId = "7343996";
+
+        private int? _orderId;
 
         public override void OnActivated(UIApplication application)
         {
@@ -57,108 +60,62 @@ namespace PrankChat.Mobile.iOS
 
         public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
         {
-            HandleBackgroundNotification(userInfo);
+            NotificationWrapper.Instance.HandleBackgroundNotification(userInfo);
         }
 
         [Export("userNotificationCenter:willPresentNotification:withCompletionHandler:")]
         public void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
         {
-            HandleForegroundNotification(notification.Request.Content.UserInfo);
+            NotificationWrapper.Instance.HandleForegroundNotification(notification.Request.Content.UserInfo);
+        }
+
+        protected override object GetAppStartHint(object hint = null)
+        {
+            if (_orderId != null)
+                return _orderId;
+
+            return hint;
         }
 
         private void InitializeFirebase()
         {
-            Firebase.Core.App.Configure();
+            if (Firebase.Core.App.DefaultInstance == null)
+                Firebase.Core.App.Configure();
+
             Crashlytics.Configure();
         }
 
         private void InitializePushNotification()
         {
-            UNUserNotificationCenter.Current.Delegate = this;
+            Messaging.SharedInstance.AutoInitEnabled = true;
             Messaging.SharedInstance.Delegate = this;
+            Messaging.SharedInstance.ShouldEstablishDirectChannel = true;
 
-            InstanceId.Notifications.ObserveTokenRefresh(TokenRefreshNotification);
+            InstanceId.Notifications.ObserveTokenRefresh(NotificationWrapper.Instance.TokenRefreshNotification);
 
-            // iOS 10 or later
-            var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
-            UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
+            // Register your app for remote notifications.
+            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {
-                if (granted)
-                    InvokeOnMainThread(() => UIApplication.SharedApplication.RegisterForRemoteNotifications());
-            });
+                // iOS 10 or later
+                var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
 
-            var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
-            var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
-            UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
-            UIApplication.SharedApplication.RegisterForRemoteNotifications();
-        }
+                // For iOS 10 display notification (sent via APNS)
+                UNUserNotificationCenter.Current.Delegate = this;
 
-        private void TokenRefreshNotification(object sender, NSNotificationEventArgs e)
-        {
-            var settingService = Mvx.IoCProvider.Resolve<ISettingsService>();
-            settingService.PushToken = Messaging.SharedInstance.FcmToken;
-
-            try
-            {
-                var pushNotificationService = Mvx.IoCProvider.Resolve<IPushNotificationService>();
-                pushNotificationService.TryUpdateTokenAsync().FireAndForget();
-            }
-            catch (Exception ex)
-            {
-                var log = Mvx.IoCProvider.Resolve<IMvxLog>();
-                log.ErrorException("Can not resolve IPushNotificationService", ex);
-            }
-        }
-
-        /// <summary>
-        /// Handles foreground notifications.
-        /// </summary>
-        private void HandleForegroundNotification(NSDictionary userInfo)
-        {
-            var payload = HandleNotificationPayload(userInfo);
-            ShowLocalNotification(payload.title, payload.body);
-        }
-
-        private void HandleBackgroundNotification(NSDictionary userInfo)
-        {
-            var payload = HandleNotificationPayload(userInfo);
-            //TryNavigateToSignalDetails(payload.signalId);
-        }
-
-        private void ShowLocalNotification(string title, string body)
-        {
-            NotificationWrapper.Instance.ScheduleLocalNotification(title, body);
-        }
-
-        private (string body, string title) HandleNotificationPayload(NSDictionary userInfo)
-        {
-            if (!(userInfo["aps"] is NSDictionary apsDictionary))
-            {
-                return (string.Empty, string.Empty);
-            }
-
-            var body = string.Empty;
-            var title = string.Empty;
-            if (apsDictionary["alert"] is NSDictionary)
-            {
-                var alertDictionary = apsDictionary["alert"] as NSDictionary;
-
-                if (alertDictionary.ContainsKey(new NSString("title")))
+                UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
                 {
-                    title = alertDictionary["title"].ToString();
-                }
+                    if (granted)
+                        InvokeOnMainThread(() => UIApplication.SharedApplication.RegisterForRemoteNotifications());
 
-                if (alertDictionary.ContainsKey(new NSString("body")))
-                {
-                    body = alertDictionary["body"].ToString();
-                }
+                });
             }
             else
             {
-                body = apsDictionary["alert"].ToString();
+                // iOS 9 or before
+                var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
+                var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
+                UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
             }
-
-            return (title, body);
         }
     }
 }

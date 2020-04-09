@@ -7,12 +7,9 @@ using MvvmCross;
 using Newtonsoft.Json;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Models.Api;
-using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using MvvmCross.Logging;
-using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
+using NotificationManager = PrankChat.Mobile.Core.ApplicationServices.Notifications.NotificationManager;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 {
@@ -50,9 +47,10 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             message.Data.TryGetValue("key", out string key);
             message.Data.TryGetValue("value", out var value);
 
-
-            var pushNotificationData = PushNotificationService.GenerateNotificationData(key, value);
-            NotificationWrapper.Instance.ScheduleLocalNotification(message.GetNotification().Title, message.GetNotification().Body);
+            var title = message.GetNotification().Title;
+            var body = message.GetNotification().Body;
+            var pushNotificationData = NotificationManager.Instance.GenerateNotificationData(key, value, title, body);
+            NotificationWrapper.Instance.ScheduleLocalNotification(pushNotificationData);
         }
     }
 }

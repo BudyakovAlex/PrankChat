@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Android.App;
 using Android.Content;
 using Android.Gms.Common;
@@ -9,11 +10,13 @@ using Firebase.Messaging;
 using MvvmCross;
 using MvvmCross.Logging;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 {
     public class NotificationWrapper
     {
+        private PendingIntent _pendingIntent;
         private NotificationCompat.Builder _notificationBuilder;
 
         public static NotificationWrapper Instance { get; } = new NotificationWrapper();
@@ -44,11 +47,18 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             return true;
         }
 
-        public void ScheduleLocalNotification(string title, string message)
+        public void ScheduleLocalNotification(PushNotificationData pushNotificationData)
         {
-            //var pendingIntent = GetPendingIntent(data);
-
-            var defaultSoundUri = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
+            if (pushNotificationData.Type == null)
+            {
+                var pm = Application.Context.PackageManager;
+                var launchIntent = pm.GetLaunchIntentForPackage(Application.Context.PackageName);
+                _pendingIntent = PendingIntent.GetActivities(Application.Context, 0, new[] { launchIntent }, 0);
+            }
+            else
+            {
+                _pendingIntent = GetPendingIntent(pushNotificationData);
+            }
 
             if (Build.VERSION.SdkInt < BuildVersionCodes.O)
             {
@@ -60,11 +70,12 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             }
 
             _notificationBuilder.SetSmallIcon(Resource.Mipmap.ic_launcher);
-            _notificationBuilder.SetContentTitle(title);
-            _notificationBuilder.SetContentText(message);
+            _notificationBuilder.SetContentTitle(pushNotificationData.Title);
+            _notificationBuilder.SetContentText(pushNotificationData.Body);
             _notificationBuilder.SetAutoCancel(true);
+            var defaultSoundUri = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
             _notificationBuilder.SetSound(defaultSoundUri);
-            //_notificationBuilder.SetContentIntent(pendingIntent);
+            _notificationBuilder.SetContentIntent(_pendingIntent);
             var notificationManager = NotificationManager.FromContext(Application.Context);
             notificationManager.Notify(0, _notificationBuilder.Build());
         }
@@ -99,6 +110,31 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             notificationManager.CreateNotificationChannel(channel);
 
             return Constants.Notification.ChannelId;
+        }
+
+        private static PendingIntent GetPendingIntent(PushNotificationData pushNotificationData)
+        {
+            var intent = new Intent(Application.Context, typeof(NotificationActionService));
+
+            var extras = new Bundle();
+            extras.PutString(Utils.Constants.PushNotificationKey.OrderId, pushNotificationData.OrderId.ToString());
+
+            intent.PutExtras(extras);
+            var requestCode = new Java.Util.Random().NextInt();
+            var pendingIntent = PendingIntent.GetService(Application.Context, requestCode, intent, PendingIntentFlags.UpdateCurrent);
+            return pendingIntent;
+        }
+
+        public static int? GetOrderId(Intent intent)
+        {
+            var bundle = intent.Extras;
+            var bundleCollection = bundle?.KeySet();
+            if (bundleCollection == null || bundleCollection.Count == 0)
+                return null;
+
+            var orderIdString = bundle.Get(Utils.Constants.PushNotificationKey.OrderId)?.ToString();
+            int.TryParse(orderIdString, out var orderId);
+            return orderId;
         }
     }
 }

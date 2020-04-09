@@ -186,9 +186,24 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 			return _mvxNavigationService.Navigate<ImageCropViewModel, ImagePathNavigationParameter, ImageCropPathResult>(parameter);
 		}
 
-		#region Dialogs
+        public Task AppStartFromNotification(int orderId)
+        {
+			if (_settingsService.User != null)
+			{
+				_mvxNavigationService.AfterNavigate += MvxNavigationServiceAfterNavigate;
+				return ShowMainView();
+			}
 
-		public Task ShowShareDialog(ShareDialogParameter parameter)
+			return ShowLoginView();
+		}
+
+        private void MvxNavigationServiceAfterNavigate(object sender, MvvmCross.Navigation.EventArguments.IMvxNavigateEventArgs e)
+        {
+        }
+
+        #region Dialogs
+
+        public Task ShowShareDialog(ShareDialogParameter parameter)
 		{
 			return _mvxNavigationService.Navigate<ShareDialogViewModel, ShareDialogParameter>(parameter);
 		}

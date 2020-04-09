@@ -8,8 +8,6 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 	[Service]
 	public class NotificationActionService : IntentService
 	{
-		public const string UrlExtra = "Url";
-
 		public NotificationActionService(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
 		{
 		}

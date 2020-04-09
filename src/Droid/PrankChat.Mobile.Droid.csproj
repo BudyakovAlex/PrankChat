@@ -179,6 +179,7 @@
     <Compile Include="Presentation\Bindings\TextColorTargetBinding.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Abstract\Video\VideoCardViewHolder.cs" />
     <Compile Include="Presentation\Converters\InvertedInvisibleConverter.cs" />
+    <Compile Include="Utils\Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

@@ -248,7 +248,6 @@
       <DependentUpon>FullScreenVideoView.cs</DependentUpon>
     </Compile>
     <Compile Include="PlatformBusinessServices\Crashlytic\CrashlyticsService.cs" />
-    <BundleResource Include="GoogleService-Info.plist" />
     <Compile Include="Controls\FloatPlaceholderTextField.cs" />
     <Compile Include="ApplicationServices\DialogService.cs" />
     <InterfaceDefinition Include="Controls\ToastView.xib" />
@@ -276,7 +275,6 @@
     <Compile Include="Presentation\Views\ProfileView\ImageCrop\CropViewDelegate.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\PagedTableViewSource.cs" />
     <Compile Include="Delegates\PrankChatNotificationDelegate.cs" />
-    <Compile Include="PlatformBusinessServices\NotificationWrapper.cs" />
     <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionsView.xib" />
     <Compile Include="Presentation\Views\Competition\CompetitionsView.cs" />
     <Compile Include="Presentation\Views\Competition\CompetitionsView.designer.cs">
@@ -334,6 +332,8 @@
     <Compile Include="Presentation\Views\Base\BaseVideoTableCell.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\VideoTableSource.cs" />
     <Compile Include="Infrastructure\Constants.cs" />
+    <BundleResource Include="GoogleService-Info.plist" />
+    <Compile Include="PlatformBusinessServices\Notifications\NotificationWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -911,6 +911,7 @@
     <Folder Include="Assets.xcassets\ic_prankcaht_icon.imageset\" />
     <Folder Include="Assets.xcassets\ic_credit_card.imageset\" />
     <Folder Include="Assets.xcassets\ic_arrow_dropdown.imageset\" />
+    <Folder Include="PlatformBusinessServices\Notifications\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
