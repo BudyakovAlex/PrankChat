@@ -34,35 +34,12 @@ namespace PrankChat.Mobile.Droid
                 return;
 
             Finish();
-
-            TryNavigateToView();
+            Core.ApplicationServices.Notifications.NotificationManager.Instance.TryNavigateToView(_orderId);
         }
 
         protected override object GetAppStartHint(object hint = null)
         {
             return base.GetAppStartHint(_orderId);
-        }
-
-        private void TryNavigateToView()
-        {
-            if (_orderId == null)
-                return;
-
-            Mvx.IoCProvider.CallbackWhenRegistered<INavigationService>(() =>
-            {
-                try
-                {
-                    if (!Mvx.IoCProvider.CanResolve<INavigationService>())
-                        return;
-
-                    var navigationService = Mvx.IoCProvider.Resolve<INavigationService>();
-                    navigationService.ShowOrderDetailsView(_orderId.Value);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
-            });
         }
     }
 }

@@ -11,6 +11,7 @@ using MvvmCross;
 using MvvmCross.Logging;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 {
@@ -97,7 +98,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 
             var channelLabel = new Java.Lang.String(Resource.String.fcm_fallback_notification_channel_label.ToString());
             var importance = NotificationImportance.High;
-
+              
             var channel = new NotificationChannel(Constants.Notification.ChannelId, channelLabel, importance)
             {
                 Description = Constants.Notification.ChannelId,
@@ -132,9 +133,25 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             if (bundleCollection == null || bundleCollection.Count == 0)
                 return null;
 
-            var orderIdString = bundle.Get(Utils.Constants.PushNotificationKey.OrderId)?.ToString();
-            int.TryParse(orderIdString, out var orderId);
-            return orderId;
+            var orderIdString = bundle.Get(Utils.Constants.PushNotificationKey.OrderId).ToString();
+            if (!string.IsNullOrEmpty(orderIdString))
+            {
+                int.TryParse(orderIdString, out var orderId);
+                return orderId;
+            }
+
+            var key = bundle.Get("key")?.ToString();
+            var value = bundle.Get("value")?.ToString();
+            var title = bundle.Get("title")?.ToString();
+            var body = bundle.Get("body")?.ToString();
+
+            var pushNotificationData = Core.ApplicationServices.Notifications.NotificationManager.Instance.GenerateNotificationData(key, value, title, body);
+            if (pushNotificationData.Type == NotificationType.OrderEvent)
+            {
+                return pushNotificationData.OrderId;
+            }
+
+            return null;
         }
     }
 }

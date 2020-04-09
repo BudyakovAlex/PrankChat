@@ -2,13 +2,17 @@
 using Android.App;
 using Android.Content;
 using Android.Runtime;
+using MvvmCross;
+using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 {
 	[Service]
 	public class NotificationActionService : IntentService
 	{
-		public NotificationActionService(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
+        private int? _orderId;
+
+        public NotificationActionService(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
 		{
 		}
 
@@ -24,7 +28,9 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 		{
 			var splashActivity = new Intent(Application.Context, typeof(SplashScreen)).AddFlags(ActivityFlags.NewTask);
 			StartActivity(splashActivity);
-			//TODO: should init the logic for display VM
-		}
-	}
+
+            _orderId = NotificationWrapper.GetOrderId(intent);
+			Core.ApplicationServices.Notifications.NotificationManager.Instance.TryNavigateToView(_orderId);
+        }
+    }
 }

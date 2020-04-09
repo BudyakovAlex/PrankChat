@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MvvmCross.Navigation;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
@@ -186,20 +187,19 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 			return _mvxNavigationService.Navigate<ImageCropViewModel, ImagePathNavigationParameter, ImageCropPathResult>(parameter);
 		}
 
-        public Task AppStartFromNotification(int orderId)
+		int? _orderId;
+
+		public Task AppStartFromNotification(int orderId)
         {
+			_orderId = orderId;
 			if (_settingsService.User != null)
 			{
-				_mvxNavigationService.AfterNavigate += MvxNavigationServiceAfterNavigate;
+				_mvxNavigationService.AfterNavigate += NavigatenAfterMainViewByPushNotification;
 				return ShowMainView();
 			}
 
 			return ShowLoginView();
 		}
-
-        private void MvxNavigationServiceAfterNavigate(object sender, MvvmCross.Navigation.EventArguments.IMvxNavigateEventArgs e)
-        {
-        }
 
         #region Dialogs
 
@@ -229,5 +229,18 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 		}
 
 		#endregion
+
+		private void NavigatenAfterMainViewByPushNotification(object sender, MvvmCross.Navigation.EventArguments.IMvxNavigateEventArgs e)
+		{
+			_mvxNavigationService.AfterNavigate -= NavigatenAfterMainViewByPushNotification;
+
+			if (_orderId == null)
+				return;
+
+			if (e.ViewModel is MainViewModel mainViewModel)
+			{
+				ShowOrderDetailsView(_orderId.Value).FireAndForget();
+			}
+		}
 	}
 }
