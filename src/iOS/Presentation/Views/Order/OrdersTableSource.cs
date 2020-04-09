@@ -1,10 +1,10 @@
 ﻿using System;
 using Foundation;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items;
 using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
-using PrankChat.Mobile.iOS.Presentation.Views.RatingView;
+using PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
@@ -17,7 +17,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             UseAnimations = true;
 
             tableView.RegisterNibForCellReuse(OrderItemCell.Nib, OrderItemCell.CellId);
-            tableView.RegisterNibForCellReuse(RatingItemCell.Nib, RatingItemCell.CellId);
+            tableView.RegisterNibForCellReuse(ArbitrationItemCell.Nib, ArbitrationItemCell.CellId);
         }
 
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
@@ -27,9 +27,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 return tableView.DequeueReusableCell(OrderItemCell.CellId);
             }
 
-            if (item is RatingItemViewModel)
+            if (item is ArbitrationItemViewModel)
             {
-                return tableView.DequeueReusableCell(RatingItemCell.CellId);
+                return tableView.DequeueReusableCell(ArbitrationItemCell.CellId);
             }
 
             return null;

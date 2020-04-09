@@ -1071,7 +1071,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\my_order_background.xml" />
-    <AndroidResource Include="Resources\layout\cell_rating.axml" />
+    <AndroidResource Include="Resources\layout\cell_arbitration_order.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_image_crop.xml" />

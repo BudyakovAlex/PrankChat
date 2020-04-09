@@ -7,10 +7,10 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
+namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 {
 	[Register ("RatingItemCell")]
-	partial class RatingItemCell
+	partial class ArbitrationItemCell
 	{
 		[Outlet]
 		UIKit.UIImageView backgroundImageView { get; set; }

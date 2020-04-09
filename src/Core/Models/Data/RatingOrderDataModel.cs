@@ -3,7 +3,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Data
 {
-    public class RatingOrderDataModel
+    public class ArbitrationOrderDataModel
     {
         public int Id { get; set; }
 

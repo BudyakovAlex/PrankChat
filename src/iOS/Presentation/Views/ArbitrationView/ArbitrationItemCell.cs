@@ -3,18 +3,18 @@ using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
-namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
+namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 {
-	public partial class RatingItemCell : BaseTableCell<RatingItemCell, RatingItemViewModel>
+	public partial class ArbitrationItemCell : BaseTableCell<ArbitrationItemCell, ArbitrationItemViewModel>
 	{
-		protected RatingItemCell(IntPtr handle) : base(handle)
+		protected ArbitrationItemCell(IntPtr handle) : base(handle)
 		{
 			// Note: this .ctor should not contain any initialization logic.
 		}
@@ -56,7 +56,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.RatingView
 
 		protected override void SetBindings()
 		{
-			var set = this.CreateBindingSet<RatingItemCell, RatingItemViewModel>();
+			var set = this.CreateBindingSet<ArbitrationItemCell, ArbitrationItemViewModel>();
 
 			set.Bind(this)
 				.For(v => v.BindTap())

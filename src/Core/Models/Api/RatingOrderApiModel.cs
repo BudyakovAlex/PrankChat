@@ -4,7 +4,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Api
 {
-    public class RatingOrderApiModel
+    public class ArbitrationOrderApiModel
     {
         [JsonProperty("id")]
         public string Id { get; set; }
