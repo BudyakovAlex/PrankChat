@@ -270,4 +270,34 @@
     <string name="WithdrawalView_Withdraw_Text">"Отозвать"</string>
     <string name="Competiton_Prize_Pool_Place">"Место"</string>
     <string name="Orders_In_Dispute">"В споре"</string>
+    <string name="OnBoarding_Go_To_Main">"Перейти в ленту"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoarding_First_Title">"Смотри смешные видео"</string>
+    <string name="OnBoarding_Second_Title">"Создавай свой заказ и получай видео"</string>
+    <string name="OnBoarding_Third_Title">"Выполняй заказы и получай деньги"</string>
+    <string name="OnBoarding_Fourth_Title">"участвуй в конкурсах"</string>
+    <string name="OnBoarding_Fifth_Title">"Делай смешно !!!"</string>
+    <string name="OnBoarding_First_Description">"В ленте каждый автор PrankChat публикует свое эксклюзивное видео которого еще нет ни где. Просматривай и наслаждайся"</string>
+    <string name="OnBoarding_Second_Description">"Напиши любой заказ и пользователи PrankChat его экранизируют. Публикуй видео и становись знаменитым"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoarding_Third_Description">"Пользователи PrankChat публикуют заказы по которым ты можешь снять свое видео и получить оплату"</string>
+    <string name="OnBoarding_Fourth_Description">"PrankChat регулярно проводит конкурсы на лучшее видео с денежными призами. Участие бесплатное"</string>
+    <string name="OnBoarding_Fifth_Description">"Публикуй свое видео и стань известным"</string>
+    <string name="Complaint_Spam">"Это спам"</string>
+    <string name="Complaint_Naked_Content">"Порнография и нагота"</string>
+    <string name="Complaint_Hostile_Utterances">"Оскорбления или травля"</string>
+    <string name="Complaint_Dangerous_Organizations">"Насилие или опасные организации"</string>
+    <string name="Complaint_Rights_Violation">"Нарушение авторских прав"</string>
+    <string name="Complaint_Cheating">"Мошенничество или обман"</string>
+    <string name="Complaint_Complete_Message">"Спасибо, что сообщили нам об этом"</string>
+    <string name="Complaint_Other">"Прочее"</string>
+    <string name="Complaint_Wrong_Name">"Использует чужое имя"</string>
+
+    <!-- Fuzzy -->
+    <string name="Complaint_Unacceptable_Content">"Неприемлемый контент"</string>
+    <string name="Complaint_Unacceptable_Information_In_Profile">"Неприемлемая информация в профиле"</string>
+    <string name="Order_Add">"Создать"</string>
+    <string name="Order_Create_Message">"Вы уверены что хотите создать заказ? "</string>
 </resources>

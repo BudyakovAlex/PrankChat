@@ -852,4 +852,79 @@
   <data name="Orders_In_Dispute" xml:space="preserve">
     <value>В споре</value>
   </data>
+  <data name="OnBoarding_Go_To_Main" xml:space="preserve">
+    <value>Перейти в ленту</value>
+  </data>
+  <data name="OnBoarding_First_Title" xml:space="preserve">
+    <value>Смотри смешные видео</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="OnBoarding_Second_Title" xml:space="preserve">
+    <value>Создавай свой заказ и получай видео</value>
+  </data>
+  <data name="OnBoarding_Third_Title" xml:space="preserve">
+    <value>Выполняй заказы и получай деньги</value>
+  </data>
+  <data name="OnBoarding_Fourth_Title" xml:space="preserve">
+    <value>участвуй в конкурсах</value>
+  </data>
+  <data name="OnBoarding_Fifth_Title" xml:space="preserve">
+    <value>Делай смешно !!!</value>
+  </data>
+  <data name="OnBoarding_First_Description" xml:space="preserve">
+    <value>В ленте каждый автор PrankChat публикует свое эксклюзивное видео которого еще нет ни где. Просматривай и наслаждайся</value>
+  </data>
+  <data name="OnBoarding_Second_Description" xml:space="preserve">
+    <value>Напиши любой заказ и пользователи PrankChat его экранизируют. Публикуй видео и становись знаменитым</value>
+  </data>
+  <data name="OnBoarding_Third_Description" xml:space="preserve">
+    <value>Пользователи PrankChat публикуют заказы по которым ты можешь снять свое видео и получить оплату</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="OnBoarding_Fourth_Description" xml:space="preserve">
+    <value>PrankChat регулярно проводит конкурсы на лучшее видео с денежными призами. Участие бесплатное</value>
+  </data>
+  <data name="OnBoarding_Fifth_Description" xml:space="preserve">
+    <value>Публикуй свое видео и стань известным</value>
+  </data>
+  <data name="Complaint_Spam" xml:space="preserve">
+    <value>Это спам</value>
+  </data>
+  <data name="Complaint_Naked_Content" xml:space="preserve">
+    <value>Порнография и нагота</value>
+  </data>
+  <data name="Complaint_Hostile_Utterances" xml:space="preserve">
+    <value>Оскорбления или травля</value>
+  </data>
+  <data name="Complaint_Dangerous_Organizations" xml:space="preserve">
+    <value>Насилие или опасные организации</value>
+  </data>
+  <data name="Complaint_Rights_Violation" xml:space="preserve">
+    <value>Нарушение авторских прав</value>
+  </data>
+  <data name="Complaint_Cheating" xml:space="preserve">
+    <value>Мошенничество или обман</value>
+  </data>
+  <data name="Complaint_Complete_Message" xml:space="preserve">
+    <value>Спасибо, что сообщили нам об этом</value>
+  </data>
+  <data name="Complaint_Other" xml:space="preserve">
+    <value>Прочее</value>
+  </data>
+  <data name="Complaint_Wrong_Name" xml:space="preserve">
+    <value>Использует чужое имя</value>
+  </data>
+  <data name="Complaint_Unacceptable_Content" xml:space="preserve">
+    <value>Неприемлемый контент</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Complaint_Unacceptable_Information_In_Profile" xml:space="preserve">
+    <value>Неприемлемая информация в профиле</value>
+  </data>
+  <data name="Order_Add" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="Order_Create_Message" xml:space="preserve">
+    <value>Вы уверены что хотите создать заказ? </value>
+  </data>
 </root>

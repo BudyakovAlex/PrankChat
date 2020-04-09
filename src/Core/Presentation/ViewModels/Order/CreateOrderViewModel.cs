@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using MvvmCross.Commands;
-using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Configuration;
-using PrankChat.Mobile.Core.Exceptions;
-using PrankChat.Mobile.Core.Exceptions.UserVisible;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
@@ -27,6 +20,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     {
         private readonly IMvxMessenger _mvxMessenger;
         private readonly ISettingsService _settingsService;
+
+        private bool _isExecuting;
 
         private PeriodDataModel _activeFor;
         public PeriodDataModel ActiveFor
@@ -84,11 +79,26 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnCreateAsync()
         {
-            if (!CheckValidation())
+            if (_isExecuting)
+            {
                 return;
+            }
+
+            _isExecuting = true;
+
+            if (!CheckValidation())
+            {
+                return;
+            }
 
             try
             {
+                var canCreate = await DialogService.ShowConfirmAsync(Resources.Order_Create_Message, Resources.Attention, Resources.Order_Add, Resources.Cancel);
+                if (!canCreate)
+                {
+                    return;
+                }
+
                 IsBusy = true;
 
                 var createOrderModel = new CreateOrderDataModel()
@@ -113,6 +123,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             finally
             {
+                _isExecuting = false;
                 IsBusy = false;
             }
         }

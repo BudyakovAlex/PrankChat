@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -476,8 +477,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     return;
                 }
 
-                await ApiService.ComplainOrderAsync(_orderId, "n/a", "n/a");
-                DialogService.ShowToast(Resources.ComplainSuccessful, ToastType.Positive);
+                var text = await GetComplaintTextAsync();
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    return;
+                }
+
+                await ApiService.ComplainOrderAsync(_orderId, text, text);
+                DialogService.ShowToast(Resources.Complaint_Complete_Message, ToastType.Positive);
                 return;
             }
 
@@ -487,6 +494,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 DialogService.ShowToast(Resources.LinkCopied, ToastType.Positive);
                 return;
             }
+        }
+
+        private async Task<string> GetComplaintTextAsync()
+        {
+            var result = await DialogService.ShowMenuDialogAsync(Constants.ComplaintConstants.CommonCompetitionAims);
+            return result;
         }
     }
 }

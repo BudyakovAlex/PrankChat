@@ -180,6 +180,7 @@
     <Compile Include="Presentation\Adapters\ViewHolders\Abstract\Video\VideoCardViewHolder.cs" />
     <Compile Include="Presentation\Converters\InvertedInvisibleConverter.cs" />
     <Compile Include="Utils\Constants.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Rating\RatingItemViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -986,6 +987,7 @@
     <Folder Include="Decorators\" />
     <Folder Include="Resources\drawable-v24\" />
     <Folder Include="Presentation\Adapters\ViewHolders\Abstract\Video\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\Rating\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />

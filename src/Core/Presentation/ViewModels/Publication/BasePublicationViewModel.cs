@@ -234,8 +234,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             if (result == Resources.Publication_Item_Complain)
             {
-                await ApiService.ComplainVideoAsync(VideoId, "n/a", "n/a");
-                DialogService.ShowToast(Resources.ComplainSuccessful, ToastType.Positive);
+                var text = await GetComplaintTextAsync();
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    return;
+                }
+
+                await ApiService.ComplainVideoAsync(VideoId, text, text);
+                DialogService.ShowToast(Resources.Complaint_Complete_Message, ToastType.Positive);
                 return;
             }
 
@@ -251,6 +257,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             //{
             //    return;
             //}
+        }
+
+        private async Task<string> GetComplaintTextAsync()
+        {
+            var result = await DialogService.ShowMenuDialogAsync(Constants.ComplaintConstants.CommonCompetitionAims);
+            return result;
         }
 
         private void OnToggleSound()

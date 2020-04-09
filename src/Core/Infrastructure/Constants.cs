@@ -1,4 +1,6 @@
-﻿namespace PrankChat.Mobile.Core.Infrastructure
+﻿using PrankChat.Mobile.Core.Presentation.Localization;
+
+namespace PrankChat.Mobile.Core.Infrastructure
 {
     public static class Constants
     {
@@ -45,6 +47,28 @@
             public const string UploadVideos = "competition_upload_videos";
             public const string Voting = "competition_voting";
             public const string Finished = "finished";
+        }
+
+        public static class ComplaintConstants
+        {
+            public static readonly string[] ProfileCompetitionAims =
+            {
+                Resources.Complaint_Wrong_Name,
+                Resources.Complaint_Unacceptable_Content,
+                Resources.Complaint_Unacceptable_Information_In_Profile,
+                Resources.Complaint_Other
+            };
+
+            public static readonly string[] CommonCompetitionAims =
+            {
+                Resources.Complaint_Spam,
+                Resources.Complaint_Naked_Content,
+                Resources.Complaint_Hostile_Utterances,
+                Resources.Complaint_Dangerous_Organizations,
+                Resources.Complaint_Rights_Violation,
+                Resources.Complaint_Cheating,
+                Resources.Complaint_Other
+            };
         }
     }
 }
