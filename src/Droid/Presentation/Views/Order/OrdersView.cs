@@ -10,10 +10,12 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Rating.Items;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Adapters;
 using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders;
+using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Rating;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
@@ -51,7 +53,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             _endlessRecyclerView.Adapter = _adapter;
 
             _endlessRecyclerView.ItemTemplateSelector = new TemplateSelector()
-                .AddElement<OrderItemViewModel, OrderItemViewHolder>(Resource.Layout.cell_order);
+                .AddElement<OrderItemViewModel, OrderItemViewHolder>(Resource.Layout.cell_order)
+                .AddElement<RatingItemViewModel, RatingItemViewHolder>(Resource.Layout.cell_rating);
 
             _stateScrollListener = new StateScrollListener();
             _endlessRecyclerView.AddOnScrollListener(_stateScrollListener);
