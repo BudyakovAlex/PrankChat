@@ -9,6 +9,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.iOS.Delegates;
 using UIKit;
 using UserNotifications;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
 {
