@@ -10,6 +10,7 @@ using PrankChat.Mobile.iOS.Delegates;
 using UIKit;
 using UserNotifications;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
 {
@@ -39,19 +40,37 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
         /// </summary>
         public void HandleForegroundNotification(NSDictionary userInfo)
         {
-            var payload = HandleNotificationPayload(userInfo);
-            ShowLocalNotification(payload.title, payload.body);
+            var pushNotificationData = HandleNotificationPayload(userInfo);
+            ScheduleLocalNotification(pushNotificationData.Title, pushNotificationData.Body);
         }
 
         public void HandleBackgroundNotification(NSDictionary userInfo)
         {
-            var payload = HandleNotificationPayload(userInfo);
-            //TryNavigateToSignalDetails(payload.signalId);
+            var pushNotificationData = HandleNotificationPayload(userInfo);
+            NotificationManager.Instance.TryNavigateToView(pushNotificationData?.OrderId);
         }
 
-        private void ShowLocalNotification(string title, string body)
+        public PushNotificationData HandleNotificationPayload(NSDictionary userInfo)
         {
-            ScheduleLocalNotification(title, body);
+            if (userInfo == null)
+            {
+                return null;
+            }
+
+            if (!(userInfo["aps"] is NSDictionary apsDictionary))
+            {
+                return null;
+            }
+
+            var alertDictionary = apsDictionary["alert"] as NSDictionary;
+
+            alertDictionary.TryGetValue(new NSString("title"), out var title);
+            alertDictionary.TryGetValue(new NSString("body"), out var body);
+            alertDictionary.TryGetValue(new NSString("value"), out var value);
+            alertDictionary.TryGetValue(new NSString("key"), out var key);
+
+            var notificationDataModel = NotificationManager.Instance.GenerateNotificationData(key?.ToString(), value?.ToString(), title?.ToString(), body?.ToString());
+            return notificationDataModel;
         }
 
         private void ScheduleLocalNotification(string title, string message)
