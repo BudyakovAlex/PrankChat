@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Android.App;
 using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
+using MvvmCross.Base;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -10,17 +13,20 @@ using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using Toolbar = Android.Support.V7.Widget.Toolbar;
+using PrankChat.Mobile.Droid.Extensions;
 
 namespace PrankChat.Mobile.Droid.ApplicationServices
 {
     public class DialogService : BaseDialogService
     {
         private readonly IMvxAndroidCurrentTopActivity _topActivity;
+        private readonly IMvxMainThreadAsyncDispatcher _mvxMainThreadAsyncDispatcher;
 
-        public DialogService(INavigationService navigationService, IMvxAndroidCurrentTopActivity topActivity)
+        public DialogService(INavigationService navigationService, IMvxAndroidCurrentTopActivity topActivity, IMvxMainThreadAsyncDispatcher mvxMainThreadAsyncDispatcher)
              : base(navigationService)
         {
             _topActivity = topActivity;
+            _mvxMainThreadAsyncDispatcher = mvxMainThreadAsyncDispatcher;
         }
 
         public override void ShowToast(string text, ToastType toastType)
@@ -41,6 +47,35 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
             toast.Show();
         }
 
+        public override Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null)
+        {
+            _topActivity.Activity.HideKeyboard();
+            var selectedDate = initialDateTime ?? DateTime.Now;
+
+            var taskCompletionSource = new TaskCompletionSource<DateTime?>();
+            _mvxMainThreadAsyncDispatcher.ExecuteOnMainThreadAsync(() =>
+            {
+                var dateEvent = new EventHandler<DatePickerDialog.DateSetEventArgs>((s, e) =>
+                {
+                    taskCompletionSource.TrySetResult(e.Date);
+                });
+
+                var datePicker = new DatePickerDialog(_topActivity.Activity, Resource.Style.Theme_PrankChat_DateDialog, dateEvent, selectedDate.Year, selectedDate.Month, selectedDate.Day);
+                datePicker.CancelEvent += (s, e) =>
+                {
+                    taskCompletionSource.TrySetResult(null);
+                };
+                datePicker.Show();
+
+            });
+            return taskCompletionSource.Task;
+        }
+
+        private void ff(object sender, DatePickerDialog.DateSetEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private int GetToastYOffset(MvxAppCompatActivity activity)
         {
             var toolbar = GetToolbar(activity);
@@ -50,8 +85,7 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
             }
 
             (_, var y) = toolbar.GetLocationInWindow();
-            var coordinator = toolbar.Parent.Parent as CoordinatorLayout;
-            var yOffset = coordinator != null ? coordinator.Height - y : y;
+            var yOffset = toolbar.Parent.Parent is CoordinatorLayout coordinator ? coordinator.Height - y : y;
             return yOffset;
         }
 

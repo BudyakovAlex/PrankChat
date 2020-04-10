@@ -150,6 +150,10 @@
         <item name="android:indeterminateTintMode">src_atop</item>
     </style>
 
+    <style name="Theme.PrankChat.DateDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/accent</item>
+    </style>
+
     <style name="Theme.PrankChat.ShareDialogStyle" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:windowBackground">@null</item>
         <item name="android:windowIsFloating">true</item>

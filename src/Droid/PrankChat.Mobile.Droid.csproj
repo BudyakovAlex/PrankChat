@@ -177,6 +177,7 @@
     <Compile Include="Presentation\Adapters\ViewHolders\Abstract\Video\VideoCardViewHolder.cs" />
     <Compile Include="Presentation\Converters\InvertedInvisibleConverter.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Arbitration\ArbitrationItemViewHolder.cs" />
+    <Compile Include="Extensions\ActivityExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
