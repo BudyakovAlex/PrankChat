@@ -13,12 +13,12 @@ namespace PrankChat.Mobile.iOS.Delegates
 			var userInfo = response.Notification.Request.Content.UserInfo;
 			var pushNotificationData = NotificationWrapper.Instance.HandleNotificationPayload(userInfo);
 			NotificationManager.Instance.TryNavigateToView(pushNotificationData?.OrderId);
-			completionHandler();
+			completionHandler?.Invoke();
 		}
 
 		public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
 		{
-			completionHandler(UNNotificationPresentationOptions.Alert);
+			completionHandler?.Invoke(UNNotificationPresentationOptions.Alert);
 		}
 	}
 }

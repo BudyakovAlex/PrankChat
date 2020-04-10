@@ -10,9 +10,9 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 	[Service]
 	public class NotificationActionService : IntentService
 	{
-        private int? _orderId;
+		private int? _orderId;
 
-        public NotificationActionService(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
+		public NotificationActionService(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
 		{
 		}
 
@@ -29,8 +29,8 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 			var splashActivity = new Intent(Application.Context, typeof(SplashScreen)).AddFlags(ActivityFlags.NewTask);
 			StartActivity(splashActivity);
 
-            _orderId = NotificationWrapper.GetOrderId(intent);
+			_orderId = NotificationWrapper.GetOrderId(intent);
 			Core.ApplicationServices.Notifications.NotificationManager.Instance.TryNavigateToView(_orderId);
-        }
-    }
+		}
+	}
 }

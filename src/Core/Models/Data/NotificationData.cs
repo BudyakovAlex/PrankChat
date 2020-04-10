@@ -4,13 +4,13 @@ namespace PrankChat.Mobile.Core.Models.Data
 {
     public class PushNotificationData
     {
-        public string Title { get; set; }
+        public string Title { get; }
 
-        public string Body { get; set; }
+        public string Body { get; }
 
-        public NotificationType? Type { get; set; }
+        public NotificationType? Type { get; }
 
-        public int? OrderId { get; set; }
+        public int? OrderId { get; }
 
         public PushNotificationData(string title, string body)
         {

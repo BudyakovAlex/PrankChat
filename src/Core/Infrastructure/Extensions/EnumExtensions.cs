@@ -39,7 +39,6 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                 if (enumMemberAttribute?.Value == enumMember)
                     return (T)Enum.Parse(enumType, name);
             }
-            //throw exception or whatever handling you want or
             return default;
         }
     }
