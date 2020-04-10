@@ -71,11 +71,6 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
             return taskCompletionSource.Task;
         }
 
-        private void ff(object sender, DatePickerDialog.DateSetEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private int GetToastYOffset(MvxAppCompatActivity activity)
         {
             var toolbar = GetToolbar(activity);
