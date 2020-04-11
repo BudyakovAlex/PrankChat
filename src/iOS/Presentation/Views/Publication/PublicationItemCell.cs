@@ -1,8 +1,11 @@
 ﻿using System;
+using CoreAnimation;
+using CoreGraphics;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
+using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Binding;
@@ -24,7 +27,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
 		protected override UIImageView StubImageView => stubImageView;
 
-		protected override void SetupControls()
+		protected override UIView RootProcessingBackgroundView => placeProcessingOverlay;
+
+		protected override UIView ProcessingBackgroundView => processingBackgroundView;
+
+		protected override UIActivityIndicatorView ProcessingActivityIndicator => processingIndicatorView;
+
+		protected override UILabel ProcessingLabel => processingLabel;
+
+        protected override void SetupControls()
 		{
 			base.SetupControls();
 
@@ -38,6 +49,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             // TODO: Unhide this button when video saving will be available.
             bookmarkButton.Hidden = true;
+
+			var gradient = new CAGradientLayer
+			{
+				CornerRadius = 10,
+				MaskedCorners = CACornerMask.MinXMinYCorner | CACornerMask.MaxXMinYCorner,
+				StartPoint = new CGPoint(0f, 1f),
+				EndPoint = new CGPoint(1f, 1f),
+				Colors = new[] { Theme.Color.CompetitionPhaseVotingSecondary.CGColor, Theme.Color.CompetitionPhaseVotingPrimary.CGColor }
+			};
+
+			placeProcessingOverlay.Layer.InsertSublayer(gradient, 0);
+			placeProcessingOverlay.Layer.CornerRadius = 10;
+			processingBackgroundView.Layer.CornerRadius = 8;
 		}
 
 		protected override void SetBindings()
@@ -111,6 +135,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			set.Bind(stubImageView)
 				.For(v => v.ImagePath)
 				.To(vm => vm.VideoPlaceholderImageUrl);
+
+			set.Bind(placeProcessingOverlay)
+			   .For(v => v.BindVisible())
+			   .To(vm => vm.IsVideoProcessing);
+
+			set.Bind(videoView)
+			   .For(v => v.BindHidden())
+			   .To(vm => vm.IsVideoProcessing);
+
+			set.Bind(this)
+			   .For(v => v.CanShowStub)
+			   .To(vm => vm.IsVideoProcessing)
+               .WithConversion<MvxInvertedBooleanConverter>();
 
 			set.Apply();
 		}

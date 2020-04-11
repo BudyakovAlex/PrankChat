@@ -1,6 +1,7 @@
 ﻿using System;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
+using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
@@ -26,6 +27,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         protected override UIActivityIndicatorView LoadingActivityIndicator => loadingActivityIndicator;
 
         protected override UIImageView StubImageView => stubImageView;
+
+        protected override UIView RootProcessingBackgroundView => rootProcessingBackgroundView;
+
+        protected override UIView ProcessingBackgroundView => processingBackgroundView;
+
+        protected override UILabel ProcessingLabel => processingLabel;
+
+        protected override UIActivityIndicatorView ProcessingActivityIndicator => processingIndicatorView;
 
         public bool IsLikeButtonVisible
         {
@@ -137,6 +146,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             bindingSet.Bind(this)
                       .For(v => v.IsLikeButtonVisible)
                       .To(vm => vm.CanVoteVideo);
+
+            bindingSet.Bind(RootProcessingBackgroundView)
+                      .For(v => v.BindVisible())
+                      .To(vm => vm.IsVideoProcessing);
+
+            bindingSet.Bind(videoView)
+                      .For(v => v.BindHidden())
+                      .To(vm => vm.IsVideoProcessing);
+
+            bindingSet.Bind(this)
+                      .For(v => v.CanShowStub)
+                      .To(vm => vm.IsVideoProcessing)
+                      .WithConversion<MvxInvertedBooleanConverter>();
 
             bindingSet.Apply();
         }

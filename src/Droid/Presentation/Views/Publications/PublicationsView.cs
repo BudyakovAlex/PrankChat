@@ -199,7 +199,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             videoService.Play(itemViewHolder.ViewModel.VideoUrl, itemViewHolder.ViewModel.VideoId);
             _previousPublicationViewHolder = itemViewHolder;
             _previousVideoView = videoView;
-
             Debug.WriteLine("PlayVideo [End]");
         }
 

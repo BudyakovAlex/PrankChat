@@ -37,6 +37,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         public DateTime PublicationDate { get; }
         public bool IsMyPublication { get; }
         public bool IsVotingAvailable { get; }
+        public bool IsVideoProcessing => string.IsNullOrEmpty(VideoUrl);
 
         private long _numberOfLikes;
         public long NumberOfLikes

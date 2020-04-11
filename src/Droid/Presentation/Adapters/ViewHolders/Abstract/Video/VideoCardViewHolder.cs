@@ -15,22 +15,39 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
         {
         }
 
-        protected override void DoInit(View view)
-        {
-            base.DoInit(view);
-
-            VideoView = view.FindViewById<VideoView>(Resource.Id.video_file);
-            StubImageView = view.FindViewById<MvxCachedImageView>(Resource.Id.stub_image_view);
-            LoadingProgressBar = view.FindViewById<ProgressBar>(Resource.Id.loading_progress_bar);
-            LoadingProgressBar.Visibility = ViewStates.Gone;
-            VideoView.SetOnInfoListener(new MediaPlayerOnInfoListener(OnInfoChanged));
-        }
+        public View ProceccingView { get; private set; }
 
         public VideoView VideoView { get; private set; }
 
         public MvxCachedImageView StubImageView { get; private set; }
 
         public ProgressBar LoadingProgressBar { get; private set; }
+
+        private bool _canShowStub = true;
+        public bool CanShowStub
+        {
+            get => _canShowStub;
+            set
+            {
+                _canShowStub = value;
+                if (!value)
+                {
+                    StubImageView.Visibility = ViewStates.Gone;
+                }
+            }
+        }
+
+        protected override void DoInit(View view)
+        {
+            base.DoInit(view);
+
+            ProceccingView = view.FindViewById<View>(Resource.Id.processing_view);
+            VideoView = view.FindViewById<VideoView>(Resource.Id.video_file);
+            StubImageView = view.FindViewById<MvxCachedImageView>(Resource.Id.stub_image_view);
+            LoadingProgressBar = view.FindViewById<ProgressBar>(Resource.Id.loading_progress_bar);
+            LoadingProgressBar.Visibility = ViewStates.Gone;
+            VideoView.SetOnInfoListener(new MediaPlayerOnInfoListener(OnInfoChanged));
+        }
 
         public override void OnViewRecycled()
         {

@@ -28,10 +28,22 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 		UIKit.UILabel postDateLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIView processingBackgroundView { get; set; }
+
+		[Outlet]
+		UIKit.UIActivityIndicatorView processingIndicatorView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel processingLabel { get; set; }
+
+		[Outlet]
 		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profileImageView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel profileNameLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIView rootProcessingBackgroundView { get; set; }
 
 		[Outlet]
 		FFImageLoading.Cross.MvxCachedImageView stubImageView { get; set; }
@@ -44,9 +56,39 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (rootProcessingBackgroundView != null) {
+				rootProcessingBackgroundView.Dispose ();
+				rootProcessingBackgroundView = null;
+			}
+
+			if (processingBackgroundView != null) {
+				processingBackgroundView.Dispose ();
+				processingBackgroundView = null;
+			}
+
+			if (processingIndicatorView != null) {
+				processingIndicatorView.Dispose ();
+				processingIndicatorView = null;
+			}
+
+			if (processingLabel != null) {
+				processingLabel.Dispose ();
+				processingLabel = null;
+			}
+
 			if (likeButton != null) {
 				likeButton.Dispose ();
 				likeButton = null;
+			}
+
+			if (likeButtonBottomConstraint != null) {
+				likeButtonBottomConstraint.Dispose ();
+				likeButtonBottomConstraint = null;
+			}
+
+			if (likeButtonHeightConstraint != null) {
+				likeButtonHeightConstraint.Dispose ();
+				likeButtonHeightConstraint = null;
 			}
 
 			if (loadingActivityIndicator != null) {
@@ -82,16 +124,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 			if (viewsLabel != null) {
 				viewsLabel.Dispose ();
 				viewsLabel = null;
-			}
-
-			if (likeButtonHeightConstraint != null) {
-				likeButtonHeightConstraint.Dispose ();
-				likeButtonHeightConstraint = null;
-			}
-
-			if (likeButtonBottomConstraint != null) {
-				likeButtonBottomConstraint.Dispose ();
-				likeButtonBottomConstraint = null;
 			}
 		}
 	}
