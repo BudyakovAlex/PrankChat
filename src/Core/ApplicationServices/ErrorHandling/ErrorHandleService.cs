@@ -23,6 +23,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
         private readonly IDialogService _dialogService;
         private readonly IMvxLogProvider _logProvider;
 
+        private bool _isSuspended;
+
         public ErrorHandleService(IMvxMessenger messenger, IDialogService dialogService, IMvxLogProvider logProvider)
         {
             _dialogService = dialogService;
@@ -55,6 +57,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
 
         private void OnServerErrorEvent(ServerErrorMessage e)
         {
+            if (_isSuspended)
+            {
+                return;
+            }
+
             var exception = e.Error;
 
             switch (exception)
@@ -120,6 +127,16 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
                     _semaphore.Release();
                 }
             });
+        }
+
+        public void SuspendServerErrorsHandling()
+        {
+            _isSuspended = true;
+        }
+
+        public void ResumeServerErrorsHandling()
+        {
+            _isSuspended = false;
         }
     }
 }

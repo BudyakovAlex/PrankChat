@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
@@ -7,6 +8,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Configuration;
+using PrankChat.Mobile.Core.Exceptions.UserVisible.Forbidden;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -110,6 +112,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     Price = Price.Value,
                 };
 
+                ErrorHandleService.SuspendServerErrorsHandling();
                 var newOrder = await ApiService.CreateOrderAsync(createOrderModel);
                 if (newOrder != null)
                 {
@@ -121,11 +124,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     SetDefaultData();
                 }
             }
+            catch (Exception ex)
+            {
+                await HandleLowBalanceExceptionAsync(ex);
+            }
             finally
             {
+                ErrorHandleService.ResumeServerErrorsHandling();
                 _isExecuting = false;
                 IsBusy = false;
             }
+        }
+
+        private async Task HandleLowBalanceExceptionAsync(Exception exception)
+        {
+            var canRefil = await DialogService.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.ProfileView_Refill, Resources.Cancel);
+            if (!canRefil)
+            {
+                return;
+            }
+
+            await NavigationService.ShowRefillView();
         }
 
         private async Task OnDateDialogAsync()

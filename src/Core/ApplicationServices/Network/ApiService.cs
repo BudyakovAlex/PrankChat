@@ -104,7 +104,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel orderInfo)
         {
             var createOrderApiModel = MappingConfig.Mapper.Map<CreateOrderApiModel>(orderInfo);
-            var newOrder = await _client.Post<CreateOrderApiModel, DataApiModel<OrderApiModel>>("orders", createOrderApiModel);
+            var newOrder = await _client.Post<CreateOrderApiModel, DataApiModel<OrderApiModel>>("orders", createOrderApiModel, true);
             return MappingConfig.Mapper.Map<OrderDataModel>(newOrder?.Data);
         }
 
