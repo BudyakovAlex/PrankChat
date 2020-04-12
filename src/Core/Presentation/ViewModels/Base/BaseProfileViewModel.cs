@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Timers;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
@@ -11,11 +12,35 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {
     public class BaseProfileViewModel : PaginationViewModel
     {
+        private const int CheckCanSendEmailInterval = 60000;
+        private const int UnlockResendMinutes = 3;
+
+        private Timer _timer;
+
+        public BaseProfileViewModel(INavigationService navigationService,
+                                    IErrorHandleService errorHandleService,
+                                    IApiService apiService,
+                                    IDialogService dialogService,
+                                    ISettingsService settingsService)
+            : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
+        {
+            ResendEmailValidationCommand = new MvxAsyncCommand(ResendEmailValidationAsync, () => CanResendEmailValidation);
+            ShowValidationWarningCommand = new MvxCommand(ShowValidationWarning);
+
+            var timeStamp = Preferences.Get(nameof(CanResendEmailValidation), DateTime.MinValue);
+            _canResendEmailValidation = timeStamp <= DateTime.Now;
+
+            _timer = new Timer(CheckCanSendEmailInterval);
+            _timer.Elapsed += OnTimerElapsed;
+            _timer.Start();
+        }
+
         private string _email;
         public string Email
         {
@@ -76,6 +101,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public bool IsGenderFemale => Gender == GenderType.Female;
 
+        private bool _isEmailVerified;
+        public bool IsEmailVerified
+        {
+            get => _isEmailVerified;
+            private set => SetProperty(ref _isEmailVerified, value);
+        }
+
+        private bool _canResendEmailValidation;
+        public bool CanResendEmailValidation
+        {
+            get => _canResendEmailValidation;
+            private set
+            {
+                SetProperty(ref _canResendEmailValidation, value);
+                ResendEmailValidationCommand.RaiseCanExecuteChanged();
+            }
+        }
+
         private string _profilePhotoUrl;
         public string ProfilePhotoUrl
         {
@@ -90,18 +133,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             set => SetProperty(ref _description, value);
         }
 
+        public IMvxAsyncCommand ResendEmailValidationCommand { get; }
+
+        public IMvxCommand ShowValidationWarningCommand { get; }
+
         public MvxAsyncCommand SelectBirthdayCommand => new MvxAsyncCommand(OnSelectBirthdayAsync);
 
         public MvxCommand<GenderType> SelectGenderCommand => new MvxCommand<GenderType>(OnSelectGender);
-
-        public BaseProfileViewModel(INavigationService navigationService,
-                                    IErrorHandleService errorHandleService,
-                                    IApiService apiService,
-                                    IDialogService dialogService,
-                                    ISettingsService settingsService)
-            : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
-        {
-        }
 
         public override Task Initialize()
         {
@@ -114,6 +152,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             if (user == null)
                 return Task.CompletedTask;
 
+            IsEmailVerified = user.EmailVerifiedAt != null;
             Email = user.Email;
             Name = user.Name;
             Login = user.Login;
@@ -123,6 +162,26 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             Description = user.Description;
 
             return Task.CompletedTask;
+        }
+
+        private async Task ResendEmailValidationAsync()
+        {
+            await ApiService.VerifyEmailAsync();
+
+            DialogService.ShowToast(Resources.Profile_Email_Confirmation_Sent, ToastType.Positive);
+            Preferences.Set(nameof(CanResendEmailValidation), DateTime.Now.AddMinutes(UnlockResendMinutes));
+            CanResendEmailValidation = false;
+        }
+
+        private void OnTimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            var timeStamp = Preferences.Get(nameof(CanResendEmailValidation), DateTime.MinValue);
+            CanResendEmailValidation = timeStamp <= DateTime.Now;
+        }
+
+        private void ShowValidationWarning()
+        {
+            DialogService.ShowToast(Resources.Profile_Your_Email_Not_Actual, ToastType.Negative);
         }
 
         private async Task OnSelectBirthdayAsync()

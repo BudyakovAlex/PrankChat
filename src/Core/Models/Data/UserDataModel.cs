@@ -17,6 +17,8 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public DateTime? DocumentVerifiedAt { get; set; }
 
+        public DateTime? EmailVerifiedAt { get; set; }
+
         public DocumentDataModel Document { get; set; }
 
         public string Login { get; set; }

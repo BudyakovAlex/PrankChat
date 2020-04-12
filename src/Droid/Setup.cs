@@ -45,6 +45,11 @@ namespace PrankChat.Mobile.Droid
             registry.RegisterCustomBindingFactory<View>(BackgroundResourceBinding.TargetBinding, view => new BackgroundResourceBinding(view));
             registry.RegisterCustomBindingFactory<ImageView>(ImageViewTintColorTargetBinding.TargetBinding, view => new ImageViewTintColorTargetBinding(view));
             registry.RegisterCustomBindingFactory<TextView>(TextColorTargetBinding.TargetBinding, view => new TextColorTargetBinding(view));
+
+            registry.RegisterCustomBindingFactory<View>(PaddingTargetBinding.StartPadding, view => new PaddingTargetBinding(view, PaddingTargetBinding.StartPadding));
+            registry.RegisterCustomBindingFactory<View>(PaddingTargetBinding.EndPadding, view => new PaddingTargetBinding(view, PaddingTargetBinding.EndPadding));
+            registry.RegisterCustomBindingFactory<View>(PaddingTargetBinding.TopPadding, view => new PaddingTargetBinding(view, PaddingTargetBinding.TopPadding));
+            registry.RegisterCustomBindingFactory<View>(PaddingTargetBinding.BottomPadding, view => new PaddingTargetBinding(view, PaddingTargetBinding.BottomPadding));
         }
     }
 }

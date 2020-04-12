@@ -285,7 +285,6 @@
     <string name="OnBoarding_Third_Description">"Пользователи PrankChat публикуют заказы по которым ты можешь снять свое видео и получить оплату"</string>
     <string name="OnBoarding_Fourth_Description">"PrankChat регулярно проводит конкурсы на лучшее видео с денежными призами. Участие бесплатное"</string>
     <string name="OnBoarding_Fifth_Description">"Публикуй свое видео и стань известным"</string>
-
     <string name="Complaint_Spam">"Это спам"</string>
     <string name="Complaint_Naked_Content">"Порнография и нагота"</string>
     <string name="Complaint_Hostile_Utterances">"Оскорбления или травля"</string>
@@ -302,4 +301,7 @@
     <string name="Order_Add">"Создать"</string>
     <string name="Order_Create_Message">"Вы уверены что хотите создать заказ? "</string>
     <string name="Processing_Video">"Обработка видео"</string>
+    <string name="Profile_Your_Email_Not_Actual">"Ваша почта не подтверждена"</string>
+    <string name="Profile_Email_Confirmation_Sent">"На Вашу почту отправлено письмо с подтверждением"</string>
+    <string name="Profile_Resend_Confirmation">"Отправить повторно"</string>
 </resources>

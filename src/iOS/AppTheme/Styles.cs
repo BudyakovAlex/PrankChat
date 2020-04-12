@@ -387,6 +387,20 @@ namespace PrankChat.Mobile.iOS.AppTheme
             button.SetAttributedTitle(attributedTitle, UIControlState.Normal);
         }
 
+        public static void SetLinkStyle(this UILabel label, UIColor color, string text, int fontSize)
+        {
+            var titleAttributes = new UIStringAttributes
+            {
+                Font = Theme.Font.RegularFontOfSize(fontSize),
+                ForegroundColor = color,
+                UnderlineStyle = NSUnderlineStyle.Single,
+                UnderlineColor = color,
+            };
+
+            var attributedTitle = new NSAttributedString(text, titleAttributes);
+            label.AttributedText = attributedTitle;
+        }
+
         public static void SetLightStyle(this UIButton button, string title)
         {
             button.Layer.BorderColor = Theme.Color.ButtonBorderPrimary.CGColor;

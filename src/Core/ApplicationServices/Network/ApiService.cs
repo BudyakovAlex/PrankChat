@@ -326,6 +326,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Users
 
+        public Task VerifyEmailAsync()
+        {
+            return _client.Post<DataApiModel>("me/verify/resend");
+        }
+
         public async Task GetCurrentUserAsync()
         {
             var dataApiModel = await _client.Get<DataApiModel<UserApiModel>>("me", includes: IncludeType.Document);

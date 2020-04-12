@@ -8,4 +8,10 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("data")]
         public T Data { get; set; }
     }
+
+    public class DataApiModel
+    {
+        [JsonProperty("data")]
+        public object Data { get; set; }
+    }
 }

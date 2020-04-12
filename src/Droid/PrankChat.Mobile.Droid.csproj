@@ -178,6 +178,7 @@
     <Compile Include="Presentation\Converters\InvertedInvisibleConverter.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Arbitration\ArbitrationItemViewHolder.cs" />
     <Compile Include="Extensions\ActivityExtensions.cs" />
+    <Compile Include="Presentation\Bindings\PaddingTargetBinding.cs" />
     <Compile Include="Presentation\Views\Onboarding\OnboardingView.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Onboarding\OnboardingItemViewHolder.cs" />
   </ItemGroup>
@@ -827,6 +828,10 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_warning.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -868,7 +873,7 @@
       <Version>28.0.0.3</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
-      <Version>1.3.1</Version>
+      <Version>1.5.2</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Plugin.Messenger">
       <Version>6.4.3</Version>

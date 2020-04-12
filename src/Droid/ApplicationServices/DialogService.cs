@@ -13,12 +13,13 @@ using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using Toolbar = Android.Support.V7.Widget.Toolbar;
-using PrankChat.Mobile.Droid.Extensions;
 
 namespace PrankChat.Mobile.Droid.ApplicationServices
 {
     public class DialogService : BaseDialogService
     {
+        private const int ViewAppearingMillisecondsDelay = 500;
+
         private readonly IMvxAndroidCurrentTopActivity _topActivity;
         private readonly IMvxMainThreadAsyncDispatcher _mvxMainThreadAsyncDispatcher;
 
@@ -47,28 +48,39 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
             toast.Show();
         }
 
-        public override Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null)
+        public override async Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null)
         {
-            _topActivity.Activity.HideKeyboard();
+            if (_topActivity.Activity is null)
+            {
+                await Task.Delay(ViewAppearingMillisecondsDelay);
+            }
+
+            var activity = _topActivity.Activity ?? Xamarin.Essentials.Platform.CurrentActivity;
+            if (activity is null)
+            {
+                return null;
+            }
+
+            activity.HideKeyboard();
             var selectedDate = initialDateTime ?? DateTime.Now;
 
             var taskCompletionSource = new TaskCompletionSource<DateTime?>();
-            _mvxMainThreadAsyncDispatcher.ExecuteOnMainThreadAsync(() =>
+            _ = _mvxMainThreadAsyncDispatcher.ExecuteOnMainThreadAsync(() =>
             {
                 var dateEvent = new EventHandler<DatePickerDialog.DateSetEventArgs>((s, e) =>
                 {
                     taskCompletionSource.TrySetResult(e.Date);
                 });
 
-                var datePicker = new DatePickerDialog(_topActivity.Activity, Resource.Style.Theme_PrankChat_DateDialog, dateEvent, selectedDate.Year, selectedDate.Month, selectedDate.Day);
+                var datePicker = new DatePickerDialog(activity, Resource.Style.Theme_PrankChat_DateDialog, dateEvent, selectedDate.Year, selectedDate.Month, selectedDate.Day);
                 datePicker.CancelEvent += (s, e) =>
                 {
                     taskCompletionSource.TrySetResult(null);
                 };
                 datePicker.Show();
-
             });
-            return taskCompletionSource.Task;
+
+            return await taskCompletionSource.Task;
         }
 
         private int GetToastYOffset(MvxAppCompatActivity activity)

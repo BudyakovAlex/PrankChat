@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CoreGraphics;
 using Foundation;
 using MvvmCross.Binding;
@@ -23,81 +24,108 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
     {
         protected override void SetupBinding()
         {
-            var set = this.CreateBindingSet<ProfileUpdateView, ProfileUpdateViewModel>();
+            var bindingSet = this.CreateBindingSet<ProfileUpdateView, ProfileUpdateViewModel>();
 
-            set.Bind(emailTextField)
-                .For(v => v.Text)
-                .To(vm => vm.Email)
-                .Mode(MvxBindingMode.TwoWay);
+            bindingSet.Bind(emailTextField)
+                      .For(v => v.Text)
+                      .To(vm => vm.Email)
+                      .Mode(MvxBindingMode.TwoWay);
 
-            set.Bind(loginTextField)
-                .For(v => v.Text)
-                .To(vm => vm.Login)
-                .Mode(MvxBindingMode.TwoWay);
+            bindingSet.Bind(loginTextField)
+                      .For(v => v.Text)
+                      .To(vm => vm.Login)
+                      .Mode(MvxBindingMode.TwoWay);
+                
+            bindingSet.Bind(nameTextField)
+                      .For(v => v.Text)
+                      .To(vm => vm.Name)
+                      .Mode(MvxBindingMode.TwoWay);
 
-            set.Bind(nameTextField)
-                .For(v => v.Text)
-                .To(vm => vm.Name)
-                .Mode(MvxBindingMode.TwoWay);
+            bindingSet.Bind(birthdayTextField)
+                      .For(v => v.Text)
+                      .To(vm => vm.BirthdayText);
 
-            set.Bind(birthdayTextField)
-                .For(v => v.Text)
-                .To(vm => vm.BirthdayText);
+            bindingSet.Bind(birthdayTextField.Tap())
+                      .For(v => v.Command)
+                      .To(vm => vm.SelectBirthdayCommand);
 
-            set.Bind(birthdayTextField.Tap())
-                .For(v => v.Command)
-                .To(vm => vm.SelectBirthdayCommand);
+            bindingSet.Bind(progressBar)
+                      .For(v => v.BindHidden())
+                      .To(vm => vm.IsBusy)
+                      .WithConversion<MvxInvertedBooleanConverter>();
 
-            set.Bind(progressBar)
-                .For(v => v.BindHidden())
-                .To(vm => vm.IsBusy)
-                .WithConversion<MvxInvertedBooleanConverter>();
+            bindingSet.Bind(saveButton)
+                      .To(vm => vm.SaveProfileCommand);
 
-            set.Bind(saveButton)
-                .To(vm => vm.SaveProfileCommand);
+            bindingSet.Bind(changePasswordLabel.Tap())
+                      .For(tap => tap.Command)
+                      .To(vm => vm.ChangePasswordCommand);
 
-            set.Bind(changePasswordLabel.Tap())
-                .For(tap => tap.Command)
-                .To(vm => vm.ChangePasswordCommand);
+            bindingSet.Bind(profileImage)
+                      .For(v => v.ImagePath)
+                      .To(vm => vm.ProfilePhotoUrl)
+                      .Mode(MvxBindingMode.OneWay);
 
-            set.Bind(profileImage)
-                .For(v => v.ImagePath)
-                .To(vm => vm.ProfilePhotoUrl)
-                .Mode(MvxBindingMode.OneWay);
+            bindingSet.Bind(profileImage.Tap())
+                      .For(v => v.Command)
+                      .To(vm => vm.ChangeProfilePhotoCommand);
 
-            set.Bind(profileImage.Tap())
-                .For(v => v.Command)
-                .To(vm => vm.ChangeProfilePhotoCommand);
+            bindingSet.Bind(profileImage)
+                      .For(v => v.PlaceholderText)
+                      .To(vm => vm.ProfileShortName);
 
-            set.Bind(profileImage)
-                .For(v => v.PlaceholderText)
-                .To(vm => vm.ProfileShortName);
+            bindingSet.Bind(changeProfilePhotoLabel.Tap())
+                      .For(v => v.Command)
+                      .To(vm => vm.ChangeProfilePhotoCommand);
 
-            set.Bind(changeProfilePhotoLabel.Tap())
-                .For(v => v.Command)
-                .To(vm => vm.ChangeProfilePhotoCommand);
+            bindingSet.Bind(femaleIconButton)
+                      .To(vm => vm.SelectGenderCommand)
+                      .CommandParameter(GenderType.Female);
 
-            set.Bind(femaleIconButton)
-                .To(vm => vm.SelectGenderCommand)
-                .CommandParameter(GenderType.Female);
+            bindingSet.Bind(femaleIconButton)
+                      .For(UIButtonSelectedTargetBinding.TargetBinding)
+                      .To(vm => vm.IsGenderFemale);
 
-            set.Bind(femaleIconButton)
-                .For(UIButtonSelectedTargetBinding.TargetBinding)
-                .To(vm => vm.IsGenderFemale);
-
-            set.Bind(maleIconButton)
+            bindingSet.Bind(maleIconButton)
                 .To(vm => vm.SelectGenderCommand)
                 .CommandParameter(GenderType.Male);
 
-            set.Bind(maleIconButton)
-                .For(UIButtonSelectedTargetBinding.TargetBinding)
-                .To(vm => vm.IsGenderMale);
+            bindingSet.Bind(maleIconButton)
+                      .For(UIButtonSelectedTargetBinding.TargetBinding)
+                      .To(vm => vm.IsGenderMale);
 
-            set.Bind(descriptionTextField)
-                .For(v => v.Text)
-                .To(vm => vm.Description);
+            bindingSet.Bind(descriptionTextField)
+                      .For(v => v.Text)
+                      .To(vm => vm.Description);
 
-            set.Apply();
+            bindingSet.Bind(emailValidationImageView)
+                     .For(v => v.BindHidden())
+                     .To(vm => vm.IsEmailVerified);
+
+            bindingSet.Bind(resndEmailContainerView)
+                      .For(v => v.BindHidden())
+                      .To(vm => vm.IsEmailVerified)
+                      .OneWay();
+
+            bindingSet.Bind(emailValidationImageView)
+                      .For(v => v.BindTap())
+                      .To(vm => vm.ShowValidationWarningCommand);
+
+            bindingSet.Bind(resendEmailLabel)
+                      .For(v => v.BindTap())
+                      .To(vm => vm.ResendEmailValidationCommand);
+
+            bindingSet.Bind(emailTextField)
+                      .For(FloatPlaceholderTextFieldPaddingTargetBinding.EndPadding)
+                      .To(vm => vm.IsEmailVerified)
+                      .WithConversion(BoolToIntConverter.Name, Tuple.Create(0, 45));
+
+            bindingSet.Bind(resendEmailLabel)
+                      .For(v => v.Alpha)
+                      .To(vm => vm.CanResendEmailValidation)
+                      .WithConversion(BoolToFloatConverter.Name, Tuple.Create(1f, 0.5f));
+
+            bindingSet.Apply();
         }
 
         protected override void SetupControls()
@@ -126,6 +154,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             maleIconButton.SetSelectableImageStyle("ic_radio_button_inactive", "ic_radio_button_active");
 
             saveButton.SetLightStyle(Resources.ProfileUpdateView_Button_Save);
+            resendEmailLabel.SetLinkStyle(Theme.Color.White, Resources.Profile_Resend_Confirmation, 14);
 
             changePasswordLabel.AttributedText = new NSAttributedString(Resources.ProfileUpdateView_ChangePassword, underlineStyle: NSUnderlineStyle.Single);
             changePasswordLabel.TextColor = UIColor.White;

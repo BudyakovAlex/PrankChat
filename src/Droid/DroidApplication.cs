@@ -17,6 +17,7 @@ namespace PrankChat.Mobile.Droid
         {
             base.OnCreate();
 
+            Xamarin.Essentials.Platform.Init(this);
             VKUtil.GetCertificateFingerprint(this, PackageName);
             VKSdk.Initialize(this);
         }

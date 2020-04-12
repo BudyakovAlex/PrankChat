@@ -70,6 +70,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Users
 
+        Task VerifyEmailAsync();
+
         Task GetCurrentUserAsync();
 
         Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo);
