@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using MvvmCross.Droid.Support.V7.RecyclerView;
@@ -21,17 +22,18 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters
         private readonly Action<Java.Lang.Object> _onViewAttachedToWindow;
         private readonly Action<Java.Lang.Object> _onViewDetachedFromWindow;
 
-        public RecycleViewBindableAdapter()
-        {
-        }
-
-        public RecycleViewBindableAdapter(IMvxAndroidBindingContext bindingContext, Action<Java.Lang.Object> onViewAttachedToWindow = null, Action<Java.Lang.Object> onViewDetachedFromWindow = null) : base(bindingContext)
+        public RecycleViewBindableAdapter(
+            IMvxAndroidBindingContext bindingContext,
+            Action<Java.Lang.Object> onViewAttachedToWindow = null,
+            Action<Java.Lang.Object> onViewDetachedFromWindow = null)
+            : base(bindingContext)
         {
             _onViewAttachedToWindow = onViewAttachedToWindow;
             _onViewDetachedFromWindow = onViewDetachedFromWindow;
         }
 
-        public RecycleViewBindableAdapter(IntPtr javaReference, Android.Runtime.JniHandleOwnership transfer) : base(javaReference, transfer)
+        protected RecycleViewBindableAdapter(IntPtr javaReference, JniHandleOwnership transfer)
+            : base(javaReference, transfer)
         {
         }
 

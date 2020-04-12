@@ -278,8 +278,6 @@
 "OnBoarding_Fifth_Title" = "Делай смешно !!!";
 "OnBoarding_First_Description" = "В ленте каждый автор PrankChat публикует свое эксклюзивное видео которого еще нет ни где. Просматривай и наслаждайся";
 "OnBoarding_Second_Description" = "Напиши любой заказ и пользователи PrankChat его экранизируют. Публикуй видео и становись знаменитым";
-
-/*Fuzzy*/
 "OnBoarding_Third_Description" = "Пользователи PrankChat публикуют заказы по которым ты можешь снять свое видео и получить оплату";
 "OnBoarding_Fourth_Description" = "PrankChat регулярно проводит конкурсы на лучшее видео с денежными призами. Участие бесплатное";
 "OnBoarding_Fifth_Description" = "Публикуй свое видео и стань известным";

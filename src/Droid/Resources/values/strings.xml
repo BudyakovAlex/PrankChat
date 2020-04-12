@@ -285,6 +285,7 @@
     <string name="OnBoarding_Third_Description">"Пользователи PrankChat публикуют заказы по которым ты можешь снять свое видео и получить оплату"</string>
     <string name="OnBoarding_Fourth_Description">"PrankChat регулярно проводит конкурсы на лучшее видео с денежными призами. Участие бесплатное"</string>
     <string name="OnBoarding_Fifth_Description">"Публикуй свое видео и стань известным"</string>
+
     <string name="Complaint_Spam">"Это спам"</string>
     <string name="Complaint_Naked_Content">"Порнография и нагота"</string>
     <string name="Complaint_Hostile_Utterances">"Оскорбления или травля"</string>

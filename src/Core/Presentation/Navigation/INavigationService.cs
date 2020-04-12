@@ -24,6 +24,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowMainView();
 
+        Task ShowOnBoardingView();
+
         Task ShowMainViewContent();
 
         Task ShowCommentsView();

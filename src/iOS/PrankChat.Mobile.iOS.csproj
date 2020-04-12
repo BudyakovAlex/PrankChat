@@ -332,6 +332,18 @@
     <Compile Include="Presentation\Views\Base\BaseVideoTableCell.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\VideoTableSource.cs" />
     <Compile Include="Infrastructure\Constants.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Onboarding\OnboardingViewController.xib" />
+    <Compile Include="Presentation\Views\Onboarding\OnboardingViewController.cs" />
+    <Compile Include="Presentation\Views\Onboarding\OnboardingViewController.designer.cs">
+      <DependentUpon>OnboardingViewController.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Onboarding\OnboardingItemCell.xib" />
+    <Compile Include="Presentation\Views\Onboarding\OnboardingItemCell.cs" />
+    <Compile Include="Presentation\Views\Onboarding\OnboardingItemCell.designer.cs">
+      <DependentUpon>OnboardingItemCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Views\Onboarding\OnboardingCollectionViewSource.cs" />
+    <BundleResource Include="Presentation\Localization\ru.lproj\Localizalbe.strings" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -979,6 +991,13 @@
     <Folder Include="Assets.xcassets\ic_prankcaht_icon.imageset\" />
     <Folder Include="Assets.xcassets\ic_credit_card.imageset\" />
     <Folder Include="Assets.xcassets\ic_arrow_dropdown.imageset\" />
+    <Folder Include="Presentation\Views\Onboarding\" />
+    <Folder Include="Assets.xcassets\bg_onboarding_item.imageset\" />
+    <Folder Include="Assets.xcassets\bg_onboarding_first_slide.imageset\" />
+    <Folder Include="Assets.xcassets\bg_onboarding_second_slide.imageset\" />
+    <Folder Include="Assets.xcassets\bg_onboarding_third_slide.imageset\" />
+    <Folder Include="Assets.xcassets\bg_onboarding_fourth_slide.imageset\" />
+    <Folder Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

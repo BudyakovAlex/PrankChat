@@ -73,5 +73,7 @@
     <Folder Include="Presentation\ViewModels\Shared\" />
     <Folder Include="Presentation\ViewModels\Shared\Abstract\" />
     <Folder Include="Models\Data\Shared\" />
+    <Folder Include="Presentation\ViewModels\Onboarding\" />
+    <Folder Include="Presentation\ViewModels\Onboarding\Items\" />
   </ItemGroup>
 </Project>
