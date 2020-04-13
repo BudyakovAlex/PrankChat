@@ -2,6 +2,7 @@
 using MvvmCross.Navigation;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
@@ -39,6 +40,12 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         public Task AppStart()
         {
+            var isOnBoardingShown = Preferences.Get(Constants.Keys.IsOnBoardingShown, false);
+            if (!isOnBoardingShown)
+            {
+                return ShowOnBoardingView();
+            }
+
             if (VersionTracking.IsFirstLaunchEver || _settingsService.User != null)
             {
                 return ShowMainView();

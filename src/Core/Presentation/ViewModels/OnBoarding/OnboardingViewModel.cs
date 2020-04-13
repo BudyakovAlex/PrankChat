@@ -64,8 +64,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
             if (IsLastSlide)
             {
                 Preferences.Set(Constants.Keys.IsOnBoardingShown, true);
-                await NavigationService.ShowMainView();
-                return;
+                if (VersionTracking.IsFirstLaunchEver || SettingsService.User != null)
+                {
+                    await NavigationService.ShowMainView();
+                    return;
+                }
+
+                await NavigationService.ShowLoginView();
             }
 
             SelectedIndex += 1;

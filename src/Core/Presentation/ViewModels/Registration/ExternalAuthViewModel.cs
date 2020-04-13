@@ -58,15 +58,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             // todo: not wait
             await ApiService.GetCurrentUserAsync();
             await _pushNotificationService.TryUpdateTokenAsync();
-
-            var isOnBoardingShown = Preferences.Get(Constants.Keys.IsOnBoardingShown, false);
-            if (isOnBoardingShown)
-            {
-                await NavigationService.ShowMainView();
-                return;
-            }
-
-            await NavigationService.ShowOnBoardingView();
+            await NavigationService.ShowMainView();
         }
     }
 }
