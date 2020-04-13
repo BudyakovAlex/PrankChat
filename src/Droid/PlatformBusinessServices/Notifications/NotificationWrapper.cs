@@ -130,10 +130,12 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
         {
             var bundle = intent.Extras;
             var bundleCollection = bundle?.KeySet();
-            if (bundleCollection == null || bundleCollection.Count == 0)
+            if (bundle is null ||
+                bundleCollection == null ||
+                bundleCollection.Count == 0)
                 return null;
 
-            var orderIdString = bundle.Get(Utils.Constants.PushNotificationKey.OrderId).ToString();
+            var orderIdString = bundle.Get(Utils.Constants.PushNotificationKey.OrderId)?.ToString();
             if (!string.IsNullOrEmpty(orderIdString))
             {
                 int.TryParse(orderIdString, out var orderId);
@@ -146,7 +148,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             var body = bundle.Get("body")?.ToString();
 
             var pushNotificationData = Core.ApplicationServices.Notifications.NotificationManager.Instance.GenerateNotificationData(key, value, title, body);
-            if (pushNotificationData.Type == NotificationType.OrderEvent)
+            if (pushNotificationData?.Type == NotificationType.OrderEvent)
             {
                 return pushNotificationData.OrderId;
             }

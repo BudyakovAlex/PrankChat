@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.Droid
         {
             base.OnCreate(bundle);
 
-            if (bundle == null)            {
+            if (bundle == null &&                Intent != null)            {
                 _orderId = NotificationWrapper.GetOrderId(Intent);
             }
 
