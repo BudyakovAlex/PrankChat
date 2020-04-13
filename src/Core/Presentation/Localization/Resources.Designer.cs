@@ -1630,5 +1630,29 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Order_Create_Message", resourceCulture);
             }
         }
+        
+        public static string Processing_Video {
+            get {
+                return ResourceManager.GetString("Processing_Video", resourceCulture);
+            }
+        }
+        
+        public static string Profile_Your_Email_Not_Actual {
+            get {
+                return ResourceManager.GetString("Profile_Your_Email_Not_Actual", resourceCulture);
+            }
+        }
+        
+        public static string Profile_Email_Confirmation_Sent {
+            get {
+                return ResourceManager.GetString("Profile_Email_Confirmation_Sent", resourceCulture);
+            }
+        }
+        
+        public static string Profile_Resend_Confirmation {
+            get {
+                return ResourceManager.GetString("Profile_Resend_Confirmation", resourceCulture);
+            }
+        }
     }
 }

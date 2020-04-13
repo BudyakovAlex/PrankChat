@@ -28,6 +28,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UIButton moreButton { get; set; }
 
 		[Outlet]
+		UIKit.UIView placeProcessingOverlay { get; set; }
+
+		[Outlet]
+		UIKit.UIView processingBackgroundView { get; set; }
+
+		[Outlet]
+		UIKit.UIActivityIndicatorView processingIndicatorView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel processingLabel { get; set; }
+
+		[Outlet]
 		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profileImage { get; set; }
 
 		[Outlet]
@@ -60,6 +72,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				likeButton = null;
 			}
 
+			if (processingIndicatorView != null) {
+				processingIndicatorView.Dispose ();
+				processingIndicatorView = null;
+			}
+
 			if (likeLabel != null) {
 				likeLabel.Dispose ();
 				likeLabel = null;
@@ -73,6 +90,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			if (moreButton != null) {
 				moreButton.Dispose ();
 				moreButton = null;
+			}
+
+			if (placeProcessingOverlay != null) {
+				placeProcessingOverlay.Dispose ();
+				placeProcessingOverlay = null;
+			}
+
+			if (processingBackgroundView != null) {
+				processingBackgroundView.Dispose ();
+				processingBackgroundView = null;
+			}
+
+			if (processingLabel != null) {
+				processingLabel.Dispose ();
+				processingLabel = null;
 			}
 
 			if (profileImage != null) {

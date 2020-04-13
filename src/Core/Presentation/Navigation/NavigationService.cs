@@ -12,12 +12,12 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Rating;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using Xamarin.Essentials;
@@ -25,116 +25,123 @@ using Xamarin.Essentials;
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
     public class NavigationService : INavigationService
-	{
-		private readonly IMvxNavigationService _mvxNavigationService;
-		private readonly ISettingsService _settingsService;
+    {
+        private readonly IMvxNavigationService _mvxNavigationService;
+        private readonly ISettingsService _settingsService;
 
-		public NavigationService(IMvxNavigationService mvxNavigationService, ISettingsService settingsService)
-		{
-			_mvxNavigationService = mvxNavigationService;
-			_settingsService = settingsService;
-		}
+		private int? _orderId;
 
-		public Task AppStart()
-		{
-			if (VersionTracking.IsFirstLaunchEver || _settingsService.User != null)
-			{
-				return ShowMainView();
-			}
+        public NavigationService(IMvxNavigationService mvxNavigationService, ISettingsService settingsService)
+        {
+            _mvxNavigationService = mvxNavigationService;
+            _settingsService = settingsService;
+        }
 
-			return ShowLoginView();
-		}
+        public Task AppStart()
+        {
+            if (VersionTracking.IsFirstLaunchEver || _settingsService.User != null)
+            {
+                return ShowMainView();
+            }
 
-		public Task ShowCashboxView()
-		{
-			return _mvxNavigationService.Navigate<CashboxViewModel>();
-		}
+            return ShowLoginView();
+        }
 
-		public Task ShowLoginView()
-		{
-			return _mvxNavigationService.Navigate<LoginViewModel>();
-		}
+        public Task ShowCashboxView()
+        {
+            return _mvxNavigationService.Navigate<CashboxViewModel>();
+        }
 
-		public Task ShowPasswordRecoveryView()
-		{
-			return _mvxNavigationService.Navigate<PasswordRecoveryViewModel>();
-		}
+        public Task ShowLoginView()
+        {
+            return _mvxNavigationService.Navigate<LoginViewModel>();
+        }
 
-		public Task ShowFinishPasswordRecoveryView()
-		{
-			return _mvxNavigationService.Navigate<FinishPasswordRecoveryViewModel>();
-		}
+        public Task ShowPasswordRecoveryView()
+        {
+            return _mvxNavigationService.Navigate<PasswordRecoveryViewModel>();
+        }
 
-		public Task ShowRegistrationView()
-		{
-			return _mvxNavigationService.Navigate<RegistrationViewModel>();
-		}
+        public Task ShowFinishPasswordRecoveryView()
+        {
+            return _mvxNavigationService.Navigate<FinishPasswordRecoveryViewModel>();
+        }
 
-		public Task ShowRegistrationSecondStepView(string email)
-		{
-			var parameter = new RegistrationNavigationParameter(email);
-			return _mvxNavigationService.Navigate<RegistrationSecondStepViewModel, RegistrationNavigationParameter>(parameter);
-		}
+        public Task ShowRegistrationView()
+        {
+            return _mvxNavigationService.Navigate<RegistrationViewModel>();
+        }
 
-		public Task ShowRegistrationThirdStepView()
-		{
-			return _mvxNavigationService.Navigate<RegistrationThirdStepViewModel>();
-		}
+        public Task ShowRegistrationSecondStepView(string email)
+        {
+            var parameter = new RegistrationNavigationParameter(email);
+            return _mvxNavigationService.Navigate<RegistrationSecondStepViewModel, RegistrationNavigationParameter>(parameter);
+        }
 
-		public Task ShowMainView()
-		{
-			return _mvxNavigationService.Navigate<MainViewModel>();
-		}
+        public Task ShowRegistrationThirdStepView()
+        {
+            return _mvxNavigationService.Navigate<RegistrationThirdStepViewModel>();
+        }
 
-		public Task ShowMainViewContent()
-		{
-			return Task.WhenAll(
-				_mvxNavigationService.Navigate<PublicationsViewModel>(),
-				_mvxNavigationService.Navigate<CompetitionsViewModel>(),
-				_mvxNavigationService.Navigate<CreateOrderViewModel>(),
-				_mvxNavigationService.Navigate<OrdersViewModel>(),
-				_mvxNavigationService.Navigate<ProfileViewModel>());
-		}
+        public Task ShowMainView()
+        {
+            return _mvxNavigationService.Navigate<MainViewModel>();
+        }
 
-		public Task ShowNotificationView()
-		{
-			return _mvxNavigationService.Navigate<NotificationViewModel>();
-		}
+        public Task ShowOnBoardingView()
+        {
+            return _mvxNavigationService.Navigate<OnboardingViewModel>();
+        }
 
-		//TODO: add correct logic for opening comments
-		public Task ShowCommentsView()
-		{
-			return _mvxNavigationService.Navigate<CommentsViewModel>();
-		}
+        public Task ShowMainViewContent()
+        {
+            return Task.WhenAll(
+                _mvxNavigationService.Navigate<PublicationsViewModel>(),
+                _mvxNavigationService.Navigate<CompetitionsViewModel>(),
+                _mvxNavigationService.Navigate<CreateOrderViewModel>(),
+                _mvxNavigationService.Navigate<OrdersViewModel>(),
+                _mvxNavigationService.Navigate<ProfileViewModel>());
+        }
 
-		public Task ShowCashboxContent()
-		{
-			return Task.WhenAll(
-				_mvxNavigationService.Navigate<RefillViewModel>(),
-						   _mvxNavigationService.Navigate<WithdrawalViewModel>());
-		}
+        public Task ShowNotificationView()
+        {
+            return _mvxNavigationService.Navigate<NotificationViewModel>();
+        }
 
-		public Task<bool> CloseView(BaseViewModel viewModel)
-		{
-			return _mvxNavigationService.Close(viewModel);
-		}
+        //TODO: add correct logic for opening comments
+        public Task ShowCommentsView()
+        {
+            return _mvxNavigationService.Navigate<CommentsViewModel>();
+        }
 
-		public Task ShowSearchView()
-		{
-			return _mvxNavigationService.Navigate<SearchViewModel>();
-		}
+        public Task ShowCashboxContent()
+        {
+            return Task.WhenAll(
+                _mvxNavigationService.Navigate<RefillViewModel>(),
+                           _mvxNavigationService.Navigate<WithdrawalViewModel>());
+        }
 
-		public Task<OrderDetailsResult> ShowOrderDetailsView(int orderId)
-		{
-			var parameter = new OrderDetailsNavigationParameter(orderId);
-			return _mvxNavigationService.Navigate<OrderDetailsViewModel, OrderDetailsNavigationParameter, OrderDetailsResult>(parameter);
-		}
+        public Task<bool> CloseView(BaseViewModel viewModel)
+        {
+            return _mvxNavigationService.Close(viewModel);
+        }
 
-		public Task ShowFullScreenVideoView(FullScreenVideoParameter fullScreenVideoParameter)
-		{
+        public Task ShowSearchView()
+        {
+            return _mvxNavigationService.Navigate<SearchViewModel>();
+        }
+
+        public Task<OrderDetailsResult> ShowOrderDetailsView(int orderId)
+        {
+            var parameter = new OrderDetailsNavigationParameter(orderId);
+            return _mvxNavigationService.Navigate<OrderDetailsViewModel, OrderDetailsNavigationParameter, OrderDetailsResult>(parameter);
+        }
+
+        public Task ShowFullScreenVideoView(FullScreenVideoParameter fullScreenVideoParameter)
+        {
             if (string.IsNullOrEmpty(fullScreenVideoParameter.VideoUrl))
             {
-				return Task.CompletedTask;
+                return Task.CompletedTask;
             }
 
 			return _mvxNavigationService.Navigate<FullScreenVideoViewModel, FullScreenVideoParameter>(fullScreenVideoParameter);
@@ -187,8 +194,6 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 			return _mvxNavigationService.Navigate<ImageCropViewModel, ImagePathNavigationParameter, ImageCropPathResult>(parameter);
 		}
 
-		int? _orderId;
-
 		public Task AppStartFromNotification(int orderId)
         {
 			_orderId = orderId;
@@ -200,35 +205,6 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
 			return ShowLoginView();
 		}
-
-        #region Dialogs
-
-        public Task ShowShareDialog(ShareDialogParameter parameter)
-		{
-			return _mvxNavigationService.Navigate<ShareDialogViewModel, ShareDialogParameter>(parameter);
-		}
-
-		public Task<ArrayDialogResult> ShowArrayDialog(ArrayDialogParameter parameter)
-		{
-			return _mvxNavigationService.Navigate<ArrayDialogViewModel, ArrayDialogParameter, ArrayDialogResult>(parameter);
-		}
-
-        public Task ShowCompetitionDetailsView(CompetitionDataModel competition)
-        {
-			return _mvxNavigationService.Navigate<CompetitionDetailsViewModel, CompetitionDataModel>(competition);
-		}
-
-		public Task ShowCompetitionPrizePoolView(CompetitionDataModel competition)
-        {
-			return _mvxNavigationService.Navigate<CompetitionPrizePoolViewModel, CompetitionDataModel>(competition);
-		}
-
-		public Task ShowCompetitionRulesView(string content)
-        {
-			return _mvxNavigationService.Navigate<CompetitionRulesViewModel, string>(content);
-		}
-
-		#endregion
 
 		private void NavigatenAfterMainViewByPushNotification(object sender, MvvmCross.Navigation.EventArguments.IMvxNavigateEventArgs e)
 		{
@@ -242,5 +218,34 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 				ShowOrderDetailsView(_orderId.Value).FireAndForget();
 			}
 		}
+
+        #region Dialogs
+
+        public Task ShowShareDialog(ShareDialogParameter parameter)
+        {
+            return _mvxNavigationService.Navigate<ShareDialogViewModel, ShareDialogParameter>(parameter);
+        }
+
+        public Task<ArrayDialogResult> ShowArrayDialog(ArrayDialogParameter parameter)
+        {
+            return _mvxNavigationService.Navigate<ArrayDialogViewModel, ArrayDialogParameter, ArrayDialogResult>(parameter);
+        }
+
+        public Task ShowCompetitionDetailsView(CompetitionDataModel competition)
+        {
+            return _mvxNavigationService.Navigate<CompetitionDetailsViewModel, CompetitionDataModel>(competition);
+        }
+
+        public Task ShowCompetitionPrizePoolView(CompetitionDataModel competition)
+        {
+            return _mvxNavigationService.Navigate<CompetitionPrizePoolViewModel, CompetitionDataModel>(competition);
+        }
+
+        public Task ShowCompetitionRulesView(string content)
+        {
+            return _mvxNavigationService.Navigate<CompetitionRulesViewModel, string>(content);
+        }
+
+		#endregion
 	}
 }

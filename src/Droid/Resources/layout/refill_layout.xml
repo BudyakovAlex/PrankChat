@@ -39,6 +39,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="26dp"
         android:textSize="14dp"
+        android:visibility="invisible"
         android:textColor="@color/description"
         android:text="@string/CashboxView_FillupMethodSelect_Title" />
     <Mvx.MvxGridView
@@ -58,6 +59,7 @@
         android:horizontalSpacing="8dp"
         android:columnWidth="69dp"
         android:stretchMode="columnWidth"
+        android:visibility="invisible"
         android:gravity="center_horizontal|top"
         app:MvxItemTemplate="@layout/cell_payment_method"
         app:MvxBind="ItemsSource Items; ItemClick SelectionChangedCommand;" />

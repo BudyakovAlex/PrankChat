@@ -300,4 +300,8 @@
     <string name="Complaint_Unacceptable_Information_In_Profile">"Неприемлемая информация в профиле"</string>
     <string name="Order_Add">"Создать"</string>
     <string name="Order_Create_Message">"Вы уверены что хотите создать заказ? "</string>
+    <string name="Processing_Video">"Обработка видео"</string>
+    <string name="Profile_Your_Email_Not_Actual">"Ваша почта не подтверждена"</string>
+    <string name="Profile_Email_Confirmation_Sent">"На Вашу почту отправлено письмо с подтверждением"</string>
+    <string name="Profile_Resend_Confirmation">"Отправить повторно"</string>
 </resources>

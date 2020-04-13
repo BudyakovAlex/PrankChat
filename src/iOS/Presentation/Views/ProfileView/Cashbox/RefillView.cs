@@ -49,6 +49,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
             secureBannerImageView.Image = UIImage.FromBundle("ic_3dsecure_banner");
 
+            //TODO: remove when all payment methods will be ready
+            paymentMethodsCollectionView.Hidden = true;
+            paymentMethodsTitleLabel.Hidden = true;
+
             DataSource = new PaymentMethodsCollectionViewSource(paymentMethodsCollectionView, new NSString(PaymentMethodCell.CellId));
             paymentMethodsCollectionView.Source = DataSource;
             paymentMethodsCollectionView.RegisterNibForCell(PaymentMethodCell.Nib, PaymentMethodCell.CellId);

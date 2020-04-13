@@ -33,6 +33,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField emailTextField { get; set; }
 
 		[Outlet]
+		UIKit.UIImageView emailValidationImageView { get; set; }
+
+		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
 		UIKit.UIView femaleButtonsContainerView { get; set; }
 
@@ -73,6 +76,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		UIKit.UIActivityIndicatorView progressBar { get; set; }
 
 		[Outlet]
+		UIKit.UILabel resendEmailLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIView resndEmailContainerView { get; set; }
+
+		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
 		UIKit.UIButton saveButton { get; set; }
 
@@ -89,11 +98,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (stackView != null) {
-				stackView.Dispose ();
-				stackView = null;
-			}
-
 			if (birthdayTextField != null) {
 				birthdayTextField.Dispose ();
 				birthdayTextField = null;
@@ -159,9 +163,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 				nameTextField = null;
 			}
 
+			if (resendEmailLabel != null) {
+				resendEmailLabel.Dispose ();
+				resendEmailLabel = null;
+			}
+
+			if (emailValidationImageView != null) {
+				emailValidationImageView.Dispose ();
+				emailValidationImageView = null;
+			}
+
 			if (profileImage != null) {
 				profileImage.Dispose ();
 				profileImage = null;
+			}
+
+			if (resndEmailContainerView != null) {
+				resndEmailContainerView.Dispose ();
+				resndEmailContainerView = null;
 			}
 
 			if (progressBar != null) {
@@ -182,6 +201,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 			if (sexSelectTitleLabel != null) {
 				sexSelectTitleLabel.Dispose ();
 				sexSelectTitleLabel = null;
+			}
+
+			if (stackView != null) {
+				stackView.Dispose ();
+				stackView = null;
 			}
 		}
 	}

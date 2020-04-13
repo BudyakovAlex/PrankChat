@@ -158,10 +158,10 @@
       <DependentUpon>OrderItemCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Views\Base\BaseTabbedView.cs" />
-    <InterfaceDefinition Include="Presentation\Views\RatingView\RatingItemCell.xib" />
-    <Compile Include="Presentation\Views\RatingView\RatingItemCell.cs" />
-    <Compile Include="Presentation\Views\RatingView\RatingItemCell.designer.cs">
-      <DependentUpon>RatingItemCell.cs</DependentUpon>
+    <InterfaceDefinition Include="Presentation\Views\ArbitrationView\ArbitrationItemCell.xib" />
+    <Compile Include="Presentation\Views\ArbitrationView\ArbitrationItemCell.cs" />
+    <Compile Include="Presentation\Views\ArbitrationView\ArbitrationItemCell.designer.cs">
+      <DependentUpon>ArbitrationItemCell.cs</DependentUpon>
     </Compile>
     <InterfaceDefinition Include="Presentation\Views\Order\OrderDetailsView.xib" />
     <Compile Include="Presentation\Views\Order\OrderDetailsView.cs" />
@@ -334,6 +334,19 @@
     <Compile Include="Infrastructure\Constants.cs" />
     <BundleResource Include="GoogleService-Info.plist" />
     <Compile Include="PlatformBusinessServices\Notifications\NotificationWrapper.cs" />
+    <Compile Include="Presentation\Binding\FloatPlaceholderTextFieldPaddingTargetBinding.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Onboarding\OnboardingViewController.xib" />
+    <Compile Include="Presentation\Views\Onboarding\OnboardingViewController.cs" />
+    <Compile Include="Presentation\Views\Onboarding\OnboardingViewController.designer.cs">
+      <DependentUpon>OnboardingViewController.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Onboarding\OnboardingItemCell.xib" />
+    <Compile Include="Presentation\Views\Onboarding\OnboardingItemCell.cs" />
+    <Compile Include="Presentation\Views\Onboarding\OnboardingItemCell.designer.cs">
+      <DependentUpon>OnboardingItemCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Views\Onboarding\OnboardingCollectionViewSource.cs" />
+    <BundleResource Include="Presentation\Localization\ru.lproj\Localizalbe.strings" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -376,7 +389,7 @@
       <Version>3.14.0.3</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
-      <Version>1.5.1</Version>
+      <Version>1.5.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Facebook.iOS">
       <Version>5.12.0</Version>
@@ -809,20 +822,48 @@
     <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Userpic.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Group 106.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\mdi_arrow_left_alt.pdf" />
-    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\bg_order_type_completed.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_credit_card.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_credit_card.imageset\ic_credit_card.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_arrow_dropdown.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_arrow_dropdown.imageset\Polygon.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Userpic.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Group 106.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\mdi_arrow_left_alt.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\bg_order_type_completed.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_credit_card.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_credit_card.imageset\ic_credit_card.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_arrow_dropdown.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_arrow_dropdown.imageset\Polygon.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\ThreeDots.pdf">
       <Visible>false</Visible>
     </ImageAsset>
@@ -844,29 +885,117 @@
     <ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_competitions.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_competitions.imageset\ic_competitions-1.pdf" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-20x20%402x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-20x20%403x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-29x29%402x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-29x29%403x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-40x40%402x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-40x40%403x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-60x60%402x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-60x60%403x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-20x20%401x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-20x20%402x-1.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-29x29%401x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-29x29%402x-1.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-40x40%401x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-40x40%402x-1.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-76x76%401x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-76x76%402x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-83.5x83.5%402x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\ItunesArtwork%402x-1.png" />
-    <ImageAsset Include="Assets.xcassets\ic_prankcaht_icon.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_prankcaht_icon.imageset\Group.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Group 108.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_competitions.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_competitions.imageset\ic_competitions-1.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-20x20%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-20x20%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-29x29%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-29x29%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-40x40%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-40x40%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_warning.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_warning.imageset\ic_warning.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-60x60%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-60x60%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-20x20%401x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-20x20%402x-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-29x29%401x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-29x29%402x-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-40x40%401x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-40x40%402x-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-76x76%401x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-76x76%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-83.5x83.5%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\ItunesArtwork%402x-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_prankcaht_icon.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_prankcaht_icon.imageset\Group.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_onboarding_item.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_onboarding_item.imageset\bg_onboarding_item.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_onboarding_first_slide.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_onboarding_first_slide.imageset\bg_onboarding_first_slide.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_onboarding_second_slide.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_onboarding_second_slide.imageset\bg_onboarding_second_slide.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_onboarding_third_slide.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_onboarding_third_slide.imageset\bg_onboarding_third_slide.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_onboarding_fourth_slide.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_onboarding_fourth_slide.imageset\bg_onboarding_fourth_slide.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\bg_onboarding_fifth_slide.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Group 108.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -912,6 +1041,14 @@
     <Folder Include="Assets.xcassets\ic_credit_card.imageset\" />
     <Folder Include="Assets.xcassets\ic_arrow_dropdown.imageset\" />
     <Folder Include="PlatformBusinessServices\Notifications\" />
+    <Folder Include="Assets.xcassets\ic_warning.imageset\" />
+    <Folder Include="Presentation\Views\Onboarding\" />
+    <Folder Include="Assets.xcassets\bg_onboarding_item.imageset\" />
+    <Folder Include="Assets.xcassets\bg_onboarding_first_slide.imageset\" />
+    <Folder Include="Assets.xcassets\bg_onboarding_second_slide.imageset\" />
+    <Folder Include="Assets.xcassets\bg_onboarding_third_slide.imageset\" />
+    <Folder Include="Assets.xcassets\bg_onboarding_fourth_slide.imageset\" />
+    <Folder Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

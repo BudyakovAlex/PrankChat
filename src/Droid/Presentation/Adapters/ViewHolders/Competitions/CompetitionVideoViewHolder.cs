@@ -5,6 +5,7 @@ using Android.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
+using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Video;
@@ -96,6 +97,19 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .For(ImageViewTintColorTargetBinding.TargetBinding)
                       .To(vm => vm.IsLiked)
                       .WithConversion(BoolToResourceConverter.Name, new Tuple<int, int>(Resource.Color.applicationWhite, Resource.Color.primary_button_border));
+
+            bindingSet.Bind(ProceccingView)
+                      .For(v => v.BindVisible())
+                      .To(vm => vm.IsVideoProcessing);
+
+            bindingSet.Bind(VideoView)
+                      .For(v => v.BindHidden())
+                      .To(vm => vm.IsVideoProcessing);
+
+            bindingSet.Bind(this)
+                      .For(v => v.CanShowStub)
+                      .To(vm => vm.IsVideoProcessing)
+                      .WithConversion<MvxInvertedBooleanConverter>();
 
             bindingSet.Apply();
         }

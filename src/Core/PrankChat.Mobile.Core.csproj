@@ -23,7 +23,7 @@
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
     <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.4.10-beta" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.2" />
     <PackageReference Include="CreditCardValidator" Version="2.0.0" />
   </ItemGroup>
 
@@ -51,8 +51,8 @@
     <Folder Include="Presentation\ViewModels\Publication\Items\" />
     <Folder Include="Presentation\ViewModels\PasswordRecovery\" />
     <Folder Include="Presentation\ViewModels\Order\Items\" />
-    <Folder Include="Presentation\ViewModels\Rating\" />
-    <Folder Include="Presentation\ViewModels\Rating\Items\" />
+    <Folder Include="Presentation\ViewModels\Arbitration\" />
+    <Folder Include="Presentation\ViewModels\Arbitration\Items\" />
     <Folder Include="Presentation\ViewModels\Search\Items\" />
     <Folder Include="Presentation\ViewModels\Notification\" />
     <Folder Include="Presentation\ViewModels\Notification\Items\" />
@@ -74,5 +74,7 @@
     <Folder Include="Presentation\ViewModels\Shared\Abstract\" />
     <Folder Include="ApplicationServices\Notifications\" />
     <Folder Include="Models\Data\Shared\" />
+    <Folder Include="Presentation\ViewModels\Onboarding\" />
+    <Folder Include="Presentation\ViewModels\Onboarding\Items\" />
   </ItemGroup>
 </Project>

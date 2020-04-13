@@ -21,18 +21,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
             _navigationService = navigationService;
         }
 
-        public virtual async Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null)
-        {
-            var selectedDateTime = initialDateTime.HasValue ? initialDateTime : DateTime.Now;
-
-            var result = await UserDialogs.Instance.DatePromptAsync(selectedDate: selectedDateTime);
-            if (result.Ok)
-            {
-                return result.SelectedDate;
-            }
-
-            return null;
-        }
+        public abstract Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null);
 
         public Task<string> ShowMenuDialogAsync(string[] itemStrings, string cancelItemString = "", CancellationToken? cancellationToken = null)
         {

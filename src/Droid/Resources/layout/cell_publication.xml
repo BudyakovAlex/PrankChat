@@ -1,13 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingBottom="11dp">
+
+    <View
+        android:id="@+id/stub_view"
+        android:layout_width="0dp"
+        android:layout_height="246dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/video_name" />
+
     <CircleCachedImageView
         android:id="@+id/user_photo"
         android:layout_width="42dp"
@@ -68,24 +77,25 @@
         android:textSize="14sp"
         android:textColor="@color/applicationBlack"
         app:MvxBind="Text VideoName, Mode = OneTime"/>
+
     <VideoView
         android:id="@+id/video_file"
         android:layout_width="0dp"
-        android:layout_height="246dp"
-        android:focusableInTouchMode="true"
+        android:layout_height="0dp"
         android:background="@color/applicationBlack"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/video_name"
-        android:layout_marginTop="8dp"
-        app:MvxBind="Touch ShowFullScreenVideoCommand"/>
+        android:focusableInTouchMode="true"
+        app:MvxBind="Touch ShowFullScreenVideoCommand"
+        app:layout_constraintBottom_toBottomOf="@+id/stub_view"
+        app:layout_constraintEnd_toEndOf="@+id/stub_view"
+        app:layout_constraintStart_toStartOf="@+id/stub_view"
+        app:layout_constraintTop_toTopOf="@+id/stub_view" />
     <ImageButton
         android:id="@+id/like_button"
         android:layout_width="20dp"
         android:layout_height="18.35dp"
         android:background="@null"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/video_file"
+        app:layout_constraintTop_toBottomOf="@+id/stub_view"
         app:layout_constraintRight_toLeftOf="@+id/like_text"
         android:layout_marginLeft="3dp"
         android:layout_marginTop="11dp"
@@ -109,7 +119,7 @@
         android:src="@drawable/ic_share"
         android:background="@null"
         app:layout_constraintLeft_toRightOf="@+id/like_text"
-        app:layout_constraintTop_toBottomOf="@+id/video_file"
+        app:layout_constraintTop_toBottomOf="@+id/stub_view"
         android:layout_marginTop="11dp"
         android:layout_marginLeft="19dp"
         app:MvxBind="Click ShareCommand"/>
@@ -122,30 +132,65 @@
         android:background="@null"
         app:layout_constraintLeft_toRightOf="@+id/share_button"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/video_file"
+        app:layout_constraintTop_toBottomOf="@+id/stub_view"
         app:layout_constraintHorizontal_bias="1"
         android:layout_marginRight="3dp"
         android:layout_marginTop="11dp"
         android:visibility="invisible"/>
+
     <ffimageloading.cross.MvxCachedImageView
         android:id="@+id/stub_image_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/video_file"
-        app:layout_constraintEnd_toEndOf="@+id/video_file"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/video_file"
-        app:layout_constraintTop_toBottomOf="@+id/video_name"
-        app:layout_constraintVertical_bias="1.0"
         android:scaleType="centerCrop"
-        app:MvxBind="ImagePath VideoPlaceholderImageUrl"/>
+        app:MvxBind="ImagePath VideoPlaceholderImageUrl"
+        app:layout_constraintBottom_toBottomOf="@+id/stub_view"
+        app:layout_constraintEnd_toEndOf="@+id/stub_view"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/stub_view"
+        app:layout_constraintTop_toTopOf="@+id/stub_view"
+        app:layout_constraintVertical_bias="1.0" />
     <ProgressBar
         android:id="@+id/loading_progress_bar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/video_file"
-        app:layout_constraintEnd_toEndOf="@+id/video_file"
+        app:layout_constraintEnd_toEndOf="@+id/stub_view"
         app:layout_constraintStart_toStartOf="@+id/stub_image_view"
         app:layout_constraintTop_toBottomOf="@+id/video_name" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/processing_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/border_accent_load_video"
+        app:layout_constraintBottom_toBottomOf="@+id/stub_view"
+        app:layout_constraintEnd_toEndOf="@+id/stub_view"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/stub_view"
+        app:layout_constraintTop_toTopOf="@+id/stub_view">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/processing_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/processing_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="49dp"
+            android:text="@string/Processing_Video"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
 </android.support.constraint.ConstraintLayout>

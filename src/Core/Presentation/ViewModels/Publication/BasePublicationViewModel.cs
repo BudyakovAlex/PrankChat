@@ -71,6 +71,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             set => SetProperty(ref _hasSoundTurnOn, value);
         }
 
+        public bool IsVideoProcessing => string.IsNullOrEmpty(VideoUrl);
+
         #endregion Video
 
         public string NumberOfLikesText => NumberOfLikes.ToCountString();
