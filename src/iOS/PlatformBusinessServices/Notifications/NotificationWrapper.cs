@@ -57,20 +57,19 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
                 return null;
             }
 
+            userInfo.TryGetValue(new NSString("value"), out var value);
+            userInfo.TryGetValue(new NSString("key"), out var key);
+
             if (!(userInfo["aps"] is NSDictionary apsDictionary))
             {
-                return null;
+                return NotificationManager.Instance.GenerateNotificationData(key?.ToString(), value?.ToString(), string.Empty, string.Empty);
             }
 
             var alertDictionary = apsDictionary["alert"] as NSDictionary;
-
             alertDictionary.TryGetValue(new NSString("title"), out var title);
             alertDictionary.TryGetValue(new NSString("body"), out var body);
-            alertDictionary.TryGetValue(new NSString("value"), out var value);
-            alertDictionary.TryGetValue(new NSString("key"), out var key);
 
-            var notificationDataModel = NotificationManager.Instance.GenerateNotificationData(key?.ToString(), value?.ToString(), title?.ToString(), body?.ToString());
-            return notificationDataModel;
+            return NotificationManager.Instance.GenerateNotificationData(key?.ToString(), value?.ToString(), title?.ToString(), body?.ToString());
         }
 
         private void ScheduleLocalNotification(string title, string message)
