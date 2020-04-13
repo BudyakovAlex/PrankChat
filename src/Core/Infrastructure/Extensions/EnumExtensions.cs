@@ -29,5 +29,17 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                                                 ?.Value);
             return values;
         }
+
+        public static T ToEnum<T>(this string enumMember) where T : struct
+        {
+            var enumType = typeof(T);
+            foreach (var name in Enum.GetNames(enumType))
+            {
+                var enumMemberAttribute = ((EnumMemberAttribute[])enumType.GetField(name).GetCustomAttributes(typeof(EnumMemberAttribute), true)).SingleOrDefault();
+                if (enumMemberAttribute?.Value == enumMember)
+                    return (T)Enum.Parse(enumType, name);
+            }
+            return default;
+        }
     }
 }

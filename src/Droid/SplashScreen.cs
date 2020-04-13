@@ -1,10 +1,11 @@
-﻿using Acr.UserDialogs;
+﻿using System;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
-using Firebase;
+using MvvmCross;
 using MvvmCross.Droid.Support.V7.AppCompat;
+using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications;
 
 namespace PrankChat.Mobile.Droid
 {
@@ -15,6 +16,8 @@ namespace PrankChat.Mobile.Droid
         ScreenOrientation = ScreenOrientation.Portrait)]
     public class SplashScreen : MvxSplashScreenAppCompatActivity
     {
+        private int? _orderId;
+
         public SplashScreen() : base(Resource.Layout.splash_screen_layout)
         {
         }
@@ -23,16 +26,20 @@ namespace PrankChat.Mobile.Droid
         {
             base.OnCreate(bundle);
 
-            UserDialogs.Init(this);
-            Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, bundle);
-            InitializeFirebase();
+            if (bundle == null)            {
+                _orderId = NotificationWrapper.GetOrderId(Intent);
+            }
+
+            if (IsTaskRoot)
+                return;
+
+            Finish();
+            Core.ApplicationServices.Notifications.NotificationManager.Instance.TryNavigateToView(_orderId);
         }
 
-        private void InitializeFirebase()
+        protected override object GetAppStartHint(object hint = null)
         {
-            Fabric.Fabric.With(this, new Crashlytics.Crashlytics());
-            FirebaseApp.InitializeApp(this);
-            Crashlytics.Crashlytics.HandleManagedExceptions();
+            return base.GetAppStartHint(_orderId);
         }
     }
 }

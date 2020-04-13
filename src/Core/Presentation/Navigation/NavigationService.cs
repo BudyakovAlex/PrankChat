@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using MvvmCross.Navigation;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
@@ -26,6 +28,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
     {
         private readonly IMvxNavigationService _mvxNavigationService;
         private readonly ISettingsService _settingsService;
+
+		private int? _orderId;
 
         public NavigationService(IMvxNavigationService mvxNavigationService, ISettingsService settingsService)
         {
@@ -140,55 +144,80 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
                 return Task.CompletedTask;
             }
 
-            return _mvxNavigationService.Navigate<FullScreenVideoViewModel, FullScreenVideoParameter>(fullScreenVideoParameter);
-        }
+			return _mvxNavigationService.Navigate<FullScreenVideoViewModel, FullScreenVideoParameter>(fullScreenVideoParameter);
+		}
 
-        public Task ShowDetailsPublicationView()
-        {
-            return _mvxNavigationService.Navigate<PublicationDetailsViewModel>();
-        }
+		public Task ShowDetailsPublicationView()
+		{
+			return _mvxNavigationService.Navigate<PublicationDetailsViewModel>();
+		}
 
-        public Task ShowWithdrawalView()
-        {
-            var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Withdrawal);
-            return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter>(navigationParameter);
-        }
+		public Task ShowWithdrawalView()
+		{
+			var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Withdrawal);
+			return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter>(navigationParameter);
+		}
 
-        public Task ShowRefillView()
-        {
-            var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Refill);
-            return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter>(navigationParameter);
-        }
+		public Task ShowRefillView()
+		{
+			var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Refill);
+			return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter>(navigationParameter);
+		}
 
-        public async Task<bool> ShowUpdateProfileView()
-        {
-            var result = await _mvxNavigationService.Navigate<ProfileUpdateViewModel, ProfileUpdateResult>();
-            return (result?.IsProfileUpdated ?? false) || (result?.IsAvatarUpdated ?? false);
-        }
+		public async Task<bool> ShowUpdateProfileView()
+		{
+			var result = await _mvxNavigationService.Navigate<ProfileUpdateViewModel, ProfileUpdateResult>();
+			return (result?.IsProfileUpdated ?? false) || (result?.IsAvatarUpdated ?? false);
+		}
 
-        public Task Logout()
-        {
-            return ShowLoginView();
-        }
+		public Task Logout()
+		{
+			return ShowLoginView();
+		}
 
-        public Task ShowWebView(string url)
-        {
-            var parameter = new WebViewNavigationParameter(url);
-            return _mvxNavigationService.Navigate<WebViewModel, WebViewNavigationParameter>(parameter);
-        }
+		public Task ShowWebView(string url)
+		{
+			var parameter = new WebViewNavigationParameter(url);
+			return _mvxNavigationService.Navigate<WebViewModel, WebViewNavigationParameter>(parameter);
+		}
 
-        public Task ShowProfileUser(int idUser)
-        {
-            return Task.FromResult(0);
-            // TODO change this code for normal navigate to profile other user
-            // return _mvxNavigationService.Navigate<ProfileViewModel, int>(idUser);
-        }
+		public Task ShowProfileUser(int idUser)
+		{
+			return Task.FromResult(0);
+			// TODO change this code for normal navigate to profile other user
+			// return _mvxNavigationService.Navigate<ProfileViewModel, int>(idUser);
+		}
 
-        public Task<ImageCropPathResult> ShowImageCropView(string filePath)
+		public Task<ImageCropPathResult> ShowImageCropView(string filePath)
+		{
+			var parameter = new ImagePathNavigationParameter(filePath);
+			return _mvxNavigationService.Navigate<ImageCropViewModel, ImagePathNavigationParameter, ImageCropPathResult>(parameter);
+		}
+
+		public Task AppStartFromNotification(int orderId)
         {
-            var parameter = new ImagePathNavigationParameter(filePath);
-            return _mvxNavigationService.Navigate<ImageCropViewModel, ImagePathNavigationParameter, ImageCropPathResult>(parameter);
-        }
+			_orderId = orderId;
+			if (_settingsService.User != null)
+			{
+				_mvxNavigationService.AfterNavigate += NavigatenAfterMainViewByPushNotification;
+				return ShowMainView();
+			}
+
+			return ShowLoginView();
+		}
+
+		private void NavigatenAfterMainViewByPushNotification(object sender, MvvmCross.Navigation.EventArguments.IMvxNavigateEventArgs e)
+		{
+			_mvxNavigationService.AfterNavigate -= NavigatenAfterMainViewByPushNotification;
+
+			if (_orderId == null)
+				return;
+
+			if (e.ViewModel is MainViewModel mainViewModel)
+			{
+				ShowOrderDetailsView(_orderId.Value).FireAndForget();
+			}
+		}
 
         #region Dialogs
 
@@ -217,6 +246,6 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<CompetitionRulesViewModel, string>(content);
         }
 
-        #endregion
-    }
+		#endregion
+	}
 }

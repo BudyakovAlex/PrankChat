@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Acr.UserDialogs" Version="7.0.35" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.440" />
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="MvvmCross" Version="6.4.3" />
     <PackageReference Include="MvvmCross.Plugin.Messenger" Version="6.4.3" />
@@ -72,6 +72,7 @@
     <Folder Include="Commands\" />
     <Folder Include="Presentation\ViewModels\Shared\" />
     <Folder Include="Presentation\ViewModels\Shared\Abstract\" />
+    <Folder Include="ApplicationServices\Notifications\" />
     <Folder Include="Models\Data\Shared\" />
     <Folder Include="Presentation\ViewModels\Onboarding\" />
     <Folder Include="Presentation\ViewModels\Onboarding\Items\" />

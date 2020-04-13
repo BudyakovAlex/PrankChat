@@ -32,6 +32,11 @@ namespace PrankChat.Mobile.Core.Infrastructure
             public const string IsOnBoardingShown = nameof(IsOnBoardingShown);
         }
 
+        public static class Notification
+        {
+            public const string ChannelId = "classtag_notification_channel";
+        }
+        
         public static class Pagination
         {
             public const int DefaultPaginationSize = 20;

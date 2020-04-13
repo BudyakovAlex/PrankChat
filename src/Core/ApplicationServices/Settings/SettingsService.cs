@@ -17,6 +17,22 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
             set => Preferences.Set(nameof(User), JsonConvert.SerializeObject(value));
         }
 
+        public string PushToken
+        {
+            get => Preferences.Get(nameof(PushToken), string.Empty);
+            set
+            {
+                Preferences.Set(nameof(PushToken), value);
+                IsPushTokenSend = false;
+            }
+        }
+
+        public bool IsPushTokenSend
+        {
+            get => Preferences.Get(nameof(IsPushTokenSend), false);
+            set => Preferences.Set(nameof(IsPushTokenSend), value);
+        }
+
         public Task<string> GetAccessTokenAsync()
         {
             // Workaround for iOS simulator.

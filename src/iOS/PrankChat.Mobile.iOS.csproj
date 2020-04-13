@@ -47,9 +47,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignKey>iPhone Distribution: Alexey Sorochan (C7FL5MJ4D2)</CodesignKey>
+    <CodesignKey>Apple Development: Anton Chepelev (BCDQ5WV3X7)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignProvision>Automatic:AdHoc</CodesignProvision>
+    <CodesignProvision>Development Profile Apr 2020</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -248,7 +248,6 @@
       <DependentUpon>FullScreenVideoView.cs</DependentUpon>
     </Compile>
     <Compile Include="PlatformBusinessServices\Crashlytic\CrashlyticsService.cs" />
-    <BundleResource Include="GoogleService-Info.plist" />
     <Compile Include="Controls\FloatPlaceholderTextField.cs" />
     <Compile Include="ApplicationServices\DialogService.cs" />
     <InterfaceDefinition Include="Controls\ToastView.xib" />
@@ -275,6 +274,7 @@
     <InterfaceDefinition Include="Presentation\Views\ProfileView\ImageCrop\ImageCropView.xib" />
     <Compile Include="Presentation\Views\ProfileView\ImageCrop\CropViewDelegate.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\PagedTableViewSource.cs" />
+    <Compile Include="Delegates\PrankChatNotificationDelegate.cs" />
     <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionsView.xib" />
     <Compile Include="Presentation\Views\Competition\CompetitionsView.cs" />
     <Compile Include="Presentation\Views\Competition\CompetitionsView.designer.cs">
@@ -332,6 +332,8 @@
     <Compile Include="Presentation\Views\Base\BaseVideoTableCell.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\VideoTableSource.cs" />
     <Compile Include="Infrastructure\Constants.cs" />
+    <BundleResource Include="GoogleService-Info.plist" />
+    <Compile Include="PlatformBusinessServices\Notifications\NotificationWrapper.cs" />
     <Compile Include="Presentation\Binding\FloatPlaceholderTextFieldPaddingTargetBinding.cs" />
     <InterfaceDefinition Include="Presentation\Views\Onboarding\OnboardingViewController.xib" />
     <Compile Include="Presentation\Views\Onboarding\OnboardingViewController.cs" />
@@ -384,10 +386,7 @@
       <Version>2.5.10</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Firebase.iOS.Crashlytics">
-      <Version>3.14.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Firebase.iOS.Core">
-      <Version>6.1.0.1</Version>
+      <Version>3.14.0.3</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
       <Version>1.5.2</Version>
@@ -400,6 +399,12 @@
     </PackageReference>
     <PackageReference Include="Xam.Plugins.ImageCropper">
       <Version>1.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Build.Download">
+      <Version>0.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.iOS.CloudMessaging">
+      <Version>4.1.1.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -1024,6 +1029,7 @@
     <Folder Include="Presentation\Views\ProfileView\ImageCrop\" />
     <Folder Include="Assets.xcassets\ic_have_notification.imageset\" />
     <Folder Include="Presentation\SourcesAndDelegates\" />
+    <Folder Include="Delegates\" />
     <Folder Include="Presentation\Views\Competition\" />
     <Folder Include="Assets.xcassets\bg_order_type_completed.imageset\" />
     <Folder Include="Assets.xcassets\ic_arrow_left_alt.imageset\" />
@@ -1034,6 +1040,7 @@
     <Folder Include="Assets.xcassets\ic_prankcaht_icon.imageset\" />
     <Folder Include="Assets.xcassets\ic_credit_card.imageset\" />
     <Folder Include="Assets.xcassets\ic_arrow_dropdown.imageset\" />
+    <Folder Include="PlatformBusinessServices\Notifications\" />
     <Folder Include="Assets.xcassets\ic_warning.imageset\" />
     <Folder Include="Presentation\Views\Onboarding\" />
     <Folder Include="Assets.xcassets\bg_onboarding_item.imageset\" />

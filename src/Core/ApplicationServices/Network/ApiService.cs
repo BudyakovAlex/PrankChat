@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
+using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Configuration;
@@ -45,7 +46,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task AuthorizeAsync(string email, string password)
         {
-            var loginModel = new AuthorizationApiModel { Email = email.ToLower(), Password = password };
+            var loginModel = new AuthorizationApiModel { Email = email?.ToLower(), Password = password };
             var authTokenModel = await _client.UnauthorizedPost<AuthorizationApiModel, DataApiModel<AccessTokenApiModel>>("auth/login", loginModel, true);
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
@@ -478,6 +479,16 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var notificationBundle = await _client.Get<BaseBundleApiModel<NotificationApiModel>>("notifications");
             return MappingConfig.Mapper.Map<List<NotificationDataModel>>(notificationBundle?.Data);
+        }
+
+        public Task SendNotificationTokenAsync(string token)
+        {
+            var pushNotificationApiMode = new PushNotificationApiMode()
+            {
+                Token = token,
+                DeviceId = CrossDeviceInfo.Current.Id,
+            };
+            return _client.Post("me/device", pushNotificationApiMode, true);
         }
 
         #endregion Notification

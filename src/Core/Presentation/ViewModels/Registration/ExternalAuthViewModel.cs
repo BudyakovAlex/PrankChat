@@ -3,6 +3,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -14,15 +15,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
     public class ExternalAuthViewModel : BaseViewModel
     {
         private readonly IExternalAuthService _externalAuthService;
+        private readonly IPushNotificationService _pushNotificationService;
 
         public ExternalAuthViewModel(INavigationService navigationService,
                                      IErrorHandleService errorHandleService,
                                      IApiService apiService,
                                      IDialogService dialogService,
                                      ISettingsService settingsService,
-                                     IExternalAuthService externalAuthService) : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+                                     IExternalAuthService externalAuthService,
+                                     IPushNotificationService pushNotificationService) : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _externalAuthService = externalAuthService;
+            _pushNotificationService = pushNotificationService;
         }
 
         protected virtual async Task<bool> TryLoginWithExternalServicesAsync(LoginType loginType)
@@ -53,6 +57,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             // todo: not wait
             await ApiService.GetCurrentUserAsync();
+            await _pushNotificationService.TryUpdateTokenAsync();
 
             var isOnBoardingShown = Preferences.Get(Constants.Keys.IsOnBoardingShown, false);
             if (isOnBoardingShown)

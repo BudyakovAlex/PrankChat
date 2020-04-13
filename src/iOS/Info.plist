@@ -111,7 +111,7 @@
 		</dict>
 	</array>
 	<key>FacebookAppID</key>
-	<string>621471715102522</string>
+	<string>1052355475141532</string>
 	<key>FacebookDisplayName</key>
 	<string>Prankchat</string>
 	<key>NSCameraUsageDescription</key>
@@ -120,6 +120,10 @@
 	<string>This app needs access to photos.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Our application needs permission to write photos.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.capaalex.prankchat</string>
 </dict>

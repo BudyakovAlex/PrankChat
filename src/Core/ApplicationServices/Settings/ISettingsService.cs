@@ -7,6 +7,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
     {
         UserDataModel User { get; set; }
 
+        string PushToken { get; set; }
+
+        bool IsPushTokenSend { get; set; }
+
         Task<string> GetAccessTokenAsync();
 
         Task SetAccessTokenAsync(string accessToken);

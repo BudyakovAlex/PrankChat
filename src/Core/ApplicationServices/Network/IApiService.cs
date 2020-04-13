@@ -121,6 +121,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<List<NotificationDataModel>> GetNotificationsAsync();
 
+        Task SendNotificationTokenAsync(string token);
+
         #endregion Notification
 
         #region Competitions

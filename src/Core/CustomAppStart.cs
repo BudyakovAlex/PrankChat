@@ -20,6 +20,11 @@ namespace PrankChat.Mobile.Core
 
         protected override Task NavigateToFirstViewModel(object hint = null)
         {
+            if (hint is int orderId)
+            {
+                return _navigationService.AppStartFromNotification(orderId);
+            }
+
             return _navigationService.AppStart();
         }
     }

@@ -185,6 +185,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private async Task LogoutUserAsync()
         {
             SettingsService.User = null;
+            SettingsService.IsPushTokenSend = false;
             await SettingsService.SetAccessTokenAsync(string.Empty);
             _externalAuthService.LogoutFromFacebook();
             _externalAuthService.LogoutFromVkontakte();

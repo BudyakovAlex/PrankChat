@@ -52,8 +52,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle, Resource.Layout.main_view_layout);
-
+            base.OnCreate(bundle, Resource.Layout.main_view_layout); 
             if (bundle == null)
             {
                 ViewModel.ShowContentCommand.Execute();
@@ -62,7 +61,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             _tabLayout = FindViewById<TabLayout>(Resource.Id.tabs);
 
             CreateTabs();
-        }
+       }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
