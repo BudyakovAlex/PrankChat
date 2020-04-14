@@ -11,7 +11,7 @@ namespace PrankChat.Mobile.Droid.Extensions
         public static void HideKeyboard(this Activity activity)
         {
             var imm = (InputMethodManager)activity.GetSystemService(Context.InputMethodService);
-            imm.HideSoftInputFromWindow(activity.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+            imm?.HideSoftInputFromWindow(activity.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
         }
     }
 }
