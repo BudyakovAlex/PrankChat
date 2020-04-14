@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -13,6 +14,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
         private List<UIView> _viewForKeyboardDismiss = new List<UIView>();
 
         public new string Title { get; set; }
+
+        public virtual bool IsRotateEnabled { get; protected set; }
 
         public override void ViewDidLoad()
         {
@@ -89,12 +92,27 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
                 .ForEach(c => c.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag | UIScrollViewKeyboardDismissMode.Interactive);
         }
 
+        public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
+        {
+            return IsRotateEnabled ? UIInterfaceOrientationMask.All : UIInterfaceOrientationMask.Portrait;
+        }
+
+        public override bool ShouldAutorotate()
+        {
+            return IsRotateEnabled;
+        }
+
         private void SetCommonControlStyles()
         {
             if (!string.IsNullOrWhiteSpace(Title))
             {
                 SetTitle(Title);
             }
+        }
+
+        public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
+        {
+            return toInterfaceOrientation != UIInterfaceOrientation.Portrait && IsRotateEnabled;
         }
 
         private void SetTitle(string title)
