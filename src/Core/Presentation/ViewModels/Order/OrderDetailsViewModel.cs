@@ -73,7 +73,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string NoText => SelectedArbitration == null ? Resources.OrderDetailsView_No_Button : DisikesCount.ToString();
 
-        public ArbitrationValueType? SelectedArbitration => _order.MyArbitrationValue;
+        public ArbitrationValueType? SelectedArbitration => _order?.MyArbitrationValue;
 
         public bool IsDecideEnabled => SelectedArbitration == null;
 
@@ -123,7 +123,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsVideoAvailable => _order?.Video != null;
 
-        public bool IsExecutorAvailable => _order?.Executor != null && _order.Executor.Id != _settingsService.User?.Id;
+        public bool IsExecutorAvailable => _order?.Executor != null && _order?.Executor?.Id != _settingsService.User?.Id;
 
         public bool IsDecideVideoAvailable => _order?.Status == OrderStatusType.InArbitration && IsUserGuest;
 

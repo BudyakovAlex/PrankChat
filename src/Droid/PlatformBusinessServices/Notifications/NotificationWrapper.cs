@@ -81,6 +81,39 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             notificationManager.Notify(0, _notificationBuilder.Build());
         }
 
+        public static int? GetOrderId(Intent intent)
+        {
+            if (intent == null)
+                return null;
+
+            var bundle = intent.Extras;
+            var bundleCollection = bundle?.KeySet();
+            if (bundle == null ||
+                bundleCollection == null ||
+                bundleCollection.Count == 0)
+                return null;
+
+            var orderIdString = bundle.Get(Utils.Constants.PushNotificationKey.OrderId)?.ToString();
+            if (!string.IsNullOrEmpty(orderIdString))
+            {
+                int.TryParse(orderIdString, out var orderId);
+                return orderId;
+            }
+
+            var key = bundle.Get("key")?.ToString();
+            var value = bundle.Get("value")?.ToString();
+            var title = bundle.Get("title")?.ToString();
+            var body = bundle.Get("body")?.ToString();
+
+            var pushNotificationData = Core.ApplicationServices.Notifications.NotificationManager.Instance.GenerateNotificationData(key, value, title, body);
+            if (pushNotificationData?.Type == NotificationType.OrderEvent)
+            {
+                return pushNotificationData.OrderId;
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Creates the notification channel.
         /// </summary>
@@ -124,36 +157,6 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             var requestCode = new Java.Util.Random().NextInt();
             var pendingIntent = PendingIntent.GetService(Application.Context, requestCode, intent, PendingIntentFlags.UpdateCurrent);
             return pendingIntent;
-        }
-
-        public static int? GetOrderId(Intent intent)
-        {
-            var bundle = intent.Extras;
-            var bundleCollection = bundle?.KeySet();
-            if (bundle is null ||
-                bundleCollection == null ||
-                bundleCollection.Count == 0)
-                return null;
-
-            var orderIdString = bundle.Get(Utils.Constants.PushNotificationKey.OrderId)?.ToString();
-            if (!string.IsNullOrEmpty(orderIdString))
-            {
-                int.TryParse(orderIdString, out var orderId);
-                return orderId;
-            }
-
-            var key = bundle.Get("key")?.ToString();
-            var value = bundle.Get("value")?.ToString();
-            var title = bundle.Get("title")?.ToString();
-            var body = bundle.Get("body")?.ToString();
-
-            var pushNotificationData = Core.ApplicationServices.Notifications.NotificationManager.Instance.GenerateNotificationData(key, value, title, body);
-            if (pushNotificationData?.Type == NotificationType.OrderEvent)
-            {
-                return pushNotificationData.OrderId;
-            }
-
-            return null;
         }
     }
 }
