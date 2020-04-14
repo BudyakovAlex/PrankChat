@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using Android.App;
+using Android.Content.PM;
 using Android.OS;
 using Android.Support.Design.Widget;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -9,7 +10,7 @@ using PrankChat.Mobile.Droid.Presentation.Views.Base;
 namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
 {
     [MvxActivityPresentation]
-    [Activity]
+    [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class CashboxView : BaseView<CashboxViewModel>
     {
         private TabLayout _tabLayout;

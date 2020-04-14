@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Content.PM;
 using Android.OS;
 using Android.Webkit;
 using MvvmCross.Binding.BindingContext;
@@ -10,7 +11,7 @@ using PrankChat.Mobile.Droid.Presentation.Views.Base;
 namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
 {
     [MvxActivityPresentation]
-    [Activity]
+    [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class CompetitionRulesView : BaseView<CompetitionRulesViewModel>
     {
         private WebView _webView;
