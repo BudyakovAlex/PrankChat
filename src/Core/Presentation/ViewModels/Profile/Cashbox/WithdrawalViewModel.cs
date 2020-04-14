@@ -76,6 +76,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             set => SetProperty(ref _surname, value);
         }
 
+        private bool _isUpdatingData;
+        public bool IsUpdatingData
+        {
+            get => _isUpdatingData;
+            set => SetProperty(ref _isUpdatingData, value);
+        }
+
         public DateTime? CreateAtWithdrawal => _lastWithdrawalDataModel?.CreatedAt;
 
         public string AmountValue => _lastWithdrawalDataModel?.Amount.ToPriceString();
@@ -98,6 +105,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         public ICommand OpenCardOptionsCommand => new MvxAsyncCommand(OnOpenCardOptionsAsync);
 
+        public ICommand UpdateDataCommand => new MvxAsyncCommand(OnUpdateDataAsync);
+
         public WithdrawalViewModel(INavigationService navigationService,
                                    IErrorHandleService errorHandleService,
                                    IApiService apiService,
@@ -115,6 +124,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             await base.Initialize();
             await GetUserCard();
             await GetWithdrawals();
+        }
+
+        private async Task OnUpdateDataAsync()
+        {
+            try
+            {
+                IsUpdatingData = true;
+
+                if (IsDocumentPending)
+                {
+                    await ApiService.GetCurrentUserAsync();
+                    await RaiseAllPropertiesChanged();
+                }
+            }
+            finally
+            {
+                IsUpdatingData = false;
+            }
         }
 
         private async Task OnWithdrawAsync()
