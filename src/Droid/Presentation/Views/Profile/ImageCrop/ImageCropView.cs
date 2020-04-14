@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.App;
+using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Views;
@@ -11,7 +12,7 @@ using PrankChat.Mobile.Droid.Presentation.Views.Base;
 namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.ImageCrop
 {
     [MvxActivityPresentation]
-    [Activity]
+    [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class ImageCropView : BaseView<ImageCropViewModel>
     {
         private const int RotateAngle = 90;

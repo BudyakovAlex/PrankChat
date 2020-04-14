@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
     [Activity(LaunchMode = LaunchMode.SingleTop,
         Theme = "@style/Theme.PrankChat.Base.Dark",
         ScreenOrientation = ScreenOrientation.Portrait,
-        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+        ConfigurationChanges = ConfigChanges.ScreenSize)]
     public class MainView : BaseView<MainViewModel>
     {
         private readonly ViewOnTouchListener _tabViewOnTouchListener;

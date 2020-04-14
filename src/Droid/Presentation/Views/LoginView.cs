@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Support.Design.Widget;
@@ -13,7 +14,7 @@ using PrankChat.Mobile.Droid.Presenters.Attributes;
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {
     [ClearStackActivityPresentation]
-    [Activity(NoHistory = true)]
+    [Activity(NoHistory = true, ScreenOrientation = ScreenOrientation.Portrait)]
     public class LoginView : BaseView<LoginViewModel>
     {
         private TextInputEditText _emailEditText;

@@ -81,6 +81,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         public override void ViewDidLoad()
         {
+            IsRotateEnabled = true;
+
             base.ViewDidLoad();
 
             NSNotificationCenter.DefaultCenter.AddObserver(this, new Selector(nameof(WillResignActive)), UIApplication.WillResignActiveNotification, null);
