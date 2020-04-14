@@ -86,15 +86,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
 
         private async Task LoadMoreItemsInternalAsync()
         {
-            var loadedItems = await LoadMoreItemsAsync(CurrentPaginationIndex, _paginationSize);
+            try
+            {
+                IsBusy = true;
 
-            ++CurrentPaginationIndex;
-            LoadedItemsCount += loadedItems;
+                var loadedItems = await LoadMoreItemsAsync(CurrentPaginationIndex, _paginationSize);
 
-            await Task.WhenAll(RaisePropertyChanged(nameof(LoadedItemsCount)),
-                               RaisePropertyChanged(nameof(CurrentPaginationIndex)),
-                               RaisePropertyChanged(nameof(HasNextPage)));
-            LoadMoreItemsCommand.RaiseCanExecuteChanged();
+                ++CurrentPaginationIndex;
+                LoadedItemsCount += loadedItems;
+
+                await Task.WhenAll(RaisePropertyChanged(nameof(LoadedItemsCount)),
+                                   RaisePropertyChanged(nameof(CurrentPaginationIndex)),
+                                   RaisePropertyChanged(nameof(HasNextPage)));
+                LoadMoreItemsCommand.RaiseCanExecuteChanged();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private Task ReloadItemsAsync()
