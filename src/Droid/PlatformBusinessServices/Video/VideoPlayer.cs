@@ -96,6 +96,9 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         public override void SetSourceUri(string uri)
         {
+            if (string.IsNullOrWhiteSpace(uri))
+                return;
+
             _videoView.SetVideoPath(uri);
             _videoView.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepeared));
         }

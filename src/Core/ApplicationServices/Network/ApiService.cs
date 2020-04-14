@@ -46,7 +46,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task AuthorizeAsync(string email, string password)
         {
-            var loginModel = new AuthorizationApiModel { Email = email?.ToLower(), Password = password };
+            var loginModel = new AuthorizationApiModel { Email = email?.WithoutSpace()?.ToLower(), Password = password };
             var authTokenModel = await _client.UnauthorizedPost<AuthorizationApiModel, DataApiModel<AccessTokenApiModel>>("auth/login", loginModel, true);
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
@@ -93,7 +93,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email)
         {
-            var recoverPasswordModel = new RecoverPasswordApiModel { Email = email.ToLower(), };
+            var recoverPasswordModel = new RecoverPasswordApiModel { Email = email.WithoutSpace().ToLower(), };
             var result = await _client.UnauthorizedPost<RecoverPasswordApiModel, RecoverPasswordResultApiModel>("auth/password/email", recoverPasswordModel, false);
             return MappingConfig.Mapper.Map<RecoverPasswordResultDataModel>(result);
         }
@@ -410,14 +410,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 Description = description,
             };
             var videoMetadataApiModel = await _client.PostVideoFile<LoadVideoApiModel, DataApiModel<VideoApiModel>>("videos", loadVideoApiModel);
-            return MappingConfig.Mapper.Map<VideoDataModel>(videoMetadataApiModel.Data);
+            return MappingConfig.Mapper.Map<VideoDataModel>(videoMetadataApiModel?.Data);
         }
 
         public async Task<long?> RegisterVideoViewedFactAsync(int videoId)
         {
             var videoApiModel = await _client.UnauthorizedGet<DataApiModel<VideoApiModel>>($"videos/{videoId}/looked");
-            _log.Log(MvxLogLevel.Debug, () => $"Registered {videoApiModel.Data.ViewsCount} for video with id {videoId}");
-            return videoApiModel.Data.ViewsCount;
+            _log.Log(MvxLogLevel.Debug, () => $"Registered {videoApiModel?.Data?.ViewsCount} for video with id {videoId}");
+            return videoApiModel?.Data?.ViewsCount;
         }
 
         public Task ComplainVideoAsync(int videoId, string title, string description)

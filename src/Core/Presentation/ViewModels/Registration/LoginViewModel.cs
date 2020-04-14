@@ -17,13 +17,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class LoginViewModel : ExternalAuthViewModel
     {
-        private readonly IMvxLog _mvxLog;
-
         private string _emailText;
         public string EmailText
         {
             get => _emailText;
-            set => SetProperty(ref _emailText, value);
+            set
+            {
+                _emailText = value?.WithoutSpace();
+                RaisePropertyChanged(nameof(EmailText));
+            }
         }
 
         private string _passwordText;
@@ -37,13 +39,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                               IApiService apiService,
                               IExternalAuthService externalAuthService,
                               IDialogService dialogService,
-                              IMvxLog mvxLog,
                               IErrorHandleService errorHandleService,
                               ISettingsService settingsService,
                               IPushNotificationService pushNotificationService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService, externalAuthService, pushNotificationService)
         {
-            _mvxLog = mvxLog;
 #if DEBUG
 
             EmailText = "testuser@delete.me";

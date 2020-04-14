@@ -24,8 +24,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
         {
             base.OnCreate(savedInstanceState);
 
-            RequestedOrientation = ScreenOrientation.Portrait;
-
             SetContentView(layoutId);
             SetViewProperties();
 

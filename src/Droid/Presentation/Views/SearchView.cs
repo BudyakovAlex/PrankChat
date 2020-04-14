@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -12,7 +13,7 @@ using PrankChat.Mobile.Droid.Presentation.Views.Base;
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {
     [MvxActivityPresentation]
-    [Activity]
+    [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class SearchView : BaseView<SearchViewModel>
     {
         private ClearEditText _searchTextView;

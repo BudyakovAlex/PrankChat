@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Content.PM;
 using Android.OS;
 using Android.Widget;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -8,7 +9,7 @@ using PrankChat.Mobile.Droid.Presentation.Views.Base;
 namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
 {
     [MvxActivityPresentation]
-    [Activity]
+    [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class RegistrationView : BaseView<RegistrationViewModel>
     {
         protected override bool HasBackButton => true;

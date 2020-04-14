@@ -167,6 +167,9 @@ namespace PrankChat.Mobile.iOS.Controls
 
         private void UpdatePlaceholderFrame()
         {
+            if (_floatingLabel == null || _topBorderLine == null)
+                return;
+
             if (!string.IsNullOrEmpty(Text))
             {
                 _floatingLabel.Font = _floatPlaceholderFont;
