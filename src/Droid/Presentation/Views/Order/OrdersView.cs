@@ -33,7 +33,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
-            var view = this.BindingInflate(Resource.Layout.orders_layout, null);
+            var view = this.BindingInflate(Resource.Layout.fragment_orders, null);
 
             InitializeControls(view);
             DoBind();
