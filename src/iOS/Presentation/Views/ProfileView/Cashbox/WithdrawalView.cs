@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
+using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
@@ -12,6 +13,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 {
     public partial class WithdrawalView : BaseGradientBarView<WithdrawalViewModel>
     {
+        private MvxUIRefreshControl _refreshControl;
+
         protected override void SetupBinding()
         {
             var set = this.CreateBindingSet<WithdrawalView, WithdrawalViewModel>();
@@ -103,6 +106,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
                 .For(v => v.BindVisible())
                 .To(vm => vm.IsBusy);
 
+            set.Bind(_refreshControl)
+                .For(v => v.IsRefreshing)
+                .To(vm => vm.IsUpdatingData);
+
+            set.Bind(_refreshControl)
+                .For(v => v.RefreshCommand)
+                .To(vm => vm.UpdateDataCommand);
+
             set.Apply();
         }
 
@@ -151,6 +162,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
             lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
             lottieAnimationView.LoopAnimation = true;
             lottieAnimationView.Play();
+
+            _refreshControl = new MvxUIRefreshControl();
+            scrollView.RefreshControl = _refreshControl;
         }
     }
 }

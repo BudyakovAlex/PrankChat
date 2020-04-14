@@ -39,10 +39,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.IsBusy);
 
             set.Bind(_refreshControl)
-                .For(v => v.IsRefreshing)
-                .To(vm => vm.IsBusy);
-
-            set.Bind(_refreshControl)
                 .For(v => v.RefreshCommand)
                 .To(vm => vm.ReloadItemsCommand);
 

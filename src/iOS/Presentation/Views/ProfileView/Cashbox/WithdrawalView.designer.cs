@@ -82,6 +82,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 		UIKit.UITextField savedCardNumberEditText { get; set; }
 
 		[Outlet]
+		UIKit.UIScrollView scrollView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel statusTitleLabel { get; set; }
 
 		[Outlet]
@@ -107,36 +110,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (statusValueLabel != null) {
-				statusValueLabel.Dispose ();
-				statusValueLabel = null;
-			}
-
-			if (statusTitleLabel != null) {
-				statusTitleLabel.Dispose ();
-				statusTitleLabel = null;
-			}
-
-			if (costValueLabel != null) {
-				costValueLabel.Dispose ();
-				costValueLabel = null;
-			}
-
-			if (costTitleLabel != null) {
-				costTitleLabel.Dispose ();
-				costTitleLabel = null;
-			}
-
-			if (dateValueLabel != null) {
-				dateValueLabel.Dispose ();
-				dateValueLabel = null;
-			}
-
-			if (dateTitleLabel != null) {
-				dateTitleLabel.Dispose ();
-				dateTitleLabel = null;
-			}
-
 			if (amountContainerStackView != null) {
 				amountContainerStackView.Dispose ();
 				amountContainerStackView = null;
@@ -157,6 +130,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				cancelWithdrawalButton = null;
 			}
 
+			if (scrollView != null) {
+				scrollView.Dispose ();
+				scrollView = null;
+			}
+
 			if (cardNumberEditText != null) {
 				cardNumberEditText.Dispose ();
 				cardNumberEditText = null;
@@ -167,9 +145,29 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				costTextField = null;
 			}
 
+			if (costTitleLabel != null) {
+				costTitleLabel.Dispose ();
+				costTitleLabel = null;
+			}
+
+			if (costValueLabel != null) {
+				costValueLabel.Dispose ();
+				costValueLabel = null;
+			}
+
 			if (creditCardView != null) {
 				creditCardView.Dispose ();
 				creditCardView = null;
+			}
+
+			if (dateTitleLabel != null) {
+				dateTitleLabel.Dispose ();
+				dateTitleLabel = null;
+			}
+
+			if (dateValueLabel != null) {
+				dateValueLabel.Dispose ();
+				dateValueLabel = null;
 			}
 
 			if (firstNameTextField != null) {
@@ -230,6 +228,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 			if (savedCardNumberEditText != null) {
 				savedCardNumberEditText.Dispose ();
 				savedCardNumberEditText = null;
+			}
+
+			if (statusTitleLabel != null) {
+				statusTitleLabel.Dispose ();
+				statusTitleLabel = null;
+			}
+
+			if (statusValueLabel != null) {
+				statusValueLabel.Dispose ();
+				statusValueLabel = null;
 			}
 
 			if (surnameTextField != null) {
