@@ -13,6 +13,7 @@ using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
+using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Utils.Helpers;
@@ -30,24 +31,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         private readonly ViewOnTouchListener _tabViewOnTouchListener;
 
         private TabLayout _tabLayout;
-        private string _userImageUrl;
 
         public MainView()
         {
             _tabViewOnTouchListener = new ViewOnTouchListener(OnTabItemTouched);
-        }
-
-        public string UserImageUrl
-        {
-            get => _userImageUrl;
-            set
-            {
-                if (_userImageUrl == value)
-                    return;
-
-                _userImageUrl = value;
-                UpdateProfileTabImage(_tabLayout);
-            }
         }
 
         protected override void OnCreate(Bundle bundle)
@@ -96,15 +83,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             _tabLayout.TabUnselected -= TabLayoutOnTabUnselected;
         }
 
-        protected override void OnViewModelSet()
-        {
-            base.OnViewModelSet();
-
-            var set = this.CreateBindingSet<MainView, MainViewModel>();
-            set.Bind(this).For(v => v.UserImageUrl).To(vm => vm.UserImageUrl).Mode(MvxBindingMode.OneWay);
-            set.Apply();
-        }
-
         private void CreateTabs()
         {
             _tabLayout.SetTabTextColors(Resource.Color.applicationBlack, Resource.Color.inactive);
@@ -113,7 +91,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             InitTab(1, Resource.Drawable.ic_competitions, Localization.Competitions_Tab, _tabLayout, inflater);
             InitCentralTab(Resource.Drawable.ic_create_order, _tabLayout, inflater);
             InitTab(3, Resource.Drawable.ic_orders, Localization.Orders_Tab, _tabLayout, inflater);
-            InitTab(4, Resource.Drawable.ic_image_background, Localization.Profile_Tab, _tabLayout, inflater);
+            InitTab(4, Resource.Drawable.ic_profile, Localization.Profile_Tab, _tabLayout, inflater);
 
             TabLayoutOnTabSelected(this, new TabLayout.TabSelectedEventArgs(_tabLayout.GetTabAt(0)));
         }
@@ -127,12 +105,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             var textView = e.Tab.View.FindViewById<TextView>(Resource.Id.tab_title);
 
             textView?.SetTextColor(ContextCompat.GetColorStateList(ApplicationContext, Resource.Color.applicationBlack));
-
-            if (e.Tab.Position == 4)
-            {
-                iconView.SetBackgroundResource(Resource.Drawable.gradient_oval);
-                return;
-            }
 
             if (e.Tab.Position == 2)
             {
@@ -148,12 +120,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             var textView = e.Tab.View.FindViewById<TextView>(Resource.Id.tab_title);
 
             textView?.SetTextColor(ContextCompat.GetColorStateList(ApplicationContext, Resource.Color.inactive));
-
-            if (e.Tab.Position == 4)
-            {
-                iconView.SetBackgroundResource(Color.Transparent);
-                return;
-            }
 
             if (e.Tab.Position == 2)
             {
@@ -216,19 +182,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             }
 
             return false;
-        }
-
-        private void UpdateProfileTabImage(TabLayout tabLayout)
-        {
-            var tabView = tabLayout.GetTabAt(4);
-            var iconView = tabView.CustomView.FindViewById<MvxCachedImageView>(Resource.Id.tab_icon);
-            ImageService.Instance.LoadUrl(_userImageUrl)
-                .Retry(3, 200)
-                .DownSample(50, 50)
-                .Transform(new CircleTransformation())
-                .LoadingPlaceholder(base.Resources.GetResourceName(Resource.Drawable.ic_image_background), FFImageLoading.Work.ImageSource.CompiledResource)
-                .ErrorPlaceholder(base.Resources.GetResourceName(Resource.Drawable.ic_image_background))
-                .Into(iconView);
         }
     }
 }

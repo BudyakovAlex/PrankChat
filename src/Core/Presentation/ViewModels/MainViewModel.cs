@@ -22,15 +22,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private readonly int[] _skipTabIndexesInDemoMode = new[] { 2, 4 };
 
-        private MvxSubscriptionToken _updateAvatarToken;
-
-        private string _userImageUrl;
-        public string UserImageUrl
-        {
-            get => _userImageUrl;
-            set => SetProperty(ref _userImageUrl, value);
-        }
-
         public MvxAsyncCommand ShowContentCommand { get; }
 
         public MvxAsyncCommand ShowLoginCommand { get; }
@@ -55,23 +46,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             CheckDemoCommand = new MvxAsyncCommand<int>(CheckDemoModeAsync);
         }
 
-        public override Task Initialize()
-        {
-            UpdateUserAvatar();
-            return base.Initialize();
-        }
-
         public override void ViewCreated()
         {
             base.ViewCreated();
-            Subscription();
             _notificationService.TryUpdateTokenAsync().FireAndForget();
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            Unsubscription();
-            base.ViewDestroy(viewFinishing);
         }
 
         public bool CanSwitchTabs(int position)
@@ -85,31 +63,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             return true;
         }
 
-        private void Subscription()
-        {
-            _updateAvatarToken = _messenger.Subscribe<UpdateAvatarMessage>(UpdateUserAvatar);
-        }
-
         private async Task CheckDemoModeAsync(int position)
         {
             if (!CanSwitchTabs(position))
             {
                 await NavigationService.ShowLoginView();
             }
-        }
-
-        private void Unsubscription()
-        {
-            if (_updateAvatarToken != null)
-            {
-                _messenger.Unsubscribe<UpdateAvatarMessage>(_updateAvatarToken);
-                _updateAvatarToken.Dispose();
-            }
-        }
-
-        private void UpdateUserAvatar(UpdateAvatarMessage message = null)
-        {
-            UserImageUrl = _settingsService.User?.Avatar;
         }
     }
 }
