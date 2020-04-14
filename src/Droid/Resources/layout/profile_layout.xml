@@ -87,6 +87,7 @@
                 app:MvxBind="Click ShowWithdrawalCommand" />
             <!-- Values section row -->
             <TextView
+                android:visibility="gone"
                 android:id="@+id/profile_orders_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -98,6 +99,7 @@
                 style="@style/Theme.PrankChat.TextView.ProfileView.ValueLabel"
                 app:MvxBind="Text OrdersValue" />
             <TextView
+                android:visibility="gone"
                 android:id="@+id/profile_orders_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,6 +109,7 @@
                 android:text="@string/ProfileView_Orders_Subtitle"
                 style="@style/Theme.PrankChat.TextView.ProfileView.TitleLabel" />
             <TextView
+                android:visibility="gone"
                 android:id="@+id/profile_completed_orders_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -118,6 +121,7 @@
                 style="@style/Theme.PrankChat.TextView.ProfileView.ValueLabel"
                 app:MvxBind="Text CompletedOrdersValue" />
             <TextView
+                android:visibility="gone"
                 android:id="@+id/profile_completed_orders_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -127,7 +131,7 @@
                 android:text="@string/ProfileView_Completed_Subtitle"
                 style="@style/Theme.PrankChat.TextView.ProfileView.TitleLabel" />
            <TextView
-                android:visibility="invisible"
+                android:visibility="gone"
                 android:id="@+id/profile_subscribers_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -139,7 +143,7 @@
                 style="@style/Theme.PrankChat.TextView.ProfileView.ValueLabel"
                 app:MvxBind="Text SubscribersValue" />
             <TextView
-                android:visibility="invisible"
+                android:visibility="gone"
                 android:id="@+id/profile_subscribers_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -149,7 +153,7 @@
                 android:text="@string/ProfileView_Subscribers_Subtitle"
                 style="@style/Theme.PrankChat.TextView.ProfileView.TitleLabel" />
             <TextView
-                android:visibility="invisible"
+                android:visibility="gone"
                 android:id="@+id/profile_subscriptions_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -161,7 +165,7 @@
                 style="@style/Theme.PrankChat.TextView.ProfileView.ValueLabel"
                 app:MvxBind="Text SubscriptionsValue" />
             <TextView
-                android:visibility="invisible"
+                android:visibility="gone"
                 android:id="@+id/profile_subscriptions_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

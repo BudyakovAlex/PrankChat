@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -47,7 +46,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="852"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EcH-8v-uiq">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="199"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="143"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TEx-X9-V1p" userLabel="Profile Image View" customClass="CircleCachedImageView">
                                             <rect key="frame" x="16" y="16" width="100" height="100"/>
@@ -95,11 +94,11 @@
                                                 <constraint firstItem="tRV-7y-SFh" firstAttribute="height" secondItem="MbG-dJ-o4m" secondAttribute="height" id="u2g-Kh-qBc"/>
                                             </constraints>
                                         </stackView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FIk-Gw-dzJ">
-                                            <rect key="frame" x="16" y="143" width="382" height="40"/>
+                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FIk-Gw-dzJ">
+                                            <rect key="frame" x="16" y="143" width="382" height="0.0"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3dO-3W-d4I">
-                                                    <rect key="frame" x="0.0" y="0.0" width="95.5" height="40"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="95.5" height="0.0"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VIq-Yi-J6x" userLabel="Orders Value Label">
                                                             <rect key="frame" x="0.0" y="0.0" width="95.5" height="20.5"/>
@@ -125,7 +124,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="98V-kV-BEy">
-                                                    <rect key="frame" x="95.5" y="0.0" width="95.5" height="40"/>
+                                                    <rect key="frame" x="95.5" y="0.0" width="95.5" height="0.0"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JPk-nx-5HZ" userLabel="Completed Orders Valuee Label">
                                                             <rect key="frame" x="0.0" y="0.0" width="95.5" height="20.5"/>
@@ -150,8 +149,8 @@
                                                         <constraint firstItem="JPk-nx-5HZ" firstAttribute="top" secondItem="98V-kV-BEy" secondAttribute="top" id="xiN-p3-nSa"/>
                                                     </constraints>
                                                 </view>
-                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HM9-6v-sUO">
-                                                    <rect key="frame" x="191" y="0.0" width="95.5" height="40"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HM9-6v-sUO">
+                                                    <rect key="frame" x="191" y="0.0" width="95.5" height="0.0"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8LC-cm-pDd" userLabel="Subscribers Title Label">
                                                             <rect key="frame" x="0.0" y="25.5" width="95.5" height="20.5"/>
@@ -176,8 +175,8 @@
                                                         <constraint firstItem="v77-Ck-uQJ" firstAttribute="centerX" secondItem="HM9-6v-sUO" secondAttribute="centerX" id="oRf-xy-PYy"/>
                                                     </constraints>
                                                 </view>
-                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CaD-4V-gYc">
-                                                    <rect key="frame" x="286.5" y="0.0" width="95.5" height="40"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CaD-4V-gYc">
+                                                    <rect key="frame" x="286.5" y="0.0" width="95.5" height="0.0"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GlQ-kz-bYm" userLabel="Subscriptions Title Label">
                                                             <rect key="frame" x="0.0" y="25.5" width="95.5" height="20.5"/>
@@ -206,7 +205,7 @@
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
                                                 <constraint firstItem="98V-kV-BEy" firstAttribute="width" secondItem="FIk-Gw-dzJ" secondAttribute="width" multiplier="0.25" id="201-FF-69m"/>
-                                                <constraint firstAttribute="height" constant="40" id="7O6-Ye-jcV"/>
+                                                <constraint firstAttribute="height" id="7O6-Ye-jcV"/>
                                                 <constraint firstItem="HM9-6v-sUO" firstAttribute="top" secondItem="FIk-Gw-dzJ" secondAttribute="top" id="9Zf-Fs-FEe"/>
                                                 <constraint firstAttribute="trailing" secondItem="CaD-4V-gYc" secondAttribute="trailing" id="E3y-yT-BOj"/>
                                                 <constraint firstItem="3dO-3W-d4I" firstAttribute="width" secondItem="FIk-Gw-dzJ" secondAttribute="width" multiplier="0.25" id="Exu-Yw-QRf"/>
@@ -228,7 +227,7 @@
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="FIk-Gw-dzJ" secondAttribute="bottom" constant="16" id="2Qu-bL-JS5"/>
+                                        <constraint firstAttribute="bottom" secondItem="FIk-Gw-dzJ" secondAttribute="bottom" id="2Qu-bL-JS5"/>
                                         <constraint firstItem="dM1-eD-p8l" firstAttribute="top" secondItem="EcH-8v-uiq" secondAttribute="top" constant="16" id="2Xd-rm-goV"/>
                                         <constraint firstItem="FIk-Gw-dzJ" firstAttribute="leading" secondItem="EcH-8v-uiq" secondAttribute="leading" constant="16" id="32B-Fx-lmD"/>
                                         <constraint firstItem="FIk-Gw-dzJ" firstAttribute="top" secondItem="MbG-dJ-o4m" secondAttribute="bottom" constant="16" id="5b2-qB-IkG"/>
@@ -248,14 +247,14 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vfC-7C-Bsj">
-                                    <rect key="frame" x="0.0" y="238" width="414" height="1"/>
+                                    <rect key="frame" x="0.0" y="182" width="414" height="1"/>
                                     <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="ccH-yO-aSR"/>
                                     </constraints>
                                 </view>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="hnE-Ud-ca7">
-                                    <rect key="frame" x="0.0" y="199" width="414" height="40"/>
+                                    <rect key="frame" x="0.0" y="143" width="414" height="40"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zh4-ic-drC">
                                             <rect key="frame" x="0.0" y="0.0" width="207" height="40"/>
@@ -316,7 +315,7 @@
                                     </constraints>
                                 </stackView>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nu7-DC-gxt">
-                                    <rect key="frame" x="0.0" y="239" width="414" height="613"/>
+                                    <rect key="frame" x="0.0" y="183" width="414" height="669"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </tableView>
                             </subviews>
