@@ -55,8 +55,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 		protected override void SetupControls()
 		{
-            Title = Resources.OrdersView_Title_Label;
-
             InitializeTableView();
             InitializeNavigationBar();
 
@@ -101,6 +99,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 // TODO: This feature will be implemented.
                 //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
             }, true);
+
+            var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
+            logoButton.Enabled = false;
+            NavigationItem.LeftBarButtonItem = logoButton;
         }
 
         private void SetSelectedTab(int index)
