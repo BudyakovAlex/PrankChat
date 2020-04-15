@@ -41,7 +41,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
         public void HandleForegroundNotification(NSDictionary userInfo)
         {
             var pushNotificationData = HandleNotificationPayload(userInfo);
-            ScheduleLocalNotification(pushNotificationData.Title, pushNotificationData.Body);
+            ScheduleLocalNotification(pushNotificationData?.Title, pushNotificationData?.Body);
         }
 
         public void HandleBackgroundNotification(NSDictionary userInfo)

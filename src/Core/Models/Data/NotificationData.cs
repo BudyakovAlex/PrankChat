@@ -14,21 +14,21 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public PushNotificationData(string title, string body)
         {
-            Title = title;
-            Body = body;
+            Title = title ?? string.Empty;
+            Body = body ?? string.Empty;
         }
 
         public PushNotificationData(string title, string body, NotificationType notificationType)
         {
-            Title = title;
-            Body = body;
+            Title = title ?? string.Empty;
+            Body = body ?? string.Empty;
             Type = notificationType;
         }
 
         public PushNotificationData(string title, string body, NotificationType notificationType, int orderId)
         {
-            Title = title;
-            Body = body;
+            Title = title ?? string.Empty;
+            Body = body ?? string.Empty;
             Type = notificationType;
             OrderId = orderId;
         }
