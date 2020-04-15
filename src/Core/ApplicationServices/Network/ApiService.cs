@@ -80,9 +80,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
-        public async Task LogoutAsync()
+        public Task LogoutAsync()
         {
-            var authTokenModel = await _client.Post<AuthorizationApiModel>("auth/logout", true);
+            return _client.Post<AuthorizationApiModel>("auth/logout", true);
         }
 
         public async Task RefreshTokenAsync()
