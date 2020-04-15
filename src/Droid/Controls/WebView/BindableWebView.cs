@@ -4,9 +4,9 @@ using Android.Runtime;
 using Android.Util;
 using Android.Webkit;
 
-namespace PrankChat.Mobile.Droid.Controls
+namespace PrankChat.Mobile.Droid.Controls.WebView
 {
-    public class BindableWebView : WebView
+    public class BindableWebView : Android.Webkit.WebView
     {
         private string _webViewContent;
 
@@ -53,6 +53,8 @@ namespace PrankChat.Mobile.Droid.Controls
         private void Initilize()
         {
             Settings.JavaScriptEnabled = true;
+            Settings.AllowUniversalAccessFromFileURLs = true;
+            SetWebViewClient(new CustomWebViewClient());
         }
 
         private void LoadHtmlString()
