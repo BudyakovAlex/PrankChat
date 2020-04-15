@@ -30,7 +30,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly ISettingsService _settingsService;
-        private readonly IMvxLog _mvxLog;
         private readonly IMvxMessenger _mvxMessenger;
         private readonly Dictionary<DateFilterType, string> _dateFilterTypeTitleMap;
 
@@ -87,7 +86,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                      IPlatformService platformService,
                                      IVideoPlayerService videoPlayerService,
                                      ISettingsService settingsService,
-                                     IMvxLog mvxLog,
                                      IErrorHandleService errorHandleService,
                                      IMvxMessenger mvxMessenger)
             : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
@@ -95,7 +93,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _platformService = platformService;
             _videoPlayerService = videoPlayerService;
             _settingsService = settingsService;
-            _mvxLog = mvxLog;
             _mvxMessenger = mvxMessenger;
 
             _dateFilterTypeTitleMap = new Dictionary<DateFilterType, string>
