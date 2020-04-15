@@ -115,7 +115,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             switch (orderFilterType)
             {
                 case OrderFilterType.All:
-                    endpoint = "filter/orders/all";
+                    endpoint = $"filter/orders/all?page={page}&items_per_page={pageSize}&order_property=created_at";
                     break;
 
                 case OrderFilterType.New:
