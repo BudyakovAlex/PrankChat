@@ -19,12 +19,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         protected override void SetupControls()
         {
             base.SetupControls();
-
-            NavigationController.NavigationBar.SetNavigationBarStyle();
-
-            var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
-            logoButton.Enabled = false;
-            NavigationItem.LeftBarButtonItem = logoButton;
+            InitializeNavigationBar();
 
             _source = new TableViewSource(tableView)
                 .Register<CompetitionsSectionViewModel>(CompetitionsSectionCell.Nib, CompetitionsSectionCell.CellId);
@@ -38,6 +33,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             };
 
             tableView.RefreshControl = _refreshControl;
+        }
+
+        private void InitializeNavigationBar()
+        {
+            NavigationController.NavigationBar.SetNavigationBarStyle();
+            NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
+            {
+                NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand),
+                // TODO: This feature will be implemented.
+                //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
+            }, true);
+
+            var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
+            logoButton.Enabled = false;
+            NavigationItem.LeftBarButtonItem = logoButton;
         }
 
         protected override void SetupBinding()

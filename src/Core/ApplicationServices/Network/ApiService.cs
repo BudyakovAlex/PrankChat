@@ -532,7 +532,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             where TApiModel : class
         {
             var mappedModels = MappingConfig.Mapper.Map<List<TDataModel>>(data?.Data ?? new List<TApiModel>());
-            var paginationData = data.Meta?.FirstOrDefault();
+            var paginationData = data?.Meta?.FirstOrDefault();
             var totalItemsCount = paginationData?.Value?.Total ?? mappedModels.Count;
             return new PaginationModel<TDataModel>(mappedModels, totalItemsCount);
         }
