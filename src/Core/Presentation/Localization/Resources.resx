@@ -939,4 +939,7 @@
   <data name="Profile_Resend_Confirmation" xml:space="preserve">
     <value>Отправить повторно</value>
   </data>
+  <data name="OrderDetailsView_Video_Uploaded" xml:space="preserve">
+    <value>Видео отправлено, после обработки у заказчика будет 24 часа на принятие или отправки в спор.</value>
+  </data>
 </root>

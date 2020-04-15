@@ -37,6 +37,9 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("taken_to_work_at")]
         public DateTime? TakenToWorkAt { get; set; }
 
+        [JsonProperty("video_uploaded_at")]
+        public DateTime? VideoUploadedAt { get; set; }
+
         [JsonProperty("my_arbitration_value")]
         public ArbitrationValueType? MyArbitrationValue { get; set; }
 
