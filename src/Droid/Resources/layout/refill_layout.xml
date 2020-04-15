@@ -18,7 +18,7 @@
         android:inputType="number"
         android:hint="@string/CashboxView_Price_Placeholder"
         style="@style/Theme.PrankChat.EditText"
-        app:MvxBind="Text Cost" />
+        app:MvxBind="Text Price(Cost)" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="36dp"

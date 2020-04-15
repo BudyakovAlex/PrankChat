@@ -116,7 +116,6 @@
     <Compile Include="Presentation\Converters\LikeConverter.cs" />
     <Compile Include="Controls\SelectableButton.cs" />
     <Compile Include="Presentation\Views\WebPageView.cs" />
-    <Compile Include="Controls\BindableWebView.cs" />
     <Compile Include="Presentation\Views\Video\FullScreenVideoView.cs" />
     <Compile Include="Presentation\Bindings\VideoUrlTargetBinding.cs" />
     <Compile Include="Controls\CustomMediaControllerView.cs" />
@@ -185,6 +184,8 @@
     <Compile Include="Presentation\Bindings\PaddingTargetBinding.cs" />
     <Compile Include="Presentation\Views\Onboarding\OnboardingView.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Onboarding\OnboardingItemViewHolder.cs" />
+    <Compile Include="Controls\WebView\CustomWebViewClient.cs" />
+    <Compile Include="Controls\WebView\BindableWebView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -1198,6 +1199,7 @@
     <Folder Include="Presentation\Adapters\ViewHolders\Abstract\Video\" />
     <Folder Include="Presentation\Views\Onboarding\" />
     <Folder Include="Presentation\Adapters\ViewHolders\Onboarding\" />
+    <Folder Include="Controls\WebView\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />
