@@ -137,40 +137,44 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task OnShowMenuAsync()
         {
-            var items = new string[]
-            {
-                // TODO: These features will be implemented.
-                //Resources.ProfileView_Menu_Favourites,
-                //Resources.ProfileView_Menu_TaskSubscriptions,
-                //Resources.ProfileView_Menu_Faq,
-                //Resources.ProfileView_Menu_Support,
-                //Resources.ProfileView_Menu_Settings,
-                Resources.ProfileView_Menu_LogOut,
-            };
+            // TODO: These features will be implemented.
+            //var items = new string[]
+            //{
+            //Resources.ProfileView_Menu_Favourites,
+            //Resources.ProfileView_Menu_TaskSubscriptions,
+            //Resources.ProfileView_Menu_Faq,
+            //Resources.ProfileView_Menu_Support,
+            //Resources.ProfileView_Menu_Settings,
+            //Resources.ProfileView_Menu_LogOut,
+            //};
 
-            var result = await DialogService.ShowMenuDialogAsync(items, Resources.Cancel);
-            if (string.IsNullOrWhiteSpace(result))
-                return;
+            //var result = await DialogService.ShowMenuDialogAsync(items, Resources.Cancel);
+            //if (string.IsNullOrWhiteSpace(result))
+            //    return;
 
-            if (result == Resources.ProfileView_Menu_Favourites)
-            {
-            }
-            else if (result == Resources.ProfileView_Menu_TaskSubscriptions)
-            {
-            }
-            else if (result == Resources.ProfileView_Menu_Faq)
-            {
-            }
-            else if (result == Resources.ProfileView_Menu_Support)
-            {
-            }
-            else if (result == Resources.ProfileView_Menu_Settings)
-            {
-            }
-            else if (result == Resources.ProfileView_Menu_LogOut)
-            {
+            //if (result == Resources.ProfileView_Menu_Favourites)
+            //{
+            //}
+            //else if (result == Resources.ProfileView_Menu_TaskSubscriptions)
+            //{
+            //}
+            //else if (result == Resources.ProfileView_Menu_Faq)
+            //{
+            //}
+            //else if (result == Resources.ProfileView_Menu_Support)
+            //{
+            //}
+            //else if (result == Resources.ProfileView_Menu_Settings)
+            //{
+            //}
+            //else if (result == Resources.ProfileView_Menu_LogOut)
+            //{
+            //    await LogoutUserAsync();
+            //}
+
+            var result = await DialogService.ShowConfirmAsync($"{Resources.ProfileView_Menu_LogOut}?");
+            if (result)
                 await LogoutUserAsync();
-            }
         }
 
         private async Task OnShowUpdateProfileAsync()
