@@ -11,6 +11,7 @@ pr: none
 
 variables:
 - group: Main-Variables-Group
+- group: Staging-Environment-Variables
 
 steps:
 - task: NuGetToolInstaller@0
@@ -22,6 +23,10 @@ steps:
   displayName: 'NuGet restore'
   inputs:
     restoreSolution: '$(SOLUTION_FILE)'
+
+- powershell: '(Get-Content -path $(PATH_TO_CONFIGURATION_FILE) -Raw) -replace ''BaseAddress = StageAddress;'',''BaseAddress = $(ENVIRONMENT_CONFIGURATION);'' | Set-Content -Path $(PATH_TO_CONFIGURATION_FILE)'
+  displayName: 'Set application environment configuration to $(ENVIRONMENT_CONFIGURATION)'
+  enabled: true
 
 - task: vs-publisher-473885.motz-mobile-buildtasks.android-manifest-version.android-manifest-version@1
   displayName: 'Bump Android Versions in $(ANDROID_MANIFEST_PATH)'
