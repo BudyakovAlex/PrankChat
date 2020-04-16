@@ -93,13 +93,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #endregion
 
+        private TimeSpan? TimeValue => _order?.Status != null && _order.Status.Value == OrderStatusType.WaitFinish ? _order?.VideoUploadedIn : _order?.FinishIn;
+
         public string PriceValue => _order?.Price.ToPriceString();
 
-        public string TimeDaysValue => _order?.FinishIn?.Days.ToString("00");
+        public string TimeDaysValue => TimeValue?.Days.ToString("00");
 
-        public string TimeHourValue => _order?.FinishIn?.Hours.ToString("00");
+        public string TimeHourValue => TimeValue?.Hours.ToString("00");
 
-        public string TimeMinutesValue => _order?.FinishIn?.Minutes.ToString("00");
+        public string TimeMinutesValue => TimeValue?.Minutes.ToString("00");
 
         public bool IsUserCustomer => _order?.Customer?.Id == _settingsService.User?.Id;
 
@@ -129,7 +131,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsDecisionVideoAvailable => _order?.Status == OrderStatusType.WaitFinish && IsUserCustomer;
 
-        public bool IsTimeAvailable => _order?.FinishIn != null && _order?.FinishIn > new TimeSpan();
+        public bool IsTimeAvailable => _order?.FinishIn != null && _order?.FinishIn > new TimeSpan() 
+                                       || _order?.VideoUploadedAt != null && _order.Status.HasValue && _order.Status.Value == OrderStatusType.WaitFinish;
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
@@ -289,10 +292,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     return;
 
                 var video = await ApiService.SendVideoAsync(_orderId, file.Path, _order?.Title, _order?.Description);
-                if (video != null)
+                if (video != null && _order != null)
                 {
                     _order.Video = video;
                     _order.Status = OrderStatusType.WaitFinish;
+                    DialogService.ShowToast(Resources.OrderDetailsView_Video_Uploaded, ToastType.Positive);
                     await RaiseAllPropertiesChanged();
                 }
             }

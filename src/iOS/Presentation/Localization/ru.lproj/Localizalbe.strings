@@ -302,3 +302,4 @@
 "Profile_Your_Email_Not_Actual" = "Ваша почта не подтверждена";
 "Profile_Email_Confirmation_Sent" = "На Вашу почту отправлено письмо с подтверждением";
 "Profile_Resend_Confirmation" = "Отправить повторно";
+"OrderDetailsView_Video_Uploaded" = "Видео отправлено, после обработки у заказчика будет 24 часа на принятие или отправки в спор.";
