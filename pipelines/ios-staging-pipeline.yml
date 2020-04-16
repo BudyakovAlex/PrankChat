@@ -10,6 +10,7 @@ pr: none
 
 variables:
 - group: Main-Variables-Group
+- group: Staging-Environment-Variables
 
 steps:
 
@@ -32,6 +33,16 @@ steps:
 
 - bash: 'sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)'
   displayName: 'SET SDK to Mono $(MONO_VERSION)'
+
+- bash: |
+    sed -i "" 's/BaseAddress = StageAddress;/BaseAddress = $(ENVIRONMENT_CONFIGURATION);/g' $(PATH_TO_CONFIGURATION_FILE)
+    cat $(PATH_TO_CONFIGURATION_FILE) | xargs echo -e
+  displayName: 'Set application environment configuration to $(ENVIRONMENT_CONFIGURATION)'
+
+- bash: |
+    sed -i "" 's/development/production/g' $(PATH_TO_ENTITLEMENTS_PLIST)
+    cat $(PATH_TO_ENTITLEMENTS_PLIST) | xargs echo -e
+  displayName: 'Set Apple Push notifications environment configuration to Production'
 
 - task: InstallAppleCertificate@2
   displayName: 'Install an Apple certificate'
