@@ -40,8 +40,8 @@ steps:
   displayName: 'Set application environment configuration to $(ENVIRONMENT_CONFIGURATION)'
 
 - bash: |
-    sed -i "" 's/development/production/g' $(INFO_PLIST_PATH)
-    cat $(INFO_PLIST_PATH) | xargs echo -e
+    sed -i "" 's/development/production/g' $(PATH_TO_ENTITLEMENTS_PLIST)
+    cat $(PATH_TO_ENTITLEMENTS_PLIST) | xargs echo -e
   displayName: 'Set Apple Push notifications environment configuration to Production'
 
 - task: InstallAppleCertificate@2
