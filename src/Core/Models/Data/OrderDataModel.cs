@@ -29,7 +29,7 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public TimeSpan? FinishIn => ActiveTo?.ToLocalTime() - DateTime.Now;
 
-        public TimeSpan? VideoUploadedIn => VideoUploadedAt?.ToLocalTime() - DateTime.Now;
+        public TimeSpan? VideoUploadedIn => ActiveTo?.ToLocalTime() - VideoUploadedAt?.ToLocalTime();
 
         public UserDataModel Customer { get; set; }
 
