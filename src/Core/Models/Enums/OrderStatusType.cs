@@ -50,5 +50,8 @@ namespace PrankChat.Mobile.Core.Models.Enums
 
         [EnumMember(Value = "wait_finish")]
         WaitFinish,
+
+        [EnumMember(Value = "video_wait_moderation")]
+        VideoWaitModeration,
     }
 }

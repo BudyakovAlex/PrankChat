@@ -2,6 +2,7 @@
 using AutoMapper;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -39,8 +40,6 @@ namespace PrankChat.Mobile.Core.Models.Mappings
                 .ForPath(dest => dest.RelationTransaction.Data, opt => opt.MapFrom(src => src.RelationTransaction))
                 .ReverseMap();
             CreateMap<TransactionDataModel, TransactionApiModel>().ReverseMap();
-            CreateMap<GenderType, string>().ConvertUsing(src => src.ToString().ToLower());
-            CreateMap<ArbitrationValueType, string>().ConvertUsing(src => src.ToString().ToLower());
             CreateMap<ProblemDetailsDataModel, ProblemDetailsApiModel>()
                 .ForPath(dest => dest.Message, opt => opt.MapFrom(src => src.MessageServerError))
                 .ReverseMap();
@@ -48,6 +47,10 @@ namespace PrankChat.Mobile.Core.Models.Mappings
             CreateMap<DocumentDataModel, DocumentApiModel>().ReverseMap();
             CreateMap<CardDataModel, CardApiModel>().ReverseMap();
             CreateMap<WithdrawalDataModel, WithdrawalApiModel>().ReverseMap();
+
+            CreateMap<ArbitrationValueType, string>().ConvertUsing(src => src.ToString().ToLower());
+            CreateMap<GenderType, string>().ConvertUsing(src => src.ToString().ToLower());
+            CreateMap<string, OrderStatusType>().ConvertUsing(src => src.ToEnum<OrderStatusType>());
         }
     }
 }

@@ -186,7 +186,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             switch (TabType)
             {
                 case OrdersTabType.Order:
-                    return LoadMoreItemsAsync();
+                    return LoadMoreItemsCommand.ExecuteAsync();
 
                 case OrdersTabType.Arbitration:
                     return LoadArbitrationOrdersAsync();
