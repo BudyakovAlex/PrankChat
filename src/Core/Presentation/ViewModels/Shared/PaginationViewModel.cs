@@ -20,12 +20,32 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
 
         private readonly int _paginationSize;
 
+        public long TotalItemsCount { get; private set; }
+
+        private int _currentPaginationIndex;
+        public int CurrentPaginationIndex
+        {
+            get => _currentPaginationIndex;
+            set
+            {
+                _currentPaginationIndex = value;
+            }
+        }
+
+        public long LoadedItemsCount { get; private set; }
+
+        public bool HasNextPage => CanLoadMoreItems();
+
+        public MvxAsyncCommand LoadMoreItemsCommand { get; }
+
+        public MvxAsyncCommand ReloadItemsCommand { get; }
+
         public PaginationViewModel(int paginationSize,
-                                    INavigationService navigationService,
-                                    IErrorHandleService errorHandleService,
-                                    IApiService apiService,
-                                    IDialogService dialogService,
-                                    ISettingsService settingsService)
+                            INavigationService navigationService,
+                            IErrorHandleService errorHandleService,
+                            IApiService apiService,
+                            IDialogService dialogService,
+                            ISettingsService settingsService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _paginationSize = paginationSize;
@@ -35,37 +55,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
             CurrentPaginationIndex = DefaultPageIndex;
         }
 
-        public MvxAsyncCommand LoadMoreItemsCommand { get; }
-
-        public MvxAsyncCommand ReloadItemsCommand { get; }
-
-        public long TotalItemsCount { get; private set; }
-
-        public int CurrentPaginationIndex { get; private set; }
-
-        public long LoadedItemsCount { get; private set; }
-
-        public void SetTotalItemsCount(long totalItemsCount)
-        {
-            TotalItemsCount = totalItemsCount;
-            RaisePropertyChanged(nameof(TotalItemsCount));
-        }
-
-        public void Reset()
-        {
-            TotalItemsCount = 0;
-            CurrentPaginationIndex = DefaultPageIndex;
-            LoadedItemsCount = 0;
-
-            LoadMoreItemsCommand.RaiseCanExecuteChanged();
-        }
-
         protected virtual Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = Constants.Pagination.DefaultPaginationSize)
         {
             return Task.FromResult(0);
         }
-
-        public bool HasNextPage => CanLoadMoreItems();
 
         protected virtual int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
         {
@@ -82,6 +75,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
             }
 
             return viewModels.Count;
+        }
+
+        public void SetTotalItemsCount(long totalItemsCount)
+        {
+            TotalItemsCount = totalItemsCount;
+            RaisePropertyChanged(nameof(TotalItemsCount));
+        }
+
+        public void Reset()
+        {
+            TotalItemsCount = 0;
+            CurrentPaginationIndex = DefaultPageIndex;
+            LoadedItemsCount = 0;
+
+            LoadMoreItemsCommand.RaiseCanExecuteChanged();
         }
 
         private async Task LoadMoreItemsInternalAsync()
