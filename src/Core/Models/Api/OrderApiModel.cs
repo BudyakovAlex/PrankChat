@@ -20,7 +20,7 @@ namespace PrankChat.Mobile.Core.Models.Api
         public string Description { get; set; }
 
         [JsonProperty("status")]
-        public OrderStatusType? Status { get; set; }
+        public string Status { get; set; }
 
         [JsonProperty("active_to")]
         public DateTime? ActiveTo { get; set; }
