@@ -36,6 +36,15 @@ namespace PrankChat.Mobile.Core.Models.Enums
         [EnumMember(Value = "closed_after_arbitration_executor_win")]
         ClosedAfterArbitrationExecutorWin,
 
+        [EnumMember(Value = "video_in_process")]
+        VideoInProcess,
+
+        [EnumMember(Value = "video_wait_moderation")]
+        VideoWaitModeration,
+
+        [EnumMember(Value = "process_error")]
+        VideoProcessError,
+
         [EnumMember(Value = "finished")]
         Finished,
 
