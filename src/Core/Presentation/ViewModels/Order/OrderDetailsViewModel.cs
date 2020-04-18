@@ -132,7 +132,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public bool IsDecisionVideoAvailable => _order?.Status == OrderStatusType.WaitFinish && IsUserCustomer;
 
         public bool IsTimeAvailable => _order?.FinishIn != null && _order?.FinishIn > new TimeSpan() 
-                                       || _order?.VideoUploadedAt != null && _order.Status.HasValue && _order.Status.Value == OrderStatusType.WaitFinish;
+                                       || _order?.VideoUploadedAt != null && _order.Status.HasValue 
+                                                                          && (_order.Status.Value == OrderStatusType.WaitFinish || 
+                                                                              _order.Status.Value == OrderStatusType.VideoInProcess || 
+                                                                              _order.Status.Value == OrderStatusType.VideoWaitModeration);
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
@@ -292,10 +295,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     return;
 
                 var video = await ApiService.SendVideoAsync(_orderId, file.Path, _order?.Title, _order?.Description);
-                if (video != null && _order != null)
+                if (video != null)
                 {
-                    _order.Video = video;
-                    _order.Status = OrderStatusType.WaitFinish;
+                    await LoadOrderDetailsAsync();
                     DialogService.ShowToast(Resources.OrderDetailsView_Video_Uploaded, ToastType.Positive);
                     await RaiseAllPropertiesChanged();
                 }
