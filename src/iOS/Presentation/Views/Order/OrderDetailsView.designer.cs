@@ -94,6 +94,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UILabel priceValueLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIActivityIndicatorView processingActivityIndicator { get; set; }
+
+		[Outlet]
+		UIKit.UIView processingBackgroundView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel processingLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIView processingRootBackgroundView { get; set; }
+
+		[Outlet]
 		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profileImageView { get; set; }
 
 		[Outlet]
@@ -128,6 +140,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 		[Outlet]
 		UIKit.UIButton unsubscriptionButton { get; set; }
+
+		[Outlet]
+		UIKit.UIView videoContainerView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel videoDescriptionLabel { get; set; }
@@ -261,14 +276,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				minutesValueLabel = null;
 			}
 
-			if (orderActionsContainerView != null) {
-				orderActionsContainerView.Dispose ();
-				orderActionsContainerView = null;
-			}
-
 			if (noButton != null) {
 				noButton.Dispose ();
 				noButton = null;
+			}
+
+			if (orderActionsContainerView != null) {
+				orderActionsContainerView.Dispose ();
+				orderActionsContainerView = null;
 			}
 
 			if (priceTextLabel != null) {
@@ -279,6 +294,26 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (priceValueLabel != null) {
 				priceValueLabel.Dispose ();
 				priceValueLabel = null;
+			}
+
+			if (processingActivityIndicator != null) {
+				processingActivityIndicator.Dispose ();
+				processingActivityIndicator = null;
+			}
+
+			if (processingBackgroundView != null) {
+				processingBackgroundView.Dispose ();
+				processingBackgroundView = null;
+			}
+
+			if (processingLabel != null) {
+				processingLabel.Dispose ();
+				processingLabel = null;
+			}
+
+			if (processingRootBackgroundView != null) {
+				processingRootBackgroundView.Dispose ();
+				processingRootBackgroundView = null;
 			}
 
 			if (profileImageView != null) {
@@ -364,6 +399,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (yesButton != null) {
 				yesButton.Dispose ();
 				yesButton = null;
+			}
+
+			if (videoContainerView != null) {
+				videoContainerView.Dispose ();
+				videoContainerView = null;
 			}
 		}
 	}

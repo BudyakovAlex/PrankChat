@@ -41,6 +41,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #region Video
 
+        public bool IsVideoProcessing => _order.Status == OrderStatusType.VideoInProcess;
+
         public string VideoUrl => _order?.Video?.StreamUri;
 
         public string VideoPlaceholderUrl => _order?.Video?.Poster;
@@ -123,7 +125,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsVideoLoadAvailable => _order?.Status == OrderStatusType.InWork && IsUserExecutor;
 
-        public bool IsVideoAvailable => _order?.Video != null;
+        public bool IsVideoAvailable => _order?.Video != null && !IsVideoProcessing;
 
         public bool IsExecutorAvailable => _order?.Executor != null && _order?.Executor?.Id != _settingsService.User?.Id;
 

@@ -1,4 +1,7 @@
-﻿using MvvmCross.Binding.BindingContext;
+﻿using CoreAnimation;
+using CoreGraphics;
+using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Converters;
@@ -17,6 +20,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
         private UIBarButtonItem _rightBarButtonItem;
 
         private ArbitrationValueType? _arbitrationValue;
+        private CAGradientLayer _gradientLayer;
+
         public ArbitrationValueType? ArbitrationValue
         {
             get => _arbitrationValue;
@@ -130,9 +135,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             #region Video
 
+            set.Bind(videoContainerView)
+               .For(v => v.BindVisible())
+               .ByCombining(new MvxOrValueCombiner(),
+                            vm => vm.IsVideoAvailable,
+                            vm => vm.IsVideoProcessing);
+
+            set.Bind(processingRootBackgroundView)
+               .For(v => v.BindVisible())
+               .To(vm => vm.IsVideoProcessing);
+
             set.Bind(videoView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsVideoAvailable);
+               .For(v => v.BindVisible())
+               .To(vm => vm.IsVideoAvailable);
 
             set.Bind(videoImageView)
                 .For(v => v.ImagePath)
@@ -328,6 +343,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             videoImageView.ContentMode = UIViewContentMode.ScaleAspectFill;
 
             rootScrollView.RefreshControl = _refreshControl = new MvxUIRefreshControl();
+
+            processingRootBackgroundView.BackgroundColor = UIColor.Clear;
+            _gradientLayer = new CAGradientLayer
+            {
+                Colors = new[] { Theme.Color.CompetitionPhaseNewPrimary.CGColor, Theme.Color.CompetitionPhaseNewSecondary.CGColor },
+                CornerRadius = 10,
+                StartPoint = new CGPoint(0f, 1f),
+                EndPoint = new CGPoint(1f, 0f)
+            };
+
+            processingLabel.Text = Resources.Processing_Video;
+            processingRootBackgroundView.Layer.InsertSublayer(_gradientLayer, 0);
+            processingBackgroundView.Layer.CornerRadius = 8;
         }
 
         private void InitializeRightBarButtonItem()
@@ -350,7 +378,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             button.SetSelectableImageStyle($"ic_accent_thumbs_{type}", $"ic_thumbs_{type}");
             button.UserInteractionEnabled = true;
         }
-        
+
+        public override void ViewDidLayoutSubviews()
+        {
+            base.ViewDidLayoutSubviews();
+            _gradientLayer.Frame = processingRootBackgroundView.Bounds;
+        }
+
         private void UpdateStyleArbitrationButtons()
         {
             if (_arbitrationValue == null)
