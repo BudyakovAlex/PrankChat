@@ -95,7 +95,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #endregion
 
-        private TimeSpan? TimeValue => _order?.Status != null && _order.Status.Value == OrderStatusType.WaitFinish ? _order?.VideoUploadedIn : _order?.FinishIn;
+        private TimeSpan? TimeValue
+        {
+            get
+            {
+                switch (_order?.Status)
+                {
+                    case null:
+                        return null;
+                    case OrderStatusType.WaitFinish:
+                        return _order?.VideoUploadedIn < TimeSpan.Zero ? TimeSpan.Zero : _order.VideoUploadedIn;
+                    default:
+                        return _order?.FinishIn < TimeSpan.Zero ? TimeSpan.Zero : _order.FinishIn;
+                }
+            }
+        }
 
         public string PriceValue => _order?.Price.ToPriceString();
 
@@ -133,11 +147,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsDecisionVideoAvailable => _order?.Status == OrderStatusType.WaitFinish && IsUserCustomer;
 
-        public bool IsTimeAvailable => _order?.FinishIn != null && _order?.FinishIn > new TimeSpan() 
-                                       || _order?.VideoUploadedAt != null && _order.Status.HasValue 
-                                                                          && (_order.Status.Value == OrderStatusType.WaitFinish || 
-                                                                              _order.Status.Value == OrderStatusType.VideoInProcess || 
-                                                                              _order.Status.Value == OrderStatusType.VideoWaitModeration);
+        public bool IsTimeAvailable => _order?.Status != null && TimeValue != null && TimeValue >= TimeSpan.Zero &&
+                                       (_order.VideoUploadedAt != null &&
+                                        (_order.Status.Value == OrderStatusType.WaitFinish ||
+                                         _order.Status.Value == OrderStatusType.VideoInProcess ||
+                                         _order.Status.Value == OrderStatusType.VideoWaitModeration) ||
+                                        _order.FinishIn != null);
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
