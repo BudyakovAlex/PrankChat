@@ -142,6 +142,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                                $"&states[]={OrderStatusType.New.GetEnumMemberAttrValue()}" +
                                $"&states[]={OrderStatusType.Active.GetEnumMemberAttrValue()}" +
                                $"&states[]={OrderStatusType.InWork.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.VideoInProcess.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.VideoWaitModeration.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.VideoProcessError.GetEnumMemberAttrValue()}" +
                                $"&states[]={OrderStatusType.WaitFinish.GetEnumMemberAttrValue()}" +
                                $"&states[]={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}" +
                                $"&states[]={OrderStatusType.Finished.GetEnumMemberAttrValue()}";
@@ -154,6 +157,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     endpoint = $"{endpoint}" +
                                $"&executor_id={_settingsService.User.Id}" +
                                $"&states[]={OrderStatusType.InWork.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.VideoInProcess.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.VideoWaitModeration.GetEnumMemberAttrValue()}" +
+                               $"&states[]={OrderStatusType.VideoProcessError.GetEnumMemberAttrValue()}" +
                                $"&states[]={OrderStatusType.WaitFinish.GetEnumMemberAttrValue()}" +
                                $"&states[]={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}" +
                                $"&states[]={OrderStatusType.Finished.GetEnumMemberAttrValue()}";
