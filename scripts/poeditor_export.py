@@ -38,7 +38,7 @@ def getDownloadUrl(api_key, project_id, export_lang, export_type):
 def downloadFile(url, path):
 	urlretrieve(url, path)
 
-api_key = '6a76e9420945b04d5418bb04eea679a1'
+api_key = '7b566fa03da071be83f11f805c5cd479'
 project_id = 296029
 
 #App Android 

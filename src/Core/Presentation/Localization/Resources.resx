@@ -316,7 +316,7 @@
     <value>Время заказа:</value>
   </data>
   <data name="Order_View_Price_Text" xml:space="preserve">
-    <value>Сумма зкакза:</value>
+    <value>Сумма заказа:</value>
   </data>
   <data name="Order_View_Day" xml:space="preserve">
     <value>День</value>
