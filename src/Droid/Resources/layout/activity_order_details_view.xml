@@ -419,6 +419,7 @@
 					android:text="@string/OrderDetailsView_Argue_Button"
 					android:textColor="@color/accent"
 					android:background="@null"
+                    android:layout_marginBottom="24dp"
 					style="@style/Theme.PrankChat.Button"
 					app:MvxBind="Click ArqueOrderCommand; Visibility Visibility(IsDecisionVideoAvailable)"/>
 			</LinearLayout>
