@@ -64,7 +64,7 @@
 "ProfileView_MyOrders_Tab" = "Я заказал";
 "ProfileView_CompletedOrders_Tab" = "Я исполняю";
 "Order_View_Time_Text" = "Время заказа:";
-"Order_View_Price_Text" = "Сумма зкакза:";
+"Order_View_Price_Text" = "Сумма заказа:";
 "Order_View_Day" = "День";
 "Order_View_Hour" = "Часа";
 "Order_View_Minute" = "Минут";

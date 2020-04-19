@@ -50,7 +50,8 @@
             android:gravity="left"
             android:textSize="12sp"
             android:textColor="@color/applicationWhite"
-            android:text="@string/Order_View_Time_Text" />
+            android:text="@string/Order_View_Time_Text"
+            app:MvxBind="Visibility Invisible(IsTimeAvailable)"/>
         <TextView
             android:id="@+id/price_text"
             android:layout_width="wrap_content"
@@ -131,11 +132,11 @@
             android:layout_height="36dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
-            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintHorizontal_weight="0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/task_button"
             app:layout_constraintTop_toBottomOf="@+id/day_text"
-            android:gravity="center"
+            android:gravity="center_vertical|left"
             android:textSize="16sp"
             android:textColor="@color/applicationWhite"
             android:text="@string/Order_View_New_Task"

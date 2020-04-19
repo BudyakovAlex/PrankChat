@@ -66,7 +66,7 @@
     <string name="ProfileView_MyOrders_Tab">"Я заказал"</string>
     <string name="ProfileView_CompletedOrders_Tab">"Я исполняю"</string>
     <string name="Order_View_Time_Text">"Время заказа:"</string>
-    <string name="Order_View_Price_Text">"Сумма зкакза:"</string>
+    <string name="Order_View_Price_Text">"Сумма заказа:"</string>
     <string name="Order_View_Day">"День"</string>
     <string name="Order_View_Hour">"Часа"</string>
     <string name="Order_View_Minute">"Минут"</string>

@@ -1051,7 +1051,7 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сумма зкакза:.
+        ///   Looks up a localized string similar to Сумма заказа:.
         /// </summary>
         public static string Order_View_Price_Text {
             get {
