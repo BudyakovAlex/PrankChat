@@ -41,7 +41,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #region Video
 
-        public bool IsVideoProcessing => _order.Status == OrderStatusType.VideoInProcess;
+        public bool IsVideoProcessing => _order?.Status == OrderStatusType.VideoInProcess;
 
         public string VideoUrl => _order?.Video?.StreamUri;
 
