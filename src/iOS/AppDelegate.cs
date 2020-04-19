@@ -18,6 +18,7 @@ using Firebase.InstanceID;
 using Firebase.CloudMessaging;
 using PrankChat.Mobile.iOS.PlatformBusinessServices;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
+using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
 
 namespace PrankChat.Mobile.iOS
 {
@@ -53,9 +54,22 @@ namespace PrankChat.Mobile.iOS
 
         public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
         {
-            return VKSdk.ProcessOpenUrl(url, sourceApplication ?? string.Empty)
-               || Facebook.CoreKit.ApplicationDelegate.SharedInstance.OpenUrl(application, url, sourceApplication ?? string.Empty, annotation)
-               || base.OpenUrl(application, url, sourceApplication, annotation);
+            try
+            {
+                var sourceApp = sourceApplication ?? string.Empty;
+                return VKSdk.ProcessOpenUrl(url, sourceApp)
+                   || Facebook.CoreKit.ApplicationDelegate.SharedInstance.OpenUrl(application, url, sourceApp, annotation)
+                   || base.OpenUrl(application, url, sourceApplication, annotation);
+            }
+            catch (Exception ex)
+            {
+                if (Mvx.IoCProvider.TryResolve<ICrashlyticsService>(out var crashlyticsService))
+                {
+                    crashlyticsService.TrackError(ex);
+                }
+
+                return false;
+            }
         }
 
         public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
