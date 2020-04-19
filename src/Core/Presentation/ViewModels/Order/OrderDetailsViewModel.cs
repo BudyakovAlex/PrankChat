@@ -103,7 +103,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 {
                     case null:
                         return null;
-                    case OrderStatusType.WaitFinish:
+                    case OrderStatusType.VideoInProcess:
+                    case OrderStatusType.VideoWaitModeration:
+                    case OrderStatusType.VideoProcessError:
                         return _order?.VideoUploadedIn < TimeSpan.Zero ? TimeSpan.Zero : _order.VideoUploadedIn;
                     default:
                         return _order?.FinishIn < TimeSpan.Zero ? TimeSpan.Zero : _order.FinishIn;
