@@ -78,6 +78,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                         return Resources.OrderStatus_Active;
 
                     case OrderStatusType.InWork:
+                    case OrderStatusType.VideoWaitModeration:
+                    case OrderStatusType.VideoInProcess:
+                    case OrderStatusType.VideoProcessError:
                         return Resources.OrderStatus_InWork;
 
                     case OrderStatusType.InArbitration:
