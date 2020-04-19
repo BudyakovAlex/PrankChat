@@ -147,7 +147,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsDecideVideoAvailable => _order?.Status == OrderStatusType.InArbitration && IsUserGuest;
 
-        public bool IsDecisionVideoAvailable => _order?.Status == OrderStatusType.WaitFinish && IsUserCustomer;
+        public bool IsDecisionVideoAvailable => (_order?.Status == OrderStatusType.WaitFinish || _order?.Status == OrderStatusType.VideoWaitModeration) && IsUserCustomer;
 
         public bool IsTimeAvailable => _order?.Status != null && TimeValue != null && TimeValue >= TimeSpan.Zero &&
                                        (_order.VideoUploadedAt != null &&
