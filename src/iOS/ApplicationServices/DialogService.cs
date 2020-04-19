@@ -17,6 +17,7 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
     {
         private const double ToastAnimationDuration = 0.5d;
         private const double ToastDuration = 2d;
+        private const float ToastOffset = 44;
 
         private readonly IMvxMainThreadAsyncDispatcher _dispatcher;
 
@@ -73,16 +74,14 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 toast.LeadingAnchor.ConstraintEqualTo(superview.LeadingAnchor),
-                toast.TopAnchor.ConstraintEqualTo(superview.SafeAreaLayoutGuide.TopAnchor),
+                toast.TopAnchor.ConstraintEqualTo(superview.SafeAreaLayoutGuide.TopAnchor, ToastOffset),
                 toast.TrailingAnchor.ConstraintEqualTo(superview.TrailingAnchor)
             });
 
-            var y = toast.Frame.Y;
-            toast.Frame = new CGRect(toast.Frame.X, y - toast.Frame.Height, toast.Frame.Width, toast.Frame.Height);
-
+            var offsetY = toast.Frame.Y + ToastOffset;
             UIView.Animate(ToastAnimationDuration, () =>
             {
-                toast.Frame = new CGRect(toast.Frame.X, y, toast.Frame.Width, toast.Frame.Height);
+                toast.Frame = new CGRect(toast.Frame.X, offsetY, toast.Frame.Width, toast.Frame.Height);
             });
 
             var time = new DispatchTime(DispatchTime.Now, TimeSpan.FromSeconds(ToastDuration));
@@ -101,6 +100,7 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
             {
                 rootViewController = navController.ViewControllers.LastOrDefault();
             }
+
             return rootViewController;
         }
     }
