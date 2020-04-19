@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
@@ -48,6 +46,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
                 var sections = competitionsPage.Items.GroupBy(competition => competition.GetPhase())
                                                      .Select(group => new CompetitionsSectionViewModel(IsUserSessionInitialized, _mvxMessenger, NavigationService, group.Key, group.ToList()))
+                                                     .OrderBy(item => item.Phase)
                                                      .ToList();
                 Items.SwitchTo(sections);
             }

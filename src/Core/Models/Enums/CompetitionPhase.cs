@@ -2,8 +2,8 @@
 {
     public enum CompetitionPhase
     {
-        New, 
         Voting,
+        New, 
         Finished
     }
 }
