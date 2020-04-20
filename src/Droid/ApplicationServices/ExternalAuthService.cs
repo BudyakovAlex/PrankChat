@@ -6,6 +6,7 @@ using PrankChat.Mobile.Droid.ApplicationServices.Callback;
 using PrankChat.Mobile.Droid.ApplicationServices.Callbacks;
 using VKontakte;
 using Xamarin.Facebook;
+using Xamarin.Facebook.AppEvents;
 using Xamarin.Facebook.Login;
 
 namespace PrankChat.Mobile.Droid.ApplicationServices
@@ -39,10 +40,13 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
 
             var taskCompletionSource = new TaskCompletionSource<string>();
             FacebookCallback.Instance.CompletionSource = taskCompletionSource;
+            FacebookCallback.Instance.Register();
 
             LoginManager.Instance.LogInWithReadPermissions(currentContext, _facebookPermissions);
 
             var token = await taskCompletionSource.Task;
+            FacebookCallback.Instance.Unregister();
+
             return token;
         }
 

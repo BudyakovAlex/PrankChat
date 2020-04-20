@@ -1,24 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using Firebase.CloudMessaging;
 using Firebase.Crashlytics;
+using Firebase.InstanceID;
 using Foundation;
 using MvvmCross;
 using MvvmCross.Platforms.Ios.Core;
 using PrankChat.Mobile.Core;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
+using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
 using UIKit;
 using UserNotifications;
 using VKontakte;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.iOS.Delegates;
-using System.Runtime.InteropServices;
-using System;
-using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using MvvmCross.Logging;
-using Firebase.InstanceID;
-using Firebase.CloudMessaging;
-using PrankChat.Mobile.iOS.PlatformBusinessServices;
-using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
-using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
 
 namespace PrankChat.Mobile.iOS
 {

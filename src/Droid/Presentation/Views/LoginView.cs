@@ -50,13 +50,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
-            var isVkLogin = await VkontakteCallback.Instance.OnActivityResultAsync(requestCode, resultCode, data);
-            if (isVkLogin)
+            if (FacebookCallback.Instance.OnActivityResult(requestCode, (int)resultCode, data))
             {
                 return;
             }
 
-            FacebookCallback.Instance.OnActivityResult(requestCode, (int)resultCode, data);
+            await VkontakteCallback.Instance.OnActivityResultAsync(requestCode, resultCode, data);
         }
 
         private void EmailEditTextBeforeTextChanged(object sender, Android.Text.TextChangedEventArgs e)

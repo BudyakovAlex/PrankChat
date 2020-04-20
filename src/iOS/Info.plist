@@ -105,13 +105,14 @@
 			<array>
 				<string>fb621471715102522</string>
 				<string>vk7343996</string>
+				<string>fb1052355475141532</string>
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 		</dict>
 	</array>
 	<key>FacebookAppID</key>
-	<string>1052355475141532</string>
+	<string>621471715102522</string>
 	<key>FacebookDisplayName</key>
 	<string>Prankchat</string>
 	<key>NSCameraUsageDescription</key>

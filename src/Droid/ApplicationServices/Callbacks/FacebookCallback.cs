@@ -8,11 +8,23 @@ namespace PrankChat.Mobile.Droid.ApplicationServices.Callbacks
 {
     public class FacebookCallback : Java.Lang.Object, GraphRequest.IGraphJSONObjectCallback, GraphRequest.ICallback, IFacebookCallback
     {
-        private readonly ICallbackManager _callbackManager = CallbackManagerFactory.Create();
+        private ICallbackManager _callbackManager;
 
-        private FacebookCallback()
+        public void Register()
         {
+            _callbackManager = CallbackManagerFactory.Create();
             LoginManager.Instance.RegisterCallback(_callbackManager, this);
+        }
+
+        public void Unregister()
+        {
+            if (_callbackManager is null)
+            {
+                return;
+            }
+
+            LoginManager.Instance.UnregisterCallback(_callbackManager);
+            _callbackManager = null;
         }
 
         public static FacebookCallback Instance { get; } = new FacebookCallback();
