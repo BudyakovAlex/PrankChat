@@ -15,22 +15,24 @@ namespace PrankChat.Mobile.Droid.ApplicationServices.Callback
 
         public TaskCompletionSource<string> CompletionSource { get; set; }
 
-        public async Task OnActivityResultAsync(int requestCode, Result resultCode, Intent data)
+        public async Task<bool> OnActivityResultAsync(int requestCode, Result resultCode, Intent data)
         {
-            var task = VKSdk.OnActivityResultAsync(requestCode, resultCode, data, out var isSuccededResult);
-            if (!isSuccededResult)
-            {
-                CompletionSource?.TrySetResult(null);
-            }
-
             try
             {
-                var token = await task;
-                CompletionSource?.TrySetResult(token.AccessToken);
+                var token = await VKSdk.OnActivityResultAsync(requestCode, resultCode, data, out var isSuccededResult);
+                if (!isSuccededResult)
+                {
+                    CompletionSource?.TrySetResult(null);
+                    return false;
+                }
+
+                CompletionSource?.TrySetResult(token?.AccessToken);
+                return true;
             }
             catch (VKException)
             {
                 CompletionSource?.TrySetResult(null);
+                return false;
             }
         }
     }

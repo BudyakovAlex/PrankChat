@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
 
         public async Task<string> LoginWithFacebookAsync()
         {
-            var currentContext = _mvxAndroidCurrentTopActivity.Activity;
+            var currentContext = _mvxAndroidCurrentTopActivity.Activity ?? Xamarin.Essentials.Platform.CurrentActivity;
             if (currentContext is null)
             {
                 return null;
@@ -48,7 +48,7 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
 
         public async Task<string> LoginWithVkontakteAsync()
         {
-            var currentContext = _mvxAndroidCurrentTopActivity.Activity;
+            var currentContext = _mvxAndroidCurrentTopActivity.Activity ?? Xamarin.Essentials.Platform.CurrentActivity;
             if (currentContext is null)
             {
                 return null;

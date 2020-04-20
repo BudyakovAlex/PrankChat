@@ -19,9 +19,16 @@ namespace PrankChat.Mobile.Droid.ApplicationServices.Callbacks
 
         public TaskCompletionSource<string> CompletionSource { get; set; }
 
-        public void OnActivityResult(int requestCode, int resultCode, Intent data)
+        public bool OnActivityResult(int requestCode, int resultCode, Intent data)
         {
-            _callbackManager?.OnActivityResult(requestCode, resultCode, data);
+            try
+            {
+                return _callbackManager?.OnActivityResult(requestCode, resultCode, data) ?? false;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public void OnCompleted(JSONObject data, GraphResponse response)

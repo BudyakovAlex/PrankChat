@@ -5,6 +5,7 @@ using Android.Graphics;
 using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Widget;
+using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Droid.ApplicationServices.Callback;
 using PrankChat.Mobile.Droid.ApplicationServices.Callbacks;
@@ -14,7 +15,7 @@ using PrankChat.Mobile.Droid.Presenters.Attributes;
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {
     [ClearStackActivityPresentation]
-    [Activity(NoHistory = true, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class LoginView : BaseView<LoginViewModel>
     {
         private TextInputEditText _emailEditText;
@@ -45,12 +46,17 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             _emailEditText.TextChanged -= EmailEditTextTextChanged;
         }
 
-        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        protected override async void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
+            var isVkLogin = await VkontakteCallback.Instance.OnActivityResultAsync(requestCode, resultCode, data);
+            if (isVkLogin)
+            {
+                return;
+            }
+
             FacebookCallback.Instance.OnActivityResult(requestCode, (int)resultCode, data);
-            VkontakteCallback.Instance.OnActivityResultAsync(requestCode, resultCode, data);
         }
 
         private void EmailEditTextBeforeTextChanged(object sender, Android.Text.TextChangedEventArgs e)
