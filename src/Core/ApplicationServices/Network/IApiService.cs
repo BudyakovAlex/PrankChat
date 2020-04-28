@@ -38,7 +38,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<OrderDataModel> TakeOrderAsync(int orderId);
 
-        Task<List<ArbitrationOrderDataModel>> GetArbitrationOrdersAsync(ArbitrationOrderFilterType filter);
+        Task<PaginationModel<ArbitrationOrderDataModel>> GetArbitrationOrdersAsync(ArbitrationOrderFilterType filter, int page, int pageSize);
 
         Task<OrderDataModel> CancelOrderAsync(int orderId);
         

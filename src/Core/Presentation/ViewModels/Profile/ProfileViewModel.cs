@@ -239,19 +239,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private OrderItemViewModel ProduceOrderItemViewModel(OrderDataModel order)
         {
-            return new OrderItemViewModel(
-                NavigationService,
-                SettingsService,
-                _mvxMessenger,
-                order.Id,
-                order.Title,
-                order.Customer?.Avatar,
-                order.Customer?.Name,
-                order.Price,
-                order.ActiveTo,
-                order.DurationInHours,
-                order.Status ?? OrderStatusType.None,
-                order.Customer?.Id);
+            return new OrderItemViewModel(NavigationService,
+                                          SettingsService,
+                                          _mvxMessenger,
+                                          order);
         }
     }
 }

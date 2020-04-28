@@ -155,14 +155,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
-            if (TabType == OrdersTabType.Arbitration)
-            {
-                return 0;
-            }
-
             try
             {
                 IsBusy = true;
+
+                if (TabType == OrdersTabType.Arbitration)
+                {
+                    var arbitrationOrders = await ApiService.GetArbitrationOrdersAsync(ArbitrationFilterType, page, pageSize);
+                    return SetList(arbitrationOrders, page, ProduceArbitrationOrderViewModel, Items);
+                }
+
                 var orders = await ApiService.GetOrdersAsync(OrderFilterType, page, pageSize);
                 return SetList(orders, page, ProduceOrderViewModel, Items);
             }
@@ -183,17 +185,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             Reset();
             Items.Clear();
 
-            switch (TabType)
-            {
-                case OrdersTabType.Order:
-                    return LoadMoreItemsCommand.ExecuteAsync();
-
-                case OrdersTabType.Arbitration:
-                    return LoadArbitrationOrdersAsync();
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            return LoadMoreItemsCommand.ExecuteAsync();
         }
 
         private Task OpenFilterAsync()
@@ -216,15 +208,23 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             return new OrderItemViewModel(NavigationService,
                                           _settingsService,
                                           _mvxMessenger,
-                                          order.Id,
-                                          order.Title,
-                                          order.Customer?.Avatar,
-                                          order.Customer?.Name,
-                                          order.Price,
-                                          order.ActiveTo,
-                                          order.DurationInHours,
-                                          order.Status ?? OrderStatusType.None,
-                                          order.Customer?.Id);
+                                          order);
+        }
+
+        private ArbitrationItemViewModel ProduceArbitrationOrderViewModel(ArbitrationOrderDataModel order)
+        {
+            return new ArbitrationItemViewModel(NavigationService,
+                                                _settingsService,
+                                                IsUserSessionInitialized,
+                                                order.Id,
+                                                order.Title,
+                                                order.Customer?.Avatar,
+                                                order.Customer?.Name,
+                                                order.Price,
+                                                order.Likes,
+                                                order.Dislikes,
+                                                order.ArbitrationFinishAt ?? DateTime.UtcNow,
+                                                order.Customer?.Id);
         }
 
         private void Subscription()
@@ -252,19 +252,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private void OnNewOrderMessenger(NewOrderMessage newOrderMessage)
         {
-            var newOrderItemViewModel = new OrderItemViewModel(
-                    NavigationService,
-                    _settingsService,
-                    _mvxMessenger,
-                    newOrderMessage.NewOrder.Id,
-                    newOrderMessage.NewOrder.Title,
-                    newOrderMessage.NewOrder.Customer?.Avatar,
-                    newOrderMessage.NewOrder?.Customer?.Name,
-                    newOrderMessage.NewOrder.Price,
-                    newOrderMessage.NewOrder.ActiveTo,
-                    newOrderMessage.NewOrder.DurationInHours,
-                    newOrderMessage.NewOrder.Status ?? OrderStatusType.None,
-                    newOrderMessage.NewOrder.Customer?.Id);
+            var newOrderItemViewModel = new OrderItemViewModel(NavigationService,
+                                                               _settingsService,
+                                                               _mvxMessenger,
+                                                               newOrderMessage.NewOrder);
             Items.Add(newOrderItemViewModel);
         }
 
@@ -281,39 +272,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
             Items.Remove(deletedItem);
             deletedItem.Dispose();
-        }
-
-        private async Task LoadArbitrationOrdersAsync()
-        {
-            try
-            {
-                IsBusy = true;
-
-                var arbitrationOrders = await ApiService.GetArbitrationOrdersAsync(ArbitrationFilterType);
-                var items = arbitrationOrders?.Select(o => new ArbitrationItemViewModel(
-                                                            NavigationService,
-                                                            _settingsService,
-                                                            IsUserSessionInitialized,
-                                                            o.Id,
-                                                            o.Title,
-                                                            o.Customer?.Avatar,
-                                                            o.Customer?.Name,
-                                                            o.Price,
-                                                            o.Likes,
-                                                            o.Dislikes,
-                                                            o.ArbitrationFinishAt ?? DateTime.UtcNow,
-                                                            o.Customer?.Id));
-                Items.AddRange(items);
-            }
-            catch (Exception ex)
-            {
-                ErrorHandleService.HandleException(ex);
-                ErrorHandleService.LogError(this, "Error on load arbitration orders.");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
         }
 
         private async Task OpenArbitrationFilterAsync()

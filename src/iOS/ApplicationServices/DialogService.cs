@@ -16,7 +16,7 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
     public class DialogService : BaseDialogService
     {
         private const double ToastAnimationDuration = 0.5d;
-        private const double ToastDuration = 2d;
+        private const double ToastDuration = 4d;
         private const float ToastOffset = 44;
 
         private readonly IMvxMainThreadAsyncDispatcher _dispatcher;

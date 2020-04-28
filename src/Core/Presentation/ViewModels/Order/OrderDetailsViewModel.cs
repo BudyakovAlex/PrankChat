@@ -95,23 +95,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #endregion
 
-        private TimeSpan? TimeValue
-        {
-            get
-            {
-                switch (_order?.Status)
-                {
-                    case null:
-                        return null;
-                    case OrderStatusType.VideoInProcess:
-                    case OrderStatusType.VideoWaitModeration:
-                    case OrderStatusType.VideoProcessError:
-                        return _order?.VideoUploadedIn < TimeSpan.Zero ? TimeSpan.Zero : _order.VideoUploadedIn;
-                    default:
-                        return _order?.FinishIn < TimeSpan.Zero ? TimeSpan.Zero : _order.FinishIn;
-                }
-            }
-        }
+        private TimeSpan? TimeValue => _order?.GetActiveOrderTime();
 
         public string PriceValue => _order?.Price.ToPriceString();
 

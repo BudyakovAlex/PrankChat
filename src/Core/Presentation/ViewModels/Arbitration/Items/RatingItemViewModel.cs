@@ -48,17 +48,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
         public OrderType OrderType => _settingsService.User?.Id == _customerId ? OrderType.MyOrder : OrderType.NotMyOrder;
 
         public ArbitrationItemViewModel(INavigationService navigatiobService,
-                                   ISettingsService settingsService,
-                                   bool isUserSessionInitialized,
-                                   int orderId,
-                                   string orderTitle,
-                                   string customerPhotoUrl,
-                                   string customerName,
-                                   double? priceText,
-                                   int likes,
-                                   int dislikes,
-                                   DateTime? arbitrationFinishAt,
-                                   int? customerId)
+                                        ISettingsService settingsService,
+                                        bool isUserSessionInitialized,
+                                        int orderId,
+                                        string orderTitle,
+                                        string customerPhotoUrl,
+                                        string customerName,
+                                        double? priceText,
+                                        int likes,
+                                        int dislikes,
+                                        DateTime? arbitrationFinishAt,
+                                        int? customerId)
         {
             _settingsService = settingsService;
             _navigationService = navigatiobService;

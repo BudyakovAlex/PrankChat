@@ -90,6 +90,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
             if (!CheckValidation())
             {
+                _isExecuting = false;
                 return;
             }
 

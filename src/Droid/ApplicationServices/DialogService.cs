@@ -43,7 +43,7 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
 
             var toast = new Toast(activity.ApplicationContext);
             toast.SetGravity(GravityFlags.Top | GravityFlags.FillHorizontal, 0, yOffset);
-            toast.Duration = ToastLength.Short;
+            toast.Duration = ToastLength.Long;
             toast.View = toastView;
             toast.Show();
         }

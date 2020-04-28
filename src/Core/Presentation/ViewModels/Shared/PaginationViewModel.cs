@@ -127,7 +127,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
                 return true;
             }
 
-            var currentPaginationCapacity = _paginationSize * CurrentPaginationIndex;
+            var currentPaginationCapacity = _paginationSize * (CurrentPaginationIndex - 1);
             return TotalItemsCount > currentPaginationCapacity;
         }
     }

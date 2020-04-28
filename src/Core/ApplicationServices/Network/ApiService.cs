@@ -182,9 +182,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
-        public async Task<List<ArbitrationOrderDataModel>> GetArbitrationOrdersAsync(ArbitrationOrderFilterType filter)
+        public async Task<PaginationModel<ArbitrationOrderDataModel>> GetArbitrationOrdersAsync(ArbitrationOrderFilterType filter, int page, int pageSize)
         {
-            string endpoint = $"orders?status={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}";
+            var endpoint = $"orders?page={page}&items_per_page={pageSize}&status={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}";
             switch (filter)
             {
                 case ArbitrationOrderFilterType.All:
@@ -197,13 +197,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                 case ArbitrationOrderFilterType.My:
                     if (_settingsService.User == null)
-                        return new List<ArbitrationOrderDataModel>();
+                        return new PaginationModel<ArbitrationOrderDataModel>(new List<ArbitrationOrderDataModel>());
 
                     endpoint = $"{endpoint}&customer_id={_settingsService.User.Id}";
                     break;
             }
-            var data = await _client.Get<DataApiModel<List<ArbitrationOrderApiModel>>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
-            return MappingConfig.Mapper.Map<List<ArbitrationOrderDataModel>>(data?.Data);
+
+            var data = await _client.Get<BaseBundleApiModel<ArbitrationOrderApiModel>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
+            return CreatePaginationResult<ArbitrationOrderApiModel, ArbitrationOrderDataModel>(data);
         }
 
         public async Task<OrderDataModel> CancelOrderAsync(int orderId)

@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -20,21 +21,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _mvxMessenger;
 
-        private DateTime? _activeTo;
-        private OrderStatusType _status;
-        private int? _customerId;
+        private readonly OrderDataModel _orderDataModel;
+
         private MvxSubscriptionToken _timerTickMessageToken;
-        private TimeSpan _duration;
 
-        public int OrderId { get; }
+        public int OrderId => _orderDataModel.Id;
 
-        public string Title { get; }
+        public string Title => _orderDataModel.Title;
 
-        public string ProfilePhotoUrl { get; }
+        public string ProfilePhotoUrl => _orderDataModel.Customer?.Avatar;
 
-        public string ProfileShortName { get; }
+        public string ProfileShortName => _orderDataModel.Customer?.Name.ToShortenName();
 
-        public OrderType OrderType => _settingsService.User.GetOrderType(_customerId, _status);
+        public OrderType OrderType => _settingsService.User.GetOrderType(_orderDataModel.Customer?.Id, _orderDataModel?.Status ?? OrderStatusType.None);
 
         private TimeSpan? _elapsedTime;
         public TimeSpan? ElapsedTime
@@ -57,13 +56,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public string TimeText => _elapsedTime?.ToTimeWithSpaceString();
 
-        public string PriceText { get; }
+        public string PriceText => _orderDataModel.Price.ToPriceString();
 
         public string StatusText
         {
             get
             {
-                switch (_status)
+                switch (_orderDataModel.Status)
                 {
                     case OrderStatusType.New:
                         return Resources.OrderStatus_New;
@@ -112,31 +111,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         public OrderItemViewModel(INavigationService navigationService,
                                   ISettingsService settingsService,
                                   IMvxMessenger mvxMessenger,
-                                  int orderId,
-                                  string orderTitle,
-                                  string profilePhotoUrl,
-                                  string profileName,
-                                  double? price,
-                                  DateTime? activeTo,
-                                  int durationInHours,
-                                  OrderStatusType status,
-                                  int? customerId)
+                                  OrderDataModel orderDataModel)
         {
             _navigationService = navigationService;
             _settingsService = settingsService;
             _mvxMessenger = mvxMessenger;
+            _orderDataModel = orderDataModel;
 
-            Title = orderTitle;
-            ProfilePhotoUrl = profilePhotoUrl;
-            PriceText = price.ToPriceString();
-            ProfileShortName = profileName.ToShortenName();
-            _activeTo = activeTo;
-            _duration = TimeSpan.FromHours(durationInHours);
-            _status = status;
-            OrderId = orderId;
-            _customerId = customerId;
+            ElapsedTime = _orderDataModel.ActiveTo is null
+                ? TimeSpan.FromHours(_orderDataModel.DurationInHours)
+                : _orderDataModel.GetActiveOrderTime();
 
-            UpdateElapsedTime();
             Subscribe();
             OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
         }
@@ -171,19 +156,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         private void OnTimerTick(TimerTickMessage message)
         {
-            UpdateElapsedTime();
-        }
-
-        private void UpdateElapsedTime()
-        {
-            if (_activeTo == null && _status == OrderStatusType.Active)
-            {
-                ElapsedTime = _duration;
-            }
-            else
-            {
-                ElapsedTime = _activeTo?.ToLocalTime() - DateTime.Now;
-            }
+            ElapsedTime = _orderDataModel.ActiveTo is null
+               ? TimeSpan.FromHours(_orderDataModel.DurationInHours)
+               : _orderDataModel.GetActiveOrderTime();
         }
 
         private async Task OnOpenDetailsOrderAsync()
@@ -192,11 +167,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             if (result == null)
                 return;
 
-            _status = result.Status ?? OrderStatusType.None;
-            _activeTo = result.ActiveTo;
-            if (_status == OrderStatusType.Cancelled || _status == OrderStatusType.Finished || _status == OrderStatusType.InArbitration)
+            _orderDataModel.Status = result.Status ?? OrderStatusType.None;
+            _orderDataModel.ActiveTo = result.ActiveTo;
+
+            if (_orderDataModel.Status == OrderStatusType.Cancelled ||
+                _orderDataModel.Status == OrderStatusType.Finished ||
+                _orderDataModel.Status == OrderStatusType.InArbitration)
             {
-                _mvxMessenger.Publish(new RemoveOrderMessage(this, OrderId, _status));
+                var status = _orderDataModel.Status.Value;
+                _mvxMessenger.Publish(new RemoveOrderMessage(this, OrderId, status));
                 return;
             }
 
