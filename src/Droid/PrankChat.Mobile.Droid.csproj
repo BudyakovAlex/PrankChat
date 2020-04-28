@@ -299,7 +299,7 @@
       </SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\cell_order.axml">
+    <AndroidResource Include="Resources\layout\cell_order.xml">
       <SubType>
       </SubType>
       <Generator>
