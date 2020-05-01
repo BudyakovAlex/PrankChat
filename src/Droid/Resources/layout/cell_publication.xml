@@ -142,7 +142,7 @@
         android:id="@+id/stub_image_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         app:MvxBind="ImagePath VideoPlaceholderImageUrl"
         app:layout_constraintBottom_toBottomOf="@+id/stub_view"
         app:layout_constraintEnd_toEndOf="@+id/stub_view"
