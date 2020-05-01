@@ -298,7 +298,7 @@
 "Complaint_Unacceptable_Information_In_Profile" = "Неприемлемая информация в профиле";
 "Order_Add" = "Создать";
 "Order_Create_Message" = "Вы уверены что хотите создать заказ? ";
-"Processing_Video" = "Видео обрабатывается на сервере";
+"Processing_Video" = "Обработка займёт несколько минут";
 "Profile_Your_Email_Not_Actual" = "Ваша почта не подтверждена";
 "Profile_Email_Confirmation_Sent" = "На Вашу почту отправлено письмо с подтверждением";
 "Profile_Resend_Confirmation" = "Отправить повторно";
