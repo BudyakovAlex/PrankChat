@@ -44,6 +44,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
             refillButton.SetDarkStyle(Resources.CashboxView_Fillup_Button);
 
+            WarningMessageLabel.SetRegularStyle(14, Theme.Color.Text);
+            WarningMessageLabel.Text = Resources.Cashbox_Commision_Warning;
+
             paymentMethodsTitleLabel.Text = Resources.CashboxView_FillupMethodSelect_Title;
             paymentMethodsTitleLabel.SetRegularStyle(14, Theme.Color.Subtitle);
 

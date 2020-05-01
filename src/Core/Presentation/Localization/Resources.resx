@@ -928,7 +928,7 @@
     <value>Вы уверены что хотите создать заказ? </value>
   </data>
   <data name="Processing_Video" xml:space="preserve">
-    <value>Обработка видео</value>
+    <value>Видео обрабатывается на сервере</value>
   </data>
   <data name="Profile_Your_Email_Not_Actual" xml:space="preserve">
     <value>Ваша почта не подтверждена</value>
@@ -941,5 +941,8 @@
   </data>
   <data name="OrderDetailsView_Video_Uploaded" xml:space="preserve">
     <value>Видео отправлено, после обработки у заказчика будет 24 часа на принятие или отправки в спор.</value>
+  </data>
+  <data name="Cashbox_Commision_Warning" xml:space="preserve">
+    <value>Обратите внимание что к сумме пополнения будет добавлена комисия платежного шлюза</value>
   </data>
 </root>

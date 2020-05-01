@@ -45,7 +45,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         protected override void SetupControls()
         {
             ViewModel.PropertyChanged += ViewModelPropertyChanged;
-            Title = Resources.CreateOrderView_Title;
+            Title = Resources.CashboxView_Title;
 
             tabsStackView.SetTabsStyle(new string[] { Resources.CashboxView_Fillup_Tab, Resources.CashboxView_Withdrawal_Tab }, OnTabSelected);
         }

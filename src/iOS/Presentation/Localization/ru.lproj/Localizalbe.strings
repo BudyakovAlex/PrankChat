@@ -298,8 +298,9 @@
 "Complaint_Unacceptable_Information_In_Profile" = "Неприемлемая информация в профиле";
 "Order_Add" = "Создать";
 "Order_Create_Message" = "Вы уверены что хотите создать заказ? ";
-"Processing_Video" = "Обработка видео";
+"Processing_Video" = "Видео обрабатывается на сервере";
 "Profile_Your_Email_Not_Actual" = "Ваша почта не подтверждена";
 "Profile_Email_Confirmation_Sent" = "На Вашу почту отправлено письмо с подтверждением";
 "Profile_Resend_Confirmation" = "Отправить повторно";
 "OrderDetailsView_Video_Uploaded" = "Видео отправлено, после обработки у заказчика будет 24 часа на принятие или отправки в спор.";
+"Cashbox_Commision_Warning" = "Обратите внимание что к сумме пополнения будет добавлена комисия платежного шлюза";

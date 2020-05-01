@@ -32,6 +32,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
 		[Outlet]
 		UIKit.UIImageView visaBannerImageView { get; set; }
+
+		[Outlet]
+		UIKit.UIView WarningMessageContainer { get; set; }
+
+		[Outlet]
+		UIKit.UILabel WarningMessageLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -40,19 +46,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				costTextField = null;
 			}
 
-			if (refillButton != null) {
-				refillButton.Dispose ();
-				refillButton = null;
+			if (WarningMessageContainer != null) {
+				WarningMessageContainer.Dispose ();
+				WarningMessageContainer = null;
 			}
 
-			if (paymentMethodsTitleLabel != null) {
-				paymentMethodsTitleLabel.Dispose ();
-				paymentMethodsTitleLabel = null;
-			}
-
-			if (paymentMethodsCollectionView != null) {
-				paymentMethodsCollectionView.Dispose ();
-				paymentMethodsCollectionView = null;
+			if (WarningMessageLabel != null) {
+				WarningMessageLabel.Dispose ();
+				WarningMessageLabel = null;
 			}
 
 			if (mastercardImageView != null) {
@@ -60,14 +61,29 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				mastercardImageView = null;
 			}
 
-			if (visaBannerImageView != null) {
-				visaBannerImageView.Dispose ();
-				visaBannerImageView = null;
+			if (paymentMethodsCollectionView != null) {
+				paymentMethodsCollectionView.Dispose ();
+				paymentMethodsCollectionView = null;
+			}
+
+			if (paymentMethodsTitleLabel != null) {
+				paymentMethodsTitleLabel.Dispose ();
+				paymentMethodsTitleLabel = null;
+			}
+
+			if (refillButton != null) {
+				refillButton.Dispose ();
+				refillButton = null;
 			}
 
 			if (secureBannerImageView != null) {
 				secureBannerImageView.Dispose ();
 				secureBannerImageView = null;
+			}
+
+			if (visaBannerImageView != null) {
+				visaBannerImageView.Dispose ();
+				visaBannerImageView = null;
 			}
 		}
 	}
