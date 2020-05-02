@@ -7,6 +7,7 @@ using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Video;
+using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presentation.Converters;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 
@@ -27,7 +28,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
             : base(view, context)
         {
         }
-
 
         private PublicationItemViewModel _viewModel;
         public new PublicationItemViewModel ViewModel
@@ -58,7 +58,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
             _moreImageButton.SetOnClickListener(_ => ViewModel.OpenSettingsCommand.Execute());
             _likeImageButton.SetOnClickListener(_ => ViewModel.LikeCommand.Execute());
             _shareImageButton.SetOnClickListener(_ => ViewModel.ShareCommand.Execute());
-            VideoView.SetOnClickListener(_ => ViewModel.ShowFullScreenVideoCommand.Execute());
         }
 
         public override void BindData()
@@ -68,14 +67,22 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
             var bindingSet = this.CreateBindingSet<PublicationItemViewHolder, PublicationItemViewModel>();
 
             bindingSet.Bind(_likeImageButton).For(v => v.BindDrawableId()).To(vm => vm.IsLiked)
-                .WithConversion<LikeConverter>();
+                      .WithConversion<LikeConverter>();
+
             bindingSet.Bind(_likeTextView).For(v => v.Text).To(vm => vm.NumberOfLikesText);
-            bindingSet.Bind(ProceccingView).For(v => v.BindVisible()).To(vm => vm.IsVideoProcessing);
-            bindingSet.Bind(VideoView).For(v => v.BindHidden()).To(vm => vm.IsVideoProcessing);
+            bindingSet.Bind(TextureView).For(ViewTouchTargetBinding.TargetBinding).To(vm => vm.ShowFullScreenVideoCommand);
+            bindingSet.Bind(ProcessingView).For(v => v.BindVisible()).To(vm => vm.IsVideoProcessing);
+            bindingSet.Bind(TextureView).For(v => v.BindHidden()).To(vm => vm.IsVideoProcessing);
             bindingSet.Bind(this).For(v => v.CanShowStub).To(vm => vm.IsVideoProcessing)
                       .WithConversion<MvxInvertedBooleanConverter>();
 
             bindingSet.Apply();
+        }
+
+        private bool OnTextureViewTouched(View view, MotionEvent motionEvent)
+        {
+            ViewModel.ShowFullScreenVideoCommand.Execute();
+            return true;
         }
 
         private void ViewModelChanged(PublicationItemViewModel viewModel)

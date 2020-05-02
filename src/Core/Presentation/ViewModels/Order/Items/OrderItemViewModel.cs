@@ -181,6 +181,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
             await RaisePropertyChanged(nameof(StatusText));
             await RaisePropertyChanged(nameof(OrderType));
+            await RaisePropertyChanged(nameof(ElapsedTime));
         }
     }
 }

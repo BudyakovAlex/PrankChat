@@ -16,6 +16,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.Droid.Controls;
+using PrankChat.Mobile.Droid.LayoutManagers;
 using PrankChat.Mobile.Droid.Presentation.Adapters;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
@@ -41,7 +42,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private PublicationRecyclerViewAdapter _adapter;
 
         private PublicationItemViewHolder _previousPublicationViewHolder;
-        private VideoView _previousVideoView;
+        private TextureView _previousVideoView;
 
         private MvxInteraction _itemsChangedInteraction;
         public MvxInteraction ItemsChangedInteraction
@@ -109,12 +110,23 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             _publicationTypeTabLayout = view.FindViewById<TabLayout>(Resource.Id.publication_type_tab_layout);
             _publicationRecyclerView = view.FindViewById<EndlessRecyclerView>(Resource.Id.publication_recycler_view);
 
-            _layoutManager = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
-            _layoutManager.InitialPrefetchItemCount = 20;
+            _layoutManager = new SafeLinearLayoutManager(Context, LinearLayoutManager.Vertical, false)
+            {
+                InitialPrefetchItemCount = 40,
+                MeasurementCacheEnabled = true,
+                ItemPrefetchEnabled = true
+            };
+
+            _publicationRecyclerView.HasFixedSize = true;
             _publicationRecyclerView.SetLayoutManager(_layoutManager);
             _publicationRecyclerView.HasNextPage = true;
 
-            _adapter = new PublicationRecyclerViewAdapter((IMvxAndroidBindingContext)BindingContext);
+            _adapter = new PublicationRecyclerViewAdapter((IMvxAndroidBindingContext)BindingContext)
+            {
+                HasStableIds = true
+            };
+
+            _publicationRecyclerView.NestedScrollingEnabled = false;
             _publicationRecyclerView.SetAdapter(_adapter);
 
             _stateScrollListener = new StateScrollListener();
@@ -160,26 +172,25 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             if (viewHolder is PublicationItemViewHolder itemViewHolder)
             {
                 itemViewHolder.LoadingProgressBar.Visibility = ViewStates.Visible;
-                PlayVideo(itemViewHolder, itemViewHolder.VideoView);
+                PlayVideo(itemViewHolder, itemViewHolder.TextureView);
             }
 
             return Task.CompletedTask;
         }
 
-        private void PlayVideo(PublicationItemViewHolder itemViewHolder, VideoView videoView)
+        private void PlayVideo(PublicationItemViewHolder itemViewHolder, TextureView textureView)
         {
             if (_previousPublicationViewHolder?.ViewModel != null &&
                 _previousPublicationViewHolder.ViewModel.VideoPlayerService != null &&
                 _previousVideoView != null)
             {
                 StopVideo(_previousPublicationViewHolder);
-                _previousVideoView.SetBackgroundColor(Color.Black);
             }
 
             Debug.WriteLine("PlayVideo [Start]");
 
             if (itemViewHolder?.ViewModel?.VideoPlayerService is null ||
-                videoView is null)
+                textureView is null)
             {
                 return;
             }
@@ -191,11 +202,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
             var videoService = itemViewHolder.ViewModel.VideoPlayerService;
 
-            videoView.SetBackgroundColor(Color.Transparent);
-            videoService.Player.SetPlatformVideoPlayerContainer(videoView);
+            videoService.Player.SetPlatformVideoPlayerContainer(textureView);
+            videoService.Player.VideoRenderingStartedAction = itemViewHolder.OnRenderingStarted;
             videoService.Play(itemViewHolder.ViewModel.VideoUrl, itemViewHolder.ViewModel.VideoId);
+
             _previousPublicationViewHolder = itemViewHolder;
-            _previousVideoView = videoView;
+            _previousVideoView = textureView;
             Debug.WriteLine("PlayVideo [End]");
         }
 
@@ -207,8 +219,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
                 return;
             }
 
+            viewHolder.ViewModel.VideoPlayerService.Player.VideoRenderingStartedAction = null;
             viewHolder.StubImageView.Visibility = ViewStates.Visible;
             viewHolder.ViewModel.VideoPlayerService.Stop();
+            viewHolder.LoadingProgressBar.Visibility = ViewStates.Invisible;
         }
 
         private void PublicationTypeTabLayoutTabUnselected(object sender, TabUnselectedEventArgs e)

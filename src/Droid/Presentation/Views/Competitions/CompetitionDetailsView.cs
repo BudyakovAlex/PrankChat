@@ -15,6 +15,7 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Droid.Controls;
+using PrankChat.Mobile.Droid.LayoutManagers;
 using PrankChat.Mobile.Droid.Presentation.Adapters;
 using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions;
@@ -35,7 +36,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
         private RecycleViewBindableAdapter _adapter;
 
         private CompetitionVideoViewHolder _previousVideoViewHolder;
-        private VideoView _previousVideoView;
+        private TextureView _previousVideoView;
         private StateScrollListener _stateScrollListener;
 
         protected override bool HasBackButton => true;
@@ -51,7 +52,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
             _refreshView = FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swipe_refresh);
 
             _recyclerView = FindViewById<EndlessRecyclerView>(Resource.Id.competition_details_recycler_view);
-            _layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
+            _layoutManager = new SafeLinearLayoutManager(this, LinearLayoutManager.Vertical, false);
             _recyclerView.SetLayoutManager(_layoutManager);
 
             _adapter = new RecycleViewBindableAdapter((IMvxAndroidBindingContext)BindingContext);
@@ -124,26 +125,25 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
             if (viewHolder is CompetitionVideoViewHolder itemViewHolder)
             {
                 itemViewHolder.LoadingProgressBar.Visibility = ViewStates.Visible;
-                PlayVideo(itemViewHolder, itemViewHolder.VideoView);
+                PlayVideo(itemViewHolder, itemViewHolder.TextureView);
             }
 
             return Task.CompletedTask;
         }
 
-        private void PlayVideo(CompetitionVideoViewHolder itemViewHolder, VideoView videoView)
+        private void PlayVideo(CompetitionVideoViewHolder itemViewHolder, TextureView textureView)
         {
             if (_previousVideoViewHolder?.ViewModel != null &&
                 _previousVideoViewHolder.ViewModel.VideoPlayerService != null &&
                 _previousVideoView != null)
             {
                 StopVideo(_previousVideoViewHolder);
-                _previousVideoView.SetBackgroundColor(Color.Black);
             }
 
             Debug.WriteLine("PlayVideo [Start]");
 
             if (itemViewHolder?.ViewModel?.VideoPlayerService is null ||
-                videoView is null ||
+                textureView is null ||
                 itemViewHolder?.ViewModel?.VideoUrl is null)
             {
                 return;
@@ -156,11 +156,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
 
             var videoService = itemViewHolder.ViewModel.VideoPlayerService;
 
-            videoView.SetBackgroundColor(Color.Transparent);
-            videoService.Player.SetPlatformVideoPlayerContainer(videoView);
+            videoService.Player.SetPlatformVideoPlayerContainer(textureView);
+            videoService.Player.VideoRenderingStartedAction = itemViewHolder.OnRenderingStarted;
             videoService.Play(itemViewHolder.ViewModel.VideoUrl, itemViewHolder.ViewModel.VideoId);
             _previousVideoViewHolder = itemViewHolder;
-            _previousVideoView = videoView;
+            _previousVideoView = textureView;
 
             Debug.WriteLine("PlayVideo [End]");
         }
@@ -168,13 +168,15 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
         private void StopVideo(CompetitionVideoViewHolder viewHolder)
         {
             Debug.WriteLine("StopVideo [Start]");
-            if (viewHolder is null)
+            if (viewHolder?.ViewModel?.VideoPlayerService?.Player is null)
             {
                 return;
             }
 
+            viewHolder.ViewModel.VideoPlayerService.Player.VideoRenderingStartedAction = null;
             viewHolder.StubImageView.Visibility = ViewStates.Visible;
             viewHolder.ViewModel.VideoPlayerService.Stop();
+            viewHolder.LoadingProgressBar.Visibility = ViewStates.Invisible;
         }
     }
 }

@@ -366,7 +366,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\dialog_share.axml">
+    <AndroidResource Include="Resources\layout\dialog_share.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -390,7 +390,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\dialog_array.axml">
+    <AndroidResource Include="Resources\layout\dialog_array.xml">
       <SubType>
       </SubType>
       <Generator>

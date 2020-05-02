@@ -10,6 +10,7 @@
         android:id="@+id/stub_view"
         android:layout_width="0dp"
         android:layout_height="246dp"
+        android:background="@color/applicationBlack"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -77,11 +78,10 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
 
-    <VideoView
-        android:id="@+id/video_view"
+    <TextureView
+        android:id="@+id/texture_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/applicationBlack"
         android:focusableInTouchMode="true"
         app:layout_constraintBottom_toBottomOf="@+id/stub_view"
         app:layout_constraintEnd_toEndOf="@+id/stub_view"
@@ -154,7 +154,7 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/video_view"
+        app:layout_constraintBottom_toBottomOf="@+id/texture_view"
         app:layout_constraintEnd_toEndOf="@+id/stub_view"
         app:layout_constraintStart_toStartOf="@+id/stub_image_view"
         app:layout_constraintTop_toBottomOf="@+id/video_name_text_view" />

@@ -84,7 +84,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .For(v => v.ImagePath)
                       .To(vm => vm.StubImageUrl);
 
-            bindingSet.Bind(VideoView)
+            bindingSet.Bind(TextureView)
                       .For(ViewTouchTargetBinding.TargetBinding)
                       .To(vm => vm.ShowFullScreenVideoCommand);
 
@@ -98,11 +98,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .To(vm => vm.IsLiked)
                       .WithConversion(BoolToResourceConverter.Name, new Tuple<int, int>(Resource.Color.applicationWhite, Resource.Color.primary_button_border));
 
-            bindingSet.Bind(ProceccingView)
+            bindingSet.Bind(ProcessingView)
                       .For(v => v.BindVisible())
                       .To(vm => vm.IsVideoProcessing);
 
-            bindingSet.Bind(VideoView)
+            bindingSet.Bind(TextureView)
                       .For(v => v.BindHidden())
                       .To(vm => vm.IsVideoProcessing);
 

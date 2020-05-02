@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.BusinessServices
 {
@@ -18,6 +17,8 @@ namespace PrankChat.Mobile.Core.BusinessServices
         void Pause();
 
         void Stop();
+
+        Action VideoRenderingStartedAction { get; set; }
 
         void SetPlatformVideoPlayerContainer(object container);
 

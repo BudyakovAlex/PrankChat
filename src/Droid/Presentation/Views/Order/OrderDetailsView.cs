@@ -12,8 +12,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
     [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class OrderDetailsView : BaseView<OrderDetailsViewModel>
     {
-        private View _processingView;
-
         protected override bool HasBackButton => true;
 
         protected override string TitleActionBar => Core.Presentation.Localization.Resources.OrderDetailsView_Title;
@@ -21,12 +19,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.activity_order_details_view);
-        }
-
-        protected override void SetViewProperties()
-        {
-            base.SetViewProperties();
-            _processingView = FindViewById<View>(Resource.Id.processing_view);
         }
 
         public override bool OnPrepareOptionsMenu(IMenu menu)

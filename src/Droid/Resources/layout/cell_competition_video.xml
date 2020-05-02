@@ -41,11 +41,22 @@
         android:singleLine="true"
         android:textSize="12sp"/>
 
-    <VideoView
-        android:id="@+id/video_view"
+    <View
+        android:id="@+id/stub_view"
+        android:layout_width="0dp"
+        android:layout_height="246dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="24dp"
+        android:background="@color/applicationBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/video_info_text_view" />
+
+    <TextureView
+        android:id="@+id/texture_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/applicationBlack"
         android:focusableInTouchMode="true"
         app:layout_constraintBottom_toBottomOf="@+id/stub_view"
         app:layout_constraintEnd_toEndOf="@+id/stub_view"
@@ -119,17 +130,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="100k" />
     </android.support.constraint.ConstraintLayout>
-
-    <View
-        android:id="@+id/stub_view"
-        android:layout_width="0dp"
-        android:layout_height="246dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/video_info_text_view" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/processing_view"

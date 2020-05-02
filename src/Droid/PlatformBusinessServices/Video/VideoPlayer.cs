@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Android.Media;
+using Android.Net;
 using Android.OS;
-using Android.Widget;
+using Android.Views;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
@@ -12,11 +13,13 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 {
     public class VideoPlayer : BaseVideoPlayer
     {
+        private const int RecheckDelayInMilliseconds = 1000;
+
         private readonly IErrorHandleService _errorHandleService;
 
-        private const int RecheckDelayInMilliseconds = 1000;
-        private VideoView _videoView;
+        private TextureView _textureView;
         private MediaPlayer _mediaPlayer;
+
         private bool _isRepeatEnabled;
 
         public VideoPlayer(IApiService apiService, IMvxMessenger mvxMessenger, IErrorHandleService errorHandleService) : base(apiService, mvxMessenger)
@@ -43,11 +46,6 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             }
         }
 
-        public override void Dispose()
-        {
-            _videoView?.SetOnPreparedListener(null);
-        }
-
         public override void EnableRepeat(int repeatDelayInSeconds)
         {
             _isRepeatEnabled = true;
@@ -55,37 +53,42 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         public override void Pause()
         {
-            if (!IsPlaying || _videoView == null)
+            if (!IsPlaying || _textureView == null)
+            {
                 return;
+            }
 
-            _videoView.Pause();
+            _mediaPlayer?.Pause();
             IsPlaying = false;
         }
 
         public override void Play()
         {
-            if (IsPlaying || _videoView == null)
+            if (IsPlaying || _textureView == null)
+            {
                 return;
+            }
 
-            _videoView.Start();
+            _mediaPlayer?.Start();
             IsPlaying = true;
         }
 
         public override void SetPlatformVideoPlayerContainer(object container)
         {
-            if (_videoView == container)
+            if (_textureView == container)
+            {
                 return;
+            }
 
             Stop();
 
-            if (container is VideoView videoView)
+            if (container is TextureView videoView)
             {
-                _videoView = videoView;
+                _textureView = videoView;
+                return;
             }
-            else
-            {
-                _videoView = null;
-            }
+
+            _textureView = null;
         }
 
         public override void TryRegisterViewedFact(int id, int registrationDelayInMilliseconds)
@@ -97,10 +100,30 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
         public override void SetSourceUri(string uri)
         {
             if (string.IsNullOrWhiteSpace(uri))
+            {
                 return;
+            }
 
-            _videoView.SetVideoPath(uri);
-            _videoView.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepeared));
+            _mediaPlayer = MediaPlayer.Create(Xamarin.Essentials.Platform.CurrentActivity, Uri.Parse(uri));
+            if (_textureView?.SurfaceTexture is null)
+            {
+                return;
+            }
+
+            var surface = new Surface(_textureView.SurfaceTexture);
+            _mediaPlayer.SetSurface(surface);
+            _mediaPlayer.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepeared));
+            _mediaPlayer.SetOnInfoListener(new MediaPlayerOnInfoListener(OnInfoChanged));
+        }
+
+        private bool OnInfoChanged(MediaPlayer mediaPlayer, MediaInfo mediaInfo, int extra)
+        {
+            if (mediaInfo == MediaInfo.VideoRenderingStart)
+            {
+                VideoRenderingStartedAction?.Invoke();
+            }
+
+            return true;
         }
 
         private void OnMediaPlayerPrepeared(MediaPlayer mediaPlayer)
@@ -112,24 +135,30 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         public override void Stop()
         {
-            if (!IsPlaying || _videoView == null)
+            if (!IsPlaying || _textureView == null)
+            {
                 return;
+            }
 
-            _videoView?.StopPlayback();
+            _mediaPlayer?.Stop();
+            _mediaPlayer?.SetOnPreparedListener(null);
+
+            _textureView = null;
+            _textureView = null;
             IsPlaying = false;
         }
 
         private async Task RegisterAction(int id, int registrationDelayInMilliseconds)
         {
-            if (_videoView == null)
+            if (_mediaPlayer == null)
             {
-                _errorHandleService.LogError(nameof(VideoPlayer), $"{nameof(_videoView)} is null.");
+                _errorHandleService.LogError(nameof(VideoPlayer), $"{nameof(_textureView)} is null.");
                 return;
             }
 
-            var sent = await SendRegisterViewedFactAsync(id, registrationDelayInMilliseconds, _videoView.CurrentPosition);
+            var isSent = await SendRegisterViewedFactAsync(id, registrationDelayInMilliseconds, _mediaPlayer.CurrentPosition);
 
-            if (!sent)
+            if (!isSent)
             {
                 var handler = new Handler();
                 handler.PostDelayed(async () => await RegisterAction(id, registrationDelayInMilliseconds), RecheckDelayInMilliseconds);

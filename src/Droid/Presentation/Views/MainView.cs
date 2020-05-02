@@ -4,10 +4,12 @@ using Android.Graphics;
 using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
+using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
 using FFImageLoading.Cross;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
+using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Presenters.Attributes;
@@ -40,6 +42,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
                 ViewModel.ShowContentCommand.Execute();
             }
 
+            var viewPager = FindViewById<ApplicationSwipeViewPager>(Resource.Id.viewpager);
+            viewPager.OffscreenPageLimit = 5;
             _tabLayout = FindViewById<TabLayout>(Resource.Id.tabs);
 
             CreateTabs();

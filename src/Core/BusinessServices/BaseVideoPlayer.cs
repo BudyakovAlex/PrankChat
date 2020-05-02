@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
@@ -24,6 +25,8 @@ namespace PrankChat.Mobile.Core.BusinessServices
         public abstract bool IsPlaying { get; protected set; }
 
         public abstract bool Muted { get; set; }
+
+        public Action VideoRenderingStartedAction { get; set; }
 
         public abstract void EnableRepeat(int repeatDelayInSeconds);
 
