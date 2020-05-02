@@ -187,6 +187,7 @@
     <Compile Include="Presentation\Adapters\ViewHolders\Onboarding\OnboardingItemViewHolder.cs" />
     <Compile Include="Controls\WebView\CustomWebViewClient.cs" />
     <Compile Include="Controls\WebView\BindableWebView.cs" />
+    <Compile Include="Presentation\Adapters\PublicationRecyclerViewAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

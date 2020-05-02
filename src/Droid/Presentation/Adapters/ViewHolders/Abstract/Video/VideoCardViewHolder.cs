@@ -11,7 +11,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
     public class VideoCardViewHolder<TViewModel> : CardViewHolder<TViewModel>
         where TViewModel : MvxNotifyPropertyChanged
     {
-        public VideoCardViewHolder(View view, IMvxAndroidBindingContext context) : base(view, context)
+        public VideoCardViewHolder(View view, IMvxAndroidBindingContext context)
+            : base(view, context)
         {
         }
 
@@ -32,7 +33,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
                 _canShowStub = value;
                 if (!value)
                 {
-                    StubImageView.Visibility = ViewStates.Gone;
+                    StubImageView.Visibility = ViewStates.Invisible;
                 }
             }
         }
@@ -42,9 +43,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
             base.DoInit(view);
 
             ProceccingView = view.FindViewById<View>(Resource.Id.processing_view);
-            VideoView = view.FindViewById<VideoView>(Resource.Id.video_file);
+            VideoView = view.FindViewById<VideoView>(Resource.Id.video_view);
             StubImageView = view.FindViewById<MvxCachedImageView>(Resource.Id.stub_image_view);
             LoadingProgressBar = view.FindViewById<ProgressBar>(Resource.Id.loading_progress_bar);
+
             LoadingProgressBar.Visibility = ViewStates.Gone;
             VideoView.SetOnInfoListener(new MediaPlayerOnInfoListener(OnInfoChanged));
         }
@@ -52,7 +54,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
         public override void OnViewRecycled()
         {
             StubImageView.Visibility = ViewStates.Visible;
-            LoadingProgressBar.Visibility = ViewStates.Gone;
+            LoadingProgressBar.Visibility = ViewStates.Invisible;
 
             base.OnViewRecycled();
         }
@@ -61,8 +63,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
         {
             if (mediaInfo == MediaInfo.VideoRenderingStart)
             {
-                StubImageView.Visibility = ViewStates.Gone;
-                LoadingProgressBar.Visibility = ViewStates.Gone;
+                StubImageView.Visibility = ViewStates.Invisible;
+                LoadingProgressBar.Visibility = ViewStates.Invisible;
             }
 
             return true;

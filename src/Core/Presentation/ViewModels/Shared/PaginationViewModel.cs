@@ -22,15 +22,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
 
         public long TotalItemsCount { get; private set; }
 
-        private int _currentPaginationIndex;
-        public int CurrentPaginationIndex
-        {
-            get => _currentPaginationIndex;
-            set
-            {
-                _currentPaginationIndex = value;
-            }
-        }
+        public int CurrentPaginationIndex { get; set; } = DefaultPageIndex;
 
         public long LoadedItemsCount { get; private set; }
 
@@ -41,18 +33,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
         public MvxAsyncCommand ReloadItemsCommand { get; }
 
         public PaginationViewModel(int paginationSize,
-                            INavigationService navigationService,
-                            IErrorHandleService errorHandleService,
-                            IApiService apiService,
-                            IDialogService dialogService,
-                            ISettingsService settingsService)
+                                   INavigationService navigationService,
+                                   IErrorHandleService errorHandleService,
+                                   IApiService apiService,
+                                   IDialogService dialogService,
+                                   ISettingsService settingsService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _paginationSize = paginationSize;
 
             LoadMoreItemsCommand = new MvxAsyncCommand(LoadMoreItemsInternalAsync, CanLoadMoreItems);
             ReloadItemsCommand = new MvxAsyncCommand(ReloadItemsAsync);
-            CurrentPaginationIndex = DefaultPageIndex;
         }
 
         protected virtual Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = Constants.Pagination.DefaultPaginationSize)
@@ -106,6 +97,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
                 await Task.WhenAll(RaisePropertyChanged(nameof(LoadedItemsCount)),
                                    RaisePropertyChanged(nameof(CurrentPaginationIndex)),
                                    RaisePropertyChanged(nameof(HasNextPage)));
+
                 LoadMoreItemsCommand.RaiseCanExecuteChanged();
             }
             finally

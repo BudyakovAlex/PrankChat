@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MvvmCross;
 using MvvmCross.Commands;
-using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -76,7 +74,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             set => SetProperty(ref _currentlyPlayingItem, value);
         }
 
-        public MvxObservableCollection<PublicationItemViewModel> Items { get; } = new MvxObservableCollection<PublicationItemViewModel>();
+        public MvxObservableCollection<PublicationItemViewModel> Items { get; } =
+            new MvxObservableCollection<PublicationItemViewModel>();
 
         public MvxAsyncCommand OpenFilterCommand { get; }
 
@@ -198,25 +197,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private PublicationItemViewModel ProducePublicationItemViewModel(VideoDataModel publication)
         {
             return new PublicationItemViewModel(NavigationService,
-                DialogService,
-                _platformService,
-                Mvx.IoCProvider.Resolve<IVideoPlayerService>(),
-                ApiService,
-                ErrorHandleService,
-                _mvxMessenger,
-                _settingsService,
-                publication.Poster,
-                publication.User?.Name,
-                publication.User?.Avatar,
-                publication.Id,
-                publication.Title,
-                publication.Description,
-                publication.StreamUri,
-                publication.ViewsCount,
-                publication.CreatedAt.DateTime,
-                publication.LikesCount,
-                publication.ShareUri,
-                publication.IsLiked);
+                                                DialogService,
+                                                _platformService,
+                                                _videoPlayerService,
+                                                ApiService,
+                                                ErrorHandleService,
+                                                _mvxMessenger,
+                                                _settingsService,
+                                                publication.Poster,
+                                                publication.User?.Name,
+                                                publication.User?.Avatar,
+                                                publication.Id,
+                                                publication.Title,
+                                                publication.Description,
+                                                publication.StreamUri,
+                                                publication.ViewsCount,
+                                                publication.CreatedAt.DateTime,
+                                                publication.LikesCount,
+                                                publication.ShareUri,
+                                                publication.IsLiked);
         }
 
         protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)

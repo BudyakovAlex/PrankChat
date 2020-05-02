@@ -15,159 +15,157 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/video_name" />
+        app:layout_constraintTop_toBottomOf="@+id/video_name_text_view" />
 
     <CircleCachedImageView
-        android:id="@+id/user_photo"
+        android:id="@+id/profile_image_view"
         android:layout_width="42dp"
         android:layout_height="42dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="3dp"
         android:layout_marginTop="7dp"
-        android:layout_marginLeft="3dp"
-        app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneTime; PlaceholderText ProfileShortName, Mode = OneTime" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/more_image_button"
+        android:layout_width="4dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="3dp"
+        android:background="@null"
+        android:src="@drawable/ic_more"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/profile_image_view" />
+
     <TextView
-        android:id="@+id/user_name"
+        android:id="@+id/profile_name_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@+id/user_photo"
-        app:layout_constraintRight_toLeftOf="@+id/more_button"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:textSize="14sp"
         android:textColor="@color/applicationBlack"
+        android:textSize="14sp"
         android:textStyle="normal|bold"
-        app:MvxBind="Text ProfileName, Mode = OneTime"/>
+        app:layout_constraintLeft_toRightOf="@+id/profile_image_view"
+        app:layout_constraintRight_toLeftOf="@+id/more_image_button"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        android:id="@+id/video_info"
+        android:id="@+id/video_info_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@+id/user_photo"
-        app:layout_constraintRight_toLeftOf="@+id/more_button"
-        app:layout_constraintTop_toBottomOf="@+id/user_name"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
         android:singleLine="true"
         android:textSize="12sp"
-        app:MvxBind="Text VideoInformationText"/>
-    <ImageButton
-        android:id="@+id/more_button"
-        android:layout_width="4dp"
-        android:layout_height="16dp"
-        android:src="@drawable/ic_more"
-        android:background="@null"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/user_photo"
-        app:layout_constraintBottom_toBottomOf="@+id/user_photo"
-        app:layout_constraintHorizontal_bias="1"
-        android:layout_marginRight="3dp"
-        android:layout_marginTop="11dp"
-        app:MvxBind="Click OpenSettingsCommand"/>
+        app:layout_constraintLeft_toRightOf="@+id/profile_image_view"
+        app:layout_constraintRight_toLeftOf="@+id/more_image_button"
+        app:layout_constraintTop_toBottomOf="@+id/profile_name_text_view" />
+
     <TextView
-        android:id="@+id/video_name"
+        android:id="@+id/video_name_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/applicationBlack"
+        android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_photo"
-        android:layout_marginTop="7dp"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:textSize="14sp"
-        android:textColor="@color/applicationBlack"
-        app:MvxBind="Text VideoName, Mode = OneTime"/>
+        app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
 
     <VideoView
-        android:id="@+id/video_file"
+        android:id="@+id/video_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/applicationBlack"
         android:focusableInTouchMode="true"
-        app:MvxBind="Touch ShowFullScreenVideoCommand"
         app:layout_constraintBottom_toBottomOf="@+id/stub_view"
         app:layout_constraintEnd_toEndOf="@+id/stub_view"
         app:layout_constraintStart_toStartOf="@+id/stub_view"
         app:layout_constraintTop_toTopOf="@+id/stub_view" />
+
     <ImageButton
-        android:id="@+id/like_button"
+        android:id="@+id/like_image_button"
         android:layout_width="20dp"
         android:layout_height="18.35dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="11dp"
         android:background="@null"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stub_view"
-        app:layout_constraintRight_toLeftOf="@+id/like_text"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="11dp"
-        app:MvxBind="Click LikeCommand; DrawableId Like(IsLiked)"/>
+        app:layout_constraintRight_toLeftOf="@+id/like_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/stub_view" />
+
     <TextView
-        android:id="@+id/like_text"
+        android:id="@+id/like_text_view"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:layout_constraintLeft_toRightOf="@+id/like_button"
-        app:layout_constraintRight_toLeftOf="@+id/share_button"
-        app:layout_constraintTop_toTopOf="@+id/like_button"
-        app:layout_constraintBottom_toBottomOf="@+id/like_button"
-        android:layout_marginLeft="8dp"
-        android:textSize="12sp"
+        android:layout_marginStart="8dp"
         android:textColor="@color/applicationBlack"
-        app:MvxBind="Text NumberOfLikesText, Mode = OneWay"/>
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/like_image_button"
+        app:layout_constraintLeft_toRightOf="@+id/like_image_button"
+        app:layout_constraintRight_toLeftOf="@+id/share_image_button"
+        app:layout_constraintTop_toTopOf="@+id/like_image_button" />
+
     <ImageButton
-        android:id="@+id/share_button"
+        android:id="@+id/share_image_button"
         android:layout_width="18dp"
         android:layout_height="18.35dp"
-        android:src="@drawable/ic_share"
-        android:background="@null"
-        app:layout_constraintLeft_toRightOf="@+id/like_text"
-        app:layout_constraintTop_toBottomOf="@+id/stub_view"
+        android:layout_marginStart="19dp"
         android:layout_marginTop="11dp"
-        android:layout_marginLeft="19dp"
-        app:MvxBind="Click ShareCommand"/>
+        android:background="@null"
+        android:src="@drawable/ic_share"
+        app:layout_constraintLeft_toRightOf="@+id/like_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/stub_view" />
+
     <!--TODO: Make it button visible after video saving will become available.-->
     <ImageButton
         android:id="@+id/bookmark_button"
         android:layout_width="14dp"
         android:layout_height="18dp"
-        android:src="@drawable/ic_bookmark"
-        android:background="@null"
-        app:layout_constraintLeft_toRightOf="@+id/share_button"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stub_view"
-        app:layout_constraintHorizontal_bias="1"
-        android:layout_marginRight="3dp"
         android:layout_marginTop="11dp"
-        android:visibility="invisible"/>
+        android:layout_marginEnd="3dp"
+        android:background="@null"
+        android:src="@drawable/ic_bookmark"
+        android:visibility="invisible"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintLeft_toRightOf="@+id/share_image_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stub_view" />
 
     <ffimageloading.cross.MvxCachedImageView
         android:id="@+id/stub_image_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="fitXY"
-        app:MvxBind="ImagePath VideoPlaceholderImageUrl"
         app:layout_constraintBottom_toBottomOf="@+id/stub_view"
         app:layout_constraintEnd_toEndOf="@+id/stub_view"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/stub_view"
         app:layout_constraintTop_toTopOf="@+id/stub_view"
         app:layout_constraintVertical_bias="1.0" />
+
     <ProgressBar
         android:id="@+id/loading_progress_bar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/video_file"
+        app:layout_constraintBottom_toBottomOf="@+id/video_view"
         app:layout_constraintEnd_toEndOf="@+id/stub_view"
         app:layout_constraintStart_toStartOf="@+id/stub_image_view"
-        app:layout_constraintTop_toBottomOf="@+id/video_name" />
+        app:layout_constraintTop_toBottomOf="@+id/video_name_text_view" />
 
-    <android.support.constraint.ConstraintLayout
+    <FrameLayout
         android:id="@+id/processing_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/border_accent_load_video"
         app:layout_constraintBottom_toBottomOf="@+id/stub_view"
         app:layout_constraintEnd_toEndOf="@+id/stub_view"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/stub_view"
         app:layout_constraintTop_toTopOf="@+id/stub_view">
 
@@ -175,22 +173,18 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            app:layout_constraintBottom_toTopOf="@+id/processing_text_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp" />
 
         <TextView
             android:id="@+id/processing_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="49dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
             android:text="@string/Processing_Video"
             android:textColor="@android:color/white"
-            android:textSize="17sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </android.support.constraint.ConstraintLayout>
-
+            android:textSize="17sp" />
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>

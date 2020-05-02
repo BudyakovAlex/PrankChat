@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Android.App;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
@@ -16,10 +15,8 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Adapters;
-using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
@@ -41,7 +38,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
         private StateScrollListener _stateScrollListener;
         private LinearLayoutManager _layoutManager;
-        private RecycleViewBindableAdapter _adapter;
+        private PublicationRecyclerViewAdapter _adapter;
 
         private PublicationItemViewHolder _previousPublicationViewHolder;
         private VideoView _previousVideoView;
@@ -111,21 +108,21 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         {
             _publicationTypeTabLayout = view.FindViewById<TabLayout>(Resource.Id.publication_type_tab_layout);
             _publicationRecyclerView = view.FindViewById<EndlessRecyclerView>(Resource.Id.publication_recycler_view);
-            var dividerItemDecoration = new DividerItemDecoration(Application.Context, LinearLayoutManager.Vertical);
 
             _layoutManager = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
+            _layoutManager.InitialPrefetchItemCount = 20;
             _publicationRecyclerView.SetLayoutManager(_layoutManager);
             _publicationRecyclerView.HasNextPage = true;
 
-            _adapter = new RecycleViewBindableAdapter((IMvxAndroidBindingContext)BindingContext);
-            _publicationRecyclerView.Adapter = _adapter;
-            _publicationRecyclerView.ItemTemplateSelector = new TemplateSelector()
-                .AddElement<PublicationItemViewModel, PublicationItemViewHolder>(Resource.Layout.cell_publication);
-            
-            _publicationRecyclerView.AddItemDecoration(dividerItemDecoration);
+            _adapter = new PublicationRecyclerViewAdapter((IMvxAndroidBindingContext)BindingContext);
+            _publicationRecyclerView.SetAdapter(_adapter);
 
             _stateScrollListener = new StateScrollListener();
             _publicationRecyclerView.AddOnScrollListener(_stateScrollListener);
+
+            var dividerItemDecoration = new DividerItemDecoration(Context, LinearLayoutManager.Vertical);
+            _publicationRecyclerView.AddItemDecoration(dividerItemDecoration);
+
         }
 
         private void OnDataSetChanged(object sender, EventArgs e)
