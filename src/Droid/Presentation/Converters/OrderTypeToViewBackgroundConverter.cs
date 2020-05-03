@@ -11,21 +11,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Converters
         {
             switch (value)
             {
-                case OrderType.MyOrder:
-                    return "my_order_background";
-
-                case OrderType.MyOrderInModeration:
-                    return "not_moderated_order_background";
-
-                case OrderType.NotMyOrder:
-                    return "not_my_order_background";
-
-                case OrderType.MyOrderCompleted:
-                case OrderType.NotMyOrderCompleted:
-                    return "not_moderated_order_card";
+                case OrderType.MyOrder:             return "my_order_background";
+                case OrderType.MyOrderInModeration: return "not_moderated_order_background";
+                case OrderType.NotMyOrder:          return "not_my_order_background";
+                case OrderType.MyOrderCompleted:    return "my_order_completed_background";
+                case OrderType.NotMyOrderCompleted: return "not_moderated_order_card";
+                default: throw new ArgumentOutOfRangeException();
             }
-
-            throw new ArgumentOutOfRangeException();
         }
     }
 }

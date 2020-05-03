@@ -996,6 +996,8 @@
     <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Group 108.pdf">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\bg_order_type_my_completed.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\bg_order_type_my_completed.imageset\bg_order_type_my_completed.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -1049,6 +1051,7 @@
     <Folder Include="Assets.xcassets\bg_onboarding_third_slide.imageset\" />
     <Folder Include="Assets.xcassets\bg_onboarding_fourth_slide.imageset\" />
     <Folder Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\" />
+    <Folder Include="Assets.xcassets\bg_order_type_my_completed.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
