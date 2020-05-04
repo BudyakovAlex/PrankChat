@@ -12,9 +12,10 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             var enumType = typeof(T);
             var memInfo = enumType.GetMember(enumValue.ToString());
             var attr = memInfo.FirstOrDefault()?
-                                .GetCustomAttributes(false)
-                                .OfType<EnumMemberAttribute>()
-                                .FirstOrDefault();
+                              .GetCustomAttributes(false)
+                              .OfType<EnumMemberAttribute>()
+                              .FirstOrDefault();
+
             return attr?.Value;
         }
 

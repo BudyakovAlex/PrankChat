@@ -26,6 +26,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _messenger;
         private readonly IMvxLog _log;
+
         private readonly HttpClient _client;
 
         public ApiService(ISettingsService settingsService,
@@ -111,59 +112,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<PaginationModel<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize)
         {
-            var endpoint = $"orders?page={page}&items_per_page={pageSize}&order_property=created_at";
+            var endpoint = $"{orderFilterType.GetUrlResource()}?page={page}&items_per_page={pageSize}";
             switch (orderFilterType)
             {
-                case OrderFilterType.All:
-                    endpoint = $"filter/orders/all?page={page}&items_per_page={pageSize}&order_property=created_at";
-                    break;
-
-                case OrderFilterType.New:
-                    endpoint = $"{endpoint}&status={OrderStatusType.Active.GetEnumMemberAttrValue()}";
-                    break;
-
-                case OrderFilterType.InProgress:
-                    endpoint = $"{endpoint}&states[]={OrderStatusType.InWork.GetEnumMemberAttrValue()}&states[]={OrderStatusType.WaitFinish.GetEnumMemberAttrValue()}";
-                    break;
-
-                case OrderFilterType.MyOwn:
-                    if (_settingsService.User == null)
-                        return new PaginationModel<OrderDataModel>();
-
+                case OrderFilterType.MyOwn when _settingsService.User != null:
                     endpoint = $"{endpoint}&customer_id={_settingsService.User.Id}";
                     break;
 
-                case OrderFilterType.MyOrdered:
-                    if (_settingsService.User == null)
-                        return new PaginationModel<OrderDataModel>();
-
-                    endpoint = $"{endpoint}" +
-                               $"&customer_id={_settingsService.User.Id}" +
-                               $"&states[]={OrderStatusType.New.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.Active.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.InWork.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.VideoInProcess.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.VideoWaitModeration.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.VideoProcessError.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.WaitFinish.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.Finished.GetEnumMemberAttrValue()}";
-                    break;
-
-                case OrderFilterType.MyCompletion:
-                    if (_settingsService.User == null)
-                        return new PaginationModel<OrderDataModel>();
-
-                    endpoint = $"{endpoint}" +
-                               $"&executor_id={_settingsService.User.Id}" +
-                               $"&states[]={OrderStatusType.InWork.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.VideoInProcess.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.VideoWaitModeration.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.VideoProcessError.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.WaitFinish.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}" +
-                               $"&states[]={OrderStatusType.Finished.GetEnumMemberAttrValue()}";
-                    break;
+                case OrderFilterType.MyOwn when _settingsService.User == null:
+                case OrderFilterType.MyCompletion when _settingsService.User == null:
+                case OrderFilterType.MyOrdered when _settingsService.User == null:
+                    return new PaginationModel<OrderDataModel>();
             }
 
             var data = await _client.Get<BaseBundleApiModel<OrderApiModel>>(endpoint, includes: IncludeType.Customer);
@@ -264,34 +223,25 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<PaginationModel<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
-            BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
-            if (_settingsService.User == null)
-            {
-                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"videos?popular=true&date_from={dateFilterType.GetDateString()}&page={page}&items_per_page={pageSize}", false, IncludeType.User);
-            }
-            else
-            {
-                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"videos?popular=true&date_from={dateFilterType.GetDateString()}&page={page}&items_per_page={pageSize}", false, IncludeType.User);
-            }
+            var endpoint = $"newsline/videos/popular?period={dateFilterType.GetEnumMemberAttrValue()}&page={page}&items_per_page={pageSize}";
+            var videoMetadataBundle = _settingsService.User == null ?
+                await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.User) :
+                await _client.Get<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.User);
 
             return CreatePaginationResult<VideoApiModel, VideoDataModel>(videoMetadataBundle);
         }
 
         public async Task<PaginationModel<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
-            BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
-            if (_settingsService.User == null)
-            {
-                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"videos?actual=true&date_from={dateFilterType.GetDateString()}&page={page}&items_per_page={pageSize}", false, IncludeType.User);
-            }
-            else
-            {
-                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"videos?actual=true&date_from={dateFilterType.GetDateString()}&page={page}&items_per_page={pageSize}", false, IncludeType.User);
-            }
+            var endpoint = $"newsline/videos/new?period={dateFilterType.GetEnumMemberAttrValue()}&page={page}&items_per_page={pageSize}";
+            var videoMetadataBundle = _settingsService.User == null ?
+                await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.User):
+                await _client.Get<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.User);
 
             var mappedModels = MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
             var paginationData = videoMetadataBundle.Meta.FirstOrDefault();
             var totalItemsCount = paginationData.Value?.Total ?? mappedModels.Count;
+
             return new PaginationModel<VideoDataModel>(mappedModels, totalItemsCount);
         }
 
