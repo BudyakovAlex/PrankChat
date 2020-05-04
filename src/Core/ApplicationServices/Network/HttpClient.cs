@@ -21,6 +21,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
     public class HttpClient
     {
         private const string ApiId = "api";
+
         private readonly IRestClient _client;
         private readonly IMvxMessenger _messenger;
         private readonly IMvxLog _mvxLog;

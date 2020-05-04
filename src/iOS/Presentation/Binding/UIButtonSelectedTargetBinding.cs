@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using MvvmCross.Binding;
 using MvvmCross.Binding.Bindings.Target;
 using UIKit;

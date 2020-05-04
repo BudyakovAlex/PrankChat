@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
-using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Binding;
-using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -47,21 +44,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             set.Bind(nextStepButton)
                 .To(vm => vm.UserRegistrationCommand);
 
-            set.Bind(femaleIconButton)
-                .To(vm => vm.SelectGenderCommand)
-                .CommandParameter(GenderType.Female);
+            set.Bind(termsLabel)
+               .For(v => v.BindTap())
+               .To(vm => vm.ShowTermsAndRulesCommand);
 
-            set.Bind(femaleIconButton)
-                .For(UIButtonSelectedTargetBinding.TargetBinding)
-                .To(vm => vm.IsGenderFemale);
+            set.Bind(privacyCheckButton)
+               .For(UIButtonSelectedTargetBinding.TargetBinding)
+               .To(vm => vm.IsPolicyChecked)
+               .OneWay();
 
-            set.Bind(maleIconButton)
-                .To(vm => vm.SelectGenderCommand)
-                .CommandParameter(GenderType.Male);
-
-            set.Bind(maleIconButton)
-                .For(UIButtonSelectedTargetBinding.TargetBinding)
-                .To(vm => vm.IsGenderMale);
+            set.Bind(adultCheckButton)
+               .For(UIButtonSelectedTargetBinding.TargetBinding)
+               .To(vm => vm.IsAdultChecked)
+               .OneWay();
 
             set.Bind(progressBar)
                 .For(v => v.BindHidden())
@@ -89,18 +84,20 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             passwordRepeatTextField.SecureTextEntry = true;
             passwordTextField.TextContentType = UITextContentType.OneTimeCode;
 
-            sexSelectTitleLabel.Text = Resources.RegistrationView_GenderSelect_Title;
-            sexSelectTitleLabel.TextColor = Theme.Color.White;
-            sexSelectTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
+            adultCheckButton.SetSelectableImageStyleWithTint("ic_checkbox_unchecked", "ic_checkbox_checked", Theme.Color.White);
+            privacyCheckButton.SetSelectableImageStyleWithTint("ic_checkbox_unchecked", "ic_checkbox_checked", Theme.Color.White);
 
-            maleTitleButton.SetTitle(Resources.RegistrationView_Male_Button, UIControlState.Normal);
-            maleTitleButton.SetRadioTitleStyle();
+            privacyCheckButton.AddGestureRecognizer(new UITapGestureRecognizer(() => ViewModel.IsPolicyChecked = !ViewModel.IsPolicyChecked));
+            adultCheckButton.AddGestureRecognizer(new UITapGestureRecognizer(() => ViewModel.IsAdultChecked = !ViewModel.IsAdultChecked));
 
-            femaleTitleButton.SetTitle(Resources.RegistrationView_Female_Button, UIControlState.Normal);
-            femaleTitleButton.SetRadioTitleStyle();
+            adultLabel.SetSmallSubtitleStyle(Resources.Registration_Confirm_Adult);
+            adultLabel.TextColor = Theme.Color.White;
 
-            femaleIconButton.SetSelectableImageStyle("ic_radio_button_inactive", "ic_radio_button_active");
-            maleIconButton.SetSelectableImageStyle("ic_radio_button_inactive", "ic_radio_button_active");
+            agreeWithLabel.SetSmallSubtitleStyle(Resources.Registration_Agree_With);
+            agreeWithLabel.TextColor = Theme.Color.White;
+
+            termsLabel.SetSmallSubtitleStyle(Resources.Registration_Terms_And_Rules);
+            termsBottomLineView.BackgroundColor = termsLabel.TextColor;
 
             registerButton.SetLightStyle(Resources.RegistrationView_Register_Button);
         }

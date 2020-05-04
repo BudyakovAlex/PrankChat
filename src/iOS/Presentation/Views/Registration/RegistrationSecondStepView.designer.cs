@@ -5,7 +5,6 @@
 // Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using PrankChat.Mobile.iOS.Controls;
 using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
@@ -14,40 +13,34 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 	partial class RegistrationSecondStepView
 	{
 		[Outlet]
-		FloatPlaceholderTextField birthdayTextField { get; set; }
+		UIKit.UIButton adultCheckButton { get; set; }
 
 		[Outlet]
-		UIKit.UIView femaleButtonsContainerView { get; set; }
+		UIKit.UILabel adultLabel { get; set; }
 
 		[Outlet]
-		UIKit.UIButton femaleIconButton { get; set; }
+		UIKit.UILabel agreeWithLabel { get; set; }
 
 		[Outlet]
-		UIKit.UIButton femaleTitleButton { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField birthdayTextField { get; set; }
 
 		[Outlet]
-		UIKit.UIView maleButtonsContainerView { get; set; }
-
-		[Outlet]
-		UIKit.UIButton maleIconButton { get; set; }
-
-		[Outlet]
-		UIKit.UIButton maleTitleButton { get; set; }
-
-		[Outlet]
-		FloatPlaceholderTextField nameTextField { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField nameTextField { get; set; }
 
 		[Outlet]
 		UIKit.UIButton nextStepButton { get; set; }
 
 		[Outlet]
-		FloatPlaceholderTextField nicknameTextField { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField nicknameTextField { get; set; }
 
 		[Outlet]
-		FloatPlaceholderTextField passwordRepeatTextField { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField passwordRepeatTextField { get; set; }
 
 		[Outlet]
-		FloatPlaceholderTextField passwordTextField { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField passwordTextField { get; set; }
+
+		[Outlet]
+		UIKit.UIButton privacyCheckButton { get; set; }
 
 		[Outlet]
 		UIKit.UIActivityIndicatorView progressBar { get; set; }
@@ -59,48 +52,36 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 		UIKit.UIScrollView scrollView { get; set; }
 
 		[Outlet]
-		UIKit.UILabel sexSelectTitleLabel { get; set; }
+		UIKit.UIView termsBottomLineView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel termsLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (progressBar != null) {
-				progressBar.Dispose ();
-				progressBar = null;
+			if (termsBottomLineView != null) {
+				termsBottomLineView.Dispose ();
+				termsBottomLineView = null;
+			}
+
+			if (adultCheckButton != null) {
+				adultCheckButton.Dispose ();
+				adultCheckButton = null;
+			}
+
+			if (adultLabel != null) {
+				adultLabel.Dispose ();
+				adultLabel = null;
+			}
+
+			if (agreeWithLabel != null) {
+				agreeWithLabel.Dispose ();
+				agreeWithLabel = null;
 			}
 
 			if (birthdayTextField != null) {
 				birthdayTextField.Dispose ();
 				birthdayTextField = null;
-			}
-
-			if (femaleButtonsContainerView != null) {
-				femaleButtonsContainerView.Dispose ();
-				femaleButtonsContainerView = null;
-			}
-
-			if (femaleIconButton != null) {
-				femaleIconButton.Dispose ();
-				femaleIconButton = null;
-			}
-
-			if (femaleTitleButton != null) {
-				femaleTitleButton.Dispose ();
-				femaleTitleButton = null;
-			}
-
-			if (maleButtonsContainerView != null) {
-				maleButtonsContainerView.Dispose ();
-				maleButtonsContainerView = null;
-			}
-
-			if (maleIconButton != null) {
-				maleIconButton.Dispose ();
-				maleIconButton = null;
-			}
-
-			if (maleTitleButton != null) {
-				maleTitleButton.Dispose ();
-				maleTitleButton = null;
 			}
 
 			if (nameTextField != null) {
@@ -128,6 +109,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 				passwordTextField = null;
 			}
 
+			if (privacyCheckButton != null) {
+				privacyCheckButton.Dispose ();
+				privacyCheckButton = null;
+			}
+
+			if (progressBar != null) {
+				progressBar.Dispose ();
+				progressBar = null;
+			}
+
 			if (registerButton != null) {
 				registerButton.Dispose ();
 				registerButton = null;
@@ -138,9 +129,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 				scrollView = null;
 			}
 
-			if (sexSelectTitleLabel != null) {
-				sexSelectTitleLabel.Dispose ();
-				sexSelectTitleLabel = null;
+			if (termsLabel != null) {
+				termsLabel.Dispose ();
+				termsLabel = null;
 			}
 		}
 	}

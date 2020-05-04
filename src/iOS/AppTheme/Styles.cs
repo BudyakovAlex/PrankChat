@@ -468,10 +468,21 @@ namespace PrankChat.Mobile.iOS.AppTheme
             button.TintColor = UIColor.Clear;
 
             button.SetImage(UIImage.FromBundle(normalImage)
-                .ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+                  .ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
 
             button.SetImage(UIImage.FromBundle(selectedImage)
-                .ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Selected);
+                  .ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Selected);
+        }
+
+        public static void SetSelectableImageStyleWithTint(this UIButton button, string normalImage, string selectedImage, UIColor tintColor)
+        {
+            button.TintColor = tintColor;
+
+            button.SetImage(UIImage.FromBundle(normalImage)
+                  .ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), UIControlState.Normal);
+
+            button.SetImage(UIImage.FromBundle(selectedImage)
+                  .ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), UIControlState.Selected);
         }
 
         public static void SetRadioTitleStyle(this UIButton button)

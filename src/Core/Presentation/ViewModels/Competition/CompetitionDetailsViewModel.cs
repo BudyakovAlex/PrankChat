@@ -78,12 +78,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
+            var pageContainer = await ApiService.GetCompetitionVideosAsync(_competition.Id, page, pageSize);
             if (_competition.GetPhase() == CompetitionPhase.New)
             {
-                return 0;
+                var video = pageContainer.Items.FirstOrDefault(item => item.User.Id == SettingsService.User.Id);
+                if (video is null)
+                {
+                    return 0;
+                }
+
+                Items.Add(ProduceVideoItemViewModel(video));
+                return 1;
             }
 
-            var pageContainer = await ApiService.GetCompetitionVideosAsync(_competition.Id, page, pageSize);
             var count = SetList(pageContainer, page, ProduceVideoItemViewModel, Items);
 
             _header.CanLoadVideo = _competition.GetPhase() == CompetitionPhase.New &&

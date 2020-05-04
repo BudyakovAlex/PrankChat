@@ -945,4 +945,13 @@
   <data name="Cashbox_Commision_Warning" xml:space="preserve">
     <value>Обратите внимание что к сумме пополнения будет добавлена комисия платежного шлюза</value>
   </data>
+  <data name="Registration_Confirm_Adult" xml:space="preserve">
+    <value>Подтверждаю, что мне есть 18 лет</value>
+  </data>
+  <data name="Registration_Agree_With" xml:space="preserve">
+    <value>Я согласен с</value>
+  </data>
+  <data name="Registration_Terms_And_Rules" xml:space="preserve">
+    <value>правилами и условиями</value>
+  </data>
 </root>

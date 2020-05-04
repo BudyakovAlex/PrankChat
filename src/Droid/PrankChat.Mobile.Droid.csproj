@@ -1050,6 +1050,9 @@
     <PackageReference Include="Xamarin.Android.ManifestMerger">
       <Version>1.0.0-preview03</Version>
     </PackageReference>
+    <PackageReference Include="MvvmCross.Plugin.WebBrowser">
+      <Version>6.4.2</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\splash_screen_layout.xml" />

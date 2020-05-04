@@ -306,4 +306,7 @@
     <string name="Profile_Resend_Confirmation">"Отправить повторно"</string>
     <string name="OrderDetailsView_Video_Uploaded">"Видео отправлено, после обработки у заказчика будет 24 часа на принятие или отправки в спор."</string>
     <string name="Cashbox_Commision_Warning">"Обратите внимание что к сумме пополнения будет добавлена комисия платежного шлюза"</string>
+    <string name="Registration_Confirm_Adult">"Подтверждаю, что мне есть 18 лет"</string>
+    <string name="Registration_Agree_With">"Я согласен с"</string>
+    <string name="Registration_Terms_And_Rules">"правилами и условиями"</string>
 </resources>

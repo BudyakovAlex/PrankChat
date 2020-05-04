@@ -1,60 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:orientation="vertical"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-    android:background="@drawable/gradient_background">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical">
+
     <include
         android:id="@+id/action_bar"
         layout="@layout/action_bar_back_and_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="23dp"
         android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        app:boxStrokeWidth="1dp"
-        android:textColorHint="@color/applicationWhite"
         android:hint="@string/RegistrationView_Login_Placeholder"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:textColorHint="@color/applicationWhite"
+        app:boxStrokeWidth="1dp">
+
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/applicationWhite"
             android:singleLine="true"
+            android:textColor="@color/applicationWhite"
+            android:textSize="14sp"
             app:MvxBind="Text Login" />
     </android.support.design.widget.TextInputLayout>
+
     <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        app:boxStrokeWidth="1dp"
-        android:textColorHint="@color/applicationWhite"
         android:hint="@string/RegistrationView_Name_Placeholder"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:textColorHint="@color/applicationWhite"
+        app:boxStrokeWidth="1dp">
+
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="14sp"
-            android:textColor="@color/applicationWhite"
             android:singleLine="true"
+            android:textColor="@color/applicationWhite"
+            android:textSize="14sp"
             app:MvxBind="Text Name" />
     </android.support.design.widget.TextInputLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="46dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
         android:background="@drawable/border_white"
         app:MvxBind="Click SelectBirthdayCommand">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -62,113 +69,132 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="11dp"
             android:gravity="center_vertical"
-            android:textSize="14sp"
-            android:textColor="@color/applicationWhite"
             android:text="@string/RegistrationView_Birthday_Placeholder"
+            android:textColor="@color/applicationWhite"
+            android:textSize="14sp"
             app:MvxBind="Text BirthdayText;" />
+
         <ImageView
             android:layout_width="18dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="14dp"
-            android:src="@drawable/ic_calendar"/>
+            android:src="@drawable/ic_calendar" />
     </RelativeLayout>
+
     <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        app:boxStrokeWidth="1dp"
-        android:textColorHint="@color/applicationWhite"
         android:hint="@string/RegistrationView_Password_Placeholder"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:textColorHint="@color/applicationWhite"
+        app:boxStrokeWidth="1dp">
+
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/applicationWhite"
-            android:singleLine="true"
             android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="@color/applicationWhite"
+            android:textSize="14sp"
             app:MvxBind="Text Password" />
     </android.support.design.widget.TextInputLayout>
+
     <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        app:boxStrokeWidth="1dp"
-        android:textColorHint="@color/applicationWhite"
         android:hint="@string/RegistrationView_PasswordRepeat_Placeholder"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:textColorHint="@color/applicationWhite"
+        app:boxStrokeWidth="1dp">
+
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/applicationWhite"
-            android:singleLine="true"
             android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="@color/applicationWhite"
+            android:textSize="14sp"
             app:MvxBind="Text RepeatedPassword" />
     </android.support.design.widget.TextInputLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/applicationWhite"
-        android:textSize="14sp"
-        android:text="@string/RegistrationView_GenderSelect_Title"/>
-    <RadioGroup
+
+    <CheckBox
+        android:id="@+id/adult_check_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="18dp">
-        <RadioButton
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="19dp"
+        android:checked="true"
+        android:textColor="@color/applicationWhite"
+        android:textSize="12sp"
+        app:MvxBind="Checked IsAdultChecked"
+        android:text="@string/Registration_Confirm_Adult" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="19dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/terms_check_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="19dp"
+            android:layout_gravity="center_vertical"
+            android:checked="true"
             android:textColor="@color/applicationWhite"
-            android:drawableTop="@drawable/radio_button_background"
-            android:button="@null"
-            android:text="@string/RegistrationView_Male_Button"
-            app:MvxBind="Click SelectGenderCommand, CommandParameter=Male"/>
-        <RadioButton
+            android:textSize="12sp"
+            app:MvxBind="Checked IsPolicyChecked"
+            android:text="@string/Registration_Agree_With" />
+
+        <TextView
+            android:id="@+id/terms_link_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="19dp"
-            android:drawableTop="@drawable/radio_button_background"
-            android:button="@null"
-            android:textColor="@color/applicationWhite"
-            android:text="@string/RegistrationView_Female_Button"
-         app:MvxBind="Click SelectGenderCommand, CommandParameter=Female"/>
-    </RadioGroup>
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="3dp"
+            android:textSize="12sp"
+            android:textColor="@color/description"
+            android:text="@string/Registration_Terms_And_Rules"
+            app:MvxBind="Click ShowTermsAndRulesCommand"/>
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="26dp">
+        android:layout_marginTop="29dp">
+
         <Button
             android:id="@+id/registration_button"
+            style="@style/Theme.PrankChat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_centerHorizontal="true"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="@string/RegistrationView_Register_Button"
-            style="@style/Theme.PrankChat.Button.Borderless"
             app:MvxBind="Click UserRegistrationCommand" />
+
         <ProgressBar
             android:id="@+id/progressBar"
+            style="@style/Theme.PrankChat.ProgressBar.Accent"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_gravity="right"
             android:layout_alignTop="@+id/registration_button"
-            android:layout_alignRight="@+id/registration_button"
             android:layout_alignEnd="@+id/registration_button"
-            style="@style/Theme.PrankChat.ProgressBar.Accent"
-            app:MvxBind="Visibility Visibility(IsBusy)"/>
+            android:layout_alignRight="@+id/registration_button"
+            android:layout_gravity="right"
+            app:MvxBind="Visibility Visibility(IsBusy)" />
     </RelativeLayout>
 </LinearLayout>

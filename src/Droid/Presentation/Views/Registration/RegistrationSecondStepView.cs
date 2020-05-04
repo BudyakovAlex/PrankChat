@@ -2,6 +2,7 @@
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using Android.Widget;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
@@ -24,10 +25,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState, Resource.Layout.fragment_registration_second_step);
+            var privacyLinkTextView = view.FindViewById<TextView>(Resource.Id.terms_link_text_view);
+            privacyLinkTextView.PaintFlags = Android.Graphics.PaintFlags.UnderlineText;
             return view;
         }
 
-		protected override void Subscription()
+        protected override void Subscription()
 		{
 		}
 

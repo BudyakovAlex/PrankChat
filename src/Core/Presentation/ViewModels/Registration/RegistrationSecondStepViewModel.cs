@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
-using MvvmCross.Logging;
+using MvvmCross.Plugin.WebBrowser;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Exceptions;
-using PrankChat.Mobile.Core.Exceptions.UserVisible;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
@@ -23,7 +20,26 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class RegistrationSecondStepViewModel : BaseProfileViewModel, IMvxViewModel<RegistrationNavigationParameter>
     {
+        private const string PolicyEndpoint = "https://prankchat.store/policy";
+
+        private readonly IMvxWebBrowserTask _mvxWebBrowserTask;
         private readonly IPushNotificationService _pushNotificationService;
+
+        public RegistrationSecondStepViewModel(INavigationService navigationService,
+                                               IDialogService dialogService,
+                                               IApiService apiService,
+                                               IErrorHandleService errorHandleService,
+                                               ISettingsService settingsService,
+                                               IMvxWebBrowserTask mvxWebBrowserTask,
+                                               IPushNotificationService pushNotificationService)
+            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+        {
+            _mvxWebBrowserTask = mvxWebBrowserTask;
+            _pushNotificationService = pushNotificationService;
+
+            UserRegistrationCommand = new MvxAsyncCommand(OnUserRegistrationAsync, () => IsPolicyChecked && IsAdultChecked);
+            ShowTermsAndRulesCommand = new MvxCommand(ShowTermsAndRules);
+        }
 
         private string _password;
         public string Password
@@ -39,22 +55,40 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             set => SetProperty(ref _repeatedPassword, value);
         }
 
-        public MvxAsyncCommand UserRegistrationCommand => new MvxAsyncCommand(OnUserRegistrationAsync);
-
-        public RegistrationSecondStepViewModel(INavigationService navigationService,
-                                               IDialogService dialogService,
-                                               IApiService apiService,
-                                               IErrorHandleService errorHandleService,
-                                               ISettingsService settingsService,
-                                               IPushNotificationService pushNotificationService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+        private bool _isPolicyChecked;
+        public bool IsPolicyChecked
         {
-            _pushNotificationService = pushNotificationService;
+            get => _isPolicyChecked;
+            set
+            {
+                SetProperty(ref _isPolicyChecked, value);
+                UserRegistrationCommand.RaiseCanExecuteChanged();
+            }
         }
+
+        private bool _isAdultChecked;
+        public bool IsAdultChecked
+        {
+            get => _isAdultChecked;
+            set
+            {
+                SetProperty(ref _isAdultChecked, value);
+                UserRegistrationCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public IMvxAsyncCommand UserRegistrationCommand { get; }
+
+        public IMvxCommand ShowTermsAndRulesCommand { get; }
 
         public void Prepare(RegistrationNavigationParameter parameter)
         {
             Email = parameter.Email;
+        }
+
+        private void ShowTermsAndRules()
+        {
+            _mvxWebBrowserTask.ShowWebPage(PolicyEndpoint);
         }
 
         private async Task OnUserRegistrationAsync()
@@ -141,13 +175,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             {
                 ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Password, ValidationErrorType.NotMatch, Resources.Validation_Field_PasswordRepeat));
                 ErrorHandleService.LogError(this, "Password and repeated password values don't match.");
-                return false;
-            }
-
-            if (Gender == null)
-            {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Gender, ValidationErrorType.Empty));
-                ErrorHandleService.LogError(this, "Gender can't be empty.");
                 return false;
             }
 

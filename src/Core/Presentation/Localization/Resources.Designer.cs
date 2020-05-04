@@ -1666,5 +1666,23 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Cashbox_Commision_Warning", resourceCulture);
             }
         }
+        
+        public static string Registration_Confirm_Adult {
+            get {
+                return ResourceManager.GetString("Registration_Confirm_Adult", resourceCulture);
+            }
+        }
+        
+        public static string Registration_Agree_With {
+            get {
+                return ResourceManager.GetString("Registration_Agree_With", resourceCulture);
+            }
+        }
+        
+        public static string Registration_Terms_And_Rules {
+            get {
+                return ResourceManager.GetString("Registration_Terms_And_Rules", resourceCulture);
+            }
+        }
     }
 }
