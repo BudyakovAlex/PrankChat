@@ -15,7 +15,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Converters
                 case OrderType.MyOrderInModeration: return "not_moderated_order_background";
                 case OrderType.NotMyOrder:          return "not_my_order_background";
                 case OrderType.MyOrderCompleted:    return "my_order_completed_background";
-                case OrderType.NotMyOrderCompleted: return "not_moderated_order_card";
+                case OrderType.NotMyOrderCompleted: return "my_order_completed_background";
                 default: throw new ArgumentOutOfRangeException();
             }
         }
