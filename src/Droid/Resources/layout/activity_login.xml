@@ -1,191 +1,210 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background">
+
     <include
         android:id="@+id/action_bar"
         layout="@layout/action_bar_transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/enter_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:layout_below="@+id/action_bar"
         android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/LoginView_Login_Title"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:text="@string/LoginView_Login_Title" />
+        android:textSize="20sp" />
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/email_edit_text"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/enter_text_view"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="36dp"
         android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        app:boxStrokeWidth="1dp"
-        android:textColorHint="@color/applicationWhite"
-        android:layout_below="@+id/enter_text_view"
         android:hint="@string/LoginView_Email_Placeholder"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:textColorHint="@color/applicationWhite"
+        app:boxStrokeWidth="1dp">
+
         <android.support.design.widget.TextInputEditText
             android:id="@+id/email_text_input_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/applicationWhite"
             android:singleLine="true"
+            android:textColor="@color/applicationWhite"
+            android:textSize="14sp"
             app:MvxBind="Text EmailText" />
     </android.support.design.widget.TextInputLayout>
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/password_edit_text"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:boxStrokeWidth="1dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        android:textColorHint="@color/applicationWhite"
         android:layout_below="@+id/email_edit_text"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
         android:hint="@string/LoginView_Password_Placeholder"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:textColorHint="@color/applicationWhite"
+        app:boxStrokeWidth="1dp">
+
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/applicationWhite"
             android:inputType="textPassword"
             android:singleLine="true"
+            android:textColor="@color/applicationWhite"
+            android:textSize="14sp"
             app:MvxBind="Text PasswordText" />
     </android.support.design.widget.TextInputLayout>
+
     <RelativeLayout
         android:id="@+id/forgot_password_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_below="@+id/password_edit_text"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/password_edit_text">
+        android:gravity="center">
+
         <TextView
             android:id="@+id/reset_password_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/applicationWhite"
             android:gravity="center"
-            android:text="@string/LoginView_ForgotPassword_Title" />
+            android:text="@string/LoginView_ForgotPassword_Title"
+            android:textColor="@color/applicationWhite"
+            android:textSize="12sp" />
+
         <TextView
             android:id="@+id/reset_password_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/applicationWhite"
-            android:textSize="12sp"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/reset_password_title"
+            android:autoLink="all"
             android:gravity="center"
             android:text="@string/LoginView_ForgotPassword_Button"
-            android:autoLink="all"
+            android:textColor="@color/applicationWhite"
+            android:textSize="12sp"
             app:MvxBind="Click ResetPasswordCommand" />
     </RelativeLayout>
+
     <Button
         android:id="@+id/login_button"
+        style="@style/Theme.PrankChat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
+        android:layout_below="@+id/forgot_password_container"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
-        android:layout_below="@+id/forgot_password_container"
         android:text="@string/LoginView_Continue_Button"
-        style="@style/Theme.PrankChat.Button.Borderless"
         app:MvxBind="Click LoginCommand, CommandParameter=UsernameAndPassword" />
+
     <ProgressBar
         android:id="@+id/progressBar"
+        style="@style/Theme.PrankChat.ProgressBar.Accent"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_gravity="right"
         android:layout_alignTop="@+id/login_button"
-        android:layout_alignRight="@+id/login_button"
         android:layout_alignEnd="@+id/login_button"
-        style="@style/Theme.PrankChat.ProgressBar.Accent"
-        app:MvxBind="Visibility Visibility(IsBusy)"/>
+        android:layout_alignRight="@+id/login_button"
+        android:layout_gravity="right"
+        app:MvxBind="Visibility Visibility(IsBusy)" />
+
     <TextView
         android:id="@+id/login_from_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="26dp"
         android:layout_below="@+id/login_button"
+        android:layout_marginTop="26dp"
+        android:gravity="center_horizontal"
+        android:text="@string/LoginView_AltLogin_Title"
         android:textColor="@android:color/white"
-        android:textSize="12sp"
-        android:text="@string/LoginView_AltLogin_Title" />
+        android:textSize="12sp" />
+
     <LinearLayout
         android:id="@+id/social_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_below="@+id/login_from_text"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:layout_below="@+id/login_from_text">
+        android:orientation="horizontal">
+
         <ImageButton
             android:layout_width="45dp"
             android:layout_height="45dp"
+            android:layout_marginRight="8dp"
             android:text="Registration"
-            android:layout_marginRight="8dp"
-            android:src="@drawable/ic_vk"
-            app:MvxBind="Click LoginCommand, CommandParameter=Vk" />
+            app:MvxBind="Click LoginCommand, CommandParameter=Vk"
+            app:srcCompat="@drawable/ic_vk" />
+
         <ImageButton
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:visibility="gone"
-            android:src="@drawable/ic_odnoklassniki"
-            app:MvxBind="Click LoginCommand, CommandParameter=Ok" />
+            app:MvxBind="Click LoginCommand, CommandParameter=Ok"
+            app:srcCompat="@drawable/ic_odnoklassniki" />
+
         <ImageButton
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
-            android:src="@drawable/ic_facebook"
-            app:MvxBind="Click LoginCommand, CommandParameter=Facebook" />
+            android:layout_marginRight="8dp"
+            app:MvxBind="Click LoginCommand, CommandParameter=Facebook"
+            app:srcCompat="@drawable/ic_facebook" />
+
         <ImageButton
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
-            android:src="@drawable/ic_gmail"
+            android:layout_marginRight="8dp"
             android:visibility="gone"
-            app:MvxBind="Click LoginCommand, CommandParameter=Gmail" />
+            app:MvxBind="Click LoginCommand, CommandParameter=Gmail"
+            app:srcCompat="@drawable/ic_gmail" />
     </LinearLayout>
+
     <TextView
         android:id="@+id/create_account_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_below="@+id/social_container"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:autoLink="all"
+        android:gravity="center"
+        android:text="@string/LoginView_CreateAccount_Button"
         android:textColor="@color/applicationWhite"
         android:textSize="16sp"
-        android:gravity="center"
-        android:autoLink="all"
-        android:layout_below="@+id/social_container"
-        android:text="@string/LoginView_CreateAccount_Button"
         app:MvxBind="Click RegistrationCommand" />
+
     <Button
         android:id="@+id/demo_button"
+        style="@style/Theme.PrankChat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
-        android:layout_marginTop="26dp"
-        android:layout_centerHorizontal="true"
-        style="@style/Theme.PrankChat.Button.Borderless"
         android:layout_below="@+id/create_account_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
         android:text="@string/Login_Without_Registration"
         app:MvxBind="Click ShowDemoModeCommand" />
+
     <FrameLayout
         android:id="@+id/container_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true" />
 </RelativeLayout>

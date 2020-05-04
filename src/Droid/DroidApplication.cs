@@ -6,7 +6,6 @@ using Firebase;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications;
 using VKontakte;
 using VKontakte.Utils;
-using Xamarin.Facebook.AppEvents;
 
 namespace PrankChat.Mobile.Droid
 {

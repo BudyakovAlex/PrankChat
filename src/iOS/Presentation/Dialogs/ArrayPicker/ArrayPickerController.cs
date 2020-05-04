@@ -1,11 +1,7 @@
-﻿using System;
-using MvvmCross.Binding.BindingContext;
+﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views;
-using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
-using PrankChat.Mobile.iOS.Presentation.Views.Base;
-using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Dialogs.ArrayPicker
 {
@@ -26,7 +22,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.ArrayPicker
                 .To(vm => vm.Items);
 
             set.Bind(doneButton)
-                .To(vm => vm.SelectItemCommand);
+                .To(vm => vm.DoneCommand);
 
             set.Bind(cancelButton)
                 .To(vm => vm.GoBackCommand);
@@ -39,6 +35,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.ArrayPicker
             _pickerViewModel = new MvxPickerViewModel(arrayPickerView);
             arrayPickerView.Model = _pickerViewModel;
             arrayPickerView.ShowSelectionIndicator = true;
+
             doneButton.Title = Resources.Select;
             cancelButton.Title = Resources.Cancel;
         }

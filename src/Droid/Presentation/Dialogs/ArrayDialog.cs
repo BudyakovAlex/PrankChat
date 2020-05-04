@@ -2,9 +2,11 @@
 using Android.Runtime;
 using Android.Views;
 using MvvmCross.Droid.Support.V4;
+using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
+using PrankChat.Mobile.Droid.Presentation.Adapters;
 
 namespace PrankChat.Mobile.Droid.Presentation.Dialogs
 {
@@ -20,8 +22,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Dialogs
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            var ignore = base.OnCreateView(inflater, container, savedInstanceState);
+            base.OnCreateView(inflater, container, savedInstanceState);
+
             var view = this.BindingInflate(Resource.Layout.dialog_array, container);
+
+            var recyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.recycler_view);
+            recyclerView.Adapter = new ArrayDialogRecyclerViewAdapter(BindingContext);
+
             return view;
         }
     }

@@ -188,6 +188,8 @@
     <Compile Include="Controls\WebView\CustomWebViewClient.cs" />
     <Compile Include="Controls\WebView\BindableWebView.cs" />
     <Compile Include="Presentation\Adapters\PublicationRecyclerViewAdapter.cs" />
+    <Compile Include="Presentation\Adapters\ArrayDialogRecyclerViewAdapter.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Dialogs\ArrayDialogItemViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -923,6 +925,10 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\cell_array_dialog.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -1265,6 +1271,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />
