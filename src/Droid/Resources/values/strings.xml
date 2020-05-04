@@ -309,4 +309,7 @@
     <string name="Registration_Confirm_Adult">"Подтверждаю, что мне есть 18 лет"</string>
     <string name="Registration_Agree_With">"Я согласен с"</string>
     <string name="Registration_Terms_And_Rules">"правилами и условиями"</string>
+    <string name="Validation_Field_Adult_Check">"Возраст"</string>
+    <string name="Validation_Field_Privacy_Check">"Правила и условия"</string>
+    <string name="Not_Confirmed">"{0} не подтверждено"</string>
 </resources>

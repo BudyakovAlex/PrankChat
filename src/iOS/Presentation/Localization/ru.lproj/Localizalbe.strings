@@ -307,3 +307,6 @@
 "Registration_Confirm_Adult" = "Подтверждаю, что мне есть 18 лет";
 "Registration_Agree_With" = "Я согласен с";
 "Registration_Terms_And_Rules" = "правилами и условиями";
+"Validation_Field_Adult_Check" = "Возраст";
+"Validation_Field_Privacy_Check" = "Правила и условия";
+"Not_Confirmed" = "{0} не подтверждено";

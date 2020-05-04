@@ -7,6 +7,7 @@
         LowerThanRequired,
         NotMatch,
         CanNotMatch,
+        NotConfirmed,
         Invalid
     }
 }

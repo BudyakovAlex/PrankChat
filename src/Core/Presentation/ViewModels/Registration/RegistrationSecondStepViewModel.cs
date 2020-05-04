@@ -37,7 +37,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             _mvxWebBrowserTask = mvxWebBrowserTask;
             _pushNotificationService = pushNotificationService;
 
-            UserRegistrationCommand = new MvxAsyncCommand(OnUserRegistrationAsync, () => IsPolicyChecked && IsAdultChecked);
+            UserRegistrationCommand = new MvxAsyncCommand(OnUserRegistrationAsync);
             ShowTermsAndRulesCommand = new MvxCommand(ShowTermsAndRules);
         }
 
@@ -59,22 +59,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         public bool IsPolicyChecked
         {
             get => _isPolicyChecked;
-            set
-            {
-                SetProperty(ref _isPolicyChecked, value);
-                UserRegistrationCommand.RaiseCanExecuteChanged();
-            }
+            set => SetProperty(ref _isPolicyChecked, value);
         }
 
         private bool _isAdultChecked;
         public bool IsAdultChecked
         {
             get => _isAdultChecked;
-            set
-            {
-                SetProperty(ref _isAdultChecked, value);
-                UserRegistrationCommand.RaiseCanExecuteChanged();
-            }
+            set => SetProperty(ref _isAdultChecked, value);
         }
 
         public IMvxAsyncCommand UserRegistrationCommand { get; }
@@ -129,6 +121,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         private bool CheckValidation()
         {
+            if (!IsAdultChecked)
+            {
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Adult_Check, ValidationErrorType.NotConfirmed));
+                ErrorHandleService.LogError(this, "Adult not checked");
+                return false;
+            }
+
+            if (!IsPolicyChecked)
+            {
+                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Privacy_Check, ValidationErrorType.NotConfirmed));
+                ErrorHandleService.LogError(this, "Policy not checked");
+                return false;
+            }
+
             if (string.IsNullOrWhiteSpace(Login))
             {
                 ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Login, ValidationErrorType.Empty));

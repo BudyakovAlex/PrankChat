@@ -1684,5 +1684,23 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Registration_Terms_And_Rules", resourceCulture);
             }
         }
+        
+        public static string Validation_Field_Adult_Check {
+            get {
+                return ResourceManager.GetString("Validation_Field_Adult_Check", resourceCulture);
+            }
+        }
+        
+        public static string Validation_Field_Privacy_Check {
+            get {
+                return ResourceManager.GetString("Validation_Field_Privacy_Check", resourceCulture);
+            }
+        }
+        
+        public static string Not_Confirmed {
+            get {
+                return ResourceManager.GetString("Not_Confirmed", resourceCulture);
+            }
+        }
     }
 }

@@ -954,4 +954,13 @@
   <data name="Registration_Terms_And_Rules" xml:space="preserve">
     <value>правилами и условиями</value>
   </data>
+  <data name="Validation_Field_Adult_Check" xml:space="preserve">
+    <value>Возраст</value>
+  </data>
+  <data name="Validation_Field_Privacy_Check" xml:space="preserve">
+    <value>Правила и условия</value>
+  </data>
+  <data name="Not_Confirmed" xml:space="preserve">
+    <value>{0} не подтверждено</value>
+  </data>
 </root>
