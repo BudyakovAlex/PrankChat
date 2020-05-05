@@ -348,6 +348,10 @@
                             android:text="@string/Processing_Video"
                             android:textColor="@android:color/white"
                             android:textSize="17sp"
+                            android:gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginEnd="25dp"
+                            android:maxLines="3"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />

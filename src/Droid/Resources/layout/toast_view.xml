@@ -11,9 +11,9 @@
         android:background="@color/unsuccessful"
         android:ellipsize="end"
         android:gravity="center"
-        android:maxLines="1"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
+        android:maxLines="3"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         android:textColor="@color/applicationWhite"
         android:textSize="12sp"
         tools:text="Вы подписались на задание example" />

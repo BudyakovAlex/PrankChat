@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -349,8 +350,8 @@
                                                             <rect key="frame" x="10" y="10" width="330" height="184"/>
                                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Обработка видео" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gF6-Yu-f64">
-                                                            <rect key="frame" x="0.0" y="134.5" width="350" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Обработка видео" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gF6-Yu-f64">
+                                                            <rect key="frame" x="25" y="134.5" width="300" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -362,12 +363,12 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="gF6-Yu-f64" secondAttribute="trailing" id="1iG-JZ-3pn"/>
+                                                        <constraint firstAttribute="trailing" secondItem="gF6-Yu-f64" secondAttribute="trailing" constant="25" id="1iG-JZ-3pn"/>
                                                         <constraint firstAttribute="bottom" secondItem="gF6-Yu-f64" secondAttribute="bottom" constant="49" id="4rN-Ip-cKB"/>
                                                         <constraint firstItem="2Mg-pq-7al" firstAttribute="leading" secondItem="sSi-Pj-fsv" secondAttribute="leading" constant="10" id="58i-d0-nvw"/>
                                                         <constraint firstItem="wEO-ht-5P6" firstAttribute="centerX" secondItem="sSi-Pj-fsv" secondAttribute="centerX" id="7f1-dL-JFx"/>
                                                         <constraint firstItem="2Mg-pq-7al" firstAttribute="top" secondItem="sSi-Pj-fsv" secondAttribute="top" constant="10" id="8U2-Gy-xLy"/>
-                                                        <constraint firstItem="gF6-Yu-f64" firstAttribute="leading" secondItem="sSi-Pj-fsv" secondAttribute="leading" id="IFL-qP-xxH"/>
+                                                        <constraint firstItem="gF6-Yu-f64" firstAttribute="leading" secondItem="sSi-Pj-fsv" secondAttribute="leading" constant="25" id="IFL-qP-xxH"/>
                                                         <constraint firstAttribute="bottom" secondItem="2Mg-pq-7al" secondAttribute="bottom" constant="10" id="SmX-iK-A2I"/>
                                                         <constraint firstItem="wEO-ht-5P6" firstAttribute="centerY" secondItem="sSi-Pj-fsv" secondAttribute="centerY" id="a2X-3T-unT"/>
                                                         <constraint firstAttribute="trailing" secondItem="2Mg-pq-7al" secondAttribute="trailing" constant="10" id="qO9-1L-swY"/>
@@ -630,6 +631,6 @@
     <resources>
         <image name="ic_accent_thumbs_down" width="22" height="20"/>
         <image name="ic_accent_thumbs_up" width="22" height="20"/>
-        <image name="ic_play" width="128" height="128"/>
+        <image name="ic_play" width="20" height="20"/>
     </resources>
 </document>

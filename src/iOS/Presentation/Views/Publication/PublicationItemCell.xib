@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -104,8 +105,8 @@
                                 <rect key="frame" x="10" y="10" width="360" height="196"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Обработка видео" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cST-fM-mlv">
-                                <rect key="frame" x="0.0" y="146" width="380" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Обработка видео" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cST-fM-mlv">
+                                <rect key="frame" x="25" y="146.5" width="330" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -119,12 +120,12 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="2IB-yS-pnU" secondAttribute="trailing" constant="10" id="8wb-nx-ZsN"/>
                             <constraint firstAttribute="bottom" secondItem="cST-fM-mlv" secondAttribute="bottom" constant="49" id="H6o-Nc-edG"/>
-                            <constraint firstAttribute="trailing" secondItem="cST-fM-mlv" secondAttribute="trailing" id="KTS-gQ-ISm"/>
+                            <constraint firstAttribute="trailing" secondItem="cST-fM-mlv" secondAttribute="trailing" constant="25" id="KTS-gQ-ISm"/>
                             <constraint firstItem="8VP-Rt-xvf" firstAttribute="centerY" secondItem="8xN-vF-24G" secondAttribute="centerY" id="SzQ-ZV-DAr"/>
                             <constraint firstAttribute="bottom" secondItem="2IB-yS-pnU" secondAttribute="bottom" constant="10" id="a16-PT-I1c"/>
                             <constraint firstItem="2IB-yS-pnU" firstAttribute="leading" secondItem="8xN-vF-24G" secondAttribute="leading" constant="10" id="sW2-CF-OzI"/>
                             <constraint firstItem="2IB-yS-pnU" firstAttribute="top" secondItem="8xN-vF-24G" secondAttribute="top" constant="10" id="smJ-Ls-Gi0"/>
-                            <constraint firstItem="cST-fM-mlv" firstAttribute="leading" secondItem="8xN-vF-24G" secondAttribute="leading" id="sw7-sG-S5m"/>
+                            <constraint firstItem="cST-fM-mlv" firstAttribute="leading" secondItem="8xN-vF-24G" secondAttribute="leading" constant="25" id="sw7-sG-S5m"/>
                             <constraint firstItem="8VP-Rt-xvf" firstAttribute="centerX" secondItem="8xN-vF-24G" secondAttribute="centerX" id="tHq-cu-aMg"/>
                         </constraints>
                     </view>

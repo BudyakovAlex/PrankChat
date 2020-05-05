@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -97,8 +98,8 @@
                                 <rect key="frame" x="10" y="10" width="343" height="196"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Обработка видео" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6xz-ok-2ph">
-                                <rect key="frame" x="0.0" y="146.5" width="363" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Обработка видео" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6xz-ok-2ph">
+                                <rect key="frame" x="25" y="146.5" width="313" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -113,12 +114,12 @@
                             <constraint firstAttribute="bottom" secondItem="6xz-ok-2ph" secondAttribute="bottom" constant="49" id="0TM-px-JF0"/>
                             <constraint firstItem="EnU-Nv-E47" firstAttribute="centerX" secondItem="wYE-AN-HnI" secondAttribute="centerX" id="BdG-f8-5H4"/>
                             <constraint firstAttribute="trailing" secondItem="xSe-bI-RYb" secondAttribute="trailing" constant="10" id="EG6-ts-OmK"/>
-                            <constraint firstItem="6xz-ok-2ph" firstAttribute="leading" secondItem="wYE-AN-HnI" secondAttribute="leading" id="lob-G6-KLk"/>
+                            <constraint firstItem="6xz-ok-2ph" firstAttribute="leading" secondItem="wYE-AN-HnI" secondAttribute="leading" constant="25" id="lob-G6-KLk"/>
                             <constraint firstItem="xSe-bI-RYb" firstAttribute="leading" secondItem="wYE-AN-HnI" secondAttribute="leading" constant="10" id="o4C-26-3Ca"/>
                             <constraint firstItem="xSe-bI-RYb" firstAttribute="top" secondItem="wYE-AN-HnI" secondAttribute="top" constant="10" id="oPy-1l-i0B"/>
                             <constraint firstAttribute="bottom" secondItem="xSe-bI-RYb" secondAttribute="bottom" constant="10" id="rFw-SF-BBD"/>
                             <constraint firstItem="EnU-Nv-E47" firstAttribute="centerY" secondItem="wYE-AN-HnI" secondAttribute="centerY" id="sPE-c5-hfy"/>
-                            <constraint firstAttribute="trailing" secondItem="6xz-ok-2ph" secondAttribute="trailing" id="wrc-DM-62P"/>
+                            <constraint firstAttribute="trailing" secondItem="6xz-ok-2ph" secondAttribute="trailing" constant="25" id="wrc-DM-62P"/>
                         </constraints>
                     </view>
                 </subviews>
