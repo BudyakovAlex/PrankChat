@@ -121,7 +121,7 @@
     <value>Закрыть</value>
   </data>
   <data name="app_name" xml:space="preserve">
-    <value>Prank Chat</value>
+    <value>PrankChat</value>
   </data>
   <data name="Home_Tab" xml:space="preserve">
     <value>Главная</value>
@@ -169,13 +169,13 @@
     <value>Поделиться</value>
   </data>
   <data name="Error_Unexpected_Server" xml:space="preserve">
-    <value>Возникла непредвиденная ошибка на сервере. Мы уже получили информацию об этом и работаем над устранением проблемы.</value>
+    <value>Непредвиденная ошибка на сервере.</value>
   </data>
   <data name="Error_Unexpected_Not_Found" xml:space="preserve">
     <value>Не удалось получить запрошенные данные.</value>
   </data>
   <data name="Error_Unexpected_Network" xml:space="preserve">
-    <value>Возникла неожиданная сетевая ошибка, пожалуйста, попробуйте снова.</value>
+    <value>Неожиданная сетевая ошибка, попробуйте снова.</value>
   </data>
   <data name="LoginView_Email_Placeholder" xml:space="preserve">
     <value>Введите email</value>
@@ -268,7 +268,7 @@
     <value>Внимание!</value>
   </data>
   <data name="Password_Recovery_View_Finish_Text" xml:space="preserve">
-    <value>На почту отправлено письмо с ссылкой для восстановления пароля.</value>
+    <value>Ссылка для восстановления пароля отправлена на почту.</value>
   </data>
   <data name="ProfileView_Menu_Favourites" xml:space="preserve">
     <value>Избранные видео</value>
@@ -529,7 +529,7 @@
     <value>Взять заказ</value>
   </data>
   <data name="OrderDetailsView_TakeOrderQuestion" xml:space="preserve">
-    <value>Вы уверены что хотите стать исполнителем данного заказа?</value>
+    <value>Вы уверены, что хотите взять заказ?</value>
   </data>
   <data name="Seconds_Short" xml:space="preserve">
     <value>сек.</value>
@@ -582,7 +582,7 @@
     <value>Мое</value>
   </data>
   <data name="OrderDetails_View_Cancel_Title" xml:space="preserve">
-    <value>Вы уверены что хотите отменить заказ?</value>
+    <value>Вы уверены, что хотите отменить заказ?</value>
   </data>
   <data name="ProfileUpdateView_Email_Placeholder" xml:space="preserve">
     <value>Email</value>
@@ -817,7 +817,7 @@
     <value>Прикрепить файл</value>
   </data>
   <data name="WithdrawalView_Pendng_Verify_User_Text" xml:space="preserve">
-    <value>Ваш запрос обрабатывается, время ожидания может составить до 24 часов</value>
+    <value>У заказчика есть 24 часа на оплату</value>
   </data>
   <data name="WithdrawalView_Card_Number" xml:space="preserve">
     <value>Номер карты</value>
@@ -925,7 +925,7 @@
     <value>Создать</value>
   </data>
   <data name="Order_Create_Message" xml:space="preserve">
-    <value>Вы уверены что хотите создать заказ? </value>
+    <value>Вы уверены что хотите создать заказ?</value>
   </data>
   <data name="Processing_Video" xml:space="preserve">
     <value>Обработка займёт несколько минут</value>
@@ -940,7 +940,7 @@
     <value>Отправить повторно</value>
   </data>
   <data name="OrderDetailsView_Video_Uploaded" xml:space="preserve">
-    <value>Видео отправлено, после обработки у заказчика будет 24 часа на принятие или отправки в спор.</value>
+    <value>У заказчика есть 24 часа на оплату</value>
   </data>
   <data name="Cashbox_Commision_Warning" xml:space="preserve">
     <value>Обратите внимание что к сумме пополнения будет добавлена комисия платежного шлюза</value>

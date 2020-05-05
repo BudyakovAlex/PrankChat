@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="Close">"Закрыть"</string>
-    <string name="app_name">"Prank Chat"</string>
+    <string name="app_name">"PrankChat"</string>
     <string name="Home_Tab">"Главная"</string>
     <string name="Rate_Tab">"Оценка"</string>
     <string name="Orders_Tab">"Заказы"</string>
@@ -17,9 +17,9 @@
     <string name="Cancel">"Отмена"</string>
     <string name="Search_View_Search_Placeholder">"Поиск"</string>
     <string name="Share">"Поделиться"</string>
-    <string name="Error_Unexpected_Server">"Возникла непредвиденная ошибка на сервере. Мы уже получили информацию об этом и работаем над устранением проблемы."</string>
+    <string name="Error_Unexpected_Server">"Непредвиденная ошибка на сервере."</string>
     <string name="Error_Unexpected_Not_Found">"Не удалось получить запрошенные данные."</string>
-    <string name="Error_Unexpected_Network">"Возникла неожиданная сетевая ошибка, пожалуйста, попробуйте снова."</string>
+    <string name="Error_Unexpected_Network">"Неожиданная сетевая ошибка, попробуйте снова."</string>
     <string name="LoginView_Email_Placeholder">"Введите email"</string>
     <string name="LoginView_Password_Placeholder">"Введите пароль"</string>
     <string name="LoginView_ForgotPassword_Title">"Востановление пароля"</string>
@@ -50,7 +50,7 @@
     <string name="Password_Recovery_View_Email_Placeholder">"Введите email"</string>
     <string name="Password_Recovery_View_Recovery_Button">"Восстановить"</string>
     <string name="Password_Recovery_View_Attention">"Внимание!"</string>
-    <string name="Password_Recovery_View_Finish_Text">"На почту отправлено письмо с ссылкой для восстановления пароля."</string>
+    <string name="Password_Recovery_View_Finish_Text">"Ссылка для восстановления пароля отправлена на почту."</string>
     <string name="ProfileView_Menu_Favourites">"Избранные видео"</string>
     <string name="ProfileView_Menu_TaskSubscriptions">"Подписки на заказ"</string>
     <string name="ProfileView_Menu_Faq">"FAQ"</string>
@@ -137,7 +137,7 @@
     <string name="Ok">"Ок"</string>
     <string name="Attention">"Внимание!"</string>
     <string name="OrderDetailsView_TakeOrderTitle">"Взять заказ"</string>
-    <string name="OrderDetailsView_TakeOrderQuestion">"Вы уверены что хотите стать исполнителем данного заказа?"</string>
+    <string name="OrderDetailsView_TakeOrderQuestion">"Вы уверены, что хотите взять заказ?"</string>
 
     <!-- Fuzzy -->
     <string name="Seconds_Short">"сек."</string>
@@ -173,7 +173,7 @@
     <string name="Count_Of_Viewing">"просмотра"</string>
     <string name="Year_Short">"г."</string>
     <string name="OrderStatus_MyOrder">"Мое"</string>
-    <string name="OrderDetails_View_Cancel_Title">"Вы уверены что хотите отменить заказ?"</string>
+    <string name="OrderDetails_View_Cancel_Title">"Вы уверены, что хотите отменить заказ?"</string>
     <string name="ProfileUpdateView_Email_Placeholder">"Email"</string>
     <string name="ProfileUpdateView_Login_Placeholder">"Логин"</string>
 
@@ -258,7 +258,7 @@
     <string name="WithdrawalView_Delete_Card_Question">"Вы уверены что хотите удалить данную карту?"</string>
     <string name="WithdrawalView_Verify_User_Text">"Для того чтобы вывести средства со своего счета, Вам необходимо подтвердить свою личность прикрепив селфи с паспортом в развернутом виде."</string>
     <string name="WithdrawalView_Attach_File">"Прикрепить файл"</string>
-    <string name="WithdrawalView_Pendng_Verify_User_Text">"Ваш запрос обрабатывается, время ожидания может составить до 24 часов"</string>
+    <string name="WithdrawalView_Pendng_Verify_User_Text">"У заказчика есть 24 часа на оплату"</string>
     <string name="WithdrawalView_Card_Number">"Номер карты"</string>
     <string name="WithdrawalView_Surname">"Фамилия"</string>
     <string name="WithdrawalView_Name">"Имя"</string>
@@ -299,12 +299,12 @@
     <string name="Complaint_Unacceptable_Content">"Неприемлемый контент"</string>
     <string name="Complaint_Unacceptable_Information_In_Profile">"Неприемлемая информация в профиле"</string>
     <string name="Order_Add">"Создать"</string>
-    <string name="Order_Create_Message">"Вы уверены что хотите создать заказ? "</string>
+    <string name="Order_Create_Message">"Вы уверены что хотите создать заказ?"</string>
     <string name="Processing_Video">"Обработка займёт несколько минут"</string>
     <string name="Profile_Your_Email_Not_Actual">"Ваша почта не подтверждена"</string>
     <string name="Profile_Email_Confirmation_Sent">"На Вашу почту отправлено письмо с подтверждением"</string>
     <string name="Profile_Resend_Confirmation">"Отправить повторно"</string>
-    <string name="OrderDetailsView_Video_Uploaded">"Видео отправлено, после обработки у заказчика будет 24 часа на принятие или отправки в спор."</string>
+    <string name="OrderDetailsView_Video_Uploaded">"У заказчика есть 24 часа на оплату"</string>
     <string name="Cashbox_Commision_Warning">"Обратите внимание что к сумме пополнения будет добавлена комисия платежного шлюза"</string>
     <string name="Registration_Confirm_Adult">"Подтверждаю, что мне есть 18 лет"</string>
     <string name="Registration_Agree_With">"Я согласен с"</string>
