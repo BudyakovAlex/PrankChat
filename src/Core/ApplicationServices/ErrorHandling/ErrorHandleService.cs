@@ -107,6 +107,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
                 case ValidationErrorType.NotConfirmed:
                     return string.Format(Resources.Not_Confirmed, exception.LocalizedFieldName);
 
+                case ValidationErrorType.Undefined:
+                    return exception.Message;
+
                 default:
                     return string.Empty;
             }

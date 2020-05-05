@@ -309,4 +309,7 @@
 "Registration_Terms_And_Rules" = "правилами и условиями";
 "Validation_Field_Adult_Check" = "Возраст";
 "Validation_Field_Privacy_Check" = "Правила и условия";
+
+/*Fuzzy*/
+"Registration_Checkmark_Not_Confirmed" = "Подтвердите возраст и согласие с правилами";
 "Not_Confirmed" = "{0} не подтверждено";

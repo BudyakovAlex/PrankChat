@@ -121,20 +121,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         private bool CheckValidation()
         {
-            if (!IsAdultChecked)
-            {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Adult_Check, ValidationErrorType.NotConfirmed));
-                ErrorHandleService.LogError(this, "Adult not checked");
-                return false;
-            }
-
-            if (!IsPolicyChecked)
-            {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Privacy_Check, ValidationErrorType.NotConfirmed));
-                ErrorHandleService.LogError(this, "Policy not checked");
-                return false;
-            }
-
             if (string.IsNullOrWhiteSpace(Login))
             {
                 ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Login, ValidationErrorType.Empty));
@@ -181,6 +167,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             {
                 ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Password, ValidationErrorType.NotMatch, Resources.Validation_Field_PasswordRepeat));
                 ErrorHandleService.LogError(this, "Password and repeated password values don't match.");
+                return false;
+            }
+
+            if (!IsAdultChecked)
+            {
+                ErrorHandleService.HandleException(new ValidationException(Resources.Registration_Checkmark_Not_Confirmed));
+                ErrorHandleService.LogError(this, "Adult not checked");
+                return false;
+            }
+
+            if (!IsPolicyChecked)
+            {
+                ErrorHandleService.HandleException(new ValidationException(Resources.Registration_Checkmark_Not_Confirmed));
+                ErrorHandleService.LogError(this, "Policy not checked");
                 return false;
             }
 

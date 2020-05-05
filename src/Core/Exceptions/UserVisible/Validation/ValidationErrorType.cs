@@ -7,7 +7,8 @@
         LowerThanRequired,
         NotMatch,
         CanNotMatch,
+        Invalid,
         NotConfirmed,
-        Invalid
+        Undefined
     }
 }

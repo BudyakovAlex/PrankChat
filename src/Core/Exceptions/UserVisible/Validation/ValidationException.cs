@@ -10,6 +10,11 @@ namespace PrankChat.Mobile.Core.Exceptions.UserVisible.Validation
 
         public ValidationErrorType ErrorType { get; }
 
+        public ValidationException(string message) : base(message)
+        {
+            ErrorType = ValidationErrorType.Undefined;
+        }
+
         public ValidationException(string message, Exception innerException) : base(message, innerException)
         {
         }

@@ -960,6 +960,10 @@
   <data name="Validation_Field_Privacy_Check" xml:space="preserve">
     <value>Правила и условия</value>
   </data>
+  <data name="Registration_Checkmark_Not_Confirmed" xml:space="preserve">
+    <value>Подтвердите возраст и согласие с правилами</value>
+    <comment>Fuzzy</comment>
+  </data>
   <data name="Not_Confirmed" xml:space="preserve">
     <value>{0} не подтверждено</value>
   </data>

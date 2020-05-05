@@ -1697,6 +1697,12 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
             }
         }
         
+        public static string Registration_Checkmark_Not_Confirmed {
+            get {
+                return ResourceManager.GetString("Registration_Checkmark_Not_Confirmed", resourceCulture);
+            }
+        }
+        
         public static string Not_Confirmed {
             get {
                 return ResourceManager.GetString("Not_Confirmed", resourceCulture);
