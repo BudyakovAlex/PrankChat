@@ -190,6 +190,7 @@
     <Compile Include="Presentation\Adapters\PublicationRecyclerViewAdapter.cs" />
     <Compile Include="Presentation\Adapters\ArrayDialogRecyclerViewAdapter.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Dialogs\ArrayDialogItemViewHolder.cs" />
+    <Compile Include="Presentation\Listeners\MediaPlayerOnErrorListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Android.Media;
-using Android.Net;
 using Android.OS;
 using Android.Views;
 using MvvmCross.Plugin.Messenger;
@@ -21,6 +20,10 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
         private MediaPlayer _mediaPlayer;
 
         private bool _isRepeatEnabled;
+        private bool _isPrepared;
+        private bool _isPlayNeeded;
+
+        private string _cachedUri;
 
         public VideoPlayer(IApiService apiService, IMvxMessenger mvxMessenger, IErrorHandleService errorHandleService) : base(apiService, mvxMessenger)
         {
@@ -30,6 +33,8 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
         public override bool IsPlaying { get; protected set; }
 
         private bool _isMuted;
+        private Surface _surface;
+
         public override bool Muted
         {
             get => _isMuted;
@@ -58,8 +63,13 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
                 return;
             }
 
-            _mediaPlayer?.Pause();
+            if (_isPrepared)
+            {
+                _mediaPlayer?.Pause();
+            }
+
             IsPlaying = false;
+            _isPlayNeeded = false;
         }
 
         public override void Play()
@@ -69,8 +79,15 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
                 return;
             }
 
-            _mediaPlayer?.Start();
-            IsPlaying = true;
+            if (_isPrepared)
+            {
+                _mediaPlayer?.Start();
+                IsPlaying = true;
+                _isPlayNeeded = false;
+                return;
+            }
+
+            _isPlayNeeded = true;
         }
 
         public override void SetPlatformVideoPlayerContainer(object container)
@@ -104,16 +121,49 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
                 return;
             }
 
-            _mediaPlayer = MediaPlayer.Create(Xamarin.Essentials.Platform.CurrentActivity, Uri.Parse(uri));
+            _cachedUri = uri;
+            CreateMediaPlayer();
+        }
+
+        private void CreateMediaPlayer()
+        {
+            if (string.IsNullOrWhiteSpace(_cachedUri))
+            {
+                return;
+            }
+
+            if (_mediaPlayer != null)
+            {
+                _mediaPlayer.Release();
+            }
+
+            _mediaPlayer = MediaPlayer.Create(Xamarin.Essentials.Platform.CurrentActivity, Android.Net.Uri.Parse(_cachedUri));
+
             if (_textureView?.SurfaceTexture is null)
             {
                 return;
             }
 
-            var surface = new Surface(_textureView.SurfaceTexture);
-            _mediaPlayer.SetSurface(surface);
+            if (_surface != null)
+            {
+                _surface.Release();
+            }
+
+            _surface = new Surface(_textureView.SurfaceTexture);
+            _mediaPlayer.SetSurface(_surface);
+
             _mediaPlayer.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepeared));
             _mediaPlayer.SetOnInfoListener(new MediaPlayerOnInfoListener(OnInfoChanged));
+            _mediaPlayer.SetOnErrorListener(new MediaPlayerOnErrorListener(OnError));
+        }
+
+        private bool OnError(MediaPlayer mp, MediaError error, int arg3)
+        {
+            _errorHandleService.LogError(mp, $"Media error {error}");
+            System.Diagnostics.Debug.WriteLine("Attempt to restore media player");
+
+            CreateMediaPlayer();
+            return true;
         }
 
         private bool OnInfoChanged(MediaPlayer mediaPlayer, MediaInfo mediaInfo, int extra)
@@ -128,31 +178,49 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         private void OnMediaPlayerPrepeared(MediaPlayer mediaPlayer)
         {
-            _mediaPlayer = mediaPlayer;
-            mediaPlayer.Looping = _isRepeatEnabled;
-            mediaPlayer.SetVolume(0, 0);
+            _mediaPlayer.Looping = _isRepeatEnabled;
+            _mediaPlayer.SetVolume(0, 0);
+
+            _isPrepared = true;
+
+            if (_isPlayNeeded)
+            {
+                Play();
+            }
         }
 
         public override void Stop()
         {
-            if (!IsPlaying || _textureView == null)
+            if (!IsPlaying ||
+                _textureView == null)
             {
                 return;
             }
 
-            _mediaPlayer?.Stop();
+            if (_isPrepared)
+            {
+                _mediaPlayer?.Stop();
+            }
+
             _mediaPlayer?.SetOnPreparedListener(null);
+            _mediaPlayer?.Release();
+            _surface?.Release();
 
             _textureView = null;
             _textureView = null;
+            _cachedUri = null;
+            _surface = null;
+
             IsPlaying = false;
+            _isPlayNeeded = false;
+            _isPrepared = false;
         }
 
         private async Task RegisterAction(int id, int registrationDelayInMilliseconds)
         {
             if (_mediaPlayer == null)
             {
-                _errorHandleService.LogError(nameof(VideoPlayer), $"{nameof(_textureView)} is null.");
+                _errorHandleService.LogError(nameof(VideoPlayer), $"{nameof(_mediaPlayer)} is null.");
                 return;
             }
 
