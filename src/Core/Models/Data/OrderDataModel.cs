@@ -29,6 +29,10 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public DateTime? ArbitrationFinishAt { get; set; }
 
+        public DateTime? CloseOrderAt { get; set; }
+
+        public TimeSpan? CloseOrderIn => CloseOrderAt?.ToLocalTime() - DateTime.Now;
+
         public TimeSpan? FinishIn => ActiveTo?.ToLocalTime() - DateTime.Now;
 
         public TimeSpan? ArbitrationFinishIn => ArbitrationFinishAt?.ToLocalTime() - DateTime.Now;

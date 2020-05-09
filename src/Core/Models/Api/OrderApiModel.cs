@@ -25,6 +25,9 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("active_to")]
         public DateTime? ActiveTo { get; set; }
 
+        [JsonProperty("close_order_at")]
+        public DateTime? CloseOrderAt { get; set; }
+
         [JsonProperty("duration")]
         public int DurationInHours { get; set; }
 

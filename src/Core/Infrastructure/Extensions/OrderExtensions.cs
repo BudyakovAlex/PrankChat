@@ -13,15 +13,21 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             {
                 case null:
                     return null;
+
                 case OrderStatusType.VideoInProcess:
                 case OrderStatusType.VideoWaitModeration:
                 case OrderStatusType.VideoProcessError:
-                case OrderStatusType.WaitFinish:
                     return order?.VideoUploadedIn < TimeSpan.Zero ? TimeSpan.Zero : order?.VideoUploadedIn;
+
+                case OrderStatusType.WaitFinish:
+                    return order?.CloseOrderIn < TimeSpan.Zero ? TimeSpan.Zero : order?.CloseOrderIn;
+
                 case OrderStatusType.Finished:
                     return null;
+
                 case OrderStatusType.InArbitration:
                     return order?.ArbitrationFinishIn < TimeSpan.Zero ? TimeSpan.Zero : order?.ArbitrationFinishIn;
+
                 default:
                     return order?.FinishIn < TimeSpan.Zero ? TimeSpan.Zero : order?.FinishIn;
             }
