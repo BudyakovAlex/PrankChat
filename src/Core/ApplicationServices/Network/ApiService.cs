@@ -452,6 +452,18 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Competitions
 
+        public async Task<List<CompetitionResultDataModel>> GetCompetitionResultsAsync(int id)
+        {
+            var bundle = await _client.Get<BaseBundleApiModel<CompetitionResultApiModel>>($"competition/{id}/results");
+            return MappingConfig.Mapper.Map<List<CompetitionResultDataModel>>(bundle?.Data);
+        }
+
+        public async Task<List<CompetitionResultDataModel>> GetCompetitionRatingsAsync(int id)
+        {
+            var bundle = await _client.Get<BaseBundleApiModel<CompetitionResultApiModel>>($"competition/{id}/rating");
+            return MappingConfig.Mapper.Map<List<CompetitionResultDataModel>>(bundle?.Data);
+        }
+
         public async Task<PaginationModel<VideoDataModel>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize)
         {
             BaseBundleApiModel<VideoApiModel> videoMetadataBundle;

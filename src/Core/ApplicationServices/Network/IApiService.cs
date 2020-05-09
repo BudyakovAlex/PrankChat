@@ -131,6 +131,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<PaginationModel<CompetitionDataModel>> GetCompetitionsAsync(int page, int pageSize);
 
+        Task<List<CompetitionResultDataModel>> GetCompetitionResultsAsync(int id);
+
+        Task<List<CompetitionResultDataModel>> GetCompetitionRatingsAsync(int id);
+
         #endregion
     }
 }

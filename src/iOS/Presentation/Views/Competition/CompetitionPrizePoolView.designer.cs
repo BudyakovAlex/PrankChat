@@ -16,32 +16,25 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 		UIKit.UILabel participantLabel { get; set; }
 
 		[Outlet]
-		UIKit.UILabel prizePoolLabel { get; set; }
+		UIKit.UILabel prizeLabel { get; set; }
 
 		[Outlet]
-		UIKit.UILabel ratingLabel { get; set; }
+		UIKit.UILabel prizePoolLabel { get; set; }
 
 		[Outlet]
 		UIKit.UITableView tableView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel titleLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel votingLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (titleLabel != null) {
-				titleLabel.Dispose ();
-				titleLabel = null;
-			}
-
-			if (prizePoolLabel != null) {
-				prizePoolLabel.Dispose ();
-				prizePoolLabel = null;
-			}
-
-			if (tableView != null) {
-				tableView.Dispose ();
-				tableView = null;
+			if (prizeLabel != null) {
+				prizeLabel.Dispose ();
+				prizeLabel = null;
 			}
 
 			if (participantLabel != null) {
@@ -49,9 +42,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 				participantLabel = null;
 			}
 
-			if (ratingLabel != null) {
-				ratingLabel.Dispose ();
-				ratingLabel = null;
+			if (prizePoolLabel != null) {
+				prizePoolLabel.Dispose ();
+				prizePoolLabel = null;
+			}
+
+			if (votingLabel != null) {
+				votingLabel.Dispose ();
+				votingLabel = null;
+			}
+
+			if (tableView != null) {
+				tableView.Dispose ();
+				tableView = null;
+			}
+
+			if (titleLabel != null) {
+				titleLabel.Dispose ();
+				titleLabel = null;
 			}
 		}
 	}

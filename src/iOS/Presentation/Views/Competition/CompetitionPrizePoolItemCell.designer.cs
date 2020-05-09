@@ -19,13 +19,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 		UIKit.UILabel positionLabel { get; set; }
 
 		[Outlet]
-		UIKit.UILabel ratingLabel { get; set; }
+		UIKit.UILabel prizeLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel votesLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (positionLabel != null) {
-				positionLabel.Dispose ();
-				positionLabel = null;
+			if (votesLabel != null) {
+				votesLabel.Dispose ();
+				votesLabel = null;
 			}
 
 			if (participantLabel != null) {
@@ -33,9 +36,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 				participantLabel = null;
 			}
 
-			if (ratingLabel != null) {
-				ratingLabel.Dispose ();
-				ratingLabel = null;
+			if (positionLabel != null) {
+				positionLabel.Dispose ();
+				positionLabel = null;
+			}
+
+			if (prizeLabel != null) {
+				prizeLabel.Dispose ();
+				prizeLabel = null;
 			}
 		}
 	}

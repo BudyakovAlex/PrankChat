@@ -1708,5 +1708,17 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Not_Confirmed", resourceCulture);
             }
         }
+        
+        public static string Competition_Prize {
+            get {
+                return ResourceManager.GetString("Competition_Prize", resourceCulture);
+            }
+        }
+        
+        public static string Competition_Votes {
+            get {
+                return ResourceManager.GetString("Competition_Votes", resourceCulture);
+            }
+        }
     }
 }

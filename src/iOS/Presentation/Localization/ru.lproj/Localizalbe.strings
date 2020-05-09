@@ -313,3 +313,5 @@
 /*Fuzzy*/
 "Registration_Checkmark_Not_Confirmed" = "Подтвердите возраст и согласие с правилами";
 "Not_Confirmed" = "{0} не подтверждено";
+"Competition_Prize" = "Приз";
+"Competition_Votes" = "Голоса";

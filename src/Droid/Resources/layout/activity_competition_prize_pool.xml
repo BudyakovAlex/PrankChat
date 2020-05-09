@@ -33,33 +33,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="37dp"
+        android:weightSum="10"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_placeholder"
-            android:textSize="13sp"
             android:layout_marginStart="16dp"
-            android:text="#" />
+            android:layout_weight="1"
+            android:text="#"
+            android:textColor="@color/dark_placeholder"
+            android:textSize="13sp" />
         <TextView
             android:id="@+id/participant_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/dark_placeholder"
             android:textSize="13sp"
-            android:layout_marginStart="68dp"
+            android:layout_weight="3"
             android:text="@string/Competition_Prize_Pool_Participant" />
         <TextView
-            android:id="@+id/rating_text_view"
-            android:layout_width="match_parent"
+            android:id="@+id/votes_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_placeholder"
+            android:textSize="13sp"
+            android:layout_weight="3"
+            android:text="@string/Competition_Votes" />
+        <TextView
+            android:id="@+id/prize_text_view"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/dark_placeholder"
             android:textSize="13sp"
             android:gravity="end"
             android:layout_marginEnd="16dp"
-            android:layout_marginStart="68dp"
-            android:text="@string/Competition_Prize_Pool_Rating"/>
+            android:layout_weight="3"
+            android:text="@string/Competition_Prize"/>
     </LinearLayout>
 
     <View
@@ -67,9 +77,13 @@
         android:layout_height="1dp"
         android:layout_marginTop="5dp"
         android:background="@color/dark_purple" />
-
+    <MvxSwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    </MvxSwipeRefreshLayout>
 </LinearLayout>

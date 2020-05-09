@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -26,13 +26,19 @@
                         <rect key="frame" x="75" y="0.0" width="229" height="132"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Example" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7q-e4-aAe">
-                                <rect key="frame" x="0.0" y="0.0" width="114.5" height="132"/>
+                                <rect key="frame" x="0.0" y="0.0" width="76.5" height="132"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Example" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkC-8a-Em2">
+                                <rect key="frame" x="76.5" y="0.0" width="76" height="132"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="1 000 00000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nxs-U7-MaA">
-                                <rect key="frame" x="114.5" y="0.0" width="114.5" height="132"/>
+                                <rect key="frame" x="152.5" y="0.0" width="76.5" height="132"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -64,7 +70,8 @@
             <connections>
                 <outlet property="participantLabel" destination="V7q-e4-aAe" id="WEU-5b-Xyh"/>
                 <outlet property="positionLabel" destination="aWh-hm-jOT" id="lNV-MR-ChB"/>
-                <outlet property="ratingLabel" destination="nxs-U7-MaA" id="DL2-bM-73u"/>
+                <outlet property="prizeLabel" destination="nxs-U7-MaA" id="XUr-yy-RXX"/>
+                <outlet property="votesLabel" destination="qkC-8a-Em2" id="6gD-WM-NAD"/>
             </connections>
             <point key="canvasLocation" x="33.333333333333336" y="83.370535714285708"/>
         </tableViewCell>

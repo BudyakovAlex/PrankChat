@@ -347,6 +347,7 @@
     </Compile>
     <Compile Include="Presentation\Views\Onboarding\OnboardingCollectionViewSource.cs" />
     <BundleResource Include="Presentation\Localization\ru.lproj\Localizalbe.strings" />
+    <Compile Include="Presentation\Converters\BoolToUIColorConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

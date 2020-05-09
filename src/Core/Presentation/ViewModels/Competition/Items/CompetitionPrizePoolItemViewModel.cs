@@ -1,21 +1,30 @@
-﻿using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+﻿using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
     public class CompetitionPrizePoolItemViewModel : BaseItemViewModel
     {
         public string Rating { get; }
+
         public string Participant { get; }
-        public int Position { get; }
+
+        public string Position { get; }
+
+        public string Prize { get; set; }
+
+        public bool IsMyPosition { get; }
 
         public CompetitionPrizePoolItemViewModel(string rating,
                                                  string participant,
-                                                 int position)
+                                                 string position,
+                                                 string prize,
+                                                 bool isMyPosition)
         {
             Rating = rating;
             Participant = participant;
             Position = position;
+            Prize = prize;
+            IsMyPosition = isMyPosition;
         }
     }
 }

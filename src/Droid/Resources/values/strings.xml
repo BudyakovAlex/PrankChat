@@ -315,4 +315,6 @@
     <!-- Fuzzy -->
     <string name="Registration_Checkmark_Not_Confirmed">"Подтвердите возраст и согласие с правилами"</string>
     <string name="Not_Confirmed">"{0} не подтверждено"</string>
+    <string name="Competition_Prize">"Приз"</string>
+    <string name="Competition_Votes">"Голоса"</string>
 </resources>

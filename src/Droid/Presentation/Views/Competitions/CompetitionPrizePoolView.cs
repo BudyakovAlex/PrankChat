@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Widget;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -22,6 +23,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
     {
         private TextView _prizePoolTextView;
         private MvxRecyclerView _recyclerView;
+        private MvxSwipeRefreshLayout _refreshView;
         private RecycleViewBindableAdapter _adapter;
 
         protected override bool HasBackButton => true;
@@ -37,6 +39,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
         {
             _prizePoolTextView = FindViewById<TextView>(Resource.Id.prize_pool_text_view);
             _recyclerView = FindViewById<MvxRecyclerView>(Resource.Id.recycler_view);
+            _recyclerView = FindViewById<MvxRecyclerView>(Resource.Id.recycler_view);
+            _refreshView = FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swipe_refresh);
 
             var layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
             _recyclerView.SetLayoutManager(layoutManager);
@@ -52,6 +56,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
             base.DoBind();
 
             var bindingSet = this.CreateBindingSet<CompetitionPrizePoolView, CompetitionPrizePoolViewModel>();
+
+            bindingSet.Bind(_refreshView)
+                      .For(v => v.Refreshing)
+                      .To(vm => vm.IsBusy);
+
+            bindingSet.Bind(_refreshView)
+                      .For(v => v.RefreshCommand)
+                      .To(vm => vm.RefreshCommand);
 
             bindingSet.Bind(_adapter)
                       .For(v => v.ItemsSource)
