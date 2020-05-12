@@ -2,19 +2,36 @@
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
     public partial class OrderItemCell : BaseTableCell<OrderItemCell, OrderItemViewModel>
     {
-        protected OrderItemCell(IntPtr handle) : base(handle)
+        private OrderTagType _orderTagType;
+
+        protected OrderItemCell(IntPtr handle)
+            : base(handle)
         {
             // Note: this .ctor should not contain any initialization logic.
+        }
+
+        public OrderTagType OrderTagType
+        {
+            get => _orderTagType;
+            set
+            {
+                _orderTagType = value;
+
+                var imageName = GetImageName(_orderTagType);
+                OrderTagTypeImageView.Image = imageName == null ? null : UIImage.FromBundle(imageName);
+            }
         }
 
         protected override void SetupControls()
@@ -50,6 +67,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
         protected override void SetBindings()
         {
             var set = this.CreateBindingSet<OrderItemCell, OrderItemViewModel>();
+
+            set.Bind(this)
+               .For(v => v.OrderTagType)
+               .To(vm => vm.OrderTagType);
 
             set.Bind(this)
                 .For(v => v.BindTap())
@@ -106,7 +127,35 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .For(v => v.BindVisible())
                 .To(vm => vm.IsTimeAvailable);
 
+            set.Bind(OrderTagTypeImageView)
+                .For(v => v.BindVisible())
+                .To(vm => vm.OrderTagType);
+
             set.Apply();
+        }
+
+        private string GetImageName(OrderTagType orderTagType)
+        {
+            switch (orderTagType)
+            {
+                case OrderTagType.InModeration:
+                    return "OrderTagTypeInModeration";
+                case OrderTagType.New:
+                    return "OrderTagTypeNew";
+                case OrderTagType.NewNotMine:
+                    return "OrderTagTypeNewNotMine";
+                case OrderTagType.Wait:
+                    return "OrderTagTypeWait";
+                case OrderTagType.Finished:
+                    return "OrderTagTypeFinished";
+                case OrderTagType.InArbitration:
+                    return "OrderTagTypeInArbitration";
+                case OrderTagType.InWork:
+                    return "OrderTagTypeInWork";
+                case OrderTagType.None:
+                default:
+                    return null;
+            }
         }
     }
 }

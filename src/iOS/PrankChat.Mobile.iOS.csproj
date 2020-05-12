@@ -1002,6 +1002,22 @@
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\bg_order_type_my_completed.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\bg_order_type_my_completed.imageset\bg_order_type_my_completed.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_fullscreen.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_fullscreen.imageset\ic_fullscreen.pdf" />
+    <ImageAsset Include="Assets.xcassets\OrderTagTypeNewNotMine.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\OrderTagTypeNewNotMine.imageset\OrderTagTypeNewNotMine.pdf" />
+    <ImageAsset Include="Assets.xcassets\OrderTagTypeInArbitration.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\OrderTagTypeInArbitration.imageset\OrderTagTypeInArbitration.pdf" />
+    <ImageAsset Include="Assets.xcassets\OrderTagTypeInModeration.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\OrderTagTypeInModeration.imageset\OrderTagTypeInModeration.pdf" />
+    <ImageAsset Include="Assets.xcassets\OrderTagTypeInWork.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\OrderTagTypeInWork.imageset\OrderTagTypeInWork.pdf" />
+    <ImageAsset Include="Assets.xcassets\OrderTagTypeNew.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\OrderTagTypeNew.imageset\OrderTagTypeNew.pdf" />
+    <ImageAsset Include="Assets.xcassets\OrderTagTypeFinished.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\OrderTagTypeFinished.imageset\OrderTagTypeFinished.pdf" />
+    <ImageAsset Include="Assets.xcassets\OrderTagTypeWait.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\OrderTagTypeWait.imageset\OrderTagTypeWait.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -1056,6 +1072,16 @@
     <Folder Include="Assets.xcassets\bg_onboarding_fourth_slide.imageset\" />
     <Folder Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\" />
     <Folder Include="Assets.xcassets\bg_order_type_my_completed.imageset\" />
+    <Folder Include="Assets.xcassets\ic_fullscreen.imageset\" />
+    <Folder Include="Assets.xcassets\OrderTagTypeNewNotMine.imageset\" />
+    <Folder Include="Assets.xcassets\OrderTagTypeDone.imageset\" />
+    <Folder Include="Assets.xcassets\OrderTagTypeFinished.imageset\" />
+    <Folder Include="Assets.xcassets\OrderTagTypeInArbitration.imageset\" />
+    <Folder Include="Assets.xcassets\OrderTagTypeInModeration.imageset\" />
+    <Folder Include="Assets.xcassets\OrderTagTypeInWork.imageset\" />
+    <Folder Include="Assets.xcassets\OrderTagTypeNew.imageset\" />
+    <Folder Include="Assets.xcassets\OrderTagTypeFinished.imageset\" />
+    <Folder Include="Assets.xcassets\OrderTagTypeWait.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

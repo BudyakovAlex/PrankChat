@@ -69,6 +69,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:focusableInTouchMode="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="7dp"
+            app:srcCompat="@drawable/ic_fullscreen" />
     </FrameLayout>
 
     <ffimageloading.cross.MvxCachedImageView

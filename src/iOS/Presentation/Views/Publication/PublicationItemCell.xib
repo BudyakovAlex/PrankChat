@@ -59,6 +59,9 @@
                             <constraint firstAttribute="height" constant="216" id="1XT-xl-VPp"/>
                         </constraints>
                     </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_fullscreen" translatesAutoresizingMaskIntoConstraints="NO" id="mcd-uS-ygC">
+                        <rect key="frame" x="363" y="311.5" width="24" height="24"/>
+                    </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zq5-Qh-ec4" customClass="MvxCachedImageView">
                         <rect key="frame" x="16" y="126.5" width="378" height="216"/>
                     </imageView>
@@ -134,6 +137,7 @@
                     <constraint firstItem="8xN-vF-24G" firstAttribute="bottom" secondItem="QUy-yv-U1B" secondAttribute="bottom" id="2oG-GI-uGm"/>
                     <constraint firstItem="RUb-8g-dpe" firstAttribute="centerY" secondItem="BXs-ef-I9v" secondAttribute="centerY" id="Aal-Il-xtE"/>
                     <constraint firstItem="kAU-Il-kDS" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="15" id="BSw-x9-Cx1"/>
+                    <constraint firstItem="QUy-yv-U1B" firstAttribute="trailing" secondItem="mcd-uS-ygC" secondAttribute="trailing" constant="7" id="ESu-pj-oEG"/>
                     <constraint firstItem="x4k-Bg-x2O" firstAttribute="centerY" secondItem="Zq5-Qh-ec4" secondAttribute="centerY" id="FmL-71-eBg"/>
                     <constraint firstItem="n9k-fi-DBx" firstAttribute="top" secondItem="fjE-FD-JYU" secondAttribute="bottom" constant="5" id="Gi3-bN-7uJ"/>
                     <constraint firstItem="kAU-Il-kDS" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" constant="7" id="Jgv-cc-U0l"/>
@@ -152,6 +156,7 @@
                     <constraint firstItem="Kam-d9-irM" firstAttribute="centerY" secondItem="BXs-ef-I9v" secondAttribute="centerY" id="eJA-k9-7bz"/>
                     <constraint firstAttribute="trailing" secondItem="QUy-yv-U1B" secondAttribute="trailing" constant="16" id="eLJ-3Z-txY"/>
                     <constraint firstItem="5WK-d7-xgu" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leadingMargin" constant="-4" id="fPK-cx-SKb"/>
+                    <constraint firstItem="QUy-yv-U1B" firstAttribute="bottom" secondItem="mcd-uS-ygC" secondAttribute="bottom" constant="7" id="gwv-ge-Ofg"/>
                     <constraint firstAttribute="trailing" secondItem="4BB-gN-kDu" secondAttribute="trailing" constant="20" id="hCf-Gv-Bnd"/>
                     <constraint firstItem="BXs-ef-I9v" firstAttribute="top" secondItem="QUy-yv-U1B" secondAttribute="bottom" constant="11" id="hw1-Np-tbz"/>
                     <constraint firstAttribute="trailing" secondItem="8xN-vF-24G" secondAttribute="trailing" constant="15" id="kA5-g6-x0a"/>
@@ -189,6 +194,7 @@
     </objects>
     <resources>
         <image name="ic_bookmark" width="14" height="18"/>
+        <image name="ic_fullscreen" width="24" height="24"/>
         <image name="ic_like" width="20" height="19"/>
         <image name="ic_more" width="16" height="4"/>
         <image name="ic_share" width="18" height="18"/>

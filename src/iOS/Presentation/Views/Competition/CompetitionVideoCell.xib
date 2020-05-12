@@ -68,6 +68,9 @@
                             <constraint firstAttribute="height" constant="216" id="6j5-11-gqM"/>
                         </constraints>
                     </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_fullscreen" translatesAutoresizingMaskIntoConstraints="NO" id="mFo-tO-r2L">
+                        <rect key="frame" x="356" y="250" width="24" height="24"/>
+                    </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wdU-ux-YIA" customClass="MvxCachedImageView">
                         <rect key="frame" x="24" y="65" width="363" height="216"/>
                     </imageView>
@@ -138,10 +141,12 @@
                     <constraint firstItem="UOF-mF-WFd" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="24" id="a1e-ot-IIF"/>
                     <constraint firstItem="UOF-mF-WFd" firstAttribute="top" secondItem="kqo-Gf-60N" secondAttribute="bottom" constant="16" id="bOo-yS-dk6"/>
                     <constraint firstItem="EER-ra-XfV" firstAttribute="leading" secondItem="Aoq-PN-keZ" secondAttribute="trailing" constant="16" id="bUD-gJ-RdZ"/>
+                    <constraint firstItem="kqo-Gf-60N" firstAttribute="bottom" secondItem="mFo-tO-r2L" secondAttribute="bottom" constant="7" id="bzP-Kq-gtO"/>
                     <constraint firstItem="wdU-ux-YIA" firstAttribute="top" secondItem="kqo-Gf-60N" secondAttribute="top" id="efC-Oh-Euk"/>
                     <constraint firstItem="Aoq-PN-keZ" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="24" id="fL7-cF-w3i"/>
                     <constraint firstItem="EER-ra-XfV" firstAttribute="centerY" secondItem="Aoq-PN-keZ" secondAttribute="centerY" id="fVo-Yh-sNX"/>
                     <constraint firstItem="wdU-ux-YIA" firstAttribute="trailing" secondItem="kqo-Gf-60N" secondAttribute="trailing" id="i8j-gm-AvU"/>
+                    <constraint firstItem="kqo-Gf-60N" firstAttribute="trailing" secondItem="mFo-tO-r2L" secondAttribute="trailing" constant="7" id="jcf-If-tns"/>
                     <constraint firstAttribute="trailing" secondItem="EER-ra-XfV" secondAttribute="trailing" constant="24" id="maF-QU-h96"/>
                     <constraint firstItem="kqo-Gf-60N" firstAttribute="top" secondItem="Aoq-PN-keZ" secondAttribute="bottom" constant="9" id="nsH-wk-iC3"/>
                     <constraint firstItem="wdU-ux-YIA" firstAttribute="bottom" secondItem="kqo-Gf-60N" secondAttribute="bottom" id="qC6-cF-JRk"/>
@@ -170,4 +175,7 @@
             <point key="canvasLocation" x="238.40579710144928" y="196.54017857142856"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ic_fullscreen" width="24" height="24"/>
+    </resources>
 </document>

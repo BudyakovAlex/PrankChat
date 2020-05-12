@@ -45,7 +45,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
 
         public IMvxAsyncCommand OpenDetailsOrderCommand { get; }
 
-        public OrderType OrderType => _settingsService.User?.Id == _customerId ? OrderType.MyOrder : OrderType.NotMyOrder;
+        public OrderType OrderType => _settingsService.User?.Id == _customerId
+            ? OrderType.MyOrder
+            : OrderType.NotMyOrder;
 
         public ArbitrationItemViewModel(INavigationService navigatiobService,
                                         ISettingsService settingsService,

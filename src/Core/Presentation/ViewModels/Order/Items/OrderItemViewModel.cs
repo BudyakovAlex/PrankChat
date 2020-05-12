@@ -35,6 +35,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public OrderType OrderType => _settingsService.User.GetOrderType(_orderDataModel.Customer?.Id, _orderDataModel?.Status ?? OrderStatusType.None);
 
+        public OrderTagType OrderTagType => _settingsService.User.GetOrderTagType(_orderDataModel.Customer?.Id, _orderDataModel?.Status);
+
         private TimeSpan? _elapsedTime;
         public TimeSpan? ElapsedTime
         {

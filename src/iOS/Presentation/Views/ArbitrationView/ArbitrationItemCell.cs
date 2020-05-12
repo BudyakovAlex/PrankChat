@@ -6,15 +6,14 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Binding;
-using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
-using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 {
-	public partial class ArbitrationItemCell : BaseTableCell<ArbitrationItemCell, ArbitrationItemViewModel>
+    public partial class ArbitrationItemCell : BaseTableCell<ArbitrationItemCell, ArbitrationItemViewModel>
 	{
-		protected ArbitrationItemCell(IntPtr handle) : base(handle)
+		protected ArbitrationItemCell(IntPtr handle)
+            : base(handle)
 		{
 			// Note: this .ctor should not contain any initialization logic.
 		}
@@ -45,13 +44,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 
 			orderDetailsButton.TitleLabel.Text = Resources.RateView_Vote_Button;
 
-			thumbsUpButton.SetImage(UIImage.FromBundle("ic_thumbs_up").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-
-			thumbsDownButton.SetImage(UIImage.FromBundle("ic_thumbs_down").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-
-			thumbsUpValueLabel.SetMediumStyle(14, Theme.Color.White);
-
-			thumbsDownValueLabel.SetMediumStyle(14, Theme.Color.White);
+			OrderStatusLabel.Text = Resources.OrderStatus_InArbitration;
 		}
 
 		protected override void SetBindings()
@@ -96,12 +89,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 			set.Bind(orderDetailsButton)
 				.For(UIButtonOrderTypeTargetBinding.TargetBinding)
 				.To(vm => vm.OrderType);
-
-			set.Bind(thumbsUpValueLabel)
-				.To(vm => vm.Likes);
-
-			set.Bind(thumbsDownValueLabel)
-				.To(vm => vm.Dislikes);
 
 			set.Apply();
 		}

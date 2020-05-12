@@ -324,23 +324,19 @@
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hm0-rY-ima" customClass="MvxCachedImageView">
                                                             <rect key="frame" x="0.0" y="0.0" width="350" height="204"/>
                                                         </imageView>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_play" translatesAutoresizingMaskIntoConstraints="NO" id="czg-bA-c2C">
-                                                            <rect key="frame" x="140" y="67" width="70" height="70"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="70" id="5j9-gy-5Kc"/>
-                                                                <constraint firstAttribute="height" constant="70" id="e3A-Jd-YmK"/>
-                                                            </constraints>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_fullscreen" translatesAutoresizingMaskIntoConstraints="NO" id="czg-bA-c2C">
+                                                            <rect key="frame" x="319" y="173" width="24" height="24"/>
                                                         </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="Hm0-rY-ima" secondAttribute="bottom" id="6tu-FV-HTy"/>
-                                                        <constraint firstItem="czg-bA-c2C" firstAttribute="centerX" secondItem="Hm0-rY-ima" secondAttribute="centerX" id="LG9-PX-yDQ"/>
-                                                        <constraint firstItem="czg-bA-c2C" firstAttribute="centerY" secondItem="Hm0-rY-ima" secondAttribute="centerY" id="PbQ-r2-09e"/>
                                                         <constraint firstItem="Hm0-rY-ima" firstAttribute="leading" secondItem="548-3a-KQd" secondAttribute="leading" id="Pd2-UM-6CP"/>
                                                         <constraint firstAttribute="height" constant="204" id="ZbC-2S-5JA"/>
+                                                        <constraint firstAttribute="trailing" secondItem="czg-bA-c2C" secondAttribute="trailing" constant="7" id="gGC-zG-n5z"/>
                                                         <constraint firstAttribute="trailing" secondItem="Hm0-rY-ima" secondAttribute="trailing" id="gSf-0N-aPZ"/>
                                                         <constraint firstItem="Hm0-rY-ima" firstAttribute="top" secondItem="548-3a-KQd" secondAttribute="top" id="h1S-bj-ER1"/>
+                                                        <constraint firstAttribute="bottom" secondItem="czg-bA-c2C" secondAttribute="bottom" constant="7" id="kCA-lq-iEH"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sSi-Pj-fsv">
@@ -631,6 +627,6 @@
     <resources>
         <image name="ic_accent_thumbs_down" width="22" height="20"/>
         <image name="ic_accent_thumbs_up" width="22" height="20"/>
-        <image name="ic_play" width="20" height="20"/>
+        <image name="ic_fullscreen" width="24" height="24"/>
     </resources>
 </document>

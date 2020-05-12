@@ -31,6 +31,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIButton orderDetailsButton { get; set; }
 
 		[Outlet]
+		UIKit.UIImageView OrderTagTypeImageView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel orderTimeLabel { get; set; }
 
 		[Outlet]
@@ -124,6 +127,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (titleTimeView != null) {
 				titleTimeView.Dispose ();
 				titleTimeView = null;
+			}
+
+			if (OrderTagTypeImageView != null) {
+				OrderTagTypeImageView.Dispose ();
+				OrderTagTypeImageView = null;
 			}
 		}
 	}

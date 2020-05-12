@@ -95,6 +95,15 @@
             android:focusableInTouchMode="true" />
     </FrameLayout>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="7dp"
+        app:layout_constraintBottom_toBottomOf="@+id/texture_view"
+        app:layout_constraintEnd_toEndOf="@+id/texture_view"
+        app:srcCompat="@drawable/ic_fullscreen" />
+
     <ImageButton
         android:id="@+id/like_image_button"
         android:layout_width="20dp"

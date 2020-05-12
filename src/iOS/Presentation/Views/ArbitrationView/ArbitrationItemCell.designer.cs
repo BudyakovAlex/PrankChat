@@ -31,6 +31,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 		UIKit.UIButton orderDetailsButton { get; set; }
 
 		[Outlet]
+		UIKit.UILabel OrderStatusLabel { get; set; }
+
+		[Outlet]
 		UIKit.UILabel orderTimeLabel { get; set; }
 
 		[Outlet]
@@ -44,18 +47,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 
 		[Outlet]
 		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profilePhotoImage { get; set; }
-
-		[Outlet]
-		UIKit.UIButton thumbsDownButton { get; set; }
-
-		[Outlet]
-		UIKit.UILabel thumbsDownValueLabel { get; set; }
-
-		[Outlet]
-		UIKit.UIButton thumbsUpButton { get; set; }
-
-		[Outlet]
-		UIKit.UILabel thumbsUpValueLabel { get; set; }
 
 		[Outlet]
 		UIKit.UILabel timeLablel { get; set; }
@@ -92,6 +83,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 				orderDetailsButton = null;
 			}
 
+			if (OrderStatusLabel != null) {
+				OrderStatusLabel.Dispose ();
+				OrderStatusLabel = null;
+			}
+
 			if (orderTimeLabel != null) {
 				orderTimeLabel.Dispose ();
 				orderTimeLabel = null;
@@ -115,26 +111,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 			if (profilePhotoImage != null) {
 				profilePhotoImage.Dispose ();
 				profilePhotoImage = null;
-			}
-
-			if (thumbsDownButton != null) {
-				thumbsDownButton.Dispose ();
-				thumbsDownButton = null;
-			}
-
-			if (thumbsDownValueLabel != null) {
-				thumbsDownValueLabel.Dispose ();
-				thumbsDownValueLabel = null;
-			}
-
-			if (thumbsUpButton != null) {
-				thumbsUpButton.Dispose ();
-				thumbsUpButton = null;
-			}
-
-			if (thumbsUpValueLabel != null) {
-				thumbsUpValueLabel.Dispose ();
-				thumbsUpValueLabel = null;
 			}
 
 			if (timeLablel != null) {
