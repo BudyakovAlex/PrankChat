@@ -42,7 +42,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private PublicationRecyclerViewAdapter _adapter;
 
         private PublicationItemViewHolder _previousPublicationViewHolder;
-        private TextureView _previousVideoView;
+        private AutoFitTextureView _previousVideoView;
 
         private MvxInteraction _itemsChangedInteraction;
         public MvxInteraction ItemsChangedInteraction
@@ -178,7 +178,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             return Task.CompletedTask;
         }
 
-        private void PlayVideo(PublicationItemViewHolder itemViewHolder, TextureView textureView)
+        private void PlayVideo(PublicationItemViewHolder itemViewHolder, AutoFitTextureView textureView)
         {
             if (_previousPublicationViewHolder?.ViewModel != null &&
                 _previousPublicationViewHolder.ViewModel.VideoPlayerService != null &&

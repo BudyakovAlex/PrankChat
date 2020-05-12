@@ -180,7 +180,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             AVPlayerViewControllerInstance = new AVPlayerViewController();
             AVPlayerViewControllerInstance.View.Frame = new CGRect(0, 0, VideoView.Frame.Width, VideoView.Frame.Height);
             AVPlayerViewControllerInstance.ShowsPlaybackControls = false;
-            AVPlayerViewControllerInstance.VideoGravity = AVLayerVideoGravity.ResizeAspectFill;
+            AVPlayerViewControllerInstance.VideoGravity = AVLayerVideoGravity.ResizeAspect;
+
             VideoView.Add(AVPlayerViewControllerInstance.View);
         }
     }

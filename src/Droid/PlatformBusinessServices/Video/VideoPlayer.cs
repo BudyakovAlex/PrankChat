@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Android.Media;
 using Android.OS;
 using Android.Views;
@@ -6,6 +7,7 @@ using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
@@ -16,7 +18,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         private readonly IErrorHandleService _errorHandleService;
 
-        private TextureView _textureView;
+        private AutoFitTextureView _textureView;
         private MediaPlayer _mediaPlayer;
 
         private bool _isRepeatEnabled;
@@ -99,9 +101,9 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
             Stop();
 
-            if (container is TextureView videoView)
+            if (container is AutoFitTextureView textureView)
             {
-                _textureView = videoView;
+                _textureView = textureView;
                 return;
             }
 
@@ -152,9 +154,15 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             _surface = new Surface(_textureView.SurfaceTexture);
             _mediaPlayer.SetSurface(_surface);
 
+            _mediaPlayer.SetOnVideoSizeChangedListener(new MediaPlayerOnVideoSizeChanged(OnPlayerSizeChanged));
             _mediaPlayer.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepeared));
             _mediaPlayer.SetOnInfoListener(new MediaPlayerOnInfoListener(OnInfoChanged));
             _mediaPlayer.SetOnErrorListener(new MediaPlayerOnErrorListener(OnError));
+        }
+
+        private void OnPlayerSizeChanged(MediaPlayer mp, int width, int height)
+        {
+            _textureView?.SetAspectRatio(width, height);
         }
 
         private bool OnError(MediaPlayer mp, MediaError error, int arg3)

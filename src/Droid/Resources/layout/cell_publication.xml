@@ -10,9 +10,9 @@
         android:id="@+id/stub_view"
         android:layout_width="0dp"
         android:layout_height="246dp"
-        android:background="@color/applicationBlack"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="35dp"
+        android:background="@color/applicationBlack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,15 +78,22 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
 
-    <TextureView
-        android:id="@+id/texture_view"
+    <FrameLayout
+        android:id="@+id/texture_view_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:focusableInTouchMode="true"
         app:layout_constraintBottom_toBottomOf="@+id/stub_view"
         app:layout_constraintEnd_toEndOf="@+id/stub_view"
         app:layout_constraintStart_toStartOf="@+id/stub_view"
-        app:layout_constraintTop_toTopOf="@+id/stub_view" />
+        app:layout_constraintTop_toTopOf="@+id/stub_view">
+
+        <AutoFitTextureView
+            android:id="@+id/texture_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:focusableInTouchMode="true" />
+    </FrameLayout>
 
     <ImageButton
         android:id="@+id/like_image_button"
@@ -141,7 +148,9 @@
         android:id="@+id/stub_image_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:background="@color/applicationBlack"
         app:layout_constraintBottom_toBottomOf="@+id/stub_view"
         app:layout_constraintEnd_toEndOf="@+id/stub_view"
         app:layout_constraintHorizontal_bias="0.0"
@@ -154,7 +163,7 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/texture_view"
+        app:layout_constraintBottom_toBottomOf="@+id/texture_view_container"
         app:layout_constraintEnd_toEndOf="@+id/stub_view"
         app:layout_constraintStart_toStartOf="@+id/stub_image_view"
         app:layout_constraintTop_toBottomOf="@+id/video_name_text_view" />
@@ -181,11 +190,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="25dp"
-            android:maxLines="3"
             android:gravity="center"
+            android:maxLines="3"
             android:text="@string/Processing_Video"
             android:textColor="@android:color/white"
             android:textSize="17sp" />

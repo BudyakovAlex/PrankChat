@@ -4,6 +4,7 @@ using Android.Widget;
 using FFImageLoading.Cross;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.ViewModels;
+using PrankChat.Mobile.Droid.Controls;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Video
 {
@@ -17,7 +18,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
 
         public View ProcessingView { get; private set; }
 
-        public TextureView TextureView { get; private set; }
+        public AutoFitTextureView TextureView { get; private set; }
 
         public MvxCachedImageView StubImageView { get; private set; }
 
@@ -42,7 +43,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
             base.DoInit(view);
 
             ProcessingView = view.FindViewById<View>(Resource.Id.processing_view);
-            TextureView = view.FindViewById<TextureView>(Resource.Id.texture_view);
+            TextureView = view.FindViewById<AutoFitTextureView>(Resource.Id.texture_view);
             StubImageView = view.FindViewById<MvxCachedImageView>(Resource.Id.stub_image_view);
             LoadingProgressBar = view.FindViewById<ProgressBar>(Resource.Id.loading_progress_bar);
 

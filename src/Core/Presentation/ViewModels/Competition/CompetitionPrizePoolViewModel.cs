@@ -68,7 +68,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             var items = results.OrderBy(item => item.Place).Take(10).ToList();
             foreach (var item in items)
             {
-                var rating = isNewCompetition ? "-" : $"{item?.Video?.LikesCount ?? 0}";
+                var ratingString = item?.Video?.LikesCount.ToString() ?? "-";
+                var rating = isNewCompetition ? "-" : ratingString;
                 var participant = isNewCompetition ? "-" : item?.User?.Login ?? "-";
                 var position = item.Place >= 10 ? "#" : $"{item.Place}";
                 var isMyPosition = item.User?.Id == SettingsService.User?.Id;
