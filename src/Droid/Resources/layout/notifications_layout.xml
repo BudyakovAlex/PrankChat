@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout
+        android:background="@color/applicationWhite"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         local:MvxBind="Refreshing IsBusy; RefreshCommand UpdateNotificationsCommand">

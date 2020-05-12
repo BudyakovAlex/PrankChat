@@ -4,7 +4,6 @@ using Android.Graphics;
 using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
-using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
 using FFImageLoading.Cross;
@@ -41,6 +40,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             {
                 ViewModel.ShowContentCommand.Execute();
             }
+
+            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
 
             var viewPager = FindViewById<ApplicationSwipeViewPager>(Resource.Id.viewpager);
             viewPager.OffscreenPageLimit = 5;

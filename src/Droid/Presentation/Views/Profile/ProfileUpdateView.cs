@@ -26,6 +26,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.activity_profile_update);
+
+            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_background);
         }
 
         protected override void SetViewProperties()

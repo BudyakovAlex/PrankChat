@@ -1,9 +1,6 @@
 ﻿using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using Android.Views;
-using Android.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
@@ -23,6 +20,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.search_layout);
+
+            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
 
             SetupControls();
             SetupBinding();

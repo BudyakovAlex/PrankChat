@@ -18,6 +18,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
         {
             base.OnCreate(bundle, Resource.Layout.activity_registration);
 
+            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_background);
+
             var textViewLogin = this.FindViewById<TextView>(Resource.Id.go_to_login_text_view);
             textViewLogin.PaintFlags |= Android.Graphics.PaintFlags.UnderlineText;
         }

@@ -25,6 +25,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         {
             base.OnCreate(bundle, Resource.Layout.activity_login);
 
+            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_background);
+
             var forgotPasswordButton = FindViewById<TextView>(Resource.Id.reset_password_button);
             forgotPasswordButton.PaintFlags = forgotPasswordButton.PaintFlags | PaintFlags.UnderlineText;
 
