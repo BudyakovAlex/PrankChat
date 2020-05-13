@@ -1720,5 +1720,23 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Competition_Votes", resourceCulture);
             }
         }
+        
+        public static string Create_Order_Hour {
+            get {
+                return ResourceManager.GetString("Create_Order_Hour", resourceCulture);
+            }
+        }
+        
+        public static string Create_Orders_Hours_Plural {
+            get {
+                return ResourceManager.GetString("Create_Orders_Hours_Plural", resourceCulture);
+            }
+        }
+        
+        public static string Create_Orders_Hours_Singular {
+            get {
+                return ResourceManager.GetString("Create_Orders_Hours_Singular", resourceCulture);
+            }
+        }
     }
 }

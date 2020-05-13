@@ -317,4 +317,7 @@
     <string name="Not_Confirmed">"{0} не подтверждено"</string>
     <string name="Competition_Prize">"Приз"</string>
     <string name="Competition_Votes">"Голоса"</string>
+    <string name="Create_Order_Hour">"час"</string>
+    <string name="Create_Orders_Hours_Plural">"часов"</string>
+    <string name="Create_Orders_Hours_Singular">"часа"</string>
 </resources>

@@ -973,4 +973,13 @@
   <data name="Competition_Votes" xml:space="preserve">
     <value>Голоса</value>
   </data>
+  <data name="Create_Order_Hour" xml:space="preserve">
+    <value>час</value>
+  </data>
+  <data name="Create_Orders_Hours_Plural" xml:space="preserve">
+    <value>часов</value>
+  </data>
+  <data name="Create_Orders_Hours_Singular" xml:space="preserve">
+    <value>часа</value>
+  </data>
 </root>

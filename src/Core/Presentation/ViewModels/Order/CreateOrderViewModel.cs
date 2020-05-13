@@ -151,7 +151,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private async Task OnDateDialogAsync()
         {
             var periods = ConfigurationProvider.GetConfiguration().Periods;
-            var result = await DialogService.ShowArrayDialogAsync(periods.Select(p => p.Title).ToList(), Resources.CreateOrderView_Choose_Time_Period);
+            var titles = periods.Select(period => period.Title).ToList();
+            var result = await DialogService.ShowArrayDialogAsync(titles, Resources.CreateOrderView_Choose_Time_Period);
             if (!string.IsNullOrWhiteSpace(result))
             {
                 ActiveFor = periods.FirstOrDefault(p => p.Title == result);

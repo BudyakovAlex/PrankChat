@@ -27,6 +27,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
         {
             SelectItemCommand = new MvxAsyncCommand<string>(SelectItemAsync);
             DoneCommand = new MvxAsyncCommand(DoneAsync);
+            Items = new MvxObservableCollection<string>();
         }
 
         public IMvxAsyncCommand<string> SelectItemCommand { get; }
@@ -35,7 +36,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 
         public string Title { get; private set; }
 
-        public List<string> Items { get; } = new List<string>();
+        public MvxObservableCollection<string> Items { get; }
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } =
             new TaskCompletionSource<object>();
@@ -61,6 +62,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
         public void Prepare(ArrayDialogParameter parameter)
         {
             Items.AddRange(parameter.Items);
+
             SelectedItem = Items.FirstOrDefault();
             Title = parameter.Title;
         }

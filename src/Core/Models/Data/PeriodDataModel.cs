@@ -1,5 +1,4 @@
-﻿using System;
-namespace PrankChat.Mobile.Core.Models.Data
+﻿namespace PrankChat.Mobile.Core.Models.Data
 {
     public class PeriodDataModel
     {

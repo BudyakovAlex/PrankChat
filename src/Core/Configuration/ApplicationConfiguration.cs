@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Presentation.Localization;
 
 namespace PrankChat.Mobile.Core.Configuration
 {
@@ -25,20 +26,20 @@ namespace PrankChat.Mobile.Core.Configuration
             // TODO: We should get data from server. It`s hot fix.
             Periods = new List<PeriodDataModel>()
             {
-                new PeriodDataModel(1, "1 час"),
-                new PeriodDataModel(2, "2 часа"),
-                new PeriodDataModel(4, "4 часа"),
-                new PeriodDataModel(6, "6 часов"),
-                new PeriodDataModel(8, "8 часов"),
-                new PeriodDataModel(12, "12 часов"),
-                new PeriodDataModel(16, "16 часов"),
-                new PeriodDataModel(20, "20 часов"),
-                new PeriodDataModel(24, "24 часа"),
-                new PeriodDataModel(32, "32 часа"),
-                new PeriodDataModel(36, "36 часов"),
-                new PeriodDataModel(40, "40 часов"),
-                new PeriodDataModel(44, "44 часа"),
-                new PeriodDataModel(48, "48 часов"),
+                new PeriodDataModel(1, $"1 {Resources.Create_Order_Hour}"),
+                new PeriodDataModel(2, $"2 {Resources.Create_Orders_Hours_Singular}"),
+                new PeriodDataModel(4, $"4 {Resources.Create_Orders_Hours_Singular}"),
+                new PeriodDataModel(6, $"6 {Resources.Create_Orders_Hours_Plural}"),
+                new PeriodDataModel(8, $"8 {Resources.Create_Orders_Hours_Plural}"),
+                new PeriodDataModel(12, $"12 {Resources.Create_Orders_Hours_Plural}"),
+                new PeriodDataModel(16, $"16 {Resources.Create_Orders_Hours_Plural}"),
+                new PeriodDataModel(20, $"20 {Resources.Create_Orders_Hours_Plural}"),
+                new PeriodDataModel(24, $"24 {Resources.Create_Orders_Hours_Singular}"),
+                new PeriodDataModel(32, $"32 {Resources.Create_Orders_Hours_Singular}"),
+                new PeriodDataModel(36, $"36 {Resources.Create_Orders_Hours_Plural}"),
+                new PeriodDataModel(40, $"40 {Resources.Create_Orders_Hours_Plural}"),
+                new PeriodDataModel(44, $"44 {Resources.Create_Orders_Hours_Singular}"),
+                new PeriodDataModel(48, $"48 {Resources.Create_Orders_Hours_Plural}"),
             };
         }
     }

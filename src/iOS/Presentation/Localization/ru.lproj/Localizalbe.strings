@@ -315,3 +315,6 @@
 "Not_Confirmed" = "{0} не подтверждено";
 "Competition_Prize" = "Приз";
 "Competition_Votes" = "Голоса";
+"Create_Order_Hour" = "час";
+"Create_Orders_Hours_Plural" = "часов";
+"Create_Orders_Hours_Singular" = "часа";
