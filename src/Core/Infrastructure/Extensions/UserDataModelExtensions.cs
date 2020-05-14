@@ -14,6 +14,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                     var isMine = customerId.HasValue && customerId == userDataModel.Id;
                     return isMine ? OrderTagType.New : OrderTagType.NewNotMine;
 
+                case OrderStatusType.VideoInProcess:
                 case OrderStatusType.InWork:
                     return OrderTagType.InWork;
 
@@ -26,7 +27,6 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                 case OrderStatusType.WaitFinish:
                     return OrderTagType.Wait;
 
-                case OrderStatusType.VideoInProcess:
                 case OrderStatusType.VideoWaitModeration:
                     return OrderTagType.InModeration;
 
