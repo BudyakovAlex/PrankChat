@@ -18,6 +18,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
         protected override void SetupControls()
         {
+            DefinesPresentationContext = true;
+
             base.SetupControls();
             InitializeNavigationBar();
 
@@ -41,6 +43,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                 NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand),
+                NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand),
                 // TODO: This feature will be implemented.
                 //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
             }, true);

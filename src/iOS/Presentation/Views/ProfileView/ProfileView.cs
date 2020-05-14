@@ -89,11 +89,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         protected override void SetupControls()
         {
+            DefinesPresentationContext = true;
+
             InitializeTableView();
 
             Title = ViewModel.Name;
 
-            NavigationItem.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton("ic_menu", ViewModel.ShowMenuCommand), false);
+            NavigationItem.SetRightBarButtonItems(new UIBarButtonItem[]
+            {
+                NavigationItemHelper.CreateBarButton("ic_menu", ViewModel.ShowMenuCommand),
+                NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand)
+            }, false);
 
             profileDescriptionLabel.SetTitleStyle();
             priceLabel.SetSmallSubtitleStyle();

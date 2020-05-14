@@ -27,6 +27,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         private readonly ViewOnTouchListener _tabViewOnTouchListener;
 
         private TabLayout _tabLayout;
+        private IMenuItem _infoMenuItem;
 
         public MainView()
         {
@@ -35,7 +36,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle, Resource.Layout.main_view_layout); 
+            base.OnCreate(bundle, Resource.Layout.main_view_layout);
             if (bundle == null)
             {
                 ViewModel.ShowContentCommand.Execute();
@@ -52,7 +53,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
+            menu.Clear();
             MenuInflater.Inflate(Resource.Menu.main_view_menu, menu);
+            _infoMenuItem = menu.GetItem(0);
+            _infoMenuItem?.SetVisible(_tabLayout?.SelectedTabPosition != 0);
             return true;
         }
 
@@ -62,6 +66,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             {
                 case Resource.Id.notification_button:
                     ViewModel.ShowNotificationCommand.Execute();
+                    return true;
+                case Resource.Id.info_button:
+                    ViewModel.ShowWalkthrouthCommand?.Execute(_tabLayout.SelectedTabPosition);
                     return true;
 
                 case Resource.Id.search_button:
@@ -99,8 +106,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         private void TabLayoutOnTabSelected(object sender, TabLayout.TabSelectedEventArgs e)
         {
             if (e.Tab == null)
+            {
                 return;
+            }
 
+            _infoMenuItem?.SetVisible(e.Tab.Position != 0);
             var iconView = e.Tab.View.FindViewById<ImageView>(Resource.Id.tab_icon);
             var textView = e.Tab.View.FindViewById<TextView>(Resource.Id.tab_title);
 
@@ -108,10 +118,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
             if (e.Tab.Position == 2)
             {
+                ViewModel.ShowWalkthrouthIfNeedCommand?.Execute(_tabLayout.SelectedTabPosition);
                 return;
             }
+
             var colorFilter = ContextCompat.GetColor(ApplicationContext, Resource.Color.accent);
             iconView.Drawable.SetColorFilter(ColorUtil.GetColorFromInteger(colorFilter), PorterDuff.Mode.SrcIn);
+            ViewModel.ShowWalkthrouthIfNeedCommand?.Execute(_tabLayout.SelectedTabPosition);
         }
 
         private void TabLayoutOnTabUnselected(object sender, TabLayout.TabUnselectedEventArgs e)

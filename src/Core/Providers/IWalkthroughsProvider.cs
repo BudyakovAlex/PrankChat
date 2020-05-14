@@ -5,7 +5,7 @@ namespace PrankChat.Mobile.Core.Providers
 {
     public interface IWalkthroughsProvider
     {
-        bool CheckCanShowOnFirstLoad();
+        bool CheckCanShowOnFirstLoad<TViewModel>() where TViewModel : IMvxViewModel;
 
         Task ShowWalthroughAsync<TViewModel>() where TViewModel : IMvxViewModel; 
     }

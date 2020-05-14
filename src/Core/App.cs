@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using MvvmCross;
 using MvvmCross.IoC;
 using MvvmCross.ViewModels;
@@ -9,11 +8,10 @@ using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Permissions;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Configuration;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Providers;
 
 namespace PrankChat.Mobile.Core
 {
@@ -25,6 +23,7 @@ namespace PrankChat.Mobile.Core
 
             Mvx.IoCProvider.ConstructAndRegisterSingleton<ITimerService, TimerService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<INavigationService, NavigationService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IWalkthroughsProvider, WalkthroughsProvider>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IApiService, ApiService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IErrorHandleService, ErrorHandleService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IPlatformService, PlatformService>();

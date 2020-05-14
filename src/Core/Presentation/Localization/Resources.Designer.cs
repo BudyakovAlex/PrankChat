@@ -1738,5 +1738,53 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Create_Orders_Hours_Singular", resourceCulture);
             }
         }
+        
+        public static string Walkthrouth_Competitions_Description {
+            get {
+                return ResourceManager.GetString("Walkthrouth_Competitions_Description", resourceCulture);
+            }
+        }
+        
+        public static string Walkthrouth_CreateOrder_Description {
+            get {
+                return ResourceManager.GetString("Walkthrouth_CreateOrder_Description", resourceCulture);
+            }
+        }
+        
+        public static string Walkthrouth_Orders_Description {
+            get {
+                return ResourceManager.GetString("Walkthrouth_Orders_Description", resourceCulture);
+            }
+        }
+        
+        public static string Walkthrouth_Profile_Description {
+            get {
+                return ResourceManager.GetString("Walkthrouth_Profile_Description", resourceCulture);
+            }
+        }
+        
+        public static string Walkthrouth_Competitions_Title {
+            get {
+                return ResourceManager.GetString("Walkthrouth_Competitions_Title", resourceCulture);
+            }
+        }
+        
+        public static string Walkthrouth_CreateOrder_Title {
+            get {
+                return ResourceManager.GetString("Walkthrouth_CreateOrder_Title", resourceCulture);
+            }
+        }
+        
+        public static string Walkthrouth_Orders_Title {
+            get {
+                return ResourceManager.GetString("Walkthrouth_Orders_Title", resourceCulture);
+            }
+        }
+        
+        public static string Walkthrouth_Profile_Title {
+            get {
+                return ResourceManager.GetString("Walkthrouth_Profile_Title", resourceCulture);
+            }
+        }
     }
 }

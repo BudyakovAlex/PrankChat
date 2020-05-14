@@ -36,6 +36,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
             menu.Clear();
+            Activity.MenuInflater.Inflate(Resource.Menu.create_order_menu, menu);
         }
 
         protected override void Subscription()

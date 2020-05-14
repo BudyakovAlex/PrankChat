@@ -15,6 +15,7 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Providers;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
@@ -22,7 +23,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     {
         private readonly IMvxMessenger _mvxMessenger;
         private readonly ISettingsService _settingsService;
-
+        private readonly IWalkthroughsProvider _walkthroughsProvider;
         private bool _isExecuting;
 
         private PeriodDataModel _activeFor;
@@ -67,16 +68,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public MvxAsyncCommand CreateCommand => new MvxAsyncCommand(OnCreateAsync);
 
+        public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
+
         public CreateOrderViewModel(INavigationService navigationService,
                                     IDialogService dialogService,
                                     IApiService apiService,
                                     IMvxMessenger mvxMessenger,
                                     ISettingsService settingsService,
-                                    IErrorHandleService errorHandleService)
+                                    IErrorHandleService errorHandleService,
+                                    IWalkthroughsProvider walkthroughsProvider)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _mvxMessenger = mvxMessenger;
             _settingsService = settingsService;
+            _walkthroughsProvider = walkthroughsProvider;
+
+            ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
+        }
+
+        private Task ShowWalkthrouthAsync()
+        {
+            return _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>();
         }
 
         private async Task OnCreateAsync()

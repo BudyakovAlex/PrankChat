@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using MvvmCross.Navigation;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Infrastructure;
-using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
@@ -21,6 +20,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Walthroughs;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
@@ -253,6 +253,12 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<CompetitionRulesViewModel, string>(content);
         }
 
-		#endregion
-	}
+        public Task ShowWalthroughView(string title, string description)
+        {
+            var parameters = new WalthroughNavigationParameter(title, description);
+            return _mvxNavigationService.Navigate<WalthroughViewModel, WalthroughNavigationParameter>(parameters);
+        }
+
+        #endregion
+    }
 }

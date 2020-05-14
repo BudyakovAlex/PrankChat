@@ -1,5 +1,4 @@
-﻿
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+﻿<menu xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
 <!-- // TODO: This feature will be implemented.
     <item
@@ -7,6 +6,11 @@
     android:enabled="true"
     android:icon="@drawable/ic_search"
     app:showAsAction="ifRoom"/>-->
+  <item
+      android:id="@+id/info_button"
+      android:enabled="true"
+      android:icon="@drawable/ic_info"
+      app:showAsAction="ifRoom"/>
   <item
     android:id="@+id/notification_button"
     android:enabled="true"

@@ -193,6 +193,7 @@
     <Compile Include="Presentation\Listeners\MediaPlayerOnErrorListener.cs" />
     <Compile Include="Controls\AutoFitTextureView.cs" />
     <Compile Include="Presentation\Listeners\MediaPlayerOnVideoSizeChanged.cs" />
+    <Compile Include="Presentation\Views\Walthroughs\WalthroughView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -958,6 +959,18 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_info.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_walkthrouth.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\menu\create_order_menu.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -1301,6 +1314,7 @@
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
     <Folder Include="Presentation\Adapters\ViewHolders\Dialogs\" />
+    <Folder Include="Presentation\Views\Walthroughs\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />

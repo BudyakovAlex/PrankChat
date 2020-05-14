@@ -7,6 +7,7 @@ using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -52,6 +53,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         protected override void SetupControls()
 		{
+            DefinesPresentationContext = true;
+
+            NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
+            {
+                NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand)
+            }, true);
+
             _checkedImage = UIImage.FromBundle("ic_checkbox_checked");
             _uncheckedImage = UIImage.FromBundle("ic_checkbox_unchecked");
 

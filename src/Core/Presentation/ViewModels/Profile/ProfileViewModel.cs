@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
@@ -18,6 +19,7 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
+using PrankChat.Mobile.Core.Providers;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
@@ -26,7 +28,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly IMvxMessenger _mvxMessenger;
         private readonly IExternalAuthService _externalAuthService;
-
+        private readonly IWalkthroughsProvider _walkthroughsProvider;
         private ProfileOrderType _selectedOrderType;
         public ProfileOrderType SelectedOrderType
         {
@@ -79,6 +81,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(OnShowMenuAsync);
 
+        public MvxAsyncCommand ShowWalkthrouthCommand => new MvxAsyncCommand(ShowWalkthrouthAsync);
+
         public MvxAsyncCommand ShowRefillCommand => new MvxAsyncCommand(NavigationService.ShowRefillView);
 
         public MvxAsyncCommand ShowWithdrawalCommand => new MvxAsyncCommand(NavigationService.ShowWithdrawalView);
@@ -94,12 +98,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                                 IErrorHandleService errorHandleService,
                                 ISettingsService settingsService,
                                 IMvxMessenger mvxMessenger,
-                                IExternalAuthService externalAuthService)
+                                IExternalAuthService externalAuthService,
+                                IWalkthroughsProvider walkthroughsProvider)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _videoPlayerService = videoPlayerService;
             _mvxMessenger = mvxMessenger;
             _externalAuthService = externalAuthService;
+            _walkthroughsProvider = walkthroughsProvider;
         }
 
         public override Task Initialize()
@@ -119,6 +125,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             base.ViewAppeared();
             _videoPlayerService.Play();
+        }
+
+        private Task ShowWalkthrouthAsync()
+        {
+            return _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>();
         }
 
         private async Task OnLoadProfileAsync()

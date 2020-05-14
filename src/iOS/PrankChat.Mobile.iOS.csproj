@@ -348,6 +348,11 @@
     <Compile Include="Presentation\Views\Onboarding\OnboardingCollectionViewSource.cs" />
     <BundleResource Include="Presentation\Localization\ru.lproj\Localizalbe.strings" />
     <Compile Include="Presentation\Converters\BoolToUIColorConverter.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Walthroughs\WalthroughView.xib" />
+    <Compile Include="Presentation\Views\Walthroughs\WalthroughView.cs" />
+    <Compile Include="Presentation\Views\Walthroughs\WalthroughView.designer.cs">
+      <DependentUpon>WalthroughView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -1018,6 +1023,10 @@
     <ImageAsset Include="Assets.xcassets\OrderTagTypeFinished.imageset\OrderTagTypeFinished.pdf" />
     <ImageAsset Include="Assets.xcassets\OrderTagTypeWait.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\OrderTagTypeWait.imageset\OrderTagTypeWait.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_info.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_info.imageset\ic_info.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_clear.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_clear.imageset\ic_clear.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentation\Localization\ru.lproj\" />
@@ -1082,6 +1091,9 @@
     <Folder Include="Assets.xcassets\OrderTagTypeNew.imageset\" />
     <Folder Include="Assets.xcassets\OrderTagTypeFinished.imageset\" />
     <Folder Include="Assets.xcassets\OrderTagTypeWait.imageset\" />
+    <Folder Include="Presentation\Views\Walthroughs\" />
+    <Folder Include="Assets.xcassets\ic_info.imageset\" />
+    <Folder Include="Assets.xcassets\ic_clear.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

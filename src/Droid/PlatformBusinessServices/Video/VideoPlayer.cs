@@ -152,6 +152,11 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             }
 
             _surface = new Surface(_textureView.SurfaceTexture);
+            if (_mediaPlayer is null)
+            {
+                return;
+            }
+
             _mediaPlayer.SetSurface(_surface);
 
             _mediaPlayer.SetOnVideoSizeChangedListener(new MediaPlayerOnVideoSizeChanged(OnPlayerSizeChanged));

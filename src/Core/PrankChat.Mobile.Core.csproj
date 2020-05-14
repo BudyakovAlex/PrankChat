@@ -75,8 +75,7 @@
     <Folder Include="Presentation\ViewModels\Shared\Abstract\" />
     <Folder Include="ApplicationServices\Notifications\" />
     <Folder Include="Models\Data\Shared\" />
-    <Folder Include="Presentation\ViewModels\Onboarding\" />
-    <Folder Include="Presentation\ViewModels\Onboarding\Items\" />
     <Folder Include="Providers\" />
+    <Folder Include="Presentation\ViewModels\Walthroughs\" />
   </ItemGroup>
 </Project>

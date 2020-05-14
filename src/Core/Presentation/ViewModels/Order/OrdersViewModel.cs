@@ -20,6 +20,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using PrankChat.Mobile.Core.Providers;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
@@ -27,6 +28,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     {
         private readonly IMvxMessenger _mvxMessenger;
         private readonly ISettingsService _settingsService;
+        private readonly IWalkthroughsProvider _walkthroughsProvider;
 
         private readonly Dictionary<ArbitrationOrderFilterType, string> _arbitrationOrderFilterTypeTitleMap =
             new Dictionary<ArbitrationOrderFilterType, string>
@@ -104,19 +106,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public MvxAsyncCommand LoadDataCommand { get; }
 
+        public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
+
         public OrdersViewModel(INavigationService navigationService,
                                IDialogService dialogService,
                                IApiService apiService,
                                IMvxMessenger mvxMessenger,
                                ISettingsService settingsService,
-                               IErrorHandleService errorHandleService)
+                               IErrorHandleService errorHandleService,
+                               IWalkthroughsProvider walkthroughsProvider)
             : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _mvxMessenger = mvxMessenger;
             _settingsService = settingsService;
+            _walkthroughsProvider = walkthroughsProvider;
 
             OpenFilterCommand = new MvxAsyncCommand(OpenFilterAsync);
             LoadDataCommand = new MvxAsyncCommand(LoadDataAsync);
+            ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
         }
 
         public override Task Initialize()
@@ -138,6 +145,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             Unsubscription();
             base.ViewDestroy(viewFinishing);
+        }
+
+        private Task ShowWalkthrouthAsync()
+        {
+            return _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>();
         }
 
         private async Task OpenOrderFilterAsync()

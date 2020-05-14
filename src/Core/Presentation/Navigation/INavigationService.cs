@@ -64,6 +64,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowWebView(string url);
 
+        Task ShowWalthroughView(string title, string description);
+
         Task AppStartFromNotification(int orderId);
 
         #region Dialogs
