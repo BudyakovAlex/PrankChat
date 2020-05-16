@@ -146,7 +146,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
 
             if (itemViewHolder?.ViewModel?.VideoPlayerService is null ||
                 textureView is null ||
-                itemViewHolder?.ViewModel?.VideoUrl is null)
+                itemViewHolder?.ViewModel?.PreviewUrl is null)
             {
                 return;
             }
@@ -160,7 +160,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
 
             videoService.Player.SetPlatformVideoPlayerContainer(textureView);
             videoService.Player.VideoRenderingStartedAction = itemViewHolder.OnRenderingStarted;
-            videoService.Play(itemViewHolder.ViewModel.VideoUrl, itemViewHolder.ViewModel.VideoId);
+            videoService.Play(itemViewHolder.ViewModel.PreviewUrl, itemViewHolder.ViewModel.VideoId);
             _previousVideoViewHolder = itemViewHolder;
             _previousVideoView = textureView;
 

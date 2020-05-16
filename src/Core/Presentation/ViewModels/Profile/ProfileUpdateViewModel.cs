@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
+using MvvmCross.Plugin.WebBrowser;
 using MvvmCross.ViewModels;
 using Plugin.Media.Abstractions;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -24,6 +25,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
     {
         private readonly IMvxMessenger _messenger;
         private readonly IMediaService _mediaService;
+        private readonly IMvxWebBrowserTask _mvxWebBrowserTask;
 
         private bool _isUserPhotoUpdated;
 
@@ -31,9 +33,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public MvxAsyncCommand SaveProfileCommand => new MvxAsyncCommand(OnSaveProfileAsync);
 
-        public MvxAsyncCommand ChangePasswordCommand => new MvxAsyncCommand(OnChangePasswordAsync);
+        public MvxAsyncCommand ChangePasswordCommand => new MvxAsyncCommand(ChangePasswordAsync);
 
-        public MvxAsyncCommand ChangeProfilePhotoCommand => new MvxAsyncCommand(OnChangeProfilePhotoAsync);
+        public MvxAsyncCommand ChangeProfilePhotoCommand => new MvxAsyncCommand(ChangeProfilePhotoAsync);
 
         public ProfileUpdateViewModel(INavigationService navigationService,
                                       ISettingsService settingsService,
@@ -41,11 +43,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                                       IApiService apiService,
                                       IMvxMessenger messenger,
                                       IMediaService mediaService,
-                                      IErrorHandleService errorHandleService)
+                                      IErrorHandleService errorHandleService,
+                                      IMvxWebBrowserTask mvxWebBrowserTask)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _messenger = messenger;
             _mediaService = mediaService;
+            _mvxWebBrowserTask = mvxWebBrowserTask;
         }
 
         public override void ViewDestroy(bool viewFinishing = true)
@@ -95,12 +99,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             }
         }
 
-        private async Task OnChangePasswordAsync()
+        private Task ChangePasswordAsync()
         {
-            await DialogService.ShowAlertAsync("Change password");
+            return NavigationService.ShowPasswordRecoveryView();
         }
 
-        private async Task OnChangeProfilePhotoAsync()
+        private async Task ChangeProfilePhotoAsync()
         {
             var result = await DialogService.ShowMenuDialogAsync(new string[]
             {

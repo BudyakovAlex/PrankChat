@@ -8,6 +8,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         string VideoUrl { get; }
 
+        string PreviewUrl { get; }
+
         int VideoId { get; }
     }
 }

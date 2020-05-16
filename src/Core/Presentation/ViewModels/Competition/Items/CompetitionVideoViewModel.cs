@@ -28,6 +28,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public int VideoId { get; }
         public string VideoUrl { get; }
+        public string PreviewUrl { get; }
         public string ShareLink { get; }
         public string UserName { get; }
         public string VideoName { get; }
@@ -85,6 +86,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                                          string poster,
                                          int id,
                                          string videoUrl,
+                                         string previewUrl,
                                          string shareLink,
                                          string videoName,
                                          string description,
@@ -104,6 +106,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             StubImageUrl = poster;
             VideoId = id;
             VideoUrl = videoUrl;
+            PreviewUrl = previewUrl;
             ShareLink = shareLink;
             VideoName = videoName;
             Description = description;

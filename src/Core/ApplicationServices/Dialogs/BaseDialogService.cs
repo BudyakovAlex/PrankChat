@@ -23,14 +23,21 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 
         public abstract Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null);
 
-        public Task<string> ShowMenuDialogAsync(string[] itemStrings, string cancelItemString = "", CancellationToken? cancellationToken = null)
+        public async Task<string> ShowMenuDialogAsync(string[] itemStrings, string cancelItemString = "", CancellationToken? cancellationToken = null)
         {
             if (CrossDeviceInfo.Current.Platform == Platform.iOS)
             {
                 var cancelText = string.IsNullOrWhiteSpace(cancelItemString) ? Resources.Cancel : cancelItemString;
-                return UserDialogs.Instance.ActionSheetAsync(null, cancelText, null, cancellationToken, itemStrings);
+                var result = await UserDialogs.Instance.ActionSheetAsync(null, cancelText, null, cancellationToken, itemStrings);
+                if (result == cancelText)
+                {
+                    return null;
+                }
+
+                return result;
             }
-            return UserDialogs.Instance.ActionSheetAsync(null, cancelItemString, null, cancellationToken, itemStrings);
+
+            return await UserDialogs.Instance.ActionSheetAsync(null, cancelItemString, null, cancellationToken, itemStrings);
         }
 
         public Task ShowShareDialogAsync(string url)

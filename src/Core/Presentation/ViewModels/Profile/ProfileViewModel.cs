@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
@@ -16,6 +15,7 @@ using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
@@ -29,6 +29,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private readonly IMvxMessenger _mvxMessenger;
         private readonly IExternalAuthService _externalAuthService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
+
+        private MvxSubscriptionToken _newOrderMessageToken;
+
         private ProfileOrderType _selectedOrderType;
         public ProfileOrderType SelectedOrderType
         {
@@ -108,6 +111,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             _walkthroughsProvider = walkthroughsProvider;
         }
 
+        private void Subscription()
+        {
+            _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<NewOrderMessage>(OnNewOrderAdded);
+        }
+
+        private void Unsubscription()
+        {
+            if (_newOrderMessageToken is null)
+            {
+                return;
+            }
+
+            _mvxMessenger.Unsubscribe<NewOrderMessage>(_newOrderMessageToken);
+            _newOrderMessageToken.Dispose();
+        }
+
+        private void OnNewOrderAdded(NewOrderMessage message)
+        {
+            ReloadItemsCommand.Execute();
+        }
+
         public override Task Initialize()
         {
             SelectedOrderType = ProfileOrderType.MyOrdered;
@@ -125,6 +149,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             base.ViewAppeared();
             _videoPlayerService.Play();
+        }
+
+        public override void ViewCreated()
+        {
+            base.ViewCreated();
+            Subscription();
+        }
+
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            Unsubscription();
+            base.ViewDestroy(viewFinishing);
         }
 
         private Task ShowWalkthrouthAsync()

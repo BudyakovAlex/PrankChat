@@ -204,7 +204,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
             videoService.Player.SetPlatformVideoPlayerContainer(textureView);
             videoService.Player.VideoRenderingStartedAction = itemViewHolder.OnRenderingStarted;
-            videoService.Play(itemViewHolder.ViewModel.VideoUrl, itemViewHolder.ViewModel.VideoId);
+            videoService.Play(itemViewHolder.ViewModel.PreviewUrl, itemViewHolder.ViewModel.VideoId);
 
             _previousPublicationViewHolder = itemViewHolder;
             _previousVideoView = textureView;

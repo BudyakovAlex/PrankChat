@@ -130,7 +130,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 if (newOrder != null)
                 {
                     if (newOrder.Customer == null)
+                    {
                         newOrder.Customer = _settingsService.User;
+                    }
 
                     _mvxMessenger.Publish(new NewOrderMessage(this, newOrder));
                     await NavigationService.ShowOrderDetailsView(newOrder.Id);

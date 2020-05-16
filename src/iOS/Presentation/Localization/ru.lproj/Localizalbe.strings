@@ -129,8 +129,8 @@
 "OrderStatus_InWork" = "В работе";
 "OrderStatus_InArbitration" = "В споре";
 "OrderStatus_ProcessCloseArbitration" = "Закрытие спора";
-"OrderStatus_ClosedAfterArbitrationCustomerWin" = "Закрыт после спора в пользу заказчика";
-"OrderStatus_ClosedAfterArbitrationExecutorWin" = "Закрыт после спора в пользу исполнителя";
+"OrderStatus_ClosedAfterArbitrationCustomerWin" = "Спор выигран";
+"OrderStatus_ClosedAfterArbitrationExecutorWin" = "Спор проигран";
 "OrderStatus_Finished" = "Выполненный";
 "Ok" = "Ок";
 "Attention" = "Внимание!";

@@ -125,7 +125,7 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
 
             service.Player.SetPlatformVideoPlayerContainer(cell.AVPlayerViewControllerInstance);
             cell.AddObserverForPeriodicTime();
-            service.Play(viewModel.VideoUrl, viewModel.VideoId);
+            service.Play(viewModel.PreviewUrl, viewModel.VideoId);
 
             _previousVideoCell = cell;
         }

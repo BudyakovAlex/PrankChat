@@ -131,8 +131,8 @@
     <string name="OrderStatus_InWork">"В работе"</string>
     <string name="OrderStatus_InArbitration">"В споре"</string>
     <string name="OrderStatus_ProcessCloseArbitration">"Закрытие спора"</string>
-    <string name="OrderStatus_ClosedAfterArbitrationCustomerWin">"Закрыт после спора в пользу заказчика"</string>
-    <string name="OrderStatus_ClosedAfterArbitrationExecutorWin">"Закрыт после спора в пользу исполнителя"</string>
+    <string name="OrderStatus_ClosedAfterArbitrationCustomerWin">"Спор выигран"</string>
+    <string name="OrderStatus_ClosedAfterArbitrationExecutorWin">"Спор проигран"</string>
     <string name="OrderStatus_Finished">"Выполненный"</string>
     <string name="Ok">"Ок"</string>
     <string name="Attention">"Внимание!"</string>

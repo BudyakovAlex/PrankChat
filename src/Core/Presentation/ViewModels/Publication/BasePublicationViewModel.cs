@@ -60,6 +60,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string VideoUrl { get; set; }
 
+        public string PreviewUrl { get; set; }
+
         public string VideoPlaceholderImageUrl { get; }
 
         public IVideoPlayerService VideoPlayerService { get; }
@@ -115,6 +117,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                         string videoName,
                                         string description,
                                         string videoUrl,
+                                        string previewUrl,
                                         long numberOfViews,
                                         DateTime publicationDate,
                                         long numberOfLikes,
@@ -132,6 +135,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             VideoName = videoName;
             Description = description;
             VideoUrl = videoUrl;
+            PreviewUrl = previewUrl;
             IsLiked = isLiked;
             NumberOfLikes = numberOfLikes;
             VideoPlaceholderImageUrl = poster;

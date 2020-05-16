@@ -211,6 +211,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                                 publication.Title,
                                                 publication.Description,
                                                 publication.StreamUri,
+                                                publication.PreviewUri,
                                                 publication.ViewsCount,
                                                 publication.CreatedAt.DateTime,
                                                 publication.LikesCount,

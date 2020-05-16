@@ -511,10 +511,10 @@
     <value>Закрытие спора</value>
   </data>
   <data name="OrderStatus_ClosedAfterArbitrationCustomerWin" xml:space="preserve">
-    <value>Закрыт после спора в пользу заказчика</value>
+    <value>Спор выигран</value>
   </data>
   <data name="OrderStatus_ClosedAfterArbitrationExecutorWin" xml:space="preserve">
-    <value>Закрыт после спора в пользу исполнителя</value>
+    <value>Спор проигран</value>
   </data>
   <data name="OrderStatus_Finished" xml:space="preserve">
     <value>Выполненный</value>

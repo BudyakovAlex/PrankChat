@@ -20,8 +20,6 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 
                 case OrderStatusType.InArbitration:
                 case OrderStatusType.ProcessCloseArbitration:
-                case OrderStatusType.ClosedAfterArbitrationCustomerWin:
-                case OrderStatusType.ClosedAfterArbitrationExecutorWin:
                     return OrderTagType.InArbitration;
 
                 case OrderStatusType.WaitFinish:
@@ -31,6 +29,8 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                     return OrderTagType.InModeration;
 
                 case OrderStatusType.Finished:
+                case OrderStatusType.ClosedAfterArbitrationCustomerWin:
+                case OrderStatusType.ClosedAfterArbitrationExecutorWin:
                     return OrderTagType.Finished;
 
                 default:
@@ -47,6 +47,8 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                     case OrderStatusType.New:
                         return OrderType.MyOrderInModeration;
                     case OrderStatusType.Finished:
+                    case OrderStatusType.ClosedAfterArbitrationCustomerWin:
+                    case OrderStatusType.ClosedAfterArbitrationExecutorWin:
                         return OrderType.MyOrderCompleted;
                     default:
                         return OrderType.MyOrder;
