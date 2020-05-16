@@ -10,7 +10,6 @@ namespace PrankChat.Mobile.Droid.Controls
 {
     public class CircleCachedImageView : MvxCachedImageView
     {
-        private const int ImageSize = 50;
         private const int PlaceholderTextSize = 16;
 
         private TextPaint _placeholderPaint;
@@ -34,9 +33,6 @@ namespace PrankChat.Mobile.Droid.Controls
 
         private void Initilize()
         {
-            DownsampleHeight = ImageSize;
-            DownsampleWidth = ImageSize;
-
             SetScaleType(ScaleType.CenterCrop);
             SetBackgroundResource(Resource.Drawable.ic_image_background);
         }
@@ -48,6 +44,10 @@ namespace PrankChat.Mobile.Droid.Controls
             var rect = new RectF(0, 0, Width, Height);
             path.AddRoundRect(rect, radius, radius, Path.Direction.Cw);
             canvas.ClipPath(path);
+
+            DownsampleUseDipUnits = false;
+            DownsampleWidth = Width;
+            DownsampleHeight = Height;
 
             DrawPlaceholder(canvas);
 

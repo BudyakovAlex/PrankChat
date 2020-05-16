@@ -29,6 +29,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.ImageCrop
         {
             base.OnCreate(bundle, Resource.Layout.activity_image_crop);
 
+            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
+
             _cropImageView = FindViewById<CropImageView>(Resource.Id.image_crop);
             var imagePath = ViewModel.ImageFilePath;
             var bitmap = BitmapFactory.DecodeFile(imagePath);
