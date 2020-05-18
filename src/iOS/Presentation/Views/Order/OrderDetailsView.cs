@@ -340,7 +340,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             UpdateStyleArbitrationButtons();
 
             videoImageView.SetCornerRadius(5);
-            videoImageView.ContentMode = UIViewContentMode.ScaleAspectFill;
+            videoImageView.BackgroundColor = Theme.Color.Black;
+            videoImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
 
             rootScrollView.RefreshControl = _refreshControl = new MvxUIRefreshControl();
 

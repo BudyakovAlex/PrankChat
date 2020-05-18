@@ -84,17 +84,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 var video = pageContainer.Items.FirstOrDefault(item => item.User.Id == SettingsService.User.Id);
                 if (video is null)
                 {
+                    _header.CanLoadVideo = true;
                     return 0;
                 }
 
+                _header.CanLoadVideo = false;
                 Items.Add(ProduceVideoItemViewModel(video));
                 return 1;
             }
 
             var count = SetList(pageContainer, page, ProduceVideoItemViewModel, Items);
-
-            _header.CanLoadVideo = _competition.GetPhase() == CompetitionPhase.New &&
-                                                              !Items.OfType<CompetitionVideoViewModel>().Any(video => video.IsMyPublication);
             return count;
         }
 
