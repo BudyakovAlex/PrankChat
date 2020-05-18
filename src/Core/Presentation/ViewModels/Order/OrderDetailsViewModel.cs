@@ -129,7 +129,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsExecutorAvailable => _order?.Executor != null && _order?.Executor?.Id != _settingsService.User?.Id;
 
-        public bool IsDecideVideoAvailable => _order?.Status == OrderStatusType.InArbitration && IsUserGuest;
+        public bool IsDecideVideoAvailable => _order?.Status == OrderStatusType.InArbitration;
 
         public bool IsDecisionVideoAvailable => (_order?.Status == OrderStatusType.WaitFinish || _order?.Status == OrderStatusType.VideoWaitModeration) && IsUserCustomer;
 
@@ -388,8 +388,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnYesAsync()
         {
-            if (!IsDecideEnabled)
+            if (!IsDecideEnabled || !IsUserGuest)
+            {
                 return;
+            }
 
             try
             {
@@ -418,7 +420,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OnNoAsync()
         {
-            if (!IsDecideEnabled)
+            if (!IsDecideEnabled || !IsUserGuest)
                 return;
 
             try

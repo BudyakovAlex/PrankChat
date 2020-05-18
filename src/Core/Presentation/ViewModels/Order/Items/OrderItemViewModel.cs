@@ -90,11 +90,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                     case OrderStatusType.ProcessCloseArbitration:
                         return Resources.OrderStatus_ProcessCloseArbitration;
 
-                    case OrderStatusType.ClosedAfterArbitrationCustomerWin:
+                    case OrderStatusType.ClosedAfterArbitrationCustomerWin when _orderDataModel?.Customer?.Id == _settingsService?.User?.Id:
                         return Resources.OrderStatus_ClosedAfterArbitrationCustomerWin;
 
-                    case OrderStatusType.ClosedAfterArbitrationExecutorWin:
+                    case OrderStatusType.ClosedAfterArbitrationExecutorWin when _orderDataModel?.Customer?.Id == _settingsService?.User?.Id:
                         return Resources.OrderStatus_ClosedAfterArbitrationExecutorWin;
+
+                    case OrderStatusType.ClosedAfterArbitrationCustomerWin when _orderDataModel?.Executor?.Id == _settingsService?.User?.Id:
+                        return Resources.OrderStatus_ClosedAfterArbitrationExecutorWin;
+
+                    case OrderStatusType.ClosedAfterArbitrationExecutorWin when _orderDataModel?.Executor?.Id == _settingsService?.User?.Id:
+                        return Resources.OrderStatus_ClosedAfterArbitrationCustomerWin;
 
                     case OrderStatusType.WaitFinish:
                         return Resources.OrderStatus_WaitFinish;

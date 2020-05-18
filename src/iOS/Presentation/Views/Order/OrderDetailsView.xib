@@ -321,7 +321,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="548-3a-KQd">
                                                     <rect key="frame" x="0.0" y="26" width="350" height="204"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hm0-rY-ima" customClass="MvxCachedImageView">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hm0-rY-ima" customClass="MvxCachedImageView">
                                                             <rect key="frame" x="0.0" y="0.0" width="350" height="204"/>
                                                         </imageView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_fullscreen" translatesAutoresizingMaskIntoConstraints="NO" id="czg-bA-c2C">

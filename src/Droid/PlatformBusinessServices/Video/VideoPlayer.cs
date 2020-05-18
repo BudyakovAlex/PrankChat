@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Android.App;
 using Android.Media;
 using Android.OS;
 using Android.Views;
@@ -36,6 +37,8 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         private bool _isMuted;
         private Surface _surface;
+
+        private (int, int)? _registrationParameters;
 
         public override bool Muted
         {
@@ -124,11 +127,13 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             }
 
             _cachedUri = uri;
-            CreateMediaPlayer();
+            _ = CreateMediaPlayerAsync();
         }
 
-        private void CreateMediaPlayer()
+        private async Task CreateMediaPlayerAsync()
         {
+            await Task.Delay(100);
+
             if (string.IsNullOrWhiteSpace(_cachedUri))
             {
                 return;
@@ -139,7 +144,10 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
                 _mediaPlayer.Release();
             }
 
-            _mediaPlayer = MediaPlayer.Create(Xamarin.Essentials.Platform.CurrentActivity, Android.Net.Uri.Parse(_cachedUri));
+            _mediaPlayer = new MediaPlayer();
+            _mediaPlayer.SetAudioStreamType(Stream.Music);
+            await _mediaPlayer.SetDataSourceAsync(_cachedUri);
+            _mediaPlayer.PrepareAsync();
 
             if (_textureView?.SurfaceTexture is null)
             {
@@ -175,7 +183,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             _errorHandleService.LogError(mp, $"Media error {error}");
             System.Diagnostics.Debug.WriteLine("Attempt to restore media player");
 
-            CreateMediaPlayer();
+            _ = CreateMediaPlayerAsync();
             return true;
         }
 
@@ -200,6 +208,13 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             {
                 Play();
             }
+
+            if (_registrationParameters is null)
+            {
+                return;
+            }
+
+            TryRegisterViewedFact(_registrationParameters.Value.Item1, _registrationParameters.Value.Item2);
         }
 
         public override void Stop()
@@ -234,6 +249,12 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             if (_mediaPlayer == null)
             {
                 _errorHandleService.LogError(nameof(VideoPlayer), $"{nameof(_mediaPlayer)} is null.");
+                return;
+            }
+
+            if (!_isPrepared)
+            {
+                _registrationParameters = (id, registrationDelayInMilliseconds);
                 return;
             }
 

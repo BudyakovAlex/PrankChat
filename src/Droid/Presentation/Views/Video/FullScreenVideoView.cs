@@ -20,7 +20,7 @@ using PrankChat.Mobile.Droid.Providers;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 {
-    [Activity(ConfigurationChanges = ConfigChanges.Orientation, Theme = "@style/Theme.PrankChat.Translucent")]
+    [Activity(ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.KeyboardHidden, Theme = "@style/Theme.PrankChat.Translucent")]
     [MvxActivityPresentation]
     public class FullScreenVideoView : BaseView<FullScreenVideoViewModel>
     {

@@ -55,8 +55,11 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                 }
             }
 
-            return orderStatusType == OrderStatusType.Finished ? OrderType.NotMyOrderCompleted : OrderType.NotMyOrder;
+            return orderStatusType == OrderStatusType.Finished ||
+                   orderStatusType == OrderStatusType.ClosedAfterArbitrationCustomerWin ||
+                   orderStatusType == OrderStatusType.ClosedAfterArbitrationExecutorWin
+               ? OrderType.NotMyOrderCompleted
+               : OrderType.NotMyOrder;
         }
-
     }
 }

@@ -251,13 +251,13 @@ namespace PrankChat.Mobile.Droid.Controls
         private void Mute()
         {
             MediaPlayer.SetVolume(0,0);
-            _muteImageView.SetImageResource(Resource.Drawable.ic_sound);
+            _muteImageView.SetImageResource(Resource.Drawable.ic_without_sound);
         }
 
         private void Unmute()
         {
             MediaPlayer.SetVolume(1, 1);
-            _muteImageView.SetImageResource(Resource.Drawable.ic_without_sound);
+            _muteImageView.SetImageResource(Resource.Drawable.ic_sound);
         }
 
         private void OnResumeImageClicked(View view)

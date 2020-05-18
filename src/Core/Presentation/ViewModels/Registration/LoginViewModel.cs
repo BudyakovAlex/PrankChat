@@ -47,7 +47,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 #if DEBUG
 
             EmailText = "testuser@delete.me";
-            PasswordText = "123456789";
+            PasswordText = "1234567890";
 #endif
         }
 

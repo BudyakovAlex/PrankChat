@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content.PM;
+using Android.Content.Res;
 using Android.Graphics;
 using Android.OS;
 using Android.Support.Design.Widget;
@@ -21,7 +22,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
     [Activity(LaunchMode = LaunchMode.SingleTop,
               Theme = "@style/Theme.PrankChat.Base.Dark",
               ScreenOrientation = ScreenOrientation.Portrait,
-              ConfigurationChanges = ConfigChanges.ScreenSize)]
+              ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.KeyboardHidden)]
     public class MainView : BaseView<MainViewModel>
     {
         private readonly ViewOnTouchListener _tabViewOnTouchListener;
@@ -49,7 +50,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             _tabLayout = FindViewById<TabLayout>(Resource.Id.tabs);
 
             CreateTabs();
-       }
+            RequestedOrientation = ScreenOrientation.Locked;
+        }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
@@ -167,6 +169,16 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             var tab = tabLayout.GetTabAt(2);
             if (tab != null)
                 tab.SetCustomView(tabView);
+        }
+
+        protected override void OnResume()
+        {
+            if (Resources.Configuration.Orientation != Android.Content.Res.Orientation.Portrait)
+            {
+                RequestedOrientation = ScreenOrientation.Portrait;
+            }
+
+            base.OnResume();
         }
 
         private bool OnTabItemTouched(View view, MotionEvent motionEvent)
