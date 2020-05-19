@@ -23,6 +23,7 @@
             <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
                 android:id="@+id/competition_details_recycler_view"
                 android:layout_width="match_parent"
+                android:background="@color/applicationWhite"
                 android:layout_height="match_parent" />
         </MvxSwipeRefreshLayout>
 

@@ -158,24 +158,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 if (video != null)
                 {
                     _header.CanLoadVideo = false;
-                    Items.Insert(1, new CompetitionVideoViewModel(ApiService,
-                                                                  _videoPlayerService,
-                                                                  NavigationService,
-                                                                  video.Poster,
-                                                                  video.Id,
-                                                                  video.StreamUri,
-                                                                  video.PreviewUri,
-                                                                  video.ShareUri,
-                                                                  video.Title,
-                                                                  video.Description,
-                                                                  SettingsService.User?.Name,
-                                                                  SettingsService.User?.Avatar,
-                                                                  video.LikesCount,
-                                                                  video.ViewsCount,
-                                                                  video.CreatedAt.UtcDateTime,
-                                                                  video.IsLiked,
-                                                                  true,
-                                                                  false));
+                    Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        Items.Insert(1, new CompetitionVideoViewModel(ApiService,
+                                                                      _videoPlayerService,
+                                                                      NavigationService,
+                                                                      video.Poster,
+                                                                      video.Id,
+                                                                      video.StreamUri,
+                                                                      video.PreviewUri,
+                                                                      video.ShareUri,
+                                                                      video.Title,
+                                                                      video.Description,
+                                                                      SettingsService.User?.Name,
+                                                                      SettingsService.User?.Avatar,
+                                                                      video.LikesCount,
+                                                                      video.ViewsCount,
+                                                                      video.CreatedAt.UtcDateTime,
+                                                                      video.IsLiked,
+                                                                      true,
+                                                                      false));
+                    });
 
                     await _header.RaisePropertyChanged(nameof(_header.CanLoadVideo));
                 }

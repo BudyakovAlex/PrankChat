@@ -117,6 +117,7 @@
                             <constraint firstAttribute="bottom" secondItem="6xz-ok-2ph" secondAttribute="bottom" constant="49" id="0TM-px-JF0"/>
                             <constraint firstItem="EnU-Nv-E47" firstAttribute="centerX" secondItem="wYE-AN-HnI" secondAttribute="centerX" id="BdG-f8-5H4"/>
                             <constraint firstAttribute="trailing" secondItem="xSe-bI-RYb" secondAttribute="trailing" constant="10" id="EG6-ts-OmK"/>
+                            <constraint firstAttribute="height" constant="216" id="Vu6-8o-J6I"/>
                             <constraint firstItem="6xz-ok-2ph" firstAttribute="leading" secondItem="wYE-AN-HnI" secondAttribute="leading" constant="25" id="lob-G6-KLk"/>
                             <constraint firstItem="xSe-bI-RYb" firstAttribute="leading" secondItem="wYE-AN-HnI" secondAttribute="leading" constant="10" id="o4C-26-3Ca"/>
                             <constraint firstItem="xSe-bI-RYb" firstAttribute="top" secondItem="wYE-AN-HnI" secondAttribute="top" constant="10" id="oPy-1l-i0B"/>
@@ -137,7 +138,6 @@
                     <constraint firstItem="zco-gp-p4x" firstAttribute="top" secondItem="UOF-mF-WFd" secondAttribute="bottom" constant="15" id="QNh-y7-wXe"/>
                     <constraint firstItem="wdU-ux-YIA" firstAttribute="leading" secondItem="kqo-Gf-60N" secondAttribute="leading" id="Rtz-6k-FCf"/>
                     <constraint firstItem="NEw-NX-CLF" firstAttribute="centerX" secondItem="kqo-Gf-60N" secondAttribute="centerX" id="Vjx-VH-Ur7"/>
-                    <constraint firstItem="wYE-AN-HnI" firstAttribute="bottom" secondItem="kqo-Gf-60N" secondAttribute="bottom" id="Wrf-iI-lfm"/>
                     <constraint firstItem="UOF-mF-WFd" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="24" id="a1e-ot-IIF"/>
                     <constraint firstItem="UOF-mF-WFd" firstAttribute="top" secondItem="kqo-Gf-60N" secondAttribute="bottom" constant="16" id="bOo-yS-dk6"/>
                     <constraint firstItem="EER-ra-XfV" firstAttribute="leading" secondItem="Aoq-PN-keZ" secondAttribute="trailing" constant="16" id="bUD-gJ-RdZ"/>
