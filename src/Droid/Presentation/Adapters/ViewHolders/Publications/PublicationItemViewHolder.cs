@@ -15,6 +15,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
 {
     public class PublicationItemViewHolder : VideoCardViewHolder<PublicationItemViewModel>
     {
+        private FrameLayout _videoContainerView;
         private CircleCachedImageView _profileImageView;
         private ImageButton _moreImageButton;
         private TextView _profileNameTextView;
@@ -46,6 +47,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
         {
             base.DoInit(view);
 
+            _videoContainerView = view.FindViewById<FrameLayout>(Resource.Id.texture_view_container);
             _profileImageView = view.FindViewById<CircleCachedImageView>(Resource.Id.profile_image_view);
             _moreImageButton = view.FindViewById<ImageButton>(Resource.Id.more_image_button);
             _profileNameTextView = view.FindViewById<TextView>(Resource.Id.profile_name_text_view);
@@ -70,19 +72,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
                       .WithConversion<LikeConverter>();
 
             bindingSet.Bind(_likeTextView).For(v => v.Text).To(vm => vm.NumberOfLikesText);
-            bindingSet.Bind(TextureView).For(ViewTouchTargetBinding.TargetBinding).To(vm => vm.ShowFullScreenVideoCommand);
+            bindingSet.Bind(_videoContainerView).For(ViewTouchTargetBinding.TargetBinding).To(vm => vm.ShowFullScreenVideoCommand);
             bindingSet.Bind(ProcessingView).For(v => v.BindVisible()).To(vm => vm.IsVideoProcessing);
             bindingSet.Bind(TextureView).For(v => v.BindHidden()).To(vm => vm.IsVideoProcessing);
             bindingSet.Bind(this).For(v => v.CanShowStub).To(vm => vm.IsVideoProcessing)
                       .WithConversion<MvxInvertedBooleanConverter>();
 
             bindingSet.Apply();
-        }
-
-        private bool OnTextureViewTouched(View view, MotionEvent motionEvent)
-        {
-            ViewModel.ShowFullScreenVideoCommand.Execute();
-            return true;
         }
 
         private void ViewModelChanged(PublicationItemViewModel viewModel)

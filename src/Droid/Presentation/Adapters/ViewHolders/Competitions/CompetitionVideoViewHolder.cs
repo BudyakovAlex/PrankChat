@@ -16,6 +16,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
 {
     public class CompetitionVideoViewHolder : VideoCardViewHolder<CompetitionVideoViewModel>
     {
+        private FrameLayout _videoContainerView;
         private TextView _userNameTextView;
         private TextView _viewsCountTextView;
         private TextView _postDateTextView;
@@ -32,6 +33,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
         {
             base.DoInit(view);
 
+            _videoContainerView = view.FindViewById<FrameLayout>(Resource.Id.texture_view_container);
             _userNameTextView = view.FindViewById<TextView>(Resource.Id.user_name_text_view);
             _viewsCountTextView = view.FindViewById<TextView>(Resource.Id.video_info_text_view);
             _postDateTextView = view.FindViewById<TextView>(Resource.Id.post_date_text_view);
@@ -84,7 +86,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .For(v => v.ImagePath)
                       .To(vm => vm.StubImageUrl);
 
-            bindingSet.Bind(TextureView)
+            bindingSet.Bind(_videoContainerView)
                       .For(ViewTouchTargetBinding.TargetBinding)
                       .To(vm => vm.ShowFullScreenVideoCommand);
 

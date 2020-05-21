@@ -1,0 +1,6 @@
+﻿"NSCameraUsageDescription" = "This app needs access to the camera to take photos.";
+"NSPhotoLibraryUsageDescription" = "This app needs access to photos.";
+"NSPhotoLibraryAddUsageDescription" = "Our application needs permission to write photos.";
+"NSCalendarsUsageDescription" = "This app needs access to calendar to pick date and time.";
+"NSLocationAlwaysUsageDescription" = "This app require location to set it for video.";
+"NSLocationWhenInUseUsageDescription" = "This app needs location when app in usage.";

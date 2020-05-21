@@ -1,0 +1,6 @@
+﻿"NSCameraUsageDescription" = "Приложению нужен доступ к камере, чтобы делать фотографии.";
+"NSPhotoLibraryUsageDescription" = "Приложению нужен доступ к каталогу фотографий для чтения.";
+"NSPhotoLibraryAddUsageDescription" = "Приложению нужен доступ к каталогу изображений для добавления фотографий.";
+"NSCalendarsUsageDescription" = "Приложению нужен доступ к календарю для возможности выбора даты и времени";
+"NSLocationAlwaysUsageDescription" = "Приложение требует местоположение, чтобы установить его для видео.";
+"NSLocationWhenInUseUsageDescription" = "Разрешить доступ к местоположению, когда приложение в использовании.";

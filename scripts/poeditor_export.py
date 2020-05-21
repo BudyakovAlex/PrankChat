@@ -49,7 +49,7 @@ downloadFile(app_android_ru, '../src/Droid/Resources/values/strings.xml');
 #App iOS
 app_ios_ru = getDownloadUrl(api_key, project_id, 'ru', 'apple_strings') 
 print (app_ios_ru)
-downloadFile(app_ios_ru, '../src/iOS/Presentation/Localization/ru.lproj/Localizalbe.strings');
+downloadFile(app_ios_ru, '../src/iOS/Resources/ru.lproj/Localizalbe.strings');
 
 #Core
 core_ru = getDownloadUrl(api_key, project_id, 'ru', 'resx') 

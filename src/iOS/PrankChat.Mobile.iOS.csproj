@@ -68,7 +68,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
-    <BundleResource Include="Presentation\Localization\en.lproj\Localizalbe.strings" />
     <Compile Include="Presentation\Views\Base\BaseView.cs" />
     <Compile Include="Presentation\Views\Base\BaseTableCell.cs" />
     <InterfaceDefinition Include="Presentation\Views\MainView\MainView.xib" />
@@ -346,13 +345,17 @@
       <DependentUpon>OnboardingItemCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Views\Onboarding\OnboardingCollectionViewSource.cs" />
-    <BundleResource Include="Presentation\Localization\ru.lproj\Localizalbe.strings" />
     <Compile Include="Presentation\Converters\BoolToUIColorConverter.cs" />
     <InterfaceDefinition Include="Presentation\Views\Walthroughs\WalthroughView.xib" />
     <Compile Include="Presentation\Views\Walthroughs\WalthroughView.cs" />
     <Compile Include="Presentation\Views\Walthroughs\WalthroughView.designer.cs">
       <DependentUpon>WalthroughView.cs</DependentUpon>
     </Compile>
+    <BundleResource Include="Resources\en.lproj\InfoPlist.strings" />
+    <BundleResource Include="Resources\en.lproj\Localizalbe.strings" />
+    <BundleResource Include="Resources\ru-RU.lproj\InfoPlist.strings" />
+    <BundleResource Include="Resources\ru-RU.lproj\Localizalbe.strings" />
+    <BundleResource Include="Resources\Base.lproj\InfoPlist.strings" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -1029,7 +1032,6 @@
     <ImageAsset Include="Assets.xcassets\ic_clear.imageset\ic_clear.pdf" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Presentation\Localization\ru.lproj\" />
     <Folder Include="Resources\" />
     <Folder Include="Utils\Extensions\" />
     <Folder Include="Presentation\Dialogs\" />
@@ -1094,6 +1096,9 @@
     <Folder Include="Presentation\Views\Walthroughs\" />
     <Folder Include="Assets.xcassets\ic_info.imageset\" />
     <Folder Include="Assets.xcassets\ic_clear.imageset\" />
+    <Folder Include="Resources\en.lproj\" />
+    <Folder Include="Resources\ru-RU.lproj\" />
+    <Folder Include="Resources\Base.lproj\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
