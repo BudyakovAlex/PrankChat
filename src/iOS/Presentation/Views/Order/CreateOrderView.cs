@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
@@ -16,43 +17,81 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
     [MvxTabPresentation(TabName = "Create Order", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
     public partial class CreateOrderView : BaseTabbedView<CreateOrderViewModel>
     {
+        private const int MinimumDescriptionHeight = 80;
+
         private UIImage _checkedImage;
         private UIImage _uncheckedImage;
         private UITextPosition _position;
+        private UITextView dynamicDescriptionTextView;
+       
+        public string OrderDescription
+        {
+            set
+            {
+                if (value is null)
+                {
+                    return;
+                }
+
+                var size = GetTextViewHeight(descriptionTextView.Bounds.Width, descriptionTextView.Font, value);
+                TextViewHeightConstraint.Constant = size > MinimumDescriptionHeight ? size : MinimumDescriptionHeight;
+                descriptionPlaceholderLabel.Hidden = value.Length > 0;
+                descriptionTopFloatingPlaceholderLabel.Hidden = value.Length == 0;
+            }
+        }
 
         protected override void SetupBinding()
 		{
 			var set = this.CreateBindingSet<CreateOrderView, CreateOrderViewModel>();
 
             set.Bind(nameTextField)
-                .To(vm => vm.Title);
+               .To(vm => vm.Title);
 
             set.Bind(descriptionTextView)
-                .To(vm => vm.Description);
+               .To(vm => vm.Description);
+
+            set.Bind(this)
+               .For(nameof(OrderDescription))
+               .To(vm => vm.Description);
 
             set.Bind(priceTextField)
-                .To(vm => vm.Price)
-                .WithConversion<PriceConverter>();
+               .To(vm => vm.Price)
+               .WithConversion<PriceConverter>();
 
             set.Bind(completeDateTextField)
-                .To(vm => vm.ActiveFor.Title);
+               .To(vm => vm.ActiveFor.Title);
 
             set.Bind(completeDateTextField.Tap())
-                .For(v => v.Command)
-                .To(vm => vm.ShowDateDialogCommand);
+               .For(v => v.Command)
+               .To(vm => vm.ShowDateDialogCommand);
 
             set.Bind(createButton)
-                .To(vm => vm.CreateCommand);
+               .To(vm => vm.CreateCommand);
 
             set.Bind(progressBarView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsBusy);
+               .For(v => v.BindVisible())
+               .To(vm => vm.IsBusy);
 
             set.Apply();
 		}
 
+        private nfloat GetTextViewHeight(double width, UIFont font, string text)
+        {
+            dynamicDescriptionTextView.Frame = new CoreGraphics.CGRect(0, 0, width, double.MaxValue);
+            dynamicDescriptionTextView.Font = font;
+            dynamicDescriptionTextView.Text = text;
+            dynamicDescriptionTextView.SizeToFit();
+
+            return dynamicDescriptionTextView.Frame.Height;
+        }
+
         protected override void SetupControls()
 		{
+            descriptionTextView.TextContainer.MaximumNumberOfLines = 100;
+            descriptionContainerView.Layer.BorderColor = Theme.Color.TextFieldDarkBorder.CGColor;
+            descriptionContainerView.Layer.BorderWidth = 1f;
+            descriptionContainerView.Layer.CornerRadius = 3f;
+            dynamicDescriptionTextView = new UITextView();
             DefinesPresentationContext = true;
 
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
@@ -67,7 +106,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             nameTextField.SetDarkStyle(Resources.CreateOrderView_Name_Placeholder);
 
-            descriptionTextView.SetDarkStyle(Resources.CreateOrderView_Description_Placeholder);
+            descriptionTextView.SetTitleStyle(size:14);
+            descriptionTextView.ContentInset = UIEdgeInsets.Zero;
+            descriptionPlaceholderLabel.SetSmallSubtitleStyle(Resources.CreateOrderView_Description_Placeholder, 14);
+            descriptionTopFloatingPlaceholderLabel.SetSmallSubtitleStyle(Resources.CreateOrderView_Description_Placeholder);
+            descriptionTopFloatingPlaceholderLabel.Hidden = true;
 
             priceTextField.SetDarkStyle(Resources.CreateOrderView_Price_Placeholder, rightPadding: 14);
             priceTextField.TextAlignment = UITextAlignment.Right;
@@ -110,6 +153,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             viewList.Add(descriptionTextView);
             viewList.Add(completeDateTextField);
             viewList.Add(priceTextField);
+
+            descriptionTextView.ScrollEnabled = false;
 
             base.RegisterKeyboardDismissTextFields(viewList);
         }

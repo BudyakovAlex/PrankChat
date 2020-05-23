@@ -361,6 +361,17 @@ namespace PrankChat.Mobile.iOS.AppTheme
             label.SetRegularStyle(size, Theme.Color.Subtitle);
         }
 
+        public static void SetTitleStyle(this UITextView textView, string text = null, int size = 12)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                textView.Text = text;
+            }
+
+            textView.Font = Theme.Font.RegularFontOfSize(size);
+            textView.TextColor = Theme.Color.Text;
+        }
+
         public static void SetMediumStyle(this UILabel label, int size, UIColor color)
         {
             label.Font = Theme.Font.MediumOfSize(size);

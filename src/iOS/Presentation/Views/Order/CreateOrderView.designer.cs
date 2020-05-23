@@ -19,7 +19,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIButton createButton { get; set; }
 
 		[Outlet]
-		PrankChat.Mobile.iOS.Controls.PlaceholderTextView descriptionTextView { get; set; }
+		UIKit.UIView descriptionContainerView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel descriptionPlaceholderLabel { get; set; }
+
+		[Outlet]
+		UIKit.UITextView descriptionTextView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel descriptionTopFloatingPlaceholderLabel { get; set; }
 
 		[Outlet]
 		UIKit.UIImageView hideExecuterCheckboxImageView { get; set; }
@@ -44,17 +53,25 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
 		[Outlet]
 		UIKit.UIStackView stackView { get; set; }
+
+		[Outlet]
+		UIKit.NSLayoutConstraint TextViewHeightConstraint { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (stackView != null) {
-				stackView.Dispose ();
-				stackView = null;
-			}
-
 			if (completeDateTextField != null) {
 				completeDateTextField.Dispose ();
 				completeDateTextField = null;
+			}
+
+			if (descriptionContainerView != null) {
+				descriptionContainerView.Dispose ();
+				descriptionContainerView = null;
+			}
+
+			if (descriptionPlaceholderLabel != null) {
+				descriptionPlaceholderLabel.Dispose ();
+				descriptionPlaceholderLabel = null;
 			}
 
 			if (createButton != null) {
@@ -65,6 +82,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (descriptionTextView != null) {
 				descriptionTextView.Dispose ();
 				descriptionTextView = null;
+			}
+
+			if (descriptionTopFloatingPlaceholderLabel != null) {
+				descriptionTopFloatingPlaceholderLabel.Dispose ();
+				descriptionTopFloatingPlaceholderLabel = null;
 			}
 
 			if (hideExecuterCheckboxImageView != null) {
@@ -100,6 +122,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (scrollView != null) {
 				scrollView.Dispose ();
 				scrollView = null;
+			}
+
+			if (stackView != null) {
+				stackView.Dispose ();
+				stackView = null;
+			}
+
+			if (TextViewHeightConstraint != null) {
+				TextViewHeightConstraint.Dispose ();
+				TextViewHeightConstraint = null;
 			}
 		}
 	}
