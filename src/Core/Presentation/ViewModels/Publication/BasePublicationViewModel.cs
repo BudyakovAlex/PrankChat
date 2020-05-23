@@ -83,7 +83,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public IMvxAsyncCommand BookmarkCommand => new MvxRestrictedAsyncCommand(OnBookmarkAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
 
-        public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxRestrictedAsyncCommand(ShowFullScreenVideoAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+        public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxAsyncCommand(ShowFullScreenVideoAsync);
 
         public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(() => DialogService.ShowShareDialogAsync(_shareLink));
 

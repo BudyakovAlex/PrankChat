@@ -38,6 +38,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public int? LikesCount => _competition.LikesCount;
 
+        public bool IsLikesUnavailable => !LikesCount.HasValue;
+
         public DateTime? VoteTo => _competition.VoteTo;
 
         public DateTime UploadVideoTo => _competition.UploadVideoTo;
@@ -51,6 +53,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         public string ImageUrl => _competition.ImageUrl;
 
         public bool IsFinished => Phase == CompetitionPhase.Finished;
+
+        public bool IsNew => Phase == CompetitionPhase.New;
 
         public string LikesCountString => LikesCount.ToCountString();
 

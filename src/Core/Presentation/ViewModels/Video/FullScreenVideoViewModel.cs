@@ -5,6 +5,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -24,13 +25,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
                                         ISettingsService settingsService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
-            ShareCommand = new MvxAsyncCommand(ShareAsync);
-            OpenCommentsCommand = new MvxAsyncCommand(NavigationService.ShowCommentsView);
+            ShareCommand = new MvxRestrictedAsyncCommand(ShareAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+            OpenCommentsCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowCommentsView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }
 
-        public MvxAsyncCommand ShareCommand { get; }
+        public MvxRestrictedAsyncCommand ShareCommand { get; }
 
-        public MvxAsyncCommand OpenCommentsCommand { get; }
+        public MvxRestrictedAsyncCommand OpenCommentsCommand { get; }
 
         private string _videoUrl;
         public string VideoUrl

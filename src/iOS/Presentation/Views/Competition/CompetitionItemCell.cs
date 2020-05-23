@@ -2,6 +2,7 @@
 using CoreAnimation;
 using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -138,9 +139,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             bindingSet.Bind(likeButton)
                       .For(v => v.Hidden)
-                      .To(vm => vm.Phase)
-                      .WithConversion<CompetitionPhaseToHiddenConverter>();
-
+                      .ByCombining(new MvxOrValueCombiner(), vm => vm.IsNew, vm => vm.IsLikesUnavailable);
             bindingSet.Bind(button)
                       .For(v => v.BindTitle())
                       .To(vm => vm.Phase)

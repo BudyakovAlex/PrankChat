@@ -2,6 +2,7 @@
 using Android.Widget;
 using FFImageLoading.Cross;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Converters;
@@ -104,14 +105,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .WithConversion<CompetitionPhaseToVisibilityConverter>();
 
             bindingSet.Bind(_likesImageView)
-                      .For(v => v.Visibility)
-                      .To(vm => vm.Phase)
-                      .WithConversion<CompetitionPhaseToVisibilityConverter>();
+                      .For(v => v.BindHidden())
+                      .ByCombining(new MvxOrValueCombiner(), vm => vm.IsNew, vm => vm.IsLikesUnavailable);
 
             bindingSet.Bind(_likesTextView)
-                      .For(v => v.Visibility)
-                      .To(vm => vm.Phase)
-                      .WithConversion<CompetitionPhaseToVisibilityConverter>();
+                      .For(v => v.BindHidden())
+                      .ByCombining(new MvxOrValueCombiner(), vm => vm.IsNew, vm => vm.IsLikesUnavailable);
 
             bindingSet.Bind(_termTimerTextView)
                       .For(v => v.Text)
@@ -180,6 +179,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_rulesButton)
                       .For(v => v.BindClick())
                       .To(vm => vm.OpenRulesCommand);
+
+            bindingSet.Bind(_rulesButton)
+                      .For(v => v.BindVisible())
+                      .To(vm => vm.CanShowRules);
 
             bindingSet.Bind(_resultsButton)
                       .For(v => v.BindClick())

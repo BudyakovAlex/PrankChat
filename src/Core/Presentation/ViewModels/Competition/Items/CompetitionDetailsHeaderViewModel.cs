@@ -26,6 +26,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             set => SetProperty(ref _canLoadVideo, value);
         }
 
+        public bool CanShowRules => !string.IsNullOrWhiteSpace(HtmlContent);
+
         public CompetitionDetailsHeaderViewModel(bool isUserSessionInitialized,
                                                  IMvxMessenger mvxMessenger,
                                                  INavigationService navigationService,

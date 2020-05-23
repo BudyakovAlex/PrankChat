@@ -1,5 +1,6 @@
 ﻿using System;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -107,15 +108,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
                       .For(v => v.BindTitle())
                       .To(vm => vm.LikesCountString);
 
-            // TODO: bind like command
-            //bindingSet.Bind(likeButton)
-            //          .For(v => v.BindTouchUpInside())
-            //          .To(vm => vm.LikeCommand);
-
             bindingSet.Bind(likeButton)
                       .For(v => v.Hidden)
-                      .To(vm => vm.Phase)
-                      .WithConversion<CompetitionPhaseToHiddenConverter>();
+                      .ByCombining(new MvxOrValueCombiner(), vm => vm.IsNew, vm => vm.IsLikesUnavailable);
 
             bindingSet.Bind(uploadVideoButton)
                       .For(v => v.BindTouchUpInside())
@@ -124,6 +119,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             bindingSet.Bind(uploadVideoButton)
                       .For(v => v.BindVisible())
                       .To(vm => vm.CanLoadVideo);
+
+            bindingSet.Bind(openRulesButton)
+                      .For(v => v.BindVisible())
+                      .To(vm => vm.CanShowRules);
 
             bindingSet.Bind(openRulesButton)
                       .For(v => v.BindTouchUpInside())
