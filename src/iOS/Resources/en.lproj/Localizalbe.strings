@@ -14,7 +14,6 @@
 "Publication_Tab_Filter_HalfYear" = "Per half year";
 "Cancel" = "Cancel";
 "Search_View_Search_Placeholder" = "Search";
-"Like" = "Like";
 "Share" = "Share";
 "Error_Unexpected_Server" = "The unexpected error occurred on the server. We have received information about it and working actively to resolve it.";
 "Error_Unexpected_Not_Found" = "Requested entity not found.";
@@ -50,3 +49,268 @@
 "Password_Recovery_View_Recovery_Button" = "Restore";
 "Password_Recovery_View_Attention" = "Attention!";
 "Password_Recovery_View_Finish_Text" = "An email was sent to the mail with a link to reset the password.";
+"ProfileView_Menu_Favourites" = "";
+"ProfileView_Menu_TaskSubscriptions" = "";
+"ProfileView_Menu_Faq" = "";
+"ProfileView_Menu_Support" = "";
+"ProfileView_Menu_Settings" = "";
+"ProfileView_Menu_LogOut" = "";
+"ProfileView_Refill" = "";
+"ProfileView_Withdrawal" = "";
+"ProfileView_Orders_Subtitle" = "";
+"ProfileView_Completed_Subtitle" = "";
+"ProfileView_Subscribers_Subtitle" = "";
+"ProfileView_Subscriptions_Subtitle" = "";
+"ProfileView_MyOrders_Tab" = "";
+"ProfileView_CompletedOrders_Tab" = "";
+"Order_View_Time_Text" = "";
+"Order_View_Price_Text" = "";
+"Order_View_Day" = "";
+"Order_View_Hour" = "";
+"Order_View_Minute" = "";
+"Order_View_Details" = "";
+"Order_View_New_Task" = "";
+"Order_View_My_Task" = "";
+"OrdersView_Filter_AllTasks" = "";
+"OrdersView_Filter_NewTasks" = "";
+"OrdersView_Filter_CurrentTasks" = "";
+"OrdersView_Filter_MyTasks" = "";
+"RateView_Filter_AllTasks" = "";
+"RateView_Filter_MyTasks" = "";
+"RateView_Filter_NewTasks" = "";
+"RateView_Title_Label" = "";
+"OrdersView_Title_Label" = "";
+"RateView_Vote_Button" = "";
+"CreateOrderView_Title" = "";
+"CreateOrderView_Name_Placeholder" = "";
+"CreateOrderView_Description_Placeholder" = "";
+"CreateOrderView_Price_Placeholder" = "";
+"CreateOrderView_CompleteDate_Placeholder" = "";
+"CreateOrderView_HideExecutor_Button" = "";
+"CreateOrderView_Create_Button" = "";
+"NotificationView_Title" = "";
+"OrderDetailsView_Price_Text" = "";
+"OrderDetailsView_Time_Text" = "";
+"OrderDetailsView_Take_Order_Button" = "";
+"OrderDetailsView_Subscribe_Button" = "";
+"OrderDetailsView_Unsubscribe_Button" = "";
+"OrderDetailsView_Download_Text" = "";
+"OrderDetailsView_Execute_Button" = "";
+"OrderDetailsView_Cancel_Button" = "";
+"OrderDetailsView_Took_The_Order_Text" = "";
+"OrderDetailsView_Yes_Button" = "";
+"OrderDetailsView_No_Button" = "";
+"OrderDetailsView_Accept_Button" = "";
+"OrderDetailsView_Argue_Button" = "";
+"OrderDetailsView_Corresponds_To_Video_Text" = "";
+"CreateOrderView_PriceTitle_Placeholder" = "";
+"OrderDetailsView_Title" = "";
+"CashboxView_Title" = "";
+"CashboxView_Fillup_Tab" = "";
+"CashboxView_Withdrawal_Tab" = "";
+"CashboxView_Fillup_Button" = "";
+"CashboxView_FillupMethodSelect_Title" = "";
+"CashboxView_WithdrawalAvailable_Title" = "";
+"CashboxView_Withdrawal_Button" = "";
+"CashboxView_WithdrawalMethodSelect_Title" = "";
+"CashboxView_Price_Placeholder" = "";
+"CommentView_Title" = "";
+"Publication_Item_Complain" = "";
+"Publication_Item_Copy_Link" = "";
+"Publication_Item_Subscribe_To_Author" = "";
+"ShareDialog_Title" = "";
+"ShareDialog_CopyLink_Label" = "";
+"ShareDialog_ShareInstagram_Label" = "";
+"ShareDialog_LinkShareTitle" = "";
+"OrderStatus_New" = "";
+"OrderStatus_Rejected" = "";
+"OrderStatus_Cancelled" = "";
+"OrderStatus_Active" = "";
+"OrderStatus_InWork" = "";
+"OrderStatus_InArbitration" = "";
+"OrderStatus_ProcessCloseArbitration" = "";
+"OrderStatus_ClosedAfterArbitrationCustomerWin" = "";
+"OrderStatus_ClosedAfterArbitrationExecutorWin" = "";
+"OrderStatus_Finished" = "";
+"Ok" = "";
+"Attention" = "";
+"OrderDetailsView_TakeOrderTitle" = "";
+"OrderDetailsView_TakeOrderQuestion" = "";
+
+/*Fuzzy*/
+"Seconds_Short" = "s.";
+
+/*Fuzzy*/
+"Minutes_Short" = "m.";
+
+/*Fuzzy*/
+"Hours_Short" = "h.";
+
+/*Fuzzy*/
+"Days_Short" = "d.";
+
+/*Fuzzy*/
+"Weeks_Short" = "w.";
+
+/*Fuzzy*/
+"Count_Thousand" = "k";
+
+/*Fuzzy*/
+"Count_Millions" = "m";
+
+/*Fuzzy*/
+"Currency" = "₽";
+
+/*Fuzzy*/
+"Count_View" = "view";
+
+/*Fuzzy*/
+"Count_Views" = "views";
+
+/*Fuzzy*/
+"Count_Of_Viewing" = "of viewing";
+"Year_Short" = "y.";
+"OrderStatus_MyOrder" = "";
+"OrderDetails_View_Cancel_Title" = "";
+"ProfileUpdateView_Email_Placeholder" = "Email";
+"ProfileUpdateView_Login_Placeholder" = "Login";
+
+/*Fuzzy*/
+"ProfileUpdateView_Name_Placeholder" = "Name";
+"ProfileUpdateView_Birthday_Placeholder" = "Birth day";
+"ProfileUpdateView_Button_Save" = "Save";
+"ProfileUpdateView_GenderSelect_Title" = "Your gender";
+
+/*Fuzzy*/
+"ProfileUpdateView_Title" = "Profile editing";
+"ProfileUpdateView_ChangePassword" = "Change password";
+"TakePhoto" = "";
+"PickPhoto" = "";
+"ProfileUpdateView_Description_Placeholder" = "About Me";
+"ProfileUpdateView_PhotoChange_Title" = "Change profile photo";
+"Select" = "";
+"CreateOrderView_Choose_Time_Period" = "";
+"OrderStatus_WaitFinish" = "";
+"OrderDetailsView_LoadVideo" = "";
+"NotificationStatus_Viewed" = "Viewed";
+"NotificationStatus_NotViewed" = "Not viewed";
+"Validation_Field_Title" = "";
+"Validation_Field_Description" = "";
+"Validation_Field_Price" = "";
+"Validation_Field_OrderPeriod" = "";
+"Validation_Field_Cost" = "";
+"Validation_Field_Login" = "";
+"Validation_Field_Name" = "";
+"Validation_Field_Birthday" = "";
+"Validation_Field_Gender" = "";
+"Validation_Field_Email" = "";
+"Validation_Field_Password" = "";
+"Validation_Field_PasswordRepeat" = "";
+"Validation_Error_Empty" = "";
+"Validation_Error_GreaterThanRequired" = "";
+"Validation_Error_LowerThanRequired" = "";
+"Validation_Error_NotMatch" = "";
+"Validation_Error_CanNotMatch" = "";
+"Validation_Error_Invalid" = "";
+"Demo" = "Demo";
+"com.crashlytics.android.build_id" = "e9e6beb9c4284289ac68b9ab76a9ee56";
+"FinishPasswordRecoveryView_GoToFeed_Button" = "";
+"FinishPasswordRecoveryView_GoToLogin_Button" = "";
+"com_vk_sdk_AppId" = "7343996";
+"Count_Days" = "Days";
+"Count_Hours" = "Hours";
+"Count_Minutes" = "Minutes";
+"LinkCopied" = "";
+"ComplainSuccessful" = "";
+"Competitions_Voting" = "";
+"Competitions_New" = "";
+"Competitions_Finished" = "";
+"Competitions_Voting_Term" = "";
+"Competitions_Finished_Term" = "";
+"Competitions_See" = "";
+"Competitions_More" = "";
+"Competitions_Participate" = "";
+"Competitions_Prize_Pool" = "";
+"Competitions_New_Term" = "";
+"Competition_Load_Video" = "";
+"Competition_Rules" = "";
+"Competition_Results" = "";
+"WithdrawalView_FirstName_Placeholder" = "";
+"WithdrawalView_LastName_Placeholder" = "";
+"WithdrawalView_CardNumber_Placeholder" = "";
+"WithdrawalView_AttachFile_Button" = "";
+"WithdrawalView_Revoke_Button" = "";
+"Login_Without_Registration" = "";
+"Competition_Prize_Pool_Rating" = "";
+"Competition_Prize_Pool_Participant" = "";
+"Competition_Prize_Pool" = "";
+"Competitions_Tab" = "";
+"WithdrawalView_Empty_Card_Error" = "";
+"WithdrawalView_Cancel_Withdrawal_Error" = "";
+"WithdrawalView_Delete_Card_Text" = "";
+"Delete" = "";
+"WithdrawalView_Delete_Card_Question" = "";
+"WithdrawalView_Verify_User_Text" = "";
+"WithdrawalView_Attach_File" = "";
+"WithdrawalView_Pendng_Verify_User_Text" = "";
+"WithdrawalView_Card_Number" = "";
+"WithdrawalView_Surname" = "";
+"WithdrawalView_Name" = "";
+"WithdrawalView_Cost" = "";
+"WithdrawalView_Pending_Withdrawal_Text" = "";
+"WithdrawalView_Create_Date" = "";
+"WithdrawalView_Status_Text" = "";
+"WithdrawalView_Pending" = "";
+"WithdrawalView_Withdraw_Text" = "";
+"Competiton_Prize_Pool_Place" = "";
+"Orders_In_Dispute" = "";
+"OnBoarding_Go_To_Main" = "";
+"OnBoarding_First_Title" = "";
+"OnBoarding_Second_Title" = "";
+"OnBoarding_Third_Title" = "";
+"OnBoarding_Fourth_Title" = "";
+"OnBoarding_Fifth_Title" = "";
+"OnBoarding_First_Description" = "";
+"OnBoarding_Second_Description" = "";
+"OnBoarding_Third_Description" = "";
+"OnBoarding_Fourth_Description" = "";
+"OnBoarding_Fifth_Description" = "";
+"Complaint_Spam" = "";
+"Complaint_Naked_Content" = "";
+"Complaint_Hostile_Utterances" = "";
+"Complaint_Dangerous_Organizations" = "";
+"Complaint_Rights_Violation" = "";
+"Complaint_Cheating" = "";
+"Complaint_Complete_Message" = "";
+"Complaint_Other" = "";
+"Complaint_Wrong_Name" = "";
+"Complaint_Unacceptable_Content" = "";
+"Complaint_Unacceptable_Information_In_Profile" = "";
+"Order_Add" = "";
+"Order_Create_Message" = "";
+"Processing_Video" = "";
+"Profile_Your_Email_Not_Actual" = "";
+"Profile_Email_Confirmation_Sent" = "";
+"Profile_Resend_Confirmation" = "";
+"OrderDetailsView_Video_Uploaded" = "";
+"Cashbox_Commision_Warning" = "";
+"Registration_Confirm_Adult" = "";
+"Registration_Agree_With" = "";
+"Registration_Terms_And_Rules" = "";
+"Validation_Field_Adult_Check" = "";
+"Validation_Field_Privacy_Check" = "";
+"Registration_Checkmark_Not_Confirmed" = "";
+"Not_Confirmed" = "";
+"Competition_Prize" = "";
+"Competition_Votes" = "";
+"Create_Order_Hour" = "";
+"Create_Orders_Hours_Plural" = "";
+"Create_Orders_Hours_Singular" = "";
+"Walkthrouth_Competitions_Description" = "";
+"Walkthrouth_CreateOrder_Description" = "";
+"Walkthrouth_Orders_Description" = "";
+"Walkthrouth_Profile_Description" = "";
+"Walkthrouth_Competitions_Title" = "";
+"Walkthrouth_CreateOrder_Title" = "";
+"Walkthrouth_Orders_Title" = "";
+"Walkthrouth_Profile_Title" = "";

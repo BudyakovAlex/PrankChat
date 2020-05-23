@@ -27,22 +27,17 @@
     <PackageReference Include="CreditCardValidator" Version="2.0.0" />
     <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="6.4.2" />
   </ItemGroup>
-
   <ItemGroup>
-    <Compile Update="Presentation\Localization\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Presentation\Localization\Resources.resx">
+     <EmbeddedResource Update="Presentation\Localization\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Compile Update="Presentation\Localization\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <Autogen>True</Autogen>
+      <DesignTime>True</DesignTime>
+    </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="BusinessServices\" />
     <Folder Include="Presentation\Navigation\" />

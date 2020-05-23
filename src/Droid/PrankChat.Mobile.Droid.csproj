@@ -971,6 +971,7 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\values-en\strings.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -1315,6 +1316,7 @@
     <Folder Include="Utils\Extensions\" />
     <Folder Include="Presentation\Adapters\ViewHolders\Dialogs\" />
     <Folder Include="Presentation\Views\Walthroughs\" />
+    <Folder Include="Resources\values-en\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />

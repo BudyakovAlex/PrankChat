@@ -53,7 +53,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         {
             IsBusy = true;
 
-            var competitionRatings = _competition.GetPhase() != CompetitionPhase.New
+            var competitionRatings = _competition.GetPhase() == CompetitionPhase.Finished
                 ? await ApiService.GetCompetitionResultsAsync(_competition.Id)
                 : await ApiService.GetCompetitionRatingsAsync(_competition.Id);
 
