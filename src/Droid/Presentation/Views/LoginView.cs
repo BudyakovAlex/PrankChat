@@ -5,7 +5,6 @@ using Android.Graphics;
 using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Widget;
-using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Droid.ApplicationServices.Callback;
 using PrankChat.Mobile.Droid.ApplicationServices.Callbacks;

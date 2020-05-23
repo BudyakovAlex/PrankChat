@@ -2,8 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
     android:paddingBottom="11dp">
 
     <View
@@ -11,7 +9,9 @@
         android:layout_width="0dp"
         android:layout_height="246dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
         android:background="@color/applicationBlack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,21 +22,20 @@
         android:id="@+id/profile_image_view"
         android:layout_width="42dp"
         android:layout_height="42dp"
-        android:layout_marginStart="3dp"
+        android:layout_marginStart="19dp"
         android:layout_marginTop="7dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/more_image_button"
-        android:layout_width="4dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="3dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:rotation="90"
+        android:layout_marginRight="8dp"
         android:background="@null"
         android:src="@drawable/ic_more"
         app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
-        app:layout_constraintHorizontal_bias="1"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/profile_image_view" />
 
@@ -72,6 +71,8 @@
         android:layout_marginTop="7dp"
         android:ellipsize="end"
         android:maxLines="2"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:textColor="@color/applicationBlack"
         android:textSize="14dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -93,6 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:focusableInTouchMode="true" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -101,13 +103,15 @@
             android:layout_marginBottom="7dp"
             app:srcCompat="@drawable/ic_fullscreen" />
     </FrameLayout>
+
     <ImageButton
         android:id="@+id/like_image_button"
-        android:layout_width="20dp"
-        android:layout_height="18.35dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="11dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
         android:background="@null"
+        android:scaleType="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/like_text_view"
         app:layout_constraintTop_toBottomOf="@+id/stub_view" />
@@ -119,6 +123,7 @@
         android:layout_marginStart="8dp"
         android:textColor="@color/applicationBlack"
         android:textSize="12dp"
+        android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="@+id/like_image_button"
         app:layout_constraintLeft_toRightOf="@+id/like_image_button"
         app:layout_constraintRight_toLeftOf="@+id/share_image_button"
@@ -126,22 +131,22 @@
 
     <ImageButton
         android:id="@+id/share_image_button"
-        android:layout_width="18dp"
-        android:layout_height="18.35dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginStart="19dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="4dp"
         android:background="@null"
-        android:src="@drawable/ic_share"
+        android:src="@drawable/ic_share_up"
         app:layout_constraintLeft_toRightOf="@+id/like_text_view"
         app:layout_constraintTop_toBottomOf="@+id/stub_view" />
 
     <!--TODO: Make it button visible after video saving will become available.-->
     <ImageButton
         android:id="@+id/bookmark_button"
-        android:layout_width="14dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="3dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="13dp"
         android:background="@null"
         android:src="@drawable/ic_bookmark"
         android:visibility="invisible"
@@ -155,8 +160,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
         android:background="@color/applicationBlack"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/stub_view"
         app:layout_constraintEnd_toEndOf="@+id/stub_view"
         app:layout_constraintHorizontal_bias="0.0"

@@ -73,7 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/password_edit_text"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
         android:gravity="center">
 
         <TextView
@@ -81,6 +81,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:text="@string/LoginView_ForgotPassword_Title"
             android:textColor="@color/applicationWhite"
             android:textSize="12sp" />
@@ -90,6 +92,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:layout_toRightOf="@id/reset_password_title"
             android:autoLink="all"
             android:gravity="center"
@@ -106,7 +110,7 @@
         android:layout_height="36dp"
         android:layout_below="@+id/forgot_password_container"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="16dp"
         android:text="@string/LoginView_Continue_Button"
         app:MvxBind="Click LoginCommand, CommandParameter=UsernameAndPassword" />
 
@@ -182,7 +186,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/social_container"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:autoLink="all"
         android:gravity="center"
         android:text="@string/LoginView_CreateAccount_Button"
@@ -197,7 +203,7 @@
         android:layout_height="36dp"
         android:layout_below="@+id/create_account_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="16dp"
         android:text="@string/Login_Without_Registration"
         app:MvxBind="Click ShowDemoModeCommand" />
 
