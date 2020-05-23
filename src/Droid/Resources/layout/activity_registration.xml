@@ -20,7 +20,7 @@
         android:gravity="center_horizontal"
         android:text="@string/RegistrationView_Title"
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/email_edit_text"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textColor="@color/applicationWhite"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:MvxBind="Text Email" />
     </android.support.design.widget.TextInputLayout>
 
@@ -53,7 +53,7 @@
         android:gravity="center_horizontal"
         android:text="@string/LoginView_AltLogin_Title"
         android:textColor="@android:color/white"
-        android:textSize="12sp" />
+        android:textSize="12dp" />
 
     <LinearLayout
         android:id="@+id/social_container"
@@ -117,7 +117,7 @@
             android:gravity="center"
             android:text="@string/RegistrationView_RegisteredYet_Label"
             android:textColor="@color/applicationWhite"
-            android:textSize="16sp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/go_to_login_text_view"
@@ -128,7 +128,7 @@
             android:gravity="center"
             android:text="@string/RegistrationView_Login_Button"
             android:textColor="@color/applicationWhite"
-            android:textSize="16sp"
+            android:textSize="16dp"
             app:MvxBind="Click GoBackCommand" />
     </LinearLayout>
 

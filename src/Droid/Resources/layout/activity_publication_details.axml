@@ -33,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:textColor="@color/applicationBlack"
             android:textStyle="normal|bold"
             app:MvxBind="Text ProfileName, Mode = OneTime"/>
@@ -47,7 +47,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="8dp"
             android:singleLine="true"
-            android:textSize="12sp"
+            android:textSize="12dp"
             app:MvxBind="Text VideoInformationText, Mode = OneTime"/>
         <ImageButton
             android:id="@+id/more_button"
@@ -101,7 +101,7 @@
             app:layout_constraintVertical_bias="0.5"
             app:layout_constraintHorizontal_bias="0"
             android:layout_marginLeft="8dp"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:text="112"
             android:textColor="@color/applicationBlack"
             app:MvxBind="Text NumberOfLikesText, Mode = OneTime"/>
@@ -127,7 +127,7 @@
             app:layout_constraintVertical_bias="0.5"
             app:layout_constraintHorizontal_bias="0"
             android:layout_marginLeft="8dp"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:text="123"
             android:textColor="@color/applicationBlack"
             app:MvxBind="Text NumberOfCommentText, Mode = OneTime"/>
@@ -153,7 +153,7 @@
             app:layout_constraintVertical_bias="0.5"
             app:layout_constraintHorizontal_bias="0"
             android:layout_marginLeft="8dp"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:textColor="@color/applicationBlack"
             android:text="@string/Share"
             app:MvxBind="Click ShareCommand"/>
@@ -181,7 +181,7 @@
             android:layout_marginTop="17dp"
             android:maxLines="2"
             android:ellipsize="end" 
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:textStyle="normal|bold"
             android:textColor="@color/applicationBlack"
             app:MvxBind="Text VideoName, Mode = OneTime"/>
@@ -195,7 +195,7 @@
             android:layout_marginTop="12dp"
             android:maxLines="2"
             android:ellipsize="end" 
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:textColor="@color/applicationBlack"
             app:MvxBind="Text VideoDescription, Mode = OneTime"/>
         <View
@@ -232,7 +232,7 @@
             android:layout_toRightOf="@+id/commentator_photo"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:textColor="@color/applicationBlack"
             android:textStyle="normal|bold"
             app:MvxBind="Text ProfileName, Mode = OneTime"/>
@@ -245,7 +245,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="8dp"
             android:singleLine="true"
-            android:textSize="12sp"
+            android:textSize="12dp"
             app:MvxBind="Text CommentDateText, Mode = OneTime"/>
     </RelativeLayout>
 </LinearLayout>

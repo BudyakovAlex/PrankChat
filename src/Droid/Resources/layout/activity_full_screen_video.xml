@@ -38,7 +38,7 @@
             android:layout_marginTop="13dp"
             android:layout_marginEnd="13dp"
             android:textColor="@color/applicationWhite"
-            android:textSize="20sp"
+            android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/back_image_view"
@@ -53,7 +53,7 @@
             android:layout_marginEnd="64dp"
             android:lineSpacingExtra="3dp"
             android:textColor="@color/applicationWhite"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@+id/share_image_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -116,7 +116,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:textColor="@color/applicationWhite"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 tools:text="18,2 k" />
         </LinearLayout>
 

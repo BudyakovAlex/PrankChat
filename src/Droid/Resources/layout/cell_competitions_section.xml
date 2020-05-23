@@ -39,7 +39,7 @@
         android:textAllCaps="true"
         android:textStyle="bold"
         android:textColor="@color/applicationWhite"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

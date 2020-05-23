@@ -33,7 +33,10 @@ namespace PrankChat.Mobile.Core.Models.Mappings
                 .ReverseMap();
             CreateMap<PaymentDataModel, PaymentApiModel>().ReverseMap();
             CreateMap<CompetitionDataModel, CompetitionApiModel>().ReverseMap();
-            CreateMap<CompetitionResultDataModel, CompetitionResultApiModel>().ReverseMap();
+            CreateMap<CompetitionResultDataModel, CompetitionResultApiModel>()
+                .ForPath(dest => dest.Video.Data, opt => opt.MapFrom(src => src.Video))
+                .ForPath(dest => dest.User.Data, opt => opt.MapFrom(src => src.User))
+                .ReverseMap();
             CreateMap<NotificationDataModel, NotificationApiModel>()
                 .ForPath(dest => dest.RelatedOrder.Data, opt => opt.MapFrom(src => src.RelatedOrder))
                 .ForPath(dest => dest.RelatedUser.Data, opt => opt.MapFrom(src => src.RelatedUser))

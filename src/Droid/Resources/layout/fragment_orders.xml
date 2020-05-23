@@ -35,7 +35,7 @@
             android:layout_weight="1"
             android:gravity="end|center_vertical"
             android:textColor="@color/filter"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:MvxBind="Text ActiveFilterName"
             tools:text="Все заказы" />
         <ImageView

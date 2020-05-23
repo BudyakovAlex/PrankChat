@@ -19,5 +19,5 @@
         android:paddingTop="2dp"
         android:gravity="center_horizontal"
         android:textColor="@color/inactive"
-        android:textSize="11sp" />
+        android:textSize="11dp" />
 </LinearLayout>

@@ -28,7 +28,7 @@
         android:layout_toRightOf="@+id/profile_photo"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="13dp"
-        android:textSize="12sp"
+        android:textSize="12dp"
         android:textColor="@color/applicationBlack"
         android:textStyle="normal|bold"
         local:MvxBind="Text ProfileName, Mode = OneTime"/>
@@ -40,7 +40,7 @@
         android:layout_below="@+id/name_text_view"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
-        android:textSize="12sp"
+        android:textSize="12dp"
         android:textColor="@color/description"
         android:singleLine="true"
         local:MvxBind="Text DateText, Mode = OneTime"/>

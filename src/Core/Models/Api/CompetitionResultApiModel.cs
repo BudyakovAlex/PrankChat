@@ -8,10 +8,10 @@ namespace PrankChat.Mobile.Core.Models.Api
         public int Place { get; set; }
 
         [JsonProperty("user")]
-        public UserApiModel User { get; set; }
+        public DataApiModel<UserApiModel> User { get; set; }
 
         [JsonProperty("video")]
-        public VideoApiModel Video { get; set; }
+        public DataApiModel<VideoApiModel> Video { get; set; }
 
         [JsonProperty("prize")]
         public string Prize { get; set; }

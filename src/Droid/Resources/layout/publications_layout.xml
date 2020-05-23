@@ -38,7 +38,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="17dp"
                 android:textColor="@color/filter"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 app:MvxBind="Text ActiveFilterName"/>
             <ImageView
                 android:layout_width="10dp"

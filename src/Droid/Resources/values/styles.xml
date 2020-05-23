@@ -52,7 +52,7 @@
     </style>
 
     <style name="Theme.PrankChat.MainTabLayout" parent="Theme.PrankChat.TabLayout">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">12dp</item>
         <item name="tabPaddingTop">9dp</item>
         <item name="tabPaddingBottom">9dp</item>
     </style>
@@ -66,7 +66,7 @@
 
     <style name="Theme.PrankChat.Tab" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
     </style>
 
     <style name="Theme.PrankChat.TextFieldLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -95,13 +95,13 @@
         <item name="android:paddingRight">16dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:background">@drawable/border_grey</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:gravity">right|center_vertical</item>
     </style>
 
     <style name="Theme.PrankChat.Button" parent="@style/Widget.AppCompat.Button">
         <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:textFontWeight">500</item>
         <item name="android:paddingLeft">30dp</item>
         <item name="android:paddingRight">30dp</item>
@@ -125,14 +125,14 @@
     </style>
 
     <style name="Theme.PrankChat.TextView.ProfileView.ValueLabel" parent="Theme.PrankChat.Base">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/applicationBlack</item>
         <item name="android:gravity">center</item>
     </style>
 
     <style name="Theme.PrankChat.TextView.ProfileView.TitleLabel" parent="Theme.PrankChat.Base">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:textColor">@color/description</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_marginTop">10dp</item>

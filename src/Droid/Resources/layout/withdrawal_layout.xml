@@ -34,7 +34,7 @@
                     android:layout_toRightOf="@id/verify_user_separator"
                     android:layout_marginLeft="16dp"
                     android:textColor="@color/applicationBlack"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:text="@string/WithdrawalView_Verify_User_Text"/>
                 <Button
                     android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:textColor="@color/applicationBlack"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:text="@string/WithdrawalView_Pendng_Verify_User_Text"/>
             </LinearLayout>
             <android.support.constraint.ConstraintLayout
@@ -83,7 +83,7 @@
                     <android.support.design.widget.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         android:maxLines="1"
                         android:inputType="number"
                         android:textColor="@color/applicationBlack"
@@ -108,7 +108,7 @@
                         android:id="@+id/credit_card_text_input_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         android:maxLines="1"
                         android:inputType="number"
                         android:textColor="@color/applicationBlack"
@@ -131,7 +131,7 @@
                     <android.support.design.widget.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         android:maxLines="1"
                         android:textColor="@color/applicationBlack"
                         app:MvxBind="Text Name" />
@@ -152,7 +152,7 @@
                     <android.support.design.widget.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         android:maxLines="1"
                         android:textColor="@color/applicationBlack"
                         app:MvxBind="Text Surname" />
@@ -174,7 +174,7 @@
                         android:id="@+id/credit_cost_text_input_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         android:textAlignment="viewEnd"
                         android:maxLines="1"
                         android:inputType="number"
@@ -215,7 +215,7 @@
                     app:layout_constraintVertical_bias="0.5"
                     android:layout_marginLeft="16dp"
                     android:textColor="@color/applicationBlack"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:MvxBind="Text AvailableForWithdrawal" />
                 <ImageView
                     android:id="@+id/withdrawal_question_image"
@@ -258,7 +258,7 @@
                     app:layout_constraintVertical_bias="0.5"
                     android:layout_marginLeft="16dp"
                     android:textColor="@color/applicationBlack"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:text="@string/WithdrawalView_Pending_Withdrawal_Text"/>
                 <TextView
                     android:id="@+id/pending_withdrawal_date_title"
@@ -269,7 +269,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/pending_withdrawal_date_value"
                     android:layout_marginTop="36dp"
                     android:textColor="@color/applicationBlack"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:text="@string/WithdrawalView_Create_Date"/>
                 <TextView
                     android:id="@+id/pending_withdrawal_date_value"
@@ -281,7 +281,7 @@
                     app:layout_constraintStart_toEndOf="@+id/pending_withdrawal_date_title"
                     android:gravity="right"
                     android:textColor="@color/applicationBlack"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:MvxBind="Text CreateAtWithdrawal" />
                 <View
                     android:id="@+id/pending_withdrawal_date_line"
@@ -301,7 +301,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/pending_withdrawal_cost_value"
                     android:layout_marginTop="36dp"
                     android:textColor="@color/applicationBlack"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:text="@string/WithdrawalView_Cost"/>
                 <TextView
                     android:id="@+id/pending_withdrawal_cost_value"
@@ -313,7 +313,7 @@
                     app:layout_constraintStart_toEndOf="@+id/pending_withdrawal_cost_title"
                     android:gravity="right"
                     android:textColor="@color/applicationBlack"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:MvxBind="Text AmountValue" />
                 <View
                     android:id="@+id/pending_withdrawal_cost_line"
@@ -333,7 +333,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/pending_withdrawal_status_value"
                     android:layout_marginTop="36dp"
                     android:textColor="@color/applicationBlack"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:text="@string/WithdrawalView_Status_Text"/>
                 <TextView
                     android:id="@+id/pending_withdrawal_status_value"
@@ -345,7 +345,7 @@
                     app:layout_constraintStart_toEndOf="@+id/pending_withdrawal_status_title"
                     android:gravity="right"
                     android:textColor="@color/applicationBlack"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:MvxBind="Text AmountValue" />
                 <View
                     android:id="@+id/pending_withdrawal_status_line"
