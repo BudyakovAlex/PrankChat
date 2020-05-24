@@ -1,6 +1,7 @@
 ﻿using System;
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
@@ -22,6 +23,24 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         private TextView _resendConfirmationTextView;
 
         protected override string TitleActionBar => Core.Presentation.Localization.Resources.ProfileUpdateView_Title;
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.profile_menu, menu);
+            return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.profile_menu_button:
+                    ViewModel.ShowMenuCommand.Execute();
+                    return true;
+            }
+
+            return base.OnOptionsItemSelected(item);
+        }
 
         protected override void OnCreate(Bundle bundle)
         {

@@ -30,6 +30,9 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("status")]
         public string Status { get; set; }
 
+        [JsonProperty("can_upload_video")]
+        public bool CanUploadVideo { get; set; }
+
         [JsonProperty("price")]
         public int PrizePool { get; set; }
 

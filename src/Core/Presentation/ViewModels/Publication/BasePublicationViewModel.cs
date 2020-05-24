@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
+using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
@@ -85,7 +86,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxAsyncCommand(ShowFullScreenVideoAsync);
 
-        public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(() => DialogService.ShowShareDialogAsync(_shareLink));
+        //TODO: remove comments when all logic will be ready
+        //public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(() => DialogService.ShowShareDialogAsync(_shareLink));
+        public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(ShareAsync);
 
         public MvxAsyncCommand OpenSettingsCommand => new MvxAsyncCommand(OnOpenSettingAsync);
 
@@ -171,6 +174,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             Unsubscribe();
 
             base.ViewDestroy(viewFinishing);
+        }
+
+        private Task ShareAsync()
+        {
+            return _platformService.ShareUrlAsync(Resources.ShareDialog_LinkShareTitle, _shareLink);
         }
 
         private void Subscribe()

@@ -49,15 +49,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
                       .To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToTermTitleConverter>();
 
-            bindingSet.Bind(idLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.Number);
-
-            bindingSet.Bind(idLabel)
-                      .For(v => v.Hidden)
-                      .To(vm => vm.Phase)
-                      .WithConversion<CompetitionPhaseToHiddenConverter>();
-
             bindingSet.Bind(durationLabel)
                       .For(v => v.Text)
                       .To(vm => vm.Duration);
@@ -101,8 +92,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             bindingSet.Bind(idLabel)
                       .For(v => v.Hidden)
-                      .To(vm => vm.Phase)
-                      .WithConversion<CompetitionPhaseToHiddenConverter>();
+                      .To(vm => vm.IsLikesUnavailable);
 
             bindingSet.Bind(likeButton)
                       .For(v => v.BindTitle())
@@ -110,7 +100,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             bindingSet.Bind(likeButton)
                       .For(v => v.Hidden)
-                      .ByCombining(new MvxOrValueCombiner(), vm => vm.IsNew, vm => vm.IsLikesUnavailable);
+                      .To(vm => vm.IsLikesUnavailable);
 
             bindingSet.Bind(uploadVideoButton)
                       .For(v => v.BindTouchUpInside())

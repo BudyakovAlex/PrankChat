@@ -3,6 +3,7 @@ using System.Windows.Input;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
@@ -11,20 +12,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
     {
         private readonly INavigationService _navigationService;
 
-        private readonly CompetitionDataModel _competition;
-
         public ICommand OpenPrizePoolCommand { get; set; }
 
         public ICommand LoadVideoCommand { get; set; }
 
         public ICommand OpenRulesCommand { get; set; }
 
-        private bool _canLoadVideo;
-        public bool CanLoadVideo
-        {
-            get => _canLoadVideo;
-            set => SetProperty(ref _canLoadVideo, value);
-        }
+        public bool CanLoadVideo => Phase == CompetitionPhase.New && Competition.CanUploadVideo;
 
         public bool CanShowRules => !string.IsNullOrWhiteSpace(HtmlContent);
 
@@ -35,8 +29,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                                                  CompetitionDataModel competition) : base(isUserSessionInitialized, mvxMessenger, navigationService, competition)
         {
             _navigationService = navigationService;
-            _competition = competition;
-
+            
             LoadVideoCommand = loadVideoCommand;
             OpenPrizePoolCommand = new MvxAsyncCommand(OpenPrizePoolAsync);
             OpenRulesCommand = new MvxAsyncCommand(OpenRulesAsync);
@@ -49,7 +42,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         private Task OpenPrizePoolAsync()
         {
-            return _navigationService.ShowCompetitionPrizePoolView(_competition);
+            return _navigationService.ShowCompetitionPrizePoolView(Competition);
         }
     }
 }

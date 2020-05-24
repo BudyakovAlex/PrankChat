@@ -100,17 +100,16 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .To(vm => vm.LikesCountString);
 
             bindingSet.Bind(_numberTextView)
-                      .For(v => v.Visibility)
-                      .To(vm => vm.Phase)
-                      .WithConversion<CompetitionPhaseToVisibilityConverter>();
+                      .For(v => v.BindHidden())
+                      .To(vm => vm.IsLikesUnavailable);
 
             bindingSet.Bind(_likesImageView)
                       .For(v => v.BindHidden())
-                      .ByCombining(new MvxOrValueCombiner(), vm => vm.IsNew, vm => vm.IsLikesUnavailable);
+                      .To(vm => vm.IsLikesUnavailable);
 
             bindingSet.Bind(_likesTextView)
                       .For(v => v.BindHidden())
-                      .ByCombining(new MvxOrValueCombiner(), vm => vm.IsNew, vm => vm.IsLikesUnavailable);
+                      .To(vm => vm.IsLikesUnavailable);
 
             bindingSet.Bind(_termTimerTextView)
                       .For(v => v.Text)

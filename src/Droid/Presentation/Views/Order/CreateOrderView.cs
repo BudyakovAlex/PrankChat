@@ -33,12 +33,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             return view;
         }
 
-        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
-        {
-            menu.Clear();
-            Activity.MenuInflater.Inflate(Resource.Menu.create_order_menu, menu);
-        }
-
         protected override void Subscription()
         {
             _priceEditText.TextChanged += PriceEditTextOnTextChanged;

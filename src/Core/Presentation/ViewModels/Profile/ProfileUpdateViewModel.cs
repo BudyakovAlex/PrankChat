@@ -7,11 +7,13 @@ using MvvmCross.ViewModels;
 using Plugin.Media.Abstractions;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -26,7 +28,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private readonly IMvxMessenger _messenger;
         private readonly IMediaService _mediaService;
         private readonly IMvxWebBrowserTask _mvxWebBrowserTask;
-
+        private readonly IExternalAuthService _externalAuthService;
         private bool _isUserPhotoUpdated;
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
@@ -34,6 +36,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         public MvxAsyncCommand SaveProfileCommand => new MvxAsyncCommand(OnSaveProfileAsync);
 
         public MvxAsyncCommand ChangePasswordCommand => new MvxAsyncCommand(ChangePasswordAsync);
+
+        public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(ShowMenuAsync);
 
         public MvxAsyncCommand ChangeProfilePhotoCommand => new MvxAsyncCommand(ChangeProfilePhotoAsync);
 
@@ -44,12 +48,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                                       IMvxMessenger messenger,
                                       IMediaService mediaService,
                                       IErrorHandleService errorHandleService,
-                                      IMvxWebBrowserTask mvxWebBrowserTask)
+                                      IMvxWebBrowserTask mvxWebBrowserTask,
+                                      IExternalAuthService externalAuthService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _messenger = messenger;
             _mediaService = mediaService;
             _mvxWebBrowserTask = mvxWebBrowserTask;
+            _externalAuthService = externalAuthService;
         }
 
         public override void ViewDestroy(bool viewFinishing = true)
@@ -97,6 +103,61 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             {
                 IsBusy = false;
             }
+        }
+
+        private async Task ShowMenuAsync()
+        {
+            // TODO: These features will be implemented.
+            //var items = new string[]
+            //{
+            //Resources.ProfileView_Menu_Favourites,
+            //Resources.ProfileView_Menu_TaskSubscriptions,
+            //Resources.ProfileView_Menu_Faq,
+            //Resources.ProfileView_Menu_Support,
+            //Resources.ProfileView_Menu_Settings,
+            //Resources.ProfileView_Menu_LogOut,
+            //};
+
+            //var result = await DialogService.ShowMenuDialogAsync(items, Resources.Cancel);
+            //if (string.IsNullOrWhiteSpace(result))
+            //    return;
+
+            //if (result == Resources.ProfileView_Menu_Favourites)
+            //{
+            //}
+            //else if (result == Resources.ProfileView_Menu_TaskSubscriptions)
+            //{
+            //}
+            //else if (result == Resources.ProfileView_Menu_Faq)
+            //{
+            //}
+            //else if (result == Resources.ProfileView_Menu_Support)
+            //{
+            //}
+            //else if (result == Resources.ProfileView_Menu_Settings)
+            //{
+            //}
+            //else if (result == Resources.ProfileView_Menu_LogOut)
+            //{
+            //    await LogoutUserAsync();
+            //}
+
+            var canLogout = await DialogService.ShowConfirmAsync($"{Resources.ProfileView_Menu_LogOut}?");
+            if (canLogout)
+            {
+                await LogoutUserAsync();
+            }
+        }
+
+        private async Task LogoutUserAsync()
+        {
+            ApiService.LogoutAsync().FireAndForget();
+            SettingsService.User = null;
+            SettingsService.IsPushTokenSend = false;
+            await SettingsService.SetAccessTokenAsync(string.Empty);
+            _externalAuthService.LogoutFromFacebook();
+            _externalAuthService.LogoutFromVkontakte();
+            await NavigationService.Logout();
         }
 
         private Task ChangePasswordAsync()

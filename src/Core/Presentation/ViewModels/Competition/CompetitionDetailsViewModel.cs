@@ -84,11 +84,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 var video = pageContainer.Items.FirstOrDefault(item => item.User.Id == SettingsService.User.Id);
                 if (video is null)
                 {
-                    _header.CanLoadVideo = true;
                     return 0;
                 }
 
-                _header.CanLoadVideo = false;
                 Items.Add(ProduceVideoItemViewModel(video));
                 return 1;
             }
@@ -157,7 +155,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 var video = await ApiService.SendVideoAsync(_competition.Id, file.Path, _competition.Title, _competition.Description);
                 if (video != null)
                 {
-                    _header.CanLoadVideo = false;
+                    _header.Competition.CanUploadVideo = false;
                     Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
                     {
                         Items.Insert(1, new CompetitionVideoViewModel(ApiService,

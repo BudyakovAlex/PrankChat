@@ -19,6 +19,8 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public string Status { get; set; }
 
+        public bool CanUploadVideo { get; set; }
+
         public int PrizePool { get; set; }
 
         public int? LikesCount { get; set; }

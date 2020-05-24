@@ -18,39 +18,40 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
     {
         private readonly IMvxMessenger _mvxMessenger;
         private readonly INavigationService _navigationService;
-        private readonly CompetitionDataModel _competition;
 
         private MvxSubscriptionToken _timerTickMessageToken;
 
-        public int Id => _competition.Id;
+        public CompetitionDataModel Competition { get; }
 
-        public string Number => string.Format(Constants.Formats.NumberFormat, _competition.Id);
+        public int Id => Competition.Id;
 
-        public string Title => _competition.Title;
+        public string Number => string.Format(Constants.Formats.NumberFormat, Competition.Id);
 
-        public string Description => _competition.Description;
+        public string Title => Competition.Title;
 
-        public string HtmlContent => _competition.HtmlContent;
+        public string Description => Competition.Description;
 
-        public int PrizePool => _competition.PrizePool;
+        public string HtmlContent => Competition.HtmlContent;
 
-        public CompetitionPhase Phase => _competition.GetPhase();
+        public int PrizePool => Competition.PrizePool;
 
-        public int? LikesCount => _competition.LikesCount;
+        public CompetitionPhase Phase => Competition.GetPhase();
 
-        public bool IsLikesUnavailable => !LikesCount.HasValue;
+        public int? LikesCount => Competition.LikesCount;
 
-        public DateTime? VoteTo => _competition.VoteTo;
+        public bool IsLikesUnavailable => Competition.CanUploadVideo;
 
-        public DateTime UploadVideoTo => _competition.UploadVideoTo;
+        public DateTime? VoteTo => Competition.VoteTo;
 
-        public DateTime ActiveTo => _competition.ActiveTo;
+        public DateTime UploadVideoTo => Competition.UploadVideoTo;
 
-        public DateTime CreatedAt => _competition.CreatedAt;
+        public DateTime ActiveTo => Competition.ActiveTo;
+
+        public DateTime CreatedAt => Competition.CreatedAt;
 
         public string Duration => $"{CreatedAt.ToString(Constants.Formats.DateTimeFormat)} - {ActiveTo.ToString(Constants.Formats.DateTimeFormat)}";
 
-        public string ImageUrl => _competition.ImageUrl;
+        public string ImageUrl => Competition.ImageUrl;
 
         public bool IsFinished => Phase == CompetitionPhase.Finished;
 
@@ -82,7 +83,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         {
             _mvxMessenger = mvxMessenger;
             _navigationService = navigationService;
-            _competition = competition;
+            Competition = competition;
 
             Subscribe();
             ActionCommand = new MvxRestrictedAsyncCommand(ExecuteActionAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigationService.ShowLoginView);
@@ -109,7 +110,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         private Task ExecuteActionAsync()
         {
-            return _navigationService.ShowCompetitionDetailsView(_competition);
+            return _navigationService.ShowCompetitionDetailsView(Competition);
         }
 
         private void OnTimerTick(TimerTickMessage message)

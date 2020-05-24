@@ -28,6 +28,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
         private TextView _minutesTextView;
         private TextView _prizeTextView;
         private TextView _prizeTitleTextView;
+        private View _thirdDividerView;
         private TextView _numberTextView;
         private TextView _likesTextView;
         private TextView _termFromTextView;
@@ -66,7 +67,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             _borderFrame = view.FindViewById<FrameLayout>(Resource.Id.border_frame);
             _backgroundFrame = view.FindViewById<FrameLayout>(Resource.Id.background_frame);
             _prizeTitleTextView = view.FindViewById<TextView>(Resource.Id.prize_title_text_view);
-
+            _thirdDividerView = view.FindViewById<View>(Resource.Id.third_divider);
             _prizeTitleTextView.Text = Resources.Competitions_Prize_Pool;
 
             _borderFrame.SetRoundedCorners(DisplayUtils.DpToPx(15));
@@ -105,17 +106,20 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .To(vm => vm.LikesCountString);
 
             bindingSet.Bind(_numberTextView)
-                      .For(v => v.Visibility)
-                      .To(vm => vm.Phase)
-                      .WithConversion<CompetitionPhaseToVisibilityConverter>();
+                      .For(v => v.BindHidden())
+                      .To(vm => vm.IsLikesUnavailable);
 
             bindingSet.Bind(_likesImageView)
                       .For(v => v.BindHidden())
-                      .ByCombining(new MvxOrValueCombiner(), vm => vm.IsNew, vm => vm.IsLikesUnavailable);
+                      .To(vm => vm.IsLikesUnavailable);
 
             bindingSet.Bind(_likesTextView)
                       .For(v => v.BindHidden())
-                      .ByCombining(new MvxOrValueCombiner(), vm => vm.IsNew, vm => vm.IsLikesUnavailable);
+                      .To(vm => vm.IsLikesUnavailable);
+
+            bindingSet.Bind(_thirdDividerView)
+                      .For(v => v.BindHidden())
+                      .To(vm => vm.IsLikesUnavailable);
 
             bindingSet.Bind(_termTimerTextView)
                       .For(v => v.Text)

@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
@@ -131,6 +132,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         protected override void SetupControls()
         {
             Title = Resources.ProfileUpdateView_Title;
+
+            NavigationItem?.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton("ic_logout", ViewModel.ShowMenuCommand), true);
 
             emailTextField.SetLightStyle(Resources.ProfileUpdateView_Email_Placeholder);
 

@@ -4,7 +4,6 @@ using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
@@ -14,7 +13,6 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -27,7 +25,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
     {
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly IMvxMessenger _mvxMessenger;
-        private readonly IExternalAuthService _externalAuthService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
         private MvxSubscriptionToken _newOrderMessageToken;
@@ -82,8 +79,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public MvxObservableCollection<OrderItemViewModel> Items { get; set; } = new MvxObservableCollection<OrderItemViewModel>();
 
-        public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(OnShowMenuAsync);
-
         public MvxAsyncCommand ShowWalkthrouthCommand => new MvxAsyncCommand(ShowWalkthrouthAsync);
 
         public MvxAsyncCommand ShowRefillCommand => new MvxAsyncCommand(NavigationService.ShowRefillView);
@@ -101,13 +96,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                                 IErrorHandleService errorHandleService,
                                 ISettingsService settingsService,
                                 IMvxMessenger mvxMessenger,
-                                IExternalAuthService externalAuthService,
                                 IWalkthroughsProvider walkthroughsProvider)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _videoPlayerService = videoPlayerService;
             _mvxMessenger = mvxMessenger;
-            _externalAuthService = externalAuthService;
             _walkthroughsProvider = walkthroughsProvider;
         }
 
@@ -182,48 +175,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             }
         }
 
-        private async Task OnShowMenuAsync()
-        {
-            // TODO: These features will be implemented.
-            //var items = new string[]
-            //{
-            //Resources.ProfileView_Menu_Favourites,
-            //Resources.ProfileView_Menu_TaskSubscriptions,
-            //Resources.ProfileView_Menu_Faq,
-            //Resources.ProfileView_Menu_Support,
-            //Resources.ProfileView_Menu_Settings,
-            //Resources.ProfileView_Menu_LogOut,
-            //};
-
-            //var result = await DialogService.ShowMenuDialogAsync(items, Resources.Cancel);
-            //if (string.IsNullOrWhiteSpace(result))
-            //    return;
-
-            //if (result == Resources.ProfileView_Menu_Favourites)
-            //{
-            //}
-            //else if (result == Resources.ProfileView_Menu_TaskSubscriptions)
-            //{
-            //}
-            //else if (result == Resources.ProfileView_Menu_Faq)
-            //{
-            //}
-            //else if (result == Resources.ProfileView_Menu_Support)
-            //{
-            //}
-            //else if (result == Resources.ProfileView_Menu_Settings)
-            //{
-            //}
-            //else if (result == Resources.ProfileView_Menu_LogOut)
-            //{
-            //    await LogoutUserAsync();
-            //}
-
-            var result = await DialogService.ShowConfirmAsync($"{Resources.ProfileView_Menu_LogOut}?");
-            if (result)
-                await LogoutUserAsync();
-        }
-
         private async Task OnShowUpdateProfileAsync()
         {
             var isUpdated = await NavigationService.ShowUpdateProfileView();
@@ -231,17 +182,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             {
                 await InitializeProfileData();
             }
-        }
-
-        private async Task LogoutUserAsync()
-        {
-            ApiService.LogoutAsync().FireAndForget();
-            SettingsService.User = null;
-            SettingsService.IsPushTokenSend = false;
-            await SettingsService.SetAccessTokenAsync(string.Empty);
-            _externalAuthService.LogoutFromFacebook();
-            _externalAuthService.LogoutFromVkontakte();
-            await NavigationService.Logout();
         }
 
         protected override async Task InitializeProfileData()

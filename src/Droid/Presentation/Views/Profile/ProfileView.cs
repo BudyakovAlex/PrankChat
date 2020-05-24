@@ -47,24 +47,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             return view;
         }
 
-        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
-        {
-            menu.Clear();
-            inflater.Inflate(Resource.Menu.profile_menu, menu);
-        }
-
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            switch (item.ItemId)
-            {
-                case Resource.Id.profile_menu_button:
-                    ViewModel.ShowMenuCommand.Execute();
-                    return true;
-            }
-
-            return base.OnOptionsItemSelected(item);
-        }
-
         public void OnTabReselected(TabLayout.Tab tab)
         {
         }

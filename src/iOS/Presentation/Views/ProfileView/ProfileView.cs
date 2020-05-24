@@ -95,11 +95,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             Title = ViewModel.Name;
 
-            NavigationItem.SetRightBarButtonItems(new UIBarButtonItem[]
+            NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
-                NavigationItemHelper.CreateBarButton("ic_menu", ViewModel.ShowMenuCommand),
+                NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand),
                 NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand)
-            }, false);
+            }, true);
 
             profileDescriptionLabel.SetTitleStyle();
             priceLabel.SetSmallSubtitleStyle();

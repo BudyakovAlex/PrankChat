@@ -2,7 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,7 +16,6 @@
                 <outlet property="MyOrdersTabIndicatorView" destination="q94-lE-UHp" id="k4z-yg-01O"/>
                 <outlet property="MyOrdersTabLabel" destination="B60-Sk-oCp" id="uvp-Mc-GU9"/>
                 <outlet property="MyOrdersTabView" destination="zh4-ic-drC" id="LNk-hp-x69"/>
-                <outlet property="changeProfileImageView" destination="tGa-rU-oaR" id="tGa-rU-oaZ"/>
                 <outlet property="completedOrdersTitleLabel" destination="vVb-no-ctD" id="vVb-Ko-ctD"/>
                 <outlet property="completedOrdersValueLabel" destination="JPk-nx-5HZ" id="JPk-nx-5PZ"/>
                 <outlet property="ordersTitleLabel" destination="mOU-l0-PGf" id="mZU-lP-PFf"/>
@@ -53,13 +53,6 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="100" id="V36-dd-vX0"/>
                                                 <constraint firstAttribute="height" constant="100" id="Z7l-1U-gY4"/>
-                                            </constraints>
-                                        </imageView>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_change_profile" translatesAutoresizingMaskIntoConstraints="NO" id="tGa-rU-oaR" userLabel="Change Profile Image View" customClass="MvxCachedImageView">
-                                            <rect key="frame" x="81" y="81" width="35" height="35"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="35" id="Lk8-EM-ZDU"/>
-                                                <constraint firstAttribute="width" constant="35" id="uUb-wg-d1k"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dM1-eD-p8l" userLabel="Profile Description Label">
@@ -235,10 +228,8 @@
                                         <constraint firstItem="MbG-dJ-o4m" firstAttribute="leading" secondItem="TEx-X9-V1p" secondAttribute="trailing" constant="15" id="APy-71-1nQ"/>
                                         <constraint firstAttribute="trailing" secondItem="MbG-dJ-o4m" secondAttribute="trailing" constant="16" id="Ef6-3T-iAF"/>
                                         <constraint firstAttribute="trailing" secondItem="FIk-Gw-dzJ" secondAttribute="trailing" constant="16" id="F49-y5-1uB"/>
-                                        <constraint firstItem="tGa-rU-oaR" firstAttribute="trailing" secondItem="TEx-X9-V1p" secondAttribute="trailing" id="IDh-mp-8iH"/>
                                         <constraint firstItem="MbG-dJ-o4m" firstAttribute="top" secondItem="cpW-tW-Dot" secondAttribute="bottom" constant="10" id="J9Q-zf-pOD"/>
                                         <constraint firstItem="TEx-X9-V1p" firstAttribute="top" secondItem="EcH-8v-uiq" secondAttribute="top" constant="16" id="KKN-a3-r3T"/>
-                                        <constraint firstItem="tGa-rU-oaR" firstAttribute="bottom" secondItem="TEx-X9-V1p" secondAttribute="bottom" id="T0R-nr-34F"/>
                                         <constraint firstAttribute="trailing" secondItem="dM1-eD-p8l" secondAttribute="trailing" constant="16" id="Z2Y-3A-wSS"/>
                                         <constraint firstItem="cpW-tW-Dot" firstAttribute="leading" secondItem="TEx-X9-V1p" secondAttribute="trailing" constant="15" id="acD-QF-e2i"/>
                                         <constraint firstItem="TEx-X9-V1p" firstAttribute="leading" secondItem="EcH-8v-uiq" secondAttribute="leading" constant="16" id="bx7-ys-GiK"/>
@@ -361,7 +352,4 @@
             <point key="canvasLocation" x="33.333333333333336" y="53.571428571428569"/>
         </view>
     </objects>
-    <resources>
-        <image name="ic_change_profile" width="30" height="30"/>
-    </resources>
 </document>

@@ -4,10 +4,12 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract;
@@ -22,9 +24,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
                                         IErrorHandleService errorHandleService,
                                         IApiService apiService,
                                         IDialogService dialogService,
-                                        ISettingsService settingsService)
+                                        ISettingsService settingsService,
+                                        IPlatformService platformService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
+            _platformService = platformService;
             ShareCommand = new MvxRestrictedAsyncCommand(ShareAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
             OpenCommentsCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowCommentsView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }
@@ -34,6 +38,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         public MvxRestrictedAsyncCommand OpenCommentsCommand { get; }
 
         private string _videoUrl;
+        private readonly IPlatformService _platformService;
+
         public string VideoUrl
         {
             get => _videoUrl;
@@ -78,7 +84,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         private Task ShareAsync()
         {
-            return DialogService.ShowShareDialogAsync(_shareLink);
+            return _platformService.ShareUrlAsync(Resources.ShareDialog_LinkShareTitle, _shareLink);
+            //TODO: remove comments when logic will be ready
+            //return DialogService.ShowShareDialogAsync(_shareLink);
         }
     }
 }
