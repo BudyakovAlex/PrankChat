@@ -221,7 +221,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/number_text_view"
                 app:layout_constraintEnd_toStartOf="@+id/likes_text_view"
                 app:layout_constraintTop_toTopOf="@+id/number_text_view"
-                android:src="@drawable/ic_accent_thumbs_up" />
+                android:src="@drawable/ic_accent_thumbs_up"
+                app:srcCompat="@drawable/ic_accent_thumbs_up"/>
 
             <TextView
                 android:id="@+id/likes_text_view"

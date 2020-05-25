@@ -47,7 +47,8 @@
                 android:layout_marginTop="2dp"
                 android:layout_gravity="center_vertical"
                 android:layout_toRightOf="@id/filter_button_title"
-                android:src="@drawable/ic_filter_arrow" />
+                android:src="@drawable/ic_filter_arrow"
+                app:srcCompat="@drawable/ic_filter_arrow"/>
         </LinearLayout>
     </RelativeLayout>
     <View

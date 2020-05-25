@@ -187,7 +187,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             {
                 var croppedImagePath = await NavigationService.ShowImageCropView(file.Path);
                 if (croppedImagePath == null)
+                {
                     return;
+                }
 
                 ProfilePhotoUrl = null;
                 ProfilePhotoUrl = croppedImagePath.FilePath;

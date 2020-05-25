@@ -24,6 +24,7 @@
         android:layout_marginRight="6dp"
         android:layout_marginTop="6dp"
         android:src="@drawable/ic_share"
+        app:srcCompat="@drawable/ic_share"
         android:background="@null"
         app:MvxBind="Click ShareCommand"/>
     <android.support.constraint.Guideline
@@ -41,6 +42,7 @@
         android:layout_marginRight="13dp"
         android:layout_marginTop="42dp"
         android:src="@drawable/ic_copy"
+        app:srcCompat="@drawable/ic_copy"
         android:background="@null"
         app:MvxBind="Click CopyLinkCommand"/>
     <TextView
@@ -64,6 +66,7 @@
         android:layout_marginLeft="13dp"
         android:layout_marginTop="42dp"
         android:src="@drawable/ic_share_instagram"
+        app:srcCompat="@drawable/ic_share_instagram"
         android:background="@null"
         app:MvxBind="Click ShareToInstagramCommand"/>
     <TextView

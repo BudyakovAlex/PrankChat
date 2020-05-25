@@ -334,10 +334,10 @@
     <BundleResource Include="GoogleService-Info.plist" />
     <Compile Include="PlatformBusinessServices\Notifications\NotificationWrapper.cs" />
     <Compile Include="Presentation\Binding\FloatPlaceholderTextFieldPaddingTargetBinding.cs" />
-    <InterfaceDefinition Include="Presentation\Views\Onboarding\OnboardingViewController.xib" />
-    <Compile Include="Presentation\Views\Onboarding\OnboardingViewController.cs" />
-    <Compile Include="Presentation\Views\Onboarding\OnboardingViewController.designer.cs">
-      <DependentUpon>OnboardingViewController.cs</DependentUpon>
+    <InterfaceDefinition Include="Presentation\Views\Onboarding\OnboardingView.xib" />
+    <Compile Include="Presentation\Views\Onboarding\OnboardingView.cs" />
+    <Compile Include="Presentation\Views\Onboarding\OnboardingView.designer.cs">
+      <DependentUpon>OnboardingView.cs</DependentUpon>
     </Compile>
     <InterfaceDefinition Include="Presentation\Views\Onboarding\OnboardingItemCell.xib" />
     <Compile Include="Presentation\Views\Onboarding\OnboardingItemCell.cs" />

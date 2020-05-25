@@ -27,6 +27,7 @@
             android:layout_height="56dp"
             android:scaleType="center"
             android:src="@drawable/ic_back_arrow"
+            app:srcCompat="@drawable/ic_back_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,6 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_plus"
+                app:srcCompat="@drawable/ic_plus"
                 app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
                 app:layout_constraintEnd_toEndOf="@+id/profile_image_view" />
         </android.support.constraint.ConstraintLayout>
@@ -104,6 +106,7 @@
                 android:duplicateParentState="true"
                 android:scaleType="center"
                 android:src="@drawable/ic_like_active"
+                app:srcCompat="@drawable/ic_like_active"
                 android:tint="@color/selector_full_screen_video_like_color" />
 
             <TextView
@@ -128,6 +131,7 @@
             android:alpha="0.95"
             android:scaleType="center"
             android:src="@drawable/ic_share_up"
+            app:srcCompat="@drawable/ic_share_up"
             android:tint="@color/applicationWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

@@ -41,18 +41,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private Task OnSetResultPath(string filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
+            {
                 return Task.CompletedTask;
+            }
 
-            CloseCompletionSource.SetResult(new ImageCropPathResult(filePath));
-            return NavigationService.CloseView(this);
+            return NavigationService.CloseViewWithResult(this, new ImageCropPathResult(filePath));
         }
 
         private Task OnCancel()
         {
-            if (CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
-                CloseCompletionSource?.TrySetCanceled();
-
-            return NavigationService.CloseView(this);
+            return NavigationService.CloseViewWithResult(this, null);
         }
     }
 }

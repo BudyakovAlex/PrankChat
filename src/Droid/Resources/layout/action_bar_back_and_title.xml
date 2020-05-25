@@ -32,6 +32,7 @@
                 android:layout_marginLeft="4dp"
                 android:background="?attr/actionBarItemBackground"
                 android:src="@drawable/ic_back_arrow"
+                app:srcCompat="@drawable/ic_back_arrow"
                 app:MvxBind="Click GoBackCommand" />
 
             <TextView

@@ -15,7 +15,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
 {
     [MvxRootPresentation(WrapInNavigationController = false)]
-    public partial class OnboardingViewController : BaseView<OnboardingViewModel>
+    public partial class OnboardingView : BaseView<OnboardingViewModel>
     {
         private readonly List<PageIndicatorView> _pageIndicatorViews = new List<PageIndicatorView>();
 
@@ -40,8 +40,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
             {
                 _selectedIndex = value;
 
-                var indexPath = NSIndexPath.FromRowSection(_selectedIndex, 0);
-                collectionView.ScrollToItem(indexPath, UICollectionViewScrollPosition.CenteredHorizontally, true);
+                if (_selectedIndex != _source.PageIndex)
+                {
+                    var indexPath = NSIndexPath.FromRowSection(_selectedIndex, 0);
+                    collectionView.ScrollToItem(indexPath, UICollectionViewScrollPosition.CenteredHorizontally, true);
+                }
 
                 for (var i = 0; i < _pageIndicatorViews.Count; i++)
                 {
@@ -87,12 +90,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
         {
             base.SetupBinding();
 
-            var bindingSet = this.CreateBindingSet<OnboardingViewController, OnboardingViewModel>();
+            var bindingSet = this.CreateBindingSet<OnboardingView, OnboardingViewModel>();
 
             bindingSet.Bind(this).For(v => v.Count).To(vm => vm.ItemsCount);
             bindingSet.Bind(this).For(v => v.SelectedIndex).To(vm => vm.SelectedIndex);
             bindingSet.Bind(actionButton).For(v => v.BindTitle()).To(vm => vm.ActionTitle);
             bindingSet.Bind(actionButton).For(v => v.BindTouchUpInside()).To(vm => vm.ActionCommand);
+            bindingSet.Bind(_source).For(p => p.PageIndex).To(vm => vm.SelectedIndex).TwoWay();
             bindingSet.Bind(_source).For(v => v.ItemsSource).To(vm => vm.Items);
 
             bindingSet.Apply();

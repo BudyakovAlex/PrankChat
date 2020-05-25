@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
@@ -59,6 +60,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         Task<bool> ShowUpdateProfileView();
 
         Task<bool> CloseView(BaseViewModel viewModel);
+
+        Task<bool> CloseViewWithResult<TResult>(IMvxViewModelResult<TResult> viewModel, TResult result);
 
         Task ShowProfileUser(int idUser);
 

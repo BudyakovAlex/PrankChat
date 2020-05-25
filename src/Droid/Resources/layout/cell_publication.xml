@@ -35,6 +35,7 @@
         android:layout_marginRight="8dp"
         android:background="@null"
         android:src="@drawable/ic_more"
+        app:srcCompat="@drawable/ic_more"
         app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/profile_image_view" />
@@ -137,6 +138,7 @@
         android:layout_marginTop="4dp"
         android:background="@null"
         android:src="@drawable/ic_share_up"
+        app:srcCompat="@drawable/ic_share_up"
         app:layout_constraintLeft_toRightOf="@+id/like_text_view"
         app:layout_constraintTop_toBottomOf="@+id/stub_view" />
 
@@ -149,6 +151,7 @@
         android:layout_marginEnd="13dp"
         android:background="@null"
         android:src="@drawable/ic_bookmark"
+        app:srcCompat="@drawable/ic_bookmark"
         android:visibility="invisible"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintLeft_toRightOf="@+id/share_image_button"

@@ -9,8 +9,9 @@ using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
 {
-	[Register ("OnboardingViewController")]
-	partial class OnboardingViewController
+	[Register ("OnboardingView")]
+	partial class OnboardingView
+   
 	{
 		[Outlet]
 		UIKit.UIButton actionButton { get; set; }

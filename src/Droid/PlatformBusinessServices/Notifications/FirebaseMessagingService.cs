@@ -27,11 +27,11 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 
         public override void OnNewToken(string token)
         {
-            var settingService = Mvx.IoCProvider.Resolve<ISettingsService>();
-            settingService.PushToken = token;
-
             try
             {
+                var settingService = Mvx.IoCProvider.Resolve<ISettingsService>();
+                settingService.PushToken = token;
+
                 var pushNotificationService = Mvx.IoCProvider.Resolve<IPushNotificationService>();
                 pushNotificationService.TryUpdateTokenAsync().FireAndForget();
             }

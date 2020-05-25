@@ -31,6 +31,7 @@
                 android:layout_marginStart="4dp"
                 android:background="?attr/actionBarItemBackground"
                 android:src="@drawable/ic_back_arrow"
+                app:srcCompat="@drawable/ic_back_arrow"
                 app:MvxBind="Click GoBackCommand" />
 
             <ImageView
@@ -40,7 +41,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="25dp"
-                android:src="@drawable/ic_logo" />
+                android:src="@drawable/ic_logo"
+                app:srcCompat="@drawable/ic_logo" />
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 </android.support.design.widget.AppBarLayout>

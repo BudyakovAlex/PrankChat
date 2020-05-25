@@ -228,6 +228,7 @@
                     app:layout_constraintVertical_bias="0.5"
                     app:layout_constraintHorizontal_bias="0"
                     android:layout_marginLeft="16dp"
+                    app:srcCompat="@drawable/ic_question_black"
                     android:src="@drawable/ic_question_black" />
             </android.support.constraint.ConstraintLayout>
             <android.support.constraint.ConstraintLayout

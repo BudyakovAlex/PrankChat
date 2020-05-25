@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MvvmCross.Navigation;
+using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -257,6 +258,11 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         {
             var parameters = new WalthroughNavigationParameter(title, description);
             return _mvxNavigationService.Navigate<WalthroughViewModel, WalthroughNavigationParameter>(parameters);
+        }
+
+        public Task<bool> CloseViewWithResult<TResult>(IMvxViewModelResult<TResult> viewModel, TResult result)
+        {
+            return _mvxNavigationService.Close(viewModel, result);
         }
 
         #endregion

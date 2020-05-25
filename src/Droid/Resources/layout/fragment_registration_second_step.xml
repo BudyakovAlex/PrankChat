@@ -80,6 +80,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="14dp"
+            app:srcCompat="@drawable/ic_calendar"
             android:src="@drawable/ic_calendar" />
     </RelativeLayout>
 

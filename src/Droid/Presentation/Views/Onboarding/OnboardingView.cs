@@ -29,16 +29,16 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Onboarding
     [MvxActivityPresentation]
     [Activity(LaunchMode = LaunchMode.SingleTop,
               Theme = "@style/Theme.PrankChat.Translucent",
-              ScreenOrientation = ScreenOrientation.Portrait,
               ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class OnboardingView : BaseView<OnboardingViewModel>
     {
         private readonly List<IndicatorView> _indicatorViews = new List<IndicatorView>();
+        private readonly StateScrollListener _scrollStateListener = new StateScrollListener();
 
         private MvxRecyclerView _recyclerView;
         private LinearLayout _indicatorLinearLayout;
         private Button _actionButton;
-
+        private LinearLayoutManager _layoutManager;
         private int _count;
         public int Count
         {
@@ -58,7 +58,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Onboarding
             {
                 _selectedIndex = value;
 
-                _recyclerView.SmoothScrollToPosition(_selectedIndex);
+                if (_selectedIndex != _layoutManager.FindFirstCompletelyVisibleItemPosition())
+                {
+                    _recyclerView.SmoothScrollToPosition(_selectedIndex);
+                }
 
                 for (var i = 0; i < _indicatorViews.Count; i++)
                 {
@@ -68,8 +71,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Onboarding
             }
         }
 
-        protected override void OnCreate(Bundle bundle) =>
+        protected override void OnCreate(Bundle bundle)
+        {
+            RequestedOrientation = ScreenOrientation.Portrait;
             OnCreate(bundle, Resource.Layout.activity_onboarding);
+        }
 
         protected override void SetViewProperties()
         {
@@ -79,11 +85,35 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Onboarding
             _indicatorLinearLayout = FindViewById<LinearLayout>(Resource.Id.indicator_linear_layout);
             _actionButton = FindViewById<Button>(Resource.Id.action_button);
 
-            _recyclerView.SetLayoutManager(new LinearLayoutManager(this, RecyclerView.Horizontal, false));
-            _recyclerView.SetOnTouchListener(new ViewOnTouchListener((v, e) => true));
+            _layoutManager = new LinearLayoutManager(this, RecyclerView.Horizontal, false);
+            _recyclerView.SetLayoutManager(_layoutManager);
             _recyclerView.Adapter = new RecycleViewBindableAdapter((IMvxAndroidBindingContext)BindingContext);
             _recyclerView.ItemTemplateSelector = new TemplateSelector()
                 .AddElement<OnboardingItemViewModel, OnboardingItemViewHolder>(Resource.Layout.cell_onboarding);
+            var snapHelper = new PagerSnapHelper();
+            snapHelper.AttachToRecyclerView(_recyclerView);
+
+            _recyclerView.AddOnScrollListener(_scrollStateListener);
+        }
+
+        protected override void Subscription()
+        {
+            _scrollStateListener.FinishScroll += OnFinishScroll;
+            base.Subscription();
+        }
+
+        protected override void Unsubscription()
+        {
+            _scrollStateListener.FinishScroll -= OnFinishScroll;
+            base.Unsubscription();
+        }
+
+        private void OnFinishScroll(object sender, EventArgs e)
+        {
+            if (ViewModel != null)
+            {
+                ViewModel.SelectedIndex = _layoutManager.FindFirstCompletelyVisibleItemPosition();
+            }
         }
 
         protected override void DoBind()
