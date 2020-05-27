@@ -15,9 +15,11 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.LayoutManagers;
 using PrankChat.Mobile.Droid.Presentation.Adapters;
+using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
@@ -34,13 +36,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
         private TabLayout _publicationTypeTabLayout;
         private Typeface _unselectedTypeface;
-
         private EndlessRecyclerView _publicationRecyclerView;
-
         private StateScrollListener _stateScrollListener;
         private LinearLayoutManager _layoutManager;
-        private PublicationRecyclerViewAdapter _adapter;
-
         private PublicationItemViewHolder _previousPublicationViewHolder;
         private AutoFitTextureView _previousVideoView;
 
@@ -63,10 +61,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
+
             var view = this.BindingInflate(Resource.Layout.publications_layout, null);
 
             InitializeControls(view);
             DoBind();
+
             return view;
         }
 
@@ -89,7 +89,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         {
             var bindingSet = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
 
-            bindingSet.Bind(_adapter)
+            bindingSet.Bind(_publicationRecyclerView)
                       .For(v => v.ItemsSource)
                       .To(vm => vm.Items);
 
@@ -117,17 +117,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
                 ItemPrefetchEnabled = true
             };
 
-            _publicationRecyclerView.HasFixedSize = true;
             _publicationRecyclerView.SetLayoutManager(_layoutManager);
+            _publicationRecyclerView.HasFixedSize = true;
             _publicationRecyclerView.HasNextPage = true;
-
-            _adapter = new PublicationRecyclerViewAdapter((IMvxAndroidBindingContext)BindingContext)
-            {
-                HasStableIds = true
-            };
-
             _publicationRecyclerView.NestedScrollingEnabled = false;
-            _publicationRecyclerView.SetAdapter(_adapter);
+
+            _publicationRecyclerView.Adapter = new RecycleViewBindableAdapter((IMvxAndroidBindingContext)BindingContext);
+            _publicationRecyclerView.ItemTemplateSelector = new TemplateSelector()
+                .AddElement<PublicationItemViewModel, PublicationItemViewHolder>(Resource.Layout.cell_publication);
 
             _stateScrollListener = new StateScrollListener();
             _publicationRecyclerView.AddOnScrollListener(_stateScrollListener);

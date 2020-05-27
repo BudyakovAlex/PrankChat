@@ -4,28 +4,28 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using MvvmCross.Droid.Support.V7.RecyclerView;
-using MvvmCross.Droid.Support.V7.RecyclerView.ItemTemplates;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract;
+using Object = Java.Lang.Object;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters
 {
     public class RecycleViewBindableAdapter : MvxRecyclerAdapter
     {
         private RecyclerView.RecycledViewPool _viewPool;
-        private RecyclerView.RecycledViewPool ViewPool => _viewPool ?? (_viewPool = new RecyclerView.RecycledViewPool());
+        private RecyclerView.RecycledViewPool ViewPool =>
+            _viewPool ?? (_viewPool = new RecyclerView.RecycledViewPool());
 
         private readonly Dictionary<int, int> _maxRecycledViewsCount = new Dictionary<int, int>();
-
-        private readonly Action<Java.Lang.Object> _onViewAttachedToWindow;
-        private readonly Action<Java.Lang.Object> _onViewDetachedFromWindow;
+        private readonly Action<Object> _onViewAttachedToWindow;
+        private readonly Action<Object> _onViewDetachedFromWindow;
 
         public RecycleViewBindableAdapter(
             IMvxAndroidBindingContext bindingContext,
-            Action<Java.Lang.Object> onViewAttachedToWindow = null,
-            Action<Java.Lang.Object> onViewDetachedFromWindow = null)
+            Action<Object> onViewAttachedToWindow = null,
+            Action<Object> onViewDetachedFromWindow = null)
             : base(bindingContext)
         {
             _onViewAttachedToWindow = onViewAttachedToWindow;
@@ -39,20 +39,18 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            var itemBindingContext = new MvxAndroidBindingContext(parent.Context, BindingContext.LayoutInflaterHolder);
-
             if (!(ItemTemplateSelector is ITemplateSelector))
             {
                 throw new ArgumentException("ItemTemplateSelector must implement ITemplateSelector");
             }
 
+            var itemBindingContext = new MvxAndroidBindingContext(parent.Context, BindingContext.LayoutInflaterHolder);
             var templateSelector = (ITemplateSelector)ItemTemplateSelector;
-
             var viewHolder = Activator.CreateInstance(templateSelector.GetItemViewHolderType(viewType),
                                                       itemBindingContext.BindingInflate(viewType, parent, false),
                                                       itemBindingContext) as CardViewHolder;
+
             viewHolder.ThrowIfNull();
-            viewHolder.ClickCommand = ItemClick;
 
             if (viewHolder is INestedCardViewHolder nestedHolder)
             {
@@ -62,17 +60,16 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters
                 nestedHolder.NestedRecyclerView.SetRecycledViewPool(ViewPool);
             }
 
-            viewHolder.LongClickCommand = ItemLongClick;
             return viewHolder;
         }
 
-        public override void OnViewAttachedToWindow(Java.Lang.Object holder)
+        public override void OnViewAttachedToWindow(Object holder)
         {
             _onViewAttachedToWindow?.Invoke(holder);
             base.OnViewAttachedToWindow(holder);
         }
 
-        public override void OnViewDetachedFromWindow(Java.Lang.Object holder)
+        public override void OnViewDetachedFromWindow(Object holder)
         {
             _onViewDetachedFromWindow?.Invoke(holder);
             base.OnViewDetachedFromWindow(holder);

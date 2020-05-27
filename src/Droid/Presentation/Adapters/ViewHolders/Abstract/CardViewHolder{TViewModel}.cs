@@ -7,7 +7,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract
     public abstract class CardViewHolder<TViewModel> : CardViewHolder
         where TViewModel : MvxNotifyPropertyChanged
     {
-        public CardViewHolder(View view, IMvxAndroidBindingContext context) : base(view, context)
+        public CardViewHolder(View view, IMvxAndroidBindingContext context)
+            : base(view, context)
         {
         }
 

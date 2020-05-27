@@ -30,19 +30,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
         {
         }
 
-        private PublicationItemViewModel _viewModel;
-        public new PublicationItemViewModel ViewModel
-        {
-            get => _viewModel;
-            set
-            {
-                _viewModel = value;
-                DataContext = _viewModel;
-
-                ViewModelChanged(_viewModel);
-            }
-        }
-
         protected override void DoInit(View view)
         {
             base.DoInit(view);
@@ -68,9 +55,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
 
             var bindingSet = this.CreateBindingSet<PublicationItemViewHolder, PublicationItemViewModel>();
 
+            bindingSet.Bind(_profileImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl);
+            bindingSet.Bind(_profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName);
+            bindingSet.Bind(_profileNameTextView).For(v => v.Text).To(vm => vm.ProfileName);
+            bindingSet.Bind(_videoInfoTextView).For(v => v.Text).To(vm => vm.VideoInformationText);
+            bindingSet.Bind(_videoNameTextView).For(v => v.Text).To(vm => vm.VideoName);
+            bindingSet.Bind(StubImageView).For(v => v.ImagePath).To(vm => vm.VideoPlaceholderImageUrl);
             bindingSet.Bind(_likeImageButton).For(v => v.BindDrawableId()).To(vm => vm.IsLiked)
                       .WithConversion<LikeConverter>();
-
             bindingSet.Bind(_likeTextView).For(v => v.Text).To(vm => vm.NumberOfLikesText);
             bindingSet.Bind(_videoContainerView).For(ViewTouchTargetBinding.TargetBinding).To(vm => vm.ShowFullScreenVideoCommand);
             bindingSet.Bind(ProcessingView).For(v => v.BindVisible()).To(vm => vm.IsVideoProcessing);
@@ -79,16 +71,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
                       .WithConversion<MvxInvertedBooleanConverter>();
 
             bindingSet.Apply();
-        }
-
-        private void ViewModelChanged(PublicationItemViewModel viewModel)
-        {
-            _profileImageView.ImagePath = viewModel.ProfilePhotoUrl;
-            _profileImageView.PlaceholderText = viewModel.ProfileShortName;
-            _profileNameTextView.Text = viewModel.ProfileName;
-            _videoInfoTextView.Text = viewModel.VideoInformationText;
-            _videoNameTextView.Text = viewModel.VideoName;
-            StubImageView.ImagePath = viewModel.VideoPlaceholderImageUrl;
         }
     }
 }
