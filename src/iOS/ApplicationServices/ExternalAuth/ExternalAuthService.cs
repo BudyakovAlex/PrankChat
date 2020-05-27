@@ -23,6 +23,7 @@ namespace PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth
 
         public Task<string> LoginWithFacebookAsync()
         {
+            _facebookLoginManager.LogOut();
             var completionSource = new TaskCompletionSource<string>();
             FacebookCallback.Instance.CompletionSource = completionSource;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Builders;
 using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Configuration;
@@ -25,14 +27,20 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         private readonly IRestClient _client;
         private readonly IMvxMessenger _messenger;
         private readonly IMvxLog _mvxLog;
+        private readonly string _baseAddress;
+        private readonly Version _apiVersion;
         private readonly ISettingsService _settingsService;
 
         public HttpClient(string baseAddress, Version apiVersion, ISettingsService settingsService, IMvxLog mvxLog, IMvxMessenger messenger)
         {
+            _baseAddress = baseAddress;
+            _apiVersion = apiVersion;
             _settingsService = settingsService;
             _mvxLog = mvxLog;
             _messenger = messenger;
+
             _client = new RestClient($"{baseAddress}/{ApiId}/v{apiVersion.Major}").UseSerializer(() => new JsonNetSerializer());
+            _client.Timeout = TimeSpan.FromMinutes(15).Milliseconds; 
         }
 
         public async Task<TResult> UnauthorizedGet<TResult>(string endpoint, bool exceptionThrowingEnabled = false, params IncludeType[] includes) where TResult : class, new()
@@ -78,15 +86,42 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
-        public Task<TResult> PostVideoFile<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : LoadVideoApiModel where TResult : new()
+        public async Task<TResult> PostVideoFile<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : LoadVideoApiModel where TResult : new()
         {
-            var request = new RestRequest(endpoint, Method.POST);
-            request.AddParameter("order_id", item.OrderId);
-            request.AddParameter("title", item.Title);
-            request.AddParameter("description", item.Description);
-            request.AddFile("video", item.FilePath);
-            request.AlwaysMultipartFormData = true;
-            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
+            try
+            {
+                using (var client = new System.Net.Http.HttpClient())
+                {
+                    var accessToken = await _settingsService.GetAccessTokenAsync();
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
+
+                    var currentCulture = CultureInfo.CurrentCulture;
+                    client.DefaultRequestHeaders.Add("Accept-Language", currentCulture.TwoLetterISOLanguageName);
+
+                    var buffer = default(byte[]);
+                    using (var fileStream = File.OpenRead(item.FilePath))
+                    {
+                        buffer = new byte[fileStream.Length];
+                        await fileStream.ReadAsync(buffer, 0, (int)fileStream.Length);
+                    }
+
+                    var multipartData = FormDataBuilder.Create()
+                                                       .AttachStringContent("order_id", item.OrderId.ToString())
+                                                       .AttachStringContent("title", item.Title)
+                                                       .AttachStringContent("description", item.Description)
+                                                       .AttachFileContent("video", Path.GetFileName(item.FilePath), buffer)
+                                                       .Build();
+
+                    var url = new Uri($"{_baseAddress}/{ApiId}/v{_apiVersion.Major}/{endpoint}");
+                    var response = await client.PostAsync(url, multipartData);
+                    var responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    return JsonConvert.DeserializeObject<TResult>(responseJson);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new NetworkException(ex.Message, ex);
+            }
         }
 
         public Task<TResult> PostPhotoFile<TResult>(string endpoint, string path, string propertyName, bool exceptionThrowingEnabled = false) where TResult : new()

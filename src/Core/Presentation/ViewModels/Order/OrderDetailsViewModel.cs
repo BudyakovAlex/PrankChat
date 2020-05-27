@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
@@ -13,6 +14,7 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
@@ -25,7 +27,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly ISettingsService _settingsService;
         private readonly IMediaService _mediaService;
         private readonly IPlatformService _platformService;
-
+        private readonly IMvxMessenger _mvxMessenger;
+        
         private int _orderId;
         private OrderDataModel _order;
 
@@ -178,12 +181,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                      IErrorHandleService errorHandleService,
                                      IApiService apiService,
                                      IDialogService dialogService,
-                                     IPlatformService platformService)
+                                     IPlatformService platformService,
+                                     IMvxMessenger mvxMessenger)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _settingsService = settingsService;
             _mediaService = mediaService;
             _platformService = platformService;
+            _mvxMessenger = mvxMessenger;
         }
 
         public void Prepare(OrderDetailsNavigationParameter parameter)
@@ -245,6 +250,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 _order.ActiveTo = order.ActiveTo;
                 await RaiseAllPropertiesChanged();
             }
+
+            _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
         }
 
         private async Task OnSubscribeOrderAsync()
@@ -303,6 +310,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     await LoadOrderDetailsAsync();
                     DialogService.ShowToast(Resources.OrderDetailsView_Video_Uploaded, ToastType.Positive);
                     await RaiseAllPropertiesChanged();
+                    _order.VideoUploadedAt = _order.VideoUploadedAt ?? DateTime.Now;
+
+                    _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
                 }
             }
             finally
@@ -378,6 +388,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 await RaiseAllPropertiesChanged();
             }
 
+            _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
             IsBusy = false;
         }
 

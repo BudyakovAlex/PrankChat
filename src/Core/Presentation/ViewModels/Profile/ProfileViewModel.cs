@@ -106,7 +106,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private void Subscription()
         {
-            _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<NewOrderMessage>(OnNewOrderAdded);
+            _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged);
         }
 
         private void Unsubscription()
@@ -116,11 +116,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            _mvxMessenger.Unsubscribe<NewOrderMessage>(_newOrderMessageToken);
+            _mvxMessenger.Unsubscribe<OrderChangedMessage>(_newOrderMessageToken);
             _newOrderMessageToken.Dispose();
         }
 
-        private void OnNewOrderAdded(NewOrderMessage message)
+        private void OnOrdersChanged(OrderChangedMessage message)
         {
             ReloadItemsCommand.Execute();
         }

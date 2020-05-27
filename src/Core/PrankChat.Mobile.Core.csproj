@@ -18,7 +18,7 @@
     <PackageReference Include="MvvmCross" Version="6.4.3" />
     <PackageReference Include="MvvmCross.Plugin.Messenger" Version="6.4.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="RestSharp" Version="106.10.1" />
+    <PackageReference Include="RestSharp" Version="106.11.4" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
     <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
@@ -26,6 +26,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.5.2" />
     <PackageReference Include="CreditCardValidator" Version="2.0.0" />
     <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="6.4.2" />
+    <PackageReference Include="MimeTypesMap" Version="1.0.8" />
   </ItemGroup>
   <ItemGroup>
      <EmbeddedResource Update="Presentation\Localization\Resources.resx">
@@ -72,5 +73,6 @@
     <Folder Include="Models\Data\Shared\" />
     <Folder Include="Providers\" />
     <Folder Include="Presentation\ViewModels\Walthroughs\" />
+    <Folder Include="ApplicationServices\Network\Builders\" />
   </ItemGroup>
 </Project>

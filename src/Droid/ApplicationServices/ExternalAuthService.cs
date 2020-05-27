@@ -32,6 +32,7 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
 
         public async Task<string> LoginWithFacebookAsync()
         {
+            LoginManager.Instance.LogOut();
             var currentContext = _mvxAndroidCurrentTopActivity.Activity ?? Xamarin.Essentials.Platform.CurrentActivity;
             if (currentContext is null)
             {

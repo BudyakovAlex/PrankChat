@@ -5,7 +5,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Timer
 {
     public class TimerService : ITimerService
     {
-        private const int TimerDelayInMilliseconds = 1000;
+        private const int TimerDelayInMilliseconds = 3000;
         private readonly IMvxMessenger _messenger;
 
         public TimerService(IMvxMessenger messenger)

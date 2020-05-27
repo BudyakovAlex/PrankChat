@@ -241,7 +241,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private void Subscription()
         {
-            _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<NewOrderMessage>(OnNewOrderAdded);
+            _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged);
             _removeOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<RemoveOrderMessage>(OnRemoveOrderMessage);
         }
 
@@ -249,7 +249,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             if (_newOrderMessageToken != null)
             {
-                _mvxMessenger.Unsubscribe<NewOrderMessage>(_newOrderMessageToken);
+                _mvxMessenger.Unsubscribe<OrderChangedMessage>(_newOrderMessageToken);
                 _newOrderMessageToken.Dispose();
             }
 
@@ -262,7 +262,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             Items.OfType<IDisposable>().ForEach(x => x.Dispose());
         }
 
-        private void OnNewOrderAdded(NewOrderMessage newOrderMessage)
+        private void OnOrdersChanged(OrderChangedMessage newOrderMessage)
         {
             ReloadItemsCommand?.Execute();
         }

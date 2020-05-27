@@ -4,11 +4,11 @@ using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.Core.Presentation.Messages
 {
-    public class NewOrderMessage : MvxMessage
+    public class OrderChangedMessage : MvxMessage
     {
         public OrderDataModel NewOrder { get; }
 
-        public NewOrderMessage(object sender, OrderDataModel newOrder) : base(sender)
+        public OrderChangedMessage(object sender, OrderDataModel newOrder) : base(sender)
         {
             if (newOrder == null)
                 throw new ArgumentNullException(nameof(newOrder));

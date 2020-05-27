@@ -54,7 +54,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             }
         }
 
-        public bool IsTimeAvailable => _elapsedTime > new TimeSpan();
+        public bool IsTimeAvailable => _elapsedTime.HasValue;
 
         public string TimeText => _elapsedTime?.ToTimeWithSpaceString();
 
@@ -173,7 +173,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         {
             var result = await _navigationService.ShowOrderDetailsView(OrderId);
             if (result == null)
+            {
                 return;
+            }
 
             _orderDataModel.Status = result.Status ?? OrderStatusType.None;
             _orderDataModel.ActiveTo = result.ActiveTo;
@@ -187,9 +189,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                 return;
             }
 
+            ElapsedTime = _orderDataModel.ActiveTo is null
+              ? TimeSpan.FromHours(_orderDataModel.DurationInHours)
+              : _orderDataModel.GetActiveOrderTime();
+
             await RaisePropertyChanged(nameof(StatusText));
             await RaisePropertyChanged(nameof(OrderType));
-            await RaisePropertyChanged(nameof(ElapsedTime));
+            await RaisePropertyChanged(nameof(OrderTagType));
         }
     }
 }
