@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
@@ -16,6 +17,7 @@ using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using RestSharp;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
@@ -88,6 +90,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<TResult> PostVideoFile<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : LoadVideoApiModel where TResult : new()
         {
+            var response = default(HttpResponseMessage);
             try
             {
                 using (var client = new System.Net.Http.HttpClient())
@@ -113,14 +116,51 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                                                        .Build();
 
                     var url = new Uri($"{_baseAddress}/{ApiId}/v{_apiVersion.Major}/{endpoint}");
-                    var response = await client.PostAsync(url, multipartData);
-                    var responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    return JsonConvert.DeserializeObject<TResult>(responseJson);
+                    response = await client.PostAsync(url, multipartData);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        return JsonConvert.DeserializeObject<TResult>(responseJson);
+                    }
+
+                    var errorContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(errorContent);
+                    var problemDetailsData = MappingConfig.Mapper.Map<ProblemDetailsDataModel>(problemDetails);
+                    throw problemDetailsData;
                 }
+            }
+            catch (JsonSerializationException)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                throw new NetworkException($"Network error - {errorContent} with code {response.StatusCode} for request {response.RequestMessage.RequestUri}");
+            }
+            catch (Exception ex) when (ex.Message.Contains("Socket closed") || ex.Message.Contains("Failed to connect"))
+            {
+                //TODO: add no internet connection message
+                var error = new ProblemDetailsDataModel(Resources.Error_Unexpected_Network)
+                {
+                    MessageServerError = Resources.Error_Unexpected_Network
+                };
+
+                var problemException = new ServerErrorMessage(this, error);
+                _mvxLog.ErrorException(Resources.Error_Unexpected_Network, error);
+                _messenger.Publish(problemException);
+
+                if (exceptionThrowingEnabled)
+                {
+                    throw;
+                }
+
+                return default;
             }
             catch (Exception ex)
             {
-                throw new NetworkException(ex.Message, ex);
+                if (exceptionThrowingEnabled)
+                {
+                    throw new NetworkException(ex.Message, ex);
+                }
+
+                return default;
             }
         }
 
