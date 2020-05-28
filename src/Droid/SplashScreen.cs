@@ -2,6 +2,7 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Support.V7.App;
 using MvvmCross;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -24,6 +25,8 @@ namespace PrankChat.Mobile.Droid
 
         protected override void OnCreate(Bundle bundle)
         {
+            AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
+
             base.OnCreate(bundle);
 
             if (bundle == null &&                Intent != null)            {

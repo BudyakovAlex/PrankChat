@@ -6,6 +6,7 @@ using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.Content.Res;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
@@ -28,7 +29,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Onboarding
 {
     [MvxActivityPresentation]
     [Activity(LaunchMode = LaunchMode.SingleTop,
-              Theme = "@style/Theme.PrankChat.Translucent",
+              Theme = "@style/Theme.PrankChat.Base.Dark",
+              ScreenOrientation = ScreenOrientation.Portrait,
               ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class OnboardingView : BaseView<OnboardingViewModel>
     {
@@ -73,7 +75,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Onboarding
 
         protected override void OnCreate(Bundle bundle)
         {
-            RequestedOrientation = ScreenOrientation.Portrait;
+            var colorArgb = ResourcesCompat.GetColor(Resources, Resource.Color.deep_purple, null);
+            var color = new Color(colorArgb);
+            Window.SetStatusBarColor(color);
+
             OnCreate(bundle, Resource.Layout.activity_onboarding);
         }
 
