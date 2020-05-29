@@ -167,7 +167,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                                                                 ShareLink,
                                                                 AvatarUrl,
                                                                 NumberOfLikes,
-                                                                IsLiked);
+                                                                IsLiked,
+                                                                CanVoteVideo);
             return _navigationService.ShowFullScreenVideoView(navigationParams);
         }
     }

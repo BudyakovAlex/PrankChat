@@ -18,6 +18,8 @@
 
         public bool IsLiked { get; }
 
+        public bool IsLikeFlowAvailable { get; }
+
         public FullScreenVideoParameter(int videoId,
                                         string videoUrl,
                                         string videoName,
@@ -25,7 +27,8 @@
                                         string shareLink,
                                         string profilePhotoUrl,
                                         long? numberOfLikes,
-                                        bool isLiked)
+                                        bool isLiked,
+                                        bool isLikeFlowAvailable = true)
         {
             VideoId = videoId;
             VideoUrl = videoUrl;
@@ -35,6 +38,7 @@
             ProfilePhotoUrl = profilePhotoUrl;
             NumberOfLikes = numberOfLikes;
             IsLiked = isLiked;
+            IsLikeFlowAvailable = isLikeFlowAvailable;
         }
     }
 }

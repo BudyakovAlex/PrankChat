@@ -42,7 +42,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
         {
         }
 
-        private void OnLike()
+        protected virtual void OnLike()
         {
             IsLiked = !IsLiked;
 

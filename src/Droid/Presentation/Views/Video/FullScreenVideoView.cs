@@ -137,6 +137,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
                       .To(vm => vm.LikeCommand);
 
             bindingSet.Bind(_likeView)
+                      .For(v => v.Clickable)
+                      .To(vm => vm.IsLikeFlowAvailable);
+
+            bindingSet.Bind(_likeView)
+                      .For(v => v.Enabled)
+                      .To(vm => vm.IsLikeFlowAvailable);
+
+            bindingSet.Bind(_likeView)
                       .For(v => v.Activated)
                       .To(vm => vm.IsLiked);
 

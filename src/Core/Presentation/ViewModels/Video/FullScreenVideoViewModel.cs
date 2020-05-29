@@ -29,11 +29,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _platformService = platformService;
-            ShareCommand = new MvxRestrictedAsyncCommand(ShareAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+            ShareCommand = new MvxAsyncCommand(ShareAsync);
             OpenCommentsCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowCommentsView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }
 
-        public MvxRestrictedAsyncCommand ShareCommand { get; }
+        public MvxAsyncCommand ShareCommand { get; }
 
         public MvxRestrictedAsyncCommand OpenCommentsCommand { get; }
 
@@ -62,6 +62,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         public string ProfilePhotoUrl { get; private set; }
 
+        public bool IsLikeFlowAvailable { get; private set; }
+
         public string NumberOfLikesPresentation => NumberOfLikes.ToCountString();
 
         public void Prepare(FullScreenVideoParameter parameter)
@@ -73,8 +75,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             ProfilePhotoUrl = parameter.ProfilePhotoUrl;
             NumberOfLikes = parameter.NumberOfLikes;
             IsLiked = parameter.IsLiked;
+            IsLikeFlowAvailable = parameter.IsLikeFlowAvailable;
 
             _shareLink = parameter.ShareLink;
+        }
+
+        protected override void OnLike()
+        {
+            if (!IsLikeFlowAvailable)
+            {
+                return;
+            }
+
+            base.OnLike();
         }
 
         protected override void OnLikeChanged()
