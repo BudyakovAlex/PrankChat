@@ -28,6 +28,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         private readonly ViewOnTouchListener _tabViewOnTouchListener;
 
         private TabLayout _tabLayout;
+        private ImageView _toolbarLogo;
+        private TextView _toolbarTitle;
+
         private IMenuItem _infoMenuItem;
 
         public MainView()
@@ -45,6 +48,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             var viewPager = FindViewById<ApplicationSwipeViewPager>(Resource.Id.viewpager);
             viewPager.OffscreenPageLimit = 5;
             _tabLayout = FindViewById<TabLayout>(Resource.Id.tabs);
+
+            _toolbarLogo = FindViewById<ImageView>(Resource.Id.toolbar_logo);
+            _toolbarTitle = FindViewById<TextView>(Resource.Id.toolbar_title);
 
             CreateTabs();
             RequestedOrientation = ScreenOrientation.Locked;
@@ -108,6 +114,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             {
                 return;
             }
+
+            _toolbarLogo.Visibility = e.Tab.Position != 2 ? ViewStates.Visible : ViewStates.Invisible;
+            _toolbarTitle.Visibility = e.Tab.Position == 2 ? ViewStates.Visible : ViewStates.Invisible;
+            _toolbarTitle.Text = e.Tab.Position == 2 ? Localization.CreateOrderView_Title : string.Empty;
 
             _infoMenuItem?.SetVisible(e.Tab.Position != 0);
             var iconView = e.Tab.View.FindViewById<ImageView>(Resource.Id.tab_icon);

@@ -93,8 +93,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             InitializeTableView();
 
-            Title = ViewModel.Name;
-
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                 NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand),
@@ -123,6 +121,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             _refreshControlProfile = new MvxUIRefreshControl();
             rootScrollView.RefreshControl = _refreshControlProfile;
             ApplySelectedTabStyle(0);
+
+            var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
+            logoButton.Enabled = false;
+            NavigationItem.LeftBarButtonItem = logoButton;
         }
 
         public void SetSelectedTab(int index)
