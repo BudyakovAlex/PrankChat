@@ -225,8 +225,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var endpoint = $"newsline/videos/popular?period={dateFilterType.GetEnumMemberAttrValue()}&page={page}&items_per_page={pageSize}";
             var videoMetadataBundle = _settingsService.User == null ?
-                await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.User) :
-                await _client.Get<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.User);
+                await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer) :
+                await _client.Get<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer);
 
             return CreatePaginationResult<VideoApiModel, VideoDataModel>(videoMetadataBundle);
         }
@@ -235,8 +235,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var endpoint = $"newsline/videos/new?period={dateFilterType.GetEnumMemberAttrValue()}&page={page}&items_per_page={pageSize}";
             var videoMetadataBundle = _settingsService.User == null ?
-                await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.User):
-                await _client.Get<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.User);
+                await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer) :
+                await _client.Get<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer);
 
             var mappedModels = MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
             var paginationData = videoMetadataBundle.Meta.FirstOrDefault();
@@ -266,7 +266,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             if (dateFilterType.HasValue)
                 endpoint += $"&date_from={dateFilterType.Value.GetDateString()}";
 
-            var dataApiModel = await _client.Get<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.User);
+            var dataApiModel = await _client.Get<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer);
             var orderDataModel = MappingConfig.Mapper.Map<List<VideoDataModel>>(dataApiModel?.Data);
             var paginationData = dataApiModel.Meta.FirstOrDefault();
             var totalItemsCount = paginationData.Value?.Total ?? orderDataModel.Count;

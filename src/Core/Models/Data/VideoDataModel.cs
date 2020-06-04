@@ -33,5 +33,7 @@ namespace PrankChat.Mobile.Core.Models.Data
         public DateTimeOffset CreatedAt { get; set; }
 
         public UserDataModel User { get; set; }
+
+        public UserDataModel Customer { get; set; }
     }
 }

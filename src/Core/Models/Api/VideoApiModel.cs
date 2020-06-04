@@ -45,5 +45,8 @@ namespace PrankChat.Mobile.Core.Models.Api
         public bool IsLiked { get; set; }
 
         public DataApiModel<UserApiModel> User { get; set; }
+
+        [JsonProperty("customer")]
+        public DataApiModel<UserApiModel> Customer { get; set; }
     }
 }
