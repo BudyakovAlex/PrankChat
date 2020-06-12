@@ -1,13 +1,17 @@
-﻿using MvvmCross.Binding;
+﻿using Foundation;
+using MvvmCross.Base;
+using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
+using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using System;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
@@ -18,6 +22,26 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
         private MvxUIRefreshControl _refreshControl;
 
         private CommentsTableSource _commentTableSource;
+
+        private MvxInteraction<int> _scrollInteraction;
+        public MvxInteraction<int> ScrollInteraction
+        {
+            get => _scrollInteraction;
+            set
+            {
+                if (_scrollInteraction != null)
+                {
+                    _scrollInteraction.Requested -= OnInteractionRequested;
+                }
+
+                _scrollInteraction = value;
+
+                if (_scrollInteraction != null)
+                {
+                    _scrollInteraction.Requested += OnInteractionRequested;
+                }
+            }
+        }
 
         protected override void SetupBinding()
 		{
@@ -35,6 +59,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
             bindingSet.Bind(_refreshControl)
                       .For(v => v.IsRefreshing)
                       .To(vm => vm.IsBusy);
+
+            bindingSet.Bind(this)
+                      .For(v => v.ScrollInteraction)
+                      .To(vm => vm.ScrollInteraction);
 
             bindingSet.Bind(_refreshControl)
                       .For(v => v.RefreshCommand)
@@ -80,8 +108,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
         private void SetScrollKeyboard()
         {
             Xamarin.IQKeyboardManager.SharedManager.ShouldResignOnTouchOutside = true;
-            Xamarin.IQKeyboardManager.SharedManager.ShouldToolbarUsesTextFieldTintColor = true;
+            Xamarin.IQKeyboardManager.SharedManager.EnableAutoToolbar = false;
             Xamarin.IQKeyboardManager.SharedManager.KeyboardDistanceFromTextField = 10;
+        }
+
+        private void OnInteractionRequested(object sender, MvxValueEventArgs<int> e)
+        {
+            tableView.ScrollToRow(NSIndexPath.FromItemSection(e.Value, 0), UITableViewScrollPosition.Bottom, true);
         }
     }
 }

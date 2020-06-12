@@ -62,7 +62,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         public override void ViewDestroy(bool viewFinishing = true)
         {
             if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
+            {
                 CloseCompletionSource?.TrySetResult(new ProfileUpdateResult(false, _isUserPhotoUpdated));
+            }
 
             base.ViewDestroy(viewFinishing);
         }
@@ -96,9 +98,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 }
 
                 SettingsService.User = await ApiService.UpdateProfileAsync(dataModel);
-
-                CloseCompletionSource.SetResult(new ProfileUpdateResult(true, _isUserPhotoUpdated));
-                await NavigationService.CloseView(this);
+                await NavigationService.CloseViewWithResult(this, new ProfileUpdateResult(true, _isUserPhotoUpdated));
             }
             finally
             {

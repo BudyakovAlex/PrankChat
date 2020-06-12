@@ -3,6 +3,7 @@ using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -91,7 +92,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Video
 
-        Task<VideoDataModel> SendVideoAsync(int orderId, string path, string title, string description);
+        Task<VideoDataModel> SendVideoAsync(int orderId, string path, string title, string description, Action<double> onChangedProgressAction = null);
 
         /// <summary>
         /// Registers the video viewed fact asynchronous.

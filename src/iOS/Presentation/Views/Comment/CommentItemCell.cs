@@ -18,7 +18,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
         {
             base.SetupControls();
 
-            profileNameLabel.SetMainTitleStyle();
+            profileNameLabel.SetBoldTitleStyle();
             commentDateLabel.SetSmallSubtitleStyle();
             commentLabel.SetTitleStyle();
         }

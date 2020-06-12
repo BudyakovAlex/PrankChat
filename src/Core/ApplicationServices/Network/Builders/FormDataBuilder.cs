@@ -1,5 +1,8 @@
-﻿using System.Net.Http;
+﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Contents;
+using System;
+using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Builders
 {
@@ -36,9 +39,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Builders
             return _instance;
         }
 
-        public FormDataBuilder AttachFileContent(string name, string fileName, byte[] content)
+        public FormDataBuilder AttachFileContent(string name, string fileName, byte[] content, Action<double> onUploadChanged, CancellationToken cancellationToken = default)
         {
-            var fileContent = new ByteArrayContent(content);
+            var fileContent = new ProgressByteArrayContent(content, onUploadChanged, cancellationToken);
             fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue(DispositionTypeFormData)
             {
                 FileName = fileName,

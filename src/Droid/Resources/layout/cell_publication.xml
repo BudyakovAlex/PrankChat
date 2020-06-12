@@ -122,15 +122,15 @@
         android:id="@+id/like_text_view"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:gravity="center_vertical"
         android:textColor="@color/applicationBlack"
         android:textSize="12dp"
-        android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="@+id/like_image_button"
         app:layout_constraintLeft_toRightOf="@+id/like_image_button"
-        app:layout_constraintRight_toLeftOf="@+id/share_image_button"
         app:layout_constraintTop_toTopOf="@+id/like_image_button" />
 
+    <!--TODO: Make it button visible after video saving will become available.-->
     <ImageButton
         android:id="@+id/share_image_button"
         android:layout_width="35dp"
@@ -139,11 +139,10 @@
         android:layout_marginTop="4dp"
         android:background="@null"
         android:src="@drawable/ic_share_up"
-        app:srcCompat="@drawable/ic_share_up"
-        app:layout_constraintLeft_toRightOf="@+id/like_text_view"
-        app:layout_constraintTop_toBottomOf="@+id/stub_view" />
+        app:layout_constraintStart_toEndOf="@+id/comments_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/stub_view"
+        app:srcCompat="@drawable/ic_share_up" />
 
-    <!--TODO: Make it button visible after video saving will become available.-->
     <ImageButton
         android:id="@+id/bookmark_button"
         android:layout_width="35dp"
@@ -222,7 +221,7 @@
         android:layout_marginStart="19dp"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="@+id/share_image_button"
-        app:layout_constraintStart_toEndOf="@+id/share_image_button"
+        app:layout_constraintStart_toEndOf="@+id/like_text_view"
         app:layout_constraintTop_toTopOf="@+id/share_image_button"
         app:srcCompat="@drawable/ic_comment" />
 

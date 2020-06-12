@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -198,36 +199,39 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 }
 
                 var video = await ApiService.SendVideoAsync(_competition.Id, file.Path, _competition.Title, _competition.Description);
-                if (video != null)
+                if (video == null)
                 {
-                    _header.Competition.CanUploadVideo = false;
-                    Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
-                    {
-                        Items.Insert(1, new CompetitionVideoViewModel(ApiService,
-                                                                      _videoPlayerService,
-                                                                      NavigationService,
-                                                                      _mvxMessenger,
-                                                                      video.Poster,
-                                                                      video.Id,
-                                                                      video.StreamUri,
-                                                                      video.PreviewUri,
-                                                                      video.ShareUri,
-                                                                      video.Title,
-                                                                      video.Description,
-                                                                      SettingsService.User?.Name,
-                                                                      SettingsService.User?.Avatar,
-                                                                      video.LikesCount,
-                                                                      video.CommentsCount,
-                                                                      video.ViewsCount,
-                                                                      video.CreatedAt.UtcDateTime,
-                                                                      video.IsLiked,
-                                                                      true,
-                                                                      false,
-                                                                      GetFullScreenVideoDataModels));
-                    });
-
-                    await _header.RaisePropertyChanged(nameof(_header.CanLoadVideo));
+                    DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
+                    return;
                 }
+
+                _header.Competition.CanUploadVideo = false;
+                Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    Items.Insert(1, new CompetitionVideoViewModel(ApiService,
+                                                                  _videoPlayerService,
+                                                                  NavigationService,
+                                                                  _mvxMessenger,
+                                                                  video.Poster,
+                                                                  video.Id,
+                                                                  video.StreamUri,
+                                                                  video.PreviewUri,
+                                                                  video.ShareUri,
+                                                                  video.Title,
+                                                                  video.Description,
+                                                                  SettingsService.User?.Name,
+                                                                  SettingsService.User?.Avatar,
+                                                                  video.LikesCount,
+                                                                  video.CommentsCount,
+                                                                  video.ViewsCount,
+                                                                  video.CreatedAt.UtcDateTime,
+                                                                  video.IsLiked,
+                                                                  true,
+                                                                  false,
+                                                                  GetFullScreenVideoDataModels));
+                });
+
+                await _header.RaisePropertyChanged(nameof(_header.CanLoadVideo));
             }
             finally
             {

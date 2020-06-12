@@ -1016,4 +1016,7 @@
   <data name="No_Intentet_Connection" xml:space="preserve">
     <value>Интернет соединение отсувствует</value>
   </data>
+  <data name="Video_Failed_To_Upload" xml:space="preserve">
+    <value>Ошибка загрузки видео</value>
+  </data>
 </root>

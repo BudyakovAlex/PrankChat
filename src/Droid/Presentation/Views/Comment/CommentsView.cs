@@ -4,11 +4,13 @@ using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using MvvmCross.Base;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items;
 using PrankChat.Mobile.Droid.Controls;
@@ -35,6 +37,26 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Comment
         protected override bool HasBackButton => true;
 
         protected override string TitleActionBar => Core.Presentation.Localization.Resources.CommentView_Title;
+
+        private MvxInteraction<int> _scrollInteraction;
+        public MvxInteraction<int> ScrollInteraction
+        {
+            get => _scrollInteraction;
+            set
+            {
+                if (_scrollInteraction != null)
+                {
+                    _scrollInteraction.Requested -= OnInteractionRequested;
+                }
+
+                _scrollInteraction = value;
+
+                if (_scrollInteraction != null)
+                {
+                    _scrollInteraction.Requested += OnInteractionRequested;
+                }
+            }
+        }
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -80,6 +102,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Comment
                       .For(v => v.RefreshCommand)
                       .To(vm => vm.ReloadItemsCommand);
 
+            bindingSet.Bind(this)
+                      .For(v => v.ScrollInteraction)
+                      .To(vm => vm.ScrollInteraction);
+
             bindingSet.Bind(_recyclerView)
                       .For(v => v.LoadMoreItemsCommand)
                       .To(vm => vm.LoadMoreItemsCommand);
@@ -101,6 +127,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Comment
                       .To(vm => vm.SendCommentCommand);
 
             bindingSet.Apply();
+        }
+
+        private void OnInteractionRequested(object sender, MvxValueEventArgs<int> e)
+        {
+            _recyclerView.SmoothScrollToPosition(e.Value);
         }
     }
 }

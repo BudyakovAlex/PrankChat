@@ -3,6 +3,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Views.InputMethods;
+using Java.Util.Logging;
 
 namespace PrankChat.Mobile.Droid.Extensions
 {
@@ -10,8 +11,21 @@ namespace PrankChat.Mobile.Droid.Extensions
     {
         public static void HideKeyboard(this Activity activity)
         {
-            var imm = (InputMethodManager)activity.GetSystemService(Context.InputMethodService);
-            imm?.HideSoftInputFromWindow(activity.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+            try
+            {
+                var inputMethodManager = InputMethodManager.FromContext(activity);
+                if (inputMethodManager != null)
+                {
+                    var token = activity.CurrentFocus?.WindowToken;
+                    inputMethodManager.HideSoftInputFromWindow(token, HideSoftInputFlags.None);
+
+                    activity.Window.DecorView.ClearFocus();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
         }
     }
 }

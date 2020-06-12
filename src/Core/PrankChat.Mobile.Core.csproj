@@ -72,5 +72,6 @@
     <Folder Include="Providers\" />
     <Folder Include="Presentation\ViewModels\Walthroughs\" />
     <Folder Include="ApplicationServices\Network\Builders\" />
+    <Folder Include="ApplicationServices\Network\Contents\" />
   </ItemGroup>
 </Project>

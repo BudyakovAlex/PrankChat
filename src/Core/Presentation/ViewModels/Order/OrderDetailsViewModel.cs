@@ -346,15 +346,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     return;
 
                 var video = await ApiService.SendVideoAsync(_orderId, file.Path, _order?.Title, _order?.Description);
-                if (video != null)
+                if (video == null)
                 {
-                    await LoadOrderDetailsAsync();
-                    DialogService.ShowToast(Resources.OrderDetailsView_Video_Uploaded, ToastType.Positive);
-                    await RaiseAllPropertiesChanged();
-                    _order.VideoUploadedAt = _order.VideoUploadedAt ?? DateTime.Now;
-
-                    _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
+                    DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
+                    return;
                 }
+
+                await LoadOrderDetailsAsync();
+                DialogService.ShowToast(Resources.OrderDetailsView_Video_Uploaded, ToastType.Positive);
+                await RaiseAllPropertiesChanged();
+                _order.VideoUploadedAt = _order.VideoUploadedAt ?? DateTime.Now;
+
+                _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
             }
             finally
             {

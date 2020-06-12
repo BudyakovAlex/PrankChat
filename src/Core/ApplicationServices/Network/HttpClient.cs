@@ -98,7 +98,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return ExecuteTaskAsync<TResult>(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
-        public async Task<TResult> PostVideoFileAsync<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : LoadVideoApiModel where TResult : new()
+        public async Task<TResult> PostVideoFileAsync<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false, Action<double> onChangedProgressAction = null) where TEntity : LoadVideoApiModel where TResult : new()
         {
             var response = default(HttpResponseMessage);
             try
@@ -122,7 +122,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                                                        .AttachStringContent("order_id", item.OrderId.ToString())
                                                        .AttachStringContent("title", item.Title)
                                                        .AttachStringContent("description", item.Description)
-                                                       .AttachFileContent("video", Path.GetFileName(item.FilePath), buffer)
+                                                       .AttachFileContent("video", Path.GetFileName(item.FilePath), buffer, onChangedProgressAction)
                                                        .Build();
 
                     var url = new Uri($"{_baseAddress}/{ApiId}/v{_apiVersion.Major}/{endpoint}");

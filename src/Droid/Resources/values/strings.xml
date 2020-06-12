@@ -336,4 +336,5 @@
     <string name="Walkthrouth_Orders_Title">"Лента заказов"</string>
     <string name="Walkthrouth_Profile_Title">"Профиль"</string>
     <string name="No_Intentet_Connection">"Интернет соединение отсувствует"</string>
+    <string name="Video_Failed_To_Upload">"Ошибка загрузки видео"</string>
 </resources>

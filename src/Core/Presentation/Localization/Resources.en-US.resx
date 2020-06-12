@@ -1010,4 +1010,7 @@ If the customer did not like your video, he can send the task to the &quot;dispu
   <data name="No_Intentet_Connection" xml:space="preserve">
     <value>No internet connection</value>
   </data>
+  <data name="Video_Failed_To_Upload" xml:space="preserve">
+    <value>Failed to upload video</value>
+  </data>
 </root>

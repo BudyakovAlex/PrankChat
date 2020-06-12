@@ -1792,5 +1792,11 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("No_Intentet_Connection", resourceCulture);
             }
         }
+        
+        public static string Video_Failed_To_Upload {
+            get {
+                return ResourceManager.GetString("Video_Failed_To_Upload", resourceCulture);
+            }
+        }
     }
 }

@@ -32,9 +32,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
             Items = new MvxObservableCollection<CommentItemViewModel>();
 
             SendCommentCommand = new MvxAsyncCommand(SendCommentAsync, () => !string.IsNullOrWhiteSpace(Comment));
+            ScrollInteraction = new MvxInteraction<int>();
         }
 
         public MvxObservableCollection<CommentItemViewModel> Items { get; }
+
+        public MvxInteraction<int> ScrollInteraction { get; }
 
         private string _comment;
         public string Comment
@@ -117,8 +120,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
                 return;
             }
 
-            await ApiService.CommentVideoAsync(_videoId, Comment);
-            await ReloadItemsCommand.ExecuteAsync();
+            var comment = await ApiService.CommentVideoAsync(_videoId, Comment);
+            comment.User = SettingsService.User;
+            Items.Add(ProduceCommentItemViewModel(comment));
+            _newCommentsCounter += 1;
+            SetTotalItemsCount(_newCommentsCounter);
+
+            ScrollInteraction.Raise(Items.Count - 1);
+
             Comment = string.Empty;
         }
     }
