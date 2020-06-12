@@ -52,6 +52,8 @@
                 <outlet property="timeView" destination="8yk-T8-Mnm" id="0pp-0M-ky2"/>
                 <outlet property="tookOrderTextLabel" destination="Bjr-3Y-k3n" id="z1K-xU-PWs"/>
                 <outlet property="unsubscriptionButton" destination="1Db-Gv-QuE" id="w2i-uU-6l4"/>
+                <outlet property="uploadingProgressBar" destination="nAs-ho-9l7" id="gvY-Z1-tx8"/>
+                <outlet property="uploadingProgressView" destination="oSw-7m-vIK" id="oBG-P2-ddo"/>
                 <outlet property="videoContainerView" destination="R1n-QL-LK4" id="I8E-Wj-Cov"/>
                 <outlet property="videoDescriptionLabel" destination="vbA-AS-FNN" id="3ud-p1-U5y"/>
                 <outlet property="videoImageView" destination="Hm0-rY-ima" id="rhh-gq-NXr"/>
@@ -609,16 +611,49 @@
                         <constraint firstItem="P27-eA-GzC" firstAttribute="centerX" secondItem="q5a-93-Vf4" secondAttribute="centerX" id="R5W-cS-LPs"/>
                     </constraints>
                 </view>
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oSw-7m-vIK">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nAs-ho-9l7" customClass="CircleProgressBar">
+                            <rect key="frame" x="177" y="418" width="60" height="60"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_clear" translatesAutoresizingMaskIntoConstraints="NO" id="lD2-lL-D3y">
+                                    <rect key="frame" x="15" y="15" width="30" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="Ijh-YD-dUx"/>
+                                        <constraint firstAttribute="width" constant="30" id="Ojm-E0-MYA"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="REY-5H-tpM"/>
+                                <constraint firstItem="lD2-lL-D3y" firstAttribute="centerX" secondItem="nAs-ho-9l7" secondAttribute="centerX" id="cBH-bk-pM7"/>
+                                <constraint firstItem="lD2-lL-D3y" firstAttribute="centerY" secondItem="nAs-ho-9l7" secondAttribute="centerY" id="k1l-ur-r8q"/>
+                                <constraint firstAttribute="height" constant="60" id="uDE-NP-FPL"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="nAs-ho-9l7" firstAttribute="centerX" secondItem="oSw-7m-vIK" secondAttribute="centerX" id="Gyj-mi-qv8"/>
+                        <constraint firstItem="nAs-ho-9l7" firstAttribute="centerY" secondItem="oSw-7m-vIK" secondAttribute="centerY" id="KCL-vm-ymf"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="oSw-7m-vIK" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="4ij-Ni-9ed"/>
                 <constraint firstItem="q5a-93-Vf4" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="TV4-wT-fxS"/>
+                <constraint firstAttribute="bottom" secondItem="oSw-7m-vIK" secondAttribute="bottom" id="a5G-r8-xw9"/>
                 <constraint firstAttribute="trailing" secondItem="q5a-93-Vf4" secondAttribute="trailing" id="acK-br-1vu"/>
                 <constraint firstItem="q5a-93-Vf4" firstAttribute="top" secondItem="2" secondAttribute="top" id="c8e-qo-cxm"/>
                 <constraint firstAttribute="bottom" secondItem="q5a-93-Vf4" secondAttribute="bottom" id="jTT-xW-fVU"/>
+                <constraint firstItem="oSw-7m-vIK" firstAttribute="top" secondItem="2" secondAttribute="top" id="oV7-lM-Ic8"/>
                 <constraint firstItem="dIr-NI-Bz0" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="omf-l6-zhb"/>
                 <constraint firstAttribute="trailing" secondItem="dIr-NI-Bz0" secondAttribute="trailing" id="snq-Je-dso"/>
                 <constraint firstAttribute="bottom" secondItem="dIr-NI-Bz0" secondAttribute="bottom" id="tm6-aT-PCh"/>
+                <constraint firstAttribute="trailing" secondItem="oSw-7m-vIK" secondAttribute="trailing" id="vAZ-YS-LUz"/>
                 <constraint firstItem="dIr-NI-Bz0" firstAttribute="top" secondItem="2" secondAttribute="top" id="vIz-X5-mbs"/>
             </constraints>
             <point key="canvasLocation" x="24.637681159420293" y="51.358695652173914"/>
@@ -627,6 +662,7 @@
     <resources>
         <image name="ic_accent_thumbs_down" width="22" height="20"/>
         <image name="ic_accent_thumbs_up" width="22" height="20"/>
+        <image name="ic_clear" width="20" height="20"/>
         <image name="ic_fullscreen" width="24" height="24"/>
     </resources>
 </document>

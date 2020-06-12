@@ -22,6 +22,7 @@ using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
@@ -32,12 +33,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly IMediaService _mediaService;
         private readonly IPlatformService _platformService;
         private readonly IMvxMessenger _mvxMessenger;
-        
+
         private int _orderId;
 
         private List<FullScreenVideoDataModel> _fullScreenVideos;
         private int _currentIndex;
         private OrderDataModel _order;
+
+        private CancellationTokenSource _cancellationTokenSource;
 
         #region Profile
 
@@ -104,6 +107,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         }
 
         #endregion
+
+        private bool _isUploading;
+        public bool IsUploading
+        {
+            get => _isUploading;
+            private set => SetProperty(ref _isUploading, value);
+        }
+
+        private float _uploadingProgress;
+        public float UploadingProgress
+        {
+            get => _uploadingProgress;
+            private set => SetProperty(ref _uploadingProgress, value);
+        }
 
         private TimeSpan? TimeValue => _order?.GetActiveOrderTime();
 
@@ -179,6 +196,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public MvxAsyncCommand LoadOrderDetailsCommand => new MvxAsyncCommand(LoadOrderDetailsAsync);
 
         public MvxAsyncCommand OpenSettingsCommand => new MvxAsyncCommand(OpenSettingsAsync);
+
+        public IMvxCommand CancelUploadingCommand => new MvxCommand(() => _cancellationTokenSource?.Cancel());
 
         #endregion Commands
 
@@ -343,14 +362,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 var file = await _mediaService.PickVideoAsync();
                 if (file == null)
+                {
                     return;
+                }
 
-                var video = await ApiService.SendVideoAsync(_orderId, file.Path, _order?.Title, _order?.Description);
+                IsBusy = false;
+
+                UploadingProgress = 0;
+                IsUploading = true;
+                _cancellationTokenSource = new CancellationTokenSource();
+
+                var video = await ApiService.SendVideoAsync(_orderId, file.Path, _order?.Title, _order?.Description, (progress) => UploadingProgress = (float)progress);
                 if (video == null)
                 {
                     DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
+                    _cancellationTokenSource = null;
+                    IsUploading = false;
                     return;
                 }
+
+                _cancellationTokenSource = null;
+                IsUploading = false;
+                IsBusy = true;
 
                 await LoadOrderDetailsAsync();
                 DialogService.ShowToast(Resources.OrderDetailsView_Video_Uploaded, ToastType.Positive);

@@ -21,6 +21,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
@@ -33,19 +34,37 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         private CompetitionDataModel _competition;
         private CompetitionDetailsHeaderViewModel _header;
-
-        public MvxObservableCollection<BaseItemViewModel> Items { get; }
-
-        public IMvxAsyncCommand RefreshDataCommand { get; }
-
         private bool _isRefreshing;
         private MvxSubscriptionToken _reloadItemsSubscriptionToken;
+
+        private CancellationTokenSource _cancellationTokenSource;
+
+        private bool _isUploading;
+        public bool IsUploading
+        {
+            get => _isUploading;
+            private set => SetProperty(ref _isUploading, value);
+        }
+
+        private float _uploadingProgress;
+        public float UploadingProgress
+        {
+            get => _uploadingProgress;
+            private set => SetProperty(ref _uploadingProgress, value);
+        }
 
         public bool IsRefreshing
         {
             get => _isRefreshing;
             set => SetProperty(ref _isRefreshing, value);
         }
+
+
+        public MvxObservableCollection<BaseItemViewModel> Items { get; }
+
+        public IMvxAsyncCommand RefreshDataCommand { get; }
+
+        public IMvxCommand CancelUploadingCommand { get; }
 
         public CompetitionDetailsViewModel(IMvxMessenger mvxMessenger,
                                            INavigationService navigationService,
@@ -63,6 +82,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             Items = new MvxObservableCollection<BaseItemViewModel>();
 
             RefreshDataCommand = new MvxAsyncCommand(RefreshDataAsync);
+            CancelUploadingCommand = new MvxCommand(() => _cancellationTokenSource?.Cancel());
         }
 
         public void Prepare(CompetitionDataModel parameter)
@@ -198,12 +218,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                     return;
                 }
 
-                var video = await ApiService.SendVideoAsync(_competition.Id, file.Path, _competition.Title, _competition.Description);
+                UploadingProgress = 0;
+                IsUploading = true;
+                _cancellationTokenSource = new CancellationTokenSource();
+
+                var video = await ApiService.SendVideoAsync(_competition.Id, file.Path, _competition.Title, _competition.Description, (progress) => UploadingProgress = (float)progress);
                 if (video == null)
                 {
                     DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
+                    _cancellationTokenSource = null;
+                    IsUploading = false;
                     return;
                 }
+
+                _cancellationTokenSource = null;
+                IsUploading = false;
+                IsBusy = true;
 
                 _header.Competition.CanUploadVideo = false;
                 Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>

@@ -142,6 +142,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIButton unsubscriptionButton { get; set; }
 
 		[Outlet]
+		PrankChat.Mobile.iOS.Controls.CircleProgressBar uploadingProgressBar { get; set; }
+
+		[Outlet]
+		UIKit.UIView uploadingProgressView { get; set; }
+
+		[Outlet]
 		UIKit.UIView videoContainerView { get; set; }
 
 		[Outlet]
@@ -164,6 +170,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (acceptButton != null) {
 				acceptButton.Dispose ();
 				acceptButton = null;
+			}
+
+			if (uploadingProgressBar != null) {
+				uploadingProgressBar.Dispose ();
+				uploadingProgressBar = null;
 			}
 
 			if (arqueButton != null) {
@@ -376,6 +387,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				unsubscriptionButton = null;
 			}
 
+			if (uploadingProgressView != null) {
+				uploadingProgressView.Dispose ();
+				uploadingProgressView = null;
+			}
+
+			if (videoContainerView != null) {
+				videoContainerView.Dispose ();
+				videoContainerView = null;
+			}
+
 			if (videoDescriptionLabel != null) {
 				videoDescriptionLabel.Dispose ();
 				videoDescriptionLabel = null;
@@ -399,11 +420,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (yesButton != null) {
 				yesButton.Dispose ();
 				yesButton = null;
-			}
-
-			if (videoContainerView != null) {
-				videoContainerView.Dispose ();
-				videoContainerView = null;
 			}
 		}
 	}

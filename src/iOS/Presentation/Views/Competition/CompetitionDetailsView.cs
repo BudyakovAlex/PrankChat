@@ -5,6 +5,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 {
@@ -29,6 +30,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             _refreshControl = new MvxUIRefreshControl();
             tableView.RefreshControl = _refreshControl;
+
+            uploadingProgressBar.ProgressColor = UIColor.White;
+            uploadingProgressBar.RingThickness = 5;
+            uploadingProgressBar.BaseColor = UIColor.DarkGray;
+            uploadingProgressBar.Progress = 0f;
         }
 
         protected override void SetupBinding()
@@ -56,6 +62,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             bindingSet.Bind(_refreshControl)
                       .For(v => v.RefreshCommand)
                       .To(vm => vm.RefreshDataCommand);
+
+            bindingSet.Bind(uploadingBackgroundView)
+                      .For(v => v.BindVisible())
+                      .To(vm => vm.IsUploading);
+
+            bindingSet.Bind(uploadingProgressBar)
+                      .For(v => v.Progress)
+                      .To(vm => vm.UploadingProgress);
+
+            bindingSet.Bind(uploadingProgressBar)
+                      .For(v => v.BindTap())
+                      .To(vm => vm.CancelUploadingCommand);
 
             bindingSet.Apply();
         }

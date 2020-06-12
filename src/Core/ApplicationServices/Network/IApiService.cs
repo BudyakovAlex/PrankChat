@@ -92,7 +92,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Video
 
-        Task<VideoDataModel> SendVideoAsync(int orderId, string path, string title, string description, Action<double> onChangedProgressAction = null);
+        Task<VideoDataModel> SendVideoAsync(int orderId, string path, string title, string description, Action<double> onChangedProgressAction = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Registers the video viewed fact asynchronous.

@@ -291,6 +291,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             set.Bind(_rightBarButtonItem)
                 .To(vm => vm.OpenSettingsCommand);
 
+            set.Bind(uploadingProgressView)
+               .For(v => v.BindVisible())
+               .To(vm => vm.IsUploading);
+
+            set.Bind(uploadingProgressBar)
+               .For(v => v.Progress)
+               .To(vm => vm.UploadingProgress);
+
+            set.Bind(uploadingProgressBar)
+               .For(v => v.BindTap())
+               .To(vm => vm.CancelUploadingCommand);
+
             set.Apply();
         }
 
@@ -357,6 +369,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             processingLabel.Text = Resources.Processing_Video;
             processingRootBackgroundView.Layer.InsertSublayer(_gradientLayer, 0);
             processingBackgroundView.Layer.CornerRadius = 8;
+
+            uploadingProgressBar.ProgressColor = UIColor.White;
+            uploadingProgressBar.RingThickness = 5;
+            uploadingProgressBar.BaseColor = UIColor.DarkGray;
+            uploadingProgressBar.Progress = 0f;
         }
 
         private void InitializeRightBarButtonItem()

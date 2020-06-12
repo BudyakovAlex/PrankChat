@@ -357,6 +357,7 @@
     <BundleResource Include="Resources\Base.lproj\InfoPlist.strings" />
     <Compile Include="PlatformBusinessServices\Notifications\PlatformPushNotificationsService.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\CommentsTableSource.cs" />
+    <Compile Include="Controls\CircleProgressBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

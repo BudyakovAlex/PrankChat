@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -7,36 +9,76 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Contents
 {
-    public class ProgressByteArrayContent : ByteArrayContent
+    public class ProgressByteArrayContent : HttpContent
     {
-        private const int ChunkSize = 4096;
-
-        private readonly byte[] _bytes;
-        private readonly Action<double> _onUploadChanged;
+        private const int DefaultBufferSize = 4096;
+        private readonly Action<double> _onProgressChanged;
         private readonly CancellationToken _cancellationToken;
+        private byte[] _content;
 
-        public ProgressByteArrayContent(byte[] content, Action<double> onUploadChanged, CancellationToken cancellationToken = default) : base(content)
+        private int _bufferSize;
+
+        public ProgressByteArrayContent(byte[] content, Action<double> onProgressChanged, CancellationToken cancellationToken = default) : this(content, DefaultBufferSize, onProgressChanged, cancellationToken)
         {
-            _onUploadChanged = onUploadChanged;
-            _cancellationToken = cancellationToken;
-            _bytes = content;
         }
 
-        public ProgressByteArrayContent(byte[] content, int offset, int count, Action<double> onUploadChanged, CancellationToken cancellationToken = default) : base(content, offset, count)
+        public ProgressByteArrayContent(byte[] content, int bufferSize, Action<double> onProgressChanged, CancellationToken cancellationToken = default)
         {
-            _onUploadChanged = onUploadChanged;
-            _cancellationToken = cancellationToken;
-        }
-
-        protected override async Task SerializeToStreamAsync(Stream stream, TransportContext context)
-        {
-            for (int i = 0; i < _bytes.Length; i += ChunkSize)
+            if (bufferSize <= 0)
             {
-                await stream.WriteAsync(_bytes, i, Math.Min(ChunkSize, _bytes.Length - i), _cancellationToken);
-                _onUploadChanged?.Invoke(100.0 * i / _bytes.Length);
+                throw new ArgumentOutOfRangeException(nameof(bufferSize));
             }
 
-            stream.Flush();
+            _content = content ?? throw new ArgumentNullException(nameof(content));
+            _content = content;
+            _bufferSize = bufferSize;
+            _onProgressChanged = onProgressChanged;
+            _cancellationToken = cancellationToken;
+        }
+
+        protected override Task SerializeToStreamAsync(Stream stream, TransportContext context)
+        {
+            Contract.Assert(stream != null);
+
+            return Task.Run(() =>
+            {
+                var size = _content.LongLength;
+
+                var uploaded = 0;
+                while (true)
+                {
+                    if (_cancellationToken.IsCancellationRequested)
+                    {
+                        break;
+                    }
+
+                    var buffer = _content.Skip(uploaded).Take(_bufferSize).ToArray();
+                    if (buffer.Length <= 0)
+                    {
+                        break;
+                    }
+
+                    uploaded += buffer.Length;
+                    _onProgressChanged?.Invoke(uploaded / (double)size * 100);
+                    stream.Write(buffer, 0, buffer.Length);
+                }
+            });
+        }
+
+        protected override bool TryComputeLength(out long length)
+        {
+            length = _content.LongLength;
+            return true;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _content = null;
+            }
+
+            base.Dispose(disposing);
         }
     }
 }

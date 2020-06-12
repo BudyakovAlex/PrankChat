@@ -196,6 +196,7 @@
     <Compile Include="Presentation\Views\Walthroughs\WalthroughView.cs" />
     <Compile Include="PlatformBusinessServices\Notifications\PlatformPushNotificationsService.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Comments\CommentViewHolder.cs" />
+    <Compile Include="Controls\CircleProgressBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -979,6 +980,10 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_comments.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\uploading_progress_overlay_layout.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

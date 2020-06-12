@@ -26,7 +26,6 @@
                 android:background="@color/applicationWhite"
                 android:layout_height="match_parent" />
         </MvxSwipeRefreshLayout>
-
         <FrameLayout
             android:id="@+id/loading_overlay"
             android:layout_width="match_parent"
@@ -42,5 +41,6 @@
                 app:lottie_fileName="ripple_animation.json"
                 app:lottie_loop="true" />
         </FrameLayout>
+        <include layout="@layout/uploading_progress_overlay_layout"/>
     </FrameLayout>
 </LinearLayout>

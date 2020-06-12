@@ -364,7 +364,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Video
 
-        public async Task<VideoDataModel> SendVideoAsync(int orderId, string path, string title, string description, Action<double> onChangedProgressAction = null)
+        public async Task<VideoDataModel> SendVideoAsync(int orderId, string path, string title, string description, Action<double> onChangedProgressAction = null, CancellationToken cancellationToken = default)
         {
             var loadVideoApiModel = new LoadVideoApiModel()
             {
@@ -373,7 +373,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 Title = title,
                 Description = description,
             };
-            var videoMetadataApiModel = await _client.PostVideoFileAsync<LoadVideoApiModel, DataApiModel<VideoApiModel>>("videos", loadVideoApiModel, onChangedProgressAction: onChangedProgressAction);
+            var videoMetadataApiModel = await _client.PostVideoFileAsync<LoadVideoApiModel, DataApiModel<VideoApiModel>>("videos", loadVideoApiModel, onChangedProgressAction: onChangedProgressAction, cancellationToken: cancellationToken);
             return MappingConfig.Mapper.Map<VideoDataModel>(videoMetadataApiModel?.Data);
         }
 

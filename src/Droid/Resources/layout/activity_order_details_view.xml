@@ -482,5 +482,6 @@
             app:lottie_fileName="ripple_animation.json"
             app:lottie_loop="true" />
     </FrameLayout>
+    <include layout="@layout/uploading_progress_overlay_layout"/>
 </RelativeLayout>
 

@@ -15,7 +15,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
         Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null);
 
         void ShowToast(string text, ToastType toastType);
-        
+
         Task ShowShareDialogAsync(string url);
 
         Task<bool> ShowConfirmAsync(string message, string title = "", string ok = "", string cancel = "");

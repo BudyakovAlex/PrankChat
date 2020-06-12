@@ -98,7 +98,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return ExecuteTaskAsync<TResult>(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
-        public async Task<TResult> PostVideoFileAsync<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false, Action<double> onChangedProgressAction = null) where TEntity : LoadVideoApiModel where TResult : new()
+        public async Task<TResult> PostVideoFileAsync<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false, Action<double> onChangedProgressAction = null, CancellationToken cancellationToken = default) where TEntity : LoadVideoApiModel where TResult : new()
         {
             var response = default(HttpResponseMessage);
             try
@@ -122,11 +122,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                                                        .AttachStringContent("order_id", item.OrderId.ToString())
                                                        .AttachStringContent("title", item.Title)
                                                        .AttachStringContent("description", item.Description)
-                                                       .AttachFileContent("video", Path.GetFileName(item.FilePath), buffer, onChangedProgressAction)
+                                                       .AttachFileContent("video", Path.GetFileName(item.FilePath), buffer, onChangedProgressAction, cancellationToken)
                                                        .Build();
 
                     var url = new Uri($"{_baseAddress}/{ApiId}/v{_apiVersion.Major}/{endpoint}");
-                    response = await client.PostAsync(url, multipartData);
+                    response = await client.PostAsync(url, multipartData, cancellationToken);
                     if (response.IsSuccessStatusCode)
                     {
                         var responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);

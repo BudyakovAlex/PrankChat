@@ -1,10 +1,12 @@
 ﻿using Android.App;
 using Android.Content.PM;
+using Android.Graphics;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Droid.Support.V4;
+using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -37,6 +39,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
         private CompetitionVideoViewHolder _previousVideoViewHolder;
         private TextureView _previousVideoView;
         private StateScrollListener _stateScrollListener;
+        private View _uploadingContainerView;
+        private CircleProgressBar _uploadingProgressBar;
 
         protected override bool HasBackButton => true;
 
@@ -64,6 +68,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
 
             _stateScrollListener = new StateScrollListener();
             _recyclerView.AddOnScrollListener(_stateScrollListener);
+
+            _uploadingContainerView = FindViewById<View>(Resource.Id.uploading_progress_container);
+            _uploadingProgressBar = FindViewById<CircleProgressBar>(Resource.Id.uploading_progress_bar);
+
+            _uploadingProgressBar.ProgressColor = Color.White;
+            _uploadingProgressBar.RingThickness = 5;
+            _uploadingProgressBar.BaseColor = Color.Gray;
+            _uploadingProgressBar.Progress = 0f;
         }
 
         protected override void DoBind()
@@ -92,6 +104,18 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
                       .For(v => v.Visibility)
                       .To(vm => vm.IsBusy)
                       .WithConversion<BoolToGoneConverter>();
+
+            bindingSet.Bind(_uploadingContainerView)
+                      .For(v => v.BindVisible())
+                      .To(vm => vm.IsUploading);
+
+            bindingSet.Bind(_uploadingProgressBar)
+                      .For(v => v.Progress)
+                      .To(vm => vm.UploadingProgress);
+
+            bindingSet.Bind(_uploadingProgressBar)
+                      .For(v => v.BindClick())
+                      .To(vm => vm.CancelUploadingCommand);
 
             bindingSet.Apply();
         }
