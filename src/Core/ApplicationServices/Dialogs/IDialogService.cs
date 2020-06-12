@@ -8,6 +8,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 {
     public interface IDialogService
     {
+        bool IsToastShown { get; }
+
         Task<string> ShowMenuDialogAsync(string[] itemStrings, string cancelItemString = "", CancellationToken? cancellationToken = null);
 
         Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null);

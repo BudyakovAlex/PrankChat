@@ -1,14 +1,15 @@
-﻿using System;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
@@ -19,6 +20,9 @@ using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
@@ -30,6 +34,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly IMvxMessenger _mvxMessenger;
         
         private int _orderId;
+
+        private List<FullScreenVideoDataModel> _fullScreenVideos;
+        private int _currentIndex;
         private OrderDataModel _order;
 
         #region Profile
@@ -194,6 +201,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public void Prepare(OrderDetailsNavigationParameter parameter)
         {
             _orderId = parameter.OrderId;
+            _fullScreenVideos = parameter.FullScreenVideos;
+            _currentIndex = parameter.CurrentIndex;
         }
 
         public override Task Initialize()
@@ -236,22 +245,52 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private async Task OnTakeOrderAsync()
         {
             var result = await DialogService.ShowConfirmAsync(Resources.OrderDetailsView_TakeOrderQuestion,
-                                                               Resources.Attention,
-                                                               Resources.OrderDetailsView_TakeOrderTitle,
-                                                               Resources.Cancel);
+                                                              Resources.Attention,
+                                                              Resources.OrderDetailsView_TakeOrderTitle,
+                                                              Resources.Cancel);
             if (!result)
-                return;
-
-            var order = await ApiService.TakeOrderAsync(_orderId);
-            if (order != null)
             {
-                _order.Status = order.Status;
-                _order.Executor = _settingsService.User;
-                _order.ActiveTo = order.ActiveTo;
-                await RaiseAllPropertiesChanged();
+                return;
             }
 
-            _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
+            try
+            {
+                ErrorHandleService.SuspendServerErrorsHandling();
+                var order = await ApiService.TakeOrderAsync(_orderId);
+                if (order != null)
+                {
+                    _order.Status = order.Status;
+                    _order.Executor = _settingsService.User;
+                    _order.ActiveTo = order.ActiveTo;
+                    await RaiseAllPropertiesChanged();
+                }
+
+                _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
+            }
+            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsDataModel problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
+            {
+                await HandleLowBalanceExceptionAsync(ex);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandleService.ResumeServerErrorsHandling();
+                _mvxMessenger.Publish(new ServerErrorMessage(this, ex));
+            }
+            finally
+            {
+                ErrorHandleService.ResumeServerErrorsHandling();
+            }
+        }
+
+        private async Task HandleLowBalanceExceptionAsync(Exception exception)
+        {
+            var canRefil = await DialogService.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.ProfileView_Refill, Resources.Cancel);
+            if (!canRefil)
+            {
+                return;
+            }
+
+            await NavigationService.ShowRefillView();
         }
 
         private async Task OnSubscribeOrderAsync()
@@ -262,6 +301,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 var order = await ApiService.SubscribeOrderAsync(_orderId);
                 await RaiseAllPropertiesChanged();
+                _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
             }
             catch (Exception ex)
             {
@@ -282,6 +322,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 var order = await ApiService.UnsubscribeOrderAsync(_orderId);
                 await RaiseAllPropertiesChanged();
+                _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
             }
             catch (Exception ex)
             {
@@ -333,6 +374,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     _order.Status = order.Status;
                     await RaiseAllPropertiesChanged();
                 }
+
+                _mvxMessenger.Publish(new OrderChangedMessage(this, order));
             }
             catch (Exception ex)
             {
@@ -357,6 +400,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     _order.Status = order.Status;
                     await RaiseAllPropertiesChanged();
                 }
+
+                _mvxMessenger.Publish(new OrderChangedMessage(this, order));
             }
             catch (Exception ex)
             {
@@ -415,6 +460,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     _order.NegativeArbitrationValuesCount = order.NegativeArbitrationValuesCount;
                     await RaiseAllPropertiesChanged();
                 }
+
+                _mvxMessenger.Publish(new OrderChangedMessage(this, order));
             }
             catch (Exception ex)
             {
@@ -445,6 +492,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     _order.NegativeArbitrationValuesCount = order.NegativeArbitrationValuesCount;
                     await RaiseAllPropertiesChanged();
                 }
+
+                _mvxMessenger.Publish(new OrderChangedMessage(this, order));
             }
             catch (Exception ex)
             {
@@ -459,22 +508,32 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private Task OnShowFullVideoAsync()
+        private async Task OnShowFullVideoAsync()
         {
             if (_order?.Video is null)
             {
-                return Task.CompletedTask;
+                return;
             }
 
-            var navigationParams = new FullScreenVideoParameter(_order.Video.Id,
-                                                                VideoUrl,
-                                                                VideoName,
-                                                                VideoDetails,
-                                                                _order.Video.ShareUri,
-                                                                ProfilePhotoUrl,
-                                                                _order.Video.LikesCount,
-                                                                _order.Video.IsLiked);
-            return NavigationService.ShowFullScreenVideoView(navigationParams);
+            var navigationParams = _fullScreenVideos.Count > 0
+                ? new FullScreenVideoParameter(_fullScreenVideos, _currentIndex)
+                : new FullScreenVideoParameter(new FullScreenVideoDataModel(_order.Video.Id,
+                                                                            VideoUrl,
+                                                                            VideoName,
+                                                                            VideoDetails,
+                                                                            _order.Video.ShareUri,
+                                                                            ProfilePhotoUrl,
+                                                                            _order.Video.LikesCount,
+                                                                            _order.Video.CommentsCount,
+                                                                            _order.Video.IsLiked));
+
+            var shouldReload = await NavigationService.ShowFullScreenVideoView(navigationParams);
+            if (!shouldReload)
+            {
+                return;
+            }
+
+            _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
         }
 
         private async Task OpenSettingsAsync()

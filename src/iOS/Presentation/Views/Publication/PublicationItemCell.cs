@@ -44,6 +44,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			publicationInfoLabel.SetSmallSubtitleStyle();
 			videoNameLabel.SetTitleStyle();
 			likeLabel.SetSmallTitleStyle();
+			commentsLabel.SetSmallTitleStyle();
+
 			likeButton.SetImage(UIImage.FromBundle("ic_like.png"), UIControlState.Normal);
 			likeButton.SetImage(UIImage.FromBundle("ic_like_active.png"), UIControlState.Selected);
 
@@ -75,6 +77,22 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			set.Bind(profileImage)
 				.For(v => v.ImagePath)
 				.To(vm => vm.ProfilePhotoUrl);
+
+			set.Bind(commentsLabel)
+			   .For(v => v.Text)
+			   .To(vm => vm.NumberOfCommentsPresentation);
+
+			set.Bind(commentButton)
+			   .For(v => v.BindTap())
+			   .To(vm => vm.ShowCommentsCommand);
+
+			set.Bind(commentsLabel)
+			   .For(v => v.BindTap())
+			   .To(vm => vm.ShowCommentsCommand);
+
+			set.Bind(commentsLabel)
+				.For(v => v.Text)
+				.To(vm => vm.NumberOfCommentsPresentation);
 
 			set.Bind(profileImage)
 				.For(v => v.PlaceholderText)

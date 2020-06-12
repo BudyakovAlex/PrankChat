@@ -10,6 +10,7 @@ using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
+using MvvmCross.ViewModels;
 using ObjCRuntime;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -31,6 +32,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         private bool _wasPlaying;
         private long _lastActionTicks;
         private nfloat _oldY;
+        private nfloat _lastX;
+        private nfloat _firstX;
 
         private NSObject _playerPerdiodicTimeObserver;
         private AVPlayer _player;
@@ -39,6 +42,26 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         public event EventHandler IsMutedChanged;
 
+        private MvxInteraction _interaction;
+        public MvxInteraction Interaction
+        {
+            get => _interaction;
+            set
+            {
+                if (_interaction != null)
+                {
+                    _interaction.Requested -= OnInteractionRequested;
+                }
+
+                _interaction = value;
+
+                if (_interaction != null)
+                {
+                    _interaction.Requested += OnInteractionRequested;
+                }
+            }
+        }
+
         private string _videoUrl;
         public string VideoUrl
         {
@@ -46,6 +69,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             set
             {
                 _videoUrl = value;
+                if (_videoUrl is null)
+                {
+                    return;
+                }
+
                 Initialize();
             }
         }
@@ -62,6 +90,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         }
 
         private bool _isMuted;
+        private bool _isSwipeTriggered;
+
         public bool IsMuted
         {
             get => _isMuted;
@@ -152,10 +182,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                       .For(v => v.Text)
                       .To(vm => vm.Description);
 
-          //TODO: add show profile tap binding
-          //bindingSet.Bind(profileView)
-          //          .For(v => v.BindTap())
-          //          .To(vm => vm.)
+            //TODO: add show profile tap binding
+            //bindingSet.Bind(profileView)
+            //          .For(v => v.BindTap())
+            //          .To(vm => vm.)
 
             bindingSet.Bind(profileImageView)
                       .For(v => v.ImagePath)
@@ -164,6 +194,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             bindingSet.Bind(likeView)
                       .For(v => v.BindTap())
                       .To(vm => vm.LikeCommand);
+
+            bindingSet.Bind(commentsView)
+                      .For(v => v.BindTap())
+                      .To(vm => vm.OpenCommentsCommand);
 
             bindingSet.Bind(likeView)
                       .For(v => v.UserInteractionEnabled)
@@ -182,9 +216,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                       .For(v => v.Text)
                       .To(vm => vm.NumberOfLikesPresentation);
 
+            bindingSet.Bind(commentsLabel)
+                      .For(v => v.Text)
+                      .To(vm => vm.NumberOfCommentsPresentation);
+
             bindingSet.Bind(shareButton)
                       .For(v => v.BindTouchUpInside())
                       .To(vm => vm.ShareCommand);
+
+            bindingSet.Bind(this)
+                      .For(v => v.Interaction)
+                      .To(vm => vm.Interaction);
 
             bindingSet.Apply();
         }
@@ -211,10 +253,32 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             _player.Play();
         }
 
+        private void OnInteractionRequested(object sender, EventArgs e)
+        {
+            if (_player.TimeControlStatus != AVPlayerTimeControlStatus.Paused)
+            {
+                _player.Pause();
+            }
+
+            UpdateLastActionTicks();
+        }
+
         private void InitializePlayer()
         {
             var url = new NSUrl(_videoUrl);
             var playerItem = new AVPlayerItem(url);
+
+            if (_player != null)
+            {
+                _player.RemoveTimeObserver(_playerPerdiodicTimeObserver);
+                _player.RemoveObserver(this, PlayerTimeControlStatusKey, IntPtr.Zero);
+                _player.RemoveObserver(this, PlayerMutedKey, IntPtr.Zero);
+                _player.CurrentItem.RemoveObserver(this, PlayerItemLoadedTimeRangesKey, IntPtr.Zero);
+
+                _player.Pause();
+                _player.Dispose();
+            }
+
             _player = new AVPlayer(playerItem)
             {
                 Muted = _isMuted
@@ -234,10 +298,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             _player.AddObserver(this, PlayerMutedKey, NSKeyValueObservingOptions.New, IntPtr.Zero);
             _player.CurrentItem.AddObserver(this, PlayerItemLoadedTimeRangesKey, NSKeyValueObservingOptions.New, IntPtr.Zero);
 
-            _controller = new AVPlayerViewController();
-            _controller.Player = _player;
+            if (_controller != null)
+            {
+                _controller.Player = _player;
+                return;
+            }
 
-            _controller.ShowsPlaybackControls = false;
+            _controller = new AVPlayerViewController
+            {
+                Player = _player,
+                ShowsPlaybackControls = false
+            };
+
             _controller.View.AddGestureRecognizer(new UITapGestureRecognizer(_ =>
             {
                 UpdateLastActionTicks();
@@ -304,7 +376,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private string GetTextRepresentation(CMTime time)
         {
-            var totalSeconds = (int) Math.Ceiling(time.Seconds);
+            var totalSeconds = (int)Math.Ceiling(time.Seconds);
             var minutes = totalSeconds / 60;
             var seconds = totalSeconds % 60;
 
@@ -319,7 +391,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             }
 
             var ratio = _player.CurrentItem.CurrentTime.Seconds / _player.CurrentItem.Duration.Seconds;
-            var width = (nfloat) ratio * progressView.Frame.Width;
+            var width = (nfloat)ratio * progressView.Frame.Width;
             watchProgressViewWidthConstraint.Constant = width;
         }
 
@@ -351,7 +423,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             var seconds = value.CMTimeRangeValue.Start.Seconds + value.CMTimeRangeValue.Duration.Seconds;
             var ratio = seconds / _player.CurrentItem.Duration.Seconds;
-            var width = (nfloat) ratio * progressView.Frame.Width;
+            var width = (nfloat)ratio * progressView.Frame.Width;
             loadProgressViewWidthConstraint.Constant = width;
         }
 
@@ -375,7 +447,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             var newWidth = point.X - watchProgressView.Frame.X;
             var ratio = newWidth / progressView.Frame.Width;
             var value = ratio * _player.CurrentItem.Duration.Seconds;
-            _player.Seek(new CMTime((long) value, 1));
+            _player.Seek(new CMTime((long)value, 1));
 
             UpdateLastActionTicks();
         }
@@ -397,6 +469,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                 _controller.RemoveFromParentViewController();
             }
 
+            if (_interaction != null)
+            {
+                _interaction.Requested -= OnInteractionRequested;
+            }
+
             if (_player != null)
             {
                 _player.RemoveTimeObserver(_playerPerdiodicTimeObserver);
@@ -416,6 +493,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             NSNotificationCenter.DefaultCenter.RemoveObserver(this);
 
             ViewModel.GoBackCommand.ExecuteAsync();
+            ViewModel.ViewDestroy(true);
         }
 
         private void ViewPan(UIPanGestureRecognizer recognizer)
@@ -424,18 +502,51 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             {
                 case UIGestureRecognizerState.Began:
                     _oldY = recognizer.LocationInView(View).Y;
+                    _firstX = recognizer.LocationInView(View).X;
                     break;
 
                 case UIGestureRecognizerState.Changed:
+                    _isSwipeTriggered = true;
                     RecalculateTranslation(recognizer);
+                    _lastX = recognizer.LocationInView(View).X;
                     break;
 
                 case UIGestureRecognizerState.Ended:
                 case UIGestureRecognizerState.Cancelled:
                 case UIGestureRecognizerState.Failed:
                     AnimateTranslation();
+                    CanExecuteDirectedSwipes(View);
                     break;
             }
+        }
+
+        private void CanExecuteDirectedSwipes(UIView view)
+        {
+            if (!_isSwipeTriggered)
+            {
+                return;
+            }
+
+            if (_firstX < _lastX && _lastX - _firstX >= view.Frame.Width / 2)
+            {
+                ViewModel.MovePreviousCommand.Execute();
+                ResetSwipe();
+                return;
+            }
+
+            if (_lastX < _firstX && _firstX - _lastX >= view.Frame.Width / 2)
+            {
+                ViewModel.MoveNextCommand.Execute();
+                ResetSwipe();
+                return;
+            }
+        }
+
+        private void ResetSwipe()
+        {
+            _lastX = 0;
+            _firstX = 0;
+            _isSwipeTriggered = false;
         }
 
         private void AnimateTranslation()

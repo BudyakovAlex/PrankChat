@@ -21,6 +21,8 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
 
         private readonly IMvxMainThreadAsyncDispatcher _dispatcher;
 
+        public override bool IsToastShown { get; protected set; }
+
         public DialogService(INavigationService navigationService, IMvxMainThreadAsyncDispatcher dispatcher)
             : base(navigationService)
         {
@@ -57,6 +59,7 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
 
         public override void ShowToast(string text, ToastType toastType)
         {
+            IsToastShown = true;
             var keyWindow = UIApplication.SharedApplication.KeyWindow;
             if (keyWindow == null)
             {
@@ -85,7 +88,11 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
             });
 
             var time = new DispatchTime(DispatchTime.Now, TimeSpan.FromSeconds(ToastDuration));
-            DispatchQueue.MainQueue.DispatchAfter(time, () => toast.RemoveFromSuperview());
+            DispatchQueue.MainQueue.DispatchAfter(time, () =>
+            {
+                toast.RemoveFromSuperview();
+                IsToastShown = false;
+            });
         }
 
         public static UIViewController GetTopViewController(UIWindow window)

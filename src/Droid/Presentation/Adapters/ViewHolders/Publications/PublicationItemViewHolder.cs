@@ -24,6 +24,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
         private ImageButton _likeImageButton;
         private TextView _likeTextView;
         private ImageButton _shareImageButton;
+        private ImageView _commentsImageView;
+        private TextView _commnetsTextView;
 
         public PublicationItemViewHolder(View view, IMvxAndroidBindingContext context)
             : base(view, context)
@@ -44,6 +46,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
             _likeTextView = view.FindViewById<TextView>(Resource.Id.like_text_view);
             _shareImageButton = view.FindViewById<ImageButton>(Resource.Id.share_image_button);
 
+            _commentsImageView = view.FindViewById<ImageView>(Resource.Id.comments_image_view);
+            _commnetsTextView = view.FindViewById<TextView>(Resource.Id.comments_text_view);
+
             _moreImageButton.SetOnClickListener(_ => ViewModel.OpenSettingsCommand.Execute());
             _likeImageButton.SetOnClickListener(_ => ViewModel.LikeCommand.Execute());
             _shareImageButton.SetOnClickListener(_ => ViewModel.ShareCommand.Execute());
@@ -55,6 +60,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
 
             var bindingSet = this.CreateBindingSet<PublicationItemViewHolder, PublicationItemViewModel>();
 
+            bindingSet.Bind(_commnetsTextView).For(v => v.Text).To(vm => vm.NumberOfCommentsPresentation);
+            bindingSet.Bind(_commnetsTextView).For(v => v.BindClick()).To(vm => vm.ShowCommentsCommand);
+            bindingSet.Bind(_commentsImageView).For(v => v.BindClick()).To(vm => vm.ShowCommentsCommand);
             bindingSet.Bind(_profileImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl);
             bindingSet.Bind(_profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName);
             bindingSet.Bind(_profileNameTextView).For(v => v.Text).To(vm => vm.ProfileName);

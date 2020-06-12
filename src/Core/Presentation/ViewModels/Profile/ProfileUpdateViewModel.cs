@@ -10,6 +10,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -27,8 +28,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
     {
         private readonly IMvxMessenger _messenger;
         private readonly IMediaService _mediaService;
-        private readonly IMvxWebBrowserTask _mvxWebBrowserTask;
         private readonly IExternalAuthService _externalAuthService;
+        private readonly IPushNotificationService _pushNotificationService;
         private bool _isUserPhotoUpdated;
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
@@ -48,14 +49,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                                       IMvxMessenger messenger,
                                       IMediaService mediaService,
                                       IErrorHandleService errorHandleService,
-                                      IMvxWebBrowserTask mvxWebBrowserTask,
-                                      IExternalAuthService externalAuthService)
+                                      IExternalAuthService externalAuthService,
+                                      IPushNotificationService pushNotificationService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _messenger = messenger;
             _mediaService = mediaService;
-            _mvxWebBrowserTask = mvxWebBrowserTask;
             _externalAuthService = externalAuthService;
+            _pushNotificationService = pushNotificationService;
         }
 
         public override void ViewDestroy(bool viewFinishing = true)
@@ -154,7 +155,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             ApiService.LogoutAsync().FireAndForget();
             SettingsService.User = null;
             SettingsService.IsPushTokenSend = false;
+
+            _pushNotificationService.UnregisterFromNotifications();
             await SettingsService.SetAccessTokenAsync(string.Empty);
+
             _externalAuthService.LogoutFromFacebook();
             _externalAuthService.LogoutFromVkontakte();
             await NavigationService.Logout();

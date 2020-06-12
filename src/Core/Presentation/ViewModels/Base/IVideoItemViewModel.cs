@@ -2,7 +2,7 @@
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {
-    public interface IVideoItemViewModel
+    public interface IVideoItemViewModel : IFullScreenVideoOwnerViewModel
     {
         IVideoPlayerService VideoPlayerService { get; }
 

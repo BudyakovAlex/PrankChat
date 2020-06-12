@@ -5,7 +5,6 @@
 // Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using PrankChat.Mobile.iOS.Controls;
 using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
@@ -17,34 +16,34 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 		UIKit.UILabel commentDateLabel { get; set; }
 
 		[Outlet]
-		CircleCachedImageView profileImageView { get; set; }
+		UIKit.UILabel commentLabel { get; set; }
+
+		[Outlet]
+		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profileImageView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel profileNameLabel { get; set; }
-
-		[Outlet]
-		UIKit.UILabel profileShortName { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (profileShortName != null) {
-				profileShortName.Dispose ();
-				profileShortName = null;
-			}
-
 			if (commentDateLabel != null) {
 				commentDateLabel.Dispose ();
 				commentDateLabel = null;
 			}
 
-			if (profileImageView != null) {
-				profileImageView.Dispose ();
-				profileImageView = null;
+			if (commentLabel != null) {
+				commentLabel.Dispose ();
+				commentLabel = null;
 			}
 
 			if (profileNameLabel != null) {
 				profileNameLabel.Dispose ();
 				profileNameLabel = null;
+			}
+
+			if (profileImageView != null) {
+				profileImageView.Dispose ();
+				profileImageView = null;
 			}
 		}
 	}

@@ -1,13 +1,9 @@
-﻿using System;
-using Foundation;
-using MvvmCross.Binding;
+﻿using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
-using UIKit;
+using System;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 {
@@ -24,35 +20,41 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 
             profileNameLabel.SetMainTitleStyle();
             commentDateLabel.SetSmallSubtitleStyle();
+            commentLabel.SetTitleStyle();
         }
 
         protected override void SetBindings()
         {
-            var set = this.CreateBindingSet<CommentItemCell, CommentItemViewModel>();
+            var bindingSet = this.CreateBindingSet<CommentItemCell, CommentItemViewModel>();
 
-            set.Bind(profileImageView)
-                .For(v => v.ImagePath)
-                .To(vm => vm.ProfilePhotoUrl)
-                .Mode(MvxBindingMode.OneTime);
+            bindingSet.Bind(profileImageView)
+                      .For(v => v.ImagePath)
+                      .To(vm => vm.ProfilePhotoUrl)
+                      .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(profileNameLabel)
-                .To(vm => vm.ProfileName)
-                .Mode(MvxBindingMode.OneTime);
+            bindingSet.Bind(profileNameLabel)
+                      .To(vm => vm.ProfileName)
+                      .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(commentDateLabel)
-                .To(vm => vm.DateText)
-                .Mode(MvxBindingMode.OneTime);
+            bindingSet.Bind(commentDateLabel)
+                      .To(vm => vm.DateText)
+                      .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(profileShortName)
-                .To(vm => vm.ProfileShortName)
-                .Mode(MvxBindingMode.OneTime);
+            bindingSet.Bind(commentLabel)
+                      .To(vm => vm.Comment)
+                      .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(profileShortName)
-                .For(v => v.BindHidden())
-                .To(vm => vm.ProfilePhotoUrl)
-                .Mode(MvxBindingMode.OneTime);
+            bindingSet.Bind(profileImageView)
+                      .For(v => v.ImagePath)
+                      .To(vm => vm.ProfilePhotoUrl)
+                      .Mode(MvxBindingMode.OneTime);
 
-            set.Apply();
+            bindingSet.Bind(profileImageView)
+                      .For(v => v.PlaceholderText)
+                      .To(vm => vm.ProfileShortName)
+                      .Mode(MvxBindingMode.OneTime);
+
+            bindingSet.Apply();
         }
     }
 }

@@ -335,4 +335,5 @@
     <string name="Walkthrouth_CreateOrder_Title">"Создание заказов"</string>
     <string name="Walkthrouth_Orders_Title">"Лента заказов"</string>
     <string name="Walkthrouth_Profile_Title">"Профиль"</string>
+    <string name="No_Intentet_Connection">"Интернет соединение отсувствует"</string>
 </resources>

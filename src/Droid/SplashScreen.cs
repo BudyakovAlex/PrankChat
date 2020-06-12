@@ -1,11 +1,8 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Support.V7.App;
-using MvvmCross;
 using MvvmCross.Droid.Support.V7.AppCompat;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications;
 
 namespace PrankChat.Mobile.Droid
@@ -34,7 +31,9 @@ namespace PrankChat.Mobile.Droid
             }
 
             if (IsTaskRoot)
+            {
                 return;
+            }
 
             Finish();
             Core.ApplicationServices.Notifications.NotificationManager.Instance.TryNavigateToView(_orderId);

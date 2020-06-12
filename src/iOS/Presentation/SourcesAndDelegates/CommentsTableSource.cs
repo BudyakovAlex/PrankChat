@@ -2,14 +2,14 @@
 using Foundation;
 using MvvmCross.Platforms.Ios.Binding.Views;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items;
-using PrankChat.Mobile.iOS.Infrastructure;
+using PrankChat.Mobile.iOS.Presentation.Views.Comment;
 using UIKit;
 
-namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
+namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
 {
-    public class CommentTableSource : MvxTableViewSource
+    public class CommentsTableSource : MvxTableViewSource
     {
-        public CommentTableSource(UITableView tableView) : base(tableView)
+        public CommentsTableSource(UITableView tableView) : base(tableView)
         {
         }
 
@@ -25,7 +25,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            return Constants.CellHeights.CommentItemCellHeight;
+            return UITableView.AutomaticDimension;
         }
     }
 }

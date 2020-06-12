@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
@@ -29,15 +30,15 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowMainViewContent();
 
-        Task ShowCommentsView();
+        Task<int> ShowCommentsView(int videoId);
 
         Task ShowNotificationView();
 
         Task ShowSearchView();
 
-        Task<OrderDetailsResult> ShowOrderDetailsView(int orderId);
+        Task<OrderDetailsResult> ShowOrderDetailsView(int orderId, List<FullScreenVideoDataModel> fullScreenVideos, int currentIndex);
 
-        Task ShowFullScreenVideoView(FullScreenVideoParameter fullScreenVideoParameter);
+        Task<bool> ShowFullScreenVideoView(FullScreenVideoParameter fullScreenVideoParameter);
 
         Task ShowDetailsPublicationView();
 

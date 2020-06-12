@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -18,6 +17,9 @@ using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Providers;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
@@ -28,7 +30,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
         private MvxSubscriptionToken _newOrderMessageToken;
-
+        private MvxSubscriptionToken _reloadProfileMessageToken;
         private ProfileOrderType _selectedOrderType;
         public ProfileOrderType SelectedOrderType
         {
@@ -107,6 +109,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private void Subscription()
         {
             _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged);
+            _reloadProfileMessageToken = _mvxMessenger.SubscribeOnMainThread<ReloadProfileMessage>(OnReloadProfile);
         }
 
         private void Unsubscription()
@@ -118,6 +121,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
             _mvxMessenger.Unsubscribe<OrderChangedMessage>(_newOrderMessageToken);
             _newOrderMessageToken.Dispose();
+
+            if (_reloadProfileMessageToken is null)
+            {
+                return;
+            }
+
+            _mvxMessenger.Unsubscribe<ReloadProfileMessage>(_reloadProfileMessageToken);
+            _reloadProfileMessageToken.Dispose();
+        }
+
+        private void OnReloadProfile(ReloadProfileMessage message)
+        {
+            LoadProfileCommand.Execute();
         }
 
         private void OnOrdersChanged(OrderChangedMessage message)
@@ -178,10 +194,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private async Task OnShowUpdateProfileAsync()
         {
             var isUpdated = await NavigationService.ShowUpdateProfileView();
-            if (isUpdated)
+            if (!isUpdated)
             {
-                await InitializeProfileData();
+                return;
             }
+
+            await OnLoadProfileAsync();
         }
 
         protected override async Task InitializeProfileData()
@@ -229,7 +247,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             return new OrderItemViewModel(NavigationService,
                                           SettingsService,
                                           _mvxMessenger,
-                                          order);
+                                          order,
+                                          GetFullScreenVideoDataModels);
+        }
+
+        private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
+        {
+            return Items.Where(item => item.CanPlayVideo)
+                        .Select(item => item.GetFullScreenVideoDataModel())
+                        .ToList();
         }
     }
 }

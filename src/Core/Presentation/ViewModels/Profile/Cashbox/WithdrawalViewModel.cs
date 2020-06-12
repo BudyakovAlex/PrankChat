@@ -1,8 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
@@ -13,14 +10,20 @@ using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
     public class WithdrawalViewModel : BaseViewModel
     {
         private readonly IMediaService _mediaService;
+        private readonly IMvxMessenger _mvxMessenger;
         private CardDataModel _currentCard;
         private WithdrawalDataModel _lastWithdrawalDataModel;
 
@@ -112,18 +115,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                                    IApiService apiService,
                                    IDialogService dialogService,
                                    ISettingsService settingsService,
-                                   IMediaService mediaService)
+                                   IMediaService mediaService,
+                                   IMvxMessenger mvxMessenger)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _mediaService = mediaService;
+            _mvxMessenger = mvxMessenger;
             AvailableForWithdrawal = $"{Resources.CashboxView_WithdrawalAvailable_Title} {settingsService.User?.Balance.ToPriceString()}";
         }
 
         public override async Task Initialize()
         {
             await base.Initialize();
-            await GetUserCard();
-            await GetWithdrawals();
+            await GetUserCardAsync();
+            await GetWithdrawalsAsync();
         }
 
         private async Task OnUpdateDataAsync()
@@ -178,6 +183,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
             finally
             {
+                _mvxMessenger.Publish(new ReloadProfileMessage(this));
                 IsBusy = false;
             }
         }
@@ -203,6 +209,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
             finally
             {
+                _mvxMessenger.Publish(new ReloadProfileMessage(this));
                 IsBusy = false;
             }
         }
@@ -228,6 +235,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
             finally
             {
+                _mvxMessenger.Publish(new ReloadProfileMessage(this));
                 IsBusy = false;
             }
         }
@@ -237,11 +245,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             var result = await DialogService.ShowMenuDialogAsync(new string[] { Resources.WithdrawalView_Delete_Card_Text }, Resources.Close);
             if (result == Resources.WithdrawalView_Delete_Card_Text)
             {
-                await DeleteCard();
+                await DeleteCardAsync();
             }
         }
 
-        private async Task GetUserCard()
+        private async Task GetUserCardAsync()
         {
             try
             {
@@ -255,7 +263,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
         }
 
-        private async Task GetWithdrawals()
+        private async Task GetWithdrawalsAsync()
         {
             try
             {
@@ -271,7 +279,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
         }
 
-        private async Task DeleteCard()
+        private async Task DeleteCardAsync()
         {
             if (_currentCard == null)
                 return;
@@ -294,6 +302,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
             finally
             {
+                _mvxMessenger.Publish(new ReloadProfileMessage(this));
                 IsBusy = false;
             }
         }

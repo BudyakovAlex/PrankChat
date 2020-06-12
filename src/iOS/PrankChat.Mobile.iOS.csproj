@@ -179,17 +179,16 @@
     <Compile Include="Presentation\Views\Publication\PublicationDetailsView.designer.cs">
       <DependentUpon>PublicationDetailsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Views\Comment\CommentView.cs" />
-    <Compile Include="Presentation\Views\Comment\CommentView.designer.cs">
-      <DependentUpon>CommentView.cs</DependentUpon>
+    <Compile Include="Presentation\Views\Comment\CommentsView.cs" />
+    <Compile Include="Presentation\Views\Comment\CommentsView.designer.cs">
+      <DependentUpon>CommentsView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Comment\CommentView.xib" />
+    <InterfaceDefinition Include="Presentation\Views\Comment\CommentsView.xib" />
     <InterfaceDefinition Include="Presentation\Views\Comment\CommentItemCell.xib" />
     <Compile Include="Presentation\Views\Comment\CommentItemCell.cs" />
     <Compile Include="Presentation\Views\Comment\CommentItemCell.designer.cs">
       <DependentUpon>CommentItemCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Views\Comment\CommentTableSource.cs" />
     <Compile Include="Presentation\Views\ProfileView\Cashbox\CashboxView.cs" />
     <Compile Include="Presentation\Views\ProfileView\Cashbox\CashboxView.designer.cs">
       <DependentUpon>CashboxView.cs</DependentUpon>
@@ -356,6 +355,8 @@
     <BundleResource Include="Resources\ru-RU.lproj\InfoPlist.strings" />
     <BundleResource Include="Resources\ru-RU.lproj\Localizalbe.strings" />
     <BundleResource Include="Resources\Base.lproj\InfoPlist.strings" />
+    <Compile Include="PlatformBusinessServices\Notifications\PlatformPushNotificationsService.cs" />
+    <Compile Include="Presentation\SourcesAndDelegates\CommentsTableSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -1032,6 +1033,8 @@
     <ImageAsset Include="Assets.xcassets\ic_clear.imageset\ic_clear.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_logout.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_logout.imageset\ic_logout.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_comments.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_comments.imageset\ic_comments.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -1102,6 +1105,7 @@
     <Folder Include="Resources\ru-RU.lproj\" />
     <Folder Include="Resources\Base.lproj\" />
     <Folder Include="Assets.xcassets\ic_logout.imageset\" />
+    <Folder Include="Assets.xcassets\ic_comments.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

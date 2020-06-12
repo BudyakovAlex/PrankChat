@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -17,9 +12,15 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
@@ -30,6 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _mvxMessenger;
         private readonly Dictionary<DateFilterType, string> _dateFilterTypeTitleMap;
+        private MvxSubscriptionToken _reloadItemsSubscriptionToken;
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
@@ -127,6 +129,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _videoPlayerService.Play();
         }
 
+        public override void ViewCreated()
+        {
+            base.ViewCreated();
+            Subscription();
+        }
+
         public override void ViewDestroy(bool viewFinishing = true)
         {
             foreach (var publicationItemViewModel in Items)
@@ -134,6 +142,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 publicationItemViewModel.Dispose();
             }
 
+            Unsubscription();
             base.ViewDestroy(viewFinishing);
         }
 
@@ -215,8 +224,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                                 publication.ViewsCount,
                                                 publication.CreatedAt.DateTime,
                                                 publication.LikesCount,
+                                                publication.CommentsCount,
                                                 publication.ShareUri,
-                                                publication.IsLiked);
+                                                publication.IsLiked,
+                                                GetFullScreenVideoDataModels);
         }
 
         protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
@@ -224,6 +235,31 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             var count = base.SetList(dataModel, page, produceItemViewModel, items);
             ItemsChangedInteraction.Raise();
             return count;
+        }
+
+        private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
+        {
+            return Items.Select(item => item.GetFullScreenVideoDataModel()).ToList();
+        }
+
+        private void Subscription()
+        {
+            _reloadItemsSubscriptionToken = _mvxMessenger.SubscribeOnMainThread<ReloadPublicationsMessage>(OnReloadItems);
+        }
+
+        private void Unsubscription()
+        {
+            if (_reloadItemsSubscriptionToken != null)
+            {
+                _mvxMessenger.Unsubscribe<ReloadPublicationsMessage>(_reloadItemsSubscriptionToken);
+                _reloadItemsSubscriptionToken.Dispose();
+            }
+        }
+
+        private void OnReloadItems(ReloadPublicationsMessage obj)
+        {
+            Items.Clear();
+            ReloadItemsCommand.Execute();
         }
     }
 }

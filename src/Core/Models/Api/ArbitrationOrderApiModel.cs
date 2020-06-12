@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers.Converters;
 using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Api
@@ -26,6 +27,14 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         [JsonProperty("customer")]
         public DataApiModel<UserApiModel> Customer { get; set; }
+
+        [JsonConverter(typeof(IgnoreUnexpectedArraysConverter<UserApiModel>))]
+        [JsonProperty("executor")]
+        public DataApiModel<UserApiModel> Executor { get; set; }
+
+        [JsonConverter(typeof(IgnoreUnexpectedArraysConverter<VideoApiModel>))]
+        [JsonProperty("videos")]
+        public DataApiModel<VideoApiModel> Video { get; set; }
 
         [JsonProperty("positive_arbitration_values_count")]
         public int Likes { get; set; }

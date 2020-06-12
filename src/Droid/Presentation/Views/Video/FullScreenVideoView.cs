@@ -38,9 +38,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
         private View _likeView;
         private TextView _likeTextView;
         private ImageView _shareImageView;
+        private View _commentsView;
+        private TextView _commentsTextView;
 
         private int _currentPosition;
         private float _lastY;
+        private float _lastX;
+        private float _firstX;
+        private bool _isSwipeTriggered;
 
         public override void OnConfigurationChanged(Configuration newConfig)
         {
@@ -71,6 +76,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             _likeView = FindViewById<View>(Resource.Id.like_view);
             _likeTextView = FindViewById<TextView>(Resource.Id.like_text_view);
             _shareImageView = FindViewById<ImageView>(Resource.Id.share_image_view);
+
+            _commentsView = FindViewById<View>(Resource.Id.comments_view);
+            _commentsTextView = FindViewById<TextView>(Resource.Id.comments_text_view);
 
             _rootView = FindViewById<FrameLayout>(Resource.Id.root_view);
             _rootView.SetOnTouchListener(new ViewOnTouchListener(OnRootViewTouched));
@@ -136,6 +144,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
                       .For(v => v.BindClick())
                       .To(vm => vm.LikeCommand);
 
+            bindingSet.Bind(_commentsView)
+                      .For(v => v.BindClick())
+                      .To(vm => vm.OpenCommentsCommand);
+
             bindingSet.Bind(_likeView)
                       .For(v => v.Clickable)
                       .To(vm => vm.IsLikeFlowAvailable);
@@ -151,6 +163,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             bindingSet.Bind(_likeTextView)
                       .For(v => v.Text)
                       .To(vm => vm.NumberOfLikesPresentation);
+
+            bindingSet.Bind(_commentsTextView)
+                     .For(v => v.Text)
+                     .To(vm => vm.NumberOfCommentsPresentation);
 
             bindingSet.Bind(_shareImageView)
                       .For(v => v.BindClick())
@@ -184,18 +200,22 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             {
                 case MotionEventActions.Down:
                     _lastY = motionEvent.RawY;
+                    _firstX = motionEvent.RawX;
                     return true;
 
                 case MotionEventActions.Move:
+                    _isSwipeTriggered = true;
                     var y = view.TranslationY + (motionEvent.RawY - _lastY);
                     view.TranslationY = y > 0 ? y : 0;
                     _lastY = motionEvent.RawY;
+                    _lastX = motionEvent.RawX;
                     return true;
 
                 case MotionEventActions.Cancel:
                 case MotionEventActions.Outside:
                 case MotionEventActions.Up:
                     AnimateTranslation(view);
+                    CanExecuteDirectedSwipes(view);
                     _rootView.PerformClick();
                     return true;
 
@@ -220,6 +240,45 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
                 .SetDuration(AnimationDuration)
                 .WithEndAction(new Runnable(() => ViewModel.GoBackCommand.ExecuteAsync()))
                 .Start();
+        }
+
+        private void CanExecuteDirectedSwipes(View view)
+        {
+            if (!_isSwipeTriggered)
+            {
+                return;
+            }
+
+            if (_firstX < _lastX && _lastX - _firstX >= view.Width / 2)
+            {
+                ResetMediaPlayer();
+                ViewModel.MovePreviousCommand.Execute();
+                ResetSwipe();
+                return;
+            }
+
+            if (_lastX < _firstX && _firstX - _lastX >= view.Width / 2)
+            {
+                ResetMediaPlayer();
+                ViewModel.MoveNextCommand.Execute();
+                ResetSwipe();
+                return;
+            }
+        }
+
+        private void ResetMediaPlayer()
+        {
+            if (_mediaController != null)
+            {
+                _mediaController.MediaPlayer = null;
+            }
+        }
+
+        private void ResetSwipe()
+        {
+            _lastX = 0;
+            _firstX = 0;
+            _isSwipeTriggered = false;
         }
     }
 }

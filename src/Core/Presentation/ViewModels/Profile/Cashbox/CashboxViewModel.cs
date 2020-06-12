@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
@@ -34,11 +35,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                                 IApiService apiService,
                                 IDialogService dialogService,
                                 ISettingsService settingsService,
-                                IMediaService mediaService)
+                                IMediaService mediaService,
+                                IMvxMessenger mvxMessenger)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
-            Items.Add(new RefillViewModel(navigationService, errorHandleService, apiService, dialogService, settingsService));
-            Items.Add(new WithdrawalViewModel(navigationService, errorHandleService, apiService, dialogService, settingsService, mediaService));
+            Items.Add(new RefillViewModel(navigationService, errorHandleService, apiService, dialogService, settingsService, mvxMessenger));
+            Items.Add(new WithdrawalViewModel(navigationService, errorHandleService, apiService, dialogService, settingsService, mediaService, mvxMessenger));
         }
 
         public override async Task Initialize()

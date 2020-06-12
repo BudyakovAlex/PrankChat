@@ -1,13 +1,7 @@
-﻿using System;
-using System.Globalization;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using MvvmCross.Logging;
+﻿using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Builders;
 using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
@@ -17,8 +11,17 @@ using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using RestSharp;
+using System;
+using System.Globalization;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
 {
@@ -28,67 +31,74 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         private readonly IRestClient _client;
         private readonly IMvxMessenger _messenger;
+        private readonly IDialogService _dialogService;
         private readonly IMvxLog _mvxLog;
+
         private readonly string _baseAddress;
         private readonly Version _apiVersion;
         private readonly ISettingsService _settingsService;
 
-        public HttpClient(string baseAddress, Version apiVersion, ISettingsService settingsService, IMvxLog mvxLog, IMvxMessenger messenger)
+        public HttpClient(string baseAddress,
+                          Version apiVersion,
+                          ISettingsService settingsService,
+                          IMvxLog mvxLog,
+                          IMvxMessenger messenger,
+                          IDialogService dialogService)
         {
             _baseAddress = baseAddress;
             _apiVersion = apiVersion;
             _settingsService = settingsService;
             _mvxLog = mvxLog;
             _messenger = messenger;
-
+            _dialogService = dialogService;
             _client = new RestClient($"{baseAddress}/{ApiId}/v{apiVersion.Major}").UseSerializer(() => new JsonNetSerializer());
-            _client.Timeout = TimeSpan.FromMinutes(15).Milliseconds; 
+            _client.Timeout = TimeSpan.FromMinutes(15).Milliseconds;
         }
 
-        public async Task<TResult> UnauthorizedGet<TResult>(string endpoint, bool exceptionThrowingEnabled = false, params IncludeType[] includes) where TResult : class, new()
+        public async Task<TResult> UnauthorizedGetAsync<TResult>(string endpoint, bool exceptionThrowingEnabled = false, params IncludeType[] includes) where TResult : class, new()
         {
             endpoint = TryAddIncludeFlag(endpoint, includes);
             var request = new RestRequest(endpoint, Method.GET);
-            return await ExecuteTask<TResult>(request, endpoint, false, exceptionThrowingEnabled);
+            return await ExecuteTaskAsync<TResult>(request, endpoint, false, exceptionThrowingEnabled);
         }
 
-        public async Task<TResult> UnauthorizedPost<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false)
+        public async Task<TResult> UnauthorizedPostAsync<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false)
             where TEntity : class
             where TResult : class, new()
         {
             var request = new RestRequest(endpoint, Method.POST);
             request.AddJsonBody(item);
-            return await ExecuteTask<TResult>(request, endpoint, false, exceptionThrowingEnabled);
+            return await ExecuteTaskAsync<TResult>(request, endpoint, false, exceptionThrowingEnabled);
         }
 
-        public async Task<TResult> Get<TResult>(string endpoint, bool exceptionThrowingEnabled = false, params IncludeType[] includes) where TResult : class, new()
+        public async Task<TResult> GetAsync<TResult>(string endpoint, bool exceptionThrowingEnabled = false, params IncludeType[] includes) where TResult : class, new()
         {
             endpoint = TryAddIncludeFlag(endpoint, includes);
             var request = new RestRequest(endpoint, Method.GET);
-            return await ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
+            return await ExecuteTaskAsync<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
-        public Task<TResult> Post<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where TEntity : class where TResult : new()
+        public Task<TResult> PostAsync<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where TEntity : class where TResult : new()
         {
             var request = new RestRequest(endpoint, Method.POST);
             request.AddJsonBody(item);
-            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
+            return ExecuteTaskAsync<TResult>(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
-        public Task Post<TEntity>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where TEntity : class
+        public Task PostAsync<TEntity>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where TEntity : class
         {
             var request = new RestRequest(endpoint, Method.POST);
             request.AddJsonBody(item);
-            return ExecuteTask(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
+            return ExecuteTaskAsync(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
-        public Task<TResult> Post<TResult>(string endpoint, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where TResult : new()
+        public Task<TResult> PostAsync<TResult>(string endpoint, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where TResult : new()
         {
             var request = new RestRequest(endpoint, Method.POST);
-            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
+            return ExecuteTaskAsync<TResult>(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
-        public async Task<TResult> PostVideoFile<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : LoadVideoApiModel where TResult : new()
+        public async Task<TResult> PostVideoFileAsync<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false) where TEntity : LoadVideoApiModel where TResult : new()
         {
             var response = default(HttpResponseMessage);
             try
@@ -166,22 +176,40 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public Task<TResult> PostPhotoFile<TResult>(string endpoint, string path, string propertyName, bool exceptionThrowingEnabled = false) where TResult : new()
         {
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                _dialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                return default;
+            }
+
             var request = new RestRequest(endpoint, Method.POST);
             request.AddFile(propertyName, path);
             request.AlwaysMultipartFormData = true;
-            return ExecuteTask<TResult>(request, endpoint, true, exceptionThrowingEnabled);
+            return ExecuteTaskAsync<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
-        public Task Delete(string endpoint, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
+        public Task DeleteAsync(string endpoint, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
         {
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                _dialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                return Task.CompletedTask;
+            }
+
             var request = new RestRequest(endpoint, Method.DELETE);
-            return ExecuteTask(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
+            return ExecuteTaskAsync(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
-        private async Task ExecuteTask(IRestRequest request, string endpoint, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
+        private async Task ExecuteTaskAsync(IRestRequest request, string endpoint, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
         {
             try
             {
+                if (!Connectivity.NetworkAccess.HasConnection())
+                {
+                    _dialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                    return;
+                }
+
                 _mvxLog.Debug($"[HTTP] {request.Method} {endpoint}");
                 if (includeAccessToken)
                 {
@@ -202,10 +230,16 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             }
         }
 
-        private async Task<T> ExecuteTask<T>(IRestRequest request, string endpoint, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where T : new()
+        private async Task<T> ExecuteTaskAsync<T>(IRestRequest request, string endpoint, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null) where T : new()
         {
             try
             {
+                if (!Connectivity.NetworkAccess.HasConnection())
+                {
+                    _dialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                    return default;
+                }
+
                 _mvxLog.Debug($"[HTTP] {request.Method} {endpoint}");
                 if (includeAccessToken)
                 {

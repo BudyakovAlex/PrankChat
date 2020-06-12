@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Plugin.DeviceInfo;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Configuration;
@@ -31,14 +32,20 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public ApiService(ISettingsService settingsService,
                           IMvxLogProvider logProvider,
-                          IMvxMessenger messenger)
+                          IMvxMessenger messenger,
+                          IDialogService dialogService)
         {
             _settingsService = settingsService;
             _messenger = messenger;
 
             _log = logProvider.GetLogFor<ApiService>();
             var configuration = ConfigurationProvider.GetConfiguration();
-            _client = new HttpClient(configuration.BaseAddress, configuration.ApiVersion, settingsService, _log, messenger);
+            _client = new HttpClient(configuration.BaseAddress,
+                                     configuration.ApiVersion,
+                                     settingsService,
+                                     _log,
+                                     messenger,
+                                     dialogService);
 
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
@@ -48,7 +55,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task AuthorizeAsync(string email, string password)
         {
             var loginModel = new AuthorizationApiModel { Email = email?.WithoutSpace()?.ToLower(), Password = password };
-            var authTokenModel = await _client.UnauthorizedPost<AuthorizationApiModel, DataApiModel<AccessTokenApiModel>>("auth/login", loginModel, true);
+            var authTokenModel = await _client.UnauthorizedPostAsync<AuthorizationApiModel, DataApiModel<AccessTokenApiModel>>("auth/login", loginModel, true);
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
@@ -56,7 +63,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var loginTypePath = GetAuthPathByLoginType(loginType);
             var loginModel = new ExternalAuthorizationApiModel { Token = authToken };
-            var authTokenModel = await _client.UnauthorizedPost<ExternalAuthorizationApiModel, DataApiModel<AccessTokenApiModel>>($"auth/social/{loginTypePath}", loginModel, true);
+            var authTokenModel = await _client.UnauthorizedPostAsync<ExternalAuthorizationApiModel, DataApiModel<AccessTokenApiModel>>($"auth/social/{loginTypePath}", loginModel, true);
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
             return authTokenModel?.Data?.AccessToken != null;
         }
@@ -77,25 +84,25 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task RegisterAsync(UserRegistrationDataModel userInfo)
         {
             var registrationApiModel = MappingConfig.Mapper.Map<UserRegistrationApiModel>(userInfo);
-            var authTokenModel = await _client.UnauthorizedPost<UserRegistrationApiModel, DataApiModel<AccessTokenApiModel>>("auth/register", registrationApiModel, true);
+            var authTokenModel = await _client.UnauthorizedPostAsync<UserRegistrationApiModel, DataApiModel<AccessTokenApiModel>>("auth/register", registrationApiModel, true);
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
         public Task LogoutAsync()
         {
-            return _client.Post<AuthorizationApiModel>("auth/logout", true);
+            return _client.PostAsync<AuthorizationApiModel>("auth/logout", true);
         }
 
         public async Task RefreshTokenAsync()
         {
-            var authTokenModel = await _client.Post<DataApiModel<AccessTokenApiModel>>("auth/refresh", true);
+            var authTokenModel = await _client.PostAsync<DataApiModel<AccessTokenApiModel>>("auth/refresh", true);
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
         public async Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email)
         {
             var recoverPasswordModel = new RecoverPasswordApiModel { Email = email.WithoutSpace().ToLower(), };
-            var result = await _client.UnauthorizedPost<RecoverPasswordApiModel, RecoverPasswordResultApiModel>("auth/password/email", recoverPasswordModel, false);
+            var result = await _client.UnauthorizedPostAsync<RecoverPasswordApiModel, RecoverPasswordResultApiModel>("auth/password/email", recoverPasswordModel, false);
             return MappingConfig.Mapper.Map<RecoverPasswordResultDataModel>(result);
         }
 
@@ -106,7 +113,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel orderInfo)
         {
             var createOrderApiModel = MappingConfig.Mapper.Map<CreateOrderApiModel>(orderInfo);
-            var newOrder = await _client.Post<CreateOrderApiModel, DataApiModel<OrderApiModel>>("orders", createOrderApiModel, true);
+            var newOrder = await _client.PostAsync<CreateOrderApiModel, DataApiModel<OrderApiModel>>("orders", createOrderApiModel, true);
             return MappingConfig.Mapper.Map<OrderDataModel>(newOrder?.Data);
         }
 
@@ -125,19 +132,19 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     return new PaginationModel<OrderDataModel>();
             }
 
-            var data = await _client.Get<BaseBundleApiModel<OrderApiModel>>(endpoint, includes: IncludeType.Customer);
+            var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint, includes: IncludeType.Customer);
             return CreatePaginationResult<OrderApiModel, OrderDataModel>(data);
         }
 
         public async Task<OrderDataModel> GetOrderDetailsAsync(int orderId)
         {
-            var data = await _client.Get<DataApiModel<OrderApiModel>>($"orders/{orderId}", includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor, IncludeType.Videos });
+            var data = await _client.GetAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}", includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor, IncludeType.Videos });
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
         public async Task<OrderDataModel> TakeOrderAsync(int orderId)
         {
-            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/executor/appoint");
+            var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/executor/appoint", true);
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
@@ -162,13 +169,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     break;
             }
 
-            var data = await _client.Get<BaseBundleApiModel<ArbitrationOrderApiModel>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
+            var data = await _client.GetAsync<BaseBundleApiModel<ArbitrationOrderApiModel>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
             return CreatePaginationResult<ArbitrationOrderApiModel, ArbitrationOrderDataModel>(data);
         }
 
         public async Task<OrderDataModel> CancelOrderAsync(int orderId)
         {
-            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/cancel", false);
+            var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/cancel", false);
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
@@ -180,30 +187,30 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 Description = description
             };
             var url = $"orders/{orderId}/complaint";
-            return _client.Post(url, dataApiModel);
+            return _client.PostAsync(url, dataApiModel);
         }
 
         public async Task<OrderDataModel> SubscribeOrderAsync(int orderId)
         {
-            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
+            var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
         public async Task<OrderDataModel> UnsubscribeOrderAsync(int orderId)
         {
-            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
+            var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
         public async Task<OrderDataModel> ArgueOrderAsync(int orderId)
         {
-            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/arbitration", true);
+            var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/arbitration", true);
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
         public async Task<OrderDataModel> AcceptOrderAsync(int orderId)
         {
-            var data = await _client.Post<DataApiModel<OrderApiModel>>($"orders/{orderId}/finish", true);
+            var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/finish", true);
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
@@ -213,7 +220,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             {
                 Value = isLiked.ToString().ToLower(),
             };
-            var data = await _client.Post<ChangeArbitrationApiModel, DataApiModel<OrderApiModel>>($"orders/{orderId}/arbitration/value", arbitrationValue, true);
+            var data = await _client.PostAsync<ChangeArbitrationApiModel, DataApiModel<OrderApiModel>>($"orders/{orderId}/arbitration/value", arbitrationValue, true);
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
         }
 
@@ -225,8 +232,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var endpoint = $"newsline/videos/popular?period={dateFilterType.GetEnumMemberAttrValue()}&page={page}&items_per_page={pageSize}";
             var videoMetadataBundle = _settingsService.User == null ?
-                await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer) :
-                await _client.Get<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer);
+                await _client.UnauthorizedGetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer) :
+                await _client.GetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer);
 
             return CreatePaginationResult<VideoApiModel, VideoDataModel>(videoMetadataBundle);
         }
@@ -235,8 +242,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         {
             var endpoint = $"newsline/videos/new?period={dateFilterType.GetEnumMemberAttrValue()}&page={page}&items_per_page={pageSize}";
             var videoMetadataBundle = _settingsService.User == null ?
-                await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer) :
-                await _client.Get<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer);
+                await _client.UnauthorizedGetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer) :
+                await _client.GetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer);
 
             var mappedModels = MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
             var paginationData = videoMetadataBundle.Meta.FirstOrDefault();
@@ -266,7 +273,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             if (dateFilterType.HasValue)
                 endpoint += $"&date_from={dateFilterType.Value.GetDateString()}";
 
-            var dataApiModel = await _client.Get<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer);
+            var dataApiModel = await _client.GetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer);
             var orderDataModel = MappingConfig.Mapper.Map<List<VideoDataModel>>(dataApiModel?.Data);
             var paginationData = dataApiModel.Meta.FirstOrDefault();
             var totalItemsCount = paginationData.Value?.Total ?? orderDataModel.Count;
@@ -276,7 +283,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
         {
             var url = isChecked ? $"videos/{videoId}/like" : $"videos/{videoId}/like/remove";
-            var data = await _client.Post<DataApiModel<VideoApiModel>>(url, cancellationToken: cancellationToken);
+            var data = await _client.PostAsync<DataApiModel<VideoApiModel>>(url, cancellationToken: cancellationToken);
             return MappingConfig.Mapper.Map<VideoDataModel>(data?.Data);
         }
 
@@ -286,12 +293,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public Task VerifyEmailAsync()
         {
-            return _client.Post<DataApiModel>("me/verify/resend");
+            return _client.PostAsync<DataApiModel>("me/verify/resend");
         }
 
         public async Task GetCurrentUserAsync()
         {
-            var dataApiModel = await _client.Get<DataApiModel<UserApiModel>>("me", includes: IncludeType.Document);
+            var dataApiModel = await _client.GetAsync<DataApiModel<UserApiModel>>("me", includes: IncludeType.Document);
             var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
             _settingsService.User = user;
         }
@@ -306,7 +313,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
         {
             var userUpdateProfileApiModel = MappingConfig.Mapper.Map<UserUpdateProfileApiModel>(userInfo);
-            var dataApiModel = await _client.Post<UserUpdateProfileApiModel, DataApiModel<UserApiModel>>("me", userUpdateProfileApiModel);
+            var dataApiModel = await _client.PostAsync<UserUpdateProfileApiModel, DataApiModel<UserApiModel>>("me", userUpdateProfileApiModel);
             var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
             return user;
         }
@@ -319,7 +326,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 Description = description
             };
             var url = $"users/{userId}/complaint";
-            return _client.Post(url, dataApiModel);
+            return _client.PostAsync(url, dataApiModel);
         }
 
         public async Task<DocumentDataModel> SendVerifyDocumentAsync(string path)
@@ -336,21 +343,21 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 Number = number.WithoutSpace(),
                 CardUserName = userName,
             };
-            var dataApiModel = await _client.Post<CreateCardApiModel, DataApiModel<CardApiModel>>("me/cards", createCreditCard, true);
+            var dataApiModel = await _client.PostAsync<CreateCardApiModel, DataApiModel<CardApiModel>>("me/cards", createCreditCard, true);
             var user = MappingConfig.Mapper.Map<CardDataModel>(dataApiModel?.Data);
             return user;
         }
 
         public async Task<CardDataModel> GetCardsAsync()
         {
-            var dataApiModel = await _client.Get<DataApiModel<List<CardApiModel>>>("me/cards");
+            var dataApiModel = await _client.GetAsync<DataApiModel<List<CardApiModel>>>("me/cards");
             var data = MappingConfig.Mapper.Map<List<CardDataModel>>(dataApiModel?.Data);
             return data?.FirstOrDefault();
         }
 
         public Task DeleteCardAsync(int id)
         {
-            return _client.Delete($"me/cards/{id}", true);
+            return _client.DeleteAsync($"me/cards/{id}", true);
         }
 
         #endregion Users
@@ -366,13 +373,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 Title = title,
                 Description = description,
             };
-            var videoMetadataApiModel = await _client.PostVideoFile<LoadVideoApiModel, DataApiModel<VideoApiModel>>("videos", loadVideoApiModel);
+            var videoMetadataApiModel = await _client.PostVideoFileAsync<LoadVideoApiModel, DataApiModel<VideoApiModel>>("videos", loadVideoApiModel);
             return MappingConfig.Mapper.Map<VideoDataModel>(videoMetadataApiModel?.Data);
         }
 
         public async Task<long?> RegisterVideoViewedFactAsync(int videoId)
         {
-            var videoApiModel = await _client.UnauthorizedGet<DataApiModel<VideoApiModel>>($"videos/{videoId}/looked");
+            var videoApiModel = await _client.UnauthorizedGetAsync<DataApiModel<VideoApiModel>>($"videos/{videoId}/looked");
             _log.Log(MvxLogLevel.Debug, () => $"Registered {videoApiModel?.Data?.ViewsCount} for video with id {videoId}");
             return videoApiModel?.Data?.ViewsCount;
         }
@@ -385,7 +392,25 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 Description = description
             };
             var url = $"videos/{videoId}/complaint";
-            return _client.Post(url, dataApiModel);
+            return _client.PostAsync(url, dataApiModel);
+        }
+
+        public async Task<CommentDataModel> CommentVideoAsync(int videoId, string comment)
+        {
+            var dataApiModel = new SendCommentApiModel
+            {
+                Text = comment,
+            };
+
+            var url = $"videos/{videoId}/comments";
+            var dataModel = await _client.PostAsync<SendCommentApiModel, DataApiModel<CommentApiModel>>(url, dataApiModel);
+            return MappingConfig.Mapper.Map<CommentDataModel>(dataModel?.Data);
+        }
+
+        public async Task<PaginationModel<CommentDataModel>> GetVideoCommentsAsync(int videoId, int page, int pageSize)
+        {
+            var data = await _client.GetAsync<BaseBundleApiModel<CommentApiModel>>($"videos/{videoId}/comments?page={page}&items_per_page={pageSize}");
+            return CreatePaginationResult<CommentApiModel, CommentDataModel>(data);
         }
 
         #endregion Video
@@ -399,7 +424,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 Amount = coast
             };
 
-            var data = await _client.Post<RefillApiData, DataApiModel<PaymentApiModel>>("payment", refillApiData);
+            var data = await _client.PostAsync<RefillApiData, DataApiModel<PaymentApiModel>>("payment", refillApiData);
             return MappingConfig.Mapper.Map<PaymentDataModel>(data?.Data);
         }
 
@@ -411,21 +436,21 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 CreditCardId = cardId,
             };
 
-            var dataApiModel = await _client.Post<CreateWithdrawalApiModel, DataApiModel<WithdrawalApiModel>>("withdrawal", createWithdrawalApiModel);
+            var dataApiModel = await _client.PostAsync<CreateWithdrawalApiModel, DataApiModel<WithdrawalApiModel>>("withdrawal", createWithdrawalApiModel);
             var data = MappingConfig.Mapper.Map<WithdrawalDataModel>(dataApiModel?.Data);
             return data;
         }
 
         public async Task<List<WithdrawalDataModel>> GetWithdrawalsAsync()
         {
-            var dataApiModel = await _client.Get<DataApiModel<List<WithdrawalApiModel>>> ("withdrawal");
+            var dataApiModel = await _client.GetAsync<DataApiModel<List<WithdrawalApiModel>>> ("withdrawal");
             var data = MappingConfig.Mapper.Map<List<WithdrawalDataModel>>(dataApiModel?.Data);
             return data;
         }
 
         public Task CancelWithdrawalAsync(int withdrawalId)
         {
-            return _client.Delete($"withdrawal/{withdrawalId}", true);
+            return _client.DeleteAsync($"withdrawal/{withdrawalId}", true);
         }
 
         #endregion Payment
@@ -434,7 +459,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<List<NotificationDataModel>> GetNotificationsAsync()
         {
-            var notificationBundle = await _client.Get<BaseBundleApiModel<NotificationApiModel>>("notifications");
+            var notificationBundle = await _client.GetAsync<BaseBundleApiModel<NotificationApiModel>>("notifications");
             return MappingConfig.Mapper.Map<List<NotificationDataModel>>(notificationBundle?.Data);
         }
 
@@ -445,7 +470,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 Token = token,
                 DeviceId = CrossDeviceInfo.Current.Id,
             };
-            return _client.Post("me/device", pushNotificationApiMode, true);
+            return _client.PostAsync("me/device", pushNotificationApiMode, true);
         }
 
         #endregion Notification
@@ -454,13 +479,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<List<CompetitionResultDataModel>> GetCompetitionResultsAsync(int id)
         {
-            var bundle = await _client.Get<BaseBundleApiModel<CompetitionResultApiModel>>($"competition/{id}/results");
+            var bundle = await _client.GetAsync<BaseBundleApiModel<CompetitionResultApiModel>>($"competition/{id}/results");
             return MappingConfig.Mapper.Map<List<CompetitionResultDataModel>>(bundle?.Data);
         }
 
         public async Task<List<CompetitionResultDataModel>> GetCompetitionRatingsAsync(int id)
         {
-            var bundle = await _client.Get<BaseBundleApiModel<CompetitionResultApiModel>>($"competition/{id}/rating");
+            var bundle = await _client.GetAsync<BaseBundleApiModel<CompetitionResultApiModel>>($"competition/{id}/rating");
             return MappingConfig.Mapper.Map<List<CompetitionResultDataModel>>(bundle?.Data);
         }
 
@@ -469,11 +494,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
             if (_settingsService.User == null)
             {
-                videoMetadataBundle = await _client.UnauthorizedGet<BaseBundleApiModel<VideoApiModel>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
+                videoMetadataBundle = await _client.UnauthorizedGetAsync<BaseBundleApiModel<VideoApiModel>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
             }
             else
             {
-                videoMetadataBundle = await _client.Get<BaseBundleApiModel<VideoApiModel>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
+                videoMetadataBundle = await _client.GetAsync<BaseBundleApiModel<VideoApiModel>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
             }
 
             return CreatePaginationResult<VideoApiModel, VideoDataModel>(videoMetadataBundle);
@@ -482,7 +507,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<PaginationModel<CompetitionDataModel>> GetCompetitionsAsync(int page, int pageSize)
         {
             var endpoint = $"competitions?page={page}&items_per_page={pageSize}";
-            var data = await _client.Get<BaseBundleApiModel<CompetitionApiModel>>(endpoint);
+            var data = await _client.GetAsync<BaseBundleApiModel<CompetitionApiModel>>(endpoint);
             return CreatePaginationResult<CompetitionApiModel, CompetitionDataModel>(data);
         }
 

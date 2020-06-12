@@ -1,44 +1,125 @@
-﻿using System;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
 {
-    public class CommentsViewModel : BaseViewModel
+    public class CommentsViewModel : PaginationViewModel, IMvxViewModel<int, int>
     {
-        public MvxObservableCollection<CommentItemViewModel> Items { get; } = new MvxObservableCollection<CommentItemViewModel>();
-
-        public string Comment { get; set; }
-
-        public MvxAsyncCommand SendCommentCommand => new MvxAsyncCommand(OnSendCommentAsync);
+        private int _videoId;
+        private int _newCommentsCounter;
 
         public CommentsViewModel(INavigationService navigationService,
                                  IErrorHandleService errorHandleService,
                                  IApiService apiService,
                                  IDialogService dialogService,
                                  ISettingsService settingsService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+            : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
+            Items = new MvxObservableCollection<CommentItemViewModel>();
+
+            SendCommentCommand = new MvxAsyncCommand(SendCommentAsync, () => !string.IsNullOrWhiteSpace(Comment));
+        }
+
+        public MvxObservableCollection<CommentItemViewModel> Items { get; }
+
+        private string _comment;
+        public string Comment
+        {
+            get => _comment;
+            set
+            {
+                if (SetProperty(ref _comment, value))
+                {
+                    SendCommentCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public string ProfilePhotoUrl => SettingsService.User?.Avatar;
+
+        public string ProfileShortName => SettingsService.User?.Name?.ToShortenName();
+
+        public IMvxAsyncCommand SendCommentCommand { get; }
+
+        public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
+
+        public void Prepare(int parameter)
+        {
+            _videoId = parameter;
+        }
+
+        public override void Reset()
+        {
+            Items.Clear();
+            base.Reset();
         }
 
         public override Task Initialize()
         {
-            Items.Add(new CommentItemViewModel("Name one", "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500", "First comment", new DateTime(2019, 1, 13)));
-            Items.Add(new CommentItemViewModel("Name two", "https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500", "Second comment", new DateTime(2019, 4, 18)));
-            return base.Initialize();
+            return LoadMoreItemsCommand.ExecuteAsync();
         }
 
-        private Task OnSendCommentAsync()
+        public override void ViewDestroy(bool viewFinishing = true)
         {
-            return Task.CompletedTask;
+            if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
+            {
+                CloseCompletionSource?.SetResult(_newCommentsCounter);
+            }
+
+            base.ViewDestroy(viewFinishing);
+        }
+
+        protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
+        {
+            var pageContainer = await ApiService.GetVideoCommentsAsync(_videoId, page, pageSize);
+
+            var count = SetList(pageContainer, page, ProduceCommentItemViewModel, Items);
+            return count;
+        }
+
+        private CommentItemViewModel ProduceCommentItemViewModel(CommentDataModel commentDataModel)
+        {
+            return new CommentItemViewModel(commentDataModel.User.Name,
+                                            commentDataModel.User.Avatar,
+                                            commentDataModel.Text,
+                                            commentDataModel.CreatedAt);
+        }
+
+        protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        {
+            SetTotalItemsCount(dataModel?.TotalCount ?? 0);
+            _newCommentsCounter = (int)(dataModel?.TotalCount ?? 0);
+
+            var orderViewModels = dataModel?.Items?.Select(produceItemViewModel).ToList();
+
+            items.AddRange(orderViewModels);
+            return orderViewModels.Count;
+        }
+
+        private async Task SendCommentAsync()
+        {
+            if (string.IsNullOrWhiteSpace(Comment))
+            {
+                return;
+            }
+
+            await ApiService.CommentVideoAsync(_videoId, Comment);
+            await ReloadItemsCommand.ExecuteAsync();
+            Comment = string.Empty;
         }
     }
 }

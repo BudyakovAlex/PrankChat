@@ -23,6 +23,9 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("likes_count")]
         public long? LikesCount { get; set; }
 
+        [JsonProperty("comments_count")]
+        public long? CommentsCount { get; set; }
+
         [JsonProperty("reposts_count")]
         public long? RepostsCount { get; set; }
 

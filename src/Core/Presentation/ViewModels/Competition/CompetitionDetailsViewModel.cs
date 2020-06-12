@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -15,10 +12,15 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
@@ -36,6 +38,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         public IMvxAsyncCommand RefreshDataCommand { get; }
 
         private bool _isRefreshing;
+        private MvxSubscriptionToken _reloadItemsSubscriptionToken;
+
         public bool IsRefreshing
         {
             get => _isRefreshing;
@@ -74,6 +78,37 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         public override Task Initialize()
         {
             return LoadMoreItemsCommand.ExecuteAsync();
+        }
+
+        public override void ViewCreated()
+        {
+            base.ViewCreated();
+            Subscription();
+        }
+
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            Unsubscription();
+            base.ViewDestroy(viewFinishing);
+        }
+
+        private void Subscription()
+        {
+            _reloadItemsSubscriptionToken = _mvxMessenger.SubscribeOnMainThread<ReloadCompetitionMessage>(OnReloadData);
+        }
+
+        private void Unsubscription()
+        {
+            if (_reloadItemsSubscriptionToken != null)
+            {
+                _mvxMessenger.Unsubscribe<ReloadCompetitionMessage>(_reloadItemsSubscriptionToken);
+                _reloadItemsSubscriptionToken.Dispose();
+            }
+        }
+
+        private void OnReloadData(ReloadCompetitionMessage obj)
+        {
+            RefreshDataCommand.Execute();
         }
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
@@ -118,11 +153,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             }
         }
 
+        private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
+        {
+            return Items.OfType<CompetitionVideoViewModel>()
+                        .Select(item => item.GetFullScreenVideoDataModel())
+                        .ToList();
+        }
+
         private CompetitionVideoViewModel ProduceVideoItemViewModel(VideoDataModel videoDataModel)
         {
             return new CompetitionVideoViewModel(ApiService,
                                                  _videoPlayerService,
                                                  NavigationService,
+                                                 _mvxMessenger,
                                                  videoDataModel.Poster,
                                                  videoDataModel.Id,
                                                  videoDataModel.StreamUri,
@@ -133,11 +176,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                                  videoDataModel.User.Name,
                                                  videoDataModel.User.Avatar,
                                                  videoDataModel.LikesCount,
+                                                 videoDataModel.CommentsCount,
                                                  videoDataModel.ViewsCount,
                                                  videoDataModel.CreatedAt.UtcDateTime,
                                                  videoDataModel.IsLiked,
                                                  videoDataModel.User.Id == SettingsService.User.Id,
-                                                 _competition.GetPhase() == CompetitionPhase.Voting);
+                                                 _competition.GetPhase() == CompetitionPhase.Voting,
+                                                 GetFullScreenVideoDataModels);
         }
 
         private async Task LoadVideoAsync()
@@ -161,6 +206,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                         Items.Insert(1, new CompetitionVideoViewModel(ApiService,
                                                                       _videoPlayerService,
                                                                       NavigationService,
+                                                                      _mvxMessenger,
                                                                       video.Poster,
                                                                       video.Id,
                                                                       video.StreamUri,
@@ -171,11 +217,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                                                       SettingsService.User?.Name,
                                                                       SettingsService.User?.Avatar,
                                                                       video.LikesCount,
+                                                                      video.CommentsCount,
                                                                       video.ViewsCount,
                                                                       video.CreatedAt.UtcDateTime,
                                                                       video.IsLiked,
                                                                       true,
-                                                                      false));
+                                                                      false,
+                                                                      GetFullScreenVideoDataModels));
                     });
 
                     await _header.RaisePropertyChanged(nameof(_header.CanLoadVideo));

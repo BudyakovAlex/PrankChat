@@ -1,9 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Graphics;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
@@ -22,6 +18,9 @@ using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions;
 using PrankChat.Mobile.Droid.Presentation.Converters;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
 {
@@ -84,6 +83,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
             bindingSet.Bind(_refreshView)
                       .For(v => v.RefreshCommand)
                       .To(vm => vm.RefreshDataCommand);
+
+            bindingSet.Bind(_recyclerView)
+                      .For(v => v.LoadMoreItemsCommand)
+                      .To(vm => vm.LoadMoreItemsCommand);
 
             bindingSet.Bind(_loadingOverlay)
                       .For(v => v.Visibility)

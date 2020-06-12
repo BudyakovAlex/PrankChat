@@ -1,44 +1,23 @@
-﻿namespace PrankChat.Mobile.Core.Presentation.Navigation.Parameters
+﻿using System.Collections.Generic;
+using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Models.Enums;
+
+namespace PrankChat.Mobile.Core.Presentation.Navigation.Parameters
 {
     public class FullScreenVideoParameter
     {
-        public int VideoId { get; }
-
-        public string VideoUrl { get; }
-
-        public string VideoName { get; }
-
-        public string Description { get; }
-
-        public string ShareLink { get; }
-
-        public string ProfilePhotoUrl { get; }
-
-        public long? NumberOfLikes { get; }
-
-        public bool IsLiked { get; }
-
-        public bool IsLikeFlowAvailable { get; }
-
-        public FullScreenVideoParameter(int videoId,
-                                        string videoUrl,
-                                        string videoName,
-                                        string description,
-                                        string shareLink,
-                                        string profilePhotoUrl,
-                                        long? numberOfLikes,
-                                        bool isLiked,
-                                        bool isLikeFlowAvailable = true)
+        public FullScreenVideoParameter(FullScreenVideoDataModel video) : this(new List<FullScreenVideoDataModel> { video }, 0)
         {
-            VideoId = videoId;
-            VideoUrl = videoUrl;
-            VideoName = videoName;
-            Description = description;
-            ShareLink = shareLink;
-            ProfilePhotoUrl = profilePhotoUrl;
-            NumberOfLikes = numberOfLikes;
-            IsLiked = isLiked;
-            IsLikeFlowAvailable = isLikeFlowAvailable;
         }
+
+        public FullScreenVideoParameter(List<FullScreenVideoDataModel> videos, int index)
+        {
+            Videos = videos;
+            Index = index;
+        }
+
+        public List<FullScreenVideoDataModel> Videos { get; }
+
+        public int Index { get; }
     }
 }

@@ -9,8 +9,8 @@ using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 {
-	[Register ("CommentView")]
-	partial class CommentView
+	[Register ("CommentsView")]
+	partial class CommentsView
 	{
 		[Outlet]
 		UIKit.UITextView commentTextView { get; set; }
@@ -20,6 +20,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 
 		[Outlet]
 		UIKit.UIView commentViewSeparatorView { get; set; }
+
+		[Outlet]
+		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profileImageView { get; set; }
 
 		[Outlet]
 		UIKit.UIButton sendButton { get; set; }
@@ -39,19 +42,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 				commentView = null;
 			}
 
+			if (commentViewSeparatorView != null) {
+				commentViewSeparatorView.Dispose ();
+				commentViewSeparatorView = null;
+			}
+
 			if (sendButton != null) {
 				sendButton.Dispose ();
 				sendButton = null;
 			}
 
+			if (profileImageView != null) {
+				profileImageView.Dispose ();
+				profileImageView = null;
+			}
+
 			if (tableView != null) {
 				tableView.Dispose ();
 				tableView = null;
-			}
-
-			if (commentViewSeparatorView != null) {
-				commentViewSeparatorView.Dispose ();
-				commentViewSeparatorView = null;
 			}
 		}
 	}

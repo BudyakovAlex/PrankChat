@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -7,6 +8,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
@@ -34,8 +36,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                                         long numberOfViews,
                                         DateTime publicationDate,
                                         long numberOfLikes,
+                                        long numberOfComments,
                                         string shareLink,
-                                        bool isLiked)
+                                        bool isLiked,
+                                        Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
             : base(navigationService,
                    dialogService,
                    platformService,
@@ -55,8 +59,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                    numberOfViews,
                    publicationDate,
                    numberOfLikes,
+                   numberOfComments,
                    shareLink,
-                   isLiked)
+                   isLiked,
+                   getAllFullScreenVideoDataFunc)
         {
             // TODO: Unblock this after video details page will be completed
             // ShowDetailsCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowDetailsPublicationView, restrictedCanExecute: ()=> IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);

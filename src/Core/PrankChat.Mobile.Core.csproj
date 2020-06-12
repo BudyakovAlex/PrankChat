@@ -48,8 +48,6 @@
     <Folder Include="Presentation\ViewModels\Publication\Items\" />
     <Folder Include="Presentation\ViewModels\PasswordRecovery\" />
     <Folder Include="Presentation\ViewModels\Order\Items\" />
-    <Folder Include="Presentation\ViewModels\Arbitration\" />
-    <Folder Include="Presentation\ViewModels\Arbitration\Items\" />
     <Folder Include="Presentation\ViewModels\Search\Items\" />
     <Folder Include="Presentation\ViewModels\Notification\" />
     <Folder Include="Presentation\ViewModels\Notification\Items\" />

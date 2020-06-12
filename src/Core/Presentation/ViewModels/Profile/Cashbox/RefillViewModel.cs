@@ -1,23 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
-using PrankChat.Mobile.Core.Presentation.Navigation;
-using System.Linq;
-using MvvmCross.Logging;
+﻿using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
-using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
-using System;
-using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
     public class RefillViewModel : BaseViewModel
     {
+        private readonly IMvxMessenger _mvxMessenger;
+
         private double? _cost;
         public double? Cost
         {
@@ -42,9 +43,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                                IErrorHandleService errorHandleService,
                                IApiService apiService,
                                IDialogService dialogService,
-                               ISettingsService settingsService)
+                               ISettingsService settingsService,
+                               IMvxMessenger mvxMessenger)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
+            _mvxMessenger = mvxMessenger;
         }
 
         public override Task Initialize()
@@ -72,6 +75,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
 
             await NavigationService.ShowWebView(paymentData.PaymentLink);
+            _mvxMessenger.Publish(new ReloadProfileMessage(this));
         }
 
         private Task OnSelectionChangedAsync(PaymentMethodItemViewModel item)

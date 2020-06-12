@@ -2,12 +2,10 @@
 using Android.App;
 using Android.Content;
 using Android.Runtime;
-using MvvmCross;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 {
-	[Service]
+    [Service]
 	public class NotificationActionService : IntentService
 	{
 		private int? _orderId;

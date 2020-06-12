@@ -50,7 +50,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
                         return;
 
                     var navigationService = Mvx.IoCProvider.Resolve<INavigationService>();
-                    navigationService.ShowOrderDetailsView(orderId.Value);
+                    navigationService.ShowOrderDetailsView(orderId.Value, null, 0);
                 }
                 catch (Exception e)
                 {

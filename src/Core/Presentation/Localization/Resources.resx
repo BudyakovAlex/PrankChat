@@ -1013,4 +1013,7 @@
   <data name="Walkthrouth_Profile_Title" xml:space="preserve">
     <value>Профиль</value>
   </data>
+  <data name="No_Intentet_Connection" xml:space="preserve">
+    <value>Интернет соединение отсувствует</value>
+  </data>
 </root>

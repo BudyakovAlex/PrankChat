@@ -18,7 +18,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items
 
         public string DateText => _date.ToTimeAgoCommentString();
 
-        public CommentItemViewModel(string profileName, string profilePhotoUrl, string comment, DateTime date)
+        public CommentItemViewModel(string profileName,
+                                    string profilePhotoUrl,
+                                    string comment,
+                                    DateTime date)
         {
             ProfileName = profileName;
             ProfilePhotoUrl = profilePhotoUrl;

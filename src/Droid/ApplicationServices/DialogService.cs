@@ -23,6 +23,8 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
         private readonly IMvxAndroidCurrentTopActivity _topActivity;
         private readonly IMvxMainThreadAsyncDispatcher _mvxMainThreadAsyncDispatcher;
 
+        public override bool IsToastShown { get; protected set; }
+
         public DialogService(INavigationService navigationService, IMvxAndroidCurrentTopActivity topActivity, IMvxMainThreadAsyncDispatcher mvxMainThreadAsyncDispatcher)
              : base(navigationService)
         {
@@ -32,6 +34,7 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
 
         public override void ShowToast(string text, ToastType toastType)
         {
+            IsToastShown = true;
             var activity = (MvxAppCompatActivity) _topActivity.Activity;
             var yOffset = GetToastYOffset(activity);
 
@@ -46,6 +49,11 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
             toast.Duration = ToastLength.Long;
             toast.View = toastView;
             toast.Show();
+            Task.Run(async () =>
+            {
+                await Task.Delay(3500);
+                IsToastShown = false;
+            });
         }
 
         public override async Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null)

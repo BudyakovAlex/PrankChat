@@ -1,7 +1,6 @@
 ﻿using System;
 using Firebase.CloudMessaging;
 using Firebase.Crashlytics;
-using Firebase.InstanceID;
 using Foundation;
 using MvvmCross;
 using MvvmCross.Platforms.Ios.Core;
@@ -22,6 +21,13 @@ namespace PrankChat.Mobile.iOS
 
         private int? _orderId;
 
+        public AppDelegate()
+        {
+            Instance = this;
+        }
+
+        public static AppDelegate Instance { get; private set; }
+
         public override void OnActivated(UIApplication application)
         {
             // Restart any tasks that were paused (or not yet started) while the application was inactive.
@@ -32,7 +38,6 @@ namespace PrankChat.Mobile.iOS
         public override bool WillFinishLaunching(UIApplication application, NSDictionary launchOptions)
         {
             InitializeFirebase();
-            InitializePushNotification();
             return true;
         }
 
@@ -86,42 +91,11 @@ namespace PrankChat.Mobile.iOS
         private void InitializeFirebase()
         {
             if (Firebase.Core.App.DefaultInstance == null)
+            {
                 Firebase.Core.App.Configure();
+            }
 
             Crashlytics.Configure();
-        }
-
-        private void InitializePushNotification()
-        {
-            Messaging.SharedInstance.AutoInitEnabled = true;
-            Messaging.SharedInstance.Delegate = this;
-            Messaging.SharedInstance.ShouldEstablishDirectChannel = true;
-
-            InstanceId.Notifications.ObserveTokenRefresh(NotificationWrapper.Instance.TokenRefreshNotification);
-
-            // Register your app for remote notifications.
-            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
-            {
-                // iOS 10 or later
-                var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
-
-                // For iOS 10 display notification (sent via APNS)
-                UNUserNotificationCenter.Current.Delegate = this;
-
-                UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
-                {
-                    if (granted)
-                        InvokeOnMainThread(() => UIApplication.SharedApplication.RegisterForRemoteNotifications());
-
-                });
-            }
-            else
-            {
-                // iOS 9 or before
-                var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
-                var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
-                UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
-            }
         }
     }
 }

@@ -16,6 +16,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
     {
         private readonly INavigationService _navigationService;
 
+        public abstract bool IsToastShown { get; protected set; }
+
         protected BaseDialogService(INavigationService navigationService)
         {
             _navigationService = navigationService;

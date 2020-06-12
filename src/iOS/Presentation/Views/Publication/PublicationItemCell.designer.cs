@@ -16,6 +16,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UIButton bookmarkButton { get; set; }
 
 		[Outlet]
+		UIKit.UIButton commentButton { get; set; }
+
+		[Outlet]
+		UIKit.UILabel commentsLabel { get; set; }
+
+		[Outlet]
 		UIKit.UIButton likeButton { get; set; }
 
 		[Outlet]
@@ -72,11 +78,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				likeButton = null;
 			}
 
-			if (processingIndicatorView != null) {
-				processingIndicatorView.Dispose ();
-				processingIndicatorView = null;
-			}
-
 			if (likeLabel != null) {
 				likeLabel.Dispose ();
 				likeLabel = null;
@@ -100,6 +101,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			if (processingBackgroundView != null) {
 				processingBackgroundView.Dispose ();
 				processingBackgroundView = null;
+			}
+
+			if (processingIndicatorView != null) {
+				processingIndicatorView.Dispose ();
+				processingIndicatorView = null;
+			}
+
+			if (commentButton != null) {
+				commentButton.Dispose ();
+				commentButton = null;
+			}
+
+			if (commentsLabel != null) {
+				commentsLabel.Dispose ();
+				commentsLabel = null;
 			}
 
 			if (processingLabel != null) {

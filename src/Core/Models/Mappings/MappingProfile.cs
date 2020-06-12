@@ -31,6 +31,8 @@ namespace PrankChat.Mobile.Core.Models.Mappings
             CreateMap<UserUpdateProfileDataModel, UserUpdateProfileApiModel>().ReverseMap();
             CreateMap<ArbitrationOrderDataModel, ArbitrationOrderApiModel>()
                 .ForPath(dest => dest.Customer.Data, opt => opt.MapFrom(src => src.Customer))
+                .ForPath(dest => dest.Executor.Data, opt => opt.MapFrom(src => src.Executor))
+                .ForPath(dest => dest.Video.Data, opt => opt.MapFrom(src => src.Video))
                 .ReverseMap();
             CreateMap<PaymentDataModel, PaymentApiModel>().ReverseMap();
             CreateMap<CompetitionDataModel, CompetitionApiModel>().ReverseMap();
@@ -43,6 +45,9 @@ namespace PrankChat.Mobile.Core.Models.Mappings
                 .ForPath(dest => dest.RelatedUser.Data, opt => opt.MapFrom(src => src.RelatedUser))
                 .ForPath(dest => dest.RelatedVideo.Data, opt => opt.MapFrom(src => src.RelatedVideo))
                 .ForPath(dest => dest.RelationTransaction.Data, opt => opt.MapFrom(src => src.RelationTransaction))
+                .ReverseMap();
+            CreateMap<CommentDataModel, CommentApiModel>()
+                .ForPath(dest => dest.User.Data, opt => opt.MapFrom(src => src.User))
                 .ReverseMap();
             CreateMap<TransactionDataModel, TransactionApiModel>().ReverseMap();
             CreateMap<ProblemDetailsDataModel, ProblemDetailsApiModel>()

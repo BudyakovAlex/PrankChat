@@ -96,7 +96,7 @@
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/share_image_view"
+            app:layout_constraintBottom_toTopOf="@+id/comments_view"
             app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
@@ -106,11 +106,45 @@
                 android:duplicateParentState="true"
                 android:scaleType="center"
                 android:src="@drawable/ic_like_active"
-                app:srcCompat="@drawable/ic_like_active"
-                android:tint="@color/selector_full_screen_video_like_color" />
+                android:tint="@color/selector_full_screen_video_like_color"
+                app:srcCompat="@drawable/ic_like_active" />
 
             <TextView
                 android:id="@+id/like_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:alpha="0.95"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/applicationWhite"
+                android:textSize="12dp"
+                tools:text="18,2 k" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/comments_view"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/share_image_view"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:alpha="0.95"
+                android:duplicateParentState="true"
+                android:scaleType="center"
+                android:src="@drawable/ic_comments"
+                android:tint="@color/selector_full_screen_video_like_color"
+                app:srcCompat="@drawable/ic_comments" />
+
+            <TextView
+                android:id="@+id/comments_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

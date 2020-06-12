@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,6 +11,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FullScreenVideoView">
             <connections>
                 <outlet property="closeButton" destination="7AW-aU-W4q" id="Wiu-NL-Xp5"/>
+                <outlet property="commentsImageView" destination="O6T-XD-J1F" id="PH6-h5-xPj"/>
+                <outlet property="commentsLabel" destination="8Rb-9T-RTC" id="Q3i-Bi-9XZ"/>
+                <outlet property="commentsView" destination="uzk-IL-bkv" id="8up-Wb-YM1"/>
                 <outlet property="descriptionLabel" destination="WjN-hV-SLx" id="VkR-Gr-dXM"/>
                 <outlet property="likeImageView" destination="Vhi-rc-yQT" id="pfj-dV-Sno"/>
                 <outlet property="likeLabel" destination="IlX-SV-tGi" id="4EE-rS-HWN"/>
@@ -61,7 +65,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pyz-oo-dVZ">
-                            <rect key="frame" x="362" y="638" width="52" height="52"/>
+                            <rect key="frame" x="362" y="576" width="52" height="52"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Etu-x9-6bK" customClass="MvxCachedImageView">
                                     <rect key="frame" x="6" y="6" width="40" height="40"/>
@@ -71,7 +75,7 @@
                                     </constraints>
                                 </imageView>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_plus" translatesAutoresizingMaskIntoConstraints="NO" id="EZi-Au-mRp">
-                                    <rect key="frame" x="14" y="14" width="32" height="32"/>
+                                    <rect key="frame" x="30" y="30" width="16" height="16"/>
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -85,7 +89,7 @@
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="oyF-hi-MQW">
-                            <rect key="frame" x="362" y="700" width="52" height="52"/>
+                            <rect key="frame" x="362" y="638" width="52" height="52"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_like_active" translatesAutoresizingMaskIntoConstraints="NO" id="Vhi-rc-yQT">
                                     <rect key="frame" x="13" y="0.0" width="26" height="26"/>
@@ -184,6 +188,32 @@
                             </constraints>
                             <state key="normal" image="ic_mute"/>
                         </button>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="uzk-IL-bkv">
+                            <rect key="frame" x="362" y="700" width="52" height="52"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_comments" translatesAutoresizingMaskIntoConstraints="NO" id="O6T-XD-J1F">
+                                    <rect key="frame" x="13" y="0.0" width="26" height="26"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="26" id="WAC-Mt-sZ0"/>
+                                        <constraint firstAttribute="width" constant="26" id="Ze0-nr-Fmw"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="18,2 k" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Rb-9T-RTC">
+                                    <rect key="frame" x="9.5" y="26" width="33.5" height="26"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="33.5" id="XGN-iS-COD"/>
+                                        <constraint firstAttribute="height" constant="26" id="gDd-5n-Tun"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" white="1" alpha="0.94740316899999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="52" id="KId-Xp-kOV"/>
+                                <constraint firstAttribute="height" constant="52" id="csE-Gd-AbJ"/>
+                            </constraints>
+                        </stackView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -200,15 +230,17 @@
                         <constraint firstItem="oyF-hi-MQW" firstAttribute="top" secondItem="pyz-oo-dVZ" secondAttribute="bottom" constant="10" id="Se3-gB-vnq"/>
                         <constraint firstAttribute="bottom" secondItem="ZoM-0m-ABn" secondAttribute="bottom" constant="20" id="TIp-77-rXg"/>
                         <constraint firstItem="WjN-hV-SLx" firstAttribute="leading" secondItem="Pgc-2r-xf7" secondAttribute="leading" constant="13" id="Tp4-oB-p1E"/>
+                        <constraint firstItem="rfK-Rr-euB" firstAttribute="top" secondItem="uzk-IL-bkv" secondAttribute="bottom" constant="10" id="VuM-zU-fuO"/>
                         <constraint firstItem="yxU-43-JAn" firstAttribute="leading" secondItem="Pgc-2r-xf7" secondAttribute="leading" constant="13" id="WBV-DD-t6m"/>
                         <constraint firstItem="M8k-UE-Klw" firstAttribute="top" secondItem="4XM-Yo-t0T" secondAttribute="bottom" constant="11" id="XqK-nj-jIY"/>
                         <constraint firstItem="WjN-hV-SLx" firstAttribute="top" secondItem="yxU-43-JAn" secondAttribute="bottom" constant="18" id="YIm-OF-7PV"/>
                         <constraint firstItem="M8k-UE-Klw" firstAttribute="centerY" secondItem="ZoM-0m-ABn" secondAttribute="centerY" id="YUP-8S-W52"/>
                         <constraint firstAttribute="bottom" secondItem="daG-Sh-qgY" secondAttribute="bottom" constant="20" id="bVQ-ef-bDT"/>
-                        <constraint firstItem="rfK-Rr-euB" firstAttribute="top" secondItem="oyF-hi-MQW" secondAttribute="bottom" constant="10" id="cBq-Fv-y8z"/>
                         <constraint firstItem="p7g-vr-Gtz" firstAttribute="top" secondItem="M8k-UE-Klw" secondAttribute="top" id="dK8-hL-mMQ"/>
                         <constraint firstItem="ZoM-0m-ABn" firstAttribute="leading" secondItem="Pgc-2r-xf7" secondAttribute="leading" id="hdH-ie-oAK"/>
+                        <constraint firstItem="uzk-IL-bkv" firstAttribute="top" secondItem="oyF-hi-MQW" secondAttribute="bottom" constant="10" id="iyf-js-wlF"/>
                         <constraint firstItem="yxU-43-JAn" firstAttribute="top" secondItem="7AW-aU-W4q" secondAttribute="bottom" constant="13" id="jq6-9C-kjD"/>
+                        <constraint firstItem="uzk-IL-bkv" firstAttribute="trailing" secondItem="Pgc-2r-xf7" secondAttribute="trailing" id="mSL-hQ-rs4"/>
                         <constraint firstItem="p7g-vr-Gtz" firstAttribute="leading" secondItem="M8k-UE-Klw" secondAttribute="leading" id="omu-i1-VlC"/>
                         <constraint firstItem="Pgc-2r-xf7" firstAttribute="trailing" secondItem="oyF-hi-MQW" secondAttribute="trailing" id="tAn-Sp-KKm"/>
                         <constraint firstItem="qn8-l4-5tg" firstAttribute="bottom" secondItem="M8k-UE-Klw" secondAttribute="bottom" id="tiw-ac-b9G"/>
@@ -237,6 +269,7 @@
     </objects>
     <resources>
         <image name="ic_back" width="16" height="16"/>
+        <image name="ic_comments" width="128" height="128"/>
         <image name="ic_like_active" width="20" height="19"/>
         <image name="ic_mute" width="18" height="18"/>
         <image name="ic_pause" width="20" height="20"/>

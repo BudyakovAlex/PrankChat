@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
@@ -12,16 +10,22 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 {
-    public class OrderItemViewModel : BaseItemViewModel, IDisposable
+    public class OrderItemViewModel : BaseItemViewModel, IFullScreenVideoOwnerViewModel, IDisposable
     {
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _mvxMessenger;
 
         private readonly OrderDataModel _orderDataModel;
+
+        private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
 
         private MvxSubscriptionToken _timerTickMessageToken;
 
@@ -53,6 +57,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                 }
             }
         }
+
+        public bool CanPlayVideo => _orderDataModel?.Video != null;
 
         public bool IsTimeAvailable => _elapsedTime.HasValue;
 
@@ -119,19 +125,33 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         public OrderItemViewModel(INavigationService navigationService,
                                   ISettingsService settingsService,
                                   IMvxMessenger mvxMessenger,
-                                  OrderDataModel orderDataModel)
+                                  OrderDataModel orderDataModel,
+                                  Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
         {
             _navigationService = navigationService;
             _settingsService = settingsService;
             _mvxMessenger = mvxMessenger;
             _orderDataModel = orderDataModel;
-
+            _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
             ElapsedTime = _orderDataModel.ActiveTo is null
                 ? TimeSpan.FromHours(_orderDataModel.DurationInHours)
                 : _orderDataModel.GetActiveOrderTime();
 
             Subscribe();
             OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+        }
+
+        public FullScreenVideoDataModel GetFullScreenVideoDataModel()
+        {
+            return new FullScreenVideoDataModel(_orderDataModel.Video.Id,
+                                                _orderDataModel.Video.StreamUri,
+                                                _orderDataModel.Title,
+                                                _orderDataModel.Description,
+                                                _orderDataModel.Video.ShareUri,
+                                                _orderDataModel.Customer.Name,
+                                                _orderDataModel.Video.LikesCount,
+                                                _orderDataModel.Video.CommentsCount,
+                                                _orderDataModel.Video.IsLiked);
         }
 
         public void Dispose()
@@ -171,7 +191,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         private async Task OnOpenDetailsOrderAsync()
         {
-            var result = await _navigationService.ShowOrderDetailsView(OrderId);
+            var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideoDataModel> { GetFullScreenVideoDataModel() };
+            var currentItem = items.FirstOrDefault(item => item.VideoId == _orderDataModel.Video?.Id);
+            var index = currentItem is null ? 0 : items.IndexOf(currentItem);
+
+            var result = await _navigationService.ShowOrderDetailsView(OrderId, items, index);
             if (result == null)
             {
                 return;

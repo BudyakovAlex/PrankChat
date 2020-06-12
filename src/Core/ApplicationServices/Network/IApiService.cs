@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Models.Api;
-using PrankChat.Mobile.Core.Models.Data;
+﻿using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
 {
@@ -102,6 +101,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         Task<long?> RegisterVideoViewedFactAsync(int videoId);
 
         Task ComplainVideoAsync(int videoId, string title, string description);
+
+        Task<CommentDataModel> CommentVideoAsync(int videoId, string comment);
+
+        Task<PaginationModel<CommentDataModel>> GetVideoCommentsAsync(int videoId, int page, int pageSize);
 
         #endregion Video
 

@@ -1,5 +1,6 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="11dp">
@@ -213,4 +214,27 @@
             android:textColor="@android:color/white"
             android:textSize="17dp" />
     </FrameLayout>
+
+    <ImageView
+        android:id="@+id/comments_image_view"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="19dp"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@+id/share_image_button"
+        app:layout_constraintStart_toEndOf="@+id/share_image_button"
+        app:layout_constraintTop_toTopOf="@+id/share_image_button"
+        app:srcCompat="@drawable/ic_comment" />
+
+    <TextView
+        android:id="@+id/comments_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/applicationBlack"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/comments_image_view"
+        app:layout_constraintStart_toEndOf="@+id/comments_image_view"
+        app:layout_constraintTop_toTopOf="@+id/comments_image_view"
+        tools:text="8k" />
 </android.support.constraint.ConstraintLayout>

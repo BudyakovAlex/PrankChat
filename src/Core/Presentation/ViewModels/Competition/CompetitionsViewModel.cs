@@ -8,9 +8,12 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Providers;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
@@ -55,6 +58,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             try
             {
                 IsBusy = true;
+
+                if (!Connectivity.NetworkAccess.HasConnection())
+                {
+                    if (DialogService.IsToastShown)
+                    {
+                        return;
+                    }
+
+                    DialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                    return;
+                }
+
                 var competitionsPage = await ApiService.GetCompetitionsAsync(1, 100);
 
                 var sections = competitionsPage.Items.GroupBy(competition => competition.GetPhase())

@@ -1786,5 +1786,11 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Walkthrouth_Profile_Title", resourceCulture);
             }
         }
+        
+        public static string No_Intentet_Connection {
+            get {
+                return ResourceManager.GetString("No_Intentet_Connection", resourceCulture);
+            }
+        }
     }
 }

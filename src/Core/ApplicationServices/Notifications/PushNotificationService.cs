@@ -8,17 +8,23 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
 {
     public class PushNotificationService : IPushNotificationService
     {
+        private readonly IPlatformPushNotificationsService _platformPushNotificationsService;
+
         protected IApiService ApiService { get; }
 
         protected ISettingsService SettingsService { get; }
 
         protected IMvxLog MvxLog { get; }
 
-        public PushNotificationService(IApiService apiService, ISettingsService settingsService, IMvxLog mvxLog)
+        public PushNotificationService(IApiService apiService,
+                                       ISettingsService settingsService,
+                                       IMvxLog mvxLog,
+                                       IPlatformPushNotificationsService platformPushNotificationsService)
         {
             ApiService = apiService;
             SettingsService = settingsService;
             MvxLog = mvxLog;
+            _platformPushNotificationsService = platformPushNotificationsService;
         }
 
         public async Task<bool> TryUpdateTokenAsync()
@@ -51,6 +57,16 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
                 SettingsService.IsPushTokenSend = false;
                 return false;
             }
+        }
+
+        public void RegisterToNotifications()
+        {
+            _platformPushNotificationsService.AttachNotifications();
+        }
+
+        public void UnregisterFromNotifications()
+        {
+            _platformPushNotificationsService.DetachNotifications();
         }
     }
 }

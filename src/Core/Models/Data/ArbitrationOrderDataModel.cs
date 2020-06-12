@@ -19,6 +19,10 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public UserDataModel Customer { get; set; }
 
+        public UserDataModel Executor { get; set; }
+
+        public VideoDataModel Video { get; set; }
+
         public int Likes { get; set; }
 
         public int Dislikes { get; set; }

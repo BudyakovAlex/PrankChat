@@ -194,6 +194,8 @@
     <Compile Include="Controls\AutoFitTextureView.cs" />
     <Compile Include="Presentation\Listeners\MediaPlayerOnVideoSizeChanged.cs" />
     <Compile Include="Presentation\Views\Walthroughs\WalthroughView.cs" />
+    <Compile Include="PlatformBusinessServices\Notifications\PlatformPushNotificationsService.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Comments\CommentViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -354,7 +356,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\cell_comment.axml">
+    <AndroidResource Include="Resources\layout\cell_comment.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -976,6 +978,10 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_comments.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -1321,6 +1327,7 @@
     <Folder Include="Presentation\Adapters\ViewHolders\Dialogs\" />
     <Folder Include="Presentation\Views\Walthroughs\" />
     <Folder Include="Resources\values-en\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\Comments\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />

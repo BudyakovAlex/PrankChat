@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
@@ -116,10 +117,9 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<NotificationViewModel>();
         }
 
-        //TODO: add correct logic for opening comments
-        public Task ShowCommentsView()
+        public Task<int> ShowCommentsView(int videoId)
         {
-            return _mvxNavigationService.Navigate<CommentsViewModel>();
+            return _mvxNavigationService.Navigate<CommentsViewModel, int, int>(videoId);
         }
 
         public Task ShowCashboxContent()
@@ -139,20 +139,20 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<SearchViewModel>();
         }
 
-        public Task<OrderDetailsResult> ShowOrderDetailsView(int orderId)
+        public Task<OrderDetailsResult> ShowOrderDetailsView(int orderId, List<FullScreenVideoDataModel> fullScreenVideos, int currentIndex)
         {
-            var parameter = new OrderDetailsNavigationParameter(orderId);
+            var parameter = new OrderDetailsNavigationParameter(orderId, fullScreenVideos, currentIndex);
             return _mvxNavigationService.Navigate<OrderDetailsViewModel, OrderDetailsNavigationParameter, OrderDetailsResult>(parameter);
         }
 
-        public Task ShowFullScreenVideoView(FullScreenVideoParameter fullScreenVideoParameter)
+        public Task<bool> ShowFullScreenVideoView(FullScreenVideoParameter fullScreenVideoParameter)
         {
-            if (string.IsNullOrEmpty(fullScreenVideoParameter.VideoUrl))
+            if (fullScreenVideoParameter.Videos.Count == 0)
             {
-                return Task.CompletedTask;
+                return Task.FromResult(false);
             }
 
-			return _mvxNavigationService.Navigate<FullScreenVideoViewModel, FullScreenVideoParameter>(fullScreenVideoParameter);
+			return _mvxNavigationService.Navigate<FullScreenVideoViewModel, FullScreenVideoParameter, bool>(fullScreenVideoParameter);
 		}
 
 		public Task ShowDetailsPublicationView()
@@ -223,7 +223,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
 			if (e.ViewModel is MainViewModel mainViewModel)
 			{
-				ShowOrderDetailsView(_orderId.Value).FireAndForget();
+				ShowOrderDetailsView(_orderId.Value, null, 0).FireAndForget();
 			}
 		}
 

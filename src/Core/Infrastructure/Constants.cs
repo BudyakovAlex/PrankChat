@@ -61,6 +61,11 @@ namespace PrankChat.Mobile.Core.Infrastructure
             public const string Finished = "finished";
         }
 
+        public static class ErrorCodes
+        {
+            public const string LowBalance = "XA0001";
+        }
+
         public static class ComplaintConstants
         {
             public static readonly string[] ProfileCompetitionAims =

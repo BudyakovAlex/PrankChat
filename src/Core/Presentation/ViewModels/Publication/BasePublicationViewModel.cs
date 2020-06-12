@@ -1,9 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
-using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
@@ -13,6 +9,7 @@ using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -20,6 +17,10 @@ using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
@@ -28,6 +29,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private readonly IPlatformService _platformService;
         private readonly IMvxMessenger _mvxMessenger;
 
+        private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
         private readonly string[] _restrictedActionsInDemoMode = new[]
         {
              Resources.Publication_Item_Complain,
@@ -47,6 +49,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string ProfilePhotoUrl { get; set; }
 
+        public bool CanPlayVideo => true;
+
         #endregion Profile
 
         #region Video
@@ -62,6 +66,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public string VideoUrl { get; set; }
 
         public string PreviewUrl { get; set; }
+
+        public long? NumberOfComments { get; private set; }
+
+        public string NumberOfCommentsPresentation => NumberOfComments.ToCountString();
 
         public string VideoPlaceholderImageUrl { get; }
 
@@ -86,6 +94,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxAsyncCommand(ShowFullScreenVideoAsync);
 
+        public IMvxAsyncCommand ShowCommentsCommand { get; }
+
         //TODO: remove comments when all logic will be ready
         //public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(() => DialogService.ShowShareDialogAsync(_shareLink));
         public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(ShareAsync);
@@ -103,6 +113,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                         ISettingsService settingsService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
+            ShowCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }
 
         public BasePublicationViewModel(INavigationService navigationService,
@@ -124,8 +135,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                         long numberOfViews,
                                         DateTime publicationDate,
                                         long numberOfLikes,
+                                        long numberOfComments,
                                         string shareLink,
-                                        bool isLiked)
+                                        bool isLiked,
+                                        Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             _platformService = platformService;
@@ -145,9 +158,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             _numberOfViews = numberOfViews;
             _publicationDate = publicationDate;
+            NumberOfComments = numberOfComments;
             _shareLink = shareLink;
-
+            _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
             Subscribe();
+
+            ShowCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }
 
         public void Dispose()
@@ -174,6 +190,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             Unsubscribe();
 
             base.ViewDestroy(viewFinishing);
+        }
+
+        public FullScreenVideoDataModel GetFullScreenVideoDataModel()
+        {
+            return new FullScreenVideoDataModel(VideoId,
+                                                VideoUrl,
+                                                VideoName,
+                                                Description,
+                                                _shareLink,
+                                                ProfilePhotoUrl,
+                                                NumberOfLikes,
+                                                NumberOfComments,
+                                                IsLiked);
         }
 
         private Task ShareAsync()
@@ -205,19 +234,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _updateNumberOfViewsSubscriptionToken = null;
         }
 
-        private Task ShowFullScreenVideoAsync()
+        private async Task ShowFullScreenVideoAsync()
         {
             VideoPlayerService.Player.TryRegisterViewedFact(VideoId, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
 
-            var navigationParams = new FullScreenVideoParameter(VideoId,
-                                                                VideoUrl,
-                                                                VideoName,
-                                                                Description,
-                                                                _shareLink,
-                                                                ProfilePhotoUrl,
-                                                                NumberOfLikes,
-                                                                IsLiked);
-            return NavigationService.ShowFullScreenVideoView(navigationParams);
+            var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideoDataModel> { GetFullScreenVideoDataModel() };
+            var currentItem = items.FirstOrDefault(item => item.VideoId == VideoId);
+            var index = currentItem is null ? 0 : items.IndexOf(currentItem);
+            var navigationParams = new FullScreenVideoParameter(items, index);
+            var shouldRefresh = await NavigationService.ShowFullScreenVideoView(navigationParams);
+            if (!shouldRefresh)
+            {
+                return;
+            }
+
+            _mvxMessenger.Publish(new ReloadPublicationsMessage(this));
+        }
+
+        private async Task ShowCommentsAsync()
+        {
+            var commentsCount = await NavigationService.ShowCommentsView(VideoId);
+            NumberOfComments = commentsCount > 0 ? commentsCount : NumberOfComments;
+            await RaisePropertyChanged(nameof(NumberOfCommentsPresentation));
         }
 
         private Task OnBookmarkAsync()

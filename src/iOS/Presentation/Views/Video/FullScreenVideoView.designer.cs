@@ -16,6 +16,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 		UIKit.UIButton closeButton { get; set; }
 
 		[Outlet]
+		UIKit.UIImageView commentsImageView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel commentsLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIStackView commentsView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel descriptionLabel { get; set; }
 
 		[Outlet]
@@ -74,34 +83,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (likeView != null) {
-				likeView.Dispose ();
-				likeView = null;
-			}
-
-			if (profileImageView != null) {
-				profileImageView.Dispose ();
-				profileImageView = null;
-			}
-
-			if (profileView != null) {
-				profileView.Dispose ();
-				profileView = null;
-			}
-
 			if (closeButton != null) {
 				closeButton.Dispose ();
 				closeButton = null;
-			}
-
-			if (likeImageView != null) {
-				likeImageView.Dispose ();
-				likeImageView = null;
-			}
-
-			if (shareButton != null) {
-				shareButton.Dispose ();
-				shareButton = null;
 			}
 
 			if (descriptionLabel != null) {
@@ -109,9 +93,34 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 				descriptionLabel = null;
 			}
 
+			if (commentsImageView != null) {
+				commentsImageView.Dispose ();
+				commentsImageView = null;
+			}
+
+			if (commentsView != null) {
+				commentsView.Dispose ();
+				commentsView = null;
+			}
+
+			if (commentsLabel != null) {
+				commentsLabel.Dispose ();
+				commentsLabel = null;
+			}
+
+			if (likeImageView != null) {
+				likeImageView.Dispose ();
+				likeImageView = null;
+			}
+
 			if (likeLabel != null) {
 				likeLabel.Dispose ();
 				likeLabel = null;
+			}
+
+			if (likeView != null) {
+				likeView.Dispose ();
+				likeView = null;
 			}
 
 			if (loadProgressView != null) {
@@ -139,9 +148,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 				playButton = null;
 			}
 
+			if (profileImageView != null) {
+				profileImageView.Dispose ();
+				profileImageView = null;
+			}
+
+			if (profileView != null) {
+				profileView.Dispose ();
+				profileView = null;
+			}
+
 			if (progressView != null) {
 				progressView.Dispose ();
 				progressView = null;
+			}
+
+			if (shareButton != null) {
+				shareButton.Dispose ();
+				shareButton = null;
 			}
 
 			if (timeLabel != null) {

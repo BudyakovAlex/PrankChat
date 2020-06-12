@@ -1,21 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
 {
-    public class ArbitrationItemViewModel : BaseItemViewModel
+    public class ArbitrationItemViewModel : BaseItemViewModel, IFullScreenVideoOwnerViewModel
     {
         private readonly ISettingsService _settingsService;
         private readonly INavigationService _navigationService;
 
         private readonly int? _customerId;
+        private readonly ArbitrationOrderDataModel _orderDataModel;
+        private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
         private readonly DateTime? _arbitrationFinishAt;
         private readonly int _orderId;
 
@@ -28,6 +33,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
         public string ProfileShortName { get; }
 
         public string PriceText { get; }
+
+        public bool CanPlayVideo => _orderDataModel?.Video != null;
 
         private int _likes;
         public int Likes
@@ -60,7 +67,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
                                         int likes,
                                         int dislikes,
                                         DateTime? arbitrationFinishAt,
-                                        int? customerId)
+                                        int? customerId,
+                                        ArbitrationOrderDataModel orderDataModel,
+                                        Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
         {
             _settingsService = settingsService;
             _navigationService = navigatiobService;
@@ -73,16 +82,37 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
 
             _arbitrationFinishAt = arbitrationFinishAt;
             _customerId = customerId;
+            _orderDataModel = orderDataModel;
+            _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
             _orderId = orderId;
 
             OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigationService.ShowLoginView);
         }
 
+        public FullScreenVideoDataModel GetFullScreenVideoDataModel()
+        {
+            return new FullScreenVideoDataModel(_orderDataModel.Video.Id,
+                                                _orderDataModel.Video.StreamUri,
+                                                _orderDataModel.Title,
+                                                _orderDataModel.Description,
+                                                _orderDataModel.Video.ShareUri,
+                                                _orderDataModel.Customer.Name,
+                                                _orderDataModel.Video.LikesCount,
+                                                _orderDataModel.Video.CommentsCount,
+                                                _orderDataModel.Video.IsLiked);
+        }
+
         private async Task OnOpenDetailsOrderAsync()
         {
-            var result = await _navigationService.ShowOrderDetailsView(_orderId);
+            var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideoDataModel> { GetFullScreenVideoDataModel() };
+            var currentItem = items.FirstOrDefault(item => item.VideoId == _orderDataModel.Video?.Id);
+            var index = currentItem is null ? 0 : items.IndexOf(currentItem);
+
+            var result = await _navigationService.ShowOrderDetailsView(_orderId, items, index);
             if (result == null)
+            {
                 return;
+            }
 
             Likes = result.PositiveArbitrationValuesCount ?? 0;
             Dislikes = result.NegativeArbitrationValuesCount ?? 0;

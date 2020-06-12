@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Gms.Common;
 using Android.Media;
 using Android.OS;
 using Android.Support.V4.App;
-using Firebase.Messaging;
 using MvvmCross;
 using MvvmCross.Logging;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -121,13 +118,17 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
         private string CreateNotificationChannel()
         {
             if (Build.VERSION.SdkInt < BuildVersionCodes.O)
+            {
                 return null;
+            }
 
             // DEVNOTE: android 8+ use different notificationmanager from appcompat and create a required channel
             var notificationManager = (NotificationManager)Application.Context.GetSystemService(Context.NotificationService);
 
             if (notificationManager == null)
+            {
                 return null;
+            }
 
             var channelLabel = new Java.Lang.String(Resource.String.fcm_fallback_notification_channel_label.ToString());
             var importance = NotificationImportance.High;

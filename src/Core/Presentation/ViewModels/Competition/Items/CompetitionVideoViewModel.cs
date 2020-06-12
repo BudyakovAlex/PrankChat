@@ -1,15 +1,20 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
@@ -17,6 +22,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
     {
         private readonly IApiService _apiService;
         private readonly INavigationService _navigationService;
+        private readonly IMvxMessenger _mvxMessenger;
+        private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
 
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
 
@@ -53,6 +60,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             }
         }
 
+        public long NumberOfComments { get; }
+
         private long _numberOfViews;
         public long NumberOfViews
         {
@@ -65,6 +74,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                 }
             }
         }
+
+        public bool CanPlayVideo => true;
 
         public string LikesCount => CountExtensions.ToCountString(NumberOfLikes);
         public string ViewsCount => CountExtensions.ToCountViewsString(NumberOfViews);
@@ -83,6 +94,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         public CompetitionVideoViewModel(IApiService apiService,
                                          IVideoPlayerService videoPlayerService,
                                          INavigationService navigationService,
+                                         IMvxMessenger mvxMessenger,
                                          string poster,
                                          int id,
                                          string videoUrl,
@@ -93,15 +105,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                                          string userName,
                                          string avatarUrl,
                                          long numberOfLikes,
+                                         long numberOfComments,
                                          long numberOfViews,
                                          DateTime publicationDate,
                                          bool isLiked,
                                          bool isMyPublication,
-                                         bool isVotingAvailable)
+                                         bool isVotingAvailable,
+                                         Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
         {
             _apiService = apiService;
             _navigationService = navigationService;
-
+            _mvxMessenger = mvxMessenger;
             VideoPlayerService = videoPlayerService;
             StubImageUrl = poster;
             VideoId = id;
@@ -113,6 +127,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             UserName = userName;
             AvatarUrl = avatarUrl;
             NumberOfLikes = numberOfLikes;
+            NumberOfComments = numberOfComments;
             NumberOfViews = numberOfViews;
             PublicationDate = publicationDate;
             IsLiked = isLiked;
@@ -120,6 +135,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             IsVotingAvailable = isVotingAvailable;
 
             LikeCommand = new MvxCommand(OnLike);
+        }
+
+        public FullScreenVideoDataModel GetFullScreenVideoDataModel()
+        {
+            return new FullScreenVideoDataModel(VideoId,
+                                                VideoUrl,
+                                                VideoName,
+                                                Description,
+                                                ShareLink,
+                                                AvatarUrl,
+                                                NumberOfLikes,
+                                                NumberOfComments,
+                                                IsLiked,
+                                                CanVoteVideo);
         }
 
         private void OnLike()
@@ -156,20 +185,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             }
         }
 
-        private Task ShowFullScreenVideoAsync()
+        private async Task ShowFullScreenVideoAsync()
         {
             VideoPlayerService.Player.TryRegisterViewedFact(VideoId, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
 
-            var navigationParams = new FullScreenVideoParameter(VideoId,
-                                                                VideoUrl,
-                                                                VideoName,
-                                                                Description,
-                                                                ShareLink,
-                                                                AvatarUrl,
-                                                                NumberOfLikes,
-                                                                IsLiked,
-                                                                CanVoteVideo);
-            return _navigationService.ShowFullScreenVideoView(navigationParams);
+            var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideoDataModel> { GetFullScreenVideoDataModel() };
+            var currentItem = items.FirstOrDefault(item => item.VideoId == VideoId);
+            var index = currentItem is null ? 0 : items.IndexOf(currentItem);
+            var navigationParams = new FullScreenVideoParameter(items, index);
+
+            var shouldRefresh = await _navigationService.ShowFullScreenVideoView(navigationParams);
+            if (!shouldRefresh)
+            {
+                return;
+            }
+
+            _mvxMessenger.Publish(new ReloadCompetitionMessage(this));
         }
     }
 }

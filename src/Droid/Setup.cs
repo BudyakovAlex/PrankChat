@@ -7,11 +7,13 @@ using MvvmCross.IoC;
 using MvvmCross.Platforms.Android.Presenters;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
+using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
 using PrankChat.Mobile.Droid.ApplicationServices;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Crashlytic;
+using PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Video;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presenters;
@@ -27,6 +29,7 @@ namespace PrankChat.Mobile.Droid
             Mvx.IoCProvider.RegisterType<IVideoPlayerService, VideoPlayerService>();
             Mvx.IoCProvider.RegisterType<ICrashlyticsService, CrashlyticsService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IDialogService, DialogService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IPlatformPushNotificationsService, PlatformPushNotificationsService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IExternalAuthService, ExternalAuthService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISettingsService, SettingsService>();
         }

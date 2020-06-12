@@ -4,11 +4,10 @@ using Android.Content;
 using Android.Runtime;
 using Firebase.Messaging;
 using MvvmCross;
-using Newtonsoft.Json;
+using MvvmCross.Logging;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using MvvmCross.Logging;
 using NotificationManager = PrankChat.Mobile.Core.ApplicationServices.Notifications.NotificationManager;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
@@ -44,6 +43,12 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 
         public override void OnMessageReceived(RemoteMessage message)
         {
+            var isResolved = Mvx.IoCProvider.TryResolve<ISettingsService>(out var settingsService);
+            if (isResolved && !settingsService.IsPushTokenSend)
+            {
+                return;
+            }
+
             message.Data.TryGetValue("key", out string key);
             message.Data.TryGetValue("value", out var value);
 

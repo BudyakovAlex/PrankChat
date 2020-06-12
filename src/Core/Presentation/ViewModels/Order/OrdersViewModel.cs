@@ -220,7 +220,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             return new OrderItemViewModel(NavigationService,
                                           _settingsService,
                                           _mvxMessenger,
-                                          order);
+                                          order,
+                                          GetFullScreenVideoDataModels);
         }
 
         private ArbitrationItemViewModel ProduceArbitrationOrderViewModel(ArbitrationOrderDataModel order)
@@ -236,7 +237,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                                 order.Likes,
                                                 order.Dislikes,
                                                 order.ArbitrationFinishAt ?? DateTime.UtcNow,
-                                                order.Customer?.Id);
+                                                order.Customer?.Id,
+                                                order,
+                                                GetFullScreenVideoDataModels);
+        }
+
+
+        private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
+        {
+            return Items.OfType<IFullScreenVideoOwnerViewModel>()
+                        .Where(item => item.CanPlayVideo)
+                        .Select(item => item.GetFullScreenVideoDataModel())
+                        .ToList();
         }
 
         private void Subscription()

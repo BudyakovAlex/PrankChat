@@ -5,11 +5,14 @@ using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Configuration;
-using PrankChat.Mobile.Core.Exceptions.UserVisible.Forbidden;
+using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -135,13 +138,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     }
 
                     _mvxMessenger.Publish(new OrderChangedMessage(this, newOrder));
-                    await NavigationService.ShowOrderDetailsView(newOrder.Id);
+                    await NavigationService.ShowOrderDetailsView(newOrder.Id, null, 0);
                     SetDefaultData();
                 }
             }
-            catch (Exception ex)
+            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsDataModel problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
             {
                 await HandleLowBalanceExceptionAsync(ex);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandleService.ResumeServerErrorsHandling();
+                _mvxMessenger.Publish(new ServerErrorMessage(this, ex));
             }
             finally
             {

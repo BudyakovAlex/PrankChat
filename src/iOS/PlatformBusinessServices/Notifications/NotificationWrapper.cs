@@ -6,11 +6,11 @@ using MvvmCross;
 using MvvmCross.Logging;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.iOS.Delegates;
 using UIKit;
 using UserNotifications;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
 {
@@ -33,6 +33,47 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
                 var log = Mvx.IoCProvider.Resolve<IMvxLog>();
                 log.ErrorException("Can not resolve IPushNotificationService", ex);
             }
+        }
+
+        public void AttachNotifications()
+        {
+            Messaging.SharedInstance.AutoInitEnabled = true;
+            Messaging.SharedInstance.Delegate = AppDelegate.Instance;
+            Messaging.SharedInstance.ShouldEstablishDirectChannel = true;
+
+            InstanceId.Notifications.ObserveTokenRefresh(Instance.TokenRefreshNotification);
+
+            // Register your app for remote notifications.
+            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+            {
+                // iOS 10 or later
+                var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
+
+                // For iOS 10 display notification (sent via APNS)
+                UNUserNotificationCenter.Current.Delegate = AppDelegate.Instance;
+
+                UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
+                {
+                    if (granted)
+                    {
+                        Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() => UIApplication.SharedApplication.RegisterForRemoteNotifications());
+                    }
+
+                });
+            }
+            else
+            {
+                // iOS 9 or before
+                var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
+                var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
+                UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
+            }
+        }
+
+        public void DetachNotifications()
+        {
+            UNUserNotificationCenter.Current.Delegate = null;
+            Messaging.SharedInstance.Delegate = null;
         }
 
         /// <summary>
