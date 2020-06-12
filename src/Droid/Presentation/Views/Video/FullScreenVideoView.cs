@@ -249,7 +249,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
                 return;
             }
 
-            if (_firstX < _lastX && _lastX - _firstX >= view.Width / 2)
+            if (_firstX < _lastX && _lastX - _firstX >= view.Width / 4)
             {
                 ResetMediaPlayer();
                 ViewModel.MovePreviousCommand.Execute();
@@ -257,7 +257,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
                 return;
             }
 
-            if (_lastX < _firstX && _firstX - _lastX >= view.Width / 2)
+            if (_lastX < _firstX && _firstX - _lastX >= view.Width / 4)
             {
                 ResetMediaPlayer();
                 ViewModel.MoveNextCommand.Execute();

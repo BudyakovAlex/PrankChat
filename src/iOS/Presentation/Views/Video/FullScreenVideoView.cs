@@ -527,14 +527,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                 return;
             }
 
-            if (_firstX < _lastX && _lastX - _firstX >= view.Frame.Width / 2)
+            if (_firstX < _lastX && _lastX - _firstX >= view.Frame.Width / 4)
             {
                 ViewModel.MovePreviousCommand.Execute();
                 ResetSwipe();
                 return;
             }
 
-            if (_lastX < _firstX && _firstX - _lastX >= view.Frame.Width / 2)
+            if (_lastX < _firstX && _firstX - _lastX >= view.Frame.Width / 4)
             {
                 ViewModel.MoveNextCommand.Execute();
                 ResetSwipe();
