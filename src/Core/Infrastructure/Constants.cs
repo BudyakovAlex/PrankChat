@@ -4,6 +4,11 @@ namespace PrankChat.Mobile.Core.Infrastructure
 {
     public static class Constants
     {
+        public static class Orders
+        {
+            public const int DescriptionMaxLength = 1000;
+        }
+
         public static class Formats
         {
             public const string DateWithSpace = "dd' : 'hh' : 'mm";

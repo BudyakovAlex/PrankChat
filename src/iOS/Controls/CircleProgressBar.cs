@@ -51,7 +51,7 @@ namespace PrankChat.Mobile.iOS.Controls
             }
         }
 
-        private UIColor _baseColor;
+        private UIColor _baseColor = UIColor.White;
         public UIColor BaseColor
         {
             get => _baseColor;
@@ -62,8 +62,7 @@ namespace PrankChat.Mobile.iOS.Controls
             }
         }
 
-        private UIColor _progressColor;
-
+        private UIColor _progressColor = UIColor.White;
         public UIColor ProgressColor
         {
             get => _progressColor;

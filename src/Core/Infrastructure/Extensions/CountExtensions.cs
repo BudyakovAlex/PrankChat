@@ -12,6 +12,15 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
         private const double SmallLimitForCount = 1000D;
         private const string DefaultValue = "0";
 
+        private static readonly string[] _suffixes = new[]
+        {
+            Resources.Bytes_Presentation,
+            Resources.Kilobytes_Presentation,
+            Resources.Megabytes_Presentation,
+            Resources.Gigabytes_Presentation,
+            Resources.Terabytes_Presentation
+        };
+
         public static string ToCountString(this int? count)
         {
             if (count == null)
@@ -57,6 +66,23 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             }
 
             return $"{count.ToCountString()} {viewsText}";
+        }
+
+        public static string ToFileSizePresentation(this long length)
+        {
+            if (length < 0)
+            {
+                return string.Empty;
+            }
+
+            if (length == 0)
+            {
+                return $"0.0 {_suffixes[0]}";
+            }
+
+            var log = (int)Math.Log(length, 1024);
+            var ajd = (decimal)(length) / (1L << log * 10);
+            return $"{ajd:n1} {_suffixes.ElementAtOrDefault(log)}";
         }
     }
 }

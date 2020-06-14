@@ -13,6 +13,7 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Droid.Controls;
+using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.LayoutManagers;
 using PrankChat.Mobile.Droid.Presentation.Adapters;
 using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
@@ -20,6 +21,7 @@ using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions;
 using PrankChat.Mobile.Droid.Presentation.Converters;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
+using PrankChat.Mobile.Droid.Utils.Helpers;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -41,6 +43,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
         private StateScrollListener _stateScrollListener;
         private View _uploadingContainerView;
         private CircleProgressBar _uploadingProgressBar;
+        private View _uploadingInfoContainer;
+        private TextView _uploadedTextView;
 
         protected override bool HasBackButton => true;
 
@@ -71,6 +75,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
 
             _uploadingContainerView = FindViewById<View>(Resource.Id.uploading_progress_container);
             _uploadingProgressBar = FindViewById<CircleProgressBar>(Resource.Id.uploading_progress_bar);
+            _uploadedTextView = FindViewById<TextView>(Resource.Id.uploaded_text_view);
+            _uploadingInfoContainer = FindViewById<View>(Resource.Id.uploading_info_container);
+            _uploadingInfoContainer.SetRoundedCorners(DisplayUtils.DpToPx(30) / 2);
 
             _uploadingProgressBar.ProgressColor = Color.White;
             _uploadingProgressBar.RingThickness = 5;
@@ -112,6 +119,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
             bindingSet.Bind(_uploadingProgressBar)
                       .For(v => v.Progress)
                       .To(vm => vm.UploadingProgress);
+
+            bindingSet.Bind(_uploadedTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.UploadingProgressStringPresentation);
 
             bindingSet.Bind(_uploadingProgressBar)
                       .For(v => v.BindClick())

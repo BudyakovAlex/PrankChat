@@ -323,4 +323,9 @@ If the customer did not like your video, he can send the task to the \"dispute\"
     <string name="Walkthrouth_Profile_Title">"Profile"</string>
     <string name="No_Intentet_Connection">"No internet connection"</string>
     <string name="Video_Failed_To_Upload">"Failed to upload video"</string>
+    <string name="Bytes_Presentation">"bytes"</string>
+    <string name="Kilobytes_Presentation">"KB"</string>
+    <string name="Megabytes_Presentation">"MB"</string>
+    <string name="Gigabytes_Presentation">"GB"</string>
+    <string name="Terabytes_Presentation">"TB"</string>
 </resources>

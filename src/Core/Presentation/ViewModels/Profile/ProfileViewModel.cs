@@ -30,7 +30,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
         private MvxSubscriptionToken _newOrderMessageToken;
-        private MvxSubscriptionToken _reloadProfileMessageToken;
+
         private ProfileOrderType _selectedOrderType;
         public ProfileOrderType SelectedOrderType
         {
@@ -83,9 +83,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public MvxAsyncCommand ShowWalkthrouthCommand => new MvxAsyncCommand(ShowWalkthrouthAsync);
 
-        public MvxAsyncCommand ShowRefillCommand => new MvxAsyncCommand(NavigationService.ShowRefillView);
+        public MvxAsyncCommand ShowRefillCommand { get; }
 
-        public MvxAsyncCommand ShowWithdrawalCommand => new MvxAsyncCommand(NavigationService.ShowWithdrawalView);
+        public MvxAsyncCommand ShowWithdrawalCommand { get; }
 
         public MvxAsyncCommand LoadProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
 
@@ -104,12 +104,36 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             _videoPlayerService = videoPlayerService;
             _mvxMessenger = mvxMessenger;
             _walkthroughsProvider = walkthroughsProvider;
+
+            ShowWithdrawalCommand = new MvxAsyncCommand(ShowWithdrawalAsync);
+            ShowRefillCommand = new MvxAsyncCommand(ShowRefillAsync);
+        }
+
+        private async Task ShowRefillAsync()
+        {
+            var isReloadNeeded = await NavigationService.ShowRefillView();
+            if (!isReloadNeeded)
+            {
+                return;
+            }
+
+            await LoadProfileCommand.ExecuteAsync();
+        }
+
+        private async Task ShowWithdrawalAsync()
+        {
+            var isReloadNeeded = await NavigationService.ShowWithdrawalView();
+            if (!isReloadNeeded)
+            {
+                return;
+            }
+
+            await LoadProfileCommand.ExecuteAsync();
         }
 
         private void Subscription()
         {
             _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged);
-            _reloadProfileMessageToken = _mvxMessenger.SubscribeOnMainThread<ReloadProfileMessage>(OnReloadProfile);
         }
 
         private void Unsubscription()
@@ -121,19 +145,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
             _mvxMessenger.Unsubscribe<OrderChangedMessage>(_newOrderMessageToken);
             _newOrderMessageToken.Dispose();
-
-            if (_reloadProfileMessageToken is null)
-            {
-                return;
-            }
-
-            _mvxMessenger.Unsubscribe<ReloadProfileMessage>(_reloadProfileMessageToken);
-            _reloadProfileMessageToken.Dispose();
-        }
-
-        private void OnReloadProfile(ReloadProfileMessage message)
-        {
-            LoadProfileCommand.Execute();
         }
 
         private void OnOrdersChanged(OrderChangedMessage message)
@@ -199,7 +210,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            await OnLoadProfileAsync();
+            await LoadProfileCommand.ExecuteAsync();
         }
 
         protected override async Task InitializeProfileData()

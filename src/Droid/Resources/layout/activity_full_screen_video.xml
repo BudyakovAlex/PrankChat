@@ -100,13 +100,13 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
+                android:id="@+id/likes_image_view"
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:alpha="0.95"
                 android:duplicateParentState="true"
                 android:scaleType="center"
                 android:src="@drawable/ic_like_active"
-                android:tint="@color/selector_full_screen_video_like_color"
                 app:srcCompat="@drawable/ic_like_active" />
 
             <TextView

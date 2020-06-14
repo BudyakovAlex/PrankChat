@@ -12,17 +12,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Contents
     public class ProgressByteArrayContent : HttpContent
     {
         private const int DefaultBufferSize = 4096;
-        private readonly Action<double> _onProgressChanged;
+        private readonly Action<double, double> _onProgressChanged;
         private readonly CancellationToken _cancellationToken;
         private byte[] _content;
 
         private int _bufferSize;
 
-        public ProgressByteArrayContent(byte[] content, Action<double> onProgressChanged, CancellationToken cancellationToken = default) : this(content, DefaultBufferSize, onProgressChanged, cancellationToken)
+        public ProgressByteArrayContent(byte[] content, Action<double, double> onProgressChanged, CancellationToken cancellationToken = default) : this(content, DefaultBufferSize, onProgressChanged, cancellationToken)
         {
         }
 
-        public ProgressByteArrayContent(byte[] content, int bufferSize, Action<double> onProgressChanged, CancellationToken cancellationToken = default)
+        public ProgressByteArrayContent(byte[] content, int bufferSize, Action<double, double> onProgressChanged, CancellationToken cancellationToken = default)
         {
             if (bufferSize <= 0)
             {
@@ -59,7 +59,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Contents
                     }
 
                     uploaded += buffer.Length;
-                    _onProgressChanged?.Invoke(uploaded / (double)size * 100);
+                    _onProgressChanged?.Invoke(uploaded, size);
                     stream.Write(buffer, 0, buffer.Length);
                 }
             });

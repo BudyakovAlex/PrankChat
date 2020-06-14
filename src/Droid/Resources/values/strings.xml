@@ -337,4 +337,9 @@
     <string name="Walkthrouth_Profile_Title">"Профиль"</string>
     <string name="No_Intentet_Connection">"Интернет соединение отсувствует"</string>
     <string name="Video_Failed_To_Upload">"Ошибка загрузки видео"</string>
+    <string name="Bytes_Presentation">"байт"</string>
+    <string name="Kilobytes_Presentation">"КБ"</string>
+    <string name="Megabytes_Presentation">"МБ"</string>
+    <string name="Gigabytes_Presentation">"ГБ"</string>
+    <string name="Terabytes_Presentation">"ТБ"</string>
 </resources>

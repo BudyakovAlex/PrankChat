@@ -9,6 +9,7 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
@@ -108,9 +109,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             }
         }
 
-        private Task ExecuteActionAsync()
+        private async Task ExecuteActionAsync()
         {
-            return _navigationService.ShowCompetitionDetailsView(Competition);
+            var shouldRefresh = await _navigationService.ShowCompetitionDetailsView(Competition);
+            if (!shouldRefresh)
+            {
+                return;
+            }
+
+            _mvxMessenger.Publish(new ReloadCompetitionsMessage(this));
         }
 
         private void OnTimerTick(TimerTickMessage message)

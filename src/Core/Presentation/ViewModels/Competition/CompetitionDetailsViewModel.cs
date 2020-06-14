@@ -20,13 +20,14 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
-    public class CompetitionDetailsViewModel : PaginationViewModel, IMvxViewModel<CompetitionDataModel>
+    public class CompetitionDetailsViewModel : PaginationViewModel, IMvxViewModel<CompetitionDataModel, bool>
     {
         private readonly IMvxMessenger _mvxMessenger;
         private readonly IVideoPlayerService _videoPlayerService;
@@ -36,6 +37,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         private CompetitionDetailsHeaderViewModel _header;
         private bool _isRefreshing;
         private MvxSubscriptionToken _reloadItemsSubscriptionToken;
+        private bool _isReloadNeeded;
 
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -53,6 +55,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             private set => SetProperty(ref _uploadingProgress, value);
         }
 
+        private string _uploadingProgressStringPresentation;
+        public string UploadingProgressStringPresentation
+        {
+            get => _uploadingProgressStringPresentation;
+            private set => SetProperty(ref _uploadingProgressStringPresentation, value);
+        }
+
         public bool IsRefreshing
         {
             get => _isRefreshing;
@@ -65,6 +74,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         public IMvxAsyncCommand RefreshDataCommand { get; }
 
         public IMvxCommand CancelUploadingCommand { get; }
+
+        public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
         public CompetitionDetailsViewModel(IMvxMessenger mvxMessenger,
                                            INavigationService navigationService,
@@ -110,6 +121,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         public override void ViewDestroy(bool viewFinishing = true)
         {
             Unsubscription();
+
+            if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
+            {
+                CloseCompletionSource?.SetResult(_isReloadNeeded);
+            }
+
             base.ViewDestroy(viewFinishing);
         }
 
@@ -129,6 +146,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         private void OnReloadData(ReloadCompetitionMessage obj)
         {
+            _isReloadNeeded = true;
             RefreshDataCommand.Execute();
         }
 
@@ -219,11 +237,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 }
 
                 UploadingProgress = 0;
+                UploadingProgressStringPresentation = "- / -";
                 IsUploading = true;
+
                 _cancellationTokenSource = new CancellationTokenSource();
 
-                var video = await ApiService.SendVideoAsync(_competition.Id, file.Path, _competition.Title, _competition.Description, (progress) => UploadingProgress = (float)progress);
-                if (video == null)
+                var video = await ApiService.SendVideoAsync(_competition.Id,
+                                                            file.Path,
+                                                            _competition.Title,
+                                                            _competition.Description,
+                                                            OnUploadingProgressChanged,
+                                                            _cancellationTokenSource.Token);
+                if (video == null && (!_cancellationTokenSource?.IsCancellationRequested ?? true))
                 {
                     DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
                     _cancellationTokenSource = null;
@@ -265,8 +290,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             }
             finally
             {
+                _isReloadNeeded = true;
                 IsBusy = false;
             }
+        }
+
+        private void OnUploadingProgressChanged(double progress, double size)
+        {
+            UploadingProgress = (float)(progress / size * 100);
+            UploadingProgressStringPresentation = $"{((long)progress).ToFileSizePresentation()} / {((long)size).ToFileSizePresentation()}";
         }
     }
 }

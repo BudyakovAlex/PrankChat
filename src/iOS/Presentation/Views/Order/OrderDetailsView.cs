@@ -303,6 +303,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                .For(v => v.BindTap())
                .To(vm => vm.CancelUploadingCommand);
 
+            set.Bind(uploadingLabel)
+               .For(v => v.Text)
+               .To(vm => vm.UploadingProgressStringPresentation);
+
             set.Apply();
         }
 
@@ -369,6 +373,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             processingLabel.Text = Resources.Processing_Video;
             processingRootBackgroundView.Layer.InsertSublayer(_gradientLayer, 0);
             processingBackgroundView.Layer.CornerRadius = 8;
+
+            uploadingInfoView.Layer.CornerRadius = 15;
+            uploadingLabel.SetRegularStyle(12, UIColor.White);
 
             uploadingProgressBar.ProgressColor = UIColor.White;
             uploadingProgressBar.RingThickness = 5;

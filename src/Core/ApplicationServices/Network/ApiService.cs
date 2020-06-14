@@ -132,7 +132,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     return new PaginationModel<OrderDataModel>();
             }
 
-            var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint, includes: IncludeType.Customer);
+            var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint, includes: new[] { IncludeType.Customer, IncludeType.Videos });
             return CreatePaginationResult<OrderApiModel, OrderDataModel>(data);
         }
 
@@ -364,7 +364,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Video
 
-        public async Task<VideoDataModel> SendVideoAsync(int orderId, string path, string title, string description, Action<double> onChangedProgressAction = null, CancellationToken cancellationToken = default)
+        public async Task<VideoDataModel> SendVideoAsync(int orderId, string path, string title, string description, Action<double, double> onChangedProgressAction = null, CancellationToken cancellationToken = default)
         {
             var loadVideoApiModel = new LoadVideoApiModel()
             {

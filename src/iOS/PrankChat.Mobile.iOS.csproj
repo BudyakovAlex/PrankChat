@@ -1036,6 +1036,8 @@
     <ImageAsset Include="Assets.xcassets\ic_logout.imageset\ic_logout.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_comments.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_comments.imageset\ic_comments.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_circle_clear.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_circle_clear.imageset\ic_circle_clear.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -1107,6 +1109,7 @@
     <Folder Include="Resources\Base.lproj\" />
     <Folder Include="Assets.xcassets\ic_logout.imageset\" />
     <Folder Include="Assets.xcassets\ic_comments.imageset\" />
+    <Folder Include="Assets.xcassets\ic_circle_clear.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

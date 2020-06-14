@@ -25,20 +25,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 		UIKit.UIView uploadingBackgroundView { get; set; }
 
 		[Outlet]
+		UIKit.UIView uploadingInfoView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel uploadingLabel { get; set; }
+
+		[Outlet]
 		PrankChat.Mobile.iOS.Controls.CircleProgressBar uploadingProgressBar { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (uploadingBackgroundView != null) {
-				uploadingBackgroundView.Dispose ();
-				uploadingBackgroundView = null;
-			}
-
-			if (uploadingProgressBar != null) {
-				uploadingProgressBar.Dispose ();
-				uploadingProgressBar = null;
-			}
-
 			if (loadingView != null) {
 				loadingView.Dispose ();
 				loadingView = null;
@@ -52,6 +48,26 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 			if (tableView != null) {
 				tableView.Dispose ();
 				tableView = null;
+			}
+
+			if (uploadingBackgroundView != null) {
+				uploadingBackgroundView.Dispose ();
+				uploadingBackgroundView = null;
+			}
+
+			if (uploadingProgressBar != null) {
+				uploadingProgressBar.Dispose ();
+				uploadingProgressBar = null;
+			}
+
+			if (uploadingLabel != null) {
+				uploadingLabel.Dispose ();
+				uploadingLabel = null;
+			}
+
+			if (uploadingInfoView != null) {
+				uploadingInfoView.Dispose ();
+				uploadingInfoView = null;
 			}
 		}
 	}

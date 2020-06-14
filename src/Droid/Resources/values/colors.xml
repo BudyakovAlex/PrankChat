@@ -8,6 +8,7 @@
     <color name="successful">#86D549</color>
     <color name="unsuccessful">#D55149</color>
     <color name="black_with_opacity">#70000000</color>
+    <color name="dark_with_opacity">#90000000</color>
     <color name="background_tab_layout">#FF1B1B1B</color>
     <color name="text_item_tab">#212121</color>
     <color name="filter">#757575</color>

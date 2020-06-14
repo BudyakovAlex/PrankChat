@@ -347,7 +347,7 @@
                     android:gravity="right"
                     android:textColor="@color/applicationBlack"
                     android:textSize="14dp"
-                    app:MvxBind="Text AmountValue" />
+                    android:text="@string/WithdrawalView_Pending"/>
                 <View
                     android:id="@+id/pending_withdrawal_status_line"
                     android:layout_width="0dp"

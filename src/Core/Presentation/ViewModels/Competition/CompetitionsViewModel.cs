@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -10,9 +8,12 @@ using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Providers;
+using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
@@ -21,6 +22,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
     {
         private readonly IMvxMessenger _mvxMessenger;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
+        private MvxSubscriptionToken _reloadItemsSubscriptionToken;
 
         public CompetitionsViewModel(IMvxMessenger mvxMessenger,
                                      INavigationService navigationService,
@@ -46,6 +48,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         public override Task Initialize()
         {
             return LoadDataCommand.ExecuteAsync();
+        }
+
+        public override void ViewCreated()
+        {
+            base.ViewCreated();
+            Subscription();
+        }
+
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            Unsubscription();
+            base.ViewDestroy(viewFinishing);
         }
 
         private Task ShowWalkthrouthAsync()
@@ -82,6 +96,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             {
                 IsBusy = false;
             }
+        }
+
+        private void Subscription()
+        {
+            _reloadItemsSubscriptionToken = _mvxMessenger.SubscribeOnMainThread<ReloadCompetitionsMessage>(OnReloadData);
+        }
+
+        private void Unsubscription()
+        {
+            if (_reloadItemsSubscriptionToken != null)
+            {
+                _mvxMessenger.Unsubscribe<ReloadCompetitionsMessage>(_reloadItemsSubscriptionToken);
+                _reloadItemsSubscriptionToken.Dispose();
+            }
+        }
+
+        private void OnReloadData(ReloadCompetitionsMessage msg)
+        {
+            LoadDataCommand.ExecuteAsync();
         }
     }
 }

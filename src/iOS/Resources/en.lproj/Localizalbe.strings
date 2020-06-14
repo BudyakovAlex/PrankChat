@@ -316,3 +316,8 @@
 "Walkthrouth_Profile_Title" = "Profile";
 "No_Intentet_Connection" = "No internet connection";
 "Video_Failed_To_Upload" = "Failed to upload video";
+"Bytes_Presentation" = "bytes";
+"Kilobytes_Presentation" = "KB";
+"Megabytes_Presentation" = "MB";
+"Gigabytes_Presentation" = "GB";
+"Terabytes_Presentation" = "TB";

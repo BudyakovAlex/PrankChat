@@ -1019,4 +1019,19 @@
   <data name="Video_Failed_To_Upload" xml:space="preserve">
     <value>Ошибка загрузки видео</value>
   </data>
+  <data name="Bytes_Presentation" xml:space="preserve">
+    <value>байт</value>
+  </data>
+  <data name="Kilobytes_Presentation" xml:space="preserve">
+    <value>КБ</value>
+  </data>
+  <data name="Megabytes_Presentation" xml:space="preserve">
+    <value>МБ</value>
+  </data>
+  <data name="Gigabytes_Presentation" xml:space="preserve">
+    <value>ГБ</value>
+  </data>
+  <data name="Terabytes_Presentation" xml:space="preserve">
+    <value>ТБ</value>
+  </data>
 </root>

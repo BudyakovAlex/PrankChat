@@ -42,15 +42,15 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowDetailsPublicationView();
 
-        Task ShowCompetitionDetailsView(CompetitionDataModel competition);
+        Task<bool> ShowCompetitionDetailsView(CompetitionDataModel competition);
 
         Task ShowCompetitionPrizePoolView(CompetitionDataModel competition);
 
         Task ShowCompetitionRulesView(string content);
 
-        Task ShowWithdrawalView();
+        Task<bool> ShowWithdrawalView();
 
-        Task ShowRefillView();
+        Task<bool> ShowRefillView();
 
         Task ShowCashboxContent();
 

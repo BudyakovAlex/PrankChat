@@ -3,12 +3,15 @@ using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Views;
+using Android.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Droid.Controls;
+using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
+using PrankChat.Mobile.Droid.Utils.Helpers;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 {
@@ -18,6 +21,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
     {
         private View _uploadingContainerView;
         private CircleProgressBar _uploadingProgressBar;
+        private TextView _uploadedTextView;
+        private View _uploadingInfoContainer;
 
         protected override bool HasBackButton => true;
 
@@ -36,6 +41,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 
             _uploadingContainerView = FindViewById<View>(Resource.Id.uploading_progress_container);
             _uploadingProgressBar = FindViewById<CircleProgressBar>(Resource.Id.uploading_progress_bar);
+            _uploadedTextView = FindViewById<TextView>(Resource.Id.uploaded_text_view);
+            _uploadingInfoContainer = FindViewById<View>(Resource.Id.uploading_info_container);
+            _uploadingInfoContainer.SetRoundedCorners(DisplayUtils.DpToPx(30) / 2);
 
             _uploadingProgressBar.ProgressColor = Color.White;
             _uploadingProgressBar.RingThickness = 5;
@@ -60,6 +68,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             bindingSet.Bind(_uploadingProgressBar)
                       .For(v => v.BindClick())
                       .To(vm => vm.CancelUploadingCommand);
+
+            bindingSet.Bind(_uploadedTextView)
+                      .For(v => v.Text)
+                      .To(vm => vm.UploadingProgressStringPresentation);
 
             bindingSet.Apply();
         }

@@ -107,9 +107,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
                       .For(v => v.ImagePath)
                       .To(vm => vm.AvatarUrl);
 
-            //bindingSet.Bind(profileImageView)
-            //	.For(v => v.PlaceholderText)
-            //	.To(vm => vm.ProfileShortName);
+            bindingSet.Bind(profileImageView)
+                      .For(v => v.PlaceholderText)
+                      .To(vm => vm.ProfileShortName);
 
             bindingSet.Bind(profileNameLabel)
                       .For(v => v.Text)

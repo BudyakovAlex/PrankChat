@@ -1798,5 +1798,35 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Video_Failed_To_Upload", resourceCulture);
             }
         }
+        
+        public static string Bytes_Presentation {
+            get {
+                return ResourceManager.GetString("Bytes_Presentation", resourceCulture);
+            }
+        }
+        
+        public static string Kilobytes_Presentation {
+            get {
+                return ResourceManager.GetString("Kilobytes_Presentation", resourceCulture);
+            }
+        }
+        
+        public static string Megabytes_Presentation {
+            get {
+                return ResourceManager.GetString("Megabytes_Presentation", resourceCulture);
+            }
+        }
+        
+        public static string Gigabytes_Presentation {
+            get {
+                return ResourceManager.GetString("Gigabytes_Presentation", resourceCulture);
+            }
+        }
+        
+        public static string Terabytes_Presentation {
+            get {
+                return ResourceManager.GetString("Terabytes_Presentation", resourceCulture);
+            }
+        }
     }
 }

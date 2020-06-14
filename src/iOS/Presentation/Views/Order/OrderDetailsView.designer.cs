@@ -142,6 +142,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIButton unsubscriptionButton { get; set; }
 
 		[Outlet]
+		UIKit.UIView uploadingInfoView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel uploadingLabel { get; set; }
+
+		[Outlet]
 		PrankChat.Mobile.iOS.Controls.CircleProgressBar uploadingProgressBar { get; set; }
 
 		[Outlet]
@@ -170,11 +176,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (acceptButton != null) {
 				acceptButton.Dispose ();
 				acceptButton = null;
-			}
-
-			if (uploadingProgressBar != null) {
-				uploadingProgressBar.Dispose ();
-				uploadingProgressBar = null;
 			}
 
 			if (arqueButton != null) {
@@ -267,9 +268,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				hourValueLabel = null;
 			}
 
+			if (uploadingInfoView != null) {
+				uploadingInfoView.Dispose ();
+				uploadingInfoView = null;
+			}
+
 			if (innerView != null) {
 				innerView.Dispose ();
 				innerView = null;
+			}
+
+			if (uploadingLabel != null) {
+				uploadingLabel.Dispose ();
+				uploadingLabel = null;
 			}
 
 			if (lottieAnimationView != null) {
@@ -385,6 +396,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (unsubscriptionButton != null) {
 				unsubscriptionButton.Dispose ();
 				unsubscriptionButton = null;
+			}
+
+			if (uploadingProgressBar != null) {
+				uploadingProgressBar.Dispose ();
+				uploadingProgressBar = null;
 			}
 
 			if (uploadingProgressView != null) {

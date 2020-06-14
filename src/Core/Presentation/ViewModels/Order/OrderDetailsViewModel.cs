@@ -122,6 +122,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             private set => SetProperty(ref _uploadingProgress, value);
         }
 
+        private string _uploadingProgressStringPresentation;
+        public string UploadingProgressStringPresentation
+        {
+            get => _uploadingProgressStringPresentation;
+            private set => SetProperty(ref _uploadingProgressStringPresentation, value);
+        }
+
         private TimeSpan? TimeValue => _order?.GetActiveOrderTime();
 
         public string PriceValue => _order?.Price.ToPriceString();
@@ -369,11 +376,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 IsBusy = false;
 
                 UploadingProgress = 0;
+                UploadingProgressStringPresentation = "- / -";
+
                 IsUploading = true;
                 _cancellationTokenSource = new CancellationTokenSource();
 
-                var video = await ApiService.SendVideoAsync(_orderId, file.Path, _order?.Title, _order?.Description, (progress) => UploadingProgress = (float)progress);
-                if (video == null)
+                var video = await ApiService.SendVideoAsync(_orderId,
+                                                            file.Path,
+                                                            _order?.Title,
+                                                            _order?.Description,
+                                                            OnUploadingProgressChanged,
+                                                            _cancellationTokenSource.Token);
+                if (video == null && (!_cancellationTokenSource?.IsCancellationRequested ?? true))
                 {
                     DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
                     _cancellationTokenSource = null;
@@ -396,6 +410,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = false;
             }
+        }
+
+        private void OnUploadingProgressChanged(double progress, double size)
+        {
+            UploadingProgress = (float)(progress / size * 100);
+            UploadingProgressStringPresentation = $"{((long)progress).ToFileSizePresentation()} / {((long)size).ToFileSizePresentation()}";
         }
 
         private async Task OnArgueOrderAsync()

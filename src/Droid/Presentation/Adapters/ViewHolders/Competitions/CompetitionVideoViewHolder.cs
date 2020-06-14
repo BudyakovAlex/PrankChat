@@ -57,6 +57,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .For(v => v.ImagePath)
                       .To(vm => vm.AvatarUrl);
 
+            bindingSet.Bind(_userPhotoImageView)
+                      .For(v => v.PlaceholderText)
+                      .To(vm => vm.ProfileShortName);
+
             bindingSet.Bind(_viewsCountTextView)
                       .For(v => v.Text)
                       .To(vm => vm.ViewsCount);

@@ -38,6 +38,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         public string PreviewUrl { get; }
         public string ShareLink { get; }
         public string UserName { get; }
+        public string ProfileShortName { get; }
         public string VideoName { get; }
         public string Description { get; }
         public string AvatarUrl { get; }
@@ -125,6 +126,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             VideoName = videoName;
             Description = description;
             UserName = userName;
+            ProfileShortName = userName.ToShortenName();
             AvatarUrl = avatarUrl;
             NumberOfLikes = numberOfLikes;
             NumberOfComments = numberOfComments;

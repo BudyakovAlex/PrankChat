@@ -160,16 +160,16 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 			return _mvxNavigationService.Navigate<PublicationDetailsViewModel>();
 		}
 
-		public Task ShowWithdrawalView()
+		public Task<bool> ShowWithdrawalView()
 		{
 			var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Withdrawal);
-			return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter>(navigationParameter);
+			return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter, bool>(navigationParameter);
 		}
 
-		public Task ShowRefillView()
+		public Task<bool> ShowRefillView()
 		{
 			var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Refill);
-			return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter>(navigationParameter);
+			return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter, bool>(navigationParameter);
 		}
 
 		public async Task<bool> ShowUpdateProfileView()
@@ -239,9 +239,9 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<ArrayDialogViewModel, ArrayDialogParameter, ArrayDialogResult>(parameter);
         }
 
-        public Task ShowCompetitionDetailsView(CompetitionDataModel competition)
+        public Task<bool> ShowCompetitionDetailsView(CompetitionDataModel competition)
         {
-            return _mvxNavigationService.Navigate<CompetitionDetailsViewModel, CompetitionDataModel>(competition);
+            return _mvxNavigationService.Navigate<CompetitionDetailsViewModel, CompetitionDataModel, bool>(competition);
         }
 
         public Task ShowCompetitionPrizePoolView(CompetitionDataModel competition)

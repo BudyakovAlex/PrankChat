@@ -14,6 +14,7 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
+using PrankChat.Mobile.Droid.Presentation.Converters;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Providers;
@@ -36,6 +37,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
         private View _profileView;
         private MvxCachedImageView _profileImageView;
         private View _likeView;
+        private ImageView _likesImageView;
         private TextView _likeTextView;
         private ImageView _shareImageView;
         private View _commentsView;
@@ -74,6 +76,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             _topPanel = FindViewById<ConstraintLayout>(Resource.Id.top_panel);
             _profileView = FindViewById<View>(Resource.Id.profile_view);
             _likeView = FindViewById<View>(Resource.Id.like_view);
+            _likesImageView = FindViewById<ImageView>(Resource.Id.likes_image_view);
             _likeTextView = FindViewById<TextView>(Resource.Id.like_text_view);
             _shareImageView = FindViewById<ImageView>(Resource.Id.share_image_view);
 
@@ -130,6 +133,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             bindingSet.Bind(_descriptionTextView)
                       .For(v => v.Text)
                       .To(vm => vm.Description);
+
+            bindingSet.Bind(_likesImageView)
+                      .For(v => v.BindDrawableId()).To(vm => vm.IsLiked)
+                      .WithConversion<FullScreenLikeConverter>();
 
             // TODO: add show profile click binding
             //bindingSet.Bind(_profileView)

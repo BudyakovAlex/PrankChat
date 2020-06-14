@@ -39,7 +39,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Builders
             return _instance;
         }
 
-        public FormDataBuilder AttachFileContent(string name, string fileName, byte[] content, Action<double> onUploadChanged, CancellationToken cancellationToken = default)
+        public FormDataBuilder AttachFileContent(string name, string fileName, byte[] content, Action<double, double> onUploadChanged, CancellationToken cancellationToken = default)
         {
             var fileContent = new ProgressByteArrayContent(content, onUploadChanged, cancellationToken);
             fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue(DispositionTypeFormData)

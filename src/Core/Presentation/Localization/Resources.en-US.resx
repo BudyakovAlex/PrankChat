@@ -1013,4 +1013,19 @@ If the customer did not like your video, he can send the task to the &quot;dispu
   <data name="Video_Failed_To_Upload" xml:space="preserve">
     <value>Failed to upload video</value>
   </data>
+  <data name="Bytes_Presentation" xml:space="preserve">
+    <value>bytes</value>
+  </data>
+  <data name="Kilobytes_Presentation" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="Megabytes_Presentation" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="Gigabytes_Presentation" xml:space="preserve">
+    <value>GB</value>
+  </data>
+  <data name="Terabytes_Presentation" xml:space="preserve">
+    <value>TB</value>
+  </data>
 </root>

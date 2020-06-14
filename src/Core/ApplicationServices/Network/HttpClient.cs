@@ -98,7 +98,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return ExecuteTaskAsync<TResult>(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
-        public async Task<TResult> PostVideoFileAsync<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false, Action<double> onChangedProgressAction = null, CancellationToken cancellationToken = default) where TEntity : LoadVideoApiModel where TResult : new()
+        public async Task<TResult> PostVideoFileAsync<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false, Action<double, double> onChangedProgressAction = null, CancellationToken cancellationToken = default) where TEntity : LoadVideoApiModel where TResult : new()
         {
             var response = default(HttpResponseMessage);
             try

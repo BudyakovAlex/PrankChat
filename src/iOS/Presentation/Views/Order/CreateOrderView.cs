@@ -5,6 +5,7 @@ using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -22,7 +23,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
         private UIImage _checkedImage;
         private UIImage _uncheckedImage;
         private UITextPosition _position;
-        private UITextView dynamicDescriptionTextView;
+        private UITextView _dynamicDescriptionTextView;
        
         public string OrderDescription
         {
@@ -77,12 +78,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         private nfloat GetTextViewHeight(double width, UIFont font, string text)
         {
-            dynamicDescriptionTextView.Frame = new CoreGraphics.CGRect(0, 0, width, double.MaxValue);
-            dynamicDescriptionTextView.Font = font;
-            dynamicDescriptionTextView.Text = text;
-            dynamicDescriptionTextView.SizeToFit();
+            _dynamicDescriptionTextView.Frame = new CoreGraphics.CGRect(0, 0, width, double.MaxValue);
+            _dynamicDescriptionTextView.Font = font;
+            _dynamicDescriptionTextView.Text = text;
+            _dynamicDescriptionTextView.SizeToFit();
 
-            return dynamicDescriptionTextView.Frame.Height;
+            return _dynamicDescriptionTextView.Frame.Height;
         }
 
         protected override void SetupControls()
@@ -91,7 +92,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             descriptionContainerView.Layer.BorderColor = Theme.Color.TextFieldDarkBorder.CGColor;
             descriptionContainerView.Layer.BorderWidth = 1f;
             descriptionContainerView.Layer.CornerRadius = 3f;
-            dynamicDescriptionTextView = new UITextView();
+            _dynamicDescriptionTextView = new UITextView();
             DefinesPresentationContext = true;
 
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
@@ -109,6 +110,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             descriptionTextView.SetTitleStyle(size:14);
             descriptionTextView.ContentInset = UIEdgeInsets.Zero;
+            descriptionTextView.ShouldChangeText = (textField, range, replacementString) =>
+            {
+                var newLength = textField.Text.Length + replacementString.Length - range.Length;
+                return newLength <= Constants.Orders.DescriptionMaxLength;
+            };
+
             descriptionPlaceholderLabel.SetSmallSubtitleStyle(Resources.CreateOrderView_Description_Placeholder, 14);
             descriptionTopFloatingPlaceholderLabel.SetSmallSubtitleStyle(Resources.CreateOrderView_Description_Placeholder);
             descriptionTopFloatingPlaceholderLabel.Hidden = true;
