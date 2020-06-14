@@ -22,6 +22,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 		UIKit.UIView commentViewSeparatorView { get; set; }
 
 		[Outlet]
+		UIKit.NSLayoutConstraint editorBottomConstraint { get; set; }
+
+		[Outlet]
 		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profileImageView { get; set; }
 
 		[Outlet]
@@ -32,6 +35,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (editorBottomConstraint != null) {
+				editorBottomConstraint.Dispose ();
+				editorBottomConstraint = null;
+			}
+
 			if (commentTextView != null) {
 				commentTextView.Dispose ();
 				commentTextView = null;
@@ -47,14 +55,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 				commentViewSeparatorView = null;
 			}
 
-			if (sendButton != null) {
-				sendButton.Dispose ();
-				sendButton = null;
-			}
-
 			if (profileImageView != null) {
 				profileImageView.Dispose ();
 				profileImageView = null;
+			}
+
+			if (sendButton != null) {
+				sendButton.Dispose ();
+				sendButton = null;
 			}
 
 			if (tableView != null) {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Foundation;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -12,10 +13,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
     public abstract class BaseView<TMvxViewModel> : MvxViewController<TMvxViewModel> where TMvxViewModel : BaseViewModel
     {
         private List<UIView> _viewForKeyboardDismiss = new List<UIView>();
+        private NSObject _keyBoardWillDisapear;
+        private NSObject _keyboardWillAppear;
 
         public new string Title { get; set; }
 
         public virtual bool IsRotateEnabled { get; protected set; }
+
+        public virtual bool CanHandleKeyboardNotifications => false;
 
         public override void ViewDidLoad()
         {
@@ -34,6 +39,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
         {
             Unsubscription();
             base.ViewDidUnload();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            if (CanHandleKeyboardNotifications)
+            {
+                RegisterForKeyboardNotifications();
+            }
+        }
+
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
+            if (CanHandleKeyboardNotifications)
+            {
+                UnregisterForKeyboardNotifications();
+            }
         }
 
         public override UIStatusBarStyle PreferredStatusBarStyle()
@@ -92,6 +115,32 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
                 .ForEach(c => c.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag | UIScrollViewKeyboardDismissMode.Interactive);
         }
 
+        protected virtual void OnKeyboardChanged(bool visible, nfloat keyboardHeight)
+        {
+        }
+
+        protected virtual void RegisterForKeyboardNotifications()
+        {
+            _keyBoardWillDisapear = NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, OnKeyboardNotification);
+            _keyboardWillAppear = NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillShowNotification, OnKeyboardNotification);
+        }
+
+        protected virtual void UnregisterForKeyboardNotifications()
+        {
+            if (!IsViewLoaded)
+            {
+                return;
+            }
+
+            NSNotificationCenter.DefaultCenter.RemoveObserver(_keyboardWillAppear);
+            _keyboardWillAppear.Dispose();
+            _keyboardWillAppear = null;
+
+            NSNotificationCenter.DefaultCenter.RemoveObserver(_keyBoardWillDisapear);
+            _keyBoardWillDisapear.Dispose();
+            _keyBoardWillDisapear = null;
+        }
+
         public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
         {
             return IsRotateEnabled ? UIInterfaceOrientationMask.All : UIInterfaceOrientationMask.Portrait;
@@ -144,6 +193,28 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
                 view.ResignFirstResponder();
             }
+        }
+
+        private void OnKeyboardNotification(NSNotification notification)
+        {
+            if (!IsViewLoaded)
+            {
+                return;
+            }
+
+            var visible = notification.Name == UIKeyboard.WillShowNotification;
+
+            UIView.BeginAnimations("AnimateForKeyboard");
+            UIView.SetAnimationBeginsFromCurrentState(true);
+            UIView.SetAnimationDuration(UIKeyboard.AnimationDurationFromNotification(notification));
+            UIView.SetAnimationCurve((UIViewAnimationCurve)UIKeyboard.AnimationCurveFromNotification(notification));
+
+            var keyboardFrame = visible
+                ? UIKeyboard.FrameEndFromNotification(notification)
+                : UIKeyboard.FrameBeginFromNotification(notification);
+
+            OnKeyboardChanged(visible, keyboardFrame.Height);
+            UIView.CommitAnimations();
         }
     }
 }

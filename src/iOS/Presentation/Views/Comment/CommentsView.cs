@@ -8,7 +8,6 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using System;
@@ -22,6 +21,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
         private MvxUIRefreshControl _refreshControl;
 
         private CommentsTableSource _commentTableSource;
+
+        public override bool CanHandleKeyboardNotifications => true;
 
         private MvxInteraction<int> _scrollInteraction;
         public MvxInteraction<int> ScrollInteraction
@@ -85,7 +86,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 		{
             Title = Resources.CommentView_Title;
             InitializeTableView();
-            SetScrollKeyboard();
 
             commentTextView.SetBorderlessStyle(string.Empty, Theme.Color.CommentBorder);
 
@@ -105,11 +105,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
             tableView.RefreshControl = _refreshControl;
         }
 
-        private void SetScrollKeyboard()
+        protected override void OnKeyboardChanged(bool visible, nfloat keyboardHeight)
         {
-            Xamarin.IQKeyboardManager.SharedManager.ShouldResignOnTouchOutside = true;
-            Xamarin.IQKeyboardManager.SharedManager.EnableAutoToolbar = false;
-            Xamarin.IQKeyboardManager.SharedManager.KeyboardDistanceFromTextField = 10;
+            base.OnKeyboardChanged(visible, keyboardHeight);
+
+            var window = UIApplication.SharedApplication.KeyWindow;
+            var bottomPadding = window.SafeAreaInsets.Bottom;
+            editorBottomConstraint.Constant = visible ? -(keyboardHeight - bottomPadding) : 0;
+            UIView.Animate(0.5, () => View.LayoutIfNeeded());
         }
 
         private void OnInteractionRequested(object sender, MvxValueEventArgs<int> e)

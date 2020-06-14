@@ -13,6 +13,7 @@
                 <outlet property="commentTextView" destination="qaA-v0-vuR" id="opp-Ff-8fD"/>
                 <outlet property="commentView" destination="gSR-Dk-tic" id="IDB-EO-Xva"/>
                 <outlet property="commentViewSeparatorView" destination="zxd-hP-SJY" id="mFm-iW-Te3"/>
+                <outlet property="editorBottomConstraint" destination="zH2-uD-dIB" id="I1x-mh-tjO"/>
                 <outlet property="profileImageView" destination="dZ7-xw-69g" id="KNB-9H-zCa"/>
                 <outlet property="sendButton" destination="mQc-qs-CH9" id="bhe-ee-mAs"/>
                 <outlet property="tableView" destination="JPe-5Z-1nG" id="nTD-dB-ZEX"/>
