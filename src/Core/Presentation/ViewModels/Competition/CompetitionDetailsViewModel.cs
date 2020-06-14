@@ -299,6 +299,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         {
             UploadingProgress = (float)(progress / size * 100);
             UploadingProgressStringPresentation = $"{((long)progress).ToFileSizePresentation()} / {((long)size).ToFileSizePresentation()}";
+
+            if (UploadingProgress < 100)
+            {
+                return;
+            }
+
+            IsUploading = false;
+            IsBusy = true;
         }
     }
 }

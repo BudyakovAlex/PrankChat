@@ -416,6 +416,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             UploadingProgress = (float)(progress / size * 100);
             UploadingProgressStringPresentation = $"{((long)progress).ToFileSizePresentation()} / {((long)size).ToFileSizePresentation()}";
+
+            if (UploadingProgress < 100)
+            {
+                return;
+            }
+
+            IsUploading = false;
+            IsBusy = true;
         }
 
         private async Task OnArgueOrderAsync()
