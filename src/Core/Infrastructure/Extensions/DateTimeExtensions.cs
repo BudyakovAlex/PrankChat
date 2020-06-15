@@ -42,7 +42,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                 afterCount = Resources.Seconds_Short;
             }
 
-            return $"{count}{afterCount}";
+            return $"{Math.Max(count, 0)}{afterCount}";
         }
 
         public static string ToTimeWithSpaceString(this DateTime dateTime)
