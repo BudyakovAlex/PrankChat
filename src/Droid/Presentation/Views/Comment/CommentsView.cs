@@ -23,7 +23,7 @@ using PrankChat.Mobile.Droid.Presentation.Views.Base;
 namespace PrankChat.Mobile.Droid.Presentation.Views.Comment
 {
     [MvxActivityPresentation]
-    [Activity(WindowSoftInputMode = SoftInput.AdjustPan, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(WindowSoftInputMode = SoftInput.AdjustResize, ScreenOrientation = ScreenOrientation.Portrait)]
     public class CommentsView : BaseView<CommentsViewModel>
     {
         private MvxSwipeRefreshLayout _refreshView;
