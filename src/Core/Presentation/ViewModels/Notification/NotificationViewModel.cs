@@ -41,11 +41,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 
                 var notifications = await ApiService.GetNotificationsAsync();
                 if (notifications == null)
+                {
                     return;
+                }
 
                 var notificationItems = notifications.Select(norification =>
                     new NotificationItemViewModel(NavigationService,
                                                   norification.RelatedUser,
+                                                  norification.RelatedOrder,
                                                   norification.Title,
                                                   norification.Text,
                                                   norification.CreatedAt,

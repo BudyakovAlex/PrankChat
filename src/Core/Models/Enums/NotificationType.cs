@@ -23,6 +23,9 @@ namespace PrankChat.Mobile.Core.Models.Enums
         CommentEvent,
 
         [EnumMember(Value = "executor_event")]
-        ExecutorEvent
+        ExecutorEvent,
+
+        [EnumMember(Value = "info_event")]
+        InfoEvent,
     }
 }

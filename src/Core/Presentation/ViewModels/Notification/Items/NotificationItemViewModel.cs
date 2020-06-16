@@ -36,6 +36,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         public NotificationItemViewModel(INavigationService navigationService,
                                          UserDataModel user,
+                                         OrderDataModel order,
                                          string title,
                                          string description,
                                          DateTime? createdAt,
@@ -53,8 +54,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
             switch (_notificationType)
             {
+                case NotificationType.InfoEvent:
+                    // Info event sended
+                    break;
+
                 case NotificationType.OrderEvent:
-                    // Order created
+                    Title = order?.Title;
+                    Description = order?.Description;
                     break;
 
                 case NotificationType.WalletEvent:
