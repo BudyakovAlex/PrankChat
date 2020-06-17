@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:local="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,14 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:background="@color/applicationWhite"
         android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        local:MvxBind="Refreshing IsBusy; RefreshCommand UpdateNotificationsCommand">
-        <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+        android:layout_width="match_parent">
+        <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            local:MvxItemTemplate="@layout/cell_notification"
-            local:MvxBind="ItemsSource Items"/>
+            android:layout_height="match_parent" />
     </MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout>
 </LinearLayout>

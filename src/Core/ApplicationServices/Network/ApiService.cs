@@ -457,10 +457,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Notification
 
-        public async Task<List<NotificationDataModel>> GetNotificationsAsync()
+        public async Task<PaginationModel<NotificationDataModel>> GetNotificationsAsync()
         {
             var notificationBundle = await _client.GetAsync<BaseBundleApiModel<NotificationApiModel>>("notifications");
-            return MappingConfig.Mapper.Map<List<NotificationDataModel>>(notificationBundle?.Data);
+            return CreatePaginationResult<NotificationApiModel, NotificationDataModel>(notificationBundle);
         }
 
         public Task SendNotificationTokenAsync(string token)

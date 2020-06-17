@@ -54,7 +54,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
 
         public string ProfilePhotoUrl => SettingsService.User?.Avatar;
 
-        public string ProfileShortName => SettingsService.User?.Name?.ToShortenName();
+        public string ProfileShortName => SettingsService.User?.Login?.ToShortenName();
 
         public IMvxAsyncCommand SendCommentCommand { get; }
 
@@ -96,7 +96,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
 
         private CommentItemViewModel ProduceCommentItemViewModel(CommentDataModel commentDataModel)
         {
-            return new CommentItemViewModel(commentDataModel.User.Name,
+            return new CommentItemViewModel(commentDataModel.User.Login,
                                             commentDataModel.User.Avatar,
                                             commentDataModel.Text,
                                             commentDataModel.CreatedAt);

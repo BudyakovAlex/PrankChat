@@ -25,6 +25,6 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public VideoDataModel RelatedVideo { get; set; }
 
-        public TransactionDataModel RelationTransaction { get; set; }
+        public TransactionDataModel RelatedTransaction { get; set; }
     }
 }

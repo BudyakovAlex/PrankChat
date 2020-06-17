@@ -1,13 +1,12 @@
-﻿using System;
-using Foundation;
-using MvvmCross.Platforms.Ios.Binding.Views;
+﻿using Foundation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
+using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Presentation.Views.NotificationView;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
-    public class NotificationTableSource : MvxTableViewSource
+    public class NotificationTableSource : PagedTableViewSource
     {
         public NotificationTableSource(UITableView tableView) : base(tableView)
         {

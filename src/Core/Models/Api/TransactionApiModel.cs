@@ -12,6 +12,8 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         public string Direction { get; set; }
 
+        public string Reason { get; set; }
+
         [JsonProperty("balance_before")]
         public int? BalanceBefore { get; set; }
 
@@ -23,5 +25,8 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         [JsonProperty("frozen_after")]
         public int? FrozenAfter { get; set; }
+
+        [JsonProperty("user")]
+        public DataApiModel<UserApiModel> User { get; set; }
     }
 }

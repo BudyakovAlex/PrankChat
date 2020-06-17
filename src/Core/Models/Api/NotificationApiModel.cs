@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("related_video")]
         public DataApiModel<VideoApiModel> RelatedVideo { get; set; }
 
-        [JsonProperty("relation_transaction")]
-        public DataApiModel<TransactionApiModel> RelationTransaction { get; set; }
+        [JsonProperty("related_transaction")]
+        public DataApiModel<TransactionApiModel> RelatedTransaction { get; set; }
     }
 }

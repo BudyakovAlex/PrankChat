@@ -44,12 +44,13 @@ namespace PrankChat.Mobile.Core.Models.Mappings
                 .ForPath(dest => dest.RelatedOrder.Data, opt => opt.MapFrom(src => src.RelatedOrder))
                 .ForPath(dest => dest.RelatedUser.Data, opt => opt.MapFrom(src => src.RelatedUser))
                 .ForPath(dest => dest.RelatedVideo.Data, opt => opt.MapFrom(src => src.RelatedVideo))
-                .ForPath(dest => dest.RelationTransaction.Data, opt => opt.MapFrom(src => src.RelationTransaction))
+                .ForPath(dest => dest.RelatedTransaction.Data, opt => opt.MapFrom(src => src.RelatedTransaction))
                 .ReverseMap();
             CreateMap<CommentDataModel, CommentApiModel>()
                 .ForPath(dest => dest.User.Data, opt => opt.MapFrom(src => src.User))
                 .ReverseMap();
-            CreateMap<TransactionDataModel, TransactionApiModel>().ReverseMap();
+            CreateMap<TransactionDataModel, TransactionApiModel>().ReverseMap()
+                .ForPath(dest => dest.User, opt => opt.MapFrom(src => src.User.Data));
             CreateMap<ProblemDetailsDataModel, ProblemDetailsApiModel>()
                 .ForPath(dest => dest.Message, opt => opt.MapFrom(src => src.MessageServerError))
                 .ReverseMap();

@@ -1,14 +1,14 @@
-﻿using MvvmCross.Binding.BindingContext;
+﻿using MvvmCross.Binding;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
-using MvvmCross.Binding;
 using UIKit;
-using PrankChat.Mobile.iOS.Infrastructure;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 {
@@ -16,26 +16,29 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 	public partial class NotificationView : BaseGradientBarView<NotificationViewModel>
     {
         private MvxUIRefreshControl _refreshControl;
-
-        public NotificationTableSource NotificationTableSource { get; private set; }
+        private NotificationTableSource _notificationTableSource;
 
         protected override void SetupBinding()
 		{
-			var set = this.CreateBindingSet<NotificationView, NotificationViewModel>();
+			var bindingSet = this.CreateBindingSet<NotificationView, NotificationViewModel>();
 
-            set.Bind(NotificationTableSource)
-                .To(vm => vm.Items);
+            bindingSet.Bind(_notificationTableSource)
+                      .To(vm => vm.Items);
 
-            set.Bind(_refreshControl)
-                .For(v => v.IsRefreshing)
-                .To(vm => vm.IsBusy)
-                .Mode(MvxBindingMode.TwoWay);
+            bindingSet.Bind(_refreshControl)
+                      .For(v => v.IsRefreshing)
+                      .To(vm => vm.IsBusy)
+                      .Mode(MvxBindingMode.TwoWay);
 
-            set.Bind(_refreshControl)
-                .For(v => v.RefreshCommand)
-                .To(vm => vm.UpdateNotificationsCommand);
+            bindingSet.Bind(_refreshControl)
+                      .For(v => v.RefreshCommand)
+                      .To(vm => vm.ReloadItemsCommand);
 
-            set.Apply();
+            bindingSet.Bind(_notificationTableSource)
+                      .For(v => v.LoadMoreItemsCommand)
+                      .To(vm => vm.LoadMoreItemsCommand);
+
+            bindingSet.Apply();
 		}
 
 		protected override void SetupControls()
@@ -46,10 +49,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 
         private void InitializeTableView()
         {
-            NotificationTableSource = new NotificationTableSource(tableView);
-            tableView.Source = NotificationTableSource;
+            _notificationTableSource = new NotificationTableSource(tableView);
+            tableView.Source = _notificationTableSource;
+
             tableView.RegisterNibForCellReuse(NotificationItemCell.Nib, NotificationItemCell.CellId);
             tableView.SetStyle();
+
             tableView.RowHeight = UITableView.AutomaticDimension;
             tableView.EstimatedRowHeight = Constants.CellHeights.NotificationItemCellHeight;
             tableView.UserInteractionEnabled = true;
@@ -63,4 +68,3 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
         }
     }
 }
-

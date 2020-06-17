@@ -1,13 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
-using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
-using System.ComponentModel;
+using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 {
@@ -17,6 +14,44 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         private NotificationType? _notificationType;
         private int? _userId;
+
+        public NotificationItemViewModel(INavigationService navigationService, NotificationDataModel notificationDataModel)
+        {
+            _navigationService = navigationService;
+
+            Title = notificationDataModel.Title;
+            Description = notificationDataModel.Description;
+            DateText = notificationDataModel.CreatedAt?.ToTimeAgoCommentString();
+
+            IsDelivered = notificationDataModel.IsDelivered ?? false;
+            _notificationType = notificationDataModel.Type;
+
+            switch (_notificationType)
+            {
+                case NotificationType.OrderEvent:
+                    Title = notificationDataModel.RelatedOrder?.Title;
+                    Description = notificationDataModel.RelatedOrder?.Description;
+                    break;
+
+                case NotificationType.WalletEvent:
+                    Title = notificationDataModel.RelatedTransaction?.Reason;
+                    Description = notificationDataModel.RelatedTransaction?.Amount == null ? string.Empty : $"{notificationDataModel.RelatedTransaction?.Amount} ₽";
+                    ProfileName = notificationDataModel.RelatedTransaction?.User?.Login;
+                    ImageUrl = notificationDataModel.RelatedTransaction?.User?.Avatar;
+                    break;
+
+                case NotificationType.SubscriptionEvent:
+                case NotificationType.LikeEvent:
+                case NotificationType.CommentEvent:
+                case NotificationType.ExecutorEvent:
+                    ProfileName = notificationDataModel.RelatedUser?.Login;
+                    ImageUrl = notificationDataModel.RelatedUser?.Avatar;
+                    _userId = notificationDataModel.RelatedUser?.Id;
+                    break;
+            }
+
+            ShowUserProfileCommand = new MvxAsyncCommand(ShowUserProfileAsync);
+        }
 
         public string ProfileName { get; }
 
@@ -32,56 +67,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         public string Title { get; }
 
-        public MvxAsyncCommand ShowUserProfileCommand => new MvxAsyncCommand(OnShowUserProfileAsync);
+        public MvxAsyncCommand ShowUserProfileCommand { get; }
 
-        public NotificationItemViewModel(INavigationService navigationService,
-                                         UserDataModel user,
-                                         OrderDataModel order,
-                                         string title,
-                                         string description,
-                                         DateTime? createdAt,
-                                         bool? isDelivered,
-                                         NotificationType? type)
-        {
-            _navigationService = navigationService;
-
-            Title = title;
-            Description = description;
-            DateText = createdAt?.ToTimeAgoCommentString();
-
-            IsDelivered = isDelivered ?? false;
-            _notificationType = type;
-
-            switch (_notificationType)
-            {
-                case NotificationType.InfoEvent:
-                    // Info event sended
-                    break;
-
-                case NotificationType.OrderEvent:
-                    Title = order?.Title;
-                    Description = order?.Description;
-                    break;
-
-                case NotificationType.WalletEvent:
-                    // there are transactions
-                    break;
-
-                case NotificationType.SubscriptionEvent:
-                case NotificationType.LikeEvent:
-                case NotificationType.CommentEvent:
-                case NotificationType.ExecutorEvent:
-                    ProfileName = user?.Name;
-                    ImageUrl = user?.Avatar;
-                    _userId = user?.Id;
-                    break;
-
-                default:
-                    throw new InvalidEnumArgumentException(nameof(_notificationType), (int)_notificationType, typeof(NotificationType));
-            }
-        }
-
-        private Task OnShowUserProfileAsync()
+        private Task ShowUserProfileAsync()
         {
             if (_userId == null)
             {

@@ -46,7 +46,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string ProfilePhotoUrl => _order?.Customer?.Avatar;
 
-        public string ProfileName => _order?.Customer?.Name;
+        public string ProfileName => _order?.Customer?.Login;
 
         public string ProfileShortName => ProfileName?.ToShortenName();
 
@@ -70,9 +70,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string ExecutorPhotoUrl => _order?.Executor?.Avatar;
 
-        public string ExecutorName => _order?.Executor?.Name;
+        public string ExecutorName => _order?.Executor?.Login;
 
-        public string ExecutorShortName => _order?.Executor?.Name?.ToShortenName();
+        public string ExecutorShortName => _order?.Executor?.Login?.ToShortenName();
 
         public string StartOrderDate => _order?.TakenToWorkAt?.ToShortDateString();
 

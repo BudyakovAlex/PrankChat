@@ -1,66 +1,59 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
-using MvvmCross.ViewModels;
+﻿using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 {
-    public class NotificationViewModel : BaseViewModel
+    public class NotificationViewModel : PaginationViewModel
     {
-        public MvxObservableCollection<NotificationItemViewModel> Items { get; } = new MvxObservableCollection<NotificationItemViewModel>();
-
-        public MvxAsyncCommand UpdateNotificationsCommand => new MvxAsyncCommand(OnUpdateNotificationsAsync);
-
         public NotificationViewModel(INavigationService navigationService,
                                      IErrorHandleService errorHandleService,
                                      IApiService apiService,
                                      IDialogService dialogService,
                                      ISettingsService settingsService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+            : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
+            Items = new MvxObservableCollection<NotificationItemViewModel>();
         }
+
+        public MvxObservableCollection<NotificationItemViewModel> Items { get; }
 
         public override Task Initialize()
         {
             base.Initialize();
-            return UpdateNotificationsCommand.ExecuteAsync();
+            return LoadMoreItemsCommand.ExecuteAsync();
         }
 
-        private async Task OnUpdateNotificationsAsync()
+        protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
-            try
-            {
-                IsBusy = true;
+            var pageContainer = await ApiService.GetNotificationsAsync();
+            var count = SetList(pageContainer, page, ProduceNotificationItem, Items);
+            return count;
+        }
 
-                var notifications = await ApiService.GetNotificationsAsync();
-                if (notifications == null)
-                {
-                    return;
-                }
+        protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        {
+            SetTotalItemsCount(dataModel?.TotalCount ?? 0);
+            var orderViewModels = dataModel?.Items?.Select(produceItemViewModel).ToList();
 
-                var notificationItems = notifications.Select(norification =>
-                    new NotificationItemViewModel(NavigationService,
-                                                  norification.RelatedUser,
-                                                  norification.RelatedOrder,
-                                                  norification.Title,
-                                                  norification.Text,
-                                                  norification.CreatedAt,
-                                                  norification.IsDelivered,
-                                                  norification.Type));
+            items.AddRange(orderViewModels);
+            return orderViewModels.Count;
+        }
 
-                Items.SwitchTo(notificationItems);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+        private NotificationItemViewModel ProduceNotificationItem(NotificationDataModel notificationDataModel)
+        {
+            return new NotificationItemViewModel(NavigationService, notificationDataModel);
         }
     }
 }

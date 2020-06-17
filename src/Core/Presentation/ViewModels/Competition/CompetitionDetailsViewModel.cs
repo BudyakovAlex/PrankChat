@@ -20,7 +20,6 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -212,7 +211,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                                  videoDataModel.ShareUri,
                                                  videoDataModel.Title,
                                                  videoDataModel.Description,
-                                                 videoDataModel.User.Name,
+                                                 videoDataModel.User.Login,
                                                  videoDataModel.User.Avatar,
                                                  videoDataModel.LikesCount,
                                                  videoDataModel.CommentsCount,
@@ -274,7 +273,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                                                   video.ShareUri,
                                                                   video.Title,
                                                                   video.Description,
-                                                                  SettingsService.User?.Name,
+                                                                  SettingsService.User?.Login,
                                                                   SettingsService.User?.Avatar,
                                                                   video.LikesCount,
                                                                   video.CommentsCount,

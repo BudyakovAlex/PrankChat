@@ -96,7 +96,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
                                                 _orderDataModel.Title,
                                                 _orderDataModel.Description,
                                                 _orderDataModel.Video.ShareUri,
-                                                _orderDataModel.Customer.Name,
+                                                _orderDataModel.Customer.Login,
                                                 _orderDataModel.Video.LikesCount,
                                                 _orderDataModel.Video.CommentsCount,
                                                 _orderDataModel.Video.IsLiked);

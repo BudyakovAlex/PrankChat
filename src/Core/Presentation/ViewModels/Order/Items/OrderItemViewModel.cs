@@ -35,7 +35,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public string ProfilePhotoUrl => _orderDataModel.Customer?.Avatar;
 
-        public string ProfileShortName => _orderDataModel.Customer?.Name.ToShortenName();
+        public string ProfileShortName => _orderDataModel.Customer?.Login.ToShortenName();
 
         public OrderType OrderType => _settingsService.User.GetOrderType(_orderDataModel.Customer?.Id, _orderDataModel?.Status ?? OrderStatusType.None);
 
@@ -148,7 +148,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                                                 _orderDataModel.Title,
                                                 _orderDataModel.Description,
                                                 _orderDataModel.Video.ShareUri,
-                                                _orderDataModel.Customer.Name,
+                                                _orderDataModel.Customer.Login,
                                                 _orderDataModel.Video.LikesCount,
                                                 _orderDataModel.Video.CommentsCount,
                                                 _orderDataModel.Video.IsLiked);

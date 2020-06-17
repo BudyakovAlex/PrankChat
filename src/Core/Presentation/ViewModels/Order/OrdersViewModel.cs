@@ -232,7 +232,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                                 order.Id,
                                                 order.Title,
                                                 order.Customer?.Avatar,
-                                                order.Customer?.Name,
+                                                order.Customer?.Login,
                                                 order.Price,
                                                 order.Likes,
                                                 order.Dislikes,

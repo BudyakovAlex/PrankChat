@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Data
@@ -9,6 +10,7 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public string Avatar { get; set; }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name { get; set; }
 
         public GenderType Sex { get; set; }

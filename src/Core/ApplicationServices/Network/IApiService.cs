@@ -123,7 +123,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #region Notification
 
-        Task<List<NotificationDataModel>> GetNotificationsAsync();
+        Task<PaginationModel<NotificationDataModel>> GetNotificationsAsync();
 
         Task SendNotificationTokenAsync(string token);
 

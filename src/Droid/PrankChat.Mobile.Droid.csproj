@@ -198,6 +198,7 @@
     <Compile Include="Presentation\Adapters\ViewHolders\Comments\CommentViewHolder.cs" />
     <Compile Include="Controls\CircleProgressBar.cs" />
     <Compile Include="Presentation\Converters\FullScreenLikeConverter.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Notifications\NotificationItemViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -328,7 +329,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\cell_notification.axml">
+    <AndroidResource Include="Resources\layout\cell_notification.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -1342,6 +1343,7 @@
     <Folder Include="Presentation\Views\Walthroughs\" />
     <Folder Include="Resources\values-en\" />
     <Folder Include="Presentation\Adapters\ViewHolders\Comments\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\Notifications\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />
