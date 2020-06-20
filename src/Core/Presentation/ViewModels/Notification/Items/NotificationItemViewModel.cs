@@ -20,7 +20,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
             _navigationService = navigationService;
 
             Title = notificationDataModel.Title;
-            Description = notificationDataModel.Description;
+            Description = notificationDataModel.Text;
             DateText = notificationDataModel.CreatedAt?.ToTimeAgoCommentString();
 
             IsDelivered = notificationDataModel.IsDelivered ?? false;
