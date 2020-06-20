@@ -50,15 +50,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
             return count;
         }
 
-        protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
-        {
-            SetTotalItemsCount(dataModel?.TotalCount ?? 0);
-            var orderViewModels = dataModel?.Items?.Select(produceItemViewModel).ToList();
-
-            items.AddRange(orderViewModels);
-            return orderViewModels.Count;
-        }
-
         private NotificationItemViewModel ProduceNotificationItem(NotificationDataModel notificationDataModel)
         {
             return new NotificationItemViewModel(NavigationService, notificationDataModel);

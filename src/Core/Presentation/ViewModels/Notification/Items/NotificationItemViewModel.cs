@@ -28,14 +28,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
             switch (_notificationType)
             {
-                case NotificationType.OrderEvent:
-                    Title = notificationDataModel.RelatedOrder?.Title;
-                    Description = notificationDataModel.RelatedOrder?.Description;
-                    break;
-
                 case NotificationType.WalletEvent:
-                    Title = notificationDataModel.RelatedTransaction?.Reason;
-                    Description = notificationDataModel.RelatedTransaction?.Amount == null ? string.Empty : $"{notificationDataModel.RelatedTransaction?.Amount} ₽";
                     ProfileName = notificationDataModel.RelatedTransaction?.User?.Login;
                     ImageUrl = notificationDataModel.RelatedTransaction?.User?.Avatar;
                     break;
