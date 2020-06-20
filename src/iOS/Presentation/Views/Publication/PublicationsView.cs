@@ -10,6 +10,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
@@ -20,6 +21,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
     public partial class PublicationsView : BaseTabbedView<PublicationsViewModel>
     {
         private MvxUIRefreshControl _refreshControl;
+        private UIBarButtonItem _notificationBarItem;
 
         public VideoTableSource PublicationTableSource { get; private set; }
 
@@ -53,6 +55,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                       .For(v => v.RefreshCommand)
                       .To(vm => vm.ReloadItemsCommand);
 
+            bindingSet.Bind(_notificationBarItem)
+                      .For(v => v.Image)
+                      .To(vm => vm.HasUnreadNotifications)
+                      .WithConversion<BoolToNotificationImageConverter>();
+
             bindingSet.Apply();
 		}
 
@@ -81,9 +88,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         private void InitializeNavigationBar()
 		{
 			NavigationController.NavigationBar.SetNavigationBarStyle();
+
+            _notificationBarItem = NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
-                NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand),
+                _notificationBarItem  
                 // TODO: This feature will be implemented.
                 //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
             }, true);

@@ -125,6 +125,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<PaginationModel<NotificationDataModel>> GetNotificationsAsync();
 
+        Task MarkNotificationsAsReadedAsync();
+
+        Task<int> GetUnreadNotificationsCountAsync();
+
         Task SendNotificationTokenAsync(string token);
 
         #endregion Notification

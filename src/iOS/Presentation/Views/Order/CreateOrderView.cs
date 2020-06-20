@@ -10,6 +10,7 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -24,7 +25,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
         private UIImage _uncheckedImage;
         private UITextPosition _position;
         private UITextView _dynamicDescriptionTextView;
-       
+        private UIBarButtonItem _notificationBarItem;
+
         public string OrderDescription
         {
             set
@@ -73,6 +75,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                .For(v => v.BindVisible())
                .To(vm => vm.IsBusy);
 
+            set.Bind(_notificationBarItem)
+               .For(v => v.Image)
+               .To(vm => vm.HasUnreadNotifications)
+               .WithConversion<BoolToNotificationImageConverter>();
+
             set.Apply();
 		}
 
@@ -95,9 +102,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             _dynamicDescriptionTextView = new UITextView();
             DefinesPresentationContext = true;
 
+            _notificationBarItem = NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
-                NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand),
+                _notificationBarItem,
                 NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand)
             }, true);
 

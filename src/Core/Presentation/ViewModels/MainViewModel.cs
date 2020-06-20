@@ -7,7 +7,9 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
@@ -19,7 +21,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private readonly IMvxMessenger _messenger;
         private readonly ISettingsService _settingsService;
         private readonly IPushNotificationService _notificationService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
@@ -37,7 +38,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         public IMvxAsyncCommand<int> ShowWalkthrouthIfNeedCommand { get; set; }
 
         public MainViewModel(INavigationService navigationService,
-                             IMvxMessenger messenger,
                              ISettingsService settingsService,
                              IErrorHandleService errorHandleService,
                              IApiService apiService,
@@ -46,7 +46,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                              IWalkthroughsProvider walkthroughsProvider)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
-            _messenger = messenger;
             _settingsService = settingsService;
             _notificationService = notificationService;
             _walkthroughsProvider = walkthroughsProvider;
@@ -63,6 +62,23 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             base.ViewCreated();
             _notificationService.RegisterToNotifications();
             _notificationService.TryUpdateTokenAsync().FireAndForget();
+            Subscription();
+        }
+
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            Unsubscription();
+            base.ViewDestroy(viewFinishing);
+        }
+
+        private void Subscription()
+        {
+            SubscribeToNotificationsUpdates();
+        }
+
+        private void Unsubscription()
+        {
+            UnsubscribeFromNotificationsUpdates();
         }
 
         public bool CanSwitchTabs(int position)

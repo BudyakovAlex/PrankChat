@@ -358,6 +358,7 @@
     <Compile Include="PlatformBusinessServices\Notifications\PlatformPushNotificationsService.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\CommentsTableSource.cs" />
     <Compile Include="Controls\CircleProgressBar.cs" />
+    <Compile Include="Presentation\Converters\BoolToNotificationImageConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -1038,6 +1039,8 @@
     <ImageAsset Include="Assets.xcassets\ic_comments.imageset\ic_comments.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_circle_clear.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_circle_clear.imageset\ic_circle_clear.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_notification_with_bage.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_notification_with_bage.imageset\ic_notification_with_bage.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -1110,6 +1113,7 @@
     <Folder Include="Assets.xcassets\ic_logout.imageset\" />
     <Folder Include="Assets.xcassets\ic_comments.imageset\" />
     <Folder Include="Assets.xcassets\ic_circle_clear.imageset\" />
+    <Folder Include="Assets.xcassets\ic_notification_with_bage.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

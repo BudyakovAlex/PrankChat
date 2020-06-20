@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
 using UIKit;
@@ -18,73 +19,79 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
     public partial class ProfileView : BaseTabbedView<ProfileViewModel>
     {
         private MvxUIRefreshControl _refreshControlProfile;
+        private UIBarButtonItem _notificationBarItem;
 
         public OrdersTableSource OrdersTableSource { get; private set; }
 
         protected override void SetupBinding()
         {
-            var set = this.CreateBindingSet<ProfileView, ProfileViewModel>();
+            var bindingSet = this.CreateBindingSet<ProfileView, ProfileViewModel>();
 
-            set.Bind(_refreshControlProfile)
-                .For(v => v.IsRefreshing)
-                .To(vm => vm.IsBusy);
+            bindingSet.Bind(_refreshControlProfile)
+                      .For(v => v.IsRefreshing)
+                      .To(vm => vm.IsBusy);
 
-            set.Bind(_refreshControlProfile)
-                .For(v => v.RefreshCommand)
-                .To(vm => vm.LoadProfileCommand);
+            bindingSet.Bind(_refreshControlProfile)
+                      .For(v => v.RefreshCommand)
+                      .To(vm => vm.LoadProfileCommand);
 
-            set.Bind(OrdersTableSource)
-               .To(vm => vm.Items);
+            bindingSet.Bind(OrdersTableSource)
+                      .To(vm => vm.Items);
 
-            set.Bind(OrdersTableSource)
-               .For(v => v.LoadMoreItemsCommand)
-               .To(vm => vm.LoadMoreItemsCommand);
+            bindingSet.Bind(OrdersTableSource)
+                      .For(v => v.LoadMoreItemsCommand)
+                      .To(vm => vm.LoadMoreItemsCommand);
+                    
+            bindingSet.Bind(profileImageView)
+                      .For(v => v.ImagePath)
+                      .To(vm => vm.ProfilePhotoUrl)
+                      .Mode(MvxBindingMode.OneWay);
 
-            set.Bind(profileImageView)
-                .For(v => v.ImagePath)
-                .To(vm => vm.ProfilePhotoUrl)
-                .Mode(MvxBindingMode.OneWay);
+            bindingSet.Bind(profileImageView)
+                      .For(v => v.ImagePath)
+                      .To(vm => vm.ProfilePhotoUrl)
+                      .Mode(MvxBindingMode.OneWay);
 
-            set.Bind(profileImageView)
-                .For(v => v.ImagePath)
-                .To(vm => vm.ProfilePhotoUrl)
-                .Mode(MvxBindingMode.OneWay);
+            bindingSet.Bind(profileImageView.Tap())
+                      .For(v => v.Command)
+                      .To(vm => vm.ShowUpdateProfileCommand);
 
-            set.Bind(profileImageView.Tap())
-                .For(v => v.Command)
-                .To(vm => vm.ShowUpdateProfileCommand);
+            bindingSet.Bind(profileImageView)
+                      .For(v => v.PlaceholderText)
+                      .To(vm => vm.ProfileShortName)
+                      .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(profileImageView)
-                .For(v => v.PlaceholderText)
-                .To(vm => vm.ProfileShortName)
-                .Mode(MvxBindingMode.OneTime);
+            bindingSet.Bind(profileDescriptionLabel)
+                      .To(vm => vm.Name)
+                      .Mode(MvxBindingMode.OneWay);
 
-            set.Bind(profileDescriptionLabel)
-                .To(vm => vm.Name)
-                .Mode(MvxBindingMode.OneWay);
+            bindingSet.Bind(refillButton)
+                      .To(vm => vm.ShowRefillCommand);
 
-            set.Bind(refillButton)
-                .To(vm => vm.ShowRefillCommand);
+            bindingSet.Bind(withdrawalButton)
+                      .To(vm => vm.ShowWithdrawalCommand);
 
-            set.Bind(withdrawalButton)
-                .To(vm => vm.ShowWithdrawalCommand);
+            bindingSet.Bind(priceLabel)
+                      .To(vm => vm.Price);
 
-            set.Bind(priceLabel)
-                .To(vm => vm.Price);
+            bindingSet.Bind(ordersValueLabel)
+                      .To(vm => vm.OrdersValue);
 
-            set.Bind(ordersValueLabel)
-                .To(vm => vm.OrdersValue);
+            bindingSet.Bind(completedOrdersValueLabel)
+                      .To(vm => vm.CompletedOrdersValue);
 
-            set.Bind(completedOrdersValueLabel)
-                .To(vm => vm.CompletedOrdersValue);
+            bindingSet.Bind(subscribersValueLabel)
+                      .To(vm => vm.SubscribersValue);
 
-            set.Bind(subscribersValueLabel)
-                .To(vm => vm.SubscribersValue);
+            bindingSet.Bind(subscriptionsValueLabel)
+                      .To(vm => vm.SubscriptionsValue);
 
-            set.Bind(subscriptionsValueLabel)
-                .To(vm => vm.SubscriptionsValue);
+            bindingSet.Bind(_notificationBarItem)
+                      .For(v => v.Image)
+                      .To(vm => vm.HasUnreadNotifications)
+                      .WithConversion<BoolToNotificationImageConverter>();
 
-            set.Apply();
+            bindingSet.Apply();
         }
 
         protected override void SetupControls()
@@ -93,9 +100,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             InitializeTableView();
 
+            _notificationBarItem = NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
-                NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand),
+                _notificationBarItem,
                 NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand)
             }, true);
 

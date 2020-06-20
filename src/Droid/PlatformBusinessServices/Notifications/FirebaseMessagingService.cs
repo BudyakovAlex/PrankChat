@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Diagnostics;
 using Android.App;
 using Android.Content;
 using Android.Runtime;
 using Firebase.Messaging;
 using MvvmCross;
 using MvvmCross.Logging;
+using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using NotificationManager = PrankChat.Mobile.Core.ApplicationServices.Notifications.NotificationManager;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
@@ -43,19 +46,31 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 
         public override void OnMessageReceived(RemoteMessage message)
         {
-            var isResolved = Mvx.IoCProvider.TryResolve<ISettingsService>(out var settingsService);
-            if (isResolved && !settingsService.IsPushTokenSend)
+            try
             {
-                return;
+                var isResolved = Mvx.IoCProvider.TryResolve<ISettingsService>(out var settingsService);
+                if (isResolved && !settingsService.IsPushTokenSend)
+                {
+                    return;
+                }
+
+                message.Data.TryGetValue("key", out string key);
+                message.Data.TryGetValue("value", out var value);
+
+                var title = message.GetNotification().Title;
+                var body = message.GetNotification().Body;
+                var pushNotificationData = NotificationManager.Instance.GenerateNotificationData(key, value, title, body);
+                NotificationWrapper.Instance.ScheduleLocalNotification(pushNotificationData);
+
+                if (Mvx.IoCProvider.TryResolve<IMvxMessenger>(out var mvxMessenger))
+                {
+                    mvxMessenger.Publish(new RefreshNotificationsMessage(this));
+                }
             }
-
-            message.Data.TryGetValue("key", out string key);
-            message.Data.TryGetValue("value", out var value);
-
-            var title = message.GetNotification().Title;
-            var body = message.GetNotification().Body;
-            var pushNotificationData = NotificationManager.Instance.GenerateNotificationData(key, value, title, body);
-            NotificationWrapper.Instance.ScheduleLocalNotification(pushNotificationData);
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
     }
 }

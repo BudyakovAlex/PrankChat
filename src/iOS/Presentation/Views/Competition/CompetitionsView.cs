@@ -4,6 +4,7 @@ using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
@@ -15,6 +16,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
     {
         private TableViewSource _source;
         private MvxUIRefreshControl _refreshControl;
+        private UIBarButtonItem _notificationBarItem;
 
         protected override void SetupControls()
         {
@@ -40,9 +42,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         private void InitializeNavigationBar()
         {
             NavigationController.NavigationBar.SetNavigationBarStyle();
+
+            _notificationBarItem = NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
-                NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand),
+               _notificationBarItem,
                 NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand),
                 // TODO: This feature will be implemented.
                 //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
@@ -70,6 +74,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             bindingSet.Bind(_refreshControl)
                       .For(v => v.RefreshCommand)
                       .To(vm => vm.LoadDataCommand);
+
+            bindingSet.Bind(_notificationBarItem)
+                      .For(v => v.Image)
+                      .To(vm => vm.HasUnreadNotifications)
+                      .WithConversion<BoolToNotificationImageConverter>();
 
             bindingSet.Apply();
         }

@@ -63,7 +63,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         public string DateText { get; }
 
-        public bool IsDelivered { get; }
+        private bool _isDelivered;
+        public bool IsDelivered
+        {
+            get => _isDelivered;
+            set => SetProperty(ref _isDelivered, value);
+        }
 
         public string Title { get; }
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -21,6 +17,10 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 using PrankChat.Mobile.Core.Providers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
@@ -49,6 +49,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private MvxSubscriptionToken _newOrderMessageToken;
         private MvxSubscriptionToken _removeOrderMessageToken;
+
         private string _activeOrderFilterName = string.Empty;
         private string _activeArbitrationFilterName = string.Empty;
 
@@ -126,13 +127,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
         }
 
-        public override Task Initialize()
+        public override async Task Initialize()
         {
+            await base.Initialize();
             OrderFilterType = OrderFilterType.All;
             ArbitrationFilterType = ArbitrationOrderFilterType.All;
             TabType = OrdersTabType.Order;
 
-            return LoadDataCommand.ExecuteAsync();
+            await LoadDataCommand.ExecuteAsync();
         }
 
         public override void ViewCreated()
@@ -255,21 +257,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged);
             _removeOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<RemoveOrderMessage>(OnRemoveOrderMessage);
+            SubscribeToNotificationsUpdates();
         }
 
         private void Unsubscription()
         {
-            if (_newOrderMessageToken != null)
-            {
-                _mvxMessenger.Unsubscribe<OrderChangedMessage>(_newOrderMessageToken);
-                _newOrderMessageToken.Dispose();
-            }
-
-            if (_removeOrderMessageToken != null)
-            {
-                _mvxMessenger.Unsubscribe<RemoveOrderMessage>(_removeOrderMessageToken);
-                _removeOrderMessageToken.Dispose();
-            }
+            _newOrderMessageToken?.Dispose();
+            _removeOrderMessageToken?.Dispose();
+            UnsubscribeFromNotificationsUpdates();
 
             Items.OfType<IDisposable>().ForEach(x => x.Dispose());
         }

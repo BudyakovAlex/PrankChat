@@ -463,6 +463,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return CreatePaginationResult<NotificationApiModel, NotificationDataModel>(notificationBundle);
         }
 
+        public Task MarkNotificationsAsReadedAsync()
+        {
+            return _client.PostAsync<DataApiModel>("notifications/read");
+        }
+
+        public async Task<int> GetUnreadNotificationsCountAsync()
+        {
+            var bundle = await _client.GetAsync<DataApiModel<NotificationsSummaryApiModel>>("notifications/undelivered");
+            return bundle?.Data?.UndeliveredCount ?? 0;
+        }
+
         public Task SendNotificationTokenAsync(string token)
         {
             var pushNotificationApiMode = new PushNotificationApiMode()

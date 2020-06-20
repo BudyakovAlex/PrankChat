@@ -1,12 +1,11 @@
-﻿using System;
-using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+﻿using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using System;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {

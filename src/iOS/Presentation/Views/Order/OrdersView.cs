@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
+using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -17,6 +18,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
     public partial class OrdersView : BaseTabbedView<OrdersViewModel>
     {
         private MvxUIRefreshControl _refreshControl;
+        private UIBarButtonItem _notificationBarItem;
 
         public OrdersTableSource OrdersTableSource { get; private set; }
 
@@ -45,6 +47,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             set.Bind(OrdersTableSource)
                 .For(v => v.LoadMoreItemsCommand)
                 .To(vm => vm.LoadMoreItemsCommand);
+
+            set.Bind(_notificationBarItem)
+               .For(v => v.Image)
+               .To(vm => vm.HasUnreadNotifications)
+               .WithConversion<BoolToNotificationImageConverter>();
 
             set.Apply();
 		}
@@ -91,9 +98,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         private void InitializeNavigationBar()
         {
+            _notificationBarItem = NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
-                NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand),
+                _notificationBarItem,
                 NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand)
                 // TODO: This feature will be implemented.
                 //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)

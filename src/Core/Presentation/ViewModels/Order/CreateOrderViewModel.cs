@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
@@ -19,6 +16,9 @@ using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Providers;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
@@ -61,6 +61,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         }
 
         private bool _isExecutorHidden;
+        private int _timerThicksCount;
+
         public bool IsExecutorHidden
         {
             get => _isExecutorHidden;
@@ -87,6 +89,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             _walkthroughsProvider = walkthroughsProvider;
 
             ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
+        }
+
+        public override void ViewCreated()
+        {
+            base.ViewCreated();
+            Subscription();
+        }
+
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            Unsubscription();
+            base.ViewDestroy(viewFinishing);
+        }
+
+        private void Subscription()
+        {
+            SubscribeToNotificationsUpdates();
+        }
+
+        private void Unsubscription()
+        {
+            UnsubscribeFromNotificationsUpdates();
         }
 
         private Task ShowWalkthrouthAsync()

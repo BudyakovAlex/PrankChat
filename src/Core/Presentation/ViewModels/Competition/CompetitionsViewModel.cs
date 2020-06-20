@@ -22,6 +22,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
     {
         private readonly IMvxMessenger _mvxMessenger;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
+
         private MvxSubscriptionToken _reloadItemsSubscriptionToken;
 
         public CompetitionsViewModel(IMvxMessenger mvxMessenger,
@@ -45,9 +46,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         public MvxObservableCollection<CompetitionsSectionViewModel> Items { get; set; } = new MvxObservableCollection<CompetitionsSectionViewModel>();
 
-        public override Task Initialize()
+        public override async Task Initialize()
         {
-            return LoadDataCommand.ExecuteAsync();
+            await base.Initialize();
+            await LoadDataCommand.ExecuteAsync();
         }
 
         public override void ViewCreated()
@@ -101,15 +103,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         private void Subscription()
         {
             _reloadItemsSubscriptionToken = _mvxMessenger.SubscribeOnMainThread<ReloadCompetitionsMessage>(OnReloadData);
+            SubscribeToNotificationsUpdates();
         }
 
         private void Unsubscription()
         {
-            if (_reloadItemsSubscriptionToken != null)
-            {
-                _mvxMessenger.Unsubscribe<ReloadCompetitionsMessage>(_reloadItemsSubscriptionToken);
-                _reloadItemsSubscriptionToken.Dispose();
-            }
+            _reloadItemsSubscriptionToken?.Dispose();
+            UnsubscribeFromNotificationsUpdates();
         }
 
         private void OnReloadData(ReloadCompetitionsMessage msg)

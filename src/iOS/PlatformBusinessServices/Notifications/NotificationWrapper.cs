@@ -1,14 +1,17 @@
-﻿using System;
-using Firebase.CloudMessaging;
+﻿using Firebase.CloudMessaging;
 using Firebase.InstanceID;
 using Foundation;
 using MvvmCross;
 using MvvmCross.Logging;
+using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.iOS.Delegates;
+using System;
+using System.Diagnostics;
 using UIKit;
 using UserNotifications;
 
@@ -81,8 +84,20 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
         /// </summary>
         public void HandleForegroundNotification(NSDictionary userInfo)
         {
-            var pushNotificationData = HandleNotificationPayload(userInfo);
-            ScheduleLocalNotification(pushNotificationData?.Title, pushNotificationData?.Body);
+            try
+            {
+                var pushNotificationData = HandleNotificationPayload(userInfo);
+                ScheduleLocalNotification(pushNotificationData?.Title, pushNotificationData?.Body);
+
+                if(Mvx.IoCProvider.TryResolve<IMvxMessenger>(out var mvxMessenger))
+                {
+                    mvxMessenger.Publish(new RefreshNotificationsMessage(this));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         public void HandleBackgroundNotification(NSDictionary userInfo)

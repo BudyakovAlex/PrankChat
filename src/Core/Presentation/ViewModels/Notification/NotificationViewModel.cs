@@ -1,4 +1,5 @@
-﻿using MvvmCross.ViewModels;
+﻿using MvvmCross.Plugin.Messenger;
+using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
@@ -6,6 +7,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
@@ -17,22 +19,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 {
     public class NotificationViewModel : PaginationViewModel
     {
+        private const int MillisecondsDelayBeforeMarkAsReaded = 3000;
+
+        private readonly IMvxMessenger _mvxMessenger;
+
         public NotificationViewModel(INavigationService navigationService,
                                      IErrorHandleService errorHandleService,
                                      IApiService apiService,
                                      IDialogService dialogService,
-                                     ISettingsService settingsService)
+                                     ISettingsService settingsService,
+                                     IMvxMessenger mvxMessenger)
             : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             Items = new MvxObservableCollection<NotificationItemViewModel>();
+            _mvxMessenger = mvxMessenger;
         }
 
         public MvxObservableCollection<NotificationItemViewModel> Items { get; }
 
-        public override Task Initialize()
+        public override async Task Initialize()
         {
-            base.Initialize();
-            return LoadMoreItemsCommand.ExecuteAsync();
+            await LoadMoreItemsCommand.ExecuteAsync();
+            _ = MarkReadedNotificationsAsync();
         }
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
@@ -54,6 +62,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
         private NotificationItemViewModel ProduceNotificationItem(NotificationDataModel notificationDataModel)
         {
             return new NotificationItemViewModel(NavigationService, notificationDataModel);
+        }
+
+        private async Task MarkReadedNotificationsAsync()
+        {
+            await Task.Delay(MillisecondsDelayBeforeMarkAsReaded);
+
+            Items.ForEach(item => item.IsDelivered = true);
+            await ApiService.MarkNotificationsAsReadedAsync();
+            _mvxMessenger.Publish(new RefreshNotificationsMessage(this));
         }
     }
 }

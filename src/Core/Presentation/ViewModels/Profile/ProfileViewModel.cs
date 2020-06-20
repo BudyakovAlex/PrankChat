@@ -134,17 +134,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private void Subscription()
         {
             _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged);
+            SubscribeToNotificationsUpdates();
         }
 
         private void Unsubscription()
         {
-            if (_newOrderMessageToken is null)
-            {
-                return;
-            }
-
-            _mvxMessenger.Unsubscribe<OrderChangedMessage>(_newOrderMessageToken);
-            _newOrderMessageToken.Dispose();
+            _newOrderMessageToken?.Dispose();
+            UnsubscribeFromNotificationsUpdates();
         }
 
         private void OnOrdersChanged(OrderChangedMessage message)
@@ -152,11 +148,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             ReloadItemsCommand.Execute();
         }
 
-        public override Task Initialize()
+        public override async Task Initialize()
         {
             SelectedOrderType = ProfileOrderType.MyOrdered;
-            base.Initialize();
-            return LoadProfileCommand.ExecuteAsync();
+            await base.Initialize();
+            await LoadProfileCommand.ExecuteAsync();
         }
 
         public override void ViewDisappearing()

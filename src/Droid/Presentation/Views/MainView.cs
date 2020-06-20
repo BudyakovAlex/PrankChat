@@ -8,6 +8,7 @@ using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 using FFImageLoading.Cross;
+using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
@@ -32,10 +33,23 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         private TextView _toolbarTitle;
 
         private IMenuItem _infoMenuItem;
+        private IMenuItem _notificationsMenuItem;
 
         public MainView()
         {
             _tabViewOnTouchListener = new ViewOnTouchListener(OnTabItemTouched);
+        }
+
+        private bool _hasUnreadNotifications;
+        public bool HasUnreadNotifications
+        {
+            get => _hasUnreadNotifications;
+            set
+            {
+                _hasUnreadNotifications = value;
+                var iconId = _hasUnreadNotifications ? Resource.Drawable.ic_notification_with_bage : Resource.Drawable.ic_notification;
+                _notificationsMenuItem?.SetIcon(iconId);
+            }
         }
 
         protected override void OnCreate(Bundle bundle)
@@ -60,8 +74,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         {
             menu.Clear();
             MenuInflater.Inflate(Resource.Menu.main_view_menu, menu);
+
             _infoMenuItem = menu.GetItem(0);
+            _notificationsMenuItem = menu.GetItem(1);
+
             _infoMenuItem?.SetVisible(_tabLayout?.SelectedTabPosition != 0);
+            var iconId = _hasUnreadNotifications ? Resource.Drawable.ic_notification_with_bage : Resource.Drawable.ic_notification;
+            _notificationsMenuItem.SetIcon(iconId);
+
             return true;
         }
 
@@ -81,6 +101,19 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
                     return true;
             }
             return base.OnOptionsItemSelected(item);
+        }
+
+        protected override void DoBind()
+        {
+            base.DoBind();
+
+            var bindingSet = this.CreateBindingSet<MainView, MainViewModel>();
+
+            bindingSet.Bind(this)
+                      .For(v => v.HasUnreadNotifications)
+                      .To(vm => vm.HasUnreadNotifications);
+
+            bindingSet.Apply();
         }
 
         protected override void Subscription()

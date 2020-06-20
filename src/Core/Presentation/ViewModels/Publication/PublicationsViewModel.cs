@@ -30,7 +30,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _mvxMessenger;
+
         private readonly Dictionary<DateFilterType, string> _dateFilterTypeTitleMap;
+
         private MvxSubscriptionToken _reloadItemsSubscriptionToken;
 
         private PublicationType _selectedPublicationType;
@@ -110,10 +112,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             OpenFilterCommand = new MvxAsyncCommand(OnOpenFilterAsync);
         }
 
-        public override Task Initialize()
+        public override async Task Initialize()
         {
+            await base.Initialize();
+
             ActiveFilter = DateFilterType.Month;
-            return LoadMoreItemsCommand.ExecuteAsync();
+            await LoadMoreItemsCommand.ExecuteAsync();
         }
 
         public override void ViewDisappearing()
@@ -245,15 +249,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private void Subscription()
         {
             _reloadItemsSubscriptionToken = _mvxMessenger.SubscribeOnMainThread<ReloadPublicationsMessage>(OnReloadItems);
+            SubscribeToNotificationsUpdates();
         }
 
         private void Unsubscription()
         {
-            if (_reloadItemsSubscriptionToken != null)
-            {
-                _mvxMessenger.Unsubscribe<ReloadPublicationsMessage>(_reloadItemsSubscriptionToken);
-                _reloadItemsSubscriptionToken.Dispose();
-            }
+            _reloadItemsSubscriptionToken?.Dispose();
+            UnsubscribeFromNotificationsUpdates();
         }
 
         private void OnReloadItems(ReloadPublicationsMessage obj)
