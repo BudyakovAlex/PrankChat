@@ -1131,6 +1131,9 @@
     <PackageReference Include="MvvmCross.Plugin.WebBrowser">
       <Version>6.4.2</Version>
     </PackageReference>
+    <PackageReference Include="Xam.Plugin.Badge">
+      <Version>1.0.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\splash_screen_layout.xml" />

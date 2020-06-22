@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Android.App;
 using Android.Content;
 using Android.Runtime;
+using Badge.Plugin;
 using Firebase.Messaging;
 using MvvmCross;
 using MvvmCross.Logging;
@@ -56,6 +57,13 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 
                 message.Data.TryGetValue("key", out string key);
                 message.Data.TryGetValue("value", out var value);
+                if (message.Data.TryGetValue("badge", out var badge) && !string.IsNullOrWhiteSpace(badge))
+                {
+                    if (int.TryParse(badge, out var result))
+                    {
+                        CrossBadge.Current.SetBadge(result);
+                    }
+                }
 
                 var title = message.GetNotification().Title;
                 var body = message.GetNotification().Body;

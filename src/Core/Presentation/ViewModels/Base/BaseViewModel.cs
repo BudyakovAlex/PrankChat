@@ -1,4 +1,5 @@
-﻿using MvvmCross;
+﻿using Badge.Plugin;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
@@ -119,6 +120,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             var unreadNotifications = await ApiService.GetUnreadNotificationsCountAsync();
             HasUnreadNotifications = unreadNotifications > 0;
             await RaisePropertyChanged(nameof(HasUnreadNotifications));
+
+            if (HasUnreadNotifications)
+            {
+                CrossBadge.Current.SetBadge(unreadNotifications);
+            }
         }
     }
 }

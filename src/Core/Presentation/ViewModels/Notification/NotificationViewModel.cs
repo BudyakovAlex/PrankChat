@@ -1,4 +1,5 @@
-﻿using MvvmCross.Plugin.Messenger;
+﻿using Badge.Plugin;
+using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
@@ -61,7 +62,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 
             Items.ForEach(item => item.IsDelivered = true);
             await ApiService.MarkNotificationsAsReadedAsync();
+
             _mvxMessenger.Publish(new RefreshNotificationsMessage(this));
+            CrossBadge.Current.ClearBadge();
         }
     }
 }
