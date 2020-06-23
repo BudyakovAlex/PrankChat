@@ -150,7 +150,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         {
             var user = SettingsService.User;
             if (user == null)
+            {
                 return Task.CompletedTask;
+            }
 
             IsEmailVerified = user.EmailVerifiedAt != null;
             Email = user.Email;

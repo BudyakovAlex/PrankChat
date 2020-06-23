@@ -30,6 +30,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
         private MvxSubscriptionToken _newOrderMessageToken;
+        private MvxSubscriptionToken _tabChangedMessage;
 
         private ProfileOrderType _selectedOrderType;
         public ProfileOrderType SelectedOrderType
@@ -134,12 +135,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private void Subscription()
         {
             _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged);
+            _tabChangedMessage = _mvxMessenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
             SubscribeToNotificationsUpdates();
         }
 
         private void Unsubscription()
         {
             _newOrderMessageToken?.Dispose();
+            _tabChangedMessage?.Dispose();
             UnsubscribeFromNotificationsUpdates();
         }
 
@@ -177,6 +180,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             Unsubscription();
             base.ViewDestroy(viewFinishing);
+        }
+
+        private void OnTabChangedMessage(TabChangedMessage msg)
+        {
+            if (msg.TabType != MainTabType.Profile)
+            {
+                return;
+            }
+
+            LoadProfileCommand.Execute();
         }
 
         private Task ShowWalkthrouthAsync()

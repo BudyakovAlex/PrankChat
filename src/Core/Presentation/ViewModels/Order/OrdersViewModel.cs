@@ -49,6 +49,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private MvxSubscriptionToken _newOrderMessageToken;
         private MvxSubscriptionToken _removeOrderMessageToken;
+        private MvxSubscriptionToken _tabChangedMessage;
 
         private string _activeOrderFilterName = string.Empty;
         private string _activeArbitrationFilterName = string.Empty;
@@ -257,13 +258,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged);
             _removeOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<RemoveOrderMessage>(OnRemoveOrderMessage);
+            _tabChangedMessage = _mvxMessenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
             SubscribeToNotificationsUpdates();
+        }
+
+        private void OnTabChangedMessage(TabChangedMessage msg)
+        {
+            if (msg.TabType != MainTabType.Orders)
+            {
+                return;
+            }
+
+            LoadDataCommand.Execute();
         }
 
         private void Unsubscription()
         {
             _newOrderMessageToken?.Dispose();
             _removeOrderMessageToken?.Dispose();
+            _tabChangedMessage?.Dispose();
             UnsubscribeFromNotificationsUpdates();
 
             Items.OfType<IDisposable>().ForEach(x => x.Dispose());

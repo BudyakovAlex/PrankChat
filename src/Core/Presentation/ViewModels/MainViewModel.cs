@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
@@ -9,6 +10,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -37,6 +39,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public IMvxAsyncCommand<int> ShowWalkthrouthIfNeedCommand { get; set; }
 
+        public IMvxCommand<int> SendTabChangedCommand { get; }
+
         public MainViewModel(INavigationService navigationService,
                              ISettingsService settingsService,
                              IErrorHandleService errorHandleService,
@@ -55,6 +59,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             CheckDemoCommand = new MvxAsyncCommand<int>(CheckDemoModeAsync);
             ShowWalkthrouthCommand = new MvxAsyncCommand<int>(ShowWalthroughAsync);
             ShowWalkthrouthIfNeedCommand = new MvxAsyncCommand<int>(ShowWalthroughIfNeedAsync);
+            SendTabChangedCommand = new MvxCommand<int>(SendTabChanged);
         }
 
         public override void ViewCreated()
@@ -90,6 +95,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
 
             return true;
+        }
+
+        private void SendTabChanged(int position)
+        {
+            Messenger.Publish(new TabChangedMessage(this, (MainTabType)position));
         }
 
         private Task ShowWalthroughIfNeedAsync(int position)

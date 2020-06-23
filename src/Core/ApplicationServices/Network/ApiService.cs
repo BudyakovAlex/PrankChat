@@ -19,6 +19,7 @@ using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
 {
@@ -298,9 +299,26 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task GetCurrentUserAsync()
         {
-            var dataApiModel = await _client.GetAsync<DataApiModel<UserApiModel>>("me", includes: IncludeType.Document);
-            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
-            _settingsService.User = user;
+            try
+            {
+                if (!Connectivity.NetworkAccess.HasConnection())
+                {
+                    return;
+                }
+
+                var dataApiModel = await _client.GetAsync<DataApiModel<UserApiModel>>("me", true, IncludeType.Document);
+                var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
+                if (user is null)
+                {
+                    return;
+                }
+
+                _settingsService.User = user;
+            }
+            catch (Exception ex)
+            {
+                _log.Warn(ex, ex.Message);
+            }
         }
 
         public async Task<UserDataModel> SendAvatarAsync(string path)

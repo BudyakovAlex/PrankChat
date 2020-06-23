@@ -233,6 +233,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
                 return false;
             }
 
+            ViewModel?.SendTabChangedCommand.Execute(index);
+
             if (!ViewModel.CanSwitchTabs(index) &&
                 motionEvent.Action != MotionEventActions.Up)
             {

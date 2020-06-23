@@ -33,6 +33,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
         {
             var tabPosition = tabbar.Items.ToList().IndexOf(item);
             ViewModel?.CheckDemoCommand.Execute(tabPosition);
+            ViewModel?.SendTabChangedCommand.Execute(tabPosition);
 
             if (ViewModel?.CanSwitchTabs(tabPosition) ?? false)
             {
