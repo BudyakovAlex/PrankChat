@@ -12,13 +12,13 @@
 
         public string Reason { get; set; }
 
-        public int? BalanceBefore { get; set; }
+        public double? BalanceBefore { get; set; }
 
         public double? BalanceAfter { get; set; }
 
-        public int? FrozenBefore { get; set; }
+        public double? FrozenBefore { get; set; }
 
-        public int? FrozenAfter { get; set; }
+        public double? FrozenAfter { get; set; }
 
         public UserDataModel User { get; set; }
     }
