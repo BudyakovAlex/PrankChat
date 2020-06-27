@@ -149,7 +149,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
             statusValueLabel.SetRegularStyle(12, Theme.Color.Black);
             statusValueLabel.Text = Resources.WithdrawalView_Pending;
             statusTitleLabel.SetRegularStyle(12, Theme.Color.Black);
-            statusTitleLabel.Text = Resources.WithdrawalView_Create_Date;
+            statusTitleLabel.Text = Resources.WithdrawalView_Status_Text;
 
             costValueLabel.SetRegularStyle(12, Theme.Color.Black);
             costTitleLabel.SetRegularStyle(12, Theme.Color.Black);
@@ -157,7 +157,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
             dateValueLabel.SetRegularStyle(12, Theme.Color.Black);
             dateTitleLabel.SetRegularStyle(12, Theme.Color.Black);
-            dateTitleLabel.Text = Resources.WithdrawalView_Status_Text;
+            dateTitleLabel.Text = Resources.WithdrawalView_Create_Date;
 
             lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
             lottieAnimationView.LoopAnimation = true;

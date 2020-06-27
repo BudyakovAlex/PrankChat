@@ -43,6 +43,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             }
         }
 
+        public override bool CanHandleKeyboardNotifications => true;
+
+        protected override void OnKeyboardChanged(bool visible, nfloat keyboardHeight)
+        {
+            base.OnKeyboardChanged(visible, keyboardHeight);
+
+            var window = UIApplication.SharedApplication.KeyWindow;
+            var bottomPadding = window.SafeAreaInsets.Bottom;
+            var topPadding = window.SafeAreaInsets.Top;
+            scrollViewBottomConstraint.Constant = visible ? -(keyboardHeight - (topPadding + bottomPadding)) : 0;
+            UIView.Animate(0.5, () => View.LayoutIfNeeded());
+        }
+
         protected override void SetupBinding()
 		{
 			var set = this.CreateBindingSet<CreateOrderView, CreateOrderViewModel>();

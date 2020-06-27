@@ -3,7 +3,6 @@ using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Text;
 using Android.Views;
-using Android.Widget;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Infrastructure;

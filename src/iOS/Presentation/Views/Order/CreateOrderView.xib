@@ -24,6 +24,7 @@
                 <outlet property="priceTextField" destination="xEE-mS-qWc" id="FWK-pw-ghP"/>
                 <outlet property="progressBarView" destination="T6O-o6-bRu" id="kK8-Zv-8Pb"/>
                 <outlet property="scrollView" destination="SnW-tf-9KZ" id="3QE-9r-TDm"/>
+                <outlet property="scrollViewBottomConstraint" destination="lQG-XC-RDb" id="liQ-DQ-xSp"/>
                 <outlet property="stackView" destination="BDc-xh-Ib0" id="8KE-Ue-yVR"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
             </connections>
@@ -34,7 +35,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SnW-tf-9KZ">
-                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQO-fP-Hac">
                             <rect key="frame" x="16" y="16" width="382" height="402"/>
@@ -192,10 +193,9 @@
                 <constraint firstItem="T6O-o6-bRu" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="92u-Oe-vPt"/>
                 <constraint firstItem="SnW-tf-9KZ" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="J88-xb-MgG"/>
                 <constraint firstAttribute="bottom" secondItem="T6O-o6-bRu" secondAttribute="bottom" id="fgX-E8-XGC"/>
-                <constraint firstAttribute="bottom" secondItem="SnW-tf-9KZ" secondAttribute="bottom" id="g59-1a-Egf"/>
                 <constraint firstItem="T6O-o6-bRu" firstAttribute="top" secondItem="2" secondAttribute="top" id="hQk-iS-9er"/>
                 <constraint firstItem="D3T-L9-vT4" firstAttribute="trailing" secondItem="T6O-o6-bRu" secondAttribute="trailing" id="jr1-V7-UOY"/>
-                <constraint firstItem="SnW-tf-9KZ" firstAttribute="bottom" secondItem="D3T-L9-vT4" secondAttribute="bottom" constant="34" id="lQG-XC-RDb"/>
+                <constraint firstItem="SnW-tf-9KZ" firstAttribute="bottom" secondItem="D3T-L9-vT4" secondAttribute="bottom" id="lQG-XC-RDb"/>
                 <constraint firstAttribute="trailing" secondItem="SnW-tf-9KZ" secondAttribute="trailing" id="sHG-oo-foM"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="D3T-L9-vT4"/>

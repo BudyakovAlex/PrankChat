@@ -52,6 +52,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIScrollView scrollView { get; set; }
 
 		[Outlet]
+		UIKit.NSLayoutConstraint scrollViewBottomConstraint { get; set; }
+
+		[Outlet]
 		UIKit.UIStackView stackView { get; set; }
 
 		[Outlet]
@@ -64,6 +67,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				completeDateTextField = null;
 			}
 
+			if (scrollViewBottomConstraint != null) {
+				scrollViewBottomConstraint.Dispose ();
+				scrollViewBottomConstraint = null;
+			}
+
+			if (createButton != null) {
+				createButton.Dispose ();
+				createButton = null;
+			}
+
 			if (descriptionContainerView != null) {
 				descriptionContainerView.Dispose ();
 				descriptionContainerView = null;
@@ -72,11 +85,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (descriptionPlaceholderLabel != null) {
 				descriptionPlaceholderLabel.Dispose ();
 				descriptionPlaceholderLabel = null;
-			}
-
-			if (createButton != null) {
-				createButton.Dispose ();
-				createButton = null;
 			}
 
 			if (descriptionTextView != null) {
