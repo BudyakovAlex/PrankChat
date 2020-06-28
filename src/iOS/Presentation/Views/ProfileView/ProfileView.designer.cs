@@ -13,43 +13,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 	partial class ProfileView
 	{
 		[Outlet]
-		FFImageLoading.Cross.MvxCachedImageView changeProfileImageView { get; set; }
+		UIKit.UILabel descriptionLabel { get; set; }
 
 		[Outlet]
-		UIKit.UILabel completedOrdersTitleLabel { get; set; }
-
-		[Outlet]
-		UIKit.UILabel completedOrdersValueLabel { get; set; }
-
-		[Outlet]
-		UIKit.UIView ExecutedOrdersTabIndicatorView { get; set; }
-
-		[Outlet]
-		UIKit.UILabel ExecutedOrdersTabLabel { get; set; }
-
-		[Outlet]
-		UIKit.UIView ExecutedOrdersTabView { get; set; }
-
-		[Outlet]
-		UIKit.UIView MyOrdersTabIndicatorView { get; set; }
-
-		[Outlet]
-		UIKit.UILabel MyOrdersTabLabel { get; set; }
-
-		[Outlet]
-		UIKit.UIView MyOrdersTabView { get; set; }
-
-		[Outlet]
-		UIKit.UILabel ordersTitleLabel { get; set; }
-
-		[Outlet]
-		UIKit.UILabel ordersValueLabel { get; set; }
+		UIKit.UILabel nameLabel { get; set; }
 
 		[Outlet]
 		UIKit.UILabel priceLabel { get; set; }
-
-		[Outlet]
-		UIKit.UILabel profileDescriptionLabel { get; set; }
 
 		[Outlet]
 		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profileImageView { get; set; }
@@ -67,82 +37,41 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		UIKit.UILabel subscribersValueLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIView subscribersView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel subscriptionsTitleLabel { get; set; }
 
 		[Outlet]
 		UIKit.UILabel subscriptionsValueLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIView subscriptionsView { get; set; }
+
+		[Outlet]
 		UIKit.UITableView tableView { get; set; }
+
+		[Outlet]
+		PrankChat.Mobile.iOS.Controls.TabView tabView { get; set; }
 
 		[Outlet]
 		UIKit.UIButton withdrawalButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (ExecutedOrdersTabLabel != null) {
-				ExecutedOrdersTabLabel.Dispose ();
-				ExecutedOrdersTabLabel = null;
+			if (descriptionLabel != null) {
+				descriptionLabel.Dispose ();
+				descriptionLabel = null;
 			}
 
-			if (ExecutedOrdersTabIndicatorView != null) {
-				ExecutedOrdersTabIndicatorView.Dispose ();
-				ExecutedOrdersTabIndicatorView = null;
-			}
-
-			if (ExecutedOrdersTabView != null) {
-				ExecutedOrdersTabView.Dispose ();
-				ExecutedOrdersTabView = null;
-			}
-
-			if (MyOrdersTabLabel != null) {
-				MyOrdersTabLabel.Dispose ();
-				MyOrdersTabLabel = null;
-			}
-
-			if (MyOrdersTabView != null) {
-				MyOrdersTabView.Dispose ();
-				MyOrdersTabView = null;
-			}
-
-			if (MyOrdersTabIndicatorView != null) {
-				MyOrdersTabIndicatorView.Dispose ();
-				MyOrdersTabIndicatorView = null;
-			}
-
-			if (changeProfileImageView != null) {
-				changeProfileImageView.Dispose ();
-				changeProfileImageView = null;
-			}
-
-			if (completedOrdersTitleLabel != null) {
-				completedOrdersTitleLabel.Dispose ();
-				completedOrdersTitleLabel = null;
-			}
-
-			if (completedOrdersValueLabel != null) {
-				completedOrdersValueLabel.Dispose ();
-				completedOrdersValueLabel = null;
-			}
-
-			if (ordersTitleLabel != null) {
-				ordersTitleLabel.Dispose ();
-				ordersTitleLabel = null;
-			}
-
-			if (ordersValueLabel != null) {
-				ordersValueLabel.Dispose ();
-				ordersValueLabel = null;
+			if (nameLabel != null) {
+				nameLabel.Dispose ();
+				nameLabel = null;
 			}
 
 			if (priceLabel != null) {
 				priceLabel.Dispose ();
 				priceLabel = null;
-			}
-
-			if (profileDescriptionLabel != null) {
-				profileDescriptionLabel.Dispose ();
-				profileDescriptionLabel = null;
 			}
 
 			if (profileImageView != null) {
@@ -185,9 +114,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 				tableView = null;
 			}
 
+			if (tabView != null) {
+				tabView.Dispose ();
+				tabView = null;
+			}
+
 			if (withdrawalButton != null) {
 				withdrawalButton.Dispose ();
 				withdrawalButton = null;
+			}
+
+			if (subscribersView != null) {
+				subscribersView.Dispose ();
+				subscribersView = null;
+			}
+
+			if (subscriptionsView != null) {
+				subscriptionsView.Dispose ();
+				subscriptionsView = null;
 			}
 		}
 	}

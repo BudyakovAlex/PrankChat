@@ -342,4 +342,13 @@
     <string name="Megabytes_Presentation">"МБ"</string>
     <string name="Gigabytes_Presentation">"ГБ"</string>
     <string name="Terabytes_Presentation">"ТБ"</string>
+    <string name="Subscription_Title_Template">"Подписки {0}"</string>
+    <string name="Subscribers_Title_Template">"Подписчики {0}"</string>
+    <string name="Search_Videos">"Видео"</string>
+    <string name="Search_Peoples">"Люди"</string>
+    <string name="Application_New_Version_Ready">"Вышло важное обновление, похоже пора его установить."</string>
+
+    <!-- Fuzzy -->
+    <string name="Download_Update">"Скачать обновление"</string>
+    <string name="Email_Already_Exists">"Данный эмейл уже зарегистрирован"</string>
 </resources>

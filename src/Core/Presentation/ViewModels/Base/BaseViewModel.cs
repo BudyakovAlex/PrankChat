@@ -12,7 +12,9 @@ using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using System;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {
@@ -47,18 +49,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public bool IsUserSessionInitialized => SettingsService.User != null;
 
-        public MvxAsyncCommand GoBackCommand
-        {
-            get
-            {
-                return new MvxAsyncCommand(() => NavigationService.CloseView(this));
-            }
-        }
-
-        public MvxAsyncCommand ShowSearchCommand
-        {
-            get { return new MvxAsyncCommand(() => NavigationService.ShowSearchView()); }
-        }
+        public MvxAsyncCommand GoBackCommand { get; }
+       
+        public MvxAsyncCommand ShowSearchCommand { get; }
 
         public IMvxAsyncCommand ShowNotificationCommand { get; }
 
@@ -80,6 +73,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             Messenger = messenger;
 
             ShowNotificationCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowNotificationView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+            ShowSearchCommand = new MvxAsyncCommand(NavigationService.ShowSearchView);
+            GoBackCommand = new MvxAsyncCommand(GoBackAsync);
+        }
+
+        private Task GoBackAsync()
+        {
+            return NavigationService.CloseView(this);
         }
 
         public override async Task Initialize()
@@ -123,7 +123,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
             if (HasUnreadNotifications)
             {
-                CrossBadge.Current.SetBadge(unreadNotifications);
+                MainThread.BeginInvokeOnMainThread(() => CrossBadge.Current.SetBadge(unreadNotifications));
             }
         }
     }

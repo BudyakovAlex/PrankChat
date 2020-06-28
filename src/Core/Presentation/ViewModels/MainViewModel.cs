@@ -1,14 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
+﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -18,12 +13,13 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Providers;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private readonly ISettingsService _settingsService;
         private readonly IPushNotificationService _notificationService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
@@ -41,6 +37,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public IMvxCommand<int> SendTabChangedCommand { get; }
 
+        public IMvxAsyncCommand CheckActualAppVersionCommand { get; }
+
         public MainViewModel(INavigationService navigationService,
                              ISettingsService settingsService,
                              IErrorHandleService errorHandleService,
@@ -50,7 +48,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                              IWalkthroughsProvider walkthroughsProvider)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
-            _settingsService = settingsService;
             _notificationService = notificationService;
             _walkthroughsProvider = walkthroughsProvider;
 
@@ -60,6 +57,26 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             ShowWalkthrouthCommand = new MvxAsyncCommand<int>(ShowWalthroughAsync);
             ShowWalkthrouthIfNeedCommand = new MvxAsyncCommand<int>(ShowWalthroughIfNeedAsync);
             SendTabChangedCommand = new MvxCommand<int>(SendTabChanged);
+            CheckActualAppVersionCommand = new MvxAsyncCommand(CheckActualAppVersionAsync);
+        }
+
+        private async Task CheckActualAppVersionAsync()
+        {
+            if (!SettingsService.IsDebugMode)
+            {
+                var newActualVersion = await ApiService.CheckAppVersionAsync();
+                if (!string.IsNullOrEmpty(newActualVersion?.Link))
+                {
+                    await NavigationService.ShowMaintananceView(newActualVersion.Link);
+                    return;
+                }
+            }
+        }
+
+        public override void ViewAppearing()
+        {
+            base.ViewAppearing();
+            CheckActualAppVersionCommand.Execute();
         }
 
         public override void ViewCreated()

@@ -1,4 +1,5 @@
-﻿using Android.Views;
+﻿using Android.Content;
+using Android.Views;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
@@ -13,6 +14,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract
             Init(view);
             this.DelayBind(BindData);
         }
+
+        public Context Context => ItemView.Context;
 
         private void Init(View view)
         {

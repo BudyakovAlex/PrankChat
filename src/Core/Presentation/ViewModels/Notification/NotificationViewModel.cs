@@ -7,12 +7,10 @@ using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -53,7 +51,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 
         private NotificationItemViewModel ProduceNotificationItem(NotificationDataModel notificationDataModel)
         {
-            return new NotificationItemViewModel(NavigationService, notificationDataModel);
+            return new NotificationItemViewModel(NavigationService, SettingsService, notificationDataModel);
         }
 
         private async Task MarkReadedNotificationsAsync()

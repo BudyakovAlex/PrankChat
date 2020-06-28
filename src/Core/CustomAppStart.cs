@@ -9,10 +9,9 @@ namespace PrankChat.Mobile.Core
     {
         private readonly INavigationService _navigationService;
 
-        public CustomAppStart(
-            IMvxApplication application,
-            IMvxNavigationService mvxNavigationService,
-            INavigationService navigationService)
+        public CustomAppStart(IMvxApplication application,
+                              IMvxNavigationService mvxNavigationService,
+                              INavigationService navigationService)
             : base(application, mvxNavigationService)
         {
             _navigationService = navigationService;

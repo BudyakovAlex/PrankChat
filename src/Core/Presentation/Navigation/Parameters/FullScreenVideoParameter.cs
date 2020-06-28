@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Models.Enums;
+﻿using PrankChat.Mobile.Core.Models.Data;
+using System.Collections.Generic;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation.Parameters
 {

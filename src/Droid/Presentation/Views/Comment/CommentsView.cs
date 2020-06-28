@@ -67,7 +67,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Comment
 
         protected override void SetViewProperties()
         {
-
             _profileImageView = FindViewById<CircleCachedImageView>(Resource.Id.profile_image_view);
             _commentEditText = FindViewById<EditText>(Resource.Id.comment_text_view);
             _sendCommentImageButton = FindViewById<ImageButton>(Resource.Id.create_comment_button);

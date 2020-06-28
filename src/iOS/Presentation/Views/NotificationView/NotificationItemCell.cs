@@ -81,7 +81,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 
             set.Bind(profilePhotoImageView.Tap())
                 .For(v => v.Command)
-                .To(vm => vm.ShowUserProfileCommand);
+                .To(vm => vm.OpenUserProfileCommand);
 
             set.Bind(profilePhotoImageView)
                 .For(v => v.PlaceholderText)

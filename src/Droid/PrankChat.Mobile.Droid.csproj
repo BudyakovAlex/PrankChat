@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -115,7 +115,6 @@
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
     <Compile Include="Presentation\Dialogs\ArrayDialog.cs" />
-    <Compile Include="Presentation\Converters\LikeConverter.cs" />
     <Compile Include="Controls\SelectableButton.cs" />
     <Compile Include="Presentation\Views\WebPageView.cs" />
     <Compile Include="Presentation\Views\Video\FullScreenVideoView.cs" />
@@ -197,8 +196,13 @@
     <Compile Include="PlatformBusinessServices\Notifications\PlatformPushNotificationsService.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Comments\CommentViewHolder.cs" />
     <Compile Include="Controls\CircleProgressBar.cs" />
-    <Compile Include="Presentation\Converters\FullScreenLikeConverter.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Notifications\NotificationItemViewHolder.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Search\ProfileSearchItemViewHolder.cs" />
+    <Compile Include="Presentation\Views\MaintananceView.cs" />
+    <Compile Include="Presentation\Views\Subscriptions\SubscriptionsView.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Subscriptions\SubscriptionItemViewHolder.cs" />
+    <Compile Include="Presentation\Bindings\TabLayoutTabTextBinding.cs" />
+    <Compile Include="Presentation\Views\Profile\UserProfileView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -233,13 +237,13 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\search_layout.axml">
+    <AndroidResource Include="Resources\layout\search_layout.xml">
       <SubType>
       </SubType>
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\cell_search.axml">
+    <AndroidResource Include="Resources\layout\cell_search.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -300,7 +304,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\search_action_bar.axml">
+    <AndroidResource Include="Resources\layout\search_action_bar.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -335,7 +339,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\activity_publication_details.axml">
+    <AndroidResource Include="Resources\layout\activity_publication_details.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -419,12 +423,6 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\ic_like_active.xml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_accent_thumbs_down.xml">
       <SubType>
       </SubType>
@@ -437,7 +435,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\activity_web_page.axml">
+    <AndroidResource Include="Resources\layout\activity_web_page.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -993,11 +991,67 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\ic_like_inactive.xml">
+    <AndroidResource Include="Resources\drawable\ic_notification_with_bage.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\ic_notification_with_bage.xml">
+    <AndroidResource Include="Resources\layout\activity_search.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_maintanance.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_maintanance.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_maintanance.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_maintanance.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_maintanance.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_maintanance.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_user_profile.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_subscriptions.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\cell_subscription.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_check_mark.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_like.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_dislike.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_like_hollow.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_dislike_hollow.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
@@ -1172,7 +1226,7 @@
     <AndroidResource Include="Resources\layout\fragment_password_recovery.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\profile_layout.xml" />
+    <AndroidResource Include="Resources\layout\fragment_profile.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_notification.xml">
@@ -1216,11 +1270,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_more.xml">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_like.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>
@@ -1351,6 +1400,9 @@
     <Folder Include="Resources\values-en\" />
     <Folder Include="Presentation\Adapters\ViewHolders\Comments\" />
     <Folder Include="Presentation\Adapters\ViewHolders\Notifications\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\Search\" />
+    <Folder Include="Presentation\Views\Subscriptions\" />
+    <Folder Include="Presentation\Adapters\ViewHolders\Subscriptions\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />

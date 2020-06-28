@@ -28,6 +28,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.To(vm => vm.CommentatorPhotoUrl)
 				.Mode(MvxBindingMode.OneTime);
 
+			set.Bind(commentatorPhotoImageView)
+			   .For(v => v.BindTap())
+	           .To(vm => vm.OpenUserProfileCommand);
+
 			set.Bind(commentLabel)
 				.To(vm => vm.NumberOfCommentText)
 				.Mode(MvxBindingMode.OneTime);

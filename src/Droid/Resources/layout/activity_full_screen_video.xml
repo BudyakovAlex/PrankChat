@@ -27,9 +27,9 @@
             android:layout_height="56dp"
             android:scaleType="center"
             android:src="@drawable/ic_back_arrow"
-            app:srcCompat="@drawable/ic_back_arrow"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back_arrow" />
 
         <TextView
             android:id="@+id/video_title_text_view"
@@ -70,7 +70,7 @@
             app:layout_constraintEnd_toEndOf="@+id/like_view"
             app:layout_constraintStart_toStartOf="@+id/like_view">
 
-            <ffimageloading.cross.MvxCachedImageView
+            <CircleCachedImageView
                 android:id="@+id/profile_image_view"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -81,12 +81,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/subscription_tag_image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_plus"
-                app:srcCompat="@drawable/ic_plus"
                 app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
-                app:layout_constraintEnd_toEndOf="@+id/profile_image_view" />
+                app:layout_constraintEnd_toEndOf="@+id/profile_image_view"
+                app:srcCompat="@drawable/ic_plus" />
         </android.support.constraint.ConstraintLayout>
 
         <LinearLayout
@@ -96,21 +97,53 @@
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/comments_view"
+            app:layout_constraintBottom_toTopOf="@+id/dislike_view"
             app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
                 android:id="@+id/likes_image_view"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:alpha="0.95"
-                android:duplicateParentState="true"
                 android:scaleType="center"
-                android:src="@drawable/ic_like_active"
-                app:srcCompat="@drawable/ic_like_active" />
+                android:src="@drawable/ic_like"
+                app:srcCompat="@drawable/ic_like" />
 
             <TextView
                 android:id="@+id/like_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:alpha="0.95"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/applicationWhite"
+                android:textSize="12dp"
+                tools:text="18,2 k" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dislike_view"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/comments_view"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/dislikes_image_view"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:alpha="0.95"
+                android:scaleType="center"
+                android:src="@drawable/ic_dislike"
+                app:srcCompat="@drawable/ic_dislike" />
+
+            <TextView
+                android:id="@+id/dislike_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -165,9 +198,9 @@
             android:alpha="0.95"
             android:scaleType="center"
             android:src="@drawable/ic_share_up"
-            app:srcCompat="@drawable/ic_share_up"
             android:tint="@color/applicationWhite"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_share_up" />
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

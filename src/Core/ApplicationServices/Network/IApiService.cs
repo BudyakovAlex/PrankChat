@@ -24,6 +24,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task RefreshTokenAsync();
 
+        Task<bool> CheckIsEmailExistsAsync(string email);
+
         Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email);
 
         #endregion Authorize
@@ -33,6 +35,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel orderInfo);
 
         Task<PaginationModel<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize);
+
+        Task<PaginationModel<OrderDataModel>> GetUserOwnOrdersAsync(int userId, int page, int pageSize);
+
+        Task<PaginationModel<OrderDataModel>> GetUserExecuteOrdersAsync(int userId, int page, int pageSize);
 
         Task<OrderDataModel> GetOrderDetailsAsync(int orderId);
 
@@ -60,6 +66,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null);
 
+        Task<VideoDataModel> SendDislikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null);
+
         Task<PaginationModel<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize);
 
         Task<PaginationModel<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize);
@@ -74,11 +82,21 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task GetCurrentUserAsync();
 
+        Task<PaginationModel<UserDataModel>> GetSubscriptionsAsync(int userId, int page, int pageSize);
+
+        Task<PaginationModel<UserDataModel>> GetSubscribersAsync(int userId, int page, int pageSize);
+
         Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo);
 
         Task<UserDataModel> SendAvatarAsync(string path);
         
         Task ComplainUserAsync(int userId, string title, string description);
+
+        Task<UserDataModel> GetUserAsync(int userId);
+
+        Task<UserDataModel> SubscribeToUserAsync(int userId, CancellationToken? cancellationToken = null);
+
+        Task<UserDataModel> UnsubscribeFromUserAsync(int userId, CancellationToken? cancellationToken = null);
 
         Task<DocumentDataModel> SendVerifyDocumentAsync(string path);
 
@@ -144,5 +162,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         Task<List<CompetitionResultDataModel>> GetCompetitionRatingsAsync(int id);
 
         #endregion
+
+        Task<PaginationModel<VideoDataModel>> SearchVideosAsync(string query, int page, int pageSize);
+
+        Task<PaginationModel<UserDataModel>> SearchUsersAsync(string query, int page, int pageSize);
+
+        Task<PaginationModel<OrderDataModel>> SearchOrdersAsync(string query, int page, int pageSize);
+
+        Task<AppVersionDataModel> CheckAppVersionAsync();
     }
 }

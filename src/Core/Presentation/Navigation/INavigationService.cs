@@ -26,6 +26,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowMainView();
 
+        Task ShowMaintananceView(string url);
+
         Task ShowOnBoardingView();
 
         Task ShowMainViewContent();
@@ -33,6 +35,8 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         Task<int> ShowCommentsView(int videoId);
 
         Task ShowNotificationView();
+
+        Task<bool> ShowSubscriptionsView(SubscriptionsNavigationParameter navigationParameter);
 
         Task ShowSearchView();
 
@@ -64,7 +68,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task<bool> CloseViewWithResult<TResult>(IMvxViewModelResult<TResult> viewModel, TResult result);
 
-        Task ShowProfileUser(int idUser);
+        Task<bool> ShowUserProfile(int userId);
 
         Task ShowWebView(string url);
 

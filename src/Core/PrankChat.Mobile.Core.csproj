@@ -74,5 +74,6 @@
     <Folder Include="Presentation\ViewModels\Walthroughs\" />
     <Folder Include="ApplicationServices\Network\Builders\" />
     <Folder Include="ApplicationServices\Network\Contents\" />
+    <Folder Include="Presentation\ViewModels\Subscriptions\" />
   </ItemGroup>
 </Project>

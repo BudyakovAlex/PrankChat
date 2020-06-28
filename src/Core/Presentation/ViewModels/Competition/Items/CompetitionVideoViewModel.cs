@@ -1,7 +1,9 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
@@ -22,7 +24,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
     {
         private readonly IApiService _apiService;
         private readonly INavigationService _navigationService;
+        private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _mvxMessenger;
+
+        private readonly VideoDataModel _videoDataModel;
+        private readonly long _numberOfDislikes;
+        private readonly bool _isDisliked;
+
         private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
 
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
@@ -30,6 +38,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         public ICommand LikeCommand { get; }
 
         public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxAsyncCommand(ShowFullScreenVideoAsync);
+
+        public IMvxAsyncCommand OpenUserProfileCommand { get; }
 
         public IVideoPlayerService VideoPlayerService { get; }
 
@@ -95,62 +105,74 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         public CompetitionVideoViewModel(IApiService apiService,
                                          IVideoPlayerService videoPlayerService,
                                          INavigationService navigationService,
+                                         ISettingsService settingsService,
                                          IMvxMessenger mvxMessenger,
-                                         string poster,
-                                         int id,
-                                         string videoUrl,
-                                         string previewUrl,
-                                         string shareLink,
-                                         string videoName,
-                                         string description,
-                                         string userName,
-                                         string avatarUrl,
-                                         long numberOfLikes,
-                                         long numberOfComments,
-                                         long numberOfViews,
-                                         DateTime publicationDate,
-                                         bool isLiked,
+                                         VideoDataModel videoDataModel,
                                          bool isMyPublication,
                                          bool isVotingAvailable,
                                          Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
         {
             _apiService = apiService;
             _navigationService = navigationService;
+            _settingsService = settingsService;
             _mvxMessenger = mvxMessenger;
+            _videoDataModel = videoDataModel;
+
             VideoPlayerService = videoPlayerService;
-            StubImageUrl = poster;
-            VideoId = id;
-            VideoUrl = videoUrl;
-            PreviewUrl = previewUrl;
-            ShareLink = shareLink;
-            VideoName = videoName;
-            Description = description;
-            UserName = userName;
-            ProfileShortName = userName.ToShortenName();
-            AvatarUrl = avatarUrl;
-            NumberOfLikes = numberOfLikes;
-            NumberOfComments = numberOfComments;
-            NumberOfViews = numberOfViews;
-            PublicationDate = publicationDate;
-            IsLiked = isLiked;
+            StubImageUrl = _videoDataModel.Poster;
+            VideoId = _videoDataModel.Id;
+            VideoUrl = _videoDataModel.StreamUri;
+            PreviewUrl = _videoDataModel.PreviewUri;
+            ShareLink = _videoDataModel.ShareUri;
+            VideoName = _videoDataModel.Title;
+            Description = _videoDataModel.Description;
+            UserName = _videoDataModel.User?.Login;
+            ProfileShortName = UserName.ToShortenName();
+            AvatarUrl = _videoDataModel.User?.Avatar;
+            NumberOfLikes = _videoDataModel.LikesCount;
+            _numberOfDislikes = _videoDataModel.DislikesCount;
+            NumberOfComments = _videoDataModel.CommentsCount;
+            NumberOfViews = _videoDataModel.ViewsCount;
+            PublicationDate = videoDataModel.CreatedAt.UtcDateTime;
+            IsLiked = videoDataModel.IsLiked;
+            _isDisliked = videoDataModel.IsDisliked;
+
             IsMyPublication = isMyPublication;
             IsVotingAvailable = isVotingAvailable;
+            _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
 
             LikeCommand = new MvxCommand(OnLike);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
         }
 
         public FullScreenVideoDataModel GetFullScreenVideoDataModel()
         {
-            return new FullScreenVideoDataModel(VideoId,
+            return new FullScreenVideoDataModel(_videoDataModel.User?.Id ?? 0,
+                                                _videoDataModel.User?.IsSubscribed ?? false,
+                                                VideoId,
                                                 VideoUrl,
                                                 VideoName,
                                                 Description,
                                                 ShareLink,
                                                 AvatarUrl,
+                                                _videoDataModel.User?.Login?.ToShortenName(),
                                                 NumberOfLikes,
+                                                _numberOfDislikes,
                                                 NumberOfComments,
                                                 IsLiked,
+                                                _isDisliked,
                                                 CanVoteVideo);
+        }
+
+        private Task OpenUserProfileAsync()
+        {
+            if (_videoDataModel.User?.Id is null ||
+                _videoDataModel.User.Id == _settingsService.User.Id)
+            {
+                return Task.CompletedTask;
+            }
+
+            return _navigationService.ShowUserProfile(_videoDataModel.User.Id);
         }
 
         private void OnLike()

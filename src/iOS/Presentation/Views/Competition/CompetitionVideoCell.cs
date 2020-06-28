@@ -99,9 +99,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             var bindingSet = this.CreateBindingSet<CompetitionVideoCell, CompetitionVideoViewModel>();
 
-            //bindingSet.Bind(profileImageView)
-            //	.For(v => v.BindTap())
-            //	.To(vm => vm.command);
+            bindingSet.Bind(profileImageView)
+                      .For(v => v.BindTap())
+                      .To(vm => vm.OpenUserProfileCommand);
 
             bindingSet.Bind(profileImageView)
                       .For(v => v.ImagePath)

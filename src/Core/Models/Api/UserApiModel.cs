@@ -24,6 +24,9 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         public string Description { get; set; }
 
+        [JsonProperty("is_in_my_subscriptions")]
+        public bool IsSubscribed { get; set; }
+
         [JsonProperty("document_verified_at")]
         public DateTime? DocumentVerifiedAt { get; set; }
 

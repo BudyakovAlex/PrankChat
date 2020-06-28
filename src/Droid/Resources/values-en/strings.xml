@@ -328,4 +328,13 @@ If the customer did not like your video, he can send the task to the \"dispute\"
     <string name="Megabytes_Presentation">"MB"</string>
     <string name="Gigabytes_Presentation">"GB"</string>
     <string name="Terabytes_Presentation">"TB"</string>
+    <string name="Subscription_Title_Template">"Subscriptions {0}"</string>
+    <string name="Subscribers_Title_Template">"Subscribers {0}"</string>
+    <string name="Search_Videos">"Videos"</string>
+    <string name="Search_Peoples">"Peoples"</string>
+    <string name="Application_New_Version_Ready">"An important update came out, it seems time to install it."</string>
+
+    <!-- Fuzzy -->
+    <string name="Download_Update">"Download update"</string>
+    <string name="Email_Already_Exists">"Current email already exists"</string>
 </resources>

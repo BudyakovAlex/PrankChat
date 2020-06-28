@@ -1,23 +1,50 @@
 // WARNING
 //
-// This file has been generated automatically by Visual Studio from the outlets and
-// actions declared in your storyboard file.
-// Manual changes to this file will not be maintained.
+// This file has been generated automatically by Visual Studio to store outlets and
+// actions made in the UI designer. If it is removed, they will be lost.
+// Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using System;
 using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 {
-    [Register ("SearchView")]
-    partial class SearchView
-    {
-        [Outlet]
-        UIKit.UITableView tableView { get; set; }
+	[Register ("SearchView")]
+	partial class SearchView
+	{
+		[Outlet]
+		UIKit.UIView loadingView { get; set; }
 
-        void ReleaseDesignerOutlets ()
-        {
-        }
-    }
+		[Outlet]
+		Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
+
+		[Outlet]
+		UIKit.UITableView tableView { get; set; }
+
+		[Outlet]
+		PrankChat.Mobile.iOS.Controls.TabView tabView { get; set; }
+		
+		void ReleaseDesignerOutlets ()
+		{
+			if (tabView != null) {
+				tabView.Dispose ();
+				tabView = null;
+			}
+
+			if (tableView != null) {
+				tableView.Dispose ();
+				tableView = null;
+			}
+
+			if (loadingView != null) {
+				loadingView.Dispose ();
+				loadingView = null;
+			}
+
+			if (lottieAnimationView != null) {
+				lottieAnimationView.Dispose ();
+				lottieAnimationView = null;
+			}
+		}
+	}
 }

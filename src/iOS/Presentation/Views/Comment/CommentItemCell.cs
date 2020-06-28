@@ -1,9 +1,10 @@
-﻿using MvvmCross.Binding;
+﻿using System;
+using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
-using System;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 {
@@ -31,6 +32,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
                       .For(v => v.ImagePath)
                       .To(vm => vm.ProfilePhotoUrl)
                       .Mode(MvxBindingMode.OneTime);
+
+            bindingSet.Bind(profileImageView)
+                      .For(v => v.BindTap())
+                      .To(vm => vm.OpenUserProfileCommand);
 
             bindingSet.Bind(profileNameLabel)
                       .To(vm => vm.ProfileName)

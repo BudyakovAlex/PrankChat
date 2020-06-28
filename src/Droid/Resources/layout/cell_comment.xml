@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
     <CircleCachedImageView
         android:id="@+id/profile_image_view"
         android:layout_width="42dp"
@@ -14,20 +15,21 @@
         android:layout_marginBottom="4dp" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/user_name_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
             android:layout_marginTop="10dp"
-            android:text="User name"
+            android:layout_marginEnd="15dp"
+            android:ellipsize="end"
             android:lines="1"
             android:maxLines="1"
-            android:ellipsize="end"
+            android:text="User name"
             android:textColor="@color/applicationBlack"
             android:textSize="12dp"
             android:textStyle="bold" />

@@ -1,6 +1,7 @@
 ﻿using Android.Views;
 using Android.Widget;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items;
 using PrankChat.Mobile.Droid.Controls;
@@ -37,6 +38,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Comments
 
             bindingSet.Bind(_profileImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl);
             bindingSet.Bind(_profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName);
+            bindingSet.Bind(_profileImageView).For(v => v.BindClick()).To(vm => vm.OpenUserProfileCommand);
             bindingSet.Bind(_userNameTextView).For(v => v.Text).To(vm => vm.ProfileName);
             bindingSet.Bind(_commentTextView).For(v => v.Text).To(vm => vm.Comment);
             bindingSet.Bind(_dateTextView).For(v => v.Text).To(vm => vm.DateText);

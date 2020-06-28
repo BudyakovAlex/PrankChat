@@ -9,8 +9,8 @@
         android:id="@+id/stub_view"
         android:layout_width="0dp"
         android:layout_height="246dp"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
         android:background="@color/applicationBlack"
@@ -32,14 +32,14 @@
         android:id="@+id/more_image_button"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:rotation="90"
         android:layout_marginRight="8dp"
         android:background="@null"
+        android:rotation="90"
         android:src="@drawable/ic_more"
-        app:srcCompat="@drawable/ic_more"
         app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/profile_image_view" />
+        app:layout_constraintTop_toTopOf="@+id/profile_image_view"
+        app:srcCompat="@drawable/ic_more" />
 
     <TextView
         android:id="@+id/profile_name_text_view"
@@ -70,11 +70,11 @@
         android:id="@+id/video_name_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="7dp"
+        android:layout_marginEnd="16dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:textColor="@color/applicationBlack"
         android:textSize="14dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -106,41 +106,101 @@
             app:srcCompat="@drawable/ic_fullscreen" />
     </FrameLayout>
 
-    <ImageButton
-        android:id="@+id/like_image_button"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
-        android:background="@null"
-        android:scaleType="center"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/like_text_view"
-        app:layout_constraintTop_toBottomOf="@+id/stub_view" />
-
-    <TextView
-        android:id="@+id/like_text_view"
+    <LinearLayout
+        android:id="@+id/like_view"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginLeft="8dp"
-        android:gravity="center_vertical"
-        android:textColor="@color/applicationBlack"
-        android:textSize="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/like_image_button"
-        app:layout_constraintLeft_toRightOf="@+id/like_image_button"
-        app:layout_constraintTop_toTopOf="@+id/like_image_button" />
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stub_view">
+
+        <ImageView
+            android:id="@+id/like_image_view"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_like_hollow"
+            app:srcCompat="@drawable/ic_like_hollow" />
+
+        <TextView
+            android:id="@+id/like_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:textColor="@color/applicationBlack"
+            android:textSize="12sp"
+            tools:text="2k" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dislike_view"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/like_view"
+        app:layout_constraintStart_toEndOf="@+id/like_view"
+        app:layout_constraintTop_toTopOf="@+id/like_view">
+
+        <ImageView
+            android:id="@+id/dislike_image_view"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_dislike_hollow"
+            app:srcCompat="@drawable/ic_dislike_hollow" />
+
+        <TextView
+            android:id="@+id/dislike_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:textColor="@color/applicationBlack"
+            android:textSize="12sp"
+            tools:text="1k" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/comments_view"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/dislike_view"
+        app:layout_constraintStart_toEndOf="@+id/dislike_view"
+        app:layout_constraintTop_toTopOf="@+id/dislike_view">
+
+        <ImageView
+            android:id="@+id/comments_image_view"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_comment"
+            app:srcCompat="@drawable/ic_comment" />
+
+        <TextView
+            android:id="@+id/comments_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:textColor="@color/applicationBlack"
+            android:textSize="12sp"
+            tools:text="10" />
+    </LinearLayout>
 
     <!--TODO: Make it button visible after video saving will become available.-->
     <ImageButton
         android:id="@+id/share_image_button"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="10dp"
         android:background="@null"
         android:src="@drawable/ic_share_up"
-        app:layout_constraintStart_toEndOf="@+id/comments_text_view"
-        app:layout_constraintTop_toBottomOf="@+id/stub_view"
+        app:layout_constraintBottom_toBottomOf="@+id/comments_view"
+        app:layout_constraintStart_toEndOf="@+id/comments_view"
+        app:layout_constraintTop_toTopOf="@+id/comments_view"
         app:srcCompat="@drawable/ic_share_up" />
 
     <ImageButton
@@ -151,12 +211,12 @@
         android:layout_marginEnd="13dp"
         android:background="@null"
         android:src="@drawable/ic_bookmark"
-        app:srcCompat="@drawable/ic_bookmark"
         android:visibility="invisible"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintLeft_toRightOf="@+id/share_image_button"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stub_view" />
+        app:layout_constraintTop_toBottomOf="@+id/stub_view"
+        app:srcCompat="@drawable/ic_bookmark" />
 
     <ffimageloading.cross.MvxCachedImageView
         android:id="@+id/stub_image_view"
@@ -213,27 +273,4 @@
             android:textColor="@android:color/white"
             android:textSize="17dp" />
     </FrameLayout>
-
-    <ImageView
-        android:id="@+id/comments_image_view"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="19dp"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="@+id/share_image_button"
-        app:layout_constraintStart_toEndOf="@+id/like_text_view"
-        app:layout_constraintTop_toTopOf="@+id/share_image_button"
-        app:srcCompat="@drawable/ic_comment" />
-
-    <TextView
-        android:id="@+id/comments_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textColor="@color/applicationBlack"
-        android:textSize="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/comments_image_view"
-        app:layout_constraintStart_toEndOf="@+id/comments_image_view"
-        app:layout_constraintTop_toTopOf="@+id/comments_image_view"
-        tools:text="8k" />
 </android.support.constraint.ConstraintLayout>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Net.Mail;
-using System.Text.RegularExpressions;
-using CreditCardValidator;
+﻿using System.Text.RegularExpressions;
 
 namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
@@ -21,10 +17,14 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
         public static string ToShortenName(this string name)
         {
             if (string.IsNullOrWhiteSpace(name))
+            {
                 return string.Empty;
+            }
 
             if (name.Length < ShortenCountForname)
+            {
                 return name;
+            }
 
             return name.Substring(0, ShortenCountForname).ToUpper();
         }
@@ -40,7 +40,9 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             foreach (char ch in source)
             {
                 if (ch.IsDigit())
+                {
                     digitCount++;
+                }
             }
 
             return digitCount;
@@ -57,7 +59,9 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
         public static string StripAllNonNumericChars(this string target)
         {
             if (string.IsNullOrWhiteSpace(target))
+            {
                 return target;
+            }
 
             const string pattern = @"[\D\+]+";
             target = Regex.Replace(target, pattern, string.Empty, RegexOptions.Singleline);

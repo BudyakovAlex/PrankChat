@@ -33,6 +33,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
             set => Preferences.Set(nameof(IsPushTokenSend), value);
         }
 
+        public bool IsDebugMode => CheckIsDebugMode();
+
+        private bool CheckIsDebugMode()
+        {
+            #if DEBUG
+            return true;
+            #else
+            return false;
+            #endif
+        }
+
         public Task<string> GetAccessTokenAsync()
         {
             // Workaround for iOS simulator.

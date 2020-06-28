@@ -1,5 +1,4 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
@@ -8,6 +7,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -29,10 +29,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
     public class OrderDetailsViewModel : BaseViewModel, IMvxViewModel<OrderDetailsNavigationParameter, OrderDetailsResult>
     {
-        private readonly ISettingsService _settingsService;
         private readonly IMediaService _mediaService;
         private readonly IPlatformService _platformService;
-        private readonly IMvxMessenger _mvxMessenger;
 
         private int _orderId;
 
@@ -139,9 +137,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string TimeMinutesValue => TimeValue?.Minutes.ToString("00");
 
-        public bool IsUserCustomer => _order?.Customer?.Id == _settingsService.User?.Id;
+        public bool IsUserCustomer => _order?.Customer?.Id == SettingsService.User?.Id;
 
-        public bool IsUserExecutor => _order?.Executor?.Id == _settingsService.User?.Id;
+        public bool IsUserExecutor => _order?.Executor?.Id == SettingsService.User?.Id;
 
         public bool IsUserGuest => !IsUserCustomer && !IsUserExecutor;
 
@@ -161,7 +159,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsVideoAvailable => _order?.Video != null && !IsVideoProcessing;
 
-        public bool IsExecutorAvailable => _order?.Executor != null && _order?.Executor?.Id != _settingsService.User?.Id;
+        public bool IsExecutorAvailable => _order?.Executor != null && _order?.Executor?.Id != SettingsService.User?.Id;
 
         public bool IsDecideVideoAvailable => _order?.Status == OrderStatusType.InArbitration;
 
@@ -206,6 +204,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public IMvxCommand CancelUploadingCommand => new MvxCommand(() => _cancellationTokenSource?.Cancel());
 
+        public IMvxAsyncCommand OpenUserProfileCommand { get; }
+
         #endregion Commands
 
         public OrderDetailsViewModel(INavigationService navigationService,
@@ -214,14 +214,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                      IErrorHandleService errorHandleService,
                                      IApiService apiService,
                                      IDialogService dialogService,
-                                     IPlatformService platformService,
-                                     IMvxMessenger mvxMessenger)
+                                     IPlatformService platformService)
             : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
-            _settingsService = settingsService;
             _mediaService = mediaService;
             _platformService = platformService;
-            _mvxMessenger = mvxMessenger;
+      
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
         }
 
         public void Prepare(OrderDetailsNavigationParameter parameter)
@@ -243,6 +242,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 CloseCompletionSource?.SetResult(new OrderDetailsResult(_order));
 
             base.ViewDestroy(viewFinishing);
+        }
+
+        private Task OpenUserProfileAsync()
+        {
+            if (_order?.Customer?.Id is null ||
+                _order.Customer.Id == SettingsService.User.Id)
+            {
+                return Task.CompletedTask;
+            }
+
+            return NavigationService.ShowUserProfile(_order.Customer.Id);
         }
 
         private async Task LoadOrderDetailsAsync()
@@ -286,12 +296,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 if (order != null)
                 {
                     _order.Status = order.Status;
-                    _order.Executor = _settingsService.User;
+                    _order.Executor = SettingsService.User;
                     _order.ActiveTo = order.ActiveTo;
                     await RaiseAllPropertiesChanged();
                 }
 
-                _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
+                Messenger.Publish(new OrderChangedMessage(this, _order));
             }
             catch (NetworkException ex) when (ex.InnerException is ProblemDetailsDataModel problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
             {
@@ -300,7 +310,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             catch (Exception ex)
             {
                 ErrorHandleService.ResumeServerErrorsHandling();
-                _mvxMessenger.Publish(new ServerErrorMessage(this, ex));
+                Messenger.Publish(new ServerErrorMessage(this, ex));
             }
             finally
             {
@@ -327,7 +337,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 var order = await ApiService.SubscribeOrderAsync(_orderId);
                 await RaiseAllPropertiesChanged();
-                _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
+                Messenger.Publish(new OrderChangedMessage(this, _order));
             }
             catch (Exception ex)
             {
@@ -348,7 +358,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 var order = await ApiService.UnsubscribeOrderAsync(_orderId);
                 await RaiseAllPropertiesChanged();
-                _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
+                Messenger.Publish(new OrderChangedMessage(this, _order));
             }
             catch (Exception ex)
             {
@@ -404,7 +414,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 await RaiseAllPropertiesChanged();
                 _order.VideoUploadedAt = _order.VideoUploadedAt ?? DateTime.Now;
 
-                _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
+                Messenger.Publish(new OrderChangedMessage(this, _order));
             }
             finally
             {
@@ -439,7 +449,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     await RaiseAllPropertiesChanged();
                 }
 
-                _mvxMessenger.Publish(new OrderChangedMessage(this, order));
+                Messenger.Publish(new OrderChangedMessage(this, order));
             }
             catch (Exception ex)
             {
@@ -465,7 +475,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     await RaiseAllPropertiesChanged();
                 }
 
-                _mvxMessenger.Publish(new OrderChangedMessage(this, order));
+                Messenger.Publish(new OrderChangedMessage(this, order));
             }
             catch (Exception ex)
             {
@@ -497,7 +507,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 await RaiseAllPropertiesChanged();
             }
 
-            _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
+            Messenger.Publish(new OrderChangedMessage(this, _order));
             IsBusy = false;
         }
 
@@ -525,7 +535,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     await RaiseAllPropertiesChanged();
                 }
 
-                _mvxMessenger.Publish(new OrderChangedMessage(this, order));
+                Messenger.Publish(new OrderChangedMessage(this, order));
             }
             catch (Exception ex)
             {
@@ -557,7 +567,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     await RaiseAllPropertiesChanged();
                 }
 
-                _mvxMessenger.Publish(new OrderChangedMessage(this, order));
+                Messenger.Publish(new OrderChangedMessage(this, order));
             }
             catch (Exception ex)
             {
@@ -581,15 +591,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
             var navigationParams = _fullScreenVideos.Count > 0
                 ? new FullScreenVideoParameter(_fullScreenVideos, _currentIndex)
-                : new FullScreenVideoParameter(new FullScreenVideoDataModel(_order.Video.Id,
+                : new FullScreenVideoParameter(new FullScreenVideoDataModel(_order?.Customer?.Id ?? 0,
+                                                                            _order?.Customer?.IsSubscribed ?? false,
+                                                                            _order.Video.Id,
                                                                             VideoUrl,
                                                                             VideoName,
                                                                             VideoDetails,
                                                                             _order.Video.ShareUri,
                                                                             ProfilePhotoUrl,
+                                                                            ProfileName?.ToShortenName(),
                                                                             _order.Video.LikesCount,
+                                                                            _order.Video.DislikesCount,
                                                                             _order.Video.CommentsCount,
-                                                                            _order.Video.IsLiked));
+                                                                            _order.Video.IsLiked,
+                                                                            _order.Video.IsDisliked)); ;
 
             var shouldReload = await NavigationService.ShowFullScreenVideoView(navigationParams);
             if (!shouldReload)
@@ -597,7 +612,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return;
             }
 
-            _mvxMessenger.Publish(new OrderChangedMessage(this, _order));
+            Messenger.Publish(new OrderChangedMessage(this, _order));
         }
 
         private async Task OpenSettingsAsync()

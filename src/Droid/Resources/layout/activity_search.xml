@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/applicationWhite"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/action_bar"
+            layout="@layout/action_bar_search" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            style="@style/Theme.PrankChat.Publication.TabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="41dp">
+
+            <android.support.design.widget.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/Search_Peoples" />
+
+            <android.support.design.widget.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/Search_Videos" />
+
+            <android.support.design.widget.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/Orders_Tab" />
+        </android.support.design.widget.TabLayout>
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/separator"
+            android:layout_height="1dp"/>
+
+        <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
+            android:id="@+id/search_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/loading_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/applicationTransparent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="ripple_animation.json"
+            app:lottie_loop="true" />
+    </FrameLayout>
+</FrameLayout>

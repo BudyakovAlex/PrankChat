@@ -1828,5 +1828,47 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Terabytes_Presentation", resourceCulture);
             }
         }
+        
+        public static string Subscription_Title_Template {
+            get {
+                return ResourceManager.GetString("Subscription_Title_Template", resourceCulture);
+            }
+        }
+        
+        public static string Subscribers_Title_Template {
+            get {
+                return ResourceManager.GetString("Subscribers_Title_Template", resourceCulture);
+            }
+        }
+        
+        public static string Search_Videos {
+            get {
+                return ResourceManager.GetString("Search_Videos", resourceCulture);
+            }
+        }
+        
+        public static string Search_Peoples {
+            get {
+                return ResourceManager.GetString("Search_Peoples", resourceCulture);
+            }
+        }
+        
+        public static string Application_New_Version_Ready {
+            get {
+                return ResourceManager.GetString("Application_New_Version_Ready", resourceCulture);
+            }
+        }
+        
+        public static string Download_Update {
+            get {
+                return ResourceManager.GetString("Download_Update", resourceCulture);
+            }
+        }
+        
+        public static string Email_Already_Exists {
+            get {
+                return ResourceManager.GetString("Email_Already_Exists", resourceCulture);
+            }
+        }
     }
 }

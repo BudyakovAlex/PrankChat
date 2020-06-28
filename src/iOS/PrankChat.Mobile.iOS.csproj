@@ -359,6 +359,28 @@
     <Compile Include="Presentation\SourcesAndDelegates\CommentsTableSource.cs" />
     <Compile Include="Controls\CircleProgressBar.cs" />
     <Compile Include="Presentation\Converters\BoolToNotificationImageConverter.cs" />
+    <Compile Include="Controls\TabView.cs" />
+    <InterfaceDefinition Include="Presentation\Views\Maintanance\MaintananceView.xib" />
+    <Compile Include="Presentation\Views\Maintanance\MaintananceView.cs" />
+    <Compile Include="Presentation\Views\Maintanance\MaintananceView.designer.cs">
+      <DependentUpon>MaintananceView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Subscriptions\SubscriptionsView.xib" />
+    <Compile Include="Presentation\Views\Subscriptions\SubscriptionsView.cs" />
+    <Compile Include="Presentation\Views\Subscriptions\SubscriptionsView.designer.cs">
+      <DependentUpon>SubscriptionsView.cs</DependentUpon>
+    </Compile>
+    <InterfaceDefinition Include="Presentation\Views\Subscriptions\Items\SubscriptionItemCell.xib" />
+    <Compile Include="Presentation\Views\Subscriptions\Items\SubscriptionItemCell.cs" />
+    <Compile Include="Presentation\Views\Subscriptions\Items\SubscriptionItemCell.designer.cs">
+      <DependentUpon>SubscriptionItemCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TabItemView.cs" />
+    <InterfaceDefinition Include="Presentation\Views\ProfileView\UserProfileView.xib" />
+    <Compile Include="Presentation\Views\ProfileView\UserProfileView.cs" />
+    <Compile Include="Presentation\Views\ProfileView\UserProfileView.designer.cs">
+      <DependentUpon>UserProfileView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -502,12 +524,6 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_bookmark.imageset\ic_bookmark.pdf">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_like.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_like.imageset\ic_like.pdf">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_more.imageset\Contents.json">
@@ -765,12 +781,6 @@
     <ImageAsset Include="Assets.xcassets\ic_change_profile.imageset\ic_change_profile.pdf">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_like_active.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_like_active.imageset\ic_like_active.pdf">
-      <Visible>false</Visible>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -832,9 +842,6 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_plus.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_plus.imageset\ic_plus.pdf">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\Contents.json">
@@ -1044,6 +1051,19 @@
     <ImageAsset Include="Assets.xcassets\ic_circle_clear.imageset\ic_circle_clear.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_notification_with_bage.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_notification_with_bage.imageset\ic_notification_with_bage.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_maintanance.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_maintanance.imageset\ic_maintanance.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_like.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_dislike.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_like.imageset\ic_like.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_dislike.imageset\ic_dislike.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_like_hollow.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_dislike_hollow.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_like_hollow.imageset\ic_like_hollow.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_dislike_hollow.imageset\ic_dislike_hollow.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_check_mark.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_check_mark.imageset\ic_check_mark.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_plus.imageset\ic_plus.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -1117,6 +1137,15 @@
     <Folder Include="Assets.xcassets\ic_comments.imageset\" />
     <Folder Include="Assets.xcassets\ic_circle_clear.imageset\" />
     <Folder Include="Assets.xcassets\ic_notification_with_bage.imageset\" />
+    <Folder Include="Presentation\Views\Maintanance\" />
+    <Folder Include="Assets.xcassets\ic_maintanance.imageset\" />
+    <Folder Include="Presentation\Views\Subscriptions\" />
+    <Folder Include="Presentation\Views\Subscriptions\Items\" />
+    <Folder Include="Assets.xcassets\ic_like.imageset\" />
+    <Folder Include="Assets.xcassets\ic_dislike.imageset\" />
+    <Folder Include="Assets.xcassets\ic_like_hollow.imageset\" />
+    <Folder Include="Assets.xcassets\ic_dislike_hollow.imageset\" />
+    <Folder Include="Assets.xcassets\ic_check_mark.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

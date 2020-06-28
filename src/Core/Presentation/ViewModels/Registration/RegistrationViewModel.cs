@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
@@ -8,8 +7,10 @@ using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
@@ -47,12 +48,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             await NavigateAfterLoginAsync();
         }
 
-        private Task OnShowSecondStepAsync()
+        private async Task OnShowSecondStepAsync()
         {
             if (!CheckValidation())
-                return Task.CompletedTask;
+            {
+                return;
+            }
 
-            return NavigationService.ShowRegistrationSecondStepView(Email);
+            var isExists = await ApiService.CheckIsEmailExistsAsync(Email);
+            if (isExists)
+            {
+                DialogService.ShowToast(Resources.Email_Already_Exists, ToastType.Negative);
+                return;
+            }
+
+            await NavigationService.ShowRegistrationSecondStepView(Email);
         }
 
         private bool CheckValidation()

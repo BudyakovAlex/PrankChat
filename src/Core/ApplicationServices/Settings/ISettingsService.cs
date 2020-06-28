@@ -14,5 +14,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
         Task<string> GetAccessTokenAsync();
 
         Task SetAccessTokenAsync(string accessToken);
+
+        bool IsDebugMode { get; }
     }
 }

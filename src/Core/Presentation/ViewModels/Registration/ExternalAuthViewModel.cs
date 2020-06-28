@@ -29,6 +29,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         protected virtual async Task<bool> TryLoginWithExternalServicesAsync(LoginType loginType)
         {
+            if (!SettingsService.IsDebugMode)
+            {
+                var newActualVersion = await ApiService.CheckAppVersionAsync();
+                if (!string.IsNullOrEmpty(newActualVersion?.Link))
+                {
+                    await NavigationService.ShowMaintananceView(newActualVersion.Link);
+                    return false;
+                }
+            }
+
             string token;
             switch (loginType)
             {

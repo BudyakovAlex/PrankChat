@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Messages;
+using Xamarin.Essentials;
 using NotificationManager = PrankChat.Mobile.Core.ApplicationServices.Notifications.NotificationManager;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
@@ -61,7 +62,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
                 {
                     if (int.TryParse(badge, out var result))
                     {
-                        CrossBadge.Current.SetBadge(result);
+                        MainThread.BeginInvokeOnMainThread(() => CrossBadge.Current.SetBadge(result));
                     }
                 }
 

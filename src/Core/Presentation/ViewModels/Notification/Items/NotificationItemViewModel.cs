@@ -1,4 +1,6 @@
 ﻿using MvvmCross.Commands;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -11,14 +13,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
     public class NotificationItemViewModel : BaseItemViewModel
     {
         private readonly INavigationService _navigationService;
+        private readonly ISettingsService _settingsService;
 
         private NotificationType? _notificationType;
         private int? _userId;
 
-        public NotificationItemViewModel(INavigationService navigationService, NotificationDataModel notificationDataModel)
+        public NotificationItemViewModel(INavigationService navigationService,
+                                         ISettingsService settingsService,
+                                         NotificationDataModel notificationDataModel)
         {
             _navigationService = navigationService;
-
+            _settingsService = settingsService;
             Title = notificationDataModel.Title;
             Description = notificationDataModel.Text;
             DateText = notificationDataModel.CreatedAt?.ToTimeAgoCommentString();
@@ -43,7 +48,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
                     break;
             }
 
-            ShowUserProfileCommand = new MvxAsyncCommand(ShowUserProfileAsync);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
         }
 
         public string ProfileName { get; }
@@ -65,17 +70,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         public string Title { get; }
 
-        public MvxAsyncCommand ShowUserProfileCommand { get; }
+        public IMvxAsyncCommand OpenUserProfileCommand { get; }
 
-        private Task ShowUserProfileAsync()
+        private Task OpenUserProfileAsync()
         {
-            if (_userId == null)
+            if (_userId is null ||
+                _userId.Value == _settingsService.User?.Id)
             {
-                // TODO add handler for error.
                 return Task.CompletedTask;
             }
 
-            return _navigationService.ShowProfileUser(_userId.Value);
+            return _navigationService.ShowUserProfile(_userId.Value);
         }
     }
 }

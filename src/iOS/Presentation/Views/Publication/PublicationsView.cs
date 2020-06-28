@@ -92,9 +92,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             _notificationBarItem = NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
-                _notificationBarItem  
-                // TODO: This feature will be implemented.
-                //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
+                _notificationBarItem,
+                NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
             }, true);
 
             var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);

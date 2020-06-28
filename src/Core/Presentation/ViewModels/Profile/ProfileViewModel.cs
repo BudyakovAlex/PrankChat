@@ -1,4 +1,7 @@
-﻿using MvvmCross.Commands;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -14,12 +17,10 @@ using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Providers;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
@@ -31,6 +32,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private MvxSubscriptionToken _newOrderMessageToken;
         private MvxSubscriptionToken _tabChangedMessage;
+        private MvxSubscriptionToken _subscriptionChangedSubscriptionToken;
 
         private ProfileOrderType _selectedOrderType;
         public ProfileOrderType SelectedOrderType
@@ -86,6 +88,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public MvxAsyncCommand ShowRefillCommand { get; }
 
+        public MvxAsyncCommand ShowSubscriptionsCommand { get; }
+
+        public MvxAsyncCommand ShowSubscribersCommand { get; }
+
         public MvxAsyncCommand ShowWithdrawalCommand { get; }
 
         public MvxAsyncCommand LoadProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
@@ -108,47 +114,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
             ShowWithdrawalCommand = new MvxAsyncCommand(ShowWithdrawalAsync);
             ShowRefillCommand = new MvxAsyncCommand(ShowRefillAsync);
-        }
-
-        private async Task ShowRefillAsync()
-        {
-            var isReloadNeeded = await NavigationService.ShowRefillView();
-            if (!isReloadNeeded)
-            {
-                return;
-            }
-
-            await LoadProfileCommand.ExecuteAsync();
-        }
-
-        private async Task ShowWithdrawalAsync()
-        {
-            var isReloadNeeded = await NavigationService.ShowWithdrawalView();
-            if (!isReloadNeeded)
-            {
-                return;
-            }
-
-            await LoadProfileCommand.ExecuteAsync();
-        }
-
-        private void Subscription()
-        {
-            _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged);
-            _tabChangedMessage = _mvxMessenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
-            SubscribeToNotificationsUpdates();
-        }
-
-        private void Unsubscription()
-        {
-            _newOrderMessageToken?.Dispose();
-            _tabChangedMessage?.Dispose();
-            UnsubscribeFromNotificationsUpdates();
-        }
-
-        private void OnOrdersChanged(OrderChangedMessage message)
-        {
-            ReloadItemsCommand.Execute();
+            ShowSubscriptionsCommand = new MvxAsyncCommand(ShowSubscriptionsAsync);
+            ShowSubscribersCommand = new MvxAsyncCommand(ShowSubscribersAsync);
         }
 
         public override async Task Initialize()
@@ -182,6 +149,80 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             base.ViewDestroy(viewFinishing);
         }
 
+        private async Task ShowSubscribersAsync()
+        {
+            var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscribers, SettingsService.User.Id, SettingsService.User.Name);
+            var shouldRefresh = await NavigationService.ShowSubscriptionsView(navigationParameters);
+            if (!shouldRefresh)
+            {
+                return;
+            }
+
+            await LoadProfileCommand.ExecuteAsync();
+        }
+
+        private async Task ShowSubscriptionsAsync()
+        {
+            var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscriptions, SettingsService.User.Id, SettingsService.User.Name);
+            var shouldRefresh = await NavigationService.ShowSubscriptionsView(navigationParameters);
+            if (!shouldRefresh)
+            {
+                return;
+            }
+
+            await LoadProfileCommand.ExecuteAsync();
+        }
+
+        private async Task ShowRefillAsync()
+        {
+            var isReloadNeeded = await NavigationService.ShowRefillView();
+            if (!isReloadNeeded)
+            {
+                return;
+            }
+
+            await LoadProfileCommand.ExecuteAsync();
+        }
+
+        private async Task ShowWithdrawalAsync()
+        {
+            var isReloadNeeded = await NavigationService.ShowWithdrawalView();
+            if (!isReloadNeeded)
+            {
+                return;
+            }
+
+            await LoadProfileCommand.ExecuteAsync();
+        }
+
+        private void Subscription()
+        {
+            _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged);
+            _tabChangedMessage = _mvxMessenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
+            _subscriptionChangedSubscriptionToken = Messenger.SubscribeOnMainThread<SubscriptionChangedMessage>(OnSubscriptionsChanged);
+            SubscribeToNotificationsUpdates();
+        }
+
+        private void Unsubscription()
+        {
+            _newOrderMessageToken?.Dispose();
+            _tabChangedMessage?.Dispose();
+            _subscriptionChangedSubscriptionToken?.Dispose();
+
+            UnsubscribeFromNotificationsUpdates();
+        }
+
+
+        private void OnSubscriptionsChanged(SubscriptionChangedMessage message)
+        {
+            LoadProfileCommand.Execute();
+        }
+
+        private void OnOrdersChanged(OrderChangedMessage message)
+        {
+            ReloadItemsCommand.Execute();
+        }
+
         private void OnTabChangedMessage(TabChangedMessage msg)
         {
             if (msg.TabType != MainTabType.Profile)
@@ -203,6 +244,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             {
                 IsBusy = true;
                 await ApiService.GetCurrentUserAsync();
+                Reset();
+
+                Items.Clear();
                 await InitializeProfileData();
             }
             finally

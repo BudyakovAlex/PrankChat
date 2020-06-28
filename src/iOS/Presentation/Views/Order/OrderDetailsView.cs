@@ -46,6 +46,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .For(v => v.PlaceholderText)
                 .To(vm => vm.ProfileShortName);
 
+            set.Bind(profileImageView)
+               .For(v => v.BindTap())
+               .To(vm => vm.OpenUserProfileCommand);
+
             set.Bind(profileNameLabel)
                 .To(vm => vm.ProfileName);
 

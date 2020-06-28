@@ -23,6 +23,8 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public DocumentDataModel Document { get; set; }
 
+        public bool IsSubscribed { get; set; }
+
         public string Login { get; set; }
 
         public string Email { get; set; }

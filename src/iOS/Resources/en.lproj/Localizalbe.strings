@@ -321,3 +321,12 @@
 "Megabytes_Presentation" = "MB";
 "Gigabytes_Presentation" = "GB";
 "Terabytes_Presentation" = "TB";
+"Subscription_Title_Template" = "Subscriptions {0}";
+"Subscribers_Title_Template" = "Subscribers {0}";
+"Search_Videos" = "Videos";
+"Search_Peoples" = "Peoples";
+"Application_New_Version_Ready" = "An important update came out, it seems time to install it.";
+
+/*Fuzzy*/
+"Download_Update" = "Download update";
+"Email_Already_Exists" = "Current email already exists";

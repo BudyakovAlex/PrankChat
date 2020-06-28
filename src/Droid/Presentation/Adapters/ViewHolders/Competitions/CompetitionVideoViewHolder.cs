@@ -25,7 +25,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
         private TextView _likeTextView;
         private ConstraintLayout _likeButton;
 
-        public CompetitionVideoViewHolder(View view, IMvxAndroidBindingContext context) : base(view, context)
+        public CompetitionVideoViewHolder(View view, IMvxAndroidBindingContext context)
+            : base(view, context)
         {
         }
 
@@ -60,6 +61,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_userPhotoImageView)
                       .For(v => v.PlaceholderText)
                       .To(vm => vm.ProfileShortName);
+
+            bindingSet.Bind(_userPhotoImageView)
+                      .For(v => v.BindClick())
+                      .To(vm => vm.OpenUserProfileCommand);
 
             bindingSet.Bind(_viewsCountTextView)
                       .For(v => v.Text)

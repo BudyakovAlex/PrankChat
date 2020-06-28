@@ -96,10 +96,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
 
         private CommentItemViewModel ProduceCommentItemViewModel(CommentDataModel commentDataModel)
         {
-            return new CommentItemViewModel(commentDataModel.User.Login,
-                                            commentDataModel.User.Avatar,
-                                            commentDataModel.Text,
-                                            commentDataModel.CreatedAt);
+            return new CommentItemViewModel(NavigationService, SettingsService, commentDataModel);
         }
 
         protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)

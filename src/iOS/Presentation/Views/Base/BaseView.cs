@@ -15,8 +15,20 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
         private List<UIView> _viewForKeyboardDismiss = new List<UIView>();
         private NSObject _keyBoardWillDisapear;
         private NSObject _keyboardWillAppear;
+        private string _title;
 
-        public new string Title { get; set; }
+        public new string Title
+        {
+            get => _title;
+            set
+            {
+                _title = value;
+                if (!string.IsNullOrEmpty(_title))
+                {
+                    SetTitle(_title);
+                }
+            }
+        }
 
         public virtual bool IsRotateEnabled { get; protected set; }
 
@@ -30,7 +42,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
             SetCommonStyles();
             SetupControls();
-            SetCommonControlStyles();
             SetupBinding();
             Subscription();
         }
@@ -151,14 +162,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             return IsRotateEnabled;
         }
 
-        private void SetCommonControlStyles()
-        {
-            if (!string.IsNullOrWhiteSpace(Title))
-            {
-                SetTitle(Title);
-            }
-        }
-
         public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
             return toInterfaceOrientation != UIInterfaceOrientation.Portrait && IsRotateEnabled;
@@ -207,7 +210,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             UIView.BeginAnimations("AnimateForKeyboard");
             UIView.SetAnimationBeginsFromCurrentState(true);
             UIView.SetAnimationDuration(UIKeyboard.AnimationDurationFromNotification(notification));
-            UIView.SetAnimationCurve((UIViewAnimationCurve)UIKeyboard.AnimationCurveFromNotification(notification));
+            UIView.SetAnimationCurve((UIViewAnimationCurve) UIKeyboard.AnimationCurveFromNotification(notification));
 
             var keyboardFrame = visible
                 ? UIKeyboard.FrameEndFromNotification(notification)

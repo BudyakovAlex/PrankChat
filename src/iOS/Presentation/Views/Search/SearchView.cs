@@ -1,10 +1,13 @@
 ﻿using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Presentation.Views.Order;
+using PrankChat.Mobile.iOS.Presentation.Views.Publication;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Search
@@ -20,16 +23,20 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 
         protected override void SetupBinding()
         {
-            var set = this.CreateBindingSet<SearchView, SearchViewModel>();
+            var bindingSet = this.CreateBindingSet<SearchView, SearchViewModel>();
 
-            set.Bind(SearchTableSource)
-                .To(vm => vm.Items);
+            bindingSet.Bind(SearchTableSource)
+                      .To(vm => vm.Items);
 
-            set.Bind(SearchBar)
-                .For(v => v.Text)
-                .To(vm => vm.SearchValue);
+            bindingSet.Bind(SearchBar)
+                      .For(v => v.Text)
+                      .To(vm => vm.SearchValue);
 
-            set.Apply();
+            bindingSet.Bind(loadingView)
+                      .For(v => v.BindVisible())
+                      .To(vm => vm.IsBusy);
+
+            bindingSet.Apply();
         }
 
         protected override void SetupControls()
@@ -38,8 +45,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 
             var navigationBarWidth = NavigationController?.NavigationBar.Frame.Width;
             var searchBarWidth = navigationBarWidth - BackButtonWidth - SearchBarRightPadding;
-            SearchBar = new UISearchBar(new CoreGraphics.CGRect(0, 0, searchBarWidth.Value, 28));
-            SearchBar.Placeholder = Resources.Search_View_Search_Placeholder;
+            SearchBar = new UISearchBar(new CoreGraphics.CGRect(0, 0, searchBarWidth.Value, 28))
+            {
+                Placeholder = Resources.Search_View_Search_Placeholder
+            };
+
             SearchBar.SetStyle();
 
             NavigationItem.LeftBarButtonItems = new UIBarButtonItem[]
@@ -48,14 +58,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
                 new UIBarButtonItem(SearchBar)
             };
 
+            lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
+            lottieAnimationView.LoopAnimation = true;
+            lottieAnimationView.Play();
+
+            tabView.AddTab(Resources.Search_Peoples, () => ViewModel.SearchTabType = SearchTabType.Users);
+            tabView.AddTab(Resources.Search_Videos, () => ViewModel.SearchTabType = SearchTabType.Videos);
+            tabView.AddTab(Resources.Orders_Tab, () => ViewModel.SearchTabType = SearchTabType.Orders);
+
             SearchTableSource = new SearchTableSource(tableView);
             tableView.Source = SearchTableSource;
+
             tableView.RegisterNibForCellReuse(ProfileSearchItemCell.Nib, ProfileSearchItemCell.CellId);
+            tableView.RegisterNibForCellReuse(OrderItemCell.Nib, OrderItemCell.CellId);
+            tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
+
             tableView.SetStyle();
-            tableView.RowHeight = Constants.CellHeights.ProfileSearchItemCellHeight;
             tableView.UserInteractionEnabled = true;
             tableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
         }
     }
 }
-

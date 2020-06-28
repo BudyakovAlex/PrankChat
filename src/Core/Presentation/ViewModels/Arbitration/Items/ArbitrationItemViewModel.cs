@@ -52,6 +52,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
 
         public IMvxAsyncCommand OpenDetailsOrderCommand { get; }
 
+        public IMvxAsyncCommand OpenUserProfileCommand { get; }
+
         public OrderType OrderType => _settingsService.User?.Id == _customerId
             ? OrderType.MyOrder
             : OrderType.NotMyOrder;
@@ -87,19 +89,36 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
             _orderId = orderId;
 
             OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
         }
 
         public FullScreenVideoDataModel GetFullScreenVideoDataModel()
         {
-            return new FullScreenVideoDataModel(_orderDataModel.Video.Id,
+            return new FullScreenVideoDataModel(_orderDataModel.Customer.Id,
+                                                _orderDataModel.Customer.IsSubscribed,
+                                                _orderDataModel.Video.Id,
                                                 _orderDataModel.Video.StreamUri,
                                                 _orderDataModel.Title,
                                                 _orderDataModel.Description,
                                                 _orderDataModel.Video.ShareUri,
-                                                _orderDataModel.Customer.Login,
+                                                _orderDataModel.Customer.Avatar,
+                                                _orderDataModel.Customer?.Login?.ToShortenName(),
                                                 _orderDataModel.Video.LikesCount,
+                                                _orderDataModel.Video.DislikesCount,
                                                 _orderDataModel.Video.CommentsCount,
-                                                _orderDataModel.Video.IsLiked);
+                                                _orderDataModel.Video.IsLiked,
+                                                _orderDataModel.Video.IsDisliked); ;
+        }
+
+        private Task OpenUserProfileAsync()
+        {
+            if (_orderDataModel.Customer?.Id is null ||
+                _orderDataModel.Customer.Id == _settingsService.User.Id)
+            {
+                return Task.CompletedTask;
+            }
+
+            return _navigationService.ShowUserProfile(_orderDataModel.Customer.Id);
         }
 
         private async Task OnOpenDetailsOrderAsync()

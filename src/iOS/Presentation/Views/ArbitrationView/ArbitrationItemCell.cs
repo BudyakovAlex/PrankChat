@@ -70,6 +70,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 	            .To(vm => vm.ProfileShortName)
 	            .Mode(MvxBindingMode.OneTime);
 
+			set.Bind(profilePhotoImage)
+			   .For(v => v.BindTap())
+			   .To(vm => vm.OpenUserProfileCommand);
+
 			set.Bind(orderTitleLabel)
 				.To(vm => vm.OrderTitle)
 				.Mode(MvxBindingMode.OneTime);

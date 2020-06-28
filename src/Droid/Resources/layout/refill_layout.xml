@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="16dp"
@@ -46,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/refill_cost_edit_text"
         app:layout_constraintWidth_default="spread" />
 
-    <Mvx.MvxGridView
+    <mvvmcross.platforms.android.binding.views.MvxGridView
         android:id="@+id/refill_methods_collection"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -74,25 +73,25 @@
         android:layout_height="32dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_banner_mastercard"
-        app:srcCompat="@drawable/ic_banner_mastercard"
         app:layout_constraintBottom_toBottomOf="@id/refill_banner_visa_image"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/refill_banner_visa_image"
         app:layout_constraintTop_toTopOf="@id/refill_banner_visa_image"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintVertical_bias="0.7"
+        app:srcCompat="@drawable/ic_banner_mastercard" />
 
     <ImageView
         android:id="@+id/refill_banner_visa_image"
         android:layout_width="90dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_banner_visa"
-        app:srcCompat="@drawable/ic_banner_visa"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/refill_banner_mastercard_image"
         app:layout_constraintRight_toLeftOf="@id/refill_banner_secure_image"
         app:layout_constraintTop_toBottomOf="@+id/refill_methods_collection"
-        app:layout_constraintVertical_bias="1" />
+        app:layout_constraintVertical_bias="1"
+        app:srcCompat="@drawable/ic_banner_visa" />
 
     <ImageView
         android:id="@+id/refill_banner_secure_image"
@@ -100,12 +99,12 @@
         android:layout_height="16dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_banner_secure"
-        app:srcCompat="@drawable/ic_banner_secure"
         app:layout_constraintBottom_toBottomOf="@id/refill_banner_visa_image"
         app:layout_constraintLeft_toRightOf="@id/refill_banner_visa_image"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/refill_banner_visa_image"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintVertical_bias="0.7"
+        app:srcCompat="@drawable/ic_banner_secure" />
 
     <View
         android:id="@+id/warning_indicator_view"
@@ -122,11 +121,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="26dp"
-        android:textSize="14sp"
-        android:textColor="@color/applicationBlack"
-        android:text="@string/Cashbox_Commision_Warning"
-        app:layout_constraintEnd_toEndOf="parent"
         android:lineSpacingExtra="6dp"
+        android:text="@string/Cashbox_Commision_Warning"
+        android:textColor="@color/applicationBlack"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/warning_indicator_view"
         app:layout_constraintTop_toBottomOf="@+id/refill_cost_edit_text" />
 </android.support.constraint.ConstraintLayout>

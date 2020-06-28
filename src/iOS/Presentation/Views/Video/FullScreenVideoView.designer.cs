@@ -28,6 +28,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 		UIKit.UILabel descriptionLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIImageView dislikeImageView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel dislikeLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIStackView dislikeView { get; set; }
+
+		[Outlet]
 		UIKit.UIImageView likeImageView { get; set; }
 
 		[Outlet]
@@ -52,7 +61,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 		UIKit.UIButton playButton { get; set; }
 
 		[Outlet]
-		FFImageLoading.Cross.MvxCachedImageView profileImageView { get; set; }
+		PrankChat.Mobile.iOS.Controls.CircleCachedImageView profileImageView { get; set; }
 
 		[Outlet]
 		UIKit.UIView profileView { get; set; }
@@ -62,6 +71,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
 		[Outlet]
 		UIKit.UIButton shareButton { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView subscriptionTagImageView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel timeLabel { get; set; }
@@ -88,14 +100,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 				closeButton = null;
 			}
 
-			if (descriptionLabel != null) {
-				descriptionLabel.Dispose ();
-				descriptionLabel = null;
-			}
-
 			if (commentsImageView != null) {
 				commentsImageView.Dispose ();
 				commentsImageView = null;
+			}
+
+			if (commentsLabel != null) {
+				commentsLabel.Dispose ();
+				commentsLabel = null;
 			}
 
 			if (commentsView != null) {
@@ -103,9 +115,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 				commentsView = null;
 			}
 
-			if (commentsLabel != null) {
-				commentsLabel.Dispose ();
-				commentsLabel = null;
+			if (descriptionLabel != null) {
+				descriptionLabel.Dispose ();
+				descriptionLabel = null;
+			}
+
+			if (dislikeImageView != null) {
+				dislikeImageView.Dispose ();
+				dislikeImageView = null;
+			}
+
+			if (dislikeLabel != null) {
+				dislikeLabel.Dispose ();
+				dislikeLabel = null;
+			}
+
+			if (dislikeView != null) {
+				dislikeView.Dispose ();
+				dislikeView = null;
 			}
 
 			if (likeImageView != null) {
@@ -166,6 +193,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 			if (shareButton != null) {
 				shareButton.Dispose ();
 				shareButton = null;
+			}
+
+			if (subscriptionTagImageView != null) {
+				subscriptionTagImageView.Dispose ();
+				subscriptionTagImageView = null;
 			}
 
 			if (timeLabel != null) {

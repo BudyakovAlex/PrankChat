@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
@@ -10,6 +8,8 @@ using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using System;
+using System.Collections.Generic;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
 {
@@ -25,20 +25,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                                         IErrorHandleService errorHandleService,
                                         IMvxMessenger mvxMessenger,
                                         ISettingsService settingsService,
-                                        string poster,
-                                        string profileName,
-                                        string profilePhotoUrl,
-                                        int videoId,
-                                        string videoName,
-                                        string videoDescription,
-                                        string videoUrl,
-                                        string previewUrl,
-                                        long numberOfViews,
-                                        DateTime publicationDate,
-                                        long numberOfLikes,
-                                        long numberOfComments,
-                                        string shareLink,
-                                        bool isLiked,
+                                        VideoDataModel videoDataModel,
                                         Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
             : base(navigationService,
                    dialogService,
@@ -48,20 +35,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                    errorHandleService,
                    mvxMessenger,
                    settingsService,
-                   poster,
-                   profileName,
-                   profilePhotoUrl,
-                   videoId,
-                   videoName,
-                   videoDescription,
-                   videoUrl,
-                   previewUrl,
-                   numberOfViews,
-                   publicationDate,
-                   numberOfLikes,
-                   numberOfComments,
-                   shareLink,
-                   isLiked,
+                   videoDataModel,
                    getAllFullScreenVideoDataFunc)
         {
             // TODO: Unblock this after video details page will be completed

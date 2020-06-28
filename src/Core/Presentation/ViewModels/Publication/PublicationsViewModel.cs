@@ -217,20 +217,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                                 ErrorHandleService,
                                                 _mvxMessenger,
                                                 _settingsService,
-                                                publication.Poster,
-                                                publication.Customer?.Login,
-                                                publication.Customer?.Avatar,
-                                                publication.Id,
-                                                publication.Title,
-                                                publication.Description,
-                                                publication.StreamUri,
-                                                publication.PreviewUri,
-                                                publication.ViewsCount,
-                                                publication.CreatedAt.DateTime,
-                                                publication.LikesCount,
-                                                publication.CommentsCount,
-                                                publication.ShareUri,
-                                                publication.IsLiked,
+                                                publication,
                                                 GetFullScreenVideoDataModels);
         }
 

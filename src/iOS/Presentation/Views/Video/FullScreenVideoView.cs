@@ -89,6 +89,30 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             }
         }
 
+        public bool _isDisliked;
+        public bool IsDisliked
+        {
+            get => _isDisliked;
+            set
+            {
+                _isDisliked = value;
+                dislikeImageView.TintColor = _isDisliked ? Theme.Color.Accent : Theme.Color.White;
+            }
+        }
+
+        private bool _isSubscribed;
+        public bool IsSubscribed
+        {
+            get => _isSubscribed;
+            set
+            {
+                _isSubscribed = value;
+
+                var imageName = _isSubscribed ? "ic_check_mark" : "ic_plus";
+                subscriptionTagImageView.Image = UIImage.FromBundle(imageName);
+            }
+        }
+
         private bool _isMuted;
         private bool _isSwipeTriggered;
 
@@ -151,6 +175,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         protected override void SetupControls()
         {
             likeImageView.Image = likeImageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+            dislikeImageView.Image = dislikeImageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
 
             overlayView.AddGestureRecognizer(new UITapGestureRecognizer(_ => overlayView.Hidden = true));
 
@@ -171,6 +196,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             var bindingSet = this.CreateBindingSet<FullScreenVideoView, FullScreenVideoViewModel>();
 
+            bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.IsDisliked);
+            bindingSet.Bind(this).For(v => v.IsSubscribed).To(vm => vm.IsSubscribed);
+
             bindingSet.Bind(this)
                       .For(v => v.VideoUrl)
                       .To(vm => vm.VideoUrl);
@@ -182,24 +210,35 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                       .For(v => v.Text)
                       .To(vm => vm.Description);
 
-            //TODO: add show profile tap binding
-            //bindingSet.Bind(profileView)
-            //          .For(v => v.BindTap())
-            //          .To(vm => vm.)
+            bindingSet.Bind(profileView)
+                      .For(v => v.BindTap())
+                      .To(vm => vm.OpenUserProfileCommand);
 
             bindingSet.Bind(profileImageView)
                       .For(v => v.ImagePath)
                       .To(vm => vm.ProfilePhotoUrl);
 
-            bindingSet.Bind(likeView)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.LikeCommand);
+            bindingSet.Bind(profileImageView)
+                      .For(v => v.PlaceholderText)
+                      .To(vm => vm.ProfileShortName);
 
             bindingSet.Bind(commentsView)
                       .For(v => v.BindTap())
                       .To(vm => vm.OpenCommentsCommand);
 
             bindingSet.Bind(likeView)
+                      .For(v => v.BindTap())
+                      .To(vm => vm.LikeCommand);
+
+            bindingSet.Bind(likeView)
+                      .For(v => v.UserInteractionEnabled)
+                      .To(vm => vm.IsLikeFlowAvailable);
+
+            bindingSet.Bind(dislikeView)
+                      .For(v => v.BindTap())
+                      .To(vm => vm.DislikeCommand);
+
+            bindingSet.Bind(dislikeView)
                       .For(v => v.UserInteractionEnabled)
                       .To(vm => vm.IsLikeFlowAvailable);
 
@@ -215,6 +254,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             bindingSet.Bind(likeLabel)
                       .For(v => v.Text)
                       .To(vm => vm.NumberOfLikesPresentation);
+
+            bindingSet.Bind(dislikeLabel)
+                      .For(v => v.Text)
+                      .To(vm => vm.NumberOfDislikesPresentation);
 
             bindingSet.Bind(commentsLabel)
                       .For(v => v.Text)
@@ -376,7 +419,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private string GetTextRepresentation(CMTime time)
         {
-            var totalSeconds = (int)Math.Ceiling(time.Seconds);
+            var totalSeconds = (int) Math.Ceiling(time.Seconds);
             var minutes = totalSeconds / 60;
             var seconds = totalSeconds % 60;
 
@@ -391,7 +434,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             }
 
             var ratio = _player.CurrentItem.CurrentTime.Seconds / _player.CurrentItem.Duration.Seconds;
-            var width = (nfloat)ratio * progressView.Frame.Width;
+            var width = (nfloat) ratio * progressView.Frame.Width;
             watchProgressViewWidthConstraint.Constant = width;
         }
 
@@ -423,7 +466,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             var seconds = value.CMTimeRangeValue.Start.Seconds + value.CMTimeRangeValue.Duration.Seconds;
             var ratio = seconds / _player.CurrentItem.Duration.Seconds;
-            var width = (nfloat)ratio * progressView.Frame.Width;
+            var width = (nfloat) ratio * progressView.Frame.Width;
             loadProgressViewWidthConstraint.Constant = width;
         }
 
@@ -447,7 +490,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             var newWidth = point.X - watchProgressView.Frame.X;
             var ratio = newWidth / progressView.Frame.Width;
             var value = ratio * _player.CurrentItem.Duration.Seconds;
-            _player.Seek(new CMTime((long)value, 1));
+            _player.Seek(new CMTime((long) value, 1));
 
             UpdateLastActionTicks();
         }

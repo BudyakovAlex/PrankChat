@@ -1,6 +1,7 @@
 ﻿using System;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
@@ -46,6 +47,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
                 .For(v => v.PlaceholderText)
                 .To(vm => vm.ProfileShortName)
                 .Mode(MvxBindingMode.OneTime);
+
+            set.Bind(profileImageView)
+               .For(v => v.BindTap())
+               .To(vm => vm.OpenUserProfileCommand);
 
             set.Apply();
         }

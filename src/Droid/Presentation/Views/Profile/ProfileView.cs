@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
-            var view = this.BindingInflate(Resource.Layout.profile_layout, null);
+            var view = this.BindingInflate(Resource.Layout.fragment_profile, null);
 
             InitializeControls(view);
             DoBind();

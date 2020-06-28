@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using MvvmCross.Logging;
+﻿using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Plugin.DeviceInfo;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Configuration;
@@ -19,6 +12,12 @@ using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
@@ -33,8 +32,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public ApiService(ISettingsService settingsService,
                           IMvxLogProvider logProvider,
-                          IMvxMessenger messenger,
-                          IDialogService dialogService)
+                          IMvxMessenger messenger)
         {
             _settingsService = settingsService;
             _messenger = messenger;
@@ -45,8 +43,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                                      configuration.ApiVersion,
                                      settingsService,
                                      _log,
-                                     messenger,
-                                     dialogService);
+                                     messenger);
 
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
@@ -100,6 +97,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
+        public async Task<bool> CheckIsEmailExistsAsync(string email)
+        {
+            var emailValidationBundle = await _client.GetAsync<EmailCheckApiModel>($"application/email/check?email={email}", true);
+            return emailValidationBundle.Result;
+        }
+
         public async Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email)
         {
             var recoverPasswordModel = new RecoverPasswordApiModel { Email = email.WithoutSpace().ToLower(), };
@@ -116,6 +119,18 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             var createOrderApiModel = MappingConfig.Mapper.Map<CreateOrderApiModel>(orderInfo);
             var newOrder = await _client.PostAsync<CreateOrderApiModel, DataApiModel<OrderApiModel>>("orders", createOrderApiModel, true);
             return MappingConfig.Mapper.Map<OrderDataModel>(newOrder?.Data);
+        }
+
+        public async Task<PaginationModel<OrderDataModel>> GetUserOwnOrdersAsync(int userId, int page, int pageSize)
+        {
+            var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"users/{userId}/orders/own?page={page}&items_per_page={pageSize}", includes: new[] { IncludeType.Customer, IncludeType.Videos });
+            return CreatePaginationResult<OrderApiModel, OrderDataModel>(data);
+        }
+
+        public async Task<PaginationModel<OrderDataModel>> GetUserExecuteOrdersAsync(int userId, int page, int pageSize)
+        {
+            var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"users/{userId}/orders/execute?page={page}&items_per_page={pageSize}", includes: new[] { IncludeType.Customer, IncludeType.Videos });
+            return CreatePaginationResult<OrderApiModel, OrderDataModel>(data);
         }
 
         public async Task<PaginationModel<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize)
@@ -189,6 +204,18 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             };
             var url = $"orders/{orderId}/complaint";
             return _client.PostAsync(url, dataApiModel);
+        }
+
+        public async Task<PaginationModel<UserDataModel>> GetSubscriptionsAsync(int userId, int page, int pageSize)
+        {
+            var data = await _client.GetAsync<BaseBundleApiModel<UserApiModel>>($"users/{userId}/subscriptions?page={page}&items_per_page={pageSize}");
+            return CreatePaginationResult<UserApiModel, UserDataModel>(data);
+        }
+
+        public async Task<PaginationModel<UserDataModel>> GetSubscribersAsync(int userId, int page, int pageSize)
+        {
+            var data = await _client.GetAsync<BaseBundleApiModel<UserApiModel>>($"users/{userId}/subscribers?page={page}&items_per_page={pageSize}");
+            return CreatePaginationResult<UserApiModel, UserDataModel>(data);
         }
 
         public async Task<OrderDataModel> SubscribeOrderAsync(int orderId)
@@ -288,6 +315,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<VideoDataModel>(data?.Data);
         }
 
+        public async Task<VideoDataModel> SendDislikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
+        {
+            var url = isChecked ? $"videos/{videoId}/dislike" : $"videos/{videoId}/dislike/remove";
+            var data = await _client.PostAsync<DataApiModel<VideoApiModel>>(url, cancellationToken: cancellationToken);
+            return MappingConfig.Mapper.Map<VideoDataModel>(data?.Data);
+        }
+
         #endregion Publications
 
         #region Users
@@ -319,6 +353,27 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             {
                 _log.Warn(ex, ex.Message);
             }
+        }
+
+        public async Task<UserDataModel> GetUserAsync(int userId)
+        {
+            var dataApiModel = await _client.GetAsync<DataApiModel<UserApiModel>>($"users/{userId}");
+            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
+            return user;
+        }
+
+        public async Task<UserDataModel> SubscribeToUserAsync(int userId, CancellationToken? cancellationToken = null)
+        {
+            var dataApiModel = await _client.PostAsync<DataApiModel<UserApiModel>>($"users/{userId}/subscribe", cancellationToken: cancellationToken);
+            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
+            return user;
+        }
+
+        public async Task<UserDataModel> UnsubscribeFromUserAsync(int userId, CancellationToken? cancellationToken = null)
+        {
+            var dataApiModel = await _client.PostAsync<DataApiModel<UserApiModel>>($"users/{userId}/unsubscribe", cancellationToken: cancellationToken);
+            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
+            return user;
         }
 
         public async Task<UserDataModel> SendAvatarAsync(string path)
@@ -541,6 +596,40 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         }
 
         #endregion
+
+        public async Task<PaginationModel<VideoDataModel>> SearchVideosAsync(string query, int page, int pageSize)
+        {
+            var endpoint = $"search/videos?text={query}&page={page}&items_per_page={pageSize}";
+            var data = await _client.GetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint);
+            return CreatePaginationResult<VideoApiModel, VideoDataModel>(data);
+        }
+
+        public async Task<PaginationModel<UserDataModel>> SearchUsersAsync(string query, int page, int pageSize)
+        {
+            var endpoint = $"search/users?text={query}&page={page}&items_per_page={pageSize}";
+            var data = await _client.GetAsync<BaseBundleApiModel<UserApiModel>>(endpoint);
+            return CreatePaginationResult<UserApiModel, UserDataModel>(data);
+        }
+
+        public async Task<PaginationModel<OrderDataModel>> SearchOrdersAsync(string query, int page, int pageSize)
+        {
+            var endpoint = $"search/orders?text={query}&page={page}&items_per_page={pageSize}";
+            var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint);
+            return CreatePaginationResult<OrderApiModel, OrderDataModel>(data);
+        }
+
+        public async Task<AppVersionDataModel> CheckAppVersionAsync()
+        {
+            var appVersion = AppInfo.BuildString;
+            var operationSystem = DeviceInfo.Platform.ToString().ToLower();
+            var appVersionBundle = await _client.UnauthorizedGetAsync<AppVersionApiModel>($"/application/{appVersion}/check/{operationSystem}");
+            if (appVersionBundle is null)
+            {
+                return new AppVersionDataModel();
+            }
+
+            return MappingConfig.Mapper.Map<AppVersionDataModel>(appVersionBundle);
+        }
 
         private void OnUnauthorizedUser(UnauthorizedMessage obj)
         {

@@ -20,6 +20,8 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public long LikesCount { get; set; }
 
+        public long DislikesCount { get; set; }
+
         public long CommentsCount { get; set; }
 
         public string StreamUri { get; set; }
@@ -31,6 +33,8 @@ namespace PrankChat.Mobile.Core.Models.Data
         public string ShareUri { get; set; }
 
         public bool IsLiked { get; set; }
+
+        public bool IsDisliked { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }
 

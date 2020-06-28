@@ -22,6 +22,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UILabel commentsLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIButton dislikeButton { get; set; }
+
+		[Outlet]
+		UIKit.UILabel dislikeLabel { get; set; }
+
+		[Outlet]
 		UIKit.UIButton likeButton { get; set; }
 
 		[Outlet]
@@ -68,9 +74,29 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (dislikeLabel != null) {
+				dislikeLabel.Dispose ();
+				dislikeLabel = null;
+			}
+
+			if (dislikeButton != null) {
+				dislikeButton.Dispose ();
+				dislikeButton = null;
+			}
+
 			if (bookmarkButton != null) {
 				bookmarkButton.Dispose ();
 				bookmarkButton = null;
+			}
+
+			if (commentButton != null) {
+				commentButton.Dispose ();
+				commentButton = null;
+			}
+
+			if (commentsLabel != null) {
+				commentsLabel.Dispose ();
+				commentsLabel = null;
 			}
 
 			if (likeButton != null) {
@@ -106,16 +132,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			if (processingIndicatorView != null) {
 				processingIndicatorView.Dispose ();
 				processingIndicatorView = null;
-			}
-
-			if (commentButton != null) {
-				commentButton.Dispose ();
-				commentButton = null;
-			}
-
-			if (commentsLabel != null) {
-				commentsLabel.Dispose ();
-				commentsLabel = null;
 			}
 
 			if (processingLabel != null) {

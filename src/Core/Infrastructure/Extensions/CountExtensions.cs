@@ -21,6 +21,16 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             Resources.Terabytes_Presentation
         };
 
+        public static string ToCountString(this int count)
+        {
+            return ((long?)count).ToCountString();
+        }
+
+        public static string ToCountString(this long count)
+        {
+            return ((long?)count).ToCountString();
+        }
+
         public static string ToCountString(this int? count)
         {
             if (count == null)

@@ -32,6 +32,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         private ImageView _toolbarLogo;
         private TextView _toolbarTitle;
 
+        private IMenuItem _searchMenuItem;
         private IMenuItem _infoMenuItem;
         private IMenuItem _notificationsMenuItem;
 
@@ -75,10 +76,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             menu.Clear();
             MenuInflater.Inflate(Resource.Menu.main_view_menu, menu);
 
-            _infoMenuItem = menu.GetItem(0);
-            _notificationsMenuItem = menu.GetItem(1);
+            _searchMenuItem = menu.GetItem(0);
+            _infoMenuItem = menu.GetItem(1);
+            _notificationsMenuItem = menu.GetItem(2);
 
+            _searchMenuItem?.SetVisible(_tabLayout?.SelectedTabPosition == 0);
             _infoMenuItem?.SetVisible(_tabLayout?.SelectedTabPosition != 0);
+
             var iconId = _hasUnreadNotifications ? Resource.Drawable.ic_notification_with_bage : Resource.Drawable.ic_notification;
             _notificationsMenuItem.SetIcon(iconId);
 
@@ -95,7 +99,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
                 case Resource.Id.info_button:
                     ViewModel.ShowWalkthrouthCommand?.Execute(_tabLayout.SelectedTabPosition);
                     return true;
-
                 case Resource.Id.search_button:
                     ViewModel.ShowSearchCommand.Execute();
                     return true;
@@ -153,6 +156,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             _toolbarTitle.Text = e.Tab.Position == 2 ? Localization.CreateOrderView_Title : string.Empty;
 
             _infoMenuItem?.SetVisible(e.Tab.Position != 0);
+            _searchMenuItem?.SetVisible(e.Tab.Position == 0);
+
             var iconView = e.Tab.View.FindViewById<ImageView>(Resource.Id.tab_icon);
             var textView = e.Tab.View.FindViewById<TextView>(Resource.Id.tab_title);
 

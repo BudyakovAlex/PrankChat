@@ -1028,4 +1028,26 @@ If the customer did not like your video, he can send the task to the &quot;dispu
   <data name="Terabytes_Presentation" xml:space="preserve">
     <value>TB</value>
   </data>
+  <data name="Subscription_Title_Template" xml:space="preserve">
+    <value>Subscriptions {0}</value>
+  </data>
+  <data name="Subscribers_Title_Template" xml:space="preserve">
+    <value>Subscribers {0}</value>
+  </data>
+  <data name="Search_Videos" xml:space="preserve">
+    <value>Videos</value>
+  </data>
+  <data name="Search_Peoples" xml:space="preserve">
+    <value>Peoples</value>
+  </data>
+  <data name="Application_New_Version_Ready" xml:space="preserve">
+    <value>An important update came out, it seems time to install it.</value>
+  </data>
+  <data name="Download_Update" xml:space="preserve">
+    <value>Download update</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Email_Already_Exists" xml:space="preserve">
+    <value>Current email already exists</value>
+  </data>
 </root>

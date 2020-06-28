@@ -34,7 +34,7 @@
                     android:layout_height="85dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="16dp"
-                    app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneWay; PlaceholderText ProfileShortName, Mode = OneWay" />
+                    app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneWay; PlaceholderText ProfileShortName, Mode = OneWay; Click OpenUserProfileCommand" />
 
                 <TextView
                     android:layout_width="match_parent"

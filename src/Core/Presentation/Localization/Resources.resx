@@ -1034,4 +1034,26 @@
   <data name="Terabytes_Presentation" xml:space="preserve">
     <value>ТБ</value>
   </data>
+  <data name="Subscription_Title_Template" xml:space="preserve">
+    <value>Подписки {0}</value>
+  </data>
+  <data name="Subscribers_Title_Template" xml:space="preserve">
+    <value>Подписчики {0}</value>
+  </data>
+  <data name="Search_Videos" xml:space="preserve">
+    <value>Видео</value>
+  </data>
+  <data name="Search_Peoples" xml:space="preserve">
+    <value>Люди</value>
+  </data>
+  <data name="Application_New_Version_Ready" xml:space="preserve">
+    <value>Вышло важное обновление, похоже пора его установить.</value>
+  </data>
+  <data name="Download_Update" xml:space="preserve">
+    <value>Скачать обновление</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Email_Already_Exists" xml:space="preserve">
+    <value>Данный эмейл уже зарегистрирован</value>
+  </data>
 </root>

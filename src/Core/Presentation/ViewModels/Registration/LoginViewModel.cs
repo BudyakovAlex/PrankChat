@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
+﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
@@ -12,6 +9,8 @@ using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using System;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
@@ -61,6 +60,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         private async Task OnLoginCommand(string loginType)
         {
+            if (!SettingsService.IsDebugMode)
+            {
+                var newActualVersion = await ApiService.CheckAppVersionAsync();
+                if (!string.IsNullOrEmpty(newActualVersion?.Link))
+                {
+                    await NavigationService.ShowMaintananceView(newActualVersion.Link);
+                    return;
+                }
+            }
+
             try
             {
                 IsBusy = true;

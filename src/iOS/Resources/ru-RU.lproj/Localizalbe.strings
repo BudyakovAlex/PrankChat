@@ -333,3 +333,12 @@
 "Megabytes_Presentation" = "МБ";
 "Gigabytes_Presentation" = "ГБ";
 "Terabytes_Presentation" = "ТБ";
+"Subscription_Title_Template" = "Подписки {0}";
+"Subscribers_Title_Template" = "Подписчики {0}";
+"Search_Videos" = "Видео";
+"Search_Peoples" = "Люди";
+"Application_New_Version_Ready" = "Вышло важное обновление, похоже пора его установить.";
+
+/*Fuzzy*/
+"Download_Update" = "Скачать обновление";
+"Email_Already_Exists" = "Данный эмейл уже зарегистрирован";

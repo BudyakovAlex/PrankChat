@@ -62,6 +62,8 @@ namespace PrankChat.Mobile.Core.Models.Mappings
             CreateMap<ArbitrationValueType, string>().ConvertUsing(src => src.ToString().ToLower());
             CreateMap<GenderType, string>().ConvertUsing(src => src.ToString().ToLower());
             CreateMap<string, OrderStatusType>().ConvertUsing(src => src.ToEnum<OrderStatusType>());
+            CreateMap<AppVersionDataModel, AppVersionApiModel>().ReverseMap();
+            CreateMap<EmailCheckDataModel, EmailCheckApiModel>().ReverseMap();
         }
     }
 }
