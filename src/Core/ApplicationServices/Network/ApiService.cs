@@ -123,13 +123,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<PaginationModel<OrderDataModel>> GetUserOwnOrdersAsync(int userId, int page, int pageSize)
         {
-            var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"users/{userId}/orders/own?page={page}&items_per_page={pageSize}", includes: new[] { IncludeType.Customer, IncludeType.Videos });
+            var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"user/{userId}/orders/own?page={page}&items_per_page={pageSize}", includes: new[] { IncludeType.Customer, IncludeType.Videos });
             return CreatePaginationResult<OrderApiModel, OrderDataModel>(data);
         }
 
         public async Task<PaginationModel<OrderDataModel>> GetUserExecuteOrdersAsync(int userId, int page, int pageSize)
         {
-            var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"users/{userId}/orders/execute?page={page}&items_per_page={pageSize}", includes: new[] { IncludeType.Customer, IncludeType.Videos });
+            var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"user/{userId}/orders/execute?page={page}&items_per_page={pageSize}", includes: new[] { IncludeType.Customer, IncludeType.Videos });
             return CreatePaginationResult<OrderApiModel, OrderDataModel>(data);
         }
 
