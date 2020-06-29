@@ -69,8 +69,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             InitializeTableView();
 
             publicationTypeStackView.SetTabsStyle(new string[] {
-				Resources.Popular_Publication_Tab,
-				Resources.Actual_Publication_Tab,
+                Resources.Actual_Publication_Tab,
+                Resources.Popular_Publication_Tab,
 				Resources.MyFeed_Publication_Tab,
 			}, OnTabSelected);
 

@@ -108,7 +108,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             };
 
             ItemsChangedInteraction = new MvxInteraction();
-
             OpenFilterCommand = new MvxAsyncCommand(OnOpenFilterAsync);
         }
 
@@ -189,7 +188,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                             return 0;
                         }
 
-                        pageContainer = await ApiService.GetMyVideoFeedAsync(_settingsService.User.Id, SelectedPublicationType, page, pageSize, ActiveFilter);
+                        pageContainer = await ApiService.GetMyVideoFeedAsync(page, pageSize, ActiveFilter);
                         break;
                 }
 

@@ -280,32 +280,21 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return new PaginationModel<VideoDataModel>(mappedModels, totalItemsCount);
         }
 
-        public async Task<PaginationModel<VideoDataModel>> GetMyVideoFeedAsync(int userId, PublicationType publicationType, int page, int pageSize, DateFilterType? dateFilterType = null)
+        public async Task<PaginationModel<VideoDataModel>> GetMyVideoFeedAsync(int page, int pageSize, DateFilterType? dateFilterType = null)
         {
             if (_settingsService.User == null)
             {
                 return new PaginationModel<VideoDataModel>();
             }
 
-            var endpoint = string.Empty;
-            switch (publicationType)
-            {
-                case PublicationType.MyVideosOfCreatedOrders:
-                    endpoint = $"videos?page={page}&items_per_page={pageSize}&user_id={userId}";
-                    break;
+            var endpoint = $"newsline/my?period={dateFilterType.GetEnumMemberAttrValue()}&page={page}&items_per_page={pageSize}";
+            var videoMetadataBundle = await _client.GetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer);
 
-                default:
-                    throw new InvalidEnumArgumentException();
-            }
+            var mappedModels = MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
+            var paginationData = videoMetadataBundle.Meta.FirstOrDefault();
+            var totalItemsCount = paginationData.Value?.Total ?? mappedModels.Count;
 
-            if (dateFilterType.HasValue)
-                endpoint += $"&date_from={dateFilterType.Value.GetDateString()}";
-
-            var dataApiModel = await _client.GetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer);
-            var orderDataModel = MappingConfig.Mapper.Map<List<VideoDataModel>>(dataApiModel?.Data);
-            var paginationData = dataApiModel.Meta.FirstOrDefault();
-            var totalItemsCount = paginationData.Value?.Total ?? orderDataModel.Count;
-            return new PaginationModel<VideoDataModel>(orderDataModel, totalItemsCount);
+            return new PaginationModel<VideoDataModel>(mappedModels, totalItemsCount);
         }
 
         public async Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
