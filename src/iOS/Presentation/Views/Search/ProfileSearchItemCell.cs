@@ -48,7 +48,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
                 .To(vm => vm.ProfileShortName)
                 .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(profileImageView)
+            set.Bind(this)
                .For(v => v.BindTap())
                .To(vm => vm.OpenUserProfileCommand);
 

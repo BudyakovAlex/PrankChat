@@ -23,7 +23,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
     public class SearchViewModel : PaginationViewModel
     {
-        private const int SearchDelay = 1500;
+        private const int SearchDelay = 1000;
 
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;

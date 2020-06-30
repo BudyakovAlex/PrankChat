@@ -21,7 +21,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Subscriptions.Items
 
             var bindingSet = this.CreateBindingSet<SubscriptionItemCell, SubscriptionItemViewModel>();
 
-            bindingSet.Bind(AvatarImageView).For(v => v.BindTap()).To(vm => vm.OpenUserProfileCommand);
+            bindingSet.Bind(this).For(v => v.BindTap()).To(vm => vm.OpenUserProfileCommand);
             bindingSet.Bind(AvatarImageView).For(v => v.ImagePath).To(vm => vm.Avatar);
             bindingSet.Bind(AvatarImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortLogin);
             bindingSet.Bind(NameLabel).For(v => v.Text).To(vm => vm.Login);

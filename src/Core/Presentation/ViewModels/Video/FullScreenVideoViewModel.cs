@@ -45,8 +45,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             ShareCommand = new MvxAsyncCommand(ShareAsync);
             MoveNextCommand = new MvxCommand(MoveNext);
             MovePreviousCommand = new MvxCommand(MovePrevious);
-            OpenCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
+            OpenCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigateByRestrictionsAsync);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigateByRestrictionsAsync);
         }
 
         public IMvxAsyncCommand ShareCommand { get; }
@@ -150,6 +150,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             _isReloadNeeded = true;
         }
 
+        private Task NavigateByRestrictionsAsync()
+        {
+            Interaction.Raise();
+            return NavigationService.ShowLoginView();
+        }
+
         private async Task OpenUserProfileAsync()
         {
             if (_currentVideo?.UserId is null ||
@@ -158,6 +164,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             {
                 return;
             }
+
+            Interaction.Raise();
 
             var shouldRefresh = await NavigationService.ShowUserProfile(_currentVideo.UserId);
             if (!shouldRefresh)
@@ -234,6 +242,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         private Task ShareAsync()
         {
+            Interaction.Raise();
             return _platformService.ShareUrlAsync(Resources.ShareDialog_LinkShareTitle, _shareLink);
             //TODO: remove comments when logic will be ready
             //return DialogService.ShowShareDialogAsync(_shareLink);
