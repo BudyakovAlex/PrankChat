@@ -31,10 +31,10 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public DateTime? VoteTo { get; set; }
 
-        public DateTime UploadVideoTo { get; set; }
+        public DateTime? UploadVideoTo { get; set; }
 
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
-        public DateTime ActiveTo { get; set; }
+        public DateTime? ActiveTo { get; set; }
     }
 }

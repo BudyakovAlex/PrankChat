@@ -44,13 +44,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public DateTime? VoteTo => Competition.VoteTo;
 
-        public DateTime UploadVideoTo => Competition.UploadVideoTo;
+        public DateTime? UploadVideoTo => Competition.UploadVideoTo;
 
-        public DateTime ActiveTo => Competition.ActiveTo;
+        public DateTime? ActiveTo => Competition.ActiveTo;
 
-        public DateTime CreatedAt => Competition.CreatedAt;
+        public DateTime? CreatedAt => Competition.CreatedAt;
 
-        public string Duration => $"{CreatedAt.ToString(Constants.Formats.DateTimeFormat)} - {ActiveTo.ToString(Constants.Formats.DateTimeFormat)}";
+        public string Duration => GetDurationString();
 
         public string ImageUrl => Competition.ImageUrl;
 
@@ -136,6 +136,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                     Unsubsribe();
                     break;
             }
+        }
+
+        private string GetDurationString()
+        {
+            var createdAt = CreatedAt is null ? string.Empty : CreatedAt.Value.ToString(Constants.Formats.DateTimeFormat);
+            var activeTo = ActiveTo is null ? string.Empty : ActiveTo.Value.ToString(Constants.Formats.DateTimeFormat);
+            return $"{createdAt} - {activeTo}";
         }
     }
 }

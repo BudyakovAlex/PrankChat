@@ -46,12 +46,12 @@ namespace PrankChat.Mobile.Core.Models.Api
         public DateTime? VoteTo { get; set; }
 
         [JsonProperty("competition_upload_video_to")]
-        public DateTime UploadVideoTo { get; set; }
+        public DateTime? UploadVideoTo { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("active_to")]
-        public DateTime ActiveTo { get; set; }
+        public DateTime? ActiveTo { get; set; }
     }
 }
