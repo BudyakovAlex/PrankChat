@@ -381,6 +381,8 @@
     <Compile Include="Presentation\Views\ProfileView\UserProfileView.designer.cs">
       <DependentUpon>UserProfileView.cs</DependentUpon>
     </Compile>
+    <Compile Include="ApplicationServices\ExternalAuth\AppleSignIn\IAppleSignInService.cs" />
+    <Compile Include="ApplicationServices\ExternalAuth\AppleSignIn\AppleSignInService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -1064,6 +1066,8 @@
     <ImageAsset Include="Assets.xcassets\ic_check_mark.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_check_mark.imageset\ic_check_mark.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_plus.imageset\ic_plus.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_apple.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_apple.imageset\ic_apple-1.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -1146,6 +1150,8 @@
     <Folder Include="Assets.xcassets\ic_like_hollow.imageset\" />
     <Folder Include="Assets.xcassets\ic_dislike_hollow.imageset\" />
     <Folder Include="Assets.xcassets\ic_check_mark.imageset\" />
+    <Folder Include="ApplicationServices\ExternalAuth\AppleSignIn\" />
+    <Folder Include="Assets.xcassets\ic_apple.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

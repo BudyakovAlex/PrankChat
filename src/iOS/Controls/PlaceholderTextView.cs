@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using CoreAnimation;
+﻿using CoreAnimation;
 using CoreGraphics;
 using Foundation;
 using PrankChat.Mobile.iOS.AppTheme;
+using System;
+using System.ComponentModel;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Controls
@@ -72,6 +71,7 @@ namespace PrankChat.Mobile.iOS.Controls
         {
             base.LayoutSubviews();
             TryInitializeBorder();
+            UpdatePlaceholderFrame();
         }
 
         private void InitializePlaceholder()
@@ -84,7 +84,9 @@ namespace PrankChat.Mobile.iOS.Controls
         private void TryInitializeBorder()
         {
             if (_isBorderInitilize)
+            {
                 return;
+            }
 
             _isBorderInitilize = true;
 
@@ -148,16 +150,18 @@ namespace PrankChat.Mobile.iOS.Controls
         private void SetPlaceholderText(string placeholder)
         {
             if (string.IsNullOrWhiteSpace(placeholder))
+            {
                 return;
+            }
 
             _floatingLabel.Text = placeholder;
 
             _floatingLabel.AttributedText = AttributedPlaceholder;
             _floatingLabel.SizeToFit();
             _floatingLabel.Frame = new CGRect(FloatLabelX,
-                                                _floatingLabel.Font.LineHeight,
-                                                _floatingLabel.Frame.Size.Width,
-                                                _floatingLabel.Frame.Size.Height);
+                                              _floatingLabel.Font.LineHeight,
+                                              _floatingLabel.Frame.Size.Width,
+                                              _floatingLabel.Frame.Size.Height);
         }
 
         private void OnTextChanged(object sender, EventArgs e)
@@ -168,7 +172,9 @@ namespace PrankChat.Mobile.iOS.Controls
         private void UpdatePlaceholderFrame()
         {
             if (_floatingLabel == null || _topBorderLine == null)
+            {
                 return;
+            }
 
             if (!string.IsNullOrEmpty(Text))
             {

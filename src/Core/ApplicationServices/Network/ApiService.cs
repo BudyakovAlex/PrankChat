@@ -110,6 +110,22 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return MappingConfig.Mapper.Map<RecoverPasswordResultDataModel>(result);
         }
 
+        public async Task<bool> AuthorizeWithAppleAsync(AppleAuthDataModel appleAuthDataModel)
+        {
+            var authApiModel = new AppleAuthApiModel
+            {
+                Email = appleAuthDataModel.Email,
+                IdentityToken = appleAuthDataModel.IdentityToken,
+                Token = appleAuthDataModel.Token,
+                UserName = appleAuthDataModel.UserName,
+                Password = appleAuthDataModel.Password
+            };
+
+            var authTokenModel = await _client.UnauthorizedPostAsync<AppleAuthApiModel, DataApiModel<AccessTokenApiModel>>($"/auth/apple", authApiModel, true);
+            await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
+            return authTokenModel?.Data?.AccessToken != null;
+        }
+
         #endregion Authorize
 
         #region Orders

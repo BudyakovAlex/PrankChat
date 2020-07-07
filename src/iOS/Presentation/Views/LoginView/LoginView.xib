@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginView">
             <connections>
+                <outlet property="appleIdButton" destination="i3H-1m-gpq" id="m4G-Gk-6tg"/>
                 <outlet property="demoButton" destination="OES-Rl-OvU" id="5Ra-Qw-ghb"/>
                 <outlet property="emailTextField" destination="DKl-JP-yCC" id="RSa-XJ-M0V"/>
                 <outlet property="facebookButton" destination="mLZ-1x-6Uy" id="iaR-fd-8RF"/>
@@ -107,7 +108,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="ET3-2r-7cv">
-                                    <rect key="frame" x="57.5" y="296.5" width="228" height="45"/>
+                                    <rect key="frame" x="27" y="296.5" width="289" height="45"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XHV-kv-qlT">
                                             <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
@@ -140,6 +141,14 @@
                                                 <constraint firstAttribute="height" constant="45" id="b5c-lt-p7g"/>
                                             </constraints>
                                             <state key="normal" title="Gmail"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3H-1m-gpq">
+                                            <rect key="frame" x="244" y="0.0" width="45" height="45"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="45" id="kb6-Ug-4aJ"/>
+                                                <constraint firstAttribute="height" constant="45" id="r8f-54-g7J"/>
+                                            </constraints>
+                                            <state key="normal" title=" Apple"/>
                                         </button>
                                     </subviews>
                                     <constraints>

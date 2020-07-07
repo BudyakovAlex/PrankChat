@@ -18,6 +18,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task<bool> AuthorizeExternalAsync(string authToken, LoginType loginType);
 
+        Task<bool> AuthorizeWithAppleAsync(AppleAuthDataModel appleAuthDataModel);
+
         Task RegisterAsync(UserRegistrationDataModel userInfo);
 
         Task LogoutAsync();

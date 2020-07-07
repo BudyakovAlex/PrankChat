@@ -11,6 +11,7 @@ using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
 using PrankChat.Mobile.iOS.ApplicationServices;
 using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth;
+using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn;
 using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Crashlytic;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
@@ -33,6 +34,7 @@ namespace PrankChat.Mobile.iOS
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IDialogService, DialogService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IExternalAuthService, ExternalAuthService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISettingsService, SettingsService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IAppleSignInService, AppleSignInService>();
         }
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)

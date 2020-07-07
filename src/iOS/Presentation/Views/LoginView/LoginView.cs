@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MvvmCross;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using System;
+using System.Collections.Generic;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
@@ -17,6 +17,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
     [MvxRootPresentation]
     public partial class LoginView : BaseTransparentBarView<LoginViewModel>
     {
+        private readonly Lazy<IAppleSignInService> _lazyAppleSignInService = new Lazy<IAppleSignInService>(() => Mvx.IoCProvider.Resolve<IAppleSignInService>());
+
         protected override void SetupBinding()
         {
             var set = this.CreateBindingSet<LoginView, LoginViewModel>();
@@ -92,6 +94,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             okButton.SetImage(UIImage.FromBundle("ic_ok").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
             facebookButton.SetImage(UIImage.FromBundle("ic_facebook").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
             gmailButton.SetImage(UIImage.FromBundle("ic_gmail").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            appleIdButton.SetImage(UIImage.FromBundle("ic_apple").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            appleIdButton.TouchUpInside += OnAppleIdButtonTouched;
 
             registrationButton.SetTitle(Resources.LoginView_CreateAccount_Button, UIControlState.Normal);
             registrationButton.SetTitleColor(Theme.Color.White, UIControlState.Normal);
@@ -100,6 +104,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             //TODO: uncomment when will be provided logic on vm
             okButton.Hidden = true;
             gmailButton.Hidden = true;
+        }
+
+        public override void ViewDidUnload()
+        {
+            appleIdButton.TouchUpInside -= OnAppleIdButtonTouched;
+            base.ViewDidUnload();
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)
@@ -116,6 +126,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             viewList.Add(scrollView);
 
             base.RegisterKeyboardDismissTextFields(viewList);
+        }
+
+        private async void OnAppleIdButtonTouched(object sender, EventArgs e)
+        {
+            var appleAuthData = await _lazyAppleSignInService.Value.LoginAsync();
+            if (appleAuthData is null)
+            {
+                return;
+            }
+
+            ViewModel.LoginWithAppleCommand?.Execute(appleAuthData);
         }
     }
 }

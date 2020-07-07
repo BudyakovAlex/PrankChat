@@ -7,6 +7,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using System;
@@ -48,17 +49,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             EmailText = "testuser@delete.me";
             PasswordText = "1234567890";
 #endif
+            LoginWithAppleCommand = new MvxAsyncCommand<AppleAuthDataModel>(LoginWithAppleAsync);
         }
 
         public MvxAsyncCommand ShowDemoModeCommand => new MvxAsyncCommand(() => NavigationService.ShowMainView());
 
-        public MvxAsyncCommand<string> LoginCommand => new MvxAsyncCommand<string>(OnLoginCommand);
+        public MvxAsyncCommand<string> LoginCommand => new MvxAsyncCommand<string>(LoginAsync);
 
         public MvxAsyncCommand ResetPasswordCommand => new MvxAsyncCommand(() => NavigationService.ShowPasswordRecoveryView());
 
         public MvxAsyncCommand RegistrationCommand => new MvxAsyncCommand(() => NavigationService.ShowRegistrationView());
 
-        private async Task OnLoginCommand(string loginType)
+        public MvxAsyncCommand<AppleAuthDataModel> LoginWithAppleCommand { get; }
+
+        private async Task LoginAsync(string loginType)
         {
             if (!SettingsService.IsDebugMode)
             {
@@ -100,6 +104,39 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                         var password = PasswordText?.Trim();
                         await ApiService.AuthorizeAsync(email, password);
                         break;
+                }
+
+                await NavigateAfterLoginAsync();
+            }
+            catch (Exception ex)
+            {
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Can't sign into application.", ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task LoginWithAppleAsync(AppleAuthDataModel appleAuthDataModel)
+        {
+            if (!SettingsService.IsDebugMode)
+            {
+                var newActualVersion = await ApiService.CheckAppVersionAsync();
+                if (!string.IsNullOrEmpty(newActualVersion?.Link))
+                {
+                    await NavigationService.ShowMaintananceView(newActualVersion.Link);
+                    return;
+                }
+            }
+
+            try
+            {
+                var isAuthorized = await ApiService.AuthorizeWithAppleAsync(appleAuthDataModel);
+                if (!isAuthorized)
+                {
+                    return;
                 }
 
                 await NavigateAfterLoginAsync();

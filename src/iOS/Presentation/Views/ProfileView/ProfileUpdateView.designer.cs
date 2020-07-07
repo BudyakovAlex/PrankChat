@@ -90,6 +90,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		UIKit.UIScrollView scrollView { get; set; }
 
 		[Outlet]
+		UIKit.NSLayoutConstraint scrollViewBottomConstraint { get; set; }
+
+		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
 		UIKit.UILabel sexSelectTitleLabel { get; set; }
 
@@ -98,6 +101,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (scrollViewBottomConstraint != null) {
+				scrollViewBottomConstraint.Dispose ();
+				scrollViewBottomConstraint = null;
+			}
+
 			if (birthdayTextField != null) {
 				birthdayTextField.Dispose ();
 				birthdayTextField = null;
@@ -121,6 +129,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 			if (emailTextField != null) {
 				emailTextField.Dispose ();
 				emailTextField = null;
+			}
+
+			if (emailValidationImageView != null) {
+				emailValidationImageView.Dispose ();
+				emailValidationImageView = null;
 			}
 
 			if (femaleButtonsContainerView != null) {
@@ -163,29 +176,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 				nameTextField = null;
 			}
 
-			if (resendEmailLabel != null) {
-				resendEmailLabel.Dispose ();
-				resendEmailLabel = null;
-			}
-
-			if (emailValidationImageView != null) {
-				emailValidationImageView.Dispose ();
-				emailValidationImageView = null;
-			}
-
 			if (profileImage != null) {
 				profileImage.Dispose ();
 				profileImage = null;
 			}
 
-			if (resndEmailContainerView != null) {
-				resndEmailContainerView.Dispose ();
-				resndEmailContainerView = null;
-			}
-
 			if (progressBar != null) {
 				progressBar.Dispose ();
 				progressBar = null;
+			}
+
+			if (resendEmailLabel != null) {
+				resendEmailLabel.Dispose ();
+				resendEmailLabel = null;
+			}
+
+			if (resndEmailContainerView != null) {
+				resndEmailContainerView.Dispose ();
+				resndEmailContainerView = null;
 			}
 
 			if (saveButton != null) {
