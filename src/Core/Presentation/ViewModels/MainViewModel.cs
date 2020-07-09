@@ -1,6 +1,10 @@
-﻿using MvvmCross.Commands;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
@@ -13,8 +17,6 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Providers;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
@@ -24,6 +26,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
         private readonly int[] _skipTabIndexesInDemoMode = new[] { 2, 4 };
+
+        private MvxSubscriptionToken _refreshTokenExpiredToken;
 
         public MvxAsyncCommand ShowContentCommand { get; }
 
@@ -96,11 +100,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private void Subscription()
         {
             SubscribeToNotificationsUpdates();
+            _refreshTokenExpiredToken = Messenger.Subscribe<RefreshTokenExpiredMessage>(RefreshTokenExpired, MvxReference.Strong);
         }
 
         private void Unsubscription()
         {
             UnsubscribeFromNotificationsUpdates();
+            _refreshTokenExpiredToken.Dispose();
         }
 
         public bool CanSwitchTabs(int position)
@@ -159,6 +165,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             {
                 await NavigationService.ShowLoginView();
             }
+        }
+
+        private void RefreshTokenExpired(RefreshTokenExpiredMessage _)
+        {
+            _refreshTokenExpiredToken.Dispose();
+            NavigationService.Logout().FireAndForget();
         }
     }
 }

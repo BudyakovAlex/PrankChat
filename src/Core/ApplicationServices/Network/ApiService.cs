@@ -1,9 +1,15 @@
-﻿using MvvmCross.Logging;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Configuration;
+using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Api.Base;
@@ -12,12 +18,6 @@ using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
@@ -93,8 +93,15 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task RefreshTokenAsync()
         {
-            var authTokenModel = await _client.PostAsync<DataApiModel<AccessTokenApiModel>>("auth/refresh", true);
-            await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
+            try
+            {
+                var authTokenModel = await _client.PostAsync<DataApiModel<AccessTokenApiModel>>("auth/refresh", true);
+                await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
+            }
+            catch (NetworkException ex) when (ex.Message == "Invalid login / password")
+            {
+                _messenger.Publish(new RefreshTokenExpiredMessage(this));
+            }
         }
 
         public async Task<bool> CheckIsEmailExistsAsync(string email)
