@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileView">
             <connections>
                 <outlet property="descriptionLabel" destination="JL6-gs-E5b" id="gLW-kW-bgN"/>
+                <outlet property="descriptionTopConstraint" destination="S4f-Ym-eNG" id="NTJ-1y-pig"/>
                 <outlet property="nameLabel" destination="dM1-eD-p8l" id="QMX-u3-vQT"/>
                 <outlet property="priceLabel" destination="cpW-tW-Dot" id="cpW-tW-DoH"/>
                 <outlet property="profileImageView" destination="TEx-X9-V1p" id="xV6-cD-Zfa"/>

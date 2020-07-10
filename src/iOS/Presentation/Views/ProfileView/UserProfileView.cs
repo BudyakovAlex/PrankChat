@@ -20,7 +20,28 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         private MvxUIRefreshControl _refreshControlProfile;
         private UIBarButtonItem _notificationBarItem;
         private OrdersTableSource _source;
+
         private bool _isSubscribed;
+        private bool _hasDescription;
+
+        public bool HasDescription
+        {
+            get => _hasDescription;
+            set
+            {
+                _hasDescription = value;
+                if (_hasDescription)
+                {
+                    DescriptionLabel.Hidden = false;
+                    DescriptionTopConstraint.Constant = 20f;
+                }
+                else
+                {
+                    DescriptionLabel.Hidden = true;
+                    DescriptionTopConstraint.Constant = 0f;
+                }
+            }
+        }
 
         public bool IsSubscribed
         {
@@ -43,6 +64,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             base.SetupBinding();
 
             var bindingSet = this.CreateBindingSet<UserProfileView, UserProfileViewModel>();
+
+            bindingSet.Bind(this)
+                      .For(v => v.HasDescription)
+                      .To(vm => vm.HasDescription);
 
             bindingSet.Bind(_refreshControlProfile)
                       .For(v => v.IsRefreshing)

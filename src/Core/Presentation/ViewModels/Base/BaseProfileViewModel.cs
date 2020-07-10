@@ -130,8 +130,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         public string Description
         {
             get => _description;
-            set => SetProperty(ref _description, value);
+            set
+            {
+                if (SetProperty(ref _description, value))
+                {
+                    RaisePropertyChanged(nameof(HasDescription));
+                }
+            }
         }
+
+        public bool HasDescription => !string.IsNullOrEmpty(Description);
 
         public IMvxAsyncCommand ResendEmailValidationCommand { get; }
 

@@ -1,4 +1,8 @@
-﻿using MvvmCross.Commands;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
@@ -14,10 +18,6 @@ using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
@@ -76,6 +76,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public string ProfileShortLogin => Login.ToShortenName();
 
+        public bool HasDescription => !string.IsNullOrEmpty(Description);
+
         private string _profilePhotoUrl;
         public string ProfilePhotoUrl
         {
@@ -87,7 +89,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         public string Login
         {
             get => _login;
-            private set => SetProperty(ref _login, value);
+            private set
+            {
+                if (SetProperty(ref _login, value))
+                {
+                    RaisePropertyChanged(nameof(ProfileShortLogin));
+                }
+            }
         }
 
         private string _subscribersValue;
@@ -115,7 +123,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         public string Description
         {
             get => _description;
-            private set => SetProperty(ref _description, value);
+            private set
+            {
+                if (SetProperty(ref _description, value))
+                {
+                    RaisePropertyChanged(nameof(HasDescription));
+                }
+            }
         }
 
         public void Prepare(int parameter)
@@ -265,8 +279,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             SubscribersValue = _subscribersCount.ToCountString();
             SubscriptionsValue = user.SubscriptionsCount.ToCountString();
             IsSubscribed = user.IsSubscribed;
-
-            await RaisePropertyChanged(nameof(ProfileShortLogin));
         }
     }
 }

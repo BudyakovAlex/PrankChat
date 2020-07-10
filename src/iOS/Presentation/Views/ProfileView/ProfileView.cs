@@ -23,9 +23,34 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         private UIBarButtonItem _notificationBarItem;
         private OrdersTableSource _source;
 
+        private bool _hasDescription;
+
+        public bool HasDescription
+        {
+            get => _hasDescription;
+            set
+            {
+                _hasDescription = value;
+                if (_hasDescription)
+                {
+                    descriptionLabel.Hidden = false;
+                    descriptionTopConstraint.Constant = 20f;
+                }
+                else
+                {
+                    descriptionLabel.Hidden = true;
+                    descriptionTopConstraint.Constant = 0f;
+                }
+            }
+        }
+
         protected override void SetupBinding()
         {
             var bindingSet = this.CreateBindingSet<ProfileView, ProfileViewModel>();
+
+            bindingSet.Bind(this)
+                      .For(v => v.HasDescription)
+                      .To(vm => vm.HasDescription);
 
             bindingSet.Bind(_refreshControl)
                       .For(v => v.IsRefreshing)

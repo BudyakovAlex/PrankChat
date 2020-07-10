@@ -16,6 +16,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		UIKit.UILabel descriptionLabel { get; set; }
 
 		[Outlet]
+		UIKit.NSLayoutConstraint descriptionTopConstraint { get; set; }
+
+		[Outlet]
 		UIKit.UILabel nameLabel { get; set; }
 
 		[Outlet]
@@ -59,6 +62,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (descriptionTopConstraint != null) {
+				descriptionTopConstraint.Dispose ();
+				descriptionTopConstraint = null;
+			}
+
 			if (descriptionLabel != null) {
 				descriptionLabel.Dispose ();
 				descriptionLabel = null;
@@ -99,6 +107,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 				subscribersValueLabel = null;
 			}
 
+			if (subscribersView != null) {
+				subscribersView.Dispose ();
+				subscribersView = null;
+			}
+
 			if (subscriptionsTitleLabel != null) {
 				subscriptionsTitleLabel.Dispose ();
 				subscriptionsTitleLabel = null;
@@ -107,6 +120,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 			if (subscriptionsValueLabel != null) {
 				subscriptionsValueLabel.Dispose ();
 				subscriptionsValueLabel = null;
+			}
+
+			if (subscriptionsView != null) {
+				subscriptionsView.Dispose ();
+				subscriptionsView = null;
 			}
 
 			if (tableView != null) {
@@ -122,16 +140,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 			if (withdrawalButton != null) {
 				withdrawalButton.Dispose ();
 				withdrawalButton = null;
-			}
-
-			if (subscribersView != null) {
-				subscribersView.Dispose ();
-				subscribersView = null;
-			}
-
-			if (subscriptionsView != null) {
-				subscriptionsView.Dispose ();
-				subscriptionsView = null;
 			}
 		}
 	}
