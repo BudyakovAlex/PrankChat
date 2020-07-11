@@ -1,4 +1,11 @@
-﻿using MvvmCross;
+﻿using System;
+using System.Globalization;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using MvvmCross;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
@@ -15,13 +22,6 @@ using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using RestSharp;
-using System;
-using System.Globalization;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
@@ -57,6 +57,27 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         }
 
         private IDialogService DialogService => _dialogService ?? (_dialogService = Mvx.IoCProvider.Resolve<IDialogService>());
+
+        public async Task<IRestResponse> ExecuteRawAsync(string endpoint, Method method, bool includeAccessToken)
+        {
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                DialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                return null;
+            }
+
+            var request = new RestRequest(endpoint, method);
+
+            if (includeAccessToken)
+            {
+                await AddAuthorizationHeaderAsync(request);
+            }
+
+            AddLanguageHeader(request);
+
+            var response = await _client.ExecuteAsync(request);
+            return response;
+        }
 
         public async Task<TResult> UnauthorizedGetAsync<TResult>(string endpoint, bool exceptionThrowingEnabled = false, params IncludeType[] includes) where TResult : class, new()
         {

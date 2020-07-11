@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
+using Newtonsoft.Json;
 using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
@@ -18,6 +20,7 @@ using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using RestSharp;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
@@ -93,15 +96,20 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task RefreshTokenAsync()
         {
-            try
+            var response = await _client.ExecuteRawAsync("auth/refresh", Method.POST, true);
+            if (response is null)
             {
-                var authTokenModel = await _client.PostAsync<DataApiModel<AccessTokenApiModel>>("auth/refresh", true);
-                await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
+                return;
             }
-            catch (NetworkException ex) when (ex.Message == "Invalid login / password")
+
+            if (response.StatusCode == HttpStatusCode.Unauthorized ||
+                response.StatusCode == HttpStatusCode.Forbidden)
             {
                 _messenger.Publish(new RefreshTokenExpiredMessage(this));
             }
+
+            var content = JsonConvert.DeserializeObject<DataApiModel<AccessTokenApiModel>>(response.Content);
+            await _settingsService.SetAccessTokenAsync(content?.Data?.AccessToken);
         }
 
         public async Task<bool> CheckIsEmailExistsAsync(string email)
