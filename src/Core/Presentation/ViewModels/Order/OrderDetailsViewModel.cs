@@ -22,6 +22,7 @@ using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -412,7 +413,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 await LoadOrderDetailsAsync();
                 DialogService.ShowToast(Resources.OrderDetailsView_Video_Uploaded, ToastType.Positive);
                 await RaiseAllPropertiesChanged();
+                _order.Video = video;
                 _order.VideoUploadedAt = _order.VideoUploadedAt ?? DateTime.Now;
+
+                if (!_fullScreenVideos.Any(item => item.VideoId == video.Id))
+                {
+                    _fullScreenVideos.Add(new FullScreenVideoDataModel(_order.Customer.Id,
+                                                                        _order.Customer.IsSubscribed,
+                                                                        _order.Video.Id,
+                                                                        _order.Video.StreamUri,
+                                                                        _order.Title,
+                                                                        _order.Description,
+                                                                        _order.Video.ShareUri,
+                                                                        _order.Customer.Avatar,
+                                                                        _order.Customer.Login.ToShortenName(),
+                                                                        _order.Video.LikesCount,
+                                                                        _order.Video.DislikesCount,
+                                                                        _order.Video.CommentsCount,
+                                                                        _order.Video.IsLiked,
+                                                                        _order.Video.IsDisliked));
+                    _currentIndex = _fullScreenVideos.Count - 1;
+                }
 
                 Messenger.Publish(new OrderChangedMessage(this, _order));
             }
