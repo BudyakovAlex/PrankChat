@@ -1055,6 +1055,307 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\bg_competition_blue.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\bg_competition_gray.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\bg_competition_orange.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\bg_onboarding_indicator.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\bg_payment.xml" />
+    <AndroidResource Include="Resources\drawable-v24\bg_payment_selected.xml" />
+    <AndroidResource Include="Resources\drawable-v24\bg_splash_screen.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\bg_white_with_corners.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\border_accent.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\border_accent_load_video.xml" />
+    <AndroidResource Include="Resources\drawable-v24\border_full_screen_video_profile_photo.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\border_grey.xml" />
+    <AndroidResource Include="Resources\drawable-v24\border_white.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\button_accent_background.xml" />
+    <AndroidResource Include="Resources\drawable-v24\button_white_bordered_background.xml" />
+    <AndroidResource Include="Resources\drawable-v24\button_white_secondary_background.xml" />
+    <AndroidResource Include="Resources\drawable-v24\competition_like_button_selector.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\gradient_action_bar_background.xml" />
+    <AndroidResource Include="Resources\drawable-v24\gradient_background.xml" />
+    <AndroidResource Include="Resources\drawable-v24\gradient_oval.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_accent_thumbs_down.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_accent_thumbs_up.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_back_arrow.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_banner_mastercard.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_banner_secure.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_banner_visa.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_bookmark.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_button_accept.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_button_rotate.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_calendar.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_calendar_accent.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_card.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_change_profile.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_check_mark.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_checkbox_checked.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_checkbox_unchecked.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_circle_clear.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_clear.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_comment.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_comments.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_competitions.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_copy.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_copy_link.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_create_order.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_dislike.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_dislike_hollow.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_download.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_facebook.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_filter_arrow.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_fullscreen.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_gmail.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_have_notification.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_home.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_image_background.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_info.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_launcher_background.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_launcher_foreground.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_like.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_like_hollow.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_logo.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_logout.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_mdi_pause_circle_outline.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_mdi_play_circle_outline.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_menu.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_more.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_more_white.xml">
+      <SubType></SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_mute.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_notification.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_notification_user.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_notification_with_bage.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_odnoklassniki.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_order_tag_type_finished.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_order_tag_type_in_arbitration.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_order_tag_type_in_moderation.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_order_tag_type_in_work.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_order_tag_type_new.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_order_tag_type_new_not_mine.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_order_tag_type_wait.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_orders.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_payment_alphabank.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_payment_alphabank_selected.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_payment_cards.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_payment_cards_selected.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_payment_phone.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_payment_phone_selected.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_payment_qiwi.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_payment_qiwi_selected.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_payment_sberbank.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_payment_sberbank_selected.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_payment_yandexmoney.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_payment_yandexmoney_selected.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_plus.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_prankchat_icon.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_profile.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_question.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_question_black.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_radio_button_off.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_radio_button_on.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_rate.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_search.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_search_dark.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_send.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_settings.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_share.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_share_instagram.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_share_up.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_sound.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_thumbs_down.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_thumbs_up.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_vk.xml" />
+    <AndroidResource Include="Resources\drawable-v24\ic_warning.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\ic_without_sound.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\img_navigation_arrow_left.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\img_navigation_arrow_right.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\my_order_background.xml" />
+    <AndroidResource Include="Resources\drawable-v24\my_order_completed_background.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\not_moderated_order_background.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\not_moderated_order_border.xml" />
+    <AndroidResource Include="Resources\drawable-v24\not_moderated_order_card.xml" />
+    <AndroidResource Include="Resources\drawable-v24\not_my_order_background.xml" />
+    <AndroidResource Include="Resources\drawable-v24\notification_dot.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\radio_button_background.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\rounded_edittext.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\selectable_button_selector.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-v24\shadow.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
@@ -1403,6 +1704,7 @@
     <Folder Include="Presentation\Adapters\ViewHolders\Search\" />
     <Folder Include="Presentation\Views\Subscriptions\" />
     <Folder Include="Presentation\Adapters\ViewHolders\Subscriptions\" />
+    <Folder Include="Resources\drawable-v24\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />
