@@ -82,7 +82,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                       .Mode(MvxBindingMode.OneTime);
 
             bindingSet.Bind(nameLabel)
-                      .To(vm => vm.Name)
+                      .To(vm => vm.Login)
                       .Mode(MvxBindingMode.OneWay);
 
             bindingSet.Bind(descriptionLabel)

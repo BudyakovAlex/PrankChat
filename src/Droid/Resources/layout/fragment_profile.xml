@@ -38,7 +38,7 @@
             android:maxLines="1"
             android:textColor="@color/applicationBlack"
             android:textSize="14dp"
-            app:MvxBind="Text Name"
+            app:MvxBind="Text Login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/profile_photo"
             app:layout_constraintTop_toTopOf="@+id/profile_photo"
