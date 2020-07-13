@@ -145,6 +145,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         {
             Title = Resources.ProfileUpdateView_Title;
 
+            rootView.AddGestureRecognizer(new UITapGestureRecognizer(OnViewTapped));
             NavigationItem?.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton("ic_logout", ViewModel.ShowMenuCommand), true);
 
             emailTextField.SetLightStyle(Resources.ProfileUpdateView_Email_Placeholder);
@@ -178,6 +179,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             changeProfilePhotoLabel.TextColor = UIColor.White;
 
             descriptionTextField.SetLightStyle(Resources.ProfileUpdateView_Description_Placeholder);
+            descriptionTextField.AddGestureRecognizer(new UITapGestureRecognizer(() => descriptionTextField.BecomeFirstResponder()));
 
             stackView.SetCustomSpacing(8, stackView.ArrangedSubviews[2]);
         }
@@ -198,6 +200,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             });
 
             base.RegisterKeyboardDismissTextFields(viewList);
+        }
+
+        private void OnViewTapped()
+        {
+            View.EndEditing(true);
         }
     }
 }

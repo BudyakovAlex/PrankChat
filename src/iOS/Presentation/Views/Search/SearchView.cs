@@ -4,6 +4,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
@@ -62,9 +63,22 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
             lottieAnimationView.LoopAnimation = true;
             lottieAnimationView.Play();
 
-            tabView.AddTab(Resources.Search_Peoples, () => ViewModel.SearchTabType = SearchTabType.Users);
-            tabView.AddTab(Resources.Search_Videos, () => ViewModel.SearchTabType = SearchTabType.Videos);
-            tabView.AddTab(Resources.Orders_Tab, () => ViewModel.SearchTabType = SearchTabType.Orders);
+            tabView.AddTab(Resources.Search_Peoples, () =>
+            {
+                ViewModel.SearchTabType = SearchTabType.Users;
+                tableView.RowHeight = UITableView.AutomaticDimension;
+            });
+            tabView.AddTab(Resources.Search_Videos, () =>
+            {
+                ViewModel.SearchTabType = SearchTabType.Videos;
+                tableView.RowHeight = UITableView.AutomaticDimension;
+            });
+
+            tabView.AddTab(Resources.Orders_Tab, () =>
+            {
+                ViewModel.SearchTabType = SearchTabType.Orders;
+                tableView.RowHeight = Constants.CellHeights.OrderItemCellHeight;
+            });
 
             SearchTableSource = new SearchTableSource(tableView);
             tableView.Source = SearchTableSource;

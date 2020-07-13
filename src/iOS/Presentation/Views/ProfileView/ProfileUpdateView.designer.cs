@@ -82,6 +82,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		UIKit.UIView resndEmailContainerView { get; set; }
 
 		[Outlet]
+		UIKit.UIView rootView { get; set; }
+
+		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
 		UIKit.UIButton saveButton { get; set; }
 
@@ -101,11 +104,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (scrollViewBottomConstraint != null) {
-				scrollViewBottomConstraint.Dispose ();
-				scrollViewBottomConstraint = null;
-			}
-
 			if (birthdayTextField != null) {
 				birthdayTextField.Dispose ();
 				birthdayTextField = null;
@@ -206,6 +204,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 				scrollView = null;
 			}
 
+			if (scrollViewBottomConstraint != null) {
+				scrollViewBottomConstraint.Dispose ();
+				scrollViewBottomConstraint = null;
+			}
+
 			if (sexSelectTitleLabel != null) {
 				sexSelectTitleLabel.Dispose ();
 				sexSelectTitleLabel = null;
@@ -214,6 +217,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 			if (stackView != null) {
 				stackView.Dispose ();
 				stackView = null;
+			}
+
+			if (rootView != null) {
+				rootView.Dispose ();
+				rootView = null;
 			}
 		}
 	}

@@ -108,6 +108,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         protected override void SetupControls()
 		{
+            rootView.AddGestureRecognizer(new UITapGestureRecognizer(OnViewTapped));
+
             descriptionTextView.TextContainer.MaximumNumberOfLines = 100;
             descriptionContainerView.Layer.BorderColor = Theme.Color.TextFieldDarkBorder.CGColor;
             descriptionContainerView.Layer.BorderWidth = 1f;
@@ -136,6 +138,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 var newLength = textField.Text.Length + replacementString.Length - range.Length;
                 return newLength <= Constants.Orders.DescriptionMaxLength;
             };
+
+            descriptionTextView.AddGestureRecognizer(new UITapGestureRecognizer(() => descriptionTextView.BecomeFirstResponder()));
 
             descriptionPlaceholderLabel.SetSmallSubtitleStyle(Resources.CreateOrderView_Description_Placeholder, 14);
             descriptionTopFloatingPlaceholderLabel.SetSmallSubtitleStyle(Resources.CreateOrderView_Description_Placeholder);
@@ -172,6 +176,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
         {
             views.Add(scrollView);
             views.Add(stackView);
+            views.Add(descriptionTextView);
 
             base.RegisterKeyboardDismissResponders(views);
         }
@@ -196,6 +201,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
         protected override void Unsubscription()
         {
             priceTextField.EditingChanged -= PriceTextField_EditingChanged;
+        }
+
+        private void OnViewTapped()
+        {
+            View.EndEditing(true);
         }
 
         private void PriceTextField_EditingChanged(object sender, System.EventArgs e)

@@ -28,6 +28,7 @@
                 <outlet property="progressBar" destination="Lmz-yn-GFE" id="hMm-NN-5HC"/>
                 <outlet property="resendEmailLabel" destination="WAC-mf-7Me" id="Nc8-OJ-B9N"/>
                 <outlet property="resndEmailContainerView" destination="PQ3-IK-Zot" id="6Kc-bH-jM0"/>
+                <outlet property="rootView" destination="dP4-hK-p69" id="WUa-P5-Qkk"/>
                 <outlet property="saveButton" destination="vRl-An-stw" id="name-outlet-vRl-An-stw"/>
                 <outlet property="scrollView" destination="MyT-Nl-9Q6" id="kLY-CR-UDs"/>
                 <outlet property="scrollViewBottomConstraint" destination="F5d-Mx-Y2m" id="IOs-CY-7C4"/>

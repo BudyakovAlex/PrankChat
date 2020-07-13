@@ -49,6 +49,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIView progressBarView { get; set; }
 
 		[Outlet]
+		UIKit.UIView rootView { get; set; }
+
+		[Outlet]
 		UIKit.UIScrollView scrollView { get; set; }
 
 		[Outlet]
@@ -62,14 +65,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (rootView != null) {
+				rootView.Dispose ();
+				rootView = null;
+			}
+
 			if (completeDateTextField != null) {
 				completeDateTextField.Dispose ();
 				completeDateTextField = null;
-			}
-
-			if (scrollViewBottomConstraint != null) {
-				scrollViewBottomConstraint.Dispose ();
-				scrollViewBottomConstraint = null;
 			}
 
 			if (createButton != null) {
@@ -130,6 +133,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (scrollView != null) {
 				scrollView.Dispose ();
 				scrollView = null;
+			}
+
+			if (scrollViewBottomConstraint != null) {
+				scrollViewBottomConstraint.Dispose ();
+				scrollViewBottomConstraint = null;
 			}
 
 			if (stackView != null) {
