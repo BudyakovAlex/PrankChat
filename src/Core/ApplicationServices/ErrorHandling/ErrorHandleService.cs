@@ -39,11 +39,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
             {
                 case ValidationException validationException:
                     var message = GetValidationErrorLocalizedMessage(validationException);
-                    _dialogService.ShowToast(message, ToastType.Negative);
+                    DisplayMessage(() => _dialogService.ShowToast(message, ToastType.Negative));
                     break;
 
                 case BaseUserVisibleException ex when !string.IsNullOrWhiteSpace(ex.Message):
-                    _dialogService.ShowToast(ex.Message, ToastType.Negative);
+                    DisplayMessage(() => _dialogService.ShowToast(ex.Message, ToastType.Negative));
                     break;
             }
         }
@@ -73,11 +73,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
                 case ProblemDetailsDataModel problemDetails:
                     if (string.IsNullOrWhiteSpace(problemDetails.Message))
                     {
-                        _dialogService.ShowToast(Resources.Error_Unexpected_Network, ToastType.Negative);
+                        DisplayMessage(() => _dialogService.ShowToast(Resources.Error_Unexpected_Network, ToastType.Negative));
                         return;
                     }
 
-                    _dialogService.ShowToast(problemDetails.Message, ToastType.Negative);
+                    DisplayMessage(() => _dialogService.ShowToast(problemDetails.Message, ToastType.Negative));
                     break;
             }
         }
@@ -127,6 +127,25 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
                 try
                 {
                     await messageAction.Invoke();
+                }
+                finally
+                {
+                    _semaphore.Release();
+                }
+            });
+        }
+
+        private void DisplayMessage(Action messageAction)
+        {
+            MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                if (!await _semaphore.WaitAsync(ZeroSkipDelay))
+                {
+                    return;
+                }
+                try
+                {
+                    messageAction.Invoke();
                 }
                 finally
                 {

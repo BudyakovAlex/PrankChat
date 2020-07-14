@@ -70,33 +70,38 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private async Task SearchAsync(string text, bool canSkipDelay = false)
         {
-            if (text.Length < 2)
+            try
             {
-                return;
-            }
+                if (text.Length < 2)
+                {
+                    return;
+                }
 
-            var buffer = text;
-            if (!canSkipDelay)
+                var buffer = text;
+                if (!canSkipDelay)
+                {
+                    await Task.Delay(SearchDelay);
+                }
+
+                if (buffer != _searchValue)
+                {
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(_searchValue))
+                {
+                    Items.Clear();
+                    return;
+                }
+
+                IsBusy = true;
+
+                await ReloadItemsCommand.ExecuteAsync();
+            }
+            finally
             {
-                await Task.Delay(SearchDelay);
+                IsBusy = false;
             }
-
-            if (buffer != _searchValue)
-            {
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(_searchValue))
-            {
-                Items.Clear();
-                return;
-            }
-
-            IsBusy = true;
-
-            await ReloadItemsCommand.ExecuteAsync();
-
-            IsBusy = false;
         }
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)

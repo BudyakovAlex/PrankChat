@@ -3,8 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoreFoundation;
 using CoreGraphics;
+using MvvmCross;
 using MvvmCross.Base;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.iOS.Controls;
@@ -20,6 +22,7 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
         private const float ToastOffset = 44;
 
         private readonly IMvxMainThreadAsyncDispatcher _dispatcher;
+        private readonly Lazy<IErrorHandleService> _lazyErrorHandleService = new Lazy<IErrorHandleService>(() => Mvx.IoCProvider.Resolve<IErrorHandleService>());
 
         public override bool IsToastShown { get; protected set; }
 
@@ -59,40 +62,47 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
 
         public override void ShowToast(string text, ToastType toastType)
         {
-            IsToastShown = true;
-            var keyWindow = UIApplication.SharedApplication.KeyWindow;
-            if (keyWindow == null)
+            try
             {
-                return;
-            }
+                IsToastShown = true;
+                var keyWindow = UIApplication.SharedApplication.KeyWindow;
+                if (keyWindow == null)
+                {
+                    return;
+                }
 
-            var topViewController = GetTopViewController(keyWindow);
+                var topViewController = GetTopViewController(keyWindow);
 
-            var toast = ToastView.Create(text, toastType);
-            toast.TranslatesAutoresizingMaskIntoConstraints = false;
+                var toast = ToastView.Create(text, toastType);
+                toast.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            var superview = topViewController.View;
-            superview.AddSubview(toast);
+                var superview = topViewController.View;
+                superview.AddSubview(toast);
 
-            NSLayoutConstraint.ActivateConstraints(new[]
-            {
+                NSLayoutConstraint.ActivateConstraints(new[]
+                {
                 toast.LeadingAnchor.ConstraintEqualTo(superview.LeadingAnchor),
                 toast.TopAnchor.ConstraintEqualTo(superview.SafeAreaLayoutGuide.TopAnchor, ToastOffset),
                 toast.TrailingAnchor.ConstraintEqualTo(superview.TrailingAnchor)
-            });
+                });
 
-            var offsetY = toast.Frame.Y + ToastOffset;
-            UIView.Animate(ToastAnimationDuration, () =>
-            {
-                toast.Frame = new CGRect(toast.Frame.X, offsetY, toast.Frame.Width, toast.Frame.Height);
-            });
+                var offsetY = toast.Frame.Y + ToastOffset;
+                UIView.Animate(ToastAnimationDuration, () =>
+                {
+                    toast.Frame = new CGRect(toast.Frame.X, offsetY, toast.Frame.Width, toast.Frame.Height);
+                });
 
-            var time = new DispatchTime(DispatchTime.Now, TimeSpan.FromSeconds(ToastDuration));
-            DispatchQueue.MainQueue.DispatchAfter(time, () =>
+                var time = new DispatchTime(DispatchTime.Now, TimeSpan.FromSeconds(ToastDuration));
+                DispatchQueue.MainQueue.DispatchAfter(time, () =>
+                {
+                    toast.RemoveFromSuperview();
+                    IsToastShown = false;
+                });
+            }
+            catch (Exception ex)
             {
-                toast.RemoveFromSuperview();
-                IsToastShown = false;
-            });
+                _lazyErrorHandleService.Value.LogError(this, "Failed to show toast", ex);
+            }
         }
 
         public static UIViewController GetTopViewController(UIWindow window)
