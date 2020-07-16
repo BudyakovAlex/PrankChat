@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textColor="@color/applicationWhite"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:MvxBind="Text Login" />
     </android.support.design.widget.TextInputLayout>
 
@@ -49,7 +49,7 @@
             android:layout_height="match_parent"
             android:singleLine="true"
             android:textColor="@color/applicationWhite"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:MvxBind="Text Name" />
     </android.support.design.widget.TextInputLayout>
 
@@ -71,7 +71,7 @@
             android:gravity="center_vertical"
             android:text="@string/RegistrationView_Birthday_Placeholder"
             android:textColor="@color/applicationWhite"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:MvxBind="Text BirthdayText;" />
 
         <ImageView
@@ -101,7 +101,7 @@
             android:inputType="textPassword"
             android:singleLine="true"
             android:textColor="@color/applicationWhite"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:MvxBind="Text Password" />
     </android.support.design.widget.TextInputLayout>
 
@@ -122,7 +122,7 @@
             android:inputType="textPassword"
             android:singleLine="true"
             android:textColor="@color/applicationWhite"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:MvxBind="Text RepeatedPassword" />
     </android.support.design.widget.TextInputLayout>
 
@@ -135,7 +135,7 @@
         android:layout_marginEnd="19dp"
         android:checked="true"
         android:textColor="@color/applicationWhite"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:MvxBind="Checked IsAdultChecked"
         android:text="@string/Registration_Confirm_Adult" />
 
@@ -154,7 +154,7 @@
             android:layout_gravity="center_vertical"
             android:checked="true"
             android:textColor="@color/applicationWhite"
-            android:textSize="12sp"
+            android:textSize="12dp"
             app:MvxBind="Checked IsPolicyChecked"
             android:text="@string/Registration_Agree_With" />
 
@@ -164,7 +164,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="3dp"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:textColor="@color/description"
             android:text="@string/Registration_Terms_And_Rules"
             app:MvxBind="Click ShowTermsAndRulesCommand"/>

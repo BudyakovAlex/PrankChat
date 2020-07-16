@@ -25,8 +25,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		UIKit.UILabel changeProfilePhotoLabel { get; set; }
 
 		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		PrankChat.Mobile.iOS.Controls.PlaceholderTextView descriptionTextField { get; set; }
+		UIKit.UIView descriptionContainerView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel descriptionPlaceholderLabel { get; set; }
+
+		[Outlet]
+		UIKit.UITextView descriptionTextView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel descriptionTopFloatingPlaceholderLabel { get; set; }
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
@@ -101,9 +109,45 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
 		[Outlet]
 		UIKit.UIStackView stackView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel textLengthLabel { get; set; }
+
+		[Outlet]
+		UIKit.NSLayoutConstraint textViewHeightConstraint { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (textViewHeightConstraint != null) {
+				textViewHeightConstraint.Dispose ();
+				textViewHeightConstraint = null;
+			}
+
+			if (descriptionTopFloatingPlaceholderLabel != null) {
+				descriptionTopFloatingPlaceholderLabel.Dispose ();
+				descriptionTopFloatingPlaceholderLabel = null;
+			}
+
+			if (descriptionTextView != null) {
+				descriptionTextView.Dispose ();
+				descriptionTextView = null;
+			}
+
+			if (textLengthLabel != null) {
+				textLengthLabel.Dispose ();
+				textLengthLabel = null;
+			}
+
+			if (descriptionContainerView != null) {
+				descriptionContainerView.Dispose ();
+				descriptionContainerView = null;
+			}
+
+			if (descriptionPlaceholderLabel != null) {
+				descriptionPlaceholderLabel.Dispose ();
+				descriptionPlaceholderLabel = null;
+			}
+
 			if (birthdayTextField != null) {
 				birthdayTextField.Dispose ();
 				birthdayTextField = null;
@@ -117,11 +161,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 			if (changeProfilePhotoLabel != null) {
 				changeProfilePhotoLabel.Dispose ();
 				changeProfilePhotoLabel = null;
-			}
-
-			if (descriptionTextField != null) {
-				descriptionTextField.Dispose ();
-				descriptionTextField = null;
 			}
 
 			if (emailTextField != null) {
@@ -194,6 +233,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 				resndEmailContainerView = null;
 			}
 
+			if (rootView != null) {
+				rootView.Dispose ();
+				rootView = null;
+			}
+
 			if (saveButton != null) {
 				saveButton.Dispose ();
 				saveButton = null;
@@ -217,11 +261,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 			if (stackView != null) {
 				stackView.Dispose ();
 				stackView = null;
-			}
-
-			if (rootView != null) {
-				rootView.Dispose ();
-				rootView = null;
 			}
 		}
 	}

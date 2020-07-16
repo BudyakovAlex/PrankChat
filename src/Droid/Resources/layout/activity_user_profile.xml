@@ -57,6 +57,7 @@
                 android:background="@null"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:textSize="13dp"
                 app:MvxBind="Click SubscribeCommand"
                 app:layout_constraintBottom_toBottomOf="@+id/profile_photo"
                 app:layout_constraintStart_toEndOf="@+id/profile_photo" />

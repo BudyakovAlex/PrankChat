@@ -135,9 +135,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
                 if (SetProperty(ref _description, value))
                 {
                     RaisePropertyChanged(nameof(HasDescription));
+                    RaisePropertyChanged(nameof(LimitTextPresentation));
                 }
             }
         }
+
+        public string LimitTextPresentation => $"{Math.Min(Constants.Profile.DescriptionMaxLength, Description.Length)} / {Constants.Profile.DescriptionMaxLength}";
 
         public bool HasDescription => !string.IsNullOrEmpty(Description);
 

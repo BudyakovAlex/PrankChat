@@ -1,12 +1,14 @@
 ﻿using System;
 using Android.App;
 using Android.OS;
+using Android.Text;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
@@ -19,6 +21,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
     public class ProfileUpdateView : BaseView<ProfileUpdateViewModel>
     {
         private EditText _emailEditText;
+        private EditText _descriptionTextView;
         private ImageView _updateWarningImage;
         private TextView _resendConfirmationTextView;
 
@@ -54,8 +57,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             base.SetViewProperties();
 
             _emailEditText = FindViewById<EditText>(Resource.Id.email_edit_text);
+            _descriptionTextView = FindViewById<EditText>(Resource.Id.description_edit_text);
             _updateWarningImage = FindViewById<ImageView>(Resource.Id.update_warning_image);
             _resendConfirmationTextView = FindViewById<TextView>(Resource.Id.resend_confirmation_text_view);
+            _descriptionTextView.SetFilters(new[] { new InputFilterLengthFilter(Constants.Profile.DescriptionMaxLength) });
 
             var textViewChangePassword = FindViewById<TextView>(Resource.Id.text_view_change_password);
             var textViewChangeProfilePhoto = FindViewById<TextView>(Resource.Id.text_view_change_photo);

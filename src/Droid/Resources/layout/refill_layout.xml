@@ -124,7 +124,7 @@
         android:lineSpacingExtra="6dp"
         android:text="@string/Cashbox_Commision_Warning"
         android:textColor="@color/applicationBlack"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/warning_indicator_view"
         app:layout_constraintTop_toBottomOf="@+id/refill_cost_edit_text" />

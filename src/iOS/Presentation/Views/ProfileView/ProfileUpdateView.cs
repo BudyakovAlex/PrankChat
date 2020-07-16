@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using CoreAnimation;
+using CoreGraphics;
 using Foundation;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
@@ -7,6 +9,7 @@ using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
@@ -21,6 +24,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
     [MvxModalPresentation(WrapInNavigationController = true)]
     public partial class ProfileUpdateView : BaseTransparentBarView<ProfileUpdateViewModel>
     {
+        private const int MinimumDescriptionHeight = 80;
+
+        private UITextView _dynamicDescriptionTextView;
+        private CAShapeLayer _fullBorderLayer;
+        private CAShapeLayer _partBorderLayer;
 
         public override bool CanHandleKeyboardNotifications => true;
 
@@ -33,6 +41,33 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             var topPadding = window.SafeAreaInsets.Top;
             scrollViewBottomConstraint.Constant = visible ? (keyboardHeight - (topPadding + bottomPadding)) : 0;
             UIView.Animate(0.5, () => View.LayoutIfNeeded());
+        }
+
+        public string UserDescription
+        {
+            set
+            {
+                if (value is null)
+                {
+                    descriptionContainerView.Layer.AddSublayer(_fullBorderLayer);
+                    return;
+                }
+
+                var size = GetTextViewHeight(descriptionTextView.Bounds.Width, descriptionTextView.Font, value);
+                textViewHeightConstraint.Constant = size > MinimumDescriptionHeight ? size : MinimumDescriptionHeight;
+                descriptionPlaceholderLabel.Hidden = value.Length > 0;
+                descriptionTopFloatingPlaceholderLabel.Hidden = value.Length == 0;
+
+                if (value.Length > 0)
+                {
+                    _fullBorderLayer.Hidden = true;
+                    _partBorderLayer.Hidden = false;
+                    return;
+                }
+
+                _fullBorderLayer.Hidden = false;
+                _partBorderLayer.Hidden = true;
+            }
         }
 
         protected override void SetupBinding()
@@ -87,6 +122,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                       .For(v => v.PlaceholderText)
                       .To(vm => vm.ProfileShortName);
 
+            bindingSet.Bind(textLengthLabel)
+                      .For(v => v.Text)
+                      .To(vm => vm.LimitTextPresentation);
+
             bindingSet.Bind(changeProfilePhotoLabel.Tap())
                       .For(v => v.Command)
                       .To(vm => vm.ChangeProfilePhotoCommand);
@@ -107,8 +146,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                       .For(UIButtonSelectedTargetBinding.TargetBinding)
                       .To(vm => vm.IsGenderMale);
 
-            bindingSet.Bind(descriptionTextField)
-                      .For(v => v.Text)
+            bindingSet.Bind(descriptionTextView)
+                      .To(vm => vm.Description);
+
+            bindingSet.Bind(this)
+                      .For(nameof(UserDescription))
                       .To(vm => vm.Description);
 
             bindingSet.Bind(emailValidationImageView)
@@ -141,9 +183,22 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             bindingSet.Apply();
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            base.ViewDidLayoutSubviews();
+
+            RefreshDescriptionFrameLayers();
+        }
+
         protected override void SetupControls()
         {
             Title = Resources.ProfileUpdateView_Title;
+
+            descriptionTextView.TextContainer.MaximumNumberOfLines = 100;
+
+            _dynamicDescriptionTextView = new UITextView();
+
+            textLengthLabel.SetRegularStyle(12, textLengthLabel.TextColor);
 
             rootView.AddGestureRecognizer(new UITapGestureRecognizer(OnViewTapped));
             NavigationItem?.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton("ic_logout", ViewModel.ShowMenuCommand), true);
@@ -178,26 +233,108 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             changeProfilePhotoLabel.AttributedText = new NSAttributedString(Resources.ProfileUpdateView_PhotoChange_Title, underlineStyle: NSUnderlineStyle.Single);
             changeProfilePhotoLabel.TextColor = UIColor.White;
 
-            descriptionTextField.SetLightStyle(Resources.ProfileUpdateView_Description_Placeholder);
-            descriptionTextField.AddGestureRecognizer(new UITapGestureRecognizer(() => descriptionTextField.BecomeFirstResponder()));
+            descriptionTextView.SetTitleStyle(size: 14);
+            descriptionTextView.TextColor = Theme.Color.White;
+            descriptionTextView.ContentInset = UIEdgeInsets.Zero;
+            descriptionTextView.ShouldChangeText = (textField, range, replacementString) =>
+            {
+                var newLength = textField.Text.Length + replacementString.Length - range.Length;
+                return newLength <= Constants.Profile.DescriptionMaxLength;
+            };
 
+            descriptionTextView.AddGestureRecognizer(new UITapGestureRecognizer(() => descriptionTextView.BecomeFirstResponder()));
+
+            descriptionPlaceholderLabel.SetSmallSubtitleStyle(Resources.ProfileUpdateView_Description_Placeholder, 14);
+            descriptionPlaceholderLabel.TextColor = Theme.Color.White;
+
+            descriptionTopFloatingPlaceholderLabel.SetSmallSubtitleStyle(Resources.ProfileUpdateView_Description_Placeholder);
+            descriptionTopFloatingPlaceholderLabel.TextColor = Theme.Color.White;
+            descriptionTopFloatingPlaceholderLabel.Hidden = true;
             stackView.SetCustomSpacing(8, stackView.ArrangedSubviews[2]);
+
+            RefreshDescriptionFrameLayers();
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)
         {
             views.Add(scrollView);
+            views.Add(descriptionTextView);
+
             base.RegisterKeyboardDismissResponders(views);
+        }
+
+        private void RefreshDescriptionFrameLayers()
+        {
+            var isHiddenFullPath = false;
+            var isHiddenPartPath = false;
+
+            if (_partBorderLayer != null)
+            {
+                isHiddenPartPath = _partBorderLayer.Hidden;
+                isHiddenFullPath = _fullBorderLayer.Hidden;
+                _partBorderLayer.RemoveFromSuperLayer();
+                _fullBorderLayer.RemoveFromSuperLayer();
+            }
+
+            var partBrderPath = new CGPath();
+            partBrderPath.MoveToPoint(0, 0);
+            partBrderPath.AddLineToPoint(descriptionTopFloatingPlaceholderLabel.Frame.X, 0);
+            partBrderPath.MoveToPoint(descriptionTopFloatingPlaceholderLabel.Frame.Right, 0);
+            partBrderPath.AddLineToPoint(descriptionContainerView.Frame.Right, 0);
+            partBrderPath.AddLineToPoint(descriptionContainerView.Frame.Right, descriptionContainerView.Frame.Height);
+            partBrderPath.AddLineToPoint(0, descriptionContainerView.Frame.Height);
+            partBrderPath.AddLineToPoint(0, 0);
+
+            _partBorderLayer = new CAShapeLayer
+            {
+                Path = partBrderPath,
+                FillColor = UIColor.Clear.CGColor,
+                StrokeColor = UIColor.White.CGColor,
+                LineWidth = 1,
+                Hidden = isHiddenPartPath
+            };
+
+            var fullBrderPath = new CGPath();
+            fullBrderPath.MoveToPoint(0, 0);
+            fullBrderPath.AddLineToPoint(descriptionContainerView.Frame.Right, 0);
+            fullBrderPath.AddLineToPoint(descriptionContainerView.Frame.Right, descriptionContainerView.Frame.Height);
+            fullBrderPath.AddLineToPoint(0, descriptionContainerView.Frame.Height);
+            fullBrderPath.AddLineToPoint(0, 0);
+
+            _fullBorderLayer = new CAShapeLayer
+            {
+                Path = fullBrderPath,
+                FillColor = UIColor.Clear.CGColor,
+                StrokeColor = UIColor.White.CGColor,
+                LineWidth = 1,
+                Hidden = isHiddenFullPath
+            };
+
+            descriptionContainerView.Layer.AddSublayer(_fullBorderLayer);
+            descriptionContainerView.Layer.AddSublayer(_partBorderLayer);
+        }
+
+        private nfloat GetTextViewHeight(double width, UIFont font, string text)
+        {
+            _dynamicDescriptionTextView.Frame = new CGRect(0, 0, width, double.MaxValue);
+            _dynamicDescriptionTextView.Font = font;
+            _dynamicDescriptionTextView.Text = text;
+            _dynamicDescriptionTextView.SizeToFit();
+
+            return _dynamicDescriptionTextView.Frame.Height;
         }
 
         protected override void RegisterKeyboardDismissTextFields(List<UIView> viewList)
         {
-            viewList.AddRange(new[] {
+            viewList.AddRange(new UIView[] {
                 emailTextField,
                 loginTextField,
                 nameTextField,
-                birthdayTextField
+                birthdayTextField,
+                descriptionTextView
             });
+
+            descriptionTextView.ScrollEnabled = false;
 
             base.RegisterKeyboardDismissTextFields(viewList);
         }

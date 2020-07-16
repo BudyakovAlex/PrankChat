@@ -15,6 +15,6 @@
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:textColor="@color/applicationWhite"
-        android:textSize="12sp"
+        android:textSize="12dp"
         tools:text="Вы подписались на задание example" />
 </FrameLayout>

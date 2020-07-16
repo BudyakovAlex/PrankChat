@@ -4,6 +4,11 @@ namespace PrankChat.Mobile.Core.Infrastructure
 {
     public static class Constants
     {
+        public static class Profile
+        {
+            public const int DescriptionMaxLength = 120;
+        }
+
         public static class Orders
         {
             public const int DescriptionMaxLength = 1000;
