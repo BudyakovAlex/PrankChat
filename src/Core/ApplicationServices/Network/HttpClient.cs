@@ -14,6 +14,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Builders;
 using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
@@ -34,22 +35,25 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         private readonly IMvxMessenger _messenger;
       
         private readonly IMvxLog _mvxLog;
-
-        private readonly string _baseAddress;
-        private readonly Version _apiVersion;
+        private readonly ILogger _logger;
         private readonly ISettingsService _settingsService;
+
+        private readonly Version _apiVersion;
+        private readonly string _baseAddress;
         private IDialogService _dialogService;
 
         public HttpClient(string baseAddress,
                           Version apiVersion,
                           ISettingsService settingsService,
                           IMvxLog mvxLog,
+                          ILogger logger,
                           IMvxMessenger messenger)
         {
             _baseAddress = baseAddress;
             _apiVersion = apiVersion;
             _settingsService = settingsService;
             _mvxLog = mvxLog;
+            _logger = logger;
             _messenger = messenger;
 
             _client = new RestClient($"{baseAddress}/{ApiId}/v{apiVersion.Major}").UseSerializer(() => new JsonNetSerializer());
@@ -66,6 +70,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 return null;
             }
 
+            _logger.WriteRequestInfoAsync(DateTime.Now, method.ToString(), endpoint).FireAndForget();
             var request = new RestRequest(endpoint, method);
 
             if (includeAccessToken)
@@ -76,6 +81,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             AddLanguageHeader(request);
 
             var response = await _client.ExecuteAsync(request);
+            _logger.WriteRequestInfoAsync(DateTime.Now, method.ToString(), endpoint, true, response.Content).FireAndForget();
             return response;
         }
 
@@ -148,8 +154,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                                                        .AttachStringContent("description", item.Description)
                                                        .AttachFileContent("video", Path.GetFileName(item.FilePath), buffer, onChangedProgressAction, cancellationToken)
                                                        .Build();
-
+                   
                     var url = new Uri($"{_baseAddress}/{ApiId}/v{_apiVersion.Major}/{endpoint}");
+
                     response = await client.PostAsync(url, multipartData, cancellationToken);
                     if (response.IsSuccessStatusCode)
                     {
@@ -212,16 +219,19 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return ExecuteTaskAsync<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
-        public Task DeleteAsync(string endpoint, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
+        public async Task DeleteAsync(string endpoint, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
         {
             if (!Connectivity.NetworkAccess.HasConnection())
             {
                 DialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
-                return Task.CompletedTask;
+                return;
             }
 
+            _logger.WriteRequestInfoAsync(DateTime.Now, Method.DELETE.ToString(), endpoint).FireAndForget();
+
             var request = new RestRequest(endpoint, Method.DELETE);
-            return ExecuteTaskAsync(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
+            await ExecuteTaskAsync(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
+            _logger.WriteRequestInfoAsync(DateTime.Now, Method.DELETE.ToString(), endpoint, true).FireAndForget();
         }
 
         private async Task ExecuteTaskAsync(IRestRequest request, string endpoint, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)

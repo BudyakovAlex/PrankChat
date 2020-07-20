@@ -1,5 +1,4 @@
-﻿using Badge.Plugin;
-using MvvmCross;
+﻿using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
@@ -12,9 +11,7 @@ using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using System;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {
@@ -38,6 +35,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public IMvxMessenger Messenger { get; }
 
+        public INotificationBageViewModel NotificationBageViewModel { get; }
+
         #endregion
 
         private bool _isBusy;
@@ -55,8 +54,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public IMvxAsyncCommand ShowNotificationCommand { get; }
 
-        public bool HasUnreadNotifications { get; private set; }
-
         public BaseViewModel(INavigationService navigationService,
                              IErrorHandleService errorHandleService,
                              IApiService apiService,
@@ -70,7 +67,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             SettingsService = settingsService;
 
             Mvx.IoCProvider.TryResolve<IMvxMessenger>(out var messenger);
+            Mvx.IoCProvider.TryResolve<INotificationBageViewModel>(out var notificationBageViewModel);
+
             Messenger = messenger;
+            NotificationBageViewModel = notificationBageViewModel;
 
             ShowNotificationCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowNotificationView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
             ShowSearchCommand = new MvxAsyncCommand(NavigationService.ShowSearchView);
@@ -85,12 +85,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         public override async Task Initialize()
         {
             await base.Initialize();
-            ValidateNotificationsStateAsync().FireAndForget();
+            NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null).FireAndForget();
         }
 
         protected void SubscribeToNotificationsUpdates()
         {
-            _refreshNotificationsSubscriptionToken = Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await ValidateNotificationsStateAsync());
+            _refreshNotificationsSubscriptionToken = Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null));
             _timerTickMessageToken = Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong);
         }
 
@@ -106,24 +106,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             if (_timerThicksCount >= 10)
             {
                 _timerThicksCount = 0;
-                ValidateNotificationsStateAsync().FireAndForget();
-            }
-        }
-
-        protected async Task ValidateNotificationsStateAsync()
-        {
-            if (!IsUserSessionInitialized)
-            {
-                return;
-            }
-
-            var unreadNotifications = await ApiService.GetUnreadNotificationsCountAsync();
-            HasUnreadNotifications = unreadNotifications > 0;
-            await RaisePropertyChanged(nameof(HasUnreadNotifications));
-
-            if (HasUnreadNotifications)
-            {
-                MainThread.BeginInvokeOnMainThread(() => CrossBadge.Current.SetBadge(unreadNotifications));
+                NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null).FireAndForget();
             }
         }
     }

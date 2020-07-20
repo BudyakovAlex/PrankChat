@@ -75,5 +75,10 @@
     <Folder Include="ApplicationServices\Network\Builders\" />
     <Folder Include="ApplicationServices\Network\Contents\" />
     <Folder Include="Presentation\ViewModels\Subscriptions\" />
+    <Folder Include="BusinessServices\Logger\" />
+    <Folder Include="BusinessServices\TaskSchedulers\" />
+    <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\" />
+    <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\Abstract\" />
+    <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\SendLogs\" />
   </ItemGroup>
 </Project>

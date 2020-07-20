@@ -203,6 +203,11 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         public Task<bool> ShowUserProfile(int userId)
         {
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return Task.FromResult(false);
+            }
+
             return _mvxNavigationService.Navigate<UserProfileViewModel, int, bool>(userId);
         }
 

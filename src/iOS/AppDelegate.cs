@@ -1,5 +1,4 @@
-﻿using System;
-using Firebase.CloudMessaging;
+﻿using Firebase.CloudMessaging;
 using Firebase.Crashlytics;
 using Foundation;
 using MvvmCross;
@@ -7,6 +6,7 @@ using MvvmCross.Platforms.Ios.Core;
 using PrankChat.Mobile.Core;
 using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
+using System;
 using UIKit;
 using UserNotifications;
 using VKontakte;

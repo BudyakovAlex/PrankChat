@@ -271,6 +271,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private async Task LoadUserProfileAsync()
         {
             var user = await ApiService.GetUserAsync(_userId);
+            if (user is null)
+            {
+                return;
+            }
 
             ProfilePhotoUrl = user.Avatar;
             Login = user.Login;

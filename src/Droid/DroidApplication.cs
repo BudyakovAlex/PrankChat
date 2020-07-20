@@ -4,6 +4,8 @@ using Acr.UserDialogs;
 using Android.App;
 using Android.Runtime;
 using Firebase;
+using MvvmCross;
+using PrankChat.Mobile.Core.BusinessServices.TaskSchedulers;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications;
 using VKontakte;
 using VKontakte.Utils;
