@@ -61,6 +61,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
+        public Task<bool> SendLogsAsync(string filePath)
+        {
+            return _client.PostFileAsync("application/log/mobile", "file", filePath, false, new KeyValuePair<string, string>("device_id", CrossDeviceInfo.Current.Id));
+        }
+
         public async Task<bool> AuthorizeExternalAsync(string authToken, LoginType loginType)
         {
             var loginTypePath = GetAuthPathByLoginType(loginType);
@@ -467,6 +472,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 Title = title,
                 Description = description,
             };
+
             var videoMetadataApiModel = await _client.PostVideoFileAsync<LoadVideoApiModel, DataApiModel<VideoApiModel>>("videos", loadVideoApiModel, onChangedProgressAction: onChangedProgressAction, cancellationToken: cancellationToken);
             return MappingConfig.Mapper.Map<VideoDataModel>(videoMetadataApiModel?.Data);
         }

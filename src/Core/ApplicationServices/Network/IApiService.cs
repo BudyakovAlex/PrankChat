@@ -172,5 +172,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         Task<PaginationModel<OrderDataModel>> SearchOrdersAsync(string query, int page, int pageSize);
 
         Task<AppVersionDataModel> CheckAppVersionAsync();
+
+        Task<bool> SendLogsAsync(string filePath);
     }
 }

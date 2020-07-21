@@ -126,6 +126,7 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
             service.Player.SetPlatformVideoPlayerContainer(cell.AVPlayerViewControllerInstance);
             cell.AddObserverForPeriodicTime();
             service.Play(viewModel.PreviewUrl, viewModel.VideoId);
+            viewModel.Logger.LogEventAsync(DateTime.Now, "[Publications_Start_Play]", $"Video id is {viewModel.VideoId}");
 
             _previousVideoCell = cell;
         }
@@ -142,6 +143,7 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
             }
 
             viewModel.VideoPlayerService.Stop();
+            viewModel.Logger.LogEventAsync(DateTime.Now, "[Publications_Stop_Play]", $"Video id is {viewModel.VideoId}");
             cell.AVPlayerViewControllerInstance.Player = null;
         }
 

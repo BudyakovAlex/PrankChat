@@ -201,6 +201,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
             videoService.Player.SetPlatformVideoPlayerContainer(textureView);
             videoService.Player.VideoRenderingStartedAction = itemViewHolder.OnRenderingStarted;
+            itemViewHolder.ViewModel.Logger.LogEventAsync(DateTime.Now, "[Publications_Start_Play]", $"Video id is {itemViewHolder.ViewModel.VideoId}");
             videoService.Play(itemViewHolder.ViewModel.PreviewUrl, itemViewHolder.ViewModel.VideoId);
 
             _previousPublicationViewHolder = itemViewHolder;
@@ -218,6 +219,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
             viewHolder.ViewModel.VideoPlayerService.Player.VideoRenderingStartedAction = null;
             viewHolder.StubImageView.Visibility = ViewStates.Visible;
+            viewHolder.ViewModel.Logger.LogEventAsync(DateTime.Now, "[Publications_Stop_Play]", $"Video id is {viewHolder.ViewModel.VideoId}");
+
             viewHolder.ViewModel.VideoPlayerService.Stop();
             viewHolder.LoadingProgressBar.Visibility = ViewStates.Invisible;
         }

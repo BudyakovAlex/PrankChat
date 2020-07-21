@@ -1,11 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using MvvmCross;
+﻿using MvvmCross;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
@@ -23,6 +16,15 @@ using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using RestSharp;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network
@@ -70,7 +72,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 return null;
             }
 
-            _logger.WriteRequestInfoAsync(DateTime.Now, method.ToString(), endpoint).FireAndForget();
             var request = new RestRequest(endpoint, method);
 
             if (includeAccessToken)
@@ -80,8 +81,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
             AddLanguageHeader(request);
 
+            _logger.WriteRequestInfoAsync(DateTime.Now, method.ToString(), endpoint, request.Parameters).FireAndForget();
             var response = await _client.ExecuteAsync(request);
-            _logger.WriteRequestInfoAsync(DateTime.Now, method.ToString(), endpoint, true, response.Content).FireAndForget();
+            _logger.WriteResponseInfoAsync(DateTime.Now, response.StatusCode, method.ToString(), endpoint, response.Content, response.Headers.ToList()).FireAndForget();
             return response;
         }
 
@@ -128,6 +130,88 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return ExecuteTaskAsync<TResult>(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
+        public async Task<bool> PostFileAsync(string endpoint, string propertyName, string filePath, bool exceptionThrowingEnabled = false, params KeyValuePair<string, string>[] parameters)
+        {
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return false;
+            }
+
+            var response = default(HttpResponseMessage);
+            try
+            {
+                using (var client = new System.Net.Http.HttpClient())
+                {
+                    var accessToken = await _settingsService.GetAccessTokenAsync();
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
+
+                    var currentCulture = CultureInfo.CurrentCulture;
+                    client.DefaultRequestHeaders.Add("Accept-Language", currentCulture.TwoLetterISOLanguageName);
+
+                    var buffer = default(byte[]);
+                    using (var fileStream = File.OpenRead(filePath))
+                    {
+                        buffer = new byte[fileStream.Length];
+                        await fileStream.ReadAsync(buffer, 0, (int)fileStream.Length);
+                    }
+
+                    var formDataBuilder = FormDataBuilder.Create()
+                                                         .AttachFileContent(propertyName, Path.GetFileName(filePath), buffer, (i, e) => { });
+                    var paramsToLog = new List<Parameter>();
+                    foreach (var parameter in parameters)
+                    {
+                        paramsToLog.Add(new Parameter(parameter.Key, parameter.Value, ParameterType.RequestBody));
+                        formDataBuilder.AttachStringContent(parameter.Key, parameter.Value);
+                    }
+
+                    var multipartData = formDataBuilder.Build();
+                    var url = new Uri($"{_baseAddress}/{ApiId}/v{_apiVersion.Major}/{endpoint}");
+
+                    var headers = multipartData.Headers.Select(header => new Parameter(header.Key, header.Value, ParameterType.HttpHeader)).ToList();
+                    var requestParameters = paramsToLog.Union(headers).ToList();
+
+                    _logger.WriteRequestInfoAsync(DateTime.Now, Method.POST.ToString(), endpoint, requestParameters).FireAndForget();
+
+                    response = await client.PostAsync(url, multipartData);
+                    return response.IsSuccessStatusCode;
+                }
+            }
+            catch (JsonSerializationException)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                throw new NetworkException($"Network error - {errorContent} with code {response.StatusCode} for request {response.RequestMessage.RequestUri}");
+            }
+            catch (Exception ex) when (ex.Message.Contains("Socket closed") || ex.Message.Contains("Failed to connect"))
+            {
+                //TODO: add no internet connection message
+                var error = new ProblemDetailsDataModel(Resources.Error_Unexpected_Network)
+                {
+                    MessageServerError = Resources.Error_Unexpected_Network
+                };
+
+                var problemException = new ServerErrorMessage(this, error);
+                _mvxLog.ErrorException(Resources.Error_Unexpected_Network, error);
+                _messenger.Publish(problemException);
+
+                if (exceptionThrowingEnabled)
+                {
+                    throw;
+                }
+
+                return default;
+            }
+            catch (Exception ex)
+            {
+                if (exceptionThrowingEnabled)
+                {
+                    throw new NetworkException(ex.Message, ex);
+                }
+
+                return default;
+            }
+        }
+
+        //TODO: refactor it
         public async Task<TResult> PostVideoFileAsync<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false, Action<double, double> onChangedProgressAction = null, CancellationToken cancellationToken = default) where TEntity : LoadVideoApiModel where TResult : new()
         {
             var response = default(HttpResponseMessage);
@@ -157,14 +241,29 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                    
                     var url = new Uri($"{_baseAddress}/{ApiId}/v{_apiVersion.Major}/{endpoint}");
 
+                    var parameters = new[]
+                    {
+                        new Parameter("order_id", item.OrderId.ToString(), ParameterType.RequestBody),
+                        new Parameter("title", item.Title, ParameterType.RequestBody),
+                        new Parameter("description", item.Description, ParameterType.RequestBody),
+                        new Parameter("video", item.FilePath, ParameterType.RequestBody)
+                    };
+
+                    var headers = multipartData.Headers.Select(header => new Parameter(header.Key, header.Value, ParameterType.HttpHeader)).ToList();
+                    var requestParameters = parameters.Union(headers).ToList();
+                    _logger.WriteRequestInfoAsync(DateTime.Now, Method.POST.ToString(), endpoint, requestParameters).FireAndForget();
+
                     response = await client.PostAsync(url, multipartData, cancellationToken);
                     if (response.IsSuccessStatusCode)
                     {
                         var responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        _logger.WriteResponseInfoAsync(DateTime.Now, response.StatusCode, Method.POST.ToString(), endpoint, responseJson).FireAndForget();
                         return JsonConvert.DeserializeObject<TResult>(responseJson);
                     }
 
                     var errorContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    _logger.WriteResponseInfoAsync(DateTime.Now, response.StatusCode, Method.POST.ToString(), endpoint, errorContent).FireAndForget();
+
                     var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(errorContent);
                     var problemDetailsData = MappingConfig.Mapper.Map<ProblemDetailsDataModel>(problemDetails);
                     throw problemDetailsData;
@@ -219,19 +318,16 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return ExecuteTaskAsync<TResult>(request, endpoint, true, exceptionThrowingEnabled);
         }
 
-        public async Task DeleteAsync(string endpoint, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
+        public Task DeleteAsync(string endpoint, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
         {
             if (!Connectivity.NetworkAccess.HasConnection())
             {
                 DialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
-                return;
+                return Task.CompletedTask;
             }
 
-            _logger.WriteRequestInfoAsync(DateTime.Now, Method.DELETE.ToString(), endpoint).FireAndForget();
-
             var request = new RestRequest(endpoint, Method.DELETE);
-            await ExecuteTaskAsync(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
-            _logger.WriteRequestInfoAsync(DateTime.Now, Method.DELETE.ToString(), endpoint, true).FireAndForget();
+            return ExecuteTaskAsync(request, endpoint, true, exceptionThrowingEnabled, cancellationToken);
         }
 
         private async Task ExecuteTaskAsync(IRestRequest request, string endpoint, bool includeAccessToken, bool exceptionThrowingEnabled = false, CancellationToken? cancellationToken = null)
@@ -252,9 +348,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                 AddLanguageHeader(request);
 
+                _logger.WriteRequestInfoAsync(DateTime.Now, request.Method.ToString(), endpoint, parameters: request.Parameters).FireAndForget();
+
                 var content = cancellationToken.HasValue
                     ? await _client.ExecuteAsync(request, request.Method, cancellationToken.Value)
                     : await _client.ExecuteAsync(request, request.Method);
+
+                _logger.WriteResponseInfoAsync(DateTime.Now, content.StatusCode, request.Method.ToString(), endpoint, content.Content, content.Headers.ToList()).FireAndForget();
 
                 CheckResponse(request, content, exceptionThrowingEnabled);
             }
@@ -282,9 +382,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                 AddLanguageHeader(request);
 
+                _logger.WriteRequestInfoAsync(DateTime.Now, request.Method.ToString(), endpoint, parameters: request.Parameters).FireAndForget();
+
                 var content = cancellationToken.HasValue
                     ? await _client.ExecuteAsync<T>(request, cancellationToken.Value)
                     : await _client.ExecuteAsync<T>(request);
+
+                _logger.WriteResponseInfoAsync(DateTime.Now, content.StatusCode, request.Method.ToString(), endpoint, content.Content, content.Headers.ToList()).FireAndForget();
 
                 CheckResponse(request, content, exceptionThrowingEnabled);
                 return content.Data;

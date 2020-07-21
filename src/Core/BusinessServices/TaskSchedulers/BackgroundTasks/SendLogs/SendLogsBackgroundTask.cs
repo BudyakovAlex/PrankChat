@@ -22,9 +22,9 @@ namespace PrankChat.Mobile.Core.BusinessServices.TaskSchedulers.BackgroundTasks.
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
-            var content = await _logger.ExtractAndClearLogContentAsync();
             var apiService = _lazyApiService.Value;
-            //TODO: add logs sending
+            await apiService.SendLogsAsync(_logger.LogFilePath);
+            await _logger.ClearLogAsync();
         }
     }
 }

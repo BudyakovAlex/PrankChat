@@ -423,7 +423,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             var minutes = totalSeconds / 60;
             var seconds = totalSeconds % 60;
 
-            return $"{minutes}:{seconds.ToString("00")}";
+            return $"{minutes}:{seconds:00}";
         }
 
         private void UpdateTimePassedWidthConstraint()
@@ -462,7 +462,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             var value = _player.CurrentItem.LoadedTimeRanges.LastOrDefault();
             if (value == null)
+            {
                 return;
+            }
 
             var seconds = value.CMTimeRangeValue.Start.Seconds + value.CMTimeRangeValue.Duration.Seconds;
             var ratio = seconds / _player.CurrentItem.Duration.Seconds;

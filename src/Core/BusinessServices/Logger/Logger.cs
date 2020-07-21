@@ -1,6 +1,10 @@
 ﻿using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using RestSharp;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,29 +24,71 @@ namespace PrankChat.Mobile.Core.BusinessServices.Logger
             CreateFileIfNotExists();
         }
 
-        public Task<string> ExtractAndClearLogContentAsync()
+        public string LogFilePath => Path.Combine(_applicationFolder, LogFileName);
+
+        public Task ClearLogAsync()
         {
             return _semaphoreSlim.WrapAsync(() =>
             {
                 try
                 {
                     var filePath = Path.Combine(_applicationFolder, LogFileName);
-                    var content = File.ReadAllText(filePath);
                     File.WriteAllText(filePath, string.Empty);
-
-                    return Task.FromResult(content);
                 }
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine(ex);
-                    return null;
+                    return;
                 }
             });
         }
 
-        public Task WriteRequestInfoAsync(DateTime dateTime, string tag, string message, bool isEndOfRequest = false, string parameters = "")
+        public Task LogEventAsync(DateTime dateTime, string tag, string extraParameters = null)
         {
-            var body = ProduceMessageText(dateTime, isEndOfRequest, tag, message, parameters);
+            var sb = new StringBuilder();
+            sb.AppendLine()
+              .AppendLine("--------------------------------")
+              .AppendLine($"[{dateTime:u}] [{tag}]");
+
+            if (!string.IsNullOrWhiteSpace(extraParameters))
+            {
+                sb.AppendLine($"[{dateTime:u}] [{tag}]");
+            }
+
+            return _semaphoreSlim.WrapAsync(() =>
+            {
+                try
+                {
+                    var filePath = Path.Combine(_applicationFolder, LogFileName);
+                    File.AppendAllText(filePath, sb.ToString());
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex);
+                }
+            });
+        }
+
+        public Task WriteRequestInfoAsync(DateTime dateTime, string tag, string message, List<Parameter> parameters = null)
+        {
+            var body = ProduceRequestMessageText(dateTime, tag, message, parameters);
+            return _semaphoreSlim.WrapAsync(() =>
+            {
+                try
+                {
+                    var filePath = Path.Combine(_applicationFolder, LogFileName);
+                    File.AppendAllText(filePath, body);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex);
+                }
+            });
+        }
+
+        public Task WriteResponseInfoAsync(DateTime dateTime, HttpStatusCode statusCode, string tag, string message, string content, List<Parameter> headers = null)
+        {
+            var body = ProduceResponseMessageText(dateTime,statusCode, tag, message, content, headers);
             return _semaphoreSlim.WrapAsync(() =>
             {
                 try
@@ -75,19 +121,49 @@ namespace PrankChat.Mobile.Core.BusinessServices.Logger
             }
         }
 
-        private string ProduceMessageText(DateTime dateTime, bool isEndOfRequest, string tag, string message, string parameters)
+        private string ProduceRequestMessageText(DateTime dateTime, string tag, string message, List<Parameter> parameters)
         {
-            parameters = string.IsNullOrWhiteSpace(parameters) ? "No parameters" : parameters;
-            var header = isEndOfRequest ? "REQUEST ENDED AT:" : "REQUEST STARTED AT:";
-            var footer = isEndOfRequest ? "[RESPONSE]" : "[PARAMETERS]";
             var sb = new StringBuilder();
             sb.AppendLine()
               .AppendLine("--------------------------------")
-              .AppendLine($"[{header}] [{dateTime:u}]")
+              .AppendLine($"[REQUEST STARTED AT:] [{dateTime:u}]")
               .AppendLine($"[{tag}] {message}")
-              .AppendLine()
-              .AppendLine(footer)
-              .AppendLine(parameters);
+              .AppendLine("[HEADERS:]")
+              .AppendLine(ProduceParametersStringByType(parameters, ParameterType.HttpHeader))
+              .AppendLine("[PARAMETERS:]")
+              .AppendLine(ProduceParametersStringByType(parameters, ParameterType.RequestBody));
+
+            return sb.ToString();
+        }
+
+        private string ProduceResponseMessageText(DateTime dateTime, HttpStatusCode statusCode, string tag, string message, string content, List<Parameter> headers = null)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine()
+              .AppendLine("--------------------------------")
+              .AppendLine($"[REQUEST ENDED AT:] [{dateTime:u}]")
+              .AppendLine($"[{(int)statusCode}] [{tag}] {message}")
+              .AppendLine("[HEADERS:]")
+              .AppendLine(ProduceParametersStringByType(headers, ParameterType.HttpHeader))
+              .AppendLine("[CONTENT:]")
+              .AppendLine(content);
+
+            return sb.ToString();
+        }
+
+        private string ProduceParametersStringByType(List<Parameter> parameters, ParameterType parameterType)
+        {
+            if (parameters is null || parameters.Count == 0)
+            {
+                return "-";
+            }
+
+            var sb = new StringBuilder();
+            var filteredParameters = parameters.Where(parameter => parameter.Type == parameterType).ToList();
+            filteredParameters.ForEach(parameter =>
+            {
+                sb.AppendLine($"{parameter.Name} : {parameter.Value} - {parameter.ContentType};");
+            });
 
             return sb.ToString();
         }

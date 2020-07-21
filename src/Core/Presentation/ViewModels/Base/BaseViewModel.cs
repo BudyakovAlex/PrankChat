@@ -7,6 +7,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
+using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -34,6 +35,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         public ISettingsService SettingsService { get; }
 
         public IMvxMessenger Messenger { get; }
+
+        public ILogger Logger { get; }
 
         public INotificationBageViewModel NotificationBageViewModel { get; }
 
@@ -67,9 +70,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             SettingsService = settingsService;
 
             Mvx.IoCProvider.TryResolve<IMvxMessenger>(out var messenger);
+            Mvx.IoCProvider.TryResolve<ILogger>(out var logger);
             Mvx.IoCProvider.TryResolve<INotificationBageViewModel>(out var notificationBageViewModel);
 
             Messenger = messenger;
+            Logger = logger;
             NotificationBageViewModel = notificationBageViewModel;
 
             ShowNotificationCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowNotificationView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
