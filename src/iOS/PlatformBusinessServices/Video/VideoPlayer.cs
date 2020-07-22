@@ -1,14 +1,16 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using AVFoundation;
+﻿using AVFoundation;
 using AVKit;
+using CoreFoundation;
 using CoreMedia;
 using Foundation;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
 {
@@ -20,8 +22,10 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         private NSObject _repeatObserver;
         private NSObject _viewedFactRegistrationObserver;
         private NSObject _videoEndHandler;
+        private NSObject _playerPerdiodicTimeObserver;
+        private string _uri;
 
-        public VideoPlayer(IApiService apiService, IMvxMessenger mvxMessenger) : base(apiService, mvxMessenger)
+        public VideoPlayer(IApiService apiService, ILogger logger, IMvxMessenger mvxMessenger) : base(apiService, logger, mvxMessenger)
         {
             _player = new AVQueuePlayer
             {
@@ -90,12 +94,16 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             if (_player.CurrentItem == null)
                 return;
 
+            Logger.LogEventAsync(DateTime.Now, "[Video_Buffering]", $"Video uri is {_uri}").FireAndForget();
+
             _player.Play();
             IsPlaying = true;
         }
 
         public override void Stop()
         {
+            Logger.LogEventAsync(DateTime.Now, "[Video_Stop]", $"Video uri is {_uri}").FireAndForget();
+
             Debug.WriteLine("Play stopped.");
             _player.Seek(new CMTime(0, 1));
             _player.Pause();
@@ -124,7 +132,32 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
                 return;
             }
 
+            _uri = uri;
+            _playerPerdiodicTimeObserver = _player.AddPeriodicTimeObserver(
+                new CMTime(1, 2),
+                DispatchQueue.MainQueue,
+                PlayerTimeChanged);
+
+            Logger.LogEventAsync(DateTime.Now, "[Video_Initialization]", $"Video uri is {_uri}").FireAndForget();
             _player.ReplaceCurrentItemWithPlayerItem(new AVPlayerItem(new NSUrl(uri)));
+        }
+
+        private void PlayerTimeChanged(CMTime obj)
+        {
+            if (_playerPerdiodicTimeObserver is null)
+            {
+                return;
+            }
+
+            if (obj.Value > 0)
+            {
+                if (_playerPerdiodicTimeObserver != null)
+                {
+                    Logger.LogEventAsync(DateTime.Now, "[Video_Play]", $"Video uri is {_uri}").FireAndForget();
+                    _player.RemoveTimeObserver(_playerPerdiodicTimeObserver);
+                    _playerPerdiodicTimeObserver = null;
+                }
+            }
         }
 
         protected virtual void Dispose(bool disposing)

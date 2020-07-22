@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
+using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Presentation.Messages;
 
 namespace PrankChat.Mobile.Core.BusinessServices
@@ -12,8 +13,9 @@ namespace PrankChat.Mobile.Core.BusinessServices
         private readonly IApiService _apiService;
         private readonly IMvxMessenger _mvxMessenger;
 
-        protected BaseVideoPlayer(IApiService apiService, IMvxMessenger mvxMessenger)
+        protected BaseVideoPlayer(IApiService apiService, ILogger logger, IMvxMessenger mvxMessenger)
         {
+            Logger = logger;
             _apiService = apiService;
             _mvxMessenger = mvxMessenger;
         }
@@ -21,6 +23,8 @@ namespace PrankChat.Mobile.Core.BusinessServices
         public virtual void Dispose()
         {
         }
+
+        protected ILogger Logger { get; }
 
         public abstract bool IsPlaying { get; protected set; }
 
