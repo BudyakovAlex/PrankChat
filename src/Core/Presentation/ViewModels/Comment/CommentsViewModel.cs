@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Logging;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
@@ -19,6 +20,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
 {
     public class CommentsViewModel : PaginationViewModel, IMvxViewModel<int, int>
     {
+        private readonly IMvxLog _mvxLog;
+
         private int _videoId;
         private int _newCommentsCounter;
 
@@ -26,13 +29,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
                                  IErrorHandleService errorHandleService,
                                  IApiService apiService,
                                  IDialogService dialogService,
-                                 ISettingsService settingsService)
+                                 ISettingsService settingsService,
+                                 IMvxLog mvxLog)
             : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
         {
             Items = new MvxObservableCollection<CommentItemViewModel>();
 
             SendCommentCommand = new MvxAsyncCommand(SendCommentAsync, () => !string.IsNullOrWhiteSpace(Comment));
             ScrollInteraction = new MvxInteraction<int>();
+            _mvxLog = mvxLog;
         }
 
         public MvxObservableCollection<CommentItemViewModel> Items { get; }
@@ -112,20 +117,32 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
 
         private async Task SendCommentAsync()
         {
-            if (string.IsNullOrWhiteSpace(Comment))
+            try
             {
-                return;
+                if (string.IsNullOrWhiteSpace(Comment))
+                {
+                    return;
+                }
+
+                var comment = await ApiService.CommentVideoAsync(_videoId, Comment);
+                if (comment is null)
+                {
+                    return;
+                }
+
+                comment.User = SettingsService.User;
+                Items.Add(ProduceCommentItemViewModel(comment));
+                _newCommentsCounter += 1;
+                SetTotalItemsCount(_newCommentsCounter);
+
+                ScrollInteraction.Raise(Items.Count - 1);
+
+                Comment = string.Empty;
             }
-
-            var comment = await ApiService.CommentVideoAsync(_videoId, Comment);
-            comment.User = SettingsService.User;
-            Items.Add(ProduceCommentItemViewModel(comment));
-            _newCommentsCounter += 1;
-            SetTotalItemsCount(_newCommentsCounter);
-
-            ScrollInteraction.Raise(Items.Count - 1);
-
-            Comment = string.Empty;
+            catch (Exception ex)
+            {
+                _mvxLog.ErrorException("Failed to send comments", ex);
+            }
         }
     }
 }

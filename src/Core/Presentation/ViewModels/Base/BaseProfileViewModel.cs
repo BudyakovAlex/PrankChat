@@ -140,7 +140,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             }
         }
 
-        public string LimitTextPresentation => $"{Math.Min(Constants.Profile.DescriptionMaxLength, Description.Length)} / {Constants.Profile.DescriptionMaxLength}";
+        public string LimitTextPresentation => $"{Math.Min(Constants.Profile.DescriptionMaxLength, Description?.Length ?? 0)} / {Constants.Profile.DescriptionMaxLength}";
 
         public bool HasDescription => !string.IsNullOrEmpty(Description);
 

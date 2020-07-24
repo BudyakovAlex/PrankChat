@@ -72,7 +72,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         {
             try
             {
-                if (text.Length < 2)
+                if (text?.Length < 2)
                 {
                     return;
                 }

@@ -118,10 +118,15 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             await _settingsService.SetAccessTokenAsync(content?.Data?.AccessToken);
         }
 
-        public async Task<bool> CheckIsEmailExistsAsync(string email)
+        public async Task<bool?> CheckIsEmailExistsAsync(string email)
         {
+            if (string.IsNullOrEmpty(email))
+            {
+                return true;
+            }
+
             var emailValidationBundle = await _client.GetAsync<EmailCheckApiModel>($"application/email/check?email={email}", true);
-            return emailValidationBundle.Result;
+            return emailValidationBundle?.Result;
         }
 
         public async Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email)
@@ -311,8 +316,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 await _client.GetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer);
 
             var mappedModels = MappingConfig.Mapper.Map<List<VideoDataModel>>(videoMetadataBundle?.Data);
-            var paginationData = videoMetadataBundle.Meta.FirstOrDefault();
-            var totalItemsCount = paginationData.Value?.Total ?? mappedModels.Count;
+            var paginationData = videoMetadataBundle?.Meta.FirstOrDefault();
+            var totalItemsCount = paginationData?.Value?.Total ?? mappedModels.Count;
 
             return new PaginationModel<VideoDataModel>(mappedModels, totalItemsCount);
         }
@@ -581,6 +586,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 Token = token,
                 DeviceId = CrossDeviceInfo.Current.Id,
             };
+
             return _client.PostAsync("me/device", pushNotificationApiMode, true);
         }
 

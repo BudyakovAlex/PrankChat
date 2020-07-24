@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task RefreshTokenAsync();
 
-        Task<bool> CheckIsEmailExistsAsync(string email);
+        Task<bool?> CheckIsEmailExistsAsync(string email);
 
         Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email);
 
