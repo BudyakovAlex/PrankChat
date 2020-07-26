@@ -151,6 +151,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         Task SendNotificationTokenAsync(string token);
 
+        Task UnregisterNotificationsAsync();
+
         #endregion Notification
 
         #region Competitions

@@ -590,6 +590,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             return _client.PostAsync("me/device", pushNotificationApiMode, true);
         }
 
+        public async Task UnregisterNotificationsAsync()
+        {
+             await _client.DeleteAsync($"/api/v1/me/device/{CrossDeviceInfo.Current.Id}", true);
+        }
+
         #endregion Notification
 
         #region Competitions

@@ -152,15 +152,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task LogoutUserAsync()
         {
-            ApiService.LogoutAsync().FireAndForget();
+            if (Xamarin.Essentials.Connectivity.NetworkAccess.HasConnection())
+            {
+                ApiService.UnregisterNotificationsAsync().FireAndForget();
+                ApiService.LogoutAsync().FireAndForget();
+            }
+
             SettingsService.User = null;
             SettingsService.IsPushTokenSend = false;
 
             _pushNotificationService.UnregisterFromNotifications();
             await SettingsService.SetAccessTokenAsync(string.Empty);
 
-            _externalAuthService.LogoutFromFacebook();
-            _externalAuthService.LogoutFromVkontakte();
+            if (Xamarin.Essentials.Connectivity.NetworkAccess.HasConnection())
+            {
+                _externalAuthService.LogoutFromFacebook();
+                _externalAuthService.LogoutFromVkontakte();
+            }
+
             await NavigationService.Logout();
         }
 

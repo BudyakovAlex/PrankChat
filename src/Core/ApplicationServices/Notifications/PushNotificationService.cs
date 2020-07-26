@@ -29,11 +29,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
 
         public async Task<bool> TryUpdateTokenAsync()
         {
-            if (SettingsService.IsPushTokenSend)
-            {
-                return false;
-            }
-
             if (string.IsNullOrWhiteSpace(SettingsService.PushToken))
             {
                 MvxLog.ErrorException("Push Token can't be null", new ArgumentNullException());
