@@ -50,7 +50,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             if (_player.IsPlaying)
                 return;
 
-            Player.SetSourceUri(uri);
+            Player.SetSourceUri(uri, id);
             Debug.WriteLine("Playing next source: " + uri);
             Player.Play();
             Player.TryRegisterViewedFact(id, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);

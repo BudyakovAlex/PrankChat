@@ -48,11 +48,11 @@ namespace PrankChat.Mobile.Core.BusinessServices.Logger
             var sb = new StringBuilder();
             sb.AppendLine()
               .AppendLine("--------------------------------")
-              .AppendLine($"[{dateTime:u}] [{tag}]");
+              .AppendLine($"[{dateTime:o}] [{tag}]");
 
             if (!string.IsNullOrWhiteSpace(extraParameters))
             {
-                sb.AppendLine($"[{dateTime:u}] [{tag}]");
+                sb.AppendLine($"{extraParameters}");
             }
 
             return _semaphoreSlim.WrapAsync(() =>
@@ -126,7 +126,7 @@ namespace PrankChat.Mobile.Core.BusinessServices.Logger
             var sb = new StringBuilder();
             sb.AppendLine()
               .AppendLine("--------------------------------")
-              .AppendLine($"[REQUEST STARTED AT:] [{dateTime:u}]")
+              .AppendLine($"[REQUEST STARTED AT:] [{dateTime:o}]")
               .AppendLine($"[{tag}] {message}")
               .AppendLine("[HEADERS:]")
               .AppendLine(ProduceParametersStringByType(parameters, ParameterType.HttpHeader))
@@ -141,7 +141,7 @@ namespace PrankChat.Mobile.Core.BusinessServices.Logger
             var sb = new StringBuilder();
             sb.AppendLine()
               .AppendLine("--------------------------------")
-              .AppendLine($"[REQUEST ENDED AT:] [{dateTime:u}]")
+              .AppendLine($"[REQUEST ENDED AT:] [{dateTime:o}]")
               .AppendLine($"[{(int)statusCode}] [{tag}] {message}")
               .AppendLine("[HEADERS:]")
               .AppendLine(ProduceParametersStringByType(headers, ParameterType.HttpHeader))

@@ -17,12 +17,15 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
     public class VideoPlayer : BaseVideoPlayer
     {
         private readonly AVPlayer _player;
+
         private int _repeatDelayInSeconds;
         private AVPlayerViewController _currentContainer;
         private NSObject _repeatObserver;
         private NSObject _viewedFactRegistrationObserver;
         private NSObject _videoEndHandler;
         private NSObject _playerPerdiodicTimeObserver;
+
+        private int _id;
         private string _uri;
 
         public VideoPlayer(IApiService apiService, ILogger logger, IMvxMessenger mvxMessenger) : base(apiService, logger, mvxMessenger)
@@ -94,7 +97,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             if (_player.CurrentItem == null)
                 return;
 
-            Logger.LogEventAsync(DateTime.Now, "[Video_Buffering]", $"Video uri is {_uri}").FireAndForget();
+            Logger.LogEventAsync(DateTime.Now, "[Video_Buffering]", $"Video uri is {_uri}, video ID is {_id}").FireAndForget();
 
             _player.Play();
             IsPlaying = true;
@@ -125,20 +128,21 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             }
         }
 
-        public override void SetSourceUri(string uri)
+        public override void SetSourceUri(string uri, int id )
         {
             if (string.IsNullOrEmpty(uri))
             {
                 return;
             }
 
+            _id = id;
             _uri = uri;
             _playerPerdiodicTimeObserver = _player.AddPeriodicTimeObserver(
                 new CMTime(1, 2),
                 DispatchQueue.MainQueue,
                 PlayerTimeChanged);
 
-            Logger.LogEventAsync(DateTime.Now, "[Video_Initialization]", $"Video uri is {_uri}").FireAndForget();
+            Logger.LogEventAsync(DateTime.Now, "[Video_Initialization]", $"Video uri is {_uri}, video ID is {_id}").FireAndForget();
             _player.ReplaceCurrentItemWithPlayerItem(new AVPlayerItem(new NSUrl(uri)));
         }
 
@@ -153,7 +157,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             {
                 if (_playerPerdiodicTimeObserver != null)
                 {
-                    Logger.LogEventAsync(DateTime.Now, "[Video_Play]", $"Video uri is {_uri}").FireAndForget();
+                    Logger.LogEventAsync(DateTime.Now, "[Video_Play]", $"Video uri is {_uri}, video ID is {_id}").FireAndForget();
                     _player.RemoveTimeObserver(_playerPerdiodicTimeObserver);
                     _playerPerdiodicTimeObserver = null;
                 }
@@ -212,7 +216,9 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         private void RemoveViewedFactRegistrationObserver()
         {
             if (_viewedFactRegistrationObserver == null)
+            {
                 return;
+            }
 
             _player?.RemoveTimeObserver(_viewedFactRegistrationObserver);
             _viewedFactRegistrationObserver?.Dispose();

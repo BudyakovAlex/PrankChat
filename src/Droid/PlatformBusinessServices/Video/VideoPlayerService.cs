@@ -54,7 +54,8 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
                 return;
             }
 
-            Player.SetSourceUri(uri);
+            Player.SetSourceUri(uri, id);
+
             _currentVideoId = id;
             Player.Play();
             Player.TryRegisterViewedFact(id, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);

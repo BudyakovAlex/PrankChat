@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -21,6 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
@@ -34,6 +36,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private readonly Dictionary<DateFilterType, string> _dateFilterTypeTitleMap;
 
         private MvxSubscriptionToken _reloadItemsSubscriptionToken;
+        private MvxSubscriptionToken _tabChangedMessage;
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
@@ -235,12 +238,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private void Subscription()
         {
             _reloadItemsSubscriptionToken = _mvxMessenger.SubscribeOnMainThread<ReloadPublicationsMessage>(OnReloadItems);
+            _tabChangedMessage = _mvxMessenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
             SubscribeToNotificationsUpdates();
+        }
+
+        private void OnTabChangedMessage(TabChangedMessage msg)
+        {
+            if (msg.TabType != MainTabType.Publications ||
+                !Connectivity.NetworkAccess.HasConnection())
+            {
+                return;
+            }
+
+            Items.Clear();
+            ReloadItemsCommand.Execute();
         }
 
         private void Unsubscription()
         {
             _reloadItemsSubscriptionToken?.Dispose();
+            _tabChangedMessage?.Dispose();
+
             UnsubscribeFromNotificationsUpdates();
         }
 

@@ -10,7 +10,7 @@ namespace PrankChat.Mobile.Core.BusinessServices
 
         void EnableRepeat(int repeatDelayInSeconds);
 
-        void SetSourceUri(string uri);
+        void SetSourceUri(string uri, int id);
 
         void Play();
 

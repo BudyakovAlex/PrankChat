@@ -24,6 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
         private MvxSubscriptionToken _reloadItemsSubscriptionToken;
+        private MvxSubscriptionToken _tabChangedMessage;
 
         public CompetitionsViewModel(IMvxMessenger mvxMessenger,
                                      INavigationService navigationService,
@@ -103,18 +104,32 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         private void Subscription()
         {
             _reloadItemsSubscriptionToken = _mvxMessenger.SubscribeOnMainThread<ReloadCompetitionsMessage>(OnReloadData);
+            _tabChangedMessage = _mvxMessenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
+
             SubscribeToNotificationsUpdates();
         }
 
         private void Unsubscription()
         {
             _reloadItemsSubscriptionToken?.Dispose();
+            _tabChangedMessage?.Dispose();
+
             UnsubscribeFromNotificationsUpdates();
         }
 
         private void OnReloadData(ReloadCompetitionsMessage msg)
         {
-            LoadDataCommand.ExecuteAsync();
+            LoadDataCommand.Execute();
+        }
+
+        private void OnTabChangedMessage(TabChangedMessage msg)
+        {
+            if (msg.TabType != MainTabType.Competitions)
+            {
+                return;
+            }
+
+            LoadDataCommand.Execute();
         }
     }
 }
