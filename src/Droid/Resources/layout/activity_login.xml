@@ -108,6 +108,8 @@
         style="@style/Theme.PrankChat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
+        android:layout_alignStart="@+id/demo_button"
+        android:layout_alignEnd="@+id/demo_button"
         android:layout_below="@+id/forgot_password_container"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
@@ -119,8 +121,9 @@
         style="@style/Theme.PrankChat.ProgressBar.Accent"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_marginEnd="5dp"
         android:layout_alignTop="@+id/login_button"
-        android:layout_alignEnd="@+id/login_button"
+        android:layout_alignBottom="@+id/login_button"
         android:layout_alignRight="@+id/login_button"
         android:layout_gravity="right"
         app:MvxBind="Visibility Visibility(IsBusy)" />
@@ -210,7 +213,5 @@
     <FrameLayout
         android:id="@+id/container_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:layout_height="match_parent" />
 </RelativeLayout>

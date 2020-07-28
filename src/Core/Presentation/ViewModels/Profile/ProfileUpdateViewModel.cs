@@ -152,10 +152,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task LogoutUserAsync()
         {
+            //TODO: remove suspend notifications if unregister will be fixed on BE
             if (Xamarin.Essentials.Connectivity.NetworkAccess.HasConnection())
             {
-                ApiService.UnregisterNotificationsAsync().FireAndForget();
-                ApiService.LogoutAsync().FireAndForget();
+                try
+                {
+                    ErrorHandleService.SuspendServerErrorsHandling();
+                    await ApiService.UnregisterNotificationsAsync();
+                    await ApiService.LogoutAsync();
+                    ErrorHandleService.SuspendServerErrorsHandling();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex);
+                }
             }
 
             SettingsService.User = null;

@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 	partial class LoginView
 	{
 		[Outlet]
-		UIKit.UIButton appleIdButton { get; set; }
+		UIKit.UIView appleButtonContainer { get; set; }
 
 		[Outlet]
 		UIKit.UIButton demoButton { get; set; }
@@ -67,9 +67,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 				demoButton = null;
 			}
 
-			if (appleIdButton != null) {
-				appleIdButton.Dispose ();
-				appleIdButton = null;
+			if (appleButtonContainer != null) {
+				appleButtonContainer.Dispose ();
+				appleButtonContainer = null;
 			}
 
 			if (emailTextField != null) {

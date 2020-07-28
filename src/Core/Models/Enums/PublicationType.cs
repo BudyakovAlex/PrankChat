@@ -2,8 +2,8 @@
 {
     public enum PublicationType
     {
-        Actual,
         Popular,
+        Actual,
         MyVideosOfCreatedOrders,
     }
 }

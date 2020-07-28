@@ -1,4 +1,5 @@
-﻿using MvvmCross;
+﻿using AuthenticationServices;
+using MvvmCross;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
@@ -17,6 +18,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
     [MvxRootPresentation]
     public partial class LoginView : BaseTransparentBarView<LoginViewModel>
     {
+        private ASAuthorizationAppleIdButton _appleIdButton;
+
         private readonly Lazy<IAppleSignInService> _lazyAppleSignInService = new Lazy<IAppleSignInService>(() => Mvx.IoCProvider.Resolve<IAppleSignInService>());
 
         protected override void SetupBinding()
@@ -66,6 +69,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 
         protected override void SetupControls()
         {
+            _appleIdButton = new ASAuthorizationAppleIdButton(ASAuthorizationAppleIdButtonType.Default, ASAuthorizationAppleIdButtonStyle.White)
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                CornerRadius = 2
+            };
+
+            appleButtonContainer.AddSubview(_appleIdButton);
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _appleIdButton.TopAnchor.ConstraintEqualTo(appleButtonContainer.TopAnchor),
+                _appleIdButton.BottomAnchor.ConstraintEqualTo(appleButtonContainer.BottomAnchor),
+                _appleIdButton.LeadingAnchor.ConstraintEqualTo(appleButtonContainer.LeadingAnchor),
+                _appleIdButton.TrailingAnchor.ConstraintEqualTo(appleButtonContainer.TrailingAnchor),
+            });
+
             loginTitleLabel.Text = Resources.LoginView_Login_Title;
             loginTitleLabel.TextColor = Theme.Color.White;
             loginTitleLabel.Font = Theme.Font.RegularFontOfSize(20);
@@ -94,8 +112,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             okButton.SetImage(UIImage.FromBundle("ic_ok").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
             facebookButton.SetImage(UIImage.FromBundle("ic_facebook").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
             gmailButton.SetImage(UIImage.FromBundle("ic_gmail").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            appleIdButton.SetImage(UIImage.FromBundle("ic_apple").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            appleIdButton.TouchUpInside += OnAppleIdButtonTouched;
+            _appleIdButton.TouchUpInside += OnAppleIdButtonTouched;
 
             registrationButton.SetTitle(Resources.LoginView_CreateAccount_Button, UIControlState.Normal);
             registrationButton.SetTitleColor(Theme.Color.White, UIControlState.Normal);
@@ -108,7 +125,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 
         public override void ViewDidUnload()
         {
-            appleIdButton.TouchUpInside -= OnAppleIdButtonTouched;
+            _appleIdButton.TouchUpInside -= OnAppleIdButtonTouched;
             base.ViewDidUnload();
         }
 
