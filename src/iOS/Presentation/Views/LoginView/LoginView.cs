@@ -18,9 +18,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
     [MvxRootPresentation]
     public partial class LoginView : BaseTransparentBarView<LoginViewModel>
     {
-        private ASAuthorizationAppleIdButton _appleIdButton;
-
         private readonly Lazy<IAppleSignInService> _lazyAppleSignInService = new Lazy<IAppleSignInService>(() => Mvx.IoCProvider.Resolve<IAppleSignInService>());
+
+        private ASAuthorizationAppleIdButton _appleIdButton;
+        private UITapGestureRecognizer _appleButtonTapGesture;
 
         protected override void SetupBinding()
         {
@@ -72,6 +73,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             _appleIdButton = new ASAuthorizationAppleIdButton(ASAuthorizationAppleIdButtonType.Default, ASAuthorizationAppleIdButtonStyle.White)
             {
                 TranslatesAutoresizingMaskIntoConstraints = false,
+                UserInteractionEnabled = true,
                 CornerRadius = 2
             };
 
@@ -112,7 +114,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             okButton.SetImage(UIImage.FromBundle("ic_ok").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
             facebookButton.SetImage(UIImage.FromBundle("ic_facebook").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
             gmailButton.SetImage(UIImage.FromBundle("ic_gmail").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            _appleIdButton.TouchUpInside += OnAppleIdButtonTouched;
+
+            _appleButtonTapGesture = new UITapGestureRecognizer(OnAppleIdButtonTouched);
+            _appleIdButton.AddGestureRecognizer(_appleButtonTapGesture);
 
             registrationButton.SetTitle(Resources.LoginView_CreateAccount_Button, UIControlState.Normal);
             registrationButton.SetTitleColor(Theme.Color.White, UIControlState.Normal);
@@ -125,7 +129,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 
         public override void ViewDidUnload()
         {
-            _appleIdButton.TouchUpInside -= OnAppleIdButtonTouched;
+            _appleIdButton.RemoveGestureRecognizer(_appleButtonTapGesture);
             base.ViewDidUnload();
         }
 
@@ -145,7 +149,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             base.RegisterKeyboardDismissTextFields(viewList);
         }
 
-        private async void OnAppleIdButtonTouched(object sender, EventArgs e)
+        private async void OnAppleIdButtonTouched()
         {
             var appleAuthData = await _lazyAppleSignInService.Value.LoginAsync();
             if (appleAuthData is null)
