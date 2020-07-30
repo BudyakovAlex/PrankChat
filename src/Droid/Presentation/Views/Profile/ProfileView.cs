@@ -20,13 +20,15 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 {
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(ProfileView))]
-    public class ProfileView : BaseTabFragment<ProfileViewModel>, TabLayout.IOnTabSelectedListener
+    public class ProfileView : BaseTabFragment<ProfileViewModel>, TabLayout.IOnTabSelectedListener, IScrollableView
     {
         private EndlessRecyclerView _endlessRecyclerView;
         private LinearLayoutManager _layoutManager;
         private RecycleViewBindableAdapter _adapter;
 
         protected override string TitleActionBar => Core.Presentation.Localization.Resources.Profile_Tab;
+
+        public RecyclerView RecyclerView => _endlessRecyclerView;
 
         public ProfileView()
         {

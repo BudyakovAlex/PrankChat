@@ -26,6 +26,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
         private readonly int[] _skipTabIndexesInDemoMode = new[] { 2, 4 };
+        private int _lastSelectedTab;
 
         private MvxSubscriptionToken _refreshTokenExpiredToken;
 
@@ -122,6 +123,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private void SendTabChanged(int position)
         {
+            if (_lastSelectedTab == position)
+            {
+                return;
+            }
+
+            _lastSelectedTab = position;
             Messenger.Publish(new TabChangedMessage(this, (MainTabType)position));
         }
 

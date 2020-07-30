@@ -18,12 +18,14 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
     [MvxTabPresentation(TabName = "Publications", TabIconName = "unselected", TabSelectedIconName = "selected")]
-    public partial class PublicationsView : BaseTabbedView<PublicationsViewModel>
+    public partial class PublicationsView : BaseTabbedView<PublicationsViewModel>, IScrollableView
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
 
         public VideoTableSource PublicationTableSource { get; private set; }
+
+        public UITableView TableView => tableView;
 
         protected override void SetupBinding()
 		{

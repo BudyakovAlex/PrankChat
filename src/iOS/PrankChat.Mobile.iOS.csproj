@@ -383,6 +383,7 @@
     </Compile>
     <Compile Include="ApplicationServices\ExternalAuth\AppleSignIn\IAppleSignInService.cs" />
     <Compile Include="ApplicationServices\ExternalAuth\AppleSignIn\AppleSignInService.cs" />
+    <Compile Include="Presentation\Views\Base\IScrollableView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

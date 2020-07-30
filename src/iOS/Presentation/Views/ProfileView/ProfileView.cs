@@ -17,7 +17,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 {
     [MvxTabPresentation(TabName = "Profile", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
-    public partial class ProfileView : BaseTabbedView<ProfileViewModel>
+    public partial class ProfileView : BaseTabbedView<ProfileViewModel>, IScrollableView
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
@@ -43,6 +43,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                 }
             }
         }
+
+        public UITableView TableView => tableView;
 
         protected override void SetupBinding()
         {

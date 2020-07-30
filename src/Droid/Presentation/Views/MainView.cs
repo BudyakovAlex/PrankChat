@@ -15,6 +15,7 @@ using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Presenters.Attributes;
 using PrankChat.Mobile.Droid.Utils.Helpers;
+using System.Linq;
 using Localization = PrankChat.Mobile.Core.Presentation.Localization.Resources;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views
@@ -121,14 +122,25 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
         protected override void Subscription()
         {
-            _tabLayout.TabSelected += TabLayoutOnTabSelected;
-            _tabLayout.TabUnselected += TabLayoutOnTabUnselected;
+            _tabLayout.TabSelected += OnTabLayoutTabSelected;
+            _tabLayout.TabUnselected += OnTabLayoutTabUnselected;
+            _tabLayout.TabReselected += OnTabLayoutTabReselected;
+        }
+
+        private void OnTabLayoutTabReselected(object sender, TabLayout.TabReselectedEventArgs e)
+        {
+            var currentFragment = SupportFragmentManager.Fragments.ElementAtOrDefault(e.Tab.Position);
+            if (currentFragment is IScrollableView scrollableView && scrollableView.RecyclerView != null)
+            {
+                scrollableView.RecyclerView.Post(() => scrollableView.RecyclerView.ScrollToPosition(0));
+            }
         }
 
         protected override void Unsubscription()
         {
-            _tabLayout.TabSelected -= TabLayoutOnTabSelected;
-            _tabLayout.TabUnselected -= TabLayoutOnTabUnselected;
+            _tabLayout.TabSelected -= OnTabLayoutTabSelected;
+            _tabLayout.TabUnselected -= OnTabLayoutTabUnselected;
+            _tabLayout.TabReselected -= OnTabLayoutTabReselected;
         }
 
         private void CreateTabs()
@@ -141,10 +153,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             InitTab(3, Resource.Drawable.ic_orders, Localization.Orders_Tab, _tabLayout, inflater);
             InitTab(4, Resource.Drawable.ic_profile, Localization.Profile_Tab, _tabLayout, inflater);
 
-            TabLayoutOnTabSelected(this, new TabLayout.TabSelectedEventArgs(_tabLayout.GetTabAt(0)));
+            OnTabLayoutTabSelected(this, new TabLayout.TabSelectedEventArgs(_tabLayout.GetTabAt(0)));
         }
 
-        private void TabLayoutOnTabSelected(object sender, TabLayout.TabSelectedEventArgs e)
+        private void OnTabLayoutTabSelected(object sender, TabLayout.TabSelectedEventArgs e)
         {
             if (e.Tab == null)
             {
@@ -174,7 +186,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             ViewModel.ShowWalkthrouthIfNeedCommand?.Execute(_tabLayout.SelectedTabPosition);
         }
 
-        private void TabLayoutOnTabUnselected(object sender, TabLayout.TabUnselectedEventArgs e)
+        private void OnTabLayoutTabUnselected(object sender, TabLayout.TabUnselectedEventArgs e)
         {
             var iconView = e.Tab.View.FindViewById<ImageView>(Resource.Id.tab_icon);
             var textView = e.Tab.View.FindViewById<TextView>(Resource.Id.tab_title);
