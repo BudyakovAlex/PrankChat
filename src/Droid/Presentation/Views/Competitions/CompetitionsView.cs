@@ -18,10 +18,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
 {
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(CompetitionsView))]
-    public class CompetitionsView : BaseTabFragment<CompetitionsViewModel>
+    public class CompetitionsView : BaseTabFragment<CompetitionsViewModel>, IScrollableView
     {
         private RecycleViewBindableAdapter _adapter;
         private MvxSwipeRefreshLayout _refreshView;
+        private MvxRecyclerView _competitionsRecyclerView;
+
+        public RecyclerView RecyclerView => _competitionsRecyclerView;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -63,13 +66,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
         {
             _refreshView = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swipe_refresh);
 
-            var competitionsRecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.competitions_recycler_view);
+            _competitionsRecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.competitions_recycler_view);
             var layoutManager = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
-            competitionsRecyclerView.SetLayoutManager(layoutManager);
+            _competitionsRecyclerView.SetLayoutManager(layoutManager);
 
             _adapter = new RecycleViewBindableAdapter((IMvxAndroidBindingContext)BindingContext);
-            competitionsRecyclerView.Adapter = _adapter;
-            competitionsRecyclerView.ItemTemplateSelector = new TemplateSelector()
+            _competitionsRecyclerView.Adapter = _adapter;
+            _competitionsRecyclerView.ItemTemplateSelector = new TemplateSelector()
                 .AddElement<CompetitionsSectionViewModel, CompetitionsSectionViewHolder>(Resource.Layout.cell_competitions_section);
         }
     }

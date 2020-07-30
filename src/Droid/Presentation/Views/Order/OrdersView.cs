@@ -23,12 +23,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 {
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(OrdersView))]
-    public class OrdersView : BaseTabFragment<OrdersViewModel>, TabLayout.IOnTabSelectedListener
+    public class OrdersView : BaseTabFragment<OrdersViewModel>, TabLayout.IOnTabSelectedListener, IScrollableView
     {
         private EndlessRecyclerView _endlessRecyclerView;
         private LinearLayoutManager _layoutManager;
         private RecycleViewBindableAdapter _adapter;
         private StateScrollListener _stateScrollListener;
+
+        public RecyclerView RecyclerView => _endlessRecyclerView;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

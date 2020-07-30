@@ -12,11 +12,13 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 {
     [MvxTabPresentation(TabName = "Competitions", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
-    public partial class CompetitionsView : BaseTabbedView<CompetitionsViewModel>
+    public partial class CompetitionsView : BaseTabbedView<CompetitionsViewModel>, IScrollableView
     {
         private TableViewSource _source;
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
+
+        public UITableView TableView => tableView;
 
         protected override void SetupControls()
         {

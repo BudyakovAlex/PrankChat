@@ -4,6 +4,7 @@ using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
@@ -12,6 +13,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
     public partial class MainView : MvxTabBarViewController<MainViewModel>
     {
         private bool _tabsInitialized;
+        private int _lastTabPosition;
 
 		public override void ViewWillAppear(bool animated)
         {
@@ -32,12 +34,44 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
         public override void ItemSelected(UITabBar tabbar, UITabBarItem item)
         {
             var tabPosition = tabbar.Items.ToList().IndexOf(item);
+            if (tabPosition == _lastTabPosition)
+            {
+                ItemReselected(tabPosition);
+            }
+
+            _lastTabPosition = tabPosition;
             ViewModel?.CheckDemoCommand.Execute(tabPosition);
             ViewModel?.SendTabChangedCommand.Execute(tabPosition);
 
             if (ViewModel?.CanSwitchTabs(tabPosition) ?? false)
             {
                 ViewModel?.ShowWalkthrouthIfNeedCommand?.Execute(tabPosition);
+            }
+        }
+
+        private void ItemReselected(int position)
+        {
+            var viewController = ViewControllers.ElementAtOrDefault(position);
+            switch (viewController)
+            {
+                case null:
+                    return;
+
+                case UINavigationController navigationController:
+                    ScrollContentToTop(navigationController.VisibleViewController);
+                    break;
+
+                default:
+                    ScrollContentToTop(viewController);
+                    break;
+            }
+        }
+
+        private void ScrollContentToTop(UIViewController viewController)
+        {
+            if (viewController is IScrollableView scrollableView && scrollableView.TableView != null)
+            {
+                scrollableView.TableView.SetContentOffset(new CoreGraphics.CGPoint(0, 0), false);
             }
         }
 

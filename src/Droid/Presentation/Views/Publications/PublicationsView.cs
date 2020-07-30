@@ -30,7 +30,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 {
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(PublicationsView))]
-    public class PublicationsView : BaseTabFragment<PublicationsViewModel>
+    public class PublicationsView : BaseTabFragment<PublicationsViewModel>, IScrollableView
     {
         private const int MillisecondsDelay = 300;
 
@@ -57,6 +57,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
                 _itemsChangedInteraction.Requested += OnDataSetChanged;
             }
         }
+
+        public RecyclerView RecyclerView => _publicationRecyclerView;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

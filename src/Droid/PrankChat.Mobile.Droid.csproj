@@ -203,6 +203,7 @@
     <Compile Include="Presentation\Adapters\ViewHolders\Subscriptions\SubscriptionItemViewHolder.cs" />
     <Compile Include="Presentation\Bindings\TabLayoutTabTextBinding.cs" />
     <Compile Include="Presentation\Views\Profile\UserProfileView.cs" />
+    <Compile Include="Presentation\Views\Base\IScrollableView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

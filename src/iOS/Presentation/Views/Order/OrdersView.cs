@@ -15,12 +15,14 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
     [MvxTabPresentation(TabName = "Orders", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
-    public partial class OrdersView : BaseTabbedView<OrdersViewModel>
+    public partial class OrdersView : BaseTabbedView<OrdersViewModel>, IScrollableView
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
 
         public OrdersTableSource OrdersTableSource { get; private set; }
+
+        public UITableView TableView => tableView;
 
         protected override void SetupBinding()
 		{
