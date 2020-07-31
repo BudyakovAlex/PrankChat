@@ -67,20 +67,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private async Task CheckActualAppVersionAsync()
         {
-            if (!SettingsService.IsDebugMode)
+            var newActualVersion = await ApiService.CheckAppVersionAsync();
+            if (!string.IsNullOrEmpty(newActualVersion?.Link))
             {
-                var newActualVersion = await ApiService.CheckAppVersionAsync();
-                if (!string.IsNullOrEmpty(newActualVersion?.Link))
-                {
-                    await NavigationService.ShowMaintananceView(newActualVersion.Link);
-                    return;
-                }
+                await NavigationService.ShowMaintananceView(newActualVersion.Link);
+                return;
             }
         }
 
-        public override void ViewAppearing()
+        public override void ViewAppeared()
         {
-            base.ViewAppearing();
+            base.ViewAppeared();
             CheckActualAppVersionCommand.Execute();
         }
 
