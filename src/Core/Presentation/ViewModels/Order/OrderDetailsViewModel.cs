@@ -205,7 +205,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public IMvxCommand CancelUploadingCommand => new MvxCommand(() => _cancellationTokenSource?.Cancel());
 
-        public IMvxAsyncCommand OpenUserProfileCommand { get; }
+        public IMvxAsyncCommand OpenCustomerProfileCommand { get; }
+
+        public IMvxAsyncCommand OpenExecutorProfileCommand { get; }
 
         #endregion Commands
 
@@ -221,7 +223,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             _mediaService = mediaService;
             _platformService = platformService;
       
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
+            OpenCustomerProfileCommand = new MvxRestrictedAsyncCommand(OpenCustomerProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
+            OpenExecutorProfileCommand = new MvxRestrictedAsyncCommand(OpenExecutorProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
         }
 
         public void Prepare(OrderDetailsNavigationParameter parameter)
@@ -245,7 +248,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             base.ViewDestroy(viewFinishing);
         }
 
-        private Task OpenUserProfileAsync()
+        private Task OpenExecutorProfileAsync()
+        {
+            if (_order?.Executor?.Id is null ||
+                _order.Executor.Id == SettingsService.User.Id)
+            {
+                return Task.CompletedTask;
+            }
+
+            return NavigationService.ShowUserProfile(_order.Executor.Id);
+        }
+
+        private Task OpenCustomerProfileAsync()
         {
             if (_order?.Customer?.Id is null ||
                 _order.Customer.Id == SettingsService.User.Id)

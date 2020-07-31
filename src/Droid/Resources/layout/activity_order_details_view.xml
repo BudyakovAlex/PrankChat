@@ -34,7 +34,7 @@
                     android:layout_height="85dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="16dp"
-                    app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneWay; PlaceholderText ProfileShortName, Mode = OneWay; Click OpenUserProfileCommand" />
+                    app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneWay; PlaceholderText ProfileShortName, Mode = OneWay; Click OpenCustomerProfileCommand" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -303,7 +303,7 @@
                         android:layout_below="@+id/take_the_order_text"
                         android:layout_alignParentLeft="true"
                         android:layout_marginTop="15dp"
-                        app:MvxBind="ImagePath ExecutorPhotoUrl; PlaceholderText ExecutorShortName; Visibility Visibility(IsExecutorAvailable)" />
+                        app:MvxBind="ImagePath ExecutorPhotoUrl; PlaceholderText ExecutorShortName; Visibility Visibility(IsExecutorAvailable);  Click OpenExecutorProfileCommand" />
 
                     <TextView
                         android:id="@+id/executor_name"

@@ -48,7 +48,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             set.Bind(profileImageView)
                .For(v => v.BindTap())
-               .To(vm => vm.OpenUserProfileCommand);
+               .To(vm => vm.OpenCustomerProfileCommand);
 
             set.Bind(profileNameLabel)
                 .To(vm => vm.ProfileName);
@@ -227,6 +227,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             set.Bind(executorImageView)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ExecutorPhotoUrl);
+
+            set.Bind(executorImageView)
+               .For(v => v.BindTap())
+               .To(vm => vm.OpenExecutorProfileCommand);
 
             set.Bind(executorImageView)
                 .For(v => v.PlaceholderText)
