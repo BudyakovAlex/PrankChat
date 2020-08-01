@@ -33,6 +33,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private MvxSubscriptionToken _newOrderMessageToken;
         private MvxSubscriptionToken _tabChangedMessage;
         private MvxSubscriptionToken _subscriptionChangedSubscriptionToken;
+        private MvxSubscriptionToken _enterForegroundMessage;
 
         private ProfileOrderType _selectedOrderType;
         public ProfileOrderType SelectedOrderType
@@ -94,7 +95,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public MvxAsyncCommand ShowWithdrawalCommand { get; }
 
-        public MvxAsyncCommand LoadProfileCommand => new MvxAsyncCommand(OnLoadProfileAsync);
+        public MvxAsyncCommand LoadProfileCommand => new MvxAsyncCommand(LoadProfileAsync);
 
         public MvxAsyncCommand ShowUpdateProfileCommand => new MvxAsyncCommand(OnShowUpdateProfileAsync);
 
@@ -197,9 +198,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private void Subscription()
         {
-            _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged);
+            _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<OrderChangedMessage>((msg) => ReloadItemsCommand?.Execute());
             _tabChangedMessage = _mvxMessenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
-            _subscriptionChangedSubscriptionToken = Messenger.SubscribeOnMainThread<SubscriptionChangedMessage>(OnSubscriptionsChanged);
+            _subscriptionChangedSubscriptionToken = Messenger.SubscribeOnMainThread<SubscriptionChangedMessage>((msg) => LoadProfileCommand.Execute());
+            _enterForegroundMessage = _mvxMessenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => ReloadItemsCommand?.Execute());
+
             SubscribeToNotificationsUpdates();
         }
 
@@ -208,19 +211,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             _newOrderMessageToken?.Dispose();
             _tabChangedMessage?.Dispose();
             _subscriptionChangedSubscriptionToken?.Dispose();
+            _enterForegroundMessage?.Dispose();
 
             UnsubscribeFromNotificationsUpdates();
-        }
-
-
-        private void OnSubscriptionsChanged(SubscriptionChangedMessage message)
-        {
-            LoadProfileCommand.Execute();
-        }
-
-        private void OnOrdersChanged(OrderChangedMessage message)
-        {
-            ReloadItemsCommand.Execute();
         }
 
         private void OnTabChangedMessage(TabChangedMessage msg)
@@ -238,7 +231,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             return _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>();
         }
 
-        private async Task OnLoadProfileAsync()
+        private async Task LoadProfileAsync()
         {
             try
             {

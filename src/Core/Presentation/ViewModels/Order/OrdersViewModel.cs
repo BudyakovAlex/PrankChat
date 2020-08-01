@@ -50,6 +50,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private MvxSubscriptionToken _newOrderMessageToken;
         private MvxSubscriptionToken _removeOrderMessageToken;
         private MvxSubscriptionToken _tabChangedMessage;
+        private MvxSubscriptionToken _enterForegroundMessage;
 
         private string _activeOrderFilterName = string.Empty;
         private string _activeArbitrationFilterName = string.Empty;
@@ -245,7 +246,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                                 GetFullScreenVideoDataModels);
         }
 
-
         private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
         {
             return Items.OfType<IFullScreenVideoOwnerViewModel>()
@@ -259,6 +259,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged);
             _removeOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<RemoveOrderMessage>(OnRemoveOrderMessage);
             _tabChangedMessage = _mvxMessenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
+            _enterForegroundMessage = _mvxMessenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => ReloadItemsCommand?.Execute());
+
             SubscribeToNotificationsUpdates();
         }
 
@@ -277,6 +279,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             _newOrderMessageToken?.Dispose();
             _removeOrderMessageToken?.Dispose();
             _tabChangedMessage?.Dispose();
+            _enterForegroundMessage?.Dispose();
+
             UnsubscribeFromNotificationsUpdates();
 
             Items.OfType<IDisposable>().ForEach(x => x.Dispose());
