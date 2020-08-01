@@ -37,6 +37,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private MvxSubscriptionToken _reloadItemsSubscriptionToken;
         private MvxSubscriptionToken _tabChangedMessage;
+        private MvxSubscriptionToken _enterForegroundMessage;
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
@@ -237,7 +238,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private void Subscription()
         {
-            _reloadItemsSubscriptionToken = _mvxMessenger.SubscribeOnMainThread<ReloadPublicationsMessage>(OnReloadItems);
+            _reloadItemsSubscriptionToken = _mvxMessenger.SubscribeOnMainThread<ReloadPublicationsMessage>((msg) => OnReloadItems());
+            _enterForegroundMessage = _mvxMessenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => OnReloadItems());
             _tabChangedMessage = _mvxMessenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
             SubscribeToNotificationsUpdates();
         }
@@ -257,12 +259,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private void Unsubscription()
         {
             _reloadItemsSubscriptionToken?.Dispose();
+            _enterForegroundMessage?.Dispose();
             _tabChangedMessage?.Dispose();
 
             UnsubscribeFromNotificationsUpdates();
         }
 
-        private void OnReloadItems(ReloadPublicationsMessage obj)
+        private void OnReloadItems()
         {
             Items.Clear();
             ReloadItemsCommand.Execute();

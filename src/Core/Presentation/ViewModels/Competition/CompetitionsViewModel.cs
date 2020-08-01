@@ -25,6 +25,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         private MvxSubscriptionToken _reloadItemsSubscriptionToken;
         private MvxSubscriptionToken _tabChangedMessage;
+        private MvxSubscriptionToken _enterForegroundMessage;
 
         public CompetitionsViewModel(IMvxMessenger mvxMessenger,
                                      INavigationService navigationService,
@@ -103,8 +104,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         private void Subscription()
         {
-            _reloadItemsSubscriptionToken = _mvxMessenger.SubscribeOnMainThread<ReloadCompetitionsMessage>(OnReloadData);
+            _reloadItemsSubscriptionToken = _mvxMessenger.SubscribeOnMainThread<ReloadCompetitionsMessage>((msg) => LoadDataCommand?.Execute());
             _tabChangedMessage = _mvxMessenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
+            _enterForegroundMessage = _mvxMessenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => LoadDataCommand?.Execute());
 
             SubscribeToNotificationsUpdates();
         }
@@ -113,13 +115,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         {
             _reloadItemsSubscriptionToken?.Dispose();
             _tabChangedMessage?.Dispose();
+            _enterForegroundMessage?.Dispose();
 
             UnsubscribeFromNotificationsUpdates();
-        }
-
-        private void OnReloadData(ReloadCompetitionsMessage msg)
-        {
-            LoadDataCommand.Execute();
         }
 
         private void OnTabChangedMessage(TabChangedMessage msg)

@@ -3,8 +3,10 @@ using Firebase.Crashlytics;
 using Foundation;
 using MvvmCross;
 using MvvmCross.Platforms.Ios.Core;
+using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core;
 using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
 using System;
 using UIKit;
@@ -18,6 +20,8 @@ namespace PrankChat.Mobile.iOS
     {
         //TODO: move it to config
         public const string VkAppId = "7343996";
+
+        private Lazy<IMvxMessenger> MvxMessenger => new Lazy<IMvxMessenger>(Mvx.IoCProvider.Resolve<IMvxMessenger>());
 
         private int? _orderId;
 
@@ -67,6 +71,13 @@ namespace PrankChat.Mobile.iOS
 
                 return false;
             }
+        }
+
+        public override void WillEnterForeground(UIApplication application)
+        {
+            base.WillEnterForeground(application);
+
+            MvxMessenger.Value.Publish(new EnterForegroundMessage(this));
         }
 
         public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
