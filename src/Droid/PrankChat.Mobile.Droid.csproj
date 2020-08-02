@@ -193,7 +193,6 @@
     <Compile Include="Controls\AutoFitTextureView.cs" />
     <Compile Include="Presentation\Listeners\MediaPlayerOnVideoSizeChanged.cs" />
     <Compile Include="Presentation\Views\Walthroughs\WalthroughView.cs" />
-    <Compile Include="PlatformBusinessServices\Notifications\PlatformPushNotificationsService.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Comments\CommentViewHolder.cs" />
     <Compile Include="Controls\CircleProgressBar.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Notifications\NotificationItemViewHolder.cs" />

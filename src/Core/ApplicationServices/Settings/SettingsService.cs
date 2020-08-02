@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Plugin.DeviceInfo;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Data;
 using Xamarin.Essentials;
 
@@ -13,7 +14,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
 
         public UserDataModel User
         {
-            get => JsonConvert.DeserializeObject<UserDataModel>(Preferences.Get(nameof(User), string.Empty));
+            get => JsonConvert.DeserializeObject<UserDataModel>(Preferences.Get(Constants.Keys.User, string.Empty));
             set => Preferences.Set(nameof(User), JsonConvert.SerializeObject(value));
         }
 

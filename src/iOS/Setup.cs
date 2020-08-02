@@ -30,7 +30,6 @@ namespace PrankChat.Mobile.iOS
 
             Mvx.IoCProvider.RegisterType<IVideoPlayerService, VideoPlayerService>();
             Mvx.IoCProvider.RegisterType<ICrashlyticsService, CrashlyticsService>();
-            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IPlatformPushNotificationsService, PlatformPushNotificationsService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IDialogService, DialogService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IExternalAuthService, ExternalAuthService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISettingsService, SettingsService>();

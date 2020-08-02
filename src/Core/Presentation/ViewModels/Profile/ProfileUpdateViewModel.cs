@@ -1,8 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
-using MvvmCross.Plugin.WebBrowser;
 using MvvmCross.ViewModels;
 using Plugin.Media.Abstractions;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -21,6 +18,8 @@ using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
@@ -158,7 +157,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 try
                 {
                     ErrorHandleService.SuspendServerErrorsHandling();
-                    await ApiService.UnregisterNotificationsAsync();
+                    await _pushNotificationService.UnregisterNotificationsAsync();
                     await ApiService.LogoutAsync();
                     ErrorHandleService.SuspendServerErrorsHandling();
                 }
@@ -171,7 +170,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             SettingsService.User = null;
             SettingsService.IsPushTokenSend = false;
 
-            _pushNotificationService.UnregisterFromNotifications();
             await SettingsService.SetAccessTokenAsync(string.Empty);
 
             if (Xamarin.Essentials.Connectivity.NetworkAccess.HasConnection())

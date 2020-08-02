@@ -1,19 +1,20 @@
 ﻿using Firebase.CloudMessaging;
-using Firebase.InstanceID;
 using Foundation;
 using MvvmCross;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
+using Newtonsoft.Json;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.iOS.Delegates;
 using System;
 using System.Diagnostics;
-using UIKit;
 using UserNotifications;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
 {
@@ -38,47 +39,6 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
             }
         }
 
-        public void AttachNotifications()
-        {
-            Messaging.SharedInstance.AutoInitEnabled = true;
-            Messaging.SharedInstance.Delegate = AppDelegate.Instance;
-            Messaging.SharedInstance.ShouldEstablishDirectChannel = true;
-
-            InstanceId.Notifications.ObserveTokenRefresh(Instance.TokenRefreshNotification);
-
-            // Register your app for remote notifications.
-            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
-            {
-                // iOS 10 or later
-                var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
-
-                // For iOS 10 display notification (sent via APNS)
-                UNUserNotificationCenter.Current.Delegate = AppDelegate.Instance;
-
-                UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
-                {
-                    if (granted)
-                    {
-                        Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() => UIApplication.SharedApplication.RegisterForRemoteNotifications());
-                    }
-
-                });
-            }
-            else
-            {
-                // iOS 9 or before
-                var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
-                var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
-                UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
-            }
-        }
-
-        public void DetachNotifications()
-        {
-            UNUserNotificationCenter.Current.Delegate = null;
-            Messaging.SharedInstance.Delegate = null;
-        }
-
         /// <summary>
         /// Handles foreground notifications.
         /// </summary>
@@ -86,6 +46,12 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
         {
             try
             {
+                var user = ExtractUserSession();
+                if (user is null)
+                {
+                    return;
+                }
+
                 var pushNotificationData = HandleNotificationPayload(userInfo);
                 ScheduleLocalNotification(pushNotificationData?.Title, pushNotificationData?.Body);
 
@@ -102,6 +68,12 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
 
         public void HandleBackgroundNotification(NSDictionary userInfo)
         {
+            var user = ExtractUserSession();
+            if (user is null)
+            {
+                return;
+            }
+
             var pushNotificationData = HandleNotificationPayload(userInfo);
             NotificationManager.Instance.TryNavigateToView(pushNotificationData?.OrderId);
         }
@@ -126,6 +98,19 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
             alertDictionary.TryGetValue(new NSString("body"), out var body);
 
             return NotificationManager.Instance.GenerateNotificationData(key?.ToString(), value?.ToString(), title?.ToString(), body?.ToString());
+        }
+
+        private UserDataModel ExtractUserSession()
+        {
+            try
+            {
+                var dataModel = JsonConvert.DeserializeObject<UserDataModel>(Preferences.Get(Constants.Keys.User, string.Empty));
+                return dataModel;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private void ScheduleLocalNotification(string title, string message)

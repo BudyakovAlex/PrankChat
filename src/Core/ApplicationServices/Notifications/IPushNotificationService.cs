@@ -6,8 +6,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
 	{
 		Task<bool> TryUpdateTokenAsync();
 
-		void RegisterToNotifications();
-
-		void UnregisterFromNotifications();
+		Task UnregisterNotificationsAsync();
 	}
 }
