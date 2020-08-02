@@ -8,9 +8,12 @@ using Firebase.Messaging;
 using MvvmCross;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
+using Newtonsoft.Json;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using Xamarin.Essentials;
 using NotificationManager = PrankChat.Mobile.Core.ApplicationServices.Notifications.NotificationManager;
@@ -50,8 +53,8 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
         {
             try
             {
-                var isResolved = Mvx.IoCProvider.TryResolve<ISettingsService>(out var settingsService);
-                if (isResolved && !settingsService.IsPushTokenSend)
+                var user = ExtractUserSession();
+                if (user is null)
                 {
                     return;
                 }
@@ -79,6 +82,19 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
+            }
+        }
+
+        private UserDataModel ExtractUserSession()
+        {
+            try
+            {
+                var dataModel = JsonConvert.DeserializeObject<UserDataModel>(Preferences.Get(Constants.Keys.User, string.Empty));
+                return dataModel;
+            }
+            catch
+            {
+                return null;
             }
         }
     }

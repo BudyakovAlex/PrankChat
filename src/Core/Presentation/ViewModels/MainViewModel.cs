@@ -84,7 +84,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         public override void ViewCreated()
         {
             base.ViewCreated();
-            _notificationService.RegisterToNotifications();
             _notificationService.TryUpdateTokenAsync().FireAndForget();
             Subscription();
         }

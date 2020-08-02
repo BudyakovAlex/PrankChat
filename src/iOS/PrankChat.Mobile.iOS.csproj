@@ -355,7 +355,6 @@
     <BundleResource Include="Resources\ru-RU.lproj\InfoPlist.strings" />
     <BundleResource Include="Resources\ru-RU.lproj\Localizalbe.strings" />
     <BundleResource Include="Resources\Base.lproj\InfoPlist.strings" />
-    <Compile Include="PlatformBusinessServices\Notifications\PlatformPushNotificationsService.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\CommentsTableSource.cs" />
     <Compile Include="Controls\CircleProgressBar.cs" />
     <Compile Include="Presentation\Converters\BoolToNotificationImageConverter.cs" />

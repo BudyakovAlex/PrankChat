@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+﻿using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.ApplicationServices.Network;
@@ -7,6 +6,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
@@ -66,7 +66,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             // todo: not wait
             await ApiService.GetCurrentUserAsync();
 
-            _pushNotificationService.RegisterToNotifications();
             await _pushNotificationService.TryUpdateTokenAsync();
 
             await NavigationService.ShowMainView();
