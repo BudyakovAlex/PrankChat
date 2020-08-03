@@ -6,7 +6,6 @@ using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -24,10 +23,29 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         private readonly IMvxMessenger _mvxMessenger;
 
         private readonly OrderDataModel _orderDataModel;
-
         private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
 
         private MvxSubscriptionToken _timerTickMessageToken;
+
+        public OrderItemViewModel(INavigationService navigationService,
+                          ISettingsService settingsService,
+                          IMvxMessenger mvxMessenger,
+                          OrderDataModel orderDataModel,
+                          Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
+        {
+            _navigationService = navigationService;
+            _settingsService = settingsService;
+            _mvxMessenger = mvxMessenger;
+            _orderDataModel = orderDataModel;
+            _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
+            ElapsedTime = _orderDataModel.ActiveTo is null
+                ? TimeSpan.FromHours(_orderDataModel.DurationInHours)
+                : _orderDataModel.GetActiveOrderTime();
+
+            Subscribe();
+            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+        }
 
         public int OrderId => _orderDataModel.Id;
 
@@ -66,83 +84,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public string PriceText => _orderDataModel.Price.ToPriceString();
 
-        public string StatusText
-        {
-            get
-            {
-                switch (_orderDataModel.Status)
-                {
-                    case OrderStatusType.New:
-                        return Resources.OrderStatus_New;
-
-                    case OrderStatusType.Rejected:
-                        return Resources.OrderStatus_Rejected;
-
-                    case OrderStatusType.Cancelled:
-                        return Resources.OrderStatus_Cancelled;
-
-                    case OrderStatusType.Active:
-                        return Resources.OrderStatus_Active;
-
-                    case OrderStatusType.InWork:
-                    case OrderStatusType.VideoWaitModeration:
-                    case OrderStatusType.VideoInProcess:
-                    case OrderStatusType.VideoProcessError:
-                        return Resources.OrderStatus_InWork;
-
-                    case OrderStatusType.InArbitration:
-                        return Resources.OrderStatus_InArbitration;
-
-                    case OrderStatusType.ProcessCloseArbitration:
-                        return Resources.OrderStatus_ProcessCloseArbitration;
-
-                    case OrderStatusType.ClosedAfterArbitrationCustomerWin when _orderDataModel?.Customer?.Id == _settingsService?.User?.Id:
-                        return Resources.OrderStatus_ClosedAfterArbitrationCustomerWin;
-
-                    case OrderStatusType.ClosedAfterArbitrationExecutorWin when _orderDataModel?.Customer?.Id == _settingsService?.User?.Id:
-                        return Resources.OrderStatus_ClosedAfterArbitrationExecutorWin;
-
-                    case OrderStatusType.ClosedAfterArbitrationCustomerWin when _orderDataModel?.Executor?.Id == _settingsService?.User?.Id:
-                        return Resources.OrderStatus_ClosedAfterArbitrationExecutorWin;
-
-                    case OrderStatusType.ClosedAfterArbitrationExecutorWin when _orderDataModel?.Executor?.Id == _settingsService?.User?.Id:
-                        return Resources.OrderStatus_ClosedAfterArbitrationCustomerWin;
-
-                    case OrderStatusType.WaitFinish:
-                        return Resources.OrderStatus_WaitFinish;
-
-                    case OrderStatusType.Finished:
-                        return Resources.OrderStatus_Finished;
-
-                    default:
-                        return string.Empty;
-                }
-            }
-        }
+        public string StatusText => _orderDataModel.GetOrderStatusTitle(_settingsService?.User);
 
         public IMvxAsyncCommand OpenDetailsOrderCommand { get; }
 
         public IMvxAsyncCommand OpenUserProfileCommand { get; }
-
-        public OrderItemViewModel(INavigationService navigationService,
-                                  ISettingsService settingsService,
-                                  IMvxMessenger mvxMessenger,
-                                  OrderDataModel orderDataModel,
-                                  Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
-        {
-            _navigationService = navigationService;
-            _settingsService = settingsService;
-            _mvxMessenger = mvxMessenger;
-            _orderDataModel = orderDataModel;
-            _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
-            ElapsedTime = _orderDataModel.ActiveTo is null
-                ? TimeSpan.FromHours(_orderDataModel.DurationInHours)
-                : _orderDataModel.GetActiveOrderTime();
-
-            Subscribe();
-            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
-        }
 
         public FullScreenVideoDataModel GetFullScreenVideoDataModel()
         {

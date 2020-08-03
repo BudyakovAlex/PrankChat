@@ -1,14 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using CreditCardValidator;
+﻿using CreditCardValidator;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using System.Text.RegularExpressions;
 
 namespace PrankChat.Mobile.Core.Infrastructure
 {
-    public class InternationalCardHelper
+    public class InternationalCardValidator
     {
-        private static readonly InternationalCardHelper _instance = new InternationalCardHelper();
-        public static InternationalCardHelper Instance = _instance;
+        private InternationalCardValidator()
+        {
+        }
+
+        public static InternationalCardValidator Instance { get; } = new InternationalCardValidator();
 
         public bool IsValidCreditCard(string cardNumber)
         {
@@ -18,11 +20,15 @@ namespace PrankChat.Mobile.Core.Infrastructure
         public string VisualCardNumber(string cardNumber)
         {
             if (string.IsNullOrWhiteSpace(cardNumber))
+            {
                 return string.Empty;
+            }
 
             cardNumber = cardNumber.WithoutSpace();
             if (cardNumber.Length <= 4)
+            {
                 return cardNumber;
+            }
 
             var cardType = cardNumber.CreditCardBrandIgnoreLength();
             var mask = GetCardMask(cardType, cardNumber.Length);
@@ -50,30 +56,25 @@ namespace PrankChat.Mobile.Core.Infrastructure
                 case CardIssuer.AmericanExpress:
                     return "#### #### #### ####";
 
+                case CardIssuer.ChinaUnionPay when cardLenght <= 16:
+                    return "#### #### #### ####";
                 case CardIssuer.ChinaUnionPay:
-                    if (cardLenght <= 16)
-                        return "#### #### #### ####";
-                    else
-                        return "###### #############";
+                    return "###### #############";
 
+                case CardIssuer.DinersClub when cardLenght <= 14:
+                    return "#### ###### ####";
                 case CardIssuer.DinersClub:
-                    if (cardLenght <= 14)
-                        return "#### ###### ####";
-                    else
-                        return "#### #### #### ####";
+                    return "#### #### #### ####";
+
+                case CardIssuer.Maestro when cardLenght <= 13:
+                    return "#### #### #####";
+                case CardIssuer.Maestro when cardLenght <= 15:
+                    return "#### ###### #####";
 
                 case CardIssuer.Maestro:
-                    if (cardLenght <= 13)
-                        return "#### #### #####";
-
-                    if (cardLenght <= 15)
-                        return "#### ###### #####";
-
-                    if (cardLenght <= 15)
-                        return "#### #### #### ####";
-                    else
-                        return "#### #### #### #### ###";
+                    return "#### #### #### #### ###";
             }
+
             return "";
         }
 
@@ -84,6 +85,7 @@ namespace PrankChat.Mobile.Core.Infrastructure
             {
                 pattern += @"(\d)";
             }
+
             return pattern;
         }
 
@@ -96,13 +98,18 @@ namespace PrankChat.Mobile.Core.Infrastructure
                 if (mask[i].IsDigit() || mask[i] == '#')
                 {
                     if (currentDigitIndex == digitCount)
+                    {
                         break;
+                    }
 
                     replacement += $"${++currentDigitIndex}";
                 }
                 else
+                {
                     replacement += mask[i];
+                }
             }
+
             return replacement;
         }
     }

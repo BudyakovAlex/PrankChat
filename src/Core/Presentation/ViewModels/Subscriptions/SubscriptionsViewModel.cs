@@ -21,19 +21,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
     {
         private int _userId;
         private bool _isUpdateNeeded;
-        private string _userName;
 
-        public SubscriptionsViewModel(INavigationService navigationService,
-                                      IErrorHandleService errorHandleService,
-                                      IApiService apiService,
-                                      IDialogService dialogService,
-                                      ISettingsService settingsService)
-            : base(Constants.Pagination.DefaultPaginationSize,
-                   navigationService,
-                   errorHandleService,
-                   apiService,
-                   dialogService,
-                   settingsService)
+        public SubscriptionsViewModel() : base(Constants.Pagination.DefaultPaginationSize)
         {
             Items = new MvxObservableCollection<SubscriptionItemViewModel>();
             CloseCompletionSource = new TaskCompletionSource<object>();
@@ -47,7 +36,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 
         public IMvxAsyncCommand<SubscriptionItemViewModel> ShowProfileCommand { get; }
 
-        public string Title => _userName;
+        public string Title { get; private set; }
 
         private SubscriptionTabType _selectedTabType;
         public SubscriptionTabType SelectedTabType
@@ -91,7 +80,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
         {
             _userId = parameter.UserId;
             _selectedTabType = parameter.SubscriptionTabType;
-            _userName = parameter.UserName;
+            Title = parameter.UserName;
         }
 
         public override void ViewDestroy(bool viewFinishing = true)
@@ -150,12 +139,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 
         private SubscriptionItemViewModel ProduceSubscriptionItemViewModel(UserDataModel userDataModel)
         {
-            return new SubscriptionItemViewModel(userDataModel,
-                                                 NavigationService,
-                                                 ErrorHandleService,
-                                                 ApiService,
-                                                 DialogService,
-                                                 SettingsService);
+            return new SubscriptionItemViewModel(userDataModel);
         }
     }
 }

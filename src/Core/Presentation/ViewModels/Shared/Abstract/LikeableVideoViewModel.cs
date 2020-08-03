@@ -1,15 +1,9 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
+﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
 {
@@ -18,11 +12,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
         private CancellationTokenSource _cancellationSendingDislikeTokenSource;
 
-        public LikeableViewModel(INavigationService navigationService,
-                                 IErrorHandleService errorHandleService,
-                                 IApiService apiService,
-                                 IDialogService dialogService,
-                                 ISettingsService settingsService) : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+        public LikeableViewModel()
         {
             LikeCommand = new MvxRestrictedCommand(OnLike, restrictedExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
             DislikeCommand = new MvxRestrictedCommand(OnDislike, restrictedExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);

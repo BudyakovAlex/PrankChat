@@ -1,15 +1,10 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 using System;
@@ -25,13 +20,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
         private int _videoId;
         private int _newCommentsCounter;
 
-        public CommentsViewModel(INavigationService navigationService,
-                                 IErrorHandleService errorHandleService,
-                                 IApiService apiService,
-                                 IDialogService dialogService,
-                                 ISettingsService settingsService,
-                                 IMvxLog mvxLog)
-            : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
+        public CommentsViewModel(IMvxLog mvxLog) : base(Constants.Pagination.DefaultPaginationSize)
         {
             Items = new MvxObservableCollection<CommentItemViewModel>();
 
@@ -48,13 +37,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
         public string Comment
         {
             get => _comment;
-            set
-            {
-                if (SetProperty(ref _comment, value))
-                {
-                    SendCommentCommand.RaiseCanExecuteChanged();
-                }
-            }
+            set => SetProperty(ref _comment, value, () => SendCommentCommand.RaiseCanExecuteChanged());
         }
 
         public string ProfilePhotoUrl => SettingsService.User?.Avatar;
@@ -99,11 +82,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
             return count;
         }
 
-        private CommentItemViewModel ProduceCommentItemViewModel(CommentDataModel commentDataModel)
-        {
-            return new CommentItemViewModel(NavigationService, SettingsService, commentDataModel);
-        }
-
         protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
         {
             SetTotalItemsCount(dataModel?.TotalCount ?? 0);
@@ -113,6 +91,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
 
             items.AddRange(orderViewModels);
             return orderViewModels.Count;
+        }
+
+        private CommentItemViewModel ProduceCommentItemViewModel(CommentDataModel commentDataModel)
+        {
+            return new CommentItemViewModel(NavigationService, SettingsService, commentDataModel);
         }
 
         private async Task SendCommentAsync()

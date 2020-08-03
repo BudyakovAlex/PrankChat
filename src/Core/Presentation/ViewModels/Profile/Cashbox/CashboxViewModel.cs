@@ -1,20 +1,15 @@
-﻿using System;
+﻿using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
+using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
+using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
-using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
@@ -25,9 +20,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         private MvxSubscriptionToken _reloadProfileMessageToken;
         private bool _isReloadNeeded;
 
-        public List<BaseViewModel> Items { get; } = new List<BaseViewModel>();
+        public CashboxViewModel(IMediaService mediaService)
+        {
+            Items = new List<BaseViewModel>
+            {
+                new RefillViewModel(),
+                new WithdrawalViewModel(mediaService)
+            };
 
-        public ICommand ShowContentCommand => new MvxAsyncCommand(NavigationService.ShowCashboxContent);
+            ShowContentCommand = new MvxAsyncCommand(NavigationService.ShowCashboxContent);
+        }
+
+        public List<BaseViewModel> Items { get; }
+
+        public ICommand ShowContentCommand { get; }
 
         private int _selectedPage;
         public int SelectedPage
@@ -37,20 +43,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         }
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
-
-        public CashboxViewModel(INavigationService navigationService,
-                                IErrorHandleService errorHandleService,
-                                IApiService apiService,
-                                IDialogService dialogService,
-                                ISettingsService settingsService,
-                                IMediaService mediaService,
-                                IMvxMessenger mvxMessenger)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
-        {
-            _mvxMessenger = mvxMessenger;
-            Items.Add(new RefillViewModel(navigationService, errorHandleService, apiService, dialogService, settingsService, mvxMessenger));
-            Items.Add(new WithdrawalViewModel(navigationService, errorHandleService, apiService, dialogService, settingsService, mediaService, mvxMessenger));
-        }
 
         public override async Task Initialize()
         {
@@ -65,11 +57,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             switch(parameter.Type)
             {
                 case CashboxTypeNavigationParameter.CashboxType.Refill:
-                    SelectedPage = Items.IndexOf(Items.SingleOrDefault(c => c is RefillViewModel));
+                    SelectedPage = Items.IndexOf(Items.SingleOrDefault(item => item is RefillViewModel));
                     break;
 
                 case CashboxTypeNavigationParameter.CashboxType.Withdrawal:
-                    SelectedPage = Items.IndexOf(Items.SingleOrDefault(c => c is WithdrawalViewModel));
+                    SelectedPage = Items.IndexOf(Items.SingleOrDefault(item => item is WithdrawalViewModel));
                     break;
 
                 default:
@@ -87,7 +79,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         {
             Unsubscription();
 
-            if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
+            if (viewFinishing &&
+                CloseCompletionSource != null &&
+                !CloseCompletionSource.Task.IsCompleted &&
+                !CloseCompletionSource.Task.IsFaulted)
             {
                 CloseCompletionSource?.SetResult(_isReloadNeeded);
             }
@@ -102,13 +97,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         private void Unsubscription()
         {
-            if (_reloadProfileMessageToken is null)
-            {
-                return;
-            }
-
-            _mvxMessenger.Unsubscribe<ReloadProfileMessage>(_reloadProfileMessageToken);
-            _reloadProfileMessageToken.Dispose();
+            _reloadProfileMessageToken?.Dispose();
         }
     }
 }

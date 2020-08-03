@@ -10,6 +10,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
     public class CompetitionDetailsHeaderViewModel : CompetitionItemViewModel
     {
+        public CompetitionDetailsHeaderViewModel(bool isUserSessionInitialized,
+                                                 IMvxMessenger mvxMessenger,
+                                                 INavigationService navigationService,
+                                                 IMvxAsyncCommand loadVideoCommand,
+                                                 CompetitionDataModel competition)
+            : base(isUserSessionInitialized, mvxMessenger, navigationService, competition)
+        {
+            _navigationService = navigationService;
+
+            LoadVideoCommand = loadVideoCommand;
+            OpenPrizePoolCommand = new MvxAsyncCommand(OpenPrizePoolAsync);
+            OpenRulesCommand = new MvxAsyncCommand(OpenRulesAsync);
+        }
+
         private readonly INavigationService _navigationService;
 
         public ICommand OpenPrizePoolCommand { get; set; }
@@ -21,19 +35,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         public bool CanLoadVideo => Phase == CompetitionPhase.New && Competition.CanUploadVideo;
 
         public bool CanShowRules => !string.IsNullOrWhiteSpace(HtmlContent);
-
-        public CompetitionDetailsHeaderViewModel(bool isUserSessionInitialized,
-                                                 IMvxMessenger mvxMessenger,
-                                                 INavigationService navigationService,
-                                                 IMvxAsyncCommand loadVideoCommand,
-                                                 CompetitionDataModel competition) : base(isUserSessionInitialized, mvxMessenger, navigationService, competition)
-        {
-            _navigationService = navigationService;
-            
-            LoadVideoCommand = loadVideoCommand;
-            OpenPrizePoolCommand = new MvxAsyncCommand(OpenPrizePoolAsync);
-            OpenRulesCommand = new MvxAsyncCommand(OpenRulesAsync);
-        }
 
         private Task OpenRulesAsync()
         {

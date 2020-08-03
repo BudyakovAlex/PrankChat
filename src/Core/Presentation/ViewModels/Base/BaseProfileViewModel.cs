@@ -1,44 +1,33 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Timers;
-using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
+﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using System;
+using System.Threading.Tasks;
+using System.Timers;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {
-    public class BaseProfileViewModel : PaginationViewModel
+    public abstract class BaseProfileViewModel : PaginationViewModel
     {
-        private const int CheckCanSendEmailInterval = 60000;
-        private const int UnlockResendMinutes = 3;
+        private readonly Timer _timer;
 
-        private Timer _timer;
-
-        public BaseProfileViewModel(INavigationService navigationService,
-                                    IErrorHandleService errorHandleService,
-                                    IApiService apiService,
-                                    IDialogService dialogService,
-                                    ISettingsService settingsService)
-            : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
+        public BaseProfileViewModel() : base(Constants.Pagination.DefaultPaginationSize)
         {
-            ResendEmailValidationCommand = new MvxAsyncCommand(ResendEmailValidationAsync, () => CanResendEmailValidation);
-            ShowValidationWarningCommand = new MvxCommand(ShowValidationWarning);
-
             var timeStamp = Preferences.Get(nameof(CanResendEmailValidation), DateTime.MinValue);
             _canResendEmailValidation = timeStamp <= DateTime.Now;
 
-            _timer = new Timer(CheckCanSendEmailInterval);
+            _timer = new Timer(Constants.Profile.CheckCanSendEmailInterval);
             _timer.Elapsed += OnTimerElapsed;
             _timer.Start();
+
+            ResendEmailValidationCommand = new MvxAsyncCommand(ResendEmailValidationAsync, () => CanResendEmailValidation);
+            ShowValidationWarningCommand = new MvxCommand(ShowValidationWarning);
+            SelectBirthdayCommand = new MvxAsyncCommand(SelectBirthdayAsync);
+            SelectGenderCommand = new MvxCommand<GenderType>(SelectGender);
         }
 
         private string _email;
@@ -59,13 +48,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         public string Name
         {
             get => _name;
-            set
-            {
-                if (SetProperty(ref _name, value))
-                {
-                    RaisePropertyChanged(nameof(ProfileShortName));
-                }
-            }
+            set => SetProperty(ref _name, value, () => RaisePropertyChanged(nameof(ProfileShortName)));
         }
 
         public string ProfileShortName => Name.ToShortenName();
@@ -74,13 +57,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         public DateTime? Birthday
         {
             get => _birthdate;
-            set
-            {
-                if (SetProperty(ref _birthdate, value))
-                {
-                    RaisePropertyChanged(nameof(BirthdayText));
-                }
-            }
+            set => SetProperty(ref _birthdate, value, () => RaisePropertyChanged(nameof(BirthdayText)));
         }
 
         public string BirthdayText => Birthday?.ToShortDateString() ?? Resources.ProfileUpdateView_Birthday_Placeholder;
@@ -92,8 +69,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             set
             {
                 SetProperty(ref _gender, value);
-                RaisePropertyChanged(nameof(IsGenderMale));
-                RaisePropertyChanged(nameof(IsGenderFemale));
+                RaisePropertiesChanged(nameof(IsGenderMale), nameof(IsGenderFemale));
             }
         }
 
@@ -130,14 +106,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         public string Description
         {
             get => _description;
-            set
-            {
-                if (SetProperty(ref _description, value))
-                {
-                    RaisePropertyChanged(nameof(HasDescription));
-                    RaisePropertyChanged(nameof(LimitTextPresentation));
-                }
-            }
+            set => SetProperty(ref _description, value, () => RaisePropertiesChanged(nameof(HasDescription), nameof(LimitTextPresentation)));
         }
 
         public string LimitTextPresentation => $"{Math.Min(Constants.Profile.DescriptionMaxLength, Description?.Length ?? 0)} / {Constants.Profile.DescriptionMaxLength}";
@@ -148,9 +117,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public IMvxCommand ShowValidationWarningCommand { get; }
 
-        public MvxAsyncCommand SelectBirthdayCommand => new MvxAsyncCommand(OnSelectBirthdayAsync);
+        public IMvxAsyncCommand SelectBirthdayCommand { get; }
 
-        public MvxCommand<GenderType> SelectGenderCommand => new MvxCommand<GenderType>(OnSelectGender);
+        public IMvxCommand<GenderType> SelectGenderCommand { get; }
 
         public override Task Initialize()
         {
@@ -182,7 +151,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             await ApiService.VerifyEmailAsync();
 
             DialogService.ShowToast(Resources.Profile_Email_Confirmation_Sent, ToastType.Positive);
-            Preferences.Set(nameof(CanResendEmailValidation), DateTime.Now.AddMinutes(UnlockResendMinutes));
+            Preferences.Set(nameof(CanResendEmailValidation), DateTime.Now.AddMinutes(Constants.Profile.UnlockResendMinutes));
             CanResendEmailValidation = false;
         }
 
@@ -197,16 +166,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             DialogService.ShowToast(Resources.Profile_Your_Email_Not_Actual, ToastType.Negative);
         }
 
-        private async Task OnSelectBirthdayAsync()
+        private async Task SelectBirthdayAsync()
         {
             var result = await DialogService.ShowDateDialogAsync(Birthday);
-            if (result.HasValue)
+            if (result is null)
             {
-                Birthday = result.Value;
+                return;
             }
+
+            Birthday = result.Value;
         }
 
-        private void OnSelectGender(GenderType genderType)
+        private void SelectGender(GenderType genderType)
         {
             Gender = genderType;
         }

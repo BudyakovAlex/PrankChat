@@ -116,12 +116,11 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         public Task ShowMainViewContent()
         {
-            return Task.WhenAll(
-                _mvxNavigationService.Navigate<PublicationsViewModel>(),
-                _mvxNavigationService.Navigate<CompetitionsViewModel>(),
-                _mvxNavigationService.Navigate<CreateOrderViewModel>(),
-                _mvxNavigationService.Navigate<OrdersViewModel>(),
-                _mvxNavigationService.Navigate<ProfileViewModel>());
+            return Task.WhenAll(_mvxNavigationService.Navigate<PublicationsViewModel>(),
+                                _mvxNavigationService.Navigate<CompetitionsViewModel>(),
+                                _mvxNavigationService.Navigate<CreateOrderViewModel>(),
+                                _mvxNavigationService.Navigate<OrdersViewModel>(),
+                                _mvxNavigationService.Navigate<ProfileViewModel>());
         }
 
         public Task ShowNotificationView()
@@ -136,9 +135,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         public Task ShowCashboxContent()
         {
-            return Task.WhenAll(
-                _mvxNavigationService.Navigate<RefillViewModel>(),
-                           _mvxNavigationService.Navigate<WithdrawalViewModel>());
+            return Task.WhenAll(_mvxNavigationService.Navigate<RefillViewModel>(), _mvxNavigationService.Navigate<WithdrawalViewModel>());
         }
 
         public Task<bool> CloseView(BaseViewModel viewModel)
@@ -234,7 +231,9 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             _mvxNavigationService.AfterNavigate -= NavigatenAfterMainViewByPushNotification;
 
             if (_orderId == null)
+            {
                 return;
+            }
 
             if (e.ViewModel is MainViewModel mainViewModel)
             {

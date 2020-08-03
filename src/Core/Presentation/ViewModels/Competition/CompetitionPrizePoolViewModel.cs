@@ -1,19 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
@@ -21,11 +16,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
     {
         private CompetitionDataModel _competition;
 
-        public CompetitionPrizePoolViewModel(INavigationService navigationService,
-                                             IErrorHandleService errorHandleService,
-                                             IApiService apiService,
-                                             IDialogService dialogService,
-                                             ISettingsService settingsService) : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+        public CompetitionPrizePoolViewModel()
         {
             Items = new MvxObservableCollection<CompetitionPrizePoolItemViewModel>();
 

@@ -12,7 +12,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
         private const double SmallLimitForCount = 1000D;
         private const string DefaultValue = "0";
 
-        private static readonly string[] _suffixes = new[]
+        private static readonly string[] _weightSuffixes = new[]
         {
             Resources.Bytes_Presentation,
             Resources.Kilobytes_Presentation,
@@ -34,7 +34,9 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
         public static string ToCountString(this int? count)
         {
             if (count == null)
+            {
                 return DefaultValue;
+            }
 
             return ((long?)count).ToCountString();
         }
@@ -42,13 +44,20 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
         public static string ToCountString(this long? count)
         {
             if (count == null)
+            {
                 return DefaultValue;
 
+            }
+
             if (count >= BigLimitForCount)
+            {
                 return (count / BigLimitForCount)?.ToString(FormatForCount) + Resources.Count_Millions;
+            }
 
             if (count >= SmallLimitForCount)
+            {
                 return (count / SmallLimitForCount)?.ToString(FormatForCount) + Resources.Count_Thousand;
+            }
 
             return count?.ToString(FormatForCountWithFraction);
         }
@@ -59,21 +68,19 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             var lastTwoCharsString = countString.Substring(Math.Max(0, countString.Length - 2));
             var lastTwoChars = long.Parse(lastTwoCharsString);
             if (lastTwoChars >= 11 && lastTwoChars <= 19)
+            {
                 return $"{count.ToCountString()} {Resources.Count_Views}";
+            }
 
             var lastChar = count.ToString().LastOrDefault();
-
-            string viewsText;
             if (lastChar == '1')
             {
-                viewsText = Resources.Count_View;
+                return $"{count.ToCountString()} {Resources.Count_View}";
             }
-            else
-            {
-                viewsText = new[] { '2', '3', '4' }.Contains(lastChar)
-                    ? Resources.Count_Of_Viewing
-                    : Resources.Count_Views;
-            }
+
+            var viewsText = new[] { '2', '3', '4' }.Contains(lastChar)
+                  ? Resources.Count_Of_Viewing
+                  : Resources.Count_Views;
 
             return $"{count.ToCountString()} {viewsText}";
         }
@@ -87,12 +94,12 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 
             if (length == 0)
             {
-                return $"0.0 {_suffixes[0]}";
+                return $"0.0 {_weightSuffixes[0]}";
             }
 
             var log = (int)Math.Log(length, 1024);
             var ajd = (decimal)(length) / (1L << log * 10);
-            return $"{ajd:n1} {_suffixes.ElementAtOrDefault(log)}";
+            return $"{ajd:n1} {_weightSuffixes.ElementAtOrDefault(log)}";
         }
     }
 }

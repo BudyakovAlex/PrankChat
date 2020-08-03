@@ -1,13 +1,7 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using System;
 using System.Collections.Generic;
 
@@ -17,24 +11,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
     {
         public IMvxAsyncCommand ShowDetailsCommand { get; }
 
-        public PublicationItemViewModel(INavigationService navigationService,
-                                        IDialogService dialogService,
-                                        IPlatformService platformService,
+        public PublicationItemViewModel(IPlatformService platformService,
                                         IVideoPlayerService videoPlayerService,
-                                        IApiService apiServices,
-                                        IErrorHandleService errorHandleService,
-                                        IMvxMessenger mvxMessenger,
-                                        ISettingsService settingsService,
                                         VideoDataModel videoDataModel,
                                         Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
-            : base(navigationService,
-                   dialogService,
-                   platformService,
+            : base(platformService,
                    videoPlayerService,
-                   apiServices,
-                   errorHandleService,
-                   mvxMessenger,
-                   settingsService,
                    videoDataModel,
                    getAllFullScreenVideoDataFunc)
         {

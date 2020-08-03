@@ -1,23 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
@@ -29,17 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private bool _isReloadNeeded;
         private int _subscribersCount;
 
-        public UserProfileViewModel(INavigationService navigationService,
-                                    IErrorHandleService errorHandleService,
-                                    IApiService apiService,
-                                    IDialogService dialogService,
-                                    ISettingsService settingsService)
-            : base(Constants.Pagination.DefaultPaginationSize,
-                   navigationService,
-                   errorHandleService,
-                   apiService,
-                   dialogService,
-                   settingsService)
+        public UserProfileViewModel() : base(Constants.Pagination.DefaultPaginationSize)
         {
             Items = new MvxObservableCollection<OrderItemViewModel>();
             CloseCompletionSource = new TaskCompletionSource<object>();
@@ -89,13 +74,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         public string Login
         {
             get => _login;
-            private set
-            {
-                if (SetProperty(ref _login, value))
-                {
-                    RaisePropertyChanged(nameof(ProfileShortLogin));
-                }
-            }
+            private set => SetProperty(ref _login, value, () => RaisePropertyChanged(nameof(ProfileShortLogin)));
         }
 
         private string _subscribersValue;
@@ -123,13 +102,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         public string Description
         {
             get => _description;
-            private set
-            {
-                if (SetProperty(ref _description, value))
-                {
-                    RaisePropertyChanged(nameof(HasDescription));
-                }
-            }
+            private set => SetProperty(ref _description, value, () => RaisePropertyChanged(nameof(HasDescription)));
         }
 
         public void Prepare(int parameter)

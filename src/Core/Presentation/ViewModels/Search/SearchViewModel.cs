@@ -1,14 +1,9 @@
 ﻿using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
@@ -28,14 +23,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
 
-        public SearchViewModel(INavigationService navigationService,
-                               IErrorHandleService errorHandleService,
-                               IApiService apiService,
-                               IDialogService dialogService,
-                               ISettingsService settingsService,
-                               IPlatformService platformService,
-                               IVideoPlayerService videoPlayerService)
-            : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
+        public SearchViewModel(IPlatformService platformService, IVideoPlayerService videoPlayerService)
+            : base(Constants.Pagination.DefaultPaginationSize)
         {
             Items = new MvxObservableCollection<MvxNotifyPropertyChanged>();
             _platformService = platformService;
@@ -139,14 +128,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private MvxNotifyPropertyChanged ProduceVideoViewModel(VideoDataModel publication)
         {
-            return new PublicationItemViewModel(NavigationService,
-                                                DialogService,
-                                                _platformService,
+            return new PublicationItemViewModel(_platformService,
                                                 _videoPlayerService,
-                                                ApiService,
-                                                ErrorHandleService,
-                                                Messenger,
-                                                SettingsService,
                                                 publication,
                                                 GetFullScreenVideoDataModels);
         }

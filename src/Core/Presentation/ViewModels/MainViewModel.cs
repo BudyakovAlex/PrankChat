@@ -1,22 +1,17 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Providers;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
@@ -44,14 +39,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public IMvxAsyncCommand CheckActualAppVersionCommand { get; }
 
-        public MainViewModel(INavigationService navigationService,
-                             ISettingsService settingsService,
-                             IErrorHandleService errorHandleService,
-                             IApiService apiService,
-                             IDialogService dialogService,
-                             IPushNotificationService notificationService,
-                             IWalkthroughsProvider walkthroughsProvider)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+        public MainViewModel(IPushNotificationService notificationService, IWalkthroughsProvider walkthroughsProvider)
         {
             _notificationService = notificationService;
             _walkthroughsProvider = walkthroughsProvider;

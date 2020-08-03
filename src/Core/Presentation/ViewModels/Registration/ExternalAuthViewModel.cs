@@ -1,10 +1,6 @@
-﻿using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
+﻿using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System.Threading.Tasks;
 
@@ -15,13 +11,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         private readonly IExternalAuthService _externalAuthService;
         private readonly IPushNotificationService _pushNotificationService;
 
-        public ExternalAuthViewModel(INavigationService navigationService,
-                                     IErrorHandleService errorHandleService,
-                                     IApiService apiService,
-                                     IDialogService dialogService,
-                                     ISettingsService settingsService,
-                                     IExternalAuthService externalAuthService,
-                                     IPushNotificationService pushNotificationService) : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+        public ExternalAuthViewModel(IExternalAuthService externalAuthService, IPushNotificationService pushNotificationService)
         {
             _externalAuthService = externalAuthService;
             _pushNotificationService = pushNotificationService;
@@ -29,14 +19,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         protected virtual async Task<bool> TryLoginWithExternalServicesAsync(LoginType loginType)
         {
-            if (!SettingsService.IsDebugMode)
+            var newActualVersion = await ApiService.CheckAppVersionAsync();
+            if (!string.IsNullOrEmpty(newActualVersion?.Link))
             {
-                var newActualVersion = await ApiService.CheckAppVersionAsync();
-                if (!string.IsNullOrEmpty(newActualVersion?.Link))
-                {
-                    await NavigationService.ShowMaintananceView(newActualVersion.Link);
-                    return false;
-                }
+                await NavigationService.ShowMaintananceView(newActualVersion.Link);
+                return false;
             }
 
             string token;

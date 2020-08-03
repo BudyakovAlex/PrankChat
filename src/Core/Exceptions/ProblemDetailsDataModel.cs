@@ -1,12 +1,20 @@
-﻿using System;
+﻿using PrankChat.Mobile.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using PrankChat.Mobile.Core.Models;
 
 namespace PrankChat.Mobile.Core.Exceptions
 {
     public class ProblemDetailsDataModel : ApplicationException
     {
+        public ProblemDetailsDataModel() : base(string.Empty)
+        {
+        }
+
+        public ProblemDetailsDataModel(string message) : base(message)
+        {
+        }
+
         public string CodeError { get; set; }
 
         public string Title { get; set; }
@@ -19,18 +27,6 @@ namespace PrankChat.Mobile.Core.Exceptions
 
         public string Type { get; set; }
 
-        public ProblemDetailsDataModel() : base(string.Empty) { }
-
-        public ProblemDetailsDataModel(string message) : base(message)
-        {
-        }
-
-        public override string Message
-        {
-            get
-            {
-                return InvalidParams?.FirstOrDefault()?.Reason ?? MessageServerError;
-            }
-        }
+        public override string Message => InvalidParams?.FirstOrDefault()?.Reason ?? MessageServerError;
     }
 }

@@ -1,13 +1,8 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +12,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
     public class RefillViewModel : BaseViewModel
     {
-        private readonly IMvxMessenger _mvxMessenger;
+        public RefillViewModel()
+        {
+            Items = new List<PaymentMethodItemViewModel>();
+            RefillCommand = new MvxAsyncCommand(OnRefillAsync);
+            SelectionChangedCommand = new MvxAsyncCommand<PaymentMethodItemViewModel>(OnSelectionChangedAsync);
+        }
 
         private double? _cost;
         public double? Cost
@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             set => SetProperty(ref _cost, value);
         }
 
-        public List<PaymentMethodItemViewModel> Items { get; } = new List<PaymentMethodItemViewModel>();
+        public List<PaymentMethodItemViewModel> Items { get; } 
 
         private PaymentMethodItemViewModel _selectedItem;
         public PaymentMethodItemViewModel SelectedItem
@@ -35,20 +35,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             set => SetProperty(ref _selectedItem, value);
         }
 
-        public MvxAsyncCommand<PaymentMethodItemViewModel> SelectionChangedCommand => new MvxAsyncCommand<PaymentMethodItemViewModel>(OnSelectionChangedAsync);
+        public IMvxAsyncCommand<PaymentMethodItemViewModel> SelectionChangedCommand { get; }
 
-        public MvxAsyncCommand RefillCommand => new MvxAsyncCommand(OnRefillAsync);
-
-        public RefillViewModel(INavigationService navigationService,
-                               IErrorHandleService errorHandleService,
-                               IApiService apiService,
-                               IDialogService dialogService,
-                               ISettingsService settingsService,
-                               IMvxMessenger mvxMessenger)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
-        {
-            _mvxMessenger = mvxMessenger;
-        }
+        public IMvxAsyncCommand RefillCommand { get; }
 
         public override Task Initialize()
         {
@@ -65,7 +54,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         private async Task OnRefillAsync()
         {
             if (!CheckValidation())
+            {
                 return;
+            }
 
             var paymentData = await ApiService.RefillAsync(Cost.Value);
             if (string.IsNullOrWhiteSpace(paymentData?.PaymentLink))
@@ -75,15 +66,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
 
             await NavigationService.ShowWebView(paymentData.PaymentLink);
-            _mvxMessenger.Publish(new ReloadProfileMessage(this));
+            Messenger.Publish(new ReloadProfileMessage(this));
         }
 
         private Task OnSelectionChangedAsync(PaymentMethodItemViewModel item)
         {
             SelectedItem = item;
 
-            var items = Items.Where(c => c.IsSelected).ToList();
-            items.ForEach(c => c.IsSelected = false);
+            var items = Items.Where(paymentMethod => paymentMethod.IsSelected).ToList();
+            items.ForEach(paymentMethod => paymentMethod.IsSelected = false);
             item.IsSelected = true;
 
             return Task.CompletedTask;

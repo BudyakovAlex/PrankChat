@@ -1,5 +1,4 @@
-﻿using System;
-namespace PrankChat.Mobile.Core.Presentation.Navigation.Results
+﻿namespace PrankChat.Mobile.Core.Presentation.Navigation.Results
 {
     public class ArrayDialogResult
     {

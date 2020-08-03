@@ -1,5 +1,4 @@
-﻿using System;
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
+﻿namespace PrankChat.Mobile.Core.Models.Enums
 {
     public enum PaymentType
     {

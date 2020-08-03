@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
@@ -22,25 +23,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         private MvxSubscriptionToken _refreshNotificationsSubscriptionToken;
         private MvxSubscriptionToken _timerTickMessageToken;
 
-        #region Services
+        public BaseViewModel()
+        {
+            ShowNotificationCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowNotificationView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+            ShowSearchCommand = new MvxAsyncCommand(NavigationService.ShowSearchView);
+            GoBackCommand = new MvxAsyncCommand(GoBackAsync);
+        }
 
-        public INavigationService NavigationService { get; }
+        public INavigationService NavigationService => Mvx.IoCProvider.Resolve<INavigationService>();
 
-        public IErrorHandleService ErrorHandleService { get; }
+        public IErrorHandleService ErrorHandleService => Mvx.IoCProvider.Resolve<IErrorHandleService>();
 
-        public IApiService ApiService { get; }
+        public IApiService ApiService => Mvx.IoCProvider.Resolve<IApiService>();
 
-        public IDialogService DialogService { get; }
+        public IDialogService DialogService => Mvx.IoCProvider.Resolve<IDialogService>();
 
-        public ISettingsService SettingsService { get; }
+        public ISettingsService SettingsService => Mvx.IoCProvider.Resolve<ISettingsService>();
 
-        public IMvxMessenger Messenger { get; }
+        public IMvxMessenger Messenger => Mvx.IoCProvider.Resolve<IMvxMessenger>();
 
-        public ILogger Logger { get; }
+        public ILogger Logger => Mvx.IoCProvider.Resolve<ILogger>();
 
-        public INotificationBageViewModel NotificationBageViewModel { get; }
-
-        #endregion
+        public INotificationBageViewModel NotificationBageViewModel => Mvx.IoCProvider.Resolve<INotificationBageViewModel>();
 
         private bool _isBusy;
         public bool IsBusy
@@ -56,31 +60,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         public MvxAsyncCommand ShowSearchCommand { get; }
 
         public IMvxAsyncCommand ShowNotificationCommand { get; }
-
-        public BaseViewModel(INavigationService navigationService,
-                             IErrorHandleService errorHandleService,
-                             IApiService apiService,
-                             IDialogService dialogService,
-                             ISettingsService settingsService)
-        {
-            NavigationService = navigationService;
-            ErrorHandleService = errorHandleService;
-            ApiService = apiService;
-            DialogService = dialogService;
-            SettingsService = settingsService;
-
-            Mvx.IoCProvider.TryResolve<IMvxMessenger>(out var messenger);
-            Mvx.IoCProvider.TryResolve<ILogger>(out var logger);
-            Mvx.IoCProvider.TryResolve<INotificationBageViewModel>(out var notificationBageViewModel);
-
-            Messenger = messenger;
-            Logger = logger;
-            NotificationBageViewModel = notificationBageViewModel;
-
-            ShowNotificationCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowNotificationView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
-            ShowSearchCommand = new MvxAsyncCommand(NavigationService.ShowSearchView);
-            GoBackCommand = new MvxAsyncCommand(GoBackAsync);
-        }
 
         private Task GoBackAsync()
         {
@@ -103,6 +82,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         {
             _refreshNotificationsSubscriptionToken?.Dispose();
             _timerTickMessageToken?.Dispose();
+        }
+
+        public virtual Task RaisePropertiesChanged(params string[] propertiesNames)
+        {
+            var raisePropertiesTasks = propertiesNames.Select(propertyName => RaisePropertyChanged(propertyName));
+            return Task.WhenAll(raisePropertiesTasks);
         }
 
         private void OnTimerTick(TimerTickMessage msg)

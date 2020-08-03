@@ -31,79 +31,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         private readonly VideoDataModel _videoDataModel;
         private readonly long _numberOfDislikes;
         private readonly bool _isDisliked;
-
         private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
 
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
-
-        public ICommand LikeCommand { get; }
-
-        public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxAsyncCommand(ShowFullScreenVideoAsync);
-
-        public IMvxAsyncCommand OpenUserProfileCommand { get; }
-
-        public IVideoPlayerService VideoPlayerService { get; }
-
-        public ILogger Logger { get; }
-
-        public int VideoId { get; }
-        public string VideoUrl { get; }
-        public string PreviewUrl { get; }
-        public string ShareLink { get; }
-        public string UserName { get; }
-        public string ProfileShortName { get; }
-        public string VideoName { get; }
-        public string Description { get; }
-        public string AvatarUrl { get; }
-        public string StubImageUrl { get; }
-        public DateTime PublicationDate { get; }
-        public bool IsMyPublication { get; }
-        public bool IsVotingAvailable { get; }
-        public bool IsVideoProcessing => string.IsNullOrEmpty(VideoUrl);
-
-        private long _numberOfLikes;
-        public long NumberOfLikes
-        {
-            get => _numberOfLikes;
-            set
-            {
-                if (SetProperty(ref _numberOfLikes, value))
-                {
-                    RaisePropertyChanged(nameof(LikesCount));
-                }
-            }
-        }
-
-        public long NumberOfComments { get; }
-
-        private long _numberOfViews;
-        public long NumberOfViews
-        {
-            get => _numberOfViews;
-            set
-            {
-                if (SetProperty(ref _numberOfViews, value))
-                {
-                    RaisePropertyChanged(nameof(LikesCount));
-                }
-            }
-        }
-
-        public bool CanPlayVideo => true;
-
-        public string LikesCount => CountExtensions.ToCountString(NumberOfLikes);
-        public string ViewsCount => CountExtensions.ToCountViewsString(NumberOfViews);
-
-        public string PublicationDateString => PublicationDate.ToTimeAgoPublicationString();
-
-        public bool CanVoteVideo => IsVotingAvailable && !IsMyPublication;
-
-        private bool _isLiked;
-        public bool IsLiked
-        {
-            get => _isLiked;
-            set => SetProperty(ref _isLiked, value);
-        }
 
         public CompetitionVideoViewModel(IApiService apiService,
                                          IVideoPlayerService videoPlayerService,
@@ -124,21 +54,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
             Logger = logger;
             VideoPlayerService = videoPlayerService;
-            StubImageUrl = _videoDataModel.Poster;
-            VideoId = _videoDataModel.Id;
-            VideoUrl = _videoDataModel.StreamUri;
-            PreviewUrl = _videoDataModel.PreviewUri;
-            ShareLink = _videoDataModel.ShareUri;
-            VideoName = _videoDataModel.Title;
-            Description = _videoDataModel.Description;
-            UserName = _videoDataModel.User?.Login;
-            ProfileShortName = UserName.ToShortenName();
-            AvatarUrl = _videoDataModel.User?.Avatar;
+ 
             NumberOfLikes = _videoDataModel.LikesCount;
             _numberOfDislikes = _videoDataModel.DislikesCount;
-            NumberOfComments = _videoDataModel.CommentsCount;
+
             NumberOfViews = _videoDataModel.ViewsCount;
-            PublicationDate = videoDataModel.CreatedAt.UtcDateTime;
             IsLiked = videoDataModel.IsLiked;
             _isDisliked = videoDataModel.IsDisliked;
 
@@ -146,8 +66,91 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             IsVotingAvailable = isVotingAvailable;
             _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
 
-            LikeCommand = new MvxCommand(OnLike);
+            LikeCommand = new MvxCommand(Like);
             OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+        }
+
+        public ICommand LikeCommand { get; }
+
+        public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxAsyncCommand(ShowFullScreenVideoAsync);
+
+        public IMvxAsyncCommand OpenUserProfileCommand { get; }
+
+        public IVideoPlayerService VideoPlayerService { get; }
+
+        public ILogger Logger { get; }
+
+        public int VideoId => _videoDataModel?.Id ?? -1;
+
+        public string VideoUrl => _videoDataModel?.StreamUri;
+
+        public string PreviewUrl => _videoDataModel?.PreviewUri;
+
+        public string ShareLink => _videoDataModel?.ShareUri;
+
+        public string UserName => _videoDataModel?.User?.Login;
+
+        public string ProfileShortName => UserName?.ToShortenName();
+
+        public string VideoName => _videoDataModel?.Title;
+
+        public string Description => _videoDataModel?.Description;
+
+        public string AvatarUrl => _videoDataModel?.User?.Avatar;
+
+        public string StubImageUrl => _videoDataModel?.Poster;
+
+        public DateTime PublicationDate => _videoDataModel?.CreatedAt.UtcDateTime ?? DateTime.MinValue;
+
+        public bool IsMyPublication { get; }
+
+        public bool IsVotingAvailable { get; }
+
+        public bool IsVideoProcessing => string.IsNullOrEmpty(VideoUrl);
+
+        public long NumberOfComments => _videoDataModel?.CommentsCount ?? 0;
+
+        public bool CanPlayVideo => true;
+
+        public string LikesCount => CountExtensions.ToCountString(NumberOfLikes);
+
+        public string ViewsCount => CountExtensions.ToCountViewsString(NumberOfViews);
+
+        public string PublicationDateString => PublicationDate.ToTimeAgoPublicationString();
+
+        public bool CanVoteVideo => IsVotingAvailable && !IsMyPublication;
+
+        private long _numberOfLikes;
+        public long NumberOfLikes
+        {
+            get => _numberOfLikes;
+            set
+            {
+                if (SetProperty(ref _numberOfLikes, value))
+                {
+                    RaisePropertyChanged(nameof(LikesCount));
+                }
+            }
+        }
+
+        private long _numberOfViews;
+        public long NumberOfViews
+        {
+            get => _numberOfViews;
+            set
+            {
+                if (SetProperty(ref _numberOfViews, value))
+                {
+                    RaisePropertyChanged(nameof(LikesCount));
+                }
+            }
+        }
+
+        private bool _isLiked;
+        public bool IsLiked
+        {
+            get => _isLiked;
+            set => SetProperty(ref _isLiked, value);
         }
 
         public FullScreenVideoDataModel GetFullScreenVideoDataModel()
@@ -180,7 +183,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             return _navigationService.ShowUserProfile(_videoDataModel.User.Id);
         }
 
-        private void OnLike()
+        private void Like()
         {
             if (IsLiked)
             {

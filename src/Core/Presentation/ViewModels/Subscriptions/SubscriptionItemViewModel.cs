@@ -1,14 +1,9 @@
-﻿using System.Threading.Tasks;
-using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
+﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 {
@@ -16,20 +11,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
     {
         private readonly UserDataModel _userDataModel;
 
-        public SubscriptionItemViewModel(UserDataModel userDataModel,
-                                         INavigationService navigationService,
-                                         IErrorHandleService errorHandleService,
-                                         IApiService apiService,
-                                         IDialogService dialogService,
-                                         ISettingsService settingsService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+        public SubscriptionItemViewModel(UserDataModel userDataModel)
         {
             _userDataModel = userDataModel;
 
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(
-                OpenUserProfileAsync,
-                restrictedCanExecute: () => SettingsService.User != null,
-                handleFunc: NavigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync,
+                                                                   restrictedCanExecute: () => SettingsService.User != null,
+                                                                   handleFunc: NavigationService.ShowLoginView);
         }
 
         public string Login => _userDataModel.Login;

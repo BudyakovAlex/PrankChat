@@ -1,13 +1,18 @@
-﻿using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+﻿using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
     public class PaymentMethodItemViewModel : BaseItemViewModel
     {
-        private bool _isSelected;
+        public PaymentMethodItemViewModel(PaymentType paymentType)
+        {
+            Type = paymentType;
+        }
 
         public PaymentType Type { get; }
 
+        private bool _isSelected;
         public bool IsSelected
         {
             get => _isSelected;
@@ -18,11 +23,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                     RaisePropertyChanged(nameof(Type));
                 }
             }
-        }
-
-        public PaymentMethodItemViewModel(PaymentType paymentType)
-        {
-            Type = paymentType;
         }
     }
 }

@@ -16,6 +16,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class RegistrationViewModel : ExternalAuthViewModel
     {
+        public RegistrationViewModel(IExternalAuthService externalAuthService, IPushNotificationService pushNotificationService)
+            : base(externalAuthService, pushNotificationService)
+        {
+            ShowSecondStepCommand = new MvxAsyncCommand(OnShowSecondStepAsync);
+            LoginCommand = new MvxAsyncCommand<LoginType>(LoginAsync);
+        }
+
         private string _email;
         public string Email
         {
@@ -23,24 +30,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             set => SetProperty(ref _email, value);
         }
 
-        public MvxAsyncCommand ShowSecondStepCommand => new MvxAsyncCommand(OnShowSecondStepAsync);
+        public IMvxAsyncCommand ShowSecondStepCommand { get; }
 
-        public MvxAsyncCommand<LoginType> LoginCommand => new MvxAsyncCommand<LoginType>(LoginAsync);
-
-        public RegistrationViewModel(INavigationService navigationService,
-                                     IDialogService dialogService,
-                                     IApiService apiService,
-                                     IErrorHandleService errorHandleService,
-                                     ISettingsService settingsService,
-                                     IExternalAuthService externalAuthService,
-                                     IPushNotificationService pushNotificationService) : base(navigationService, errorHandleService, apiService, dialogService, settingsService, externalAuthService, pushNotificationService)
-        {
-        }
+        public IMvxAsyncCommand<LoginType> LoginCommand { get; }
 
         private async Task LoginAsync(LoginType loginType)
         {
-            var result = await TryLoginWithExternalServicesAsync(loginType);
-            if (!result)
+            var isLoggedIn = await TryLoginWithExternalServicesAsync(loginType);
+            if (!isLoggedIn)
             {
                 return;
             }

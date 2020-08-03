@@ -42,6 +42,51 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private DateTime _publicationDate;
         private string _shareLink;
 
+        //NOTE: stub for publication details page
+        public BasePublicationViewModel()
+        {
+            ShowCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+        }
+
+        public BasePublicationViewModel(IPlatformService platformService,
+                                        IVideoPlayerService videoPlayerService,
+                                        VideoDataModel videoDataModel,
+                                        Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
+        {
+            _platformService = platformService;
+            _videoDataModel = videoDataModel;
+
+            VideoPlayerService = videoPlayerService;
+            ProfileName = _videoDataModel.Customer?.Login;
+            ProfilePhotoUrl = _videoDataModel.Customer?.Avatar;
+            VideoId = _videoDataModel.Id;
+            VideoName = _videoDataModel.Title;
+            Description = _videoDataModel.Description;
+            VideoUrl = _videoDataModel.StreamUri;
+            PreviewUrl = videoDataModel.PreviewUri;
+            IsLiked = videoDataModel.IsLiked;
+            IsDisliked = videoDataModel.IsDisliked;
+            NumberOfLikes = videoDataModel.LikesCount;
+            NumberOfDislikes = videoDataModel.DislikesCount;
+            VideoPlaceholderImageUrl = _videoDataModel.Poster;
+            NumberOfComments = videoDataModel.CommentsCount;
+
+            _numberOfViews = videoDataModel.ViewsCount;
+            _publicationDate = videoDataModel.CreatedAt.DateTime;
+            _shareLink = videoDataModel.ShareUri;
+
+            _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
+            Subscribe();
+
+            ShowCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
+            BookmarkCommand = new MvxRestrictedAsyncCommand(BookmarkAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+            ShowFullScreenVideoCommand = new MvxAsyncCommand(ShowFullScreenVideoAsync);
+            ShareCommand = new MvxAsyncCommand(ShareAsync);
+            OpenSettingsCommand = new MvxAsyncCommand(OpenSettingAsync);
+            ToggleSoundCommand = new MvxCommand(ToggleSound);
+        }
+
         #region Profile
 
         public string ProfileName { get; set; }
@@ -96,9 +141,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #region Commands
 
-        public IMvxAsyncCommand BookmarkCommand => new MvxRestrictedAsyncCommand(OnBookmarkAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+        public IMvxAsyncCommand BookmarkCommand { get; }
 
-        public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxAsyncCommand(ShowFullScreenVideoAsync);
+        public IMvxAsyncCommand ShowFullScreenVideoCommand { get; }
 
         public IMvxAsyncCommand ShowCommentsCommand { get; }
 
@@ -106,65 +151,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         //TODO: remove comments when all logic will be ready
         //public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(() => DialogService.ShowShareDialogAsync(_shareLink));
-        public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(ShareAsync);
 
-        public MvxAsyncCommand OpenSettingsCommand => new MvxAsyncCommand(OnOpenSettingAsync);
+        public IMvxAsyncCommand ShareCommand { get; }
 
-        public MvxCommand ToggleSoundCommand => new MvxCommand(OnToggleSound);
+        public IMvxAsyncCommand OpenSettingsCommand { get; }
+
+        public IMvxCommand ToggleSoundCommand { get; }
 
         #endregion Commands
-
-        public BasePublicationViewModel(INavigationService navigationService,
-                                        IErrorHandleService errorHandleService,
-                                        IApiService apiService,
-                                        IDialogService dialogService,
-                                        ISettingsService settingsService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
-        {
-            ShowCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
-        }
-
-        public BasePublicationViewModel(INavigationService navigationService,
-                                        IDialogService dialogService,
-                                        IPlatformService platformService,
-                                        IVideoPlayerService videoPlayerService,
-                                        IApiService apiService,
-                                        IErrorHandleService errorHandleService,
-                                        IMvxMessenger mvxMessenger,
-                                        ISettingsService settingsService,
-                                        VideoDataModel videoDataModel,
-                                        Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
-        {
-            _platformService = platformService;
-            _mvxMessenger = mvxMessenger;
-            _videoDataModel = videoDataModel;
-
-            VideoPlayerService = videoPlayerService;
-            ProfileName = _videoDataModel.Customer?.Login;
-            ProfilePhotoUrl = _videoDataModel.Customer?.Avatar;
-            VideoId = _videoDataModel.Id;
-            VideoName = _videoDataModel.Title;
-            Description = _videoDataModel.Description;
-            VideoUrl = _videoDataModel.StreamUri;
-            PreviewUrl = videoDataModel.PreviewUri;
-            IsLiked = videoDataModel.IsLiked;
-            IsDisliked = videoDataModel.IsDisliked;
-            NumberOfLikes = videoDataModel.LikesCount;
-            NumberOfDislikes = videoDataModel.DislikesCount;
-            VideoPlaceholderImageUrl = _videoDataModel.Poster;
-            NumberOfComments = videoDataModel.CommentsCount;
-
-            _numberOfViews = videoDataModel.ViewsCount;
-            _publicationDate = videoDataModel.CreatedAt.DateTime;
-            _shareLink = videoDataModel.ShareUri;
-
-            _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
-            Subscribe();
-
-            ShowCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
-        }
 
         public void Dispose()
         {
@@ -279,12 +273,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             await RaisePropertyChanged(nameof(NumberOfCommentsPresentation));
         }
 
-        private Task OnBookmarkAsync()
+        private Task BookmarkAsync()
         {
             return Task.CompletedTask;
         }
 
-        private async Task OnOpenSettingAsync()
+        private async Task OpenSettingAsync()
         {
             var result = await DialogService.ShowMenuDialogAsync(new string[]
             {
@@ -338,7 +332,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             return result;
         }
 
-        private void OnToggleSound()
+        private void ToggleSound()
         {
             HasSoundTurnOn = !HasSoundTurnOn;
 
