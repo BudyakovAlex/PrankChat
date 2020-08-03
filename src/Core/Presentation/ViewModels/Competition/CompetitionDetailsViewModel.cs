@@ -1,11 +1,7 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -14,7 +10,6 @@ using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
@@ -28,17 +23,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
     public class CompetitionDetailsViewModel : PaginationViewModel, IMvxViewModel<CompetitionDataModel, bool>
     {
-        private readonly IMvxMessenger _mvxMessenger;
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly IMediaService _mediaService;
 
         private CompetitionDataModel _competition;
         private CompetitionDetailsHeaderViewModel _header;
-        private bool _isRefreshing;
         private MvxSubscriptionToken _reloadItemsSubscriptionToken;
+
+        private bool _isRefreshing;
         private bool _isReloadNeeded;
 
         private CancellationTokenSource _cancellationTokenSource;
+
+        public CompetitionDetailsViewModel(IVideoPlayerService videoPlayerService, IMediaService mediaService) : base(Constants.Pagination.DefaultPaginationSize)
+        {
+            _videoPlayerService = videoPlayerService;
+            _mediaService = mediaService;
+
+            Items = new MvxObservableCollection<BaseItemViewModel>();
+
+            RefreshDataCommand = new MvxAsyncCommand(RefreshDataAsync);
+            CancelUploadingCommand = new MvxCommand(() => _cancellationTokenSource?.Cancel());
+        }
 
         private bool _isUploading;
         public bool IsUploading
@@ -67,7 +73,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             set => SetProperty(ref _isRefreshing, value);
         }
 
-
         public MvxObservableCollection<BaseItemViewModel> Items { get; }
 
         public IMvxAsyncCommand RefreshDataCommand { get; }
@@ -76,30 +81,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
-        public CompetitionDetailsViewModel(IMvxMessenger mvxMessenger,
-                                           INavigationService navigationService,
-                                           IVideoPlayerService videoPlayerService,
-                                           IErrorHandleService errorHandleService,
-                                           IApiService apiService,
-                                           IMediaService mediaService,
-                                           IDialogService dialogService,
-                                           ISettingsService settingsService) : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
-        {
-            _mvxMessenger = mvxMessenger;
-            _videoPlayerService = videoPlayerService;
-            _mediaService = mediaService;
-
-            Items = new MvxObservableCollection<BaseItemViewModel>();
-
-            RefreshDataCommand = new MvxAsyncCommand(RefreshDataAsync);
-            CancelUploadingCommand = new MvxCommand(() => _cancellationTokenSource?.Cancel());
-        }
-
         public void Prepare(CompetitionDataModel parameter)
         {
             _competition = parameter;
             _header = new CompetitionDetailsHeaderViewModel(IsUserSessionInitialized,
-                                                            _mvxMessenger,
+                                                            Messenger,
                                                             NavigationService,
                                                             new MvxAsyncCommand(LoadVideoAsync),
                                                             parameter);
@@ -131,16 +117,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         private void Subscription()
         {
-            _reloadItemsSubscriptionToken = _mvxMessenger.SubscribeOnMainThread<ReloadCompetitionMessage>(OnReloadData);
+            _reloadItemsSubscriptionToken = Messenger.SubscribeOnMainThread<ReloadCompetitionMessage>(OnReloadData);
         }
 
         private void Unsubscription()
         {
-            if (_reloadItemsSubscriptionToken != null)
-            {
-                _mvxMessenger.Unsubscribe<ReloadCompetitionMessage>(_reloadItemsSubscriptionToken);
-                _reloadItemsSubscriptionToken.Dispose();
-            }
+            _reloadItemsSubscriptionToken?.Dispose();
         }
 
         private void OnReloadData(ReloadCompetitionMessage obj)
@@ -204,7 +186,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                                  _videoPlayerService,
                                                  NavigationService,
                                                  SettingsService,
-                                                 _mvxMessenger,
+                                                 Messenger,
                                                  Logger,
                                                  videoDataModel,
                                                  videoDataModel.User.Id == SettingsService.User.Id,
@@ -256,7 +238,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                                                   _videoPlayerService,
                                                                   NavigationService,
                                                                   SettingsService,
-                                                                  _mvxMessenger,
+                                                                  Messenger,
                                                                   Logger,
                                                                   video,
                                                                   true,

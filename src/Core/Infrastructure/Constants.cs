@@ -7,6 +7,8 @@ namespace PrankChat.Mobile.Core.Infrastructure
         public static class Profile
         {
             public const int DescriptionMaxLength = 120;
+            public const int CheckCanSendEmailInterval = 60000;
+            public const int UnlockResendMinutes = 3;
         }
 
         public static class Orders
@@ -34,11 +36,13 @@ namespace PrankChat.Mobile.Core.Infrastructure
             public const string NewVideos = "newsline/videos/new";
             public const string ProfileOwnOrders = "profile/orders/own";
             public const string ProfileOwnOrdersInExecute = "profile/orders/execute";
+            public const string PolicyEndpoint = "https://prankchat.store/policy";
         }
 
         public static class Delays
         {
             public const int ViewedFactRegistrationDelayInMilliseconds = 3000;
+            public const int MillisecondsDelayBeforeMarkAsReaded = 3000;
             public const int RepeatDelayInSeconds = 10;
         }
 

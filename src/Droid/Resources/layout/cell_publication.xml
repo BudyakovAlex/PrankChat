@@ -19,6 +19,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/video_name_text_view" />
 
+    <View
+        android:id="@+id/competition_border_view"
+        android:layout_width="46dp"
+        android:background="@color/competition_border"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="46dp"/>
+
     <CircleCachedImageView
         android:id="@+id/profile_image_view"
         android:layout_width="42dp"
@@ -27,6 +37,16 @@
         android:layout_marginTop="7dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/competition_cup_image_view"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="2dp"
+        android:src="@drawable/ic_competition_cup"
+        app:layout_constraintBottom_toBottomOf="@+id/competition_border_view"
+        app:layout_constraintEnd_toEndOf="@+id/profile_image_view" />
 
     <ImageButton
         android:id="@+id/more_image_button"

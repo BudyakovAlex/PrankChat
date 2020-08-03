@@ -1,17 +1,12 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System;
 using System.Linq;
@@ -23,7 +18,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
     public class WithdrawalViewModel : BaseViewModel
     {
         private readonly IMediaService _mediaService;
-        private readonly IMvxMessenger _mvxMessenger;
+
+        public WithdrawalViewModel(IMediaService mediaService)
+        {
+            _mediaService = mediaService;
+            AvailableForWithdrawal = $"{Resources.CashboxView_WithdrawalAvailable_Title} {SettingsService.User?.Balance.ToPriceString()}";
+
+            WithdrawCommand = new MvxAsyncCommand(WithdrawAsync);
+            CancelWithdrawCommand = new MvxAsyncCommand(CancelWithdrawAsync);
+            AttachFileCommand = new MvxAsyncCommand(AttachFileAsync);
+            OpenCardOptionsCommand = new MvxAsyncCommand(OpenCardOptionsAsync);
+            UpdateDataCommand = new MvxAsyncCommand(UpdateDataAsync);
+        }
+
         private CardDataModel _currentCard;
         private WithdrawalDataModel _lastWithdrawalDataModel;
 
@@ -56,14 +63,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 }
                 else
                 {
-                    _cardNumber = InternationalCardHelper.Instance.VisualCardNumber(value);
+                    _cardNumber = InternationalCardValidator.Instance.VisualCardNumber(value);
 
                 }
                 RaisePropertyChanged(nameof(CardNumber));
             }
         }
 
-        public string CurrentCardNumber => InternationalCardHelper.Instance.VisualCardNumber(_currentCard?.Number);
+        public string CurrentCardNumber => InternationalCardValidator.Instance.VisualCardNumber(_currentCard?.Number);
 
         private string _name;
         public string Name
@@ -100,29 +107,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         public bool IsPresavedWithdrawalAvailable => _currentCard != null && IsWithdrawalAvailable;
 
-        public ICommand WithdrawCommand => new MvxAsyncCommand(OnWithdrawAsync);
+        public ICommand WithdrawCommand { get; }
 
-        public ICommand CancelWithdrawCommand => new MvxAsyncCommand(OnCancelWithdrawAsync);
+        public ICommand CancelWithdrawCommand { get; }
 
-        public ICommand AttachFileCommand => new MvxAsyncCommand(OnAttachFileAsync);
+        public ICommand AttachFileCommand { get; }
 
-        public ICommand OpenCardOptionsCommand => new MvxAsyncCommand(OnOpenCardOptionsAsync);
+        public ICommand OpenCardOptionsCommand { get; }
 
-        public ICommand UpdateDataCommand => new MvxAsyncCommand(OnUpdateDataAsync);
-
-        public WithdrawalViewModel(INavigationService navigationService,
-                                   IErrorHandleService errorHandleService,
-                                   IApiService apiService,
-                                   IDialogService dialogService,
-                                   ISettingsService settingsService,
-                                   IMediaService mediaService,
-                                   IMvxMessenger mvxMessenger)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
-        {
-            _mediaService = mediaService;
-            _mvxMessenger = mvxMessenger;
-            AvailableForWithdrawal = $"{Resources.CashboxView_WithdrawalAvailable_Title} {settingsService.User?.Balance.ToPriceString()}";
-        }
+        public ICommand UpdateDataCommand { get; }
 
         public override async Task Initialize()
         {
@@ -131,7 +124,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             await GetWithdrawalsAsync();
         }
 
-        private async Task OnUpdateDataAsync()
+        private async Task UpdateDataAsync()
         {
             try
             {
@@ -149,10 +142,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
         }
 
-        private async Task OnWithdrawAsync()
+        private async Task WithdrawAsync()
         {
             if (!CheckValidation())
+            {
                 return;
+            }
 
             try
             {
@@ -183,12 +178,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
             finally
             {
-                _mvxMessenger.Publish(new ReloadProfileMessage(this));
+                Messenger.Publish(new ReloadProfileMessage(this));
                 IsBusy = false;
             }
         }
 
-        private async Task OnAttachFileAsync()
+        private async Task AttachFileAsync()
         {
             try
             {
@@ -196,7 +191,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
                 var file = await _mediaService.PickPhotoAsync();
                 if (file == null)
+                {
                     return;
+                }
 
                 var document = await ApiService.SendVerifyDocumentAsync(file.Path);
                 if (document != null)
@@ -209,12 +206,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
             finally
             {
-                _mvxMessenger.Publish(new ReloadProfileMessage(this));
+                Messenger.Publish(new ReloadProfileMessage(this));
                 IsBusy = false;
             }
         }
 
-        private async Task OnCancelWithdrawAsync()
+        private async Task CancelWithdrawAsync()
         {
             if (_lastWithdrawalDataModel == null)
             {
@@ -235,12 +232,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
             finally
             {
-                _mvxMessenger.Publish(new ReloadProfileMessage(this));
+                Messenger.Publish(new ReloadProfileMessage(this));
                 IsBusy = false;
             }
         }
 
-        private async Task OnOpenCardOptionsAsync()
+        private async Task OpenCardOptionsAsync()
         {
             var result = await DialogService.ShowMenuDialogAsync(new string[] { Resources.WithdrawalView_Delete_Card_Text }, Resources.Close);
             if (result == Resources.WithdrawalView_Delete_Card_Text)
@@ -282,15 +279,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         private async Task DeleteCardAsync()
         {
             if (_currentCard == null)
+            {
                 return;
+            }
 
             try
             {
                 IsBusy = true;
 
-                var result = await DialogService.ShowConfirmAsync(Resources.WithdrawalView_Delete_Card_Question, Resources.Attention, Resources.Delete, Resources.Cancel);
-                if (!result)
+                var isConfirmed = await DialogService.ShowConfirmAsync(Resources.WithdrawalView_Delete_Card_Question, Resources.Attention, Resources.Delete, Resources.Cancel);
+                if (!isConfirmed)
+                {
                     return;
+                }
 
                 await ApiService.DeleteCardAsync(_currentCard.Id);
                 _currentCard = null;
@@ -302,7 +303,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
             finally
             {
-                _mvxMessenger.Publish(new ReloadProfileMessage(this));
+                Messenger.Publish(new ReloadProfileMessage(this));
                 IsBusy = false;
             }
         }

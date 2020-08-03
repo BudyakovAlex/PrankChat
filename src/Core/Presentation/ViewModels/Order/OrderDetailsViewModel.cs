@@ -1,12 +1,8 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
@@ -16,7 +12,6 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -28,6 +23,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
+    //TODO: split logic to more specific view models
     public class OrderDetailsViewModel : BaseViewModel, IMvxViewModel<OrderDetailsNavigationParameter, OrderDetailsResult>
     {
         private readonly IMediaService _mediaService;
@@ -40,6 +36,29 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private OrderDataModel _order;
 
         private CancellationTokenSource _cancellationTokenSource;
+
+        public OrderDetailsViewModel(IPlatformService platformService, IMediaService mediaService)
+        {
+            _mediaService = mediaService;
+            _platformService = platformService;
+
+            OpenCustomerProfileCommand = new MvxRestrictedAsyncCommand(OpenCustomerProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
+            OpenExecutorProfileCommand = new MvxRestrictedAsyncCommand(OpenExecutorProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
+            TakeOrderCommand = new MvxAsyncCommand(TakeOrderAsync);
+            SubscribeOrderCommand = new MvxAsyncCommand(SubscribeOrderAsync);
+            UnsubscribeOrderCommand = new MvxAsyncCommand(UnsubscribeOrderAsync);
+            YesCommand = new MvxAsyncCommand(YesAsync);
+            NoCommand = new MvxAsyncCommand(NoAsync);
+            LoadVideoCommand = new MvxAsyncCommand(LoadVideoAsync);
+            ExecuteOrderCommand = new MvxAsyncCommand(ExecuteOrderAsync);
+            CancelOrderCommand = new MvxAsyncCommand(CancelOrderAsync);
+            ArqueOrderCommand = new MvxAsyncCommand(ArgueOrderAsync);
+            AcceptOrderCommand = new MvxAsyncCommand(AcceptOrderAsync);
+            ShowFullVideoCommand = new MvxAsyncCommand(ShowFullVideoAsync);
+            LoadOrderDetailsCommand = new MvxAsyncCommand(LoadOrderDetailsAsync);
+            OpenSettingsCommand = new MvxAsyncCommand(OpenSettingsAsync);
+            CancelUploadingCommand = new MvxCommand(() => _cancellationTokenSource?.Cancel());
+        }
 
         #region Profile
 
@@ -177,55 +196,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         #region Commands
 
-        public MvxAsyncCommand TakeOrderCommand => new MvxAsyncCommand(OnTakeOrderAsync);
-
-        public MvxAsyncCommand SubscribeOrderCommand => new MvxAsyncCommand(OnSubscribeOrderAsync);
-
-        public MvxAsyncCommand UnsubscribeOrderCommand => new MvxAsyncCommand(OnUnsubscribeOrderAsync);
-
-        public MvxAsyncCommand YesCommand => new MvxAsyncCommand(OnYesAsync);
-
-        public MvxAsyncCommand NoCommand => new MvxAsyncCommand(OnNoAsync);
-
-        public MvxAsyncCommand LoadVideoCommand => new MvxAsyncCommand(OnLoadVideoAsync);
-
-        public MvxAsyncCommand ExecuteOrderCommand => new MvxAsyncCommand(OnExecuteOrderAsync);
-
-        public MvxAsyncCommand CancelOrderCommand => new MvxAsyncCommand(OnCancelOrderAsync);
-
-        public MvxAsyncCommand ArqueOrderCommand => new MvxAsyncCommand(OnArgueOrderAsync);
-
-        public MvxAsyncCommand AcceptOrderCommand => new MvxAsyncCommand(OnAcceptOrderAsync);
-
-        public MvxAsyncCommand ShowFullVideoCommand => new MvxAsyncCommand(OnShowFullVideoAsync);
-
-        public MvxAsyncCommand LoadOrderDetailsCommand => new MvxAsyncCommand(LoadOrderDetailsAsync);
-
-        public MvxAsyncCommand OpenSettingsCommand => new MvxAsyncCommand(OpenSettingsAsync);
-
-        public IMvxCommand CancelUploadingCommand => new MvxCommand(() => _cancellationTokenSource?.Cancel());
-
+        public IMvxAsyncCommand TakeOrderCommand { get; }
+        public IMvxAsyncCommand SubscribeOrderCommand { get; }
+        public IMvxAsyncCommand UnsubscribeOrderCommand { get; }
+        public IMvxAsyncCommand YesCommand { get; }
+        public IMvxAsyncCommand NoCommand { get; }
+        public IMvxAsyncCommand LoadVideoCommand { get; }
+        public IMvxAsyncCommand ExecuteOrderCommand { get; }
+        public IMvxAsyncCommand CancelOrderCommand { get; }
+        public IMvxAsyncCommand ArqueOrderCommand { get; }
+        public IMvxAsyncCommand AcceptOrderCommand { get; }
+        public IMvxAsyncCommand ShowFullVideoCommand { get; }
+        public IMvxAsyncCommand LoadOrderDetailsCommand { get; }
+        public IMvxAsyncCommand OpenSettingsCommand { get; }
+        public IMvxCommand CancelUploadingCommand { get; }
         public IMvxAsyncCommand OpenCustomerProfileCommand { get; }
-
         public IMvxAsyncCommand OpenExecutorProfileCommand { get; }
 
         #endregion Commands
-
-        public OrderDetailsViewModel(INavigationService navigationService,
-                                     ISettingsService settingsService,
-                                     IMediaService mediaService,
-                                     IErrorHandleService errorHandleService,
-                                     IApiService apiService,
-                                     IDialogService dialogService,
-                                     IPlatformService platformService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
-        {
-            _mediaService = mediaService;
-            _platformService = platformService;
-      
-            OpenCustomerProfileCommand = new MvxRestrictedAsyncCommand(OpenCustomerProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
-            OpenExecutorProfileCommand = new MvxRestrictedAsyncCommand(OpenExecutorProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
-        }
 
         public void Prepare(OrderDetailsNavigationParameter parameter)
         {
@@ -236,14 +224,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public override Task Initialize()
         {
-            base.Initialize();
             return LoadOrderDetailsCommand.ExecuteAsync();
         }
 
         public override void ViewDestroy(bool viewFinishing = true)
         {
-            if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
+            if (viewFinishing &&
+                CloseCompletionSource != null &&
+                !CloseCompletionSource.Task.IsCompleted &&
+                !CloseCompletionSource.Task.IsFaulted)
+            {
                 CloseCompletionSource?.SetResult(new OrderDetailsResult(_order));
+            }
 
             base.ViewDestroy(viewFinishing);
         }
@@ -293,7 +285,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private async Task OnTakeOrderAsync()
+        private async Task TakeOrderAsync()
         {
             var result = await DialogService.ShowConfirmAsync(Resources.OrderDetailsView_TakeOrderQuestion,
                                                               Resources.Attention,
@@ -344,7 +336,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             await NavigationService.ShowRefillView();
         }
 
-        private async Task OnSubscribeOrderAsync()
+        private async Task SubscribeOrderAsync()
         {
             try
             {
@@ -365,7 +357,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private async Task OnUnsubscribeOrderAsync()
+        private async Task UnsubscribeOrderAsync()
         {
             try
             {
@@ -386,7 +378,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private async Task OnLoadVideoAsync()
+        private async Task LoadVideoAsync()
         {
             try
             {
@@ -471,7 +463,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             IsBusy = true;
         }
 
-        private async Task OnArgueOrderAsync()
+        private async Task ArgueOrderAsync()
         {
             try
             {
@@ -497,7 +489,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private async Task OnAcceptOrderAsync()
+        private async Task AcceptOrderAsync()
         {
             try
             {
@@ -523,7 +515,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private async Task OnCancelOrderAsync()
+        private async Task CancelOrderAsync()
         {
 
             var result = await DialogService.ShowConfirmAsync(Resources.OrderDetails_View_Cancel_Title,
@@ -546,12 +538,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             IsBusy = false;
         }
 
-        private Task OnExecuteOrderAsync()
+        private Task ExecuteOrderAsync()
         {
             return Task.CompletedTask;
         }
 
-        private async Task OnYesAsync()
+        private async Task YesAsync()
         {
             if (!IsDecideEnabled || !IsUserGuest)
             {
@@ -585,7 +577,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private async Task OnNoAsync()
+        private async Task NoAsync()
         {
             if (!IsDecideEnabled || !IsUserGuest)
                 return;
@@ -617,7 +609,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private async Task OnShowFullVideoAsync()
+        private async Task ShowFullVideoAsync()
         {
             if (_order?.Video is null)
             {

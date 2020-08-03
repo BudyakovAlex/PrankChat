@@ -1,21 +1,14 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
-using Plugin.Media.Abstractions;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System;
@@ -25,38 +18,32 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
     public class ProfileUpdateViewModel : BaseProfileViewModel, IMvxViewModelResult<ProfileUpdateResult>
     {
-        private readonly IMvxMessenger _messenger;
         private readonly IMediaService _mediaService;
         private readonly IExternalAuthService _externalAuthService;
         private readonly IPushNotificationService _pushNotificationService;
+
         private bool _isUserPhotoUpdated;
+
+        public ProfileUpdateViewModel(IExternalAuthService externalAuthService,
+                                      IPushNotificationService pushNotificationService,
+                                      IMediaService mediaService)
+        {
+            _externalAuthService = externalAuthService;
+            _pushNotificationService = pushNotificationService;
+            _mediaService = mediaService;
+
+            SaveProfileCommand = new MvxAsyncCommand(SaveProfileAsync);
+            ChangePasswordCommand = new MvxAsyncCommand(ChangePasswordAsync);
+            ShowMenuCommand = new MvxAsyncCommand(ShowMenuAsync);
+            ChangeProfilePhotoCommand = new MvxAsyncCommand(ChangeProfilePhotoAsync);
+        }
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
-        public MvxAsyncCommand SaveProfileCommand => new MvxAsyncCommand(OnSaveProfileAsync);
-
-        public MvxAsyncCommand ChangePasswordCommand => new MvxAsyncCommand(ChangePasswordAsync);
-
-        public MvxAsyncCommand ShowMenuCommand => new MvxAsyncCommand(ShowMenuAsync);
-
-        public MvxAsyncCommand ChangeProfilePhotoCommand => new MvxAsyncCommand(ChangeProfilePhotoAsync);
-
-        public ProfileUpdateViewModel(INavigationService navigationService,
-                                      ISettingsService settingsService,
-                                      IDialogService dialogService,
-                                      IApiService apiService,
-                                      IMvxMessenger messenger,
-                                      IMediaService mediaService,
-                                      IErrorHandleService errorHandleService,
-                                      IExternalAuthService externalAuthService,
-                                      IPushNotificationService pushNotificationService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
-        {
-            _messenger = messenger;
-            _mediaService = mediaService;
-            _externalAuthService = externalAuthService;
-            _pushNotificationService = pushNotificationService;
-        }
+        public IMvxAsyncCommand SaveProfileCommand { get; }
+        public IMvxAsyncCommand ChangePasswordCommand { get; }
+        public IMvxAsyncCommand ShowMenuCommand { get; }
+        public IMvxAsyncCommand ChangeProfilePhotoCommand { get; }
 
         public override void ViewDestroy(bool viewFinishing = true)
         {
@@ -68,10 +55,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             base.ViewDestroy(viewFinishing);
         }
 
-        private async Task OnSaveProfileAsync()
+        private async Task SaveProfileAsync()
         {
             if (!CheckValidation())
+            {
                 return;
+            }
 
             try
             {
@@ -194,29 +183,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 Resources.PickPhoto,
             });
 
-            MediaFile file = null;
-            if (result == Resources.TakePhoto)
+            var file = result == Resources.TakePhoto
+                ? await _mediaService.TakePhotoAsync()
+                : await _mediaService.PickPhotoAsync();
+
+            if (file is null)
             {
-                file = await _mediaService.TakePhotoAsync();
-            }
-            else if (result == Resources.PickPhoto)
-            {
-                file = await _mediaService.PickPhotoAsync();
+                return;
             }
 
-            if (file != null)
+            var croppedImagePath = await NavigationService.ShowImageCropView(file.Path);
+            if (croppedImagePath == null)
             {
-                var croppedImagePath = await NavigationService.ShowImageCropView(file.Path);
-                if (croppedImagePath == null)
-                {
-                    return;
-                }
-
-                ProfilePhotoUrl = null;
-                ProfilePhotoUrl = croppedImagePath.FilePath;
-                _isUserPhotoUpdated = true;
-                _messenger.Publish(new UpdateAvatarMessage(this));
+                return;
             }
+
+            ProfilePhotoUrl = null;
+            ProfilePhotoUrl = croppedImagePath.FilePath;
+            _isUserPhotoUpdated = true;
+            Messenger.Publish(new UpdateAvatarMessage(this));
         }
 
         private bool CheckValidation()

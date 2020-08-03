@@ -1,20 +1,19 @@
-﻿using System;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
+﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
 {
     public class PasswordRecoveryViewModel : BaseViewModel
     {
+        public PasswordRecoveryViewModel()
+        {
+             RecoverPasswordCommand = new MvxAsyncCommand(RecoverPasswordAsync);
+        }
+
         private string _email;
         public string Email
         {
@@ -22,21 +21,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
             set => SetProperty(ref _email, value);
         }
 
-        public MvxAsyncCommand RecoverPasswordCommand => new MvxAsyncCommand(OnRecoverPasswordAsync);
-
-        public PasswordRecoveryViewModel(INavigationService navigationService,
-                                         IErrorHandleService errorHandleService,
-                                         IApiService apiService,
-                                         IDialogService dialogService,
-                                         ISettingsService settingsService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
-        {
-        }
-
-        private async Task OnRecoverPasswordAsync()
+        public MvxAsyncCommand RecoverPasswordCommand { get; }
+        
+        private async Task RecoverPasswordAsync()
         {
             if (!CheckValidation())
+            {
                 return;
+            }
 
             try
             {
@@ -44,7 +36,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
 
                 var result = await ApiService.RecoverPasswordAsync(Email);
                 if (string.IsNullOrWhiteSpace(result?.Result))
+                {
                     return;
+                }
 
                 await NavigationService.ShowFinishPasswordRecoveryView();
             }

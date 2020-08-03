@@ -1,11 +1,7 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -14,7 +10,6 @@ using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 using System;
@@ -30,14 +25,32 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     {
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
-        private readonly ISettingsService _settingsService;
-        private readonly IMvxMessenger _mvxMessenger;
 
         private readonly Dictionary<DateFilterType, string> _dateFilterTypeTitleMap;
 
         private MvxSubscriptionToken _reloadItemsSubscriptionToken;
         private MvxSubscriptionToken _tabChangedMessage;
         private MvxSubscriptionToken _enterForegroundMessage;
+
+        public PublicationsViewModel(IPlatformService platformService, IVideoPlayerService videoPlayerService) : base(Constants.Pagination.DefaultPaginationSize)
+        {
+            _platformService = platformService;
+            _videoPlayerService = videoPlayerService;
+
+            Items = new MvxObservableCollection<PublicationItemViewModel>();
+
+            _dateFilterTypeTitleMap = new Dictionary<DateFilterType, string>
+            {
+                { DateFilterType.Day, Resources.Publication_Tab_Filter_Day },
+                { DateFilterType.Week, Resources.Publication_Tab_Filter_Week },
+                { DateFilterType.Month, Resources.Publication_Tab_Filter_Month },
+                { DateFilterType.Quarter, Resources.Publication_Tab_Filter_Quarter },
+                { DateFilterType.HalfYear, Resources.Publication_Tab_Filter_HalfYear },
+            };
+
+            ItemsChangedInteraction = new MvxInteraction();
+            OpenFilterCommand = new MvxAsyncCommand(OnOpenFilterAsync);
+        }
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
@@ -82,38 +95,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             set => SetProperty(ref _currentlyPlayingItem, value);
         }
 
-        public MvxObservableCollection<PublicationItemViewModel> Items { get; } =
-            new MvxObservableCollection<PublicationItemViewModel>();
+        public MvxObservableCollection<PublicationItemViewModel> Items { get; }
 
-        public MvxAsyncCommand OpenFilterCommand { get; }
-
-        public PublicationsViewModel(INavigationService navigationService,
-                                     IDialogService dialogService,
-                                     IApiService apiService,
-                                     IPlatformService platformService,
-                                     IVideoPlayerService videoPlayerService,
-                                     ISettingsService settingsService,
-                                     IErrorHandleService errorHandleService,
-                                     IMvxMessenger mvxMessenger)
-            : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
-        {
-            _platformService = platformService;
-            _videoPlayerService = videoPlayerService;
-            _settingsService = settingsService;
-            _mvxMessenger = mvxMessenger;
-
-            _dateFilterTypeTitleMap = new Dictionary<DateFilterType, string>
-            {
-                { DateFilterType.Day, Resources.Publication_Tab_Filter_Day },
-                { DateFilterType.Week, Resources.Publication_Tab_Filter_Week },
-                { DateFilterType.Month, Resources.Publication_Tab_Filter_Month },
-                { DateFilterType.Quarter, Resources.Publication_Tab_Filter_Quarter },
-                { DateFilterType.HalfYear, Resources.Publication_Tab_Filter_HalfYear },
-            };
-
-            ItemsChangedInteraction = new MvxInteraction();
-            OpenFilterCommand = new MvxAsyncCommand(OnOpenFilterAsync);
-        }
+        public IMvxAsyncCommand OpenFilterCommand { get; }
 
         public override async Task Initialize()
         {
@@ -182,7 +166,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
                     case PublicationType.Actual:
                         pageContainer = await ApiService.GetActualVideoFeedAsync(ActiveFilter, page, pageSize);
-
                         break;
 
                     case PublicationType.MyVideosOfCreatedOrders:
@@ -212,14 +195,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private PublicationItemViewModel ProducePublicationItemViewModel(VideoDataModel publication)
         {
-            return new PublicationItemViewModel(NavigationService,
-                                                DialogService,
-                                                _platformService,
+            return new PublicationItemViewModel(_platformService,
                                                 _videoPlayerService,
-                                                ApiService,
-                                                ErrorHandleService,
-                                                _mvxMessenger,
-                                                _settingsService,
                                                 publication,
                                                 GetFullScreenVideoDataModels);
         }
@@ -238,9 +215,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private void Subscription()
         {
-            _reloadItemsSubscriptionToken = _mvxMessenger.SubscribeOnMainThread<ReloadPublicationsMessage>((msg) => OnReloadItems());
-            _enterForegroundMessage = _mvxMessenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => OnReloadItems());
-            _tabChangedMessage = _mvxMessenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
+            _reloadItemsSubscriptionToken = Messenger.SubscribeOnMainThread<ReloadPublicationsMessage>((msg) => OnReloadItems());
+            _enterForegroundMessage = Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => OnReloadItems());
+            _tabChangedMessage = Messenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
             SubscribeToNotificationsUpdates();
         }
 

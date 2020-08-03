@@ -1,4 +1,4 @@
-﻿namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
+﻿namespace PrankChat.Mobile.Core.Models.Enums
 {
     public enum LoginType
     {

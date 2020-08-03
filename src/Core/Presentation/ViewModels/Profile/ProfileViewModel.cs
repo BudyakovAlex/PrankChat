@@ -1,13 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -16,18 +9,19 @@ using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Providers;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
     public class ProfileViewModel : BaseProfileViewModel
     {
         private readonly IVideoPlayerService _videoPlayerService;
-        private readonly IMvxMessenger _mvxMessenger;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
         private MvxSubscriptionToken _newOrderMessageToken;
@@ -35,17 +29,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private MvxSubscriptionToken _subscriptionChangedSubscriptionToken;
         private MvxSubscriptionToken _enterForegroundMessage;
 
+        public ProfileViewModel(IVideoPlayerService videoPlayerService, IWalkthroughsProvider walkthroughsProvider)
+        {
+            _videoPlayerService = videoPlayerService;
+            _walkthroughsProvider = walkthroughsProvider;
+
+            Items = new MvxObservableCollection<OrderItemViewModel>();
+
+            ShowWithdrawalCommand = new MvxAsyncCommand(ShowWithdrawalAsync);
+            ShowRefillCommand = new MvxAsyncCommand(ShowRefillAsync);
+            ShowSubscriptionsCommand = new MvxAsyncCommand(ShowSubscriptionsAsync);
+            ShowSubscribersCommand = new MvxAsyncCommand(ShowSubscribersAsync);
+            ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
+            LoadProfileCommand = new MvxAsyncCommand(LoadProfileAsync);
+            ShowUpdateProfileCommand = new MvxAsyncCommand(OnShowUpdateProfileAsync);
+        }
+
         private ProfileOrderType _selectedOrderType;
         public ProfileOrderType SelectedOrderType
         {
             get => _selectedOrderType;
-            set
-            {
-                if (SetProperty(ref _selectedOrderType, value))
-                {
-                    LoadProfileCommand.Execute();
-                }
-            }
+            set => SetProperty(ref _selectedOrderType, value, () => LoadProfileCommand.Execute());
         }
 
         private string _price;
@@ -83,41 +87,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             set => SetProperty(ref _subscriptionsValue, value);
         }
 
-        public MvxObservableCollection<OrderItemViewModel> Items { get; set; } = new MvxObservableCollection<OrderItemViewModel>();
+        public MvxObservableCollection<OrderItemViewModel> Items { get; }
 
-        public MvxAsyncCommand ShowWalkthrouthCommand => new MvxAsyncCommand(ShowWalkthrouthAsync);
+        public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
 
-        public MvxAsyncCommand ShowRefillCommand { get; }
+        public IMvxAsyncCommand ShowRefillCommand { get; }
 
-        public MvxAsyncCommand ShowSubscriptionsCommand { get; }
+        public IMvxAsyncCommand ShowSubscriptionsCommand { get; }
 
-        public MvxAsyncCommand ShowSubscribersCommand { get; }
+        public IMvxAsyncCommand ShowSubscribersCommand { get; }
 
-        public MvxAsyncCommand ShowWithdrawalCommand { get; }
+        public IMvxAsyncCommand ShowWithdrawalCommand { get; }
 
-        public MvxAsyncCommand LoadProfileCommand => new MvxAsyncCommand(LoadProfileAsync);
+        public IMvxAsyncCommand LoadProfileCommand { get; }
 
-        public MvxAsyncCommand ShowUpdateProfileCommand => new MvxAsyncCommand(OnShowUpdateProfileAsync);
-
-        public ProfileViewModel(INavigationService navigationService,
-                                IDialogService dialogService,
-                                IApiService apiService,
-                                IVideoPlayerService videoPlayerService,
-                                IErrorHandleService errorHandleService,
-                                ISettingsService settingsService,
-                                IMvxMessenger mvxMessenger,
-                                IWalkthroughsProvider walkthroughsProvider)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
-        {
-            _videoPlayerService = videoPlayerService;
-            _mvxMessenger = mvxMessenger;
-            _walkthroughsProvider = walkthroughsProvider;
-
-            ShowWithdrawalCommand = new MvxAsyncCommand(ShowWithdrawalAsync);
-            ShowRefillCommand = new MvxAsyncCommand(ShowRefillAsync);
-            ShowSubscriptionsCommand = new MvxAsyncCommand(ShowSubscriptionsAsync);
-            ShowSubscribersCommand = new MvxAsyncCommand(ShowSubscribersAsync);
-        }
+        public IMvxAsyncCommand ShowUpdateProfileCommand { get; }
 
         public override async Task Initialize()
         {
@@ -198,10 +182,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private void Subscription()
         {
-            _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<OrderChangedMessage>((msg) => ReloadItemsCommand?.Execute());
-            _tabChangedMessage = _mvxMessenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
+            _newOrderMessageToken = Messenger.SubscribeOnMainThread<OrderChangedMessage>((msg) => ReloadItemsCommand?.Execute());
+            _tabChangedMessage = Messenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
             _subscriptionChangedSubscriptionToken = Messenger.SubscribeOnMainThread<SubscriptionChangedMessage>((msg) => LoadProfileCommand.Execute());
-            _enterForegroundMessage = _mvxMessenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => ReloadItemsCommand?.Execute());
+            _enterForegroundMessage = Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => ReloadItemsCommand?.Execute());
 
             SubscribeToNotificationsUpdates();
         }
@@ -303,7 +287,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             return new OrderItemViewModel(NavigationService,
                                           SettingsService,
-                                          _mvxMessenger,
+                                          Messenger,
                                           order,
                                           GetFullScreenVideoDataModels);
         }

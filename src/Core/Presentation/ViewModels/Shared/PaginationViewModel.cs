@@ -1,19 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
@@ -24,6 +19,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
 
         private readonly int _paginationSize;
 
+        public PaginationViewModel(int paginationSize)
+        {
+            _paginationSize = paginationSize;
+
+            LoadMoreItemsCommand = new MvxAsyncCommand(LoadMoreItemsInternalAsync, CanLoadMoreItems);
+            ReloadItemsCommand = new MvxAsyncCommand(ReloadItemsAsync);
+        }
+
         public long TotalItemsCount { get; private set; }
 
         public int CurrentPaginationIndex { get; set; } = DefaultPageIndex;
@@ -32,23 +35,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
 
         public bool HasNextPage => CanLoadMoreItems();
 
-        public MvxAsyncCommand LoadMoreItemsCommand { get; }
+        public IMvxAsyncCommand LoadMoreItemsCommand { get; }
 
-        public MvxAsyncCommand ReloadItemsCommand { get; }
-
-        public PaginationViewModel(int paginationSize,
-                                   INavigationService navigationService,
-                                   IErrorHandleService errorHandleService,
-                                   IApiService apiService,
-                                   IDialogService dialogService,
-                                   ISettingsService settingsService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
-        {
-            _paginationSize = paginationSize;
-
-            LoadMoreItemsCommand = new MvxAsyncCommand(LoadMoreItemsInternalAsync, CanLoadMoreItems);
-            ReloadItemsCommand = new MvxAsyncCommand(ReloadItemsAsync);
-        }
+        public IMvxAsyncCommand ReloadItemsCommand { get; }
 
         protected virtual Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = Constants.Pagination.DefaultPaginationSize)
         {

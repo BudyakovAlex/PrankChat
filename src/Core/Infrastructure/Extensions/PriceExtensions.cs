@@ -11,7 +11,9 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
         public static string ToPriceString(this double? price)
         {
             if (price == null || price == 0)
+            {
                 return GetStringWithCurrency(DefaultValue);
+            }
 
             return price?.ToString(GetStringWithCurrency(FormatForPrice), CultureInfo.CurrentCulture)
                          .Replace(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")

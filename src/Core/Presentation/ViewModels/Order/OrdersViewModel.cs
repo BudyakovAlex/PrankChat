@@ -1,17 +1,12 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
@@ -26,8 +21,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
     public class OrdersViewModel : PaginationViewModel
     {
-        private readonly IMvxMessenger _mvxMessenger;
-        private readonly ISettingsService _settingsService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
         private readonly Dictionary<ArbitrationOrderFilterType, string> _arbitrationOrderFilterTypeTitleMap =
@@ -54,6 +47,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private string _activeOrderFilterName = string.Empty;
         private string _activeArbitrationFilterName = string.Empty;
+
+        public OrdersViewModel(IWalkthroughsProvider walkthroughsProvider) : base(Constants.Pagination.DefaultPaginationSize)
+        {
+            _walkthroughsProvider = walkthroughsProvider;
+
+            OpenFilterCommand = new MvxAsyncCommand(OpenFilterAsync);
+            LoadDataCommand = new MvxAsyncCommand(LoadDataAsync);
+            ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
+        }
 
         public MvxObservableCollection<BaseItemViewModel> Items { get; } = new MvxObservableCollection<BaseItemViewModel>();
 
@@ -111,24 +113,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
 
-        public OrdersViewModel(INavigationService navigationService,
-                               IDialogService dialogService,
-                               IApiService apiService,
-                               IMvxMessenger mvxMessenger,
-                               ISettingsService settingsService,
-                               IErrorHandleService errorHandleService,
-                               IWalkthroughsProvider walkthroughsProvider)
-            : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
-        {
-            _mvxMessenger = mvxMessenger;
-            _settingsService = settingsService;
-            _walkthroughsProvider = walkthroughsProvider;
-
-            OpenFilterCommand = new MvxAsyncCommand(OpenFilterAsync);
-            LoadDataCommand = new MvxAsyncCommand(LoadDataAsync);
-            ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
-        }
-
         public override async Task Initialize()
         {
             await base.Initialize();
@@ -149,24 +133,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             Unsubscription();
             base.ViewDestroy(viewFinishing);
-        }
-
-        private Task ShowWalkthrouthAsync()
-        {
-            return _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>();
-        }
-
-        private async Task OpenOrderFilterAsync()
-        {
-            var parameters = _orderFilterTypeTitleMap.Values.ToArray();
-            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parameters, Resources.Cancel);
-            if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
-            {
-                return;
-            }
-
-            OrderFilterType = _orderFilterTypeTitleMap.FirstOrDefault(kv => kv.Value == selectedFilterName).Key;
-            await LoadDataCommand.ExecuteAsync();
         }
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
@@ -196,6 +162,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
+        private Task ShowWalkthrouthAsync()
+        {
+            return _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>();
+        }
+
+        private async Task OpenOrderFilterAsync()
+        {
+            var parameters = _orderFilterTypeTitleMap.Values.ToArray();
+            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parameters, Resources.Cancel);
+            if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
+            {
+                return;
+            }
+
+            OrderFilterType = _orderFilterTypeTitleMap.FirstOrDefault(kv => kv.Value == selectedFilterName).Key;
+            await LoadDataCommand.ExecuteAsync();
+        }
+
         private Task LoadDataAsync()
         {
             Reset();
@@ -222,8 +206,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private OrderItemViewModel ProduceOrderViewModel(OrderDataModel order)
         {
             return new OrderItemViewModel(NavigationService,
-                                          _settingsService,
-                                          _mvxMessenger,
+                                          SettingsService,
+                                          Messenger,
                                           order,
                                           GetFullScreenVideoDataModels);
         }
@@ -231,7 +215,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private ArbitrationItemViewModel ProduceArbitrationOrderViewModel(ArbitrationOrderDataModel order)
         {
             return new ArbitrationItemViewModel(NavigationService,
-                                                _settingsService,
+                                                SettingsService,
                                                 IsUserSessionInitialized,
                                                 order.Id,
                                                 order.Title,
@@ -256,15 +240,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private void Subscription()
         {
-            _newOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged);
-            _removeOrderMessageToken = _mvxMessenger.SubscribeOnMainThread<RemoveOrderMessage>(OnRemoveOrderMessage);
-            _tabChangedMessage = _mvxMessenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
-            _enterForegroundMessage = _mvxMessenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => ReloadItemsCommand?.Execute());
+            _newOrderMessageToken = Messenger.SubscribeOnMainThread<OrderChangedMessage>(OrdersChanged);
+            _removeOrderMessageToken = Messenger.SubscribeOnMainThread<RemoveOrderMessage>(OrderRemoved);
+            _tabChangedMessage = Messenger.SubscribeOnMainThread<TabChangedMessage>(TabChanged);
+            _enterForegroundMessage = Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => ReloadItemsCommand?.Execute());
 
             SubscribeToNotificationsUpdates();
         }
 
-        private void OnTabChangedMessage(TabChangedMessage msg)
+        private void TabChanged(TabChangedMessage msg)
         {
             if (msg.TabType != MainTabType.Orders)
             {
@@ -283,18 +267,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
             UnsubscribeFromNotificationsUpdates();
 
-            Items.OfType<IDisposable>().ForEach(x => x.Dispose());
+            Items.OfType<IDisposable>().ForEach(disposable => disposable.Dispose());
         }
 
-        private void OnOrdersChanged(OrderChangedMessage newOrderMessage)
+        private void OrdersChanged(OrderChangedMessage newOrderMessage)
         {
             ReloadItemsCommand?.Execute();
         }
 
-        private void OnRemoveOrderMessage(RemoveOrderMessage message)
+        private void OrderRemoved(RemoveOrderMessage message)
         {
-            if (message.Status == OrderStatusType.InArbitration && TabType == OrdersTabType.Arbitration)
+            if (message.Status == OrderStatusType.InArbitration &&
+                TabType == OrdersTabType.Arbitration)
+            {
                 return;
+            }
 
             var deletedItem = Items.OfType<OrderItemViewModel>().FirstOrDefault(order => order.OrderId == message.OrderId);
             if (deletedItem == null)

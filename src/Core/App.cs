@@ -21,6 +21,8 @@ namespace PrankChat.Mobile.Core
 {
     public class App : MvxApplication
     {
+        private const string MappingProfileSuffix = "MappingProfile";
+
         public override void Initialize()
         {
             InitializeMappings();
@@ -45,7 +47,9 @@ namespace PrankChat.Mobile.Core
 
         private void InitializeMappings()
         {
-            var mappingTypes = CreatableTypes().EndingWith("MappingProfile").AsTypes().Select(c => c.ImplementationType);
+            var mappingTypes = CreatableTypes().EndingWith(MappingProfileSuffix)
+                                               .AsTypes()
+                                               .Select(serviceType => serviceType.ImplementationType);
             MappingConfig.Configure(mappingTypes);
         }
     }

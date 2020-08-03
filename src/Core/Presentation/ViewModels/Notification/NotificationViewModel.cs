@@ -1,14 +1,8 @@
 ﻿using Badge.Plugin;
-using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 using System.Linq;
@@ -18,20 +12,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 {
     public class NotificationViewModel : PaginationViewModel
     {
-        private const int MillisecondsDelayBeforeMarkAsReaded = 3000;
-
-        private readonly IMvxMessenger _mvxMessenger;
-
-        public NotificationViewModel(INavigationService navigationService,
-                                     IErrorHandleService errorHandleService,
-                                     IApiService apiService,
-                                     IDialogService dialogService,
-                                     ISettingsService settingsService,
-                                     IMvxMessenger mvxMessenger)
-            : base(Constants.Pagination.DefaultPaginationSize, navigationService, errorHandleService, apiService, dialogService, settingsService)
+        public NotificationViewModel() : base(Constants.Pagination.DefaultPaginationSize)
         {
             Items = new MvxObservableCollection<NotificationItemViewModel>();
-            _mvxMessenger = mvxMessenger;
         }
 
         public MvxObservableCollection<NotificationItemViewModel> Items { get; }
@@ -56,12 +39,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 
         private async Task MarkReadedNotificationsAsync()
         {
-            await Task.Delay(MillisecondsDelayBeforeMarkAsReaded);
+            await Task.Delay(Constants.Delays.MillisecondsDelayBeforeMarkAsReaded);
 
             Items.ForEach(item => item.IsDelivered = true);
             await ApiService.MarkNotificationsAsReadedAsync();
 
-            _mvxMessenger.Publish(new RefreshNotificationsMessage(this));
+            Messenger.Publish(new RefreshNotificationsMessage(this));
             CrossBadge.Current.ClearBadge();
         }
     }

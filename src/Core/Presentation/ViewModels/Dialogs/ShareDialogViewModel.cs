@@ -1,17 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using Plugin.DeviceInfo;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 {
@@ -21,19 +15,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 
         private string _url;
 
-        public MvxAsyncCommand ShareToInstagramCommand => new MvxAsyncCommand(OnShareToInstagramAsync);
+        public MvxAsyncCommand ShareToInstagramCommand => new MvxAsyncCommand(ShareToInstagramAsync);
 
-        public MvxAsyncCommand CopyLinkCommand => new MvxAsyncCommand(OnCopyLinkAsync);
+        public MvxAsyncCommand CopyLinkCommand => new MvxAsyncCommand(CopyLinkAsync);
 
-        public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(OnShareAsync);
+        public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(ShareAsync);
 
-        public ShareDialogViewModel(INavigationService navigationService,
-                                    IPlatformService platformService,
-                                    IErrorHandleService errorHandleService,
-                                    IApiService apiService,
-                                    IDialogService dialogService,
-                                    ISettingsService settingsService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+        public ShareDialogViewModel(IPlatformService platformService)
         {
             _platformService = platformService;
         }
@@ -43,24 +31,26 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
             _url = parameter.Url;
         }
 
-        private Task OnShareToInstagramAsync()
+        private Task ShareToInstagramAsync()
         {
             return Task.CompletedTask;
         }
 
-        private async Task OnCopyLinkAsync()
+        private async Task CopyLinkAsync()
         {
             await _platformService.CopyTextAsync(_url);
             await GoBackCommand.ExecuteAsync();
         }
 
-        private async Task OnShareAsync()
+        private async Task ShareAsync()
         {
             await _platformService.ShareUrlAsync(Resources.ShareDialog_LinkShareTitle, _url);
-            if(CrossDeviceInfo.Current.Platform == Plugin.DeviceInfo.Abstractions.Platform.Android)
+            if (CrossDeviceInfo.Current.Platform != Plugin.DeviceInfo.Abstractions.Platform.Android)
             {
-                await NavigationService.CloseView(this);
+                return;
             }
+
+            await NavigationService.CloseView(this);
         }
     }
 }

@@ -1,15 +1,11 @@
 ﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using System;
 using System.Threading.Tasks;
 
@@ -17,6 +13,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class LoginViewModel : ExternalAuthViewModel
     {
+        public LoginViewModel(IExternalAuthService externalAuthService, IPushNotificationService pushNotificationService)
+            : base(externalAuthService, pushNotificationService)
+        {
+#if DEBUG
+
+            EmailText = "alexeysorochan@gmail.com";
+            PasswordText = "qqqqqqqq";
+#endif
+            LoginWithAppleCommand = new MvxAsyncCommand<AppleAuthDataModel>(LoginWithAppleAsync);
+            ShowDemoModeCommand = new MvxAsyncCommand(() => NavigationService.ShowMainView());
+            LoginCommand = new MvxAsyncCommand<string>(LoginAsync);
+            ResetPasswordCommand = new MvxAsyncCommand(() => NavigationService.ShowPasswordRecoveryView());
+            RegistrationCommand = new MvxAsyncCommand(() => NavigationService.ShowRegistrationView());
+    }
+
         private string _emailText;
         public string EmailText
         {
@@ -35,32 +46,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             set => SetProperty(ref _passwordText, value);
         }
 
-        public LoginViewModel(INavigationService navigationService,
-                              IApiService apiService,
-                              IExternalAuthService externalAuthService,
-                              IDialogService dialogService,
-                              IErrorHandleService errorHandleService,
-                              ISettingsService settingsService,
-                              IPushNotificationService pushNotificationService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService, externalAuthService, pushNotificationService)
-        {
-#if DEBUG
+        public IMvxAsyncCommand ShowDemoModeCommand { get; }
 
-            EmailText = "testuser@delete.me";
-            PasswordText = "1234567890";
-#endif
-            LoginWithAppleCommand = new MvxAsyncCommand<AppleAuthDataModel>(LoginWithAppleAsync);
-        }
+        public IMvxAsyncCommand<string> LoginCommand { get; }
 
-        public MvxAsyncCommand ShowDemoModeCommand => new MvxAsyncCommand(() => NavigationService.ShowMainView());
+        public IMvxAsyncCommand ResetPasswordCommand { get; }
 
-        public MvxAsyncCommand<string> LoginCommand => new MvxAsyncCommand<string>(LoginAsync);
+        public IMvxAsyncCommand RegistrationCommand { get; }
 
-        public MvxAsyncCommand ResetPasswordCommand => new MvxAsyncCommand(() => NavigationService.ShowPasswordRecoveryView());
-
-        public MvxAsyncCommand RegistrationCommand => new MvxAsyncCommand(() => NavigationService.ShowRegistrationView());
-
-        public MvxAsyncCommand<AppleAuthDataModel> LoginWithAppleCommand { get; }
+        public IMvxAsyncCommand<AppleAuthDataModel> LoginWithAppleCommand { get; }
 
         private async Task LoginAsync(string loginType)
         {
@@ -89,7 +83,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                     case LoginType.Facebook:
                         var isLoggedIn = await TryLoginWithExternalServicesAsync(socialNetworkType);
                         if (!isLoggedIn)
+                        {
                             return;
+                        }
+
                         break;
 
                     case LoginType.Ok:
@@ -98,7 +95,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
                     case LoginType.UsernameAndPassword:
                         if (!CheckValidation())
+                        {
                             return;
+                        }
 
                         var email = EmailText?.Trim();
                         var password = PasswordText?.Trim();

@@ -1,14 +1,9 @@
 ﻿using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding.Items;
 using Xamarin.Essentials;
@@ -17,12 +12,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
 {
     public class OnboardingViewModel : BaseViewModel
     {
-        public OnboardingViewModel(INavigationService navigationService,
-                                   IErrorHandleService errorHandleService,
-                                   IApiService apiService,
-                                   IDialogService dialogService,
-                                   ISettingsService settingsService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+        public OnboardingViewModel()
         {
             Items = new MvxObservableCollection<OnboardingItemViewModel>();
             ActionCommand = new MvxAsyncCommand(ExecuteActionAsync);

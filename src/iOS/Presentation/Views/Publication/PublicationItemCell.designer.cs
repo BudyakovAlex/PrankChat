@@ -22,6 +22,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UILabel commentsLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIView competitionBorderView { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView competitionCupImageView { get; set; }
+
+		[Outlet]
 		UIKit.UIButton dislikeButton { get; set; }
 
 		[Outlet]
@@ -74,14 +80,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (dislikeLabel != null) {
-				dislikeLabel.Dispose ();
-				dislikeLabel = null;
+			if (competitionBorderView != null) {
+				competitionBorderView.Dispose ();
+				competitionBorderView = null;
 			}
 
-			if (dislikeButton != null) {
-				dislikeButton.Dispose ();
-				dislikeButton = null;
+			if (competitionCupImageView != null) {
+				competitionCupImageView.Dispose ();
+				competitionCupImageView = null;
 			}
 
 			if (bookmarkButton != null) {
@@ -97,6 +103,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			if (commentsLabel != null) {
 				commentsLabel.Dispose ();
 				commentsLabel = null;
+			}
+
+			if (dislikeButton != null) {
+				dislikeButton.Dispose ();
+				dislikeButton = null;
+			}
+
+			if (dislikeLabel != null) {
+				dislikeLabel.Dispose ();
+				dislikeLabel = null;
 			}
 
 			if (likeButton != null) {

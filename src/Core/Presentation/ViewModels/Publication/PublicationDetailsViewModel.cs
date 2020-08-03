@@ -1,10 +1,5 @@
-﻿using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Commands;
+﻿using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using System;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
@@ -33,14 +28,5 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         #endregion
 
         public MvxRestrictedAsyncCommand OpenCommentsCommand => new MvxRestrictedAsyncCommand(() => NavigationService.ShowCommentsView(VideoId), restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
-
-        public PublicationDetailsViewModel(INavigationService navigationService,
-                                           IErrorHandleService errorHandleService,
-                                           IApiService apiService,
-                                           IDialogService dialogService,
-                                           ISettingsService settingsService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
-        {
-        }
     }
 }

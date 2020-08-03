@@ -132,7 +132,6 @@
       <DependentUpon>SearchView.cs</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Helpers\NavigationItemHelper.cs" />
-    <Compile Include="Presentation\Views\Search\SearchTableSource.cs" />
     <InterfaceDefinition Include="Presentation\Views\Search\ProfileSearchItemCell.xib" />
     <Compile Include="Presentation\Views\Search\ProfileSearchItemCell.cs" />
     <Compile Include="Presentation\Views\Search\ProfileSearchItemCell.designer.cs">
@@ -383,6 +382,8 @@
     <Compile Include="ApplicationServices\ExternalAuth\AppleSignIn\IAppleSignInService.cs" />
     <Compile Include="ApplicationServices\ExternalAuth\AppleSignIn\AppleSignInService.cs" />
     <Compile Include="Presentation\Views\Base\IScrollableView.cs" />
+    <Compile Include="Presentation\SourcesAndDelegates\Search\SearchTableSource.cs" />
+    <Compile Include="Presentation\SourcesAndDelegates\Search\OrdersSearchTableSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -1068,6 +1069,8 @@
     <ImageAsset Include="Assets.xcassets\ic_plus.imageset\ic_plus.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_apple.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_apple.imageset\ic_apple-1.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_competition_cup.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_competition_cup.imageset\ic_competition_cup.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -1152,6 +1155,8 @@
     <Folder Include="Assets.xcassets\ic_check_mark.imageset\" />
     <Folder Include="ApplicationServices\ExternalAuth\AppleSignIn\" />
     <Folder Include="Assets.xcassets\ic_apple.imageset\" />
+    <Folder Include="Assets.xcassets\ic_competition_cup.imageset\" />
+    <Folder Include="Presentation\SourcesAndDelegates\Search\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

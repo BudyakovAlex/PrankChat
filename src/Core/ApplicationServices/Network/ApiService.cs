@@ -638,7 +638,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<PaginationModel<VideoDataModel>> SearchVideosAsync(string query, int page, int pageSize)
         {
             var endpoint = $"search/videos?text={query}&page={page}&items_per_page={pageSize}";
-            var data = await _client.GetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint);
+            var data = await _client.GetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint, includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor });
             return CreatePaginationResult<VideoApiModel, VideoDataModel>(data);
         }
 
@@ -652,7 +652,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         public async Task<PaginationModel<OrderDataModel>> SearchOrdersAsync(string query, int page, int pageSize)
         {
             var endpoint = $"search/orders?text={query}&page={page}&items_per_page={pageSize}";
-            var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint);
+            var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint, includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor });
             return CreatePaginationResult<OrderApiModel, OrderDataModel>(data);
         }
 

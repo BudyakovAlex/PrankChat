@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using MvvmCross.Converters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Droid.Presentation.Converters
 {

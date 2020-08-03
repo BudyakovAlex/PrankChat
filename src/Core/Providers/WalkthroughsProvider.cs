@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using MvvmCross.ViewModels;
+﻿using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Providers
 {

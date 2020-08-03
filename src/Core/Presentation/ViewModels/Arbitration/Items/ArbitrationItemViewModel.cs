@@ -24,6 +24,40 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
         private readonly DateTime? _arbitrationFinishAt;
         private readonly int _orderId;
 
+        public ArbitrationItemViewModel(INavigationService navigatiobService,
+                                       ISettingsService settingsService,
+                                       bool isUserSessionInitialized,
+                                       int orderId,
+                                       string orderTitle,
+                                       string customerPhotoUrl,
+                                       string customerName,
+                                       double? priceText,
+                                       int likes,
+                                       int dislikes,
+                                       DateTime? arbitrationFinishAt,
+                                       int? customerId,
+                                       ArbitrationOrderDataModel orderDataModel,
+                                       Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
+        {
+            _settingsService = settingsService;
+            _navigationService = navigatiobService;
+            OrderTitle = orderTitle;
+            ProfilePhotoUrl = customerPhotoUrl;
+            PriceText = priceText.ToPriceString();
+            Likes = likes;
+            Dislikes = dislikes;
+            ProfileShortName = customerName.ToShortenName();
+
+            _arbitrationFinishAt = arbitrationFinishAt;
+            _customerId = customerId;
+            _orderDataModel = orderDataModel;
+            _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
+            _orderId = orderId;
+
+            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+        }
+
         public string OrderTitle { get; }
 
         public string ProfilePhotoUrl { get; }
@@ -57,40 +91,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
         public OrderType OrderType => _settingsService.User?.Id == _customerId
             ? OrderType.MyOrder
             : OrderType.NotMyOrder;
-
-        public ArbitrationItemViewModel(INavigationService navigatiobService,
-                                        ISettingsService settingsService,
-                                        bool isUserSessionInitialized,
-                                        int orderId,
-                                        string orderTitle,
-                                        string customerPhotoUrl,
-                                        string customerName,
-                                        double? priceText,
-                                        int likes,
-                                        int dislikes,
-                                        DateTime? arbitrationFinishAt,
-                                        int? customerId,
-                                        ArbitrationOrderDataModel orderDataModel,
-                                        Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
-        {
-            _settingsService = settingsService;
-            _navigationService = navigatiobService;
-            OrderTitle = orderTitle;
-            ProfilePhotoUrl = customerPhotoUrl;
-            PriceText = priceText.ToPriceString();
-            Likes = likes;
-            Dislikes = dislikes;
-            ProfileShortName = customerName.ToShortenName();
-
-            _arbitrationFinishAt = arbitrationFinishAt;
-            _customerId = customerId;
-            _orderDataModel = orderDataModel;
-            _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
-            _orderId = orderId;
-
-            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigationService.ShowLoginView);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
-        }
 
         public FullScreenVideoDataModel GetFullScreenVideoDataModel()
         {

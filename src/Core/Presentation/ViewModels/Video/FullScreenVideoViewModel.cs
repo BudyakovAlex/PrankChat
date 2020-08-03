@@ -31,13 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         private List<FullScreenVideoDataModel> _videos;
 
-        public FullScreenVideoViewModel(INavigationService navigationService,
-                                        IErrorHandleService errorHandleService,
-                                        IApiService apiService,
-                                        IDialogService dialogService,
-                                        ISettingsService settingsService,
-                                        IPlatformService platformService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+        public FullScreenVideoViewModel(IPlatformService platformService)
         {
             Interaction = new MvxInteraction();
 

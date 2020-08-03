@@ -1,38 +1,24 @@
-﻿using System;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.WebBrowser;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class RegistrationSecondStepViewModel : BaseProfileViewModel, IMvxViewModel<RegistrationNavigationParameter>
     {
-        private const string PolicyEndpoint = "https://prankchat.store/policy";
-
         private readonly IMvxWebBrowserTask _mvxWebBrowserTask;
         private readonly IPushNotificationService _pushNotificationService;
 
-        public RegistrationSecondStepViewModel(INavigationService navigationService,
-                                               IDialogService dialogService,
-                                               IApiService apiService,
-                                               IErrorHandleService errorHandleService,
-                                               ISettingsService settingsService,
-                                               IMvxWebBrowserTask mvxWebBrowserTask,
-                                               IPushNotificationService pushNotificationService)
-            : base(navigationService, errorHandleService, apiService, dialogService, settingsService)
+        public RegistrationSecondStepViewModel(IMvxWebBrowserTask mvxWebBrowserTask, IPushNotificationService pushNotificationService)
         {
             _mvxWebBrowserTask = mvxWebBrowserTask;
             _pushNotificationService = pushNotificationService;
@@ -80,13 +66,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         private void ShowTermsAndRules()
         {
-            _mvxWebBrowserTask.ShowWebPage(PolicyEndpoint);
+            _mvxWebBrowserTask.ShowWebPage(Constants.Rest.PolicyEndpoint);
         }
 
         private async Task OnUserRegistrationAsync()
         {
             if (!CheckValidation())
+            {
                 return;
+            }
 
             try
             {

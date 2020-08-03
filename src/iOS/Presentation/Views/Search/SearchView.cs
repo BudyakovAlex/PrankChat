@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
+using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates.Search;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
 using PrankChat.Mobile.iOS.Presentation.Views.Publication;
@@ -18,7 +19,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
         private const int SearchBarRightPadding = 16;
         private const int BackButtonWidth = 40;
 
-        public SearchTableSource SearchTableSource { get; private set; }
+        public SearchTableSource OrdersTableSource { get; private set; }
+        public SearchTableSource PeoplesTableSource { get; private set; }
+        public SearchTableSource VideosTableSource { get; private set; }
 
         public UISearchBar SearchBar { get; set; }
 
@@ -26,8 +29,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
         {
             var bindingSet = this.CreateBindingSet<SearchView, SearchViewModel>();
 
-            bindingSet.Bind(SearchTableSource)
+            bindingSet.Bind(OrdersTableSource)
                       .To(vm => vm.Items);
+            bindingSet.Bind(PeoplesTableSource)
+                     .To(vm => vm.Items);
+            bindingSet.Bind(VideosTableSource)
+                     .To(vm => vm.Items);
 
             bindingSet.Bind(SearchBar)
                       .For(v => v.Text)
@@ -53,6 +60,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 
             SearchBar.SetStyle();
 
+            videosTableView.Hidden = true;
+            ordersTableView.Hidden = true;
+
             NavigationItem.LeftBarButtonItems = new UIBarButtonItem[]
             {
                 backButton,
@@ -66,30 +76,74 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
             tabView.AddTab(Resources.Search_Peoples, () =>
             {
                 ViewModel.SearchTabType = SearchTabType.Users;
-                tableView.RowHeight = UITableView.AutomaticDimension;
+                peoplesTableView.Hidden = false;
+                videosTableView.Hidden = true;
+                ordersTableView.Hidden = true;
             });
             tabView.AddTab(Resources.Search_Videos, () =>
             {
                 ViewModel.SearchTabType = SearchTabType.Videos;
-                tableView.RowHeight = UITableView.AutomaticDimension;
+                peoplesTableView.Hidden = true;
+                videosTableView.Hidden = false;
+                ordersTableView.Hidden = true;
             });
 
             tabView.AddTab(Resources.Orders_Tab, () =>
             {
                 ViewModel.SearchTabType = SearchTabType.Orders;
-                tableView.RowHeight = Constants.CellHeights.OrderItemCellHeight;
+                peoplesTableView.Hidden = true;
+                videosTableView.Hidden = true;
+                ordersTableView.Hidden = false;
             });
 
-            SearchTableSource = new SearchTableSource(tableView);
-            tableView.Source = SearchTableSource;
+            SetupOrdersTableView();
+            SetupVideosTableView();
+            SetupPeoplesTableView();
+        }
 
-            tableView.RegisterNibForCellReuse(ProfileSearchItemCell.Nib, ProfileSearchItemCell.CellId);
-            tableView.RegisterNibForCellReuse(OrderItemCell.Nib, OrderItemCell.CellId);
-            tableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
+        private void SetupOrdersTableView()
+        {
+            OrdersTableSource = new OrdersSearchTableSource(ordersTableView);
+            ordersTableView.Source = OrdersTableSource;
+            ordersTableView.SetStyle();
+            ordersTableView.RowHeight = Constants.CellHeights.OrderItemCellHeight;
 
-            tableView.SetStyle();
-            tableView.UserInteractionEnabled = true;
-            tableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
+            ordersTableView.RegisterNibForCellReuse(ProfileSearchItemCell.Nib, ProfileSearchItemCell.CellId);
+            ordersTableView.RegisterNibForCellReuse(OrderItemCell.Nib, OrderItemCell.CellId);
+            ordersTableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
+
+            ordersTableView.UserInteractionEnabled = true;
+            ordersTableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
+        }
+
+        private void SetupVideosTableView()
+        {
+            VideosTableSource = new SearchTableSource(videosTableView);
+            videosTableView.Source = VideosTableSource;
+            videosTableView.SetStyle();
+            videosTableView.RowHeight = UITableView.AutomaticDimension;
+
+            videosTableView.RegisterNibForCellReuse(ProfileSearchItemCell.Nib, ProfileSearchItemCell.CellId);
+            videosTableView.RegisterNibForCellReuse(OrderItemCell.Nib, OrderItemCell.CellId);
+            videosTableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
+
+            videosTableView.UserInteractionEnabled = true;
+            videosTableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
+        }
+
+        private void SetupPeoplesTableView()
+        {
+            PeoplesTableSource = new SearchTableSource(peoplesTableView);
+            peoplesTableView.Source = PeoplesTableSource;
+            peoplesTableView.SetStyle();
+            peoplesTableView.RowHeight = UITableView.AutomaticDimension;
+
+            peoplesTableView.RegisterNibForCellReuse(ProfileSearchItemCell.Nib, ProfileSearchItemCell.CellId);
+            peoplesTableView.RegisterNibForCellReuse(OrderItemCell.Nib, OrderItemCell.CellId);
+            peoplesTableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
+
+            peoplesTableView.UserInteractionEnabled = true;
+            peoplesTableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
         }
     }
 }

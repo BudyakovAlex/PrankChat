@@ -19,23 +19,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 		Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
 
 		[Outlet]
-		UIKit.UITableView tableView { get; set; }
+		UIKit.UITableView ordersTableView { get; set; }
+
+		[Outlet]
+		UIKit.UITableView peoplesTableView { get; set; }
 
 		[Outlet]
 		PrankChat.Mobile.iOS.Controls.TabView tabView { get; set; }
+
+		[Outlet]
+		UIKit.UITableView videosTableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (tabView != null) {
-				tabView.Dispose ();
-				tabView = null;
-			}
-
-			if (tableView != null) {
-				tableView.Dispose ();
-				tableView = null;
-			}
-
 			if (loadingView != null) {
 				loadingView.Dispose ();
 				loadingView = null;
@@ -44,6 +40,26 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 			if (lottieAnimationView != null) {
 				lottieAnimationView.Dispose ();
 				lottieAnimationView = null;
+			}
+
+			if (tabView != null) {
+				tabView.Dispose ();
+				tabView = null;
+			}
+
+			if (peoplesTableView != null) {
+				peoplesTableView.Dispose ();
+				peoplesTableView = null;
+			}
+
+			if (videosTableView != null) {
+				videosTableView.Dispose ();
+				videosTableView = null;
+			}
+
+			if (ordersTableView != null) {
+				ordersTableView.Dispose ();
+				ordersTableView = null;
 			}
 		}
 	}

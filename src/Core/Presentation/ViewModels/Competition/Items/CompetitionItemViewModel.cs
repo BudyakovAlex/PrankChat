@@ -22,6 +22,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         private MvxSubscriptionToken _timerTickMessageToken;
 
+        public CompetitionItemViewModel(bool isUserSessionInitialized,
+                                IMvxMessenger mvxMessenger,
+                                INavigationService navigationService,
+                                CompetitionDataModel competition)
+        {
+            _mvxMessenger = mvxMessenger;
+            _navigationService = navigationService;
+            Competition = competition;
+
+            Subscribe();
+            ActionCommand = new MvxRestrictedAsyncCommand(ExecuteActionAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigationService.ShowLoginView);
+        }
+
         public CompetitionDataModel Competition { get; }
 
         public int Id => Competition.Id;
@@ -77,19 +90,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public ICommand ActionCommand { get; }
 
-        public CompetitionItemViewModel(bool isUserSessionInitialized,
-                                        IMvxMessenger mvxMessenger,
-                                        INavigationService navigationService,
-                                        CompetitionDataModel competition)
-        {
-            _mvxMessenger = mvxMessenger;
-            _navigationService = navigationService;
-            Competition = competition;
-
-            Subscribe();
-            ActionCommand = new MvxRestrictedAsyncCommand(ExecuteActionAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigationService.ShowLoginView);
-        }
-
         public void Dispose()
         {
             Unsubsribe();
@@ -102,11 +102,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public void Unsubsribe()
         {
-            if (_timerTickMessageToken != null)
-            {
-                _mvxMessenger.Unsubscribe<TimerTickMessage>(_timerTickMessageToken);
-                _timerTickMessageToken = null;
-            }
+            _timerTickMessageToken?.Dispose();
         }
 
         private async Task ExecuteActionAsync()
