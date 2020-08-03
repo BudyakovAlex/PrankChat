@@ -91,6 +91,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string NumberOfDislikesText => NumberOfDislikes.ToCountString();
 
+        //TODO: add correct logic
+        public bool IsCompetiotionVideo => true;
+
         #region Commands
 
         public IMvxAsyncCommand BookmarkCommand => new MvxRestrictedAsyncCommand(OnBookmarkAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);

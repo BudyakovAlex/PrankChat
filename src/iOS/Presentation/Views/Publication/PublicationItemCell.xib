@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -16,11 +16,22 @@
                 <rect key="frame" x="0.0" y="0.0" width="410" height="383"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="97e-yD-rjQ">
+                        <rect key="frame" x="13" y="5" width="46" height="46"/>
+                        <color key="backgroundColor" red="0.9882352941176471" green="0.74509803921568629" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kAU-Il-kDS" customClass="CircleCachedImageView">
                         <rect key="frame" x="15" y="7" width="42" height="42"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="42" id="Uai-dO-1oW"/>
                             <constraint firstAttribute="height" constant="42" id="idM-cZ-MLg"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_competition_cup" translatesAutoresizingMaskIntoConstraints="NO" id="pYP-19-XN2">
+                        <rect key="frame" x="41" y="33" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="4mX-0q-Amm"/>
+                            <constraint firstAttribute="width" constant="16" id="55D-fO-fEg"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Название профиля" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fjE-FD-JYU">
@@ -182,21 +193,26 @@
                     <constraint firstItem="x4k-Bg-x2O" firstAttribute="centerY" secondItem="Zq5-Qh-ec4" secondAttribute="centerY" id="FmL-71-eBg"/>
                     <constraint firstItem="n9k-fi-DBx" firstAttribute="top" secondItem="fjE-FD-JYU" secondAttribute="bottom" constant="5" id="Gi3-bN-7uJ"/>
                     <constraint firstItem="kAU-Il-kDS" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" constant="7" id="Jgv-cc-U0l"/>
+                    <constraint firstItem="97e-yD-rjQ" firstAttribute="trailing" secondItem="kAU-Il-kDS" secondAttribute="trailing" constant="2" id="K7u-U0-Uo8"/>
+                    <constraint firstItem="97e-yD-rjQ" firstAttribute="top" secondItem="kAU-Il-kDS" secondAttribute="top" constant="-2" id="Kyo-ef-Que"/>
                     <constraint firstAttribute="bottom" secondItem="BXs-ef-I9v" secondAttribute="bottom" constant="8" id="LK6-Aj-QqH"/>
                     <constraint firstItem="fjE-FD-JYU" firstAttribute="leading" secondItem="kAU-Il-kDS" secondAttribute="trailing" constant="8" id="Lof-8N-Rt7"/>
                     <constraint firstItem="Kam-d9-irM" firstAttribute="leading" secondItem="BXs-ef-I9v" secondAttribute="trailing" constant="3" id="NsB-TG-aVd"/>
                     <constraint firstItem="Zq5-Qh-ec4" firstAttribute="top" secondItem="QUy-yv-U1B" secondAttribute="top" id="O8D-X7-tuN"/>
                     <constraint firstItem="x4k-Bg-x2O" firstAttribute="centerX" secondItem="Zq5-Qh-ec4" secondAttribute="centerX" id="PSl-gr-x4X"/>
                     <constraint firstItem="APO-N7-R5s" firstAttribute="leading" secondItem="lP5-yI-neh" secondAttribute="trailing" constant="3" id="PyT-in-OuN"/>
+                    <constraint firstItem="pYP-19-XN2" firstAttribute="trailing" secondItem="kAU-Il-kDS" secondAttribute="trailing" id="SCc-eL-jXA"/>
                     <constraint firstItem="Zq5-Qh-ec4" firstAttribute="leading" secondItem="QUy-yv-U1B" secondAttribute="leading" id="STS-bc-89t"/>
                     <constraint firstItem="BXs-ef-I9v" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="16" id="X0f-Iv-SIt"/>
                     <constraint firstAttribute="trailing" secondItem="3bc-Te-k2D" secondAttribute="trailing" constant="12" id="XM8-GI-K08"/>
                     <constraint firstItem="Zq5-Qh-ec4" firstAttribute="trailing" secondItem="QUy-yv-U1B" secondAttribute="trailing" id="Xtu-Jm-LbA"/>
+                    <constraint firstItem="97e-yD-rjQ" firstAttribute="leading" secondItem="kAU-Il-kDS" secondAttribute="leading" constant="-2" id="ayc-rz-Z2P"/>
                     <constraint firstItem="QUy-yv-U1B" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="16" id="bXA-z0-Rjm"/>
                     <constraint firstItem="4BB-gN-kDu" firstAttribute="centerY" secondItem="kAU-Il-kDS" secondAttribute="centerY" id="cjh-Fi-YBB"/>
                     <constraint firstItem="Kam-d9-irM" firstAttribute="centerY" secondItem="BXs-ef-I9v" secondAttribute="centerY" id="eJA-k9-7bz"/>
                     <constraint firstAttribute="trailing" secondItem="QUy-yv-U1B" secondAttribute="trailing" constant="16" id="eLJ-3Z-txY"/>
                     <constraint firstItem="5WK-d7-xgu" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leadingMargin" constant="-4" id="fPK-cx-SKb"/>
+                    <constraint firstItem="pYP-19-XN2" firstAttribute="bottom" secondItem="kAU-Il-kDS" secondAttribute="bottom" id="fdA-Rz-bwK"/>
                     <constraint firstItem="9af-gq-JKa" firstAttribute="centerY" secondItem="RUb-8g-dpe" secondAttribute="centerY" id="fge-rA-Uhk"/>
                     <constraint firstItem="QUy-yv-U1B" firstAttribute="bottom" secondItem="mcd-uS-ygC" secondAttribute="bottom" constant="7" id="gwv-ge-Ofg"/>
                     <constraint firstItem="lP5-yI-neh" firstAttribute="centerY" secondItem="3bc-Te-k2D" secondAttribute="centerY" id="gyP-Iz-o4a"/>
@@ -209,6 +225,7 @@
                     <constraint firstAttribute="trailing" secondItem="RUb-8g-dpe" secondAttribute="trailing" constant="12" id="peS-6h-I05"/>
                     <constraint firstItem="Zq5-Qh-ec4" firstAttribute="bottom" secondItem="QUy-yv-U1B" secondAttribute="bottom" id="prp-sy-d1s"/>
                     <constraint firstAttribute="trailingMargin" secondItem="5WK-d7-xgu" secondAttribute="trailing" constant="8" id="psH-ZY-ayA"/>
+                    <constraint firstItem="97e-yD-rjQ" firstAttribute="bottom" secondItem="kAU-Il-kDS" secondAttribute="bottom" constant="2" id="sg1-s7-rtt"/>
                     <constraint firstItem="3bc-Te-k2D" firstAttribute="centerY" secondItem="BXs-ef-I9v" secondAttribute="centerY" id="tqg-En-gWu"/>
                     <constraint firstItem="n9k-fi-DBx" firstAttribute="leading" secondItem="kAU-Il-kDS" secondAttribute="trailing" constant="8" id="tve-vl-Iir"/>
                     <constraint firstItem="lP5-yI-neh" firstAttribute="leading" secondItem="Kam-d9-irM" secondAttribute="trailing" constant="16" id="vk0-gP-gxX"/>
@@ -222,6 +239,8 @@
                 <outlet property="bookmarkButton" destination="3bc-Te-k2D" id="6J2-HR-UQP"/>
                 <outlet property="commentButton" destination="9af-gq-JKa" id="dJG-Dz-Q8P"/>
                 <outlet property="commentsLabel" destination="hzD-5A-HU4" id="HW9-Ns-4Q7"/>
+                <outlet property="competitionBorderView" destination="97e-yD-rjQ" id="nrN-zT-XHr"/>
+                <outlet property="competitionCupImageView" destination="pYP-19-XN2" id="aSe-G4-xw8"/>
                 <outlet property="dislikeButton" destination="lP5-yI-neh" id="LeW-Ne-PzY"/>
                 <outlet property="dislikeLabel" destination="APO-N7-R5s" id="zE0-WM-2AX"/>
                 <outlet property="likeButton" destination="BXs-ef-I9v" id="S0C-ak-W9Z"/>
@@ -246,6 +265,7 @@
     <resources>
         <image name="ic_bookmark" width="14" height="18"/>
         <image name="ic_comment" width="18" height="18"/>
+        <image name="ic_competition_cup" width="128" height="128"/>
         <image name="ic_dislike" width="32" height="32"/>
         <image name="ic_fullscreen" width="24" height="24"/>
         <image name="ic_like" width="32" height="32"/>

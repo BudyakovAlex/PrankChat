@@ -7,15 +7,19 @@ using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Droid.Controls;
+using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Video;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
+using PrankChat.Mobile.Droid.Utils.Helpers;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
 {
     public class PublicationItemViewHolder : VideoCardViewHolder<PublicationItemViewModel>
     {
         private FrameLayout _videoContainerView;
+        private View _competitionBorderView;
+        private ImageView _competitionCupImageView;
         private CircleCachedImageView _profileImageView;
         private ImageButton _moreImageButton;
         private TextView _profileNameTextView;
@@ -82,6 +86,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
             base.DoInit(view);
 
             _videoContainerView = view.FindViewById<FrameLayout>(Resource.Id.texture_view_container);
+            _competitionBorderView = view.FindViewById<View>(Resource.Id.competition_border_view);
+            _competitionCupImageView = view.FindViewById<ImageView>(Resource.Id.competition_cup_image_view);
             _profileImageView = view.FindViewById<CircleCachedImageView>(Resource.Id.profile_image_view);
             _moreImageButton = view.FindViewById<ImageButton>(Resource.Id.more_image_button);
             _profileNameTextView = view.FindViewById<TextView>(Resource.Id.profile_name_text_view);
@@ -101,6 +107,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
             _likeView.SetOnClickListener(_ => ViewModel.LikeCommand.Execute());
             _dislikeView.SetOnClickListener(_ => ViewModel.DislikeCommand.Execute());
             _shareImageButton.SetOnClickListener(_ => ViewModel.ShareCommand.Execute());
+            _competitionBorderView.SetRoundedCorners(DisplayUtils.DpToPx(23));
         }
 
         public override void BindData()
@@ -127,6 +134,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
             bindingSet.Bind(TextureView).For(v => v.BindHidden()).To(vm => vm.IsVideoProcessing);
             bindingSet.Bind(this).For(v => v.CanShowStub).To(vm => vm.IsVideoProcessing)
                       .WithConversion<MvxInvertedBooleanConverter>();
+            bindingSet.Bind(_competitionBorderView).For(v => v.BindVisible()).To(vm => vm.IsCompetiotionVideo);
+            bindingSet.Bind(_competitionCupImageView).For(v => v.BindVisible()).To(vm => vm.IsCompetiotionVideo);
 
             bindingSet.Apply();
         }
