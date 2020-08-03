@@ -1,12 +1,11 @@
-﻿using System;
-using Foundation;
+﻿using Foundation;
 using MvvmCross.Platforms.Ios.Binding.Views;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items;
-using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
 using PrankChat.Mobile.iOS.Presentation.Views.Publication;
+using System;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Search

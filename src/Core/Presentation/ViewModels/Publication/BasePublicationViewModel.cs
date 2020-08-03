@@ -1,10 +1,6 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -13,7 +9,6 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract;
@@ -27,7 +22,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     public class BasePublicationViewModel : LikeableViewModel, IVideoItemViewModel, IDisposable
     {
         private readonly IPlatformService _platformService;
-        private readonly IMvxMessenger _mvxMessenger;
         private readonly VideoDataModel _videoDataModel;
 
         private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
@@ -137,7 +131,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public string NumberOfDislikesText => NumberOfDislikes.ToCountString();
 
         //TODO: add correct logic
-        public bool IsCompetiotionVideo => true;
+        public bool IsCompetiotionVideo => false;
 
         #region Commands
 
@@ -227,7 +221,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private void Subscribe()
         {
-            _updateNumberOfViewsSubscriptionToken = _mvxMessenger.Subscribe<ViewCountMessage>(viewCount =>
+            _updateNumberOfViewsSubscriptionToken = Messenger.Subscribe<ViewCountMessage>(viewCount =>
             {
                 if (viewCount.VideoId == VideoId)
                 {
@@ -244,7 +238,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 return;
             }
 
-            _mvxMessenger?.Unsubscribe<ViewCountMessage>(_updateNumberOfViewsSubscriptionToken);
+            Messenger?.Unsubscribe<ViewCountMessage>(_updateNumberOfViewsSubscriptionToken);
             _updateNumberOfViewsSubscriptionToken.Dispose();
             _updateNumberOfViewsSubscriptionToken = null;
         }
@@ -263,7 +257,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 return;
             }
 
-            _mvxMessenger.Publish(new ReloadPublicationsMessage(this));
+            Messenger.Publish(new ReloadPublicationsMessage(this));
         }
 
         private async Task ShowCommentsAsync()

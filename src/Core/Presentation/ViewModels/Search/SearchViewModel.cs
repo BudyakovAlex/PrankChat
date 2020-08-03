@@ -52,6 +52,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             {
                 if (SetProperty(ref _searchTabType, value))
                 {
+                    Items.Clear();
                     _ = SearchAsync(SearchValue, true);
                 }
             }
