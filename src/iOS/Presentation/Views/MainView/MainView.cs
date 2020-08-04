@@ -15,16 +15,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
         private bool _tabsInitialized;
         private int _lastTabPosition;
 
-		public override void ViewWillAppear(bool animated)
+        public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            if (!_tabsInitialized)
+            if (_tabsInitialized)
             {
-                ViewModel.ShowContentCommand.Execute();
-                SetTabs();
-                _tabsInitialized = true;
+                return;
             }
-		}
+
+            ViewModel.ShowContentCommand.Execute();
+            SetTabs();
+            _tabsInitialized = true;
+        }
 
         public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
         {
@@ -99,14 +101,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
 
             var tab = TabBar.Items[index];
             tab.Title = title;
-            tab.Image = UIImage.FromBundle(iconName).ImageWithRenderingMode(mode);
+            tab.Image = UIImage.FromBundle(iconName)
+                               .ImageWithRenderingMode(mode);
             tab.SetTabBarItemStyle();
         }
 
         private void InitCentralTab(string iconName)
         {
             var tab = TabBar.Items[2];
-            tab.Image = UIImage.FromBundle(iconName).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
+            tab.Image = UIImage.FromBundle(iconName)
+                               .ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
             tab.SetCentralTabBarItemStyle();
         }
     }
