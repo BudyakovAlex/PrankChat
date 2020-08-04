@@ -13,6 +13,7 @@ using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Providers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,7 +43,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             ShowSubscribersCommand = new MvxAsyncCommand(ShowSubscribersAsync);
             ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
             LoadProfileCommand = new MvxAsyncCommand(LoadProfileAsync);
-            ShowUpdateProfileCommand = new MvxAsyncCommand(OnShowUpdateProfileAsync);
+            ShowUpdateProfileCommand = new MvxAsyncCommand(ShowUpdateProfileAsync);
         }
 
         private ProfileOrderType _selectedOrderType;
@@ -183,7 +184,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private void Subscription()
         {
             _newOrderMessageToken = Messenger.SubscribeOnMainThread<OrderChangedMessage>((msg) => ReloadItemsCommand?.Execute());
-            _tabChangedMessage = Messenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
+            _tabChangedMessage = Messenger.SubscribeOnMainThread<TabChangedMessage>(TabChanged);
             _subscriptionChangedSubscriptionToken = Messenger.SubscribeOnMainThread<SubscriptionChangedMessage>((msg) => LoadProfileCommand.Execute());
             _enterForegroundMessage = Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => ReloadItemsCommand?.Execute());
 
@@ -200,7 +201,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             UnsubscribeFromNotificationsUpdates();
         }
 
-        private void OnTabChangedMessage(TabChangedMessage msg)
+        private void TabChanged(TabChangedMessage msg)
         {
             if (msg.TabType != MainTabType.Profile)
             {
@@ -223,7 +224,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 await ApiService.GetCurrentUserAsync();
                 Reset();
 
-                Items.Clear();
                 await InitializeProfileData();
             }
             finally
@@ -232,7 +232,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             }
         }
 
-        private async Task OnShowUpdateProfileAsync()
+        private async Task ShowUpdateProfileAsync()
         {
             var isUpdated = await NavigationService.ShowUpdateProfileView();
             if (!isUpdated)
@@ -290,6 +290,23 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                                           Messenger,
                                           order,
                                           GetFullScreenVideoDataModels);
+        }
+
+        protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        {
+            SetTotalItemsCount(dataModel.TotalCount);
+            var viewModels = dataModel.Items.Select(produceItemViewModel).ToList();
+
+            if (page > 1)
+            {
+                items.AddRange(viewModels);
+            }
+            else
+            {
+                items.SwitchTo(viewModels);
+            }
+
+            return viewModels.Count;
         }
 
         private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()

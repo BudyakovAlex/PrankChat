@@ -1059,7 +1059,6 @@
     <ImageAsset Include="Assets.xcassets\ic_like.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_dislike.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_like.imageset\ic_like.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_dislike.imageset\ic_dislike.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_like_hollow.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_dislike_hollow.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_like_hollow.imageset\ic_like_hollow.pdf" />
@@ -1071,6 +1070,7 @@
     <ImageAsset Include="Assets.xcassets\ic_apple.imageset\ic_apple-1.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_competition_cup.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_competition_cup.imageset\ic_competition_cup.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_dislike.imageset\ic_dislike-1.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

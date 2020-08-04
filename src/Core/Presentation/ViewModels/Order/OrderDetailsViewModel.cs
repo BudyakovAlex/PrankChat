@@ -1,8 +1,10 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
@@ -30,10 +32,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly IPlatformService _platformService;
 
         private int _orderId;
+        private int _timerThicksCount;
 
         private List<FullScreenVideoDataModel> _fullScreenVideos;
         private int _currentIndex;
         private OrderDataModel _order;
+        private MvxSubscriptionToken _timerTickMessageToken;
 
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -227,8 +231,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             return LoadOrderDetailsCommand.ExecuteAsync();
         }
 
+        public override void ViewCreated()
+        {
+            _timerTickMessageToken = Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong);
+
+            base.ViewCreated();
+        }
+
         public override void ViewDestroy(bool viewFinishing = true)
         {
+            _timerTickMessageToken?.Dispose();
+
             if (viewFinishing &&
                 CloseCompletionSource != null &&
                 !CloseCompletionSource.Task.IsCompleted &&
@@ -238,6 +251,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
 
             base.ViewDestroy(viewFinishing);
+        }
+
+        private async void OnTimerTick(TimerTickMessage msg)
+        {
+            _timerThicksCount++;
+            if (_timerThicksCount >= 20)
+            {
+                _timerThicksCount = 0;
+                try
+                {
+                    _order = await ApiService.GetOrderDetailsAsync(_orderId);
+                    await RaiseAllPropertiesChanged();
+
+                    IsNoSelected = SelectedArbitration == ArbitrationValueType.Negative;
+                    IsYesSelected = SelectedArbitration == ArbitrationValueType.Positive;
+                }
+                catch (Exception ex)
+                {
+                    ErrorHandleService.HandleException(ex);
+                    ErrorHandleService.LogError(this, "Error on loading order page.");
+                }
+            }
         }
 
         private Task OpenExecutorProfileAsync()
@@ -519,9 +554,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
 
             var result = await DialogService.ShowConfirmAsync(Resources.OrderDetails_View_Cancel_Title,
-                                                   Resources.Attention,
-                                                   Resources.Ok,
-                                                   Resources.Cancel);
+                                                              Resources.Attention,
+                                                              Resources.Ok,
+                                                              Resources.Cancel);
             if (!result)
                 return;
 
