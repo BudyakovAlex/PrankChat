@@ -238,6 +238,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
             var publicationType = (PublicationType)e.Tab.Position;
 
+            RecyclerView.Post(() => RecyclerView.ScrollToPosition(0));
             ViewModel.SelectedPublicationType = publicationType;
         }
 

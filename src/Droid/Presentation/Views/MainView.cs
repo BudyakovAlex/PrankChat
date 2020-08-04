@@ -224,8 +224,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
             tabView.SetImageResource(iconResource);
             var tab = tabLayout.GetTabAt(2);
-            if (tab != null)
-                tab.SetCustomView(tabView);
+            if (tab is null)
+            {
+                return;
+            }
+
+            tab.SetCustomView(tabView);
         }
 
         protected override void OnResume()

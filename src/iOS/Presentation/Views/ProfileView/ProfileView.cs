@@ -147,13 +147,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             subscriptionsTitleLabel.SetSmallSubtitleStyle(Resources.ProfileView_Subscriptions_Subtitle);
             descriptionLabel.SetTitleStyle();
 
-            tabView.AddTab(
-                Resources.ProfileView_MyOrders_Tab,
-                () => ViewModel.SelectedOrderType = ProfileOrderType.MyOrdered);
+            tabView.AddTab(Resources.ProfileView_MyOrders_Tab, () => TabSelected(ProfileOrderType.MyOrdered));
 
-            tabView.AddTab(
-                Resources.ProfileView_CompletedOrders_Tab,
-                () => ViewModel.SelectedOrderType = ProfileOrderType.OrdersCompletedByMe);
+            tabView.AddTab(Resources.ProfileView_CompletedOrders_Tab, () => TabSelected(ProfileOrderType.OrdersCompletedByMe));
 
             _refreshControl = new MvxUIRefreshControl();
             rootScrollView.RefreshControl = _refreshControl;
@@ -161,6 +157,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
             logoButton.Enabled = false;
             NavigationItem.LeftBarButtonItem = logoButton;
+        }
+
+        private void TabSelected(ProfileOrderType profileOrderType)
+        {
+            tableView.SetContentOffset(new CoreGraphics.CGPoint(0, 0), false);
+            ViewModel.SelectedOrderType = profileOrderType;
         }
 
         private void InitializeTableView()

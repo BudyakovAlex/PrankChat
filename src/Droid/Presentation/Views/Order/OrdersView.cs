@@ -8,14 +8,14 @@ using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Adapters;
 using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
-using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Arbitration;
+using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
@@ -69,13 +69,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         {
             var bindingSet = this.CreateBindingSet<OrdersView, OrdersViewModel>();
 
-            bindingSet.Bind(_adapter)
-                .For(v => v.ItemsSource)
-                .To(vm => vm.Items);
-
-            bindingSet.Bind(_endlessRecyclerView)
-                .For(v => v.LoadMoreItemsCommand)
-                .To(vm => vm.LoadMoreItemsCommand);
+            bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
+            bindingSet.Bind(_endlessRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
 
             bindingSet.Apply();
         }
@@ -94,16 +89,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 
         public void OnTabSelected(TabLayout.Tab tab)
         {
-            switch (tab.Position)
-            {
-                case 0:
-                    ViewModel.TabType = OrdersTabType.Order;
-                    break;
-
-                case 1:
-                    ViewModel.TabType = OrdersTabType.Arbitration;
-                    break;
-            }
+            RecyclerView.Post(() => RecyclerView.ScrollToPosition(0));
+            ViewModel.TabType = (OrdersTabType)tab.Position;
         }
 
         public void OnTabUnselected(TabLayout.Tab tab)

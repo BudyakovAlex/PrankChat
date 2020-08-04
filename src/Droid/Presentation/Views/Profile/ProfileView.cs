@@ -55,15 +55,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 
         public void OnTabSelected(TabLayout.Tab tab)
         {
-            switch (tab.Position)
-            {
-                case 0:
-                    ViewModel.SelectedOrderType = ProfileOrderType.MyOrdered;
-                    break;
-                case 1:
-                    ViewModel.SelectedOrderType = ProfileOrderType.OrdersCompletedByMe;
-                    break;
-            }
+            RecyclerView.Post(() => RecyclerView.ScrollToPosition(0));
+
+            ViewModel.SelectedOrderType = (ProfileOrderType)tab.Position;
         }
 
         public void OnTabUnselected(TabLayout.Tab tab)
@@ -89,13 +83,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         {
             var bindingSet = this.CreateBindingSet<ProfileView, ProfileViewModel>();
 
-            bindingSet.Bind(_adapter)
-                .For(v => v.ItemsSource)
-                .To(vm => vm.Items);
-
-            bindingSet.Bind(_endlessRecyclerView)
-                .For(v => v.LoadMoreItemsCommand)
-                .To(vm => vm.LoadMoreItemsCommand);
+            bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
+            bindingSet.Bind(_endlessRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
 
             bindingSet.Apply();
         }

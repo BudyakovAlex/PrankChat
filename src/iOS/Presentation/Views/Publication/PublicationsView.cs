@@ -84,6 +84,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         private void OnTabSelected(int position)
         {
             publicationTypeStackView.SetSelectedTabStyle(position);
+            tableView.SetContentOffset(new CoreGraphics.CGPoint(0, 0), false);
             ViewModel.SelectedPublicationType = (PublicationType)position;
         }
 
