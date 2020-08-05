@@ -85,6 +85,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         {
             publicationTypeStackView.SetSelectedTabStyle(position);
             tableView.SetContentOffset(new CoreGraphics.CGPoint(0, 0), false);
+
+            filterView.Hidden = position != 0;
+            bottomSeparatorView.Hidden = filterView.Hidden;
+
             ViewModel.SelectedPublicationType = (PublicationType)position;
         }
 

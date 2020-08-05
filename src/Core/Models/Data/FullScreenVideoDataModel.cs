@@ -41,7 +41,7 @@
 
         public int VideoId { get; }
 
-        public string VideoUrl { get; }
+        public string VideoUrl { get; set; }
 
         public string VideoName { get; }
 
