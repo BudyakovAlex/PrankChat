@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Api
 {
@@ -52,6 +53,9 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         [JsonProperty("is_disliked")]
         public bool IsDisliked { get; set; }
+
+        [JsonProperty("order_type")]
+        public OrderCategory? OrderCategory { get; set; }
 
         public DataApiModel<UserApiModel> User { get; set; }
 

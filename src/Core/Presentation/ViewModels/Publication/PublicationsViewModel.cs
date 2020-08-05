@@ -103,7 +103,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         {
             await base.Initialize();
 
-            ActiveFilter = DateFilterType.Month;
+            ActiveFilter = DateFilterType.HalfYear;
             await LoadMoreItemsCommand.ExecuteAsync();
         }
 
@@ -165,7 +165,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                         break;
 
                     case PublicationType.Actual:
-                        pageContainer = await ApiService.GetActualVideoFeedAsync(ActiveFilter, page, pageSize);
+                        pageContainer = await ApiService.GetActualVideoFeedAsync(DateFilterType.HalfYear, page, pageSize);
                         break;
 
                     case PublicationType.MyVideosOfCreatedOrders:
@@ -175,7 +175,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                             return 0;
                         }
 
-                        pageContainer = await ApiService.GetMyVideoFeedAsync(page, pageSize, ActiveFilter);
+                        pageContainer = await ApiService.GetMyVideoFeedAsync(page, pageSize, DateFilterType.HalfYear);
                         break;
                 }
 
