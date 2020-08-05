@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PrankChat.Mobile.Core.Models.Enums;
+using System;
 
 namespace PrankChat.Mobile.Core.Models.Data
 {
@@ -35,6 +36,8 @@ namespace PrankChat.Mobile.Core.Models.Data
         public bool IsLiked { get; set; }
 
         public bool IsDisliked { get; set; }
+
+        public OrderCategory? OrderCategory { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }
 
