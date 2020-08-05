@@ -5,6 +5,7 @@ using CoreFoundation;
 using CoreGraphics;
 using MvvmCross;
 using MvvmCross.Base;
+using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -19,10 +20,10 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
     {
         private const double ToastAnimationDuration = 0.5d;
         private const double ToastDuration = 4d;
-        private const float ToastOffset = 44;
 
         private readonly IMvxMainThreadAsyncDispatcher _dispatcher;
-        private readonly Lazy<IErrorHandleService> _lazyErrorHandleService = new Lazy<IErrorHandleService>(() => Mvx.IoCProvider.Resolve<IErrorHandleService>());
+        private readonly Lazy<IErrorHandleService> _lazyErrorHandleService =
+            new Lazy<IErrorHandleService>(() => Mvx.IoCProvider.Resolve<IErrorHandleService>());
 
         public override bool IsToastShown { get; protected set; }
 
@@ -39,6 +40,7 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
             {
                 return null;
             }
+
             var topViewController = GetTopViewController(keyWindow);
 
             var tcs = new TaskCompletionSource<DateTime?>();
@@ -57,6 +59,7 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
                 };
                 topViewController.PresentViewController(datePicker, true, null);
             });
+
             return tcs.Task;
         }
 
@@ -65,13 +68,20 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
             try
             {
                 IsToastShown = true;
+
                 var keyWindow = UIApplication.SharedApplication.KeyWindow;
                 if (keyWindow == null)
                 {
+                    IsToastShown = false;
                     return;
                 }
 
                 var topViewController = GetTopViewController(keyWindow);
+                if (topViewController is UIAlertController)
+                {
+                    IsToastShown = false;
+                    return;
+                }
 
                 var toast = ToastView.Create(text, toastType);
                 toast.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -81,23 +91,23 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
 
                 NSLayoutConstraint.ActivateConstraints(new[]
                 {
-                toast.LeadingAnchor.ConstraintEqualTo(superview.LeadingAnchor),
-                toast.TopAnchor.ConstraintEqualTo(superview.SafeAreaLayoutGuide.TopAnchor, ToastOffset),
-                toast.TrailingAnchor.ConstraintEqualTo(superview.TrailingAnchor)
+                    toast.LeadingAnchor.ConstraintEqualTo(superview.LeadingAnchor),
+                    toast.TopAnchor.ConstraintEqualTo(superview.SafeAreaLayoutGuide.TopAnchor),
+                    toast.TrailingAnchor.ConstraintEqualTo(superview.TrailingAnchor)
                 });
 
-                var offsetY = toast.Frame.Y + ToastOffset;
-                UIView.Animate(ToastAnimationDuration, () =>
-                {
-                    toast.Frame = new CGRect(toast.Frame.X, offsetY, toast.Frame.Width, toast.Frame.Height);
-                });
+                toast.Frame = new CGRect(0f, -toast.Frame.Height, toast.Frame.Width, toast.Frame.Height);
+                UIView.Animate(
+                    ToastAnimationDuration,
+                    () => toast.Frame = new CGRect(0f, 0f, toast.Frame.Width, toast.Frame.Height));
 
-                var time = new DispatchTime(DispatchTime.Now, TimeSpan.FromSeconds(ToastDuration));
-                DispatchQueue.MainQueue.DispatchAfter(time, () =>
-                {
-                    toast.RemoveFromSuperview();
-                    IsToastShown = false;
-                });
+                DispatchQueue.MainQueue.DispatchAfter(
+                    new DispatchTime(DispatchTime.Now, TimeSpan.FromSeconds(ToastDuration)),
+                    () =>
+                    {
+                        toast.RemoveFromSuperview();
+                        IsToastShown = false;
+                    });
             }
             catch (Exception ex)
             {
@@ -107,18 +117,24 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
 
         public static UIViewController GetTopViewController(UIWindow window)
         {
-            var rootViewController = window.RootViewController;
-            while (rootViewController.PresentedViewController != null)
+            var topViewController = window.RootViewController;
+
+            if (topViewController.PresentedViewController is null &&
+                topViewController is MvxTabBarViewController tabBarController)
             {
-                rootViewController = rootViewController.PresentedViewController;
+                topViewController = tabBarController.VisibleUIViewController;
+            }
+            else
+            {
+                while (topViewController.PresentedViewController != null)
+                {
+                    topViewController = topViewController.PresentedViewController;
+                }
             }
 
-            if (rootViewController is UINavigationController navController)
-            {
-                rootViewController = navController.ViewControllers.LastOrDefault();
-            }
-
-            return rootViewController;
+            return topViewController is UINavigationController navigationController
+                ? navigationController.ViewControllers.LastOrDefault()
+                : topViewController;
         }
     }
 }
