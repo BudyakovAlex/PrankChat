@@ -83,7 +83,9 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         public override void Pause()
         {
             if (!IsPlaying)
+            {
                 return;
+            }
 
             _player.Pause();
             IsPlaying = false;
@@ -92,10 +94,14 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         public override void Play()
         {
             if (IsPlaying)
+            {
                 return;
+            }
 
             if (_player.CurrentItem == null)
+            {
                 return;
+            }
 
             Logger.LogEventAsync(DateTime.Now, "[Video_Buffering]", $"Video uri is {_uri}, video ID is {_id}").FireAndForget();
 
@@ -110,6 +116,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             Debug.WriteLine("Play stopped.");
             _player.Seek(new CMTime(0, 1));
             _player.Pause();
+            _player.ReplaceCurrentItemWithPlayerItem(null);
             IsPlaying = false;
         }
 
