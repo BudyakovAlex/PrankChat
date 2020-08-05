@@ -639,6 +639,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         [Export(nameof(WillResignActive))]
         private void WillResignActive()
         {
+            if (_player is null)
+            {
+                return;
+            }
+
             _wasPlaying = _player.TimeControlStatus == AVPlayerTimeControlStatus.Playing;
             _player.Pause();
         }

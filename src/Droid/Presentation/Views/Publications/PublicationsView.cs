@@ -41,6 +41,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private LinearLayoutManager _layoutManager;
         private PublicationItemViewHolder _previousPublicationViewHolder;
         private AutoFitTextureView _previousVideoView;
+        private View _filterView;
+        private View _filterDividerView;
 
         private MvxInteraction _itemsChangedInteraction;
         public MvxInteraction ItemsChangedInteraction
@@ -109,6 +111,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
         private void InitializeControls(View view)
         {
+            _filterView = view.FindViewById<View>(Resource.Id.filter_view);
+            _filterDividerView = view.FindViewById<View>(Resource.Id.filter_view_divider);
             _publicationTypeTabLayout = view.FindViewById<TabLayout>(Resource.Id.publication_type_tab_layout);
             _publicationRecyclerView = view.FindViewById<EndlessRecyclerView>(Resource.Id.publication_recycler_view);
 
@@ -133,7 +137,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
             var dividerItemDecoration = new DividerItemDecoration(Context, LinearLayoutManager.Vertical);
             _publicationRecyclerView.AddItemDecoration(dividerItemDecoration);
-
         }
 
         private void OnDataSetChanged(object sender, EventArgs e)
@@ -239,6 +242,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             var publicationType = (PublicationType)e.Tab.Position;
 
             RecyclerView.Post(() => RecyclerView.ScrollToPosition(0));
+
+            _filterView.Visibility = e.Tab.Position == 0
+                ? ViewStates.Visible
+                : ViewStates.Gone;
+            _filterDividerView.Visibility = _filterView.Visibility;
+
             ViewModel.SelectedPublicationType = publicationType;
         }
 
@@ -248,7 +257,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             var tabTextView = (TextView)tabLayout.GetChildAt(1);
 
             if (_unselectedTypeface == null)
+            {
                 _unselectedTypeface = tabTextView.Typeface;
+            }
 
             tabTextView.SetTypeface(_unselectedTypeface, typefaceStyle);
         }

@@ -262,6 +262,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 try
                 {
                     _order = await ApiService.GetOrderDetailsAsync(_orderId);
+                    RefreshFullScreenVideo();
                     await RaiseAllPropertiesChanged();
 
                     IsNoSelected = SelectedArbitration == ArbitrationValueType.Negative;
@@ -273,6 +274,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     ErrorHandleService.LogError(this, "Error on loading order page.");
                 }
             }
+        }
+
+        private void RefreshFullScreenVideo()
+        {
+            var fullScreenVideo = _fullScreenVideos.FirstOrDefault(item => item.VideoId == _order?.Video?.Id);
+            if (fullScreenVideo is null)
+            {
+                return;
+            }
+
+            fullScreenVideo.VideoUrl = _order?.Video?.StreamUri;
         }
 
         private Task OpenExecutorProfileAsync()
@@ -304,6 +316,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 IsBusy = true;
 
                 _order = await ApiService.GetOrderDetailsAsync(_orderId);
+                RefreshFullScreenVideo();
                 await RaiseAllPropertiesChanged();
 
                 IsNoSelected = SelectedArbitration == ArbitrationValueType.Negative;
