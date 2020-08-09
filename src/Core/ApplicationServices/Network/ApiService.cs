@@ -13,7 +13,6 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -658,9 +657,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public async Task<AppVersionDataModel> CheckAppVersionAsync()
         {
-            var appVersion = AppInfo.BuildString;
+            var buildVersion = AppInfo.BuildString;
+            var appVersion = AppInfo.VersionString;
             var operationSystem = DeviceInfo.Platform.ToString().ToLower();
-            var appVersionBundle = await _client.UnauthorizedGetAsync<AppVersionApiModel>($"/application/{appVersion}/check/{operationSystem}");
+            var appVersionBundle = await _client.UnauthorizedGetAsync<AppVersionApiModel>($"/application/{buildVersion}/check/{operationSystem}?appVersion={appVersion}");
             if (appVersionBundle is null)
             {
                 return new AppVersionDataModel();
@@ -672,7 +672,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         private void OnUnauthorizedUser(UnauthorizedMessage obj)
         {
             if (_settingsService.User == null)
+            {
                 return;
+            }
 
             RefreshTokenAsync().FireAndForget();
         }
