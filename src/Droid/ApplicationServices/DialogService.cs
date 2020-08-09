@@ -35,6 +35,7 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
         public override void ShowToast(string text, ToastType toastType)
         {
             IsToastShown = true;
+
             var activity = (MvxAppCompatActivity) _topActivity.Activity;
             var yOffset = GetToastYOffset(activity);
 
@@ -49,6 +50,7 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
             toast.Duration = ToastLength.Long;
             toast.View = toastView;
             toast.Show();
+
             Task.Run(async () =>
             {
                 await Task.Delay(3500);
@@ -99,9 +101,13 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
                 return 0;
             }
 
-            (_, var y) = toolbar.GetLocationInWindow();
-            var yOffset = toolbar.Parent.Parent is CoordinatorLayout coordinator ? coordinator.Height - y : y;
-            return yOffset;
+            if (toolbar.Parent.Parent is CoordinatorLayout coordinatorLayout)
+            {
+                (_, var y) = toolbar.GetLocationInWindow();
+                return coordinatorLayout.Height - y;
+            }
+
+            return toolbar.Height;
         }
 
         private Toolbar GetToolbar(MvxAppCompatActivity activity)
