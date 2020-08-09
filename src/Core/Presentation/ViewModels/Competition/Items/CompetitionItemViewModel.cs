@@ -32,6 +32,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             Competition = competition;
 
             Subscribe();
+            RefreshCountDownTimer();
             ActionCommand = new MvxRestrictedAsyncCommand(ExecuteActionAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigationService.ShowLoginView);
         }
 
@@ -117,6 +118,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         }
 
         private void OnTimerTick(TimerTickMessage message)
+        {
+            RefreshCountDownTimer();
+        }
+
+        private void RefreshCountDownTimer()
         {
             switch (Phase)
             {
