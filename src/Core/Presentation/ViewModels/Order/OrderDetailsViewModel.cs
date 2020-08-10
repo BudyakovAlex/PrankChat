@@ -222,7 +222,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public void Prepare(OrderDetailsNavigationParameter parameter)
         {
             _orderId = parameter.OrderId;
-            _fullScreenVideos = parameter.FullScreenVideos;
+            _fullScreenVideos = parameter.FullScreenVideos ?? new List<FullScreenVideoDataModel>();
             _currentIndex = parameter.CurrentIndex;
         }
 
