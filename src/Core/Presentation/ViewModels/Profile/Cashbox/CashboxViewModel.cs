@@ -15,9 +15,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
     public class CashboxViewModel : BaseViewModel, IMvxViewModel<CashboxTypeNavigationParameter, bool>
     {
-        private readonly IMvxMessenger _mvxMessenger;
-
         private MvxSubscriptionToken _reloadProfileMessageToken;
+
         private bool _isReloadNeeded;
 
         public CashboxViewModel(IMediaService mediaService)
@@ -92,7 +91,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         private void Subscription()
         {
-            _reloadProfileMessageToken = _mvxMessenger.SubscribeOnMainThread<ReloadProfileMessage>((msg) => _isReloadNeeded = true);
+            _reloadProfileMessageToken = Messenger.SubscribeOnMainThread<ReloadProfileMessage>((msg) => _isReloadNeeded = true);
         }
 
         private void Unsubscription()
