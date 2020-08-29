@@ -5,6 +5,7 @@ using CoreAnimation;
 using CoreFoundation;
 using CoreGraphics;
 using CoreMedia;
+using FFImageLoading.Cross;
 using Foundation;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -30,11 +31,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         public AVPlayerViewController AVPlayerViewControllerInstance { get; private set; }
 
+        public abstract MvxCachedImageView StubImageView { get; }
+
         protected abstract UIView VideoView { get; }
 
         protected abstract UIActivityIndicatorView LoadingActivityIndicator { get; }
-
-        protected abstract UIImageView StubImageView { get; }
 
         protected abstract UIView RootProcessingBackgroundView { get; }
 
@@ -78,6 +79,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         public override void PrepareForReuse()
         {
+            StubImageView.Image = null;
+
             ShowStub();
 
             if (!_isObserverRemoved)

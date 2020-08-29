@@ -13,6 +13,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         string PreviewUrl { get; }
 
+        string StubImageUrl { get; }
+
         int VideoId { get; }
     }
 }

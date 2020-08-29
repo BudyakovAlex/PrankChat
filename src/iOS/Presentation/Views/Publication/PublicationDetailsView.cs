@@ -72,7 +72,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
 			set.Bind(videoImageView)
 				.For(v => v.ImagePath)
-				.To(vm => vm.VideoPlaceholderImageUrl)
+				.To(vm => vm.StubImageUrl)
 				.Mode(MvxBindingMode.OneTime);
 
 			set.Bind(videoNameLabel)

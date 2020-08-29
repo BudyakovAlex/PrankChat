@@ -1,4 +1,5 @@
 ﻿using System;
+using FFImageLoading.Cross;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Converters;
@@ -22,11 +23,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         {
         }
 
+        public override MvxCachedImageView StubImageView => stubImageView;
+
         protected override UIView VideoView => videoView;
 
         protected override UIActivityIndicatorView LoadingActivityIndicator => loadingActivityIndicator;
-
-        protected override UIImageView StubImageView => stubImageView;
 
         protected override UIView RootProcessingBackgroundView => rootProcessingBackgroundView;
 
@@ -126,10 +127,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             bindingSet.Bind(videoView)
                       .For(v => v.BindTap())
                       .To(vm => vm.ShowFullScreenVideoCommand);
-
-            bindingSet.Bind(stubImageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.StubImageUrl);
 
             bindingSet.Bind(likeButton)
                       .For(v => v.BindTouchUpInside())

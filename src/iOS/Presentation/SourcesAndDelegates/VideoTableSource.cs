@@ -6,6 +6,7 @@ using Foundation;
 using MvvmCross.Binding.Extensions;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -58,6 +59,18 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
             return UITableView.AutomaticDimension;
+        }
+
+        protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
+        {
+            var cell = base.GetOrCreateCellFor(tableView, indexPath, item);
+            if (cell is BaseVideoTableCell videoCell &&
+                item is IVideoItemViewModel itemViewModel)
+            {
+                videoCell.StubImageView.ImagePath = itemViewModel.StubImageUrl;
+            }
+
+            return cell;
         }
 
         protected override void Dispose(bool disposing)
