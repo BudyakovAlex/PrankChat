@@ -168,7 +168,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 Messenger.Publish(new OrderChangedMessage(this, newOrder));
                 await NavigationService.ShowOrderDetailsView(newOrder.Id, null, 0);
                 SetDefaultData();
+                return;
             }
+
+            await DialogService.ShowAlertAsync(Resources.Error_Unexpected_Server);
         }
 
         private async Task HandleLowBalanceExceptionAsync(Exception exception)
