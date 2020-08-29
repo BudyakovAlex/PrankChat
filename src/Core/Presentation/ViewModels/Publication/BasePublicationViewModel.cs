@@ -62,7 +62,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             IsDisliked = videoDataModel.IsDisliked;
             NumberOfLikes = videoDataModel.LikesCount;
             NumberOfDislikes = videoDataModel.DislikesCount;
-            VideoPlaceholderImageUrl = _videoDataModel.Poster;
+            StubImageUrl = _videoDataModel.Poster;
             NumberOfComments = videoDataModel.CommentsCount;
             IsCompetiotionVideo = videoDataModel.OrderCategory == OrderCategory.Competition;
 
@@ -112,7 +112,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string NumberOfCommentsPresentation => NumberOfComments.ToCountString();
 
-        public string VideoPlaceholderImageUrl { get; }
+        public string StubImageUrl { get; }
 
         public IVideoPlayerService VideoPlayerService { get; }
 

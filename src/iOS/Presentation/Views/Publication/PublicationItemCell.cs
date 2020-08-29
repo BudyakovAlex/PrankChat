@@ -1,5 +1,6 @@
 ﻿using CoreAnimation;
 using CoreGraphics;
+using FFImageLoading.Cross;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
@@ -65,11 +66,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             }
         }
 
+        public override MvxCachedImageView StubImageView => stubImageView;
+
         protected override UIView VideoView => videoView;
 
         protected override UIActivityIndicatorView LoadingActivityIndicator => loadingActivityIndicator;
-
-        protected override UIImageView StubImageView => stubImageView;
 
         protected override UIView RootProcessingBackgroundView => placeProcessingOverlay;
 
@@ -140,7 +141,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             bindingSet.Bind(moreButton).To(vm => vm.OpenSettingsCommand).Mode(MvxBindingMode.OneTime);
             bindingSet.Bind(shareButton).To(vm => vm.ShareCommand).Mode(MvxBindingMode.OneTime);
             bindingSet.Bind(videoView).For(v => v.BindTap()).To(vm => vm.ShowFullScreenVideoCommand);
-            bindingSet.Bind(stubImageView).For(v => v.ImagePath).To(vm => vm.VideoPlaceholderImageUrl);
             bindingSet.Bind(placeProcessingOverlay).For(v => v.BindVisible()).To(vm => vm.IsVideoProcessing);
             bindingSet.Bind(videoView).For(v => v.BindHidden()).To(vm => vm.IsVideoProcessing);
             bindingSet.Bind(this).For(v => v.CanShowStub).To(vm => vm.IsVideoProcessing).WithConversion<MvxInvertedBooleanConverter>();

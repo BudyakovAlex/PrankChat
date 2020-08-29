@@ -126,7 +126,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
             bindingSet.Bind(_profileNameTextView).For(v => v.Text).To(vm => vm.ProfileName);
             bindingSet.Bind(_videoInfoTextView).For(v => v.Text).To(vm => vm.VideoInformationText);
             bindingSet.Bind(_videoNameTextView).For(v => v.Text).To(vm => vm.VideoName);
-            bindingSet.Bind(StubImageView).For(v => v.ImagePath).To(vm => vm.VideoPlaceholderImageUrl);
+            bindingSet.Bind(StubImageView).For(v => v.ImagePath).To(vm => vm.StubImageUrl);
             bindingSet.Bind(_likeTextView).For(v => v.Text).To(vm => vm.NumberOfLikesText);
             bindingSet.Bind(_dislikeTextView).For(v => v.Text).To(vm => vm.NumberOfDislikesText);
             bindingSet.Bind(_videoContainerView).For(ViewTouchTargetBinding.TargetBinding).To(vm => vm.ShowFullScreenVideoCommand);
