@@ -79,6 +79,16 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
 
                     DisplayMessage(() => _dialogService.ShowToast(problemDetails.Message, ToastType.Negative));
                     break;
+
+                case Exception ex when ex.InnerException != null:
+                    var message = ex.InnerException.Message ?? Resources.Error_Unexpected_Server;
+                    DisplayMessage(() => _dialogService.ShowToast(message, ToastType.Negative));
+                    break;
+
+                case Exception ex:
+                    var errorMessage = !string.IsNullOrEmpty(ex.Message) ? ex.Message : Resources.Error_Unexpected_Server;
+                    DisplayMessage(async () => await _dialogService.ShowAlertAsync(errorMessage));
+                    break;
             }
         }
 
