@@ -148,11 +148,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                     ErrorHandleService.SuspendServerErrorsHandling();
                     await _pushNotificationService.UnregisterNotificationsAsync();
                     await ApiService.LogoutAsync();
-                    ErrorHandleService.SuspendServerErrorsHandling();
                 }
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine(ex);
+                }
+                finally
+                {
+                    ErrorHandleService.ResumeServerErrorsHandling();
                 }
             }
 
