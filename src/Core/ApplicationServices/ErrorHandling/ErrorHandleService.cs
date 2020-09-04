@@ -37,13 +37,22 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
         {
             switch (exception)
             {
-                case ValidationException validationException:
-                    var message = GetValidationErrorLocalizedMessage(validationException);
-                    DisplayMessage(() => _dialogService.ShowToast(message, ToastType.Negative));
+                case NetworkException networkException when !string.IsNullOrWhiteSpace(networkException.Message):
+                    DisplayMessage(() => _dialogService.ShowToast(networkException.Message, ToastType.Negative));
                     break;
 
-                case BaseUserVisibleException ex when !string.IsNullOrWhiteSpace(ex.Message):
-                    DisplayMessage(() => _dialogService.ShowToast(ex.Message, ToastType.Negative));
+                case ValidationException validationException:
+                    var loacalizedMessage = GetValidationErrorLocalizedMessage(validationException);
+                    DisplayMessage(() => _dialogService.ShowToast(loacalizedMessage, ToastType.Negative));
+                    break;
+
+                case BaseUserVisibleException userException when !string.IsNullOrWhiteSpace(userException.Message):
+                    DisplayMessage(() => _dialogService.ShowToast(userException.Message, ToastType.Negative));
+                    break;
+
+                case Exception ex:
+                    var message = string.IsNullOrWhiteSpace(ex.Message) ? Resources.Error_Unexpected_Network : ex.Message;
+                    DisplayMessage(() => _dialogService.ShowToast(message, ToastType.Negative));
                     break;
             }
         }
