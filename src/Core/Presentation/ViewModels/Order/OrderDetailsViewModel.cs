@@ -261,7 +261,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 _timerThicksCount = 0;
                 try
                 {
-                    _order = await ApiService.GetOrderDetailsAsync(_orderId);
+                    var refreshedOrder = await ApiService.GetOrderDetailsAsync(_orderId);
+                    if (refreshedOrder is null)
+                    {
+                        return;
+                    }
+
+                    _order = refreshedOrder;
                     RefreshFullScreenVideo();
                     await RaiseAllPropertiesChanged();
 
@@ -315,7 +321,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = true;
 
-                _order = await ApiService.GetOrderDetailsAsync(_orderId);
+                var refreshedOrder = await ApiService.GetOrderDetailsAsync(_orderId);
+                if (refreshedOrder is null)
+                {
+                    return;
+                }
+
+                _order = refreshedOrder;
                 RefreshFullScreenVideo();
                 await RaiseAllPropertiesChanged();
 
@@ -347,13 +359,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             try
             {
                 ErrorHandleService.SuspendServerErrorsHandling();
-                var order = await ApiService.TakeOrderAsync(_orderId);
-                if (order != null)
+                var takenOrder = await ApiService.TakeOrderAsync(_orderId);
+                if (takenOrder != null && _order != null)
                 {
-                    _order.Status = order.Status;
+                    _order.Status = takenOrder.Status;
                     _order.Executor = SettingsService.User;
-                    _order.ActiveTo = order.ActiveTo;
+                    _order.ActiveTo = takenOrder.ActiveTo;
                     await RaiseAllPropertiesChanged();
+                }
+
+                if (_order is null)
+                {
+                    return;
                 }
 
                 Messenger.Publish(new OrderChangedMessage(this, _order));
@@ -392,6 +409,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 var order = await ApiService.SubscribeOrderAsync(_orderId);
                 await RaiseAllPropertiesChanged();
+
+                if (_order is null)
+                {
+                    return;
+                }
+
                 Messenger.Publish(new OrderChangedMessage(this, _order));
             }
             catch (Exception ex)
@@ -467,25 +490,31 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 await LoadOrderDetailsAsync();
                 DialogService.ShowToast(Resources.OrderDetailsView_Video_Uploaded, ToastType.Positive);
                 await RaiseAllPropertiesChanged();
+
+                if (_order is null)
+                {
+                    return;
+                }
+
                 _order.Video = video;
                 _order.VideoUploadedAt = _order.VideoUploadedAt ?? DateTime.Now;
 
                 if (!_fullScreenVideos.Any(item => item.VideoId == video.Id))
                 {
                     _fullScreenVideos.Add(new FullScreenVideoDataModel(_order.Customer.Id,
-                                                                        _order.Customer.IsSubscribed,
-                                                                        _order.Video.Id,
-                                                                        _order.Video.StreamUri,
-                                                                        _order.Title,
-                                                                        _order.Description,
-                                                                        _order.Video.ShareUri,
-                                                                        _order.Customer.Avatar,
-                                                                        _order.Customer.Login.ToShortenName(),
-                                                                        _order.Video.LikesCount,
-                                                                        _order.Video.DislikesCount,
-                                                                        _order.Video.CommentsCount,
-                                                                        _order.Video.IsLiked,
-                                                                        _order.Video.IsDisliked));
+                                                                       _order.Customer.IsSubscribed,
+                                                                       _order.Video.Id,
+                                                                       _order.Video.StreamUri,
+                                                                       _order.Title,
+                                                                       _order.Description,
+                                                                       _order.Video.ShareUri,
+                                                                       _order.Customer.Avatar,
+                                                                       _order.Customer.Login.ToShortenName(),
+                                                                       _order.Video.LikesCount,
+                                                                       _order.Video.DislikesCount,
+                                                                       _order.Video.CommentsCount,
+                                                                       _order.Video.IsLiked,
+                                                                       _order.Video.IsDisliked));
                     _currentIndex = _fullScreenVideos.Count - 1;
                 }
 
@@ -518,13 +547,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 IsBusy = true;
 
                 var order = await ApiService.ArgueOrderAsync(_orderId);
-                if (order != null)
+                if (order != null && _order != null)
                 {
                     _order.Status = order.Status;
                     await RaiseAllPropertiesChanged();
+                    Messenger.Publish(new OrderChangedMessage(this, _order));
                 }
-
-                Messenger.Publish(new OrderChangedMessage(this, order));
             }
             catch (Exception ex)
             {
@@ -544,13 +572,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 IsBusy = true;
 
                 var order = await ApiService.AcceptOrderAsync(_orderId);
-                if (order != null)
+                if (order != null && _order != null)
                 {
                     _order.Status = order.Status;
                     await RaiseAllPropertiesChanged();
+                    Messenger.Publish(new OrderChangedMessage(this, order));
                 }
-
-                Messenger.Publish(new OrderChangedMessage(this, order));
             }
             catch (Exception ex)
             {
@@ -575,14 +602,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
             IsBusy = true;
 
-            var order = await ApiService.CancelOrderAsync(_orderId);
-            if (order != null)
+            var canceledOrder = await ApiService.CancelOrderAsync(_orderId);
+            if (canceledOrder != null && _order != null)
             {
-                _order.Status = order.Status;
+                _order.Status = canceledOrder.Status;
                 await RaiseAllPropertiesChanged();
+                Messenger.Publish(new OrderChangedMessage(this, _order));
             }
 
-            Messenger.Publish(new OrderChangedMessage(this, _order));
             IsBusy = false;
         }
 
@@ -601,16 +628,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             try
             {
                 IsYesSelected = !IsYesSelected;
-                var order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Positive);
-                if (order != null)
+                var votedOrder = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Positive);
+                if (votedOrder != null && _order != null)
                 {
-                    _order.MyArbitrationValue = order.MyArbitrationValue;
-                    _order.PositiveArbitrationValuesCount = order.PositiveArbitrationValuesCount;
-                    _order.NegativeArbitrationValuesCount = order.NegativeArbitrationValuesCount;
+                    _order.MyArbitrationValue = votedOrder.MyArbitrationValue;
+                    _order.PositiveArbitrationValuesCount = votedOrder.PositiveArbitrationValuesCount;
+                    _order.NegativeArbitrationValuesCount = votedOrder.NegativeArbitrationValuesCount;
                     await RaiseAllPropertiesChanged();
+                    Messenger.Publish(new OrderChangedMessage(this, votedOrder));
                 }
-
-                Messenger.Publish(new OrderChangedMessage(this, order));
             }
             catch (Exception ex)
             {
@@ -633,16 +659,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             try
             {
                 IsNoSelected = !IsNoSelected;
-                var order = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Negative);
-                if (order != null)
+                var votedOrder = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Negative);
+                if (votedOrder != null && _order != null)
                 {
-                    _order.MyArbitrationValue = order.MyArbitrationValue;
-                    _order.PositiveArbitrationValuesCount = order.PositiveArbitrationValuesCount;
-                    _order.NegativeArbitrationValuesCount = order.NegativeArbitrationValuesCount;
+                    _order.MyArbitrationValue = votedOrder.MyArbitrationValue;
+                    _order.PositiveArbitrationValuesCount = votedOrder.PositiveArbitrationValuesCount;
+                    _order.NegativeArbitrationValuesCount = votedOrder.NegativeArbitrationValuesCount;
                     await RaiseAllPropertiesChanged();
+                    Messenger.Publish(new OrderChangedMessage(this, votedOrder));
                 }
-
-                Messenger.Publish(new OrderChangedMessage(this, order));
             }
             catch (Exception ex)
             {
@@ -687,6 +712,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return;
             }
 
+            if (_order is null)
+            {
+                return;
+            }
+
             Messenger.Publish(new OrderChangedMessage(this, _order));
         }
 
@@ -725,7 +755,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
             if (result == Resources.Publication_Item_Copy_Link)
             {
-                await _platformService.CopyTextAsync(_order.Video.ShareUri);
+                await _platformService.CopyTextAsync(_order?.Video?.ShareUri);
                 DialogService.ShowToast(Resources.LinkCopied, ToastType.Positive);
                 return;
             }
