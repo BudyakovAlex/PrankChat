@@ -55,15 +55,22 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Mediaes
 
         public async Task<MediaFile> PickVideoAsync()
         {
-            var result = await _permissionService.RequestPermissionAsync<StoragePermission>();
-            if (!result)
+            try
             {
-                _dialogService.ShowAlertAsync("Разрешите приложению использовать хранилище.").FireAndForget();
+                var result = await _permissionService.RequestPermissionAsync<StoragePermission>();
+                if (!result)
+                {
+                    _dialogService.ShowAlertAsync("Разрешите приложению использовать хранилище.").FireAndForget();
+                    return null;
+                }
+
+                await Initialize();
+                return await CrossMedia.Current.PickVideoAsync();
+            }
+            catch
+            {
                 return null;
             }
-
-            await Initialize();
-            return await CrossMedia.Current.PickVideoAsync();
         }
 
         private async Task Initialize()

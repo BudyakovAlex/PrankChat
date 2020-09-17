@@ -274,7 +274,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 var errorContent = await response.Content.ReadAsStringAsync();
                 throw new NetworkException($"Network error - {errorContent} with code {response.StatusCode} for request {response.RequestMessage.RequestUri}");
             }
-            catch (Exception ex) when (ex.Message.Contains("Socket closed") || ex.Message.Contains("Failed to connect"))
+            catch (Exception ex) when (!string.IsNullOrEmpty(ex.Message) && (ex.Message.Contains("Socket closed") || ex.Message.Contains("Failed to connect")))
             {
                 //TODO: add no internet connection message
                 var error = new ProblemDetailsDataModel(Resources.Error_Unexpected_Network)

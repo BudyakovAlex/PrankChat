@@ -198,6 +198,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         {
             try
             {
+                if (IsBusy)
+                {
+                    return;
+                }
+
                 IsBusy = true;
 
                 var file = await _mediaService.PickVideoAsync();
