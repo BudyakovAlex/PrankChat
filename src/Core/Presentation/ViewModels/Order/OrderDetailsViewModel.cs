@@ -453,6 +453,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             try
             {
+                if (IsBusy)
+                {
+                    return;
+                }
+
                 IsBusy = true;
 
                 var file = await _mediaService.PickVideoAsync();
