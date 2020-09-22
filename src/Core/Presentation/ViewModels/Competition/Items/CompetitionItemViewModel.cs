@@ -23,9 +23,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         private MvxSubscriptionToken _timerTickMessageToken;
 
         public CompetitionItemViewModel(bool isUserSessionInitialized,
-                                IMvxMessenger mvxMessenger,
-                                INavigationService navigationService,
-                                CompetitionDataModel competition)
+                                        IMvxMessenger mvxMessenger,
+                                        INavigationService navigationService,
+                                        CompetitionDataModel competition)
         {
             _mvxMessenger = mvxMessenger;
             _navigationService = navigationService;

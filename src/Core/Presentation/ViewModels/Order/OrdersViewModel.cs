@@ -101,8 +101,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 {
                     RaisePropertyChanged(nameof(ActiveFilterName));
 
-                    LoadDataCommand.Cancel();
-                    LoadDataCommand.ExecuteAsync();
+                    Items.Clear();
+                    _ = DebounceRefreshDataAsync(value);
                 }
             }
         }
@@ -160,6 +160,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = false;
             }
+        }
+
+        private async Task DebounceRefreshDataAsync(OrdersTabType ordersTabType)
+        {
+            IsBusy = true;
+
+            var buffer = ordersTabType;
+            await Task.Delay(Constants.Delays.DebounceDelay);
+
+            if (buffer != _tabType)
+            {
+                return;
+            }
+
+            await ReloadItemsCommand.ExecuteAsync();
         }
 
         private Task ShowWalkthrouthAsync()

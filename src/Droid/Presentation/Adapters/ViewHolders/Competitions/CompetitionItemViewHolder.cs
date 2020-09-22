@@ -2,7 +2,6 @@
 using Android.Widget;
 using FFImageLoading.Cross;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Converters;
