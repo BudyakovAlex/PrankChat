@@ -45,6 +45,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private MvxSubscriptionToken _tabChangedMessage;
         private MvxSubscriptionToken _enterForegroundMessage;
 
+        private Task _reloadTask;
+
         private string _activeOrderFilterName = string.Empty;
         private string _activeArbitrationFilterName = string.Empty;
 
@@ -101,8 +103,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 {
                     RaisePropertyChanged(nameof(ActiveFilterName));
 
-                    Items.Clear();
-                    _ = DebounceRefreshDataAsync(value);
+                    _ = DebounceRefreshDataAsync();
                 }
             }
         }
@@ -162,19 +163,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private async Task DebounceRefreshDataAsync(OrdersTabType ordersTabType)
+        private async Task DebounceRefreshDataAsync()
         {
-            IsBusy = true;
-
-            var buffer = ordersTabType;
-            await Task.Delay(Constants.Delays.DebounceDelay);
-
-            if (buffer != _tabType)
+            if (_reloadTask != null &&
+                !_reloadTask.IsCompleted &&
+                !_reloadTask.IsCanceled &&
+                !_reloadTask.IsFaulted)
             {
-                return;
+                await _reloadTask;
             }
 
-            await ReloadItemsCommand.ExecuteAsync();
+            Items.Clear();
+            _reloadTask = ReloadItemsCommand.ExecuteAsync();
         }
 
         private Task ShowWalkthrouthAsync()

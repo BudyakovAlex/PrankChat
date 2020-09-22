@@ -1,16 +1,18 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using MvvmCross;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
+using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Exceptions.UserVisible;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
@@ -22,6 +24,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
         private readonly IDialogService _dialogService;
         private readonly IMvxLogProvider _logProvider;
+
+        private readonly Lazy<ICrashlyticsService> _lazyCrashlyticsService = new Lazy<ICrashlyticsService>(() => Mvx.IoCProvider.Resolve<ICrashlyticsService>());
 
         private bool _isSuspended;
 
@@ -89,12 +93,20 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
                     DisplayMessage(() => _dialogService.ShowToast(problemDetails.Message, ToastType.Negative));
                     break;
 
+                case NullReferenceException nullReference:
+                    _lazyCrashlyticsService.Value.TrackError(nullReference);
+                    break;
+
+                case Exception ex when ex.InnerException is NullReferenceException:
+                    _lazyCrashlyticsService.Value.TrackError(ex);
+                    break;
+
                 case Exception ex when ex.InnerException != null:
                     var message = ex.InnerException.Message ?? Resources.Error_Unexpected_Server;
                     DisplayMessage(() => _dialogService.ShowToast(message, ToastType.Negative));
                     break;
 
-                case Exception ex:
+                case Exception ex when ex.GetType() != typeof(NullReferenceException):
                     var errorMessage = !string.IsNullOrEmpty(ex.Message) ? ex.Message : Resources.Error_Unexpected_Server;
                     DisplayMessage(async () => await _dialogService.ShowAlertAsync(errorMessage));
                     break;
