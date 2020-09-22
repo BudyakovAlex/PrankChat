@@ -1,16 +1,11 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 using System.Threading.Tasks;
@@ -21,6 +16,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
     {
         private int _userId;
         private bool _isUpdateNeeded;
+
+        private Task _reloadTask;
 
         public SubscriptionsViewModel() : base(Constants.Pagination.DefaultPaginationSize)
         {
@@ -44,11 +41,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
             get => _selectedTabType;
             set
             {
-                if (SetProperty(ref _selectedTabType, value))
-                {
-                    LoadDataCommand.Cancel();
-                    LoadDataCommand.ExecuteAsync();
-                }
+                SetProperty(ref _selectedTabType, value);
+                _ = DebounceRefreshDataAsync();
             }
         }
 
@@ -74,6 +68,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
             Items.Clear();
 
             return LoadMoreItemsCommand.ExecuteAsync();
+        }
+
+        private async Task DebounceRefreshDataAsync()
+        {
+            if (_reloadTask != null &&
+                !_reloadTask.IsCompleted &&
+                !_reloadTask.IsCanceled &&
+                !_reloadTask.IsFaulted)
+            {
+                await _reloadTask;
+            }
+
+            Items.Clear();
+            _reloadTask = ReloadItemsCommand.ExecuteAsync();
         }
 
         public void Prepare(SubscriptionsNavigationParameter parameter)

@@ -32,6 +32,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private MvxSubscriptionToken _tabChangedMessage;
         private MvxSubscriptionToken _enterForegroundMessage;
 
+        private Task _reloadTask;
+
         public PublicationsViewModel(IPlatformService platformService, IVideoPlayerService videoPlayerService) : base(Constants.Pagination.DefaultPaginationSize)
         {
             _platformService = platformService;
@@ -60,8 +62,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             {
                 SetProperty(ref _selectedPublicationType, value);
 
-                Items.Clear();
-                _ = DebounceRefreshDataAsync(value);
+                _ = DebounceRefreshDataAsync();
             }
         }
 
@@ -137,19 +138,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             base.ViewDestroy(viewFinishing);
         }
 
-        private async Task DebounceRefreshDataAsync(PublicationType publicationType)
+        private async Task DebounceRefreshDataAsync()
         {
-            IsBusy = true;
-
-            var buffer = publicationType;
-            await Task.Delay(Constants.Delays.DebounceDelay);
-
-            if (buffer != _selectedPublicationType)
+            if (_reloadTask != null &&
+                !_reloadTask.IsCompleted &&
+                !_reloadTask.IsCanceled &&
+                !_reloadTask.IsFaulted)
             {
-                return;
+                await _reloadTask;
             }
 
-            await ReloadItemsCommand.ExecuteAsync();
+            Items.Clear();
+            _reloadTask = ReloadItemsCommand.ExecuteAsync();
         }
 
         private async Task OnOpenFilterAsync(CancellationToken arg)
