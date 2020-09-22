@@ -50,7 +50,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         public ProfileOrderType SelectedOrderType
         {
             get => _selectedOrderType;
-            set => SetProperty(ref _selectedOrderType, value, () => LoadProfileCommand.Execute());
+            set => SetProperty(ref _selectedOrderType, value, OnSelectedOrderTypeChanged);
         }
 
         private string _price;
@@ -133,6 +133,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             Unsubscription();
             base.ViewDestroy(viewFinishing);
+        }
+
+        private void OnSelectedOrderTypeChanged()
+        {
+            Items.Clear();
+            LoadProfileCommand.Cancel();
+            LoadProfileCommand.Execute();
         }
 
         private async Task ShowSubscribersAsync()

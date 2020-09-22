@@ -58,10 +58,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             get => _selectedPublicationType;
             set
             {
-                if (SetProperty(ref _selectedPublicationType, value))
-                {
-                    ReloadItemsCommand.Execute();
-                }
+                SetProperty(ref _selectedPublicationType, value);
+
+                Items.Clear();
+                _ = DebounceRefreshDataAsync(value);
             }
         }
 
@@ -135,6 +135,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             Unsubscription();
             base.ViewDestroy(viewFinishing);
+        }
+
+        private async Task DebounceRefreshDataAsync(PublicationType publicationType)
+        {
+            IsBusy = true;
+
+            var buffer = publicationType;
+            await Task.Delay(Constants.Delays.DebounceDelay);
+
+            if (buffer != _selectedPublicationType)
+            {
+                return;
+            }
+
+            await ReloadItemsCommand.ExecuteAsync();
         }
 
         private async Task OnOpenFilterAsync(CancellationToken arg)

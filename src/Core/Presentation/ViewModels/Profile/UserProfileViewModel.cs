@@ -40,10 +40,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             get => _selectedOrderType;
             set
             {
-                if (SetProperty(ref _selectedOrderType, value))
-                {
-                    ReloadItemsCommand.Execute();
-                }
+                SetProperty(ref _selectedOrderType, value);
+
+                Items.Clear();
+                ReloadItemsCommand.Cancel();
+                ReloadItemsCommand.Execute();
             }
         }
 

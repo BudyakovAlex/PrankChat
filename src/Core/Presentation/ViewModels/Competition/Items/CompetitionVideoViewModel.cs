@@ -21,7 +21,7 @@ using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
-    public class CompetitionVideoViewModel : BaseItemViewModel, IVideoItemViewModel
+    public class CompetitionVideoViewModel : BaseItemViewModel, IVideoItemViewModel, IDisposable
     {
         private readonly IApiService _apiService;
         private readonly INavigationService _navigationService;
@@ -34,6 +34,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
 
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
+        private MvxSubscriptionToken _updateNumberOfViewsSubscriptionToken;
 
         public CompetitionVideoViewModel(IApiService apiService,
                                          IVideoPlayerService videoPlayerService,
@@ -68,6 +69,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
             LikeCommand = new MvxCommand(Like);
             OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+
+            Subscribe();
         }
 
         public ICommand LikeCommand { get; }
@@ -141,7 +144,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             {
                 if (SetProperty(ref _numberOfViews, value))
                 {
-                    RaisePropertyChanged(nameof(LikesCount));
+                    RaisePropertyChanged(nameof(ViewsCount));
                 }
             }
         }
@@ -233,6 +236,42 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             }
 
             _mvxMessenger.Publish(new ReloadCompetitionMessage(this));
+        }
+
+        private void Subscribe()
+        {
+            _updateNumberOfViewsSubscriptionToken = _mvxMessenger.Subscribe<ViewCountMessage>(viewCountMessage =>
+            {
+                if (viewCountMessage.VideoId == VideoId)
+                {
+                    NumberOfViews = viewCountMessage.ViewsCount;
+                }
+            });
+        }
+
+        private void Unsubscribe()
+        {
+            if (_updateNumberOfViewsSubscriptionToken is null)
+            {
+                return;
+            }
+
+            _updateNumberOfViewsSubscriptionToken.Dispose();
+            _updateNumberOfViewsSubscriptionToken = null;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Unsubscribe();
+            }
         }
     }
 }

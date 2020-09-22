@@ -28,10 +28,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         private MvxSubscriptionToken _timerTickMessageToken;
 
         public OrderItemViewModel(INavigationService navigationService,
-                          ISettingsService settingsService,
-                          IMvxMessenger mvxMessenger,
-                          OrderDataModel orderDataModel,
-                          Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
+                                  ISettingsService settingsService,
+                                  IMvxMessenger mvxMessenger,
+                                  OrderDataModel orderDataModel,
+                                  Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
         {
             _navigationService = navigationService;
             _settingsService = settingsService;

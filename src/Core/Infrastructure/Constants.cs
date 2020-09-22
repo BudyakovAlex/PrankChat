@@ -44,6 +44,7 @@ namespace PrankChat.Mobile.Core.Infrastructure
             public const int ViewedFactRegistrationDelayInMilliseconds = 3000;
             public const int MillisecondsDelayBeforeMarkAsReaded = 3000;
             public const int RepeatDelayInSeconds = 10;
+            public const int DebounceDelay = 500;
         }
 
         public static class Age
