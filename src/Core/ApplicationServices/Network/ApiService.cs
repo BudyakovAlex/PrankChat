@@ -107,8 +107,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 return;
             }
 
-            if (response.StatusCode == HttpStatusCode.Unauthorized ||
-                response.StatusCode == HttpStatusCode.Forbidden)
+            var statusCode = response.StatusCode;
+            if (statusCode == HttpStatusCode.Unauthorized ||
+                statusCode == HttpStatusCode.Forbidden ||
+                statusCode == HttpStatusCode.InternalServerError)
             {
                 _messenger.Publish(new RefreshTokenExpiredMessage(this));
             }
