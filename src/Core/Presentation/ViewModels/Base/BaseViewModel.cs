@@ -93,7 +93,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         private void OnTimerTick(TimerTickMessage msg)
         {
             _timerThicksCount++;
-            if (_timerThicksCount >= 10)
+            if (_timerThicksCount >= 15)
             {
                 _timerThicksCount = 0;
                 NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null).FireAndForget();

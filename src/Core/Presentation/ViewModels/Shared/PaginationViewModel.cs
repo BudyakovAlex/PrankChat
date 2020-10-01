@@ -110,7 +110,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
             }
         }
 
-        private Task ReloadItemsAsync()
+        protected Task ReloadItemsAsync()
         {
             Reset();
             return LoadMoreItemsInternalAsync();

@@ -28,6 +28,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         {
             try
             {
+                if (IsBusy)
+                {
+                    return;
+                }
+
                 IsBusy = true;
 
                 if (_settingsService.User is null)
