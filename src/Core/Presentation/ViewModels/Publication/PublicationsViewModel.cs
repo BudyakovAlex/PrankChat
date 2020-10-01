@@ -139,6 +139,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private async Task DebounceRefreshDataAsync(PublicationType publicationType)
         {
+            Items.Clear();
             await Task.Delay(500);
             if (publicationType != SelectedPublicationType)
             {
