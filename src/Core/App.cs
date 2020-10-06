@@ -28,11 +28,7 @@ namespace PrankChat.Mobile.Core
         public override void Initialize()
         {
 
-            using (SentrySdk.Init("https://077bd6b9706f4247a2bf8cab4ac3bf44@o453054.ingest.sentry.io/5454419"))
-            {
-                throw null;
-            }
-
+           
             InitializeMappings();
 
             Mvx.IoCProvider.ConstructAndRegisterSingleton<ITimerService, TimerService>();
@@ -52,6 +48,12 @@ namespace PrankChat.Mobile.Core
             Mvx.IoCProvider.ConstructAndRegisterSingleton<INotificationBageViewModel, NotificationBageViewModel>();
 
             RegisterCustomAppStart<CustomAppStart>();
+
+            using (SentrySdk.Init("https://077bd6b9706f4247a2bf8cab4ac3bf44@o453054.ingest.sentry.io/5454419"))
+            {
+                throw null;
+            }
+
         }
 
         private void InitializeMappings()
