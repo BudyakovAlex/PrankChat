@@ -140,7 +140,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             var response = default(HttpResponseMessage);
             try
             {
-                using (var client = new System.Net.Http.HttpClient())
+                using (var client = new System.Net.Http.HttpClient() { Timeout = TimeSpan.FromMinutes(15) })
                 {
                     var accessToken = await _settingsService.GetAccessTokenAsync();
                     client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
@@ -217,7 +217,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             var response = default(HttpResponseMessage);
             try
             {
-                using (var client = new System.Net.Http.HttpClient())
+                using (var client = new System.Net.Http.HttpClient() { Timeout = TimeSpan.FromMinutes(15) })
                 {
                     var accessToken = await _settingsService.GetAccessTokenAsync();
                     client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");

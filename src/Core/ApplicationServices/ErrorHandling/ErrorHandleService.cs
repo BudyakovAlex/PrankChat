@@ -4,6 +4,7 @@ using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
+using PrankChat.Mobile.Core.BusinessServices.Sentry;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Exceptions.UserVisible;
@@ -26,6 +27,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
         private readonly IMvxLogProvider _logProvider;
 
         private readonly Lazy<ICrashlyticsService> _lazyCrashlyticsService = new Lazy<ICrashlyticsService>(() => Mvx.IoCProvider.Resolve<ICrashlyticsService>());
+        private readonly Lazy<ISentryService> _lazySentryService = new Lazy<ISentryService>(() => Mvx.IoCProvider.Resolve<ISentryService>());
 
         private bool _isSuspended;
 
@@ -66,6 +68,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
             var senderType = sender.GetType();
             var logger = _logProvider.GetLogFor(senderType);
             logger.Log(MvxLogLevel.Error, () => message, exception);
+            _lazySentryService.Value.TrackEvent(message);
         }
 
         private void OnServerErrorEvent(ServerErrorMessage e)
@@ -95,10 +98,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
 
                 case NullReferenceException nullReference:
                     _lazyCrashlyticsService.Value.TrackError(nullReference);
+                    _lazySentryService.Value.TrackError(nullReference);
                     break;
 
                 case Exception ex when ex.InnerException is NullReferenceException:
                     _lazyCrashlyticsService.Value.TrackError(ex);
+                    _lazySentryService.Value.TrackError(ex);
                     break;
 
                 case Exception ex when ex.InnerException != null:

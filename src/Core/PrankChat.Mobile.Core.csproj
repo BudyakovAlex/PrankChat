@@ -19,6 +19,7 @@
     <PackageReference Include="MvvmCross.Plugin.Messenger" Version="6.4.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="RestSharp" Version="106.11.4" />
+    <PackageReference Include="Sentry" Version="2.1.6" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
     <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
@@ -41,7 +42,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BusinessServices\" />
     <Folder Include="Presentation\Navigation\" />
     <Folder Include="Presentation\Navigation\Parameters\" />
     <Folder Include="Models\Enums\" />
