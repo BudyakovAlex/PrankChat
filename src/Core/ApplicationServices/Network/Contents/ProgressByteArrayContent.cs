@@ -61,7 +61,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Contents
                     uploaded += buffer.Length;
                     _onProgressChanged?.Invoke(uploaded, size);
                     stream.Write(buffer, 0, buffer.Length);
+                    stream.Flush();
                 }
+
+                stream.Flush();
             });
         }
 
