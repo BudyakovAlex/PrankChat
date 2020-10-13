@@ -8,8 +8,11 @@
 
   <ItemGroup>
     <Compile Remove="ApplicationServices\Network\Errors\**" />
+    <Compile Remove="Infrastructure\Converters\**" />
     <EmbeddedResource Remove="ApplicationServices\Network\Errors\**" />
+    <EmbeddedResource Remove="Infrastructure\Converters\**" />
     <None Remove="ApplicationServices\Network\Errors\**" />
+    <None Remove="Infrastructure\Converters\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,7 +62,6 @@
     <Folder Include="Presentation\ViewModels\Dialogs\" />
     <Folder Include="ApplicationServices\Platforms\" />
     <Folder Include="Models\Data\FilterTypes\" />
-    <Folder Include="ApplicationServices\Network\JsonSerializers\Converters\" />
     <Folder Include="Exceptions\Network\" />
     <Folder Include="ApplicationServices\Timer\" />
     <Folder Include="ApplicationServices\Dialogs\" />
