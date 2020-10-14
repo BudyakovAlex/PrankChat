@@ -13,6 +13,10 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("price")]
         public double? Price { get; set; }
 
+        [JsonProperty("type")]
+        public OrderCategory? Type { get; set; }
+
+
         [JsonProperty("title")]
         public string Title { get; set; }
 
