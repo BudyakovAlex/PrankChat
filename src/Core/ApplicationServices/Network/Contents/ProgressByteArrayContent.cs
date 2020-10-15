@@ -36,31 +36,33 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Contents
             _cancellationToken = cancellationToken;
         }
 
-        protected override async Task SerializeToStreamAsync(Stream stream, TransportContext context)
+        protected override Task SerializeToStreamAsync(Stream stream, TransportContext context)
         {
             Contract.Assert(stream != null);
 
-
-            var size = _content.LongLength;
-
-            var uploaded = 0;
-            while (true)
+            return Task.Run(() =>
             {
-                if (_cancellationToken.IsCancellationRequested)
-                {
-                    break;
-                }
+                var size = _content.LongLength;
 
-                var buffer = _content.Skip(uploaded).Take(_bufferSize).ToArray();
-                if (buffer.Length <= 0)
+                var uploaded = 0;
+                while (true)
                 {
-                    break;
-                }
+                    if (_cancellationToken.IsCancellationRequested)
+                    {
+                        break;
+                    }
 
-                uploaded += buffer.Length;
-                _onProgressChanged?.Invoke(uploaded, size);
-                await stream.WriteAsync(buffer, 0, buffer.Length);
-            }
+                    var buffer = _content.Skip(uploaded).Take(_bufferSize).ToArray();
+                    if (buffer.Length <= 0)
+                    {
+                        break;
+                    }
+
+                    uploaded += buffer.Length;
+                    _onProgressChanged?.Invoke(uploaded, size);
+                    stream.Write(buffer, 0, buffer.Length);
+                }
+            });
         }
 
         protected override bool TryComputeLength(out long length)
