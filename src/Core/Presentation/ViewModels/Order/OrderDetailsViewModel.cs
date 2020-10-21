@@ -519,7 +519,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                                                        _order.Video.DislikesCount,
                                                                        _order.Video.CommentsCount,
                                                                        _order.Video.IsLiked,
-                                                                       _order.Video.IsDisliked));
+                                                                       _order.Video.IsDisliked,
+                                                                       _order.Video.Poster));
                     _currentIndex = _fullScreenVideos.Count - 1;
                 }
 
@@ -709,7 +710,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                                                             _order.Video.DislikesCount,
                                                                             _order.Video.CommentsCount,
                                                                             _order.Video.IsLiked,
-                                                                            _order.Video.IsDisliked)); ;
+                                                                            _order.Video.IsDisliked,
+                                                                            _order.Video.Poster)); ;
 
             var shouldReload = await NavigationService.ShowFullScreenVideoView(navigationParams);
             if (!shouldReload)

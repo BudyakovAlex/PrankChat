@@ -107,7 +107,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
                                                 _orderDataModel.Video.DislikesCount,
                                                 _orderDataModel.Video.CommentsCount,
                                                 _orderDataModel.Video.IsLiked,
-                                                _orderDataModel.Video.IsDisliked); ;
+                                                _orderDataModel.Video.IsDisliked,
+                                                _orderDataModel.Video.Poster);
         }
 
         private Task OpenUserProfileAsync()
