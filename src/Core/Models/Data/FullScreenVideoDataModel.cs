@@ -16,6 +16,7 @@
                                         long? numberOfComments,
                                         bool isLiked,
                                         bool isDisliked,
+                                        string stubImageUrl,
                                         bool isLikeFlowAvailable = true)
         {
             UserId = userId;
@@ -33,6 +34,7 @@
             IsLiked = isLiked;
             IsDisliked = isDisliked;
             IsLikeFlowAvailable = isLikeFlowAvailable;
+            StubImageUrl = stubImageUrl;
         }
 
         public bool IsSubscribed { get; set; }
@@ -64,5 +66,7 @@
         public bool IsDisliked { get; }
 
         public bool IsLikeFlowAvailable { get; }
+
+        public string StubImageUrl { get; set; }
     }
 }

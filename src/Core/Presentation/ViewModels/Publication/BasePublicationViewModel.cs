@@ -200,7 +200,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                                 NumberOfDislikes,
                                                 NumberOfComments,
                                                 IsLiked,
-                                                IsDisliked);
+                                                IsDisliked,
+                                                StubImageUrl);
         }
 
         private Task OpenUserProfileAsync()
