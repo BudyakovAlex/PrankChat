@@ -1,10 +1,9 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Support.V7.Widget;
 using Android.Widget;
-using Com.Airbnb.Lottie;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -21,7 +20,12 @@ using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Search;
 using PrankChat.Mobile.Droid.Presentation.Converters;
+using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
+using System;
+using System.Threading.Tasks;
+using Android.Views;
+using System.Diagnostics;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {
@@ -32,11 +36,15 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         private FrameLayout _loadingOverlay;
         private ClearEditText _searchTextView;
         private EndlessRecyclerView _recyclerView;
+        private SafeLinearLayoutManager _layoutManager;
         private RecycleViewBindableAdapter _adapter;
+        private StateScrollListener _stateScrollListener;
+        private PublicationItemViewHolder _previousVideoViewHolder;
+        private TextureView _previousVideoView;
 
         protected override bool HasBackButton => true;
 
-        protected override void OnCreate(Bundle bundle)
+        protected override void OnCreate(Android.OS.Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.activity_search);
 
@@ -49,11 +57,15 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             _searchTextView = FindViewById<ClearEditText>(Resource.Id.search_text_view);
             _recyclerView = FindViewById<EndlessRecyclerView>(Resource.Id.search_recycler_view);
 
-            var layoutManager = new SafeLinearLayoutManager(this, LinearLayoutManager.Vertical, false);
-            _recyclerView.SetLayoutManager(layoutManager);
+            _layoutManager = new SafeLinearLayoutManager(this, LinearLayoutManager.Vertical, false);
+            _recyclerView.SetLayoutManager(_layoutManager);
 
             _adapter = new RecycleViewBindableAdapter((IMvxAndroidBindingContext)BindingContext);
             _recyclerView.Adapter = _adapter;
+
+            _stateScrollListener = new StateScrollListener();
+            _recyclerView.AddOnScrollListener(_stateScrollListener);
+
             _recyclerView.ItemTemplateSelector = new TemplateSelector()
                 .AddElement<ProfileSearchItemViewModel, ProfileSearchItemViewHolder>(Resource.Layout.cell_search)
                 .AddElement<PublicationItemViewModel, PublicationItemViewHolder>(Resource.Layout.cell_publication)
@@ -115,6 +127,94 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
         public void OnTabUnselected(TabLayout.Tab tab)
         {
+        }
+
+        protected override void Subscription()
+        {
+            _stateScrollListener.FinishScroll += StateScrollListenerFinishScroll;
+        }
+
+        protected override void Unsubscription()
+        {
+            _stateScrollListener.FinishScroll -= StateScrollListenerFinishScroll;
+        }
+
+        private void StateScrollListenerFinishScroll(object sender, EventArgs e)
+        {
+            PlayVisibleVideoAsync().FireAndForget();
+        }
+
+        private Task PlayVisibleVideoAsync()
+        {
+            var firstCompletelyVisibleItemPosition = _layoutManager.FindFirstCompletelyVisibleItemPosition();
+            var lastCompletelyVisibleItemPosition = _layoutManager.FindLastCompletelyVisibleItemPosition();
+
+            var targetPosition = firstCompletelyVisibleItemPosition;
+            if (firstCompletelyVisibleItemPosition == -1)
+            {
+                targetPosition = lastCompletelyVisibleItemPosition;
+            }
+
+            targetPosition = targetPosition == -1
+                ? _layoutManager.FindFirstVisibleItemPosition()
+                : targetPosition;
+
+            var viewHolder = _recyclerView.FindViewHolderForAdapterPosition(targetPosition);
+            if (viewHolder is PublicationItemViewHolder itemViewHolder)
+            {
+                itemViewHolder.LoadingProgressBar.Visibility = ViewStates.Visible;
+                PlayVideo(itemViewHolder, itemViewHolder.TextureView);
+            }
+
+            return Task.CompletedTask;
+        }
+
+        private void PlayVideo(PublicationItemViewHolder itemViewHolder, TextureView textureView)
+        {
+            if (_previousVideoViewHolder?.ViewModel != null &&
+                _previousVideoViewHolder.ViewModel.VideoPlayerService != null &&
+                _previousVideoView != null)
+            {
+                StopVideo(_previousVideoViewHolder);
+            }
+
+            Debug.WriteLine("PlayVideo [Start]");
+
+            if (itemViewHolder?.ViewModel?.VideoPlayerService is null ||
+                textureView is null ||
+                itemViewHolder?.ViewModel?.PreviewUrl is null)
+            {
+                return;
+            }
+
+            if (itemViewHolder.ViewModel.VideoPlayerService.Player.IsPlaying)
+            {
+                return;
+            }
+
+            var videoService = itemViewHolder.ViewModel.VideoPlayerService;
+
+            videoService.Player.SetPlatformVideoPlayerContainer(textureView);
+            videoService.Player.VideoRenderingStartedAction = itemViewHolder.OnRenderingStarted;
+            videoService.Play(itemViewHolder.ViewModel.PreviewUrl, itemViewHolder.ViewModel.VideoId);
+            _previousVideoViewHolder = itemViewHolder;
+            _previousVideoView = textureView;
+
+            Debug.WriteLine("PlayVideo [End]");
+        }
+
+        private void StopVideo(PublicationItemViewHolder viewHolder)
+        {
+            Debug.WriteLine("StopVideo [Start]");
+            if (viewHolder?.ViewModel?.VideoPlayerService?.Player is null)
+            {
+                return;
+            }
+
+            viewHolder.ViewModel.VideoPlayerService.Player.VideoRenderingStartedAction = null;
+            viewHolder.StubImageView.Visibility = ViewStates.Visible;
+            viewHolder.ViewModel.VideoPlayerService.Stop();
+            viewHolder.LoadingProgressBar.Visibility = ViewStates.Invisible;
         }
     }
 }
