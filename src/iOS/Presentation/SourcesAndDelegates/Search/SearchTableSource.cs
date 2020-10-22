@@ -24,11 +24,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
                     return tableView.DequeueReusableCell(ProfileSearchItemCell.CellId);
                 case OrderItemViewModel _:
                     return tableView.DequeueReusableCell(OrderItemCell.CellId);
-                case PublicationItemViewModel _:
-                    return tableView.DequeueReusableCell(PublicationItemCell.CellId);
+                default:
+                    return new MvxStandardTableViewCell(string.Empty, UITableViewCellStyle.Default, new NSString("MvxStandardTableViewCell"));
             }
-
-            return null;
         }
 
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)

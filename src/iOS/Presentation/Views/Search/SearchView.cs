@@ -3,9 +3,13 @@ using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
+using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates.Search;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
@@ -21,7 +25,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 
         public SearchTableSource OrdersTableSource { get; private set; }
         public SearchTableSource PeoplesTableSource { get; private set; }
-        public SearchTableSource VideosTableSource { get; private set; }
+        public VideoTableSource VideosTableSource { get; private set; }
 
         public UISearchBar SearchBar { get; set; }
 
@@ -118,14 +122,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 
         private void SetupVideosTableView()
         {
-            VideosTableSource = new SearchTableSource(videosTableView);
-            videosTableView.Source = VideosTableSource;
-            videosTableView.SetStyle();
-            videosTableView.RowHeight = UITableView.AutomaticDimension;
+            VideosTableSource = new VideoTableSource(videosTableView);
+            VideosTableSource.Register<PublicationItemViewModel>(PublicationItemCell.Nib, PublicationItemCell.CellId);
+            VideosTableSource.Register<OrderItemViewModel>(OrderItemCell.Nib, OrderItemCell.CellId);
+            VideosTableSource.Register<ProfileSearchItemViewModel>(ProfileSearchItemCell.Nib, ProfileSearchItemCell.CellId);
 
-            videosTableView.RegisterNibForCellReuse(ProfileSearchItemCell.Nib, ProfileSearchItemCell.CellId);
-            videosTableView.RegisterNibForCellReuse(OrderItemCell.Nib, OrderItemCell.CellId);
-            videosTableView.RegisterNibForCellReuse(PublicationItemCell.Nib, PublicationItemCell.CellId);
+            videosTableView.SetVideoListStyle(Constants.CellHeights.PublicationItemCellHeight);
+
+            videosTableView.Source = VideosTableSource;
 
             videosTableView.UserInteractionEnabled = true;
             videosTableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
