@@ -81,6 +81,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         public string ProfileShortName { get; private set; }
 
         public bool IsLikeFlowAvailable { get; private set; }
+        public string StubImageUrl { get; private set; }
 
         public bool IsSubscribed { get; private set; }
 
@@ -223,6 +224,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             NumberOfLikes = _currentVideo.NumberOfLikes;
             NumberOfDislikes = _currentVideo.NumberOfDislikes;
             IsLikeFlowAvailable = _currentVideo.IsLikeFlowAvailable;
+            StubImageUrl = _currentVideo.StubImageUrl;
             NumberOfComments = _currentVideo.NumberOfComments;
             IsSubscribed = _currentVideo.IsSubscribed;
 

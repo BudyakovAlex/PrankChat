@@ -172,6 +172,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                                                 NumberOfComments,
                                                 IsLiked,
                                                 _isDisliked,
+                                                StubImageUrl,
                                                 CanVoteVideo);
         }
 
