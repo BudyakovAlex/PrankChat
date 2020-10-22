@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using FFImageLoading;
 using Foundation;
 using MvvmCross.Binding.Extensions;
 using MvvmCross.ViewModels;
@@ -67,7 +68,7 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
             if (cell is BaseVideoTableCell videoCell &&
                 item is IVideoItemViewModel itemViewModel)
             {
-                videoCell.StubImageView.ImagePath = itemViewModel.StubImageUrl;
+                _ = ImageService.Instance.LoadUrl(itemViewModel.StubImageUrl).IntoAsync(videoCell.StubImageView);
             }
 
             return cell;
