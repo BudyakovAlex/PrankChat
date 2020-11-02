@@ -39,7 +39,7 @@ namespace PrankChat.Mobile.Core
             Mvx.IoCProvider.ConstructAndRegisterSingleton<ISendLogsBackgroundTask, SendLogsBackgroundTask>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IBackgroundTaskScheduler, BackgroundTaskScheduler>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IApiService, ApiService>();
-            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IErrorHandleService, ErrorHandleService>();
+            Mvx.IoCProvider.ConstructAndRegisterSingleton<IErrorHandleService, ErrorHandleService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IPlatformService, PlatformService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IPlatformService, PlatformService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IPermissionService, PermissionService>();

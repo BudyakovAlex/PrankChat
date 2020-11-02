@@ -59,6 +59,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
                 case Exception ex:
                     var message = string.IsNullOrWhiteSpace(ex.Message) ? Resources.Error_Unexpected_Network : ex.Message;
                     DisplayMessage(() => _dialogService.ShowToast(message, ToastType.Negative));
+                    _lazySentryService.Value.TrackError(exception);
                     break;
             }
         }
@@ -69,6 +70,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
             var logger = _logProvider.GetLogFor(senderType);
             logger.Log(MvxLogLevel.Error, () => message, exception);
             _lazySentryService.Value.TrackEvent(message);
+
+            if (exception != null)
+            {
+                _lazySentryService.Value.TrackError(exception);
+            }
         }
 
         private void OnServerErrorEvent(ServerErrorMessage e)
