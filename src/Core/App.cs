@@ -17,7 +17,6 @@ using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Providers;
-using Sentry;
 
 namespace PrankChat.Mobile.Core
 {
@@ -49,10 +48,6 @@ namespace PrankChat.Mobile.Core
 
             RegisterCustomAppStart<CustomAppStart>();
 
-            using (SentrySdk.Init("https://077bd6b9706f4247a2bf8cab4ac3bf44@o453054.ingest.sentry.io/5454419"))
-            {
-
-            }
 
         }
 

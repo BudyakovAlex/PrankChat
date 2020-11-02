@@ -13,6 +13,7 @@ using PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications;
 using VKontakte;
 using VKontakte.Utils;
 using static Android.App.Application;
+using Sentry;
 
 namespace PrankChat.Mobile.Droid
 {
@@ -71,6 +72,11 @@ namespace PrankChat.Mobile.Droid
         public override void OnCreate()
         {
             base.OnCreate();
+
+            using (SentrySdk.Init("https://077bd6b9706f4247a2bf8cab4ac3bf44@o453054.ingest.sentry.io/5454419"))
+            {
+
+            }
 
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             Xamarin.Essentials.Platform.Init(this);
