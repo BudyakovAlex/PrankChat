@@ -316,7 +316,7 @@
                                                 <constraint firstAttribute="height" constant="1" id="n0E-lW-d4G"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DZC-9c-sSs">
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DZC-9c-sSs">
                                             <rect key="frame" x="16" y="196" width="343" height="36"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="36" id="YB4-5a-CTB"/>
