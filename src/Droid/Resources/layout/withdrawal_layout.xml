@@ -362,6 +362,7 @@
                     android:id="@+id/cancel_withdrawal_button"
                     android:layout_width="0dp"
                     android:layout_height="36dp"
+                    android:visibility="gone"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pending_withdrawal_status_line"
