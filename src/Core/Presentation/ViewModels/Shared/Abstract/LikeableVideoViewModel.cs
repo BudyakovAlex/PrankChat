@@ -107,6 +107,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
                 NumberOfDislikes = video.DislikesCount;
                 IsLiked = video.IsLiked;
                 IsDisliked = video.IsDisliked;
+                OnDislikeChanged();
+                OnLikeChanged();
             }
             catch (Exception ex)
             {
@@ -135,6 +137,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
                 NumberOfDislikes = video.DislikesCount;
                 IsLiked = video.IsLiked;
                 IsDisliked = video.IsDisliked;
+                OnDislikeChanged();
+                OnLikeChanged();
             }
             catch (Exception ex)
             {
