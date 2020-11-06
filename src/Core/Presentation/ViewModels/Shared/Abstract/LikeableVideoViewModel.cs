@@ -2,6 +2,7 @@
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -100,7 +101,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
 
             try
             {
-                await ApiService.SendLikeAsync(VideoId, IsLiked, _cancellationSendingLikeTokenSource.Token);
+                var video = await ApiService.SendLikeAsync(VideoId, IsLiked, _cancellationSendingLikeTokenSource.Token);
+
+                NumberOfLikes = video.LikesCount;
+                NumberOfDislikes = video.DislikesCount;
+                IsLiked = video.IsLiked;
+                IsDisliked = video.IsDisliked;
+            }
+            catch (Exception ex)
+            {
+                //todo log this
             }
             finally
             {
@@ -119,7 +129,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
 
             try
             {
-                await ApiService.SendDislikeAsync(VideoId, IsDisliked, _cancellationSendingDislikeTokenSource.Token);
+                var video = await ApiService.SendDislikeAsync(VideoId, true, _cancellationSendingDislikeTokenSource.Token);
+
+                NumberOfLikes = video.LikesCount;
+                NumberOfDislikes = video.DislikesCount;
+                IsLiked = video.IsLiked;
+                IsDisliked = video.IsDisliked;
+            }
+            catch (Exception ex)
+            {
+                //todo log this
             }
             finally
             {
