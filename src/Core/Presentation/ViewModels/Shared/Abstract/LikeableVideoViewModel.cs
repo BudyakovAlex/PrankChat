@@ -129,7 +129,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
 
             try
             {
-                var video = await ApiService.SendDislikeAsync(VideoId, true, _cancellationSendingDislikeTokenSource.Token);
+                var video = await ApiService.SendDislikeAsync(VideoId, IsDisliked, _cancellationSendingDislikeTokenSource.Token);
 
                 NumberOfLikes = video.LikesCount;
                 NumberOfDislikes = video.DislikesCount;
