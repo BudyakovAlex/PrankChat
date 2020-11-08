@@ -131,12 +131,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                 return false;
             }
 
-            if ((DateTime.Now.Year - Birthday?.Year) <= Constants.Age.AdultAge)
-            {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.LowerThanRequired, Constants.Age.AdultAge.ToString()));
-                ErrorHandleService.LogError(this, $"User can't be younger than {Constants.Age.AdultAge} years.");
-                return false;
-            }
+            //if ((DateTime.Now.Year - Birthday?.Year) <= Constants.Age.AdultAge)
+            //{
+            //    ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.LowerThanRequired, Constants.Age.AdultAge.ToString()));
+            //    ErrorHandleService.LogError(this, $"User can't be younger than {Constants.Age.AdultAge} years.");
+            //    return false;
+            //}
 
             if (string.IsNullOrEmpty(Password))
             {
