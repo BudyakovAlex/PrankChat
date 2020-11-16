@@ -636,6 +636,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         #endregion
 
+        #region Search
         public async Task<PaginationModel<VideoDataModel>> SearchVideosAsync(string query, int page, int pageSize)
         {
             var endpoint = $"search/videos?text={query}&page={page}&items_per_page={pageSize}";
@@ -656,6 +657,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint, includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor });
             return CreatePaginationResult<OrderApiModel, OrderDataModel>(data);
         }
+        #endregion
 
         public async Task<AppVersionDataModel> CheckAppVersionAsync()
         {
