@@ -126,12 +126,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         {
             switch (Phase)
             {
-                case CompetitionPhase.New when UploadVideoTo > DateTime.UtcNow:
-                    NextPhaseCountdown = UploadVideoTo - DateTime.UtcNow;
+                case CompetitionPhase.New when UploadVideoTo > DateTime.Now:
+                    NextPhaseCountdown = UploadVideoTo - DateTime.Now;
                     break;
 
-                case CompetitionPhase.Voting when VoteTo > DateTime.UtcNow:
-                    NextPhaseCountdown = VoteTo - DateTime.UtcNow;
+                case CompetitionPhase.Voting when VoteTo > DateTime.Now:
+                    NextPhaseCountdown = VoteTo - DateTime.Now;
                     break;
                 default:
                     NextPhaseCountdown = TimeSpan.Zero;
