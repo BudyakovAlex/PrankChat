@@ -57,11 +57,11 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         /// <inheritdoc />>
         public override void EnableRepeat(int repeatDelayInSeconds)
         {
-            _repeatDelayInSeconds = repeatDelayInSeconds;
-            _repeatObserver = _player.AddBoundaryTimeObserver(
-                times: new[] { NSValue.FromCMTime(new CMTime(repeatDelayInSeconds, 1)) },
-                queue: null,
-                handler: TryRepeatVideo);
+            //_repeatDelayInSeconds = repeatDelayInSeconds;
+            //_repeatObserver = _player.AddBoundaryTimeObserver(
+            //    times: new[] { NSValue.FromCMTime(new CMTime(repeatDelayInSeconds, 1)) },
+            //    queue: null,
+            //    handler: TryRepeatVideo);
 
             _videoEndHandler = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, RepeatEndedItem);
         }
