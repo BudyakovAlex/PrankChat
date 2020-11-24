@@ -82,5 +82,6 @@
     <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\" />
     <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\Abstract\" />
     <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\SendLogs\" />
+    <Folder Include="Presentation\ViewModels\Order\Sections\" />
   </ItemGroup>
 </Project>

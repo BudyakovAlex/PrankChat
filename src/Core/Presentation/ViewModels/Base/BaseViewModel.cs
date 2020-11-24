@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {
+    //TODO: add correct base viewmodel
     public abstract class BaseViewModel : MvxViewModel
     {
         private int _timerThicksCount;
