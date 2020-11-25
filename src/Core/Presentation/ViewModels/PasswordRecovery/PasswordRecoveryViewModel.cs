@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
 {
-    public class PasswordRecoveryViewModel : BaseViewModel
+    public class PasswordRecoveryViewModel : BasePageViewModel
     {
         public PasswordRecoveryViewModel()
         {

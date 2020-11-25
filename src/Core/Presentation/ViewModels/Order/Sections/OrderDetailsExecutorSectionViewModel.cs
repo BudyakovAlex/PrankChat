@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
 {
-    public class OrderDetailsExecutorSectionViewModel : BaseItemViewModel
+    public class OrderDetailsExecutorSectionViewModel : BaseViewModel
     {
         private readonly ISettingsService _settingsService;
         private readonly INavigationService _navigationService;

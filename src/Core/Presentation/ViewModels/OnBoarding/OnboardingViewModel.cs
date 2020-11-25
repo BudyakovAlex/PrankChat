@@ -10,7 +10,7 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
 {
-    public class OnboardingViewModel : BaseViewModel
+    public class OnboardingViewModel : BasePageViewModel
     {
         public OnboardingViewModel()
         {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items
 {
-    public class CommentItemViewModel : BaseItemViewModel
+    public class CommentItemViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;

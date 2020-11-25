@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
-    public class CompetitionPrizePoolViewModel : BaseViewModel, IMvxViewModel<CompetitionDataModel>
+    public class CompetitionPrizePoolViewModel : BasePageViewModel, IMvxViewModel<CompetitionDataModel>
     {
         private CompetitionDataModel _competition;
 

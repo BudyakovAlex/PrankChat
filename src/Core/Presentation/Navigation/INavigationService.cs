@@ -64,7 +64,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task<bool> ShowUpdateProfileView();
 
-        Task<bool> CloseView(BaseViewModel viewModel);
+        Task<bool> CloseView(BasePageViewModel viewModel);
 
         Task<bool> CloseViewWithResult<TResult>(IMvxViewModelResult<TResult> viewModel, TResult result);
 

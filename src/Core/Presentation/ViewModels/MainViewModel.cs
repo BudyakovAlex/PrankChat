@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : BasePageViewModel
     {
         private readonly IPushNotificationService _notificationService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;

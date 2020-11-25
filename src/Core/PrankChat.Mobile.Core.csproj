@@ -32,6 +32,7 @@
     <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="6.4.2" />
     <PackageReference Include="MimeTypesMap" Version="1.0.8" />
     <PackageReference Include="Xam.Plugin.Badge" Version="1.0.0" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
      <EmbeddedResource Update="Presentation\Localization\Resources.resx">
@@ -83,5 +84,6 @@
     <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\Abstract\" />
     <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\SendLogs\" />
     <Folder Include="Presentation\ViewModels\Order\Sections\" />
+    <Folder Include="Wrappers\" />
   </ItemGroup>
 </Project>

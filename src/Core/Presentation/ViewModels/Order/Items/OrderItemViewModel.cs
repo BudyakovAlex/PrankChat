@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 {
-    public class OrderItemViewModel : BaseItemViewModel, IFullScreenVideoOwnerViewModel, IDisposable
+    public class OrderItemViewModel : BaseViewModel, IFullScreenVideoOwnerViewModel, IDisposable
     {
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;

@@ -139,7 +139,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return Task.WhenAll(_mvxNavigationService.Navigate<RefillViewModel>(), _mvxNavigationService.Navigate<WithdrawalViewModel>());
         }
 
-        public Task<bool> CloseView(BaseViewModel viewModel)
+        public Task<bool> CloseView(BasePageViewModel viewModel)
         {
             return _mvxNavigationService.Close(viewModel);
         }

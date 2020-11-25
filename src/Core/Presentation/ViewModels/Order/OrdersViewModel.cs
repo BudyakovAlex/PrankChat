@@ -59,7 +59,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
         }
 
-        public MvxObservableCollection<BaseItemViewModel> Items { get; } = new MvxObservableCollection<BaseItemViewModel>();
+        public MvxObservableCollection<BaseViewModel> Items { get; } = new MvxObservableCollection<BaseViewModel>();
 
         public string ActiveFilterName => TabType == OrdersTabType.Order ? _activeOrderFilterName : _activeArbitrationFilterName;
 

@@ -13,7 +13,7 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
 {
-    public class PaginationViewModel : BaseViewModel
+    public class PaginationViewModel : BasePageViewModel
     {
         private const int DefaultPageIndex = 1;
 

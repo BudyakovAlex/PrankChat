@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
-    public class CashboxViewModel : BaseViewModel, IMvxViewModel<CashboxTypeNavigationParameter, bool>
+    public class CashboxViewModel : BasePageViewModel, IMvxViewModel<CashboxTypeNavigationParameter, bool>
     {
         private MvxSubscriptionToken _reloadProfileMessageToken;
 
@@ -21,7 +21,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         public CashboxViewModel(IMediaService mediaService)
         {
-            Items = new List<BaseViewModel>
+            Items = new List<BasePageViewModel>
             {
                 new RefillViewModel(),
                 new WithdrawalViewModel(mediaService)
@@ -30,7 +30,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             ShowContentCommand = new MvxAsyncCommand(NavigationService.ShowCashboxContent);
         }
 
-        public List<BaseViewModel> Items { get; }
+        public List<BasePageViewModel> Items { get; }
 
         public ICommand ShowContentCommand { get; }
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
 {
-    public abstract class LikeableViewModel : BaseViewModel
+    public abstract class LikeableViewModel : BasePageViewModel
     {
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
         private CancellationTokenSource _cancellationSendingDislikeTokenSource;

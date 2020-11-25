@@ -4,7 +4,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
 {
-    public class FinishPasswordRecoveryViewModel : BaseViewModel
+    public class FinishPasswordRecoveryViewModel : BasePageViewModel
     {
         public FinishPasswordRecoveryViewModel()
         {

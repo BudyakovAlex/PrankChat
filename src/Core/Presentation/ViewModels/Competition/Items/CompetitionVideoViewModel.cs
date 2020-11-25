@@ -21,7 +21,7 @@ using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
-    public class CompetitionVideoViewModel : BaseItemViewModel, IVideoItemViewModel, IDisposable
+    public class CompetitionVideoViewModel : BaseViewModel, IVideoItemViewModel, IDisposable
     {
         private readonly IApiService _apiService;
         private readonly INavigationService _navigationService;

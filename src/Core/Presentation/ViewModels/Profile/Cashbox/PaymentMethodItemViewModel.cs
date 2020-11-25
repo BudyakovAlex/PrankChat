@@ -3,7 +3,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
-    public class PaymentMethodItemViewModel : BaseItemViewModel
+    public class PaymentMethodItemViewModel : BaseViewModel
     {
         public PaymentMethodItemViewModel(PaymentType paymentType)
         {

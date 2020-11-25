@@ -5,7 +5,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 {
-    public abstract class BaseTransparentBarView<TMvxViewModel> : BaseView<TMvxViewModel> where TMvxViewModel : BaseViewModel
+    public abstract class BaseTransparentBarView<TMvxViewModel> : BaseView<TMvxViewModel> where TMvxViewModel : BasePageViewModel
     {
         protected override void SetCommonStyles()
         {

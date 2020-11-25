@@ -26,7 +26,7 @@ using System.Threading.Tasks;
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
     //TODO: split logic to more specific view models
-    public class OrderDetailsViewModel : BaseViewModel, IMvxViewModel<OrderDetailsNavigationParameter, OrderDetailsResult>
+    public class OrderDetailsViewModel : BasePageViewModel, IMvxViewModel<OrderDetailsNavigationParameter, OrderDetailsResult>
     {
         private readonly IMediaService _mediaService;
         private readonly IPlatformService _platformService;
@@ -34,20 +34,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private int _orderId;
         private int _timerThicksCount;
 
-        private List<FullScreenVideoDataModel> _fullScreenVideos;
-        private int _currentIndex;
         private OrderDataModel _order;
         private MvxSubscriptionToken _timerTickMessageToken;
-
-        private CancellationTokenSource _cancellationTokenSource;
 
         public OrderDetailsViewModel(IPlatformService platformService, IMediaService mediaService)
         {
             _mediaService = mediaService;
             _platformService = platformService;
 
-            OpenCustomerProfileCommand = new MvxRestrictedAsyncCommand(OpenCustomerProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
-            OpenExecutorProfileCommand = new MvxRestrictedAsyncCommand(OpenExecutorProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
             TakeOrderCommand = new MvxAsyncCommand(TakeOrderAsync);
             SubscribeOrderCommand = new MvxAsyncCommand(SubscribeOrderAsync);
             UnsubscribeOrderCommand = new MvxAsyncCommand(UnsubscribeOrderAsync);
@@ -63,16 +57,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             OpenSettingsCommand = new MvxAsyncCommand(OpenSettingsAsync);
             CancelUploadingCommand = new MvxCommand(() => _cancellationTokenSource?.Cancel());
         }
-
-        #region Profile
-
-        public string ProfilePhotoUrl => _order?.Customer?.Avatar;
-
-        public string ProfileName => _order?.Customer?.Login;
-
-        public string ProfileShortName => ProfileName?.ToShortenName();
-
-        #endregion Profile
 
         #region Video
 
@@ -129,27 +113,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         }
 
         #endregion
-
-        private bool _isUploading;
-        public bool IsUploading
-        {
-            get => _isUploading;
-            private set => SetProperty(ref _isUploading, value);
-        }
-
-        private float _uploadingProgress;
-        public float UploadingProgress
-        {
-            get => _uploadingProgress;
-            private set => SetProperty(ref _uploadingProgress, value);
-        }
-
-        private string _uploadingProgressStringPresentation;
-        public string UploadingProgressStringPresentation
-        {
-            get => _uploadingProgressStringPresentation;
-            private set => SetProperty(ref _uploadingProgressStringPresentation, value);
-        }
 
         private TimeSpan? TimeValue => _order?.GetActiveOrderTime();
 
@@ -214,8 +177,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public IMvxAsyncCommand LoadOrderDetailsCommand { get; }
         public IMvxAsyncCommand OpenSettingsCommand { get; }
         public IMvxCommand CancelUploadingCommand { get; }
-        public IMvxAsyncCommand OpenCustomerProfileCommand { get; }
-        public IMvxAsyncCommand OpenExecutorProfileCommand { get; }
 
         #endregion Commands
 
@@ -438,89 +399,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private async Task LoadVideoAsync()
-        {
-            try
-            {
-                if (IsBusy)
-                {
-                    return;
-                }
-
-                IsBusy = true;
-
-                var file = await _mediaService.PickVideoAsync();
-                if (file == null)
-                {
-                    return;
-                }
-
-                IsBusy = false;
-
-                UploadingProgress = 0;
-                UploadingProgressStringPresentation = "- / -";
-
-                IsUploading = true;
-                _cancellationTokenSource = new CancellationTokenSource();
-
-                var video = await ApiService.SendVideoAsync(_orderId,
-                                                            file.Path,
-                                                            _order?.Title,
-                                                            _order?.Description,
-                                                            OnUploadingProgressChanged,
-                                                            _cancellationTokenSource.Token);
-                if (video == null && (!_cancellationTokenSource?.IsCancellationRequested ?? true))
-                {
-                    DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
-                    _cancellationTokenSource = null;
-                    IsUploading = false;
-                    return;
-                }
-
-                _cancellationTokenSource = null;
-                IsUploading = false;
-                IsBusy = true;
-
-                await LoadOrderDetailsAsync();
-                DialogService.ShowToast(Resources.OrderDetailsView_Video_Uploaded, ToastType.Positive);
-                await RaiseAllPropertiesChanged();
-
-                if (_order is null)
-                {
-                    return;
-                }
-
-                _order.Video = video;
-                _order.VideoUploadedAt = _order.VideoUploadedAt ?? DateTime.Now;
-
-                if (!_fullScreenVideos.Any(item => item.VideoId == video.Id))
-                {
-                    _fullScreenVideos.Add(new FullScreenVideoDataModel(_order.Customer.Id,
-                                                                       _order.Customer.IsSubscribed,
-                                                                       _order.Video.Id,
-                                                                       _order.Video.StreamUri,
-                                                                       _order.Title,
-                                                                       _order.Description,
-                                                                       _order.Video.ShareUri,
-                                                                       _order.Customer.Avatar,
-                                                                       _order.Customer.Login.ToShortenName(),
-                                                                       _order.Video.LikesCount,
-                                                                       _order.Video.DislikesCount,
-                                                                       _order.Video.CommentsCount,
-                                                                       _order.Video.IsLiked,
-                                                                       _order.Video.IsDisliked,
-                                                                       _order.Video.Poster));
-                    _currentIndex = _fullScreenVideos.Count - 1;
-                }
-
-                Messenger.Publish(new OrderChangedMessage(this, _order));
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
         private void OnUploadingProgressChanged(double progress, double size)
         {
             UploadingProgress = (float)(progress / size * 100);
@@ -675,45 +553,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsBusy = false;
             }
-        }
-
-        private async Task ShowFullVideoAsync()
-        {
-            if (_order?.Video is null)
-            {
-                return;
-            }
-
-            var navigationParams = _fullScreenVideos.Count > 0
-                ? new FullScreenVideoParameter(_fullScreenVideos, _currentIndex)
-                : new FullScreenVideoParameter(new FullScreenVideoDataModel(_order?.Customer?.Id ?? 0,
-                                                                            _order?.Customer?.IsSubscribed ?? false,
-                                                                            _order.Video.Id,
-                                                                            VideoUrl,
-                                                                            VideoName,
-                                                                            VideoDetails,
-                                                                            _order.Video.ShareUri,
-                                                                            ProfilePhotoUrl,
-                                                                            ProfileName?.ToShortenName(),
-                                                                            _order.Video.LikesCount,
-                                                                            _order.Video.DislikesCount,
-                                                                            _order.Video.CommentsCount,
-                                                                            _order.Video.IsLiked,
-                                                                            _order.Video.IsDisliked,
-                                                                            _order.Video.Poster)); ;
-
-            var shouldReload = await NavigationService.ShowFullScreenVideoView(navigationParams);
-            if (!shouldReload)
-            {
-                return;
-            }
-
-            if (_order is null)
-            {
-                return;
-            }
-
-            Messenger.Publish(new OrderChangedMessage(this, _order));
         }
 
         private async Task OpenSettingsAsync()

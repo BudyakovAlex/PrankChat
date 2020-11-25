@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
-    public class ExternalAuthViewModel : BaseViewModel
+    public class ExternalAuthViewModel : BasePageViewModel
     {
         private readonly IExternalAuthService _externalAuthService;
         private readonly IPushNotificationService _pushNotificationService;

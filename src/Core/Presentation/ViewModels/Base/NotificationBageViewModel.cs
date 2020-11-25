@@ -7,7 +7,7 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {
-    public class NotificationBageViewModel : BaseItemViewModel, INotificationBageViewModel
+    public class NotificationBageViewModel : BaseViewModel, INotificationBageViewModel
     {
         private readonly IApiService _apiService;
         private readonly ISettingsService _settingsService;

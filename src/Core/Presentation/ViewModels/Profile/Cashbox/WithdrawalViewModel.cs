@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
-    public class WithdrawalViewModel : BaseViewModel
+    public class WithdrawalViewModel : BasePageViewModel
     {
         private readonly IMediaService _mediaService;
 

@@ -135,12 +135,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                                                 GetFullScreenVideoDataModels);
         }
 
-        private BaseItemViewModel ProduceUserViewModel(UserDataModel model)
+        private BaseViewModel ProduceUserViewModel(UserDataModel model)
         {
             return new ProfileSearchItemViewModel(NavigationService, SettingsService, model);
         }
 
-        private BaseItemViewModel ProduceOrderViewModel(OrderDataModel model)
+        private BaseViewModel ProduceOrderViewModel(OrderDataModel model)
         {
             return new OrderItemViewModel(NavigationService, SettingsService, Messenger, model, GetFullScreenVideoDataModels);
         }

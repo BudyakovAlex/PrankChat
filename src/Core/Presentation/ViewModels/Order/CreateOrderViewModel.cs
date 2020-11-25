@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
-    public class CreateOrderViewModel : BaseViewModel
+    public class CreateOrderViewModel : BasePageViewModel
     {
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 

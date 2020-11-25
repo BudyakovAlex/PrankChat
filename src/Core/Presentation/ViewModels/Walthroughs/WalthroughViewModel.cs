@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Walthroughs
 {
-    public class WalthroughViewModel : BaseViewModel, IMvxViewModel<WalthroughNavigationParameter>
+    public class WalthroughViewModel : BasePageViewModel, IMvxViewModel<WalthroughNavigationParameter>
     {
         public WalthroughViewModel()
         {

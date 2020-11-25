@@ -6,7 +6,7 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
-    public class MaintananceViewModel : BaseViewModel, IMvxViewModel<string>
+    public class MaintananceViewModel : BasePageViewModel, IMvxViewModel<string>
     {
         private string _applicationUrl;
 

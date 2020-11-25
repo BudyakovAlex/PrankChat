@@ -3,7 +3,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
-    public class RegistrationThirdStepViewModel : BaseViewModel
+    public class RegistrationThirdStepViewModel : BasePageViewModel
     {
         public RegistrationThirdStepViewModel()
         {

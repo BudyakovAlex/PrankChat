@@ -40,7 +40,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             _videoPlayerService = videoPlayerService;
             _mediaService = mediaService;
 
-            Items = new MvxObservableCollection<BaseItemViewModel>();
+            Items = new MvxObservableCollection<BaseViewModel>();
 
             RefreshDataCommand = new MvxAsyncCommand(RefreshDataAsync);
             CancelUploadingCommand = new MvxCommand(() => _cancellationTokenSource?.Cancel());
@@ -73,7 +73,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             set => SetProperty(ref _isRefreshing, value);
         }
 
-        public MvxObservableCollection<BaseItemViewModel> Items { get; }
+        public MvxObservableCollection<BaseViewModel> Items { get; }
 
         public IMvxAsyncCommand RefreshDataCommand { get; }
 

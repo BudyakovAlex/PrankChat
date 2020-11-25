@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 {
-    public class SubscriptionItemViewModel : BaseViewModel
+    public class SubscriptionItemViewModel : BasePageViewModel
     {
         private readonly UserDataModel _userDataModel;
 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
-    public class RefillViewModel : BaseViewModel
+    public class RefillViewModel : BasePageViewModel
     {
         public RefillViewModel()
         {

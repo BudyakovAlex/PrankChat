@@ -1,5 +1,4 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -13,20 +12,20 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
-    public class CompetitionsViewModel : BaseViewModel
+    public class CompetitionsViewModel : BasePageViewModel
     {
         private readonly IWalkthroughsProvider _walkthroughsProvider;
-
-        private MvxSubscriptionToken _reloadItemsSubscriptionToken;
-        private MvxSubscriptionToken _tabChangedMessage;
-        private MvxSubscriptionToken _enterForegroundMessage;
 
         public CompetitionsViewModel(IWalkthroughsProvider walkthroughsProvider)
         {
             _walkthroughsProvider = walkthroughsProvider;
 
-            LoadDataCommand = new MvxAsyncCommand(LoadDataAsync);
+            LoadDataCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(LoadDataAsync));
             ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
+
+            Messenger.SubscribeOnMainThread<ReloadCompetitionsMessage>((msg) => LoadDataCommand?.Execute()).DisposeWith(Disposables);
+            Messenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage).DisposeWith(Disposables);
+            Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => LoadDataCommand?.Execute()).DisposeWith(Disposables);
         }
 
         public IMvxAsyncCommand LoadDataCommand { get; }
@@ -35,22 +34,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         public MvxObservableCollection<CompetitionsSectionViewModel> Items { get; set; } = new MvxObservableCollection<CompetitionsSectionViewModel>();
 
-        public override async Task Initialize()
+        public override async Task InitializeAsync()
         {
-            await base.Initialize();
+            await base.InitializeAsync();
             await LoadDataCommand.ExecuteAsync();
-        }
-
-        public override void ViewCreated()
-        {
-            base.ViewCreated();
-            Subscription();
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            Unsubscription();
-            base.ViewDestroy(viewFinishing);
         }
 
         private Task ShowWalkthrouthAsync()
@@ -60,51 +47,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         private async Task LoadDataAsync()
         {
-            try
+            if (!Connectivity.NetworkAccess.HasConnection())
             {
-                IsBusy = true;
-
-                if (!Connectivity.NetworkAccess.HasConnection())
+                if (DialogService.IsToastShown)
                 {
-                    if (DialogService.IsToastShown)
-                    {
-                        return;
-                    }
-
-                    DialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
                     return;
                 }
 
-                var competitionsPage = await ApiService.GetCompetitionsAsync(1, 100);
-
-                var sections = competitionsPage.Items.GroupBy(competition => competition.GetPhase())
-                                                     .Select(group => new CompetitionsSectionViewModel(IsUserSessionInitialized, Messenger, NavigationService, group.Key, group.ToList()))
-                                                     .OrderBy(item => item.Phase)
-                                                     .ToList();
-                Items.SwitchTo(sections);
+                DialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                return;
             }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
 
-        private void Subscription()
-        {
-            _reloadItemsSubscriptionToken = Messenger.SubscribeOnMainThread<ReloadCompetitionsMessage>((msg) => LoadDataCommand?.Execute());
-            _tabChangedMessage = Messenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
-            _enterForegroundMessage = Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => LoadDataCommand?.Execute());
+            var competitionsPage = await ApiService.GetCompetitionsAsync(1, 100);
 
-            SubscribeToNotificationsUpdates();
-        }
-
-        private void Unsubscription()
-        {
-            _reloadItemsSubscriptionToken?.Dispose();
-            _tabChangedMessage?.Dispose();
-            _enterForegroundMessage?.Dispose();
-
-            UnsubscribeFromNotificationsUpdates();
+            var sections = competitionsPage.Items.GroupBy(competition => competition.GetPhase())
+                                                 .Select(group => new CompetitionsSectionViewModel(IsUserSessionInitialized, Messenger, NavigationService, group.Key, group.ToList()))
+                                                 .OrderBy(item => item.Phase)
+                                                 .ToList();
+            Items.SwitchTo(sections);
         }
 
         private void OnTabChangedMessage(TabChangedMessage msg)

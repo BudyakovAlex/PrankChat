@@ -1,15 +1,33 @@
-﻿using PrankChat.Mobile.Core.Models.Data;
+﻿using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
+using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
 {
-    public class OrderDetailsVideoSectionViewModel : BaseItemViewModel
+    public class OrderDetailsVideoSectionViewModel : BaseViewModel
     {
+        private readonly ISettingsService _settingsService;
+        private readonly IMediaService _mediaService;
+
         private readonly OrderDataModel _order;
 
-        public OrderDetailsVideoSectionViewModel(OrderDataModel orderDataModel)
+        private CancellationTokenSource _cancellationTokenSource;
+        private int _currentIndex;
+        private List<FullScreenVideoDataModel> _fullScreenVideos;
+
+        public OrderDetailsVideoSectionViewModel(ISettingsService settingsService, IMediaService mediaService, OrderDataModel orderDataModel)
         {
+            _settingsService = settingsService;
+            _mediaService = mediaService;
             _order = orderDataModel;
         }
 
@@ -23,13 +41,37 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
 
         public string VideoDetails => _order?.Description;
 
-        public bool IsVideoLoadAvailable => _order?.Status == OrderStatusType.InWork && IsUserExecutor;
+        public bool IsVideoLoadAvailable => _order?.Status == OrderStatusType.InWork &&
+                                            _order?.Executor?.Id == _settingsService.User?.Id;
 
         public bool IsVideoAvailable => _order?.Video != null && !IsVideoProcessing;
 
         public bool IsDecideVideoAvailable => _order?.Status == OrderStatusType.InArbitration;
 
-        public bool IsDecisionVideoAvailable => (_order?.Status == OrderStatusType.WaitFinish || _order?.Status == OrderStatusType.VideoWaitModeration) && IsUserCustomer;
+        public bool IsDecisionVideoAvailable => (_order?.Status == OrderStatusType.WaitFinish ||
+                                                 _order?.Status == OrderStatusType.VideoWaitModeration) &&
+                                                 _order.Customer?.Id == _settingsService.User?.Id;
+
+        private bool _isUploading;
+        public bool IsUploading
+        {
+            get => _isUploading;
+            private set => SetProperty(ref _isUploading, value);
+        }
+
+        private float _uploadingProgress;
+        public float UploadingProgress
+        {
+            get => _uploadingProgress;
+            private set => SetProperty(ref _uploadingProgress, value);
+        }
+
+        private string _uploadingProgressStringPresentation;
+        public string UploadingProgressStringPresentation
+        {
+            get => _uploadingProgressStringPresentation;
+            private set => SetProperty(ref _uploadingProgressStringPresentation, value);
+        }
 
         private async Task LoadVideoAsync()
         {

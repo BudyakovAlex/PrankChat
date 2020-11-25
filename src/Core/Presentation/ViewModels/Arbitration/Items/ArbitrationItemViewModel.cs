@@ -13,7 +13,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
 {
-    public class ArbitrationItemViewModel : BaseItemViewModel, IFullScreenVideoOwnerViewModel
+    public class ArbitrationItemViewModel : BaseViewModel, IFullScreenVideoOwnerViewModel
     {
         private readonly ISettingsService _settingsService;
         private readonly INavigationService _navigationService;
