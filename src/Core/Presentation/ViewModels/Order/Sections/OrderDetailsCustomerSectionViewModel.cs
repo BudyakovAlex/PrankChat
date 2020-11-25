@@ -47,5 +47,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
 
             return _navigationService.ShowUserProfile(_customer.Id);
         }
+
+        private void RefreshFullScreenVideo()
+        {
+            var fullScreenVideo = _fullScreenVideos.FirstOrDefault(item => item.VideoId == _order?.Video?.Id);
+            if (fullScreenVideo is null)
+            {
+                return;
+            }
+
+            fullScreenVideo.VideoUrl = _order?.Video?.StreamUri;
+        }
     }
 }

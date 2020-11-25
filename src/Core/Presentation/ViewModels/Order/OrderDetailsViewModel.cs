@@ -304,17 +304,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             return NavigationService.ShowUserProfile(_order.Executor.Id);
         }
 
-        private Task OpenCustomerProfileAsync()
-        {
-            if (_order?.Customer?.Id is null ||
-                _order.Customer.Id == SettingsService.User.Id)
-            {
-                return Task.CompletedTask;
-            }
-
-            return NavigationService.ShowUserProfile(_order.Customer.Id);
-        }
-
         private async Task LoadOrderDetailsAsync()
         {
             try
