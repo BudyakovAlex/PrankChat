@@ -17,6 +17,16 @@ using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Providers;
+using PrankChat.Mobile.Core.Services.Authorize;
+using PrankChat.Mobile.Core.Services.Common;
+using PrankChat.Mobile.Core.Services.Competitions;
+using PrankChat.Mobile.Core.Services.Notifications;
+using PrankChat.Mobile.Core.Services.Orders;
+using PrankChat.Mobile.Core.Services.Payment;
+using PrankChat.Mobile.Core.Services.Publications;
+using PrankChat.Mobile.Core.Services.Search;
+using PrankChat.Mobile.Core.Services.Users;
+using PrankChat.Mobile.Core.Services.Video;
 
 namespace PrankChat.Mobile.Core
 {
@@ -37,7 +47,19 @@ namespace PrankChat.Mobile.Core
             Mvx.IoCProvider.ConstructAndRegisterSingleton<ISentryService, SentryService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<ISendLogsBackgroundTask, SendLogsBackgroundTask>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IBackgroundTaskScheduler, BackgroundTaskScheduler>();
-            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IApiService, ApiService>();
+
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IAuthorizeService, AuthorizeService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ILogsService, LogsService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IVersionService, VersionService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ICompetitionsServices, CompetitionsServices>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<INotificationsService, NotificationsService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IOrdersService, OrdersService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IPaymentService, PaymentService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IPublicationsService, PublicationsService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISearchService, SearchService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IUsersService, UsersService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IVideoService, VideoService>();
+
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IErrorHandleService, ErrorHandleService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IPlatformService, PlatformService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IPlatformService, PlatformService>();
