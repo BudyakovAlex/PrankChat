@@ -76,12 +76,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
             LoadMoreItemsCommand.RaiseCanExecuteChanged();
         }
 
-        private async Task LoadMoreItemsInternalAsync()
+        private Task LoadMoreItemsInternalAsync()
         {
-            try
+            return ExecutionStateWrapper.WrapAsync(async () =>
             {
-                IsBusy = true;
-
                 if (!Connectivity.NetworkAccess.HasConnection())
                 {
                     if (DialogService.IsToastShown)
@@ -103,11 +101,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
                                    RaisePropertyChanged(nameof(HasNextPage)));
 
                 LoadMoreItemsCommand.RaiseCanExecuteChanged();
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            });
         }
 
         protected Task ReloadItemsAsync()

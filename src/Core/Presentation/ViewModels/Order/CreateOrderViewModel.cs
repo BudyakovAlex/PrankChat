@@ -75,28 +75,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
 
-        public override void ViewCreated()
-        {
-            base.ViewCreated();
-            Subscription();
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            Unsubscription();
-            base.ViewDestroy(viewFinishing);
-        }
-
-        private void Subscription()
-        {
-            SubscribeToNotificationsUpdates();
-        }
-
-        private void Unsubscription()
-        {
-            UnsubscribeFromNotificationsUpdates();
-        }
-
         private Task ShowWalkthrouthAsync()
         {
             return _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>();

@@ -71,7 +71,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _shareLink = videoDataModel.ShareUri;
 
             _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
-            Subscribe();
+
+            Messenger.Subscribe<ViewCountMessage>(OnViewCountChanged).DisposeWith(Disposables);
 
             ShowCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
             OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
@@ -154,20 +155,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #endregion Commands
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Unsubscribe();
-            }
-        }
-
         protected override void OnLikeChanged()
         {
             RaisePropertyChanged(nameof(NumberOfLikesText));
@@ -176,13 +163,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         protected override void OnDislikeChanged()
         {
             RaisePropertyChanged(nameof(NumberOfDislikesText));
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            Unsubscribe();
-
-            base.ViewDestroy(viewFinishing);
         }
 
         public FullScreenVideoDataModel GetFullScreenVideoDataModel()
@@ -204,6 +184,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                                 StubImageUrl);
         }
 
+        private void OnViewCountChanged(ViewCountMessage viewCountMessage)
+        {
+            if (viewCountMessage.VideoId == VideoId)
+            {
+                _numberOfViews = viewCountMessage.ViewsCount;
+                RaisePropertyChanged(nameof(VideoInformationText));
+            }
+        }
+
         private Task OpenUserProfileAsync()
         {
             if (_videoDataModel.Customer?.Id is null ||
@@ -218,30 +207,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private Task ShareAsync()
         {
             return _platformService.ShareUrlAsync(Resources.ShareDialog_LinkShareTitle, _shareLink);
-        }
-
-        private void Subscribe()
-        {
-            _updateNumberOfViewsSubscriptionToken = Messenger.Subscribe<ViewCountMessage>(viewCount =>
-            {
-                if (viewCount.VideoId == VideoId)
-                {
-                    _numberOfViews = viewCount.ViewsCount;
-                    RaisePropertyChanged(nameof(VideoInformationText));
-                }
-            });
-        }
-
-        private void Unsubscribe()
-        {
-            if (_updateNumberOfViewsSubscriptionToken is null)
-            {
-                return;
-            }
-
-            Messenger?.Unsubscribe<ViewCountMessage>(_updateNumberOfViewsSubscriptionToken);
-            _updateNumberOfViewsSubscriptionToken.Dispose();
-            _updateNumberOfViewsSubscriptionToken = null;
         }
 
         private async Task ShowFullScreenVideoAsync()

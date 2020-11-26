@@ -92,7 +92,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             Items.Add(_header);
         }
 
-        public override Task Initialize()
+        public override Task InitializeAsync()
         {
             return LoadMoreItemsCommand.ExecuteAsync();
         }
@@ -194,69 +194,63 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                                  GetFullScreenVideoDataModels);
         }
 
-        private async Task LoadVideoAsync()
+        private Task LoadVideoAsync()
         {
             try
             {
-                if (IsBusy)
+                return ExecutionStateWrapper.WrapAsync(async () =>
                 {
-                    return;
-                }
+                    var file = await _mediaService.PickVideoAsync();
+                    if (file == null)
+                    {
+                        return;
+                    }
 
-                IsBusy = true;
+                    UploadingProgress = 0;
+                    UploadingProgressStringPresentation = "- / -";
+                    IsUploading = true;
 
-                var file = await _mediaService.PickVideoAsync();
-                if (file == null)
-                {
-                    return;
-                }
+                    _cancellationTokenSource = new CancellationTokenSource();
 
-                UploadingProgress = 0;
-                UploadingProgressStringPresentation = "- / -";
-                IsUploading = true;
+                    var video = await ApiService.SendVideoAsync(_competition.Id,
+                                                                file.Path,
+                                                                _competition.Title,
+                                                                _competition.Description,
+                                                                OnUploadingProgressChanged,
+                                                                _cancellationTokenSource.Token);
+                    if (video == null && (!_cancellationTokenSource?.IsCancellationRequested ?? true))
+                    {
+                        DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
+                        _cancellationTokenSource = null;
+                        IsUploading = false;
+                        return;
+                    }
 
-                _cancellationTokenSource = new CancellationTokenSource();
-
-                var video = await ApiService.SendVideoAsync(_competition.Id,
-                                                            file.Path,
-                                                            _competition.Title,
-                                                            _competition.Description,
-                                                            OnUploadingProgressChanged,
-                                                            _cancellationTokenSource.Token);
-                if (video == null && (!_cancellationTokenSource?.IsCancellationRequested ?? true))
-                {
-                    DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
                     _cancellationTokenSource = null;
                     IsUploading = false;
-                    return;
-                }
 
-                _cancellationTokenSource = null;
-                IsUploading = false;
-                IsBusy = true;
+                    _header.Competition.CanUploadVideo = false;
+                    Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        video.User = SettingsService.User;
+                        Items.Insert(1, new CompetitionVideoViewModel(ApiService,
+                                                                      _videoPlayerService,
+                                                                      NavigationService,
+                                                                      SettingsService,
+                                                                      Messenger,
+                                                                      Logger,
+                                                                      video,
+                                                                      true,
+                                                                      false,
+                                                                      GetFullScreenVideoDataModels));
+                    });
 
-                _header.Competition.CanUploadVideo = false;
-                Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    video.User = SettingsService.User;
-                    Items.Insert(1, new CompetitionVideoViewModel(ApiService,
-                                                                  _videoPlayerService,
-                                                                  NavigationService,
-                                                                  SettingsService,
-                                                                  Messenger,
-                                                                  Logger,
-                                                                  video,
-                                                                  true,
-                                                                  false,
-                                                                  GetFullScreenVideoDataModels));
+                    await _header.RaisePropertyChanged(nameof(_header.CanLoadVideo));
                 });
-
-                await _header.RaisePropertyChanged(nameof(_header.CanLoadVideo));
             }
             finally
             {
                 _isReloadNeeded = true;
-                IsBusy = false;
             }
         }
 
@@ -271,7 +265,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             }
 
             IsUploading = false;
-            IsBusy = true;
         }
     }
 }

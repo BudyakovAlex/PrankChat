@@ -59,7 +59,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
             base.Reset();
         }
 
-        public override Task Initialize()
+        public override Task InitializeAsync()
         {
             return LoadMoreItemsCommand.ExecuteAsync();
         }

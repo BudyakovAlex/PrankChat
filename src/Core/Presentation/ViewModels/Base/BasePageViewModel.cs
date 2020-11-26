@@ -11,12 +11,10 @@ using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using System;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {
@@ -32,9 +30,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             ShowNotificationCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowNotificationView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
             ShowSearchCommand = new MvxAsyncCommand(NavigationService.ShowSearchView);
             GoBackCommand = new MvxAsyncCommand(GoBackAsync);
-
-            Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
-            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
         }
 
         public event EventHandler<bool> AppearingChanged;
@@ -137,7 +132,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             return Task.WhenAll(raisePropertiesTasks);
         }
 
-        private void OnTimerTick(TimerTickMessage msg)
+        protected void OnTimerTick(TimerTickMessage msg)
         {
             _timerThicksCount++;
             if (_timerThicksCount >= RefreshAfterSeconds)

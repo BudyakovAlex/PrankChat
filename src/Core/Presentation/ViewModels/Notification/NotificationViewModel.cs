@@ -19,7 +19,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 
         public MvxObservableCollection<NotificationItemViewModel> Items { get; }
 
-        public override async Task Initialize()
+        public override async Task InitializeAsync()
         {
             await LoadMoreItemsCommand.ExecuteAsync();
             _ = MarkReadedNotificationsAsync();

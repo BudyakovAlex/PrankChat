@@ -23,10 +23,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             _mediaService = mediaService;
             AvailableForWithdrawal = $"{Resources.CashboxView_WithdrawalAvailable_Title} {SettingsService.User?.Balance.ToPriceString()}";
 
-            WithdrawCommand = new MvxAsyncCommand(WithdrawAsync);
-            CancelWithdrawCommand = new MvxAsyncCommand(CancelWithdrawAsync);
-            AttachFileCommand = new MvxAsyncCommand(AttachFileAsync);
-            OpenCardOptionsCommand = new MvxAsyncCommand(OpenCardOptionsAsync);
+            WithdrawCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(WithdrawAsync));
+            CancelWithdrawCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(CancelWithdrawAsync));
+            AttachFileCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(AttachFileAsync));
+            OpenCardOptionsCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(OpenCardOptionsAsync));
             UpdateDataCommand = new MvxAsyncCommand(UpdateDataAsync);
         }
 
@@ -116,9 +116,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         public ICommand UpdateDataCommand { get; }
 
-        public override async Task Initialize()
+        public override async Task InitializeAsync()
         {
-            await base.Initialize();
+            await base.InitializeAsync();
             await GetUserCardAsync();
             await GetWithdrawalsAsync();
         }
@@ -150,8 +150,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
             try
             {
-                IsBusy = true;
-
                 if (_currentCard == null)
                 {
                     var card = await ApiService.SaveCardAsync(CardNumber, $"{Name} {Surname}");
@@ -178,7 +176,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             finally
             {
                 Messenger.Publish(new ReloadProfileMessage(this));
-                IsBusy = false;
             }
         }
 
@@ -186,8 +183,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         {
             try
             {
-                IsBusy = true;
-
                 var file = await _mediaService.PickPhotoAsync();
                 if (file == null)
                 {
@@ -206,7 +201,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             finally
             {
                 Messenger.Publish(new ReloadProfileMessage(this));
-                IsBusy = false;
             }
         }
 
@@ -220,7 +214,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
             try
             {
-                IsBusy = true;
                 await ApiService.CancelWithdrawalAsync(_lastWithdrawalDataModel.Id);
                 _lastWithdrawalDataModel = null;
                 await RaiseAllPropertiesChanged();
@@ -232,7 +225,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             finally
             {
                 Messenger.Publish(new ReloadProfileMessage(this));
-                IsBusy = false;
             }
         }
 
@@ -247,32 +239,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         private async Task GetUserCardAsync()
         {
-            try
-            {
-                IsBusy = true;
-
-                _currentCard = await ApiService.GetCardsAsync();
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            _currentCard = await ApiService.GetCardsAsync();
         }
 
         private async Task GetWithdrawalsAsync()
         {
-            try
-            {
-                IsBusy = true;
-
-                var withdrawals = await ApiService.GetWithdrawalsAsync();
-                _lastWithdrawalDataModel = withdrawals?.FirstOrDefault();
-                await RaiseAllPropertiesChanged();
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            var withdrawals = await ApiService.GetWithdrawalsAsync();
+            _lastWithdrawalDataModel = withdrawals?.FirstOrDefault();
+            await RaiseAllPropertiesChanged();
         }
 
         private async Task DeleteCardAsync()
@@ -284,8 +258,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
             try
             {
-                IsBusy = true;
-
                 var isConfirmed = await DialogService.ShowConfirmAsync(Resources.WithdrawalView_Delete_Card_Question, Resources.Attention, Resources.Delete, Resources.Cancel);
                 if (!isConfirmed)
                 {
@@ -303,7 +275,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             finally
             {
                 Messenger.Publish(new ReloadProfileMessage(this));
-                IsBusy = false;
             }
         }
 

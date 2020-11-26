@@ -39,7 +39,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         public IMvxAsyncCommand RefillCommand { get; }
 
-        public override Task Initialize()
+        public override Task InitializeAsync()
         {
             Items.Add(new PaymentMethodItemViewModel(PaymentType.Card));
             Items.Add(new PaymentMethodItemViewModel(PaymentType.Qiwi));
@@ -48,7 +48,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             Items.Add(new PaymentMethodItemViewModel(PaymentType.Sberbank));
             Items.Add(new PaymentMethodItemViewModel(PaymentType.Alphabank));
 
-            return base.Initialize();
+            return base.InitializeAsync();
         }
 
         private async Task OnRefillAsync()

@@ -101,9 +101,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
             base.ViewDestroy(viewFinishing);
         }
 
-        public override async Task Initialize()
+        public override async Task InitializeAsync()
         {
-            await base.Initialize();
+            await base.InitializeAsync();
             await LoadMoreItemsCommand.ExecuteAsync();
         }
 

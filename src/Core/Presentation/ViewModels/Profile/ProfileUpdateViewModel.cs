@@ -32,7 +32,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             _pushNotificationService = pushNotificationService;
             _mediaService = mediaService;
 
-            SaveProfileCommand = new MvxAsyncCommand(SaveProfileAsync);
+            SaveProfileCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(SaveProfileAsync));
             ChangePasswordCommand = new MvxAsyncCommand(ChangePasswordAsync);
             ShowMenuCommand = new MvxAsyncCommand(ShowMenuAsync);
             ChangeProfilePhotoCommand = new MvxAsyncCommand(ChangeProfilePhotoAsync);
@@ -62,36 +62,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            try
+            var dataModel = new UserUpdateProfileDataModel()
             {
-                IsBusy = true;
+                Email = Email,
+                Login = Login,
+                Name = Name,
+                Sex = Gender.Value,
+                Birthday = Birthday?.ToShortDateString(),
+                Description = Description
+            };
 
-                var dataModel = new UserUpdateProfileDataModel()
+            if (_isUserPhotoUpdated)
+            {
+                var user = await ApiService.SendAvatarAsync(ProfilePhotoUrl);
+                if (user == null)
                 {
-                    Email = Email,
-                    Login = Login,
-                    Name = Name,
-                    Sex = Gender.Value,
-                    Birthday = Birthday?.ToShortDateString(),
-                    Description = Description
-                };
-
-                if (_isUserPhotoUpdated)
-                {
-                    var user = await ApiService.SendAvatarAsync(ProfilePhotoUrl);
-                    if (user == null)
-                    {
-                        ErrorHandleService.LogError(this, "User is null after avatar loading. Aborting.");
-                    }
+                    ErrorHandleService.LogError(this, "User is null after avatar loading. Aborting.");
                 }
+            }
 
-                SettingsService.User = await ApiService.UpdateProfileAsync(dataModel);
-                await NavigationService.CloseViewWithResult(this, new ProfileUpdateResult(true, _isUserPhotoUpdated));
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            SettingsService.User = await ApiService.UpdateProfileAsync(dataModel);
+            await NavigationService.CloseViewWithResult(this, new ProfileUpdateResult(true, _isUserPhotoUpdated));
         }
 
         private async Task ShowMenuAsync()

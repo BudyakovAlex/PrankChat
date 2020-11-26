@@ -28,7 +28,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             Items = new MvxObservableCollection<OrderItemViewModel>();
             CloseCompletionSource = new TaskCompletionSource<object>();
-            RefreshUserDataCommand = new MvxAsyncCommand(RefreshUserDataAsync);
+            RefreshUserDataCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(RefreshUserDataAsync));
             SubscribeCommand = new MvxCommand(Subscribe);
             ShowSubscriptionsCommand = new MvxAsyncCommand(ShowSubscriptionsAsync);
             ShowSubscribersCommand = new MvxAsyncCommand(ShowSubscribersAsync);
@@ -124,9 +124,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             base.ViewDestroy(viewFinishing);
         }
 
-        public override Task Initialize()
+        public override Task InitializeAsync()
         {
-            return Task.WhenAll(base.Initialize(), RefreshUserDataCommand.ExecuteAsync());
+            return Task.WhenAll(base.InitializeAsync(), RefreshUserDataCommand.ExecuteAsync());
         }
 
         protected virtual void Subscribe()
@@ -231,15 +231,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private Task RefreshUserDataAsync()
         {
-            try
-            {
-                IsBusy = true;
-                return Task.WhenAll(LoadUserProfileAsync(), ReloadItemsCommand.ExecuteAsync());
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            return Task.WhenAll(LoadUserProfileAsync(), ReloadItemsCommand.ExecuteAsync());
         }
 
         private async Task LoadUserProfileAsync()

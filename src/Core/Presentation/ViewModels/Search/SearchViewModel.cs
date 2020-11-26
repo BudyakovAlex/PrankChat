@@ -60,71 +60,59 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private async Task SearchAsync(string text, bool canSkipDelay = false)
         {
-            try
+            if (text?.Length < 2)
             {
-                if (text?.Length < 2)
-                {
-                    return;
-                }
-
-                var buffer = text;
-                if (!canSkipDelay)
-                {
-                    await Task.Delay(SearchDelay);
-                }
-
-                if (buffer != _searchValue)
-                {
-                    return;
-                }
-
-                if (string.IsNullOrWhiteSpace(_searchValue))
-                {
-                    Items.Clear();
-                    return;
-                }
-
-                IsBusy = true;
-
-                await ReloadItemsCommand.ExecuteAsync();
+                return;
             }
-            finally
+
+            var buffer = text;
+            if (!canSkipDelay)
             {
-                IsBusy = false;
+                await Task.Delay(SearchDelay);
             }
+
+            if (buffer != _searchValue)
+            {
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(_searchValue))
+            {
+                Items.Clear();
+                return;
+            }
+
+            await ExecutionStateWrapper.WrapAsync(() => ReloadItemsCommand.ExecuteAsync());
         }
 
-        protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
+        protected override Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
-            try
+            return ExecutionStateWrapper.WrapAsync(async () =>
             {
-                IsBusy = true;
-
-                switch (SearchTabType)
+                try
                 {
-                    case SearchTabType.Orders:
-                        var ordersPaginationModel = await ApiService.SearchOrdersAsync(SearchValue, page, pageSize);
-                        return SetList(ordersPaginationModel, page, ProduceOrderViewModel, Items);
-                    case SearchTabType.Users:
-                        var usersPaginationModel = await ApiService.SearchUsersAsync(SearchValue, page, pageSize);
-                        return SetList(usersPaginationModel, page, ProduceUserViewModel, Items);
-                    case SearchTabType.Videos:
-                        var videosPaginationModel = await ApiService.SearchVideosAsync(SearchValue, page, pageSize);
-                        return SetList(videosPaginationModel, page, ProduceVideoViewModel, Items);
-                }
+                    switch (SearchTabType)
+                    {
+                        case SearchTabType.Orders:
+                            var ordersPaginationModel = await ApiService.SearchOrdersAsync(SearchValue, page, pageSize);
+                            return SetList(ordersPaginationModel, page, ProduceOrderViewModel, Items);
+                        case SearchTabType.Users:
+                            var usersPaginationModel = await ApiService.SearchUsersAsync(SearchValue, page, pageSize);
+                            return SetList(usersPaginationModel, page, ProduceUserViewModel, Items);
+                        case SearchTabType.Videos:
+                            var videosPaginationModel = await ApiService.SearchVideosAsync(SearchValue, page, pageSize);
+                            return SetList(videosPaginationModel, page, ProduceVideoViewModel, Items);
+                    }
 
-                return 0;
-            }
-            catch (Exception ex)
-            {
-                ErrorHandleService.HandleException(ex);
-                ErrorHandleService.LogError(this, "Search list loading error occured.");
-                return 0;
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    ErrorHandleService.HandleException(ex);
+                    ErrorHandleService.LogError(this, "Search list loading error occured.");
+                    return 0;
+                }
+            });
         }
 
         private MvxNotifyPropertyChanged ProduceVideoViewModel(VideoDataModel publication)

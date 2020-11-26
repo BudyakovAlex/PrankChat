@@ -2,6 +2,7 @@
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -28,6 +29,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             };
 
             ShowContentCommand = new MvxAsyncCommand(NavigationService.ShowCashboxContent);
+            Messenger.SubscribeOnMainThread<ReloadProfileMessage>((msg) => _isReloadNeeded = true).DisposeWith(Disposables);
         }
 
         public List<BasePageViewModel> Items { get; }
@@ -43,11 +45,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
-        public override async Task Initialize()
+        public override async Task InitializeAsync()
         {
             foreach (var item in Items)
             {
-                await item.Initialize();
+                await item.InitializeAsync();
             }
         }
 
@@ -68,16 +70,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
         }
 
-        public override void ViewCreated()
-        {
-            base.ViewCreated();
-            Subscription();
-        }
-
         public override void ViewDestroy(bool viewFinishing = true)
         {
-            Unsubscription();
-
             if (viewFinishing &&
                 CloseCompletionSource != null &&
                 !CloseCompletionSource.Task.IsCompleted &&
@@ -87,16 +81,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
 
             base.ViewDestroy(viewFinishing);
-        }
-
-        private void Subscription()
-        {
-            _reloadProfileMessageToken = Messenger.SubscribeOnMainThread<ReloadProfileMessage>((msg) => _isReloadNeeded = true);
-        }
-
-        private void Unsubscription()
-        {
-            _reloadProfileMessageToken?.Dispose();
         }
     }
 }

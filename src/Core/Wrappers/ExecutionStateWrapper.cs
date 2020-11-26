@@ -50,6 +50,33 @@ namespace PrankChat.Mobile.Core.Wrappers
             });
         }
 
+        public Task<T> WrapAsync<T>(Func<Task<T>> action, bool notifyIsBusyChanged = true, bool awaitWhenBusy = false)
+        {
+            if (IsBusy && !awaitWhenBusy)
+            {
+                return Task.FromResult(default(T));
+            }
+
+            ++_currentActionsCount;
+
+            return _isExecutionSemaphore.WrapAsync(async () =>
+            {
+                try
+                {
+                    SetIsBusy(true, notifyIsBusyChanged);
+                    return await action.Invoke();
+                }
+                finally
+                {
+                    --_currentActionsCount;
+                    if (_currentActionsCount == 0)
+                    {
+                        SetIsBusy(false, notifyIsBusyChanged);
+                    }
+                }
+            });
+        }
+
         public Task WrapAsync(Action action, bool notifyIsBusyChanged = true, bool awaitWhenBusy = false)
         {
             if (IsBusy && !awaitWhenBusy)

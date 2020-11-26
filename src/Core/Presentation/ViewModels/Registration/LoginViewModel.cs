@@ -56,99 +56,94 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         public IMvxAsyncCommand<AppleAuthDataModel> LoginWithAppleCommand { get; }
 
-        private async Task LoginAsync(string loginType)
+        private Task LoginAsync(string loginType)
         {
-            if (!SettingsService.IsDebugMode)
+            return ExecutionStateWrapper.WrapAsync(async () =>
             {
-                var newActualVersion = await ApiService.CheckAppVersionAsync();
-                if (!string.IsNullOrEmpty(newActualVersion?.Link))
+                try
                 {
-                    await NavigationService.ShowMaintananceView(newActualVersion.Link);
-                    return;
-                }
-            }
-
-            try
-            {
-                IsBusy = true;
-
-                if (!Enum.TryParse<LoginType>(loginType, out var socialNetworkType))
-                {
-                    throw new ArgumentException(nameof(loginType));
-                }
-
-                switch (socialNetworkType)
-                {
-                    case LoginType.Vk:
-                    case LoginType.Facebook:
-                        var isLoggedIn = await TryLoginWithExternalServicesAsync(socialNetworkType);
-                        if (!isLoggedIn)
+                    if (!SettingsService.IsDebugMode)
+                    {
+                        var newActualVersion = await ApiService.CheckAppVersionAsync();
+                        if (!string.IsNullOrEmpty(newActualVersion?.Link))
                         {
+                            await NavigationService.ShowMaintananceView(newActualVersion.Link);
                             return;
                         }
+                    }
+                    if (!Enum.TryParse<LoginType>(loginType, out var socialNetworkType))
+                    {
+                        throw new ArgumentException(nameof(loginType));
+                    }
 
-                        break;
+                    switch (socialNetworkType)
+                    {
+                        case LoginType.Vk:
+                        case LoginType.Facebook:
+                            var isLoggedIn = await TryLoginWithExternalServicesAsync(socialNetworkType);
+                            if (!isLoggedIn)
+                            {
+                                return;
+                            }
 
-                    case LoginType.Ok:
-                    case LoginType.Gmail:
-                        return;
+                            break;
 
-                    case LoginType.UsernameAndPassword:
-                        if (!CheckValidation())
-                        {
+                        case LoginType.Ok:
+                        case LoginType.Gmail:
                             return;
-                        }
 
-                        var email = EmailText?.Trim();
-                        var password = PasswordText?.Trim();
-                        await ApiService.AuthorizeAsync(email, password);
-                        break;
+                        case LoginType.UsernameAndPassword:
+                            if (!CheckValidation())
+                            {
+                                return;
+                            }
+
+                            var email = EmailText?.Trim();
+                            var password = PasswordText?.Trim();
+                            await ApiService.AuthorizeAsync(email, password);
+                            break;
+                    }
+
+                    await NavigateAfterLoginAsync();
                 }
-
-                await NavigateAfterLoginAsync();
-            }
-            catch (Exception ex)
-            {
-                ErrorHandleService.HandleException(ex);
-                ErrorHandleService.LogError(this, "Can't sign into application.", ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+                catch (Exception ex)
+                {
+                    ErrorHandleService.HandleException(ex);
+                    ErrorHandleService.LogError(this, "Can't sign into application.", ex);
+                }
+            });
         }
 
-        private async Task LoginWithAppleAsync(AppleAuthDataModel appleAuthDataModel)
+        private Task LoginWithAppleAsync(AppleAuthDataModel appleAuthDataModel)
         {
-            if (!SettingsService.IsDebugMode)
+            return ExecutionStateWrapper.WrapAsync(async () =>
             {
-                var newActualVersion = await ApiService.CheckAppVersionAsync();
-                if (!string.IsNullOrEmpty(newActualVersion?.Link))
+                if (!SettingsService.IsDebugMode)
                 {
-                    await NavigationService.ShowMaintananceView(newActualVersion.Link);
-                    return;
-                }
-            }
-
-            try
-            {
-                var isAuthorized = await ApiService.AuthorizeWithAppleAsync(appleAuthDataModel);
-                if (!isAuthorized)
-                {
-                    return;
+                    var newActualVersion = await ApiService.CheckAppVersionAsync();
+                    if (!string.IsNullOrEmpty(newActualVersion?.Link))
+                    {
+                        await NavigationService.ShowMaintananceView(newActualVersion.Link);
+                        return;
+                    }
                 }
 
-                await NavigateAfterLoginAsync();
-            }
-            catch (Exception ex)
-            {
-                ErrorHandleService.HandleException(ex);
-                ErrorHandleService.LogError(this, "Can't sign into application.", ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+                try
+                {
+                    var isAuthorized = await ApiService.AuthorizeWithAppleAsync(appleAuthDataModel);
+                    if (!isAuthorized)
+                    {
+                        return;
+                    }
+
+                    await NavigateAfterLoginAsync();
+                }
+                catch (Exception ex)
+                {
+                    ErrorHandleService.HandleException(ex);
+                    ErrorHandleService.LogError(this, "Can't sign into application.", ex);
+                }
+            });
         }
 
         private bool CheckValidation()

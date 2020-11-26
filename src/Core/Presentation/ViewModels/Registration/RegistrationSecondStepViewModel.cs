@@ -23,7 +23,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             _mvxWebBrowserTask = mvxWebBrowserTask;
             _pushNotificationService = pushNotificationService;
 
-            UserRegistrationCommand = new MvxAsyncCommand(OnUserRegistrationAsync);
+            UserRegistrationCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(UserRegistrationAsync));
             ShowTermsAndRulesCommand = new MvxCommand(ShowTermsAndRules);
         }
 
@@ -69,7 +69,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             _mvxWebBrowserTask.ShowWebPage(Constants.Rest.PolicyEndpoint);
         }
 
-        private async Task OnUserRegistrationAsync()
+        private async Task UserRegistrationAsync()
         {
             if (!CheckValidation())
             {
@@ -78,8 +78,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
             try
             {
-                IsBusy = true;
-
                 var userInfo = new UserRegistrationDataModel()
                 {
                     Name = Name,
@@ -101,10 +99,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             {
                 ErrorHandleService.HandleException(ex);
                 ErrorHandleService.LogError(this, "User registration error occured.", ex);
-            }
-            finally
-            {
-                IsBusy = false;
             }
         }
 

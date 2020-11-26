@@ -121,9 +121,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public IMvxCommand<GenderType> SelectGenderCommand { get; }
 
-        public override Task Initialize()
+        public override Task InitializeAsync()
         {
-            return Task.WhenAll(InitializeProfileData(), base.Initialize());
+            return Task.WhenAll(InitializeProfileData(), base.InitializeAsync());
         }
 
         protected virtual Task InitializeProfileData()
