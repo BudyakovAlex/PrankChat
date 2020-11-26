@@ -17,16 +17,16 @@ using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Providers;
-using PrankChat.Mobile.Core.Services.Authorize;
-using PrankChat.Mobile.Core.Services.Common;
-using PrankChat.Mobile.Core.Services.Competitions;
-using PrankChat.Mobile.Core.Services.Notifications;
-using PrankChat.Mobile.Core.Services.Orders;
-using PrankChat.Mobile.Core.Services.Payment;
-using PrankChat.Mobile.Core.Services.Publications;
-using PrankChat.Mobile.Core.Services.Search;
-using PrankChat.Mobile.Core.Services.Users;
-using PrankChat.Mobile.Core.Services.Video;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorize;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Common;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Notifications;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Publications;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Search;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video;
 
 namespace PrankChat.Mobile.Core
 {
