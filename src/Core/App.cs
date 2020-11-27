@@ -16,7 +16,7 @@ using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Providers;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorize;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Common;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Notifications;
@@ -45,7 +45,7 @@ namespace PrankChat.Mobile.Core
             Mvx.IoCProvider.ConstructAndRegisterSingleton<ISendLogsBackgroundTask, SendLogsBackgroundTask>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IBackgroundTaskScheduler, BackgroundTaskScheduler>();
 
-            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IAuthorizeService, AuthorizeService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IAuthorizationService, AuthorizeService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ILogsService, LogsService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IVersionService, VersionService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ICompetitionsServices, CompetitionsServices>();

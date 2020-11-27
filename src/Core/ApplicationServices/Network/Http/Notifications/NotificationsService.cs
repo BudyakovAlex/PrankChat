@@ -2,8 +2,7 @@
 using MvvmCross.Plugin.Messenger;
 using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorize;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
@@ -23,19 +22,19 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Notifications
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _messenger;
         private readonly IMvxLog _log;
-        private readonly IAuthorizeService _authorizeService;
+        private readonly IAuthorizationService _authorizeService;
 
         private readonly HttpClient _client;
 
         public NotificationsService(ISettingsService settingsService,
-                          IAuthorizeService authorizeService,
+                          IAuthorizationService authorizeService,
                           IMvxLogProvider logProvider,
                           IMvxMessenger messenger,
                           ILogger logger)
         {
             _settingsService = settingsService;
             _messenger = messenger;
-            _log = logProvider.GetLogFor<AuthorizeService>();
+            _log = logProvider.GetLogFor<NotificationsService>();
             _authorizeService = authorizeService;
 
             var configuration = ConfigurationProvider.GetConfiguration();
