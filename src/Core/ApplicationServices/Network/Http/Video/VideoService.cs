@@ -27,11 +27,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
 
         private readonly HttpClient _client;
 
-        public VideoService(ISettingsService settingsService,
-                          IAuthorizationService authorizeService,
-                          IMvxLogProvider logProvider,
-                          IMvxMessenger messenger,
-                          ILogger logger)
+        public VideoService(
+            ISettingsService settingsService,
+            IAuthorizationService authorizeService,
+            IMvxLogProvider logProvider,
+            IMvxMessenger messenger,
+            ILogger logger)
         {
             _settingsService = settingsService;
             _messenger = messenger;

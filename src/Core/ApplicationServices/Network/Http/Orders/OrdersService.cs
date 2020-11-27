@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
@@ -18,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
 {
-    public class OrdersService : IOrdersService
+    public class OrdersService : BaseRestService, IOrdersService
     {
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _messenger;
@@ -27,11 +28,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
 
         private readonly HttpClient _client;
 
-        public OrdersService(ISettingsService settingsService,
-                          IAuthorizationService authorizeService,
-                          IMvxLogProvider logProvider,
-                          IMvxMessenger messenger,
-                          ILogger logger)
+        public OrdersService(
+            ISettingsService settingsService,
+            IAuthorizationService authorizeService,
+            IMvxLogProvider logProvider,
+            IMvxMessenger messenger,
+            ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
         {
             _settingsService = settingsService;
             _messenger = messenger;
@@ -173,16 +175,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
             };
             var data = await _client.PostAsync<ChangeArbitrationApiModel, DataApiModel<OrderApiModel>>($"orders/{orderId}/arbitration/value", arbitrationValue, true);
             return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
-        }
-
-        private void OnUnauthorizedUser(UnauthorizedMessage obj)
-        {
-            if (_settingsService.User == null)
-            {
-                return;
-            }
-
-            _authorizeService.RefreshTokenAsync().FireAndForget();
         }
 
         private PaginationModel<TDataModel> CreatePaginationResult<TApiModel, TDataModel>(BaseBundleApiModel<TApiModel> data)

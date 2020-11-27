@@ -28,11 +28,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
 
         private readonly HttpClient _client;
 
-        public UsersService(ISettingsService settingsService,
-                          IAuthorizationService authorizeService,
-                          IMvxLogProvider logProvider,
-                          IMvxMessenger messenger,
-                          ILogger logger)
+        public UsersService(
+            ISettingsService settingsService,
+            IAuthorizationService authorizeService,
+            IMvxLogProvider logProvider,
+            IMvxMessenger messenger,
+            ILogger logger)
         {
             _settingsService = settingsService;
             _messenger = messenger;

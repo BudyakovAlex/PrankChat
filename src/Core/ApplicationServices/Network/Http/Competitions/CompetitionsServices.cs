@@ -25,11 +25,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions
 
         private readonly HttpClient _client;
 
-        public CompetitionsServices(ISettingsService settingsService,
-                          IAuthorizationService authorizeService,
-                          IMvxLogProvider logProvider,
-                          IMvxMessenger messenger,
-                          ILogger logger)
+        public CompetitionsServices(
+            ISettingsService settingsService,
+            IAuthorizationService authorizeService,
+            IMvxLogProvider logProvider,
+            IMvxMessenger messenger,
+            ILogger logger)
         {
             _settingsService = settingsService;
             _messenger = messenger;

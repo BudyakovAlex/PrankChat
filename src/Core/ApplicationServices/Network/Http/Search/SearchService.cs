@@ -25,11 +25,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Search
 
         private readonly HttpClient _client;
 
-        public SearchService(ISettingsService settingsService,
-                          IAuthorizationService authorizeService,
-                          IMvxLogProvider logProvider,
-                          IMvxMessenger messenger,
-                          ILogger logger)
+        public SearchService(
+            ISettingsService settingsService,
+            IAuthorizationService authorizeService,
+            IMvxLogProvider logProvider,
+            IMvxMessenger messenger,
+            ILogger logger)
         {
             _settingsService = settingsService;
             _messenger = messenger;
