@@ -70,7 +70,7 @@
 						android:layout_marginLeft="16dp"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:gravity="start"
+						android:gravity="center_horizontal"
 						android:textColor="@color/applicationBlack"
 						android:textSize="14dp"
 						app:MvxBind="Text VideoDetails"/>

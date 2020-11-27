@@ -76,7 +76,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.VideoName);
 
             // TODO: Add binding to property at VM.
-            set.Bind(hiddentView).For(v => v.BindVisibility()).To(vm => vm.IsHidden);
+            // set.Bind(hiddentView).For(v => v.BindVisibility()).To(vm => vm.IsHidden);
 
             set.Bind(videoDescriptionLabel)
                 .To(vm => vm.VideoDetails);

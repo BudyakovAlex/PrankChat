@@ -138,7 +138,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             // TODO: Add binding to property at VM.
             // set.Bind(IsHiddenOrderImageView).For(v => v.BindVisibility()).To(vm => vm.IsHiddenOrder);
-
+            
             set.Apply();
         }
 

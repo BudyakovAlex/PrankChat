@@ -37,6 +37,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UILabel hideExecutorCheckboxLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIImageView InfoImageView { get; set; }
+
+		[Outlet]
 		Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
 
 		[Outlet]
@@ -148,6 +151,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (TextViewHeightConstraint != null) {
 				TextViewHeightConstraint.Dispose ();
 				TextViewHeightConstraint = null;
+			}
+
+			if (InfoImageView != null) {
+				InfoImageView.Dispose ();
+				InfoImageView = null;
 			}
 		}
 	}

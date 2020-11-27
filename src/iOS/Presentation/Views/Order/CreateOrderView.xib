@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateOrderView">
             <connections>
                 <outlet property="HideExecutorCheckBoxButton" destination="Mkv-tc-vtV" id="wec-jg-Cji"/>
+                <outlet property="InfoImageView" destination="Hpb-fU-ykB" id="SSq-yU-ao1"/>
                 <outlet property="TextViewHeightConstraint" destination="1Vi-fo-UTb" id="bKV-VD-DPD"/>
                 <outlet property="completeDateTextField" destination="ZDI-0s-1IO" id="uce-tj-26M"/>
                 <outlet property="createButton" destination="kIc-F7-6ov" id="enJ-Cc-U3k"/>
@@ -123,15 +124,26 @@
                                     </subviews>
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mkv-tc-vtV" customClass="CheckBox">
-                                    <rect key="frame" x="0.0" y="308" width="332.5" height="30"/>
+                                    <rect key="frame" x="0.0" y="308" width="18" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="18" id="hwy-fJ-9Mw"/>
+                                    </constraints>
                                     <state key="normal" title="Button"/>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJw-V4-peh">
-                                    <rect key="frame" x="340.5" y="313" width="41.5" height="20.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" jkkdsjhfkjh" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJw-V4-peh">
+                                    <rect key="frame" x="26" y="313" width="85" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_info" translatesAutoresizingMaskIntoConstraints="NO" id="Hpb-fU-ykB">
+                                    <rect key="frame" x="130" y="312" width="22" height="22"/>
+                                    <color key="tintColor" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="22" id="3Yt-Jg-ApD"/>
+                                        <constraint firstAttribute="height" constant="22" id="jNl-da-zYQ"/>
+                                    </constraints>
+                                </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kIc-F7-6ov">
                                     <rect key="frame" x="111" y="368" width="160" height="36"/>
                                     <constraints>
@@ -146,12 +158,14 @@
                                 <constraint firstItem="kIc-F7-6ov" firstAttribute="top" secondItem="Mkv-tc-vtV" secondAttribute="bottom" constant="30" id="6tw-9s-zbT"/>
                                 <constraint firstItem="kIc-F7-6ov" firstAttribute="centerX" secondItem="fQO-fP-Hac" secondAttribute="centerX" id="9LB-gc-Fe5"/>
                                 <constraint firstItem="Mkv-tc-vtV" firstAttribute="leading" secondItem="fQO-fP-Hac" secondAttribute="leading" id="CUk-jW-pfu"/>
+                                <constraint firstAttribute="trailing" secondItem="Hpb-fU-ykB" secondAttribute="trailing" priority="250" constant="16" id="E5l-dd-9CF"/>
                                 <constraint firstItem="XJw-V4-peh" firstAttribute="centerY" secondItem="Mkv-tc-vtV" secondAttribute="centerY" id="HI6-gl-WEw"/>
+                                <constraint firstItem="Hpb-fU-ykB" firstAttribute="centerY" secondItem="Mkv-tc-vtV" secondAttribute="centerY" id="N4r-oR-dL6"/>
                                 <constraint firstAttribute="trailing" secondItem="BDc-xh-Ib0" secondAttribute="trailing" id="NRe-tK-e1i"/>
-                                <constraint firstAttribute="trailing" secondItem="XJw-V4-peh" secondAttribute="trailing" id="O7L-hx-ypQ"/>
                                 <constraint firstItem="Mkv-tc-vtV" firstAttribute="top" secondItem="BDc-xh-Ib0" secondAttribute="bottom" constant="16" id="cQP-eT-QJe"/>
                                 <constraint firstAttribute="bottom" secondItem="kIc-F7-6ov" secondAttribute="bottom" constant="10" id="fEA-iT-MsE"/>
                                 <constraint firstItem="BDc-xh-Ib0" firstAttribute="top" secondItem="fQO-fP-Hac" secondAttribute="top" id="j5q-Er-23j"/>
+                                <constraint firstItem="Hpb-fU-ykB" firstAttribute="leading" secondItem="XJw-V4-peh" secondAttribute="trailing" constant="19" id="kJ4-Tx-FGS"/>
                                 <constraint firstItem="XJw-V4-peh" firstAttribute="leading" secondItem="Mkv-tc-vtV" secondAttribute="trailing" constant="8" id="xdk-tZ-Ly6"/>
                             </constraints>
                         </view>
@@ -202,6 +216,7 @@
         </view>
     </objects>
     <resources>
+        <image name="ic_info" width="24" height="24"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
