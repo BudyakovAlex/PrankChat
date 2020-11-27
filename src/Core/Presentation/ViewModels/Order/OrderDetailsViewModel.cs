@@ -1,11 +1,10 @@
-﻿using MvvmCross.Commands;
+﻿using MvvmCross;
+using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
-using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -17,84 +16,60 @@ using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections.Abstract;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
-    //TODO: split logic to more specific view models
     public class OrderDetailsViewModel : BasePageViewModel, IMvxViewModel<OrderDetailsNavigationParameter, OrderDetailsResult>
     {
-        private readonly IMediaService _mediaService;
         private readonly IPlatformService _platformService;
 
         private int _orderId;
         private int _timerThicksCount;
 
-        private OrderDataModel _order;
-        private MvxSubscriptionToken _timerTickMessageToken;
+        private readonly BaseOrderDetailsSectionViewModel[] _sections;
 
-        public OrderDetailsViewModel(IPlatformService platformService, IMediaService mediaService)
+        public OrderDetailsViewModel(IPlatformService platformService)
         {
-            _mediaService = mediaService;
             _platformService = platformService;
 
             TakeOrderCommand = new MvxAsyncCommand(TakeOrderAsync);
-            SubscribeOrderCommand = new MvxAsyncCommand(SubscribeOrderAsync);
-            UnsubscribeOrderCommand = new MvxAsyncCommand(UnsubscribeOrderAsync);
-            YesCommand = new MvxAsyncCommand(YesAsync);
-            NoCommand = new MvxAsyncCommand(NoAsync);
-            LoadVideoCommand = new MvxAsyncCommand(LoadVideoAsync);
-            ExecuteOrderCommand = new MvxAsyncCommand(ExecuteOrderAsync);
-            CancelOrderCommand = new MvxAsyncCommand(CancelOrderAsync);
-            ArqueOrderCommand = new MvxAsyncCommand(ArgueOrderAsync);
-            AcceptOrderCommand = new MvxAsyncCommand(AcceptOrderAsync);
-            ShowFullVideoCommand = new MvxAsyncCommand(ShowFullVideoAsync);
+            SubscribeOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(SubscribeOrderAsync));
+            UnsubscribeOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(UnsubscribeOrderAsync));
+            YesCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(YesAsync));
+            NoCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(NoAsync));
+            ExecuteOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(ExecuteOrderAsync));
+            CancelOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(CancelOrderAsync));
+            ArqueOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(ArgueOrderAsync));
+            AcceptOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(AcceptOrderAsync));
+
             LoadOrderDetailsCommand = new MvxAsyncCommand(LoadOrderDetailsAsync);
             OpenSettingsCommand = new MvxAsyncCommand(OpenSettingsAsync);
-            CancelUploadingCommand = new MvxCommand(() => _cancellationTokenSource?.Cancel());
+
+            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
+            _sections = new BaseOrderDetailsSectionViewModel[]
+            {
+                CustomerSectionViewModel = Mvx.IoCProvider.IoCConstruct<OrderDetailsCustomerSectionViewModel>(),
+                ExecutorSectionViewModel = Mvx.IoCProvider.IoCConstruct<OrderDetailsExecutorSectionViewModel>(),
+                VideoSectionViewModel = Mvx.IoCProvider.IoCConstruct<OrderDetailsVideoSectionViewModel>()
+            };
+
+            VideoSectionViewModel.RefreshDataFunc = LoadOrderDetailsAsync;
         }
 
-        #region Video
+        public int LikesCount => Order?.PositiveArbitrationValuesCount ?? 0;
 
-        public bool IsVideoProcessing => _order?.Status == OrderStatusType.VideoInProcess;
-
-        public string VideoUrl => _order?.Video?.StreamUri;
-
-        public string VideoPlaceholderUrl => _order?.Video?.Poster;
-
-        public string VideoName => _order?.Title;
-
-        public string VideoDetails => _order?.Description;
-
-        #endregion Video
-
-        #region Executor
-
-        public string ExecutorPhotoUrl => _order?.Executor?.Avatar;
-
-        public string ExecutorName => _order?.Executor?.Login;
-
-        public string ExecutorShortName => _order?.Executor?.Login?.ToShortenName();
-
-        public string StartOrderDate => _order?.TakenToWorkAt?.ToShortDateString();
-
-        #endregion Executor
-
-        #region Decide
-
-        public int LikesCount => _order?.PositiveArbitrationValuesCount ?? 0;
-
-        public int DisikesCount => _order?.NegativeArbitrationValuesCount ?? 0;
+        public int DisikesCount => Order?.NegativeArbitrationValuesCount ?? 0;
 
         public string YesText => IsDecideEnabled ? Resources.OrderDetailsView_Yes_Button : LikesCount.ToString();
 
         public string NoText => IsDecideEnabled ? Resources.OrderDetailsView_No_Button : DisikesCount.ToString();
 
-        public ArbitrationValueType? SelectedArbitration => _order?.MyArbitrationValue;
+        public ArbitrationValueType? SelectedArbitration => Order?.MyArbitrationValue;
 
         public bool IsDecideEnabled => SelectedArbitration == null && IsUserGuest;
 
@@ -112,11 +87,36 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             set => SetProperty(ref _isYesSelected, value);
         }
 
-        #endregion
+        private OrderDataModel _order;
+        public OrderDataModel Order
+        {
+            get => _order;
+            set
+            {
+                _order = value;
+                _sections.ForEach(section => section.SetOrder(value));
+            }
+        }
 
-        private TimeSpan? TimeValue => _order?.GetActiveOrderTime();
+        public IMvxAsyncCommand TakeOrderCommand { get; }
+        public IMvxAsyncCommand SubscribeOrderCommand { get; }
+        public IMvxAsyncCommand UnsubscribeOrderCommand { get; }
+        public IMvxAsyncCommand YesCommand { get; }
+        public IMvxAsyncCommand NoCommand { get; }
+        public IMvxAsyncCommand ExecuteOrderCommand { get; }
+        public IMvxAsyncCommand CancelOrderCommand { get; }
+        public IMvxAsyncCommand ArqueOrderCommand { get; }
+        public IMvxAsyncCommand AcceptOrderCommand { get; }
+        public IMvxAsyncCommand LoadOrderDetailsCommand { get; }
+        public IMvxAsyncCommand OpenSettingsCommand { get; }
 
-        public string PriceValue => _order?.Price.ToPriceString();
+        public OrderDetailsCustomerSectionViewModel CustomerSectionViewModel { get; }
+        public OrderDetailsExecutorSectionViewModel ExecutorSectionViewModel { get; }
+        public OrderDetailsVideoSectionViewModel VideoSectionViewModel { get; }
+
+        private TimeSpan? TimeValue => Order?.GetActiveOrderTime();
+
+        public string PriceValue => Order?.Price.ToPriceString();
 
         public string TimeDaysValue => TimeValue?.Days.ToString("00");
 
@@ -124,91 +124,43 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string TimeMinutesValue => TimeValue?.Minutes.ToString("00");
 
-        public bool IsUserCustomer => _order?.Customer?.Id == SettingsService.User?.Id;
-
-        public bool IsUserExecutor => _order?.Executor?.Id == SettingsService.User?.Id;
-
-        public bool IsUserGuest => !IsUserCustomer && !IsUserExecutor;
+        public bool IsUserGuest => !CustomerSectionViewModel.IsUserCustomer && !ExecutorSectionViewModel.IsUserExecutor;
 
         public bool IsSubscribeAvailable => false; // IsUserListener;
 
         public bool IsUnsubscribeAvailable => false; // IsUserListener;
 
-        public bool IsTakeOrderAvailable => !IsUserCustomer && _order?.Status == OrderStatusType.Active;
+        public bool IsTakeOrderAvailable => !CustomerSectionViewModel.IsUserCustomer && Order?.Status == OrderStatusType.Active;
 
         public bool IsAnyOrderActionAvailable => IsTakeOrderAvailable || IsSubscribeAvailable || IsUnsubscribeAvailable;
 
-        public bool IsCancelOrderAvailable => IsUserCustomer && _order?.Status == OrderStatusType.Active;
+        public bool IsCancelOrderAvailable => CustomerSectionViewModel.IsUserCustomer && Order?.Status == OrderStatusType.Active;
 
         public bool IsExecuteOrderAvailable => false;
 
-        public bool IsVideoLoadAvailable => _order?.Status == OrderStatusType.InWork && IsUserExecutor;
-
-        public bool IsVideoAvailable => _order?.Video != null && !IsVideoProcessing;
-
-        public bool IsExecutorAvailable => _order?.Executor != null && _order?.Executor?.Id != SettingsService.User?.Id;
-
-        public bool IsDecideVideoAvailable => _order?.Status == OrderStatusType.InArbitration;
-
-        public bool IsDecisionVideoAvailable => (_order?.Status == OrderStatusType.WaitFinish || _order?.Status == OrderStatusType.VideoWaitModeration) && IsUserCustomer;
-
-        public bool IsTimeAvailable => _order?.Status != null && TimeValue != null && TimeValue >= TimeSpan.Zero &&
-                                       (_order.VideoUploadedAt != null &&
-                                        (_order.Status.Value == OrderStatusType.WaitFinish ||
-                                         _order.Status.Value == OrderStatusType.VideoInProcess ||
-                                         _order.Status.Value == OrderStatusType.VideoWaitModeration) ||
-                                        _order.FinishIn != null);
+        public bool IsTimeAvailable => Order.CheckIsTimeAvailable();
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
-
-        #region Commands
-
-        public IMvxAsyncCommand TakeOrderCommand { get; }
-        public IMvxAsyncCommand SubscribeOrderCommand { get; }
-        public IMvxAsyncCommand UnsubscribeOrderCommand { get; }
-        public IMvxAsyncCommand YesCommand { get; }
-        public IMvxAsyncCommand NoCommand { get; }
-        public IMvxAsyncCommand LoadVideoCommand { get; }
-        public IMvxAsyncCommand ExecuteOrderCommand { get; }
-        public IMvxAsyncCommand CancelOrderCommand { get; }
-        public IMvxAsyncCommand ArqueOrderCommand { get; }
-        public IMvxAsyncCommand AcceptOrderCommand { get; }
-        public IMvxAsyncCommand ShowFullVideoCommand { get; }
-        public IMvxAsyncCommand LoadOrderDetailsCommand { get; }
-        public IMvxAsyncCommand OpenSettingsCommand { get; }
-        public IMvxCommand CancelUploadingCommand { get; }
-
-        #endregion Commands
 
         public void Prepare(OrderDetailsNavigationParameter parameter)
         {
             _orderId = parameter.OrderId;
-            _fullScreenVideos = parameter.FullScreenVideos ?? new List<FullScreenVideoDataModel>();
-            _currentIndex = parameter.CurrentIndex;
+            VideoSectionViewModel.SetFullScreenVideos(parameter.FullScreenVideos, parameter.CurrentIndex);
         }
 
-        public override Task Initialize()
+        public override Task InitializeAsync()
         {
             return LoadOrderDetailsCommand.ExecuteAsync();
         }
 
-        public override void ViewCreated()
-        {
-            _timerTickMessageToken = Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong);
-
-            base.ViewCreated();
-        }
-
         public override void ViewDestroy(bool viewFinishing = true)
         {
-            _timerTickMessageToken?.Dispose();
-
             if (viewFinishing &&
                 CloseCompletionSource != null &&
                 !CloseCompletionSource.Task.IsCompleted &&
                 !CloseCompletionSource.Task.IsFaulted)
             {
-                CloseCompletionSource?.SetResult(new OrderDetailsResult(_order));
+                CloseCompletionSource?.SetResult(new OrderDetailsResult(Order));
             }
 
             base.ViewDestroy(viewFinishing);
@@ -228,8 +180,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                         return;
                     }
 
-                    _order = refreshedOrder;
-                    RefreshFullScreenVideo();
+                    Order = refreshedOrder;
+                    VideoSectionViewModel.RefreshFullScreenVideo();
                     await RaiseAllPropertiesChanged();
 
                     IsNoSelected = SelectedArbitration == ArbitrationValueType.Negative;
@@ -243,42 +195,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private void RefreshFullScreenVideo()
-        {
-            var fullScreenVideo = _fullScreenVideos.FirstOrDefault(item => item.VideoId == _order?.Video?.Id);
-            if (fullScreenVideo is null)
-            {
-                return;
-            }
-
-            fullScreenVideo.VideoUrl = _order?.Video?.StreamUri;
-        }
-
-        private Task OpenExecutorProfileAsync()
-        {
-            if (_order?.Executor?.Id is null ||
-                _order.Executor.Id == SettingsService.User.Id)
-            {
-                return Task.CompletedTask;
-            }
-
-            return NavigationService.ShowUserProfile(_order.Executor.Id);
-        }
-
         private async Task LoadOrderDetailsAsync()
         {
             try
             {
-                IsBusy = true;
-
                 var refreshedOrder = await ApiService.GetOrderDetailsAsync(_orderId);
                 if (refreshedOrder is null)
                 {
                     return;
                 }
 
-                _order = refreshedOrder;
-                RefreshFullScreenVideo();
+                Order = refreshedOrder;
+                VideoSectionViewModel.RefreshFullScreenVideo();
                 await RaiseAllPropertiesChanged();
 
                 IsNoSelected = SelectedArbitration == ArbitrationValueType.Negative;
@@ -288,10 +216,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 ErrorHandleService.HandleException(ex);
                 ErrorHandleService.LogError(this, "Error on loading order page.");
-            }
-            finally
-            {
-                IsBusy = false;
             }
         }
 
@@ -310,20 +234,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 ErrorHandleService.SuspendServerErrorsHandling();
                 var takenOrder = await ApiService.TakeOrderAsync(_orderId);
-                if (takenOrder != null && _order != null)
+                if (takenOrder != null && Order != null)
                 {
-                    _order.Status = takenOrder.Status;
-                    _order.Executor = SettingsService.User;
-                    _order.ActiveTo = takenOrder.ActiveTo;
+                    Order.Status = takenOrder.Status;
+                    Order.Executor = SettingsService.User;
+                    Order.ActiveTo = takenOrder.ActiveTo;
+
+                    await Task.WhenAll(_sections.Select(item => item.RaiseAllPropertiesChanged()));
                     await RaiseAllPropertiesChanged();
                 }
 
-                if (_order is null)
+                if (Order is null)
                 {
                     return;
                 }
 
-                Messenger.Publish(new OrderChangedMessage(this, _order));
+                Messenger.Publish(new OrderChangedMessage(this, Order));
             }
             catch (NetworkException ex) when (ex.InnerException is ProblemDetailsDataModel problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
             {
@@ -355,26 +281,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             try
             {
-                IsBusy = true;
-
-                var order = await ApiService.SubscribeOrderAsync(_orderId);
+                Order = await ApiService.SubscribeOrderAsync(_orderId);
                 await RaiseAllPropertiesChanged();
-
-                if (_order is null)
-                {
-                    return;
-                }
-
-                Messenger.Publish(new OrderChangedMessage(this, _order));
+                Messenger.Publish(new OrderChangedMessage(this, Order));
             }
             catch (Exception ex)
             {
                 ErrorHandleService.HandleException(ex);
                 ErrorHandleService.LogError(this, "Order subscription failed.");
-            }
-            finally
-            {
-                IsBusy = false;
             }
         }
 
@@ -382,49 +296,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             try
             {
-                IsBusy = true;
-
-                var order = await ApiService.UnsubscribeOrderAsync(_orderId);
+                Order = await ApiService.UnsubscribeOrderAsync(_orderId);
                 await RaiseAllPropertiesChanged();
-                Messenger.Publish(new OrderChangedMessage(this, _order));
+                Messenger.Publish(new OrderChangedMessage(this, Order));
             }
             catch (Exception ex)
             {
                 ErrorHandleService.HandleException(ex);
                 ErrorHandleService.LogError(this, "Error on order unsubscription.");
             }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        private void OnUploadingProgressChanged(double progress, double size)
-        {
-            UploadingProgress = (float)(progress / size * 100);
-            UploadingProgressStringPresentation = $"{((long)progress).ToFileSizePresentation()} / {((long)size).ToFileSizePresentation()}";
-
-            if (UploadingProgress < 100)
-            {
-                return;
-            }
-
-            IsUploading = false;
-            IsBusy = true;
         }
 
         private async Task ArgueOrderAsync()
         {
             try
             {
-                IsBusy = true;
-
                 var order = await ApiService.ArgueOrderAsync(_orderId);
-                if (order != null && _order != null)
+                if (order != null && Order != null)
                 {
-                    _order.Status = order.Status;
+                    Order.Status = order.Status;
+                    await Task.WhenAll(_sections.Select(item => item.RaiseAllPropertiesChanged()));
                     await RaiseAllPropertiesChanged();
-                    Messenger.Publish(new OrderChangedMessage(this, _order));
+                    Messenger.Publish(new OrderChangedMessage(this, Order));
                 }
             }
             catch (Exception ex)
@@ -432,22 +325,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 ErrorHandleService.HandleException(ex);
                 ErrorHandleService.LogError(this, "Error on argue initialization.", ex);
             }
-            finally
-            {
-                IsBusy = false;
-            }
         }
 
         private async Task AcceptOrderAsync()
         {
             try
             {
-                IsBusy = true;
-
                 var order = await ApiService.AcceptOrderAsync(_orderId);
-                if (order != null && _order != null)
+                if (order != null && Order != null)
                 {
-                    _order.Status = order.Status;
+                    Order.Status = order.Status;
+
+                    await Task.WhenAll(_sections.Select(item => item.RaiseAllPropertiesChanged()));
                     await RaiseAllPropertiesChanged();
                     Messenger.Publish(new OrderChangedMessage(this, order));
                 }
@@ -457,33 +346,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 ErrorHandleService.HandleException(ex);
                 ErrorHandleService.LogError(this, "Error on accept order.", ex);
             }
-            finally
-            {
-                IsBusy = false;
-            }
         }
 
         private async Task CancelOrderAsync()
         {
-
             var result = await DialogService.ShowConfirmAsync(Resources.OrderDetails_View_Cancel_Title,
                                                               Resources.Attention,
                                                               Resources.Ok,
                                                               Resources.Cancel);
             if (!result)
-                return;
-
-            IsBusy = true;
-
-            var canceledOrder = await ApiService.CancelOrderAsync(_orderId);
-            if (canceledOrder != null && _order != null)
             {
-                _order.Status = canceledOrder.Status;
-                await RaiseAllPropertiesChanged();
-                Messenger.Publish(new OrderChangedMessage(this, _order));
+                return;
             }
 
-            IsBusy = false;
+            var canceledOrder = await ApiService.CancelOrderAsync(_orderId);
+            if (canceledOrder != null && Order != null)
+            {
+                Order.Status = canceledOrder.Status;
+                await Task.WhenAll(_sections.Select(item => item.RaiseAllPropertiesChanged()));
+                await RaiseAllPropertiesChanged();
+                Messenger.Publish(new OrderChangedMessage(this, Order));
+            }
         }
 
         private Task ExecuteOrderAsync()
@@ -502,11 +385,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 IsYesSelected = !IsYesSelected;
                 var votedOrder = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Positive);
-                if (votedOrder != null && _order != null)
+                if (votedOrder != null && Order != null)
                 {
-                    _order.MyArbitrationValue = votedOrder.MyArbitrationValue;
-                    _order.PositiveArbitrationValuesCount = votedOrder.PositiveArbitrationValuesCount;
-                    _order.NegativeArbitrationValuesCount = votedOrder.NegativeArbitrationValuesCount;
+                    Order.MyArbitrationValue = votedOrder.MyArbitrationValue;
+                    Order.PositiveArbitrationValuesCount = votedOrder.PositiveArbitrationValuesCount;
+                    Order.NegativeArbitrationValuesCount = votedOrder.NegativeArbitrationValuesCount;
                     await RaiseAllPropertiesChanged();
                     Messenger.Publish(new OrderChangedMessage(this, votedOrder));
                 }
@@ -518,26 +401,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 IsYesSelected = !IsYesSelected;
             }
-            finally
-            {
-                IsBusy = false;
-            }
         }
 
         private async Task NoAsync()
         {
             if (!IsDecideEnabled || !IsUserGuest)
+            {
                 return;
+            }
 
             try
             {
                 IsNoSelected = !IsNoSelected;
                 var votedOrder = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Negative);
-                if (votedOrder != null && _order != null)
+                if (votedOrder != null && Order != null)
                 {
-                    _order.MyArbitrationValue = votedOrder.MyArbitrationValue;
-                    _order.PositiveArbitrationValuesCount = votedOrder.PositiveArbitrationValuesCount;
-                    _order.NegativeArbitrationValuesCount = votedOrder.NegativeArbitrationValuesCount;
+                    Order.MyArbitrationValue = votedOrder.MyArbitrationValue;
+                    Order.PositiveArbitrationValuesCount = votedOrder.PositiveArbitrationValuesCount;
+                    Order.NegativeArbitrationValuesCount = votedOrder.NegativeArbitrationValuesCount;
                     await RaiseAllPropertiesChanged();
                     Messenger.Publish(new OrderChangedMessage(this, votedOrder));
                 }
@@ -548,10 +429,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 ErrorHandleService.LogError(this, "Error on order voting.");
 
                 IsNoSelected = !IsNoSelected;
-            }
-            finally
-            {
-                IsBusy = false;
             }
         }
 
@@ -590,7 +467,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
             if (result == Resources.Publication_Item_Copy_Link)
             {
-                await _platformService.CopyTextAsync(_order?.Video?.ShareUri);
+                await _platformService.CopyTextAsync(Order?.Video?.ShareUri);
                 DialogService.ShowToast(Resources.LinkCopied, ToastType.Positive);
                 return;
             }

@@ -2,49 +2,46 @@
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections.Abstract;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
 {
-    public class OrderDetailsExecutorSectionViewModel : BaseViewModel
+    public class OrderDetailsExecutorSectionViewModel : BaseOrderDetailsSectionViewModel
     {
         private readonly ISettingsService _settingsService;
         private readonly INavigationService _navigationService;
-        private readonly UserDataModel _executor;
 
-        public OrderDetailsExecutorSectionViewModel(ISettingsService settingsService, INavigationService navigationService, UserDataModel executor)
+        public OrderDetailsExecutorSectionViewModel(ISettingsService settingsService, INavigationService navigationService)
         {
             _settingsService = settingsService;
             _navigationService = navigationService;
-            _executor = executor;
 
             OpenExecutorProfileCommand = new MvxRestrictedAsyncCommand(OpenExecutorProfileAsync, restrictedCanExecute: () => settingsService.User != null, handleFunc: navigationService.ShowLoginView);
         }
 
-        public string ExecutorPhotoUrl => _executor?.Avatar;
+        public string ExecutorPhotoUrl => Order?.Executor?.Avatar;
 
-        public string ExecutorName => _executor?.Login;
+        public string ExecutorName => Order?.Executor?.Login;
 
         public string ExecutorShortName => ExecutorName.ToShortenName();
 
-        public bool IsExecutorAvailable => _executor != null && _executor?.Id != _settingsService.User?.Id;
+        public bool IsExecutorAvailable => Order?.Executor != null && Order?.Executor?.Id != _settingsService.User?.Id;
 
-        public bool IsUserExecutor => _executor?.Id == _settingsService.User?.Id;
+        public bool IsUserExecutor => Order?.Executor?.Id == _settingsService.User?.Id;
 
         public IMvxAsyncCommand OpenExecutorProfileCommand { get; }
 
         private Task OpenExecutorProfileAsync()
         {
-            if (_executor?.Id is null ||
-                _executor.Id == _settingsService.User.Id)
+            if (Order?.Executor?.Id is null ||
+                Order?.Executor.Id == _settingsService.User.Id)
             {
                 return Task.CompletedTask;
             }
 
-            return _navigationService.ShowUserProfile(_executor.Id);
+            return _navigationService.ShowUserProfile(Order.Executor.Id);
         }
     }
 }

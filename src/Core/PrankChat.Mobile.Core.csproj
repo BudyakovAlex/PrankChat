@@ -85,5 +85,6 @@
     <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\SendLogs\" />
     <Folder Include="Presentation\ViewModels\Order\Sections\" />
     <Folder Include="Wrappers\" />
+    <Folder Include="Presentation\ViewModels\Order\Sections\Abstract\" />
   </ItemGroup>
 </Project>

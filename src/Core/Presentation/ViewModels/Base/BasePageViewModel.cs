@@ -36,10 +36,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public IErrorHandleService ErrorHandleService => Mvx.IoCProvider.Resolve<IErrorHandleService>();
 
-        public IApiService ApiService => Mvx.IoCProvider.Resolve<IApiService>();
-
-        public IDialogService DialogService => Mvx.IoCProvider.Resolve<IDialogService>();
-
         public ISettingsService SettingsService => Mvx.IoCProvider.Resolve<ISettingsService>();
 
         public ILogger Logger => Mvx.IoCProvider.Resolve<ILogger>();

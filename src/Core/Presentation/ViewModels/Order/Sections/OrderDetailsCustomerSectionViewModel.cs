@@ -2,61 +2,44 @@
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections.Abstract;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
 {
-    public class OrderDetailsCustomerSectionViewModel : BaseViewModel
+    public class OrderDetailsCustomerSectionViewModel : BaseOrderDetailsSectionViewModel
     {
         private readonly ISettingsService _settingsService;
         private readonly INavigationService _navigationService;
 
-        private readonly UserDataModel _customer;
-
-        public OrderDetailsCustomerSectionViewModel(ISettingsService settingsService,
-                                                    INavigationService navigationService,
-                                                    UserDataModel customer)
+        public OrderDetailsCustomerSectionViewModel(ISettingsService settingsService, INavigationService navigationService)
         {
             _settingsService = settingsService;
             _navigationService = navigationService;
-            _customer = customer;
 
             OpenCustomerProfileCommand = new MvxRestrictedAsyncCommand(OpenCustomerProfileAsync, restrictedCanExecute: () => settingsService.User != null, handleFunc: navigationService.ShowLoginView);
         }
 
-        public string ProfilePhotoUrl => _customer?.Avatar;
+        public string ProfilePhotoUrl => Order?.Customer?.Avatar;
 
-        public string ProfileName => _customer?.Login;
+        public string ProfileName => Order?.Customer?.Login;
 
         public string ProfileShortName => ProfileName?.ToShortenName();
 
-        public bool IsUserCustomer => _customer?.Id == _settingsService.User?.Id;
+        public bool IsUserCustomer =>  Order?.Customer?.Id == _settingsService.User?.Id;
 
         public IMvxAsyncCommand OpenCustomerProfileCommand { get; }
 
         private Task OpenCustomerProfileAsync()
         {
-            if (_customer?.Id is null ||
-                _customer.Id == _settingsService.User.Id)
+            if (Order?.Customer?.Id is null ||
+                Order?.Customer.Id == _settingsService.User.Id)
             {
                 return Task.CompletedTask;
             }
 
-            return _navigationService.ShowUserProfile(_customer.Id);
-        }
-
-        private void RefreshFullScreenVideo()
-        {
-            var fullScreenVideo = _fullScreenVideos.FirstOrDefault(item => item.VideoId == _order?.Video?.Id);
-            if (fullScreenVideo is null)
-            {
-                return;
-            }
-
-            fullScreenVideo.VideoUrl = _order?.Video?.StreamUri;
+            return _navigationService.ShowUserProfile(Order.Customer.Id);
         }
     }
 }
