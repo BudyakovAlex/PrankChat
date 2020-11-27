@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UILabel descriptionTopFloatingPlaceholderLabel { get; set; }
 
 		[Outlet]
-		UIKit.UIImageView hideExecuterCheckboxImageView { get; set; }
+		PrankChat.Mobile.iOS.Controls.CheckBox HideExecutorCheckBoxButton { get; set; }
 
 		[Outlet]
 		UIKit.UILabel hideExecutorCheckboxLabel { get; set; }
@@ -65,11 +65,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (rootView != null) {
-				rootView.Dispose ();
-				rootView = null;
-			}
-
 			if (completeDateTextField != null) {
 				completeDateTextField.Dispose ();
 				completeDateTextField = null;
@@ -100,9 +95,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				descriptionTopFloatingPlaceholderLabel = null;
 			}
 
-			if (hideExecuterCheckboxImageView != null) {
-				hideExecuterCheckboxImageView.Dispose ();
-				hideExecuterCheckboxImageView = null;
+			if (HideExecutorCheckBoxButton != null) {
+				HideExecutorCheckBoxButton.Dispose ();
+				HideExecutorCheckBoxButton = null;
 			}
 
 			if (hideExecutorCheckboxLabel != null) {
@@ -128,6 +123,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (progressBarView != null) {
 				progressBarView.Dispose ();
 				progressBarView = null;
+			}
+
+			if (rootView != null) {
+				rootView.Dispose ();
+				rootView = null;
 			}
 
 			if (scrollView != null) {

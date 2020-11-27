@@ -72,6 +72,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string ProfileShortName => ProfileName?.ToShortenName();
 
+        public bool IsHidden => new Random().Next(0, 2) == 0;
+
         #endregion Profile
 
         #region Video

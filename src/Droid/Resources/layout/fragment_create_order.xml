@@ -100,7 +100,6 @@
                 android:text="@string/CreateOrderView_HideExecutor_Button"
                 android:textColor="@color/applicationBlack"
                 android:textSize="14dp"
-                android:visibility="gone"
                 app:MvxBind="Checked IsExecutorHidden" />
 
             <Button

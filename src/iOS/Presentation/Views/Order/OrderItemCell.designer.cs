@@ -25,6 +25,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIView innerView { get; set; }
 
 		[Outlet]
+		UIKit.UIImageView IsHiddenOrderImageView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel minuteLabel { get; set; }
 
 		[Outlet]
@@ -89,6 +92,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				orderDetailsButton = null;
 			}
 
+			if (OrderTagTypeImageView != null) {
+				OrderTagTypeImageView.Dispose ();
+				OrderTagTypeImageView = null;
+			}
+
 			if (orderTimeLabel != null) {
 				orderTimeLabel.Dispose ();
 				orderTimeLabel = null;
@@ -129,9 +137,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				titleTimeView = null;
 			}
 
-			if (OrderTagTypeImageView != null) {
-				OrderTagTypeImageView.Dispose ();
-				OrderTagTypeImageView = null;
+			if (IsHiddenOrderImageView != null) {
+				IsHiddenOrderImageView.Dispose ();
+				IsHiddenOrderImageView = null;
 			}
 		}
 	}
