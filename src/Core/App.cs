@@ -4,7 +4,6 @@ using MvvmCross.IoC;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Permissions;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
@@ -35,9 +34,7 @@ namespace PrankChat.Mobile.Core
         private const string MappingProfileSuffix = "MappingProfile";
 
         public override void Initialize()
-        {
-
-           
+        {           
             InitializeMappings();
 
             Mvx.IoCProvider.ConstructAndRegisterSingleton<ITimerService, TimerService>();
@@ -69,8 +66,6 @@ namespace PrankChat.Mobile.Core
             Mvx.IoCProvider.ConstructAndRegisterSingleton<INotificationBageViewModel, NotificationBageViewModel>();
 
             RegisterCustomAppStart<CustomAppStart>();
-
-
         }
 
         private void InitializeMappings()

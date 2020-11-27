@@ -14,9 +14,9 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorize
+namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
 {
-    public class AuthorizeService : IAuthorizeService
+    public class AuthorizationService : IAuthorizationService
     {
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _messenger;
@@ -24,14 +24,15 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorize
 
         private readonly HttpClient _client;
 
-        public AuthorizeService(ISettingsService settingsService,
-                          IMvxLogProvider logProvider,
-                          IMvxMessenger messenger,
-                          ILogger logger)
+        public AuthorizationService(
+            ISettingsService settingsService,
+            IMvxLogProvider logProvider,
+            IMvxMessenger messenger,
+            ILogger logger)
         {
             _settingsService = settingsService;
             _messenger = messenger;
-            _log = logProvider.GetLogFor<AuthorizeService>();
+            _log = logProvider.GetLogFor<AuthorizationService>();
             var configuration = ConfigurationProvider.GetConfiguration();
             _client = new HttpClient(configuration.BaseAddress,
                                      configuration.ApiVersion,

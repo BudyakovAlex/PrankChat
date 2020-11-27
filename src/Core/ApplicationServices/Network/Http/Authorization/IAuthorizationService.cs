@@ -2,9 +2,9 @@
 using PrankChat.Mobile.Core.Models.Enums;
 using System.Threading.Tasks;
 
-namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorize
+namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
 {
-    public interface IAuthorizeService
+    public interface IAuthorizationService
     {
         Task AuthorizeAsync(string email, string password);
 
