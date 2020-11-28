@@ -1,11 +1,11 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Api.Base;
 using PrankChat.Mobile.Core.Models.Data;
@@ -16,12 +16,11 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions
 {
-    public class CompetitionsServices : ICompetitionsServices
+    public class CompetitionsServices : BaseRestService, ICompetitionsServices
     {
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _messenger;
         private readonly IMvxLog _log;
-        private readonly IAuthorizationService _authorizeService;
 
         private readonly HttpClient _client;
 
@@ -30,12 +29,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions
             IAuthorizationService authorizeService,
             IMvxLogProvider logProvider,
             IMvxMessenger messenger,
-            ILogger logger)
+            ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
         {
             _settingsService = settingsService;
             _messenger = messenger;
             _log = logProvider.GetLogFor<CompetitionsServices>();
-            _authorizeService = authorizeService;
 
             var configuration = ConfigurationProvider.GetConfiguration();
             _client = new HttpClient(configuration.BaseAddress,
@@ -80,16 +78,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions
             var endpoint = $"competitions?page={page}&items_per_page={pageSize}";
             var data = await _client.GetAsync<BaseBundleApiModel<CompetitionApiModel>>(endpoint);
             return CreatePaginationResult<CompetitionApiModel, CompetitionDataModel>(data);
-        }
-
-        private void OnUnauthorizedUser(UnauthorizedMessage obj)
-        {
-            if (_settingsService.User == null)
-            {
-                return;
-            }
-
-            _authorizeService.RefreshTokenAsync().FireAndForget();
         }
 
         private PaginationModel<TDataModel> CreatePaginationResult<TApiModel, TDataModel>(BaseBundleApiModel<TApiModel> data)

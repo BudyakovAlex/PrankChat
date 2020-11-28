@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
@@ -17,12 +18,11 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Publications
 {
-    public class PublicationsService : IPublicationsService
+    public class PublicationsService : BaseRestService, IPublicationsService
     {
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _messenger;
         private readonly IMvxLog _log;
-        private readonly IAuthorizationService _authorizeService;
 
         private readonly HttpClient _client;
 
@@ -31,12 +31,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Publications
             IAuthorizationService authorizeService,
             IMvxLogProvider logProvider,
             IMvxMessenger messenger,
-            ILogger logger)
+            ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
         {
             _settingsService = settingsService;
             _messenger = messenger;
             _log = logProvider.GetLogFor<PublicationsService>();
-            _authorizeService = authorizeService;
 
             var configuration = ConfigurationProvider.GetConfiguration();
             _client = new HttpClient(configuration.BaseAddress,
@@ -102,16 +101,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Publications
             var url = isChecked ? $"videos/{videoId}/dislike" : $"videos/{videoId}/dislike/remove";
             var data = await _client.PostAsync<DataApiModel<VideoApiModel>>(url, cancellationToken: cancellationToken);
             return MappingConfig.Mapper.Map<VideoDataModel>(data?.Data);
-        }
-
-        private void OnUnauthorizedUser(UnauthorizedMessage obj)
-        {
-            if (_settingsService.User == null)
-            {
-                return;
-            }
-
-            _authorizeService.RefreshTokenAsync().FireAndForget();
         }
 
         private PaginationModel<TDataModel> CreatePaginationResult<TApiModel, TDataModel>(BaseBundleApiModel<TApiModel> data)

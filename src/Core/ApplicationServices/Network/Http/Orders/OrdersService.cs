@@ -24,7 +24,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _messenger;
         private readonly IMvxLog _log;
-        private readonly IAuthorizationService _authorizeService;
 
         private readonly HttpClient _client;
 
@@ -38,7 +37,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
             _settingsService = settingsService;
             _messenger = messenger;
             _log = logProvider.GetLogFor<OrdersService>();
-            _authorizeService = authorizeService;
 
             var configuration = ConfigurationProvider.GetConfiguration();
             _client = new HttpClient(configuration.BaseAddress,

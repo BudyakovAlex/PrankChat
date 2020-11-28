@@ -1,11 +1,11 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using System.Collections.Generic;
@@ -13,12 +13,10 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment
 {
-    public class PaymentService : IPaymentService
+    public class PaymentService : BaseRestService, IPaymentService
     {
-        private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _messenger;
         private readonly IMvxLog _log;
-        private readonly IAuthorizationService _authorizeService;
 
         private readonly HttpClient _client;
 
@@ -27,12 +25,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment
             IAuthorizationService authorizeService,
             IMvxLogProvider logProvider,
             IMvxMessenger messenger,
-            ILogger logger)
+            ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
         {
-            _settingsService = settingsService;
             _messenger = messenger;
             _log = logProvider.GetLogFor<PaymentService>();
-            _authorizeService = authorizeService;
 
             var configuration = ConfigurationProvider.GetConfiguration();
             _client = new HttpClient(configuration.BaseAddress,
@@ -79,16 +75,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment
         public Task CancelWithdrawalAsync(int withdrawalId)
         {
             return _client.DeleteAsync($"withdrawal/{withdrawalId}", true);
-        }
-
-        private void OnUnauthorizedUser(UnauthorizedMessage obj)
-        {
-            if (_settingsService.User == null)
-            {
-                return;
-            }
-
-            _authorizeService.RefreshTokenAsync().FireAndForget();
         }
     }
 }
