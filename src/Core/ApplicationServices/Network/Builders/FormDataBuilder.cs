@@ -18,6 +18,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Builders
         private static FormDataBuilder _instance;
 
         private MultipartFormDataContent _multipartFormDataContent;
+
         private FormDataBuilder()
         {
             _multipartFormDataContent = new MultipartFormDataContent(DefaultBoundary);

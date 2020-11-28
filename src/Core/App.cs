@@ -4,7 +4,6 @@ using MvvmCross.IoC;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Permissions;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
@@ -17,6 +16,16 @@ using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Providers;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Common;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Notifications;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Publications;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Search;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video;
 
 namespace PrankChat.Mobile.Core
 {
@@ -25,9 +34,7 @@ namespace PrankChat.Mobile.Core
         private const string MappingProfileSuffix = "MappingProfile";
 
         public override void Initialize()
-        {
-
-           
+        {           
             InitializeMappings();
 
             Mvx.IoCProvider.ConstructAndRegisterSingleton<ITimerService, TimerService>();
@@ -37,7 +44,19 @@ namespace PrankChat.Mobile.Core
             Mvx.IoCProvider.ConstructAndRegisterSingleton<ISentryService, SentryService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<ISendLogsBackgroundTask, SendLogsBackgroundTask>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IBackgroundTaskScheduler, BackgroundTaskScheduler>();
-            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IApiService, ApiService>();
+
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IAuthorizationService, AuthorizeService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ILogsService, LogsService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IVersionService, VersionService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ICompetitionsServices, CompetitionsServices>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<INotificationsService, NotificationsService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IOrdersService, OrdersService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IPaymentService, PaymentService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IPublicationsService, PublicationsService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISearchService, SearchService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IUsersService, UsersService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IVideoService, VideoService>();
+
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IErrorHandleService, ErrorHandleService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IPlatformService, PlatformService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IPlatformService, PlatformService>();
@@ -47,8 +66,6 @@ namespace PrankChat.Mobile.Core
             Mvx.IoCProvider.ConstructAndRegisterSingleton<INotificationBageViewModel, NotificationBageViewModel>();
 
             RegisterCustomAppStart<CustomAppStart>();
-
-
         }
 
         private void InitializeMappings()

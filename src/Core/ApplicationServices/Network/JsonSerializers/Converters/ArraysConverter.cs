@@ -1,7 +1,7 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using System;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers.Converters
 {
@@ -15,7 +15,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers.Conv
 
     public class IgnoreUnexpectedArraysConverter : IgnoreUnexpectedArraysConverterBase
     {
-        readonly IContractResolver resolver;
+        private readonly IContractResolver resolver;
 
         public IgnoreUnexpectedArraysConverter(IContractResolver resolver)
         {

@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers.Converters
 {

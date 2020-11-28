@@ -46,6 +46,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Managers\Authorization\" />
+    <Folder Include="Managers\Video\" />
+    <Folder Include="Managers\Users\" />
+    <Folder Include="Managers\Search\" />
+    <Folder Include="Managers\Publications\" />
+    <Folder Include="Managers\Notifications\" />
+    <Folder Include="Managers\Orders\" />
+    <Folder Include="Managers\Payment\" />
+    <Folder Include="Managers\Competitions\" />
     <Folder Include="Presentation\Navigation\" />
     <Folder Include="Presentation\Navigation\Parameters\" />
     <Folder Include="Models\Enums\" />

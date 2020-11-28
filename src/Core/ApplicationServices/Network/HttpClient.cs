@@ -35,7 +35,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         private readonly IRestClient _client;
         private readonly IMvxMessenger _messenger;
-      
+
         private readonly IMvxLog _mvxLog;
         private readonly ILogger _logger;
         private readonly ISettingsService _settingsService;
@@ -238,7 +238,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                                                        .AttachStringContent("description", item.Description)
                                                        .AttachFileContent("video", Path.GetFileName(item.FilePath), buffer, onChangedProgressAction, cancellationToken)
                                                        .Build();
-                   
+
                     var url = new Uri($"{_baseAddress}/{ApiId}/v{_apiVersion.Major}/{endpoint}");
 
                     var parameters = new[]
