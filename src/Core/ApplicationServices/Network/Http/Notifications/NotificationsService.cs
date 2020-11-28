@@ -24,12 +24,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Notifications
 
         private readonly HttpClient _client;
 
-        public NotificationsService(
-            ISettingsService settingsService,
-            IAuthorizationService authorizeService,
-            IMvxLogProvider logProvider,
-            IMvxMessenger messenger,
-            ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
+        public NotificationsService(ISettingsService settingsService,
+                                    IAuthorizationService authorizeService,
+                                    IMvxLogProvider logProvider,
+                                    IMvxMessenger messenger,
+                                    ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
         {
             _messenger = messenger;
             _log = logProvider.GetLogFor<NotificationsService>();

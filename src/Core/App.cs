@@ -48,25 +48,25 @@ namespace PrankChat.Mobile.Core
         {           
             InitializeMappings();
 
-            Mvx.IoCProvider.ConstructAndRegisterSingleton<ILogger, Logger>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ILogger, Logger>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IWalkthroughsProvider, WalkthroughsProvider>();
-            Mvx.IoCProvider.ConstructAndRegisterSingleton<ISendLogsBackgroundTask, SendLogsBackgroundTask>();
-            Mvx.IoCProvider.ConstructAndRegisterSingleton<IBackgroundTaskScheduler, BackgroundTaskScheduler>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISendLogsBackgroundTask, SendLogsBackgroundTask>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IBackgroundTaskScheduler, BackgroundTaskScheduler>();
 
             RegisterServices();
             RegisterManagers();
 
-            Mvx.IoCProvider.ConstructAndRegisterSingleton<IPushNotificationProvider, PushNotificationProvider>();
-            Mvx.IoCProvider.ConstructAndRegisterSingleton<INotificationBageViewModel, NotificationBageViewModel>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IPushNotificationProvider, PushNotificationProvider>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<INotificationBageViewModel, NotificationBageViewModel>();
 
             RegisterCustomAppStart<CustomAppStart>();
         }
 
         private void RegisterServices()
         {
-            Mvx.IoCProvider.ConstructAndRegisterSingleton<ITimerService, TimerService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ITimerService, TimerService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<INavigationService, NavigationService>();
-            Mvx.IoCProvider.ConstructAndRegisterSingleton<ISentryService, SentryService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISentryService, SentryService>();
 
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IAuthorizationService, AuthorizationService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ILogsService, LogsService>();
@@ -80,11 +80,11 @@ namespace PrankChat.Mobile.Core
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IUsersService, UsersService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IVideoService, VideoService>();
 
-            Mvx.IoCProvider.ConstructAndRegisterSingleton<IErrorHandleService, ErrorHandleService>();
-            Mvx.IoCProvider.ConstructAndRegisterSingleton<IPlatformService, PlatformService>();
-            Mvx.IoCProvider.ConstructAndRegisterSingleton<IPlatformService, PlatformService>();
-            Mvx.IoCProvider.ConstructAndRegisterSingleton<IPermissionService, PermissionService>();
-            Mvx.IoCProvider.ConstructAndRegisterSingleton<IMediaService, MediaService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IErrorHandleService, ErrorHandleService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IPlatformService, PlatformService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IPlatformService, PlatformService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IPermissionService, PermissionService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IMediaService, MediaService>();
         }
 
         private void RegisterManagers()

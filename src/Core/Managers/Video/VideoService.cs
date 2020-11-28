@@ -16,20 +16,19 @@ namespace PrankChat.Mobile.Core.Managers.Video
             _videoService = videoService;
         }
 
-        public async Task<VideoDataModel> SendVideoAsync(
-            int orderId,
-            string path,
-            string title,
-            string description,
-            Action<double, double> onChangedProgressAction = null,
-            CancellationToken cancellationToken = default)
+        public Task<VideoDataModel> SendVideoAsync(int orderId,
+                                                   string path,
+                                                   string title,
+                                                   string description,
+                                                   Action<double, double> onChangedProgressAction = null,
+                                                   CancellationToken cancellationToken = default)
         {
-            return await _videoService.SendVideoAsync(orderId, path, title, description, onChangedProgressAction, cancellationToken);
+            return _videoService.SendVideoAsync(orderId, path, title, description, onChangedProgressAction, cancellationToken);
         }
 
-        public async Task<long?> RegisterVideoViewedFactAsync(int videoId)
+        public Task<long?> RegisterVideoViewedFactAsync(int videoId)
         {
-            return await _videoService.RegisterVideoViewedFactAsync(videoId);
+            return _videoService.RegisterVideoViewedFactAsync(videoId);
         }
 
         public Task ComplainVideoAsync(int videoId, string title, string description)
@@ -37,14 +36,14 @@ namespace PrankChat.Mobile.Core.Managers.Video
             return _videoService.ComplainVideoAsync(videoId, title, description);
         }
 
-        public async Task<CommentDataModel> CommentVideoAsync(int videoId, string comment)
+        public Task<CommentDataModel> CommentVideoAsync(int videoId, string comment)
         {
-            return await CommentVideoAsync(videoId, comment);
+            return _videoService.CommentVideoAsync(videoId, comment);
         }
 
-        public async Task<PaginationModel<CommentDataModel>> GetVideoCommentsAsync(int videoId, int page, int pageSize)
+        public Task<PaginationModel<CommentDataModel>> GetVideoCommentsAsync(int videoId, int page, int pageSize)
         {
-            return await _videoService.GetVideoCommentsAsync(videoId, page, pageSize);
+            return _videoService.GetVideoCommentsAsync(videoId, page, pageSize);
         }
     }
 }
