@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions
 {
-    public class CompetitionsServices : BaseRestService, ICompetitionsServices
+    public class CompetitionsService : BaseRestService, ICompetitionsService
     {
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _messenger;
@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions
 
         private readonly HttpClient _client;
 
-        public CompetitionsServices(
+        public CompetitionsService(
             ISettingsService settingsService,
             IAuthorizationService authorizeService,
             IMvxLogProvider logProvider,
@@ -33,7 +33,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions
         {
             _settingsService = settingsService;
             _messenger = messenger;
-            _log = logProvider.GetLogFor<CompetitionsServices>();
+            _log = logProvider.GetLogFor<CompetitionsService>();
 
             var configuration = ConfigurationProvider.GetConfiguration();
             _client = new HttpClient(configuration.BaseAddress,
