@@ -1,12 +1,12 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
@@ -23,7 +23,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
     public class CompetitionVideoViewModel : BaseViewModel, IVideoItemViewModel, IDisposable
     {
-        private readonly IApiService _apiService;
+        private readonly IPublicationsManager _publicationsManager;
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _mvxMessenger;
@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
         private MvxSubscriptionToken _updateNumberOfViewsSubscriptionToken;
 
-        public CompetitionVideoViewModel(IApiService apiService,
+        public CompetitionVideoViewModel(IPublicationsManager publicationsManager,
                                          IVideoPlayerService videoPlayerService,
                                          INavigationService navigationService,
                                          ISettingsService settingsService,
@@ -47,13 +47,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                                          bool isVotingAvailable,
                                          Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
         {
-            _apiService = apiService;
             _navigationService = navigationService;
             _settingsService = settingsService;
             _mvxMessenger = mvxMessenger;
             _videoDataModel = videoDataModel;
 
             Logger = logger;
+            _publicationsManager = publicationsManager;
             VideoPlayerService = videoPlayerService;
  
             NumberOfLikes = _videoDataModel.LikesCount;
@@ -212,7 +212,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
             try
             {
-                await _apiService.SendLikeAsync(VideoId, IsLiked, _cancellationSendingLikeTokenSource.Token);
+                await _publicationsManager.SendLikeAsync(VideoId, IsLiked, _cancellationSendingLikeTokenSource.Token);
             }
             finally
             {

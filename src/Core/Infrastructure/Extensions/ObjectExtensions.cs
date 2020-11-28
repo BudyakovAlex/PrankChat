@@ -26,29 +26,29 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             return item;
         }
 
-        public static IDisposable SubscribeToEvent<TSource>(this TSource source, EventHandler handler, Action<TSource, EventHandler> addHandler, Action<TSource, EventHandler> removeHandler)
+        public static IDisposable SubscribeToEvent<TSource>(this TSource source, EventHandler eventHandler, Action<TSource, EventHandler> addHandler, Action<TSource, EventHandler> removeHandler)
         {
             return Observable.FromEventPattern(handler => addHandler.Invoke(source, handler), handler => removeHandler.Invoke(source, handler))
-                             .Subscribe(data => handler.Invoke(data.Sender, (EventArgs)data.EventArgs));
+                             .Subscribe(data => eventHandler.Invoke(data.Sender, (EventArgs)data.EventArgs));
         }
 
-        public static IDisposable SubscribeToEvent<TSource, TEventArgs>(this TSource source, EventHandler<TEventArgs> handler, Action<TSource, EventHandler<TEventArgs>> addHandler, Action<TSource, EventHandler<TEventArgs>> removeHandler)
+        public static IDisposable SubscribeToEvent<TSource, TEventArgs>(this TSource source, EventHandler<TEventArgs> eventHandler, Action<TSource, EventHandler<TEventArgs>> addHandler, Action<TSource, EventHandler<TEventArgs>> removeHandler)
         {
             return Observable.FromEventPattern<TEventArgs>(handler => addHandler.Invoke(source, handler), handler => removeHandler.Invoke(source, handler))
-                             .Subscribe(data => handler.Invoke(data.Sender, data.EventArgs));
+                             .Subscribe(data => eventHandler.Invoke(data.Sender, data.EventArgs));
         }
 
-        public static IDisposable SubscribeToCollectionChanged<TSource>(this TSource source, NotifyCollectionChangedEventHandler handler) where TSource : INotifyCollectionChanged
+        public static IDisposable SubscribeToCollectionChanged<TSource>(this TSource source, NotifyCollectionChangedEventHandler eventHandler) where TSource : INotifyCollectionChanged
         {
             return Observable.FromEventPattern<NotifyCollectionChangedEventHandler, NotifyCollectionChangedEventArgs>(handler => source.CollectionChanged += handler, handler => source.CollectionChanged -= handler)
-                             .Subscribe(data => handler.Invoke(data.Sender, data.EventArgs));
+                             .Subscribe(data => eventHandler.Invoke(data.Sender, data.EventArgs));
         }
 
-        public static IDisposable SubscribeToPropertyChanged<TSource>(this TSource source, string propertyName, Action handler) where TSource : INotifyPropertyChanged
+        public static IDisposable SubscribeToPropertyChanged<TSource>(this TSource source, string propertyName, Action handleAction) where TSource : INotifyPropertyChanged
         {
             return Observable.FromEventPattern<PropertyChangedEventHandler, PropertyChangedEventArgs>(handler => source.PropertyChanged += handler, handler => source.PropertyChanged -= handler)
                              .Where(data => data.EventArgs.PropertyName == propertyName)
-                             .Subscribe(data => handler.Invoke());
+                             .Subscribe(data => handleAction.Invoke());
         }
     }
 }

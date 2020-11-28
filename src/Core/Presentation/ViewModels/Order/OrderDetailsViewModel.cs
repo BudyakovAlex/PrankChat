@@ -9,6 +9,7 @@ using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Orders;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -26,6 +27,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
     public class OrderDetailsViewModel : BasePageViewModel, IMvxViewModel<OrderDetailsNavigationParameter, OrderDetailsResult>
     {
+        private readonly IOrdersManager _ordersManager;
         private readonly IPlatformService _platformService;
 
         private int _orderId;
@@ -33,8 +35,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private readonly BaseOrderDetailsSectionViewModel[] _sections;
 
-        public OrderDetailsViewModel(IPlatformService platformService)
+        public OrderDetailsViewModel(IOrdersManager ordersManager, IPlatformService platformService)
         {
+            _ordersManager = ordersManager;
             _platformService = platformService;
 
             TakeOrderCommand = new MvxAsyncCommand(TakeOrderAsync);
@@ -166,7 +169,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             base.ViewDestroy(viewFinishing);
         }
 
-        private async void OnTimerTick(TimerTickMessage msg)
+        private new async void OnTimerTick(TimerTickMessage msg)
         {
             _timerThicksCount++;
             if (_timerThicksCount >= 20)
@@ -174,7 +177,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 _timerThicksCount = 0;
                 try
                 {
-                    var refreshedOrder = await ApiService.GetOrderDetailsAsync(_orderId);
+                    var refreshedOrder = await _ordersManager.GetOrderDetailsAsync(_orderId);
                     if (refreshedOrder is null)
                     {
                         return;
@@ -199,7 +202,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             try
             {
-                var refreshedOrder = await ApiService.GetOrderDetailsAsync(_orderId);
+                var refreshedOrder = await _ordersManager.GetOrderDetailsAsync(_orderId);
                 if (refreshedOrder is null)
                 {
                     return;
@@ -233,7 +236,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             try
             {
                 ErrorHandleService.SuspendServerErrorsHandling();
-                var takenOrder = await ApiService.TakeOrderAsync(_orderId);
+                var takenOrder = await _ordersManager.TakeOrderAsync(_orderId);
                 if (takenOrder != null && Order != null)
                 {
                     Order.Status = takenOrder.Status;
@@ -281,7 +284,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             try
             {
-                Order = await ApiService.SubscribeOrderAsync(_orderId);
+                Order = await _ordersManager.SubscribeOrderAsync(_orderId);
                 await RaiseAllPropertiesChanged();
                 Messenger.Publish(new OrderChangedMessage(this, Order));
             }
@@ -296,7 +299,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             try
             {
-                Order = await ApiService.UnsubscribeOrderAsync(_orderId);
+                Order = await _ordersManager.UnsubscribeOrderAsync(_orderId);
                 await RaiseAllPropertiesChanged();
                 Messenger.Publish(new OrderChangedMessage(this, Order));
             }
@@ -311,7 +314,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             try
             {
-                var order = await ApiService.ArgueOrderAsync(_orderId);
+                var order = await _ordersManager.ArgueOrderAsync(_orderId);
                 if (order != null && Order != null)
                 {
                     Order.Status = order.Status;
@@ -331,7 +334,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             try
             {
-                var order = await ApiService.AcceptOrderAsync(_orderId);
+                var order = await _ordersManager.AcceptOrderAsync(_orderId);
                 if (order != null && Order != null)
                 {
                     Order.Status = order.Status;
@@ -359,7 +362,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return;
             }
 
-            var canceledOrder = await ApiService.CancelOrderAsync(_orderId);
+            var canceledOrder = await _ordersManager.CancelOrderAsync(_orderId);
             if (canceledOrder != null && Order != null)
             {
                 Order.Status = canceledOrder.Status;
@@ -384,7 +387,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             try
             {
                 IsYesSelected = !IsYesSelected;
-                var votedOrder = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Positive);
+                var votedOrder = await _ordersManager.VoteVideoAsync(_orderId, ArbitrationValueType.Positive);
                 if (votedOrder != null && Order != null)
                 {
                     Order.MyArbitrationValue = votedOrder.MyArbitrationValue;
@@ -413,7 +416,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             try
             {
                 IsNoSelected = !IsNoSelected;
-                var votedOrder = await ApiService.VoteVideoAsync(_orderId, ArbitrationValueType.Negative);
+                var votedOrder = await _ordersManager.VoteVideoAsync(_orderId, ArbitrationValueType.Negative);
                 if (votedOrder != null && Order != null)
                 {
                     Order.MyArbitrationValue = votedOrder.MyArbitrationValue;
@@ -460,7 +463,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     return;
                 }
 
-                await ApiService.ComplainOrderAsync(_orderId, text, text);
+                await _ordersManager.ComplainOrderAsync(_orderId, text, text);
                 DialogService.ShowToast(Resources.Complaint_Complete_Message, ToastType.Positive);
                 return;
             }

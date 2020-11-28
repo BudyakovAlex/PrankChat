@@ -4,6 +4,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -19,7 +20,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
     public class MainViewModel : BasePageViewModel
     {
-        private readonly IPushNotificationService _notificationService;
+        private readonly IVersionManager _versionManager;
+        private readonly IPushNotificationProvider _notificationService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
         private readonly int[] _skipTabIndexesInDemoMode = new[] { 2, 4 };
@@ -42,8 +44,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private IDisposable _refreshTokenExpiredMessageSubscription;
 
-        public MainViewModel(IPushNotificationService notificationService, IWalkthroughsProvider walkthroughsProvider)
+        public MainViewModel(IVersionManager versionManager,
+                             IPushNotificationProvider notificationService,
+                             IWalkthroughsProvider walkthroughsProvider)
         {
+            _versionManager = versionManager;
             _notificationService = notificationService;
             _walkthroughsProvider = walkthroughsProvider;
 
@@ -67,7 +72,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 return;
             }
 
-            var newActualVersion = await ApiService.CheckAppVersionAsync();
+            var newActualVersion = await _versionManager.CheckAppVersionAsync();
             if (!string.IsNullOrEmpty(newActualVersion?.Link))
             {
                 await NavigationService.ShowMaintananceView(newActualVersion.Link);

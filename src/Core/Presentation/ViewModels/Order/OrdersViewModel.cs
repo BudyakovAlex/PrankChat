@@ -1,7 +1,10 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Orders;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -21,6 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
     public class OrdersViewModel : PaginationViewModel
     {
+        private readonly IOrdersManager _ordersManager;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
         private readonly Dictionary<ArbitrationOrderFilterType, string> _arbitrationOrderFilterTypeTitleMap =
@@ -40,23 +44,26 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 { OrderFilterType.MyOwn, Resources.OrdersView_Filter_MyTasks }
             };
 
-        private MvxSubscriptionToken _newOrderMessageToken;
-        private MvxSubscriptionToken _removeOrderMessageToken;
-        private MvxSubscriptionToken _tabChangedMessage;
-        private MvxSubscriptionToken _enterForegroundMessage;
-
         private Task _reloadTask;
 
         private string _activeOrderFilterName = string.Empty;
         private string _activeArbitrationFilterName = string.Empty;
 
-        public OrdersViewModel(IWalkthroughsProvider walkthroughsProvider) : base(Constants.Pagination.DefaultPaginationSize)
+        public OrdersViewModel(IOrdersManager ordersManager, IWalkthroughsProvider walkthroughsProvider) : base(Constants.Pagination.DefaultPaginationSize)
         {
+            _ordersManager = ordersManager;
             _walkthroughsProvider = walkthroughsProvider;
 
             OpenFilterCommand = new MvxAsyncCommand(OpenFilterAsync);
             LoadDataCommand = new MvxAsyncCommand(LoadDataAsync);
             ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
+
+            Messenger.SubscribeOnMainThread<OrderChangedMessage>(OrdersChanged).DisposeWith(Disposables);
+            Messenger.SubscribeOnMainThread<RemoveOrderMessage>(OrderRemoved).DisposeWith(Disposables);
+            Messenger.SubscribeOnMainThread<TabChangedMessage>(TabChanged).DisposeWith(Disposables);
+            Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => ReloadItemsCommand?.Execute()).DisposeWith(Disposables);
+            Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
+            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
         }
 
         public MvxObservableCollection<BaseViewModel> Items { get; } = new MvxObservableCollection<BaseViewModel>();
@@ -114,9 +121,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
 
-        public override async Task Initialize()
+        public override async Task InitializeAsync()
         {
-            await base.Initialize();
+            await base.InitializeAsync();
             OrderFilterType = OrderFilterType.All;
             ArbitrationFilterType = ArbitrationOrderFilterType.All;
             TabType = OrdersTabType.Order;
@@ -124,43 +131,39 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             await LoadDataCommand.ExecuteAsync();
         }
 
-        public override void ViewCreated()
+        protected override Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
-            base.ViewCreated();
-            Subscription();
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            Unsubscription();
-            base.ViewDestroy(viewFinishing);
-        }
-
-        protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
-        {
-            try
+            return ExecutionStateWrapper.WrapAsync(async () =>
             {
-                IsBusy = true;
-
-                if (TabType == OrdersTabType.Arbitration)
+                try
                 {
-                    var arbitrationOrders = await ApiService.GetArbitrationOrdersAsync(ArbitrationFilterType, page, pageSize);
-                    return SetList(arbitrationOrders, page, ProduceArbitrationOrderViewModel, Items);
-                }
+                    if (TabType == OrdersTabType.Arbitration)
+                    {
+                        var arbitrationOrders = await _ordersManager.GetArbitrationOrdersAsync(ArbitrationFilterType, page, pageSize);
+                        return SetList(arbitrationOrders, page, ProduceArbitrationOrderViewModel, Items);
+                    }
 
-                var orders = await ApiService.GetOrdersAsync(OrderFilterType, page, pageSize);
-                return SetList(orders, page, ProduceOrderViewModel, Items);
-            }
-            catch (Exception ex)
+                    var orders = await _ordersManager.GetOrdersAsync(OrderFilterType, page, pageSize);
+                    return SetList(orders, page, ProduceOrderViewModel, Items);
+                }
+                catch (Exception ex)
+                {
+                    ErrorHandleService.HandleException(ex);
+                    ErrorHandleService.LogError(this, "Order list loading error occured.");
+                    return 0;
+                }
+            });
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            if (!disposing)
             {
-                ErrorHandleService.HandleException(ex);
-                ErrorHandleService.LogError(this, "Order list loading error occured.");
-                return 0;
+                return;
             }
-            finally
-            {
-                IsBusy = false;
-            }
+
+            Items.OfType<IDisposable>().ForEach(disposable => disposable.Dispose());
         }
 
         private async Task DebounceRefreshDataAsync()
@@ -253,16 +256,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                         .ToList();
         }
 
-        private void Subscription()
-        {
-            _newOrderMessageToken = Messenger.SubscribeOnMainThread<OrderChangedMessage>(OrdersChanged);
-            _removeOrderMessageToken = Messenger.SubscribeOnMainThread<RemoveOrderMessage>(OrderRemoved);
-            _tabChangedMessage = Messenger.SubscribeOnMainThread<TabChangedMessage>(TabChanged);
-            _enterForegroundMessage = Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => ReloadItemsCommand?.Execute());
-
-            SubscribeToNotificationsUpdates();
-        }
-
         private void TabChanged(TabChangedMessage msg)
         {
             if (msg.TabType != MainTabType.Orders)
@@ -271,18 +264,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
 
             LoadDataCommand.Execute();
-        }
-
-        private void Unsubscription()
-        {
-            _newOrderMessageToken?.Dispose();
-            _removeOrderMessageToken?.Dispose();
-            _tabChangedMessage?.Dispose();
-            _enterForegroundMessage?.Dispose();
-
-            UnsubscribeFromNotificationsUpdates();
-
-            Items.OfType<IDisposable>().ForEach(disposable => disposable.Dispose());
         }
 
         private void OrdersChanged(OrderChangedMessage newOrderMessage)

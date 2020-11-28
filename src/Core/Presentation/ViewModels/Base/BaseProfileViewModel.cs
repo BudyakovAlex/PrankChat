@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
@@ -15,8 +16,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
     {
         private readonly Timer _timer;
 
-        public BaseProfileViewModel() : base(Constants.Pagination.DefaultPaginationSize)
+        public BaseProfileViewModel(IUsersManager usersManager) : base(Constants.Pagination.DefaultPaginationSize)
         {
+            UsersManager = usersManager;
+
             var timeStamp = Preferences.Get(nameof(CanResendEmailValidation), DateTime.MinValue);
             _canResendEmailValidation = timeStamp <= DateTime.Now;
 
@@ -29,6 +32,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             SelectBirthdayCommand = new MvxAsyncCommand(SelectBirthdayAsync);
             SelectGenderCommand = new MvxCommand<GenderType>(SelectGender);
         }
+
+        protected IUsersManager UsersManager { get; }
 
         private string _email;
         public string Email
@@ -148,7 +153,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         private async Task ResendEmailValidationAsync()
         {
-            await ApiService.VerifyEmailAsync();
+            await UsersManager.VerifyEmailAsync();
 
             DialogService.ShowToast(Resources.Profile_Email_Confirmation_Sent, ToastType.Positive);
             Preferences.Set(nameof(CanResendEmailValidation), DateTime.Now.AddMinutes(Constants.Profile.UnlockResendMinutes));

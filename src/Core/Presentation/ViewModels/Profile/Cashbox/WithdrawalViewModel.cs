@@ -3,6 +3,8 @@ using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Payment;
+using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -16,11 +18,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
     public class WithdrawalViewModel : BasePageViewModel
     {
+        private readonly IPaymentManager _paymentManager;
+        private readonly IUsersManager _usersManager;
         private readonly IMediaService _mediaService;
 
-        public WithdrawalViewModel(IMediaService mediaService)
+        public WithdrawalViewModel(IPaymentManager paymentManager,
+                                   IUsersManager usersManager,
+                                   IMediaService mediaService)
         {
+            _paymentManager = paymentManager;
+            _usersManager = usersManager;
             _mediaService = mediaService;
+
             AvailableForWithdrawal = $"{Resources.CashboxView_WithdrawalAvailable_Title} {SettingsService.User?.Balance.ToPriceString()}";
 
             WithdrawCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(WithdrawAsync));
@@ -131,7 +140,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
                 if (IsDocumentPending)
                 {
-                    await ApiService.GetCurrentUserAsync();
+                    await _usersManager.GetCurrentUserAsync();
                     await RaiseAllPropertiesChanged();
                 }
             }
@@ -152,7 +161,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             {
                 if (_currentCard == null)
                 {
-                    var card = await ApiService.SaveCardAsync(CardNumber, $"{Name} {Surname}");
+                    var card = await _usersManager.SaveCardAsync(CardNumber, $"{Name} {Surname}");
                     if (card == null)
                     {
                         ErrorHandleService.HandleException(new ValidationException(Resources.WithdrawalView_Empty_Card_Error, ValidationErrorType.CanNotMatch));
@@ -162,7 +171,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                     await RaiseAllPropertiesChanged();
                 }
 
-                var result = await ApiService.WithdrawalAsync(Cost.Value, _currentCard.Id);
+                var result = await _paymentManager.WithdrawalAsync(Cost.Value, _currentCard.Id);
                 if (result != null)
                 {
                     _lastWithdrawalDataModel = result;
@@ -189,7 +198,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                     return;
                 }
 
-                var document = await ApiService.SendVerifyDocumentAsync(file.Path);
+                var document = await _usersManager.SendVerifyDocumentAsync(file.Path);
                 if (document != null)
                 {
                     var user = SettingsService.User;
@@ -214,7 +223,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
             try
             {
-                await ApiService.CancelWithdrawalAsync(_lastWithdrawalDataModel.Id);
+                await _paymentManager.CancelWithdrawalAsync(_lastWithdrawalDataModel.Id);
                 _lastWithdrawalDataModel = null;
                 await RaiseAllPropertiesChanged();
             }
@@ -239,12 +248,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         private async Task GetUserCardAsync()
         {
-            _currentCard = await ApiService.GetCardsAsync();
+            _currentCard = await _usersManager.GetCardsAsync();
         }
 
         private async Task GetWithdrawalsAsync()
         {
-            var withdrawals = await ApiService.GetWithdrawalsAsync();
+            var withdrawals = await _paymentManager.GetWithdrawalsAsync();
             _lastWithdrawalDataModel = withdrawals?.FirstOrDefault();
             await RaiseAllPropertiesChanged();
         }
@@ -264,7 +273,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                     return;
                 }
 
-                await ApiService.DeleteCardAsync(_currentCard.Id);
+                await _usersManager.DeleteCardAsync(_currentCard.Id);
                 _currentCard = null;
                 await RaiseAllPropertiesChanged();
             }

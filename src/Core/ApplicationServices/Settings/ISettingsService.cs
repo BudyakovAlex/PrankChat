@@ -3,6 +3,7 @@ using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Settings
 {
+    //TODO: rename to provider
     public interface ISettingsService
     {
         UserDataModel User { get; set; }

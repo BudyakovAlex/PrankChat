@@ -6,6 +6,8 @@ using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Publications;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -24,6 +26,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
     public class PublicationsViewModel : PaginationViewModel, IVideoListViewModel
     {
+        private readonly IPublicationsManager _publicationsManager;
+        private readonly IVideoManager _videoManager;
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
 
@@ -31,8 +35,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private Task _reloadTask;
 
-        public PublicationsViewModel(IPlatformService platformService, IVideoPlayerService videoPlayerService) : base(Constants.Pagination.DefaultPaginationSize)
+        public PublicationsViewModel(IPublicationsManager publicationsManager,
+                                     IVideoManager videoManager,
+                                     IPlatformService platformService,
+                                     IVideoPlayerService videoPlayerService) : base(Constants.Pagination.DefaultPaginationSize)
         {
+            _publicationsManager = publicationsManager;
+            _videoManager = videoManager;
             _platformService = platformService;
             _videoPlayerService = videoPlayerService;
 
@@ -176,11 +185,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     switch (SelectedPublicationType)
                     {
                         case PublicationType.Popular:
-                            pageContainer = await ApiService.GetPopularVideoFeedAsync(ActiveFilter, page, pageSize);
+                            pageContainer = await _publicationsManager.GetPopularVideoFeedAsync(ActiveFilter, page, pageSize);
                             break;
 
                         case PublicationType.Actual:
-                            pageContainer = await ApiService.GetActualVideoFeedAsync(DateFilterType.HalfYear, page, pageSize);
+                            pageContainer = await _publicationsManager.GetActualVideoFeedAsync(DateFilterType.HalfYear, page, pageSize);
                             break;
 
                         case PublicationType.MyVideosOfCreatedOrders:
@@ -190,7 +199,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                 return 0;
                             }
 
-                            pageContainer = await ApiService.GetMyVideoFeedAsync(page, pageSize, DateFilterType.HalfYear);
+                            pageContainer = await _publicationsManager.GetMyVideoFeedAsync(page, pageSize, DateFilterType.HalfYear);
                             break;
                     }
 
@@ -207,7 +216,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private PublicationItemViewModel ProducePublicationItemViewModel(VideoDataModel publication)
         {
-            return new PublicationItemViewModel(_platformService,
+            return new PublicationItemViewModel(_publicationsManager,
+                                                _videoManager,
+                                                _platformService,
                                                 _videoPlayerService,
                                                 publication,
                                                 GetFullScreenVideoDataModels);

@@ -4,6 +4,8 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Managers.Authorization;
+using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
@@ -15,11 +17,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class RegistrationSecondStepViewModel : BaseProfileViewModel, IMvxViewModel<RegistrationNavigationParameter>
     {
+        private readonly IAuthorizationManager _authorizationManager;
         private readonly IMvxWebBrowserTask _mvxWebBrowserTask;
-        private readonly IPushNotificationService _pushNotificationService;
+        private readonly IPushNotificationProvider _pushNotificationService;
 
-        public RegistrationSecondStepViewModel(IMvxWebBrowserTask mvxWebBrowserTask, IPushNotificationService pushNotificationService)
+        public RegistrationSecondStepViewModel(IAuthorizationManager authorizationManager,
+                                               IUsersManager usersManager,
+                                               IMvxWebBrowserTask mvxWebBrowserTask,
+                                               IPushNotificationProvider pushNotificationService) : base(usersManager)
         {
+            _authorizationManager = authorizationManager;
             _mvxWebBrowserTask = mvxWebBrowserTask;
             _pushNotificationService = pushNotificationService;
 
@@ -88,9 +95,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                     Password = Password,
                     PasswordConfirmation = RepeatedPassword,
                 };
-                await ApiService.RegisterAsync(userInfo);
-                // todo: not wait
-                await ApiService.GetCurrentUserAsync();
+                await _authorizationManager.RegisterAsync(userInfo);
+                // TODO: not wait
+                await UsersManager.GetCurrentUserAsync();
 
                 await _pushNotificationService.TryUpdateTokenAsync();
                 await NavigationService.ShowRegistrationThirdStepView();

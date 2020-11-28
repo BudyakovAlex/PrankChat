@@ -5,16 +5,6 @@
     <AssemblyName>PrankChat.Mobile.Core</AssemblyName>
     <RootNamespace>PrankChat.Mobile.Core</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="ApplicationServices\Network\Errors\**" />
-    <Compile Remove="Infrastructure\Converters\**" />
-    <EmbeddedResource Remove="ApplicationServices\Network\Errors\**" />
-    <EmbeddedResource Remove="Infrastructure\Converters\**" />
-    <None Remove="ApplicationServices\Network\Errors\**" />
-    <None Remove="Infrastructure\Converters\**" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.440" />
     <PackageReference Include="AutoMapper" Version="9.0.0" />

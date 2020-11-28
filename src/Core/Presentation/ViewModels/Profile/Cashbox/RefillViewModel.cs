@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
+using PrankChat.Mobile.Core.Managers.Payment;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -12,8 +13,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
     public class RefillViewModel : BasePageViewModel
     {
-        public RefillViewModel()
+        private readonly IPaymentManager _paymentManager;
+
+        public RefillViewModel(IPaymentManager paymentManager)
         {
+            _paymentManager = paymentManager;
+
             Items = new List<PaymentMethodItemViewModel>();
             RefillCommand = new MvxAsyncCommand(OnRefillAsync);
             SelectionChangedCommand = new MvxAsyncCommand<PaymentMethodItemViewModel>(OnSelectionChangedAsync);
@@ -58,7 +63,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 return;
             }
 
-            var paymentData = await ApiService.RefillAsync(Cost.Value);
+            var paymentData = await _paymentManager.RefillAsync(Cost.Value);
             if (string.IsNullOrWhiteSpace(paymentData?.PaymentLink))
             {
                 ErrorHandleService.LogError(this, "Can't resolve payment link, payment process aborted.");

@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System;
 using System.Threading;
@@ -10,11 +11,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
 {
     public abstract class LikeableViewModel : BasePageViewModel
     {
+        private readonly IPublicationsManager _publicationsManager;
+
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
         private CancellationTokenSource _cancellationSendingDislikeTokenSource;
 
-        public LikeableViewModel()
+        public LikeableViewModel(IPublicationsManager publicationsManager)
         {
+            _publicationsManager = publicationsManager;
+
             LikeCommand = new MvxRestrictedCommand(OnLike, restrictedExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
             DislikeCommand = new MvxRestrictedCommand(OnDislike, restrictedExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }
@@ -101,7 +106,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
 
             try
             {
-                var video = await ApiService.SendLikeAsync(VideoId, IsLiked, _cancellationSendingLikeTokenSource.Token);
+                var video = await _publicationsManager.SendLikeAsync(VideoId, IsLiked, _cancellationSendingLikeTokenSource.Token);
 
                 NumberOfLikes = video.LikesCount;
                 NumberOfDislikes = video.DislikesCount;
@@ -110,9 +115,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
                 OnDislikeChanged();
                 OnLikeChanged();
             }
-            catch (Exception ex)
+            catch
             {
-                //todo log this
+                //TODO log this
             }
             finally
             {
@@ -131,7 +136,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
 
             try
             {
-                var video = await ApiService.SendDislikeAsync(VideoId, IsDisliked, _cancellationSendingDislikeTokenSource.Token);
+                var video = await _publicationsManager.SendDislikeAsync(VideoId, IsDisliked, _cancellationSendingDislikeTokenSource.Token);
 
                 NumberOfLikes = video.LikesCount;
                 NumberOfDislikes = video.DislikesCount;
@@ -140,9 +145,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
                 OnDislikeChanged();
                 OnLikeChanged();
             }
-            catch (Exception ex)
+            catch
             {
-                //todo log this
+                //TODO log this
             }
             finally
             {

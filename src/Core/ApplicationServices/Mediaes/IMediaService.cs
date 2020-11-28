@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Plugin.Media.Abstractions;
 using System.Threading.Tasks;
-using Plugin.Media.Abstractions;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Mediaes
 {
+    //TODO: rename to provider
     public interface IMediaService
     {
         Task<MediaFile> PickVideoAsync();

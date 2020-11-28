@@ -29,7 +29,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
 
             try
             {
-                var pushNotificationService = Mvx.IoCProvider.Resolve<IPushNotificationService>();
+                var pushNotificationService = Mvx.IoCProvider.Resolve<IPushNotificationProvider>();
                 pushNotificationService.TryUpdateTokenAsync().FireAndForget();
             }
             catch (Exception ex)

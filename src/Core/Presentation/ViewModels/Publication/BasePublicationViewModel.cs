@@ -5,6 +5,8 @@ using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Publications;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -21,7 +23,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
     public class BasePublicationViewModel : LikeableViewModel, IVideoItemViewModel, IDisposable
     {
+        private readonly IVideoManager _videoManager;
         private readonly IPlatformService _platformService;
+
         private readonly VideoDataModel _videoDataModel;
 
         private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
@@ -37,16 +41,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private string _shareLink;
 
         //NOTE: stub for publication details page
-        public BasePublicationViewModel()
+        public BasePublicationViewModel(IPublicationsManager publicationsManager, IVideoManager videoManager) : base(publicationsManager)
         {
+            _videoManager = videoManager;
             ShowCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }
 
-        public BasePublicationViewModel(IPlatformService platformService,
+        public BasePublicationViewModel(IPublicationsManager publicationsManager,
+                                        IVideoManager videoManager,
+                                        IPlatformService platformService,
                                         IVideoPlayerService videoPlayerService,
                                         VideoDataModel videoDataModel,
-                                        Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
+                                        Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc) : base(publicationsManager)
         {
+            _videoManager = videoManager;
             _platformService = platformService;
             _videoDataModel = videoDataModel;
 
@@ -267,7 +275,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     return;
                 }
 
-                await ApiService.ComplainVideoAsync(VideoId, text, text);
+                await _videoManager.ComplainVideoAsync(VideoId, text, text);
                 DialogService.ShowToast(Resources.Complaint_Complete_Message, ToastType.Positive);
                 return;
             }

@@ -2,6 +2,7 @@
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -14,13 +15,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 {
     public class SubscriptionsViewModel : PaginationViewModel, IMvxViewModel<SubscriptionsNavigationParameter, bool>
     {
+        private readonly IUsersManager _usersManager;
+
         private int _userId;
         private bool _isUpdateNeeded;
 
         private Task _reloadTask;
 
-        public SubscriptionsViewModel() : base(Constants.Pagination.DefaultPaginationSize)
+        public SubscriptionsViewModel(IUsersManager usersManager) : base(Constants.Pagination.DefaultPaginationSize)
         {
+            _usersManager = usersManager;
+
             Items = new MvxObservableCollection<SubscriptionItemViewModel>();
             CloseCompletionSource = new TaskCompletionSource<object>();
             LoadDataCommand = new MvxAsyncCommand(LoadDataAsync);
@@ -115,8 +120,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 
         protected virtual async Task<PaginationModel<UserDataModel>> GetSubscriptionsAsync(int page, int pageSize)
         {
-            var getSubscriptionsTask = ApiService.GetSubscriptionsAsync(_userId, page, pageSize);
-            var getSubscribersTask = ApiService.GetSubscribersAsync(_userId, page, pageSize);
+            var getSubscriptionsTask = _usersManager.GetSubscriptionsAsync(_userId, page, pageSize);
+            var getSubscribersTask = _usersManager.GetSubscribersAsync(_userId, page, pageSize);
             await Task.WhenAll(getSubscriptionsTask, getSubscribersTask);
 
             SubscribersTitle = string.Format(Resources.Subscribers_Title_Template, getSubscribersTask.Result.TotalCount.ToCountString());
@@ -142,6 +147,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
                 return;
             }
 
+            _isUpdateNeeded = shouldRefresh;
             await LoadDataCommand.ExecuteAsync();
         }
 

@@ -5,6 +5,7 @@ using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Managers.Orders;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -18,12 +19,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
     public class CreateOrderViewModel : BasePageViewModel
     {
+        private readonly IOrdersManager _ordersManager;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
         private bool _isExecuting;
 
-        public CreateOrderViewModel(IWalkthroughsProvider walkthroughsProvider)
+        public CreateOrderViewModel(IOrdersManager ordersManager, IWalkthroughsProvider walkthroughsProvider)
         {
+            _ordersManager = ordersManager;
             _walkthroughsProvider = walkthroughsProvider;
 
             ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
@@ -102,7 +105,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     return;
                 }
 
-                await SaveOrderAsync();
+                await ExecutionStateWrapper.WrapAsync(SaveOrderAsync);
             }
             catch (NetworkException ex) when (ex.InnerException is ProblemDetailsDataModel problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
             {
@@ -117,14 +120,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 ErrorHandleService.ResumeServerErrorsHandling();
                 _isExecuting = false;
-                IsBusy = false;
             }
         }
 
         private async Task SaveOrderAsync()
         {
-            IsBusy = true;
-
             var createOrderModel = new CreateOrderDataModel()
             {
                 Title = Title,
@@ -135,7 +135,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             };
 
             ErrorHandleService.SuspendServerErrorsHandling();
-            var newOrder = await ApiService.CreateOrderAsync(createOrderModel);
+            var newOrder = await _ordersManager.CreateOrderAsync(createOrderModel);
             if (newOrder != null)
             {
                 if (newOrder.Customer == null)

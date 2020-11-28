@@ -1,5 +1,5 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
+﻿using MvvmCross;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -16,16 +16,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
     public class CashboxViewModel : BasePageViewModel, IMvxViewModel<CashboxTypeNavigationParameter, bool>
     {
-        private MvxSubscriptionToken _reloadProfileMessageToken;
-
         private bool _isReloadNeeded;
 
         public CashboxViewModel(IMediaService mediaService)
         {
             Items = new List<BasePageViewModel>
             {
-                new RefillViewModel(),
-                new WithdrawalViewModel(mediaService)
+                Mvx.IoCProvider.IoCConstruct<RefillViewModel>(),
+                Mvx.IoCProvider.IoCConstruct<WithdrawalViewModel>()
             };
 
             ShowContentCommand = new MvxAsyncCommand(NavigationService.ShowCashboxContent);

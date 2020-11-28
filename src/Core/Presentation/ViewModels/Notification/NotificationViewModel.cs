@@ -1,6 +1,7 @@
 ﻿using Badge.Plugin;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Managers.Notifications;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
@@ -12,9 +13,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 {
     public class NotificationViewModel : PaginationViewModel
     {
-        public NotificationViewModel() : base(Constants.Pagination.DefaultPaginationSize)
+        private readonly INotificationsManager _notificationsManager;
+
+        public NotificationViewModel(INotificationsManager notificationsManager) : base(Constants.Pagination.DefaultPaginationSize)
         {
             Items = new MvxObservableCollection<NotificationItemViewModel>();
+            _notificationsManager = notificationsManager;
         }
 
         public MvxObservableCollection<NotificationItemViewModel> Items { get; }
@@ -27,7 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
-            var pageContainer = await ApiService.GetNotificationsAsync();
+            var pageContainer = await _notificationsManager.GetNotificationsAsync();
             var count = SetList(pageContainer, page, ProduceNotificationItem, Items);
             return count;
         }
@@ -42,7 +46,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
             await Task.Delay(Constants.Delays.MillisecondsDelayBeforeMarkAsReaded);
 
             Items.ForEach(item => item.IsDelivered = true);
-            await ApiService.MarkNotificationsAsReadedAsync();
+            await _notificationsManager.MarkNotificationsAsReadedAsync();
 
             Messenger.Publish(new RefreshNotificationsMessage(this));
             CrossBadge.Current.ClearBadge();

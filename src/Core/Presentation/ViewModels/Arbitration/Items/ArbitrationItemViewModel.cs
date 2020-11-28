@@ -25,19 +25,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
         private readonly int _orderId;
 
         public ArbitrationItemViewModel(INavigationService navigatiobService,
-                                       ISettingsService settingsService,
-                                       bool isUserSessionInitialized,
-                                       int orderId,
-                                       string orderTitle,
-                                       string customerPhotoUrl,
-                                       string customerName,
-                                       double? priceText,
-                                       int likes,
-                                       int dislikes,
-                                       DateTime? arbitrationFinishAt,
-                                       int? customerId,
-                                       ArbitrationOrderDataModel orderDataModel,
-                                       Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
+                                        ISettingsService settingsService,
+                                        bool isUserSessionInitialized,
+                                        int orderId,
+                                        string orderTitle,
+                                        string customerPhotoUrl,
+                                        string customerName,
+                                        double? priceText,
+                                        int likes,
+                                        int dislikes,
+                                        DateTime? arbitrationFinishAt,
+                                        int? customerId,
+                                        ArbitrationOrderDataModel orderDataModel,
+                                        Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
         {
             _settingsService = settingsService;
             _navigationService = navigatiobService;

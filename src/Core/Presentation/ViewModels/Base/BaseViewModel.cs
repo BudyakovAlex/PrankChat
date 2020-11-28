@@ -2,7 +2,6 @@
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Wrappers;
@@ -39,9 +38,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         protected IMvxMessenger Messenger => Mvx.IoCProvider.Resolve<IMvxMessenger>();
 
         protected IDialogService DialogService => Mvx.IoCProvider.Resolve<IDialogService>();
-
-        //TODO: remove when will be decomposed API
-        protected IApiService ApiService => Mvx.IoCProvider.Resolve<IApiService>();
 
         protected virtual void OnIsBusyWrapperChanged()
         {

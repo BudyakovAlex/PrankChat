@@ -2,6 +2,9 @@
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Managers.Publications;
+using PrankChat.Mobile.Core.Managers.Search;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -20,13 +23,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
     {
         private const int SearchDelay = 1000;
 
+        private readonly ISearchManager _searchManager;
+        private readonly IPublicationsManager _publicationsManager;
+        private readonly IVideoManager _videoManager;
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
 
-        public SearchViewModel(IPlatformService platformService, IVideoPlayerService videoPlayerService)
+        public SearchViewModel(ISearchManager searchManager,
+                               IPublicationsManager publicationsManager,
+                               IVideoManager videoManager,
+                               IPlatformService platformService,
+                               IVideoPlayerService videoPlayerService)
             : base(Constants.Pagination.DefaultPaginationSize)
         {
             Items = new MvxObservableCollection<MvxNotifyPropertyChanged>();
+
+            _searchManager = searchManager;
+            _publicationsManager = publicationsManager;
+            _videoManager = videoManager;
             _platformService = platformService;
             _videoPlayerService = videoPlayerService;
         }
@@ -94,13 +108,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                     switch (SearchTabType)
                     {
                         case SearchTabType.Orders:
-                            var ordersPaginationModel = await ApiService.SearchOrdersAsync(SearchValue, page, pageSize);
+                            var ordersPaginationModel = await _searchManager.SearchOrdersAsync(SearchValue, page, pageSize);
                             return SetList(ordersPaginationModel, page, ProduceOrderViewModel, Items);
                         case SearchTabType.Users:
-                            var usersPaginationModel = await ApiService.SearchUsersAsync(SearchValue, page, pageSize);
+                            var usersPaginationModel = await _searchManager.SearchUsersAsync(SearchValue, page, pageSize);
                             return SetList(usersPaginationModel, page, ProduceUserViewModel, Items);
                         case SearchTabType.Videos:
-                            var videosPaginationModel = await ApiService.SearchVideosAsync(SearchValue, page, pageSize);
+                            var videosPaginationModel = await _searchManager.SearchVideosAsync(SearchValue, page, pageSize);
                             return SetList(videosPaginationModel, page, ProduceVideoViewModel, Items);
                     }
 
@@ -117,7 +131,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private MvxNotifyPropertyChanged ProduceVideoViewModel(VideoDataModel publication)
         {
-            return new PublicationItemViewModel(_platformService,
+            return new PublicationItemViewModel(_publicationsManager,
+                                                _videoManager,
+                                                _platformService,
                                                 _videoPlayerService,
                                                 publication,
                                                 GetFullScreenVideoDataModels);

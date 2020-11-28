@@ -1,7 +1,7 @@
 ﻿using MvvmCross;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.BusinessServices.TaskSchedulers.BackgroundTasks.Abstract;
+using PrankChat.Mobile.Core.Managers.Common;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,7 +10,8 @@ namespace PrankChat.Mobile.Core.BusinessServices.TaskSchedulers.BackgroundTasks.
 {
     public class SendLogsBackgroundTask : BackgroundTask, ISendLogsBackgroundTask
     {
-        private readonly Lazy<IApiService> _lazyApiService = new Lazy<IApiService>(() => Mvx.IoCProvider.Resolve<IApiService>());
+        private readonly Lazy<ILogsManager> _lazyLogsManager = new Lazy<ILogsManager>(() => Mvx.IoCProvider.Resolve<ILogsManager>());
+
         private readonly ILogger _logger;
 
         public SendLogsBackgroundTask(ILogger logger)
@@ -22,8 +23,8 @@ namespace PrankChat.Mobile.Core.BusinessServices.TaskSchedulers.BackgroundTasks.
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
-            var apiService = _lazyApiService.Value;
-            await apiService.SendLogsAsync(_logger.LogFilePath);
+            var logsManager = _lazyLogsManager.Value;
+            await logsManager.SendLogsAsync(_logger.LogFilePath);
             await _logger.ClearLogAsync();
         }
     }

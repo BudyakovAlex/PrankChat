@@ -2,6 +2,7 @@
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -18,6 +19,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
 {
     public class OrderDetailsVideoSectionViewModel : BaseOrderDetailsSectionViewModel
     {
+        private readonly IVideoManager _videoManager;
         private readonly ISettingsService _settingsService;
         private readonly IMediaService _mediaService;
 
@@ -26,9 +28,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
 
         private int _currentIndex;
 
-        public OrderDetailsVideoSectionViewModel(ISettingsService settingsService, IMediaService mediaService)
+        public OrderDetailsVideoSectionViewModel(IVideoManager videoManager,
+                                                 ISettingsService settingsService,
+                                                 IMediaService mediaService)
         {
             _settingsService = settingsService;
+            _videoManager = videoManager;
             _mediaService = mediaService;
 
             CancelUploadingCommand = new MvxCommand(() => _cancellationTokenSource?.Cancel());
@@ -120,12 +125,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
             IsUploading = true;
             _cancellationTokenSource = new CancellationTokenSource();
 
-            var video = await ApiService.SendVideoAsync(Order.Id,
-                                                        file.Path,
-                                                        Order?.Title,
-                                                        Order?.Description,
-                                                        OnUploadingProgressChanged,
-                                                        _cancellationTokenSource.Token);
+            var video = await _videoManager.SendVideoAsync(Order.Id,
+                                                           file.Path,
+                                                           Order?.Title,
+                                                           Order?.Description,
+                                                           OnUploadingProgressChanged,
+                                                           _cancellationTokenSource.Token);
             if (video == null && (!_cancellationTokenSource?.IsCancellationRequested ?? true))
             {
                 DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);

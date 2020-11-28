@@ -5,6 +5,8 @@ using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Orders;
+using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
@@ -23,11 +25,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
     public class ProfileViewModel : BaseProfileViewModel
     {
+        private readonly IOrdersManager _ordersManager;
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
-        public ProfileViewModel(IVideoPlayerService videoPlayerService, IWalkthroughsProvider walkthroughsProvider)
+        public ProfileViewModel(IOrdersManager ordersManager,
+                                IUsersManager usersManager,
+                                IVideoPlayerService videoPlayerService,
+                                IWalkthroughsProvider walkthroughsProvider) : base(usersManager)
         {
+            _ordersManager = ordersManager;
             _videoPlayerService = videoPlayerService;
             _walkthroughsProvider = walkthroughsProvider;
 
@@ -196,7 +203,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task LoadProfileAsync()
         {
-            await ApiService.GetCurrentUserAsync();
+            await UsersManager.GetCurrentUserAsync();
             Reset();
 
             await InitializeProfileData();
@@ -244,10 +251,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             switch (SelectedOrderType)
             {
                 case ProfileOrderType.MyOrdered:
-                    return await ApiService.GetOrdersAsync(OrderFilterType.MyOrdered, page, pageSize);
+                    return await _ordersManager.GetOrdersAsync(OrderFilterType.MyOrdered, page, pageSize);
 
                 case ProfileOrderType.OrdersCompletedByMe:
-                    return await ApiService.GetOrdersAsync(OrderFilterType.MyCompletion, page, pageSize);
+                    return await _ordersManager.GetOrdersAsync(OrderFilterType.MyCompletion, page, pageSize);
             }
 
             return new PaginationModel<OrderDataModel>();

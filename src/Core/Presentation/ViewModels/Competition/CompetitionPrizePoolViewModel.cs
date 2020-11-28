@@ -2,6 +2,7 @@
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Competitions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -14,13 +15,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
     public class CompetitionPrizePoolViewModel : BasePageViewModel, IMvxViewModel<CompetitionDataModel>
     {
+        private readonly ICompetitionsManager _competitionsManager;
+
         private CompetitionDataModel _competition;
 
-        public CompetitionPrizePoolViewModel()
+        public CompetitionPrizePoolViewModel(ICompetitionsManager competitionsManager)
         {
+            _competitionsManager = competitionsManager;
             Items = new MvxObservableCollection<CompetitionPrizePoolItemViewModel>();
 
-            RefreshCommand = new MvxAsyncCommand(RefreshAsync);
+            RefreshCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(RefreshAsync));
         }
 
         public string PrizePool { get; private set; }
@@ -35,22 +39,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             PrizePool = string.Format(Constants.Formats.MoneyFormat, parameter.PrizePool);
         }
 
-        public override Task Initialize()
+        public override Task InitializeAsync()
         {
             return RefreshAsync();
         }
 
         private async Task RefreshAsync()
         {
-            IsBusy = true;
-
             var competitionRatings = _competition.GetPhase() == CompetitionPhase.Finished
-                ? await ApiService.GetCompetitionResultsAsync(_competition.Id)
-                : await ApiService.GetCompetitionRatingsAsync(_competition.Id);
+                ? await _competitionsManager.GetCompetitionResultsAsync(_competition.Id)
+                : await _competitionsManager.GetCompetitionRatingsAsync(_competition.Id);
 
             var items = ProducePrizePoolItems(competitionRatings);
             Items.SwitchTo(items);
-            IsBusy = false;
         }
 
         private IEnumerable<CompetitionPrizePoolItemViewModel> ProducePrizePoolItems(List<CompetitionResultDataModel> results)
