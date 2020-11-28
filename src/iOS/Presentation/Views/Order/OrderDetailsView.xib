@@ -94,7 +94,7 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Название видео, длинное или коро..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYc-9W-b7H">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Название видео, длинное или коро..." lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYc-9W-b7H">
                                     <rect key="frame" x="32" y="152" width="350" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <nil key="textColor"/>
@@ -110,7 +110,7 @@
                                                 <constraint firstAttribute="width" constant="3" id="csN-2R-Zc4"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbA-AS-FNN">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbA-AS-FNN">
                                             <rect key="frame" x="19" y="0.0" width="331" height="150.5"/>
                                             <string key="text">Полное описание задания полное описание задания задания полное описание задания задания полное описание задания задания полное описание задания</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>

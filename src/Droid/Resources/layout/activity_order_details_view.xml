@@ -50,11 +50,11 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="26dp"
-					android:gravity="center_horizontal"
+					android:gravity="left|center_vertical"
 					android:textColor="@color/applicationBlack"
 					android:textSize="14dp"
 					android:textStyle="bold"
-					app:MvxBind="Text VideoSectionViewModel.VideoName"/>
+					app:MvxBind="Text OrderTitle"/>
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -64,15 +64,16 @@
 					<View
 						android:layout_width="3dp"
 						android:layout_height="match_parent"
-						android:background="@color/accent"/>
+						android:background="@color/accent"
+						android:layout_marginRight="16dp"
+						app:MvxBind="Visibility Visibility(IsHiddenOrder)"/>
 					<TextView
-						android:layout_marginLeft="16dp"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:gravity="center_horizontal"
+						android:gravity="left|center_vertical"
 						android:textColor="@color/applicationBlack"
 						android:textSize="14dp"
-						app:MvxBind="Text VideoSectionViewModel.VideoDetails"/>
+						app:MvxBind="Text OrderDescription"/>
 				</LinearLayout>
 
 				<TextView

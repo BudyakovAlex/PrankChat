@@ -54,7 +54,7 @@
 			android:src="@drawable/ic_order_hidden"
 			app:layout_constraintRight_toRightOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			app:MvxBind="Visibility Visibility(IsHidden)"/>
+			app:MvxBind="Visibility Visibility(IsHiddenOrder)"/>
 
 		<TextView
 			android:id="@+id/start_time_text"
