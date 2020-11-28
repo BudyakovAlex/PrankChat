@@ -29,7 +29,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             }
         }
 
-        public bool IsBusy => ExecutionStateWrapper.IsBusy;
+        public virtual bool IsBusy => ExecutionStateWrapper.IsBusy;
 
         protected virtual SafeExecutionWrapper SafeExecutionWrapper { get; }
 

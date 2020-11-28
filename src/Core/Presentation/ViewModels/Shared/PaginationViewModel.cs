@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Wrappers;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,13 +20,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
 
         private readonly int _paginationSize;
 
+        private readonly ExecutionStateWrapper _loadMoreExecutionStateWrapper;
+
         public PaginationViewModel(int paginationSize)
         {
             _paginationSize = paginationSize;
 
+            _loadMoreExecutionStateWrapper = new ExecutionStateWrapper();
+            _loadMoreExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(OnIsBusyChanged,
+                                                                                        (wrapper, handler) => wrapper.IsBusyChanged += handler,
+                                                                                        (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
+
             LoadMoreItemsCommand = new MvxAsyncCommand(LoadMoreItemsInternalAsync, CanLoadMoreItems);
             ReloadItemsCommand = new MvxAsyncCommand(ReloadItemsAsync);
         }
+
+        public override bool IsBusy => base.IsBusy || _loadMoreExecutionStateWrapper.IsBusy;
 
         public long TotalItemsCount { get; private set; }
 
@@ -78,7 +88,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
 
         private Task LoadMoreItemsInternalAsync()
         {
-            return ExecutionStateWrapper.WrapAsync(async () =>
+            return _loadMoreExecutionStateWrapper.WrapAsync(async () =>
             {
                 if (!Connectivity.NetworkAccess.HasConnection())
                 {
@@ -101,7 +111,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
                                    RaisePropertyChanged(nameof(HasNextPage)));
 
                 LoadMoreItemsCommand.RaiseCanExecuteChanged();
-            });
+            }, awaitWhenBusy: true);
         }
 
         protected Task ReloadItemsAsync()
