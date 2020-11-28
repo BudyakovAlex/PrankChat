@@ -86,8 +86,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public string StatusText => _orderDataModel.GetOrderStatusTitle(_settingsService?.User);
 
-        // TODO: Update this code.
-        public bool IsHiddenOrder => new Random().Next(0, 2) == 0;
+        public bool IsHiddenOrder => _orderDataModel?.OrderCategory == OrderCategory.Private;
 
         public IMvxAsyncCommand OpenDetailsOrderCommand { get; }
 

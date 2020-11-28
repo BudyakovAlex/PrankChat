@@ -15,6 +15,8 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public OrderStatusType? Status { get; set; }
 
+        public OrderCategory? OrderCategory { get; set; }
+
         public DateTime? ActiveTo { get; set; }
 
         public int DurationInHours { get; set; }

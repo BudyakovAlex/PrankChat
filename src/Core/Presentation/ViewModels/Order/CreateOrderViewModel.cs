@@ -129,7 +129,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 Title = Title,
                 Description = Description,
-                AutoProlongation = IsExecutorHidden,
+                IsHidden = IsExecutorHidden,
                 ActiveFor = ActiveFor?.Hours ?? 0,
                 Price = Price.Value,
             };

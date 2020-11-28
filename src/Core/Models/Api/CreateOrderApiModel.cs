@@ -1,5 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace PrankChat.Mobile.Core.Models.Api
 {
@@ -19,5 +18,8 @@ namespace PrankChat.Mobile.Core.Models.Api
 
         [JsonProperty("auto_prolongation")]
         public bool AutoProlongation { get; set; }
+
+        [JsonProperty("is_private")]
+        public bool IsHidden { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PrankChat.Mobile.Core.Models.Data
+﻿namespace PrankChat.Mobile.Core.Models.Data
 {
     public class CreateOrderDataModel
     {
@@ -13,5 +11,7 @@ namespace PrankChat.Mobile.Core.Models.Data
         public int? ActiveFor { get; set; }
 
         public bool AutoProlongation { get; set; }
+
+        public bool IsHidden { get; set; }
     }
 }

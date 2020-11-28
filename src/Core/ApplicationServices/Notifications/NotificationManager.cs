@@ -26,11 +26,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
             {
                 case NotificationType.OrderEvent:
                     var orderDataModel = JsonConvert.DeserializeObject<DataApiModel<OrderApiModel>>(value, JsonNetSerializer.Settings);
-                    if (orderDataModel.Data.Type == OrderCategory.Standard)
+                    if (orderDataModel.Data.OrderCategory == OrderCategory.Standard)
+                    {
                         return new PushNotificationData(title, body, notificationType.Value, orderDataModel.Data.Id);
-                    else
-                        return new PushNotificationData(title, body, notificationType.Value);
+                    }
 
+                    return new PushNotificationData(title, body, notificationType.Value);
                 case NotificationType.LikeEvent:
                 case NotificationType.ExecutorEvent:
                 case NotificationType.CommentEvent:
