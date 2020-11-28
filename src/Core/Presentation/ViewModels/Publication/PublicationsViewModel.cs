@@ -175,43 +175,40 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             await ReloadItemsCommand.ExecuteAsync();
         }
 
-        protected override Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
+        protected async override Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
-            return ExecutionStateWrapper.WrapAsync(async () =>
+            try
             {
-                try
+                PaginationModel<VideoDataModel> pageContainer = null;
+                switch (SelectedPublicationType)
                 {
-                    PaginationModel<VideoDataModel> pageContainer = null;
-                    switch (SelectedPublicationType)
-                    {
-                        case PublicationType.Popular:
-                            pageContainer = await _publicationsManager.GetPopularVideoFeedAsync(ActiveFilter, page, pageSize);
-                            break;
+                    case PublicationType.Popular:
+                        pageContainer = await _publicationsManager.GetPopularVideoFeedAsync(ActiveFilter, page, pageSize);
+                        break;
 
-                        case PublicationType.Actual:
-                            pageContainer = await _publicationsManager.GetActualVideoFeedAsync(DateFilterType.HalfYear, page, pageSize);
-                            break;
+                    case PublicationType.Actual:
+                        pageContainer = await _publicationsManager.GetActualVideoFeedAsync(DateFilterType.HalfYear, page, pageSize);
+                        break;
 
-                        case PublicationType.MyVideosOfCreatedOrders:
-                            if (!IsUserSessionInitialized)
-                            {
-                                await NavigationService.ShowLoginView();
-                                return 0;
-                            }
+                    case PublicationType.MyVideosOfCreatedOrders:
+                        if (!IsUserSessionInitialized)
+                        {
+                            await NavigationService.ShowLoginView();
+                            return 0;
+                        }
 
-                            pageContainer = await _publicationsManager.GetMyVideoFeedAsync(page, pageSize, DateFilterType.HalfYear);
-                            break;
-                    }
-
-                    return SetList(pageContainer, page, ProducePublicationItemViewModel, Items);
+                        pageContainer = await _publicationsManager.GetMyVideoFeedAsync(page, pageSize, DateFilterType.HalfYear);
+                        break;
                 }
-                catch (Exception ex)
-                {
-                    ErrorHandleService.HandleException(ex);
-                    ErrorHandleService.LogError(this, "Error on publication list loading.");
-                    return 0;
-                }
-            });
+
+                return SetList(pageContainer, page, ProducePublicationItemViewModel, Items);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Error on publication list loading.");
+                return 0;
+            }
         }
 
         private PublicationItemViewModel ProducePublicationItemViewModel(VideoDataModel publication)

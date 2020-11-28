@@ -16,7 +16,7 @@
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/action_bar"
 		android:background="@color/applicationWhite"
-		app:MvxBind="Refreshing IsBusy; RefreshCommand LoadOrderDetailsCommand">
+		app:MvxBind="Refreshing IsBusy, Mode = OneWay; RefreshCommand LoadOrderDetailsCommand">
 
 		<ScrollView
 			android:layout_width="match_parent"
@@ -35,7 +35,7 @@
 					android:layout_height="85dp"
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="16dp"
-					app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneWay; PlaceholderText ProfileShortName, Mode = OneWay; Click OpenCustomerProfileCommand" />
+					app:MvxBind="ImagePath CustomerSectionViewModel.ProfilePhotoUrl, Mode = OneWay; PlaceholderText CustomerSectionViewModel.ProfileShortName, Mode = OneWay; Click CustomerSectionViewModel.OpenCustomerProfileCommand" />
 
 				<TextView
 					android:layout_width="match_parent"
@@ -44,7 +44,7 @@
 					android:gravity="center_horizontal"
 					android:textColor="@color/applicationBlack"
 					android:textSize="14dp"
-					app:MvxBind="Text ProfileName"/>
+					app:MvxBind="Text CustomerSectionViewModel.ProfileName"/>
 
 				<TextView
 					android:layout_width="match_parent"
@@ -54,7 +54,7 @@
 					android:textColor="@color/applicationBlack"
 					android:textSize="14dp"
 					android:textStyle="bold"
-					app:MvxBind="Text VideoName"/>
+					app:MvxBind="Text VideoSectionViewModel.VideoName"/>
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -64,8 +64,7 @@
 					<View
 						android:layout_width="3dp"
 						android:layout_height="match_parent"
-						android:background="@color/accent"
-						app:MvxBind="Visibility Visibility(IsHidden)"/>
+						android:background="@color/accent"/>
 					<TextView
 						android:layout_marginLeft="16dp"
 						android:layout_width="match_parent"
@@ -73,7 +72,7 @@
 						android:gravity="center_horizontal"
 						android:textColor="@color/applicationBlack"
 						android:textSize="14dp"
-						app:MvxBind="Text VideoDetails"/>
+						app:MvxBind="Text VideoSectionViewModel.VideoDetails"/>
 				</LinearLayout>
 
 				<TextView
@@ -243,7 +242,7 @@
 					android:layout_height="wrap_content"
 					android:layout_marginTop="26dp"
 					android:orientation="vertical"
-					app:MvxBind="Visibility Visibility(IsVideoLoadAvailable)">
+					app:MvxBind="Visibility Visibility(VideoSectionViewModel.IsVideoLoadAvailable)">
 
 					<TextView
 						android:layout_width="match_parent"
@@ -260,7 +259,7 @@
 						android:layout_gravity="center_horizontal"
 						android:layout_marginTop="14.5dp"
 						android:text="@string/OrderDetailsView_LoadVideo"
-						app:MvxBind="Click LoadVideoCommand" />
+						app:MvxBind="Click VideoSectionViewModel.LoadVideoCommand" />
 				</LinearLayout>
 
 				<Button
@@ -294,7 +293,7 @@
 						android:layout_height="1dp"
 						android:layout_alignParentTop="true"
 						android:background="@color/border"
-						app:MvxBind="Visibility Visibility(IsExecutorAvailable)" />
+						app:MvxBind="Visibility Visibility(ExecutorSectionViewModel.IsExecutorAvailable)" />
 
 					<TextView
 						android:id="@+id/take_the_order_text"
@@ -306,7 +305,7 @@
 						android:textColor="@color/inactive"
 						android:textSize="12dp"
 						android:text="@string/OrderDetailsView_Took_The_Order_Text"
-						app:MvxBind="Visibility Visibility(IsExecutorAvailable)"/>
+						app:MvxBind="Visibility Visibility(ExecutorSectionViewModel.IsExecutorAvailable)"/>
 
 					<CircleCachedImageView
 						android:id="@+id/executor_photo"
@@ -315,7 +314,7 @@
 						android:layout_below="@+id/take_the_order_text"
 						android:layout_alignParentLeft="true"
 						android:layout_marginTop="15dp"
-						app:MvxBind="ImagePath ExecutorPhotoUrl; PlaceholderText ExecutorShortName; Visibility Visibility(IsExecutorAvailable);  Click OpenExecutorProfileCommand" />
+						app:MvxBind="ImagePath ExecutorSectionViewModel.ExecutorPhotoUrl; PlaceholderText ExecutorSectionViewModel.ExecutorShortName; Visibility Visibility(ExecutorSectionViewModel.IsExecutorAvailable);  Click ExecutorSectionViewModel.OpenExecutorProfileCommand" />
 
 					<TextView
 						android:id="@+id/executor_name"
@@ -327,7 +326,7 @@
 						android:layout_toRightOf="@+id/executor_photo"
 						android:textColor="@color/applicationBlack"
 						android:textSize="14dp"
-						app:MvxBind="Text ExecutorName; Visibility Visibility(IsExecutorAvailable)"/>
+						app:MvxBind="Text ExecutorSectionViewModel.ExecutorName; Visibility Visibility(ExecutorSectionViewModel.IsExecutorAvailable)"/>
 
 					<TextView
 						android:id="@+id/take_the_order_date"
@@ -339,14 +338,14 @@
 						android:layout_toRightOf="@+id/executor_photo"
 						android:textColor="@color/description"
 						android:textSize="12dp"
-						app:MvxBind="Text StartOrderDate; Visibility Visibility(IsExecutorAvailable)"/>
+						app:MvxBind="Text StartOrderDate; Visibility Visibility(ExecutorSectionViewModel.IsExecutorAvailable)"/>
 
 					<android.support.v7.widget.CardView
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_below="@+id/executor_photo"
 						android:layout_marginTop="25dp"
-						app:MvxBind="Click ShowFullVideoCommand; Visibility Visibility(IsVideoAvailable);"
+						app:MvxBind="Click VideoSectionViewModel.ShowFullVideoCommand; Visibility Visibility(VideoSectionViewModel.IsVideoAvailable);"
 						app:cardCornerRadius="5dp">
 
 						<FFImageLoading.Cross.MvxCachedImageView
@@ -355,7 +354,7 @@
 							android:layout_height="204dp"
 							android:scaleType="fitCenter"
 							android:background="@color/applicationBlack"
-							app:MvxBind="ImagePath VideoPlaceholderUrl" />
+							app:MvxBind="ImagePath VideoSectionViewModel.VideoPlaceholderUrl" />
 
 						<ImageView
 							android:layout_width="wrap_content"
@@ -373,7 +372,7 @@
 						android:layout_below="@+id/executor_photo"
 						android:layout_marginTop="25dp"
 						android:background="@drawable/border_accent_load_video"
-						app:MvxBind="Visibility Visibility(IsVideoProcessing)">
+						app:MvxBind="Visibility Visibility(VideoSectionViewModel.IsVideoProcessing)">
 
 						<ProgressBar
 							style="?android:attr/progressBarStyle"
@@ -406,7 +405,7 @@
 					android:layout_height="wrap_content"
 					android:layout_marginTop="26dp"
 					android:layout_marginBottom="26dp"
-					app:MvxBind="Visibility Visibility(IsDecideVideoAvailable);">
+					app:MvxBind="Visibility Visibility(VideoSectionViewModel.IsDecideVideoAvailable);">
 
 					<TextView
 						android:id="@+id/corresponds_title_text_view"
@@ -461,7 +460,7 @@
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="26dp"
 					android:text="@string/OrderDetailsView_Accept_Button"
-					app:MvxBind="Click AcceptOrderCommand; Visibility Visibility(IsDecisionVideoAvailable)" />
+					app:MvxBind="Click AcceptOrderCommand; Visibility Visibility(VideoSectionViewModel.IsDecisionVideoAvailable)" />
 
 				<Button
 					style="@style/Theme.PrankChat.Button"
@@ -473,7 +472,7 @@
 					android:background="@null"
 					android:text="@string/OrderDetailsView_Argue_Button"
 					android:textColor="@color/accent"
-					app:MvxBind="Click ArqueOrderCommand; Visibility Visibility(IsDecisionVideoAvailable)" />
+					app:MvxBind="Click ArqueOrderCommand; Visibility Visibility(VideoSectionViewModel.IsDecisionVideoAvailable)" />
 			</LinearLayout>
 		</ScrollView>
 	</MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout>

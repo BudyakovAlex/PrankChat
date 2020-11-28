@@ -7,6 +7,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using System;
@@ -30,7 +31,10 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         private string _cachedUri;
 
-        public VideoPlayer(IApiService apiService, ILogger logger, IMvxMessenger mvxMessenger, IErrorHandleService errorHandleService) : base(apiService, logger, mvxMessenger)
+        public VideoPlayer(IVideoManager videoManager,
+                           ILogger logger,
+                           IMvxMessenger mvxMessenger,
+                           IErrorHandleService errorHandleService) : base(videoManager, logger, mvxMessenger)
         {
             _errorHandleService = errorHandleService;
         }

@@ -48,6 +48,7 @@ namespace PrankChat.Mobile.Core
         {           
             InitializeMappings();
 
+            Mvx.IoCProvider.ConstructAndRegisterSingleton<ILogger, Logger>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IWalkthroughsProvider, WalkthroughsProvider>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<ISendLogsBackgroundTask, SendLogsBackgroundTask>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IBackgroundTaskScheduler, BackgroundTaskScheduler>();
@@ -65,7 +66,6 @@ namespace PrankChat.Mobile.Core
         {
             Mvx.IoCProvider.ConstructAndRegisterSingleton<ITimerService, TimerService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<INavigationService, NavigationService>();
-            Mvx.IoCProvider.ConstructAndRegisterSingleton<ILogger, Logger>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<ISentryService, SentryService>();
 
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IAuthorizationService, AuthorizationService>();

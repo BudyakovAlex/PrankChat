@@ -127,6 +127,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string TimeMinutesValue => TimeValue?.Minutes.ToString("00");
 
+        public string StartOrderDate => _order?.TakenToWorkAt?.ToShortDateString();
+
         public bool IsUserGuest => !CustomerSectionViewModel.IsUserCustomer && !ExecutorSectionViewModel.IsUserExecutor;
 
         public bool IsSubscribeAvailable => false; // IsUserListener;

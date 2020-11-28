@@ -99,34 +99,31 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             await ExecutionStateWrapper.WrapAsync(() => ReloadItemsCommand.ExecuteAsync());
         }
 
-        protected override Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
+        protected async override Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
-            return ExecutionStateWrapper.WrapAsync(async () =>
+            try
             {
-                try
+                switch (SearchTabType)
                 {
-                    switch (SearchTabType)
-                    {
-                        case SearchTabType.Orders:
-                            var ordersPaginationModel = await _searchManager.SearchOrdersAsync(SearchValue, page, pageSize);
-                            return SetList(ordersPaginationModel, page, ProduceOrderViewModel, Items);
-                        case SearchTabType.Users:
-                            var usersPaginationModel = await _searchManager.SearchUsersAsync(SearchValue, page, pageSize);
-                            return SetList(usersPaginationModel, page, ProduceUserViewModel, Items);
-                        case SearchTabType.Videos:
-                            var videosPaginationModel = await _searchManager.SearchVideosAsync(SearchValue, page, pageSize);
-                            return SetList(videosPaginationModel, page, ProduceVideoViewModel, Items);
-                    }
+                    case SearchTabType.Orders:
+                        var ordersPaginationModel = await _searchManager.SearchOrdersAsync(SearchValue, page, pageSize);
+                        return SetList(ordersPaginationModel, page, ProduceOrderViewModel, Items);
+                    case SearchTabType.Users:
+                        var usersPaginationModel = await _searchManager.SearchUsersAsync(SearchValue, page, pageSize);
+                        return SetList(usersPaginationModel, page, ProduceUserViewModel, Items);
+                    case SearchTabType.Videos:
+                        var videosPaginationModel = await _searchManager.SearchVideosAsync(SearchValue, page, pageSize);
+                        return SetList(videosPaginationModel, page, ProduceVideoViewModel, Items);
+                }
 
-                    return 0;
-                }
-                catch (Exception ex)
-                {
-                    ErrorHandleService.HandleException(ex);
-                    ErrorHandleService.LogError(this, "Search list loading error occured.");
-                    return 0;
-                }
-            });
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Search list loading error occured.");
+                return 0;
+            }
         }
 
         private MvxNotifyPropertyChanged ProduceVideoViewModel(VideoDataModel publication)

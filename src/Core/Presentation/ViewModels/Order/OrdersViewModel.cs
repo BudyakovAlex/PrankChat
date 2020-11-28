@@ -131,28 +131,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             await LoadDataCommand.ExecuteAsync();
         }
 
-        protected override Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
+        protected async override Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
-            return ExecutionStateWrapper.WrapAsync(async () =>
+            try
             {
-                try
+                if (TabType == OrdersTabType.Arbitration)
                 {
-                    if (TabType == OrdersTabType.Arbitration)
-                    {
-                        var arbitrationOrders = await _ordersManager.GetArbitrationOrdersAsync(ArbitrationFilterType, page, pageSize);
-                        return SetList(arbitrationOrders, page, ProduceArbitrationOrderViewModel, Items);
-                    }
+                    var arbitrationOrders = await _ordersManager.GetArbitrationOrdersAsync(ArbitrationFilterType, page, pageSize);
+                    return SetList(arbitrationOrders, page, ProduceArbitrationOrderViewModel, Items);
+                }
 
-                    var orders = await _ordersManager.GetOrdersAsync(OrderFilterType, page, pageSize);
-                    return SetList(orders, page, ProduceOrderViewModel, Items);
-                }
-                catch (Exception ex)
-                {
-                    ErrorHandleService.HandleException(ex);
-                    ErrorHandleService.LogError(this, "Order list loading error occured.");
-                    return 0;
-                }
-            });
+                var orders = await _ordersManager.GetOrdersAsync(OrderFilterType, page, pageSize);
+                return SetList(orders, page, ProduceOrderViewModel, Items);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Order list loading error occured.");
+                return 0;
+            }
         }
 
         protected override void Dispose(bool disposing)

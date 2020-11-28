@@ -1,16 +1,13 @@
 ﻿using MvvmCross;
 using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Wrappers;
 using System;
 using System.Linq;
 using System.Reactive.Disposables;
@@ -27,6 +24,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public BasePageViewModel()
         {
+            Disposables = new CompositeDisposable();
+
+            ExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(OnIsBusyChanged,
+                                                                               (wrapper, handler) => wrapper.IsBusyChanged += handler,
+                                                                               (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
+
             ShowNotificationCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowNotificationView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
             ShowSearchCommand = new MvxAsyncCommand(NavigationService.ShowSearchView);
             GoBackCommand = new MvxAsyncCommand(GoBackAsync);
@@ -128,6 +131,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             return Task.WhenAll(raisePropertiesTasks);
         }
 
+        protected virtual void OnIsBusyChanged(object sender, bool value)
+        {
+            RaisePropertyChanged(nameof(IsBusy));
+        }
+
         protected void OnTimerTick(TimerTickMessage msg)
         {
             _timerThicksCount++;
@@ -162,7 +170,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         public void Dispose()
         {
             Dispose(true);
-
         }
     }
 }
