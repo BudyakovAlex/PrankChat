@@ -1,7 +1,6 @@
 ﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
-using System;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Managers.Authorization
