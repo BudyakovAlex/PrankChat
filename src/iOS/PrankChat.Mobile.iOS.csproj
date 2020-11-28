@@ -384,6 +384,7 @@
     <Compile Include="Presentation\Views\Base\IScrollableView.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\Search\SearchTableSource.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\Search\OrdersSearchTableSource.cs" />
+    <Compile Include="Controls\CheckBox.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -1071,6 +1072,8 @@
     <ImageAsset Include="Assets.xcassets\ic_competition_cup.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_competition_cup.imageset\ic_competition_cup.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_dislike.imageset\ic_dislike-1.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_order_hidden.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_order_hidden.imageset\Group 2.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -1157,6 +1160,7 @@
     <Folder Include="Assets.xcassets\ic_apple.imageset\" />
     <Folder Include="Assets.xcassets\ic_competition_cup.imageset\" />
     <Folder Include="Presentation\SourcesAndDelegates\Search\" />
+    <Folder Include="Assets.xcassets\ic_order_hidden.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

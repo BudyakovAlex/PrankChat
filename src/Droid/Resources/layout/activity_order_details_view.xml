@@ -1,487 +1,500 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/action_bar"
-        layout="@layout/action_bar_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+	<include
+		android:id="@+id/action_bar"
+		layout="@layout/action_bar_title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
 
-    <MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/action_bar"
-        android:background="@color/applicationWhite"
-        app:MvxBind="Refreshing IsBusy; RefreshCommand LoadOrderDetailsCommand">
+	<MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/action_bar"
+		android:background="@color/applicationWhite"
+		app:MvxBind="Refreshing IsBusy; RefreshCommand LoadOrderDetailsCommand">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+		<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp">
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:paddingLeft="32dp"
+				android:paddingRight="32dp">
 
-                <CircleCachedImageView
-                    android:id="@+id/user_photo"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="16dp"
-                    app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneWay; PlaceholderText ProfileShortName, Mode = OneWay; Click OpenCustomerProfileCommand" />
+				<CircleCachedImageView
+					android:id="@+id/user_photo"
+					android:layout_width="85dp"
+					android:layout_height="85dp"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginTop="16dp"
+					app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneWay; PlaceholderText ProfileShortName, Mode = OneWay; Click OpenCustomerProfileCommand" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal"
-                    android:textColor="@color/applicationBlack"
-                    android:textSize="14dp"
-                    app:MvxBind="Text ProfileName"/>
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp"
+					android:gravity="center_horizontal"
+					android:textColor="@color/applicationBlack"
+					android:textSize="14dp"
+					app:MvxBind="Text ProfileName"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="26dp"
-                    android:gravity="center_horizontal"
-                    android:textColor="@color/applicationBlack"
-                    android:textSize="14dp"
-                    android:textStyle="bold"
-                    app:MvxBind="Text VideoName"/>
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="26dp"
+					android:gravity="center_horizontal"
+					android:textColor="@color/applicationBlack"
+					android:textSize="14dp"
+					android:textStyle="bold"
+					app:MvxBind="Text VideoName"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center_horizontal"
-                    android:textColor="@color/applicationBlack"
-                    android:textSize="14dp"
-                    app:MvxBind="Text VideoDetails"/>
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					android:layout_marginTop="16dp">
+					<View
+						android:layout_width="3dp"
+						android:layout_height="match_parent"
+						android:background="@color/accent"
+						app:MvxBind="Visibility Visibility(IsHidden)"/>
+					<TextView
+						android:layout_marginLeft="16dp"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:gravity="center_horizontal"
+						android:textColor="@color/applicationBlack"
+						android:textSize="14dp"
+						app:MvxBind="Text VideoDetails"/>
+				</LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="26dp"
-                    android:gravity="center_horizontal"
-                    android:textColor="@color/inactive"
-                    android:textSize="12dp"
-                    android:text="@string/OrderDetailsView_Price_Text" />
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="26dp"
+					android:gravity="center_horizontal"
+					android:textColor="@color/inactive"
+					android:textSize="12dp"
+					android:text="@string/OrderDetailsView_Price_Text" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center_horizontal"
-                    android:textColor="@color/inactive"
-                    android:textSize="26dp"
-                    app:MvxBind="Text PriceValue"/>
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="16dp"
+					android:gravity="center_horizontal"
+					android:textColor="@color/inactive"
+					android:textSize="26dp"
+					app:MvxBind="Text PriceValue"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="26dp"
-                    android:gravity="center_horizontal"
-                    android:textColor="@color/inactive"
-                    android:textSize="12dp"
-                    android:text="@string/OrderDetailsView_Time_Text"
-                    app:MvxBind="Visibility Visibility(IsTimeAvailable)"/>
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="26dp"
+					android:gravity="center_horizontal"
+					android:textColor="@color/inactive"
+					android:textSize="12dp"
+					android:text="@string/OrderDetailsView_Time_Text"
+					app:MvxBind="Visibility Visibility(IsTimeAvailable)"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    app:MvxBind="Visibility Visibility(IsTimeAvailable)">
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="16dp"
+					android:gravity="center_horizontal"
+					android:orientation="horizontal"
+					app:MvxBind="Visibility Visibility(IsTimeAvailable)">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/time_days_text_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/inactive"
-                            android:textSize="26dp"
-                            app:MvxBind="Text TimeDaysValue"/>
+						<TextView
+							android:id="@+id/time_days_text_view"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_horizontal"
+							android:textColor="@color/inactive"
+							android:textSize="26dp"
+							app:MvxBind="Text TimeDaysValue"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:textColor="@color/inactive"
-                            android:textSize="12dp"
-                            android:text="@string/Order_View_Day"/>
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_horizontal"
+							android:layout_marginLeft="5dp"
+							android:layout_marginRight="5dp"
+							android:textColor="@color/inactive"
+							android:textSize="12dp"
+							android:text="@string/Order_View_Day"/>
 
-                    </LinearLayout>
+					</LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_marginTop="-1dp"
-                        android:textColor="@color/inactive"
-                        android:textSize="26dp"
-                        android:text=":"/>
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="1dp"
+						android:layout_marginRight="4dp"
+						android:layout_marginTop="-1dp"
+						android:textColor="@color/inactive"
+						android:textSize="26dp"
+						android:text=":"/>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/time_hours_text_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/inactive"
-                            android:textSize="26dp"
-                            app:MvxBind="Text TimeHourValue"/>
+						<TextView
+							android:id="@+id/time_hours_text_view"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_horizontal"
+							android:textColor="@color/inactive"
+							android:textSize="26dp"
+							app:MvxBind="Text TimeHourValue"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:textColor="@color/inactive"
-                            android:textSize="12dp"
-                            android:text="@string/Order_View_Hour"/>
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_horizontal"
+							android:layout_marginLeft="5dp"
+							android:layout_marginRight="5dp"
+							android:textColor="@color/inactive"
+							android:textSize="12dp"
+							android:text="@string/Order_View_Hour"/>
 
-                    </LinearLayout>
+					</LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="1dp"
-                        android:layout_marginTop="-1dp"
-                        android:textColor="@color/inactive"
-                        android:textSize="26dp"
-                        android:text=":"/>
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="4dp"
+						android:layout_marginRight="1dp"
+						android:layout_marginTop="-1dp"
+						android:textColor="@color/inactive"
+						android:textSize="26dp"
+						android:text=":"/>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/time_minutes_text_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/inactive"
-                            android:textSize="26dp"
-                            app:MvxBind="Text TimeMinutesValue"/>
+						<TextView
+							android:id="@+id/time_minutes_text_view"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_horizontal"
+							android:textColor="@color/inactive"
+							android:textSize="26dp"
+							app:MvxBind="Text TimeMinutesValue"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:textColor="@color/inactive"
-                            android:textSize="12dp"
-                            android:textAlignment="center"
-                            android:text="@string/Order_View_Minute"/>
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_horizontal"
+							android:layout_marginLeft="5dp"
+							android:layout_marginRight="5dp"
+							android:textColor="@color/inactive"
+							android:textSize="12dp"
+							android:textAlignment="center"
+							android:text="@string/Order_View_Minute"/>
 
-                    </LinearLayout>
-                </LinearLayout>
+					</LinearLayout>
+				</LinearLayout>
 
-                <Button
-                    style="@style/Theme.PrankChat.Button.Accent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="26dp"
-                    android:text="@string/OrderDetailsView_Take_Order_Button"
-                    app:MvxBind="Click TakeOrderCommand; Visibility Visibility(IsTakeOrderAvailable)" />
+				<Button
+					style="@style/Theme.PrankChat.Button.Accent"
+					android:layout_width="wrap_content"
+					android:layout_height="36dp"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginTop="26dp"
+					android:text="@string/OrderDetailsView_Take_Order_Button"
+					app:MvxBind="Click TakeOrderCommand; Visibility Visibility(IsTakeOrderAvailable)" />
 
-                <Button
-                    style="@style/Theme.PrankChat.Button.Accent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="26dp"
-                    android:text="@string/OrderDetailsView_Subscribe_Button"
-                    app:MvxBind="Click SubscribeOrderCommand; Visibility Visibility(IsSubscribeAvailable)" />
+				<Button
+					style="@style/Theme.PrankChat.Button.Accent"
+					android:layout_width="wrap_content"
+					android:layout_height="36dp"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginTop="26dp"
+					android:text="@string/OrderDetailsView_Subscribe_Button"
+					app:MvxBind="Click SubscribeOrderCommand; Visibility Visibility(IsSubscribeAvailable)" />
 
-                <Button
-                    style="@style/Theme.PrankChat.Button.Accent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="26dp"
-                    android:text="@string/OrderDetailsView_Unsubscribe_Button"
-                    app:MvxBind="Click UnsubscribeOrderCommand; Visibility Visibility(IsUnsubscribeAvailable)" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="26dp"
-                    android:orientation="vertical"
-                    app:MvxBind="Visibility Visibility(IsVideoLoadAvailable)">
+				<Button
+					style="@style/Theme.PrankChat.Button.Accent"
+					android:layout_width="wrap_content"
+					android:layout_height="36dp"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginTop="26dp"
+					android:text="@string/OrderDetailsView_Unsubscribe_Button"
+					app:MvxBind="Click UnsubscribeOrderCommand; Visibility Visibility(IsUnsubscribeAvailable)" />
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="26dp"
+					android:orientation="vertical"
+					app:MvxBind="Visibility Visibility(IsVideoLoadAvailable)">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:textColor="@color/inactive"
-                        android:textSize="12dp"
-                        android:text="@string/OrderDetailsView_Download_Text"/>
+					<TextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:gravity="center_horizontal"
+						android:textColor="@color/inactive"
+						android:textSize="12dp"
+						android:text="@string/OrderDetailsView_Download_Text"/>
 
-                    <Button
-                        style="@style/Theme.PrankChat.Button.Accent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="36dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="14.5dp"
-                        android:text="@string/OrderDetailsView_LoadVideo"
-                        app:MvxBind="Click LoadVideoCommand" />
-                </LinearLayout>
+					<Button
+						style="@style/Theme.PrankChat.Button.Accent"
+						android:layout_width="wrap_content"
+						android:layout_height="36dp"
+						android:layout_gravity="center_horizontal"
+						android:layout_marginTop="14.5dp"
+						android:text="@string/OrderDetailsView_LoadVideo"
+						app:MvxBind="Click LoadVideoCommand" />
+				</LinearLayout>
 
-                <Button
-                    style="@style/Theme.PrankChat.Button.Accent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="26dp"
-                    android:text="@string/OrderDetailsView_Execute_Button"
-                    app:MvxBind="Click ExecuteOrderCommand; Visibility Visibility(IsExecuteOrderAvailable)" />
+				<Button
+					style="@style/Theme.PrankChat.Button.Accent"
+					android:layout_width="wrap_content"
+					android:layout_height="36dp"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginTop="26dp"
+					android:text="@string/OrderDetailsView_Execute_Button"
+					app:MvxBind="Click ExecuteOrderCommand; Visibility Visibility(IsExecuteOrderAvailable)" />
 
-                <Button
-                    style="@style/Theme.PrankChat.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="26dp"
-                    android:background="@drawable/border_accent"
-                    android:text="@string/OrderDetailsView_Cancel_Button"
-                    android:textColor="@color/accent"
-                    app:MvxBind="Click CancelOrderCommand; Visibility Visibility(IsCancelOrderAvailable)" />
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="26dp"
-                    android:layout_marginBottom="26dp">
+				<Button
+					style="@style/Theme.PrankChat.Button"
+					android:layout_width="wrap_content"
+					android:layout_height="36dp"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginTop="26dp"
+					android:background="@drawable/border_accent"
+					android:text="@string/OrderDetailsView_Cancel_Button"
+					android:textColor="@color/accent"
+					app:MvxBind="Click CancelOrderCommand; Visibility Visibility(IsCancelOrderAvailable)" />
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="26dp"
+					android:layout_marginBottom="26dp">
 
-                    <View
-                        android:id="@+id/separator"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentTop="true"
-                        android:background="@color/border"
-                        app:MvxBind="Visibility Visibility(IsExecutorAvailable)" />
+					<View
+						android:id="@+id/separator"
+						android:layout_width="match_parent"
+						android:layout_height="1dp"
+						android:layout_alignParentTop="true"
+						android:background="@color/border"
+						app:MvxBind="Visibility Visibility(IsExecutorAvailable)" />
 
-                    <TextView
-                        android:id="@+id/take_the_order_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/separator"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center_horizontal"
-                        android:textColor="@color/inactive"
-                        android:textSize="12dp"
-                        android:text="@string/OrderDetailsView_Took_The_Order_Text"
-                        app:MvxBind="Visibility Visibility(IsExecutorAvailable)"/>
+					<TextView
+						android:id="@+id/take_the_order_text"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_below="@+id/separator"
+						android:layout_marginTop="16dp"
+						android:gravity="center_horizontal"
+						android:textColor="@color/inactive"
+						android:textSize="12dp"
+						android:text="@string/OrderDetailsView_Took_The_Order_Text"
+						app:MvxBind="Visibility Visibility(IsExecutorAvailable)"/>
 
-                    <CircleCachedImageView
-                        android:id="@+id/executor_photo"
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
-                        android:layout_below="@+id/take_the_order_text"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="15dp"
-                        app:MvxBind="ImagePath ExecutorPhotoUrl; PlaceholderText ExecutorShortName; Visibility Visibility(IsExecutorAvailable);  Click OpenExecutorProfileCommand" />
+					<CircleCachedImageView
+						android:id="@+id/executor_photo"
+						android:layout_width="42dp"
+						android:layout_height="42dp"
+						android:layout_below="@+id/take_the_order_text"
+						android:layout_alignParentLeft="true"
+						android:layout_marginTop="15dp"
+						app:MvxBind="ImagePath ExecutorPhotoUrl; PlaceholderText ExecutorShortName; Visibility Visibility(IsExecutorAvailable);  Click OpenExecutorProfileCommand" />
 
-                    <TextView
-                        android:id="@+id/executor_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/take_the_order_text"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="21dp"
-                        android:layout_toRightOf="@+id/executor_photo"
-                        android:textColor="@color/applicationBlack"
-                        android:textSize="14dp"
-                        app:MvxBind="Text ExecutorName; Visibility Visibility(IsExecutorAvailable)"/>
+					<TextView
+						android:id="@+id/executor_name"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_below="@+id/take_the_order_text"
+						android:layout_marginLeft="16dp"
+						android:layout_marginTop="21dp"
+						android:layout_toRightOf="@+id/executor_photo"
+						android:textColor="@color/applicationBlack"
+						android:textSize="14dp"
+						app:MvxBind="Text ExecutorName; Visibility Visibility(IsExecutorAvailable)"/>
 
-                    <TextView
-                        android:id="@+id/take_the_order_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/executor_name"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@+id/executor_photo"
-                        android:textColor="@color/description"
-                        android:textSize="12dp"
-                        app:MvxBind="Text StartOrderDate; Visibility Visibility(IsExecutorAvailable)"/>
+					<TextView
+						android:id="@+id/take_the_order_date"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_below="@+id/executor_name"
+						android:layout_marginLeft="16dp"
+						android:layout_marginTop="10dp"
+						android:layout_toRightOf="@+id/executor_photo"
+						android:textColor="@color/description"
+						android:textSize="12dp"
+						app:MvxBind="Text StartOrderDate; Visibility Visibility(IsExecutorAvailable)"/>
 
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/executor_photo"
-                        android:layout_marginTop="25dp"
-                        app:MvxBind="Click ShowFullVideoCommand; Visibility Visibility(IsVideoAvailable);"
-                        app:cardCornerRadius="5dp">
+					<android.support.v7.widget.CardView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_below="@+id/executor_photo"
+						android:layout_marginTop="25dp"
+						app:MvxBind="Click ShowFullVideoCommand; Visibility Visibility(IsVideoAvailable);"
+						app:cardCornerRadius="5dp">
 
-                        <FFImageLoading.Cross.MvxCachedImageView
-                            android:id="@+id/completed_video"
-                            android:layout_width="match_parent"
-                            android:layout_height="204dp"
-                            android:scaleType="fitCenter"
-                            android:background="@color/applicationBlack"
-                            app:MvxBind="ImagePath VideoPlaceholderUrl" />
+						<FFImageLoading.Cross.MvxCachedImageView
+							android:id="@+id/completed_video"
+							android:layout_width="match_parent"
+							android:layout_height="204dp"
+							android:scaleType="fitCenter"
+							android:background="@color/applicationBlack"
+							app:MvxBind="ImagePath VideoPlaceholderUrl" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|end"
-                            android:layout_marginEnd="7dp"
-                            android:layout_marginBottom="7dp"
-                            app:srcCompat="@drawable/ic_fullscreen" />
-                    </android.support.v7.widget.CardView>
+						<ImageView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="bottom|end"
+							android:layout_marginEnd="7dp"
+							android:layout_marginBottom="7dp"
+							app:srcCompat="@drawable/ic_fullscreen" />
+					</android.support.v7.widget.CardView>
 
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/processing_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="204dp"
-                        android:layout_below="@+id/executor_photo"
-                        android:layout_marginTop="25dp"
-                        android:background="@drawable/border_accent_load_video"
-                        app:MvxBind="Visibility Visibility(IsVideoProcessing)">
+					<android.support.constraint.ConstraintLayout
+						android:id="@+id/processing_view"
+						android:layout_width="match_parent"
+						android:layout_height="204dp"
+						android:layout_below="@+id/executor_photo"
+						android:layout_marginTop="25dp"
+						android:background="@drawable/border_accent_load_video"
+						app:MvxBind="Visibility Visibility(IsVideoProcessing)">
 
-                        <ProgressBar
-                            style="?android:attr/progressBarStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="25dp"
-                            app:layout_constraintBottom_toTopOf="@+id/processing_text_view"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
+						<ProgressBar
+							style="?android:attr/progressBarStyle"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="25dp"
+							app:layout_constraintBottom_toTopOf="@+id/processing_text_view"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent" />
 
-                        <TextView
-                            android:id="@+id/processing_text_view"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="25dp"
-                            android:layout_marginEnd="25dp"
-                            android:layout_marginBottom="49dp"
-                            android:gravity="center"
-                            android:maxLines="3"
-                            android:text="@string/Processing_Video"
-                            android:textColor="@android:color/white"
-                            android:textSize="17dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
-                </RelativeLayout>
-                <android.support.percent.PercentRelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="26dp"
-                    android:layout_marginBottom="26dp"
-                    app:MvxBind="Visibility Visibility(IsDecideVideoAvailable);">
+						<TextView
+							android:id="@+id/processing_text_view"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="25dp"
+							android:layout_marginEnd="25dp"
+							android:layout_marginBottom="49dp"
+							android:gravity="center"
+							android:maxLines="3"
+							android:text="@string/Processing_Video"
+							android:textColor="@android:color/white"
+							android:textSize="17dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent" />
+					</android.support.constraint.ConstraintLayout>
+				</RelativeLayout>
+				<android.support.percent.PercentRelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="26dp"
+					android:layout_marginBottom="26dp"
+					app:MvxBind="Visibility Visibility(IsDecideVideoAvailable);">
 
-                    <TextView
-                        android:id="@+id/corresponds_title_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/OrderDetailsView_Corresponds_To_Video_Text"
-                        android:textColor="@color/applicationBlack"
-                        android:textSize="14dp"/>
+					<TextView
+						android:id="@+id/corresponds_title_text_view"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentTop="true"
+						android:layout_centerHorizontal="true"
+						android:text="@string/OrderDetailsView_Corresponds_To_Video_Text"
+						android:textColor="@color/applicationBlack"
+						android:textSize="14dp"/>
 
-                    <PrankChat.Mobile.Droid.Controls.SelectableButton
-                        android:id="@+id/yes_button"
-                        style="@style/Theme.PrankChat.Button.SelectableStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:layout_below="@+id/corresponds_title_text_view"
-                        android:layout_marginTop="26dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_toLeftOf="@+id/space"
-                        app:MvxBind="Click YesCommand; ArbitrationValue SelectedArbitration; Text YesText"
-                        app:layout_widthPercent="40%"
-                        app:selected_drawable="@drawable/ic_thumbs_up"
-                        app:type_arbitration="positive"
-                        app:unselected_drawable="@drawable/ic_accent_thumbs_up" />
+					<PrankChat.Mobile.Droid.Controls.SelectableButton
+						android:id="@+id/yes_button"
+						style="@style/Theme.PrankChat.Button.SelectableStyle"
+						android:layout_width="match_parent"
+						android:layout_height="36dp"
+						android:layout_below="@+id/corresponds_title_text_view"
+						android:layout_marginTop="26dp"
+						android:layout_marginRight="10dp"
+						android:layout_toLeftOf="@+id/space"
+						app:MvxBind="Click YesCommand; ArbitrationValue SelectedArbitration; Text YesText"
+						app:layout_widthPercent="40%"
+						app:selected_drawable="@drawable/ic_thumbs_up"
+						app:type_arbitration="positive"
+						app:unselected_drawable="@drawable/ic_accent_thumbs_up" />
 
-                    <Space
-                        android:id="@+id/space"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true" />
+					<Space
+						android:id="@+id/space"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerHorizontal="true" />
 
-                    <PrankChat.Mobile.Droid.Controls.SelectableButton
-                        android:id="@+id/no_button"
-                        style="@style/Theme.PrankChat.Button.SelectableStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:layout_below="@+id/corresponds_title_text_view"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="26dp"
-                        android:layout_toRightOf="@+id/space"
-                        app:MvxBind="Click NoCommand; ArbitrationValue SelectedArbitration; Text NoText"
-                        app:layout_widthPercent="40%"
-                        app:selected_drawable="@drawable/ic_thumbs_down"
-                        app:type_arbitration="negative"
-                        app:unselected_drawable="@drawable/ic_accent_thumbs_down" />
-                </android.support.percent.PercentRelativeLayout>
-                <Button
-                    style="@style/Theme.PrankChat.Button.Accent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="26dp"
-                    android:text="@string/OrderDetailsView_Accept_Button"
-                    app:MvxBind="Click AcceptOrderCommand; Visibility Visibility(IsDecisionVideoAvailable)" />
+					<PrankChat.Mobile.Droid.Controls.SelectableButton
+						android:id="@+id/no_button"
+						style="@style/Theme.PrankChat.Button.SelectableStyle"
+						android:layout_width="match_parent"
+						android:layout_height="36dp"
+						android:layout_below="@+id/corresponds_title_text_view"
+						android:layout_marginLeft="10dp"
+						android:layout_marginTop="26dp"
+						android:layout_toRightOf="@+id/space"
+						app:MvxBind="Click NoCommand; ArbitrationValue SelectedArbitration; Text NoText"
+						app:layout_widthPercent="40%"
+						app:selected_drawable="@drawable/ic_thumbs_down"
+						app:type_arbitration="negative"
+						app:unselected_drawable="@drawable/ic_accent_thumbs_down" />
+				</android.support.percent.PercentRelativeLayout>
+				<Button
+					style="@style/Theme.PrankChat.Button.Accent"
+					android:layout_width="wrap_content"
+					android:layout_height="36dp"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginTop="26dp"
+					android:text="@string/OrderDetailsView_Accept_Button"
+					app:MvxBind="Click AcceptOrderCommand; Visibility Visibility(IsDecisionVideoAvailable)" />
 
-                <Button
-                    style="@style/Theme.PrankChat.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="24dp"
-                    android:background="@null"
-                    android:text="@string/OrderDetailsView_Argue_Button"
-                    android:textColor="@color/accent"
-                    app:MvxBind="Click ArqueOrderCommand; Visibility Visibility(IsDecisionVideoAvailable)" />
-            </LinearLayout>
-        </ScrollView>
-    </MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout>
+				<Button
+					style="@style/Theme.PrankChat.Button"
+					android:layout_width="wrap_content"
+					android:layout_height="36dp"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginTop="10dp"
+					android:layout_marginBottom="24dp"
+					android:background="@null"
+					android:text="@string/OrderDetailsView_Argue_Button"
+					android:textColor="@color/accent"
+					app:MvxBind="Click ArqueOrderCommand; Visibility Visibility(IsDecisionVideoAvailable)" />
+			</LinearLayout>
+		</ScrollView>
+	</MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/action_bar"
-        android:background="@color/applicationTransparent"
-        app:MvxBind="Visibility Visibility(IsBusy)">
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_below="@id/action_bar"
+		android:background="@color/applicationTransparent"
+		app:MvxBind="Visibility Visibility(IsBusy)">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="ripple_animation.json"
-            app:lottie_loop="true" />
-    </FrameLayout>
-    <include layout="@layout/uploading_progress_overlay_layout"/>
+		<com.airbnb.lottie.LottieAnimationView
+			android:id="@+id/animation_view"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			app:lottie_autoPlay="true"
+			app:lottie_fileName="ripple_animation.json"
+			app:lottie_loop="true" />
+	</FrameLayout>
+	<include
+		layout="@layout/uploading_progress_overlay_layout"/>
 </RelativeLayout>
 

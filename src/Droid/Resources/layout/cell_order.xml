@@ -1,186 +1,199 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:MvxBind="Click OpenDetailsOrderCommand"
-    app:contentPaddingBottom="8dp"
-    app:contentPaddingLeft="16dp"
-    app:contentPaddingRight="16dp"
-    app:contentPaddingTop="8dp">
+<android.support.v7.widget.CardView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	app:MvxBind="Click OpenDetailsOrderCommand"
+	app:contentPaddingBottom="8dp"
+	app:contentPaddingLeft="16dp"
+	app:contentPaddingRight="16dp"
+	app:contentPaddingTop="8dp">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="16dp"
-        android:paddingTop="16dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="16dp"
-        app:MvxBind="Background OrderTypeToViewBackground(OrderType)">
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:paddingLeft="16dp"
+		android:paddingTop="0dp"
+		android:paddingRight="16dp"
+		android:paddingBottom="16dp"
+		app:MvxBind="Background OrderTypeToViewBackground(OrderType)">
 
-        <CircleCachedImageView
-            android:id="@+id/profile_photo"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneTime; PlaceholderText ProfileShortName, Mode = OneTime; Click OpenUserProfileCommand"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+		<CircleCachedImageView
+			android:id="@+id/profile_photo"
+			android:layout_width="42dp"
+			android:layout_height="42dp"
+			android:layout_marginTop="16dp"
+			app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneTime; PlaceholderText ProfileShortName, Mode = OneTime; Click OpenUserProfileCommand"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/order_title_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
-            android:ellipsize="end"
-            android:gravity="center_vertical|left"
-            android:maxLines="2"
-            android:textColor="@color/applicationWhite"
-            android:textSize="14dp"
-            app:MvxBind="Text Title"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintLeft_toRightOf="@+id/profile_photo"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+		<TextView
+			android:id="@+id/order_title_text"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="7dp"
+			android:layout_marginTop="16dp"
+			android:ellipsize="end"
+			android:gravity="center_vertical|left"
+			android:maxLines="2"
+			android:layout_marginRight="8dp"
+			android:textColor="@color/applicationWhite"
+			android:textSize="14dp"
+			app:MvxBind="Text Title"
+			app:layout_constraintHorizontal_bias="0"
+			app:layout_constraintLeft_toRightOf="@+id/profile_photo"
+			app:layout_constraintRight_toLeftOf="@id/image_hidden_order"
+			app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/start_time_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:gravity="left"
-            android:text="@string/Order_View_Time_Text"
-            android:textColor="@color/applicationWhite"
-            android:textSize="12dp"
-            app:MvxBind="Visibility Invisible(IsTimeAvailable)"
-            app:layout_constraintEnd_toStartOf="@+id/price_text"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_photo" />
+		<ImageView
+			android:id="@+id/image_hidden_order"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/ic_order_hidden"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:MvxBind="Visibility Visibility(IsHidden)"/>
 
-        <TextView
-            android:id="@+id/price_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:gravity="end"
-            android:text="@string/Order_View_Price_Text"
-            android:textAlignment="textEnd"
-            android:textColor="@color/applicationWhite"
-            android:textSize="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/start_time_text"
-            app:layout_constraintTop_toBottomOf="@+id/profile_photo" />
+		<TextView
+			android:id="@+id/start_time_text"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="7dp"
+			android:gravity="left"
+			android:text="@string/Order_View_Time_Text"
+			android:textColor="@color/applicationWhite"
+			android:textSize="12dp"
+			app:MvxBind="Visibility Invisible(IsTimeAvailable)"
+			app:layout_constraintEnd_toStartOf="@+id/price_text"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/profile_photo" />
 
-        <TextView
-            android:id="@+id/time_value_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:gravity="left"
-            android:text="01 : 34 : 59"
-            android:textColor="@color/applicationWhite"
-            android:textSize="30dp"
-            app:MvxBind="Text TimeText; Visibility Invisible(IsTimeAvailable)"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/start_time_text" />
+		<TextView
+			android:id="@+id/price_text"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="7dp"
+			android:gravity="end"
+			android:text="@string/Order_View_Price_Text"
+			android:textAlignment="textEnd"
+			android:textColor="@color/applicationWhite"
+			android:textSize="12dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/start_time_text"
+			app:layout_constraintTop_toBottomOf="@+id/profile_photo" />
 
-        <TextView
-            android:id="@+id/day_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="2dp"
-            android:gravity="center"
-            android:text="@string/Order_View_Day"
-            android:textColor="@color/applicationWhite"
-            android:textSize="12dp"
-            app:MvxBind="Visibility Invisible(IsTimeAvailable)"
-            app:layout_constraintEnd_toEndOf="@+id/time_value_text"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/time_value_text"
-            app:layout_constraintTop_toBottomOf="@+id/time_value_text" />
+		<TextView
+			android:id="@+id/time_value_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="12dp"
+			android:gravity="left"
+			android:text="01 : 34 : 59"
+			android:textColor="@color/applicationWhite"
+			android:textSize="30dp"
+			app:MvxBind="Text TimeText; Visibility Invisible(IsTimeAvailable)"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/start_time_text" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/Order_View_Hour"
-            android:textColor="@color/applicationWhite"
-            android:textSize="12dp"
-            app:MvxBind="Visibility Invisible(IsTimeAvailable)"
-            app:layout_constraintEnd_toEndOf="@+id/time_value_text"
-            app:layout_constraintStart_toStartOf="@+id/time_value_text"
-            app:layout_constraintTop_toBottomOf="@+id/time_value_text" />
+		<TextView
+			android:id="@+id/day_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="2dp"
+			android:layout_marginTop="2dp"
+			android:gravity="center"
+			android:text="@string/Order_View_Day"
+			android:textColor="@color/applicationWhite"
+			android:textSize="12dp"
+			app:MvxBind="Visibility Invisible(IsTimeAvailable)"
+			app:layout_constraintEnd_toEndOf="@+id/time_value_text"
+			app:layout_constraintHorizontal_bias="0"
+			app:layout_constraintStart_toStartOf="@+id/time_value_text"
+			app:layout_constraintTop_toBottomOf="@+id/time_value_text" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:gravity="center"
-            android:text="@string/Order_View_Minute"
-            android:textColor="@color/applicationWhite"
-            android:textSize="12dp"
-            app:MvxBind="Visibility Invisible(IsTimeAvailable)"
-            app:layout_constraintEnd_toEndOf="@+id/time_value_text"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toStartOf="@+id/time_value_text"
-            app:layout_constraintTop_toBottomOf="@+id/time_value_text" />
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:text="@string/Order_View_Hour"
+			android:textColor="@color/applicationWhite"
+			android:textSize="12dp"
+			app:MvxBind="Visibility Invisible(IsTimeAvailable)"
+			app:layout_constraintEnd_toEndOf="@+id/time_value_text"
+			app:layout_constraintStart_toStartOf="@+id/time_value_text"
+			app:layout_constraintTop_toBottomOf="@+id/time_value_text" />
 
-        <TextView
-            android:id="@+id/price_value_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:gravity="end"
-            android:textAlignment="textEnd"
-            android:textColor="@color/applicationWhite"
-            android:textSize="30dp"
-            app:MvxBind="Text PriceText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/time_value_text"
-            app:layout_constraintTop_toBottomOf="@+id/start_time_text" />
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="6dp"
+			android:gravity="center"
+			android:text="@string/Order_View_Minute"
+			android:textColor="@color/applicationWhite"
+			android:textSize="12dp"
+			app:MvxBind="Visibility Invisible(IsTimeAvailable)"
+			app:layout_constraintEnd_toEndOf="@+id/time_value_text"
+			app:layout_constraintHorizontal_bias="1"
+			app:layout_constraintStart_toStartOf="@+id/time_value_text"
+			app:layout_constraintTop_toBottomOf="@+id/time_value_text" />
 
-        <ImageView
-            android:id="@+id/status_image_view"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:srcCompat="@drawable/ic_order_tag_type_in_work" />
+		<TextView
+			android:id="@+id/price_value_text"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="12dp"
+			android:gravity="end"
+			android:textAlignment="textEnd"
+			android:textColor="@color/applicationWhite"
+			android:textSize="30dp"
+			app:MvxBind="Text PriceText"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/time_value_text"
+			app:layout_constraintTop_toBottomOf="@+id/start_time_text" />
 
-        <TextView
-            android:id="@+id/task_status_value_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/Order_View_New_Task"
-            android:textColor="@color/applicationWhite"
-            android:textSize="16dp"
-            app:MvxBind="Text StatusText, Mode = OneWay"
-            app:layout_constraintBottom_toBottomOf="@+id/status_image_view"
-            app:layout_constraintEnd_toStartOf="@+id/task_button"
-            app:layout_constraintStart_toEndOf="@+id/status_image_view"
-            app:layout_constraintTop_toTopOf="@+id/status_image_view" />
+		<ImageView
+			android:id="@+id/status_image_view"
+			android:layout_width="36dp"
+			android:layout_height="36dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			tools:srcCompat="@drawable/ic_order_tag_type_in_work" />
 
-        <Button
-            android:id="@+id/task_button"
-            style="@style/Theme.PrankChat.Button.Accent"
-            android:layout_width="100dp"
-            android:layout_height="36dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp"
-            android:text="@string/Order_View_Details"
-            android:textAlignment="center"
-            app:MvxBind="Click OpenDetailsOrderCommand; OrderButtonStyle OrderType"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toRightOf="@id/task_status_value_text"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/day_text" />
-    </android.support.constraint.ConstraintLayout>
+		<TextView
+			android:id="@+id/task_status_value_text"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginEnd="8dp"
+			android:text="@string/Order_View_New_Task"
+			android:textColor="@color/applicationWhite"
+			android:textSize="16dp"
+			app:MvxBind="Text StatusText, Mode = OneWay"
+			app:layout_constraintBottom_toBottomOf="@+id/status_image_view"
+			app:layout_constraintEnd_toStartOf="@+id/task_button"
+			app:layout_constraintStart_toEndOf="@+id/status_image_view"
+			app:layout_constraintTop_toTopOf="@+id/status_image_view" />
+
+		<Button
+			android:id="@+id/task_button"
+			style="@style/Theme.PrankChat.Button.Accent"
+			android:layout_width="100dp"
+			android:layout_height="36dp"
+			android:layout_marginLeft="8dp"
+			android:layout_marginTop="8dp"
+			android:paddingLeft="6dp"
+			android:paddingRight="6dp"
+			android:text="@string/Order_View_Details"
+			android:textAlignment="center"
+			app:MvxBind="Click OpenDetailsOrderCommand; OrderButtonStyle OrderType"
+			app:layout_constraintHorizontal_weight="1"
+			app:layout_constraintLeft_toRightOf="@id/task_status_value_text"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/day_text" />
+	</android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
 

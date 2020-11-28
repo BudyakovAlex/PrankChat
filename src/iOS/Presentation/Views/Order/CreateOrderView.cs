@@ -93,6 +93,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                .To(vm => vm.NotificationBageViewModel.HasUnreadNotifications)
                .WithConversion<BoolToNotificationImageConverter>();
 
+            set.Bind(HideExecutorCheckBoxButton)
+                .For(v => v.IsChecked)
+                .To(vm => vm.IsExecutorHidden)
+                .Mode(MvvmCross.Binding.MvxBindingMode.TwoWay);
+
             set.Apply();
 		}
 
@@ -149,14 +154,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             priceTextField.TextAlignment = UITextAlignment.Right;
 
             completeDateTextField.SetDarkStyle(Resources.CreateOrderView_CompleteDate_Placeholder, rightImage: UIImage.FromBundle("ic_calendar_accent"));
-
-            UpdateCheckboxState();
-            hideExecuterCheckboxImageView.AddGestureRecognizer(new UITapGestureRecognizer(OnCheckboxTapped));
-            hideExecuterCheckboxImageView.UserInteractionEnabled = true;
-
-            //TODO: Hide executor functionality not implemented.
-            hideExecuterCheckboxImageView.Hidden = true;
-            hideExecutorCheckboxLabel.Hidden = true;
 
             hideExecutorCheckboxLabel.Text = Resources.CreateOrderView_HideExecutor_Button;
             hideExecutorCheckboxLabel.SetRegularStyle(14, Theme.Color.Black);
@@ -227,13 +224,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         private void OnCheckboxTapped()
         {
-            ViewModel.IsExecutorHidden = !ViewModel.IsExecutorHidden;
-            UpdateCheckboxState();
-        }
-
-        private void UpdateCheckboxState()
-        {
-            hideExecuterCheckboxImageView.Image = ViewModel.IsExecutorHidden ? _checkedImage : _uncheckedImage;
+            HideExecutorCheckBoxButton.SwitchChecked();
         }
     }
 }

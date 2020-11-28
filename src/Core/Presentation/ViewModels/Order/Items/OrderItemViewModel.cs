@@ -157,11 +157,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         private async Task OnOpenDetailsOrderAsync()
         {
-            var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideoDataModel> { GetFullScreenVideoDataModel() };
-            var currentItem = items.FirstOrDefault(item => item.VideoId == _orderDataModel.Video?.Id);
-            var index = currentItem is null ? 0 : items.IndexOf(currentItem);
+            // var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideoDataModel> { GetFullScreenVideoDataModel() };
+            // var currentItem = items.FirstOrDefault(item => item.VideoId == _orderDataModel.Video?.Id);
+            // var index = currentItem is null ? 0 : items.IndexOf(currentItem);
 
-            var result = await _navigationService.ShowOrderDetailsView(OrderId, items, index);
+            var result = await _navigationService.ShowOrderDetailsView(OrderId, null, -1);
             if (result == null)
             {
                 return;
