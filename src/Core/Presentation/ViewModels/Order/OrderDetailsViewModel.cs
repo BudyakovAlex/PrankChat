@@ -147,6 +147,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
+        // TODO: Update this code.
+        public bool IsHiddenOrder => new Random().Next(0, 2) == 0;
+
+        // TODO: Update this code.
+        public string OrderTitle => IsHiddenOrder ? "Секретное название" : VideoSectionViewModel.VideoName;
+
+        // TODO: Update this code.
+        public string OrderDescription => IsHiddenOrder ? "ПОДСКАЗКА ПОДСКАЗКА ПОДСКАЗКА ПОДСКАЗКА ПОДСКАЗКА ПОДСКАЗКА ПОДСКАЗКА ПОДСКАЗКА" : VideoSectionViewModel.VideoDetails;
+
         public void Prepare(OrderDetailsNavigationParameter parameter)
         {
             _orderId = parameter.OrderId;
