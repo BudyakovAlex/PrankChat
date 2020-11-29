@@ -14,9 +14,9 @@ namespace PrankChat.Mobile.Core.Managers.Notifications
             _notificationsService = notificationsService;
         }
 
-        public async Task<PaginationModel<NotificationDataModel>> GetNotificationsAsync()
+        public Task<PaginationModel<NotificationDataModel>> GetNotificationsAsync()
         {
-            return await _notificationsService.GetNotificationsAsync();
+            return _notificationsService.GetNotificationsAsync();
         }
 
         public Task MarkNotificationsAsReadedAsync()
@@ -24,9 +24,9 @@ namespace PrankChat.Mobile.Core.Managers.Notifications
             return _notificationsService.MarkNotificationsAsReadedAsync();
         }
 
-        public async Task<int> GetUnreadNotificationsCountAsync()
+        public Task<int> GetUnreadNotificationsCountAsync()
         {
-            return await _notificationsService.GetUnreadNotificationsCountAsync();
+            return _notificationsService.GetUnreadNotificationsCountAsync();
         }
 
         public Task SendNotificationTokenAsync(string token)
@@ -34,9 +34,9 @@ namespace PrankChat.Mobile.Core.Managers.Notifications
             return _notificationsService.SendNotificationTokenAsync(token);
         }
 
-        public async Task UnregisterNotificationsAsync()
+        public Task UnregisterNotificationsAsync()
         {
-            await _notificationsService.UnregisterNotificationsAsync();
+            return _notificationsService.UnregisterNotificationsAsync();
         }
     }
 }

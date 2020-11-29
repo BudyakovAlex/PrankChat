@@ -20,34 +20,34 @@ namespace PrankChat.Mobile.Core.Managers.Users
             return _usersService.VerifyEmailAsync();
         }
 
-        public async Task GetCurrentUserAsync()
+        public Task GetCurrentUserAsync()
         {
-            await _usersService.GetCurrentUserAsync();
+            return _usersService.GetCurrentUserAsync();
         }
 
-        public async Task<UserDataModel> GetUserAsync(int userId)
+        public Task<UserDataModel> GetUserAsync(int userId)
         {
-            return await _usersService.GetUserAsync(userId);
+            return _usersService.GetUserAsync(userId);
         }
 
-        public async Task<UserDataModel> SubscribeToUserAsync(int userId, CancellationToken? cancellationToken = null)
+        public Task<UserDataModel> SubscribeToUserAsync(int userId, CancellationToken? cancellationToken = null)
         {
-            return await _usersService.SubscribeToUserAsync(userId, cancellationToken);
+            return _usersService.SubscribeToUserAsync(userId, cancellationToken);
         }
 
-        public async Task<UserDataModel> UnsubscribeFromUserAsync(int userId, CancellationToken? cancellationToken = null)
+        public Task<UserDataModel> UnsubscribeFromUserAsync(int userId, CancellationToken? cancellationToken = null)
         {
             return await _usersService.UnsubscribeFromUserAsync(userId, cancellationToken);
         }
 
-        public async Task<UserDataModel> SendAvatarAsync(string path)
+        public Task<UserDataModel> SendAvatarAsync(string path)
         {
-            return await _usersService.SendAvatarAsync(path);
+            return _usersService.SendAvatarAsync(path);
         }
 
-        public async Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
+        public Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
         {
-            return await _usersService.UpdateProfileAsync(userInfo);
+            return _usersService.UpdateProfileAsync(userInfo);
         }
 
         public Task ComplainUserAsync(int userId, string title, string description)
@@ -55,29 +55,29 @@ namespace PrankChat.Mobile.Core.Managers.Users
             return _usersService.ComplainUserAsync(userId, title, description);
         }
 
-        public async Task<DocumentDataModel> SendVerifyDocumentAsync(string path)
+        public Task<DocumentDataModel> SendVerifyDocumentAsync(string path)
         {
-            return await _usersService.SendVerifyDocumentAsync(path);
+            return _usersService.SendVerifyDocumentAsync(path);
         }
 
-        public async Task<CardDataModel> SaveCardAsync(string number, string userName)
+        public Task<CardDataModel> SaveCardAsync(string number, string userName)
         {
-            return await _usersService.SaveCardAsync(number, userName);
+            return _usersService.SaveCardAsync(number, userName);
         }
 
-        public async Task<CardDataModel> GetCardsAsync()
+        public Task<CardDataModel> GetCardsAsync()
         {
-            return await _usersService.GetCardsAsync();
+            return _usersService.GetCardsAsync();
         }
 
-        public async Task<PaginationModel<UserDataModel>> GetSubscriptionsAsync(int userId, int page, int pageSize)
+        public Task<PaginationModel<UserDataModel>> GetSubscriptionsAsync(int userId, int page, int pageSize)
         {
-            return await _usersService.GetSubscriptionsAsync(userId, page, pageSize);
+            return _usersService.GetSubscriptionsAsync(userId, page, pageSize);
         }
 
-        public async Task<PaginationModel<UserDataModel>> GetSubscribersAsync(int userId, int page, int pageSize)
+        public Task<PaginationModel<UserDataModel>> GetSubscribersAsync(int userId, int page, int pageSize)
         {
-            return await _usersService.GetSubscribersAsync(userId, page, pageSize);
+            return _usersService.GetSubscribersAsync(userId, page, pageSize);
         }
 
         public Task DeleteCardAsync(int id)
