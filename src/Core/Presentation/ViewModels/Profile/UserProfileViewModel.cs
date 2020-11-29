@@ -135,7 +135,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public override Task InitializeAsync()
         {
-            return Task.WhenAll(base.InitializeAsync(), RefreshUserDataCommand.ExecuteAsync());
+            return Task.WhenAll(base.InitializeAsync(), RefreshUserDataAsync());
         }
 
         protected virtual void Subscribe()
