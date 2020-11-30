@@ -25,12 +25,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
 
         private readonly HttpClient _client;
 
-        public VideoService(
-            ISettingsService settingsService,
-            IAuthorizationService authorizeService,
-            IMvxLogProvider logProvider,
-            IMvxMessenger messenger,
-            ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
+        public VideoService(ISettingsService settingsService,
+                            IAuthorizationService authorizeService,
+                            IMvxLogProvider logProvider,
+                            IMvxMessenger messenger,
+                            ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
         {
             _messenger = messenger;
             _log = logProvider.GetLogFor<VideoService>();
@@ -46,7 +45,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
-        public async Task<VideoDataModel> SendVideoAsync(int orderId, string path, string title, string description, Action<double, double> onChangedProgressAction = null, CancellationToken cancellationToken = default)
+        public async Task<VideoApiModel> SendVideoAsync(int orderId,
+                                                        string path,
+                                                        string title,
+                                                        string description,
+                                                        Action<double, double> onChangedProgressAction = null,
+                                                        CancellationToken cancellationToken = default)
         {
             var loadVideoApiModel = new LoadVideoApiModel()
             {
@@ -57,7 +61,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
             };
 
             var videoMetadataApiModel = await _client.PostVideoFileAsync<LoadVideoApiModel, DataApiModel<VideoApiModel>>("videos", loadVideoApiModel, onChangedProgressAction: onChangedProgressAction, cancellationToken: cancellationToken);
-            return MappingConfig.Mapper.Map<VideoDataModel>(videoMetadataApiModel?.Data);
+            return videoMetadataApiModel?.Data;
         }
 
         public async Task<long?> RegisterVideoViewedFactAsync(int videoId)
@@ -78,7 +82,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
             return _client.PostAsync(url, dataApiModel);
         }
 
-        public async Task<CommentDataModel> CommentVideoAsync(int videoId, string comment)
+        public async Task<CommentApiModel> CommentVideoAsync(int videoId, string comment)
         {
             var dataApiModel = new SendCommentApiModel
             {
@@ -87,23 +91,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
 
             var url = $"videos/{videoId}/comments";
             var dataModel = await _client.PostAsync<SendCommentApiModel, DataApiModel<CommentApiModel>>(url, dataApiModel);
-            return MappingConfig.Mapper.Map<CommentDataModel>(dataModel?.Data);
+            return dataModel?.Data;
         }
 
-        public async Task<PaginationModel<CommentDataModel>> GetVideoCommentsAsync(int videoId, int page, int pageSize)
+        public async Task<BaseBundleApiModel<CommentApiModel>> GetVideoCommentsAsync(int videoId, int page, int pageSize)
         {
             var data = await _client.GetAsync<BaseBundleApiModel<CommentApiModel>>($"videos/{videoId}/comments?page={page}&items_per_page={pageSize}");
-            return CreatePaginationResult<CommentApiModel, CommentDataModel>(data);
-        }
-
-        private PaginationModel<TDataModel> CreatePaginationResult<TApiModel, TDataModel>(BaseBundleApiModel<TApiModel> data)
-            where TDataModel : class
-            where TApiModel : class
-        {
-            var mappedModels = MappingConfig.Mapper.Map<List<TDataModel>>(data?.Data ?? new List<TApiModel>());
-            var paginationData = data?.Meta?.FirstOrDefault();
-            var totalItemsCount = paginationData?.Value?.Total ?? mappedModels.Count;
-            return new PaginationModel<TDataModel>(mappedModels, totalItemsCount);
+            return data;
         }
     }
 }

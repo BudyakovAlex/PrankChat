@@ -24,12 +24,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions
 
         private readonly HttpClient _client;
 
-        public CompetitionsService(
-            ISettingsService settingsService,
-            IAuthorizationService authorizeService,
-            IMvxLogProvider logProvider,
-            IMvxMessenger messenger,
-            ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
+        public CompetitionsService(ISettingsService settingsService,
+                                   IAuthorizationService authorizeService,
+                                   IMvxLogProvider logProvider,
+                                   IMvxMessenger messenger,
+                                   ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
         {
             _settingsService = settingsService;
             _messenger = messenger;
@@ -46,19 +45,19 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
-        public async Task<List<CompetitionResultDataModel>> GetCompetitionResultsAsync(int id)
+        public async Task<List<CompetitionResultApiModel>> GetCompetitionResultsAsync(int id)
         {
             var bundle = await _client.GetAsync<BaseBundleApiModel<CompetitionResultApiModel>>($"competition/{id}/results");
-            return MappingConfig.Mapper.Map<List<CompetitionResultDataModel>>(bundle?.Data);
+            return bundle?.Data;
         }
 
-        public async Task<List<CompetitionResultDataModel>> GetCompetitionRatingsAsync(int id)
+        public async Task<List<CompetitionResultApiModel>> GetCompetitionRatingsAsync(int id)
         {
             var bundle = await _client.GetAsync<BaseBundleApiModel<CompetitionResultApiModel>>($"competition/{id}/rating");
-            return MappingConfig.Mapper.Map<List<CompetitionResultDataModel>>(bundle?.Data);
+            return bundle?.Data;
         }
 
-        public async Task<PaginationModel<VideoDataModel>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize)
+        public async Task<BaseBundleApiModel<VideoApiModel>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize)
         {
             BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
             if (_settingsService.User == null)
@@ -70,24 +69,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions
                 videoMetadataBundle = await _client.GetAsync<BaseBundleApiModel<VideoApiModel>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
             }
 
-            return CreatePaginationResult<VideoApiModel, VideoDataModel>(videoMetadataBundle);
+            return videoMetadataBundle;
         }
 
-        public async Task<PaginationModel<CompetitionDataModel>> GetCompetitionsAsync(int page, int pageSize)
+        public Task<BaseBundleApiModel<CompetitionApiModel>> GetCompetitionsAsync(int page, int pageSize)
         {
             var endpoint = $"competitions?page={page}&items_per_page={pageSize}";
-            var data = await _client.GetAsync<BaseBundleApiModel<CompetitionApiModel>>(endpoint);
-            return CreatePaginationResult<CompetitionApiModel, CompetitionDataModel>(data);
-        }
-
-        private PaginationModel<TDataModel> CreatePaginationResult<TApiModel, TDataModel>(BaseBundleApiModel<TApiModel> data)
-            where TDataModel : class
-            where TApiModel : class
-        {
-            var mappedModels = MappingConfig.Mapper.Map<List<TDataModel>>(data?.Data ?? new List<TApiModel>());
-            var paginationData = data?.Meta?.FirstOrDefault();
-            var totalItemsCount = paginationData?.Value?.Total ?? mappedModels.Count;
-            return new PaginationModel<TDataModel>(mappedModels, totalItemsCount);
+            var data = _client.GetAsync<BaseBundleApiModel<CompetitionApiModel>>(endpoint);
+            return data;
         }
     }
 }

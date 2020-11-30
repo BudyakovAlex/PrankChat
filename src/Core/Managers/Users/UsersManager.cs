@@ -26,29 +26,34 @@ namespace PrankChat.Mobile.Core.Managers.Users
             return _usersService.GetCurrentUserAsync();
         }
 
-        public Task<UserDataModel> GetUserAsync(int userId)
+        public async Task<UserDataModel> GetUserAsync(int userId)
         {
-            return _usersService.GetUserAsync(userId);
+            var response = await _usersService.GetUserAsync(userId);
+            return response.Map();
         }
 
-        public Task<UserDataModel> SubscribeToUserAsync(int userId, CancellationToken? cancellationToken = null)
+        public async Task<UserDataModel> SubscribeToUserAsync(int userId, CancellationToken? cancellationToken = null)
         {
-            return _usersService.SubscribeToUserAsync(userId, cancellationToken);
+            var response = await _usersService.SubscribeToUserAsync(userId, cancellationToken);
+            return response.Map();
         }
 
-        public Task<UserDataModel> UnsubscribeFromUserAsync(int userId, CancellationToken? cancellationToken = null)
+        public async Task<UserDataModel> UnsubscribeFromUserAsync(int userId, CancellationToken? cancellationToken = null)
         {
-            return _usersService.UnsubscribeFromUserAsync(userId, cancellationToken);
+            var response = await _usersService.UnsubscribeFromUserAsync(userId, cancellationToken);
+            return response.Map();
         }
 
-        public Task<UserDataModel> SendAvatarAsync(string path)
+        public async Task<UserDataModel> SendAvatarAsync(string path)
         {
-            return _usersService.SendAvatarAsync(path);
+            var response = await _usersService.SendAvatarAsync(path);
+            return response.Map();
         }
 
-        public Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
+        public async Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
         {
-            return _usersService.UpdateProfileAsync(userInfo);
+            var response = await _usersService.UpdateProfileAsync(userInfo);
+            return response.Map();
         }
 
         public Task ComplainUserAsync(int userId, string title, string description)
@@ -56,29 +61,34 @@ namespace PrankChat.Mobile.Core.Managers.Users
             return _usersService.ComplainUserAsync(userId, title, description);
         }
 
-        public Task<DocumentDataModel> SendVerifyDocumentAsync(string path)
+        public async Task<DocumentDataModel> SendVerifyDocumentAsync(string path)
         {
-            return _usersService.SendVerifyDocumentAsync(path);
+            var response = await _usersService.SendVerifyDocumentAsync(path);
+            return response.Map();
         }
 
-        public Task<CardDataModel> SaveCardAsync(string number, string userName)
+        public async Task<CardDataModel> SaveCardAsync(string number, string userName)
         {
-            return _usersService.SaveCardAsync(number, userName);
+            var response = await _usersService.SaveCardAsync(number, userName);
+            return response.Map();
         }
 
-        public Task<CardDataModel> GetCardsAsync()
+        public async Task<CardDataModel> GetCardsAsync()
         {
-            return _usersService.GetCardsAsync();
+            var response = await _usersService.GetCardsAsync();
+            return response.Map();
         }
 
-        public Task<PaginationModel<UserDataModel>> GetSubscriptionsAsync(int userId, int page, int pageSize)
+        public async Task<PaginationModel<UserDataModel>> GetSubscriptionsAsync(int userId, int page, int pageSize)
         {
-            return _usersService.GetSubscriptionsAsync(userId, page, pageSize);
+            var response = await _usersService.GetSubscriptionsAsync(userId, page, pageSize);
+            return response.Map();
         }
 
-        public Task<PaginationModel<UserDataModel>> GetSubscribersAsync(int userId, int page, int pageSize)
+        public async Task<PaginationModel<UserDataModel>> GetSubscribersAsync(int userId, int page, int pageSize)
         {
-            return _usersService.GetSubscribersAsync(userId, page, pageSize);
+            var response = await _usersService.GetSubscribersAsync(userId, page, pageSize);
+            return response.Map();
         }
 
         public Task DeleteCardAsync(int id)

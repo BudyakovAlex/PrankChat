@@ -10,11 +10,11 @@ namespace PrankChat.Mobile.Core.Models.Data
                               string description,
                               string poster,
                               string status,
-                              long viewsCount,
-                              long repostsCount,
-                              long likesCount,
-                              long dislikesCount,
-                              long commentsCount,
+                              long? viewsCount,
+                              long? repostsCount,
+                              long? likesCount,
+                              long? dislikesCount,
+                              long? commentsCount,
                               string streamUri,
                               string previewUri,
                               string markedStreamUri,
@@ -58,15 +58,15 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public string Status { get; set; }
 
-        public long ViewsCount { get; set; }
+        public long? ViewsCount { get; set; }
 
-        public long RepostsCount { get; set; }
+        public long? RepostsCount { get; set; }
 
-        public long LikesCount { get; set; }
+        public long? LikesCount { get; set; }
 
-        public long DislikesCount { get; set; }
+        public long? DislikesCount { get; set; }
 
-        public long CommentsCount { get; set; }
+        public long? CommentsCount { get; set; }
 
         public string StreamUri { get; set; }
 

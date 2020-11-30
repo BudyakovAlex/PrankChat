@@ -28,12 +28,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
 
         private readonly HttpClient _client;
 
-        public UsersService(
-            ISettingsService settingsService,
-            IAuthorizationService authorizeService,
-            IMvxLogProvider logProvider,
-            IMvxMessenger messenger,
-            ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
+        public UsersService(ISettingsService settingsService,
+                            IAuthorizationService authorizeService,
+                            IMvxLogProvider logProvider,
+                            IMvxMessenger messenger,
+                            ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
         {
             _settingsService = settingsService;
             _messenger = messenger;
@@ -79,40 +78,35 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
             }
         }
 
-        public async Task<UserDataModel> GetUserAsync(int userId)
+        public async Task<UserApiModel> GetUserAsync(int userId)
         {
             var dataApiModel = await _client.GetAsync<DataApiModel<UserApiModel>>($"users/{userId}");
-            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
-            return user;
+            return dataApiModel?.Data;
         }
 
-        public async Task<UserDataModel> SubscribeToUserAsync(int userId, CancellationToken? cancellationToken = null)
+        public async Task<UserApiModel> SubscribeToUserAsync(int userId, CancellationToken? cancellationToken = null)
         {
             var dataApiModel = await _client.PostAsync<DataApiModel<UserApiModel>>($"users/{userId}/subscribe", cancellationToken: cancellationToken);
-            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
-            return user;
+            return dataApiModel?.Data;
         }
 
-        public async Task<UserDataModel> UnsubscribeFromUserAsync(int userId, CancellationToken? cancellationToken = null)
+        public async Task<UserApiModel> UnsubscribeFromUserAsync(int userId, CancellationToken? cancellationToken = null)
         {
             var dataApiModel = await _client.PostAsync<DataApiModel<UserApiModel>>($"users/{userId}/unsubscribe", cancellationToken: cancellationToken);
-            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
-            return user;
+            return dataApiModel?.Data;
         }
 
-        public async Task<UserDataModel> SendAvatarAsync(string path)
+        public async Task<UserApiModel> SendAvatarAsync(string path)
         {
             var dataApiModel = await _client.PostPhotoFile<DataApiModel<UserApiModel>>("me/picture", path, "avatar");
-            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
-            return user;
+            return dataApiModel?.Data;
         }
 
-        public async Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
+        public async Task<UserApiModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
         {
             var userUpdateProfileApiModel = MappingConfig.Mapper.Map<UserUpdateProfileApiModel>(userInfo);
             var dataApiModel = await _client.PostAsync<UserUpdateProfileApiModel, DataApiModel<UserApiModel>>("me", userUpdateProfileApiModel);
-            var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
-            return user;
+            return dataApiModel?.Data;
         }
 
         public Task ComplainUserAsync(int userId, string title, string description)
@@ -126,14 +120,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
             return _client.PostAsync(url, dataApiModel);
         }
 
-        public async Task<DocumentDataModel> SendVerifyDocumentAsync(string path)
+        public async Task<DocumentApiModel> SendVerifyDocumentAsync(string path)
         {
             var dataApiModel = await _client.PostPhotoFile<DataApiModel<DocumentApiModel>>("user/dcs", path, "document");
-            var user = MappingConfig.Mapper.Map<DocumentDataModel>(dataApiModel?.Data);
-            return user;
+            return dataApiModel?.Data;
         }
 
-        public async Task<CardDataModel> SaveCardAsync(string number, string userName)
+        public async Task<CardApiModel> SaveCardAsync(string number, string userName)
         {
             var createCreditCard = new CreateCardApiModel()
             {
@@ -141,27 +134,23 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
                 CardUserName = userName,
             };
             var dataApiModel = await _client.PostAsync<CreateCardApiModel, DataApiModel<CardApiModel>>("me/cards", createCreditCard, true);
-            var user = MappingConfig.Mapper.Map<CardDataModel>(dataApiModel?.Data);
-            return user;
+            return dataApiModel?.Data;
         }
 
-        public async Task<CardDataModel> GetCardsAsync()
+        public async Task<CardApiModel> GetCardsAsync()
         {
             var dataApiModel = await _client.GetAsync<DataApiModel<List<CardApiModel>>>("me/cards");
-            var data = MappingConfig.Mapper.Map<List<CardDataModel>>(dataApiModel?.Data);
-            return data?.FirstOrDefault();
+            return dataApiModel?.Data?.FirstOrDefault();
         }
 
-        public async Task<PaginationModel<UserDataModel>> GetSubscriptionsAsync(int userId, int page, int pageSize)
+        public async Task<BaseBundleApiModel<UserApiModel>> GetSubscriptionsAsync(int userId, int page, int pageSize)
         {
-            var data = await _client.GetAsync<BaseBundleApiModel<UserApiModel>>($"users/{userId}/subscriptions?page={page}&items_per_page={pageSize}");
-            return CreatePaginationResult<UserApiModel, UserDataModel>(data);
+            return await _client.GetAsync<BaseBundleApiModel<UserApiModel>>($"users/{userId}/subscriptions?page={page}&items_per_page={pageSize}");
         }
 
-        public async Task<PaginationModel<UserDataModel>> GetSubscribersAsync(int userId, int page, int pageSize)
+        public async Task<BaseBundleApiModel<UserApiModel>> GetSubscribersAsync(int userId, int page, int pageSize)
         {
-            var data = await _client.GetAsync<BaseBundleApiModel<UserApiModel>>($"users/{userId}/subscribers?page={page}&items_per_page={pageSize}");
-            return CreatePaginationResult<UserApiModel, UserDataModel>(data);
+            return await _client.GetAsync<BaseBundleApiModel<UserApiModel>>($"users/{userId}/subscribers?page={page}&items_per_page={pageSize}");
         }
 
         public Task DeleteCardAsync(int id)

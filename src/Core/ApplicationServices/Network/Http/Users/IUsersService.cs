@@ -1,4 +1,6 @@
-﻿using PrankChat.Mobile.Core.Models.Data;
+﻿using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Models.Api.Base;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,27 +13,27 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
 
         Task GetCurrentUserAsync();
 
-        Task<PaginationModel<UserDataModel>> GetSubscriptionsAsync(int userId, int page, int pageSize);
+        Task<BaseBundleApiModel<UserApiModel>> GetSubscriptionsAsync(int userId, int page, int pageSize);
 
-        Task<PaginationModel<UserDataModel>> GetSubscribersAsync(int userId, int page, int pageSize);
+        Task<BaseBundleApiModel<UserApiModel>> GetSubscribersAsync(int userId, int page, int pageSize);
 
-        Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo);
+        Task<UserApiModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo);
 
-        Task<UserDataModel> SendAvatarAsync(string path);
+        Task<UserApiModel> SendAvatarAsync(string path);
 
         Task ComplainUserAsync(int userId, string title, string description);
 
-        Task<UserDataModel> GetUserAsync(int userId);
+        Task<UserApiModel> GetUserAsync(int userId);
 
-        Task<UserDataModel> SubscribeToUserAsync(int userId, CancellationToken? cancellationToken = null);
+        Task<UserApiModel> SubscribeToUserAsync(int userId, CancellationToken? cancellationToken = null);
 
-        Task<UserDataModel> UnsubscribeFromUserAsync(int userId, CancellationToken? cancellationToken = null);
+        Task<UserApiModel> UnsubscribeFromUserAsync(int userId, CancellationToken? cancellationToken = null);
 
-        Task<DocumentDataModel> SendVerifyDocumentAsync(string path);
+        Task<DocumentApiModel> SendVerifyDocumentAsync(string path);
 
-        Task<CardDataModel> SaveCardAsync(string number, string userName);
+        Task<CardApiModel> SaveCardAsync(string number, string userName);
 
-        Task<CardDataModel> GetCardsAsync();
+        Task<CardApiModel> GetCardsAsync();
 
         Task DeleteCardAsync(int id);
     }

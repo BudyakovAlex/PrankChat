@@ -19,10 +19,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract
         private readonly HttpClient _client;
 
         public BaseRestService(ISettingsService settingsService,
-                          IAuthorizationService authorizeService,
-                          IMvxLogProvider logProvider,
-                          IMvxMessenger messenger,
-                          ILogger logger)
+                               IAuthorizationService authorizeService,
+                               IMvxLogProvider logProvider,
+                               IMvxMessenger messenger,
+                               ILogger logger)
         {
             _settingsService = settingsService;
             _messenger = messenger;

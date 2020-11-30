@@ -37,7 +37,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Managers\Authorization\" />
-    <Folder Include="Managers\Video\" />
     <Folder Include="Managers\Users\" />
     <Folder Include="Managers\Search\" />
     <Folder Include="Managers\Publications\" />

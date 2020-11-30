@@ -9,7 +9,7 @@ namespace PrankChat.Mobile.Core.Models.Data
         public UserDataModel(int id,
                              string avatar,
                              string name,
-                             GenderType sex,
+                             GenderType? sex,
                              DateTime? birthday,
                              DateTime? documentVerifiedAt,
                              DateTime? emailVerifiedAt,
@@ -52,7 +52,7 @@ namespace PrankChat.Mobile.Core.Models.Data
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name { get; set; }
 
-        public GenderType Sex { get; set; }
+        public GenderType? Sex { get; set; }
 
         public DateTime? Birthday { get; set; }
 

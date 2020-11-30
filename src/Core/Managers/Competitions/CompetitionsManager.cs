@@ -4,6 +4,10 @@ using PrankChat.Mobile.Core.Models.Data.Shared;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using PrankChat.Mobile.Core.Mappers;
+using System.Linq;
+using PrankChat.Mobile.Core.Models.Api.Base;
+using PrankChat.Mobile.Core.Configuration;
+using PrankChat.Mobile.Core.Models.Api;
 
 namespace PrankChat.Mobile.Core.Managers.Competitions
 {
@@ -16,24 +20,28 @@ namespace PrankChat.Mobile.Core.Managers.Competitions
             _competitionsService = competitionsService;
         }
 
-        public Task<List<CompetitionResultDataModel>> GetCompetitionResultsAsync(int id)
+        public async Task<List<CompetitionResultDataModel>> GetCompetitionResultsAsync(int id)
         {
-            return _competitionsService.GetCompetitionResultsAsync(id);
+            var response = await _competitionsService.GetCompetitionResultsAsync(id);
+            return response.Select(comp => comp.Map()).ToList();
         }
 
-        public Task<List<CompetitionResultDataModel>> GetCompetitionRatingsAsync(int id)
+        public async Task<List<CompetitionResultDataModel>> GetCompetitionRatingsAsync(int id)
         {
-            return _competitionsService.GetCompetitionRatingsAsync(id);
+            var response = await _competitionsService.GetCompetitionRatingsAsync(id);
+            return response.Select(comp => comp.Map()).ToList();
         }
 
-        public Task<PaginationModel<VideoDataModel>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize)
+        public async Task<PaginationModel<VideoDataModel>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize)
         {
-            return _competitionsService.GetCompetitionVideosAsync(competitionId, page, pageSize);
+            var response = await _competitionsService.GetCompetitionVideosAsync(competitionId, page, pageSize);
+            return response.Map();
         }
 
-        public Task<PaginationModel<CompetitionDataModel>> GetCompetitionsAsync(int page, int pageSize)
+        public async Task<PaginationModel<CompetitionDataModel>> GetCompetitionsAsync(int page, int pageSize)
         {
-            return _competitionsService.GetCompetitionsAsync(page, pageSize);
+            var response = await _competitionsService.GetCompetitionsAsync(page, pageSize);
+            return response.Map();
         }
     }
 }

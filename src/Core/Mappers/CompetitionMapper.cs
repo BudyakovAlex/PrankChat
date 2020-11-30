@@ -1,0 +1,31 @@
+﻿using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Models.Data;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace PrankChat.Mobile.Core.Mappers
+{
+    public static class CompetitionMapper
+    {
+        public static CompetitionDataModel Map(this CompetitionApiModel competitionApiModel)
+        {
+            return new CompetitionDataModel(competitionApiModel.Id,
+                                            competitionApiModel.Title,
+                                            competitionApiModel.ImageUrl,
+                                            competitionApiModel.Description,
+                                            competitionApiModel.HtmlContent,
+                                            competitionApiModel.Type,
+                                            competitionApiModel.Status,
+                                            competitionApiModel.CanUploadVideo,
+                                            competitionApiModel.PrizePool,
+                                            competitionApiModel.LikesCount,
+                                            competitionApiModel.VideosCount,
+                                            competitionApiModel.PrizePoolList,
+                                            competitionApiModel.VoteTo,
+                                            competitionApiModel.UploadVideoTo,
+                                            competitionApiModel.CreatedAt,
+                                            competitionApiModel.ActiveTo);
+        }
+    }
+}

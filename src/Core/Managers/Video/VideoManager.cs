@@ -17,14 +17,16 @@ namespace PrankChat.Mobile.Core.Managers.Video
             _videoService = videoService;
         }
 
-        public Task<VideoDataModel> SendVideoAsync(int orderId,
+        public async Task<VideoDataModel> SendVideoAsync(int orderId,
                                                    string path,
                                                    string title,
                                                    string description,
                                                    Action<double, double> onChangedProgressAction = null,
                                                    CancellationToken cancellationToken = default)
         {
-            return _videoService.SendVideoAsync(orderId, path, title, description, onChangedProgressAction, cancellationToken);
+
+            var response = await _videoService.SendVideoAsync(orderId, path, title, description, onChangedProgressAction, cancellationToken);
+            return response.Map();
         }
 
         public Task<long?> RegisterVideoViewedFactAsync(int videoId)
@@ -37,14 +39,16 @@ namespace PrankChat.Mobile.Core.Managers.Video
             return _videoService.ComplainVideoAsync(videoId, title, description);
         }
 
-        public Task<CommentDataModel> CommentVideoAsync(int videoId, string comment)
+        public async Task<CommentDataModel> CommentVideoAsync(int videoId, string comment)
         {
-            return _videoService.CommentVideoAsync(videoId, comment);
+            var response = await _videoService.CommentVideoAsync(videoId, comment);
+            return response.Map();
         }
 
-        public Task<PaginationModel<CommentDataModel>> GetVideoCommentsAsync(int videoId, int page, int pageSize)
+        public async Task<PaginationModel<CommentDataModel>> GetVideoCommentsAsync(int videoId, int page, int pageSize)
         {
-            return _videoService.GetVideoCommentsAsync(videoId, page, pageSize);
+            var response = await _videoService.GetVideoCommentsAsync(videoId, page, pageSize);
+            return response.Map();
         }
     }
 }
