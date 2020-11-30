@@ -15,9 +15,10 @@ namespace PrankChat.Mobile.Core.Managers.Notifications
             _notificationsService = notificationsService;
         }
 
-        public Task<PaginationModel<NotificationDataModel>> GetNotificationsAsync()
+        public async Task<PaginationModel<NotificationDataModel>> GetNotificationsAsync()
         {
-            return _notificationsService.GetNotificationsAsync();
+            var response = await _notificationsService.GetNotificationsAsync();
+            return response.Map();
         }
 
         public Task MarkNotificationsAsReadedAsync()

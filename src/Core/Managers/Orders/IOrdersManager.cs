@@ -1,4 +1,5 @@
-﻿using PrankChat.Mobile.Core.Models.Data;
+﻿using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -8,7 +9,7 @@ namespace PrankChat.Mobile.Core.Managers.Orders
 {
     public interface IOrdersManager
     {
-        Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel orderInfo);
+        Task<OrderDataModel> CreateOrderAsync(CreateOrderApiModel orderInfo);
 
         Task<PaginationModel<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize);
 

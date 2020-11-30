@@ -3,6 +3,7 @@ using PrankChat.Mobile.Core.Models.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using PrankChat.Mobile.Core.Mappers;
+using System.Linq;
 
 namespace PrankChat.Mobile.Core.Managers.Payment
 {
@@ -15,19 +16,22 @@ namespace PrankChat.Mobile.Core.Managers.Payment
             _paymentService = paymentService;
         }
 
-        public Task<PaymentDataModel> RefillAsync(double coast)
+        public async Task<PaymentDataModel> RefillAsync(double coast)
         {
-            return _paymentService.RefillAsync(coast);
+            var response = await _paymentService.RefillAsync(coast);
+            return response.Map();
         }
 
-        public Task<WithdrawalDataModel> WithdrawalAsync(double coast, int cardId)
+        public async Task<WithdrawalDataModel> WithdrawalAsync(double coast, int cardId)
         {
-            return _paymentService.WithdrawalAsync(coast, cardId);
+            var response = await _paymentService.WithdrawalAsync(coast, cardId);
+            return response.Map();
         }
 
-        public Task<List<WithdrawalDataModel>> GetWithdrawalsAsync()
+        public async Task<List<WithdrawalDataModel>> GetWithdrawalsAsync()
         {
-            return _paymentService.GetWithdrawalsAsync();
+            var response = await _paymentService.GetWithdrawalsAsync();
+            return response.Select(withdrawals => withdrawals.Map()).ToList();
         }
 
         public Task CancelWithdrawalAsync(int withdrawalId)

@@ -43,5 +43,29 @@ namespace PrankChat.Mobile.Core.Mappers
             return new PaginationModel<UserDataModel>(mappedModels, totalItemsCount);
         }
 
+        public static PaginationModel<NotificationDataModel> Map(this BaseBundleApiModel<NotificationApiModel> baseBundleApiModel)
+        {
+            var mappedModels = baseBundleApiModel?.Data.Select(notification => notification.Map()).ToList();
+            var paginationData = baseBundleApiModel?.Meta?.FirstOrDefault();
+            var totalItemsCount = paginationData?.Value?.Total ?? mappedModels.Count;
+            return new PaginationModel<NotificationDataModel>(mappedModels, totalItemsCount);
+        }
+
+        public static PaginationModel<OrderDataModel> Map(this BaseBundleApiModel<OrderApiModel> baseBundleApiModel)
+        {
+            var mappedModels = baseBundleApiModel?.Data.Select(order => order.Map()).ToList();
+            var paginationData = baseBundleApiModel?.Meta?.FirstOrDefault();
+            var totalItemsCount = paginationData?.Value?.Total ?? mappedModels.Count;
+            return new PaginationModel<OrderDataModel>(mappedModels, totalItemsCount);
+        }
+
+        public static PaginationModel<ArbitrationOrderDataModel> Map(this BaseBundleApiModel<ArbitrationOrderApiModel> baseBundleApiModel)
+        {
+            var mappedModels = baseBundleApiModel?.Data.Select(arbitration => arbitration.Map()).ToList();
+            var paginationData = baseBundleApiModel?.Meta?.FirstOrDefault();
+            var totalItemsCount = paginationData?.Value?.Total ?? mappedModels.Count;
+            return new PaginationModel<ArbitrationOrderDataModel>(mappedModels, totalItemsCount);
+        }
+        
     }
 }

@@ -32,5 +32,29 @@ namespace PrankChat.Mobile.Core.Mappers
                               videoApiModel.User.Map(),
                               videoApiModel.Customer.Map());
         }
+
+        public static VideoDataModel Map(this DataApiModel<VideoApiModel> dataApiModel)
+        {
+            return new VideoDataModel(dataApiModel.Data.Id,
+                              dataApiModel.Data.Title,
+                              dataApiModel.Data.Description,
+                              dataApiModel.Data.Poster,
+                              dataApiModel.Data.Status,
+                              dataApiModel.Data.ViewsCount,
+                              dataApiModel.Data.RepostsCount,
+                              dataApiModel.Data.LikesCount,
+                              dataApiModel.Data.DislikesCount,
+                              dataApiModel.Data.CommentsCount,
+                              dataApiModel.Data.StreamUri,
+                              dataApiModel.Data.PreviewUri,
+                              dataApiModel.Data.MarkedStreamUri,
+                              dataApiModel.Data.ShareUri,
+                              dataApiModel.Data.IsLiked,
+                              dataApiModel.Data.IsDisliked,
+                              dataApiModel.Data.OrderCategory,
+                              dataApiModel.Data.CreatedAt,
+                              dataApiModel.Data.User.Map(),
+                              dataApiModel.Data.Customer.Map());
+        }
     }
 }

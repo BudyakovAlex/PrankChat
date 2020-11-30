@@ -1,4 +1,6 @@
-﻿using PrankChat.Mobile.Core.Models.Data;
+﻿using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Models.Api.Base;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -8,32 +10,32 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
 {
     public interface IOrdersService
     {
-        Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel orderInfo);
+        Task<OrderApiModel> CreateOrderAsync(CreateOrderApiModel orderInfo);
 
-        Task<PaginationModel<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize);
+        Task<BaseBundleApiModel<OrderApiModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize);
 
-        Task<PaginationModel<OrderDataModel>> GetUserOwnOrdersAsync(int userId, int page, int pageSize);
+        Task<BaseBundleApiModel<OrderApiModel>> GetUserOwnOrdersAsync(int userId, int page, int pageSize);
 
-        Task<PaginationModel<OrderDataModel>> GetUserExecuteOrdersAsync(int userId, int page, int pageSize);
+        Task<BaseBundleApiModel<OrderApiModel>> GetUserExecuteOrdersAsync(int userId, int page, int pageSize);
 
-        Task<OrderDataModel> GetOrderDetailsAsync(int orderId);
+        Task<OrderApiModel> GetOrderDetailsAsync(int orderId);
 
-        Task<OrderDataModel> TakeOrderAsync(int orderId);
+        Task<OrderApiModel> TakeOrderAsync(int orderId);
 
-        Task<PaginationModel<ArbitrationOrderDataModel>> GetArbitrationOrdersAsync(ArbitrationOrderFilterType filter, int page, int pageSize);
+        Task<BaseBundleApiModel<ArbitrationOrderApiModel>> GetArbitrationOrdersAsync(ArbitrationOrderFilterType filter, int page, int pageSize);
 
-        Task<OrderDataModel> CancelOrderAsync(int orderId);
+        Task<OrderApiModel> CancelOrderAsync(int orderId);
 
         Task ComplainOrderAsync(int orderId, string title, string description);
 
-        Task<OrderDataModel> SubscribeOrderAsync(int orderId);
+        Task<OrderApiModel> SubscribeOrderAsync(int orderId);
 
-        Task<OrderDataModel> UnsubscribeOrderAsync(int orderId);
+        Task<OrderApiModel> UnsubscribeOrderAsync(int orderId);
 
-        Task<OrderDataModel> ArgueOrderAsync(int orderId);
+        Task<OrderApiModel> ArgueOrderAsync(int orderId);
 
-        Task<OrderDataModel> AcceptOrderAsync(int orderId);
+        Task<OrderApiModel> AcceptOrderAsync(int orderId);
 
-        Task<OrderDataModel> VoteVideoAsync(int orderId, ArbitrationValueType value);
+        Task<OrderApiModel> VoteVideoAsync(int orderId, ArbitrationValueType value);
     }
 }

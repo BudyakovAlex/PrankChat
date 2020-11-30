@@ -41,7 +41,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
-        public async Task<PaymentDataModel> RefillAsync(double coast)
+        public async Task<PaymentApiModel> RefillAsync(double coast)
         {
             var refillApiData = new RefillApiData
             {
@@ -49,10 +49,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment
             };
 
             var data = await _client.PostAsync<RefillApiData, DataApiModel<PaymentApiModel>>("payment", refillApiData);
-            return MappingConfig.Mapper.Map<PaymentDataModel>(data?.Data);
+            return data?.Data;
         }
 
-        public async Task<WithdrawalDataModel> WithdrawalAsync(double coast, int cardId)
+        public async Task<WithdrawalApiModel> WithdrawalAsync(double coast, int cardId)
         {
             var createWithdrawalApiModel = new CreateWithdrawalApiModel()
             {
@@ -61,15 +61,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment
             };
 
             var dataApiModel = await _client.PostAsync<CreateWithdrawalApiModel, DataApiModel<WithdrawalApiModel>>("withdrawal", createWithdrawalApiModel);
-            var data = MappingConfig.Mapper.Map<WithdrawalDataModel>(dataApiModel?.Data);
-            return data;
+            return dataApiModel?.Data;
         }
 
-        public async Task<List<WithdrawalDataModel>> GetWithdrawalsAsync()
+        public async Task<List<WithdrawalApiModel>> GetWithdrawalsAsync()
         {
             var dataApiModel = await _client.GetAsync<DataApiModel<List<WithdrawalApiModel>>>("withdrawal");
-            var data = MappingConfig.Mapper.Map<List<WithdrawalDataModel>>(dataApiModel?.Data);
-            return data;
+            return dataApiModel?.Data;
         }
 
         public Task CancelWithdrawalAsync(int withdrawalId)

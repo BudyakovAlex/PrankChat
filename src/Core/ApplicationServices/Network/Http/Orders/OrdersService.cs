@@ -49,26 +49,25 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
-        public async Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel orderInfo)
+        public async Task<OrderApiModel> CreateOrderAsync(CreateOrderApiModel orderInfo)
         {
-            var createOrderApiModel = MappingConfig.Mapper.Map<CreateOrderApiModel>(orderInfo);
-            var newOrder = await _client.PostAsync<CreateOrderApiModel, DataApiModel<OrderApiModel>>("orders", createOrderApiModel, true);
-            return MappingConfig.Mapper.Map<OrderDataModel>(newOrder?.Data);
+            var newOrder = await _client.PostAsync<CreateOrderApiModel, DataApiModel<OrderApiModel>>("orders", orderInfo, true);
+            return newOrder?.Data;
         }
 
-        public async Task<PaginationModel<OrderDataModel>> GetUserOwnOrdersAsync(int userId, int page, int pageSize)
+        public async Task<BaseBundleApiModel<OrderApiModel>> GetUserOwnOrdersAsync(int userId, int page, int pageSize)
         {
-            var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"user/{userId}/orders/own?page={page}&items_per_page={pageSize}", includes: new[] { IncludeType.Customer, IncludeType.Videos });
-            return CreatePaginationResult<OrderApiModel, OrderDataModel>(data);
+            return await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"user/{userId}/orders/own?page={page}&items_per_page={pageSize}",
+                                                                             includes: new[] { IncludeType.Customer, IncludeType.Videos });
         }
 
-        public async Task<PaginationModel<OrderDataModel>> GetUserExecuteOrdersAsync(int userId, int page, int pageSize)
+        public async Task<BaseBundleApiModel<OrderApiModel>> GetUserExecuteOrdersAsync(int userId, int page, int pageSize)
         {
-            var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"user/{userId}/orders/execute?page={page}&items_per_page={pageSize}", includes: new[] { IncludeType.Customer, IncludeType.Videos });
-            return CreatePaginationResult<OrderApiModel, OrderDataModel>(data);
+            return await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"user/{userId}/orders/execute?page={page}&items_per_page={pageSize}",
+                                                                             includes: new[] { IncludeType.Customer, IncludeType.Videos });
         }
 
-        public async Task<PaginationModel<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize)
+        public async Task<BaseBundleApiModel<OrderApiModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize)
         {
             var endpoint = $"{orderFilterType.GetUrlResource()}?page={page}&items_per_page={pageSize}";
             switch (orderFilterType)
@@ -80,26 +79,26 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
                 case OrderFilterType.MyOwn when _settingsService.User == null:
                 case OrderFilterType.MyCompletion when _settingsService.User == null:
                 case OrderFilterType.MyOrdered when _settingsService.User == null:
-                    return new PaginationModel<OrderDataModel>();
+                    return new BaseBundleApiModel<OrderApiModel>();
             }
 
-            var data = await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint, includes: new[] { IncludeType.Customer, IncludeType.Videos });
-            return CreatePaginationResult<OrderApiModel, OrderDataModel>(data);
+            return await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint,
+                                                                             includes: new[] { IncludeType.Customer, IncludeType.Videos });
         }
 
-        public async Task<OrderDataModel> GetOrderDetailsAsync(int orderId)
+        public async Task<OrderApiModel> GetOrderDetailsAsync(int orderId)
         {
             var data = await _client.GetAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}", includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor, IncludeType.Videos });
-            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
+            return data?.Data;
         }
 
-        public async Task<OrderDataModel> TakeOrderAsync(int orderId)
+        public async Task<OrderApiModel> TakeOrderAsync(int orderId)
         {
             var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/executor/appoint", true);
-            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
+            return data?.Data;
         }
 
-        public async Task<PaginationModel<ArbitrationOrderDataModel>> GetArbitrationOrdersAsync(ArbitrationOrderFilterType filter, int page, int pageSize)
+        public async Task<BaseBundleApiModel<ArbitrationOrderApiModel>> GetArbitrationOrdersAsync(ArbitrationOrderFilterType filter, int page, int pageSize)
         {
             var endpoint = $"orders?page={page}&items_per_page={pageSize}&status={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}";
             switch (filter)
@@ -114,20 +113,19 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
 
                 case ArbitrationOrderFilterType.My:
                     if (_settingsService.User == null)
-                        return new PaginationModel<ArbitrationOrderDataModel>(new List<ArbitrationOrderDataModel>());
+                        return new BaseBundleApiModel<ArbitrationOrderApiModel>();
 
                     endpoint = $"{endpoint}&customer_id={_settingsService.User.Id}";
                     break;
             }
 
-            var data = await _client.GetAsync<BaseBundleApiModel<ArbitrationOrderApiModel>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
-            return CreatePaginationResult<ArbitrationOrderApiModel, ArbitrationOrderDataModel>(data);
+            return await _client.GetAsync<BaseBundleApiModel<ArbitrationOrderApiModel>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
         }
 
-        public async Task<OrderDataModel> CancelOrderAsync(int orderId)
+        public async Task<OrderApiModel> CancelOrderAsync(int orderId)
         {
             var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/cancel", false);
-            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
+            return data?.Data;
         }
 
         public Task ComplainOrderAsync(int orderId, string title, string description)
@@ -141,48 +139,38 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
             return _client.PostAsync(url, dataApiModel);
         }
 
-        public async Task<OrderDataModel> SubscribeOrderAsync(int orderId)
+        public async Task<OrderApiModel> SubscribeOrderAsync(int orderId)
         {
             var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
-            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
+            return data?.Data;
         }
 
-        public async Task<OrderDataModel> UnsubscribeOrderAsync(int orderId)
+        public async Task<OrderApiModel> UnsubscribeOrderAsync(int orderId)
         {
             var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
-            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
+            return data?.Data;
         }
 
-        public async Task<OrderDataModel> ArgueOrderAsync(int orderId)
+        public async Task<OrderApiModel> ArgueOrderAsync(int orderId)
         {
             var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/arbitration", true);
-            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
+            return data?.Data;
         }
 
-        public async Task<OrderDataModel> AcceptOrderAsync(int orderId)
+        public async Task<OrderApiModel> AcceptOrderAsync(int orderId)
         {
             var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/finish", true);
-            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
+            return data?.Data;
         }
 
-        public async Task<OrderDataModel> VoteVideoAsync(int orderId, ArbitrationValueType isLiked)
+        public async Task<OrderApiModel> VoteVideoAsync(int orderId, ArbitrationValueType isLiked)
         {
             var arbitrationValue = new ChangeArbitrationApiModel()
             {
                 Value = isLiked.ToString().ToLower(),
             };
             var data = await _client.PostAsync<ChangeArbitrationApiModel, DataApiModel<OrderApiModel>>($"orders/{orderId}/arbitration/value", arbitrationValue, true);
-            return MappingConfig.Mapper.Map<OrderDataModel>(data?.Data);
-        }
-
-        private PaginationModel<TDataModel> CreatePaginationResult<TApiModel, TDataModel>(BaseBundleApiModel<TApiModel> data)
-         where TDataModel : class
-         where TApiModel : class
-        {
-            var mappedModels = MappingConfig.Mapper.Map<List<TDataModel>>(data?.Data ?? new List<TApiModel>());
-            var paginationData = data?.Meta?.FirstOrDefault();
-            var totalItemsCount = paginationData?.Value?.Total ?? mappedModels.Count;
-            return new PaginationModel<TDataModel>(mappedModels, totalItemsCount);
+            return data?.Data;
         }
     }
 }
