@@ -16,29 +16,34 @@ namespace PrankChat.Mobile.Core.Managers.Publications
             _publicationsService = publicationsService;
         }
 
-        public Task<PaginationModel<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
+        public async Task<PaginationModel<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
-            return _publicationsService.GetPopularVideoFeedAsync(dateFilterType, page, pageSize);
+            var response = await _publicationsService.GetPopularVideoFeedAsync(dateFilterType, page, pageSize);
+            return response.Map();
         }
 
-        public Task<PaginationModel<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
+        public async Task<PaginationModel<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
-            return _publicationsService.GetActualVideoFeedAsync(dateFilterType, page, pageSize);
+            var response = await _publicationsService.GetActualVideoFeedAsync(dateFilterType, page, pageSize);
+            return response.Map();
         }
 
-        public Task<PaginationModel<VideoDataModel>> GetMyVideoFeedAsync(int page, int pageSize, DateFilterType? dateFilterType = null)
+        public async Task<PaginationModel<VideoDataModel>> GetMyVideoFeedAsync(int page, int pageSize, DateFilterType? dateFilterType = null)
         {
-            return _publicationsService.GetMyVideoFeedAsync(page, pageSize, dateFilterType);
+            var response = await _publicationsService.GetMyVideoFeedAsync(page, pageSize, dateFilterType);
+            return response.Map();
         }
 
-        public Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
+        public async Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
         {
-            return _publicationsService.SendLikeAsync(videoId, isChecked, cancellationToken);
+            var response = await _publicationsService.SendLikeAsync(videoId, isChecked, cancellationToken);
+            return response.Map();
         }
 
-        public Task<VideoDataModel> SendDislikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
+        public async Task<VideoDataModel> SendDislikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
         {
-            return _publicationsService.SendDislikeAsync(videoId, isChecked, cancellationToken);
+            var response = await _publicationsService.SendDislikeAsync(videoId, isChecked, cancellationToken);
+            return response.Map();
         }
     }
 }
