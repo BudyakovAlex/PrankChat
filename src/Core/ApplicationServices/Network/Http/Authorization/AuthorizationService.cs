@@ -103,18 +103,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
             return emailValidationBundle?.Result;
         }
 
-        //public async Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email)
-        //{
-        //    var recoverPasswordModel = new RecoverPasswordApiModel { Email = email.WithoutSpace().ToLower(), };
-        //    var result = await _client.UnauthorizedPostAsync<RecoverPasswordApiModel, RecoverPasswordResultApiModel>("auth/password/email", recoverPasswordModel, false);
-        //    return MappingConfig.Mapper.Map<RecoverPasswordResultDataModel>(result);
-        //}
-
         public async Task<RecoverPasswordResultApiModel> RecoverPasswordAsync(string email)
         {
             var recoverPasswordModel = new RecoverPasswordApiModel { Email = email.WithoutSpace().ToLower(), };
             var result = await _client.UnauthorizedPostAsync<RecoverPasswordApiModel, RecoverPasswordResultApiModel>("auth/password/email", recoverPasswordModel, false);
-            return result; // MappingConfig.Mapper.Map<RecoverPasswordResultDataModel>(result);
+            return result;
         }
 
         public async Task<bool> AuthorizeWithAppleAsync(AppleAuthDataModel appleAuthDataModel)
