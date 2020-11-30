@@ -7,7 +7,6 @@ using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Models.Api;
-using PrankChat.Mobile.Core.Models.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

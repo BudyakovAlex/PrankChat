@@ -1,7 +1,5 @@
 ﻿using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Api.Base;
-using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Models.Data.Shared;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Search

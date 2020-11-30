@@ -1,12 +1,9 @@
 ﻿using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PrankChat.Mobile.Core.Mappers
 {
-   public static  class TransactionMapper
+    public static class TransactionMapper
     {
         public static TransactionDataModel Map(this TransactionApiModel transactionApiModel)
         {
@@ -35,6 +32,5 @@ namespace PrankChat.Mobile.Core.Mappers
                                             dataApiModel.Data.FrozenAfter,
                                             dataApiModel.Data.User.Map());
         }
-        
     }
 }

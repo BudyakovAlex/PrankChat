@@ -2,10 +2,7 @@
 using PrankChat.Mobile.Core.Models.Api.Base;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace PrankChat.Mobile.Core.Mappers
 {
@@ -66,6 +63,5 @@ namespace PrankChat.Mobile.Core.Mappers
             var totalItemsCount = paginationData?.Value?.Total ?? mappedModels.Count;
             return new PaginationModel<ArbitrationOrderDataModel>(mappedModels, totalItemsCount);
         }
-        
     }
 }

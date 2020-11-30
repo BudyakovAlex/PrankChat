@@ -1,11 +1,11 @@
 ﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders;
+using PrankChat.Mobile.Core.Mappers;
+using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Mappers;
-using PrankChat.Mobile.Core.Models.Api;
 
 namespace PrankChat.Mobile.Core.Managers.Orders
 {

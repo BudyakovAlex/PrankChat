@@ -8,10 +8,6 @@ using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Api.Base;
-using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Models.Data.Shared;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Search
@@ -60,6 +56,5 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Search
             var endpoint = $"search/orders?text={query}&page={page}&items_per_page={pageSize}";
             return _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint, includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor });
         }
-
     }
 }

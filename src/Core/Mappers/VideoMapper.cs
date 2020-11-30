@@ -1,9 +1,5 @@
 ﻿using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using PrankChat.Mobile.Core.Mappers;
 
 namespace PrankChat.Mobile.Core.Mappers
 {

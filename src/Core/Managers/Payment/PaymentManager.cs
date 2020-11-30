@@ -1,9 +1,9 @@
 ﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment;
+using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Mappers;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Managers.Payment
 {

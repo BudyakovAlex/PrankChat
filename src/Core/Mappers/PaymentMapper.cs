@@ -1,8 +1,5 @@
 ﻿using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PrankChat.Mobile.Core.Mappers
 {
@@ -16,7 +13,6 @@ namespace PrankChat.Mobile.Core.Mappers
                                         paymentApiModel.Status,
                                         paymentApiModel.PaymentLink);
         }
-
 
         public static PaymentDataModel Map(this DataApiModel<PaymentApiModel> dataApiModel)
         {

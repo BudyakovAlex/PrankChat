@@ -1,9 +1,9 @@
 ﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users;
+using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using System.Threading;
 using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Mappers;
 
 namespace PrankChat.Mobile.Core.Managers.Users
 {

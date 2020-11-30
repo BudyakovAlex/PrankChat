@@ -1,8 +1,6 @@
 ﻿using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Api.Base;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
-using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using System.Threading.Tasks;
 

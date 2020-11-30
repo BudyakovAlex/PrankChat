@@ -1,13 +1,10 @@
 ﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions;
+using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Mappers;
 using System.Linq;
-using PrankChat.Mobile.Core.Models.Api.Base;
-using PrankChat.Mobile.Core.Configuration;
-using PrankChat.Mobile.Core.Models.Api;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Managers.Competitions
 {

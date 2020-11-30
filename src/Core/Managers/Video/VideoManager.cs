@@ -1,10 +1,10 @@
 ﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video;
+using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Mappers;
 
 namespace PrankChat.Mobile.Core.Managers.Video
 {
@@ -24,7 +24,6 @@ namespace PrankChat.Mobile.Core.Managers.Video
                                                    Action<double, double> onChangedProgressAction = null,
                                                    CancellationToken cancellationToken = default)
         {
-
             var response = await _videoService.SendVideoAsync(orderId, path, title, description, onChangedProgressAction, cancellationToken);
             return response.Map();
         }

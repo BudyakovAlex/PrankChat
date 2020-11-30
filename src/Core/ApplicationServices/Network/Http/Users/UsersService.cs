@@ -10,7 +10,6 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Api.Base;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Models.Data.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -157,6 +156,5 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
         {
             return _client.DeleteAsync($"me/cards/{id}", true);
         }
-
     }
 }
