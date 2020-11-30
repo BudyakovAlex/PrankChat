@@ -20,12 +20,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment
 
         private readonly HttpClient _client;
 
-        public PaymentService(
-            ISettingsService settingsService,
-            IAuthorizationService authorizeService,
-            IMvxLogProvider logProvider,
-            IMvxMessenger messenger,
-            ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
+        public PaymentService(ISettingsService settingsService,
+                              IAuthorizationService authorizeService,
+                              IMvxLogProvider logProvider,
+                              IMvxMessenger messenger,
+                              ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
         {
             _messenger = messenger;
             _log = logProvider.GetLogFor<PaymentService>();

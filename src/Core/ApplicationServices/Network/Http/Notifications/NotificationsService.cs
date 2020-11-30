@@ -44,9 +44,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Notifications
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
-        public async Task<BaseBundleApiModel<NotificationApiModel>> GetNotificationsAsync()
+        public  Task<BaseBundleApiModel<NotificationApiModel>> GetNotificationsAsync()
         {
-            return await _client.GetAsync<BaseBundleApiModel<NotificationApiModel>>("notifications");
+            return _client.GetAsync<BaseBundleApiModel<NotificationApiModel>>("notifications");
         }
 
         public Task MarkNotificationsAsReadedAsync()
@@ -71,9 +71,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Notifications
             return _client.PostAsync("me/device", pushNotificationApiMode, true);
         }
 
-        public async Task UnregisterNotificationsAsync()
+        public Task UnregisterNotificationsAsync()
         {
-            await _client.DeleteAsync($"/api/v1/me/device/{CrossDeviceInfo.Current.Id}", true);
+            return _client.DeleteAsync($"/api/v1/me/device/{CrossDeviceInfo.Current.Id}", true);
         }
     }
 }

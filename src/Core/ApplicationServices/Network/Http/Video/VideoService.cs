@@ -60,7 +60,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
                 Description = description,
             };
 
-            var videoMetadataApiModel = await _client.PostVideoFileAsync<LoadVideoApiModel, DataApiModel<VideoApiModel>>("videos", loadVideoApiModel, onChangedProgressAction: onChangedProgressAction, cancellationToken: cancellationToken);
+            var videoMetadataApiModel = await _client.PostVideoFileAsync<LoadVideoApiModel, DataApiModel<VideoApiModel>>("videos",
+                                                                                                                         loadVideoApiModel,
+                                                                                                                         onChangedProgressAction: onChangedProgressAction,
+                                                                                                                         cancellationToken: cancellationToken);
             return videoMetadataApiModel?.Data;
         }
 
@@ -94,10 +97,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
             return dataModel?.Data;
         }
 
-        public async Task<BaseBundleApiModel<CommentApiModel>> GetVideoCommentsAsync(int videoId, int page, int pageSize)
+        public Task<BaseBundleApiModel<CommentApiModel>> GetVideoCommentsAsync(int videoId, int page, int pageSize)
         {
-            var data = await _client.GetAsync<BaseBundleApiModel<CommentApiModel>>($"videos/{videoId}/comments?page={page}&items_per_page={pageSize}");
-            return data;
+            return _client.GetAsync<BaseBundleApiModel<CommentApiModel>>($"videos/{videoId}/comments?page={page}&items_per_page={pageSize}");
         }
     }
 }

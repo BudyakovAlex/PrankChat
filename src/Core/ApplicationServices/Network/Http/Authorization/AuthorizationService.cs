@@ -24,11 +24,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
 
         private readonly HttpClient _client;
 
-        public AuthorizationService(
-            ISettingsService settingsService,
-            IMvxLogProvider logProvider,
-            IMvxMessenger messenger,
-            ILogger logger)
+        public AuthorizationService(ISettingsService settingsService,
+                                    IMvxLogProvider logProvider,
+                                    IMvxMessenger messenger,
+                                    ILogger logger)
         {
             _settingsService = settingsService;
             _messenger = messenger;
@@ -103,11 +102,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
             return emailValidationBundle?.Result;
         }
 
-        public async Task<RecoverPasswordResultApiModel> RecoverPasswordAsync(string email)
+        public Task<RecoverPasswordResultApiModel> RecoverPasswordAsync(string email)
         {
             var recoverPasswordModel = new RecoverPasswordApiModel { Email = email.WithoutSpace().ToLower(), };
-            var result = await _client.UnauthorizedPostAsync<RecoverPasswordApiModel, RecoverPasswordResultApiModel>("auth/password/email", recoverPasswordModel, false);
-            return result;
+            return _client.UnauthorizedPostAsync<RecoverPasswordApiModel, RecoverPasswordResultApiModel>("auth/password/email", recoverPasswordModel, false);
         }
 
         public async Task<bool> AuthorizeWithAppleAsync(AppleAuthDataModel appleAuthDataModel)

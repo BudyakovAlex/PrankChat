@@ -27,12 +27,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
 
         private readonly HttpClient _client;
 
-        public OrdersService(
-            ISettingsService settingsService,
-            IAuthorizationService authorizeService,
-            IMvxLogProvider logProvider,
-            IMvxMessenger messenger,
-            ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
+        public OrdersService(ISettingsService settingsService,
+                             IAuthorizationService authorizeService,
+                             IMvxLogProvider logProvider,
+                             IMvxMessenger messenger,
+                             ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
         {
             _settingsService = settingsService;
             _messenger = messenger;
@@ -55,19 +54,19 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
             return newOrder?.Data;
         }
 
-        public async Task<BaseBundleApiModel<OrderApiModel>> GetUserOwnOrdersAsync(int userId, int page, int pageSize)
+        public Task<BaseBundleApiModel<OrderApiModel>> GetUserOwnOrdersAsync(int userId, int page, int pageSize)
         {
-            return await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"user/{userId}/orders/own?page={page}&items_per_page={pageSize}",
+            return _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"user/{userId}/orders/own?page={page}&items_per_page={pageSize}",
                                                                              includes: new[] { IncludeType.Customer, IncludeType.Videos });
         }
 
-        public async Task<BaseBundleApiModel<OrderApiModel>> GetUserExecuteOrdersAsync(int userId, int page, int pageSize)
+        public Task<BaseBundleApiModel<OrderApiModel>> GetUserExecuteOrdersAsync(int userId, int page, int pageSize)
         {
-            return await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"user/{userId}/orders/execute?page={page}&items_per_page={pageSize}",
+            return _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"user/{userId}/orders/execute?page={page}&items_per_page={pageSize}",
                                                                              includes: new[] { IncludeType.Customer, IncludeType.Videos });
         }
 
-        public async Task<BaseBundleApiModel<OrderApiModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize)
+        public Task<BaseBundleApiModel<OrderApiModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize)
         {
             var endpoint = $"{orderFilterType.GetUrlResource()}?page={page}&items_per_page={pageSize}";
             switch (orderFilterType)
@@ -82,7 +81,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
                     return new BaseBundleApiModel<OrderApiModel>();
             }
 
-            return await _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint,
+            return _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint,
                                                                              includes: new[] { IncludeType.Customer, IncludeType.Videos });
         }
 

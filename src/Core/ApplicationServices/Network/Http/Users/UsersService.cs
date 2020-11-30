@@ -158,14 +158,5 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
             return _client.DeleteAsync($"me/cards/{id}", true);
         }
 
-        private PaginationModel<TDataModel> CreatePaginationResult<TApiModel, TDataModel>(BaseBundleApiModel<TApiModel> data)
-            where TDataModel : class
-            where TApiModel : class
-        {
-            var mappedModels = MappingConfig.Mapper.Map<List<TDataModel>>(data?.Data ?? new List<TApiModel>());
-            var paginationData = data?.Meta?.FirstOrDefault();
-            var totalItemsCount = paginationData?.Value?.Total ?? mappedModels.Count;
-            return new PaginationModel<TDataModel>(mappedModels, totalItemsCount);
-        }
     }
 }
