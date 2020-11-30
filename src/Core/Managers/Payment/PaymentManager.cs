@@ -2,6 +2,7 @@
 using PrankChat.Mobile.Core.Models.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Mappers;
 
 namespace PrankChat.Mobile.Core.Managers.Payment
 {

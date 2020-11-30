@@ -4,6 +4,7 @@ using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Mappers;
 
 namespace PrankChat.Mobile.Core.Managers.Orders
 {

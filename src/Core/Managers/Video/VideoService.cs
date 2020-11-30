@@ -4,6 +4,7 @@ using PrankChat.Mobile.Core.Models.Data.Shared;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Mappers;
 
 namespace PrankChat.Mobile.Core.Managers.Video
 {

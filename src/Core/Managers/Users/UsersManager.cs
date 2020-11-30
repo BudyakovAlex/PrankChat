@@ -3,6 +3,7 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using System.Threading;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Mappers;
 
 namespace PrankChat.Mobile.Core.Managers.Users
 {

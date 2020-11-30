@@ -20,12 +20,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Common
 
         private readonly HttpClient _client;
 
-        public VersionService(
-            ISettingsService settingsService,
-            IAuthorizationService authorizeService,
-            IMvxLogProvider logProvider,
-            IMvxMessenger messenger,
-            ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
+        public VersionService(ISettingsService settingsService,
+                              IAuthorizationService authorizeService,
+                              IMvxLogProvider logProvider,
+                              IMvxMessenger messenger,
+                              ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
         {
             _messenger = messenger;
             _log = logProvider.GetLogFor<VersionService>();
@@ -41,7 +40,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Common
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
-        public async Task<AppVersionDataModel> CheckAppVersionAsync()
+        public async Task<AppVersionApiModel> CheckAppVersionAsync()
         {
             var buildVersion = AppInfo.BuildString;
             var appVersion = AppInfo.VersionString;
@@ -49,10 +48,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Common
             var appVersionBundle = await _client.UnauthorizedGetAsync<AppVersionApiModel>($"/application/{buildVersion}/check/{operationSystem}?appVersion={appVersion}");
             if (appVersionBundle is null)
             {
-                return new AppVersionDataModel();
+                return new AppVersionApiModel();
             }
 
-            return MappingConfig.Mapper.Map<AppVersionDataModel>(appVersionBundle);
+            return appVersionBundle;
         }
     }
 }

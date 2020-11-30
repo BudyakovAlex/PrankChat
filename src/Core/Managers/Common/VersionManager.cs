@@ -2,6 +2,7 @@
 using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.Models.Data;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Mappers;
 
 namespace PrankChat.Mobile.Managers.Common
 {
@@ -14,9 +15,10 @@ namespace PrankChat.Mobile.Managers.Common
             _versionService = versionService;
         }
 
-        public Task<AppVersionDataModel> CheckAppVersionAsync()
+        public async Task<AppVersionDataModel> CheckAppVersionAsync()
         {
-            return _versionService.CheckAppVersionAsync();
+            var response = await _versionService.CheckAppVersionAsync();
+            return response.Map();
         }
     }
 }
