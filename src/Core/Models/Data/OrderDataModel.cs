@@ -5,6 +5,49 @@ namespace PrankChat.Mobile.Core.Models.Data
 {
     public class OrderDataModel
     {
+        public OrderDataModel(int id,
+                              double? price,
+                              string title,
+                              string description,
+                              OrderStatusType? status,
+                              OrderCategory? orderCategory,
+                              DateTime? activeTo,
+                              int durationInHours,
+                              bool? autoProlongation,
+                              DateTime? createdAt,
+                              DateTime? takenToWorkAt,
+                              DateTime? videoUploadedAt,
+                              DateTime? arbitrationFinishAt,
+                              DateTime? closeOrderAt,
+                              UserDataModel customer,
+                              UserDataModel executor,
+                              VideoDataModel video,
+                              ArbitrationValueType? myArbitrationValue,
+                              int? negativeArbitrationValuesCount,
+                              int? positiveArbitrationValuesCount)
+        {
+            Id = id;
+            Price = price;
+            Title = title;
+            Description = description;
+            Status = status;
+            OrderCategory = orderCategory;
+            ActiveTo = activeTo;
+            DurationInHours = durationInHours;
+            AutoProlongation = autoProlongation;
+            CreatedAt = createdAt;
+            TakenToWorkAt = takenToWorkAt;
+            VideoUploadedAt = videoUploadedAt;
+            ArbitrationFinishAt = arbitrationFinishAt;
+            CloseOrderAt = closeOrderAt;
+            Customer = customer;
+            Executor = executor;
+            Video = video;
+            MyArbitrationValue = myArbitrationValue;
+            NegativeArbitrationValuesCount = negativeArbitrationValuesCount;
+            PositiveArbitrationValuesCount = positiveArbitrationValuesCount;
+        }
+
         public int Id { get; set; }
 
         public double? Price { get; set; }
@@ -33,14 +76,6 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public DateTime? CloseOrderAt { get; set; }
 
-        public TimeSpan? CloseOrderIn => CloseOrderAt?.ToLocalTime() - DateTime.Now;
-
-        public TimeSpan? FinishIn => ActiveTo?.ToLocalTime() - DateTime.Now;
-
-        public TimeSpan? ArbitrationFinishIn => ArbitrationFinishAt?.ToLocalTime() - DateTime.Now;
-
-        public TimeSpan? VideoUploadedIn => ActiveTo?.ToLocalTime() - VideoUploadedAt?.ToLocalTime();
-
         public UserDataModel Customer { get; set; }
 
         public UserDataModel Executor { get; set; }
@@ -52,5 +87,13 @@ namespace PrankChat.Mobile.Core.Models.Data
         public int? NegativeArbitrationValuesCount { get; set; }
 
         public int? PositiveArbitrationValuesCount { get; set; }
+
+        public TimeSpan? CloseOrderIn => CloseOrderAt?.ToLocalTime() - DateTime.Now;
+
+        public TimeSpan? FinishIn => ActiveTo?.ToLocalTime() - DateTime.Now;
+
+        public TimeSpan? ArbitrationFinishIn => ArbitrationFinishAt?.ToLocalTime() - DateTime.Now;
+
+        public TimeSpan? VideoUploadedIn => ActiveTo?.ToLocalTime() - VideoUploadedAt?.ToLocalTime();
     }
 }

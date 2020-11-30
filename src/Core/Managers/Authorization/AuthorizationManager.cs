@@ -2,6 +2,7 @@
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Mappers;
 
 namespace PrankChat.Mobile.Core.Managers.Authorization
 {
@@ -44,9 +45,10 @@ namespace PrankChat.Mobile.Core.Managers.Authorization
             return _authorizationService.CheckIsEmailExistsAsync(email);
         }
 
-        public Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email)
+        public async Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email)
         {
-            return _authorizationService.RecoverPasswordAsync(email);
+            var response = await _authorizationService.RecoverPasswordAsync(email);
+            return response.Map();
         }
 
         public Task<bool> AuthorizeWithAppleAsync(AppleAuthDataModel appleAuthDataModel)

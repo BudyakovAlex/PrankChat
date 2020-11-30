@@ -2,6 +2,21 @@
 {
     public class CreateOrderDataModel
     {
+        public CreateOrderDataModel(string title,
+                                    string description,
+                                    double? price,
+                                    int? activeFor,
+                                    bool autoProlongation,
+                                    bool isHidden)
+        {
+            Title = title;
+            Description = description;
+            Price = price;
+            ActiveFor = activeFor;
+            AutoProlongation = autoProlongation;
+            IsHidden = isHidden;
+        }
+
         public string Title { get; set; }
 
         public string Description { get; set; }

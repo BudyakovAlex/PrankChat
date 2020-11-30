@@ -37,7 +37,7 @@ namespace PrankChat.Mobile.Core.Managers.Users
 
         public Task<UserDataModel> UnsubscribeFromUserAsync(int userId, CancellationToken? cancellationToken = null)
         {
-            return await _usersService.UnsubscribeFromUserAsync(userId, cancellationToken);
+            return _usersService.UnsubscribeFromUserAsync(userId, cancellationToken);
         }
 
         public Task<UserDataModel> SendAvatarAsync(string path)

@@ -5,6 +5,33 @@ namespace PrankChat.Mobile.Core.Models.Data
 {
     public class ArbitrationOrderDataModel
     {
+        public ArbitrationOrderDataModel(int id,
+                                         long? price,
+                                         string title,
+                                         string description,
+                                         OrderStatusType? status,
+                                         bool? autoProlongation,
+                                         UserDataModel customer,
+                                         UserDataModel executor,
+                                         VideoDataModel video,
+                                         int likes,
+                                         int dislikes,
+                                         DateTime? arbitrationFinishAt)
+        {
+            Id = id;
+            Price = price;
+            Title = title;
+            Description = description;
+            Status = status;
+            AutoProlongation = autoProlongation;
+            Customer = customer;
+            Executor = executor;
+            Video = video;
+            Likes = likes;
+            Dislikes = dislikes;
+            ArbitrationFinishAt = arbitrationFinishAt;
+        }
+
         public int Id { get; set; }
 
         public long? Price { get; set; }

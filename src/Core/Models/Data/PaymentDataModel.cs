@@ -4,6 +4,19 @@ namespace PrankChat.Mobile.Core.Models.Data
 {
     public class PaymentDataModel
     {
+        public PaymentDataModel(int id,
+                                double? amount,
+                                string provider,
+                                string status,
+                                string paymentLink)
+        {
+            Id = id;
+            Amount = amount;
+            Provider = provider;
+            Status = status;
+            PaymentLink = paymentLink;
+        }
+
         public int Id { get; set; }
 
         public double? Amount { get; set; }

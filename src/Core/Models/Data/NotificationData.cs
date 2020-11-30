@@ -4,14 +4,6 @@ namespace PrankChat.Mobile.Core.Models.Data
 {
     public class PushNotificationData
     {
-        public string Title { get; }
-
-        public string Body { get; }
-
-        public NotificationType? Type { get; }
-
-        public int? OrderId { get; }
-
         public PushNotificationData(string title, string body)
         {
             Title = title ?? string.Empty;
@@ -32,5 +24,12 @@ namespace PrankChat.Mobile.Core.Models.Data
             Type = notificationType;
             OrderId = orderId;
         }
+        public string Title { get; }
+
+        public string Body { get; }
+
+        public NotificationType? Type { get; }
+
+        public int? OrderId { get; }
     }
 }

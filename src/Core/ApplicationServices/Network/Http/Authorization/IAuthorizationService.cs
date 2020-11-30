@@ -1,4 +1,5 @@
-﻿using PrankChat.Mobile.Core.Models.Data;
+﻿using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using System.Threading.Tasks;
 
@@ -20,6 +21,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
 
         Task<bool?> CheckIsEmailExistsAsync(string email);
 
-        Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email);
+        Task<RecoverPasswordResultApiModel> RecoverPasswordAsync(string email);
     }
 }
