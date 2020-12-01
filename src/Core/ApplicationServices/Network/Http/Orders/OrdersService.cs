@@ -75,11 +75,10 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
                 case OrderFilterType.MyOwn when _settingsService.User == null:
                 case OrderFilterType.MyCompletion when _settingsService.User == null:
                 case OrderFilterType.MyOrdered when _settingsService.User == null:
-                    return new BaseBundleApiModel<OrderApiModel>();
+                    return Task.FromResult(new BaseBundleApiModel<OrderApiModel>());
             }
 
-            return _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint,
-                                                                             includes: new[] { IncludeType.Customer, IncludeType.Videos });
+            return _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint, includes: new[] { IncludeType.Customer, IncludeType.Videos });
         }
 
         public async Task<OrderApiModel> GetOrderDetailsAsync(int orderId)

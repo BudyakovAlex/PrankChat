@@ -1,5 +1,6 @@
 ﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users;
 using PrankChat.Mobile.Core.Mappers;
+using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using System.Threading;
@@ -82,13 +83,13 @@ namespace PrankChat.Mobile.Core.Managers.Users
         public async Task<PaginationModel<UserDataModel>> GetSubscriptionsAsync(int userId, int page, int pageSize)
         {
             var response = await _usersService.GetSubscriptionsAsync(userId, page, pageSize);
-            return response.Map();
+            return response.Map(item => item.Map());
         }
 
         public async Task<PaginationModel<UserDataModel>> GetSubscribersAsync(int userId, int page, int pageSize)
         {
             var response = await _usersService.GetSubscribersAsync(userId, page, pageSize);
-            return response.Map();
+            return response.Map(item => item.Map());
         }
 
         public Task DeleteCardAsync(int id)

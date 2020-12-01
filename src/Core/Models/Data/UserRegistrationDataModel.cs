@@ -22,18 +22,18 @@ namespace PrankChat.Mobile.Core.Models.Data
             PasswordConfirmation = passwordConfirmation;
         }
 
-        public string Name { get; set; }
+        public string Name { get; }
 
-        public string Email { get; set; }
+        public string Email { get; }
 
-        public string Login { get; set; }
+        public string Login { get; }
 
-        public DateTime? Birthday { get; set; }
+        public DateTime? Birthday { get; }
 
-        public GenderType? Sex { get; set; }
+        public GenderType? Sex { get; }
 
-        public string Password { get; set; }
+        public string Password { get; }
 
-        public string PasswordConfirmation { get; set; }
+        public string PasswordConfirmation { get; }
     }
 }

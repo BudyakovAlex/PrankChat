@@ -1,6 +1,5 @@
 ﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders;
 using PrankChat.Mobile.Core.Mappers;
-using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
@@ -18,28 +17,29 @@ namespace PrankChat.Mobile.Core.Managers.Orders
             _ordersService = ordersService;
         }
 
-        public async Task<OrderDataModel> CreateOrderAsync(CreateOrderApiModel orderInfo)
+        public async Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel orderInfo)
         {
-            var response = await _ordersService.CreateOrderAsync(orderInfo);
+            var dto = orderInfo.Map();
+            var response = await _ordersService.CreateOrderAsync(dto);
             return response.Map();
         }
 
         public async Task<PaginationModel<OrderDataModel>> GetUserOwnOrdersAsync(int userId, int page, int pageSize)
         {
             var response = await _ordersService.GetUserOwnOrdersAsync(userId, page, pageSize);
-            return response.Map();
+            return response.Map(item => item.Map());
         }
 
         public async Task<PaginationModel<OrderDataModel>> GetUserExecuteOrdersAsync(int userId, int page, int pageSize)
         {
             var response = await _ordersService.GetUserExecuteOrdersAsync(userId, page, pageSize);
-            return response.Map();
+            return response.Map(item => item.Map());
         }
 
         public async Task<PaginationModel<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize)
         {
             var response = await _ordersService.GetOrdersAsync(orderFilterType, page, pageSize);
-            return response.Map();
+            return response.Map(item => item.Map());
         }
 
         public async Task<OrderDataModel> GetOrderDetailsAsync(int orderId)
@@ -57,7 +57,7 @@ namespace PrankChat.Mobile.Core.Managers.Orders
         public async Task<PaginationModel<ArbitrationOrderDataModel>> GetArbitrationOrdersAsync(ArbitrationOrderFilterType filter, int page, int pageSize)
         {
             var response = await _ordersService.GetArbitrationOrdersAsync(filter, page, pageSize);
-            return response.Map();
+            return response.Map(item => item.Map());
         }
 
         public async Task<OrderDataModel> CancelOrderAsync(int orderId)

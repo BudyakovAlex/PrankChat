@@ -85,16 +85,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
             try
             {
-                var userInfo = new UserRegistrationDataModel()
-                {
-                    Name = Name,
-                    Email = Email,
-                    Login = Login,
-                    Birthday = Birthday,
-                    Sex = Gender,
-                    Password = Password,
-                    PasswordConfirmation = RepeatedPassword,
-                };
+                var userInfo = new UserRegistrationDataModel(Name,
+                                                             Email,
+                                                             Login,
+                                                             Birthday,
+                                                             Gender,
+                                                             Password,
+                                                             RepeatedPassword);
+
                 await _authorizationManager.RegisterAsync(userInfo);
                 // TODO: not wait
                 await UsersManager.GetCurrentUserAsync();

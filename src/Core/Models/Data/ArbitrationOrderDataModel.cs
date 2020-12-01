@@ -5,7 +5,7 @@ namespace PrankChat.Mobile.Core.Models.Data
 {
     public class ArbitrationOrderDataModel
     {
-        public ArbitrationOrderDataModel(string id,
+        public ArbitrationOrderDataModel(int id,
                                          long? price,
                                          string title,
                                          string description,
@@ -32,7 +32,7 @@ namespace PrankChat.Mobile.Core.Models.Data
             ArbitrationFinishAt = arbitrationFinishAt;
         }
 
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public long? Price { get; set; }
 

@@ -8,9 +8,9 @@ namespace PrankChat.Mobile.Core.Mappers
         public static CommentDataModel Map(this CommentApiModel commentApiModel)
         {
             return new CommentDataModel(commentApiModel.Id,
-                                commentApiModel.Text,
-                                commentApiModel.CreatedAt,
-                                commentApiModel.User.Map());
+                                        commentApiModel.Text,
+                                        commentApiModel.CreatedAt,
+                                        commentApiModel.User?.Map());
         }
     }
 }

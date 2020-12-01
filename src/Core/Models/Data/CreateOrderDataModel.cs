@@ -4,8 +4,8 @@
     {
         public CreateOrderDataModel(string title,
                                     string description,
-                                    double? price,
-                                    int? activeFor,
+                                    double price,
+                                    int activeFor,
                                     bool autoProlongation,
                                     bool isHidden)
         {
@@ -21,9 +21,9 @@
 
         public string Description { get; set; }
 
-        public double? Price { get; set; }
+        public double Price { get; set; }
 
-        public int? ActiveFor { get; set; }
+        public int ActiveFor { get; set; }
 
         public bool AutoProlongation { get; set; }
 

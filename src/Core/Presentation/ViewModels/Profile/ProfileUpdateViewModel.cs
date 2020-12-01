@@ -68,15 +68,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            var dataModel = new UserUpdateProfileDataModel()
-            {
-                Email = Email,
-                Login = Login,
-                Name = Name,
-                Sex = Gender.Value,
-                Birthday = Birthday?.ToShortDateString(),
-                Description = Description
-            };
+            var dataModel = new UserUpdateProfileDataModel(Name,
+                                                           Email,
+                                                           Login,
+                                                           Gender.Value,
+                                                           Birthday?.ToShortDateString(),
+                                                           Description);
 
             if (_isUserPhotoUpdated)
             {

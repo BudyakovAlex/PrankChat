@@ -8,9 +8,9 @@ namespace PrankChat.Mobile.Core.Mappers
         public static CompetitionResultDataModel Map(this CompetitionResultApiModel competitionResultApiModel)
         {
             return new CompetitionResultDataModel(competitionResultApiModel.Place,
-                                          competitionResultApiModel.User.Map(),
-                                          competitionResultApiModel.Video.Data.Map(),
-                                          competitionResultApiModel.Prize);
+                                                  competitionResultApiModel.User?.Map(),
+                                                  competitionResultApiModel.Video.Data?.Map(),
+                                                  competitionResultApiModel.Prize);
         }
     }
 }

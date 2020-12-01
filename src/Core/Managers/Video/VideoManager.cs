@@ -47,7 +47,7 @@ namespace PrankChat.Mobile.Core.Managers.Video
         public async Task<PaginationModel<CommentDataModel>> GetVideoCommentsAsync(int videoId, int page, int pageSize)
         {
             var response = await _videoService.GetVideoCommentsAsync(videoId, page, pageSize);
-            return response.Map();
+            return response.Map(item => item.Map());
         }
     }
 }

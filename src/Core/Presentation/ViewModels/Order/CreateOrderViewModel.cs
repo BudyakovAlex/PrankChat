@@ -125,14 +125,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task SaveOrderAsync()
         {
-            var createOrderModel = new CreateOrderDataModel()
-            {
-                Title = Title,
-                Description = Description,
-                IsHidden = IsExecutorHidden,
-                ActiveFor = ActiveFor?.Hours ?? 0,
-                Price = Price.Value,
-            };
+            var createOrderModel = new CreateOrderDataModel(Title,
+                                                            Description,
+                                                            Price.Value,
+                                                            ActiveFor?.Hours ?? 0,
+                                                            false,
+                                                            IsExecutorHidden);
 
             ErrorHandleService.SuspendServerErrorsHandling();
             var newOrder = await _ordersManager.CreateOrderAsync(createOrderModel);

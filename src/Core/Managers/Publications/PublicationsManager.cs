@@ -19,19 +19,19 @@ namespace PrankChat.Mobile.Core.Managers.Publications
         public async Task<PaginationModel<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
             var response = await _publicationsService.GetPopularVideoFeedAsync(dateFilterType, page, pageSize);
-            return response.Map();
+            return response.Map(item => item.Map());
         }
 
         public async Task<PaginationModel<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
             var response = await _publicationsService.GetActualVideoFeedAsync(dateFilterType, page, pageSize);
-            return response.Map();
+            return response.Map(item => item.Map());
         }
 
         public async Task<PaginationModel<VideoDataModel>> GetMyVideoFeedAsync(int page, int pageSize, DateFilterType? dateFilterType = null)
         {
             var response = await _publicationsService.GetMyVideoFeedAsync(page, pageSize, dateFilterType);
-            return response.Map();
+            return response.Map(item => item.Map());
         }
 
         public async Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)

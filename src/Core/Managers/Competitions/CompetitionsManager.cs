@@ -32,13 +32,13 @@ namespace PrankChat.Mobile.Core.Managers.Competitions
         public async Task<PaginationModel<VideoDataModel>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize)
         {
             var response = await _competitionsService.GetCompetitionVideosAsync(competitionId, page, pageSize);
-            return response.Map();
+            return response.Map(item => item.Map());
         }
 
         public async Task<PaginationModel<CompetitionDataModel>> GetCompetitionsAsync(int page, int pageSize)
         {
             var response = await _competitionsService.GetCompetitionsAsync(page, pageSize);
-            return response.Map();
+            return response.Map(item => item.Map());
         }
     }
 }

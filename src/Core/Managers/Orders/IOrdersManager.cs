@@ -9,7 +9,7 @@ namespace PrankChat.Mobile.Core.Managers.Orders
 {
     public interface IOrdersManager
     {
-        Task<OrderDataModel> CreateOrderAsync(CreateOrderApiModel orderInfo);
+        Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel orderInfo);
 
         Task<PaginationModel<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize);
 

@@ -14,10 +14,10 @@ namespace PrankChat.Mobile.Core.Mappers
                                      notificationApiModel.IsDelivered,
                                      notificationApiModel.Type,
                                      notificationApiModel.CreatedAt,
-                                     notificationApiModel.RelatedUser.Map(),
-                                     notificationApiModel.RelatedOrder.Map(),
-                                     notificationApiModel.RelatedVideo.Map(),
-                                     notificationApiModel.RelatedTransaction.Map());
+                                     notificationApiModel.RelatedUser?.Map(),
+                                     notificationApiModel.RelatedOrder?.Map(),
+                                     notificationApiModel.RelatedVideo?.Map(),
+                                     notificationApiModel.RelatedTransaction?.Map());
         }
     }
 }

@@ -8,17 +8,17 @@ namespace PrankChat.Mobile.Core.Mappers
         public static ArbitrationOrderDataModel Map(this ArbitrationOrderApiModel arbitrationOrderApi)
         {
             return new ArbitrationOrderDataModel(arbitrationOrderApi.Id,
-                                         arbitrationOrderApi.Price,
-                                         arbitrationOrderApi.Title,
-                                         arbitrationOrderApi.Description,
-                                         arbitrationOrderApi.Status,
-                                         arbitrationOrderApi.AutoProlongation,
-                                         arbitrationOrderApi.Customer.Map(),
-                                         arbitrationOrderApi.Executor.Map(),
-                                         arbitrationOrderApi.Video.Map(),
-                                         arbitrationOrderApi.Likes,
-                                         arbitrationOrderApi.Dislikes,
-                                         arbitrationOrderApi.ArbitrationFinishAt);
+                                                 arbitrationOrderApi.Price,
+                                                 arbitrationOrderApi.Title,
+                                                 arbitrationOrderApi.Description,
+                                                 arbitrationOrderApi.Status,
+                                                 arbitrationOrderApi.AutoProlongation,
+                                                 arbitrationOrderApi.Customer?.Map(),
+                                                 arbitrationOrderApi.Executor?.Map(),
+                                                 arbitrationOrderApi.Video?.Map(),
+                                                 arbitrationOrderApi.Likes,
+                                                 arbitrationOrderApi.Dislikes,
+                                                 arbitrationOrderApi.ArbitrationFinishAt);
         }
     }
 }

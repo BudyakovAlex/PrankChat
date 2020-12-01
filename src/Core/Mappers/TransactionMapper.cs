@@ -16,7 +16,7 @@ namespace PrankChat.Mobile.Core.Mappers
                                             transactionApiModel.BalanceAfter,
                                             transactionApiModel.FrozenBefore,
                                             transactionApiModel.FrozenAfter,
-                                            transactionApiModel.User.Map());
+                                            transactionApiModel.User?.Map());
         }
 
         public static TransactionDataModel Map(this DataApiModel<TransactionApiModel> dataApiModel)
@@ -30,7 +30,7 @@ namespace PrankChat.Mobile.Core.Mappers
                                             dataApiModel.Data.BalanceAfter,
                                             dataApiModel.Data.FrozenBefore,
                                             dataApiModel.Data.FrozenAfter,
-                                            dataApiModel.Data.User.Map());
+                                            dataApiModel.Data.User?.Map());
         }
     }
 }
