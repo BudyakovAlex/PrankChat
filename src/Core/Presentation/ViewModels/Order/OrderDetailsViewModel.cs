@@ -149,11 +149,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsHiddenOrder => Order?.OrderCategory == OrderCategory.Private;
 
-        // TODO: Update this code.
-        public string OrderTitle => IsHiddenOrder ? "Секретное название" : VideoSectionViewModel.VideoName;
+        public string OrderTitle => Order?.Title;
 
-        // TODO: Update this code.
-        public string OrderDescription => IsHiddenOrder ? "ПОДСКАЗКА ПОДСКАЗКА ПОДСКАЗКА ПОДСКАЗКА ПОДСКАЗКА ПОДСКАЗКА ПОДСКАЗКА ПОДСКАЗКА" : VideoSectionViewModel.VideoDetails;
+        public string OrderDescription => Order?.Description;
 
         public void Prepare(OrderDetailsNavigationParameter parameter)
         {
