@@ -7,6 +7,13 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static ArbitrationOrderDataModel Map(this ArbitrationOrderApiModel arbitrationOrderApi)
         {
+            if (arbitrationOrderApi.Customer is null ||
+                arbitrationOrderApi.Executor is null ||
+                arbitrationOrderApi.Video is null)
+            {
+                return null;
+            }
+
             return new ArbitrationOrderDataModel(arbitrationOrderApi.Id,
                                                  arbitrationOrderApi.Price,
                                                  arbitrationOrderApi.Title,

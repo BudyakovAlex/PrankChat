@@ -15,6 +15,11 @@ namespace PrankChat.Mobile.Core.Mappers
 
         public static WithdrawalDataModel Map(this DataApiModel<WithdrawalApiModel> dataApiModel)
         {
+            if (dataApiModel.Data is null)
+            {
+                return null;
+            }
+
             return new WithdrawalDataModel(dataApiModel.Data.Id,
                                            dataApiModel.Data.Amount,
                                            dataApiModel.Data.Status,

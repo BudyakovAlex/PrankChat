@@ -7,6 +7,11 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static UserDataModel Map(this UserApiModel userApiModel)
         {
+            if (userApiModel.Document.Data is null)
+            {
+                return null;
+            }
+
             return new UserDataModel(userApiModel.Id,
                                      userApiModel.Avatar,
                                      userApiModel.Name,
@@ -29,6 +34,11 @@ namespace PrankChat.Mobile.Core.Mappers
 
         public static UserDataModel Map(this DataApiModel<UserApiModel> userApiModel)
         {
+            if (userApiModel.Data is null)
+            {
+                return null;
+            }
+
             return new UserDataModel(userApiModel.Data.Id,
                                      userApiModel.Data.Avatar,
                                      userApiModel.Data.Name,

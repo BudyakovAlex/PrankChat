@@ -7,6 +7,13 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static OrderDataModel Map(this OrderApiModel orderApiModel)
         {
+            if (orderApiModel.Customer.Data is null ||
+                orderApiModel.Executor.Data is null ||
+                orderApiModel.Video.Data is null)
+            {
+                return null;
+            }
+
             return new OrderDataModel(orderApiModel.Id,
                                       orderApiModel.Price,
                                       orderApiModel.Title,
@@ -31,6 +38,11 @@ namespace PrankChat.Mobile.Core.Mappers
 
         public static OrderDataModel Map(this DataApiModel<OrderApiModel> dataApiModel)
         {
+            if (dataApiModel.Data is null)
+            {
+                return null;
+            }
+
             return new OrderDataModel(dataApiModel.Data.Id,
                                       dataApiModel.Data.Price,
                                       dataApiModel.Data.Title,
@@ -53,14 +65,14 @@ namespace PrankChat.Mobile.Core.Mappers
                                       dataApiModel.Data.PositiveArbitrationValuesCount);
         }
 
-        public static CreateOrderDataModel Map(this CreateOrderApiModel createOrderApiModel)
-        {
-            return new CreateOrderDataModel(createOrderApiModel.Title,
-                                            createOrderApiModel.Description,
-                                            createOrderApiModel.Price,
-                                            createOrderApiModel.ActiveFor,
-                                            createOrderApiModel.AutoProlongation,
-                                            createOrderApiModel.IsHidden);
-        }
+        //public static CreateOrderDataModel Map(this CreateOrderApiModel createOrderApiModel)
+        //{
+        //    return new CreateOrderDataModel(createOrderApiModel.Title,
+        //                                    createOrderApiModel.Description,
+        //                                    createOrderApiModel.Price,
+        //                                    createOrderApiModel.ActiveFor,
+        //                                    createOrderApiModel.AutoProlongation,
+        //                                    createOrderApiModel.IsHidden);
+        //}
     }
 }

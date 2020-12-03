@@ -59,10 +59,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
             return authTokenModel?.Data?.AccessToken != null;
         }
 
-        public async Task RegisterAsync(UserRegistrationDataModel userInfo)
+        public async Task RegisterAsync(UserRegistrationApiModel userRegistrationApiModel)
         {
-            var registrationApiModel = MappingConfig.Mapper.Map<UserRegistrationApiModel>(userInfo);
-            var authTokenModel = await _client.UnauthorizedPostAsync<UserRegistrationApiModel, DataApiModel<AccessTokenApiModel>>("auth/register", registrationApiModel, true);
+            var authTokenModel = await _client.UnauthorizedPostAsync<UserRegistrationApiModel, DataApiModel<AccessTokenApiModel>>("auth/register", userRegistrationApiModel, true);
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
@@ -108,18 +107,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
             return _client.UnauthorizedPostAsync<RecoverPasswordApiModel, RecoverPasswordResultApiModel>("auth/password/email", recoverPasswordModel, false);
         }
 
-        public async Task<bool> AuthorizeWithAppleAsync(AppleAuthDataModel appleAuthDataModel)
+        public async Task<bool> AuthorizeWithAppleAsync(AppleAuthApiModel appleAuthApiModel)
         {
-            var authApiModel = new AppleAuthApiModel
-            {
-                Email = appleAuthDataModel.Email,
-                IdentityToken = appleAuthDataModel.IdentityToken,
-                Token = appleAuthDataModel.Token,
-                UserName = appleAuthDataModel.UserName,
-                Password = appleAuthDataModel.Password
-            };
-
-            var authTokenModel = await _client.UnauthorizedPostAsync<AppleAuthApiModel, DataApiModel<AccessTokenApiModel>>($"/auth/apple", authApiModel, true);
+            var authTokenModel = await _client.UnauthorizedPostAsync<AppleAuthApiModel, DataApiModel<AccessTokenApiModel>>($"/auth/apple", appleAuthApiModel, true);
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
             return authTokenModel?.Data?.AccessToken != null;
         }

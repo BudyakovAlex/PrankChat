@@ -7,9 +7,9 @@ using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Api.Base;
-using PrankChat.Mobile.Core.Models.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,13 +63,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
                 }
 
                 var dataApiModel = await _client.GetAsync<DataApiModel<UserApiModel>>("me", true, IncludeType.Document);
-                var user = MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
+                var user = dataApiModel?.Data; // MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
                 if (user is null)
                 {
                     return;
                 }
 
-                _settingsService.User = user;
+                _settingsService.User = user.Map();
             }
             catch (Exception ex)
             {
@@ -101,9 +101,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
             return dataApiModel?.Data;
         }
 
-        public async Task<UserApiModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
+        public async Task<UserApiModel> UpdateProfileAsync(UserUpdateProfileApiModel userUpdateProfileApiModel)
         {
-            var userUpdateProfileApiModel = MappingConfig.Mapper.Map<UserUpdateProfileApiModel>(userInfo);
+            // var userUpdateProfileApiModel = MappingConfig.Mapper.Map<UserUpdateProfileApiModel>(userInfo);
             var dataApiModel = await _client.PostAsync<UserUpdateProfileApiModel, DataApiModel<UserApiModel>>("me", userUpdateProfileApiModel);
             return dataApiModel?.Data;
         }

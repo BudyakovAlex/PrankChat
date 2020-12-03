@@ -38,9 +38,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             _mvxMessenger = mvxMessenger;
             _orderDataModel = orderDataModel;
             _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
-            ElapsedTime = _orderDataModel.ActiveTo is null
-                ? TimeSpan.FromHours(_orderDataModel.DurationInHours)
+
+            ElapsedTime = _orderDataModel?.ActiveTo is null
+                ? TimeSpan.Zero
                 : _orderDataModel.GetActiveOrderTime();
+
+            //ElapsedTime = _orderDataModel.ActiveTo is null
+            //    ? TimeSpan.FromHours(_orderDataModel.DurationInHours)
+            //    : _orderDataModel.GetActiveOrderTime();
 
             Subscribe();
             OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);

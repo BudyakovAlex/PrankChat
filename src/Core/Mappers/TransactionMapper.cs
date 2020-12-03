@@ -7,6 +7,11 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static TransactionDataModel Map(this TransactionApiModel transactionApiModel)
         {
+            if (transactionApiModel.User.Data is null)
+            {
+                return null;
+            }
+
             return new TransactionDataModel(transactionApiModel.Id,
                                             transactionApiModel.Amount,
                                             transactionApiModel.Comment,
@@ -21,6 +26,11 @@ namespace PrankChat.Mobile.Core.Mappers
 
         public static TransactionDataModel Map(this DataApiModel<TransactionApiModel> dataApiModel)
         {
+            if (dataApiModel.Data is null)
+            {
+                return null;
+            }
+
             return new TransactionDataModel(dataApiModel.Data.Id,
                                             dataApiModel.Data.Amount,
                                             dataApiModel.Data.Comment,

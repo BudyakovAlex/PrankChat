@@ -15,6 +15,21 @@ namespace PrankChat.Mobile.Core.Exceptions
         {
         }
 
+        public ProblemDetailsDataModel(string codeError,
+                                       string title,
+                                       string messageServerError,
+                                       List<ItemInvalidParameter> invalidParams,
+                                       int? statusCode,
+                                       string type)
+        {
+            CodeError = codeError;
+            Title = title;
+            MessageServerError = messageServerError;
+            InvalidParams = invalidParams;
+            StatusCode = statusCode;
+            Type = type;
+        }
+
         public string CodeError { get; set; }
 
         public string Title { get; set; }

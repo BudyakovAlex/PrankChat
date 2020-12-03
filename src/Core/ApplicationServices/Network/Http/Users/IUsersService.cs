@@ -1,6 +1,5 @@
 ﻿using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Api.Base;
-using PrankChat.Mobile.Core.Models.Data;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,7 +15,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
 
         Task<BaseBundleApiModel<UserApiModel>> GetSubscribersAsync(int userId, int page, int pageSize);
 
-        Task<UserApiModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo);
+        Task<UserApiModel> UpdateProfileAsync(UserUpdateProfileApiModel userInfo);
 
         Task<UserApiModel> SendAvatarAsync(string path);
 

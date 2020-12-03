@@ -12,7 +12,7 @@ namespace PrankChat.Mobile.Core.Mappers
             where TDataModel : class
             where TApiModel : class
         {
-            var mappedModels = baseBundleApiModel?.Data.Select(transformFunc).ToList() ?? new List<TDataModel>();
+            var mappedModels = baseBundleApiModel?.Data.Select(transformFunc)?.ToList() ?? new List<TDataModel>();
             var paginationData = baseBundleApiModel?.Meta?.FirstOrDefault();
             var totalItemsCount = paginationData?.Value?.Total ?? mappedModels.Count;
             return new PaginationModel<TDataModel>(mappedModels, totalItemsCount);

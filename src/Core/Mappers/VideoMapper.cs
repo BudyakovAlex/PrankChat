@@ -7,6 +7,12 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static VideoDataModel Map(this VideoApiModel videoApiModel)
         {
+            if (videoApiModel.User.Data is null ||
+                videoApiModel.Customer.Data is null)
+            {
+                return null;
+            }
+
             return new VideoDataModel(videoApiModel.Id,
                                       videoApiModel.Title,
                                       videoApiModel.Description,
@@ -31,6 +37,11 @@ namespace PrankChat.Mobile.Core.Mappers
 
         public static VideoDataModel Map(this DataApiModel<VideoApiModel> dataApiModel)
         {
+            if (dataApiModel.Data is null)
+            {
+                return null;
+            }
+
             return new VideoDataModel(dataApiModel.Data.Id,
                                       dataApiModel.Data.Title,
                                       dataApiModel.Data.Description,

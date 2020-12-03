@@ -1,5 +1,6 @@
 ﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
 using PrankChat.Mobile.Core.Mappers;
+using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using System.Threading.Tasks;
@@ -25,9 +26,20 @@ namespace PrankChat.Mobile.Core.Managers.Authorization
             return _authorizationService.AuthorizeExternalAsync(authToken, loginType);
         }
 
-        public Task RegisterAsync(UserRegistrationDataModel userInfo)
+        public Task RegisterAsync(UserRegistrationDataModel userRegistrationDataModel)
         {
-            return _authorizationService.RegisterAsync(userInfo);
+            var apiModel = new UserRegistrationApiModel()
+            {
+                Email = userRegistrationDataModel.Email,
+                Name = userRegistrationDataModel.Name,
+                Login = userRegistrationDataModel.Login,
+                Sex = userRegistrationDataModel.Sex,
+                Birthday = userRegistrationDataModel.Birthday,
+                Password = userRegistrationDataModel.Password,
+                PasswordConfirmation = userRegistrationDataModel.PasswordConfirmation
+            };
+
+            return _authorizationService.RegisterAsync(apiModel);
         }
 
         public Task LogoutAsync()
@@ -53,7 +65,16 @@ namespace PrankChat.Mobile.Core.Managers.Authorization
 
         public Task<bool> AuthorizeWithAppleAsync(AppleAuthDataModel appleAuthDataModel)
         {
-            return _authorizationService.AuthorizeWithAppleAsync(appleAuthDataModel);
+            var apiModel = new AppleAuthApiModel()
+            {
+                UserName = appleAuthDataModel.UserName,
+                Email = appleAuthDataModel.Email,
+                IdentityToken = appleAuthDataModel.IdentityToken,
+                Token = appleAuthDataModel.Token,
+                Password = appleAuthDataModel.Password,
+            };
+
+            return _authorizationService.AuthorizeWithAppleAsync(apiModel);
         }
     }
 }

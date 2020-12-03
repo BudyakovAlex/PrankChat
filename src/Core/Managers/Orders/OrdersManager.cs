@@ -1,5 +1,6 @@
 ﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders;
 using PrankChat.Mobile.Core.Mappers;
+using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
@@ -17,10 +18,19 @@ namespace PrankChat.Mobile.Core.Managers.Orders
             _ordersService = ordersService;
         }
 
-        public async Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel orderInfo)
+        public async Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel createOrderDataModel)
         {
-            var dto = orderInfo.Map();
-            var response = await _ordersService.CreateOrderAsync(dto);
+            var apiModel = new CreateOrderApiModel()
+            {
+                Title = createOrderDataModel.Title,
+                ActiveFor = createOrderDataModel.ActiveFor,
+                AutoProlongation = createOrderDataModel.AutoProlongation,
+                Description = createOrderDataModel.Description,
+                IsHidden = createOrderDataModel.IsHidden,
+                Price = createOrderDataModel.Price
+            };
+
+            var response = await _ordersService.CreateOrderAsync(apiModel);
             return response.Map();
         }
 

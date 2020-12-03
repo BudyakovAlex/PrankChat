@@ -53,7 +53,17 @@ namespace PrankChat.Mobile.Core.Managers.Users
 
         public async Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
         {
-            var response = await _usersService.UpdateProfileAsync(userInfo);
+            var ss = new UserUpdateProfileApiModel()
+            {
+                Name = userInfo.Name,
+                Email = userInfo.Email,
+                Login = userInfo.Login,
+                Sex = userInfo.Sex,
+                Birthday = userInfo.Birthday,
+                Description = userInfo.Description,
+            };
+
+            var response = await _usersService.UpdateProfileAsync(ss);
             return response.Map();
         }
 
