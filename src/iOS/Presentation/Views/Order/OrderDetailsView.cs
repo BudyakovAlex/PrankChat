@@ -76,7 +76,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.OrderTitle);
 
             set.Bind(hiddentView)
-                .For(v => v.BindVisibility())
+                .For(v => v.BindVisible())
                 .To(vm => vm.IsHiddenOrder);
 
             set.Bind(videoDescriptionLabel)
