@@ -64,15 +64,5 @@ namespace PrankChat.Mobile.Core.Mappers
                                       dataApiModel.Data.NegativeArbitrationValuesCount,
                                       dataApiModel.Data.PositiveArbitrationValuesCount);
         }
-
-        //public static CreateOrderDataModel Map(this CreateOrderApiModel createOrderApiModel)
-        //{
-        //    return new CreateOrderDataModel(createOrderApiModel.Title,
-        //                                    createOrderApiModel.Description,
-        //                                    createOrderApiModel.Price,
-        //                                    createOrderApiModel.ActiveFor,
-        //                                    createOrderApiModel.AutoProlongation,
-        //                                    createOrderApiModel.IsHidden);
-        //}
     }
 }

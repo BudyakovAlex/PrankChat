@@ -1,5 +1,4 @@
 ﻿using PrankChat.Mobile.Core.Models.Api;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using System.Threading.Tasks;
 
