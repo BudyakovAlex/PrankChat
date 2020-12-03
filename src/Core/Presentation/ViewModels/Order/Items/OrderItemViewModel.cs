@@ -11,7 +11,6 @@ using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
@@ -39,13 +38,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             _orderDataModel = orderDataModel;
             _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
 
-            ElapsedTime = _orderDataModel?.ActiveTo is null
-                ? TimeSpan.Zero
+            ElapsedTime = _orderDataModel.ActiveTo is null
+                ? TimeSpan.FromHours(_orderDataModel.DurationInHours)
                 : _orderDataModel.GetActiveOrderTime();
-
-            //ElapsedTime = _orderDataModel.ActiveTo is null
-            //    ? TimeSpan.FromHours(_orderDataModel.DurationInHours)
-            //    : _orderDataModel.GetActiveOrderTime();
 
             Subscribe();
             OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
