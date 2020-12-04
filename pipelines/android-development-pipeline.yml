@@ -18,9 +18,10 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@0
-  displayName: 'Use NuGet $(NUGET_VERSION)'
+  displayName: 'Use NuGet (latest)'#$(NUGET_VERSION)'
   inputs:
-    versionSpec: $(NUGET_VERSION)
+    checkLatest: true
+    #versionSpec: $(NUGET_VERSION)
 
 - task: NuGetCommand@2
   displayName: 'NuGet restore'
