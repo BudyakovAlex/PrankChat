@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="NETStandard.Library" version="2.0.3" />
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.440" />
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="MvvmCross" Version="6.4.3" />
