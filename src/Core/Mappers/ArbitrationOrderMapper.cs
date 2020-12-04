@@ -7,9 +7,7 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static ArbitrationOrderDataModel Map(this ArbitrationOrderApiModel arbitrationOrderApi)
         {
-            if (arbitrationOrderApi.Customer is null ||
-                arbitrationOrderApi.Executor is null ||
-                arbitrationOrderApi.Video is null)
+            if (arbitrationOrderApi is null)
             {
                 return null;
             }

@@ -7,7 +7,7 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static UserDataModel Map(this UserApiModel userApiModel)
         {
-            if (userApiModel.Document.Data is null)
+            if (userApiModel is null)
             {
                 return null;
             }

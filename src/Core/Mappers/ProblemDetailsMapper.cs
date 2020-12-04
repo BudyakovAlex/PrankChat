@@ -7,6 +7,11 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static ProblemDetailsDataModel Map(this ProblemDetailsApiModel problemDetailsApiModel)
         {
+            if (problemDetailsApiModel is null)
+            {
+                return null;
+            }
+
             return new ProblemDetailsDataModel(problemDetailsApiModel.CodeError,
                                                problemDetailsApiModel.Title,
                                                problemDetailsApiModel.Message,

@@ -7,6 +7,11 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static PaymentDataModel Map(this PaymentApiModel paymentApiModel)
         {
+            if (paymentApiModel is null)
+            {
+                return null;
+            }
+
             return new PaymentDataModel(paymentApiModel.Id,
                                         paymentApiModel.Amount,
                                         paymentApiModel.Provider,

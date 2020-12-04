@@ -7,9 +7,7 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static OrderDataModel Map(this OrderApiModel orderApiModel)
         {
-            if (orderApiModel.Customer.Data is null ||
-                orderApiModel.Executor.Data is null ||
-                orderApiModel.Video.Data is null)
+            if (orderApiModel is null)
             {
                 return null;
             }

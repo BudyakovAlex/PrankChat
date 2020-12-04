@@ -7,7 +7,7 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static TransactionDataModel Map(this TransactionApiModel transactionApiModel)
         {
-            if (transactionApiModel.User.Data is null)
+            if (transactionApiModel is null)
             {
                 return null;
             }

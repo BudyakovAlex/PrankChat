@@ -7,6 +7,11 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static DocumentDataModel Map(this DocumentApiModel documentApiModel)
         {
+            if (documentApiModel is null)
+            {
+                return null;
+            }
+
             return new DocumentDataModel(documentApiModel.Id,
                                          documentApiModel.Path);
         }

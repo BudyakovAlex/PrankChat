@@ -7,6 +7,11 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static CompetitionDataModel Map(this CompetitionApiModel competitionApiModel)
         {
+            if (competitionApiModel is null)
+            {
+                return null;
+            }
+
             return new CompetitionDataModel(competitionApiModel.Id,
                                             competitionApiModel.Title,
                                             competitionApiModel.ImageUrl,

@@ -7,10 +7,7 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static NotificationDataModel Map(this NotificationApiModel notificationApiModel)
         {
-            if (notificationApiModel.RelatedUser.Data is null ||
-                notificationApiModel.RelatedOrder.Data is null ||
-                notificationApiModel.RelatedVideo.Data is null ||
-                notificationApiModel.RelatedTransaction.Data is null)
+            if (notificationApiModel is null)
             {
                 return null;
             }

@@ -7,8 +7,7 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static CompetitionResultDataModel Map(this CompetitionResultApiModel competitionResultApiModel)
         {
-            if (competitionResultApiModel.User.Data is null ||
-                competitionResultApiModel.Video.Data is null)
+            if (competitionResultApiModel is null)
             {
                 return null;
             }

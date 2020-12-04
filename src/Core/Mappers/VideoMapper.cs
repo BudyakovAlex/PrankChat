@@ -7,8 +7,7 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static VideoDataModel Map(this VideoApiModel videoApiModel)
         {
-            if (videoApiModel.User.Data is null ||
-                videoApiModel.Customer.Data is null)
+            if (videoApiModel is null)
             {
                 return null;
             }

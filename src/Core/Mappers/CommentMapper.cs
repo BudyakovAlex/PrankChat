@@ -7,7 +7,7 @@ namespace PrankChat.Mobile.Core.Mappers
     {
         public static CommentDataModel Map(this CommentApiModel commentApiModel)
         {
-            if (commentApiModel.User.Data is null)
+            if (commentApiModel is null)
             {
                 return null;
             }
