@@ -5,6 +5,41 @@ namespace PrankChat.Mobile.Core.Models.Data
 {
     public class CompetitionDataModel
     {
+        public CompetitionDataModel(int id,
+                                    string title,
+                                    string imageUrl,
+                                    string description,
+                                    string htmlContent,
+                                    string type,
+                                    string status,
+                                    bool canUploadVideo,
+                                    int prizePool,
+                                    int? likesCount,
+                                    int? videosCount,
+                                    List<string> prizePoolList,
+                                    DateTime? voteTo,
+                                    DateTime? uploadVideoTo,
+                                    DateTime? createdAt,
+                                    DateTime? activeTo)
+        {
+            Id = id;
+            Title = title;
+            ImageUrl = imageUrl;
+            Description = description;
+            HtmlContent = htmlContent;
+            Type = type;
+            Status = status;
+            CanUploadVideo = canUploadVideo;
+            PrizePool = prizePool;
+            LikesCount = likesCount;
+            VideosCount = videosCount;
+            PrizePoolList = prizePoolList;
+            VoteTo = voteTo;
+            UploadVideoTo = uploadVideoTo;
+            CreatedAt = createdAt;
+            ActiveTo = activeTo;
+        }
+
         public int Id { get; set; }
 
         public string Title { get; set; }

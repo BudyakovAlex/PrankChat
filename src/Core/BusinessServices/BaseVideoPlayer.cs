@@ -1,22 +1,22 @@
-﻿using System;
+﻿using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.BusinessServices.Logger;
+using PrankChat.Mobile.Core.Managers.Video;
+using PrankChat.Mobile.Core.Presentation.Messages;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
-using PrankChat.Mobile.Core.Presentation.Messages;
 
 namespace PrankChat.Mobile.Core.BusinessServices
 {
     public abstract class BaseVideoPlayer : IVideoPlayer
     {
-        private readonly IApiService _apiService;
+        private readonly IVideoManager _videoManager;
         private readonly IMvxMessenger _mvxMessenger;
 
-        protected BaseVideoPlayer(IApiService apiService, ILogger logger, IMvxMessenger mvxMessenger)
+        protected BaseVideoPlayer(IVideoManager videoManager, ILogger logger, IMvxMessenger mvxMessenger)
         {
+            _videoManager = videoManager;
             Logger = logger;
-            _apiService = apiService;
             _mvxMessenger = mvxMessenger;
         }
 
@@ -49,15 +49,17 @@ namespace PrankChat.Mobile.Core.BusinessServices
         protected async Task<bool> SendRegisterViewedFactAsync(int id, int registrationDelayInMilliseconds, int currentTimeInMilliseconds)
         {
             if (currentTimeInMilliseconds < registrationDelayInMilliseconds)
+            {
                 return false;
+            }
 
-            var views = await _apiService.RegisterVideoViewedFactAsync(id);
-
+            var views = await _videoManager.RegisterVideoViewedFactAsync(id);
             if (views.HasValue)
+            {
                 _mvxMessenger.Publish(new ViewCountMessage(this, id, views.Value));
+            }
             
             Debug.WriteLine($"Views {views}");
-
             return true;
         }
     }

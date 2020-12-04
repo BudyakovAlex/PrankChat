@@ -2,6 +2,29 @@
 {
     public class TransactionDataModel
     {
+        public TransactionDataModel(int id,
+                                    double? amount,
+                                    string comment,
+                                    string direction,
+                                    string reason,
+                                    double? balanceBefore,
+                                    double? balanceAfter,
+                                    double? frozenBefore,
+                                    double? frozenAfter,
+                                    UserDataModel user)
+        {
+            Id = id;
+            Amount = amount;
+            Comment = comment;
+            Direction = direction;
+            Reason = reason;
+            BalanceBefore = balanceBefore;
+            BalanceAfter = balanceAfter;
+            FrozenBefore = frozenBefore;
+            FrozenAfter = frozenAfter;
+            User = user;
+        }
+
         public int Id { get; set; }
 
         public double? Amount { get; set; }

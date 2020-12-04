@@ -1,6 +1,8 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Managers.Publications;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using System;
 using System.Collections.Generic;
@@ -11,11 +13,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
     {
         public IMvxAsyncCommand ShowDetailsCommand { get; }
 
-        public PublicationItemViewModel(IPlatformService platformService,
+        public PublicationItemViewModel(IPublicationsManager publicationsManager,
+                                        IVideoManager videoManager,
+                                        IPlatformService platformService,
                                         IVideoPlayerService videoPlayerService,
                                         VideoDataModel videoDataModel,
                                         Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
-            : base(platformService,
+            : base(publicationsManager,
+                   videoManager,
+                   platformService,
                    videoPlayerService,
                    videoDataModel,
                    getAllFullScreenVideoDataFunc)

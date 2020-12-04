@@ -1,5 +1,7 @@
 ﻿using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Publications;
+using PrankChat.Mobile.Core.Managers.Video;
 using System;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
@@ -8,6 +10,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     {
         private DateTime _commentDate = new DateTime(2018, 4, 24);
         private int? _numberOfComments = 125;
+
+        public PublicationDetailsViewModel(IPublicationsManager publicationsManager, IVideoManager videoManager) : base(publicationsManager, videoManager)
+        {
+        }
 
         #region Video
 

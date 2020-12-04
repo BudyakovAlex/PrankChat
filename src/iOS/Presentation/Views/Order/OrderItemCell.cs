@@ -2,6 +2,7 @@
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
+using MvvmCross.Plugin.Visibility;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
@@ -135,6 +136,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .For(v => v.BindVisible())
                 .To(vm => vm.OrderTagType);
 
+            set.Bind(IsHiddenOrderImageView)
+                .For(v => v.BindVisible())
+                .To(vm => vm.IsHiddenOrder);
+            
             set.Apply();
         }
 

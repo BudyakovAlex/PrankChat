@@ -37,34 +37,31 @@ namespace PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn
 		{
 			if (authorization.GetCredential<ASAuthorizationAppleIdCredential>() is ASAuthorizationAppleIdCredential appleIdCredential)
 			{
-				_loginTaskCompletionSource.TrySetResult(new AppleAuthDataModel
-				{
-					Email = appleIdCredential.Email,
-					UserName = appleIdCredential.FullName.Nickname,
-					IdentityToken = appleIdCredential.IdentityToken.ToString()
-				});
-
+				_loginTaskCompletionSource.TrySetResult(new AppleAuthDataModel(string.Empty,
+																			   appleIdCredential.Email,
+																			   appleIdCredential.IdentityToken.ToString(),
+																			   string.Empty,
+																			   string.Empty));
 				return;
 			}
 
 			if (authorization.GetCredential<ASPasswordCredential>() is ASPasswordCredential passwordCredential)
 			{
-				_loginTaskCompletionSource.TrySetResult(new AppleAuthDataModel
-				{
-					Password = passwordCredential.Password,
-					UserName = passwordCredential.User
-				});
-
+				_loginTaskCompletionSource.TrySetResult(new AppleAuthDataModel(passwordCredential.User,
+																			   string.Empty,
+																			   string.Empty,
+																			   string.Empty,
+																			   passwordCredential.Password)); 
 				return;
 			}
 
 			if (authorization.GetCredential<ASAuthorizationSingleSignOnCredential>() is ASAuthorizationSingleSignOnCredential ssoCredentials)
 			{
-				_loginTaskCompletionSource.TrySetResult(new AppleAuthDataModel
-				{
-					IdentityToken = ssoCredentials.IdentityToken.ToString(),
-					Token = ssoCredentials.AccessToken.ToString()
-				}); ;
+				_loginTaskCompletionSource.TrySetResult(new AppleAuthDataModel(string.Empty,
+																			   string.Empty,
+																			   ssoCredentials.IdentityToken.ToString(),
+																			   ssoCredentials.AccessToken.ToString(),
+																			   string.Empty));
 				return;
 			}
 			_loginTaskCompletionSource.TrySetResult(null);

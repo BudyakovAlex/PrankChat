@@ -4,7 +4,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
-    public class WebViewModel : BaseViewModel, IMvxViewModel<WebViewNavigationParameter>
+    public class WebViewModel : BasePageViewModel, IMvxViewModel<WebViewNavigationParameter>
     {
         public string Url { get; set; }
 

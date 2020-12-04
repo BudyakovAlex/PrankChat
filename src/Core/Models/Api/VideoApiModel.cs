@@ -7,7 +7,7 @@ namespace PrankChat.Mobile.Core.Models.Api
 {
     public class VideoApiModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Title { get; set; }
 

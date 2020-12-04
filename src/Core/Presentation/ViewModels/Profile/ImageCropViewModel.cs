@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
-    public class ImageCropViewModel : BaseViewModel, IMvxViewModel<ImagePathNavigationParameter, ImageCropPathResult>
+    public class ImageCropViewModel : BasePageViewModel, IMvxViewModel<ImagePathNavigationParameter, ImageCropPathResult>
     {
         public ImageCropViewModel()
         {

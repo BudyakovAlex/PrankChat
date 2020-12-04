@@ -14,8 +14,7 @@ namespace PrankChat.Mobile.Core.Models.Api
         public double? Price { get; set; }
 
         [JsonProperty("type")]
-        public OrderCategory? Type { get; set; }
-
+        public OrderCategory? OrderCategory { get; set; }
 
         [JsonProperty("title")]
         public string Title { get; set; }
@@ -24,7 +23,7 @@ namespace PrankChat.Mobile.Core.Models.Api
         public string Description { get; set; }
 
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public OrderStatusType? Status { get; set; }
 
         [JsonProperty("active_to")]
         public DateTime? ActiveTo { get; set; }

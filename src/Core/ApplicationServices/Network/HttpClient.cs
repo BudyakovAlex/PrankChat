@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -35,7 +36,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         private readonly IRestClient _client;
         private readonly IMvxMessenger _messenger;
-      
+
         private readonly IMvxLog _mvxLog;
         private readonly ILogger _logger;
         private readonly ISettingsService _settingsService;
@@ -238,7 +239,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                                                        .AttachStringContent("description", item.Description)
                                                        .AttachFileContent("video", Path.GetFileName(item.FilePath), buffer, onChangedProgressAction, cancellationToken)
                                                        .Build();
-                   
+
                     var url = new Uri($"{_baseAddress}/{ApiId}/v{_apiVersion.Major}/{endpoint}");
 
                     var parameters = new[]
@@ -265,7 +266,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     _logger.WriteResponseInfoAsync(DateTime.Now, response.StatusCode, Method.POST.ToString(), endpoint, errorContent).FireAndForget();
 
                     var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(errorContent);
-                    var problemDetailsData = MappingConfig.Mapper.Map<ProblemDetailsDataModel>(problemDetails);
+                    var problemDetailsData = problemDetails.Map(); //  MappingConfig.Mapper.Map<ProblemDetailsDataModel>(problemDetails);
                     throw problemDetailsData;
                 }
             }
@@ -417,8 +418,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                 try
                 {
                     var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(response.Content);
-                    var problemDetailsData = MappingConfig.Mapper.Map<ProblemDetailsDataModel>(problemDetails);
-                    throw problemDetailsData;
+                   // var problemDetailsData = problemDetails.Map(); // MappingConfig.Mapper.Map<ProblemDetailsDataModel>(problemDetails);
+                    throw problemDetails.Map();
                 }
                 catch (JsonSerializationException)
                 {

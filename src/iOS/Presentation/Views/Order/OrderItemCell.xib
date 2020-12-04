@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,62 +23,49 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_order" translatesAutoresizingMaskIntoConstraints="NO" id="0CG-qM-Mt2">
                                 <rect key="frame" x="0.0" y="0.0" width="381" height="214"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6p4-9h-jvI" customClass="CircleCachedImageView">
-                                <rect key="frame" x="15" y="16" width="42" height="42"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="9Fi-w6-hpG"/>
-                                    <constraint firstAttribute="width" constant="42" id="h8h-67-Gib"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Подсесть к человеку в ТЦ и съесть его еду и сказать сfgsdfdsfsd sdf sdgdsg dsg sdgdsg" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="454-ye-SIm">
-                                <rect key="frame" x="64" y="16" width="301" height="33.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Время заказа:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kad-ba-gr4">
                                 <rect key="frame" x="15" y="72" width="84" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="textColor" systemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сумма заказа:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xmn-Wc-hyU">
                                 <rect key="frame" x="278.5" y="72" width="86.5" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="textColor" systemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 000p" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KYU-7N-avq">
-                                <rect key="frame" x="282.5" y="102.5" width="82.5" height="26.5"/>
+                                <rect key="frame" x="284" y="102.5" width="81" height="26.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="textColor" systemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01 : 02 : 03" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVC-CO-65g">
-                                <rect key="frame" x="16" y="102.5" width="108.5" height="26.5"/>
+                                <rect key="frame" x="16" y="102.5" width="106.5" height="26.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="textColor" systemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PEU-em-5SV">
-                                <rect key="frame" x="16" y="134" width="108.5" height="10"/>
+                                <rect key="frame" x="16" y="134" width="106.5" height="10"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="День" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WQM-b7-khy">
                                         <rect key="frame" x="0.0" y="-1" width="25" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="textColor" systemColor="groupTableViewBackgroundColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Часа" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N77-CQ-iV9">
-                                        <rect key="frame" x="42" y="-1" width="25" height="12"/>
+                                        <rect key="frame" x="41" y="-1" width="24.5" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="textColor" systemColor="groupTableViewBackgroundColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Минут" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3q-Iz-gwR">
-                                        <rect key="frame" x="76.5" y="-1" width="32" height="12"/>
+                                        <rect key="frame" x="74.5" y="-1" width="32" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="textColor" systemColor="groupTableViewBackgroundColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -94,7 +82,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Kt-Ph-OWf">
                                 <rect key="frame" x="268" y="162" width="97" height="36"/>
-                                <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="lXm-75-ptR"/>
                                 </constraints>
@@ -114,14 +102,45 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Мое задание" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EnA-dL-8i6">
                                 <rect key="frame" x="60" y="170.5" width="200" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="textColor" systemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="r3x-4w-GmW">
+                                <rect key="frame" x="15" y="0.0" width="350" height="58"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6p4-9h-jvI" customClass="CircleCachedImageView">
+                                        <rect key="frame" x="0.0" y="16" width="42" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="42" id="9Fi-w6-hpG"/>
+                                            <constraint firstAttribute="width" constant="42" id="h8h-67-Gib"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Подсесть к человеку в ТЦ и съесть его еду и сказать сfgsdfdsfsd sdf sdgdsg dsg sdgdsgjkhl" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="454-ye-SIm">
+                                        <rect key="frame" x="50" y="16" width="256" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" systemColor="groupTableViewBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="ic_order_hidden" translatesAutoresizingMaskIntoConstraints="NO" id="gae-sa-irF">
+                                        <rect key="frame" x="314" y="0.0" width="36" height="56"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="56" id="f7x-qG-8LE"/>
+                                            <constraint firstAttribute="width" constant="36" id="zPO-x6-fxB"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="6p4-9h-jvI" firstAttribute="top" secondItem="r3x-4w-GmW" secondAttribute="top" constant="16" id="649-Mq-rN0"/>
+                                    <constraint firstItem="gae-sa-irF" firstAttribute="top" secondItem="r3x-4w-GmW" secondAttribute="top" id="9oy-3M-SxC"/>
+                                    <constraint firstItem="454-ye-SIm" firstAttribute="top" secondItem="r3x-4w-GmW" secondAttribute="top" constant="16" id="kYb-7d-fRW"/>
+                                    <constraint firstAttribute="height" constant="58" id="kur-es-B0s"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="0CG-qM-Mt2" firstAttribute="leading" secondItem="Ahn-Q1-bu8" secondAttribute="leading" id="5Au-LC-Wp5"/>
                             <constraint firstItem="PEU-em-5SV" firstAttribute="width" secondItem="CVC-CO-65g" secondAttribute="width" id="7EL-Ln-mOV"/>
-                            <constraint firstAttribute="trailing" secondItem="454-ye-SIm" secondAttribute="trailing" constant="16" id="7x1-TL-BvL"/>
+                            <constraint firstAttribute="trailing" secondItem="r3x-4w-GmW" secondAttribute="trailing" constant="16" id="7Ib-hS-FL4"/>
                             <constraint firstItem="KYU-7N-avq" firstAttribute="centerY" secondItem="CVC-CO-65g" secondAttribute="centerY" id="8iL-uO-CYl"/>
                             <constraint firstItem="PEU-em-5SV" firstAttribute="top" secondItem="CVC-CO-65g" secondAttribute="bottom" constant="5" id="9Bh-JS-OAr"/>
                             <constraint firstItem="EnA-dL-8i6" firstAttribute="leading" secondItem="ekO-bU-aEr" secondAttribute="trailing" constant="8" id="AQK-zN-TmM"/>
@@ -130,22 +149,20 @@
                             <constraint firstItem="EnA-dL-8i6" firstAttribute="centerY" secondItem="ekO-bU-aEr" secondAttribute="centerY" id="BgR-Bo-UfC"/>
                             <constraint firstAttribute="bottom" secondItem="ekO-bU-aEr" secondAttribute="bottom" constant="16" id="Dkz-B8-hrm"/>
                             <constraint firstItem="ekO-bU-aEr" firstAttribute="leading" secondItem="Ahn-Q1-bu8" secondAttribute="leading" constant="16" id="G2c-7X-EC6"/>
-                            <constraint firstItem="6p4-9h-jvI" firstAttribute="leading" secondItem="Ahn-Q1-bu8" secondAttribute="leading" constant="15" id="JNP-fJ-Rtd"/>
+                            <constraint firstItem="r3x-4w-GmW" firstAttribute="top" secondItem="Ahn-Q1-bu8" secondAttribute="top" id="Izv-WA-sg0"/>
                             <constraint firstAttribute="trailing" secondItem="9Kt-Ph-OWf" secondAttribute="trailing" constant="16" id="KMR-KO-XRd"/>
                             <constraint firstItem="0CG-qM-Mt2" firstAttribute="top" secondItem="Ahn-Q1-bu8" secondAttribute="top" id="Mud-9I-gvE"/>
                             <constraint firstItem="CVC-CO-65g" firstAttribute="leading" secondItem="Ahn-Q1-bu8" secondAttribute="leading" constant="16" id="Wkt-33-ewc"/>
-                            <constraint firstItem="454-ye-SIm" firstAttribute="leading" secondItem="6p4-9h-jvI" secondAttribute="trailing" constant="7" id="ZEU-dD-TtD"/>
-                            <constraint firstItem="454-ye-SIm" firstAttribute="top" secondItem="Ahn-Q1-bu8" secondAttribute="top" constant="16" id="gRW-k4-Z3X"/>
                             <constraint firstAttribute="trailing" secondItem="KYU-7N-avq" secondAttribute="trailing" constant="16" id="jPy-I6-VfY"/>
-                            <constraint firstItem="kad-ba-gr4" firstAttribute="top" secondItem="6p4-9h-jvI" secondAttribute="bottom" constant="14" id="lwn-bT-mce"/>
                             <constraint firstAttribute="trailing" secondItem="xmn-Wc-hyU" secondAttribute="trailing" constant="16" id="m69-AF-udM"/>
                             <constraint firstItem="9Kt-Ph-OWf" firstAttribute="leading" secondItem="EnA-dL-8i6" secondAttribute="trailing" constant="8" id="ntP-N2-kso"/>
                             <constraint firstAttribute="trailing" secondItem="0CG-qM-Mt2" secondAttribute="trailing" id="pCV-h5-auH"/>
                             <constraint firstItem="xmn-Wc-hyU" firstAttribute="centerY" secondItem="kad-ba-gr4" secondAttribute="centerY" id="pEL-Mk-hY4"/>
+                            <constraint firstItem="kad-ba-gr4" firstAttribute="top" secondItem="r3x-4w-GmW" secondAttribute="bottom" constant="14" id="paT-3v-5ws"/>
                             <constraint firstAttribute="bottom" secondItem="9Kt-Ph-OWf" secondAttribute="bottom" constant="16" id="qBb-a9-K2I"/>
-                            <constraint firstItem="6p4-9h-jvI" firstAttribute="top" secondItem="Ahn-Q1-bu8" secondAttribute="top" constant="16" id="qtw-Sf-Vz0"/>
                             <constraint firstItem="PEU-em-5SV" firstAttribute="leading" secondItem="Ahn-Q1-bu8" secondAttribute="leading" constant="16" id="u9h-ZO-erK"/>
                             <constraint firstAttribute="bottom" secondItem="0CG-qM-Mt2" secondAttribute="bottom" id="yEb-OY-vG9"/>
+                            <constraint firstItem="r3x-4w-GmW" firstAttribute="leading" secondItem="Ahn-Q1-bu8" secondAttribute="leading" constant="15" id="ynG-wa-iqY"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -157,6 +174,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="IsHiddenOrderImageView" destination="gae-sa-irF" id="l4Y-ii-xVm"/>
                 <outlet property="OrderTagTypeImageView" destination="ekO-bU-aEr" id="3mV-Ca-L4L"/>
                 <outlet property="backgroundImageView" destination="0CG-qM-Mt2" id="j7f-gA-Kdv"/>
                 <outlet property="dayLabel" destination="WQM-b7-khy" id="Bbu-pA-PcG"/>
@@ -179,5 +197,36 @@
     <resources>
         <image name="OrderTagTypeNewNotMine" width="36" height="36"/>
         <image name="background_order" width="288" height="198"/>
+        <image name="ic_order_hidden" width="36" height="56"/>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

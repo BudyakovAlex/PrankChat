@@ -39,7 +39,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
                 var settingService = Mvx.IoCProvider.Resolve<ISettingsService>();
                 settingService.PushToken = token;
 
-                var pushNotificationService = Mvx.IoCProvider.Resolve<IPushNotificationService>();
+                var pushNotificationService = Mvx.IoCProvider.Resolve<IPushNotificationProvider>();
                 pushNotificationService.TryUpdateTokenAsync().FireAndForget();
             }
             catch (Exception ex)

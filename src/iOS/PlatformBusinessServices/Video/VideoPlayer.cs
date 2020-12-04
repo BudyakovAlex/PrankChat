@@ -4,10 +4,10 @@ using CoreFoundation;
 using CoreMedia;
 using Foundation;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Video;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -28,7 +28,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         private int _id;
         private string _uri;
 
-        public VideoPlayer(IApiService apiService, ILogger logger, IMvxMessenger mvxMessenger) : base(apiService, logger, mvxMessenger)
+        public VideoPlayer(IVideoManager videoManager, ILogger logger, IMvxMessenger mvxMessenger) : base(videoManager, logger, mvxMessenger)
         {
             _player = new AVQueuePlayer
             {

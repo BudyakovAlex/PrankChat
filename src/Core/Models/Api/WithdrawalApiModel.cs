@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Api
 {
@@ -12,7 +13,7 @@ namespace PrankChat.Mobile.Core.Models.Api
         public double? Amount { get; set; }
 
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public WithdrawalStatusType Status { get; set; }
 
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }

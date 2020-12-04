@@ -5,6 +5,8 @@ using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Publications;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -21,7 +23,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
     public class BasePublicationViewModel : LikeableViewModel, IVideoItemViewModel, IDisposable
     {
+        private readonly IVideoManager _videoManager;
         private readonly IPlatformService _platformService;
+
         private readonly VideoDataModel _videoDataModel;
 
         private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
@@ -37,16 +41,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private string _shareLink;
 
         //NOTE: stub for publication details page
-        public BasePublicationViewModel()
+        public BasePublicationViewModel(IPublicationsManager publicationsManager, IVideoManager videoManager) : base(publicationsManager)
         {
+            _videoManager = videoManager;
             ShowCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }
 
-        public BasePublicationViewModel(IPlatformService platformService,
+        public BasePublicationViewModel(IPublicationsManager publicationsManager,
+                                        IVideoManager videoManager,
+                                        IPlatformService platformService,
                                         IVideoPlayerService videoPlayerService,
                                         VideoDataModel videoDataModel,
-                                        Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
+                                        Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc) : base(publicationsManager)
         {
+            _videoManager = videoManager;
             _platformService = platformService;
             _videoDataModel = videoDataModel;
 
@@ -71,7 +79,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _shareLink = videoDataModel.ShareUri;
 
             _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
-            Subscribe();
+
+            Messenger.Subscribe<ViewCountMessage>(OnViewCountChanged).DisposeWith(Disposables);
 
             ShowCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
             OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
@@ -154,20 +163,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #endregion Commands
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Unsubscribe();
-            }
-        }
-
         protected override void OnLikeChanged()
         {
             RaisePropertyChanged(nameof(NumberOfLikesText));
@@ -176,13 +171,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         protected override void OnDislikeChanged()
         {
             RaisePropertyChanged(nameof(NumberOfDislikesText));
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            Unsubscribe();
-
-            base.ViewDestroy(viewFinishing);
         }
 
         public FullScreenVideoDataModel GetFullScreenVideoDataModel()
@@ -204,6 +192,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                                 StubImageUrl);
         }
 
+        private void OnViewCountChanged(ViewCountMessage viewCountMessage)
+        {
+            if (viewCountMessage.VideoId == VideoId)
+            {
+                _numberOfViews = viewCountMessage.ViewsCount;
+                RaisePropertyChanged(nameof(VideoInformationText));
+            }
+        }
+
         private Task OpenUserProfileAsync()
         {
             if (_videoDataModel.Customer?.Id is null ||
@@ -218,30 +215,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private Task ShareAsync()
         {
             return _platformService.ShareUrlAsync(Resources.ShareDialog_LinkShareTitle, _shareLink);
-        }
-
-        private void Subscribe()
-        {
-            _updateNumberOfViewsSubscriptionToken = Messenger.Subscribe<ViewCountMessage>(viewCount =>
-            {
-                if (viewCount.VideoId == VideoId)
-                {
-                    _numberOfViews = viewCount.ViewsCount;
-                    RaisePropertyChanged(nameof(VideoInformationText));
-                }
-            });
-        }
-
-        private void Unsubscribe()
-        {
-            if (_updateNumberOfViewsSubscriptionToken is null)
-            {
-                return;
-            }
-
-            Messenger?.Unsubscribe<ViewCountMessage>(_updateNumberOfViewsSubscriptionToken);
-            _updateNumberOfViewsSubscriptionToken.Dispose();
-            _updateNumberOfViewsSubscriptionToken = null;
         }
 
         private async Task ShowFullScreenVideoAsync()
@@ -302,7 +275,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     return;
                 }
 
-                await ApiService.ComplainVideoAsync(VideoId, text, text);
+                await _videoManager.ComplainVideoAsync(VideoId, text, text);
                 DialogService.ShowToast(Resources.Complaint_Complete_Message, ToastType.Positive);
                 return;
             }

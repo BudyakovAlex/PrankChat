@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 {
-    public class ShareDialogViewModel : BaseViewModel, IMvxViewModel<ShareDialogParameter>
+    public class ShareDialogViewModel : BasePageViewModel, IMvxViewModel<ShareDialogParameter>
     {
         private readonly IPlatformService _platformService;
 

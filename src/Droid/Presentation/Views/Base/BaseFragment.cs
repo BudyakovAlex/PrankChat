@@ -9,7 +9,7 @@ using Toolbar = Android.Support.V7.Widget.Toolbar;
 namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 {
     public abstract class BaseFragment<TMvxViewModel> : MvxFragment<TMvxViewModel>, IToolbarOwner
-        where TMvxViewModel : BaseViewModel
+        where TMvxViewModel : BasePageViewModel
     {
         public Toolbar Toolbar { get; private set; }
 

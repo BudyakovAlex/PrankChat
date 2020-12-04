@@ -4,13 +4,17 @@ namespace PrankChat.Mobile.Core.Models.Data
 {
     public class CardDataModel
     {
-        [JsonProperty("id")]
+        public CardDataModel(int id, string number, string cardUserName)
+        {
+            Id = id;
+            Number = number;
+            CardUserName = cardUserName;
+        }
+
         public int Id { get; set; }
 
-        [JsonProperty("number")]
         public string Number { get; set; }
 
-        [JsonProperty("card_user_name")]
         public string CardUserName { get; set; }
     }
 }

@@ -2,6 +2,9 @@
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Managers.Publications;
+using PrankChat.Mobile.Core.Managers.Search;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -20,13 +23,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
     {
         private const int SearchDelay = 1000;
 
+        private readonly ISearchManager _searchManager;
+        private readonly IPublicationsManager _publicationsManager;
+        private readonly IVideoManager _videoManager;
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
 
-        public SearchViewModel(IPlatformService platformService, IVideoPlayerService videoPlayerService)
+        public SearchViewModel(ISearchManager searchManager,
+                               IPublicationsManager publicationsManager,
+                               IVideoManager videoManager,
+                               IPlatformService platformService,
+                               IVideoPlayerService videoPlayerService)
             : base(Constants.Pagination.DefaultPaginationSize)
         {
             Items = new MvxObservableCollection<MvxNotifyPropertyChanged>();
+
+            _searchManager = searchManager;
+            _publicationsManager = publicationsManager;
+            _videoManager = videoManager;
             _platformService = platformService;
             _videoPlayerService = videoPlayerService;
         }
@@ -60,56 +74,45 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private async Task SearchAsync(string text, bool canSkipDelay = false)
         {
-            try
+            if (text?.Length < 2)
             {
-                if (text?.Length < 2)
-                {
-                    return;
-                }
-
-                var buffer = text;
-                if (!canSkipDelay)
-                {
-                    await Task.Delay(SearchDelay);
-                }
-
-                if (buffer != _searchValue)
-                {
-                    return;
-                }
-
-                if (string.IsNullOrWhiteSpace(_searchValue))
-                {
-                    Items.Clear();
-                    return;
-                }
-
-                IsBusy = true;
-
-                await ReloadItemsCommand.ExecuteAsync();
+                return;
             }
-            finally
+
+            var buffer = text;
+            if (!canSkipDelay)
             {
-                IsBusy = false;
+                await Task.Delay(SearchDelay);
             }
+
+            if (buffer != _searchValue)
+            {
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(_searchValue))
+            {
+                Items.Clear();
+                return;
+            }
+
+            await ExecutionStateWrapper.WrapAsync(() => ReloadItemsCommand.ExecuteAsync());
         }
 
-        protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
+        protected async override Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
             try
             {
-                IsBusy = true;
-
                 switch (SearchTabType)
                 {
                     case SearchTabType.Orders:
-                        var ordersPaginationModel = await ApiService.SearchOrdersAsync(SearchValue, page, pageSize);
+                        var ordersPaginationModel = await _searchManager.SearchOrdersAsync(SearchValue, page, pageSize);
                         return SetList(ordersPaginationModel, page, ProduceOrderViewModel, Items);
                     case SearchTabType.Users:
-                        var usersPaginationModel = await ApiService.SearchUsersAsync(SearchValue, page, pageSize);
+                        var usersPaginationModel = await _searchManager.SearchUsersAsync(SearchValue, page, pageSize);
                         return SetList(usersPaginationModel, page, ProduceUserViewModel, Items);
                     case SearchTabType.Videos:
-                        var videosPaginationModel = await ApiService.SearchVideosAsync(SearchValue, page, pageSize);
+                        var videosPaginationModel = await _searchManager.SearchVideosAsync(SearchValue, page, pageSize);
                         return SetList(videosPaginationModel, page, ProduceVideoViewModel, Items);
                 }
 
@@ -121,26 +124,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 ErrorHandleService.LogError(this, "Search list loading error occured.");
                 return 0;
             }
-            finally
-            {
-                IsBusy = false;
-            }
         }
 
         private MvxNotifyPropertyChanged ProduceVideoViewModel(VideoDataModel publication)
         {
-            return new PublicationItemViewModel(_platformService,
+            return new PublicationItemViewModel(_publicationsManager,
+                                                _videoManager,
+                                                _platformService,
                                                 _videoPlayerService,
                                                 publication,
                                                 GetFullScreenVideoDataModels);
         }
 
-        private BaseItemViewModel ProduceUserViewModel(UserDataModel model)
+        private BaseViewModel ProduceUserViewModel(UserDataModel model)
         {
             return new ProfileSearchItemViewModel(NavigationService, SettingsService, model);
         }
 
-        private BaseItemViewModel ProduceOrderViewModel(OrderDataModel model)
+        private BaseViewModel ProduceOrderViewModel(OrderDataModel model)
         {
             return new OrderItemViewModel(NavigationService, SettingsService, Messenger, model, GetFullScreenVideoDataModels);
         }

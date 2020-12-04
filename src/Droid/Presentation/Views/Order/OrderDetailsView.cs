@@ -59,19 +59,19 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 
             bindingSet.Bind(_uploadingContainerView)
                       .For(v => v.BindVisible())
-                      .To(vm => vm.IsUploading);
+                      .To(vm => vm.VideoSectionViewModel.IsUploading);
 
             bindingSet.Bind(_uploadingProgressBar)
                       .For(v => v.Progress)
-                      .To(vm => vm.UploadingProgress);
+                      .To(vm => vm.VideoSectionViewModel.UploadingProgress);
 
             bindingSet.Bind(_uploadingProgressBar)
                       .For(v => v.BindClick())
-                      .To(vm => vm.CancelUploadingCommand);
+                      .To(vm => vm.VideoSectionViewModel.CancelUploadingCommand);
 
             bindingSet.Bind(_uploadedTextView)
                       .For(v => v.Text)
-                      .To(vm => vm.UploadingProgressStringPresentation);
+                      .To(vm => vm.VideoSectionViewModel.UploadingProgressStringPresentation);
 
             bindingSet.Apply();
         }

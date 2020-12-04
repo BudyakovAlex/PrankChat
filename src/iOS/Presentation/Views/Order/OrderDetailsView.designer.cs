@@ -64,6 +64,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		UIKit.UIView executorView { get; set; }
 
 		[Outlet]
+		UIKit.UIView hiddentView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel hourTitleLabel { get; set; }
 
 		[Outlet]
@@ -268,19 +271,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				hourValueLabel = null;
 			}
 
-			if (uploadingInfoView != null) {
-				uploadingInfoView.Dispose ();
-				uploadingInfoView = null;
-			}
-
 			if (innerView != null) {
 				innerView.Dispose ();
 				innerView = null;
-			}
-
-			if (uploadingLabel != null) {
-				uploadingLabel.Dispose ();
-				uploadingLabel = null;
 			}
 
 			if (lottieAnimationView != null) {
@@ -398,6 +391,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 				unsubscriptionButton = null;
 			}
 
+			if (uploadingInfoView != null) {
+				uploadingInfoView.Dispose ();
+				uploadingInfoView = null;
+			}
+
+			if (uploadingLabel != null) {
+				uploadingLabel.Dispose ();
+				uploadingLabel = null;
+			}
+
 			if (uploadingProgressBar != null) {
 				uploadingProgressBar.Dispose ();
 				uploadingProgressBar = null;
@@ -436,6 +439,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (yesButton != null) {
 				yesButton.Dispose ();
 				yesButton = null;
+			}
+
+			if (hiddentView != null) {
+				hiddentView.Dispose ();
+				hiddentView = null;
 			}
 		}
 	}

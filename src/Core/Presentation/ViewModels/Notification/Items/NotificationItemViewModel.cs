@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 {
-    public class NotificationItemViewModel : BaseItemViewModel
+    public class NotificationItemViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;

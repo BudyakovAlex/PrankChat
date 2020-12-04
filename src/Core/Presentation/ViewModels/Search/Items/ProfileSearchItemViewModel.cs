@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items
 {
-    public class ProfileSearchItemViewModel : BaseItemViewModel
+    public class ProfileSearchItemViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;

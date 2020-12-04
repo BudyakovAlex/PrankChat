@@ -1,16 +1,13 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Publications;
+using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract;
 using System.Collections.Generic;
@@ -21,6 +18,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 {
     public class FullScreenVideoViewModel : LikeableViewModel, IMvxViewModel<FullScreenVideoParameter, bool>
     {
+        private readonly IUsersManager _usersManager;
         private readonly IPlatformService _platformService;
 
         private bool _isReloadNeeded;
@@ -31,11 +29,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         private List<FullScreenVideoDataModel> _videos;
 
-        public FullScreenVideoViewModel(IPlatformService platformService)
+        public FullScreenVideoViewModel(IUsersManager usersManager,
+                                        IPublicationsManager publicationsManager,
+                                        IPlatformService platformService) : base(publicationsManager)
         {
             Interaction = new MvxInteraction();
 
+            _usersManager = usersManager;
             _platformService = platformService;
+
             ShareCommand = new MvxAsyncCommand(ShareAsync);
             MoveNextCommand = new MvxCommand(MoveNext);
             MovePreviousCommand = new MvxCommand(MovePrevious);
@@ -168,7 +170,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
                 return;
             }
 
-            var user = await ApiService.GetUserAsync(_currentVideo.UserId);
+            var user = await _usersManager.GetUserAsync(_currentVideo.UserId);
             _currentVideo.IsSubscribed = user.IsSubscribed;
             IsSubscribed = _currentVideo.IsSubscribed;
 

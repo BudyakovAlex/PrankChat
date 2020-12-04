@@ -40,43 +40,47 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             set.Bind(profileImageView)
                 .For(v => v.ImagePath)
-                .To(vm => vm.ProfilePhotoUrl);
+                .To(vm => vm.CustomerSectionViewModel.ProfilePhotoUrl);
 
             set.Bind(profileImageView)
                 .For(v => v.PlaceholderText)
-                .To(vm => vm.ProfileShortName);
+                .To(vm => vm.CustomerSectionViewModel.ProfileShortName);
 
             set.Bind(profileImageView)
                .For(v => v.BindTap())
-               .To(vm => vm.OpenCustomerProfileCommand);
+               .To(vm => vm.CustomerSectionViewModel.OpenCustomerProfileCommand);
 
             set.Bind(profileNameLabel)
-                .To(vm => vm.ProfileName);
+                .To(vm => vm.CustomerSectionViewModel.ProfileName);
 
             #endregion Customer
 
             #region LoadVideo
 
             set.Bind(downloadButton)
-                .To(vm => vm.LoadVideoCommand);
+                .To(vm => vm.VideoSectionViewModel.LoadVideoCommand);
 
             set.Bind(downloadButton)
                 .For(v => v.BindVisible())
-                .To(vm => vm.IsVideoLoadAvailable);
+                .To(vm => vm.VideoSectionViewModel.IsVideoLoadAvailable);
 
             set.Bind(downloadView)
                 .For(v => v.BindVisible())
-                .To(vm => vm.IsVideoLoadAvailable);
+                .To(vm => vm.VideoSectionViewModel.IsVideoLoadAvailable);
 
             #endregion LoadVideo
 
             #region Orders
 
             set.Bind(videoNameLabel)
-                .To(vm => vm.VideoName);
+                .To(vm => vm.OrderTitle);
+
+            set.Bind(hiddentView)
+                .For(v => v.BindVisible())
+                .To(vm => vm.IsHiddenOrder);
 
             set.Bind(videoDescriptionLabel)
-                .To(vm => vm.VideoDetails);
+                .To(vm => vm.OrderDescription);
 
             set.Bind(priceValueLabel)
                 .To(vm => vm.PriceValue);
@@ -142,24 +146,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             set.Bind(videoContainerView)
                .For(v => v.BindVisible())
                .ByCombining(new MvxOrValueCombiner(),
-                            vm => vm.IsVideoAvailable,
-                            vm => vm.IsVideoProcessing);
+                            vm => vm.VideoSectionViewModel.IsVideoAvailable,
+                            vm => vm.VideoSectionViewModel.IsVideoProcessing);
 
             set.Bind(processingRootBackgroundView)
                .For(v => v.BindVisible())
-               .To(vm => vm.IsVideoProcessing);
+               .To(vm => vm.VideoSectionViewModel.IsVideoProcessing);
 
             set.Bind(videoView)
                .For(v => v.BindVisible())
-               .To(vm => vm.IsVideoAvailable);
+               .To(vm => vm.VideoSectionViewModel.IsVideoAvailable);
 
             set.Bind(videoImageView)
                 .For(v => v.ImagePath)
-                .To(vm => vm.VideoPlaceholderUrl);
+                .To(vm => vm.VideoSectionViewModel.VideoPlaceholderUrl);
 
             set.Bind(videoImageView)
                 .For(v => v.BindTap())
-                .To(vm => vm.ShowFullVideoCommand);
+                .To(vm => vm.VideoSectionViewModel.ShowFullVideoCommand);
 
             #endregion Video
 
@@ -200,7 +204,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             set.Bind(decideView)
                 .For(v => v.BindVisible())
-                .To(vm => vm.IsDecideVideoAvailable);
+                .To(vm => vm.VideoSectionViewModel.IsDecideVideoAvailable);
 
             set.Bind(noButton)
                 .To(vm => vm.NoCommand);
@@ -226,25 +230,25 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             set.Bind(executorImageView)
                 .For(v => v.ImagePath)
-                .To(vm => vm.ExecutorPhotoUrl);
+                .To(vm => vm.ExecutorSectionViewModel.ExecutorPhotoUrl);
 
             set.Bind(executorImageView)
                .For(v => v.BindTap())
-               .To(vm => vm.OpenExecutorProfileCommand);
+               .To(vm => vm.ExecutorSectionViewModel.OpenExecutorProfileCommand);
 
             set.Bind(executorImageView)
                 .For(v => v.PlaceholderText)
-                .To(vm => vm.ExecutorShortName);
+                .To(vm => vm.ExecutorSectionViewModel.ExecutorShortName);
 
             set.Bind(executorNameLabel)
-                .To(vm => vm.ExecutorName);
+                .To(vm => vm.ExecutorSectionViewModel.ExecutorName);
 
             set.Bind(startDateLabel)
                 .To(vm => vm.StartOrderDate);
 
             set.Bind(executorView)
                 .For(v => v.BindVisible())
-                .To(vm => vm.IsExecutorAvailable);
+                .To(vm => vm.ExecutorSectionViewModel.IsExecutorAvailable);
 
             #endregion Executor
 
@@ -252,7 +256,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             set.Bind(decisionView)
                 .For(v => v.BindVisible())
-                .To(vm => vm.IsDecisionVideoAvailable);
+                .To(vm => vm.VideoSectionViewModel.IsDecisionVideoAvailable);
 
             set.Bind(acceptButton)
                 .To(vm => vm.AcceptOrderCommand);
@@ -301,19 +305,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             set.Bind(uploadingProgressView)
                .For(v => v.BindVisible())
-               .To(vm => vm.IsUploading);
+               .To(vm => vm.VideoSectionViewModel.IsUploading);
 
             set.Bind(uploadingProgressBar)
                .For(v => v.Progress)
-               .To(vm => vm.UploadingProgress);
+               .To(vm => vm.VideoSectionViewModel.UploadingProgress);
 
             set.Bind(uploadingProgressBar)
                .For(v => v.BindTap())
-               .To(vm => vm.CancelUploadingCommand);
+               .To(vm => vm.VideoSectionViewModel.CancelUploadingCommand);
 
             set.Bind(uploadingLabel)
                .For(v => v.Text)
-               .To(vm => vm.UploadingProgressStringPresentation);
+               .To(vm => vm.VideoSectionViewModel.UploadingProgressStringPresentation);
 
             set.Apply();
         }

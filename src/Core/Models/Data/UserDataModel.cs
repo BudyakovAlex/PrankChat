@@ -6,6 +6,45 @@ namespace PrankChat.Mobile.Core.Models.Data
 {
     public class UserDataModel
     {
+        public UserDataModel(int id,
+                             string avatar,
+                             string name,
+                             GenderType? sex,
+                             DateTime? birthday,
+                             DateTime? documentVerifiedAt,
+                             DateTime? emailVerifiedAt,
+                             DocumentDataModel document,
+                             bool isSubscribed,
+                             string login,
+                             string email,
+                             double? balance,
+                             string description,
+                             int? ordersOwnCount,
+                             int? ordersExecuteCount,
+                             int? ordersExecuteFinishedCount,
+                             int? subscribersCount,
+                             int? subscriptionsCount)
+        {
+            Id = id;
+            Avatar = avatar;
+            Name = name;
+            Sex = sex;
+            Birthday = birthday;
+            DocumentVerifiedAt = documentVerifiedAt;
+            EmailVerifiedAt = emailVerifiedAt;
+            Document = document;
+            IsSubscribed = isSubscribed;
+            Login = login;
+            Email = email;
+            Balance = balance;
+            Description = description;
+            OrdersOwnCount = ordersOwnCount;
+            OrdersExecuteCount = ordersExecuteCount;
+            OrdersExecuteFinishedCount = ordersExecuteFinishedCount;
+            SubscribersCount = subscribersCount;
+            SubscriptionsCount = subscriptionsCount;
+        }
+
         public int Id { get; set; }
 
         public string Avatar { get; set; }
@@ -13,7 +52,7 @@ namespace PrankChat.Mobile.Core.Models.Data
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name { get; set; }
 
-        public GenderType Sex { get; set; }
+        public GenderType? Sex { get; set; }
 
         public DateTime? Birthday { get; set; }
 

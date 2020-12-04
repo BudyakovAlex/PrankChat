@@ -10,7 +10,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
-    public class CompetitionsSectionViewModel : BaseItemViewModel, IDisposable
+    public class CompetitionsSectionViewModel : BaseViewModel, IDisposable
     {
         private readonly bool _isUserSessionInitialized;
         private readonly IMvxMessenger _mvxMessenger;

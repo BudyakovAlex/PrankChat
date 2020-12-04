@@ -3,6 +3,7 @@ using MvvmCross.Logging;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items;
@@ -15,18 +16,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
 {
     public class CommentsViewModel : PaginationViewModel, IMvxViewModel<int, int>
     {
+        private readonly IVideoManager _videoManager;
         private readonly IMvxLog _mvxLog;
 
         private int _videoId;
         private int _newCommentsCounter;
 
-        public CommentsViewModel(IMvxLog mvxLog) : base(Constants.Pagination.DefaultPaginationSize)
+        public CommentsViewModel(IVideoManager videoManager, IMvxLog mvxLog) : base(Constants.Pagination.DefaultPaginationSize)
         {
+            _videoManager = videoManager;
+            _mvxLog = mvxLog;
+
             Items = new MvxObservableCollection<CommentItemViewModel>();
 
             SendCommentCommand = new MvxAsyncCommand(SendCommentAsync, () => !string.IsNullOrWhiteSpace(Comment));
             ScrollInteraction = new MvxInteraction<int>();
-            _mvxLog = mvxLog;
         }
 
         public MvxObservableCollection<CommentItemViewModel> Items { get; }
@@ -59,7 +63,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
             base.Reset();
         }
 
-        public override Task Initialize()
+        public override Task InitializeAsync()
         {
             return LoadMoreItemsCommand.ExecuteAsync();
         }
@@ -76,7 +80,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
-            var pageContainer = await ApiService.GetVideoCommentsAsync(_videoId, page, pageSize);
+            var pageContainer = await _videoManager.GetVideoCommentsAsync(_videoId, page, pageSize);
 
             var count = SetList(pageContainer, page, ProduceCommentItemViewModel, Items);
             return count;
@@ -107,7 +111,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
                     return;
                 }
 
-                var comment = await ApiService.CommentVideoAsync(_videoId, Comment);
+                var comment = await _videoManager.CommentVideoAsync(_videoId, Comment);
                 if (comment is null)
                 {
                     return;

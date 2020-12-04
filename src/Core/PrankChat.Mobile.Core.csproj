@@ -5,16 +5,6 @@
     <AssemblyName>PrankChat.Mobile.Core</AssemblyName>
     <RootNamespace>PrankChat.Mobile.Core</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="ApplicationServices\Network\Errors\**" />
-    <Compile Remove="Infrastructure\Converters\**" />
-    <EmbeddedResource Remove="ApplicationServices\Network\Errors\**" />
-    <EmbeddedResource Remove="Infrastructure\Converters\**" />
-    <None Remove="ApplicationServices\Network\Errors\**" />
-    <None Remove="Infrastructure\Converters\**" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="NETStandard.Library" version="2.0.3" />
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.440" />
@@ -33,6 +23,7 @@
     <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="6.4.2" />
     <PackageReference Include="MimeTypesMap" Version="1.0.8" />
     <PackageReference Include="Xam.Plugin.Badge" Version="1.0.0" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
      <EmbeddedResource Update="Presentation\Localization\Resources.resx">
@@ -46,6 +37,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Managers\Authorization\" />
+    <Folder Include="Managers\Users\" />
+    <Folder Include="Managers\Search\" />
+    <Folder Include="Managers\Publications\" />
+    <Folder Include="Managers\Notifications\" />
+    <Folder Include="Managers\Orders\" />
+    <Folder Include="Managers\Payment\" />
+    <Folder Include="Managers\Competitions\" />
     <Folder Include="Presentation\Navigation\" />
     <Folder Include="Presentation\Navigation\Parameters\" />
     <Folder Include="Models\Enums\" />
@@ -83,5 +82,8 @@
     <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\" />
     <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\Abstract\" />
     <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\SendLogs\" />
+    <Folder Include="Presentation\ViewModels\Order\Sections\" />
+    <Folder Include="Wrappers\" />
+    <Folder Include="Presentation\ViewModels\Order\Sections\Abstract\" />
   </ItemGroup>
 </Project>

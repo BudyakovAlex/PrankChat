@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
+using PrankChat.Mobile.Core.Managers.Payment;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -10,10 +11,14 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
-    public class RefillViewModel : BaseViewModel
+    public class RefillViewModel : BasePageViewModel
     {
-        public RefillViewModel()
+        private readonly IPaymentManager _paymentManager;
+
+        public RefillViewModel(IPaymentManager paymentManager)
         {
+            _paymentManager = paymentManager;
+
             Items = new List<PaymentMethodItemViewModel>();
             RefillCommand = new MvxAsyncCommand(OnRefillAsync);
             SelectionChangedCommand = new MvxAsyncCommand<PaymentMethodItemViewModel>(OnSelectionChangedAsync);
@@ -39,7 +44,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         public IMvxAsyncCommand RefillCommand { get; }
 
-        public override Task Initialize()
+        public override Task InitializeAsync()
         {
             Items.Add(new PaymentMethodItemViewModel(PaymentType.Card));
             Items.Add(new PaymentMethodItemViewModel(PaymentType.Qiwi));
@@ -48,7 +53,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             Items.Add(new PaymentMethodItemViewModel(PaymentType.Sberbank));
             Items.Add(new PaymentMethodItemViewModel(PaymentType.Alphabank));
 
-            return base.Initialize();
+            return base.InitializeAsync();
         }
 
         private async Task OnRefillAsync()
@@ -58,7 +63,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 return;
             }
 
-            var paymentData = await ApiService.RefillAsync(Cost.Value);
+            var paymentData = await _paymentManager.RefillAsync(Cost.Value);
             if (string.IsNullOrWhiteSpace(paymentData?.PaymentLink))
             {
                 ErrorHandleService.LogError(this, "Can't resolve payment link, payment process aborted.");

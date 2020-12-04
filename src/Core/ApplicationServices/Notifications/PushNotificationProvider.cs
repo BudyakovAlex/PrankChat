@@ -1,24 +1,24 @@
-﻿using System;
-using System.Threading.Tasks;
-using MvvmCross.Logging;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
+﻿using MvvmCross.Logging;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Managers.Notifications;
+using System;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
 {
-    public class PushNotificationService : IPushNotificationService
+    public class PushNotificationProvider : IPushNotificationProvider
     {
-        protected IApiService ApiService { get; }
+        private readonly INotificationsManager _notificationsManager;
 
         protected ISettingsService SettingsService { get; }
 
         protected IMvxLog MvxLog { get; }
 
-        public PushNotificationService(IApiService apiService,
-                                       ISettingsService settingsService,
-                                       IMvxLog mvxLog)
+        public PushNotificationProvider(INotificationsManager notificationsManager,
+                                        ISettingsService settingsService,
+                                        IMvxLog mvxLog)
         {
-            ApiService = apiService;
+            _notificationsManager = notificationsManager;
             SettingsService = settingsService;
             MvxLog = mvxLog;
         }
@@ -39,7 +39,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
 
             try
             {
-                await ApiService.SendNotificationTokenAsync(SettingsService.PushToken);
+                await _notificationsManager.SendNotificationTokenAsync(SettingsService.PushToken);
                 SettingsService.IsPushTokenSend = true;
                 return true;
             }
@@ -52,7 +52,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
 
         public Task UnregisterNotificationsAsync()
         {
-           return ApiService.UnregisterNotificationsAsync();
+           return _notificationsManager.UnregisterNotificationsAsync();
         }
     }
 }

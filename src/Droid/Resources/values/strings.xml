@@ -88,7 +88,7 @@
     <string name="CreateOrderView_Description_Placeholder">"Описание заказа"</string>
     <string name="CreateOrderView_Price_Placeholder">"10 000 ₽"</string>
     <string name="CreateOrderView_CompleteDate_Placeholder">"Дата исполнения"</string>
-    <string name="CreateOrderView_HideExecutor_Button">"Скрыть исполнителя"</string>
+    <string name="CreateOrderView_HideExecutor_Button">"Секретный заказ"</string>
     <string name="CreateOrderView_Create_Button">"Создать заказ"</string>
     <string name="NotificationView_Title">"Уведомления"</string>
     <string name="OrderDetailsView_Price_Text">"Сумма заказа:"</string>

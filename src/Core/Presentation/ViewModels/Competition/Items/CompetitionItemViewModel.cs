@@ -15,7 +15,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
-    public class CompetitionItemViewModel : BaseItemViewModel, IDisposable
+    public class CompetitionItemViewModel : BaseViewModel, IDisposable
     {
         private readonly IMvxMessenger _mvxMessenger;
         private readonly INavigationService _navigationService;

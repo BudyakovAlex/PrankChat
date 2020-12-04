@@ -1,17 +1,22 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
 {
-    public class PasswordRecoveryViewModel : BaseViewModel
+    public class PasswordRecoveryViewModel : BasePageViewModel
     {
-        public PasswordRecoveryViewModel()
+        private readonly IAuthorizationManager _authorizationManager;
+
+        public PasswordRecoveryViewModel(IAuthorizationManager authorizationManager)
         {
-             RecoverPasswordCommand = new MvxAsyncCommand(RecoverPasswordAsync);
+            _authorizationManager = authorizationManager;
+
+            RecoverPasswordCommand = new MvxAsyncCommand(RecoverPasswordAsync);
         }
 
         private string _email;
@@ -23,29 +28,23 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
 
         public MvxAsyncCommand RecoverPasswordCommand { get; }
         
-        private async Task RecoverPasswordAsync()
+        private Task RecoverPasswordAsync()
         {
             if (!CheckValidation())
             {
-                return;
+                return Task.CompletedTask;
             }
 
-            try
+            return ExecutionStateWrapper.WrapAsync(async () =>
             {
-                IsBusy = true;
-
-                var result = await ApiService.RecoverPasswordAsync(Email);
+                var result = await _authorizationManager.RecoverPasswordAsync(Email);
                 if (string.IsNullOrWhiteSpace(result?.Result))
                 {
                     return;
                 }
 
                 await NavigationService.ShowFinishPasswordRecoveryView();
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            });
         }
 
         private bool CheckValidation()

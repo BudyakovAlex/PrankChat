@@ -3,7 +3,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding.Items
 {
-    public class OnboardingItemViewModel : BaseItemViewModel
+    public class OnboardingItemViewModel : BaseViewModel
     {
         public OnboardingItemViewModel(string title, string description, OnBoardingPageType type)
         {

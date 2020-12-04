@@ -2,7 +2,7 @@
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
 {
-    public interface IPushNotificationService
+    public interface IPushNotificationProvider
 	{
 		Task<bool> TryUpdateTokenAsync();
 

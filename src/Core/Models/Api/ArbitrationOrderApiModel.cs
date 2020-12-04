@@ -8,7 +8,7 @@ namespace PrankChat.Mobile.Core.Models.Api
     public class ArbitrationOrderApiModel
     {
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("price")]
         public long? Price { get; set; }

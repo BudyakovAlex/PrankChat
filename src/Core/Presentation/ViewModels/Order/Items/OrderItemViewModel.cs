@@ -11,12 +11,11 @@ using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 {
-    public class OrderItemViewModel : BaseItemViewModel, IFullScreenVideoOwnerViewModel, IDisposable
+    public class OrderItemViewModel : BaseViewModel, IFullScreenVideoOwnerViewModel, IDisposable
     {
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;
@@ -38,6 +37,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             _mvxMessenger = mvxMessenger;
             _orderDataModel = orderDataModel;
             _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
+
             ElapsedTime = _orderDataModel.ActiveTo is null
                 ? TimeSpan.FromHours(_orderDataModel.DurationInHours)
                 : _orderDataModel.GetActiveOrderTime();
@@ -85,6 +85,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         public string PriceText => _orderDataModel.Price.ToPriceString();
 
         public string StatusText => _orderDataModel.GetOrderStatusTitle(_settingsService?.User);
+
+        public bool IsHiddenOrder => _orderDataModel?.OrderCategory == OrderCategory.Private;
 
         public IMvxAsyncCommand OpenDetailsOrderCommand { get; }
 
@@ -157,11 +159,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         private async Task OnOpenDetailsOrderAsync()
         {
-            var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideoDataModel> { GetFullScreenVideoDataModel() };
-            var currentItem = items.FirstOrDefault(item => item.VideoId == _orderDataModel.Video?.Id);
-            var index = currentItem is null ? 0 : items.IndexOf(currentItem);
+            // var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideoDataModel> { GetFullScreenVideoDataModel() };
+            // var currentItem = items.FirstOrDefault(item => item.VideoId == _orderDataModel.Video?.Id);
+            // var index = currentItem is null ? 0 : items.IndexOf(currentItem);
 
-            var result = await _navigationService.ShowOrderDetailsView(OrderId, items, index);
+            var result = await _navigationService.ShowOrderDetailsView(OrderId, null, -1);
             if (result == null)
             {
                 return;

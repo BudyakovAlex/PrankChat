@@ -28,6 +28,7 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
+    //TODO: get rid of current service, use MvxNavigationService directly
     public class NavigationService : INavigationService
     {
         private readonly IMvxNavigationService _mvxNavigationService;
@@ -138,7 +139,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return Task.WhenAll(_mvxNavigationService.Navigate<RefillViewModel>(), _mvxNavigationService.Navigate<WithdrawalViewModel>());
         }
 
-        public Task<bool> CloseView(BaseViewModel viewModel)
+        public Task<bool> CloseView(BasePageViewModel viewModel)
         {
             return _mvxNavigationService.Close(viewModel);
         }

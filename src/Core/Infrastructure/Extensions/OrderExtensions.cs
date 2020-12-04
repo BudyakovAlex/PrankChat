@@ -3,6 +3,7 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 
 namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
@@ -103,6 +104,44 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                 default:
                     throw new ArgumentException($"Uri path for {filterType} not found");
             }
+        }
+
+        public static FullScreenVideoDataModel ToFullScreenVideoDataModel(this OrderDataModel order)
+        {
+            if (order is null)
+            {
+                return null;
+            }
+
+            return new FullScreenVideoDataModel(order.Customer.Id,
+                                                order.Customer.IsSubscribed,
+                                                order.Video.Id,
+                                                order.Video.StreamUri,
+                                                order.Title,
+                                                order.Description,
+                                                order.Video.ShareUri,
+                                                order.Customer.Avatar,
+                                                order.Customer.Login.ToShortenName(),
+                                                order.Video.LikesCount,
+                                                order.Video.DislikesCount,
+                                                order.Video.CommentsCount,
+                                                order.Video.IsLiked,
+                                                order.Video.IsDisliked,
+                                                order.Video.Poster);
+        }
+
+        public static bool CheckIsTimeAvailable(this OrderDataModel Order)
+        {
+            var timeValue = Order.GetActiveOrderTime();
+
+            return Order?.Status != null &&
+                   timeValue != null &&
+                   timeValue >= TimeSpan.Zero &&
+                   (Order.VideoUploadedAt != null &&
+                   (Order.Status.Value == OrderStatusType.WaitFinish ||
+                   Order.Status.Value == OrderStatusType.VideoInProcess ||
+                   Order.Status.Value == OrderStatusType.VideoWaitModeration) ||
+                   Order.FinishIn != null);
         }
     }
 }

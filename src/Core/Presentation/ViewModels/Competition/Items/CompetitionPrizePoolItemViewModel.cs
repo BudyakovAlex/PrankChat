@@ -2,7 +2,7 @@
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
-    public class CompetitionPrizePoolItemViewModel : BaseItemViewModel
+    public class CompetitionPrizePoolItemViewModel : BaseViewModel
     {
         public string Rating { get; }
 

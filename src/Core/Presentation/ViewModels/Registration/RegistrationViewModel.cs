@@ -1,23 +1,25 @@
 ﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Authorization;
+using PrankChat.Mobile.Core.Managers.Common;
+using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class RegistrationViewModel : ExternalAuthViewModel
     {
-        public RegistrationViewModel(IExternalAuthService externalAuthService, IPushNotificationService pushNotificationService)
-            : base(externalAuthService, pushNotificationService)
+        public RegistrationViewModel(IAuthorizationManager authorizationManager,
+                                     IVersionManager versionManager,
+                                     IUsersManager usersManager,
+                                     IExternalAuthService externalAuthService,
+                                     IPushNotificationProvider pushNotificationService)
+            : base(authorizationManager, versionManager, usersManager, externalAuthService, pushNotificationService)
         {
             ShowSecondStepCommand = new MvxAsyncCommand(OnShowSecondStepAsync);
             LoginCommand = new MvxAsyncCommand<LoginType>(LoginAsync);
@@ -52,7 +54,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                 return;
             }
 
-            var isExists = await ApiService.CheckIsEmailExistsAsync(Email);
+            var isExists = await AuthorizationManager.CheckIsEmailExistsAsync(Email);
             if (isExists is null)
             {
                 return;

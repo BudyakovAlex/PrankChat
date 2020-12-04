@@ -10,7 +10,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 {
-    public abstract class BaseView<TMvxViewModel> : MvxViewController<TMvxViewModel> where TMvxViewModel : BaseViewModel
+    public abstract class BaseView<TMvxViewModel> : MvxViewController<TMvxViewModel> where TMvxViewModel : BasePageViewModel
     {
         private List<UIView> _viewForKeyboardDismiss = new List<UIView>();
         private NSObject _keyBoardWillDisapear;

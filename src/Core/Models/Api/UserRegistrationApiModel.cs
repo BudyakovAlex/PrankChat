@@ -16,10 +16,10 @@ namespace PrankChat.Mobile.Core.Models.Api
         public string Login { get; set; }
 
         [JsonProperty("sex")]
-        public string Sex { get; set; }
+        public GenderType? Sex { get; set; }
 
         [JsonProperty("birthday")]
-        public DateTime Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
 
         [JsonProperty("password")]
         public string Password { get; set; }

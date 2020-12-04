@@ -5,6 +5,9 @@ using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Competitions;
+using PrankChat.Mobile.Core.Managers.Publications;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -23,6 +26,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
     public class CompetitionDetailsViewModel : PaginationViewModel, IMvxViewModel<CompetitionDataModel, bool>
     {
+        private readonly ICompetitionsManager _competitionsManager;
+        private readonly IPublicationsManager _publicationsManager;
+        private readonly IVideoManager _videoManager;
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly IMediaService _mediaService;
 
@@ -35,12 +41,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        public CompetitionDetailsViewModel(IVideoPlayerService videoPlayerService, IMediaService mediaService) : base(Constants.Pagination.DefaultPaginationSize)
+        public CompetitionDetailsViewModel(ICompetitionsManager competitionsManager,
+                                           IPublicationsManager publicationsManager,
+                                           IVideoManager videoManager,
+                                           IVideoPlayerService videoPlayerService,
+                                           IMediaService mediaService) : base(Constants.Pagination.DefaultPaginationSize)
         {
+            _competitionsManager = competitionsManager;
+            _publicationsManager = publicationsManager;
+            _videoManager = videoManager;
             _videoPlayerService = videoPlayerService;
             _mediaService = mediaService;
 
-            Items = new MvxObservableCollection<BaseItemViewModel>();
+            Items = new MvxObservableCollection<BaseViewModel>();
 
             RefreshDataCommand = new MvxAsyncCommand(RefreshDataAsync);
             CancelUploadingCommand = new MvxCommand(() => _cancellationTokenSource?.Cancel());
@@ -73,7 +86,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             set => SetProperty(ref _isRefreshing, value);
         }
 
-        public MvxObservableCollection<BaseItemViewModel> Items { get; }
+        public MvxObservableCollection<BaseViewModel> Items { get; }
 
         public IMvxAsyncCommand RefreshDataCommand { get; }
 
@@ -92,7 +105,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             Items.Add(_header);
         }
 
-        public override Task Initialize()
+        public override Task InitializeAsync()
         {
             return LoadMoreItemsCommand.ExecuteAsync();
         }
@@ -133,7 +146,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
-            var pageContainer = await ApiService.GetCompetitionVideosAsync(_competition.Id, page, pageSize);
+            var pageContainer = await _competitionsManager.GetCompetitionVideosAsync(_competition.Id, page, pageSize);
             if (_competition.GetPhase() == CompetitionPhase.New)
             {
                 var video = pageContainer.Items.FirstOrDefault(item => item.User.Id == SettingsService.User.Id);
@@ -182,7 +195,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         private CompetitionVideoViewModel ProduceVideoItemViewModel(VideoDataModel videoDataModel)
         {
-            return new CompetitionVideoViewModel(ApiService,
+            return new CompetitionVideoViewModel(_publicationsManager,
                                                  _videoPlayerService,
                                                  NavigationService,
                                                  SettingsService,
@@ -194,69 +207,63 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                                  GetFullScreenVideoDataModels);
         }
 
-        private async Task LoadVideoAsync()
+        private Task LoadVideoAsync()
         {
             try
             {
-                if (IsBusy)
+                return ExecutionStateWrapper.WrapAsync(async () =>
                 {
-                    return;
-                }
+                    var file = await _mediaService.PickVideoAsync();
+                    if (file == null)
+                    {
+                        return;
+                    }
 
-                IsBusy = true;
+                    UploadingProgress = 0;
+                    UploadingProgressStringPresentation = "- / -";
+                    IsUploading = true;
 
-                var file = await _mediaService.PickVideoAsync();
-                if (file == null)
-                {
-                    return;
-                }
+                    _cancellationTokenSource = new CancellationTokenSource();
 
-                UploadingProgress = 0;
-                UploadingProgressStringPresentation = "- / -";
-                IsUploading = true;
+                    var video = await _videoManager.SendVideoAsync(_competition.Id,
+                                                                   file.Path,
+                                                                   _competition.Title,
+                                                                   _competition.Description,
+                                                                   OnUploadingProgressChanged,
+                                                                   _cancellationTokenSource.Token);
+                    if (video == null && (!_cancellationTokenSource?.IsCancellationRequested ?? true))
+                    {
+                        DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
+                        _cancellationTokenSource = null;
+                        IsUploading = false;
+                        return;
+                    }
 
-                _cancellationTokenSource = new CancellationTokenSource();
-
-                var video = await ApiService.SendVideoAsync(_competition.Id,
-                                                            file.Path,
-                                                            _competition.Title,
-                                                            _competition.Description,
-                                                            OnUploadingProgressChanged,
-                                                            _cancellationTokenSource.Token);
-                if (video == null && (!_cancellationTokenSource?.IsCancellationRequested ?? true))
-                {
-                    DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
                     _cancellationTokenSource = null;
                     IsUploading = false;
-                    return;
-                }
 
-                _cancellationTokenSource = null;
-                IsUploading = false;
-                IsBusy = true;
+                    _header.Competition.CanUploadVideo = false;
+                    Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        video.User = SettingsService.User;
+                        Items.Insert(1, new CompetitionVideoViewModel(_publicationsManager,
+                                                                      _videoPlayerService,
+                                                                      NavigationService,
+                                                                      SettingsService,
+                                                                      Messenger,
+                                                                      Logger,
+                                                                      video,
+                                                                      true,
+                                                                      false,
+                                                                      GetFullScreenVideoDataModels));
+                    });
 
-                _header.Competition.CanUploadVideo = false;
-                Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    video.User = SettingsService.User;
-                    Items.Insert(1, new CompetitionVideoViewModel(ApiService,
-                                                                  _videoPlayerService,
-                                                                  NavigationService,
-                                                                  SettingsService,
-                                                                  Messenger,
-                                                                  Logger,
-                                                                  video,
-                                                                  true,
-                                                                  false,
-                                                                  GetFullScreenVideoDataModels));
+                    await _header.RaisePropertyChanged(nameof(_header.CanLoadVideo));
                 });
-
-                await _header.RaisePropertyChanged(nameof(_header.CanLoadVideo));
             }
             finally
             {
                 _isReloadNeeded = true;
-                IsBusy = false;
             }
         }
 
@@ -271,7 +278,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             }
 
             IsUploading = false;
-            IsBusy = true;
         }
     }
 }

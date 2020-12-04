@@ -2,6 +2,8 @@
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Orders;
+using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -18,17 +20,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
     public class UserProfileViewModel : PaginationViewModel, IMvxViewModel<int, bool>
     {
+        private readonly IUsersManager _usersManager;
+        private readonly IOrdersManager _ordersManager;
+
         private CancellationTokenSource _cancellationSunsciptionTokenSource;
 
         private int _userId;
         private bool _isReloadNeeded;
         private int _subscribersCount;
 
-        public UserProfileViewModel() : base(Constants.Pagination.DefaultPaginationSize)
+        public UserProfileViewModel(IUsersManager usersManager, IOrdersManager ordersManager) : base(Constants.Pagination.DefaultPaginationSize)
         {
+            _usersManager = usersManager;
+            _ordersManager = ordersManager;
+
             Items = new MvxObservableCollection<OrderItemViewModel>();
             CloseCompletionSource = new TaskCompletionSource<object>();
-            RefreshUserDataCommand = new MvxAsyncCommand(RefreshUserDataAsync);
+
+            RefreshUserDataCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(RefreshUserDataAsync));
             SubscribeCommand = new MvxCommand(Subscribe);
             ShowSubscriptionsCommand = new MvxAsyncCommand(ShowSubscriptionsAsync);
             ShowSubscribersCommand = new MvxAsyncCommand(ShowSubscribersAsync);
@@ -124,9 +133,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             base.ViewDestroy(viewFinishing);
         }
 
-        public override Task Initialize()
+        public override Task InitializeAsync()
         {
-            return Task.WhenAll(base.Initialize(), RefreshUserDataCommand.ExecuteAsync());
+            return Task.WhenAll(base.InitializeAsync(), RefreshUserDataAsync());
         }
 
         protected virtual void Subscribe()
@@ -153,10 +162,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             switch (SelectedOrderType)
             {
                 case ProfileOrderType.MyOrdered:
-                    return await ApiService.GetUserOwnOrdersAsync(_userId, page, pageSize);
+                    return await _ordersManager.GetUserOwnOrdersAsync(_userId, page, pageSize);
 
                 case ProfileOrderType.OrdersCompletedByMe:
-                    return await ApiService.GetUserExecuteOrdersAsync(_userId, page, pageSize);
+                    return await _ordersManager.GetUserExecuteOrdersAsync(_userId, page, pageSize);
             }
 
             return new PaginationModel<OrderDataModel>();
@@ -214,11 +223,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             {
                 if (!IsSubscribed)
                 {
-                    await ApiService.UnsubscribeFromUserAsync(_userId, _cancellationSunsciptionTokenSource.Token);
+                    await _usersManager.UnsubscribeFromUserAsync(_userId, _cancellationSunsciptionTokenSource.Token);
                     return;
                 }
 
-                await ApiService.SubscribeToUserAsync(_userId, _cancellationSunsciptionTokenSource.Token);
+                await _usersManager.SubscribeToUserAsync(_userId, _cancellationSunsciptionTokenSource.Token);
             }
             finally
             {
@@ -231,20 +240,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private Task RefreshUserDataAsync()
         {
-            try
-            {
-                IsBusy = true;
-                return Task.WhenAll(LoadUserProfileAsync(), ReloadItemsCommand.ExecuteAsync());
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            return Task.WhenAll(LoadUserProfileAsync(), ReloadItemsCommand.ExecuteAsync());
         }
 
         private async Task LoadUserProfileAsync()
         {
-            var user = await ApiService.GetUserAsync(_userId);
+            var user = await _usersManager.GetUserAsync(_userId);
             if (user is null)
             {
                 return;

@@ -2,7 +2,9 @@
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
+using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -10,20 +12,21 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Providers;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : BasePageViewModel
     {
-        private readonly IPushNotificationService _notificationService;
+        private readonly IVersionManager _versionManager;
+        private readonly IPushNotificationProvider _notificationService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
         private readonly int[] _skipTabIndexesInDemoMode = new[] { 2, 4 };
-        private int _lastSelectedTab;
 
-        private MvxSubscriptionToken _refreshTokenExpiredToken;
+        private int _lastSelectedTab;
 
         public MvxAsyncCommand ShowContentCommand { get; }
 
@@ -39,8 +42,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public IMvxAsyncCommand CheckActualAppVersionCommand { get; }
 
-        public MainViewModel(IPushNotificationService notificationService, IWalkthroughsProvider walkthroughsProvider)
+        private IDisposable _refreshTokenExpiredMessageSubscription;
+
+        public MainViewModel(IVersionManager versionManager,
+                             IPushNotificationProvider notificationService,
+                             IWalkthroughsProvider walkthroughsProvider)
         {
+            _versionManager = versionManager;
             _notificationService = notificationService;
             _walkthroughsProvider = walkthroughsProvider;
 
@@ -51,6 +59,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             ShowWalkthrouthIfNeedCommand = new MvxAsyncCommand<int>(ShowWalthroughIfNeedAsync);
             SendTabChangedCommand = new MvxCommand<int>(SendTabChanged);
             CheckActualAppVersionCommand = new MvxAsyncCommand(CheckActualAppVersionAsync);
+
+            _refreshTokenExpiredMessageSubscription = Messenger.Subscribe<RefreshTokenExpiredMessage>(RefreshTokenExpired, MvxReference.Strong).DisposeWith(Disposables);
+            Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
+            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
         }
 
         private async Task CheckActualAppVersionAsync()
@@ -60,7 +72,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 return;
             }
 
-            var newActualVersion = await ApiService.CheckAppVersionAsync();
+            var newActualVersion = await _versionManager.CheckAppVersionAsync();
             if (!string.IsNullOrEmpty(newActualVersion?.Link))
             {
                 await NavigationService.ShowMaintananceView(newActualVersion.Link);
@@ -78,25 +90,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         {
             base.ViewCreated();
             _notificationService.TryUpdateTokenAsync().FireAndForget();
-            Subscription();
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            Unsubscription();
-            base.ViewDestroy(viewFinishing);
-        }
-
-        private void Subscription()
-        {
-            SubscribeToNotificationsUpdates();
-            _refreshTokenExpiredToken = Messenger.Subscribe<RefreshTokenExpiredMessage>(RefreshTokenExpired, MvxReference.Strong);
-        }
-
-        private void Unsubscription()
-        {
-            UnsubscribeFromNotificationsUpdates();
-            _refreshTokenExpiredToken.Dispose();
         }
 
         public bool CanSwitchTabs(int position)
@@ -165,7 +158,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private void RefreshTokenExpired(RefreshTokenExpiredMessage _)
         {
-            _refreshTokenExpiredToken.Dispose();
+            Disposables.Remove(_refreshTokenExpiredMessageSubscription);
+            _refreshTokenExpiredMessageSubscription.Dispose();
             NavigationService.Logout().FireAndForget();
         }
     }

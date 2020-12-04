@@ -6,6 +6,8 @@ using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Authorization;
+using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -18,21 +20,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
     public class ProfileUpdateViewModel : BaseProfileViewModel, IMvxViewModelResult<ProfileUpdateResult>
     {
+        private readonly IAuthorizationManager _authorizationManager;
         private readonly IMediaService _mediaService;
         private readonly IExternalAuthService _externalAuthService;
-        private readonly IPushNotificationService _pushNotificationService;
+        private readonly IPushNotificationProvider _pushNotificationService;
 
         private bool _isUserPhotoUpdated;
 
-        public ProfileUpdateViewModel(IExternalAuthService externalAuthService,
-                                      IPushNotificationService pushNotificationService,
-                                      IMediaService mediaService)
+        public ProfileUpdateViewModel(IAuthorizationManager authorizationManager,
+                                      IUsersManager usersManager,
+                                      IExternalAuthService externalAuthService,
+                                      IPushNotificationProvider pushNotificationService,
+                                      IMediaService mediaService) : base(usersManager)
         {
+            _authorizationManager = authorizationManager;
             _externalAuthService = externalAuthService;
             _pushNotificationService = pushNotificationService;
             _mediaService = mediaService;
 
-            SaveProfileCommand = new MvxAsyncCommand(SaveProfileAsync);
+            SaveProfileCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(SaveProfileAsync));
             ChangePasswordCommand = new MvxAsyncCommand(ChangePasswordAsync);
             ShowMenuCommand = new MvxAsyncCommand(ShowMenuAsync);
             ChangeProfilePhotoCommand = new MvxAsyncCommand(ChangeProfilePhotoAsync);
@@ -62,36 +68,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            try
+            var dataModel = new UserUpdateProfileDataModel(Name,
+                                                           Email,
+                                                           Login,
+                                                           Gender.Value,
+                                                           Birthday?.ToShortDateString(),
+                                                           Description);
+
+            if (_isUserPhotoUpdated)
             {
-                IsBusy = true;
-
-                var dataModel = new UserUpdateProfileDataModel()
+                var user = await UsersManager.SendAvatarAsync(ProfilePhotoUrl);
+                if (user == null)
                 {
-                    Email = Email,
-                    Login = Login,
-                    Name = Name,
-                    Sex = Gender.Value,
-                    Birthday = Birthday?.ToShortDateString(),
-                    Description = Description
-                };
-
-                if (_isUserPhotoUpdated)
-                {
-                    var user = await ApiService.SendAvatarAsync(ProfilePhotoUrl);
-                    if (user == null)
-                    {
-                        ErrorHandleService.LogError(this, "User is null after avatar loading. Aborting.");
-                    }
+                    ErrorHandleService.LogError(this, "User is null after avatar loading. Aborting.");
                 }
+            }
 
-                SettingsService.User = await ApiService.UpdateProfileAsync(dataModel);
-                await NavigationService.CloseViewWithResult(this, new ProfileUpdateResult(true, _isUserPhotoUpdated));
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            SettingsService.User = await UsersManager.UpdateProfileAsync(dataModel);
+            await NavigationService.CloseViewWithResult(this, new ProfileUpdateResult(true, _isUserPhotoUpdated));
         }
 
         private async Task ShowMenuAsync()
@@ -147,7 +141,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 {
                     ErrorHandleService.SuspendServerErrorsHandling();
                     await _pushNotificationService.UnregisterNotificationsAsync();
-                    await ApiService.LogoutAsync();
+                    await _authorizationManager.LogoutAsync();
                 }
                 catch (Exception ex)
                 {

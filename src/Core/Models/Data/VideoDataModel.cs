@@ -5,6 +5,49 @@ namespace PrankChat.Mobile.Core.Models.Data
 {
     public class VideoDataModel
     {
+        public VideoDataModel(int id,
+                              string title,
+                              string description,
+                              string poster,
+                              string status,
+                              long viewsCount,
+                              long repostsCount,
+                              long likesCount,
+                              long dislikesCount,
+                              long commentsCount,
+                              string streamUri,
+                              string previewUri,
+                              string markedStreamUri,
+                              string shareUri,
+                              bool isLiked,
+                              bool isDisliked,
+                              OrderCategory? orderCategory,
+                              DateTimeOffset createdAt,
+                              UserDataModel user,
+                              UserDataModel customer)
+        {
+            Id = id;
+            Title = title;
+            Description = description;
+            Poster = poster;
+            Status = status;
+            ViewsCount = viewsCount;
+            RepostsCount = repostsCount;
+            LikesCount = likesCount;
+            DislikesCount = dislikesCount;
+            CommentsCount = commentsCount;
+            StreamUri = streamUri;
+            PreviewUri = previewUri;
+            MarkedStreamUri = markedStreamUri;
+            ShareUri = shareUri;
+            IsLiked = isLiked;
+            IsDisliked = isDisliked;
+            OrderCategory = orderCategory;
+            CreatedAt = createdAt;
+            User = user;
+            Customer = customer;
+        }
+
         public int Id { get; set; }
 
         public string Title { get; set; }

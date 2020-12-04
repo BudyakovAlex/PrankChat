@@ -1,23 +1,23 @@
 ﻿using Badge.Plugin;
 using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
+using PrankChat.Mobile.Core.Managers.Notifications;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {
-    public class NotificationBageViewModel : BaseItemViewModel, INotificationBageViewModel
+    public class NotificationBageViewModel : BaseViewModel, INotificationBageViewModel
     {
-        private readonly IApiService _apiService;
+        private readonly INotificationsManager _notificationManager;
         private readonly ISettingsService _settingsService;
 
-        public NotificationBageViewModel(IApiService apiService, ISettingsService settingsService)
+        public NotificationBageViewModel(INotificationsManager notificationManager, ISettingsService settingsService)
         {
-            _apiService = apiService;
+            _notificationManager = notificationManager;
             _settingsService = settingsService;
 
-            RefreshDataCommand = new MvxAsyncCommand(RefreshDataAsync);
+            RefreshDataCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(RefreshDataAsync));
         }
 
         public IMvxAsyncCommand RefreshDataCommand { get; }
@@ -26,32 +26,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         private async Task RefreshDataAsync()
         {
-            try
+            if (_settingsService.User is null)
             {
-                if (IsBusy)
-                {
-                    return;
-                }
-
-                IsBusy = true;
-
-                if (_settingsService.User is null)
-                {
-                    return;
-                }
-
-                var unreadNotifications = await _apiService.GetUnreadNotificationsCountAsync();
-                HasUnreadNotifications = unreadNotifications > 0;
-                await RaisePropertyChanged(nameof(HasUnreadNotifications));
-
-                if (HasUnreadNotifications)
-                {
-                    MainThread.BeginInvokeOnMainThread(() => CrossBadge.Current.SetBadge(unreadNotifications));
-                }
+                return;
             }
-            finally
+
+            var unreadNotifications = await _notificationManager.GetUnreadNotificationsCountAsync();
+            HasUnreadNotifications = unreadNotifications > 0;
+            await RaisePropertyChanged(nameof(HasUnreadNotifications));
+
+            if (HasUnreadNotifications)
             {
-                IsBusy = false;
+                MainThread.BeginInvokeOnMainThread(() => CrossBadge.Current.SetBadge(unreadNotifications));
             }
         }
     }

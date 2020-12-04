@@ -2,9 +2,12 @@
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Publications;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -23,19 +26,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
     public class PublicationsViewModel : PaginationViewModel, IVideoListViewModel
     {
+        private readonly IPublicationsManager _publicationsManager;
+        private readonly IVideoManager _videoManager;
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
 
         private readonly Dictionary<DateFilterType, string> _dateFilterTypeTitleMap;
 
-        private MvxSubscriptionToken _reloadItemsSubscriptionToken;
-        private MvxSubscriptionToken _tabChangedMessage;
-        private MvxSubscriptionToken _enterForegroundMessage;
-
         private Task _reloadTask;
 
-        public PublicationsViewModel(IPlatformService platformService, IVideoPlayerService videoPlayerService) : base(Constants.Pagination.DefaultPaginationSize)
+        public PublicationsViewModel(IPublicationsManager publicationsManager,
+                                     IVideoManager videoManager,
+                                     IPlatformService platformService,
+                                     IVideoPlayerService videoPlayerService) : base(Constants.Pagination.DefaultPaginationSize)
         {
+            _publicationsManager = publicationsManager;
+            _videoManager = videoManager;
             _platformService = platformService;
             _videoPlayerService = videoPlayerService;
 
@@ -52,6 +58,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             ItemsChangedInteraction = new MvxInteraction();
             OpenFilterCommand = new MvxAsyncCommand(OnOpenFilterAsync);
+
+            Messenger.SubscribeOnMainThread<ReloadPublicationsMessage>((msg) => OnReloadItems()).DisposeWith(Disposables);
+            Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => OnReloadItems()).DisposeWith(Disposables);
+            Messenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage).DisposeWith(Disposables);
+            Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
+            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
         }
 
         private PublicationType _selectedPublicationType;
@@ -99,9 +111,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public IMvxAsyncCommand OpenFilterCommand { get; }
 
-        public override async Task Initialize()
+        public override async Task InitializeAsync()
         {
-            await base.Initialize();
+            await base.InitializeAsync();
 
             ActiveFilter = DateFilterType.HalfYear;
             await LoadMoreItemsCommand.ExecuteAsync();
@@ -120,21 +132,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _videoPlayerService.Play();
         }
 
-        public override void ViewCreated()
-        {
-            base.ViewCreated();
-            Subscription();
-        }
-
         public override void ViewDestroy(bool viewFinishing = true)
         {
             foreach (var publicationItemViewModel in Items)
             {
                 publicationItemViewModel.Dispose();
             }
-
-            Unsubscription();
-            base.ViewDestroy(viewFinishing);
         }
 
         private async Task DebounceRefreshDataAsync(PublicationType publicationType)
@@ -172,21 +175,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             await ReloadItemsCommand.ExecuteAsync();
         }
 
-        protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
+        protected async override Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
         {
             try
             {
-                IsBusy = true;
-
                 PaginationModel<VideoDataModel> pageContainer = null;
                 switch (SelectedPublicationType)
                 {
                     case PublicationType.Popular:
-                        pageContainer = await ApiService.GetPopularVideoFeedAsync(ActiveFilter, page, pageSize);
+                        pageContainer = await _publicationsManager.GetPopularVideoFeedAsync(ActiveFilter, page, pageSize);
                         break;
 
                     case PublicationType.Actual:
-                        pageContainer = await ApiService.GetActualVideoFeedAsync(DateFilterType.HalfYear, page, pageSize);
+                        pageContainer = await _publicationsManager.GetActualVideoFeedAsync(DateFilterType.HalfYear, page, pageSize);
                         break;
 
                     case PublicationType.MyVideosOfCreatedOrders:
@@ -196,7 +197,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                             return 0;
                         }
 
-                        pageContainer = await ApiService.GetMyVideoFeedAsync(page, pageSize, DateFilterType.HalfYear);
+                        pageContainer = await _publicationsManager.GetMyVideoFeedAsync(page, pageSize, DateFilterType.HalfYear);
                         break;
                 }
 
@@ -208,15 +209,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 ErrorHandleService.LogError(this, "Error on publication list loading.");
                 return 0;
             }
-            finally
-            {
-                IsBusy = false;
-            }
         }
 
         private PublicationItemViewModel ProducePublicationItemViewModel(VideoDataModel publication)
         {
-            return new PublicationItemViewModel(_platformService,
+            return new PublicationItemViewModel(_publicationsManager,
+                                                _videoManager,
+                                                _platformService,
                                                 _videoPlayerService,
                                                 publication,
                                                 GetFullScreenVideoDataModels);
@@ -234,14 +233,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             return Items.Select(item => item.GetFullScreenVideoDataModel()).ToList();
         }
 
-        private void Subscription()
-        {
-            _reloadItemsSubscriptionToken = Messenger.SubscribeOnMainThread<ReloadPublicationsMessage>((msg) => OnReloadItems());
-            _enterForegroundMessage = Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => OnReloadItems());
-            _tabChangedMessage = Messenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage);
-            SubscribeToNotificationsUpdates();
-        }
-
         private void OnTabChangedMessage(TabChangedMessage msg)
         {
             if (msg.TabType != MainTabType.Publications ||
@@ -252,15 +243,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             Items.Clear();
             ReloadItemsCommand.Execute();
-        }
-
-        private void Unsubscription()
-        {
-            _reloadItemsSubscriptionToken?.Dispose();
-            _enterForegroundMessage?.Dispose();
-            _tabChangedMessage?.Dispose();
-
-            UnsubscribeFromNotificationsUpdates();
         }
 
         private void OnReloadItems()
