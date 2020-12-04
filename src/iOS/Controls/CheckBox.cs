@@ -47,10 +47,10 @@ namespace PrankChat.Mobile.iOS.Controls
             Initialize();
         }
 
-        public CheckBox(CGRect frame, UIAction primaryAction) : base(frame, primaryAction)
-        {
-            Initialize();
-        }
+        //public CheckBox(CGRect frame, UIAction primaryAction) : base(frame, primaryAction)
+        //{
+        //    Initialize();
+        //}
 
         protected CheckBox(NSObjectFlag t) : base(t)
         {
