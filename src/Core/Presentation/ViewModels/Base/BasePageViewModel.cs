@@ -10,7 +10,6 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
 using System.Linq;
-using System.Reactive.Disposables;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
@@ -20,16 +19,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         private const int RefreshAfterSeconds = 15;
 
         private int _timerThicksCount;
-        private bool _isDisposed;
 
         public BasePageViewModel()
         {
-            Disposables = new CompositeDisposable();
-
-            ExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(OnIsBusyChanged,
-                                                                               (wrapper, handler) => wrapper.IsBusyChanged += handler,
-                                                                               (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
-
             ShowNotificationCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowNotificationView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
             ShowSearchCommand = new MvxAsyncCommand(NavigationService.ShowSearchView);
             GoBackCommand = new MvxAsyncCommand(GoBackAsync);
@@ -96,8 +88,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             }));
         }
 
-        public CompositeDisposable Disposables { get; }
-
         MvxNotifyTask IMvxViewModel.InitializeTask { get; set; }
 
         public virtual void Prepare()
@@ -131,11 +121,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             return Task.WhenAll(raisePropertiesTasks);
         }
 
-        protected virtual void OnIsBusyChanged(object sender, bool value)
-        {
-            RaisePropertyChanged(nameof(IsBusy));
-        }
-
         protected void OnTimerTick(TimerTickMessage msg)
         {
             _timerThicksCount++;
@@ -149,27 +134,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         private Task GoBackAsync()
         {
             return NavigationService.CloseView(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_isDisposed)
-            {
-                System.Diagnostics.Debug.WriteLine($"Calling Dispose second time for {GetType().Name}. Ignoring");
-                return;
-            }
-
-            if (disposing)
-            {
-                Disposables.Dispose();
-            }
-
-            _isDisposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
         }
     }
 }

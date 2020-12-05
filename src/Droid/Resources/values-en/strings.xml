@@ -337,4 +337,8 @@ If the customer did not like your video, he can send the task to the \"dispute\"
     <!-- Fuzzy -->
     <string name="Download_Update">"Download update"</string>
     <string name="Email_Already_Exists">"Current email already exists"</string>
+
+    <!-- Creditcard save -->
+    <string name="WithdrawalView_Passport">"Passport"</string>
+    <string name="Create_Order_Secret_order">"Secret order"</string>
 </resources>

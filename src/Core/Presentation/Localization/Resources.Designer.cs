@@ -1870,5 +1870,17 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Email_Already_Exists", resourceCulture);
             }
         }
+        
+        public static string WithdrawalView_Passport {
+            get {
+                return ResourceManager.GetString("WithdrawalView_Passport", resourceCulture);
+            }
+        }
+        
+        public static string Create_Order_Secret_order {
+            get {
+                return ResourceManager.GetString("Create_Order_Secret_order", resourceCulture);
+            }
+        }
     }
 }

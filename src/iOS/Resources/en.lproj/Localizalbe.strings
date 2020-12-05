@@ -330,3 +330,7 @@
 /*Fuzzy*/
 "Download_Update" = "Download update";
 "Email_Already_Exists" = "Current email already exists";
+
+/*Creditcard save*/
+"WithdrawalView_Passport" = "Passport";
+"Create_Order_Secret_order" = "Secret order";

@@ -104,7 +104,7 @@
 					android:buttonTint="@color/accent"
 					android:gravity="left|center_vertical"
 					android:layout_gravity="center_vertical"
-					android:text="@string/CreateOrderView_HideExecutor_Button"
+					android:text="@string/Create_Order_Secret_order"
 					android:textColor="@color/applicationBlack"
 					android:textSize="14dp"
 					app:MvxBind="Checked IsExecutorHidden" />
