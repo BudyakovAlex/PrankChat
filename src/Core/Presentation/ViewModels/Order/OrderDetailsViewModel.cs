@@ -147,7 +147,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
-        public bool IsHiddenOrder => Order?.OrderCategory == OrderCategory.Private;
+        public bool IsHiddenOrder => Order?.OrderCategory == OrderCategory.Private &&
+                                     !CustomerSectionViewModel.IsUserCustomer &&
+                                     !ExecutorSectionViewModel.IsUserExecutor;
 
         public string OrderTitle => Order?.Title;
 

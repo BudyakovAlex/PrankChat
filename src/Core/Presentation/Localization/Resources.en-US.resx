@@ -1050,4 +1050,11 @@ If the customer did not like your video, he can send the task to the &quot;dispu
   <data name="Email_Already_Exists" xml:space="preserve">
     <value>Current email already exists</value>
   </data>
+  <data name="WithdrawalView_Passport" xml:space="preserve">
+    <value>Passport</value>
+    <comment>Creditcard save</comment>
+  </data>
+  <data name="Create_Order_Secret_order" xml:space="preserve">
+    <value>Secret order</value>
+  </data>
 </root>

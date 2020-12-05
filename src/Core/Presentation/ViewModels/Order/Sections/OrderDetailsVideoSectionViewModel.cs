@@ -108,12 +108,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
 
         private async Task LoadVideoAsync()
         {
-            if (IsBusy)
-            {
-                return;
-            }
-
-            var file = await ExecutionStateWrapper.WrapAsync(_mediaService.PickVideoAsync);
+            var file = await _mediaService.PickVideoAsync();
             if (file == null)
             {
                 return;

@@ -23,6 +23,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         private UIImage _checkedImage;
         private UIImage _uncheckedImage;
+
         private UITextPosition _position;
         private UITextView _dynamicDescriptionTextView;
         private UIBarButtonItem _notificationBarItem;
@@ -155,7 +156,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             completeDateTextField.SetDarkStyle(Resources.CreateOrderView_CompleteDate_Placeholder, rightImage: UIImage.FromBundle("ic_calendar_accent"));
 
-            hideExecutorCheckboxLabel.Text = Resources.CreateOrderView_HideExecutor_Button;
+            hideExecutorCheckboxLabel.Text = Resources.Create_Order_Secret_order;
             hideExecutorCheckboxLabel.SetRegularStyle(14, Theme.Color.Black);
             hideExecutorCheckboxLabel.UserInteractionEnabled = true;
             hideExecutorCheckboxLabel.AddGestureRecognizer(new UITapGestureRecognizer(OnCheckboxTapped));

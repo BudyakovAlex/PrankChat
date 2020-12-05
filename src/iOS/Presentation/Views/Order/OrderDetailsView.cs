@@ -290,7 +290,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             set.Bind(progressBarView)
                 .For(v => v.BindVisible())
-                .To(vm => vm.IsBusy);
+                .To(vm => vm.VideoSectionViewModel.IsBusy);
 
             set.Bind(_refreshControl)
                .For(v => v.IsRefreshing)

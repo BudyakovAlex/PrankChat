@@ -342,3 +342,7 @@
 /*Fuzzy*/
 "Download_Update" = "Скачать обновление";
 "Email_Already_Exists" = "Данный эмейл уже зарегистрирован";
+
+/*Creditcard save*/
+"WithdrawalView_Passport" = "Паспорт(серия и номер)";
+"Create_Order_Secret_order" = "Секретный заказ";
