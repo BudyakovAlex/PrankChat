@@ -182,7 +182,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private new async void OnTimerTick(TimerTickMessage msg)
         {
             _timerThicksCount++;
-            if (_timerThicksCount >= 20)
+            if (_timerThicksCount >= 5)
             {
                 _timerThicksCount = 0;
                 try
