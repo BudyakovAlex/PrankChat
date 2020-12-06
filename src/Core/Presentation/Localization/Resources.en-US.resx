@@ -1057,4 +1057,8 @@ If the customer did not like your video, he can send the task to the &quot;dispu
   <data name="Create_Order_Secret_order" xml:space="preserve">
     <value>Secret order</value>
   </data>
+  <data name="Walkthrouth_CreateOrder_Secret_Description" xml:space="preserve">
+    <value>In the profile, the user can track the amount of funds in the current account, as well as all his tasks: published, executed and completed.</value>
+    <comment>Fuzzy</comment>
+  </data>
 </root>
