@@ -252,6 +252,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     Order.Status = takenOrder.Status;
                     Order.Executor = SettingsService.User;
                     Order.ActiveTo = takenOrder.ActiveTo;
+                    Order.Title = takenOrder.Title;
+                    Order.Description = takenOrder.Description;
 
                     await Task.WhenAll(_sections.Select(item => item.RaiseAllPropertiesChanged()));
                     await RaiseAllPropertiesChanged();
@@ -348,6 +350,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 if (order != null && Order != null)
                 {
                     Order.Status = order.Status;
+                    Order.Title = order.Title;
+                    Order.Description = order.Description;
 
                     await Task.WhenAll(_sections.Select(item => item.RaiseAllPropertiesChanged()));
                     await RaiseAllPropertiesChanged();
