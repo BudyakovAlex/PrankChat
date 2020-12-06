@@ -30,8 +30,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             _walkthroughsProvider = walkthroughsProvider;
 
             ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
+            ShowWalkthrouthSecretCommand = new MvxAsyncCommand(ShowWalkthrouthSecretAsync);
             ShowDateDialogCommand = new MvxAsyncCommand(ShowDateDialogAsync);
-            CreateCommand = new MvxAsyncCommand(CreateAsync);
+            CreateCommand = new MvxAsyncCommand( CreateAsync);
         }
 
         private PeriodDataModel _activeFor;
@@ -78,9 +79,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
 
+        public IMvxAsyncCommand ShowWalkthrouthSecretCommand { get; }
+
         private Task ShowWalkthrouthAsync()
         {
             return _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>();
+        }
+
+        private Task ShowWalkthrouthSecretAsync()
+        {
+            return NavigationService.ShowWalthroughView(Resources.Create_Order_Secret_order, Resources.Walkthrouth_CreateOrder_Secret_Description);
         }
 
         private async Task CreateAsync()

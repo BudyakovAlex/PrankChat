@@ -88,7 +88,7 @@
     <string name="CreateOrderView_Description_Placeholder">"Описание заказа"</string>
     <string name="CreateOrderView_Price_Placeholder">"10 000 ₽"</string>
     <string name="CreateOrderView_CompleteDate_Placeholder">"Дата исполнения"</string>
-    <string name="CreateOrderView_HideExecutor_Button">"Секретный заказ"</string>
+    <string name="CreateOrderView_HideExecutor_Button">"Скрыть исполнителя"</string>
     <string name="CreateOrderView_Create_Button">"Создать заказ"</string>
     <string name="NotificationView_Title">"Уведомления"</string>
     <string name="OrderDetailsView_Price_Text">"Сумма заказа:"</string>
@@ -355,4 +355,7 @@
     <!-- Creditcard save -->
     <string name="WithdrawalView_Passport">"Паспорт(серия и номер)"</string>
     <string name="Create_Order_Secret_order">"Секретный заказ"</string>
+
+    <!-- Fuzzy -->
+    <string name="Walkthrouth_CreateOrder_Secret_Description">"В профиле пользователь может отслеживать сумму денежных средств на расчетном счете, а также все свои задания: опубликованные исполняемые и исполненные."</string>
 </resources>

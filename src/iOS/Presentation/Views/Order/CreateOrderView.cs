@@ -99,6 +99,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .To(vm => vm.IsExecutorHidden)
                 .Mode(MvvmCross.Binding.MvxBindingMode.TwoWay);
 
+            set.Bind(InfoImageView)
+               .For(v => v.BindTap())
+               .To(vm => vm.ShowWalkthrouthSecretCommand);
+
             set.Apply();
 		}
 

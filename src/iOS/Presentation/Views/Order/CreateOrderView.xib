@@ -136,12 +136,12 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_info" translatesAutoresizingMaskIntoConstraints="NO" id="Hpb-fU-ykB">
-                                    <rect key="frame" x="130" y="312" width="22" height="22"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_info" translatesAutoresizingMaskIntoConstraints="NO" id="Hpb-fU-ykB">
+                                    <rect key="frame" x="121" y="303" width="40" height="40"/>
                                     <color key="tintColor" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="22" id="3Yt-Jg-ApD"/>
-                                        <constraint firstAttribute="height" constant="22" id="jNl-da-zYQ"/>
+                                        <constraint firstAttribute="width" constant="40" id="3Yt-Jg-ApD"/>
+                                        <constraint firstAttribute="height" constant="40" id="jNl-da-zYQ"/>
                                     </constraints>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kIc-F7-6ov">
@@ -165,7 +165,7 @@
                                 <constraint firstItem="Mkv-tc-vtV" firstAttribute="top" secondItem="BDc-xh-Ib0" secondAttribute="bottom" constant="16" id="cQP-eT-QJe"/>
                                 <constraint firstAttribute="bottom" secondItem="kIc-F7-6ov" secondAttribute="bottom" constant="10" id="fEA-iT-MsE"/>
                                 <constraint firstItem="BDc-xh-Ib0" firstAttribute="top" secondItem="fQO-fP-Hac" secondAttribute="top" id="j5q-Er-23j"/>
-                                <constraint firstItem="Hpb-fU-ykB" firstAttribute="leading" secondItem="XJw-V4-peh" secondAttribute="trailing" constant="19" id="kJ4-Tx-FGS"/>
+                                <constraint firstItem="Hpb-fU-ykB" firstAttribute="leading" secondItem="XJw-V4-peh" secondAttribute="trailing" constant="10" id="kJ4-Tx-FGS"/>
                                 <constraint firstItem="XJw-V4-peh" firstAttribute="leading" secondItem="Mkv-tc-vtV" secondAttribute="trailing" constant="8" id="xdk-tZ-Ly6"/>
                             </constraints>
                         </view>
