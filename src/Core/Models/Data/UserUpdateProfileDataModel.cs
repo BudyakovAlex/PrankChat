@@ -7,7 +7,7 @@ namespace PrankChat.Mobile.Core.Models.Data
         public UserUpdateProfileDataModel(string name,
                                           string email,
                                           string login,
-                                          GenderType? sex,
+                                          string sex,
                                           string birthday,
                                           string description)
         {
@@ -25,7 +25,7 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public string Login { get; set; }
 
-        public GenderType? Sex { get; set; }
+        public string Sex { get; set; }
 
         public string Birthday { get; set; }
 

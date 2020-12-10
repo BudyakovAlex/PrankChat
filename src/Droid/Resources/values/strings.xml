@@ -137,7 +137,10 @@
     <string name="Ok">"Ок"</string>
     <string name="Attention">"Внимание!"</string>
     <string name="OrderDetailsView_TakeOrderTitle">"Взять заказ"</string>
-    <string name="OrderDetailsView_TakeOrderQuestion">"Для принятия заказа необходимо внести 20 \%% от его стоимости как гарантия его выполнения "</string>
+    <string name="OrderDetailsView_TakeOrderQuestion">
+      "Для принятия заказа необходимо внести задаток, как гарантию его выполнения:
+      20\%% стоимости для обычных заказов
+      40\%% для секретных заказов "</string>
 
     <!-- Fuzzy -->
     <string name="Seconds_Short">"сек."</string>

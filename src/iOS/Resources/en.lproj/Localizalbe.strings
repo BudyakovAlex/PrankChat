@@ -135,7 +135,7 @@
 "Ok" = "OK";
 "Attention" = "Attention!";
 "OrderDetailsView_TakeOrderTitle" = "Take an order";
-"OrderDetailsView_TakeOrderQuestion" = "To accept the order, you must pay 20% of its value as a guarantee of its implementation ";
+"OrderDetailsView_TakeOrderQuestion" = "To accept the order, you must pay a Deposit as a guarantee of its implementation \n20% of the cost for simple orders\n40% for secret orders";
 
 /*Fuzzy*/
 "Seconds_Short" = "s.";

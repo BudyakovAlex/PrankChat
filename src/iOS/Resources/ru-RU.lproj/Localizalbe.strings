@@ -135,7 +135,7 @@
 "Ok" = "Ок";
 "Attention" = "Внимание!";
 "OrderDetailsView_TakeOrderTitle" = "Взять заказ";
-"OrderDetailsView_TakeOrderQuestion" = "Для принятия заказа необходимо внести 20 % от его стоимости как гарантия его выполнения ";
+"OrderDetailsView_TakeOrderQuestion" = "Для принятия заказа необходимо внести задаток, как гарантию его выполнения:\n20% стоимости для обычных заказов\n40% для секретных заказов ";
 
 /*Fuzzy*/
 "Seconds_Short" = "сек.";

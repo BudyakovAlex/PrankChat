@@ -529,7 +529,9 @@
     <value>Взять заказ</value>
   </data>
   <data name="OrderDetailsView_TakeOrderQuestion" xml:space="preserve">
-    <value>Для принятия заказа необходимо внести 20 % от его стоимости как гарантия его выполнения </value>
+    <value>Для принятия заказа необходимо внести задаток, как гарантию его выполнения:
+20% стоимости для обычных заказов
+40% для секретных заказов </value>
   </data>
   <data name="Seconds_Short" xml:space="preserve">
     <value>сек.</value>
