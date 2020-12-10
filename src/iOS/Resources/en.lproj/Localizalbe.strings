@@ -135,7 +135,7 @@
 "Ok" = "OK";
 "Attention" = "Attention!";
 "OrderDetailsView_TakeOrderTitle" = "Take an order";
-"OrderDetailsView_TakeOrderQuestion" = "To accept the order, you must pay 20% of its value as a guarantee of its implementation ";
+"OrderDetailsView_TakeOrderQuestion" = "To accept the order, you must pay a Deposit as a guarantee of its implementation \n20% of the cost for simple orders\n40% for secret orders";
 
 /*Fuzzy*/
 "Seconds_Short" = "s.";
@@ -336,4 +336,4 @@
 "Create_Order_Secret_order" = "Secret order";
 
 /*Fuzzy*/
-"Walkthrouth_CreateOrder_Secret_Description" = "In the profile, the user can track the amount of funds in the current account, as well as all his tasks: published, executed and completed.";
+"Walkthrouth_CreateOrder_Secret_Description" = "Secret orders allow you to hide the task text from other users until they take it to work!\n\nTaking such a task the user will have to complete it or lose the Deposit!";

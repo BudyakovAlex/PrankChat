@@ -529,7 +529,9 @@
     <value>Take an order</value>
   </data>
   <data name="OrderDetailsView_TakeOrderQuestion" xml:space="preserve">
-    <value>To accept the order, you must pay 20% of its value as a guarantee of its implementation </value>
+    <value>To accept the order, you must pay a Deposit as a guarantee of its implementation 
+20% of the cost for simple orders
+40% for secret orders</value>
   </data>
   <data name="Seconds_Short" xml:space="preserve">
     <value>s.</value>
@@ -1058,7 +1060,9 @@ If the customer did not like your video, he can send the task to the &quot;dispu
     <value>Secret order</value>
   </data>
   <data name="Walkthrouth_CreateOrder_Secret_Description" xml:space="preserve">
-    <value>In the profile, the user can track the amount of funds in the current account, as well as all his tasks: published, executed and completed.</value>
+    <value>Secret orders allow you to hide the task text from other users until they take it to work!
+
+Taking such a task the user will have to complete it or lose the Deposit!</value>
     <comment>Fuzzy</comment>
   </data>
 </root>

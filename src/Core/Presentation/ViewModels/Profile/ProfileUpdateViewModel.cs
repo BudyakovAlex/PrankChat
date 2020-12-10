@@ -71,7 +71,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             var dataModel = new UserUpdateProfileDataModel(Name,
                                                            Email,
                                                            Login,
-                                                           Gender.Value.ToString(),
+                                                           Gender.Value.ToString().ToLower(),
                                                            Birthday?.ToShortDateString(),
                                                            Description);
 
