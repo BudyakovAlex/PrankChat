@@ -347,4 +347,6 @@ If the customer did not like your video, he can send the task to the \"dispute\"
 
     <!-- Fuzzy -->
     <string name="Walkthrouth_CreateOrder_Secret_Description">"In the profile, the user can track the amount of funds in the current account, as well as all his tasks: published, executed and completed."</string>
+
+Taking such a task the user will have to complete it or lose the Deposit!"</string>
 </resources>
