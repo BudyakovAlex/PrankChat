@@ -21,7 +21,6 @@ using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.BusinessServices.Sentry;
 using PrankChat.Mobile.Core.BusinessServices.TaskSchedulers;
 using PrankChat.Mobile.Core.BusinessServices.TaskSchedulers.BackgroundTasks.SendLogs;
-using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.Managers.Competitions;
@@ -36,18 +35,13 @@ using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Providers;
 using PrankChat.Mobile.Managers.Common;
-using System.Linq;
 
 namespace PrankChat.Mobile.Core
 {
     public class App : MvxApplication
     {
-        private const string MappingProfileSuffix = "MappingProfile";
-
         public override void Initialize()
         {           
-            InitializeMappings();
-
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ILogger, Logger>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IWalkthroughsProvider, WalkthroughsProvider>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISendLogsBackgroundTask, SendLogsBackgroundTask>();
@@ -100,14 +94,6 @@ namespace PrankChat.Mobile.Core
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISearchManager, SearchManager>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IUsersManager, UsersManager>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IVideoManager, VideoManager>();
-        }
-
-        private void InitializeMappings()
-        {
-            var mappingTypes = CreatableTypes().EndingWith(MappingProfileSuffix)
-                                               .AsTypes()
-                                               .Select(serviceType => serviceType.ImplementationType);
-            MappingConfig.Configure(mappingTypes);
         }
     }
 }

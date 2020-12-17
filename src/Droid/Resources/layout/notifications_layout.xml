@@ -8,7 +8,7 @@
         layout="@layout/action_bar_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout
+    <mvvmcross.droidx.MvxSwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:background="@color/applicationWhite"
         android:layout_height="match_parent"
@@ -17,5 +17,5 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout>
+    </mvvmcross.droidx.MvxSwipeRefreshLayout>
 </LinearLayout>

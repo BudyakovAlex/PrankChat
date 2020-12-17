@@ -1,9 +1,9 @@
 ﻿using System;
 using Android.Content;
 using Android.Runtime;
-using Android.Support.V4.View;
 using Android.Util;
 using Android.Views;
+using AndroidX.ViewPager.Widget;
 
 namespace PrankChat.Mobile.Droid.Controls
 {

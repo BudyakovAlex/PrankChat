@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <MvxSwipeRefreshLayout
+        <mvvmcross.droidx.MvxSwipeRefreshLayout
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:background="@color/applicationWhite"
                 android:layout_height="match_parent" />
-        </MvxSwipeRefreshLayout>
+        </mvvmcross.droidx.MvxSwipeRefreshLayout>
         <FrameLayout
             android:id="@+id/loading_overlay"
             android:layout_width="match_parent"

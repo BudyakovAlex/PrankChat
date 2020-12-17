@@ -15,7 +15,7 @@
         tools:background="@drawable/bg_competition_blue"
         tools:ignore="UselessParent">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="572dp">
 
@@ -286,6 +286,6 @@
                     android:textSize="16dp"
                     tools:text="21.12.2019" />
             </LinearLayout>
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </FrameLayout>

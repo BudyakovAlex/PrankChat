@@ -3,7 +3,6 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Droid.Support.V7.AppCompat;
-using Plugin.Permissions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using Toolbar = Android.Support.V7.Widget.Toolbar;
 
@@ -72,7 +71,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
         protected virtual void DoBind()

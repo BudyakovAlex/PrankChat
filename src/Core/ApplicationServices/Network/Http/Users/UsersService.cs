@@ -103,7 +103,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
 
         public async Task<UserApiModel> UpdateProfileAsync(UserUpdateProfileApiModel userUpdateProfileApiModel)
         {
-            // var userUpdateProfileApiModel = MappingConfig.Mapper.Map<UserUpdateProfileApiModel>(userInfo);
             var dataApiModel = await _client.PostAsync<UserUpdateProfileApiModel, DataApiModel<UserApiModel>>("me", userUpdateProfileApiModel);
             return dataApiModel?.Data;
         }

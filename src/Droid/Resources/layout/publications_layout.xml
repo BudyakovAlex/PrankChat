@@ -5,18 +5,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/publication_type_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="41dp"
 		style="@style/Theme.PrankChat.Publication.TabLayout">
-        <android.support.design.widget.TabItem
+        <com.google.android.material.tabs.TabItem
             android:text="@string/Popular_Publication_Tab" />
-        <android.support.design.widget.TabItem
+        <com.google.android.material.tabs.TabItem
             android:text="@string/Actual_Publication_Tab" />
-        <android.support.design.widget.TabItem
+        <com.google.android.material.tabs.TabItem
             android:text="@string/MyFeed_Publication_Tab" />
-    </android.support.design.widget.TabLayout>
+    </com.google.android.material.tabs.TabLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -57,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/separator" />
-    <MvxSwipeRefreshLayout
+    <mvvmcross.droidx.MvxSwipeRefreshLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         app:MvxBind="Refreshing IsBusy; RefreshCommand ReloadItemsCommand">
@@ -65,5 +65,5 @@
             android:id="@+id/publication_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </MvxSwipeRefreshLayout>
+    </mvvmcross.droidx.MvxSwipeRefreshLayout>
 </LinearLayout>

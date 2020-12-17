@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Plugin.Permissions;
+using static Xamarin.Essentials.Permissions;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Permissions
 {

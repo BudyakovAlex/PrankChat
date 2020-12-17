@@ -53,7 +53,7 @@ namespace PrankChat.Mobile.Core.Managers.Users
 
         public async Task<UserDataModel> UpdateProfileAsync(UserUpdateProfileDataModel userInfo)
         {
-            var ss = new UserUpdateProfileApiModel()
+            var apiModel = new UserUpdateProfileApiModel()
             {
                 Name = userInfo.Name,
                 Email = userInfo.Email,
@@ -63,7 +63,7 @@ namespace PrankChat.Mobile.Core.Managers.Users
                 Description = userInfo.Description,
             };
 
-            var response = await _usersService.UpdateProfileAsync(ss);
+            var response = await _usersService.UpdateProfileAsync(apiModel);
             return response.Map();
         }
 

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Firebase.Crashlytics;
+using Foundation;
 using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
-using Firebase.Crashlytics;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Foundation;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Crashlytic
 {
@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Crashlytic
 
 		public void TrackEvent(string message)
 		{
-            Crashlytics.SharedInstance.LogEvent(message);
+            Crashlytics.SharedInstance.Log(message);
         }
 
 		public void TrackError(Exception exception)
@@ -24,9 +24,14 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Crashlytic
 				return;
 			}
 
-			Crashlytics.SharedInstance.SetValue(exception.StackTrace, "Stack Trace");
-			Crashlytics.SharedInstance.SetValue(exception.GetType().FullName, "Exception");
-			Crashlytics.SharedInstance.RecordCustomExceptionName(exception.GetType().Name, exception.Message, CreateStackTrace(exception));
+			Crashlytics.SharedInstance.SetCustomValue(NSObject.FromObject(exception.StackTrace), "Stack Trace");
+			Crashlytics.SharedInstance.SetCustomValue(NSObject.FromObject(exception.GetType().FullName), "Exception");
+            var error = new ExceptionModel(exception.GetType().FullName, exception.StackTrace)
+            {
+                StackTrace = CreateStackTrace(exception)
+            };
+
+            Crashlytics.SharedInstance.RecordExceptionModel(error);
 		}
 
 		private static StackFrame[] CreateStackTrace(Exception exception)
@@ -47,9 +52,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Crashlytic
 						if (string.IsNullOrEmpty(file))
 							file = "filename unknown";
 
-						var frame = StackFrame.Create(cls + "." + method);
-						frame.FileName = file;
-						frame.LineNumber = (uint)line;
+						var frame = StackFrame.Create(cls + "." + method, file, line);
 						stackFrames.Add(frame);
 					}
 				}

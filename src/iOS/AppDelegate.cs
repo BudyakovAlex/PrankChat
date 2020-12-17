@@ -108,7 +108,7 @@ namespace PrankChat.Mobile.iOS
                 Firebase.Core.App.Configure();
             }
 
-            Crashlytics.Configure();
+            Crashlytics.SharedInstance.Init();
         }
 
         private void InitializePushNotification()
