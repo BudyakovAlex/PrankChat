@@ -1,8 +1,8 @@
 ﻿using Android.OS;
 using Android.Runtime;
-using Android.Support.Design.Widget;
-using Android.Support.V7.Widget;
 using Android.Views;
+using AndroidX.RecyclerView.Widget;
+using Google.Android.Material.Tabs;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;

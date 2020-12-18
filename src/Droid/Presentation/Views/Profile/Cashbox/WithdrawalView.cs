@@ -1,13 +1,10 @@
-﻿using System;
-using Android.Graphics;
+﻿using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.Design.Widget;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
-using MvvmCross.Binding;
-using MvvmCross.Binding.BindingContext;
+using Google.Android.Material.TextField;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;

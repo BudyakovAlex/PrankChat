@@ -163,6 +163,7 @@
             android:paddingLeft="6dp"
             android:paddingRight="6dp"
             android:text="@string/Order_View_Details"
+            android:textColor="@color/applicationWhite"
             android:textAlignment="center"
             app:MvxBind="Click OpenDetailsOrderCommand; OrderButtonStyle OrderType"
             app:layout_constraintHorizontal_weight="1"

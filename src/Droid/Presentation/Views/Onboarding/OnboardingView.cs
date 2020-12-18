@@ -6,12 +6,10 @@ using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.V4.Content.Res;
-using Android.Support.V7.Widget;
+using AndroidX.Core.Content.Resources;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -24,6 +22,8 @@ using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Onboarding;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Utils.Helpers;
+using AndroidX.RecyclerView.Widget;
+using MvvmCross.DroidX.RecyclerView;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Onboarding
 {

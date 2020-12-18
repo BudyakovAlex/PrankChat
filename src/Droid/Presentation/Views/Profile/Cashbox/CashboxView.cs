@@ -2,7 +2,7 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Support.Design.Widget;
+using Google.Android.Material.Tabs;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;

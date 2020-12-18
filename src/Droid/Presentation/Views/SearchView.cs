@@ -1,7 +1,5 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.Support.Design.Widget;
-using Android.Support.V7.Widget;
 using Android.Widget;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using MvvmCross.Binding.BindingContext;
@@ -26,6 +24,8 @@ using System;
 using System.Threading.Tasks;
 using Android.Views;
 using System.Diagnostics;
+using Google.Android.Material.Tabs;
+using AndroidX.RecyclerView.Widget;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {

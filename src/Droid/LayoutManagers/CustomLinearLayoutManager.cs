@@ -1,14 +1,12 @@
 ﻿using System;
 using Android.Content;
-using Android.Support.V7.Widget;
 using Android.Views;
+using AndroidX.RecyclerView.Widget;
 
 namespace PrankChat.Mobile.Droid.LayoutManagers
 {
     public class CustomLinearLayoutManager : SafeLinearLayoutManager
     {
-        private int visibleItemsCount = 1;
-
         public CustomLinearLayoutManager(Context context, int orientation, bool reverseLayout, int visibleItemsCount)
             : base(context, orientation, reverseLayout)
         {
@@ -26,9 +24,10 @@ namespace PrankChat.Mobile.Droid.LayoutManagers
         /// </summary>
         public int Offset { get; set; }
 
+        private int _visibleItemsCount = 1;
         public int VisibleItemsCount
         {
-            get => visibleItemsCount;
+            get => _visibleItemsCount;
             private set
             {
                 if (value < 1)
@@ -36,7 +35,7 @@ namespace PrankChat.Mobile.Droid.LayoutManagers
                     throw new ArgumentOutOfRangeException(nameof(VisibleItemsCount), $"Must be bigger than 0");
                 }
 
-                visibleItemsCount = value;
+                _visibleItemsCount = value;
             }
         }
 
@@ -84,7 +83,7 @@ namespace PrankChat.Mobile.Droid.LayoutManagers
 
         private int GetAdjustedDimen(int initialDime)
         {
-            return (initialDime / visibleItemsCount) - Offset;
+            return (initialDime / _visibleItemsCount) - Offset;
         }
     }
 }

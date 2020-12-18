@@ -2,13 +2,13 @@
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using MvvmCross.Droid.Support.V7.AppCompat;
+using MvvmCross.Platforms.Android.Views;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
-using Toolbar = Android.Support.V7.Widget.Toolbar;
+using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 {
-    public abstract class BaseView<TMvxViewModel> : MvxAppCompatActivity<TMvxViewModel>, IToolbarOwner
+    public abstract class BaseView<TMvxViewModel> : MvxActivity<TMvxViewModel>, IToolbarOwner
         where TMvxViewModel : BasePageViewModel
     {
         public Toolbar Toolbar { get; private set; }

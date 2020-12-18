@@ -1,6 +1,6 @@
 ﻿using System;
-using Android.Support.V4.Content;
 using Android.Widget;
+using AndroidX.Core.Content;
 using MvvmCross.Binding;
 using MvvmCross.Platforms.Android.Binding.Target;
 using PrankChat.Mobile.Core.Models.Enums;

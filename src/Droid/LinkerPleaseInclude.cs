@@ -2,10 +2,10 @@
 using System.Collections.Specialized;
 using System.Windows.Input;
 using Android.App;
-using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using MvvmCross.Droid.Support.V7.RecyclerView;
+using AndroidX.RecyclerView.Widget;
+using MvvmCross.DroidX.RecyclerView;
 using MvvmCross.IoC;
 
 namespace PrankChat.Mobile.Droid
@@ -94,7 +94,6 @@ namespace PrankChat.Mobile.Droid
             viewHolder.Click += OnItemViewClick;
             viewHolder.LongClick += OnItemViewLongClick;
         }
-
 
         public void Include(RecyclerView.ViewHolder vh, MvxRecyclerView list)
         {

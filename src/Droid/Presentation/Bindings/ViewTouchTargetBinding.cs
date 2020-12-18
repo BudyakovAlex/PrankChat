@@ -13,6 +13,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
         private readonly View _view;
 
         private IMvxCommand _command;
+        private bool _isDisposed;
 
         public ViewTouchTargetBinding(View view) : base(view)
         {
@@ -31,12 +32,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
 
         protected override void Dispose(bool isDisposing)
         {
-            if (isDisposing)
+            if (isDisposing && !_isDisposed)
             {
                 _view.Touch -= OnViewTouch;
             }
 
             base.Dispose(isDisposing);
+            _isDisposed = true;
         }
 
         protected override void SetValueImpl(object target, object value)

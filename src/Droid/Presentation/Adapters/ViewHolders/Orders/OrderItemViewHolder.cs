@@ -43,6 +43,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders
 
             var bindingSet = this.CreateBindingSet<OrderItemViewHolder, OrderItemViewModel>();
             bindingSet.Bind(this).For(v => v.OrderTagType).To(vm => vm.OrderTagType);
+
             bindingSet.Apply();
         }
 

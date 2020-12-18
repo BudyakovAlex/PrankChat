@@ -1,19 +1,18 @@
-﻿using System;
-using System.Net;
-using Acr.UserDialogs;
+﻿using Acr.UserDialogs;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Firebase;
 using MvvmCross;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.BusinessServices.TaskSchedulers;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications;
+using Sentry;
+using System;
+using System.Net;
 using VKontakte;
 using VKontakte.Utils;
 using static Android.App.Application;
-using Sentry;
 
 namespace PrankChat.Mobile.Droid
 {

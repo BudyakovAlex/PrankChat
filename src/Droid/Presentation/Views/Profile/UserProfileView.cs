@@ -2,9 +2,7 @@
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
-using Android.Support.Design.Widget;
-using Android.Support.V4.Content;
-using Android.Support.V7.Widget;
+using AndroidX.Core.Content;
 using Android.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
@@ -17,6 +15,8 @@ using PrankChat.Mobile.Droid.Presentation.Adapters;
 using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
+using AndroidX.RecyclerView.Widget;
+using Google.Android.Material.Tabs;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 {

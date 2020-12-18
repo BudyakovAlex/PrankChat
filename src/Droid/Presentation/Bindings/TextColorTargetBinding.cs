@@ -1,7 +1,7 @@
 ﻿using System;
 using Android.App;
 using Android.Graphics;
-using Android.Support.V4.Content.Res;
+using AndroidX.Core.Content.Resources;
 using Android.Widget;
 using MvvmCross.Binding;
 using MvvmCross.Platforms.Android.Binding.Target;

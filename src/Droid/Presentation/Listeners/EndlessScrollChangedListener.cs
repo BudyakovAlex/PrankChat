@@ -1,8 +1,8 @@
 ﻿using System;
 using Android.Runtime;
-using Android.Support.V4.Widget;
-using Android.Support.V7.Widget;
 using Android.Views;
+using AndroidX.Core.Widget;
+using AndroidX.RecyclerView.Widget;
 
 namespace PrankChat.Mobile.Droid.Presentation.Listeners
 {

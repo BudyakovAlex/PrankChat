@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.PrankChat.Base" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.PrankChat.Base" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorAccent">@color/accent</item>
         <item name="colorPrimaryDark">@color/inactive</item>
         <item name="colorPrimary">@color/accent</item>
@@ -21,9 +21,7 @@
         <!-- TextEdit Hint Color Workaround-->
         <item name="colorControlNormal">@color/border</item>
         <item name="colorControlActivated">@color/border</item>
-        <item name="colorControlNormal">@color/border</item>
         <item name="colorPrimary">@color/border</item>
-        <item name="colorPrimaryDark">@color/border</item>
         <item name="colorPrimaryDark">@color/border</item>
     </style>
 

@@ -1,10 +1,10 @@
 ﻿using Android.OS;
 using Android.Views;
 using Android.Widget;
-using MvvmCross.Droid.Support.V4;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
+using MvvmCross.Platforms.Android.Views.Fragments;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
-using Toolbar = Android.Support.V7.Widget.Toolbar;
+using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 {

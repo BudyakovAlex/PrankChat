@@ -74,6 +74,7 @@
 					android:textColor="@color/applicationBlack"
 					android:textSize="14dp"
 					app:MvxBind="Text Price(Price)" />
+
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<TextView
