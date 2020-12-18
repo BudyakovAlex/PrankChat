@@ -165,7 +165,7 @@
         app:layout_constraintTop_toBottomOf="@+id/prize_title_text_view"
         tools:text="100 000 ₽" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/results_button"
         android:layout_width="0dp"
         android:layout_height="36dp"
@@ -183,7 +183,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rules_button" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/rules_button"
         android:layout_width="0dp"
         android:layout_height="36dp"
@@ -200,7 +200,7 @@
         app:layout_constraintTop_toBottomOf="@+id/load_video_button"
         app:layout_goneMarginTop="36dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/load_video_button"
         android:layout_width="0dp"
         android:layout_height="36dp"

@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Widget;
+using Google.Android.Material.Button;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
@@ -14,7 +14,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
     [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class MaintananceView : BaseView<MaintananceViewModel>
     {
-        private Button _downloadButton;
+        private MaterialButton _downloadButton;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -25,7 +25,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
         protected override void SetViewProperties()
         {
-            _downloadButton = FindViewById<Button>(Resource.Id.download_button);
+            _downloadButton = FindViewById<MaterialButton>(Resource.Id.download_button);
         }
 
         protected override void DoBind()

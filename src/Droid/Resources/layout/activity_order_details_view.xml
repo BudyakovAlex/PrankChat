@@ -212,7 +212,7 @@
 					</LinearLayout>
 				</LinearLayout>
 
-				<Button
+				<com.google.android.material.button.MaterialButton
 					style="@style/Theme.PrankChat.Button.Accent"
 					android:layout_width="wrap_content"
 					android:layout_height="36dp"
@@ -221,7 +221,7 @@
 					android:text="@string/OrderDetailsView_Take_Order_Button"
 					app:MvxBind="Click TakeOrderCommand; Visibility Visibility(IsTakeOrderAvailable)" />
 
-				<Button
+				<com.google.android.material.button.MaterialButton
 					style="@style/Theme.PrankChat.Button.Accent"
 					android:layout_width="wrap_content"
 					android:layout_height="36dp"
@@ -230,7 +230,7 @@
 					android:text="@string/OrderDetailsView_Subscribe_Button"
 					app:MvxBind="Click SubscribeOrderCommand; Visibility Visibility(IsSubscribeAvailable)" />
 
-				<Button
+				<com.google.android.material.button.MaterialButton
 					style="@style/Theme.PrankChat.Button.Accent"
 					android:layout_width="wrap_content"
 					android:layout_height="36dp"
@@ -253,7 +253,7 @@
 						android:textSize="12dp"
 						android:text="@string/OrderDetailsView_Download_Text"/>
 
-					<Button
+					<com.google.android.material.button.MaterialButton
 						style="@style/Theme.PrankChat.Button.Accent"
 						android:layout_width="wrap_content"
 						android:layout_height="36dp"
@@ -263,7 +263,7 @@
 						app:MvxBind="Click VideoSectionViewModel.LoadVideoCommand" />
 				</LinearLayout>
 
-				<Button
+				<com.google.android.material.button.MaterialButton
 					style="@style/Theme.PrankChat.Button.Accent"
 					android:layout_width="wrap_content"
 					android:layout_height="36dp"
@@ -272,7 +272,7 @@
 					android:text="@string/OrderDetailsView_Execute_Button"
 					app:MvxBind="Click ExecuteOrderCommand; Visibility Visibility(IsExecuteOrderAvailable)" />
 
-				<Button
+				<com.google.android.material.button.MaterialButton
 					style="@style/Theme.PrankChat.Button"
 					android:layout_width="wrap_content"
 					android:layout_height="36dp"
@@ -454,7 +454,7 @@
 						app:type_arbitration="negative"
 						app:unselected_drawable="@drawable/ic_accent_thumbs_down" />
 				</androidx.percentlayout.widget.PercentRelativeLayout>
-				<Button
+				<com.google.android.material.button.MaterialButton
 					style="@style/Theme.PrankChat.Button.Accent"
 					android:layout_width="wrap_content"
 					android:layout_height="36dp"
@@ -463,7 +463,7 @@
 					android:text="@string/OrderDetailsView_Accept_Button"
 					app:MvxBind="Click AcceptOrderCommand; Visibility Visibility(VideoSectionViewModel.IsDecisionVideoAvailable)" />
 
-				<Button
+				<com.google.android.material.button.MaterialButton
 					style="@style/Theme.PrankChat.Button"
 					android:layout_width="wrap_content"
 					android:layout_height="36dp"

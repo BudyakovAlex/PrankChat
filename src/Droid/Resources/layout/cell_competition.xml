@@ -236,7 +236,7 @@
                 app:layout_constraintTop_toTopOf="@+id/likes_image_view"
                 tools:text="100k" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/action_button"
                 android:layout_width="0dp"
                 android:layout_height="36dp"

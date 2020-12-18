@@ -36,7 +36,7 @@
                     android:textColor="@color/applicationBlack"
                     android:textSize="14dp"
                     android:text="@string/WithdrawalView_Verify_User_Text"/>
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:layout_marginTop="16dp"
@@ -181,7 +181,7 @@
                         android:textColor="@color/applicationBlack"
                         app:MvxBind="Text Price(Cost)" />
                 </com.google.android.material.textfield.TextInputLayout>
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/withdrawal_button"
                     android:layout_width="100dp"
                     android:layout_height="36dp"
@@ -358,7 +358,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/pending_withdrawal_status_title"
                     android:layout_marginTop="10dp"
                     android:text="@string/WithdrawalView_Pending"/>
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/cancel_withdrawal_button"
                     android:layout_width="0dp"
                     android:layout_height="36dp"

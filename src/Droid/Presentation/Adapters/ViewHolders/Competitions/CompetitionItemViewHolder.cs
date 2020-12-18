@@ -1,6 +1,7 @@
 ﻿using Android.Views;
 using Android.Widget;
 using FFImageLoading.Cross;
+using Google.Android.Material.Button;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
@@ -35,7 +36,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
         private LinearLayout _termLinearLayout;
         private ImageView _likesImageView;
         private MvxCachedImageView _placeholderImageView;
-        private Button _actionButton;
+        private MaterialButton _actionButton;
         private FrameLayout _borderFrame;
         private FrameLayout _backgroundFrame;
 
@@ -62,7 +63,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             _likesTextView = view.FindViewById<TextView>(Resource.Id.likes_text_view);
             _likesImageView = view.FindViewById<ImageView>(Resource.Id.likes_image_view);
             _placeholderImageView = view.FindViewById<MvxCachedImageView>(Resource.Id.placeholder_image_view);
-            _actionButton = view.FindViewById<Button>(Resource.Id.action_button);
+            _actionButton = view.FindViewById<MaterialButton>(Resource.Id.action_button);
             _borderFrame = view.FindViewById<FrameLayout>(Resource.Id.border_frame);
             _backgroundFrame = view.FindViewById<FrameLayout>(Resource.Id.background_frame);
             _prizeTitleTextView = view.FindViewById<TextView>(Resource.Id.prize_title_text_view);

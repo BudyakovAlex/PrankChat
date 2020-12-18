@@ -109,6 +109,9 @@
 
     <style name="Theme.PrankChat.Button.White" parent="Theme.PrankChat.Button">
         <item name="android:textColor">@color/accent</item>
+        <item name="colorAccent">@color/applicationWhite</item>
+        <item name="android:colorAccent">@color/applicationWhite</item>
+        <item name="android:backgroundTint">@color/applicationWhite</item>
         <item name="android:background">@color/applicationWhite</item>
     </style>
 

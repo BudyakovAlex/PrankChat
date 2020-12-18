@@ -103,7 +103,7 @@
             app:MvxBind="Click ResetPasswordCommand" />
     </RelativeLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/login_button"
         style="@style/Theme.PrankChat.Button.Borderless"
         android:layout_width="wrap_content"
@@ -199,7 +199,7 @@
         android:textSize="16dp"
         app:MvxBind="Click RegistrationCommand" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/demo_button"
         style="@style/Theme.PrankChat.Button.Borderless"
         android:layout_width="wrap_content"

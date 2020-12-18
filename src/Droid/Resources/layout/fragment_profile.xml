@@ -58,7 +58,7 @@
             app:layout_constraintTop_toBottomOf="@+id/profile_name"
             tools:text="100 000$" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/profile_refill_button"
             style="@style/Theme.PrankChat.Button.Accent"
             android:layout_width="0dp"
@@ -73,11 +73,12 @@
             app:layout_constraintEnd_toStartOf="@+id/profile_withdrawal_button"
             app:layout_constraintStart_toEndOf="@+id/profile_photo" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/profile_withdrawal_button"
-            style="@style/Theme.PrankChat.Button.Accent"
+            style="@style/Theme.PrankChat.Button.White"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@null"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="16dp"
             android:padding="0dp"

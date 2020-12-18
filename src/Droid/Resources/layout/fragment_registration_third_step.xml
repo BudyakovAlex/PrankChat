@@ -30,7 +30,7 @@
         android:textColor="@color/applicationWhite"
         android:textSize="14dp"
         android:text="На почту отправлено письмо с верификацией email адреса. Для завершения регистрации, пожалуйста подтвердите Ваш email"/>
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/registration_button"
         android:layout_width="wrap_content"
         android:layout_height="36dp"

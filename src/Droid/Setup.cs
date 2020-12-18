@@ -1,5 +1,6 @@
 using Android.Views;
 using Android.Widget;
+using Google.Android.Material.Button;
 using Google.Android.Material.Tabs;
 using MvvmCross;
 using MvvmCross.Binding.Bindings.Target.Construction;
@@ -41,7 +42,7 @@ namespace PrankChat.Mobile.Droid
         {
             base.FillTargetFactories(registry);
 
-            registry.RegisterCustomBindingFactory<Button>(OrderButtonStyleBinding.TargetBinding, button => new OrderButtonStyleBinding(button));
+            registry.RegisterCustomBindingFactory<MaterialButton>(OrderButtonStyleBinding.TargetBinding, button => new OrderButtonStyleBinding(button));
             registry.RegisterCustomBindingFactory<View>(BackgroundBinding.TargetBinding, view => new BackgroundBinding(view));
             registry.RegisterCustomBindingFactory<VideoView>(VideoUrlTargetBinding.TargetBinding, view => new VideoUrlTargetBinding(view));
             registry.RegisterCustomBindingFactory<View>(ViewTouchTargetBinding.TargetBinding, view => new ViewTouchTargetBinding(view));

@@ -1,6 +1,6 @@
 ﻿using System;
-using Android.Widget;
 using AndroidX.Core.Content;
+using Google.Android.Material.Button;
 using MvvmCross.Binding;
 using MvvmCross.Platforms.Android.Binding.Target;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -11,7 +11,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
     {
         public static string TargetBinding = "OrderButtonStyle";
 
-        public override Type TargetType => typeof(Button);
+        public override Type TargetType => typeof(MaterialButton);
 
         public override MvxBindingMode DefaultMode => MvxBindingMode.OneWay;
 
@@ -21,17 +21,19 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
 
         protected override void SetValueImpl(object target, object value)
         {
-            if (target is Button view && value is OrderType orderType)
+            if (target is MaterialButton view && value is OrderType orderType)
             {
                 switch (orderType)
                 {
                     case OrderType.MyOrder:
                     case OrderType.NotMyOrder:
+                        view.Background = null;
                         view.SetBackgroundResource(Resource.Drawable.button_accent_background);
                         view.SetTextColor(ContextCompat.GetColorStateList(view.Context, Resource.Color.applicationWhite));
                         break;
 
                     case OrderType.MyOrderInModeration:
+                        view.Background = null;
                         view.SetBackgroundResource(Resource.Drawable.button_white_secondary_background);
                         view.SetTextColor(ContextCompat.GetColorStateList(view.Context, Resource.Color.applicationBlack));
                         break;

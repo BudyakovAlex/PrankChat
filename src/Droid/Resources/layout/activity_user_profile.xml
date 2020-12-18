@@ -48,7 +48,7 @@
                 app:layout_constraintTop_toTopOf="@+id/profile_photo"
                 tools:text="Alex" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/subscribe_button"
                 style="@style/Theme.PrankChat.Button"
                 android:layout_width="wrap_content"

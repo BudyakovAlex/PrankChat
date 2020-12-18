@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Windows.Input;
-using Android.App;
+﻿using Android.App;
 using Android.Views;
 using Android.Widget;
 using AndroidX.RecyclerView.Widget;
+using Google.Android.Material.Button;
 using MvvmCross.DroidX.RecyclerView;
 using MvvmCross.IoC;
+using System;
+using System.Collections.Specialized;
+using System.Windows.Input;
 
 namespace PrankChat.Mobile.Droid
 {
@@ -14,7 +15,7 @@ namespace PrankChat.Mobile.Droid
     // are preserved in the deployed app
     public class LinkerPleaseInclude
     {
-        public void Include(Button button)
+        public void Include(MaterialButton button)
         {
             button.Click += (s, e) => button.Text = button.Text + "";
         }

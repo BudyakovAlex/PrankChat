@@ -1,8 +1,8 @@
 ﻿using Android.Views;
 using Android.Widget;
 using FFImageLoading.Cross;
+using Google.Android.Material.Button;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Converters;
@@ -33,9 +33,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
         private MvxCachedImageView _placeholderImageView;
 
         //TODO: add bindings for action buttons
-        private Button _loadVideoButton;
-        private Button _rulesButton;
-        private Button _resultsButton;
+        private MaterialButton _loadVideoButton;
+        private MaterialButton _rulesButton;
+        private MaterialButton _resultsButton;
 
         public CompetitionDetailsHeaderViewHolder(View view, IMvxAndroidBindingContext context) : base(view, context)
         {
@@ -63,9 +63,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
 
             _prizeTitleTextView.Text = Resources.Competitions_Prize_Pool;
 
-            _loadVideoButton = view.FindViewById<Button>(Resource.Id.load_video_button);
-            _rulesButton = view.FindViewById<Button>(Resource.Id.rules_button);
-            _resultsButton = view.FindViewById<Button>(Resource.Id.results_button);
+            _loadVideoButton = view.FindViewById<MaterialButton>(Resource.Id.load_video_button);
+            _rulesButton = view.FindViewById<MaterialButton>(Resource.Id.rules_button);
+            _resultsButton = view.FindViewById<MaterialButton>(Resource.Id.results_button);
         }
 
         public override void BindData()
