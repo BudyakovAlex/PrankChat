@@ -189,7 +189,6 @@
 			android:paddingRight="6dp"
 			android:text="@string/Order_View_Details"
 			android:textAlignment="center"
-            android:textColor="@color/applicationWhite"
 			app:MvxBind="Click OpenDetailsOrderCommand; OrderButtonStyle OrderType"
 			app:layout_constraintHorizontal_weight="1"
 			app:layout_constraintLeft_toRightOf="@id/task_status_value_text"

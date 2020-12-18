@@ -24,7 +24,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_edit_text"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Theme.PrankChat.TextFieldLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/enter_text_view"

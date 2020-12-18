@@ -71,6 +71,7 @@
         <item name="boxStrokeWidth">1dp</item>
         <item name="android:textColorHint">#fff</item>
         <item name="android:colorAccent">#fff</item>
+        <item name="boxStrokeColor">#fff</item>
         <item name="colorAccent">#fff</item>
     </style>
 
@@ -87,7 +88,7 @@
         <item name="colorControlActivated">@color/applicationWhite</item>
     </style>
 
-    <style name="Theme.PrankChat.EditText" parent="@style/Widget.AppCompat.EditText">
+    <style name="Theme.PrankChat.EditText" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:textColor">@color/applicationBlack</item>
         <item name="android:textCursorDrawable">@null</item>
         <item name="android:paddingRight">16dp</item>
@@ -97,7 +98,7 @@
         <item name="android:gravity">right|center_vertical</item>
     </style>
 
-    <style name="Theme.PrankChat.Button" parent="@style/Widget.AppCompat.Button">
+    <style name="Theme.PrankChat.Button" parent="@style/Widget.MaterialComponents.Button">
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">14dp</item>
         <item name="android:textFontWeight">500</item>
@@ -148,18 +149,18 @@
         <item name="android:indeterminateTintMode">src_atop</item>
     </style>
 
-    <style name="Theme.PrankChat.DateDialog" parent="Theme.AppCompat.Light.Dialog">
+    <style name="Theme.PrankChat.DateDialog" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="colorAccent">@color/accent</item>
     </style>
 
-    <style name="Theme.PrankChat.ShareDialogStyle" parent="ThemeOverlay.AppCompat.Light">
+    <style name="Theme.PrankChat.ShareDialogStyle" parent="ThemeOverlay.MaterialComponents.Light">
         <item name="android:windowBackground">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowMinWidthMajor">100%</item>
         <item name="android:windowMinWidthMinor">100%</item>
     </style>
 
-    <style name="Theme.PrankChat.DialogStyle" parent="Base.Theme.AppCompat.Light.Dialog.Alert">
+    <style name="Theme.PrankChat.DialogStyle" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="windowFixedWidthMajor">65%</item>
         <item name="windowFixedWidthMinor">65%</item>
     </style>
