@@ -46,17 +46,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         public string Login
         {
             get => _login;
-            set => SetProperty(ref _login, value);
+            set => SetProperty(ref _login, value, () => RaisePropertyChanged(nameof(ProfileShortName)));
         }
 
         private string _name;
         public string Name
         {
             get => _name;
-            set => SetProperty(ref _name, value, () => RaisePropertyChanged(nameof(ProfileShortName)));
+            set => SetProperty(ref _name, value);
         }
 
-        public string ProfileShortName => Name.ToShortenName();
+        public string ProfileShortName => Login.ToShortenName();
 
         private DateTime? _birthdate;
         public DateTime? Birthday

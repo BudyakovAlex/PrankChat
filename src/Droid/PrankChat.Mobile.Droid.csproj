@@ -274,12 +274,6 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\ic_radio_button_on.xml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_radio_button_off.xml">
       <SubType>
       </SubType>
@@ -1361,6 +1355,10 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_order_hidden.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_radio_button_on.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

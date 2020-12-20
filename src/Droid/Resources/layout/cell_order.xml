@@ -178,9 +178,8 @@
 			app:layout_constraintStart_toEndOf="@+id/status_image_view"
 			app:layout_constraintTop_toTopOf="@+id/status_image_view" />
 
-		<com.google.android.material.button.MaterialButton
+		<androidx.appcompat.widget.AppCompatButton
 			android:id="@+id/task_button"
-			style="@style/Theme.PrankChat.Button.Accent"
 			android:minWidth="100dp"
             android:layout_width="wrap_content"
 			android:layout_height="36dp"
@@ -190,6 +189,12 @@
 			android:paddingRight="6dp"
 			android:text="@string/Order_View_Details"
 			android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="14dp"
+            android:textFontWeight="500"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:stateListAnimator="@null"
 			app:MvxBind="Click OpenDetailsOrderCommand; OrderButtonStyle OrderType"
 			app:layout_constraintHorizontal_weight="1"
 			app:layout_constraintLeft_toRightOf="@id/task_status_value_text"
