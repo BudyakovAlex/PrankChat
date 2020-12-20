@@ -58,7 +58,9 @@ namespace PrankChat.Mobile.Core
 
         private void RegisterServices()
         {
-            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ITimerService, TimerService>();
+            //TODO: do not replace with LazyConstructAndRegisterSingleton
+            Mvx.IoCProvider.ConstructAndRegisterSingleton<ITimerService, TimerService>();
+
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<INavigationService, NavigationService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISentryService, SentryService>();
 
