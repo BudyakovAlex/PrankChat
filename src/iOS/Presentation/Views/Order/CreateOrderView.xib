@@ -41,7 +41,7 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQO-fP-Hac">
-                            <rect key="frame" x="0.0" y="16" width="398" height="409"/>
+                            <rect key="frame" x="0.0" y="16" width="398" height="422"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="BDc-xh-Ib0">
                                     <rect key="frame" x="16" y="0.0" width="382" height="292"/>
@@ -124,7 +124,7 @@
                                     </subviews>
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mkv-tc-vtV" customClass="CheckBox">
-                                    <rect key="frame" x="5" y="298" width="45" height="45"/>
+                                    <rect key="frame" x="5" y="308" width="45" height="45"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="45" id="hwy-fJ-9Mw"/>
                                         <constraint firstAttribute="height" constant="45" id="yve-Gr-U5b"/>
@@ -132,7 +132,7 @@
                                     <state key="normal" image="ic_checkbox_checked"/>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" jkkdsjhfkjh" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJw-V4-peh">
-                                    <rect key="frame" x="50" y="298" width="85" height="45"/>
+                                    <rect key="frame" x="50" y="308" width="85" height="45"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="BQ4-lf-KVA"/>
                                     </constraints>
@@ -141,7 +141,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_info" translatesAutoresizingMaskIntoConstraints="NO" id="Hpb-fU-ykB">
-                                    <rect key="frame" x="145" y="300.5" width="40" height="40"/>
+                                    <rect key="frame" x="145" y="310.5" width="40" height="40"/>
                                     <color key="tintColor" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="40" id="3Yt-Jg-ApD"/>
@@ -149,7 +149,7 @@
                                     </constraints>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kIc-F7-6ov">
-                                    <rect key="frame" x="119" y="363" width="160" height="36"/>
+                                    <rect key="frame" x="119" y="376" width="160" height="36"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="36" id="IBr-ki-08H"/>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="ztl-aE-Aau"/>
@@ -159,14 +159,14 @@
                             </subviews>
                             <constraints>
                                 <constraint firstItem="BDc-xh-Ib0" firstAttribute="leading" secondItem="fQO-fP-Hac" secondAttribute="leading" constant="16" id="5f7-WZ-vCp"/>
-                                <constraint firstItem="kIc-F7-6ov" firstAttribute="top" secondItem="Mkv-tc-vtV" secondAttribute="bottom" constant="20" id="6tw-9s-zbT"/>
+                                <constraint firstItem="kIc-F7-6ov" firstAttribute="top" secondItem="Mkv-tc-vtV" secondAttribute="bottom" constant="23" id="6tw-9s-zbT"/>
                                 <constraint firstItem="kIc-F7-6ov" firstAttribute="centerX" secondItem="fQO-fP-Hac" secondAttribute="centerX" id="9LB-gc-Fe5"/>
                                 <constraint firstItem="Mkv-tc-vtV" firstAttribute="leading" secondItem="fQO-fP-Hac" secondAttribute="leading" constant="5" id="CUk-jW-pfu"/>
                                 <constraint firstAttribute="trailing" secondItem="Hpb-fU-ykB" secondAttribute="trailing" priority="250" constant="16" id="E5l-dd-9CF"/>
                                 <constraint firstItem="XJw-V4-peh" firstAttribute="centerY" secondItem="Mkv-tc-vtV" secondAttribute="centerY" id="HI6-gl-WEw"/>
                                 <constraint firstItem="Hpb-fU-ykB" firstAttribute="centerY" secondItem="Mkv-tc-vtV" secondAttribute="centerY" id="N4r-oR-dL6"/>
                                 <constraint firstAttribute="trailing" secondItem="BDc-xh-Ib0" secondAttribute="trailing" id="NRe-tK-e1i"/>
-                                <constraint firstItem="Mkv-tc-vtV" firstAttribute="top" secondItem="BDc-xh-Ib0" secondAttribute="bottom" constant="6" id="cQP-eT-QJe"/>
+                                <constraint firstItem="Mkv-tc-vtV" firstAttribute="top" secondItem="BDc-xh-Ib0" secondAttribute="bottom" constant="16" id="cQP-eT-QJe"/>
                                 <constraint firstAttribute="bottom" secondItem="kIc-F7-6ov" secondAttribute="bottom" constant="10" id="fEA-iT-MsE"/>
                                 <constraint firstItem="BDc-xh-Ib0" firstAttribute="top" secondItem="fQO-fP-Hac" secondAttribute="top" id="j5q-Er-23j"/>
                                 <constraint firstItem="Hpb-fU-ykB" firstAttribute="leading" secondItem="XJw-V4-peh" secondAttribute="trailing" constant="10" id="kJ4-Tx-FGS"/>

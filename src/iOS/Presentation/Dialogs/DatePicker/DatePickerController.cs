@@ -22,6 +22,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.DatePicker
             base.ViewDidLoad();
             datePicker.Date = _currentDate.Date.ToNSDate();
             datePicker.BackgroundColor = Theme.Color.White;
+            datePicker.PreferredDatePickerStyle = UIDatePickerStyle.Wheels;
 
             doneButton.Title = Resources.Select;
             cancelButton.Clicked += CancelButtonClicked;

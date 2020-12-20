@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,17 +21,29 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="sqg-o6-D3a">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYg-Wt-G57">
                     <rect key="frame" x="0.0" y="520" width="414" height="216"/>
+                    <subviews>
+                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="sqg-o6-D3a">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </datePicker>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </datePicker>
+                    <constraints>
+                        <constraint firstItem="sqg-o6-D3a" firstAttribute="leading" secondItem="jYg-Wt-G57" secondAttribute="leading" id="5No-TG-Vka"/>
+                        <constraint firstAttribute="trailing" secondItem="sqg-o6-D3a" secondAttribute="trailing" id="Ds6-U5-aCI"/>
+                        <constraint firstItem="sqg-o6-D3a" firstAttribute="top" secondItem="jYg-Wt-G57" secondAttribute="top" id="R9X-aV-qWb"/>
+                        <constraint firstAttribute="bottom" secondItem="sqg-o6-D3a" secondAttribute="bottom" id="imc-gG-BBE"/>
+                    </constraints>
+                </view>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btp-gU-nCc">
                     <rect key="frame" x="0.0" y="476" width="414" height="44"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <items>
                         <barButtonItem systemItem="cancel" id="gc6-ua-JSZ">
-                            <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" systemColor="systemRedColor"/>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="7QF-5G-ywv"/>
                         <barButtonItem style="done" systemItem="done" id="YZ6-ZM-ZtE"/>
@@ -39,14 +52,19 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="jYg-Wt-G57" firstAttribute="top" secondItem="btp-gU-nCc" secondAttribute="bottom" id="1oK-5H-VRx"/>
+                <constraint firstItem="jYg-Wt-G57" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="2wv-tb-b7e"/>
                 <constraint firstItem="btp-gU-nCc" firstAttribute="leading" secondItem="2" secondAttribute="leading" symbolic="YES" id="CgF-D8-Dj3"/>
-                <constraint firstItem="sqg-o6-D3a" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="Pvx-12-GCq"/>
-                <constraint firstItem="sqg-o6-D3a" firstAttribute="top" secondItem="btp-gU-nCc" secondAttribute="bottom" id="iZQ-2L-4sA"/>
+                <constraint firstAttribute="bottom" secondItem="jYg-Wt-G57" secondAttribute="bottom" id="NgG-OP-5H5"/>
+                <constraint firstAttribute="trailing" secondItem="jYg-Wt-G57" secondAttribute="trailing" id="eNX-Ji-qu4"/>
                 <constraint firstAttribute="trailing" secondItem="btp-gU-nCc" secondAttribute="trailing" symbolic="YES" id="maz-tz-74V"/>
-                <constraint firstAttribute="bottom" secondItem="sqg-o6-D3a" secondAttribute="bottom" id="weL-Zw-1Ua"/>
-                <constraint firstAttribute="trailing" secondItem="sqg-o6-D3a" secondAttribute="trailing" id="zEE-ZR-ue8"/>
             </constraints>
-            <point key="canvasLocation" x="34" y="54"/>
+            <point key="canvasLocation" x="33.333333333333336" y="53.804347826086961"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
