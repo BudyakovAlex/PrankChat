@@ -50,7 +50,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="26dp"
-					android:gravity="left|center_vertical"
+					android:gravity="center"
 					android:textColor="@color/applicationBlack"
 					android:textSize="14dp"
 					android:textStyle="bold"
@@ -68,6 +68,7 @@
 						android:layout_marginRight="16dp"
 						app:MvxBind="Visibility Visibility(IsHiddenOrder)"/>
 					<TextView
+                        android:id="@+id/order_descroption_text_view"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:gravity="left|center_vertical"

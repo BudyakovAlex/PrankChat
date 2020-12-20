@@ -1,5 +1,4 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Commands;
@@ -35,7 +34,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
              Resources.Publication_Item_Subscribe_To_Author
         };
 
-        private MvxSubscriptionToken _updateNumberOfViewsSubscriptionToken;
         private long? _numberOfViews;
         private DateTime _publicationDate;
         private string _shareLink;
@@ -93,11 +91,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #region Profile
 
-        public string ProfileName { get; set; }
+        public string ProfileName { get; }
 
         public string ProfileShortName => ProfileName.ToShortenName();
 
-        public string ProfilePhotoUrl { get; set; }
+        public string ProfilePhotoUrl { get; }
 
         public bool CanPlayVideo => true;
 
@@ -107,15 +105,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string VideoInformationText => $"{_numberOfViews.ToCountViewsString()} • {_publicationDate.ToTimeAgoPublicationString()}";
 
-        public string VideoName { get; set; }
+        public string VideoName { get; }
 
         public string Description { get; }
 
-        public string PlaceholderImageUrl { get; set; }
+        public string PlaceholderImageUrl { get; }
 
-        public string VideoUrl { get; set; }
+        public string VideoUrl { get; }
 
-        public string PreviewUrl { get; set; }
+        public string PreviewUrl { get; }
 
         public long? NumberOfComments { get; private set; }
 

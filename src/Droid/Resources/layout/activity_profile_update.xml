@@ -220,12 +220,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="46dp"
                     android:layout_centerHorizontal="true"
-                    android:paddingLeft="25dp"
+                    android:paddingLeft="30dp"
                     android:paddingRight="30dp"
                     android:text="@string/ProfileUpdateView_Button_Save"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentBottom="true"
-                    style="@style/Theme.PrankChat.Button.White"
+                    style="@style/Theme.PrankChat.Button.Borderless"
                     app:MvxBind="Click SaveProfileCommand" />
 
                 <ProgressBar

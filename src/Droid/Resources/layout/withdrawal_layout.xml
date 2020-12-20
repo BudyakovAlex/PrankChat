@@ -42,6 +42,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_below="@+id/verify_user_separator"
                     android:text="@string/WithdrawalView_Attach_File"
+                    app:backgroundTint="@color/accent"
                     style="@style/Theme.PrankChat.Button.Accent"
                     app:MvxBind="Click AttachFileCommand" />
             </RelativeLayout>
@@ -190,6 +191,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/withdrawal_cost_edit_text"
                     android:text="@string/CashboxView_Withdrawal_Button"
                     style="@style/Theme.PrankChat.Button.Accent"
+                    app:backgroundTint="@color/accent"
                     app:MvxBind="Click WithdrawCommand" />
                 <View
                     android:id="@+id/withdrawal_vertical_separator"

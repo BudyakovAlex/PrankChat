@@ -143,7 +143,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private BaseViewModel ProduceOrderViewModel(OrderDataModel model)
         {
-            return new OrderItemViewModel(NavigationService, SettingsService, Messenger, model, GetFullScreenVideoDataModels);
+            return new OrderItemViewModel(NavigationService, SettingsService, model, GetFullScreenVideoDataModels);
         }
 
         private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()

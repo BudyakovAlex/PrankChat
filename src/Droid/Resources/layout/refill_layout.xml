@@ -22,6 +22,7 @@
 
     <com.google.android.material.button.MaterialButton
         style="@style/Theme.PrankChat.Button.Accent"
+        app:backgroundTint="@color/accent"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:text="@string/CashboxView_Fillup_Button"

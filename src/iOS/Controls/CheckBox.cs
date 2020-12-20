@@ -11,7 +11,7 @@ namespace PrankChat.Mobile.iOS.Controls
     {
         private const string IconChecked = "ic_checkbox_checked";
         private const string IconUnchecked = "ic_checkbox_unchecked";
-        private const float SizeCheckBox = 18f;
+        private const float SizeCheckBox = 45f;
 
         public event EventHandler IsCheckedChanged;
 
@@ -46,11 +46,6 @@ namespace PrankChat.Mobile.iOS.Controls
         {
             Initialize();
         }
-
-        //public CheckBox(CGRect frame, UIAction primaryAction) : base(frame, primaryAction)
-        //{
-        //    Initialize();
-        //}
 
         protected CheckBox(NSObjectFlag t) : base(t)
         {

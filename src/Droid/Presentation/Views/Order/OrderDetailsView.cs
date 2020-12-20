@@ -7,6 +7,7 @@ using Android.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Extensions;
@@ -23,6 +24,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         private CircleProgressBar _uploadingProgressBar;
         private TextView _uploadedTextView;
         private View _uploadingInfoContainer;
+        private TextView _orderDescriptionTextView;
 
         protected override bool HasBackButton => true;
 
@@ -43,6 +45,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             _uploadingProgressBar = FindViewById<CircleProgressBar>(Resource.Id.uploading_progress_bar);
             _uploadedTextView = FindViewById<TextView>(Resource.Id.uploaded_text_view);
             _uploadingInfoContainer = FindViewById<View>(Resource.Id.uploading_info_container);
+            _orderDescriptionTextView = FindViewById<TextView>(Resource.Id.order_descroption_text_view);
             _uploadingInfoContainer.SetRoundedCorners(DisplayUtils.DpToPx(30) / 2);
 
             _uploadingProgressBar.ProgressColor = Color.White;
@@ -72,6 +75,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             bindingSet.Bind(_uploadedTextView)
                       .For(v => v.Text)
                       .To(vm => vm.VideoSectionViewModel.UploadingProgressStringPresentation);
+
+            bindingSet.Bind(_orderDescriptionTextView)
+                      .For(v => v.TextAlignment)
+                      .To(vm => vm.IsHiddenOrder)
+                      .WithConversion(new BoolToStateConverter<TextAlignment>(TextAlignment.TextStart, TextAlignment.Center));
 
             bindingSet.Apply();
         }

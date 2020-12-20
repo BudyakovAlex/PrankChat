@@ -7,16 +7,11 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
     {
         public static OrderTagType GetOrderTagType(this UserDataModel userDataModel, int? customerId, OrderStatusType? orderStatusType)
         {
-            if (userDataModel is null)
-            {
-                return OrderTagType.None;
-            }
-
             switch (orderStatusType)
             {
                 case OrderStatusType.Active:
                 case OrderStatusType.New:
-                    var isMine = customerId.HasValue && customerId == userDataModel.Id;
+                    var isMine = customerId.HasValue && customerId == userDataModel?.Id;
                     return isMine ? OrderTagType.New : OrderTagType.NewNotMine;
 
                 case OrderStatusType.VideoInProcess:
