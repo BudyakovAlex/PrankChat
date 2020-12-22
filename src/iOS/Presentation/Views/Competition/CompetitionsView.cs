@@ -12,7 +12,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 {
     [MvxTabPresentation(TabName = "Competitions", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
-    public partial class CompetitionsView : BaseTabbedView<CompetitionsViewModel>, IScrollableView
+    public partial class CompetitionsView : BaseTabbedView<CompetitionsViewModel>, IScrollableView, IRefreshableView
     {
         private TableViewSource _source;
         private MvxUIRefreshControl _refreshControl;
@@ -83,6 +83,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
                       .WithConversion<BoolToNotificationImageConverter>();
 
             bindingSet.Apply();
+        }
+
+        void IRefreshableView.RefreshData()
+        {
+            ViewModel?.LoadDataCommand.Execute();
         }
     }
 }

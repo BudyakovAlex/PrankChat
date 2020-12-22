@@ -20,7 +20,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 {
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(ProfileView))]
-    public class ProfileView : BaseTabFragment<ProfileViewModel>, TabLayout.IOnTabSelectedListener, IScrollableView
+    public class ProfileView : BaseTabFragment<ProfileViewModel>, TabLayout.IOnTabSelectedListener, IScrollableView, IRefreshableView
     {
         private EndlessRecyclerView _endlessRecyclerView;
         private LinearLayoutManager _layoutManager;
@@ -87,6 +87,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             bindingSet.Bind(_endlessRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
 
             bindingSet.Apply();
+        }
+
+        void IRefreshableView.RefreshData()
+        {
+            ViewModel?.LoadProfileCommand.Execute();
         }
     }
 }

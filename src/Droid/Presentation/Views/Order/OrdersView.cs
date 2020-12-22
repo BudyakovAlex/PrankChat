@@ -23,7 +23,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 {
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(OrdersView))]
-    public class OrdersView : BaseTabFragment<OrdersViewModel>, TabLayout.IOnTabSelectedListener, IScrollableView
+    public class OrdersView : BaseTabFragment<OrdersViewModel>, TabLayout.IOnTabSelectedListener, IScrollableView, IRefreshableView
     {
         private EndlessRecyclerView _endlessRecyclerView;
         private LinearLayoutManager _layoutManager;
@@ -95,6 +95,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 
         public void OnTabUnselected(TabLayout.Tab tab)
         {
+        }
+
+        void IRefreshableView.RefreshData()
+        {
+            ViewModel?.ReloadItemsCommand.Execute();
         }
     }
 }

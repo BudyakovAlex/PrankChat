@@ -15,7 +15,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
     [MvxTabPresentation(TabName = "Orders", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
-    public partial class OrdersView : BaseTabbedView<OrdersViewModel>, IScrollableView
+    public partial class OrdersView : BaseTabbedView<OrdersViewModel>, IScrollableView, IRefreshableView
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
@@ -130,6 +130,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 ratingTabLabel.SetMainTitleStyle();
                 orderTabLabel.SetTitleStyle();
             }
+        }
+
+        void IRefreshableView.RefreshData()
+        {
+            ViewModel?.ReloadItemsCommand.Execute();
         }
     }
 }

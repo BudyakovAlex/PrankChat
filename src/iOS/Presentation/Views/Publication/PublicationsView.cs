@@ -18,7 +18,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
     [MvxTabPresentation(TabName = "Publications", TabIconName = "unselected", TabSelectedIconName = "selected")]
-    public partial class PublicationsView : BaseTabbedView<PublicationsViewModel>, IScrollableView
+    public partial class PublicationsView : BaseTabbedView<PublicationsViewModel>, IScrollableView, IRefreshableView
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
@@ -118,6 +118,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             _refreshControl = new MvxUIRefreshControl();
             tableView.RefreshControl = _refreshControl;
+        }
+
+        void IRefreshableView.RefreshData()
+        {
+            ViewModel?.ReloadItemsCommand.Execute();
         }
     }
 }

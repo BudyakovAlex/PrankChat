@@ -17,7 +17,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 {
     [MvxTabPresentation(TabName = "Profile", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
-    public partial class ProfileView : BaseTabbedView<ProfileViewModel>, IScrollableView
+    public partial class ProfileView : BaseTabbedView<ProfileViewModel>, IScrollableView, IRefreshableView
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
@@ -172,6 +172,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             tableView.SeparatorColor = Theme.Color.Separator;
             tableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
             tableView.ContentInset = new UIEdgeInsets(10, 0, 0, 0);
+        }
+
+        void IRefreshableView.RefreshData()
+        {
+            ViewModel?.LoadProfileCommand.Execute();
         }
     }
 }

@@ -133,6 +133,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             {
                 scrollableView.RecyclerView.Post(() => scrollableView.RecyclerView.ScrollToPosition(0));
             }
+
+            if (currentFragment is IRefreshableView refreshableView)
+            {
+                refreshableView.RefreshData();
+            }
         }
 
         protected override void Unsubscription()

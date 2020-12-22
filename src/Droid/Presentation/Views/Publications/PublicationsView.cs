@@ -30,7 +30,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 {
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(PublicationsView))]
-    public class PublicationsView : BaseTabFragment<PublicationsViewModel>, IScrollableView
+    public class PublicationsView : BaseTabFragment<PublicationsViewModel>, IScrollableView, IRefreshableView
     {
         private const int MillisecondsDelay = 300;
 
@@ -262,6 +262,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             }
 
             tabTextView.SetTypeface(_unselectedTypeface, typefaceStyle);
+        }
+
+        void IRefreshableView.RefreshData()
+        {
+            ViewModel?.ReloadItemsCommand.Execute();
         }
     }
 }

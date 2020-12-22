@@ -385,6 +385,7 @@
     <Compile Include="Presentation\SourcesAndDelegates\Search\SearchTableSource.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\Search\OrdersSearchTableSource.cs" />
     <Compile Include="Controls\CheckBox.cs" />
+    <Compile Include="Presentation\Views\Base\IRefreshableView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
