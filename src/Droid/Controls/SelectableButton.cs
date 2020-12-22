@@ -1,15 +1,15 @@
-﻿using System;
-using Android.Content;
+﻿using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Runtime;
 using Android.Util;
-using Android.Widget;
+using Google.Android.Material.Button;
 using PrankChat.Mobile.Core.Models.Enums;
+using System;
 
 namespace PrankChat.Mobile.Droid.Controls
 {
-    public class SelectableButton : Button
+    public class SelectableButton : MaterialButton
     {
         private const string PositiveString = "positive";
         private const string NegativeString = "negative";

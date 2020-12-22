@@ -3,11 +3,11 @@ using Android.Content.PM;
 using Android.Content.Res;
 using Android.Graphics;
 using Android.OS;
-using Android.Support.Design.Widget;
-using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
+using AndroidX.Core.Content;
 using FFImageLoading.Cross;
+using Google.Android.Material.Tabs;
 using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Droid.Controls;
@@ -22,7 +22,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 {
     [ClearStackActivityPresentation]
     [Activity(LaunchMode = LaunchMode.SingleTop,
-              Theme = "@style/Theme.PrankChat.Base.Dark",
               ScreenOrientation = ScreenOrientation.Portrait,
               ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.KeyboardHidden)]
     public class MainView : BaseView<MainViewModel>

@@ -1,6 +1,6 @@
 package PrankChat.Mobile.Droid.Controls
 
 import android.content.Context
-import android.support.v7.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatImageView
 
 class CircleCachedImageView(context: Context?) : AppCompatImageView(context)

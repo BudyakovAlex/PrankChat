@@ -222,7 +222,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             return new OrderItemViewModel(NavigationService,
                                           SettingsService,
-                                          Messenger,
                                           order,
                                           GetFullScreenVideoDataModels);
         }

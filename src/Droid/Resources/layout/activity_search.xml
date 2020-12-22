@@ -14,27 +14,27 @@
             android:id="@+id/action_bar"
             layout="@layout/action_bar_search" />
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             style="@style/Theme.PrankChat.Publication.TabLayout"
             android:layout_width="match_parent"
             android:layout_height="41dp">
 
-            <android.support.design.widget.TabItem
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/Search_Peoples" />
 
-            <android.support.design.widget.TabItem
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/Search_Videos" />
 
-            <android.support.design.widget.TabItem
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/Orders_Tab" />
-        </android.support.design.widget.TabLayout>
+        </com.google.android.material.tabs.TabLayout>
         <View
             android:layout_width="match_parent"
             android:background="@color/separator"

@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.V4.Content.Res;
-using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using AndroidX.Core.Content.Resources;
+using AndroidX.RecyclerView.Widget;
+using Google.Android.Material.Button;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Droid.Support.V7.RecyclerView;
+using MvvmCross.DroidX.RecyclerView;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -24,6 +23,8 @@ using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Onboarding;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Utils.Helpers;
+using System;
+using System.Collections.Generic;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Onboarding
 {
@@ -39,8 +40,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Onboarding
 
         private MvxRecyclerView _recyclerView;
         private LinearLayout _indicatorLinearLayout;
-        private Button _actionButton;
+        private MaterialButton _actionButton;
         private LinearLayoutManager _layoutManager;
+
         private int _count;
         public int Count
         {
@@ -88,7 +90,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Onboarding
 
             _recyclerView = FindViewById<MvxRecyclerView>(Resource.Id.recycler_view);
             _indicatorLinearLayout = FindViewById<LinearLayout>(Resource.Id.indicator_linear_layout);
-            _actionButton = FindViewById<Button>(Resource.Id.action_button);
+            _actionButton = FindViewById<MaterialButton>(Resource.Id.action_button);
 
             _layoutManager = new LinearLayoutManager(this, RecyclerView.Horizontal, false);
             _recyclerView.SetLayoutManager(_layoutManager);

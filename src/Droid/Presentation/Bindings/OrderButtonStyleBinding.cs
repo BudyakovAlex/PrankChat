@@ -1,41 +1,35 @@
-﻿using System;
-using Android.Support.V4.Content;
-using Android.Widget;
+﻿using AndroidX.AppCompat.Widget;
+using AndroidX.Core.Content;
 using MvvmCross.Binding;
-using MvvmCross.Platforms.Android.Binding.Target;
+using MvvmCross.Binding.Bindings.Target;
 using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Droid.Presentation.Bindings
 {
-    internal class OrderButtonStyleBinding : MvxAndroidTargetBinding
+    internal class OrderButtonStyleBinding : MvxTargetBinding<AppCompatButton, OrderType>
     {
         public static string TargetBinding = "OrderButtonStyle";
 
-        public override Type TargetType => typeof(Button);
-
         public override MvxBindingMode DefaultMode => MvxBindingMode.OneWay;
 
-        public OrderButtonStyleBinding(object target) : base(target)
+        public OrderButtonStyleBinding(AppCompatButton target) : base(target)
         {
         }
 
-        protected override void SetValueImpl(object target, object value)
+        protected override void SetValue(OrderType value)
         {
-            if (target is Button view && value is OrderType orderType)
+            switch (value)
             {
-                switch (orderType)
-                {
-                    case OrderType.MyOrder:
-                    case OrderType.NotMyOrder:
-                        view.SetBackgroundResource(Resource.Drawable.button_accent_background);
-                        view.SetTextColor(ContextCompat.GetColorStateList(view.Context, Resource.Color.applicationWhite));
-                        break;
+                case OrderType.MyOrder:
+                case OrderType.NotMyOrder:
+                    Target.SetBackgroundResource(Resource.Drawable.button_accent_background);
+                    Target.SetTextColor(ContextCompat.GetColorStateList(Target.Context, Resource.Color.applicationWhite));
+                    break;
 
-                    case OrderType.MyOrderInModeration:
-                        view.SetBackgroundResource(Resource.Drawable.button_white_secondary_background);
-                        view.SetTextColor(ContextCompat.GetColorStateList(view.Context, Resource.Color.applicationBlack));
-                        break;
-                }
+                case OrderType.MyOrderInModeration:
+                    Target.SetBackgroundResource(Resource.Drawable.button_white_secondary_background);
+                    Target.SetTextColor(ContextCompat.GetColorStateList(Target.Context, Resource.Color.applicationBlack));
+                    break;
             }
         }
     }

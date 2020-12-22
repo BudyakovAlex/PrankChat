@@ -1,4 +1,4 @@
-﻿using Android.Support.Design.Widget;
+﻿using Google.Android.Material.Tabs;
 using MvvmCross.Binding;
 using MvvmCross.Binding.Bindings.Target;
 

@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Android.App;
-using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
+using AndroidX.CoordinatorLayout.Widget;
 using MvvmCross.Base;
-using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android;
+using MvvmCross.Platforms.Android.Views;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
-using Toolbar = Android.Support.V7.Widget.Toolbar;
+using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 namespace PrankChat.Mobile.Droid.ApplicationServices
 {
@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
         {
             IsToastShown = true;
 
-            var activity = (MvxAppCompatActivity) _topActivity.Activity;
+            var activity = (MvxActivity)_topActivity.Activity;
             var yOffset = GetToastYOffset(activity);
 
             var inflater = activity.LayoutInflater;
@@ -93,7 +93,7 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
             return await taskCompletionSource.Task;
         }
 
-        private int GetToastYOffset(MvxAppCompatActivity activity)
+        private int GetToastYOffset(MvxActivity activity)
         {
             var toolbar = GetToolbar(activity);
             if (toolbar == null)
@@ -110,7 +110,7 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
             return toolbar.Height;
         }
 
-        private Toolbar GetToolbar(MvxAppCompatActivity activity)
+        private Toolbar GetToolbar(MvxActivity activity)
         {
             if (activity is IToolbarOwner toolbarOwner)
             {

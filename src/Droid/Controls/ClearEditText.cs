@@ -2,7 +2,7 @@
 using Android.Content;
 using Android.Graphics.Drawables;
 using Android.Runtime;
-using Android.Support.V4.Content;
+using AndroidX.Core.Content;
 using Android.Util;
 using Android.Views;
 using Android.Widget;

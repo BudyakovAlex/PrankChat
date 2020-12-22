@@ -2,14 +2,13 @@
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using MvvmCross.Droid.Support.V7.AppCompat;
-using Plugin.Permissions;
+using MvvmCross.Platforms.Android.Views;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
-using Toolbar = Android.Support.V7.Widget.Toolbar;
+using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 {
-    public abstract class BaseView<TMvxViewModel> : MvxAppCompatActivity<TMvxViewModel>, IToolbarOwner
+    public abstract class BaseView<TMvxViewModel> : MvxActivity<TMvxViewModel>, IToolbarOwner
         where TMvxViewModel : BasePageViewModel
     {
         public Toolbar Toolbar { get; private set; }
@@ -72,7 +71,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
         protected virtual void DoBind()

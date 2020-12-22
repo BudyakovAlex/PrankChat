@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_panel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -61,7 +61,7 @@
             app:layout_constraintTop_toBottomOf="@+id/video_title_text_view"
             tools:text="Снять видео, как Вы обнимаете маленького колючего ежика, в течении 5 секунд. Если продержите ежика минуту, получите респект!" />
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/profile_view"
             android:layout_width="52dp"
             android:layout_height="52dp"
@@ -88,7 +88,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
                 app:layout_constraintEnd_toEndOf="@+id/profile_image_view"
                 app:srcCompat="@drawable/ic_plus" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/like_view"
@@ -202,5 +202,5 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_share_up" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

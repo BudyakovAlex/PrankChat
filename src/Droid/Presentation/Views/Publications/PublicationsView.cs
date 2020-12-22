@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.Design.Widget;
-using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using AndroidX.RecyclerView.Widget;
+using Google.Android.Material.Tabs;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -23,7 +23,7 @@ using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
-using static Android.Support.Design.Widget.TabLayout;
+using static Google.Android.Material.Tabs.TabLayout;
 using Debug = System.Diagnostics.Debug;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Publications

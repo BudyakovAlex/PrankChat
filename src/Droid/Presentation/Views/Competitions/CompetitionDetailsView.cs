@@ -1,11 +1,11 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.Graphics;
-using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using AndroidX.RecyclerView.Widget;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Droid.Support.V4;
+using MvvmCross.DroidX;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;

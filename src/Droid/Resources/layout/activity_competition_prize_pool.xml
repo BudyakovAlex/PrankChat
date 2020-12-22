@@ -77,13 +77,13 @@
         android:layout_height="1dp"
         android:layout_marginTop="5dp"
         android:background="@color/dark_purple" />
-    <MvxSwipeRefreshLayout
+    <mvvmcross.droidx.MvxSwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+    <mvvmcross.droidx.recyclerview.MvxRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    </MvxSwipeRefreshLayout>
+    </mvvmcross.droidx.MvxSwipeRefreshLayout>
 </LinearLayout>

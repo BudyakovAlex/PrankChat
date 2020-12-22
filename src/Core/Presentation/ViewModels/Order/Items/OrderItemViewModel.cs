@@ -19,22 +19,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
     {
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;
-        private readonly IMvxMessenger _mvxMessenger;
 
         private readonly OrderDataModel _orderDataModel;
         private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
 
-        private MvxSubscriptionToken _timerTickMessageToken;
+        private IDisposable _timerTickMessageToken;
 
         public OrderItemViewModel(INavigationService navigationService,
                                   ISettingsService settingsService,
-                                  IMvxMessenger mvxMessenger,
                                   OrderDataModel orderDataModel,
                                   Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
         {
             _navigationService = navigationService;
             _settingsService = settingsService;
-            _mvxMessenger = mvxMessenger;
             _orderDataModel = orderDataModel;
             _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
 
@@ -42,7 +39,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                 ? TimeSpan.FromHours(_orderDataModel.DurationInHours)
                 : _orderDataModel.GetActiveOrderTime();
 
-            Subscribe();
+            _timerTickMessageToken = Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
+
             OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
             OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
         }
@@ -71,7 +69,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
                 if (!IsTimeAvailable)
                 {
-                    Unsubscribe();
+                    if (_timerTickMessageToken != null)
+                    {
+                        Disposables.Remove(_timerTickMessageToken);
+                        _timerTickMessageToken.Dispose();
+                        _timerTickMessageToken = null;
+                    }
                 }
             }
         }
@@ -111,20 +114,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                                                 _orderDataModel.Video.Poster);
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Unsubscribe();
-            }
-        }
-
         private Task OpenUserProfileAsync()
         {
             if (_orderDataModel.Customer?.Id is null ||
@@ -134,20 +123,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             }
 
             return _navigationService.ShowUserProfile(_orderDataModel.Customer.Id);
-        }
-
-        private void Subscribe()
-        {
-            _timerTickMessageToken = _mvxMessenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong);
-        }
-
-        private void Unsubscribe()
-        {
-            if (_timerTickMessageToken != null)
-            {
-                _mvxMessenger.Unsubscribe<TimerTickMessage>(_timerTickMessageToken);
-                _timerTickMessageToken = null;
-            }
         }
 
         private void OnTimerTick(TimerTickMessage message)
@@ -177,7 +152,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                 _orderDataModel.Status == OrderStatusType.InArbitration)
             {
                 var status = _orderDataModel.Status.Value;
-                _mvxMessenger.Publish(new RemoveOrderMessage(this, OrderId, status));
+                Messenger.Publish(new RemoveOrderMessage(this, OrderId, status));
                 return;
             }
 

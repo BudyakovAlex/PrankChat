@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<mvvmcross.droidx.MvxSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:MvxBind="Refreshing IsBusy; RefreshCommand LoadProfileCommand">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -58,29 +58,30 @@
             app:layout_constraintTop_toBottomOf="@+id/profile_name"
             tools:text="100 000$" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/profile_refill_button"
             style="@style/Theme.PrankChat.Button.Accent"
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:layout_marginStart="16dp"
+            android:padding="0dp"
             android:text="@string/ProfileView_Refill"
             android:textSize="13dp"
-            android:padding="0dp"
             app:MvxBind="Click ShowRefillCommand"
             app:layout_constraintBottom_toBottomOf="@+id/profile_photo"
             app:layout_constraintEnd_toStartOf="@+id/profile_withdrawal_button"
             app:layout_constraintStart_toEndOf="@+id/profile_photo" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/profile_withdrawal_button"
             style="@style/Theme.PrankChat.Button.White"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@null"
             android:layout_marginEnd="16dp"
+            android:padding="0dp"
             android:text="@string/ProfileView_Withdrawal"
             android:textSize="13dp"
-            android:padding="0dp"
             app:MvxBind="Click ShowWithdrawalCommand"
             app:layout_constraintBottom_toBottomOf="@+id/profile_refill_button"
             app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +97,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_photo" />
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/subscribers_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -132,9 +133,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/subscriptions_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -171,7 +172,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/end_dummy_view"
@@ -209,7 +210,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/description_text_view" />
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/publication_type_tab_layout"
             style="@style/Theme.PrankChat.Publication.TabLayout"
             android:layout_width="0dp"
@@ -219,16 +220,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/separator">
 
-            <android.support.design.widget.TabItem
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/ProfileView_MyOrders_Tab" />
 
-            <android.support.design.widget.TabItem
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/ProfileView_CompletedOrders_Tab" />
-        </android.support.design.widget.TabLayout>
+        </com.google.android.material.tabs.TabLayout>
 
         <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
             android:id="@+id/profile_publication_recycler_view"
@@ -238,5 +239,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/publication_type_tab_layout" />
-    </android.support.constraint.ConstraintLayout>
-</MvvmCross.Droid.Support.V4.MvxSwipeRefreshLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</mvvmcross.droidx.MvxSwipeRefreshLayout>

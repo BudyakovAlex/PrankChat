@@ -16,7 +16,7 @@
 			android:paddingTop="32dp"
 			android:paddingRight="16dp">
 
-			<android.support.design.widget.TextInputLayout
+			<com.google.android.material.textfield.TextInputLayout
 				android:id="@+id/create_order_text_input_name"
 				style="@style/Theme.PrankChat.TextFieldLayout.Dark"
 				android:layout_width="match_parent"
@@ -25,16 +25,16 @@
 				android:textColorHint="@color/dark_placeholder"
 				app:boxStrokeWidth="1dp">
 
-				<android.support.design.widget.TextInputEditText
+				<com.google.android.material.textfield.TextInputEditText
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:maxLines="1"
 					android:textColor="@color/applicationBlack"
 					android:textSize="14dp"
 					app:MvxBind="Text Title" />
-			</android.support.design.widget.TextInputLayout>
+			</com.google.android.material.textfield.TextInputLayout>
 
-			<android.support.design.widget.TextInputLayout
+			<com.google.android.material.textfield.TextInputLayout
 				style="@style/Theme.PrankChat.TextFieldLayout.Dark"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
 				android:textColorHint="@color/dark_placeholder"
 				app:boxStrokeWidth="1dp">
 
-				<android.support.design.widget.TextInputEditText
+				<com.google.android.material.textfield.TextInputEditText
 					android:id="@+id/order_description_edit_text"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -52,9 +52,9 @@
 					android:textColor="@color/applicationBlack"
 					android:textSize="14dp"
 					app:MvxBind="Text Description" />
-			</android.support.design.widget.TextInputLayout>
+			</com.google.android.material.textfield.TextInputLayout>
 
-			<android.support.design.widget.TextInputLayout
+			<com.google.android.material.textfield.TextInputLayout
 				style="@style/Theme.PrankChat.TextFieldLayout.Dark"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
 				android:textColorHint="@color/dark_placeholder"
 				app:boxStrokeWidth="1dp">
 
-				<android.support.design.widget.TextInputEditText
+				<com.google.android.material.textfield.TextInputEditText
 					android:id="@+id/create_order_price_edit_text"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -74,7 +74,8 @@
 					android:textColor="@color/applicationBlack"
 					android:textSize="14dp"
 					app:MvxBind="Text Price(Price)" />
-			</android.support.design.widget.TextInputLayout>
+
+			</com.google.android.material.textfield.TextInputLayout>
 
 			<TextView
 				android:layout_width="match_parent"
@@ -118,7 +119,7 @@
                     app:MvxBind="Click ShowWalkthrouthSecretCommand"/>
 			</LinearLayout>
 
-			<Button
+			<com.google.android.material.button.MaterialButton
 				android:id="@+id/create_button"
 				style="@style/Theme.PrankChat.Button.Accent"
 				android:layout_width="wrap_content"

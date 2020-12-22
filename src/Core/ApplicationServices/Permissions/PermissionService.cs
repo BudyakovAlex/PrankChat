@@ -1,20 +1,23 @@
-﻿using System;
-using System.Threading.Tasks;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
+﻿using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Permissions
 {
     public class PermissionService : IPermissionService
     {
-        public async Task<bool> RequestPermissionAsync<TPermission>() where TPermission : BasePermission, new()
+        public async Task<bool> RequestPermissionAsync<TPermission>() where TPermission : Xamarin.Essentials.Permissions.BasePermission, new()
         {
-            var permissionStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<TPermission>();
+            var permissionStatus = await Xamarin.Essentials.Permissions.CheckStatusAsync<TPermission>();
             if (permissionStatus != PermissionStatus.Granted)
-                permissionStatus = await CrossPermissions.Current.RequestPermissionAsync<TPermission>();
+            {
+                permissionStatus = await Xamarin.Essentials.Permissions.RequestAsync<TPermission>();
+            }
 
-            if (permissionStatus == PermissionStatus.Granted || permissionStatus == PermissionStatus.Unknown)
+            if (permissionStatus == PermissionStatus.Granted ||
+                permissionStatus == PermissionStatus.Unknown)
+            {
                 return true;
+            }
 
             return false;
         }

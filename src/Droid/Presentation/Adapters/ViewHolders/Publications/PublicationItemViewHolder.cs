@@ -1,4 +1,4 @@
-﻿using Android.Support.V4.Content.Res;
+﻿using AndroidX.Core.Content.Resources;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Binding.BindingContext;

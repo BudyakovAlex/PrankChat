@@ -1,13 +1,13 @@
-﻿using System.Threading.Tasks;
-using Plugin.Media;
+﻿using Plugin.Media;
 using Plugin.Media.Abstractions;
-using Plugin.Permissions;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.Permissions;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Mediaes
 {
+    //TODO: move texts to AppStrings
     public class MediaService : IMediaService
     {
         private readonly IPermissionService _permissionService;
@@ -23,27 +23,27 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Mediaes
 
         public async Task<MediaFile> PickPhotoAsync()
         {
-            var result = await _permissionService.RequestPermissionAsync<StoragePermission>();
+            var result = await _permissionService.RequestPermissionAsync<Xamarin.Essentials.Permissions.StorageRead>();
             if (!result)
             {
                 _dialogService.ShowAlertAsync("Разрешите приложению использовать хранилище.").FireAndForget();
                 return null;
             }
 
-            await Initialize();
+            await InitializeAsync();
             return await CrossMedia.Current.PickPhotoAsync();
         }
 
         public async Task<MediaFile> TakePhotoAsync()
         {
-            var result = await _permissionService.RequestPermissionAsync<CameraPermission>();
+            var result = await _permissionService.RequestPermissionAsync<Xamarin.Essentials.Permissions.Camera>();
             if (!result)
             {
                 _dialogService.ShowAlertAsync("Разрешите приложению использовать камеру.").FireAndForget();
                 return null;
             }
 
-            await Initialize();
+            await InitializeAsync();
             var option = new StoreCameraMediaOptions
             {
                 PhotoSize = PhotoSize.Medium,
@@ -57,14 +57,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Mediaes
         {
             try
             {
-                var result = await _permissionService.RequestPermissionAsync<StoragePermission>();
+                var result = await _permissionService.RequestPermissionAsync<Xamarin.Essentials.Permissions.StorageRead>();
                 if (!result)
                 {
                     _dialogService.ShowAlertAsync("Разрешите приложению использовать хранилище.").FireAndForget();
                     return null;
                 }
 
-                await Initialize();
+                await InitializeAsync();
                 return await CrossMedia.Current.PickVideoAsync();
             }
             catch
@@ -73,10 +73,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Mediaes
             }
         }
 
-        private async Task Initialize()
+        private async Task InitializeAsync()
         {
             if (_isCrossMediaInitialized)
+            {
                 return;
+            }
 
             _isCrossMediaInitialized = await CrossMedia.Current.Initialize();
         }

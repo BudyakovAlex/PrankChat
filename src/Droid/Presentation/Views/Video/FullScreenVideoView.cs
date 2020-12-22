@@ -1,12 +1,11 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.Content.Res;
 using Android.Media;
 using Android.OS;
-using Android.Support.Constraints;
-using Android.Support.V4.Content.Res;
+using AndroidX.Core.Content.Resources;
 using Android.Views;
 using Android.Widget;
+using AndroidX.ConstraintLayout.Widget;
 using Java.Lang;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
@@ -16,6 +15,7 @@ using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
+using Android.Content.Res;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 {

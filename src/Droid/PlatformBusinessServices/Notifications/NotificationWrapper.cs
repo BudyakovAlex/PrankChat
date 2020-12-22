@@ -3,7 +3,7 @@ using Android.Content;
 using Android.Gms.Common;
 using Android.Media;
 using Android.OS;
-using Android.Support.V4.App;
+using AndroidX.Core.App;
 using MvvmCross;
 using MvvmCross.Logging;
 using PrankChat.Mobile.Core.Infrastructure;

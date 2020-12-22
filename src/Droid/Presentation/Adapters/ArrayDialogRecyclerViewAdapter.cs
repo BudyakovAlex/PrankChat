@@ -1,7 +1,7 @@
-﻿using Android.Support.V7.Widget;
-using Android.Views;
+﻿using Android.Views;
+using AndroidX.RecyclerView.Widget;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Droid.Support.V7.RecyclerView;
+using MvvmCross.DroidX.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Dialogs;
 

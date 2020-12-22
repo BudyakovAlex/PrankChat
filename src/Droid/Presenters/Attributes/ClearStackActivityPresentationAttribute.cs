@@ -1,5 +1,5 @@
-﻿using System;
-using MvvmCross.Platforms.Android.Presenters.Attributes;
+﻿using MvvmCross.Platforms.Android.Presenters.Attributes;
+using System;
 
 namespace PrankChat.Mobile.Droid.Presenters.Attributes
 {

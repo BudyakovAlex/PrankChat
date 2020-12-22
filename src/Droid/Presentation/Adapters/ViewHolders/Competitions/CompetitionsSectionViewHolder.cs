@@ -1,9 +1,9 @@
 ﻿using Android.App;
-using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using AndroidX.RecyclerView.Widget;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Droid.Support.V7.RecyclerView;
+using MvvmCross.DroidX.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;

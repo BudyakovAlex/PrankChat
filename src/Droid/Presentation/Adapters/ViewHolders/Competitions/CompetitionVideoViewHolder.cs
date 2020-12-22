@@ -1,7 +1,7 @@
 ﻿using System;
-using Android.Support.Constraints;
 using Android.Views;
 using Android.Widget;
+using AndroidX.ConstraintLayout.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;

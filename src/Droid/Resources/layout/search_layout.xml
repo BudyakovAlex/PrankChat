@@ -10,7 +10,7 @@
         layout="@layout/action_bar_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+    <mvvmcross.droidx.recyclerview.MvxRecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         local:MvxItemTemplate="@layout/cell_search"

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Runtime;
 using Badge.Plugin;
@@ -11,11 +9,13 @@ using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
+using System;
+using System.Diagnostics;
 using Xamarin.Essentials;
+using Constants = PrankChat.Mobile.Core.Infrastructure.Constants;
 using NotificationManager = PrankChat.Mobile.Core.ApplicationServices.Notifications.NotificationManager;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications

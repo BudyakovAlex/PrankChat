@@ -1,6 +1,6 @@
-package MvvmCross.Droid.Support.V4
+package mvvmcross.droidx
 
 import android.content.Context
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 class MvxSwipeRefreshLayout(context: Context) : SwipeRefreshLayout(context)

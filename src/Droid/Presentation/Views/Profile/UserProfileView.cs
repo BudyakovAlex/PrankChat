@@ -2,10 +2,10 @@
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
-using Android.Support.Design.Widget;
-using Android.Support.V4.Content;
-using Android.Support.V7.Widget;
-using Android.Widget;
+using AndroidX.Core.Content;
+using AndroidX.RecyclerView.Widget;
+using Google.Android.Material.Button;
+using Google.Android.Material.Tabs;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
     [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class UserProfileView : BaseView<UserProfileViewModel>, TabLayout.IOnTabSelectedListener
     {
-        private Button _subscribeButton;
+        private MaterialButton _subscribeButton;
         private EndlessRecyclerView _endlessRecyclerView;
         private LinearLayoutManager _layoutManager;
         private RecycleViewBindableAdapter _adapter;
@@ -62,7 +62,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         {
             base.SetViewProperties();
 
-            _subscribeButton = FindViewById<Button>(Resource.Id.subscribe_button);
+            _subscribeButton = FindViewById<MaterialButton>(Resource.Id.subscribe_button);
             _endlessRecyclerView = FindViewById<EndlessRecyclerView>(Resource.Id.profile_publication_recycler_view);
 
             _layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);

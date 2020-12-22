@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading.Tasks;
-using MvvmCross.Droid.Support.V7.AppCompat;
+﻿using MvvmCross.Platforms.Android.Presenters;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using MvvmCross.Presenters;
 using MvvmCross.Presenters.Attributes;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Droid.Presenters.Attributes;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Droid.Presenters
 {
-    public class CustomAndroidViewPresenter : MvxAppCompatViewPresenter
+    public class CustomAndroidViewPresenter : MvxAndroidViewPresenter
     {
         public CustomAndroidViewPresenter(IEnumerable<Assembly> androidViewAssemblies) : base(androidViewAssemblies)
         {

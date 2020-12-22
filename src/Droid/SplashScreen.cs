@@ -1,8 +1,8 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Support.V7.App;
-using MvvmCross.Droid.Support.V7.AppCompat;
+using AndroidX.AppCompat.App;
+using MvvmCross.Platforms.Android.Views;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications;
 
 namespace PrankChat.Mobile.Droid
@@ -12,7 +12,7 @@ namespace PrankChat.Mobile.Droid
         NoHistory = true,
         Theme = "@style/Theme.PrankChat.Splash",
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class SplashScreen : MvxSplashScreenAppCompatActivity
+    public class SplashScreen : MvxSplashScreenActivity
     {
         private int? _orderId;
 
