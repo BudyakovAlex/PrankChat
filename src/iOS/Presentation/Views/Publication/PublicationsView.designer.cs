@@ -28,6 +28,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		UIKit.UIView filterView { get; set; }
 
 		[Outlet]
+		UIKit.UIView loadingOverlayView { get; set; }
+
+		[Outlet]
+		Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
+
+		[Outlet]
 		UIKit.UIStackView publicationTypeStackView { get; set; }
 
 		[Outlet]
@@ -38,6 +44,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (bottomSeparatorView != null) {
+				bottomSeparatorView.Dispose ();
+				bottomSeparatorView = null;
+			}
+
 			if (filterArrowImageView != null) {
 				filterArrowImageView.Dispose ();
 				filterArrowImageView = null;
@@ -73,9 +84,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				topSeparatorView = null;
 			}
 
-			if (bottomSeparatorView != null) {
-				bottomSeparatorView.Dispose ();
-				bottomSeparatorView = null;
+			if (loadingOverlayView != null) {
+				loadingOverlayView.Dispose ();
+				loadingOverlayView = null;
+			}
+
+			if (lottieAnimationView != null) {
+				lottieAnimationView.Dispose ();
+				lottieAnimationView = null;
 			}
 		}
 	}

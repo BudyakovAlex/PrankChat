@@ -49,6 +49,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
 
         public IMvxAsyncCommand ReloadItemsCommand { get; }
 
+        protected bool ShouldNotifyIsBusy { get; set; } = true;
+
         protected virtual Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = Constants.Pagination.DefaultPaginationSize)
         {
             return Task.FromResult(0);
@@ -111,7 +113,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
                                    RaisePropertyChanged(nameof(HasNextPage)));
 
                 LoadMoreItemsCommand.RaiseCanExecuteChanged();
-            }, awaitWhenBusy: true);
+            }, ShouldNotifyIsBusy, true);
         }
 
         protected Task ReloadItemsAsync()

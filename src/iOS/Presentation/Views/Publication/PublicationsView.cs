@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
@@ -54,6 +55,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                       .For(v => v.IsRefreshing)
                       .To(vm => vm.IsBusy);
 
+            bindingSet.Bind(loadingOverlayView)
+                      .For(v => v.BindVisible())
+                      .To(vm => vm.IsRefreshingFilter);
+
             bindingSet.Bind(_refreshControl)
                       .For(v => v.RefreshCommand)
                       .To(vm => vm.ReloadItemsCommand);
@@ -80,6 +85,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             topSeparatorView.BackgroundColor = Theme.Color.Separator;
             filterArrowImageView.Image = UIImage.FromBundle("ic_filter_arrow");
             filterTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
+
+            lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
+            lottieAnimationView.LoopAnimation = true;
+            lottieAnimationView.Play();
         }
 
         protected override void RefreshData()
