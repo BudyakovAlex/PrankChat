@@ -18,7 +18,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
 {
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(CompetitionsView))]
-    public class CompetitionsView : BaseTabFragment<CompetitionsViewModel>, IScrollableView, IRefreshableView
+    public class CompetitionsView : BaseRefreshableTabFragment<CompetitionsViewModel>, IScrollableView
     {
         private RecycleViewBindableAdapter _adapter;
         private MvxSwipeRefreshLayout _refreshView;
@@ -41,6 +41,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
             InitializeControls(view);
             DoBind();
             return view;
+        }
+
+        protected override void RefreshData()
+        {
+            ViewModel?.LoadDataCommand.Execute();
         }
 
         private void DoBind()
@@ -74,11 +79,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
             _competitionsRecyclerView.Adapter = _adapter;
             _competitionsRecyclerView.ItemTemplateSelector = new TemplateSelector()
                 .AddElement<CompetitionsSectionViewModel, CompetitionsSectionViewHolder>(Resource.Layout.cell_competitions_section);
-        }
-
-        void IRefreshableView.RefreshData()
-        {
-            ViewModel?.LoadDataCommand.Execute();
         }
     }
 }

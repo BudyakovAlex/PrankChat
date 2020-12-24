@@ -38,8 +38,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public IMvxAsyncCommand<int> ShowWalkthrouthIfNeedCommand { get; set; }
 
-        public IMvxCommand<int> SendTabChangedCommand { get; }
-
         public IMvxAsyncCommand CheckActualAppVersionCommand { get; }
 
         private IDisposable _refreshTokenExpiredMessageSubscription;
@@ -57,7 +55,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             CheckDemoCommand = new MvxAsyncCommand<int>(CheckDemoModeAsync);
             ShowWalkthrouthCommand = new MvxAsyncCommand<int>(ShowWalthroughAsync);
             ShowWalkthrouthIfNeedCommand = new MvxAsyncCommand<int>(ShowWalthroughIfNeedAsync);
-            SendTabChangedCommand = new MvxCommand<int>(SendTabChanged);
             CheckActualAppVersionCommand = new MvxAsyncCommand(CheckActualAppVersionAsync);
 
             _refreshTokenExpiredMessageSubscription = Messenger.Subscribe<RefreshTokenExpiredMessage>(RefreshTokenExpired, MvxReference.Strong).DisposeWith(Disposables);
@@ -101,17 +98,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
 
             return true;
-        }
-
-        private void SendTabChanged(int position)
-        {
-            if (_lastSelectedTab == position)
-            {
-                return;
-            }
-
-            _lastSelectedTab = position;
-            Messenger.Publish(new TabChangedMessage(this, (MainTabType)position));
         }
 
         private Task ShowWalthroughIfNeedAsync(int position)
