@@ -11,6 +11,7 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
@@ -21,6 +22,7 @@ using PrankChat.Mobile.Droid.LayoutManagers;
 using PrankChat.Mobile.Droid.Presentation.Adapters;
 using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications;
+using PrankChat.Mobile.Droid.Presentation.Converters;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using static Google.Android.Material.Tabs.TabLayout;
@@ -34,9 +36,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
     {
         private const int MillisecondsDelay = 300;
 
-        private TabLayout _publicationTypeTabLayout;
+        private ExtendedTabLayout _publicationTypeTabLayout;
         private Typeface _unselectedTypeface;
         private EndlessRecyclerView _publicationRecyclerView;
+        private FrameLayout _loadingOverlay;
         private StateScrollListener _stateScrollListener;
         private LinearLayoutManager _layoutManager;
         private PublicationItemViewHolder _previousPublicationViewHolder;
@@ -111,6 +114,16 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
                       .For(v => v.LoadMoreItemsCommand)
                       .To(vm => vm.LoadMoreItemsCommand);
 
+            bindingSet.Bind(_loadingOverlay)
+                      .For(v => v.Visibility)
+                      .To(vm => vm.IsRefreshingFilter)
+                      .WithConversion<BoolToGoneConverter>();
+
+            bindingSet.Bind(_publicationTypeTabLayout)
+                     .For(v => v.IsSelectionEnabled)
+                     .To(vm => vm.IsRefreshingFilter)
+                     .WithConversion<MvxInvertedBooleanConverter>();
+
             bindingSet.Apply();
         }
 
@@ -118,8 +131,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         {
             _filterView = view.FindViewById<View>(Resource.Id.filter_view);
             _filterDividerView = view.FindViewById<View>(Resource.Id.filter_view_divider);
-            _publicationTypeTabLayout = view.FindViewById<TabLayout>(Resource.Id.publication_type_tab_layout);
+            _publicationTypeTabLayout = view.FindViewById<ExtendedTabLayout>(Resource.Id.publication_type_tab_layout);
             _publicationRecyclerView = view.FindViewById<EndlessRecyclerView>(Resource.Id.publication_recycler_view);
+            _loadingOverlay = view.FindViewById<FrameLayout>(Resource.Id.loading_overlay);
 
             _layoutManager = new SafeLinearLayoutManager(Context, LinearLayoutManager.Vertical, false)
             {
@@ -142,7 +156,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
             var dividerItemDecoration = new DividerItemDecoration(Context, LinearLayoutManager.Vertical);
             _publicationRecyclerView.AddItemDecoration(dividerItemDecoration);
+
+            //_publicationTypeTabLayout.SetOnTouchListener(new ViewOnTouchListener(OnTabLayoutTouch));
         }
+
+        //private bool OnTabLayoutTouch(View view, MotionEvent motionEvent)
+        //{
+        //    return ViewModel?.IsRefreshingFilter == false;
+        //}
 
         private void OnDataSetChanged(object sender, EventArgs e)
         {

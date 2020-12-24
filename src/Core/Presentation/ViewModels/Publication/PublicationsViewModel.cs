@@ -15,12 +15,12 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using PrankChat.Mobile.Core.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
@@ -33,7 +33,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private readonly Dictionary<DateFilterType, string> _dateFilterTypeTitleMap;
 
-        private Task _reloadTask;
+        private ExecutionStateWrapper _refreshFilterExecutionStateWrapper;
 
         public PublicationsViewModel(IPublicationsManager publicationsManager,
                                      IVideoManager videoManager,
@@ -46,6 +46,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _videoPlayerService = videoPlayerService;
 
             Items = new MvxObservableCollection<PublicationItemViewModel>();
+            _refreshFilterExecutionStateWrapper = new ExecutionStateWrapper();
 
             _dateFilterTypeTitleMap = new Dictionary<DateFilterType, string>
             {
@@ -55,6 +56,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 { DateFilterType.Quarter, Resources.Publication_Tab_Filter_Quarter },
                 { DateFilterType.HalfYear, Resources.Publication_Tab_Filter_HalfYear },
             };
+
+            _refreshFilterExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>((s, e) => RaisePropertyChanged(nameof(IsRefreshingFilter)),
+                                                                                              (wrapper, handler) => wrapper.IsBusyChanged += handler,
+                                                                                              (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
 
             ItemsChangedInteraction = new MvxInteraction();
             OpenFilterCommand = new MvxAsyncCommand(OnOpenFilterAsync);
@@ -71,10 +76,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             get => _selectedPublicationType;
             set
             {
-                SetProperty(ref _selectedPublicationType, value);
-                _ = DebounceRefreshDataAsync(value);
+                SetProperty(ref _selectedPublicationType, value, () => _ = RefreshDataAsync());
             }
         }
+
+        public bool IsRefreshingFilter => _refreshFilterExecutionStateWrapper.IsBusy;
 
         public MvxInteraction ItemsChangedInteraction { get; }
 
@@ -139,27 +145,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             }
         }
 
-        private async Task DebounceRefreshDataAsync(PublicationType publicationType)
-        {
-            Items.Clear();
-            await Task.Delay(500);
-            if (publicationType != SelectedPublicationType)
-            {
-                return;
-            }
-
-            if (_reloadTask != null &&
-                !_reloadTask.IsCompleted &&
-                !_reloadTask.IsCanceled &&
-                !_reloadTask.IsFaulted)
-            {
-                await _reloadTask;
-            }
-
-            Items.Clear();
-            _reloadTask = ReloadItemsAsync();
-        }
-
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
             var parameters = _dateFilterTypeTitleMap.Values.ToArray();
@@ -170,8 +155,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 return;
             }
 
-            ActiveFilter = _dateFilterTypeTitleMap.FirstOrDefault(x => x.Value == selectedFilterName).Key;
+            ActiveFilter = _dateFilterTypeTitleMap.FirstOrDefault(filter => filter.Value == selectedFilterName).Key;
             await ReloadItemsCommand.ExecuteAsync();
+        }
+
+        private async Task RefreshDataAsync()
+        {
+            ShouldNotifyIsBusy = false;
+
+            await _refreshFilterExecutionStateWrapper.WrapAsync(ReloadItemsAsync);
+
+            ShouldNotifyIsBusy = true;
         }
 
         protected async override Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
