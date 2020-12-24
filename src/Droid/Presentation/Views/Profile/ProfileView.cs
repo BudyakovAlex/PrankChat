@@ -20,7 +20,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 {
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(ProfileView))]
-    public class ProfileView : BaseTabFragment<ProfileViewModel>, TabLayout.IOnTabSelectedListener, IScrollableView
+    public class ProfileView : BaseRefreshableTabFragment<ProfileViewModel>, TabLayout.IOnTabSelectedListener, IScrollableView
     {
         private EndlessRecyclerView _endlessRecyclerView;
         private LinearLayoutManager _layoutManager;
@@ -62,6 +62,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 
         public void OnTabUnselected(TabLayout.Tab tab)
         {
+        }
+
+        protected override void RefreshData()
+        {
+            ViewModel?.LoadProfileCommand.Execute();
         }
 
         private void InitializeControls(View view)

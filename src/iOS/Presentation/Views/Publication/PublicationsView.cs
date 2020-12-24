@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
@@ -18,7 +19,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
     [MvxTabPresentation(TabName = "Publications", TabIconName = "unselected", TabSelectedIconName = "selected")]
-    public partial class PublicationsView : BaseTabbedView<PublicationsViewModel>, IScrollableView
+    public partial class PublicationsView : BaseRefreshableTabbedView<PublicationsViewModel>, IScrollableView
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
@@ -81,10 +82,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             filterTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
         }
 
+        protected override void RefreshData()
+        {
+            ViewModel?.ReloadItemsCommand.Execute();
+            TableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true);
+        }
+
         private void OnTabSelected(int position)
         {
             publicationTypeStackView.SetSelectedTabStyle(position);
-            tableView.SetContentOffset(new CoreGraphics.CGPoint(0, 0), false);
+            tableView.SetContentOffset(new CGPoint(0, 0), false);
 
             filterView.Hidden = position != 0;
             bottomSeparatorView.Hidden = filterView.Hidden;

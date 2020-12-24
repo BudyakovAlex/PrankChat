@@ -133,6 +133,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             {
                 scrollableView.RecyclerView.Post(() => scrollableView.RecyclerView.ScrollToPosition(0));
             }
+
+            if (currentFragment is IRefreshableView refreshableView)
+            {
+                refreshableView.RefreshData();
+            }
         }
 
         protected override void Unsubscription()
@@ -252,8 +257,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             {
                 return false;
             }
-
-            ViewModel?.SendTabChangedCommand.Execute(index);
 
             if (!ViewModel.CanSwitchTabs(index) &&
                 motionEvent.Action != MotionEventActions.Up)

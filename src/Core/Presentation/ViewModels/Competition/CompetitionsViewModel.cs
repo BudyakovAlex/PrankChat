@@ -29,7 +29,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
 
             Messenger.SubscribeOnMainThread<ReloadCompetitionsMessage>((msg) => LoadDataCommand?.Execute()).DisposeWith(Disposables);
-            Messenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => LoadDataCommand?.Execute()).DisposeWith(Disposables);
 
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
@@ -45,7 +44,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         public override async Task InitializeAsync()
         {
             await base.InitializeAsync();
-            await LoadDataCommand.ExecuteAsync();
+            await LoadDataAsync();
         }
 
         private Task ShowWalkthrouthAsync()
@@ -73,16 +72,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                                  .OrderBy(item => item.Phase)
                                                  .ToList();
             Items.SwitchTo(sections);
-        }
-
-        private void OnTabChangedMessage(TabChangedMessage msg)
-        {
-            if (msg.TabType != MainTabType.Competitions)
-            {
-                return;
-            }
-
-            LoadDataCommand.Execute();
         }
     }
 }

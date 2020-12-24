@@ -203,6 +203,8 @@
     <Compile Include="Presentation\Bindings\TabLayoutTabTextBinding.cs" />
     <Compile Include="Presentation\Views\Profile\UserProfileView.cs" />
     <Compile Include="Presentation\Views\Base\IScrollableView.cs" />
+    <Compile Include="Presentation\Views\Base\IRefreshableView.cs" />
+    <Compile Include="Presentation\Views\Base\BaseRefreshableTabFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

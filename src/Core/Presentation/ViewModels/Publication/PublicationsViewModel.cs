@@ -61,7 +61,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             Messenger.SubscribeOnMainThread<ReloadPublicationsMessage>((msg) => OnReloadItems()).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => OnReloadItems()).DisposeWith(Disposables);
-            Messenger.SubscribeOnMainThread<TabChangedMessage>(OnTabChangedMessage).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
             Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
         }
@@ -231,18 +230,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
         {
             return Items.Select(item => item.GetFullScreenVideoDataModel()).ToList();
-        }
-
-        private void OnTabChangedMessage(TabChangedMessage msg)
-        {
-            if (msg.TabType != MainTabType.Publications ||
-                !Connectivity.NetworkAccess.HasConnection())
-            {
-                return;
-            }
-
-            Items.Clear();
-            ReloadItemsCommand.Execute();
         }
 
         private void OnReloadItems()

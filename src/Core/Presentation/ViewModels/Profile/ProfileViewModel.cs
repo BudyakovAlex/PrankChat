@@ -51,7 +51,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
             Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<OrderChangedMessage>((msg) => ReloadItemsCommand?.Execute()).DisposeWith(Disposables);
-            Messenger.SubscribeOnMainThread<TabChangedMessage>(TabChanged).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<SubscriptionChangedMessage>((msg) => LoadProfileCommand.Execute()).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => ReloadItemsCommand?.Execute()).DisposeWith(Disposables);
         }
@@ -184,16 +183,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             }
 
             await LoadProfileCommand.ExecuteAsync();
-        }
-
-        private void TabChanged(TabChangedMessage msg)
-        {
-            if (msg.TabType != MainTabType.Profile)
-            {
-                return;
-            }
-
-            LoadProfileCommand.Execute();
         }
 
         private Task ShowWalkthrouthAsync()

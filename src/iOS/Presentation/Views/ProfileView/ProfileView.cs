@@ -1,4 +1,5 @@
-﻿using MvvmCross.Binding;
+﻿using CoreGraphics;
+using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
@@ -17,7 +18,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 {
     [MvxTabPresentation(TabName = "Profile", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
-    public partial class ProfileView : BaseTabbedView<ProfileViewModel>, IScrollableView
+    public partial class ProfileView : BaseRefreshableTabbedView<ProfileViewModel>, IScrollableView
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
@@ -159,9 +160,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             NavigationItem.LeftBarButtonItem = logoButton;
         }
 
+        protected override void RefreshData()
+        {
+            ViewModel?.LoadProfileCommand.Execute();
+            rootScrollView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true);
+        }
+
         private void TabSelected(ProfileOrderType profileOrderType)
         {
-            tableView.SetContentOffset(new CoreGraphics.CGPoint(0, 0), false);
+            tableView.SetContentOffset(new CGPoint(0, 0), false);
             ViewModel.SelectedOrderType = profileOrderType;
         }
 

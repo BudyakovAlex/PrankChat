@@ -1,4 +1,5 @@
-﻿using MvvmCross.Binding.BindingContext;
+﻿using CoreGraphics;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
@@ -12,7 +13,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 {
     [MvxTabPresentation(TabName = "Competitions", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
-    public partial class CompetitionsView : BaseTabbedView<CompetitionsViewModel>, IScrollableView
+    public partial class CompetitionsView : BaseRefreshableTabbedView<CompetitionsViewModel>, IScrollableView
     {
         private TableViewSource _source;
         private MvxUIRefreshControl _refreshControl;
@@ -41,24 +42,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             tableView.RefreshControl = _refreshControl;
         }
 
-        private void InitializeNavigationBar()
-        {
-            NavigationController.NavigationBar.SetNavigationBarStyle();
-
-            _notificationBarItem = NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand);
-            NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
-            {
-               _notificationBarItem,
-                NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand),
-                // TODO: This feature will be implemented.
-                //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
-            }, true);
-
-            var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
-            logoButton.Enabled = false;
-            NavigationItem.LeftBarButtonItem = logoButton;
-        }
-
         protected override void SetupBinding()
         {
             base.SetupBinding();
@@ -83,6 +66,30 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
                       .WithConversion<BoolToNotificationImageConverter>();
 
             bindingSet.Apply();
+        }
+
+        protected override void RefreshData()
+        {
+            ViewModel?.LoadDataCommand.Execute();
+            TableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true);
+        }
+
+        private void InitializeNavigationBar()
+        {
+            NavigationController.NavigationBar.SetNavigationBarStyle();
+
+            _notificationBarItem = NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand);
+            NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
+            {
+               _notificationBarItem,
+                NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand),
+                // TODO: This feature will be implemented.
+                //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
+            }, true);
+
+            var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
+            logoButton.Enabled = false;
+            NavigationItem.LeftBarButtonItem = logoButton;
         }
     }
 }

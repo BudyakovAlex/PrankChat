@@ -60,7 +60,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
             Messenger.SubscribeOnMainThread<OrderChangedMessage>(OrdersChanged).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RemoveOrderMessage>(OrderRemoved).DisposeWith(Disposables);
-            Messenger.SubscribeOnMainThread<TabChangedMessage>(TabChanged).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => ReloadItemsCommand?.Execute()).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
             Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
@@ -250,16 +249,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                         .Where(item => item.CanPlayVideo)
                         .Select(item => item.GetFullScreenVideoDataModel())
                         .ToList();
-        }
-
-        private void TabChanged(TabChangedMessage msg)
-        {
-            if (msg.TabType != MainTabType.Orders)
-            {
-                return;
-            }
-
-            LoadDataCommand.Execute();
         }
 
         private void OrdersChanged(OrderChangedMessage newOrderMessage)

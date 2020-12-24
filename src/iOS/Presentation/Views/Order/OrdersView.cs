@@ -1,4 +1,5 @@
-﻿using MvvmCross.Binding.BindingContext;
+﻿using CoreGraphics;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
@@ -15,7 +16,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
     [MvxTabPresentation(TabName = "Orders", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
-    public partial class OrdersView : BaseTabbedView<OrdersViewModel>, IScrollableView
+    public partial class OrdersView : BaseRefreshableTabbedView<OrdersViewModel>, IScrollableView
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
@@ -62,6 +63,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             ApplySelectedTabStyle(0);
         }
 
+        protected override void RefreshData()
+        {
+            ViewModel?.ReloadItemsCommand.Execute();
+            TableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true);
+        }
+
         private void InitializeTableView()
         {
             OrdersTableSource = new OrdersTableSource(tableView);
@@ -97,7 +104,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         private void SetSelectedTab(int index)
         {
-            tableView.SetContentOffset(new CoreGraphics.CGPoint(0, 0), false);
+            tableView.SetContentOffset(new CGPoint(0, 0), false);
 
             ApplySelectedTabStyle(index);
 

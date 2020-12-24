@@ -43,7 +43,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
 
             _lastTabPosition = tabPosition;
             ViewModel?.CheckDemoCommand.Execute(tabPosition);
-            ViewModel?.SendTabChangedCommand.Execute(tabPosition);
 
             if (ViewModel?.CanSwitchTabs(tabPosition) ?? false)
             {
@@ -61,10 +60,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
 
                 case UINavigationController navigationController:
                     ScrollContentToTop(navigationController.VisibleViewController);
+                    RefreshContent(navigationController.VisibleViewController);
                     break;
 
                 default:
                     ScrollContentToTop(viewController);
+                    RefreshContent(viewController);
                     break;
             }
         }
@@ -74,6 +75,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
             if (viewController is IScrollableView scrollableView && scrollableView.TableView != null)
             {
                 scrollableView.TableView.SetContentOffset(new CoreGraphics.CGPoint(0, 0), false);
+            }
+        }
+
+        private void RefreshContent(UIViewController viewController)
+        {
+            if (viewController is IRefreshableView refreshableView)
+            {
+                refreshableView.RefreshData();
             }
         }
 

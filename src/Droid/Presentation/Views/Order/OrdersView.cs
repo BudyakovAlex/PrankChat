@@ -23,7 +23,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 {
     [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(OrdersView))]
-    public class OrdersView : BaseTabFragment<OrdersViewModel>, TabLayout.IOnTabSelectedListener, IScrollableView
+    public class OrdersView : BaseRefreshableTabFragment<OrdersViewModel>, TabLayout.IOnTabSelectedListener, IScrollableView
     {
         private EndlessRecyclerView _endlessRecyclerView;
         private LinearLayoutManager _layoutManager;
@@ -41,6 +41,25 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             DoBind();
            
             return view;
+        }
+
+        public void OnTabReselected(TabLayout.Tab tab)
+        {
+        }
+
+        public void OnTabSelected(TabLayout.Tab tab)
+        {
+            RecyclerView.Post(() => RecyclerView.ScrollToPosition(0));
+            ViewModel.TabType = (OrdersTabType)tab.Position;
+        }
+
+        public void OnTabUnselected(TabLayout.Tab tab)
+        {
+        }
+
+        protected override void RefreshData()
+        {
+            ViewModel?.ReloadItemsCommand.Execute();
         }
 
         private void InitializeControls(View view)
@@ -73,28 +92,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             bindingSet.Bind(_endlessRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
 
             bindingSet.Apply();
-        }
-
-        protected override void Subscription()
-		{
-		}
-
-		protected override void Unsubscription()
-		{
-		}
-
-        public void OnTabReselected(TabLayout.Tab tab)
-        {
-        }
-
-        public void OnTabSelected(TabLayout.Tab tab)
-        {
-            RecyclerView.Post(() => RecyclerView.ScrollToPosition(0));
-            ViewModel.TabType = (OrdersTabType)tab.Position;
-        }
-
-        public void OnTabUnselected(TabLayout.Tab tab)
-        {
         }
     }
 }
