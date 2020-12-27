@@ -76,7 +76,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
         {
             if (viewController is IScrollableView scrollableView && scrollableView.TableView != null)
             {
-                scrollableView.TableView.ScrollToRow(NSIndexPath.FromRowSection(0, 0), UITableViewScrollPosition.Top, false);
+                scrollableView.TableView.SetContentOffset(new CoreGraphics.CGPoint(0, 0), false);
             }
         }
 

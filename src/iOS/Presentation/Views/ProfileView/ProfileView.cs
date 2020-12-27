@@ -14,6 +14,7 @@ using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
 using UIKit;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 {
@@ -163,7 +164,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         protected override void RefreshData()
         {
             ViewModel?.LoadProfileCommand.Execute();
-            rootScrollView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true);
+            MainThread.BeginInvokeOnMainThread(() => rootScrollView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true));
         }
 
         private void TabSelected(ProfileOrderType profileOrderType)

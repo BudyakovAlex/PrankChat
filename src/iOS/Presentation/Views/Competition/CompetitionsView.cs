@@ -9,6 +9,7 @@ using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 {
@@ -71,7 +72,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         protected override void RefreshData()
         {
             ViewModel?.LoadDataCommand.Execute();
-            TableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true);
+            MainThread.BeginInvokeOnMainThread(() => TableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true));
         }
 
         private void InitializeNavigationBar()
