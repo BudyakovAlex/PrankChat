@@ -16,6 +16,7 @@ using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
@@ -94,7 +95,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         protected override void RefreshData()
         {
             ViewModel?.ReloadItemsCommand.Execute();
-            TableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true);
+            MainThread.BeginInvokeOnMainThread(() => TableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true));
         }
 
         private void OnTabSelected(int position)
