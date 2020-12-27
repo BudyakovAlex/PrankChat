@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
+using Foundation;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -60,12 +62,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
 
                 case UINavigationController navigationController:
                     ScrollContentToTop(navigationController.VisibleViewController);
-                    RefreshContent(navigationController.VisibleViewController);
+                    _ = RefreshContentAsync(navigationController.VisibleViewController);
                     break;
 
                 default:
                     ScrollContentToTop(viewController);
-                    RefreshContent(viewController);
+                    _ = RefreshContentAsync(viewController);
                     break;
             }
         }
@@ -74,14 +76,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
         {
             if (viewController is IScrollableView scrollableView && scrollableView.TableView != null)
             {
-                scrollableView.TableView.SetContentOffset(new CoreGraphics.CGPoint(0, 0), false);
+                scrollableView.TableView.ScrollToRow(NSIndexPath.FromRowSection(0, 0), UITableViewScrollPosition.Top, false);
             }
         }
 
-        private void RefreshContent(UIViewController viewController)
+        private async Task RefreshContentAsync(UIViewController viewController)
         {
             if (viewController is IRefreshableView refreshableView)
             {
+                //NOTE: need to smooth scroll offset on top before refreshing data
+                await Task.Delay(400);
                 refreshableView.RefreshData();
             }
         }
