@@ -234,6 +234,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task TakeOrderAsync()
         {
+            var user = SettingsService.User;
+
+            if (user?.EmailVerifiedAt == null)
+            {
+                var canGoProfile = await DialogService.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
+                if (canGoProfile)
+                {
+                    await NavigationService.ShowUpdateProfileView();
+                }
+
+                return;
+            }
+
             var result = await DialogService.ShowConfirmAsync(Resources.OrderDetailsView_TakeOrderQuestion,
                                                               Resources.Attention,
                                                               Resources.OrderDetailsView_TakeOrderTitle,

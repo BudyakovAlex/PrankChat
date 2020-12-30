@@ -80,6 +80,7 @@ namespace PrankChat.Mobile.Core.Infrastructure
         public static class ErrorCodes
         {
             public const string LowBalance = "XA0001";
+            public const string Unauthorized = "unauthorized";
         }
 
         public static class ComplaintConstants
