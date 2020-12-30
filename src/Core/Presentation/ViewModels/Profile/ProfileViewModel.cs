@@ -11,6 +11,7 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
@@ -165,6 +166,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task ShowRefillAsync()
         {
+            if (!IsEmailVerified)
+            {
+                var canGoProfile = await DialogService.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
+                if (canGoProfile)
+                {
+                    await NavigationService.ShowUpdateProfileView();
+                }
+
+                return;
+            }
+
             var isReloadNeeded = await NavigationService.ShowRefillView();
             if (!isReloadNeeded)
             {
@@ -176,6 +188,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task ShowWithdrawalAsync()
         {
+            if (!IsEmailVerified)
+            {
+                var canGoProfile = await DialogService.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
+                if (canGoProfile)
+                {
+                    await NavigationService.ShowUpdateProfileView();
+                }
+
+                return;
+            }
+
             var isReloadNeeded = await NavigationService.ShowWithdrawalView();
             if (!isReloadNeeded)
             {
@@ -185,9 +208,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             await LoadProfileCommand.ExecuteAsync();
         }
 
-        private Task ShowWalkthrouthAsync()
+        private async Task ShowWalkthrouthAsync()
         {
-            return _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>();
+            await _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>();
         }
 
         private async Task LoadProfileAsync()

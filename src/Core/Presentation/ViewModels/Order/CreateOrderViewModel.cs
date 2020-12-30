@@ -119,6 +119,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 await HandleLowBalanceExceptionAsync(ex);
             }
+            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsDataModel problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.Unauthorized)
+            {
+                await HandleUnauthorizedAsync(ex);
+            }
             catch (Exception ex)
             {
                 ErrorHandleService.ResumeServerErrorsHandling();
@@ -167,6 +171,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
 
             await NavigationService.ShowRefillView();
+        }
+
+        private async Task HandleUnauthorizedAsync(Exception exception)
+        {
+            var canGoProfile = await DialogService.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.Ok, Resources.Cancel);
+            if (!canGoProfile)
+            {
+                return;
+            }
+
+            await NavigationService.ShowUpdateProfileView();
         }
 
         private async Task ShowDateDialogAsync()
