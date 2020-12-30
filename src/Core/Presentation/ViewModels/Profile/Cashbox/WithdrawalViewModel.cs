@@ -297,7 +297,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
             if (_currentCard == null && string.IsNullOrEmpty(CardNumber))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.WithdrawalView_Cancel_Withdrawal_Error, ValidationErrorType.CanNotMatch));
+                ErrorHandleService.HandleException(new ValidationException(Resources.WithdrawalView_Empty_Card_Error, ValidationErrorType.CanNotMatch));
                 return false;
             }
 
