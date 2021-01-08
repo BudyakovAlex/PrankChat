@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using CoreAnimation;
+﻿using CoreAnimation;
 using CoreGraphics;
 using Foundation;
 using MvvmCross.Binding;
@@ -17,6 +15,8 @@ using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using System;
+using System.Collections.Generic;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
@@ -83,7 +83,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                       .For(v => v.Text)
                       .To(vm => vm.Login)
                       .Mode(MvxBindingMode.TwoWay);
-                
+
             bindingSet.Bind(nameTextField)
                       .For(v => v.Text)
                       .To(vm => vm.Name)
@@ -194,7 +194,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         {
             Title = Resources.ProfileUpdateView_Title;
 
-            descriptionTextView.TextContainer.MaximumNumberOfLines = 100;
+            descriptionTextView.TextContainer.MaximumNumberOfLines = 3;
 
             _dynamicDescriptionTextView = new UITextView();
 
@@ -238,8 +238,20 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             descriptionTextView.ContentInset = UIEdgeInsets.Zero;
             descriptionTextView.ShouldChangeText = (textField, range, replacementString) =>
             {
+                if (replacementString == string.Empty)
+                {
+                    return true;
+                }
+
+                var newText = new NSString(textField.Text).Replace(range, new NSString(replacementString));
+                var textWidth = textField.TextContainerInset.InsetRect(textField.Frame).Width;
+                textWidth -= 2.0f * textField.TextContainer.LineFragmentPadding;
+
+                var boundingRect = SizeOfString(newText, (float)textWidth, font: textField.Font);
+                var numberOfLines = boundingRect.Height / textField.Font.LineHeight;
+                var canChangeText = numberOfLines <= textField.TextContainer.MaximumNumberOfLines;
                 var newLength = textField.Text.Length + replacementString.Length - range.Length;
-                return newLength <= Constants.Profile.DescriptionMaxLength;
+                return canChangeText && newLength <= Constants.Profile.DescriptionMaxLength;
             };
 
             descriptionTextView.AddGestureRecognizer(new UITapGestureRecognizer(() => descriptionTextView.BecomeFirstResponder()));
@@ -261,6 +273,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             views.Add(descriptionTextView);
 
             base.RegisterKeyboardDismissResponders(views);
+        }
+
+        private CGRect SizeOfString(string text, float width, UIFont font)
+        {
+            var attributes = new UIStringAttributes()
+            {
+                Font = font
+            };
+
+            return new NSString(text).GetBoundingRect(new CGSize(width, float.MaxValue),
+                                                      NSStringDrawingOptions.UsesLineFragmentOrigin,
+                                                      attributes,
+                                                      null);
         }
 
         private void RefreshDescriptionFrameLayers()
@@ -345,4 +370,3 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         }
     }
 }
-
