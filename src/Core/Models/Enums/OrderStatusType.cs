@@ -1,10 +1,11 @@
 ﻿using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers.Converters;
 
 namespace PrankChat.Mobile.Core.Models.Enums
 {
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(StringEnumJsonConverter))]
     public enum OrderStatusType
     {
         None,
