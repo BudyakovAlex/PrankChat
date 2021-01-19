@@ -14,7 +14,7 @@ namespace PrankChat.Mobile.Core.Mappers
 
             return new CompetitionResultDataModel(competitionResultApiModel.Place,
                                                   competitionResultApiModel.User?.Map(),
-                                                  competitionResultApiModel.Video.Data?.Map(),
+                                                  competitionResultApiModel.Video?.Data?.Map(),
                                                   competitionResultApiModel.Prize);
         }
     }
