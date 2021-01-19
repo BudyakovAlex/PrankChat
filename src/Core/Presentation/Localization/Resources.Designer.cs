@@ -1888,5 +1888,11 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Walkthrouth_CreateOrder_Secret_Description", resourceCulture);
             }
         }
+        
+        public static string Publication_Item_Download {
+            get {
+                return ResourceManager.GetString("Publication_Item_Download", resourceCulture);
+            }
+        }
     }
 }

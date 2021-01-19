@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Commands;
+using Plugin.DownloadManager;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Commands;
@@ -31,7 +32,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private readonly string[] _restrictedActionsInDemoMode = new[]
         {
              Resources.Publication_Item_Complain,
-             Resources.Publication_Item_Subscribe_To_Author
+             Resources.Publication_Item_Subscribe_To_Author,
+             Resources.Publication_Item_Download
         };
 
         private long? _numberOfViews;
@@ -250,6 +252,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             {
                 Resources.Publication_Item_Complain,
                 Resources.Publication_Item_Copy_Link,
+                Resources.Publication_Item_Download,
                 // TODO: Subscription functionality not implemented.
                 //Resources.Publication_Item_Subscribe_To_Author
             });
@@ -283,6 +286,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 await _platformService.CopyTextAsync(_shareLink);
                 DialogService.ShowToast(Resources.LinkCopied, ToastType.Positive);
                 return;
+            }
+
+            if (result == Resources.Publication_Item_Download)
+            {
+                var downloadManager = CrossDownloadManager.Current;
+                var file = downloadManager.CreateDownloadFile(_videoDataModel.MarkedStreamUri);
+                downloadManager.Start(file);
             }
 
             // TODO: Subscription functionality not implemented.
