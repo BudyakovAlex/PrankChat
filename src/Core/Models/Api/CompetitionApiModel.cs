@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Models.Api
 {
@@ -22,7 +23,7 @@ namespace PrankChat.Mobile.Core.Models.Api
         public string HtmlContent { get; set; }
 
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public string Category { get; set; }
 
         [JsonProperty("prize_pool")]
         public List<string> PrizePoolList { get; set; }

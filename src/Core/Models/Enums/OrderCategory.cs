@@ -13,6 +13,10 @@ namespace PrankChat.Mobile.Core.Models.Enums
         [EnumMember(Value = "competition")]
         Competition,
         [EnumMember(Value = "private")]
-        Private
+        Private,
+        [EnumMember(Value = "paid_competition")]
+        PaidCompetition,
+        [EnumMember(Value = "private_paid_competition")]
+        PrivatePaidCompetition
     }
 }

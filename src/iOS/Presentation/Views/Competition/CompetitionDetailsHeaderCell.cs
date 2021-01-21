@@ -4,6 +4,7 @@ using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -121,6 +122,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             bindingSet.Bind(openPrizePoolButton)
                       .For(v => v.BindTouchUpInside())
                       .To(vm => vm.OpenPrizePoolCommand);
+
+            bindingSet.Bind(PrivateFlagImageView)
+                      .For(v => v.BindVisible())
+                      .To(vm => vm.Category)
+                      .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PrivatePaidCompetition));
+
+            bindingSet.Bind(PaidFlagImageView)
+                      .For(v => v.BindVisible())
+                      .To(vm => vm.Category)
+                      .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PaidCompetition || category == OrderCategory.PrivatePaidCompetition));
 
             bindingSet.Apply();
         }

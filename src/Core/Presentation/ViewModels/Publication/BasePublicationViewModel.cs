@@ -72,7 +72,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             NumberOfDislikes = videoDataModel.DislikesCount;
             StubImageUrl = _videoDataModel.Poster;
             NumberOfComments = videoDataModel.CommentsCount;
-            IsCompetiotionVideo = videoDataModel.OrderCategory == OrderCategory.Competition;
+            IsCompetitionVideo = videoDataModel.OrderCategory.CheckIsCompetitionOrder();
 
             _numberOfViews = videoDataModel.ViewsCount;
             _publicationDate = videoDataModel.CreatedAt.DateTime;
@@ -140,7 +140,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public string NumberOfDislikesText => NumberOfDislikes.ToCountString();
 
-        public bool IsCompetiotionVideo { get; }
+        public bool IsCompetitionVideo { get; }
 
         #region Commands
 

@@ -1079,6 +1079,8 @@
     <ImageAsset Include="Assets.xcassets\ic_dislike.imageset\ic_dislike-1.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_order_hidden.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_order_hidden.imageset\Group 2.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_order_paid.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_order_paid.imageset\ic_order_paid.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -1166,6 +1168,7 @@
     <Folder Include="Assets.xcassets\ic_competition_cup.imageset\" />
     <Folder Include="Presentation\SourcesAndDelegates\Search\" />
     <Folder Include="Assets.xcassets\ic_order_hidden.imageset\" />
+    <Folder Include="Assets.xcassets\ic_order_paid.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

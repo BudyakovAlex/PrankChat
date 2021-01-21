@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PrankChat.Mobile.Core.Models.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace PrankChat.Mobile.Core.Models.Data
@@ -10,7 +11,7 @@ namespace PrankChat.Mobile.Core.Models.Data
                                     string imageUrl,
                                     string description,
                                     string htmlContent,
-                                    string type,
+                                    OrderCategory? category,
                                     string status,
                                     bool canUploadVideo,
                                     int prizePool,
@@ -27,7 +28,7 @@ namespace PrankChat.Mobile.Core.Models.Data
             ImageUrl = imageUrl;
             Description = description;
             HtmlContent = htmlContent;
-            Type = type;
+            Category = category;
             Status = status;
             CanUploadVideo = canUploadVideo;
             PrizePool = prizePool;
@@ -50,7 +51,7 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public string HtmlContent { get; set; }
 
-        public string Type { get; set; }
+        public OrderCategory? Category { get; set; }
 
         public string Status { get; set; }
 

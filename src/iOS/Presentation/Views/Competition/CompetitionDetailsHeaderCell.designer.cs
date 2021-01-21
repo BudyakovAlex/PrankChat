@@ -43,6 +43,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 		UIKit.UIButton openRulesButton { get; set; }
 
 		[Outlet]
+		UIKit.UIImageView PaidFlagImageView { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView PrivateFlagImageView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel prizeLabel { get; set; }
 
 		[Outlet]
@@ -68,6 +74,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 			if (backgroundImageView != null) {
 				backgroundImageView.Dispose ();
 				backgroundImageView = null;
+			}
+
+			if (PaidFlagImageView != null) {
+				PaidFlagImageView.Dispose ();
+				PaidFlagImageView = null;
+			}
+
+			if (PrivateFlagImageView != null) {
+				PrivateFlagImageView.Dispose ();
+				PrivateFlagImageView = null;
 			}
 
 			if (daysLabel != null) {

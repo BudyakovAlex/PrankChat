@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -91,7 +92,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="761-c8-NKu" secondAttribute="bottom" id="5cv-Zb-Fcv"/>
                                     <constraint firstItem="AM4-0D-rm7" firstAttribute="leading" secondItem="u1B-YQ-09Q" secondAttribute="leading" constant="3" id="8a9-bM-7Jq"/>
@@ -169,7 +170,7 @@
                             <constraint firstAttribute="height" constant="1" id="3Xf-jA-EB1"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H8V-z6-evv">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H8V-z6-evv">
                         <rect key="frame" x="12" y="493" width="412" height="36"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -186,7 +187,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DC4-hs-8gX">
+                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DC4-hs-8gX">
                         <rect key="frame" x="320" y="417" width="86" height="59"/>
                         <color key="tintColor" red="0.42745098039215684" green="0.15686274509803921" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="contentEdgeInsets" minX="30" minY="0.0" maxX="10" maxY="0.0"/>
@@ -194,6 +195,20 @@
                         <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="10k" image="ic_thumbs_up"/>
                     </button>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_order_paid" translatesAutoresizingMaskIntoConstraints="NO" id="mwa-uI-U1u">
+                        <rect key="frame" x="393" y="52" width="34" height="54"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="34" id="Ggr-1H-Blj"/>
+                            <constraint firstAttribute="height" constant="54" id="Xsh-Wu-OZ6"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_order_hidden" translatesAutoresizingMaskIntoConstraints="NO" id="9k6-J6-Y80">
+                        <rect key="frame" x="350" y="52" width="34" height="54"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="54" id="1wP-QC-N8n"/>
+                            <constraint firstAttribute="width" constant="34" id="gzJ-AB-Ntm"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -213,9 +228,13 @@
                 <constraint firstAttribute="trailing" secondItem="uFf-Mu-yFX" secondAttribute="trailing" id="Jxa-ox-QeJ"/>
                 <constraint firstItem="lwJ-Xo-LAN" firstAttribute="leading" secondItem="cZE-iV-UFb" secondAttribute="leading" id="MoA-ah-iqu"/>
                 <constraint firstItem="vSB-RI-Kyp" firstAttribute="centerY" secondItem="DC4-hs-8gX" secondAttribute="centerY" id="PE3-8O-DLN"/>
+                <constraint firstItem="mwa-uI-U1u" firstAttribute="top" secondItem="gLe-wy-WxH" secondAttribute="bottom" id="R55-Cr-3zY"/>
                 <constraint firstItem="gLe-wy-WxH" firstAttribute="leading" secondItem="cZE-iV-UFb" secondAttribute="leading" id="SND-TJ-1HX"/>
+                <constraint firstItem="9k6-J6-Y80" firstAttribute="top" secondItem="gLe-wy-WxH" secondAttribute="bottom" id="Tgk-MN-ftD"/>
+                <constraint firstAttribute="trailing" secondItem="mwa-uI-U1u" secondAttribute="trailing" constant="9" id="UWg-PX-3Te"/>
                 <constraint firstAttribute="trailing" secondItem="pdw-eZ-F1j" secondAttribute="trailing" constant="12" id="Umz-RM-Hob"/>
                 <constraint firstAttribute="trailing" secondItem="DC4-hs-8gX" secondAttribute="trailing" constant="30" id="VhH-23-a3z"/>
+                <constraint firstItem="mwa-uI-U1u" firstAttribute="leading" secondItem="9k6-J6-Y80" secondAttribute="trailing" constant="9" id="Vhl-Xb-sdr"/>
                 <constraint firstItem="5zK-5z-9jH" firstAttribute="leading" secondItem="cZE-iV-UFb" secondAttribute="leading" constant="12" id="Wu1-rg-KIb"/>
                 <constraint firstItem="Dyz-K0-c2R" firstAttribute="top" secondItem="5sS-tL-Qdp" secondAttribute="bottom" constant="10" id="XfD-0R-rbt"/>
                 <constraint firstItem="DC4-hs-8gX" firstAttribute="top" secondItem="pdw-eZ-F1j" secondAttribute="bottom" id="c4w-vk-bXv"/>
@@ -241,6 +260,8 @@
             </constraints>
             <size key="customSize" width="350" height="497"/>
             <connections>
+                <outlet property="PaidFlagImageView" destination="mwa-uI-U1u" id="hgS-Tq-lSI"/>
+                <outlet property="PrivateFlagImageView" destination="9k6-J6-Y80" id="TqB-Rc-WiH"/>
                 <outlet property="button" destination="H8V-z6-evv" id="bQo-91-RjR"/>
                 <outlet property="daysLabel" destination="AM4-0D-rm7" id="3pu-5t-lT3"/>
                 <outlet property="descriptionLabel" destination="9Qz-Ie-Nqz" id="dLh-4s-xT1"/>
@@ -265,6 +286,11 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="ic_order_hidden" width="36" height="56"/>
+        <image name="ic_order_paid" width="36" height="56"/>
         <image name="ic_thumbs_up" width="22" height="20"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
