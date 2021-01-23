@@ -37,7 +37,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         private CompetitionDataModel _competition;
         private CompetitionDetailsHeaderViewModel _header;
-        private MvxSubscriptionToken _reloadItemsSubscriptionToken;
 
         private bool _isRefreshing;
         private bool _isReloadNeeded;
@@ -185,6 +184,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                                                     _competition);
                     Items.ReplaceWith(new[] { _header });
                     await LoadMoreItemsAsync();
+                    _isReloadNeeded = true;
                 }
             }
             catch (NetworkException ex) when (ex.InnerException is ProblemDetailsDataModel problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
