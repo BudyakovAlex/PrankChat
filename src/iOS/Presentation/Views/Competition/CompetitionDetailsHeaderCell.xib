@@ -232,6 +232,7 @@
             <connections>
                 <outlet property="PaidFlagImageView" destination="RaO-0t-jfR" id="WSq-g0-axI"/>
                 <outlet property="PrivateFlagImageView" destination="LoA-ik-WmS" id="6QD-lu-XRc"/>
+                <outlet property="actionButton" destination="1N7-3Z-440" id="EFJ-mb-xEH"/>
                 <outlet property="backgroundImageView" destination="7lf-tg-guw" id="uWF-VA-Spv"/>
                 <outlet property="daysLabel" destination="rnK-n6-WVD" id="85a-Vm-mNV"/>
                 <outlet property="descriptionLabel" destination="kfz-hX-UhX" id="nv8-Qj-dzg"/>
@@ -248,7 +249,6 @@
                 <outlet property="timeContainer" destination="PYJ-Qn-3to" id="PMB-xF-Lqc"/>
                 <outlet property="timeLabel" destination="TUL-5K-bF1" id="fR7-6a-Aw0"/>
                 <outlet property="titleLabel" destination="ccj-Ml-3kJ" id="ysK-6N-i07"/>
-                <outlet property="uploadVideoButton" destination="1N7-3Z-440" id="NKh-aF-hZf"/>
             </connections>
             <point key="canvasLocation" x="-255.07246376811597" y="171.09375"/>
         </tableViewCell>

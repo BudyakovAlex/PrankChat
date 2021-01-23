@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="36dp"
     android:height="56dp"
     android:viewportWidth="36"
@@ -9,10 +10,27 @@
         android:fillColor="#000000"
         android:pathData="M36 1.21729V55.9999L18.4139 46.9324L1.22034 55.9999V1.21729H36Z" />
     <path
-        android:fillColor="url(#paint0_linear)"
-        android:strokeColor="#F07B08"
         android:strokeWidth="1"
-        android:pathData="M16.9603 45.2729L0.5 53.9537V0.5H34.2796V53.9623L17.4227 45.2707L17.1909 45.1512L16.9603 45.2729Z" />
+        android:pathData="M16.9603,46.2716L0.5,54.9524V1.4987H34.2796V54.961L17.4227,46.2695L17.1909,46.15L16.9603,46.2716Z"
+        android:strokeColor="#C80406">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startY="37.4987"
+                android:startX="20"
+                android:endY="-21.0013"
+                android:endX="20"
+                android:type="linear">
+                <item android:offset="0" android:color="#FF7F09"/>
+                <item android:offset="0.094" android:color="#FF7F09"/>
+                <item android:offset="0.226" android:color="#FF8F27"/>
+                <item android:offset="0.355" android:color="#FF9D42"/>
+                <item android:offset="0.479" android:color="#F9C642"/>
+                <item android:offset="0.598" android:color="#FF932F"/>
+                <item android:offset="0.731" android:color="#FF8F27"/>
+                <item android:offset="0.936" android:color="#FF7F09"/>
+            </gradient>
+        </aapt:attr>
+    </path>
     <path
         android:fillColor="#ffffff"
         android:pathData="M18.3314 43H15.7269V40.5314C13.0965 40.3472 10.9845 39.5918 9.39067 38.2654C7.80985 36.939 7.01296 35.2502 7 33.1992H10.3236C10.4273 34.4274 10.9521 35.4345 11.898 36.2205C12.8439 37.0065 14.1202 37.4917 15.7269 37.6759V28.0961L14.172 27.6908C12.0858 27.175 10.4791 26.3276 9.3518 25.1485C8.23745 23.9695 7.68027 22.5264 7.68027 20.8192C7.68027 18.805 8.39942 17.1531 9.83771 15.8636C11.276 14.574 13.2391 13.8125 15.7269 13.5792V11H18.3314V13.5607C20.7545 13.7572 22.7046 14.5126 24.1817 15.8267C25.6718 17.1409 26.4493 18.7927 26.5141 20.7824H23.2099C23.171 19.6402 22.7046 18.6699 21.8105 17.8716C20.9294 17.061 19.7697 16.5759 18.3314 16.4162V25.4249L19.9835 25.8117C22.3677 26.4135 24.1299 27.2917 25.2702 28.4462C26.4234 29.6007 27 31.1052 27 32.9597C27 35.1336 26.2355 36.8837 24.7065 38.2101C23.1905 39.5366 21.0654 40.3042 18.3314 40.513V43ZM23.6375 33.2176C23.6375 32.0017 23.2099 31.0192 22.3547 30.27C21.4995 29.5208 20.1584 28.962 18.3314 28.5936V37.7311C20.0159 37.6452 21.3181 37.2092 22.2381 36.4231C23.171 35.6371 23.6375 34.5686 23.6375 33.2176ZM11.0233 20.635C11.0233 22.8457 12.5912 24.2642 15.7269 24.8906V16.4162C14.3664 16.4899 13.2391 16.9259 12.345 17.7242C11.4639 18.5103 11.0233 19.4805 11.0233 20.635Z" />

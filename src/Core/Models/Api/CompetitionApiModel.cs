@@ -34,6 +34,9 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("can_upload_video")]
         public bool CanUploadVideo { get; set; }
 
+        [JsonProperty("is_competition_member")]
+        public bool IsPaidCompetitionMember { get; set; }
+
         [JsonProperty("price")]
         public int PrizePool { get; set; }
 

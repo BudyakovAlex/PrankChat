@@ -1894,5 +1894,11 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Publication_Item_Download", resourceCulture);
             }
         }
+        
+        public static string Competition_Pay_For_Join {
+            get {
+                return ResourceManager.GetString("Competition_Pay_For_Join", resourceCulture);
+            }
+        }
     }
 }

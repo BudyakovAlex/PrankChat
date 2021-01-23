@@ -54,7 +54,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public int? LikesCount => Competition.LikesCount;
 
-        public bool IsLikesUnavailable => Competition.CanUploadVideo;
+        public bool CanUploadVideo => Phase == CompetitionPhase.New && Competition.CanUploadVideo;
+
+        public bool CanJoinToPaidCompetition => Phase == CompetitionPhase.New && Competition.Category.CheckIsPaidCompetitionOrder() && !Competition.IsPaidCompetitionMember;
+
+        public bool CanExecuteActionVideo => CanJoinToPaidCompetition || CanUploadVideo;
 
         public DateTime? VoteTo => Competition.VoteTo;
 

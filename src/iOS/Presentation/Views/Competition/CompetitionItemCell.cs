@@ -129,7 +129,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             bindingSet.Bind(idLabel)
                       .For(v => v.Hidden)
-                      .To(vm => vm.IsLikesUnavailable);
+                      .To(vm => vm.CanExecuteActionVideo);
 
             bindingSet.Bind(likeButton)
                       .For(v => v.BindTitle())
@@ -137,7 +137,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             bindingSet.Bind(likeButton)
                       .For(v => v.Hidden)
-                      .To(vm => vm.IsLikesUnavailable);
+                      .To(vm => vm.CanExecuteActionVideo);
 
             bindingSet.Bind(PrivateFlagImageView)
                       .For(v => v.BindVisible())

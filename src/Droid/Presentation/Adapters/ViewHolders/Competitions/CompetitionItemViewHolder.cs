@@ -7,6 +7,7 @@ using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Droid.Extensions;
@@ -39,6 +40,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
         private MaterialButton _actionButton;
         private FrameLayout _borderFrame;
         private FrameLayout _backgroundFrame;
+        private ImageView _paidFlagImageView;
+        private ImageView _privateFlagImageView;
 
         public CompetitionItemViewHolder(View view, IMvxAndroidBindingContext context) : base(view, context)
         {
@@ -48,6 +51,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
         {
             base.DoInit(view);
 
+            _paidFlagImageView = view.FindViewById<ImageView>(Resource.Id.paid_flag_image_view);
+            _privateFlagImageView = view.FindViewById<ImageView>(Resource.Id.private_flag_image_view);
             _titleTextView = view.FindViewById<TextView>(Resource.Id.title_text_view);
             _descriptionTextView = view.FindViewById<TextView>(Resource.Id.description_text_view);
             _termTitle = view.FindViewById<TextView>(Resource.Id.term_title_text_view);
@@ -107,19 +112,19 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
 
             bindingSet.Bind(_numberTextView)
                       .For(v => v.BindHidden())
-                      .To(vm => vm.IsLikesUnavailable);
+                      .To(vm => vm.CanExecuteActionVideo);
 
             bindingSet.Bind(_likesImageView)
                       .For(v => v.BindHidden())
-                      .To(vm => vm.IsLikesUnavailable);
+                      .To(vm => vm.CanExecuteActionVideo);
 
             bindingSet.Bind(_likesTextView)
                       .For(v => v.BindHidden())
-                      .To(vm => vm.IsLikesUnavailable);
+                      .To(vm => vm.CanExecuteActionVideo);
 
             bindingSet.Bind(_thirdDividerView)
                       .For(v => v.BindHidden())
-                      .To(vm => vm.IsLikesUnavailable);
+                      .To(vm => vm.CanExecuteActionVideo);
 
             bindingSet.Bind(_termTimerTextView)
                       .For(v => v.Text)
@@ -195,6 +200,16 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_minutesTextView)
                       .For(v => v.Text)
                       .To(vm => vm.MinutesText);
+
+            bindingSet.Bind(_privateFlagImageView)
+                      .For(v => v.BindVisible())
+                      .To(vm => vm.Category)
+                      .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PrivatePaidCompetition));
+
+            bindingSet.Bind(_paidFlagImageView)
+                      .For(v => v.BindVisible())
+                      .To(vm => vm.Category)
+                      .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PaidCompetition || category == OrderCategory.PrivatePaidCompetition));
 
             bindingSet.Apply();
         }

@@ -1,8 +1,11 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Competitions;
@@ -55,6 +58,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
             Items = new MvxObservableCollection<BaseViewModel>();
 
+            Messenger.SubscribeOnMainThread<ReloadCompetitionMessage>(OnReloadData).DisposeWith(Disposables);
+
             RefreshDataCommand = new MvxAsyncCommand(RefreshDataAsync);
             CancelUploadingCommand = new MvxCommand(() => _cancellationTokenSource?.Cancel());
         }
@@ -100,7 +105,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             _header = new CompetitionDetailsHeaderViewModel(IsUserSessionInitialized,
                                                             Messenger,
                                                             NavigationService,
-                                                            new MvxAsyncCommand(LoadVideoAsync),
+                                                            new MvxAsyncCommand(ExecuteActionAsync),
                                                             parameter);
             Items.Add(_header);
         }
@@ -110,38 +115,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             return LoadMoreItemsCommand.ExecuteAsync();
         }
 
-        public override void ViewCreated()
-        {
-            base.ViewCreated();
-            Subscription();
-        }
-
         public override void ViewDestroy(bool viewFinishing = true)
         {
-            Unsubscription();
-
             if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
             {
                 CloseCompletionSource?.SetResult(_isReloadNeeded);
             }
 
             base.ViewDestroy(viewFinishing);
-        }
-
-        private void Subscription()
-        {
-            _reloadItemsSubscriptionToken = Messenger.SubscribeOnMainThread<ReloadCompetitionMessage>(OnReloadData);
-        }
-
-        private void Unsubscription()
-        {
-            _reloadItemsSubscriptionToken?.Dispose();
-        }
-
-        private void OnReloadData(ReloadCompetitionMessage obj)
-        {
-            _isReloadNeeded = true;
-            RefreshDataCommand.Execute();
         }
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
@@ -172,12 +153,84 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             return orderViewModels.Count;
         }
 
+        private Task ExecuteActionAsync()
+        {
+            if (_competition is null)
+            {
+                return Task.CompletedTask;
+            }
+
+            if (_competition.Category.CheckIsPaidCompetitionOrder()
+                && !_competition.IsPaidCompetitionMember)
+            {
+                return CompetitionJoinAsync();
+            }
+
+            return LoadVideoAsync();
+        }
+
+        private async Task CompetitionJoinAsync()
+        {
+            try
+            {
+                ErrorHandleService.SuspendServerErrorsHandling();
+                var updatedCompetition = await _competitionsManager.CompetitionJoinAsync(_competition.Id);
+                if (updatedCompetition != null)
+                {
+                    _competition = updatedCompetition;
+                    _header = new CompetitionDetailsHeaderViewModel(IsUserSessionInitialized,
+                                                                    Messenger,
+                                                                    NavigationService,
+                                                                    new MvxAsyncCommand(ExecuteActionAsync),
+                                                                    _competition);
+                    Items.ReplaceWith(new[] { _header });
+                    await LoadMoreItemsAsync();
+                }
+            }
+            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsDataModel problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
+            {
+                await HandleLowBalanceExceptionAsync(ex);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandleService.ResumeServerErrorsHandling();
+                Messenger.Publish(new ServerErrorMessage(this, ex));
+            }
+            finally
+            {
+                ErrorHandleService.ResumeServerErrorsHandling();
+            }
+        }
+
+        private async Task HandleLowBalanceExceptionAsync(Exception exception)
+        {
+            var canRefil = await DialogService.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.ProfileView_Refill, Resources.Cancel);
+            if (!canRefil)
+            {
+                return;
+            }
+
+            var shouldRefresh = await NavigationService.ShowRefillView();
+            if (!shouldRefresh)
+            {
+                return;
+            }
+
+            await CompetitionJoinAsync();
+        }
+
+        private void OnReloadData(ReloadCompetitionMessage obj)
+        {
+            _isReloadNeeded = true;
+            RefreshDataCommand.Execute();
+        }
+
         private async Task RefreshDataAsync()
         {
             try
             {
                 IsRefreshing = true;
-                Items.ReplaceWith(new []{ _header });
+                Items.ReplaceWith(new[] { _header });
                 await LoadMoreItemsAsync();
             }
             finally
@@ -258,7 +311,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                                                       GetFullScreenVideoDataModels));
                     });
 
-                    await _header.RaisePropertyChanged(nameof(_header.CanLoadVideo));
+                    await _header.RaisePropertyChanged(nameof(_header.CanExecuteActionVideo));
                 });
             }
             finally

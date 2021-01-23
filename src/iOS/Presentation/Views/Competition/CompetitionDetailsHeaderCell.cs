@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             prizeTitleLabel.Text = Resources.Competitions_Prize_Pool;
 
-            uploadVideoButton.SetDarkStyle(Resources.Competition_Load_Video);
+            actionButton.SetDarkStyle(string.Empty);
             openRulesButton.SetBorderlessStyle(Resources.Competition_Rules, Theme.Color.White, Theme.Color.White);
             openPrizePoolButton.SetBorderlessStyle(Resources.Competition_Results, Theme.Color.White, Theme.Color.White);
         }
@@ -93,7 +93,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             bindingSet.Bind(idLabel)
                       .For(v => v.Hidden)
-                      .To(vm => vm.IsLikesUnavailable);
+                      .To(vm => vm.CanExecuteActionVideo);
 
             bindingSet.Bind(likeButton)
                       .For(v => v.BindTitle())
@@ -101,15 +101,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             bindingSet.Bind(likeButton)
                       .For(v => v.Hidden)
-                      .To(vm => vm.IsLikesUnavailable);
+                      .To(vm => vm.CanExecuteActionVideo);
 
-            bindingSet.Bind(uploadVideoButton)
+            bindingSet.Bind(actionButton)
                       .For(v => v.BindTouchUpInside())
-                      .To(vm => vm.LoadVideoCommand);
+                      .To(vm => vm.ActionCommand);
 
-            bindingSet.Bind(uploadVideoButton)
+            bindingSet.Bind(actionButton)
                       .For(v => v.BindVisible())
-                      .To(vm => vm.CanLoadVideo);
+                      .To(vm => vm.CanExecuteActionVideo);
+
+            bindingSet.Bind(actionButton)
+                      .For(v => v.BindTitle())
+                      .To(vm => vm.ActionTitle);
 
             bindingSet.Bind(openRulesButton)
                       .For(v => v.BindVisible())
