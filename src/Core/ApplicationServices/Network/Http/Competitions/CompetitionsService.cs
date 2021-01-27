@@ -78,7 +78,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions
 
         public Task<CompetitionApiModel> CompetitionJoinAsync(int id)
         {
-            return _client.PostAsync<CompetitionApiModel>($"competitions/{id}/join");
+            return _client.PostAsync<CompetitionApiModel>($"competitions/{id}/join", true);
         }
     }
 }

@@ -93,13 +93,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
                     return;
 
                 case ProblemDetailsDataModel problemDetails:
-                    if (string.IsNullOrWhiteSpace(problemDetails.Message))
+                    if (string.IsNullOrWhiteSpace(problemDetails.Message) &&
+                        string.IsNullOrWhiteSpace(problemDetails.Title))
                     {
                         DisplayMessage(() => _dialogService.ShowToast(Resources.Error_Unexpected_Network, ToastType.Negative));
                         return;
                     }
 
-                    DisplayMessage(() => _dialogService.ShowToast(problemDetails.Message, ToastType.Negative));
+                    DisplayMessage(() => _dialogService.ShowToast(problemDetails.Message ?? problemDetails.Title, ToastType.Negative));
                     break;
 
                 case NullReferenceException nullReference:

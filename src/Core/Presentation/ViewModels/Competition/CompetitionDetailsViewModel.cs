@@ -191,6 +191,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             {
                 await HandleLowBalanceExceptionAsync(ex);
             }
+            catch (Exception ex) when(ex.InnerException is ProblemDetailsDataModel problemDetails)
+            {
+                ErrorHandleService.ResumeServerErrorsHandling();
+                Messenger.Publish(new ServerErrorMessage(this, problemDetails));
+            }
             catch (Exception ex)
             {
                 ErrorHandleService.ResumeServerErrorsHandling();
