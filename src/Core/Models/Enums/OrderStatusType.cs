@@ -5,7 +5,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers.Converte
 
 namespace PrankChat.Mobile.Core.Models.Enums
 {
-    [JsonConverter(typeof(StringEnumJsonConverter))]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum OrderStatusType
     {
         None,
