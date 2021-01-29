@@ -18,6 +18,7 @@ namespace PrankChat.Mobile.Core.Models.Data
                                     int? likesCount,
                                     int? videosCount,
                                     bool isPaidCompetitionMember,
+                                    bool canJoin,
                                     List<string> prizePoolList,
                                     DateTime? voteTo,
                                     DateTime? uploadVideoTo,
@@ -36,6 +37,7 @@ namespace PrankChat.Mobile.Core.Models.Data
             LikesCount = likesCount;
             VideosCount = videosCount;
             IsPaidCompetitionMember = isPaidCompetitionMember;
+            CanJoin = canJoin;
             PrizePoolList = prizePoolList;
             VoteTo = voteTo;
             UploadVideoTo = uploadVideoTo;
@@ -60,6 +62,8 @@ namespace PrankChat.Mobile.Core.Models.Data
         public bool CanUploadVideo { get; set; }
 
         public bool IsPaidCompetitionMember { get; set; }
+
+        public bool CanJoin { get; set; }
 
         public int PrizePool { get; set; }
 
