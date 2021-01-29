@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using MvvmCross.Plugin.Messenger;
+﻿using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -12,6 +9,9 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using System;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
@@ -19,8 +19,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
     {
         private readonly IMvxMessenger _mvxMessenger;
         private readonly INavigationService _navigationService;
-
-        private MvxSubscriptionToken _timerTickMessageToken;
+        private readonly IDisposable _timerTickSubscription;
 
         public CompetitionItemViewModel(bool isUserSessionInitialized,
                                         IMvxMessenger mvxMessenger,
@@ -31,7 +30,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             _navigationService = navigationService;
             Competition = competition;
 
-            Subscribe();
+            _timerTickSubscription = _mvxMessenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
+
             RefreshCountDownTimer();
             ActionCommand = new MvxRestrictedAsyncCommand(ExecuteActionAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigationService.ShowLoginView);
         }
@@ -54,7 +54,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public int? LikesCount => Competition.LikesCount;
 
-        public bool IsLikesUnavailable => Competition.CanUploadVideo;
+        public bool CanUploadVideo => Phase == CompetitionPhase.New && Competition.CanUploadVideo;
+
+        public bool CanJoinToPaidCompetition => Competition.CanJoin;
+
+        public bool CanExecuteActionVideo => CanJoinToPaidCompetition || CanUploadVideo;
 
         public DateTime? VoteTo => Competition.VoteTo;
 
@@ -69,6 +73,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         public string ImageUrl => Competition.ImageUrl;
 
         public bool IsFinished => Phase == CompetitionPhase.Finished;
+
+        public OrderCategory Category => Competition.Category ?? OrderCategory.Competition;
 
         public bool IsNew => Phase == CompetitionPhase.New;
 
@@ -90,21 +96,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         }
 
         public ICommand ActionCommand { get; }
-
-        public void Dispose()
-        {
-            Unsubsribe();
-        }
-
-        private void Subscribe()
-        {
-            _timerTickMessageToken = _mvxMessenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong);
-        }
-
-        public void Unsubsribe()
-        {
-            _timerTickMessageToken?.Dispose();
-        }
 
         private async Task ExecuteActionAsync()
         {
@@ -133,9 +124,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                 case CompetitionPhase.Voting when VoteTo > DateTime.Now:
                     NextPhaseCountdown = VoteTo - DateTime.Now;
                     break;
+
                 default:
                     NextPhaseCountdown = TimeSpan.Zero;
-                    Unsubsribe();
+                    Disposables.Remove(_timerTickSubscription);
+                    _timerTickSubscription?.Dispose();
                     break;
             }
         }

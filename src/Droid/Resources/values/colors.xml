@@ -15,6 +15,7 @@
     <color name="separator">#F6F6F6</color>
     <color name="gradient_start">#3B8DED</color>
     <color name="gradient_end">#6D28BE</color>
+    <color name="purple_light">#784CC5</color>
     <color name="deep_purple">#220A3E</color>
     <color name="dark_purple">#412563</color>
     <color name="not_my_order_gradient_start">#3B8DED</color>

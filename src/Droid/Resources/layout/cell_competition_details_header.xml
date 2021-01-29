@@ -9,7 +9,7 @@
         android:id="@+id/placeholder_image_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/accent"
+        android:background="@color/purple_light"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +22,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="26dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="26dp"
         android:gravity="center_horizontal"
         android:shadowColor="@color/applicationBlack"
@@ -165,7 +165,7 @@
         app:layout_constraintTop_toBottomOf="@+id/prize_title_text_view"
         tools:text="100 000 ₽" />
 
-    <com.google.android.material.button.MaterialButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/results_button"
         android:layout_width="0dp"
         android:layout_height="36dp"
@@ -173,7 +173,7 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="50dp"
-        android:background="@drawable/border_white"
+        android:background="@drawable/button_competition_secondary"
         android:text="@string/Competition_Results"
         android:textAllCaps="false"
         android:textColor="@color/applicationWhite"
@@ -183,14 +183,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rules_button" />
 
-    <com.google.android.material.button.MaterialButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/rules_button"
         android:layout_width="0dp"
         android:layout_height="36dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/border_white"
+        android:background="@drawable/button_competition_secondary"
         android:text="@string/Competition_Rules"
         android:textAllCaps="false"
         android:textColor="@color/applicationWhite"
@@ -267,4 +267,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/prize_text_view"
         tools:text="Оденьтесь в костюм “Штурмовика” и разыграйте своих друзей. Для участия в конкурсе достаточно загрузить Ваше видео!" />
+
+    <ImageView
+        android:id="@+id/paid_flag_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_order_paid" />
+
+    <ImageView
+        android:id="@+id/private_flag_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        app:layout_constraintEnd_toStartOf="@+id/paid_flag_image_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_order_hidden" />
 </androidx.constraintlayout.widget.ConstraintLayout>

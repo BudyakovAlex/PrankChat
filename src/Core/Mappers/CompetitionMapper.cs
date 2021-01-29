@@ -1,5 +1,9 @@
-﻿using PrankChat.Mobile.Core.Models.Api;
+﻿using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Models.Enums;
+using System;
+using System.Linq;
 
 namespace PrankChat.Mobile.Core.Mappers
 {
@@ -12,17 +16,22 @@ namespace PrankChat.Mobile.Core.Mappers
                 return null;
             }
 
+            var values = Enum.GetValues(typeof(OrderCategory)).OfType<OrderCategory>();
+            var matchedCategory = values.FirstOrDefault(item => item.GetEnumMemberAttrValue() == competitionApiModel.Category);
+
             return new CompetitionDataModel(competitionApiModel.Id,
                                             competitionApiModel.Title,
                                             competitionApiModel.ImageUrl,
                                             competitionApiModel.Description,
                                             competitionApiModel.HtmlContent,
-                                            competitionApiModel.Type,
+                                            matchedCategory,
                                             competitionApiModel.Status,
                                             competitionApiModel.CanUploadVideo,
                                             competitionApiModel.PrizePool,
                                             competitionApiModel.LikesCount,
                                             competitionApiModel.VideosCount,
+                                            competitionApiModel.IsPaidCompetitionMember,
+                                            competitionApiModel.CanJoin,
                                             competitionApiModel.PrizePoolList,
                                             competitionApiModel.VoteTo,
                                             competitionApiModel.UploadVideoTo,

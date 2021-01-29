@@ -37,6 +37,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 		UIKit.UILabel minutesLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIImageView PaidFlagImageView { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView PrivateFlagImageView { get; set; }
+
+		[Outlet]
 		UIKit.UIView prizeBottomSeparator { get; set; }
 
 		[Outlet]
@@ -71,11 +77,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (prizeBottomSeparator != null) {
-				prizeBottomSeparator.Dispose ();
-				prizeBottomSeparator = null;
-			}
-
 			if (button != null) {
 				button.Dispose ();
 				button = null;
@@ -114,6 +115,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 			if (minutesLabel != null) {
 				minutesLabel.Dispose ();
 				minutesLabel = null;
+			}
+
+			if (prizeBottomSeparator != null) {
+				prizeBottomSeparator.Dispose ();
+				prizeBottomSeparator = null;
 			}
 
 			if (prizeLabel != null) {
@@ -164,6 +170,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 			if (titleLabel != null) {
 				titleLabel.Dispose ();
 				titleLabel = null;
+			}
+
+			if (PaidFlagImageView != null) {
+				PaidFlagImageView.Dispose ();
+				PaidFlagImageView = null;
+			}
+
+			if (PrivateFlagImageView != null) {
+				PrivateFlagImageView.Dispose ();
+				PrivateFlagImageView = null;
 			}
 		}
 	}

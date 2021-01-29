@@ -14,5 +14,7 @@ namespace PrankChat.Mobile.Core.Managers.Competitions
         Task<List<CompetitionResultDataModel>> GetCompetitionResultsAsync(int id);
 
         Task<List<CompetitionResultDataModel>> GetCompetitionRatingsAsync(int id);
+
+        Task<CompetitionDataModel> CompetitionJoinAsync(int id);
     }
 }

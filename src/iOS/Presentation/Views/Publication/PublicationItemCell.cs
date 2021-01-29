@@ -145,8 +145,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             bindingSet.Bind(videoView).For(v => v.BindHidden()).To(vm => vm.IsVideoProcessing);
             bindingSet.Bind(this).For(v => v.CanShowStub).To(vm => vm.IsVideoProcessing).WithConversion<MvxInvertedBooleanConverter>();
 
-            bindingSet.Bind(competitionBorderView).For(v => v.BindVisible()).To(vm => vm.IsCompetiotionVideo);
-            bindingSet.Bind(competitionCupImageView).For(v => v.BindVisible()).To(vm => vm.IsCompetiotionVideo);
+            bindingSet.Bind(competitionBorderView).For(v => v.BindVisible()).To(vm => vm.IsCompetitionVideo);
+            bindingSet.Bind(competitionCupImageView).For(v => v.BindVisible()).To(vm => vm.IsCompetitionVideo);
 
             bindingSet.Apply();
         }

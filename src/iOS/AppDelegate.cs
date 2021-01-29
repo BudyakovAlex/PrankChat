@@ -5,6 +5,7 @@ using Foundation;
 using MvvmCross;
 using MvvmCross.Platforms.Ios.Core;
 using MvvmCross.Plugin.Messenger;
+using Plugin.DownloadManager;
 using PrankChat.Mobile.Core;
 using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -91,6 +92,11 @@ namespace PrankChat.Mobile.iOS
         public void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
         {
             NotificationWrapper.Instance.HandleForegroundNotification(notification.Request.Content.UserInfo);
+        }
+
+        public override void HandleEventsForBackgroundUrl(UIApplication application, string sessionIdentifier, Action completionHandler)
+        {
+            CrossDownloadManager.BackgroundSessionCompletionHandler = completionHandler;
         }
 
         protected override object GetAppStartHint(object hint = null)

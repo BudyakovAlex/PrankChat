@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PrankChat.Mobile.Core.Models.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace PrankChat.Mobile.Core.Models.Data
@@ -10,12 +11,14 @@ namespace PrankChat.Mobile.Core.Models.Data
                                     string imageUrl,
                                     string description,
                                     string htmlContent,
-                                    string type,
+                                    OrderCategory? category,
                                     string status,
                                     bool canUploadVideo,
                                     int prizePool,
                                     int? likesCount,
                                     int? videosCount,
+                                    bool isPaidCompetitionMember,
+                                    bool canJoin,
                                     List<string> prizePoolList,
                                     DateTime? voteTo,
                                     DateTime? uploadVideoTo,
@@ -27,12 +30,14 @@ namespace PrankChat.Mobile.Core.Models.Data
             ImageUrl = imageUrl;
             Description = description;
             HtmlContent = htmlContent;
-            Type = type;
+            Category = category;
             Status = status;
             CanUploadVideo = canUploadVideo;
             PrizePool = prizePool;
             LikesCount = likesCount;
             VideosCount = videosCount;
+            IsPaidCompetitionMember = isPaidCompetitionMember;
+            CanJoin = canJoin;
             PrizePoolList = prizePoolList;
             VoteTo = voteTo;
             UploadVideoTo = uploadVideoTo;
@@ -50,11 +55,15 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public string HtmlContent { get; set; }
 
-        public string Type { get; set; }
+        public OrderCategory? Category { get; set; }
 
         public string Status { get; set; }
 
         public bool CanUploadVideo { get; set; }
+
+        public bool IsPaidCompetitionMember { get; set; }
+
+        public bool CanJoin { get; set; }
 
         public int PrizePool { get; set; }
 

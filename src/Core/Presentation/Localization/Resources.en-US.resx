@@ -1065,4 +1065,10 @@ If the customer did not like your video, he can send the task to the &quot;dispu
 Taking such a task the user will have to complete it or lose the Deposit!</value>
     <comment>Fuzzy</comment>
   </data>
+  <data name="Publication_Item_Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Competition_Pay_For_Join" xml:space="preserve">
+    <value>Pay for participation</value>
+  </data>
 </root>

@@ -349,4 +349,6 @@ If the customer did not like your video, he can send the task to the \"dispute\"
     <string name="Walkthrouth_CreateOrder_Secret_Description">"Secret orders allow you to hide the task text from other users until they take it to work!
 
 Taking such a task the user will have to complete it or lose the Deposit!"</string>
+    <string name="Publication_Item_Download">"Download"</string>
+    <string name="Competition_Pay_For_Join">"Pay for participation"</string>
 </resources>

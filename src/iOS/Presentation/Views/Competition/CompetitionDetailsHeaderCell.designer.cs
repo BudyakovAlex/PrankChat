@@ -13,6 +13,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 	partial class CompetitionDetailsHeaderCell
 	{
 		[Outlet]
+		UIKit.UIButton actionButton { get; set; }
+
+		[Outlet]
 		FFImageLoading.Cross.MvxCachedImageView backgroundImageView { get; set; }
 
 		[Outlet]
@@ -43,6 +46,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 		UIKit.UIButton openRulesButton { get; set; }
 
 		[Outlet]
+		UIKit.UIImageView PaidFlagImageView { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView PrivateFlagImageView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel prizeLabel { get; set; }
 
 		[Outlet]
@@ -59,9 +68,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
 		[Outlet]
 		UIKit.UILabel titleLabel { get; set; }
-
-		[Outlet]
-		UIKit.UIButton uploadVideoButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -115,6 +121,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 				openRulesButton = null;
 			}
 
+			if (PaidFlagImageView != null) {
+				PaidFlagImageView.Dispose ();
+				PaidFlagImageView = null;
+			}
+
+			if (PrivateFlagImageView != null) {
+				PrivateFlagImageView.Dispose ();
+				PrivateFlagImageView = null;
+			}
+
 			if (prizeLabel != null) {
 				prizeLabel.Dispose ();
 				prizeLabel = null;
@@ -145,9 +161,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 				titleLabel = null;
 			}
 
-			if (uploadVideoButton != null) {
-				uploadVideoButton.Dispose ();
-				uploadVideoButton = null;
+			if (actionButton != null) {
+				actionButton.Dispose ();
+				actionButton = null;
 			}
 		}
 	}

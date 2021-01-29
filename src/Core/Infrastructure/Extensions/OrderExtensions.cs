@@ -1,9 +1,8 @@
-﻿using System;
-using PrankChat.Mobile.Core.Models.Data;
+﻿using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
+using System;
 
 namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
