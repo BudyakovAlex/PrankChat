@@ -1,7 +1,8 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.ViewModels;
+﻿using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
@@ -12,10 +13,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public MaintananceViewModel()
         {
-            OpenInBrowserCommand = new MvxAsyncCommand(OpenInBrowserAsync);
+            OpenInBrowserCommand = this.CreateCommand(OpenInBrowserAsync);
         }
 
-        public IMvxAsyncCommand OpenInBrowserCommand { get; }
+        public ICommand OpenInBrowserCommand { get; }
 
         public void Prepare(string parameter)
         {

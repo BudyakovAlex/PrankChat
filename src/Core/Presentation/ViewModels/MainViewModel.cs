@@ -5,7 +5,6 @@ using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Common;
-using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
@@ -15,6 +14,7 @@ using PrankChat.Mobile.Core.Providers;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
@@ -26,21 +26,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private readonly int[] _skipTabIndexesInDemoMode = new[] { 2, 4 };
 
-        private int _lastSelectedTab;
-
-        public MvxAsyncCommand ShowContentCommand { get; }
-
-        public MvxAsyncCommand ShowLoginCommand { get; }
-
-        public IMvxAsyncCommand<int> CheckDemoCommand { get; }
-
-        public IMvxAsyncCommand<int> ShowWalkthrouthCommand { get; set; }
-
-        public IMvxAsyncCommand<int> ShowWalkthrouthIfNeedCommand { get; set; }
-
-        public IMvxAsyncCommand CheckActualAppVersionCommand { get; }
-
-        private IDisposable _refreshTokenExpiredMessageSubscription;
+        private readonly IDisposable _refreshTokenExpiredMessageSubscription;
 
         public MainViewModel(IVersionManager versionManager,
                              IPushNotificationProvider notificationService,
@@ -50,17 +36,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             _notificationService = notificationService;
             _walkthroughsProvider = walkthroughsProvider;
 
-            ShowContentCommand = new MvxAsyncCommand(NavigationService.ShowMainViewContent);
-            ShowLoginCommand = new MvxAsyncCommand(NavigationService.ShowLoginView);
-            CheckDemoCommand = new MvxAsyncCommand<int>(CheckDemoModeAsync);
-            ShowWalkthrouthCommand = new MvxAsyncCommand<int>(ShowWalthroughAsync);
-            ShowWalkthrouthIfNeedCommand = new MvxAsyncCommand<int>(ShowWalthroughIfNeedAsync);
-            CheckActualAppVersionCommand = new MvxAsyncCommand(CheckActualAppVersionAsync);
-
             _refreshTokenExpiredMessageSubscription = Messenger.Subscribe<RefreshTokenExpiredMessage>(RefreshTokenExpired, MvxReference.Strong).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
             Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
+
+            ShowContentCommand = this.CreateCommand(NavigationService.ShowMainViewContent);
+            ShowLoginCommand = this.CreateCommand(NavigationService.ShowLoginView);
+            CheckDemoCommand = this.CreateCommand<int>(CheckDemoModeAsync);
+            ShowWalkthrouthCommand = this.CreateCommand<int>(ShowWalthroughAsync);
+            ShowWalkthrouthIfNeedCommand = this.CreateCommand<int>(ShowWalthroughIfNeedAsync);
+            CheckActualAppVersionCommand = this.CreateCommand(CheckActualAppVersionAsync);
         }
+
+        public ICommand ShowContentCommand { get; }
+        public ICommand ShowLoginCommand { get; }
+
+        public IMvxAsyncCommand<int> CheckDemoCommand { get; }
+        public IMvxAsyncCommand<int> ShowWalkthrouthCommand { get; set; }
+        public IMvxAsyncCommand<int> ShowWalkthrouthIfNeedCommand { get; set; }
+        public IMvxAsyncCommand CheckActualAppVersionCommand { get; }
 
         private async Task CheckActualAppVersionAsync()
         {

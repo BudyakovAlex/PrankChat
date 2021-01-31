@@ -38,11 +38,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             _usersManager = usersManager;
             _platformService = platformService;
 
-            ShareCommand = new MvxAsyncCommand(ShareAsync);
-            MoveNextCommand = new MvxCommand(MoveNext);
-            MovePreviousCommand = new MvxCommand(MovePrevious);
-            OpenCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigateByRestrictionsAsync);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigateByRestrictionsAsync);
+            ShareCommand = this.CreateCommand(ShareAsync);
+            MoveNextCommand = this.CreateCommand(MoveNext);
+            MovePreviousCommand = this.CreateCommand(MovePrevious);
+            OpenCommentsCommand = this.CreateRestrictedCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigateByRestrictionsAsync);
+            OpenUserProfileCommand = this.CreateRestrictedCommand(OpenUserProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigateByRestrictionsAsync);
         }
 
         public IMvxAsyncCommand ShareCommand { get; }
@@ -83,6 +83,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         public string ProfileShortName { get; private set; }
 
         public bool IsLikeFlowAvailable { get; private set; }
+
         public string StubImageUrl { get; private set; }
 
         public bool IsSubscribed { get; private set; }

@@ -42,7 +42,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public virtual bool IsBusy => ExecutionStateWrapper.IsBusy;
 
-        protected virtual SafeExecutionWrapper SafeExecutionWrapper { get; }
+        public virtual SafeExecutionWrapper SafeExecutionWrapper { get; }
 
         protected INavigationService NavigationService => Mvx.IoCProvider.Resolve<INavigationService>();
 

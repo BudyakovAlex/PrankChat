@@ -1,9 +1,8 @@
-﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.Commands;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+﻿using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 {
@@ -15,9 +14,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
         {
             _userDataModel = userDataModel;
 
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync,
-                                                                   restrictedCanExecute: () => SettingsService.User != null,
-                                                                   handleFunc: NavigationService.ShowLoginView);
+            OpenUserProfileCommand = this.CreateRestrictedCommand(OpenUserProfileAsync,
+                                                                  restrictedCanExecute: () => SettingsService.User != null,
+                                                                  handleFunc: NavigationService.ShowLoginView);
         }
 
         public string Login => _userDataModel.Login;
@@ -30,7 +29,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 
         public int Id => _userDataModel.Id;
 
-        public IMvxAsyncCommand OpenUserProfileCommand { get; }
+        public ICommand OpenUserProfileCommand { get; }
 
         private Task OpenUserProfileAsync()
         {

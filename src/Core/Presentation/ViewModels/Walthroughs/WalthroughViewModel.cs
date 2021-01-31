@@ -1,5 +1,5 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.ViewModels;
+﻿using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System.Windows.Input;
@@ -10,7 +10,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Walthroughs
     {
         public WalthroughViewModel()
         {
-            CloseCommand = new MvxCommand(() => NavigationService.CloseView(this));
+            CloseCommand = this.CreateCommand(() => NavigationService.CloseView(this));
         }
 
         public string Title { get; private set; }
