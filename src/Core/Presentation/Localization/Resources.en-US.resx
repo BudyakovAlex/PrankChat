@@ -1071,4 +1071,10 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   <data name="Competition_Pay_For_Join" xml:space="preserve">
     <value>Pay for participation</value>
   </data>
+  <data name="Competion_Rules_Template" xml:space="preserve">
+    <value>To take part in the competition, you need to pay {0} ₽</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Pay</value>
+  </data>
 </root>

@@ -1900,5 +1900,17 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Competition_Pay_For_Join", resourceCulture);
             }
         }
+        
+        public static string Competion_Rules_Template {
+            get {
+                return ResourceManager.GetString("Competion_Rules_Template", resourceCulture);
+            }
+        }
+        
+        public static string Pay {
+            get {
+                return ResourceManager.GetString("Pay", resourceCulture);
+            }
+        }
     }
 }

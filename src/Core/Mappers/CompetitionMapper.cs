@@ -30,6 +30,7 @@ namespace PrankChat.Mobile.Core.Mappers
                                             competitionApiModel.PrizePool,
                                             competitionApiModel.LikesCount,
                                             competitionApiModel.VideosCount,
+                                            competitionApiModel.EntryTax,
                                             competitionApiModel.IsPaidCompetitionMember,
                                             competitionApiModel.CanJoin,
                                             competitionApiModel.PrizePoolList,
