@@ -170,6 +170,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         private async Task CompetitionJoinAsync()
         {
+            var paymentMessage = string.Format(Resources.Competion_Rules_Template, _competition.EntryTax);
+            var isConfirmed = await DialogService.ShowConfirmAsync(paymentMessage, ok: Resources.Pay, cancel: Resources.Cancel);
+            if (!isConfirmed)
+            {
+                return;
+            }
+
             try
             {
                 ErrorHandleService.SuspendServerErrorsHandling();

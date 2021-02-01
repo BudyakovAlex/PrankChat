@@ -49,6 +49,9 @@ namespace PrankChat.Mobile.Core.Models.Api
         [JsonProperty("videos_count")]
         public int? VideosCount { get; set; }
 
+        [JsonProperty("entry_tax")]
+        public decimal? EntryTax { get; set; }
+
         [JsonProperty("competition_likes_to")]
         public DateTime? VoteTo { get; set; }
 

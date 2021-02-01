@@ -339,3 +339,5 @@
 "Walkthrouth_CreateOrder_Secret_Description" = "Secret orders allow you to hide the task text from other users until they take it to work!\n\nTaking such a task the user will have to complete it or lose the Deposit!";
 "Publication_Item_Download" = "Download";
 "Competition_Pay_For_Join" = "Pay for participation";
+"Competion_Rules_Template" = "To take part in the competition, you need to pay {0} ₽";
+"Pay" = "Pay";

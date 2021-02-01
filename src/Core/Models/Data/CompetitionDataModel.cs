@@ -17,6 +17,7 @@ namespace PrankChat.Mobile.Core.Models.Data
                                     int prizePool,
                                     int? likesCount,
                                     int? videosCount,
+                                    decimal? entryTax,
                                     bool isPaidCompetitionMember,
                                     bool canJoin,
                                     List<string> prizePoolList,
@@ -36,6 +37,7 @@ namespace PrankChat.Mobile.Core.Models.Data
             PrizePool = prizePool;
             LikesCount = likesCount;
             VideosCount = videosCount;
+            EntryTax = entryTax;
             IsPaidCompetitionMember = isPaidCompetitionMember;
             CanJoin = canJoin;
             PrizePoolList = prizePoolList;
@@ -70,6 +72,8 @@ namespace PrankChat.Mobile.Core.Models.Data
         public int? LikesCount { get; set; }
 
         public int? VideosCount { get; set; }
+
+        public decimal? EntryTax { get; }
 
         public List<string> PrizePoolList { get; set; }
 
