@@ -76,13 +76,6 @@ namespace PrankChat.Mobile.iOS
             }
         }
 
-        public override void WillEnterForeground(UIApplication application)
-        {
-            base.WillEnterForeground(application);
-
-            MvxMessenger.Value.Publish(new EnterForegroundMessage(this));
-        }
-
         public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
         {
             NotificationWrapper.Instance.HandleBackgroundNotification(userInfo);
