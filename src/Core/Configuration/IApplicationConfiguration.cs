@@ -10,6 +10,6 @@ namespace PrankChat.Mobile.Core.Configuration
 
         Version ApiVersion { get; }
 
-        List<PeriodDataModel> Periods { get; }
+        List<Period> Periods { get; }
     }
 }

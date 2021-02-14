@@ -8,12 +8,12 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation.Parameters
     {
         public int OrderId { get; }
 
-        public List<FullScreenVideoDataModel> FullScreenVideos { get; }
+        public List<FullScreenVideo> FullScreenVideos { get; }
 
         public int CurrentIndex { get; }
 
         public OrderDetailsNavigationParameter(int orderId,
-                                               List<FullScreenVideoDataModel> fullScreenVideos,
+                                               List<FullScreenVideo> fullScreenVideos,
                                                int currentIndex)
         {
             OrderId = orderId;

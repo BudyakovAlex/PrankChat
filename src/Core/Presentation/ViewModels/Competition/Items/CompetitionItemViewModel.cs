@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         public CompetitionItemViewModel(bool isUserSessionInitialized,
                                         IMvxMessenger mvxMessenger,
                                         INavigationService navigationService,
-                                        CompetitionDataModel competition)
+                                        Models.Data.Competition competition)
         {
             _mvxMessenger = mvxMessenger;
             _navigationService = navigationService;
@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             ActionCommand = new MvxRestrictedAsyncCommand(ExecuteActionAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigationService.ShowLoginView);
         }
 
-        public CompetitionDataModel Competition { get; }
+        public Models.Data.Competition Competition { get; }
 
         public int Id => Competition.Id;
 

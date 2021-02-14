@@ -85,7 +85,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
             try
             {
-                var userInfo = new UserRegistrationDataModel(Name,
+                var userInfo = new UserRegistration(Name,
                                                              Email,
                                                              Login,
                                                              Birthday,

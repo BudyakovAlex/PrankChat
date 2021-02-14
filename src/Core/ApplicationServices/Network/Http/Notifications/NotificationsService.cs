@@ -7,8 +7,8 @@ using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
-using PrankChat.Mobile.Core.Models.Api;
-using PrankChat.Mobile.Core.Models.Api.Base;
+using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Data.Dtos.Base;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Notifications
@@ -40,25 +40,25 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Notifications
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
-        public Task<BaseBundleApiModel<NotificationApiModel>> GetNotificationsAsync()
+        public Task<BaseBundleDto<NotificationDto>> GetNotificationsAsync()
         {
-            return _client.GetAsync<BaseBundleApiModel<NotificationApiModel>>("notifications");
+            return _client.GetAsync<BaseBundleDto<NotificationDto>>("notifications");
         }
 
         public Task MarkNotificationsAsReadedAsync()
         {
-            return _client.PostAsync<DataApiModel>("notifications/read");
+            return _client.PostAsync<ResponseDto>("notifications/read");
         }
 
         public async Task<int> GetUnreadNotificationsCountAsync()
         {
-            var bundle = await _client.GetAsync<DataApiModel<NotificationsSummaryApiModel>>("notifications/undelivered");
+            var bundle = await _client.GetAsync<ResponseDto<NotificationsSummaryDto>>("notifications/undelivered");
             return bundle?.Data?.UndeliveredCount ?? 0;
         }
 
         public Task SendNotificationTokenAsync(string token)
         {
-            var pushNotificationApiMode = new PushNotificationApiMode()
+            var pushNotificationApiMode = new PushNotificationDto()
             {
                 Token = token,
                 DeviceId = CrossDeviceInfo.Current.Id,

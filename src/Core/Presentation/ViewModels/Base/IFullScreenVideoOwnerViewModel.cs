@@ -4,7 +4,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 {
     public interface IFullScreenVideoOwnerViewModel
     {
-        FullScreenVideoDataModel GetFullScreenVideoDataModel();
+        FullScreenVideo GetFullScreenVideoDataModel();
 
         bool CanPlayVideo { get; }
     }

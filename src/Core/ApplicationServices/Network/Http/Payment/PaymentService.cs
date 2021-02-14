@@ -6,7 +6,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
-using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Data.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -39,32 +39,32 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
-        public async Task<PaymentApiModel> RefillAsync(double coast)
+        public async Task<PaymentDto> RefillAsync(double coast)
         {
-            var refillApiData = new RefillApiData
+            var refillApiData = new RefillDto
             {
                 Amount = coast
             };
 
-            var data = await _client.PostAsync<RefillApiData, DataApiModel<PaymentApiModel>>("payment", refillApiData);
+            var data = await _client.PostAsync<RefillDto, ResponseDto<PaymentDto>>("payment", refillApiData);
             return data?.Data;
         }
 
-        public async Task<WithdrawalApiModel> WithdrawalAsync(double coast, int cardId)
+        public async Task<WithdrawalDto> WithdrawalAsync(double coast, int cardId)
         {
-            var createWithdrawalApiModel = new CreateWithdrawalApiModel()
+            var createWithdrawalApiModel = new CreateWithdrawalDto()
             {
                 Amount = coast,
                 CreditCardId = cardId,
             };
 
-            var dataApiModel = await _client.PostAsync<CreateWithdrawalApiModel, DataApiModel<WithdrawalApiModel>>("withdrawal", createWithdrawalApiModel);
+            var dataApiModel = await _client.PostAsync<CreateWithdrawalDto, ResponseDto<WithdrawalDto>>("withdrawal", createWithdrawalApiModel);
             return dataApiModel?.Data;
         }
 
-        public async Task<List<WithdrawalApiModel>> GetWithdrawalsAsync()
+        public async Task<List<WithdrawalDto>> GetWithdrawalsAsync()
         {
-            var dataApiModel = await _client.GetAsync<DataApiModel<List<WithdrawalApiModel>>>("withdrawal");
+            var dataApiModel = await _client.GetAsync<ResponseDto<List<WithdrawalDto>>>("withdrawal");
             return dataApiModel?.Data;
         }
 

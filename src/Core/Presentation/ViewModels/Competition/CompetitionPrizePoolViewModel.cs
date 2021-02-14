@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
-    public class CompetitionPrizePoolViewModel : BasePageViewModel, IMvxViewModel<CompetitionDataModel>
+    public class CompetitionPrizePoolViewModel : BasePageViewModel, IMvxViewModel<Models.Data.Competition>
     {
         private readonly ICompetitionsManager _competitionsManager;
 
-        private CompetitionDataModel _competition;
+        private Models.Data.Competition _competition;
 
         public CompetitionPrizePoolViewModel(ICompetitionsManager competitionsManager)
         {
@@ -33,7 +33,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         public MvxObservableCollection<CompetitionPrizePoolItemViewModel> Items { get; }
 
-        public void Prepare(CompetitionDataModel parameter)
+        public void Prepare(Models.Data.Competition parameter)
         {
             _competition = parameter;
             PrizePool = string.Format(Constants.Formats.MoneyFormat, parameter.PrizePool);
@@ -54,7 +54,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             Items.SwitchTo(items);
         }
 
-        private IEnumerable<CompetitionPrizePoolItemViewModel> ProducePrizePoolItems(List<CompetitionResultDataModel> results)
+        private IEnumerable<CompetitionPrizePoolItemViewModel> ProducePrizePoolItems(List<CompetitionResult> results)
         {
             var isNewCompetition = _competition.GetPhase() == CompetitionPhase.New;
             var items = results.OrderBy(item => item.Place).Take(10).ToList();

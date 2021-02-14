@@ -5,7 +5,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
     public static class UserDataModelExtensions
     {
-        public static OrderTagType GetOrderTagType(this UserDataModel userDataModel, int? customerId, OrderStatusType? orderStatusType)
+        public static OrderTagType GetOrderTagType(this User userDataModel, int? customerId, OrderStatusType? orderStatusType)
         {
             switch (orderStatusType)
             {
@@ -38,7 +38,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             }
         }
 
-        public static OrderType GetOrderType(this UserDataModel userDataModel, int? customerId, OrderStatusType orderStatusType)
+        public static OrderType GetOrderType(this User userDataModel, int? customerId, OrderStatusType orderStatusType)
         {
             if (customerId.HasValue && userDataModel?.Id == customerId)
             {

@@ -1,5 +1,5 @@
 ﻿using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using System;
@@ -9,34 +9,35 @@ namespace PrankChat.Mobile.Core.Mappers
 {
     public static class CompetitionMapper
     {
-        public static CompetitionDataModel Map(this CompetitionApiModel competitionApiModel)
+        public static Competition Map(this CompetitionDto dto)
         {
-            if (competitionApiModel is null)
+            if (dto is null)
             {
                 return null;
             }
 
             var values = Enum.GetValues(typeof(OrderCategory)).OfType<OrderCategory>();
-            var matchedCategory = values.FirstOrDefault(item => item.GetEnumMemberAttrValue() == competitionApiModel.Category);
+            var matchedCategory = values.FirstOrDefault(item => item.GetEnumMemberAttrValue() == dto.Category);
 
-            return new CompetitionDataModel(competitionApiModel.Id,
-                                            competitionApiModel.Title,
-                                            competitionApiModel.ImageUrl,
-                                            competitionApiModel.Description,
-                                            competitionApiModel.HtmlContent,
-                                            matchedCategory,
-                                            competitionApiModel.Status,
-                                            competitionApiModel.CanUploadVideo,
-                                            competitionApiModel.PrizePool,
-                                            competitionApiModel.LikesCount,
-                                            competitionApiModel.VideosCount,
-                                            competitionApiModel.IsPaidCompetitionMember,
-                                            competitionApiModel.CanJoin,
-                                            competitionApiModel.PrizePoolList,
-                                            competitionApiModel.VoteTo,
-                                            competitionApiModel.UploadVideoTo,
-                                            competitionApiModel.CreatedAt,
-                                            competitionApiModel.ActiveTo);
+            return new Competition(
+                dto.Id,
+                dto.Title,
+                dto.ImageUrl,
+                dto.Description,
+                dto.HtmlContent,
+                matchedCategory,
+                dto.Status,
+                dto.CanUploadVideo,
+                dto.PrizePool,
+                dto.LikesCount,
+                dto.VideosCount,
+                dto.IsPaidCompetitionMember,
+                dto.CanJoin,
+                dto.PrizePoolList,
+                dto.VoteTo,
+                dto.UploadVideoTo,
+                dto.CreatedAt,
+                dto.ActiveTo);
         }
     }
 }

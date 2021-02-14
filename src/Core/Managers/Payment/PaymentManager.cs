@@ -16,19 +16,19 @@ namespace PrankChat.Mobile.Core.Managers.Payment
             _paymentService = paymentService;
         }
 
-        public async Task<PaymentDataModel> RefillAsync(double coast)
+        public async Task<Models.Data.Payment> RefillAsync(double coast)
         {
             var response = await _paymentService.RefillAsync(coast);
             return response.Map();
         }
 
-        public async Task<WithdrawalDataModel> WithdrawalAsync(double coast, int cardId)
+        public async Task<Withdrawal> WithdrawalAsync(double coast, int cardId)
         {
             var response = await _paymentService.WithdrawalAsync(coast, cardId);
             return response.Map();
         }
 
-        public async Task<List<WithdrawalDataModel>> GetWithdrawalsAsync()
+        public async Task<List<Withdrawal>> GetWithdrawalsAsync()
         {
             var response = await _paymentService.GetWithdrawalsAsync();
             return response.Select(withdrawals => withdrawals.Map()).ToList();

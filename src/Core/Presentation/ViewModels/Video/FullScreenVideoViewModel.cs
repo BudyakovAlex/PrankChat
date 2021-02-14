@@ -25,9 +25,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         private string _shareLink;
         private int _index;
 
-        private FullScreenVideoDataModel _currentVideo;
+        private FullScreenVideo _currentVideo;
 
-        private List<FullScreenVideoDataModel> _videos;
+        private List<FullScreenVideo> _videos;
 
         public FullScreenVideoViewModel(IUsersManager usersManager,
                                         IPublicationsManager publicationsManager,

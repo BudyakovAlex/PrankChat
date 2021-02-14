@@ -6,8 +6,8 @@ using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
-using PrankChat.Mobile.Core.Models.Api;
-using PrankChat.Mobile.Core.Models.Api.Base;
+using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Data.Dtos.Base;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -41,14 +41,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
-        public async Task<VideoApiModel> SendVideoAsync(int orderId,
+        public async Task<VideoDto> SendVideoAsync(int orderId,
                                                         string path,
                                                         string title,
                                                         string description,
                                                         Action<double, double> onChangedProgressAction = null,
                                                         CancellationToken cancellationToken = default)
         {
-            var loadVideoApiModel = new LoadVideoApiModel()
+            var loadVideoApiModel = new UploadVideoDto()
             {
                 OrderId = orderId,
                 FilePath = path,
@@ -56,7 +56,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
                 Description = description,
             };
 
-            var videoMetadataApiModel = await _client.PostVideoFileAsync<LoadVideoApiModel, DataApiModel<VideoApiModel>>("videos",
+            var videoMetadataApiModel = await _client.PostVideoFileAsync<UploadVideoDto, ResponseDto<VideoDto>>("videos",
                                                                                                                          loadVideoApiModel,
                                                                                                                          onChangedProgressAction: onChangedProgressAction,
                                                                                                                          cancellationToken: cancellationToken);
@@ -65,14 +65,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
 
         public async Task<long?> RegisterVideoViewedFactAsync(int videoId)
         {
-            var videoApiModel = await _client.UnauthorizedGetAsync<DataApiModel<VideoApiModel>>($"videos/{videoId}/looked");
+            var videoApiModel = await _client.UnauthorizedGetAsync<ResponseDto<VideoDto>>($"videos/{videoId}/looked");
             _log.Log(MvxLogLevel.Debug, () => $"Registered {videoApiModel?.Data?.ViewsCount} for video with id {videoId}");
             return videoApiModel?.Data?.ViewsCount;
         }
 
         public Task ComplainVideoAsync(int videoId, string title, string description)
         {
-            var dataApiModel = new ComplainApiModel()
+            var dataApiModel = new ComplainDto()
             {
                 Title = title,
                 Description = description
@@ -81,21 +81,21 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
             return _client.PostAsync(url, dataApiModel);
         }
 
-        public async Task<CommentApiModel> CommentVideoAsync(int videoId, string comment)
+        public async Task<CommentDto> CommentVideoAsync(int videoId, string comment)
         {
-            var dataApiModel = new SendCommentApiModel
+            var dataApiModel = new SendCommentDto
             {
                 Text = comment,
             };
 
             var url = $"videos/{videoId}/comments";
-            var dataModel = await _client.PostAsync<SendCommentApiModel, DataApiModel<CommentApiModel>>(url, dataApiModel);
+            var dataModel = await _client.PostAsync<SendCommentDto, ResponseDto<CommentDto>>(url, dataApiModel);
             return dataModel?.Data;
         }
 
-        public Task<BaseBundleApiModel<CommentApiModel>> GetVideoCommentsAsync(int videoId, int page, int pageSize)
+        public Task<BaseBundleDto<CommentDto>> GetVideoCommentsAsync(int videoId, int page, int pageSize)
         {
-            return _client.GetAsync<BaseBundleApiModel<CommentApiModel>>($"videos/{videoId}/comments?page={page}&items_per_page={pageSize}");
+            return _client.GetAsync<BaseBundleDto<CommentDto>>($"videos/{videoId}/comments?page={page}&items_per_page={pageSize}");
         }
     }
 }

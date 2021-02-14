@@ -5,7 +5,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
     public static class CompetitionExtensions
     {
-        public static CompetitionPhase GetPhase(this CompetitionDataModel competition)
+        public static CompetitionPhase GetPhase(this Competition competition)
         {
             switch (competition.Status)
             {

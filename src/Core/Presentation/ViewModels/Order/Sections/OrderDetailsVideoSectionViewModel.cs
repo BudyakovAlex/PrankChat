@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
         private readonly IMediaService _mediaService;
 
         private CancellationTokenSource _cancellationTokenSource;
-        private List<FullScreenVideoDataModel> _fullScreenVideos;
+        private List<FullScreenVideo> _fullScreenVideos;
 
         private int _currentIndex;
 
@@ -89,9 +89,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
             private set => SetProperty(ref _uploadingProgressStringPresentation, value);
         }
 
-        public void SetFullScreenVideos(List<FullScreenVideoDataModel> fullScreenVideos, int currentIndex)
+        public void SetFullScreenVideos(List<FullScreenVideo> fullScreenVideos, int currentIndex)
         {
-            _fullScreenVideos = fullScreenVideos ?? new List<FullScreenVideoDataModel>();
+            _fullScreenVideos = fullScreenVideos ?? new List<FullScreenVideo>();
             _currentIndex = currentIndex;
         }
 

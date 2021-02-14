@@ -1,9 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>PrankChat.Mobile.Core</AssemblyName>
     <RootNamespace>PrankChat.Mobile.Core</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NETStandard.Library" version="2.0.3" Version="2.0.3" />
@@ -47,7 +53,7 @@
     <Folder Include="Managers\Competitions\" />
     <Folder Include="Presentation\Navigation\" />
     <Folder Include="Presentation\Navigation\Parameters\" />
-    <Folder Include="Models\Enums\" />
+    <Folder Include="Data\Enums\" />
     <Folder Include="Presentation\ViewModels\Search\" />
     <Folder Include="Presentation\ViewModels\Publication\Items\" />
     <Folder Include="Presentation\ViewModels\PasswordRecovery\" />
@@ -61,7 +67,6 @@
     <Folder Include="Presentation\ViewModels\Profile\Cashbox\" />
     <Folder Include="Presentation\ViewModels\Dialogs\" />
     <Folder Include="ApplicationServices\Platforms\" />
-    <Folder Include="Models\Data\FilterTypes\" />
     <Folder Include="Exceptions\Network\" />
     <Folder Include="ApplicationServices\Timer\" />
     <Folder Include="ApplicationServices\Dialogs\" />
@@ -71,7 +76,7 @@
     <Folder Include="Presentation\ViewModels\Shared\" />
     <Folder Include="Presentation\ViewModels\Shared\Abstract\" />
     <Folder Include="ApplicationServices\Notifications\" />
-    <Folder Include="Models\Data\Shared\" />
+    <Folder Include="Data\Models\Shared\" />
     <Folder Include="Providers\" />
     <Folder Include="Presentation\ViewModels\Walthroughs\" />
     <Folder Include="ApplicationServices\Network\Builders\" />
@@ -85,5 +90,6 @@
     <Folder Include="Presentation\ViewModels\Order\Sections\" />
     <Folder Include="Wrappers\" />
     <Folder Include="Presentation\ViewModels\Order\Sections\Abstract\" />
+    <Folder Include="Data\Enums\FilterTypes\" />
   </ItemGroup>
 </Project>

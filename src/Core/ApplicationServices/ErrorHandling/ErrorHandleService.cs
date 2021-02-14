@@ -92,7 +92,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
                     DisplayMessage(async () => await _dialogService.ShowAlertAsync(Resources.Error_Unexpected_Server));
                     return;
 
-                case ProblemDetailsDataModel problemDetails:
+                case ProblemDetailsException problemDetails:
                     if (string.IsNullOrWhiteSpace(problemDetails.Message) &&
                         string.IsNullOrWhiteSpace(problemDetails.Title))
                     {

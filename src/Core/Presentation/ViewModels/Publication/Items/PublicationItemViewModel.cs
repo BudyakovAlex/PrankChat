@@ -17,8 +17,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                                         IVideoManager videoManager,
                                         IPlatformService platformService,
                                         IVideoPlayerService videoPlayerService,
-                                        VideoDataModel videoDataModel,
-                                        Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
+                                        Models.Data.Video videoDataModel,
+                                        Func<List<FullScreenVideo>> getAllFullScreenVideoDataFunc)
             : base(publicationsManager,
                    videoManager,
                    platformService,

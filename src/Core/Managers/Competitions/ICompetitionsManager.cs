@@ -7,14 +7,14 @@ namespace PrankChat.Mobile.Core.Managers.Competitions
 {
     public interface ICompetitionsManager
     {
-        Task<PaginationModel<VideoDataModel>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize);
+        Task<Pagination<Models.Data.Video>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize);
 
-        Task<PaginationModel<CompetitionDataModel>> GetCompetitionsAsync(int page, int pageSize);
+        Task<Pagination<Competition>> GetCompetitionsAsync(int page, int pageSize);
 
-        Task<List<CompetitionResultDataModel>> GetCompetitionResultsAsync(int id);
+        Task<List<CompetitionResult>> GetCompetitionResultsAsync(int id);
 
-        Task<List<CompetitionResultDataModel>> GetCompetitionRatingsAsync(int id);
+        Task<List<CompetitionResult>> GetCompetitionRatingsAsync(int id);
 
-        Task<CompetitionDataModel> CompetitionJoinAsync(int id);
+        Task<Competition> CompetitionJoinAsync(int id);
     }
 }

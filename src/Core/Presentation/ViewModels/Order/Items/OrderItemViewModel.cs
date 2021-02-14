@@ -20,15 +20,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;
 
-        private readonly OrderDataModel _orderDataModel;
-        private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
+        private readonly Models.Data.Order _orderDataModel;
+        private readonly Func<List<FullScreenVideo>> _getAllFullScreenVideoDataFunc;
 
         private IDisposable _timerTickMessageToken;
 
         public OrderItemViewModel(INavigationService navigationService,
                                   ISettingsService settingsService,
-                                  OrderDataModel orderDataModel,
-                                  Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
+                                  Models.Data.Order orderDataModel,
+                                  Func<List<FullScreenVideo>> getAllFullScreenVideoDataFunc)
         {
             _navigationService = navigationService;
             _settingsService = settingsService;
@@ -95,9 +95,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public IMvxAsyncCommand OpenUserProfileCommand { get; }
 
-        public FullScreenVideoDataModel GetFullScreenVideoDataModel()
+        public FullScreenVideo GetFullScreenVideoDataModel()
         {
-            return new FullScreenVideoDataModel(_orderDataModel.Customer.Id,
+            return new FullScreenVideo(_orderDataModel.Customer.Id,
                                                 _orderDataModel.Customer.IsSubscribed,
                                                 _orderDataModel.Video.Id,
                                                 _orderDataModel.Video.StreamUri,

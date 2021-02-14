@@ -14,11 +14,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;
 
-        private readonly CommentDataModel _commentDataModel;
+        private readonly Models.Data.Comment _commentDataModel;
 
         public CommentItemViewModel(INavigationService navigationService,
                                     ISettingsService settingsService,
-                                    CommentDataModel commentDataModel)
+                                    Models.Data.Comment commentDataModel)
         {
             _navigationService = navigationService;
             _settingsService = settingsService;

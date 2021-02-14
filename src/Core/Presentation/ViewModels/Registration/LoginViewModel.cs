@@ -27,7 +27,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             EmailText = "alexeysorochan@gmail.com";
             PasswordText = "qqqqqqqq";
 #endif
-            LoginWithAppleCommand = new MvxAsyncCommand<AppleAuthDataModel>(LoginWithAppleAsync);
+            LoginWithAppleCommand = new MvxAsyncCommand<AppleAuth>(LoginWithAppleAsync);
             ShowDemoModeCommand = new MvxAsyncCommand(() => NavigationService.ShowMainView());
             LoginCommand = new MvxAsyncCommand<string>(LoginAsync);
             ResetPasswordCommand = new MvxAsyncCommand(() => NavigationService.ShowPasswordRecoveryView());
@@ -60,7 +60,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         public IMvxAsyncCommand RegistrationCommand { get; }
 
-        public IMvxAsyncCommand<AppleAuthDataModel> LoginWithAppleCommand { get; }
+        public IMvxAsyncCommand<AppleAuth> LoginWithAppleCommand { get; }
 
         private Task LoginAsync(string loginType)
         {
@@ -120,7 +120,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             });
         }
 
-        private Task LoginWithAppleAsync(AppleAuthDataModel appleAuthDataModel)
+        private Task LoginWithAppleAsync(AppleAuth appleAuthDataModel)
         {
             return ExecutionStateWrapper.WrapAsync(async () =>
             {

@@ -6,9 +6,10 @@ using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
+using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Data.Dtos.Base;
+using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Api;
-using PrankChat.Mobile.Core.Models.Api.Base;
 using PrankChat.Mobile.Core.Models.Data;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,50 +45,50 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Publications
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
-        public async Task<BaseBundleApiModel<VideoApiModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
+        public async Task<BaseBundleDto<VideoDto>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
             var endpoint = $"newsline/videos/popular?period={dateFilterType.GetEnumMemberAttrValue()}&page={page}&items_per_page={pageSize}";
             var videoMetadataBundle = _settingsService.User == null ?
-                await _client.UnauthorizedGetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer) :
-                await _client.GetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer);
+                await _client.UnauthorizedGetAsync<BaseBundleDto<VideoDto>>(endpoint, false, IncludeType.Customer) :
+                await _client.GetAsync<BaseBundleDto<VideoDto>>(endpoint, false, IncludeType.Customer);
 
             return videoMetadataBundle;
         }
 
-        public async Task<BaseBundleApiModel<VideoApiModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
+        public async Task<BaseBundleDto<VideoDto>> GetActualVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
             var endpoint = $"newsline/videos/new?period={dateFilterType.GetEnumMemberAttrValue()}&page={page}&items_per_page={pageSize}";
             var videoMetadataBundle = _settingsService.User == null ?
-                await _client.UnauthorizedGetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer) :
-                await _client.GetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer);
+                await _client.UnauthorizedGetAsync<BaseBundleDto<VideoDto>>(endpoint, false, IncludeType.Customer) :
+                await _client.GetAsync<BaseBundleDto<VideoDto>>(endpoint, false, IncludeType.Customer);
 
             return videoMetadataBundle;
         }
 
-        public async Task<BaseBundleApiModel<VideoApiModel>> GetMyVideoFeedAsync(int page, int pageSize, DateFilterType? dateFilterType = null)
+        public async Task<BaseBundleDto<VideoDto>> GetMyVideoFeedAsync(int page, int pageSize, DateFilterType? dateFilterType = null)
         {
             if (_settingsService.User == null)
             {
-                return new BaseBundleApiModel<VideoApiModel>();
+                return new BaseBundleDto<VideoDto>();
             }
 
             var endpoint = $"newsline/my?period={dateFilterType.GetEnumMemberAttrValue()}&page={page}&items_per_page={pageSize}";
-            var videoMetadataBundle = await _client.GetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint, false, IncludeType.Customer);
+            var videoMetadataBundle = await _client.GetAsync<BaseBundleDto<VideoDto>>(endpoint, false, IncludeType.Customer);
 
             return videoMetadataBundle;
         }
 
-        public async Task<VideoApiModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
+        public async Task<VideoDto> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
         {
             var url = isChecked ? $"videos/{videoId}/like" : $"videos/{videoId}/like/remove";
-            var data = await _client.PostAsync<DataApiModel<VideoApiModel>>(url, cancellationToken: cancellationToken);
+            var data = await _client.PostAsync<ResponseDto<VideoDto>>(url, cancellationToken: cancellationToken);
             return data?.Data;
         }
 
-        public async Task<VideoApiModel> SendDislikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
+        public async Task<VideoDto> SendDislikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
         {
             var url = isChecked ? $"videos/{videoId}/dislike" : $"videos/{videoId}/dislike/remove";
-            var data = await _client.PostAsync<DataApiModel<VideoApiModel>>(url, cancellationToken: cancellationToken);
+            var data = await _client.PostAsync<ResponseDto<VideoDto>>(url, cancellationToken: cancellationToken);
             return data?.Data;
         }
     }

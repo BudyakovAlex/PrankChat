@@ -172,7 +172,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         {
             try
             {
-                PaginationModel<VideoDataModel> pageContainer = null;
+                Pagination<Models.Data.Video> pageContainer = null;
                 switch (SelectedPublicationType)
                 {
                     case PublicationType.Popular:
@@ -204,7 +204,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             }
         }
 
-        private PublicationItemViewModel ProducePublicationItemViewModel(VideoDataModel publication)
+        private PublicationItemViewModel ProducePublicationItemViewModel(Models.Data.Video publication)
         {
             return new PublicationItemViewModel(_publicationsManager,
                                                 _videoManager,
@@ -214,14 +214,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                                                 GetFullScreenVideoDataModels);
         }
 
-        protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        protected override int SetList<TDataModel, TApiModel>(Pagination<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
         {
             var count = base.SetList(dataModel, page, produceItemViewModel, items);
             ItemsChangedInteraction.Raise();
             return count;
         }
 
-        private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
+        private List<FullScreenVideo> GetFullScreenVideoDataModels()
         {
             return Items.Select(item => item.GetFullScreenVideoDataModel()).ToList();
         }

@@ -12,9 +12,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
     {
         private const string AccessTokenKey = "access_token";
 
-        public UserDataModel User
+        public User User
         {
-            get => JsonConvert.DeserializeObject<UserDataModel>(Preferences.Get(Constants.Keys.User, string.Empty));
+            get => JsonConvert.DeserializeObject<User>(Preferences.Get(Constants.Keys.User, string.Empty));
             set => Preferences.Set(nameof(User), JsonConvert.SerializeObject(value));
         }
 

@@ -1,4 +1,4 @@
-﻿using PrankChat.Mobile.Core.Models.Api;
+﻿using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using System.Threading.Tasks;
@@ -11,9 +11,9 @@ namespace PrankChat.Mobile.Core.Managers.Authorization
 
         Task<bool> AuthorizeExternalAsync(string authToken, LoginType loginType);
 
-        Task<bool> AuthorizeWithAppleAsync(AppleAuthDataModel appleAuthDataModel);
+        Task<bool> AuthorizeWithAppleAsync(AppleAuth appleAuthDataModel);
 
-        Task RegisterAsync(UserRegistrationDataModel userInfo);
+        Task RegisterAsync(UserRegistration userInfo);
 
         Task LogoutAsync();
 
@@ -21,6 +21,6 @@ namespace PrankChat.Mobile.Core.Managers.Authorization
 
         Task<bool?> CheckIsEmailExistsAsync(string email);
 
-        Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email);
+        Task<RecoverPasswordResult> RecoverPasswordAsync(string email);
     }
 }

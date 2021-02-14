@@ -56,7 +56,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
             return Task.FromResult(0);
         }
 
-        protected virtual int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        protected virtual int SetList<TDataModel, TApiModel>(Pagination<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
         {
             SetTotalItemsCount(dataModel.TotalCount);
             var viewModels = dataModel.Items.Select(produceItemViewModel).ToList();

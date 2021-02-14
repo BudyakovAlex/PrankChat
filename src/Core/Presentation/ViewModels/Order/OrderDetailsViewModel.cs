@@ -90,8 +90,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             set => SetProperty(ref _isYesSelected, value);
         }
 
-        private OrderDataModel _order;
-        public OrderDataModel Order
+        private Models.Data.Order _order;
+        public Models.Data.Order Order
         {
             get => _order;
             set
@@ -279,7 +279,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 Messenger.Publish(new OrderChangedMessage(this, Order));
             }
-            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsDataModel problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
+            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsException problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
             {
                 await HandleLowBalanceExceptionAsync(ex);
             }

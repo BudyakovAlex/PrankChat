@@ -14,7 +14,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation.Results
 
         public int? PositiveArbitrationValuesCount { get; }
 
-        public OrderDetailsResult(OrderDataModel order)
+        public OrderDetailsResult(Order order)
         {
             Status = order?.Status;
             ActiveTo = order?.ActiveTo;

@@ -1,21 +1,22 @@
-﻿using PrankChat.Mobile.Core.Models.Api;
+﻿using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.Core.Mappers
 {
     public static class CompetitionResultMapper
     {
-        public static CompetitionResultDataModel Map(this CompetitionResultApiModel competitionResultApiModel)
+        public static CompetitionResult Map(this CompetitionResultDto dto)
         {
-            if (competitionResultApiModel is null)
+            if (dto is null)
             {
                 return null;
             }
 
-            return new CompetitionResultDataModel(competitionResultApiModel.Place,
-                                                  competitionResultApiModel.User?.Map(),
-                                                  competitionResultApiModel.Video?.Data?.Map(),
-                                                  competitionResultApiModel.Prize);
+            return new CompetitionResult(
+                dto.Place,
+                dto.User?.Map(),
+                dto.Video?.Data?.Map(),
+                dto.Prize);
         }
     }
 }

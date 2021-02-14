@@ -8,9 +8,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 {
     public class SubscriptionItemViewModel : BasePageViewModel
     {
-        private readonly UserDataModel _userDataModel;
+        private readonly User _userDataModel;
 
-        public SubscriptionItemViewModel(UserDataModel userDataModel)
+        public SubscriptionItemViewModel(User userDataModel)
         {
             _userDataModel = userDataModel;
 

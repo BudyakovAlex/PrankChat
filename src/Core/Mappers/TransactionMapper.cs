@@ -1,46 +1,48 @@
-﻿using PrankChat.Mobile.Core.Models.Api;
+﻿using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.Core.Mappers
 {
     public static class TransactionMapper
     {
-        public static TransactionDataModel Map(this TransactionApiModel transactionApiModel)
+        public static Transaction Map(this TransactionDto dto)
         {
-            if (transactionApiModel is null)
+            if (dto is null)
             {
                 return null;
             }
 
-            return new TransactionDataModel(transactionApiModel.Id,
-                                            transactionApiModel.Amount,
-                                            transactionApiModel.Comment,
-                                            transactionApiModel.Direction,
-                                            transactionApiModel.Reason,
-                                            transactionApiModel.BalanceBefore,
-                                            transactionApiModel.BalanceAfter,
-                                            transactionApiModel.FrozenBefore,
-                                            transactionApiModel.FrozenAfter,
-                                            transactionApiModel.User?.Map());
+            return new Transaction(
+                dto.Id,
+                dto.Amount,
+                dto.Comment,
+                dto.Direction,
+                dto.Reason,
+                dto.BalanceBefore,
+                dto.BalanceAfter,
+                dto.FrozenBefore,
+                dto.FrozenAfter,
+                dto.User?.Map());
         }
 
-        public static TransactionDataModel Map(this DataApiModel<TransactionApiModel> dataApiModel)
+        public static Transaction Map(this ResponseDto<TransactionDto> dto)
         {
-            if (dataApiModel.Data is null)
+            if (dto.Data is null)
             {
                 return null;
             }
 
-            return new TransactionDataModel(dataApiModel.Data.Id,
-                                            dataApiModel.Data.Amount,
-                                            dataApiModel.Data.Comment,
-                                            dataApiModel.Data.Direction,
-                                            dataApiModel.Data.Reason,
-                                            dataApiModel.Data.BalanceBefore,
-                                            dataApiModel.Data.BalanceAfter,
-                                            dataApiModel.Data.FrozenBefore,
-                                            dataApiModel.Data.FrozenAfter,
-                                            dataApiModel.Data.User?.Map());
+            return new Transaction(
+                dto.Data.Id,
+                dto.Data.Amount,
+                dto.Data.Comment,
+                dto.Data.Direction,
+                dto.Data.Reason,
+                dto.Data.BalanceBefore,
+                dto.Data.BalanceAfter,
+                dto.Data.FrozenBefore,
+                dto.Data.FrozenAfter,
+                dto.Data.User?.Map());
         }
     }
 }

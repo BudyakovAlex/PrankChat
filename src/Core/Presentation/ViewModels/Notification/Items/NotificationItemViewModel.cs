@@ -20,7 +20,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         public NotificationItemViewModel(INavigationService navigationService,
                                          ISettingsService settingsService,
-                                         NotificationDataModel notificationDataModel)
+                                         Models.Data.Notification notificationDataModel)
         {
             _navigationService = navigationService;
             _settingsService = settingsService;

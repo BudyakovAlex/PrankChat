@@ -78,7 +78,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
             NotificationManager.Instance.TryNavigateToView(pushNotificationData?.OrderId);
         }
 
-        public PushNotificationData HandleNotificationPayload(NSDictionary userInfo)
+        public PushNotification HandleNotificationPayload(NSDictionary userInfo)
         {
             if (userInfo == null)
             {
@@ -100,11 +100,11 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
             return NotificationManager.Instance.GenerateNotificationData(key?.ToString(), value?.ToString(), title?.ToString(), body?.ToString());
         }
 
-        private UserDataModel ExtractUserSession()
+        private User ExtractUserSession()
         {
             try
             {
-                var dataModel = JsonConvert.DeserializeObject<UserDataModel>(Preferences.Get(Constants.Keys.User, string.Empty));
+                var dataModel = JsonConvert.DeserializeObject<User>(Preferences.Get(Constants.Keys.User, string.Empty));
                 return dataModel;
             }
             catch

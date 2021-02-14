@@ -15,7 +15,7 @@ namespace PrankChat.Mobile.Core.Configuration
 
         public Version ApiVersion { get; }
 
-        public List<PeriodDataModel> Periods { get; }
+        public List<Period> Periods { get; }
 
         public ApplicationConfiguration()
         {
@@ -23,22 +23,22 @@ namespace PrankChat.Mobile.Core.Configuration
             ApiVersion = new Version(1, 0);
 
             // TODO: We should get data from server. It`s hot fix.
-            Periods = new List<PeriodDataModel>()
+            Periods = new List<Period>()
             {
-                new PeriodDataModel(1, $"1 {Resources.Create_Order_Hour}"),
-                new PeriodDataModel(2, $"2 {Resources.Create_Orders_Hours_Singular}"),
-                new PeriodDataModel(4, $"4 {Resources.Create_Orders_Hours_Singular}"),
-                new PeriodDataModel(6, $"6 {Resources.Create_Orders_Hours_Plural}"),
-                new PeriodDataModel(8, $"8 {Resources.Create_Orders_Hours_Plural}"),
-                new PeriodDataModel(12, $"12 {Resources.Create_Orders_Hours_Plural}"),
-                new PeriodDataModel(16, $"16 {Resources.Create_Orders_Hours_Plural}"),
-                new PeriodDataModel(20, $"20 {Resources.Create_Orders_Hours_Plural}"),
-                new PeriodDataModel(24, $"24 {Resources.Create_Orders_Hours_Singular}"),
-                new PeriodDataModel(32, $"32 {Resources.Create_Orders_Hours_Singular}"),
-                new PeriodDataModel(36, $"36 {Resources.Create_Orders_Hours_Plural}"),
-                new PeriodDataModel(40, $"40 {Resources.Create_Orders_Hours_Plural}"),
-                new PeriodDataModel(44, $"44 {Resources.Create_Orders_Hours_Singular}"),
-                new PeriodDataModel(48, $"48 {Resources.Create_Orders_Hours_Plural}"),
+                new Period(1, $"1 {Resources.Create_Order_Hour}"),
+                new Period(2, $"2 {Resources.Create_Orders_Hours_Singular}"),
+                new Period(4, $"4 {Resources.Create_Orders_Hours_Singular}"),
+                new Period(6, $"6 {Resources.Create_Orders_Hours_Plural}"),
+                new Period(8, $"8 {Resources.Create_Orders_Hours_Plural}"),
+                new Period(12, $"12 {Resources.Create_Orders_Hours_Plural}"),
+                new Period(16, $"16 {Resources.Create_Orders_Hours_Plural}"),
+                new Period(20, $"20 {Resources.Create_Orders_Hours_Plural}"),
+                new Period(24, $"24 {Resources.Create_Orders_Hours_Singular}"),
+                new Period(32, $"32 {Resources.Create_Orders_Hours_Singular}"),
+                new Period(36, $"36 {Resources.Create_Orders_Hours_Plural}"),
+                new Period(40, $"40 {Resources.Create_Orders_Hours_Plural}"),
+                new Period(44, $"44 {Resources.Create_Orders_Hours_Singular}"),
+                new Period(48, $"48 {Resources.Create_Orders_Hours_Plural}"),
             };
         }
     }

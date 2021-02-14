@@ -126,7 +126,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
         }
 
-        private MvxNotifyPropertyChanged ProduceVideoViewModel(VideoDataModel publication)
+        private MvxNotifyPropertyChanged ProduceVideoViewModel(Models.Data.Video publication)
         {
             return new PublicationItemViewModel(_publicationsManager,
                                                 _videoManager,
@@ -136,17 +136,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                                                 GetFullScreenVideoDataModels);
         }
 
-        private BaseViewModel ProduceUserViewModel(UserDataModel model)
+        private BaseViewModel ProduceUserViewModel(User model)
         {
             return new ProfileSearchItemViewModel(NavigationService, SettingsService, model);
         }
 
-        private BaseViewModel ProduceOrderViewModel(OrderDataModel model)
+        private BaseViewModel ProduceOrderViewModel(Models.Data.Order model)
         {
             return new OrderItemViewModel(NavigationService, SettingsService, model, GetFullScreenVideoDataModels);
         }
 
-        private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
+        private List<FullScreenVideo> GetFullScreenVideoDataModels()
         {
             return Items.OfType<IFullScreenVideoOwnerViewModel>()
                         .Where(item => item.CanPlayVideo)

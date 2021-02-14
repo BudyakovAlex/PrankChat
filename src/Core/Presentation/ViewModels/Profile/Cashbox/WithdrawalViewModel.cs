@@ -39,8 +39,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             UpdateDataCommand = new MvxAsyncCommand(UpdateDataAsync);
         }
 
-        private CardDataModel _currentCard;
-        private WithdrawalDataModel _lastWithdrawalDataModel;
+        private Card _currentCard;
+        private Withdrawal _lastWithdrawalDataModel;
 
         private double? _cost;
         public double? Cost

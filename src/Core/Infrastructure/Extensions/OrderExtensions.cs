@@ -8,7 +8,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
     public static class OrderExtensions
     {
-        public static TimeSpan? GetActiveOrderTime(this OrderDataModel order)
+        public static TimeSpan? GetActiveOrderTime(this Order order)
         {
             switch (order?.Status)
             {
@@ -34,7 +34,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             }
         }
 
-        public static string GetOrderStatusTitle(this OrderDataModel orderDataModel, UserDataModel currentUser)
+        public static string GetOrderStatusTitle(this Order orderDataModel, User currentUser)
         {
             switch (orderDataModel?.Status)
             {
@@ -105,14 +105,14 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             }
         }
 
-        public static FullScreenVideoDataModel ToFullScreenVideoDataModel(this OrderDataModel order)
+        public static FullScreenVideo ToFullScreenVideoDataModel(this Order order)
         {
             if (order is null)
             {
                 return null;
             }
 
-            return new FullScreenVideoDataModel(order.Customer.Id,
+            return new FullScreenVideo(order.Customer.Id,
                                                 order.Customer.IsSubscribed,
                                                 order.Video.Id,
                                                 order.Video.StreamUri,
@@ -129,7 +129,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                                                 order.Video.Poster);
         }
 
-        public static bool CheckIsTimeAvailable(this OrderDataModel Order)
+        public static bool CheckIsTimeAvailable(this Order Order)
         {
             var timeValue = Order.GetActiveOrderTime();
 

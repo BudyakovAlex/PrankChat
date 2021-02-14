@@ -6,7 +6,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using RestSharp;
@@ -45,29 +45,29 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
 
         public async Task AuthorizeAsync(string email, string password)
         {
-            var loginModel = new AuthorizationApiModel { Email = email?.WithoutSpace()?.ToLower(), Password = password };
-            var authTokenModel = await _client.UnauthorizedPostAsync<AuthorizationApiModel, DataApiModel<AccessTokenApiModel>>("auth/login", loginModel, true);
+            var loginModel = new AuthorizationDto { Email = email?.WithoutSpace()?.ToLower(), Password = password };
+            var authTokenModel = await _client.UnauthorizedPostAsync<AuthorizationDto, ResponseDto<AccessTokenDto>>("auth/login", loginModel, true);
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
         public async Task<bool> AuthorizeExternalAsync(string authToken, LoginType loginType)
         {
             var loginTypePath = GetAuthPathByLoginType(loginType);
-            var loginModel = new ExternalAuthorizationApiModel { Token = authToken };
-            var authTokenModel = await _client.UnauthorizedPostAsync<ExternalAuthorizationApiModel, DataApiModel<AccessTokenApiModel>>($"auth/social/{loginTypePath}", loginModel, true);
+            var loginModel = new ExternalAuthorizationDto { Token = authToken };
+            var authTokenModel = await _client.UnauthorizedPostAsync<ExternalAuthorizationDto, ResponseDto<AccessTokenDto>>($"auth/social/{loginTypePath}", loginModel, true);
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
             return authTokenModel?.Data?.AccessToken != null;
         }
 
-        public async Task RegisterAsync(UserRegistrationApiModel userRegistrationApiModel)
+        public async Task RegisterAsync(UserRegistrationDto userRegistrationApiModel)
         {
-            var authTokenModel = await _client.UnauthorizedPostAsync<UserRegistrationApiModel, DataApiModel<AccessTokenApiModel>>("auth/register", userRegistrationApiModel, true);
+            var authTokenModel = await _client.UnauthorizedPostAsync<UserRegistrationDto, ResponseDto<AccessTokenDto>>("auth/register", userRegistrationApiModel, true);
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
         public Task LogoutAsync()
         {
-            return _client.PostAsync<AuthorizationApiModel>("auth/logout", true);
+            return _client.PostAsync<AuthorizationDto>("auth/logout", true);
         }
 
         public async Task RefreshTokenAsync()
@@ -86,7 +86,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
                 _messenger.Publish(new RefreshTokenExpiredMessage(this));
             }
 
-            var content = JsonConvert.DeserializeObject<DataApiModel<AccessTokenApiModel>>(response.Content);
+            var content = JsonConvert.DeserializeObject<ResponseDto<AccessTokenDto>>(response.Content);
             await _settingsService.SetAccessTokenAsync(content?.Data?.AccessToken);
         }
 
@@ -97,19 +97,19 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
                 return true;
             }
 
-            var emailValidationBundle = await _client.GetAsync<EmailCheckApiModel>($"application/email/check?email={email}", true);
+            var emailValidationBundle = await _client.GetAsync<EmailCheckDto>($"application/email/check?email={email}", true);
             return emailValidationBundle?.Result;
         }
 
-        public Task<RecoverPasswordResultApiModel> RecoverPasswordAsync(string email)
+        public Task<RecoverPasswordResultDto> RecoverPasswordAsync(string email)
         {
-            var recoverPasswordModel = new RecoverPasswordApiModel { Email = email.WithoutSpace().ToLower(), };
-            return _client.UnauthorizedPostAsync<RecoverPasswordApiModel, RecoverPasswordResultApiModel>("auth/password/email", recoverPasswordModel, false);
+            var recoverPasswordModel = new RecoverPasswordDto { Email = email.WithoutSpace().ToLower(), };
+            return _client.UnauthorizedPostAsync<RecoverPasswordDto, RecoverPasswordResultDto>("auth/password/email", recoverPasswordModel, false);
         }
 
-        public async Task<bool> AuthorizeWithAppleAsync(AppleAuthApiModel appleAuthApiModel)
+        public async Task<bool> AuthorizeWithAppleAsync(AppleAuthDto appleAuthApiModel)
         {
-            var authTokenModel = await _client.UnauthorizedPostAsync<AppleAuthApiModel, DataApiModel<AccessTokenApiModel>>($"/auth/apple", appleAuthApiModel, true);
+            var authTokenModel = await _client.UnauthorizedPostAsync<AppleAuthDto, ResponseDto<AccessTokenDto>>($"/auth/apple", appleAuthApiModel, true);
             await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
             return authTokenModel?.Data?.AccessToken != null;
         }

@@ -86,7 +86,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
             return count;
         }
 
-        protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        protected override int SetList<TDataModel, TApiModel>(Pagination<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
         {
             SetTotalItemsCount(dataModel?.TotalCount ?? 0);
             _newCommentsCounter = (int)(dataModel?.TotalCount ?? 0);
@@ -97,7 +97,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
             return orderViewModels.Count;
         }
 
-        private CommentItemViewModel ProduceCommentItemViewModel(CommentDataModel commentDataModel)
+        private CommentItemViewModel ProduceCommentItemViewModel(Models.Data.Comment commentDataModel)
         {
             return new CommentItemViewModel(NavigationService, SettingsService, commentDataModel);
         }

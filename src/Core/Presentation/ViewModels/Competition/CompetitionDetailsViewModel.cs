@@ -27,7 +27,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
-    public class CompetitionDetailsViewModel : PaginationViewModel, IMvxViewModel<CompetitionDataModel, bool>
+    public class CompetitionDetailsViewModel : PaginationViewModel, IMvxViewModel<Models.Data.Competition, bool>
     {
         private readonly ICompetitionsManager _competitionsManager;
         private readonly IPublicationsManager _publicationsManager;
@@ -35,7 +35,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly IMediaService _mediaService;
 
-        private CompetitionDataModel _competition;
+        private Models.Data.Competition _competition;
         private CompetitionDetailsHeaderViewModel _header;
 
         private bool _isRefreshing;
@@ -98,7 +98,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
-        public void Prepare(CompetitionDataModel parameter)
+        public void Prepare(Models.Data.Competition parameter)
         {
             _competition = parameter;
             _header = new CompetitionDetailsHeaderViewModel(IsUserSessionInitialized,
@@ -143,7 +143,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             return count;
         }
 
-        protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        protected override int SetList<TDataModel, TApiModel>(Pagination<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
         {
             SetTotalItemsCount(dataModel?.TotalCount ?? 0);
             var orderViewModels = dataModel?.Items?.Select(produceItemViewModel).ToList();
@@ -187,11 +187,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                     _isReloadNeeded = true;
                 }
             }
-            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsDataModel problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
+            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsException problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
             {
                 await HandleLowBalanceExceptionAsync(ex);
             }
-            catch (Exception ex) when(ex.InnerException is ProblemDetailsDataModel problemDetails)
+            catch (Exception ex) when(ex.InnerException is ProblemDetailsException problemDetails)
             {
                 ErrorHandleService.ResumeServerErrorsHandling();
                 Messenger.Publish(new ServerErrorMessage(this, problemDetails));
@@ -244,14 +244,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             }
         }
 
-        private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
+        private List<FullScreenVideo> GetFullScreenVideoDataModels()
         {
             return Items.OfType<CompetitionVideoViewModel>()
                         .Select(item => item.GetFullScreenVideoDataModel())
                         .ToList();
         }
 
-        private CompetitionVideoViewModel ProduceVideoItemViewModel(VideoDataModel videoDataModel)
+        private CompetitionVideoViewModel ProduceVideoItemViewModel(Models.Data.Video videoDataModel)
         {
             return new CompetitionVideoViewModel(_publicationsManager,
                                                  _videoPlayerService,

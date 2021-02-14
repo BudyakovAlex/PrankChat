@@ -35,8 +35,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             CreateCommand = new MvxAsyncCommand( CreateAsync);
         }
 
-        private PeriodDataModel _activeFor;
-        public PeriodDataModel ActiveFor
+        private Period _activeFor;
+        public Period ActiveFor
         {
             get => _activeFor;
             set => SetProperty(ref _activeFor, value);
@@ -115,11 +115,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 await ExecutionStateWrapper.WrapAsync(SaveOrderAsync);
             }
-            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsDataModel problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
+            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsException problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
             {
                 await HandleLowBalanceExceptionAsync(ex);
             }
-            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsDataModel problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.Unauthorized)
+            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsException problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.Unauthorized)
             {
                 await HandleUnauthorizedAsync(ex);
             }
@@ -137,7 +137,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task SaveOrderAsync()
         {
-            var createOrderModel = new CreateOrderDataModel(Title,
+            var createOrderModel = new CreateOrder(Title,
                                                             Description,
                                                             Price.Value,
                                                             ActiveFor?.Hours ?? 0,

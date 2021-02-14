@@ -85,11 +85,11 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             }
         }
 
-        private UserDataModel ExtractUserSession()
+        private User ExtractUserSession()
         {
             try
             {
-                var dataModel = JsonConvert.DeserializeObject<UserDataModel>(Preferences.Get(Constants.Keys.User, string.Empty));
+                var dataModel = JsonConvert.DeserializeObject<User>(Preferences.Get(Constants.Keys.User, string.Empty));
                 return dataModel;
             }
             catch

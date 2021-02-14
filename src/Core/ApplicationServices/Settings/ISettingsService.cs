@@ -6,7 +6,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
     //TODO: rename to provider
     public interface ISettingsService
     {
-        UserDataModel User { get; set; }
+        User User { get; set; }
 
         string PushToken { get; set; }
 

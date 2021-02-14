@@ -5,6 +5,6 @@ namespace PrankChat.Mobile.Core.Managers.Common
 {
     public interface IVersionManager
     {
-        Task<AppVersionDataModel> CheckAppVersionAsync();
+        Task<AppVersion> CheckAppVersionAsync();
     }
 }

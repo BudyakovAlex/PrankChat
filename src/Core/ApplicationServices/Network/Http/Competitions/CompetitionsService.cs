@@ -6,8 +6,9 @@ using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
-using PrankChat.Mobile.Core.Models.Api;
-using PrankChat.Mobile.Core.Models.Api.Base;
+using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Data.Dtos.Base;
+using PrankChat.Mobile.Core.Data.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -42,43 +43,43 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
-        public async Task<List<CompetitionResultApiModel>> GetCompetitionResultsAsync(int id)
+        public async Task<List<CompetitionResultDto>> GetCompetitionResultsAsync(int id)
         {
-            var bundle = await _client.GetAsync<BaseBundleApiModel<CompetitionResultApiModel>>($"competition/{id}/results");
+            var bundle = await _client.GetAsync<BaseBundleDto<CompetitionResultDto>>($"competition/{id}/results");
             return bundle?.Data;
         }
 
-        public async Task<List<CompetitionResultApiModel>> GetCompetitionRatingsAsync(int id)
+        public async Task<List<CompetitionResultDto>> GetCompetitionRatingsAsync(int id)
         {
-            var bundle = await _client.GetAsync<BaseBundleApiModel<CompetitionResultApiModel>>($"competition/{id}/rating");
+            var bundle = await _client.GetAsync<BaseBundleDto<CompetitionResultDto>>($"competition/{id}/rating");
             return bundle?.Data;
         }
 
-        public async Task<BaseBundleApiModel<VideoApiModel>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize)
+        public async Task<BaseBundleDto<VideoDto>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize)
         {
-            BaseBundleApiModel<VideoApiModel> videoMetadataBundle;
+            BaseBundleDto<VideoDto> videoMetadataBundle;
             if (_settingsService.User == null)
             {
-                videoMetadataBundle = await _client.UnauthorizedGetAsync<BaseBundleApiModel<VideoApiModel>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
+                videoMetadataBundle = await _client.UnauthorizedGetAsync<BaseBundleDto<VideoDto>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
             }
             else
             {
-                videoMetadataBundle = await _client.GetAsync<BaseBundleApiModel<VideoApiModel>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
+                videoMetadataBundle = await _client.GetAsync<BaseBundleDto<VideoDto>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
             }
 
             return videoMetadataBundle;
         }
 
-        public Task<BaseBundleApiModel<CompetitionApiModel>> GetCompetitionsAsync(int page, int pageSize)
+        public Task<BaseBundleDto<CompetitionDto>> GetCompetitionsAsync(int page, int pageSize)
         {
             var endpoint = $"competitions?page={page}&items_per_page={pageSize}";
-            var data = _client.GetAsync<BaseBundleApiModel<CompetitionApiModel>>(endpoint);
+            var data = _client.GetAsync<BaseBundleDto<CompetitionDto>>(endpoint);
             return data;
         }
 
-        public async Task<CompetitionApiModel> CompetitionJoinAsync(int id)
+        public async Task<CompetitionDto> CompetitionJoinAsync(int id)
         {
-            var response = await _client.PostAsync<DataApiModel<CompetitionApiModel>>($"competitions/{id}/join", true);
+            var response = await _client.PostAsync<ResponseDto<CompetitionDto>>($"competitions/{id}/join", true);
             return response?.Data;
         }
     }

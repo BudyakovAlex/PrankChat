@@ -19,8 +19,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
         private readonly INavigationService _navigationService;
 
         private readonly int? _customerId;
-        private readonly ArbitrationOrderDataModel _orderDataModel;
-        private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
+        private readonly ArbitrationOrder _orderDataModel;
+        private readonly Func<List<FullScreenVideo>> _getAllFullScreenVideoDataFunc;
         private readonly DateTime? _arbitrationFinishAt;
         private readonly int _orderId;
 
@@ -36,8 +36,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
                                         int dislikes,
                                         DateTime? arbitrationFinishAt,
                                         int? customerId,
-                                        ArbitrationOrderDataModel orderDataModel,
-                                        Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
+                                        ArbitrationOrder orderDataModel,
+                                        Func<List<FullScreenVideo>> getAllFullScreenVideoDataFunc)
         {
             _settingsService = settingsService;
             _navigationService = navigatiobService;
@@ -92,9 +92,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
             ? OrderType.MyOrder
             : OrderType.NotMyOrder;
 
-        public FullScreenVideoDataModel GetFullScreenVideoDataModel()
+        public FullScreenVideo GetFullScreenVideoDataModel()
         {
-            return new FullScreenVideoDataModel(_orderDataModel.Customer.Id,
+            return new FullScreenVideo(_orderDataModel.Customer.Id,
                                                 _orderDataModel.Customer.IsSubscribed,
                                                 _orderDataModel.Video.Id,
                                                 _orderDataModel.Video.StreamUri,
@@ -124,7 +124,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
 
         private async Task OnOpenDetailsOrderAsync()
         {
-            var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideoDataModel> { GetFullScreenVideoDataModel() };
+            var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideo> { GetFullScreenVideoDataModel() };
             var currentItem = items.FirstOrDefault(item => item.VideoId == _orderDataModel.Video?.Id);
             var index = currentItem is null ? 0 : items.IndexOf(currentItem);
 

@@ -149,7 +149,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<SearchViewModel>();
         }
 
-        public Task<OrderDetailsResult> ShowOrderDetailsView(int orderId, List<FullScreenVideoDataModel> fullScreenVideos, int currentIndex)
+        public Task<OrderDetailsResult> ShowOrderDetailsView(int orderId, List<FullScreenVideo> fullScreenVideos, int currentIndex)
         {
             var parameter = new OrderDetailsNavigationParameter(orderId, fullScreenVideos, currentIndex);
             return _mvxNavigationService.Navigate<OrderDetailsViewModel, OrderDetailsNavigationParameter, OrderDetailsResult>(parameter);
@@ -254,14 +254,14 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
             return _mvxNavigationService.Navigate<ArrayDialogViewModel, ArrayDialogParameter, ArrayDialogResult>(parameter);
         }
 
-        public Task<bool> ShowCompetitionDetailsView(CompetitionDataModel competition)
+        public Task<bool> ShowCompetitionDetailsView(Competition competition)
         {
-            return _mvxNavigationService.Navigate<CompetitionDetailsViewModel, CompetitionDataModel, bool>(competition);
+            return _mvxNavigationService.Navigate<CompetitionDetailsViewModel, Competition, bool>(competition);
         }
 
-        public Task ShowCompetitionPrizePoolView(CompetitionDataModel competition)
+        public Task ShowCompetitionPrizePoolView(Competition competition)
         {
-            return _mvxNavigationService.Navigate<CompetitionPrizePoolViewModel, CompetitionDataModel>(competition);
+            return _mvxNavigationService.Navigate<CompetitionPrizePoolViewModel, Competition>(competition);
         }
 
         public Task ShowCompetitionRulesView(string content)

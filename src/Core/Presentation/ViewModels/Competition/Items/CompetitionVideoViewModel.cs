@@ -28,10 +28,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         private readonly ISettingsService _settingsService;
         private readonly IMvxMessenger _mvxMessenger;
 
-        private readonly VideoDataModel _videoDataModel;
+        private readonly Models.Data.Video _videoDataModel;
         private readonly long _numberOfDislikes;
         private readonly bool _isDisliked;
-        private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
+        private readonly Func<List<FullScreenVideo>> _getAllFullScreenVideoDataFunc;
 
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
         private MvxSubscriptionToken _updateNumberOfViewsSubscriptionToken;
@@ -42,10 +42,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                                          ISettingsService settingsService,
                                          IMvxMessenger mvxMessenger,
                                          ILogger logger,
-                                         VideoDataModel videoDataModel,
+                                         Models.Data.Video videoDataModel,
                                          bool isMyPublication,
                                          bool isVotingAvailable,
-                                         Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
+                                         Func<List<FullScreenVideo>> getAllFullScreenVideoDataFunc)
         {
             _navigationService = navigationService;
             _settingsService = settingsService;
@@ -156,9 +156,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             set => SetProperty(ref _isLiked, value);
         }
 
-        public FullScreenVideoDataModel GetFullScreenVideoDataModel()
+        public FullScreenVideo GetFullScreenVideoDataModel()
         {
-            return new FullScreenVideoDataModel(_videoDataModel.User?.Id ?? 0,
+            return new FullScreenVideo(_videoDataModel.User?.Id ?? 0,
                                                 _videoDataModel.User?.IsSubscribed ?? false,
                                                 VideoId,
                                                 VideoUrl,
@@ -225,7 +225,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         {
             VideoPlayerService.Player.TryRegisterViewedFact(VideoId, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
 
-            var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideoDataModel> { GetFullScreenVideoDataModel() };
+            var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideo> { GetFullScreenVideoDataModel() };
             var currentItem = items.FirstOrDefault(item => item.VideoId == VideoId);
             var index = currentItem is null ? 0 : items.IndexOf(currentItem);
             var navigationParams = new FullScreenVideoParameter(items, index);

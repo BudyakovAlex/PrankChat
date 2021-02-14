@@ -118,7 +118,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
             return SetList(items, page, ProduceSubscriptionItemViewModel, Items);
         }
 
-        protected virtual async Task<PaginationModel<UserDataModel>> GetSubscriptionsAsync(int page, int pageSize)
+        protected virtual async Task<Pagination<User>> GetSubscriptionsAsync(int page, int pageSize)
         {
             var getSubscriptionsTask = _usersManager.GetSubscriptionsAsync(_userId, page, pageSize);
             var getSubscribersTask = _usersManager.GetSubscribersAsync(_userId, page, pageSize);
@@ -136,7 +136,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
                     return getSubscriptionsTask.Result;
             }
 
-            return new PaginationModel<UserDataModel>();
+            return new Pagination<User>();
         }
 
         private async Task ShowProfileAsync(SubscriptionItemViewModel viewModel)
@@ -151,7 +151,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
             await LoadDataCommand.ExecuteAsync();
         }
 
-        private SubscriptionItemViewModel ProduceSubscriptionItemViewModel(UserDataModel userDataModel)
+        private SubscriptionItemViewModel ProduceSubscriptionItemViewModel(User userDataModel)
         {
             return new SubscriptionItemViewModel(userDataModel);
         }

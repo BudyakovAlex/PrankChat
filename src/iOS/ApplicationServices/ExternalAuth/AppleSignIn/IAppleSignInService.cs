@@ -5,6 +5,6 @@ namespace PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn
 {
     public interface IAppleSignInService
     {
-        Task<AppleAuthDataModel> LoginAsync();
+        Task<AppleAuth> LoginAsync();
     }
 }

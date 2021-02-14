@@ -157,7 +157,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             return SetList(items, page, ProduceOrderItemViewModel, Items);
         }
 
-        protected virtual async Task<PaginationModel<OrderDataModel>> GetOrdersAsync(int page, int pageSize)
+        protected virtual async Task<Pagination<Models.Data.Order>> GetOrdersAsync(int page, int pageSize)
         {
             switch (SelectedOrderType)
             {
@@ -168,10 +168,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                     return await _ordersManager.GetUserExecuteOrdersAsync(_userId, page, pageSize);
             }
 
-            return new PaginationModel<OrderDataModel>();
+            return new Pagination<Models.Data.Order>();
         }
 
-        private OrderItemViewModel ProduceOrderItemViewModel(OrderDataModel order)
+        private OrderItemViewModel ProduceOrderItemViewModel(Models.Data.Order order)
         {
             return new OrderItemViewModel(NavigationService,
                                           SettingsService,
@@ -179,7 +179,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                                           GetFullScreenVideoDataModels);
         }
 
-        private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
+        private List<FullScreenVideo> GetFullScreenVideoDataModels()
         {
             return Items.Where(item => item.CanPlayVideo)
                         .Select(item => item.GetFullScreenVideoDataModel())

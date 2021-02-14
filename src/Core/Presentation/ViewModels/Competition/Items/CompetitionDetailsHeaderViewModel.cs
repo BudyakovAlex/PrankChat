@@ -14,7 +14,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                                                  IMvxMessenger mvxMessenger,
                                                  INavigationService navigationService,
                                                  IMvxAsyncCommand actionCommand,
-                                                 CompetitionDataModel competition)
+                                                 Models.Data.Competition competition)
             : base(isUserSessionInitialized, mvxMessenger, navigationService, competition)
         {
             _navigationService = navigationService;

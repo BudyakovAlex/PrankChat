@@ -68,7 +68,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            var dataModel = new UserUpdateProfileDataModel(Name,
+            var dataModel = new UserUpdateProfile(Name,
                                                            Email,
                                                            Login,
                                                            Gender.Value,

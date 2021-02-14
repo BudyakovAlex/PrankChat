@@ -6,8 +6,9 @@ using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
-using PrankChat.Mobile.Core.Models.Api;
-using PrankChat.Mobile.Core.Models.Api.Base;
+using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Data.Dtos.Base;
+using PrankChat.Mobile.Core.Data.Enums;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Search
@@ -39,22 +40,22 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Search
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
-        public Task<BaseBundleApiModel<VideoApiModel>> SearchVideosAsync(string query, int page, int pageSize)
+        public Task<BaseBundleDto<VideoDto>> SearchVideosAsync(string query, int page, int pageSize)
         {
             var endpoint = $"search/videos?text={query}&page={page}&items_per_page={pageSize}";
-            return _client.GetAsync<BaseBundleApiModel<VideoApiModel>>(endpoint, includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor });
+            return _client.GetAsync<BaseBundleDto<VideoDto>>(endpoint, includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor });
         }
 
-        public Task<BaseBundleApiModel<UserApiModel>> SearchUsersAsync(string query, int page, int pageSize)
+        public Task<BaseBundleDto<UserDto>> SearchUsersAsync(string query, int page, int pageSize)
         {
             var endpoint = $"search/users?text={query}&page={page}&items_per_page={pageSize}";
-            return _client.GetAsync<BaseBundleApiModel<UserApiModel>>(endpoint);
+            return _client.GetAsync<BaseBundleDto<UserDto>>(endpoint);
         }
 
-        public Task<BaseBundleApiModel<OrderApiModel>> SearchOrdersAsync(string query, int page, int pageSize)
+        public Task<BaseBundleDto<OrderDto>> SearchOrdersAsync(string query, int page, int pageSize)
         {
             var endpoint = $"search/orders?text={query}&page={page}&items_per_page={pageSize}";
-            return _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint, includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor });
+            return _client.GetAsync<BaseBundleDto<OrderDto>>(endpoint, includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor });
         }
     }
 }

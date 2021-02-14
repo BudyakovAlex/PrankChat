@@ -40,15 +40,15 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         Task ShowSearchView();
 
-        Task<OrderDetailsResult> ShowOrderDetailsView(int orderId, List<FullScreenVideoDataModel> fullScreenVideos, int currentIndex);
+        Task<OrderDetailsResult> ShowOrderDetailsView(int orderId, List<FullScreenVideo> fullScreenVideos, int currentIndex);
 
         Task<bool> ShowFullScreenVideoView(FullScreenVideoParameter fullScreenVideoParameter);
 
         Task ShowDetailsPublicationView();
 
-        Task<bool> ShowCompetitionDetailsView(CompetitionDataModel competition);
+        Task<bool> ShowCompetitionDetailsView(Competition competition);
 
-        Task ShowCompetitionPrizePoolView(CompetitionDataModel competition);
+        Task ShowCompetitionPrizePoolView(Competition competition);
 
         Task ShowCompetitionRulesView(string content);
 

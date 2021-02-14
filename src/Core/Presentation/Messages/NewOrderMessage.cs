@@ -6,9 +6,9 @@ namespace PrankChat.Mobile.Core.Presentation.Messages
 {
     public class OrderChangedMessage : MvxMessage
     {
-        public OrderDataModel NewOrder { get; }
+        public Order NewOrder { get; }
 
-        public OrderChangedMessage(object sender, OrderDataModel newOrder) : base(sender)
+        public OrderChangedMessage(object sender, Order newOrder) : base(sender)
         {
             if (newOrder == null)
             {

@@ -6,7 +6,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
 using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
-using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Data.Dtos;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -39,15 +39,15 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Common
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
-        public async Task<AppVersionApiModel> CheckAppVersionAsync()
+        public async Task<AppVersionDto> CheckAppVersionAsync()
         {
             var buildVersion = AppInfo.BuildString;
             var appVersion = AppInfo.VersionString;
             var operationSystem = DeviceInfo.Platform.ToString().ToLower();
-            var appVersionBundle = await _client.UnauthorizedGetAsync<AppVersionApiModel>($"/application/{buildVersion}/check/{operationSystem}?appVersion={appVersion}");
+            var appVersionBundle = await _client.UnauthorizedGetAsync<AppVersionDto>($"/application/{buildVersion}/check/{operationSystem}?appVersion={appVersion}");
             if (appVersionBundle is null)
             {
-                return new AppVersionApiModel();
+                return new AppVersionDto();
             }
 
             return appVersionBundle;

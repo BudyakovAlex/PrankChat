@@ -1,36 +1,38 @@
-﻿using PrankChat.Mobile.Core.Models.Api;
+﻿using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.Core.Mappers
 {
     public static class PaymentMapper
     {
-        public static PaymentDataModel Map(this PaymentApiModel paymentApiModel)
+        public static Payment Map(this PaymentDto dto)
         {
-            if (paymentApiModel is null)
+            if (dto is null)
             {
                 return null;
             }
 
-            return new PaymentDataModel(paymentApiModel.Id,
-                                        paymentApiModel.Amount,
-                                        paymentApiModel.Provider,
-                                        paymentApiModel.Status,
-                                        paymentApiModel.PaymentLink);
+            return new Payment(
+                dto.Id,
+                dto.Amount,
+                dto.Provider,
+                dto.Status,
+                dto.PaymentLink);
         }
 
-        public static PaymentDataModel Map(this DataApiModel<PaymentApiModel> dataApiModel)
+        public static Payment Map(this ResponseDto<PaymentDto> dto)
         {
-            if (dataApiModel.Data is null)
+            if (dto.Data is null)
             {
                 return null;
             }
 
-            return new PaymentDataModel(dataApiModel.Data.Id,
-                                        dataApiModel.Data.Amount,
-                                        dataApiModel.Data.Provider,
-                                        dataApiModel.Data.Status,
-                                        dataApiModel.Data.PaymentLink);
+            return new Payment(
+                dto.Data.Id,
+                dto.Data.Amount,
+                dto.Data.Provider,
+                dto.Data.Status,
+                dto.Data.PaymentLink);
         }
     }
 }

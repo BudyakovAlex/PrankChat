@@ -5,12 +5,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections.Abstract
 {
     public abstract class BaseOrderDetailsSectionViewModel : BaseViewModel
     {
-        public void SetOrder(OrderDataModel order)
+        public void SetOrder(Models.Data.Order order)
         {
             Order = order;
             RaiseAllPropertiesChanged();
         }
 
-        public OrderDataModel Order { get; private set; }
+        public Models.Data.Order Order { get; private set; }
     }
 }

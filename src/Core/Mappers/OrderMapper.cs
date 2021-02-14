@@ -1,66 +1,68 @@
-﻿using PrankChat.Mobile.Core.Models.Api;
+﻿using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.Core.Mappers
 {
     public static class OrderMapper
     {
-        public static OrderDataModel Map(this OrderApiModel orderApiModel)
+        public static Order Map(this OrderDto dto)
         {
-            if (orderApiModel is null)
+            if (dto is null)
             {
                 return null;
             }
 
-            return new OrderDataModel(orderApiModel.Id,
-                                      orderApiModel.Price,
-                                      orderApiModel.Title,
-                                      orderApiModel.Description,
-                                      orderApiModel.Status,
-                                      orderApiModel.OrderCategory,
-                                      orderApiModel.ActiveTo,
-                                      orderApiModel.DurationInHours,
-                                      orderApiModel.AutoProlongation,
-                                      orderApiModel.CreatedAt,
-                                      orderApiModel.TakenToWorkAt,
-                                      orderApiModel.VideoUploadedAt,
-                                      orderApiModel.ArbitrationFinishAt,
-                                      orderApiModel.CloseOrderAt,
-                                      orderApiModel.Customer?.Map(),
-                                      orderApiModel.Executor?.Map(),
-                                      orderApiModel.Video?.Map(),
-                                      orderApiModel.MyArbitrationValue,
-                                      orderApiModel.NegativeArbitrationValuesCount,
-                                      orderApiModel.PositiveArbitrationValuesCount);
+            return new Order(
+                dto.Id,
+                dto.Price,
+                dto.Title,
+                dto.Description,
+                dto.Status,
+                dto.OrderCategory,
+                dto.ActiveTo,
+                dto.DurationInHours,
+                dto.AutoProlongation,
+                dto.CreatedAt,
+                dto.TakenToWorkAt,
+                dto.VideoUploadedAt,
+                dto.ArbitrationFinishAt,
+                dto.CloseOrderAt,
+                dto.Customer?.Map(),
+                dto.Executor?.Map(),
+                dto.Video?.Map(),
+                dto.MyArbitrationValue,
+                dto.NegativeArbitrationValuesCount,
+                dto.PositiveArbitrationValuesCount);
         }
 
-        public static OrderDataModel Map(this DataApiModel<OrderApiModel> dataApiModel)
+        public static Order Map(this ResponseDto<OrderDto> dto)
         {
-            if (dataApiModel.Data is null)
+            if (dto.Data is null)
             {
                 return null;
             }
 
-            return new OrderDataModel(dataApiModel.Data.Id,
-                                      dataApiModel.Data.Price,
-                                      dataApiModel.Data.Title,
-                                      dataApiModel.Data.Description,
-                                      dataApiModel.Data.Status,
-                                      dataApiModel.Data.OrderCategory,
-                                      dataApiModel.Data.ActiveTo,
-                                      dataApiModel.Data.DurationInHours,
-                                      dataApiModel.Data.AutoProlongation,
-                                      dataApiModel.Data.CreatedAt,
-                                      dataApiModel.Data.TakenToWorkAt,
-                                      dataApiModel.Data.VideoUploadedAt,
-                                      dataApiModel.Data.ArbitrationFinishAt,
-                                      dataApiModel.Data.CloseOrderAt,
-                                      dataApiModel.Data.Customer?.Map(),
-                                      dataApiModel.Data.Executor?.Map(),
-                                      dataApiModel.Data.Video?.Map(),
-                                      dataApiModel.Data.MyArbitrationValue,
-                                      dataApiModel.Data.NegativeArbitrationValuesCount,
-                                      dataApiModel.Data.PositiveArbitrationValuesCount);
+            return new Order(
+                dto.Data.Id,
+                dto.Data.Price,
+                dto.Data.Title,
+                dto.Data.Description,
+                dto.Data.Status,
+                dto.Data.OrderCategory,
+                dto.Data.ActiveTo,
+                dto.Data.DurationInHours,
+                dto.Data.AutoProlongation,
+                dto.Data.CreatedAt,
+                dto.Data.TakenToWorkAt,
+                dto.Data.VideoUploadedAt,
+                dto.Data.ArbitrationFinishAt,
+                dto.Data.CloseOrderAt,
+                dto.Data.Customer?.Map(),
+                dto.Data.Executor?.Map(),
+                dto.Data.Video?.Map(),
+                dto.Data.MyArbitrationValue,
+                dto.Data.NegativeArbitrationValuesCount,
+                dto.Data.PositiveArbitrationValuesCount);
         }
     }
 }

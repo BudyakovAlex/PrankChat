@@ -14,11 +14,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;
 
-        private readonly UserDataModel _userDataModel;
+        private readonly User _userDataModel;
 
         public ProfileSearchItemViewModel(INavigationService navigationService,
                                           ISettingsService settingsService,
-                                          UserDataModel userDataModel)
+                                          User userDataModel)
         {
             _navigationService = navigationService;
             _settingsService = settingsService;

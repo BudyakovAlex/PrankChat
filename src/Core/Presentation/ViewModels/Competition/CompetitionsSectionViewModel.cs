@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                                             IMvxMessenger mvxMessenger,
                                             INavigationService navigationService,
                                             CompetitionPhase phase,
-                                            List<CompetitionDataModel> competitions)
+                                            List<Models.Data.Competition> competitions)
         {
             _isUserSessionInitialized = isUserSessionInitialized;
             _mvxMessenger = mvxMessenger;
@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             Items = competitions.Select(ProduceItemViewModel).ToList();
         }
 
-        private CompetitionItemViewModel ProduceItemViewModel(CompetitionDataModel competition)
+        private CompetitionItemViewModel ProduceItemViewModel(Models.Data.Competition competition)
         {
             return new CompetitionItemViewModel(_isUserSessionInitialized, _mvxMessenger, _navigationService, competition);
         }

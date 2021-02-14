@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
             return count;
         }
 
-        private NotificationItemViewModel ProduceNotificationItem(NotificationDataModel notificationDataModel)
+        private NotificationItemViewModel ProduceNotificationItem(Models.Data.Notification notificationDataModel)
         {
             return new NotificationItemViewModel(NavigationService, SettingsService, notificationDataModel);
         }
