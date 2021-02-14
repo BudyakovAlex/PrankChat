@@ -10,7 +10,6 @@ using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Orders;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -234,7 +233,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task TakeOrderAsync()
         {
-            var user = SettingsService.User;
+            var user = UserSessionProvider.User;
 
             if (user?.EmailVerifiedAt == null)
             {
@@ -263,7 +262,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 if (takenOrder != null && Order != null)
                 {
                     Order.Status = takenOrder.Status;
-                    Order.Executor = SettingsService.User;
+                    Order.Executor = UserSessionProvider.User;
                     Order.ActiveTo = takenOrder.ActiveTo;
                     Order.Title = takenOrder.Title;
                     Order.Description = takenOrder.Description;

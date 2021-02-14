@@ -84,7 +84,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 }
             }
 
-            SettingsService.User = await UsersManager.UpdateProfileAsync(dataModel);
+            UserSessionProvider.User = await UsersManager.UpdateProfileAsync(dataModel);
             await NavigationService.CloseViewWithResult(this, new ProfileUpdateResult(true, _isUserPhotoUpdated));
         }
 
@@ -153,10 +153,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 }
             }
 
-            SettingsService.User = null;
-            SettingsService.IsPushTokenSend = false;
+            UserSessionProvider.User = null;
+            UserSessionProvider.IsPushTokenSend = false;
 
-            await SettingsService.SetAccessTokenAsync(string.Empty);
+            await UserSessionProvider.SetAccessTokenAsync(string.Empty);
 
             if (Xamarin.Essentials.Connectivity.NetworkAccess.HasConnection())
             {

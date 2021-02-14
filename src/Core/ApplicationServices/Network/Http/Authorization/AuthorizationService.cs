@@ -2,13 +2,12 @@
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Data.Dtos;
-using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using RestSharp;
 using System;
 using System.Net;
@@ -18,24 +17,24 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
 {
     public class AuthorizationService : IAuthorizationService
     {
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
         private readonly IMvxMessenger _messenger;
         private readonly IMvxLog _log;
 
         private readonly HttpClient _client;
 
-        public AuthorizationService(ISettingsService settingsService,
+        public AuthorizationService(IUserSessionProvider userSessionProvider,
                                     IMvxLogProvider logProvider,
                                     IMvxMessenger messenger,
                                     ILogger logger)
         {
-            _settingsService = settingsService;
+            _userSessionProvider = userSessionProvider;
             _messenger = messenger;
             _log = logProvider.GetLogFor<AuthorizationService>();
             var configuration = ConfigurationProvider.GetConfiguration();
             _client = new HttpClient(configuration.BaseAddress,
                                      configuration.ApiVersion,
-                                     settingsService,
+                                     userSessionProvider,
                                      _log,
                                      logger,
                                      messenger);
@@ -47,7 +46,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
         {
             var loginModel = new AuthorizationDto { Email = email?.WithoutSpace()?.ToLower(), Password = password };
             var authTokenModel = await _client.UnauthorizedPostAsync<AuthorizationDto, ResponseDto<AccessTokenDto>>("auth/login", loginModel, true);
-            await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
+            await _userSessionProvider.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
         public async Task<bool> AuthorizeExternalAsync(string authToken, LoginType loginType)
@@ -55,14 +54,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
             var loginTypePath = GetAuthPathByLoginType(loginType);
             var loginModel = new ExternalAuthorizationDto { Token = authToken };
             var authTokenModel = await _client.UnauthorizedPostAsync<ExternalAuthorizationDto, ResponseDto<AccessTokenDto>>($"auth/social/{loginTypePath}", loginModel, true);
-            await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
+            await _userSessionProvider.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
             return authTokenModel?.Data?.AccessToken != null;
         }
 
         public async Task RegisterAsync(UserRegistrationDto userRegistrationApiModel)
         {
             var authTokenModel = await _client.UnauthorizedPostAsync<UserRegistrationDto, ResponseDto<AccessTokenDto>>("auth/register", userRegistrationApiModel, true);
-            await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
+            await _userSessionProvider.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
         }
 
         public Task LogoutAsync()
@@ -87,7 +86,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
             }
 
             var content = JsonConvert.DeserializeObject<ResponseDto<AccessTokenDto>>(response.Content);
-            await _settingsService.SetAccessTokenAsync(content?.Data?.AccessToken);
+            await _userSessionProvider.SetAccessTokenAsync(content?.Data?.AccessToken);
         }
 
         public async Task<bool?> CheckIsEmailExistsAsync(string email)
@@ -110,13 +109,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
         public async Task<bool> AuthorizeWithAppleAsync(AppleAuthDto appleAuthApiModel)
         {
             var authTokenModel = await _client.UnauthorizedPostAsync<AppleAuthDto, ResponseDto<AccessTokenDto>>($"/auth/apple", appleAuthApiModel, true);
-            await _settingsService.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
+            await _userSessionProvider.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
             return authTokenModel?.Data?.AccessToken != null;
         }
 
         private void OnUnauthorizedUser(UnauthorizedMessage obj)
         {
-            if (_settingsService.User == null)
+            if (_userSessionProvider.User == null)
             {
                 return;
             }

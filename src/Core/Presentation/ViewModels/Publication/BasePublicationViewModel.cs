@@ -83,7 +83,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             Messenger.Subscribe<ViewCountMessage>(OnViewCountChanged).DisposeWith(Disposables);
 
             ShowCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => UserSessionProvider.User != null, handleFunc: NavigationService.ShowLoginView);
             BookmarkCommand = new MvxRestrictedAsyncCommand(BookmarkAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
             ShowFullScreenVideoCommand = new MvxAsyncCommand(ShowFullScreenVideoAsync);
             ShareCommand = new MvxAsyncCommand(ShareAsync);
@@ -204,7 +204,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private Task OpenUserProfileAsync()
         {
             if (_videoDataModel.Customer?.Id is null ||
-                _videoDataModel.Customer.Id == SettingsService.User.Id)
+                _videoDataModel.Customer.Id == UserSessionProvider.User.Id)
             {
                 return Task.CompletedTask;
             }

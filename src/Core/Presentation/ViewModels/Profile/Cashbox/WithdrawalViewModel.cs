@@ -30,7 +30,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             _usersManager = usersManager;
             _mediaService = mediaService;
 
-            AvailableForWithdrawal = $"{Resources.CashboxView_WithdrawalAvailable_Title} {SettingsService.User?.Balance.ToPriceString()}";
+            AvailableForWithdrawal = $"{Resources.CashboxView_WithdrawalAvailable_Title} {UserSessionProvider.User?.Balance.ToPriceString()}";
 
             WithdrawCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(WithdrawAsync));
             CancelWithdrawCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(CancelWithdrawAsync));
@@ -105,9 +105,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         public string AmountValue => _lastWithdrawalDataModel?.Amount.ToPriceString();
 
-        public bool IsAttachDocumentAvailable => SettingsService.User?.DocumentVerifiedAt == null && SettingsService.User?.Document == null;
+        public bool IsAttachDocumentAvailable => UserSessionProvider.User?.DocumentVerifiedAt == null && UserSessionProvider.User?.Document == null;
 
-        public bool IsDocumentPending => SettingsService.User?.DocumentVerifiedAt == null && SettingsService.User?.Document != null;
+        public bool IsDocumentPending => UserSessionProvider.User?.DocumentVerifiedAt == null && UserSessionProvider.User?.Document != null;
 
         public bool IsWithdrawalAvailable => !IsAttachDocumentAvailable && !IsDocumentPending && _lastWithdrawalDataModel == null;
 
@@ -201,9 +201,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 var document = await _usersManager.SendVerifyDocumentAsync(file.Path);
                 if (document != null)
                 {
-                    var user = SettingsService.User;
+                    var user = UserSessionProvider.User;
                     user.Document = document;
-                    SettingsService.User = user;
+                    UserSessionProvider.User = user;
                     await RaiseAllPropertiesChanged();
                 }
             }

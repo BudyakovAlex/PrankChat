@@ -6,7 +6,6 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Builders;
 using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Enums;
@@ -16,6 +15,7 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -39,7 +39,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         private readonly IMvxLog _mvxLog;
         private readonly ILogger _logger;
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
 
         private readonly Version _apiVersion;
         private readonly string _baseAddress;
@@ -47,14 +47,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         public HttpClient(string baseAddress,
                           Version apiVersion,
-                          ISettingsService settingsService,
+                          IUserSessionProvider userSessionProvider,
                           IMvxLog mvxLog,
                           ILogger logger,
                           IMvxMessenger messenger)
         {
             _baseAddress = baseAddress;
             _apiVersion = apiVersion;
-            _settingsService = settingsService;
+            _userSessionProvider = userSessionProvider;
             _mvxLog = mvxLog;
             _logger = logger;
             _messenger = messenger;
@@ -143,7 +143,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             {
                 using (var client = new System.Net.Http.HttpClient() { Timeout = TimeSpan.FromMinutes(15) })
                 {
-                    var accessToken = await _settingsService.GetAccessTokenAsync();
+                    var accessToken = await _userSessionProvider.GetAccessTokenAsync();
                     client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
 
                     var currentCulture = CultureInfo.CurrentCulture;
@@ -225,7 +225,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             {
                 using (var client = new System.Net.Http.HttpClient() { Timeout = TimeSpan.FromMinutes(15) })
                 {
-                    var accessToken = await _settingsService.GetAccessTokenAsync();
+                    var accessToken = await _userSessionProvider.GetAccessTokenAsync();
                     client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
 
                     var currentCulture = CultureInfo.CurrentCulture;
@@ -445,7 +445,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         private async Task AddAuthorizationHeaderAsync(IRestRequest request)
         {
-            var accessToken = await _settingsService.GetAccessTokenAsync();
+            var accessToken = await _userSessionProvider.GetAccessTokenAsync();
             request.AddHeader(HttpRequestHeader.Authorization.ToString(), $"Bearer {accessToken}");
         }
 

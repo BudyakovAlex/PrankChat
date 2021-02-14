@@ -42,7 +42,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             MoveNextCommand = this.CreateCommand(MoveNext);
             MovePreviousCommand = this.CreateCommand(MovePrevious);
             OpenCommentsCommand = this.CreateRestrictedCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigateByRestrictionsAsync);
-            OpenUserProfileCommand = this.CreateRestrictedCommand(OpenUserProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigateByRestrictionsAsync);
+            OpenUserProfileCommand = this.CreateRestrictedCommand(OpenUserProfileAsync, restrictedCanExecute: () => UserSessionProvider.User != null, handleFunc: NavigateByRestrictionsAsync);
         }
 
         public IMvxAsyncCommand ShareCommand { get; }
@@ -158,7 +158,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         {
             if (_currentVideo?.UserId is null ||
                 _currentVideo.UserId == 0 ||
-                _currentVideo.UserId == SettingsService.User.Id)
+                _currentVideo.UserId == UserSessionProvider.User.Id)
             {
                 return;
             }

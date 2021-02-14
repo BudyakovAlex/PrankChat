@@ -1,10 +1,9 @@
-﻿using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Models.Data;
+﻿using PrankChat.Mobile.Core.Models.Data;
+using System.Threading.Tasks;
 
-namespace PrankChat.Mobile.Core.ApplicationServices.Settings
+namespace PrankChat.Mobile.Core.Providers.UserSession
 {
-    //TODO: rename to provider
-    public interface ISettingsService
+    public interface IUserSessionProvider
     {
         User User { get; set; }
 

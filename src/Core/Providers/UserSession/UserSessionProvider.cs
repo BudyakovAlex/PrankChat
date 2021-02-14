@@ -1,14 +1,13 @@
-﻿using System;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Data;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace PrankChat.Mobile.Core.ApplicationServices.Settings
+namespace PrankChat.Mobile.Core.Providers.UserSession
 {
-    public class SettingsService : ISettingsService
+    public class UserSessionProvider : IUserSessionProvider
     {
         private const string AccessTokenKey = "access_token";
 
@@ -38,11 +37,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Settings
 
         private bool CheckIsDebugMode()
         {
-            #if DEBUG
+#if DEBUG
             return true;
-            #else
+#else
             return false;
-            #endif
+#endif
         }
 
         public Task<string> GetAccessTokenAsync()

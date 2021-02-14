@@ -129,7 +129,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             var pageContainer = await _competitionsManager.GetCompetitionVideosAsync(_competition.Id, page, pageSize);
             if (_competition.GetPhase() == CompetitionPhase.New)
             {
-                var video = pageContainer.Items.FirstOrDefault(item => item.User.Id == SettingsService.User.Id);
+                var video = pageContainer.Items.FirstOrDefault(item => item.User.Id == UserSessionProvider.User.Id);
                 if (video is null)
                 {
                     return 0;
@@ -256,11 +256,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             return new CompetitionVideoViewModel(_publicationsManager,
                                                  _videoPlayerService,
                                                  NavigationService,
-                                                 SettingsService,
+                                                 UserSessionProvider,
                                                  Messenger,
                                                  Logger,
                                                  videoDataModel,
-                                                 videoDataModel.User.Id == SettingsService.User.Id,
+                                                 videoDataModel.User.Id == UserSessionProvider.User.Id,
                                                  _competition.GetPhase() == CompetitionPhase.Voting,
                                                  GetFullScreenVideoDataModels);
         }
@@ -303,11 +303,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                     _header.Competition.CanUploadVideo = false;
                     Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
                     {
-                        video.User = SettingsService.User;
+                        video.User = UserSessionProvider.User;
                         Items.Insert(1, new CompetitionVideoViewModel(_publicationsManager,
                                                                       _videoPlayerService,
                                                                       NavigationService,
-                                                                      SettingsService,
+                                                                      UserSessionProvider,
                                                                       Messenger,
                                                                       Logger,
                                                                       video,

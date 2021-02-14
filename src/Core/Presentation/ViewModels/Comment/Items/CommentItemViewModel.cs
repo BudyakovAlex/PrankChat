@@ -1,10 +1,9 @@
 ﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items
@@ -12,19 +11,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items
     public class CommentItemViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
 
         private readonly Models.Data.Comment _commentDataModel;
 
         public CommentItemViewModel(INavigationService navigationService,
-                                    ISettingsService settingsService,
+                                    IUserSessionProvider userSessionProvider,
                                     Models.Data.Comment commentDataModel)
         {
             _navigationService = navigationService;
-            _settingsService = settingsService;
+            _userSessionProvider = userSessionProvider;
             _commentDataModel = commentDataModel;
 
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _userSessionProvider.User != null, handleFunc: _navigationService.ShowLoginView);
         }
 
         public string ProfileName => _commentDataModel.User?.Login;
@@ -42,7 +41,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items
         private Task OpenUserProfileAsync()
         {
             if (_commentDataModel.User?.Id is null ||
-                _commentDataModel.User.Id == _settingsService.User.Id)
+                _commentDataModel.User.Id == _userSessionProvider.User.Id)
             {
                 return Task.CompletedTask;
             }

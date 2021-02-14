@@ -1,6 +1,5 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
@@ -9,6 +8,7 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections.Abstract;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
     public class OrderDetailsVideoSectionViewModel : BaseOrderDetailsSectionViewModel
     {
         private readonly IVideoManager _videoManager;
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
         private readonly IMediaService _mediaService;
 
         private CancellationTokenSource _cancellationTokenSource;
@@ -29,10 +29,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
         private int _currentIndex;
 
         public OrderDetailsVideoSectionViewModel(IVideoManager videoManager,
-                                                 ISettingsService settingsService,
+                                                 IUserSessionProvider userSessionProvider,
                                                  IMediaService mediaService)
         {
-            _settingsService = settingsService;
+            _userSessionProvider = userSessionProvider;
             _videoManager = videoManager;
             _mediaService = mediaService;
 
@@ -58,7 +58,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
         public string VideoDetails => Order?.Description;
 
         public bool IsVideoLoadAvailable => Order?.Status == OrderStatusType.InWork &&
-                                            Order?.Executor?.Id == _settingsService.User?.Id;
+                                            Order?.Executor?.Id == _userSessionProvider.User?.Id;
 
         public bool IsVideoAvailable => Order?.Video != null && !IsVideoProcessing;
 
@@ -66,7 +66,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
 
         public bool IsDecisionVideoAvailable => (Order?.Status == OrderStatusType.WaitFinish ||
                                                  Order?.Status == OrderStatusType.VideoWaitModeration) &&
-                                                 Order.Customer?.Id == _settingsService.User?.Id;
+                                                 Order.Customer?.Id == _userSessionProvider.User?.Id;
 
         private bool _isUploading;
         public bool IsUploading

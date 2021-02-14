@@ -133,7 +133,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         protected virtual Task InitializeProfileData()
         {
-            var user = SettingsService.User;
+            var user = UserSessionProvider.User;
             if (user == null)
             {
                 return Task.CompletedTask;

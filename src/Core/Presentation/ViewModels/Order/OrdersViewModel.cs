@@ -220,7 +220,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private OrderItemViewModel ProduceOrderViewModel(Models.Data.Order order)
         {
             return new OrderItemViewModel(NavigationService,
-                                          SettingsService,
+                                          UserSessionProvider,
                                           order,
                                           GetFullScreenVideoDataModels);
         }
@@ -228,7 +228,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private ArbitrationItemViewModel ProduceArbitrationOrderViewModel(ArbitrationOrder order)
         {
             return new ArbitrationItemViewModel(NavigationService,
-                                                SettingsService,
+                                                UserSessionProvider,
                                                 IsUserSessionInitialized,
                                                 order.Id,
                                                 order.Title,

@@ -1,6 +1,5 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -9,6 +8,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,7 +18,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
     public class OrderItemViewModel : BaseViewModel, IFullScreenVideoOwnerViewModel, IDisposable
     {
         private readonly INavigationService _navigationService;
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
 
         private readonly Models.Data.Order _orderDataModel;
         private readonly Func<List<FullScreenVideo>> _getAllFullScreenVideoDataFunc;
@@ -26,12 +26,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         private IDisposable _timerTickMessageToken;
 
         public OrderItemViewModel(INavigationService navigationService,
-                                  ISettingsService settingsService,
+                                  IUserSessionProvider userSessionProvider,
                                   Models.Data.Order orderDataModel,
                                   Func<List<FullScreenVideo>> getAllFullScreenVideoDataFunc)
         {
             _navigationService = navigationService;
-            _settingsService = settingsService;
+            _userSessionProvider = userSessionProvider;
             _orderDataModel = orderDataModel;
             _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
 
@@ -41,8 +41,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
             _timerTickMessageToken = Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
 
-            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => _userSessionProvider.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _userSessionProvider.User != null, handleFunc: _navigationService.ShowLoginView);
         }
 
         public int OrderId => _orderDataModel.Id;
@@ -53,9 +53,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public string ProfileShortName => _orderDataModel.Customer?.Login.ToShortenName();
 
-        public OrderType OrderType => _settingsService.User.GetOrderType(_orderDataModel.Customer?.Id, _orderDataModel?.Status ?? OrderStatusType.None);
+        public OrderType OrderType => _userSessionProvider.User.GetOrderType(_orderDataModel.Customer?.Id, _orderDataModel?.Status ?? OrderStatusType.None);
 
-        public OrderTagType OrderTagType => _settingsService.User.GetOrderTagType(_orderDataModel.Customer?.Id, _orderDataModel?.Status);
+        public OrderTagType OrderTagType => _userSessionProvider.User.GetOrderTagType(_orderDataModel.Customer?.Id, _orderDataModel?.Status);
 
         private TimeSpan? _elapsedTime;
         public TimeSpan? ElapsedTime
@@ -87,7 +87,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public string PriceText => _orderDataModel.Price.ToPriceString();
 
-        public string StatusText => _orderDataModel.GetOrderStatusTitle(_settingsService?.User);
+        public string StatusText => _orderDataModel.GetOrderStatusTitle(_userSessionProvider?.User);
 
         public bool IsHiddenOrder => _orderDataModel?.OrderCategory == OrderCategory.Private;
 
@@ -117,7 +117,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         private Task OpenUserProfileAsync()
         {
             if (_orderDataModel.Customer?.Id is null ||
-                _orderDataModel.Customer.Id == _settingsService.User.Id)
+                _orderDataModel.Customer.Id == _userSessionProvider.User.Id)
             {
                 return Task.CompletedTask;
             }

@@ -64,7 +64,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 var rating = isNewCompetition ? "-" : ratingString;
                 var participant = isNewCompetition ? "-" : item?.User?.Login ?? "-";
                 var position = item.Place >= 10 ? "#" : $"{item.Place}";
-                var isMyPosition = item.User?.Id == SettingsService.User?.Id;
+                var isMyPosition = item.User?.Id == UserSessionProvider.User?.Id;
 
                 yield return new CompetitionPrizePoolItemViewModel(rating,
                                                                    participant,

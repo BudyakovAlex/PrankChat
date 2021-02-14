@@ -10,8 +10,6 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 {
     public interface INavigationService
     {
-        Task AppStart();
-
         Task ShowLoginView();
 
         Task ShowPasswordRecoveryView();

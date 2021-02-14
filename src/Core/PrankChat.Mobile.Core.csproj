@@ -91,5 +91,6 @@
     <Folder Include="Wrappers\" />
     <Folder Include="Presentation\ViewModels\Order\Sections\Abstract\" />
     <Folder Include="Data\Enums\FilterTypes\" />
+    <Folder Include="Providers\UserSession\" />
   </ItemGroup>
 </Project>

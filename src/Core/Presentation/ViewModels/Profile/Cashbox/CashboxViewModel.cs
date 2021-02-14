@@ -2,6 +2,7 @@
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
+using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
@@ -53,19 +54,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         public void Prepare(CashboxTypeNavigationParameter parameter)
         {
-            switch(parameter.Type)
+            SelectedPage = parameter.Type switch
             {
-                case CashboxTypeNavigationParameter.CashboxType.Refill:
-                    SelectedPage = Items.IndexOf(Items.SingleOrDefault(item => item is RefillViewModel));
-                    break;
-
-                case CashboxTypeNavigationParameter.CashboxType.Withdrawal:
-                    SelectedPage = Items.IndexOf(Items.SingleOrDefault(item => item is WithdrawalViewModel));
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                CashboxType.Refill => Items.IndexOf(Items.SingleOrDefault(item => item is RefillViewModel)),
+                CashboxType.Withdrawal => Items.IndexOf(Items.SingleOrDefault(item => item is WithdrawalViewModel)),
+                _ => throw new ArgumentOutOfRangeException(),
+            };
         }
 
         public override void ViewDestroy(bool viewFinishing = true)

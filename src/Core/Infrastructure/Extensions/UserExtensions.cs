@@ -3,7 +3,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
-    public static class UserDataModelExtensions
+    public static class UserExtensions
     {
         public static OrderTagType GetOrderTagType(this User userDataModel, int? customerId, OrderStatusType? orderStatusType)
         {

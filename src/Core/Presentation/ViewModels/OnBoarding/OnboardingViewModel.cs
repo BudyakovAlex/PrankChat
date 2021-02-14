@@ -54,7 +54,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
             if (IsLastSlide)
             {
                 Preferences.Set(Constants.Keys.IsOnBoardingShown, true);
-                if (VersionTracking.IsFirstLaunchEver || SettingsService.User != null)
+                if (VersionTracking.IsFirstLaunchEver || UserSessionProvider.User != null)
                 {
                     await NavigationService.ShowMainView();
                     return;

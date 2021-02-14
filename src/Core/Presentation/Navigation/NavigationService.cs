@@ -1,7 +1,6 @@
 ﻿using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
@@ -22,6 +21,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Walthroughs;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -32,31 +32,15 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
     public class NavigationService : INavigationService
     {
         private readonly IMvxNavigationService _mvxNavigationService;
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
 
         private int? _orderId;
 
         public NavigationService(IMvxNavigationService mvxNavigationService,
-                                 ISettingsService settingsService)
+                                 IUserSessionProvider userSessionProvider)
         {
             _mvxNavigationService = mvxNavigationService;
-            _settingsService = settingsService;
-        }
-
-        public Task AppStart()
-        {
-            var isOnBoardingShown = Preferences.Get(Constants.Keys.IsOnBoardingShown, false);
-            if (!isOnBoardingShown)
-            {
-                return ShowOnBoardingView();
-            }
-
-            if (VersionTracking.IsFirstLaunchEver || _settingsService.User != null)
-            {
-                return ShowMainView();
-            }
-
-            return ShowLoginView();
+            _userSessionProvider = userSessionProvider;
         }
 
         public Task ShowMaintananceView(string url)
@@ -172,13 +156,13 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
 
         public Task<bool> ShowWithdrawalView()
         {
-            var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Withdrawal);
+            var navigationParameter = new CashboxTypeNavigationParameter(CashboxType.Withdrawal);
             return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter, bool>(navigationParameter);
         }
 
         public Task<bool> ShowRefillView()
         {
-            var navigationParameter = new CashboxTypeNavigationParameter(CashboxTypeNavigationParameter.CashboxType.Refill);
+            var navigationParameter = new CashboxTypeNavigationParameter(CashboxType.Refill);
             return _mvxNavigationService.Navigate<CashboxViewModel, CashboxTypeNavigationParameter, bool>(navigationParameter);
         }
 
@@ -218,7 +202,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation
         public Task AppStartFromNotification(int orderId)
         {
             _orderId = orderId;
-            if (_settingsService.User != null)
+            if (_userSessionProvider.User != null)
             {
                 _mvxNavigationService.AfterNavigate += NavigatenAfterMainViewByPushNotification;
                 return ShowMainView();

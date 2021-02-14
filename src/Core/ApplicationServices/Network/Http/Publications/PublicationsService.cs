@@ -3,7 +3,6 @@ using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Data.Dtos;
@@ -11,6 +10,7 @@ using PrankChat.Mobile.Core.Data.Dtos.Base;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,26 +18,26 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Publications
 {
     public class PublicationsService : BaseRestService, IPublicationsService
     {
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
         private readonly IMvxMessenger _messenger;
         private readonly IMvxLog _log;
 
         private readonly HttpClient _client;
 
-        public PublicationsService(ISettingsService settingsService,
+        public PublicationsService(IUserSessionProvider userSessionProvider,
                                    IAuthorizationService authorizeService,
                                    IMvxLogProvider logProvider,
                                    IMvxMessenger messenger,
-                                   ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
+                                   ILogger logger) : base(userSessionProvider, authorizeService, logProvider, messenger, logger)
         {
-            _settingsService = settingsService;
+            _userSessionProvider = userSessionProvider;
             _messenger = messenger;
             _log = logProvider.GetLogFor<PublicationsService>();
 
             var configuration = ConfigurationProvider.GetConfiguration();
             _client = new HttpClient(configuration.BaseAddress,
                                      configuration.ApiVersion,
-                                     settingsService,
+                                     userSessionProvider,
                                      _log,
                                      logger,
                                      messenger);
@@ -48,7 +48,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Publications
         public async Task<BaseBundleDto<VideoDto>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
             var endpoint = $"newsline/videos/popular?period={dateFilterType.GetEnumMemberAttrValue()}&page={page}&items_per_page={pageSize}";
-            var videoMetadataBundle = _settingsService.User == null ?
+            var videoMetadataBundle = _userSessionProvider.User == null ?
                 await _client.UnauthorizedGetAsync<BaseBundleDto<VideoDto>>(endpoint, false, IncludeType.Customer) :
                 await _client.GetAsync<BaseBundleDto<VideoDto>>(endpoint, false, IncludeType.Customer);
 
@@ -58,7 +58,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Publications
         public async Task<BaseBundleDto<VideoDto>> GetActualVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)
         {
             var endpoint = $"newsline/videos/new?period={dateFilterType.GetEnumMemberAttrValue()}&page={page}&items_per_page={pageSize}";
-            var videoMetadataBundle = _settingsService.User == null ?
+            var videoMetadataBundle = _userSessionProvider.User == null ?
                 await _client.UnauthorizedGetAsync<BaseBundleDto<VideoDto>>(endpoint, false, IncludeType.Customer) :
                 await _client.GetAsync<BaseBundleDto<VideoDto>>(endpoint, false, IncludeType.Customer);
 
@@ -67,7 +67,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Publications
 
         public async Task<BaseBundleDto<VideoDto>> GetMyVideoFeedAsync(int page, int pageSize, DateFilterType? dateFilterType = null)
         {
-            if (_settingsService.User == null)
+            if (_userSessionProvider.User == null)
             {
                 return new BaseBundleDto<VideoDto>();
             }

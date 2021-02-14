@@ -5,11 +5,11 @@ using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.iOS.Delegates;
 using System;
 using System.Diagnostics;
@@ -24,8 +24,8 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
 
         public void TokenRefreshNotification(object sender, NSNotificationEventArgs e)
         {
-            var settingService = Mvx.IoCProvider.Resolve<ISettingsService>();
-            settingService.PushToken = Messaging.SharedInstance.FcmToken;
+            var userSessionProvider = Mvx.IoCProvider.Resolve<IUserSessionProvider>();
+            userSessionProvider.PushToken = Messaging.SharedInstance.FcmToken;
 
             try
             {

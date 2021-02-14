@@ -6,14 +6,6 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation.Results
 {
     public class OrderDetailsResult
     {
-        public OrderStatusType? Status { get; }
-
-        public DateTime? ActiveTo { get; }
-
-        public int? NegativeArbitrationValuesCount { get; }
-
-        public int? PositiveArbitrationValuesCount { get; }
-
         public OrderDetailsResult(Order order)
         {
             Status = order?.Status;
@@ -21,5 +13,13 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation.Results
             NegativeArbitrationValuesCount = order?.NegativeArbitrationValuesCount;
             PositiveArbitrationValuesCount = order?.PositiveArbitrationValuesCount;
         }
+
+        public OrderStatusType? Status { get; }
+
+        public DateTime? ActiveTo { get; }
+
+        public int? NegativeArbitrationValuesCount { get; }
+
+        public int? PositiveArbitrationValuesCount { get; }
     }
 }

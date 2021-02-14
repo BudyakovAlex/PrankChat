@@ -19,26 +19,15 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 
         private static int GetDays(DateFilterType dateFilterType)
         {
-            switch (dateFilterType)
+            return dateFilterType switch
             {
-                case DateFilterType.Day:
-                    return 0;
-
-                case DateFilterType.Week:
-                    return DaysInWeek;
-
-                case DateFilterType.Month:
-                    return GetDaysInMonth();
-
-                case DateFilterType.Quarter:
-                    return GetDaysInMonth(MonthsInQuarter);
-
-                case DateFilterType.HalfYear:
-                    return GetDaysInMonth(MonthsInHalfYear);
-
-                default:
-                    return 0;
-            }
+                DateFilterType.Day => 0,
+                DateFilterType.Week => DaysInWeek,
+                DateFilterType.Month => GetDaysInMonth(),
+                DateFilterType.Quarter => GetDaysInMonth(MonthsInQuarter),
+                DateFilterType.HalfYear => GetDaysInMonth(MonthsInHalfYear),
+                _ => 0,
+            };
         }
 
         private static int GetDaysInMonth(int monthAgo = 0)

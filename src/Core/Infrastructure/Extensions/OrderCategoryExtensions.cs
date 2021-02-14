@@ -6,27 +6,23 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
     {
         public static bool CheckIsCompetitionOrder(this OrderCategory? orderCategory)
         {
-            switch (orderCategory)
+            return orderCategory switch
             {
-                case OrderCategory.Competition:
-                case OrderCategory.PaidCompetition:
-                case OrderCategory.PrivatePaidCompetition:
-                    return true;
-                default:
-                    return false;
-            }
+                OrderCategory.Competition => true,
+                OrderCategory.PaidCompetition => true,
+                OrderCategory.PrivatePaidCompetition => true,
+                _ => false,
+            };
         }
 
         public static bool CheckIsPaidCompetitionOrder(this OrderCategory? orderCategory)
         {
-            switch (orderCategory)
+            return orderCategory switch
             {
-                case OrderCategory.PaidCompetition:
-                case OrderCategory.PrivatePaidCompetition:
-                    return true;
-                default:
-                    return false;
-            }
+                OrderCategory.PaidCompetition => true,
+                OrderCategory.PrivatePaidCompetition => true,
+                _ => false,
+            };
         }
     }
 }

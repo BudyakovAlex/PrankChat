@@ -4,11 +4,11 @@ using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Notifications
@@ -20,11 +20,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Notifications
 
         private readonly HttpClient _client;
 
-        public NotificationsService(ISettingsService settingsService,
+        public NotificationsService(IUserSessionProvider userSessionProvider,
                                     IAuthorizationService authorizeService,
                                     IMvxLogProvider logProvider,
                                     IMvxMessenger messenger,
-                                    ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
+                                    ILogger logger) : base(userSessionProvider, authorizeService, logProvider, messenger, logger)
         {
             _messenger = messenger;
             _log = logProvider.GetLogFor<NotificationsService>();
@@ -32,7 +32,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Notifications
             var configuration = ConfigurationProvider.GetConfiguration();
             _client = new HttpClient(configuration.BaseAddress,
                                      configuration.ApiVersion,
-                                     settingsService,
+                                     userSessionProvider,
                                      _log,
                                      logger,
                                      messenger);

@@ -142,7 +142,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task ShowSubscribersAsync()
         {
-            var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscribers, SettingsService.User.Id, SettingsService.User.Name);
+            var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscribers, UserSessionProvider.User.Id, UserSessionProvider.User.Name);
             var shouldRefresh = await NavigationService.ShowSubscriptionsView(navigationParameters);
             if (!shouldRefresh)
             {
@@ -154,7 +154,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task ShowSubscriptionsAsync()
         {
-            var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscriptions, SettingsService.User.Id, SettingsService.User.Name);
+            var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscriptions, UserSessionProvider.User.Id, UserSessionProvider.User.Name);
             var shouldRefresh = await NavigationService.ShowSubscriptionsView(navigationParameters);
             if (!shouldRefresh)
             {
@@ -241,7 +241,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            var user = SettingsService.User;
+            var user = UserSessionProvider.User;
             ProfilePhotoUrl = user.Avatar;
             Price = user.Balance.ToPriceString();
             OrdersValue = user.OrdersExecuteCount.ToCountString();
@@ -275,7 +275,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private OrderItemViewModel ProduceOrderItemViewModel(Models.Data.Order order)
         {
             return new OrderItemViewModel(NavigationService,
-                                          SettingsService,
+                                          UserSessionProvider,
                                           order,
                                           GetFullScreenVideoDataModels);
         }

@@ -3,12 +3,12 @@ using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
 using PrankChat.Mobile.Core.Data.Enums;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,26 +16,26 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions
 {
     public class CompetitionsService : BaseRestService, ICompetitionsService
     {
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
         private readonly IMvxMessenger _messenger;
         private readonly IMvxLog _log;
 
         private readonly HttpClient _client;
 
-        public CompetitionsService(ISettingsService settingsService,
+        public CompetitionsService(IUserSessionProvider userSessionProvider,
                                    IAuthorizationService authorizeService,
                                    IMvxLogProvider logProvider,
                                    IMvxMessenger messenger,
-                                   ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
+                                   ILogger logger) : base(userSessionProvider, authorizeService, logProvider, messenger, logger)
         {
-            _settingsService = settingsService;
+            _userSessionProvider = userSessionProvider;
             _messenger = messenger;
             _log = logProvider.GetLogFor<CompetitionsService>();
 
             var configuration = ConfigurationProvider.GetConfiguration();
             _client = new HttpClient(configuration.BaseAddress,
                                      configuration.ApiVersion,
-                                     settingsService,
+                                     userSessionProvider,
                                      _log,
                                      logger,
                                      messenger);
@@ -58,7 +58,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions
         public async Task<BaseBundleDto<VideoDto>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize)
         {
             BaseBundleDto<VideoDto> videoMetadataBundle;
-            if (_settingsService.User == null)
+            if (_userSessionProvider.User == null)
             {
                 videoMetadataBundle = await _client.UnauthorizedGetAsync<BaseBundleDto<VideoDto>>($"competition/{competitionId}/videos?page={page}&items_per_page={pageSize}", false, IncludeType.User);
             }

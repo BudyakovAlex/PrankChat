@@ -1,10 +1,10 @@
 ﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items
@@ -12,19 +12,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items
     public class ProfileSearchItemViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
 
         private readonly User _userDataModel;
 
         public ProfileSearchItemViewModel(INavigationService navigationService,
-                                          ISettingsService settingsService,
+                                          IUserSessionProvider userSessionProvider,
                                           User userDataModel)
         {
             _navigationService = navigationService;
-            _settingsService = settingsService;
+            _userSessionProvider = userSessionProvider;
             _userDataModel = userDataModel;
 
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _userSessionProvider.User != null, handleFunc: _navigationService.ShowLoginView);
         }
 
         public string ProfileName => _userDataModel.Login;
@@ -39,7 +39,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items
 
         private Task OpenUserProfileAsync()
         {
-            if (_userDataModel.Id == _settingsService.User.Id)
+            if (_userDataModel.Id == _userSessionProvider.User.Id)
             {
                 return Task.CompletedTask;
             }

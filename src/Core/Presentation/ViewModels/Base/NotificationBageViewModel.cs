@@ -1,7 +1,7 @@
 ﻿using Badge.Plugin;
 using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Managers.Notifications;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -10,12 +10,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
     public class NotificationBageViewModel : BaseViewModel, INotificationBageViewModel
     {
         private readonly INotificationsManager _notificationManager;
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
 
-        public NotificationBageViewModel(INotificationsManager notificationManager, ISettingsService settingsService)
+        public NotificationBageViewModel(INotificationsManager notificationManager, IUserSessionProvider userSessionProvider)
         {
             _notificationManager = notificationManager;
-            _settingsService = settingsService;
+            _userSessionProvider = userSessionProvider;
 
             RefreshDataCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(RefreshDataAsync));
         }
@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         private async Task RefreshDataAsync()
         {
-            if (_settingsService.User is null)
+            if (_userSessionProvider.User is null)
             {
                 return;
             }

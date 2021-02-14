@@ -2,11 +2,11 @@
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
 using System.Linq;
@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public IErrorHandleService ErrorHandleService => Mvx.IoCProvider.Resolve<IErrorHandleService>();
 
-        public ISettingsService SettingsService => Mvx.IoCProvider.Resolve<ISettingsService>();
+        public IUserSessionProvider UserSessionProvider => Mvx.IoCProvider.Resolve<IUserSessionProvider>();
 
         public ILogger Logger => Mvx.IoCProvider.Resolve<ILogger>();
 
@@ -39,7 +39,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public bool IsInitialized { get; private set; }
 
-        public bool IsUserSessionInitialized => SettingsService.User != null;
+        public bool IsUserSessionInitialized => UserSessionProvider.User != null;
 
         public MvxAsyncCommand GoBackCommand { get; }
        

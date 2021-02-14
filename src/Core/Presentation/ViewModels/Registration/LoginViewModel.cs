@@ -68,7 +68,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             {
                 try
                 {
-                    if (!SettingsService.IsDebugMode)
+                    if (!UserSessionProvider.IsDebugMode)
                     {
                         var newActualVersion = await VersionManager.CheckAppVersionAsync();
                         if (!string.IsNullOrEmpty(newActualVersion?.Link))
@@ -124,7 +124,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             return ExecutionStateWrapper.WrapAsync(async () =>
             {
-                if (!SettingsService.IsDebugMode)
+                if (!UserSessionProvider.IsDebugMode)
                 {
                     var newActualVersion = await VersionManager.CheckAppVersionAsync();
                     if (!string.IsNullOrEmpty(newActualVersion?.Link))

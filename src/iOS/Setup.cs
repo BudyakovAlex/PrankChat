@@ -5,16 +5,14 @@ using MvvmCross.Platforms.Ios.Core;
 using PrankChat.Mobile.Core;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
-using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.iOS.ApplicationServices;
 using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn;
 using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Crashlytic;
-using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Video;
 using PrankChat.Mobile.iOS.Presentation.Binding;
 using UIKit;
@@ -32,7 +30,7 @@ namespace PrankChat.Mobile.iOS
             Mvx.IoCProvider.RegisterType<ICrashlyticsService, CrashlyticsService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IDialogService, DialogService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IExternalAuthService, ExternalAuthService>();
-            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISettingsService, SettingsService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IUserSessionProvider, UserSessionProvider>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IAppleSignInService, AppleSignInService>();
         }
 

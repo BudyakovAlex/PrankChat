@@ -150,7 +150,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 if (newOrder.Customer == null)
                 {
-                    newOrder.Customer = SettingsService.User;
+                    newOrder.Customer = UserSessionProvider.User;
                 }
 
                 Messenger.Publish(new OrderChangedMessage(this, newOrder));

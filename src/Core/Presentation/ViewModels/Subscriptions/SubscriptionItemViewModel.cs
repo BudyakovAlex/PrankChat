@@ -15,7 +15,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
             _userDataModel = userDataModel;
 
             OpenUserProfileCommand = this.CreateRestrictedCommand(OpenUserProfileAsync,
-                                                                  restrictedCanExecute: () => SettingsService.User != null,
+                                                                  restrictedCanExecute: () => UserSessionProvider.User != null,
                                                                   handleFunc: NavigationService.ShowLoginView);
         }
 
@@ -33,7 +33,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 
         private Task OpenUserProfileAsync()
         {
-            if (_userDataModel.Id == SettingsService.User.Id)
+            if (_userDataModel.Id == UserSessionProvider.User.Id)
             {
                 return Task.CompletedTask;
             }

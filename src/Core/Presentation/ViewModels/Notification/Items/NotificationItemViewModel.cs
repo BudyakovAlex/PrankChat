@@ -1,11 +1,10 @@
 ﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
@@ -13,17 +12,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
     public class NotificationItemViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
 
         private NotificationType? _notificationType;
         private int? _userId;
 
         public NotificationItemViewModel(INavigationService navigationService,
-                                         ISettingsService settingsService,
+                                         IUserSessionProvider userSessionProvider,
                                          Models.Data.Notification notificationDataModel)
         {
             _navigationService = navigationService;
-            _settingsService = settingsService;
+            _userSessionProvider = userSessionProvider;
             Title = notificationDataModel.Title;
             Description = notificationDataModel.Text;
             DateText = notificationDataModel.CreatedAt?.ToTimeAgoCommentString();
@@ -48,7 +47,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
                     break;
             }
 
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _userSessionProvider.User != null, handleFunc: _navigationService.ShowLoginView);
         }
 
         public string ProfileName { get; }
@@ -75,7 +74,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
         private Task OpenUserProfileAsync()
         {
             if (_userId is null ||
-                _userId.Value == _settingsService.User?.Id)
+                _userId.Value == _userSessionProvider.User?.Id)
             {
                 return Task.CompletedTask;
             }

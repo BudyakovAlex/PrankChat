@@ -1,6 +1,6 @@
 ﻿using MvvmCross.Logging;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Managers.Notifications;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
 using System.Threading.Tasks;
 
@@ -10,28 +10,28 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
     {
         private readonly INotificationsManager _notificationsManager;
 
-        protected ISettingsService SettingsService { get; }
+        protected IUserSessionProvider UserSessionProvider { get; }
 
         protected IMvxLog MvxLog { get; }
 
         public PushNotificationProvider(INotificationsManager notificationsManager,
-                                        ISettingsService settingsService,
+                                        IUserSessionProvider userSessionProvider,
                                         IMvxLog mvxLog)
         {
             _notificationsManager = notificationsManager;
-            SettingsService = settingsService;
+            UserSessionProvider = userSessionProvider;
             MvxLog = mvxLog;
         }
 
         public async Task<bool> TryUpdateTokenAsync()
         {
-            if (string.IsNullOrWhiteSpace(SettingsService.PushToken))
+            if (string.IsNullOrWhiteSpace(UserSessionProvider.PushToken))
             {
                 MvxLog.ErrorException("Push Token can't be null", new ArgumentNullException());
                 return false;
             }
 
-            if (SettingsService.User == null)
+            if (UserSessionProvider.User == null)
             {
                 MvxLog.ErrorException("User can't be null", new ArgumentNullException());
                 return false;
@@ -39,13 +39,13 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
 
             try
             {
-                await _notificationsManager.SendNotificationTokenAsync(SettingsService.PushToken);
-                SettingsService.IsPushTokenSend = true;
+                await _notificationsManager.SendNotificationTokenAsync(UserSessionProvider.PushToken);
+                UserSessionProvider.IsPushTokenSend = true;
                 return true;
             }
             catch (Exception)
             {
-                SettingsService.IsPushTokenSend = false;
+                UserSessionProvider.IsPushTokenSend = false;
                 return false;
             }
         }

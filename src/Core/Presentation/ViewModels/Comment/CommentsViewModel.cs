@@ -44,9 +44,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
             set => SetProperty(ref _comment, value, () => SendCommentCommand.RaiseCanExecuteChanged());
         }
 
-        public string ProfilePhotoUrl => SettingsService.User?.Avatar;
+        public string ProfilePhotoUrl => UserSessionProvider.User?.Avatar;
 
-        public string ProfileShortName => SettingsService.User?.Login?.ToShortenName();
+        public string ProfileShortName => UserSessionProvider.User?.Login?.ToShortenName();
 
         public IMvxAsyncCommand SendCommentCommand { get; }
 
@@ -99,7 +99,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
 
         private CommentItemViewModel ProduceCommentItemViewModel(Models.Data.Comment commentDataModel)
         {
-            return new CommentItemViewModel(NavigationService, SettingsService, commentDataModel);
+            return new CommentItemViewModel(NavigationService, UserSessionProvider, commentDataModel);
         }
 
         private async Task SendCommentAsync()
@@ -117,7 +117,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
                     return;
                 }
 
-                comment.User = SettingsService.User;
+                comment.User = UserSessionProvider.User;
                 Items.Add(ProduceCommentItemViewModel(comment));
                 _newCommentsCounter += 1;
                 SetTotalItemsCount(_newCommentsCounter);
