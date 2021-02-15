@@ -92,5 +92,7 @@
     <Folder Include="Presentation\ViewModels\Order\Sections\Abstract\" />
     <Folder Include="Data\Enums\FilterTypes\" />
     <Folder Include="Providers\UserSession\" />
+    <Folder Include="Managers\Navigation\" />
+    <Folder Include="Ioc\" />
   </ItemGroup>
 </Project>
