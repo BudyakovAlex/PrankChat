@@ -19,31 +19,31 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         public NotificationItemViewModel(INavigationService navigationService,
                                          IUserSessionProvider userSessionProvider,
-                                         Models.Data.Notification notificationDataModel)
+                                         Models.Data.Notification notification)
         {
             _navigationService = navigationService;
             _userSessionProvider = userSessionProvider;
-            Title = notificationDataModel.Title;
-            Description = notificationDataModel.Text;
-            DateText = notificationDataModel.CreatedAt?.ToTimeAgoCommentString();
+            Title = notification.Title;
+            Description = notification.Text;
+            DateText = notification.CreatedAt?.ToTimeAgoCommentString();
 
-            IsDelivered = notificationDataModel.IsDelivered ?? false;
-            _notificationType = notificationDataModel.Type;
+            IsDelivered = notification.IsDelivered ?? false;
+            _notificationType = notification.Type;
 
             switch (_notificationType)
             {
                 case NotificationType.WalletEvent:
-                    ProfileName = notificationDataModel.RelatedTransaction?.User?.Login;
-                    ImageUrl = notificationDataModel.RelatedTransaction?.User?.Avatar;
+                    ProfileName = notification.RelatedTransaction?.User?.Login;
+                    ImageUrl = notification.RelatedTransaction?.User?.Avatar;
                     break;
 
                 case NotificationType.SubscriptionEvent:
                 case NotificationType.LikeEvent:
                 case NotificationType.CommentEvent:
                 case NotificationType.ExecutorEvent:
-                    ProfileName = notificationDataModel.RelatedUser?.Login;
-                    ImageUrl = notificationDataModel.RelatedUser?.Avatar;
-                    _userId = notificationDataModel.RelatedUser?.Id;
+                    ProfileName = notification.RelatedUser?.Login;
+                    ImageUrl = notification.RelatedUser?.Avatar;
+                    _userId = notification.RelatedUser?.Id;
                     break;
             }
 

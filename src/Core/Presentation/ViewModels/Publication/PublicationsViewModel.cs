@@ -206,24 +206,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private PublicationItemViewModel ProducePublicationItemViewModel(Models.Data.Video publication)
         {
-            return new PublicationItemViewModel(_publicationsManager,
-                                                _videoManager,
-                                                _platformService,
-                                                _videoPlayerService,
-                                                publication,
-                                                GetFullScreenVideoDataModels);
+            return new PublicationItemViewModel(
+                _publicationsManager,
+                _videoManager,
+                _platformService,
+                _videoPlayerService,
+                publication,
+                GetFullScreenVidos);
         }
 
-        protected override int SetList<TDataModel, TApiModel>(Pagination<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        protected override int SetList<TDataModel, TApiModel>(Pagination<TApiModel> pagination, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
         {
-            var count = base.SetList(dataModel, page, produceItemViewModel, items);
+            var count = base.SetList(pagination, page, produceItemViewModel, items);
             ItemsChangedInteraction.Raise();
             return count;
         }
 
-        private List<FullScreenVideo> GetFullScreenVideoDataModels()
+        private List<FullScreenVideo> GetFullScreenVidos()
         {
-            return Items.Select(item => item.GetFullScreenVideoDataModel()).ToList();
+            return Items.Select(item => item.GetFullScreenVideo()).ToList();
         }
 
         private void OnReloadItems()

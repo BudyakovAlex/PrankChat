@@ -27,9 +27,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
             _paginationSize = paginationSize;
 
             _loadMoreExecutionStateWrapper = new ExecutionStateWrapper();
-            _loadMoreExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(OnIsBusyChanged,
-                                                                                        (wrapper, handler) => wrapper.IsBusyChanged += handler,
-                                                                                        (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
+            _loadMoreExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(
+                OnIsBusyChanged,
+                (wrapper, handler) => wrapper.IsBusyChanged += handler,
+                (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
 
             LoadMoreItemsCommand = new MvxAsyncCommand(LoadMoreItemsInternalAsync, CanLoadMoreItems);
             ReloadItemsCommand = new MvxAsyncCommand(ReloadItemsAsync);
@@ -56,10 +57,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
             return Task.FromResult(0);
         }
 
-        protected virtual int SetList<TDataModel, TApiModel>(Pagination<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        protected virtual int SetList<TBussinessObject, TViewModel>(Pagination<TViewModel> pagination, int page, Func<TViewModel, TBussinessObject> produceItemViewModel, MvxObservableCollection<TBussinessObject> items)
         {
-            SetTotalItemsCount(dataModel.TotalCount);
-            var viewModels = dataModel.Items.Select(produceItemViewModel).ToList();
+            SetTotalItemsCount(pagination.TotalCount);
+            var viewModels = pagination.Items.Select(produceItemViewModel).ToList();
 
             if (page > 1)
             {
@@ -108,9 +109,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
                 ++CurrentPaginationIndex;
                 LoadedItemsCount += loadedItems;
 
-                await Task.WhenAll(RaisePropertyChanged(nameof(LoadedItemsCount)),
-                                   RaisePropertyChanged(nameof(CurrentPaginationIndex)),
-                                   RaisePropertyChanged(nameof(HasNextPage)));
+                await Task.WhenAll(
+                    RaisePropertyChanged(nameof(LoadedItemsCount)),
+                    RaisePropertyChanged(nameof(CurrentPaginationIndex)),
+                    RaisePropertyChanged(nameof(HasNextPage)));
 
                 LoadMoreItemsCommand.RaiseCanExecuteChanged();
             }, ShouldNotifyIsBusy, true);

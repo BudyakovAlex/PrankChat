@@ -68,12 +68,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            var dataModel = new UserUpdateProfile(Name,
-                                                           Email,
-                                                           Login,
-                                                           Gender.Value,
-                                                           Birthday?.ToShortDateString(),
-                                                           Description);
+            var userUpdateProfile = new UserUpdateProfile(
+                Name,
+                Email,
+                Login,
+                Gender.Value,
+                Birthday?.ToShortDateString(),
+                Description);
 
             if (_isUserPhotoUpdated)
             {
@@ -84,7 +85,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 }
             }
 
-            UserSessionProvider.User = await UsersManager.UpdateProfileAsync(dataModel);
+            UserSessionProvider.User = await UsersManager.UpdateProfileAsync(userUpdateProfile);
             await NavigationService.CloseViewWithResult(this, new ProfileUpdateResult(true, _isUserPhotoUpdated));
         }
 

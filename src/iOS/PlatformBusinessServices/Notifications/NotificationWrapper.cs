@@ -104,8 +104,8 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
         {
             try
             {
-                var dataModel = JsonConvert.DeserializeObject<User>(Preferences.Get(Constants.Keys.User, string.Empty));
-                return dataModel;
+                var user = JsonConvert.DeserializeObject<User>(Preferences.Get(Constants.Keys.User, string.Empty));
+                return user;
             }
             catch
             {

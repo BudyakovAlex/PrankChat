@@ -153,7 +153,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
 
             if (!_fullScreenVideos.Any(item => item.VideoId == video.Id))
             {
-                _fullScreenVideos.Add(Order.ToFullScreenVideoDataModel());
+                _fullScreenVideos.Add(Order.ToFullScreenVideo());
                 _currentIndex = _fullScreenVideos.Count - 1;
             }
 
@@ -182,7 +182,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
 
             var navigationParams = _fullScreenVideos.Count > 0
                 ? new FullScreenVideoParameter(_fullScreenVideos, _currentIndex)
-                : new FullScreenVideoParameter(Order.ToFullScreenVideoDataModel());
+                : new FullScreenVideoParameter(Order.ToFullScreenVideo());
 
             var shouldReload = await NavigationService.ShowFullScreenVideoView(navigationParams);
             if (!shouldReload)

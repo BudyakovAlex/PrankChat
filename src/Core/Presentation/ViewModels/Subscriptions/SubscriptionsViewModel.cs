@@ -151,9 +151,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
             await LoadDataCommand.ExecuteAsync();
         }
 
-        private SubscriptionItemViewModel ProduceSubscriptionItemViewModel(User userDataModel)
+        private SubscriptionItemViewModel ProduceSubscriptionItemViewModel(User user)
         {
-            return new SubscriptionItemViewModel(userDataModel);
+            return new SubscriptionItemViewModel(user);
         }
     }
 }

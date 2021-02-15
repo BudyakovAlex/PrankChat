@@ -14,37 +14,38 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items
         private readonly INavigationService _navigationService;
         private readonly IUserSessionProvider _userSessionProvider;
 
-        private readonly User _userDataModel;
+        private readonly User _user;
 
-        public ProfileSearchItemViewModel(INavigationService navigationService,
-                                          IUserSessionProvider userSessionProvider,
-                                          User userDataModel)
+        public ProfileSearchItemViewModel(
+            INavigationService navigationService,
+            IUserSessionProvider userSessionProvider,
+            User user)
         {
             _navigationService = navigationService;
             _userSessionProvider = userSessionProvider;
-            _userDataModel = userDataModel;
+            _user = user;
 
             OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _userSessionProvider.User != null, handleFunc: _navigationService.ShowLoginView);
         }
 
-        public string ProfileName => _userDataModel.Login;
+        public string ProfileName => _user.Login;
 
         public string ProfileShortName => ProfileName.ToShortenName();
 
-        public string ProfileDescription => _userDataModel.Description;
+        public string ProfileDescription => _user.Description;
 
-        public string ImageUrl => _userDataModel.Avatar;
+        public string ImageUrl => _user.Avatar;
 
         public IMvxAsyncCommand OpenUserProfileCommand { get; }
 
         private Task OpenUserProfileAsync()
         {
-            if (_userDataModel.Id == _userSessionProvider.User.Id)
+            if (_user.Id == _userSessionProvider.User.Id)
             {
                 return Task.CompletedTask;
             }
 
-            return _navigationService.ShowUserProfile(_userDataModel.Id);
+            return _navigationService.ShowUserProfile(_user.Id);
         }
     }
 }

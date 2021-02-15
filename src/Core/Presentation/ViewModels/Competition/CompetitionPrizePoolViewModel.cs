@@ -66,11 +66,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 var position = item.Place >= 10 ? "#" : $"{item.Place}";
                 var isMyPosition = item.User?.Id == UserSessionProvider.User?.Id;
 
-                yield return new CompetitionPrizePoolItemViewModel(rating,
-                                                                   participant,
-                                                                   position,
-                                                                   string.Format(Constants.Formats.MoneyFormat, item.Prize),
-                                                                   isMyPosition);
+                yield return new CompetitionPrizePoolItemViewModel(
+                    rating,
+                    participant,
+                    position,
+                    string.Format(Constants.Formats.MoneyFormat, item.Prize),
+                    isMyPosition);
             }
         }
     }

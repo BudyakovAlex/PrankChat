@@ -13,40 +13,40 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items
         private readonly INavigationService _navigationService;
         private readonly IUserSessionProvider _userSessionProvider;
 
-        private readonly Models.Data.Comment _commentDataModel;
+        private readonly Models.Data.Comment _comment;
 
         public CommentItemViewModel(INavigationService navigationService,
                                     IUserSessionProvider userSessionProvider,
-                                    Models.Data.Comment commentDataModel)
+                                    Models.Data.Comment comment)
         {
             _navigationService = navigationService;
             _userSessionProvider = userSessionProvider;
-            _commentDataModel = commentDataModel;
+            _comment = comment;
 
             OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _userSessionProvider.User != null, handleFunc: _navigationService.ShowLoginView);
         }
 
-        public string ProfileName => _commentDataModel.User?.Login;
+        public string ProfileName => _comment.User?.Login;
 
         public string ProfileShortName => ProfileName.ToShortenName();
 
-        public string ProfilePhotoUrl => _commentDataModel.User?.Avatar;
+        public string ProfilePhotoUrl => _comment.User?.Avatar;
 
-        public string Comment => _commentDataModel.Text;
+        public string Comment => _comment.Text;
 
-        public string DateText => _commentDataModel.CreatedAt.ToTimeAgoCommentString();
+        public string DateText => _comment.CreatedAt.ToTimeAgoCommentString();
 
         public IMvxAsyncCommand OpenUserProfileCommand { get; }
 
         private Task OpenUserProfileAsync()
         {
-            if (_commentDataModel.User?.Id is null ||
-                _commentDataModel.User.Id == _userSessionProvider.User.Id)
+            if (_comment.User?.Id is null ||
+                _comment.User.Id == _userSessionProvider.User.Id)
             {
                 return Task.CompletedTask;
             }
 
-            return _navigationService.ShowUserProfile(_commentDataModel.User.Id);
+            return _navigationService.ShowUserProfile(_comment.User.Id);
         }
     }
 }

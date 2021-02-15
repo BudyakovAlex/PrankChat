@@ -23,9 +23,9 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             };
         }
 
-        public static string GetOrderStatusTitle(this Order orderDataModel, User currentUser)
+        public static string GetOrderStatusTitle(this Order order, User currentUser)
         {
-            return (orderDataModel?.Status) switch
+            return (order?.Status) switch
             {
                 OrderStatusType.New => Resources.OrderStatus_New,
                 OrderStatusType.Rejected => Resources.OrderStatus_Rejected,
@@ -37,10 +37,10 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
                 OrderStatusType.VideoProcessError => Resources.OrderStatus_InWork,
                 OrderStatusType.InArbitration => Resources.OrderStatus_InArbitration,
                 OrderStatusType.ProcessCloseArbitration => Resources.OrderStatus_ProcessCloseArbitration,
-                OrderStatusType.ClosedAfterArbitrationCustomerWin when orderDataModel?.Customer?.Id == currentUser?.Id => Resources.OrderStatus_ClosedAfterArbitrationCustomerWin,
-                OrderStatusType.ClosedAfterArbitrationExecutorWin when orderDataModel?.Customer?.Id == currentUser?.Id => Resources.OrderStatus_ClosedAfterArbitrationExecutorWin,
-                OrderStatusType.ClosedAfterArbitrationCustomerWin when orderDataModel?.Executor?.Id == currentUser?.Id => Resources.OrderStatus_ClosedAfterArbitrationExecutorWin,
-                OrderStatusType.ClosedAfterArbitrationExecutorWin when orderDataModel?.Executor?.Id == currentUser?.Id => Resources.OrderStatus_ClosedAfterArbitrationCustomerWin,
+                OrderStatusType.ClosedAfterArbitrationCustomerWin when order?.Customer?.Id == currentUser?.Id => Resources.OrderStatus_ClosedAfterArbitrationCustomerWin,
+                OrderStatusType.ClosedAfterArbitrationExecutorWin when order?.Customer?.Id == currentUser?.Id => Resources.OrderStatus_ClosedAfterArbitrationExecutorWin,
+                OrderStatusType.ClosedAfterArbitrationCustomerWin when order?.Executor?.Id == currentUser?.Id => Resources.OrderStatus_ClosedAfterArbitrationExecutorWin,
+                OrderStatusType.ClosedAfterArbitrationExecutorWin when order?.Executor?.Id == currentUser?.Id => Resources.OrderStatus_ClosedAfterArbitrationCustomerWin,
                 OrderStatusType.WaitFinish => Resources.OrderStatus_WaitFinish,
                 OrderStatusType.Finished => Resources.OrderStatus_Finished,
                 _ => string.Empty,
@@ -61,7 +61,7 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             };
         }
 
-        public static FullScreenVideo ToFullScreenVideoDataModel(this Order order)
+        public static FullScreenVideo ToFullScreenVideo(this Order order)
         {
             if (order is null)
             {

@@ -120,7 +120,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             });
         }
 
-        private Task LoginWithAppleAsync(AppleAuth appleAuthDataModel)
+        private Task LoginWithAppleAsync(AppleAuth appleAuth)
         {
             return ExecutionStateWrapper.WrapAsync(async () =>
             {
@@ -136,7 +136,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
                 try
                 {
-                    var isAuthorized = await AuthorizationManager.AuthorizeWithAppleAsync(appleAuthDataModel);
+                    var isAuthorized = await AuthorizationManager.AuthorizeWithAppleAsync(appleAuth);
                     if (!isAuthorized)
                     {
                         return;

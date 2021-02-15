@@ -29,12 +29,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
 
-        public SearchViewModel(ISearchManager searchManager,
-                               IPublicationsManager publicationsManager,
-                               IVideoManager videoManager,
-                               IPlatformService platformService,
-                               IVideoPlayerService videoPlayerService)
-            : base(Constants.Pagination.DefaultPaginationSize)
+        public SearchViewModel(
+            ISearchManager searchManager,
+            IPublicationsManager publicationsManager,
+            IVideoManager videoManager,
+            IPlatformService platformService,
+            IVideoPlayerService videoPlayerService) : base(Constants.Pagination.DefaultPaginationSize)
         {
             Items = new MvxObservableCollection<MvxNotifyPropertyChanged>();
 
@@ -133,7 +133,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                                                 _platformService,
                                                 _videoPlayerService,
                                                 publication,
-                                                GetFullScreenVideoDataModels);
+                                                GetFullScreenVideos);
         }
 
         private BaseViewModel ProduceUserViewModel(User model)
@@ -143,14 +143,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private BaseViewModel ProduceOrderViewModel(Models.Data.Order model)
         {
-            return new OrderItemViewModel(NavigationService, UserSessionProvider, model, GetFullScreenVideoDataModels);
+            return new OrderItemViewModel(NavigationService, UserSessionProvider, model, GetFullScreenVideos);
         }
 
-        private List<FullScreenVideo> GetFullScreenVideoDataModels()
+        private List<FullScreenVideo> GetFullScreenVideos()
         {
             return Items.OfType<IFullScreenVideoOwnerViewModel>()
                         .Where(item => item.CanPlayVideo)
-                        .Select(item => item.GetFullScreenVideoDataModel())
+                        .Select(item => item.GetFullScreenVideo())
                         .ToList();
         }
     }

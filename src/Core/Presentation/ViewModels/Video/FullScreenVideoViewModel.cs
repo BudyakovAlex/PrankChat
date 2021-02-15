@@ -29,9 +29,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         private List<FullScreenVideo> _videos;
 
-        public FullScreenVideoViewModel(IUsersManager usersManager,
-                                        IPublicationsManager publicationsManager,
-                                        IPlatformService platformService) : base(publicationsManager)
+        public FullScreenVideoViewModel(
+            IUsersManager usersManager,
+            IPublicationsManager publicationsManager,
+            IPlatformService platformService) : base(publicationsManager)
         {
             Interaction = new MvxInteraction();
 

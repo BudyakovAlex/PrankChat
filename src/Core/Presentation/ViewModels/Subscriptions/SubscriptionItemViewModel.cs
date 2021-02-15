@@ -8,37 +8,38 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 {
     public class SubscriptionItemViewModel : BasePageViewModel
     {
-        private readonly User _userDataModel;
+        private readonly User _user;
 
-        public SubscriptionItemViewModel(User userDataModel)
+        public SubscriptionItemViewModel(User user)
         {
-            _userDataModel = userDataModel;
+            _user = user;
 
-            OpenUserProfileCommand = this.CreateRestrictedCommand(OpenUserProfileAsync,
-                                                                  restrictedCanExecute: () => UserSessionProvider.User != null,
-                                                                  handleFunc: NavigationService.ShowLoginView);
+            OpenUserProfileCommand = this.CreateRestrictedCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => UserSessionProvider.User != null,
+                handleFunc: NavigationService.ShowLoginView);
         }
 
-        public string Login => _userDataModel.Login;
+        public string Login => _user.Login;
 
         public string ProfileShortLogin => Login.ToShortenName();
 
-        public string Description => _userDataModel.Description;
+        public string Description => _user.Description;
 
-        public string Avatar => _userDataModel.Avatar;
+        public string Avatar => _user.Avatar;
 
-        public int Id => _userDataModel.Id;
+        public int Id => _user.Id;
 
         public ICommand OpenUserProfileCommand { get; }
 
         private Task OpenUserProfileAsync()
         {
-            if (_userDataModel.Id == UserSessionProvider.User.Id)
+            if (_user.Id == UserSessionProvider.User.Id)
             {
                 return Task.CompletedTask;
             }
 
-            return NavigationService.ShowUserProfile(_userDataModel.Id);
+            return NavigationService.ShowUserProfile(_user.Id);
         }
     }
 }

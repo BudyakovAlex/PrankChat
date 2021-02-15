@@ -159,30 +159,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         protected virtual async Task<Pagination<Models.Data.Order>> GetOrdersAsync(int page, int pageSize)
         {
-            switch (SelectedOrderType)
+            return SelectedOrderType switch
             {
-                case ProfileOrderType.MyOrdered:
-                    return await _ordersManager.GetUserOwnOrdersAsync(_userId, page, pageSize);
-
-                case ProfileOrderType.OrdersCompletedByMe:
-                    return await _ordersManager.GetUserExecuteOrdersAsync(_userId, page, pageSize);
-            }
-
-            return new Pagination<Models.Data.Order>();
+                ProfileOrderType.MyOrdered => await _ordersManager.GetUserOwnOrdersAsync(_userId, page, pageSize),
+                ProfileOrderType.OrdersCompletedByMe => await _ordersManager.GetUserExecuteOrdersAsync(_userId, page, pageSize),
+                _ => new Pagination<Models.Data.Order>(),
+            };
         }
 
         private OrderItemViewModel ProduceOrderItemViewModel(Models.Data.Order order)
         {
-            return new OrderItemViewModel(NavigationService,
-                                          UserSessionProvider,
-                                          order,
-                                          GetFullScreenVideoDataModels);
+            return new OrderItemViewModel(
+                NavigationService,
+                UserSessionProvider,
+                order,
+                GetFullScreenVideos);
         }
 
-        private List<FullScreenVideo> GetFullScreenVideoDataModels()
+        private List<FullScreenVideo> GetFullScreenVideos()
         {
             return Items.Where(item => item.CanPlayVideo)
-                        .Select(item => item.GetFullScreenVideoDataModel())
+                        .Select(item => item.GetFullScreenVideo())
                         .ToList();
         }
 

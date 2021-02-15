@@ -19,7 +19,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
     {
         private bool _isReloadNeeded;
 
-        public CashboxViewModel(IMediaService mediaService)
+        public CashboxViewModel()
         {
             Items = new List<BasePageViewModel>
             {

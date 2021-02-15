@@ -5,13 +5,13 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
     public static class UserExtensions
     {
-        public static OrderTagType GetOrderTagType(this User userDataModel, int? customerId, OrderStatusType? orderStatusType)
+        public static OrderTagType GetOrderTagType(this User user, int? customerId, OrderStatusType? orderStatusType)
         {
             switch (orderStatusType)
             {
                 case OrderStatusType.Active:
                 case OrderStatusType.New:
-                    var isMine = customerId.HasValue && customerId == userDataModel?.Id;
+                    var isMine = customerId.HasValue && customerId == user?.Id;
                     return isMine ? OrderTagType.New : OrderTagType.NewNotMine;
 
                 case OrderStatusType.VideoInProcess:
@@ -38,9 +38,9 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             }
         }
 
-        public static OrderType GetOrderType(this User userDataModel, int? customerId, OrderStatusType orderStatusType)
+        public static OrderType GetOrderType(this User user, int? customerId, OrderStatusType orderStatusType)
         {
-            if (customerId.HasValue && userDataModel?.Id == customerId)
+            if (customerId.HasValue && user?.Id == customerId)
             {
                 switch (orderStatusType)
                 {

@@ -2,7 +2,6 @@
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Managers.Notifications;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
@@ -36,9 +35,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
             return count;
         }
 
-        private NotificationItemViewModel ProduceNotificationItem(Models.Data.Notification notificationDataModel)
+        private NotificationItemViewModel ProduceNotificationItem(Models.Data.Notification notification)
         {
-            return new NotificationItemViewModel(NavigationService, UserSessionProvider, notificationDataModel);
+            return new NotificationItemViewModel(
+                NavigationService,
+                UserSessionProvider,
+                notification);
         }
 
         private async Task MarkReadedNotificationsAsync()

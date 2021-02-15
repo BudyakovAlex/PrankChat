@@ -4,7 +4,6 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Video;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
@@ -86,20 +85,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
             return count;
         }
 
-        protected override int SetList<TDataModel, TApiModel>(Pagination<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        protected override int SetList<TDataModel, TApiModel>(
+            Pagination<TApiModel> pagination,
+            int page,
+            Func<TApiModel, TDataModel> produceItemViewModel,
+            MvxObservableCollection<TDataModel> items)
         {
-            SetTotalItemsCount(dataModel?.TotalCount ?? 0);
-            _newCommentsCounter = (int)(dataModel?.TotalCount ?? 0);
+            SetTotalItemsCount(pagination?.TotalCount ?? 0);
+            _newCommentsCounter = (int)(pagination?.TotalCount ?? 0);
 
-            var orderViewModels = dataModel?.Items?.Select(produceItemViewModel).ToList();
+            var orderViewModels = pagination?.Items?.Select(produceItemViewModel).ToList();
 
             items.AddRange(orderViewModels);
             return orderViewModels.Count;
         }
 
-        private CommentItemViewModel ProduceCommentItemViewModel(Models.Data.Comment commentDataModel)
+        private CommentItemViewModel ProduceCommentItemViewModel(Models.Data.Comment comment)
         {
-            return new CommentItemViewModel(NavigationService, UserSessionProvider, commentDataModel);
+            return new CommentItemViewModel(
+                NavigationService,
+                UserSessionProvider,
+                comment);
         }
 
         private async Task SendCommentAsync()

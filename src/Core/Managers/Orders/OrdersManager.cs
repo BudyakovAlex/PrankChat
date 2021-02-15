@@ -18,16 +18,16 @@ namespace PrankChat.Mobile.Core.Managers.Orders
             _ordersService = ordersService;
         }
 
-        public async Task<Order> CreateOrderAsync(CreateOrder createOrderDataModel)
+        public async Task<Order> CreateOrderAsync(CreateOrder createOrder)
         {
             var apiModel = new CreateOrderDto()
             {
-                Title = createOrderDataModel.Title,
-                ActiveFor = createOrderDataModel.ActiveFor,
-                AutoProlongation = createOrderDataModel.AutoProlongation,
-                Description = createOrderDataModel.Description,
-                IsHidden = createOrderDataModel.IsHidden,
-                Price = createOrderDataModel.Price
+                Title = createOrder.Title,
+                ActiveFor = createOrder.ActiveFor,
+                AutoProlongation = createOrder.AutoProlongation,
+                Description = createOrder.Description,
+                IsHidden = createOrder.IsHidden,
+                Price = createOrder.Price
             };
 
             var response = await _ordersService.CreateOrderAsync(apiModel);

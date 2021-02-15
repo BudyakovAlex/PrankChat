@@ -40,7 +40,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         }
 
         private Card _currentCard;
-        private Withdrawal _lastWithdrawalDataModel;
+        private Withdrawal _lastWithdrawal;
 
         private double? _cost;
         public double? Cost
@@ -101,17 +101,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             set => SetProperty(ref _isUpdatingData, value);
         }
 
-        public DateTime? CreateAtWithdrawal => _lastWithdrawalDataModel?.CreatedAt;
+        public DateTime? CreateAtWithdrawal => _lastWithdrawal?.CreatedAt;
 
-        public string AmountValue => _lastWithdrawalDataModel?.Amount.ToPriceString();
+        public string AmountValue => _lastWithdrawal?.Amount.ToPriceString();
 
         public bool IsAttachDocumentAvailable => UserSessionProvider.User?.DocumentVerifiedAt == null && UserSessionProvider.User?.Document == null;
 
         public bool IsDocumentPending => UserSessionProvider.User?.DocumentVerifiedAt == null && UserSessionProvider.User?.Document != null;
 
-        public bool IsWithdrawalAvailable => !IsAttachDocumentAvailable && !IsDocumentPending && _lastWithdrawalDataModel == null;
+        public bool IsWithdrawalAvailable => !IsAttachDocumentAvailable && !IsDocumentPending && _lastWithdrawal == null;
 
-        public bool IsWithdrawalPending => !IsAttachDocumentAvailable && !IsDocumentPending && _lastWithdrawalDataModel != null;
+        public bool IsWithdrawalPending => !IsAttachDocumentAvailable && !IsDocumentPending && _lastWithdrawal != null;
 
         public bool IsPresavedWithdrawalAvailable => _currentCard != null && IsWithdrawalAvailable;
 
@@ -174,7 +174,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 var result = await _paymentManager.WithdrawalAsync(Cost.Value, _currentCard.Id);
                 if (result != null)
                 {
-                    _lastWithdrawalDataModel = result;
+                    _lastWithdrawal = result;
                     await RaiseAllPropertiesChanged();
                 }
             }
@@ -215,7 +215,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         private async Task CancelWithdrawAsync()
         {
-            if (_lastWithdrawalDataModel == null)
+            if (_lastWithdrawal == null)
             {
                  ErrorHandleService.HandleException(new ValidationException(Resources.WithdrawalView_Cancel_Withdrawal_Error, ValidationErrorType.CanNotMatch, 0.ToString()));
                 return;
@@ -223,8 +223,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
             try
             {
-                await _paymentManager.CancelWithdrawalAsync(_lastWithdrawalDataModel.Id);
-                _lastWithdrawalDataModel = null;
+                await _paymentManager.CancelWithdrawalAsync(_lastWithdrawal.Id);
+                _lastWithdrawal = null;
                 await RaiseAllPropertiesChanged();
             }
             catch (Exception ex)
@@ -254,7 +254,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         private async Task GetWithdrawalsAsync()
         {
             var withdrawals = await _paymentManager.GetWithdrawalsAsync();
-            _lastWithdrawalDataModel = withdrawals?.FirstOrDefault();
+            _lastWithdrawal = withdrawals?.FirstOrDefault();
             await RaiseAllPropertiesChanged();
         }
 

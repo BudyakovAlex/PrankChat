@@ -28,9 +28,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private readonly IDisposable _refreshTokenExpiredMessageSubscription;
 
-        public MainViewModel(IVersionManager versionManager,
-                             IPushNotificationProvider notificationService,
-                             IWalkthroughsProvider walkthroughsProvider)
+        public MainViewModel(
+            IVersionManager versionManager,
+            IPushNotificationProvider notificationService,
+            IWalkthroughsProvider walkthroughsProvider)
         {
             _versionManager = versionManager;
             _notificationService = notificationService;
@@ -96,36 +97,26 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private Task ShowWalthroughIfNeedAsync(int position)
         {
-            switch (position)
+            return position switch
             {
-                case 1 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CompetitionsViewModel>():
-                    return _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>();
-                case 2 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CreateOrderViewModel>():
-                    return _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>();
-                case 3 when _walkthroughsProvider.CheckCanShowOnFirstLoad<OrdersViewModel>():
-                    return _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>();
-                case 4 when _walkthroughsProvider.CheckCanShowOnFirstLoad<ProfileViewModel>():
-                    return _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>();
-                default:
-                    return Task.FromResult(false);
-            }
+                1 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CompetitionsViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>(),
+                2 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CreateOrderViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>(),
+                3 when _walkthroughsProvider.CheckCanShowOnFirstLoad<OrdersViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>(),
+                4 when _walkthroughsProvider.CheckCanShowOnFirstLoad<ProfileViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>(),
+                _ => Task.FromResult(false),
+            };
         }
 
         private Task ShowWalthroughAsync(int position)
         {
-            switch (position)
+            return position switch
             {
-                case 1:
-                    return _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>();
-                case 2:
-                    return _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>();
-                case 3:
-                    return _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>();
-                case 4:
-                    return _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>();
-                default:
-                    return Task.FromResult(false);
-            }
+                1 => _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>(),
+                2 => _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>(),
+                3 => _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>(),
+                4 => _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>(),
+                _ => Task.FromResult(false),
+            };
         }
 
         private async Task CheckDemoModeAsync(int position)

@@ -17,13 +17,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                                         IVideoManager videoManager,
                                         IPlatformService platformService,
                                         IVideoPlayerService videoPlayerService,
-                                        Models.Data.Video videoDataModel,
+                                        Models.Data.Video video,
                                         Func<List<FullScreenVideo>> getAllFullScreenVideoDataFunc)
             : base(publicationsManager,
                    videoManager,
                    platformService,
                    videoPlayerService,
-                   videoDataModel,
+                   video,
                    getAllFullScreenVideoDataFunc)
         {
             // TODO: Unblock this after video details page will be completed

@@ -101,11 +101,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         public void Prepare(Models.Data.Competition parameter)
         {
             _competition = parameter;
-            _header = new CompetitionDetailsHeaderViewModel(IsUserSessionInitialized,
-                                                            Messenger,
-                                                            NavigationService,
-                                                            new MvxAsyncCommand(ExecuteActionAsync),
-                                                            parameter);
+            _header = new CompetitionDetailsHeaderViewModel(
+                IsUserSessionInitialized,
+                Messenger,
+                NavigationService,
+                new MvxAsyncCommand(ExecuteActionAsync),
+                parameter);
+
             Items.Add(_header);
         }
 
@@ -143,10 +145,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             return count;
         }
 
-        protected override int SetList<TDataModel, TApiModel>(Pagination<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        protected override int SetList<TDataModel, TApiModel>(Pagination<TApiModel> pagination, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
         {
-            SetTotalItemsCount(dataModel?.TotalCount ?? 0);
-            var orderViewModels = dataModel?.Items?.Select(produceItemViewModel).ToList();
+            SetTotalItemsCount(pagination?.TotalCount ?? 0);
+            var orderViewModels = pagination?.Items?.Select(produceItemViewModel).ToList();
 
             items.AddRange(orderViewModels);
             return orderViewModels.Count;
@@ -177,11 +179,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 if (updatedCompetition != null)
                 {
                     _competition = updatedCompetition;
-                    _header = new CompetitionDetailsHeaderViewModel(IsUserSessionInitialized,
-                                                                    Messenger,
-                                                                    NavigationService,
-                                                                    new MvxAsyncCommand(ExecuteActionAsync),
-                                                                    _competition);
+
+                    _header = new CompetitionDetailsHeaderViewModel(
+                        IsUserSessionInitialized,
+                        Messenger,
+                        NavigationService,
+                        new MvxAsyncCommand(ExecuteActionAsync),
+                        _competition);
+
                     Items.ReplaceWith(new[] { _header });
                     await LoadMoreItemsAsync();
                     _isReloadNeeded = true;
@@ -244,25 +249,26 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             }
         }
 
-        private List<FullScreenVideo> GetFullScreenVideoDataModels()
+        private List<FullScreenVideo> GetFullScreenVideos()
         {
             return Items.OfType<CompetitionVideoViewModel>()
-                        .Select(item => item.GetFullScreenVideoDataModel())
+                        .Select(item => item.GetFullScreenVideo())
                         .ToList();
         }
 
-        private CompetitionVideoViewModel ProduceVideoItemViewModel(Models.Data.Video videoDataModel)
+        private CompetitionVideoViewModel ProduceVideoItemViewModel(Models.Data.Video video)
         {
-            return new CompetitionVideoViewModel(_publicationsManager,
-                                                 _videoPlayerService,
-                                                 NavigationService,
-                                                 UserSessionProvider,
-                                                 Messenger,
-                                                 Logger,
-                                                 videoDataModel,
-                                                 videoDataModel.User.Id == UserSessionProvider.User.Id,
-                                                 _competition.GetPhase() == CompetitionPhase.Voting,
-                                                 GetFullScreenVideoDataModels);
+            return new CompetitionVideoViewModel(
+                _publicationsManager,
+                _videoPlayerService,
+                NavigationService,
+                UserSessionProvider,
+                Messenger,
+                Logger,
+                video,
+                video.User.Id == UserSessionProvider.User.Id,
+                _competition.GetPhase() == CompetitionPhase.Voting,
+                GetFullScreenVideos);
         }
 
         private Task LoadVideoAsync()
@@ -283,12 +289,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
                     _cancellationTokenSource = new CancellationTokenSource();
 
-                    var video = await _videoManager.SendVideoAsync(_competition.Id,
-                                                                   file.Path,
-                                                                   _competition.Title,
-                                                                   _competition.Description,
-                                                                   OnUploadingProgressChanged,
-                                                                   _cancellationTokenSource.Token);
+                    var video = await _videoManager.SendVideoAsync(
+                        _competition.Id,
+                        file.Path,
+                        _competition.Title,
+                        _competition.Description,
+                        OnUploadingProgressChanged,
+                        _cancellationTokenSource.Token);
+
                     if (video == null && (!_cancellationTokenSource?.IsCancellationRequested ?? true))
                     {
                         DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
@@ -304,16 +312,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                     Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
                     {
                         video.User = UserSessionProvider.User;
-                        Items.Insert(1, new CompetitionVideoViewModel(_publicationsManager,
-                                                                      _videoPlayerService,
-                                                                      NavigationService,
-                                                                      UserSessionProvider,
-                                                                      Messenger,
-                                                                      Logger,
-                                                                      video,
-                                                                      true,
-                                                                      false,
-                                                                      GetFullScreenVideoDataModels));
+                        Items.Insert(1, new CompetitionVideoViewModel(
+                            _publicationsManager,
+                            _videoPlayerService,
+                            NavigationService,
+                            UserSessionProvider,
+                            Messenger,
+                            Logger,
+                            video,
+                            true,
+                            false,
+                            GetFullScreenVideos));
                     });
 
                     await _header.RaisePropertyChanged(nameof(_header.CanExecuteActionVideo));

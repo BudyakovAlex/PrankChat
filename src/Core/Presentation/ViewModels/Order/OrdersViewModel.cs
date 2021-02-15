@@ -222,7 +222,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             return new OrderItemViewModel(NavigationService,
                                           UserSessionProvider,
                                           order,
-                                          GetFullScreenVideoDataModels);
+                                          GetFullScreenVideos);
         }
 
         private ArbitrationItemViewModel ProduceArbitrationOrderViewModel(ArbitrationOrder order)
@@ -240,14 +240,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                                                 order.ArbitrationFinishAt ?? DateTime.UtcNow,
                                                 order.Customer?.Id,
                                                 order,
-                                                GetFullScreenVideoDataModels);
+                                                GetFullScreenVideos);
         }
 
-        private List<FullScreenVideo> GetFullScreenVideoDataModels()
+        private List<FullScreenVideo> GetFullScreenVideos()
         {
             return Items.OfType<IFullScreenVideoOwnerViewModel>()
                         .Where(item => item.CanPlayVideo)
-                        .Select(item => item.GetFullScreenVideoDataModel())
+                        .Select(item => item.GetFullScreenVideo())
                         .ToList();
         }
 

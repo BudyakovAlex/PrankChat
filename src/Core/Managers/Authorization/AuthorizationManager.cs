@@ -26,17 +26,17 @@ namespace PrankChat.Mobile.Core.Managers.Authorization
             return _authorizationService.AuthorizeExternalAsync(authToken, loginType);
         }
 
-        public Task RegisterAsync(UserRegistration userRegistrationDataModel)
+        public Task RegisterAsync(UserRegistration userRegistration)
         {
             var apiModel = new UserRegistrationDto()
             {
-                Email = userRegistrationDataModel.Email,
-                Name = userRegistrationDataModel.Name,
-                Login = userRegistrationDataModel.Login,
-                Sex = userRegistrationDataModel.Sex,
-                Birthday = userRegistrationDataModel.Birthday,
-                Password = userRegistrationDataModel.Password,
-                PasswordConfirmation = userRegistrationDataModel.PasswordConfirmation
+                Email = userRegistration.Email,
+                Name = userRegistration.Name,
+                Login = userRegistration.Login,
+                Sex = userRegistration.Sex,
+                Birthday = userRegistration.Birthday,
+                Password = userRegistration.Password,
+                PasswordConfirmation = userRegistration.PasswordConfirmation
             };
 
             return _authorizationService.RegisterAsync(apiModel);

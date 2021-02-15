@@ -89,8 +89,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
             };
 
             var url = $"videos/{videoId}/comments";
-            var dataModel = await _client.PostAsync<SendCommentDto, ResponseDto<CommentDto>>(url, dataApiModel);
-            return dataModel?.Data;
+            var response = await _client.PostAsync<SendCommentDto, ResponseDto<CommentDto>>(url, dataApiModel);
+            return response?.Data;
         }
 
         public Task<BaseBundleDto<CommentDto>> GetVideoCommentsAsync(int videoId, int page, int pageSize)
