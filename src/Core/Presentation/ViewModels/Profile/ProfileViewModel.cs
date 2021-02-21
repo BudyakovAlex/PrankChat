@@ -118,7 +118,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             SelectedOrderType = ProfileOrderType.MyOrdered;
             await base.InitializeAsync();
-            await LoadProfileCommand.ExecuteAsync();
+            _ = LoadProfileCommand.ExecuteAsync();
         }
 
         public override void ViewDisappearing()

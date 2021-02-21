@@ -127,7 +127,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             ArbitrationFilterType = ArbitrationOrderFilterType.All;
             TabType = OrdersTabType.Order;
 
-            await LoadDataCommand.ExecuteAsync();
+            _ = LoadDataCommand.ExecuteAsync();
         }
 
         protected async override Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
