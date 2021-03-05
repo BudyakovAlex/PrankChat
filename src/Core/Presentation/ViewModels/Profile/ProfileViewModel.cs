@@ -46,7 +46,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             ShowSubscriptionsCommand = new MvxAsyncCommand(ShowSubscriptionsAsync);
             ShowSubscribersCommand = new MvxAsyncCommand(ShowSubscribersAsync);
             ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
-            LoadProfileCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(LoadProfileAsync));
+            LoadProfileCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(LoadProfileAsync, awaitWhenBusy: true));
             ShowUpdateProfileCommand = new MvxAsyncCommand(ShowUpdateProfileAsync);
 
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);

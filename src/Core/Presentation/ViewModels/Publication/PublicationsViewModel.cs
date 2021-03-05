@@ -121,7 +121,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             await base.InitializeAsync();
 
             ActiveFilter = DateFilterType.HalfYear;
-            _ = LoadMoreItemsCommand.ExecuteAsync();
+            _ = SafeExecutionWrapper.WrapAsync(() => LoadMoreItemsAsync());
         }
 
         public override void ViewDisappearing()
