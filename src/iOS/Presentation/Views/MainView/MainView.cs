@@ -25,7 +25,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
                 return;
             }
 
-            ViewModel.ShowContentCommand.Execute(null);
+            ViewModel.LoadContentCommand.Execute(null);
             SetTabs();
             _tabsInitialized = true;
         }

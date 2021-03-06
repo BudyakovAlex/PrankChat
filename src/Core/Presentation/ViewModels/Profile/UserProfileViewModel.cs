@@ -11,6 +11,7 @@ using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -186,7 +187,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private async Task ShowSubscribersAsync()
         {
             var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscribers, _userId, Login);
-            var shouldRefresh = await NavigationService.ShowSubscriptionsView(navigationParameters);
+            var shouldRefresh = await NavigationManager.NavigateAsync<SubscriptionsViewModel, SubscriptionsNavigationParameter, bool>(navigationParameters);
             if (!shouldRefresh)
             {
                 return;
@@ -198,7 +199,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private async Task ShowSubscriptionsAsync()
         {
             var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscriptions, _userId, Login);
-            var shouldRefresh = await NavigationService.ShowSubscriptionsView(navigationParameters);
+            var shouldRefresh = await NavigationManager.NavigateAsync<SubscriptionsViewModel, SubscriptionsNavigationParameter, bool>(navigationParameters);
             if (!shouldRefresh)
             {
                 return;

@@ -98,7 +98,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                 await UsersManager.GetCurrentUserAsync();
 
                 await _pushNotificationService.TryUpdateTokenAsync();
-                await NavigationService.ShowRegistrationThirdStepView();
+                await NavigationManager.NavigateAsync<RegistrationThirdStepViewModel>();
             }
             catch (Exception ex)
             {

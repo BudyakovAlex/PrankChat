@@ -10,7 +10,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Walthroughs
     {
         public WalthroughViewModel()
         {
-            CloseCommand = this.CreateCommand(() => NavigationService.CloseView(this));
+            CloseCommand = this.CreateCommand(() => NavigationManager.CloseAsync(this));
         }
 
         public string Title { get; private set; }

@@ -3,8 +3,10 @@ using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
 {
@@ -39,7 +41,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
                 return Task.CompletedTask;
             }
 
-            return _navigationService.ShowUserProfile(Order.Customer.Id);
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return Task.CompletedTask;
+            }
+
+            return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(Order.Customer.Id);
         }
     }
 }

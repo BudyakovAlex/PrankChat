@@ -13,11 +13,15 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
@@ -210,7 +214,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 return Task.CompletedTask;
             }
 
-            return NavigationService.ShowUserProfile(_video.Customer.Id);
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return Task.CompletedTask;
+            }
+
+            return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_video.Customer.Id);
         }
 
         private Task ShareAsync()
@@ -226,7 +235,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             var currentItem = items.FirstOrDefault(item => item.VideoId == VideoId);
             var index = currentItem is null ? 0 : items.IndexOf(currentItem);
             var navigationParams = new FullScreenVideoParameter(items, index);
-            var shouldRefresh = await NavigationService.ShowFullScreenVideoView(navigationParams);
+            if (navigationParams.Videos.Count == 0)
+            {
+                return;
+            }
+
+            var shouldRefresh = await NavigationManager.NavigateAsync<FullScreenVideoViewModel, FullScreenVideoParameter, bool>(navigationParams);
             if (!shouldRefresh)
             {
                 return;
@@ -237,7 +251,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private async Task ShowCommentsAsync()
         {
-            var commentsCount = await NavigationService.ShowCommentsView(VideoId);
+            var commentsCount = await NavigationManager.NavigateAsync<CommentsViewModel, int, int>(VideoId);
             NumberOfComments = commentsCount > 0 ? commentsCount : NumberOfComments;
             await RaisePropertyChanged(nameof(NumberOfCommentsPresentation));
         }

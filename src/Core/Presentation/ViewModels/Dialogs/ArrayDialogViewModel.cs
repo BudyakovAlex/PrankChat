@@ -62,8 +62,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 
         private async Task PickItemAsync(string value)
         {
-            CloseCompletionSource.SetResult(new ArrayDialogResult(value));
-            await NavigationService.CloseView(this);
+            await NavigationManager.CloseAsync(this, new ArrayDialogResult(value));
         }
     }
 }

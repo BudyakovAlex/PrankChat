@@ -2,7 +2,9 @@
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Managers.Video;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using System;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
@@ -13,6 +15,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public PublicationDetailsViewModel(IPublicationsManager publicationsManager, IVideoManager videoManager) : base(publicationsManager, videoManager)
         {
+            OpenCommentsCommand = this.CreateRestrictedCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
         }
 
         #region Video
@@ -33,6 +36,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         #endregion
 
-        public MvxRestrictedAsyncCommand OpenCommentsCommand => new MvxRestrictedAsyncCommand(() => NavigationService.ShowCommentsView(VideoId), restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+        public MvxRestrictedAsyncCommand OpenCommentsCommand { get; }
+
+        private Task ShowCommentsAsync()
+        {
+            return NavigationManager.NavigateAsync<CommentsViewModel, int, int>(VideoId);
+        }
     }
 }

@@ -38,7 +38,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public PublicationsViewModel(IPublicationsManager publicationsManager,
                                      IVideoManager videoManager,
                                      IPlatformService platformService,
-                                     IVideoPlayerService videoPlayerService) : base(Constants.Pagination.DefaultPaginationSize)
+                                     IVideoPlayerService videoPlayerService)
+            : base(Constants.Pagination.DefaultPaginationSize)
         {
             _publicationsManager = publicationsManager;
             _videoManager = videoManager;

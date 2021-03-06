@@ -35,12 +35,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return Task.CompletedTask;
             }
 
-            return NavigationService.CloseViewWithResult(this, new ImageCropPathResult(filePath));
+            return NavigationManager.CloseAsync(this, new ImageCropPathResult(filePath));
         }
 
         private Task Cancel()
         {
-            return NavigationService.CloseViewWithResult(this, null);
+            return NavigationManager.CloseAsync(this, null);
         }
     }
 }

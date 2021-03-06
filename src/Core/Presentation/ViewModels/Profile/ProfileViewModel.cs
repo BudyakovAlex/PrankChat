@@ -3,6 +3,7 @@ using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Orders;
@@ -14,8 +15,11 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions;
 using PrankChat.Mobile.Core.Providers;
 using System;
 using System.Collections.Generic;
@@ -143,7 +147,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private async Task ShowSubscribersAsync()
         {
             var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscribers, UserSessionProvider.User.Id, UserSessionProvider.User.Name);
-            var shouldRefresh = await NavigationService.ShowSubscriptionsView(navigationParameters);
+            var shouldRefresh = await NavigationManager.NavigateAsync<SubscriptionsViewModel, SubscriptionsNavigationParameter, bool>(navigationParameters);
             if (!shouldRefresh)
             {
                 return;
@@ -155,7 +159,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private async Task ShowSubscriptionsAsync()
         {
             var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscriptions, UserSessionProvider.User.Id, UserSessionProvider.User.Name);
-            var shouldRefresh = await NavigationService.ShowSubscriptionsView(navigationParameters);
+            var shouldRefresh = await NavigationManager.NavigateAsync<SubscriptionsViewModel, SubscriptionsNavigationParameter, bool>(navigationParameters);
             if (!shouldRefresh)
             {
                 return;
@@ -171,13 +175,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 var canGoProfile = await DialogService.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
                 if (canGoProfile)
                 {
-                    await NavigationService.ShowUpdateProfileView();
+                    await NavigationManager.NavigateAsync<ProfileUpdateViewModel, ProfileUpdateResult>();
                 }
 
                 return;
             }
 
-            var isReloadNeeded = await NavigationService.ShowRefillView();
+            var navigationParameter = new CashboxTypeNavigationParameter(CashboxType.Refill);
+            var isReloadNeeded = await NavigationManager.NavigateAsync<CashboxViewModel, CashboxTypeNavigationParameter, bool>(navigationParameter);
             if (!isReloadNeeded)
             {
                 return;
@@ -193,13 +198,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 var canGoProfile = await DialogService.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
                 if (canGoProfile)
                 {
-                    await NavigationService.ShowUpdateProfileView();
+                    await NavigationManager.NavigateAsync<ProfileUpdateViewModel, ProfileUpdateResult>();
                 }
 
                 return;
             }
 
-            var isReloadNeeded = await NavigationService.ShowWithdrawalView();
+            var navigationParameter = new CashboxTypeNavigationParameter(CashboxType.Withdrawal);
+            var isReloadNeeded = await NavigationManager.NavigateAsync<CashboxViewModel, CashboxTypeNavigationParameter, bool>(navigationParameter);
             if (!isReloadNeeded)
             {
                 return;
@@ -223,7 +229,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task ShowUpdateProfileAsync()
         {
-            var isUpdated = await NavigationService.ShowUpdateProfileView();
+            var result = await NavigationManager.NavigateAsync<ProfileUpdateViewModel, ProfileUpdateResult>();
+            var isUpdated =(result?.IsProfileUpdated ?? false) || (result?.IsAvatarUpdated ?? false);
             if (!isUpdated)
             {
                 return;

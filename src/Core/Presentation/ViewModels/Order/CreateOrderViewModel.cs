@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Configuration;
+using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
@@ -9,7 +10,12 @@ using PrankChat.Mobile.Core.Managers.Orders;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Walthroughs;
 using PrankChat.Mobile.Core.Providers;
 using System;
 using System.Linq;
@@ -88,7 +94,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private Task ShowWalkthrouthSecretAsync()
         {
-            return NavigationService.ShowWalthroughView(Resources.Create_Order_Secret_order, Resources.Walkthrouth_CreateOrder_Secret_Description);
+            var parameters = new WalthroughNavigationParameter(Resources.Create_Order_Secret_order, Resources.Walkthrouth_CreateOrder_Secret_Description);
+            return NavigationManager.NavigateAsync<WalthroughViewModel, WalthroughNavigationParameter>(parameters);
         }
 
         private async Task CreateAsync()
@@ -154,7 +161,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 }
 
                 Messenger.Publish(new OrderChangedMessage(this, newOrder));
-                await NavigationService.ShowOrderDetailsView(newOrder.Id, null, 0);
+
+                var parameter = new OrderDetailsNavigationParameter(newOrder.Id, null, 0);
+                await NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter, OrderDetailsResult>(parameter);
                 SetDefaultData();
                 return;
             }
@@ -170,7 +179,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return;
             }
 
-            await NavigationService.ShowRefillView();
+            var navigationParameter = new CashboxTypeNavigationParameter(CashboxType.Refill);
+            await NavigationManager.NavigateAsync<CashboxViewModel, CashboxTypeNavigationParameter, bool>(navigationParameter);
         }
 
         private async Task HandleUnauthorizedAsync(Exception exception)
@@ -181,7 +191,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return;
             }
 
-            await NavigationService.ShowUpdateProfileView();
+            await NavigationManager.NavigateAsync<ProfileUpdateViewModel, ProfileUpdateResult>();
         }
 
         private async Task ShowDateDialogAsync()

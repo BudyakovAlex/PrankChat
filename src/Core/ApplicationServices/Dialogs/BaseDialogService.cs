@@ -5,22 +5,23 @@ using System.Threading.Tasks;
 using Acr.UserDialogs;
 using Plugin.DeviceInfo;
 using Plugin.DeviceInfo.Abstractions;
+using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 {
     public abstract class BaseDialogService : IDialogService
     {
-        private readonly INavigationService _navigationService;
+        private readonly INavigationManager _navigationManager;
 
         public abstract bool IsToastShown { get; protected set; }
 
-        protected BaseDialogService(INavigationService navigationService)
+        protected BaseDialogService(INavigationManager navigationManager)
         {
-            _navigationService = navigationService;
+            _navigationManager = navigationManager;
         }
 
         public abstract Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null);
@@ -45,9 +46,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
         public Task ShowShareDialogAsync(string url)
         {
             if (string.IsNullOrWhiteSpace(url))
-               throw new ArgumentNullException(nameof(url));
+            {
+                throw new ArgumentNullException(nameof(url));
+            }
 
-            return _navigationService.ShowShareDialog(new ShareDialogParameter(url));
+            return _navigationManager.NavigateAsync<ShareDialogViewModel, ShareDialogParameter>(new ShareDialogParameter(url));
         }
 
         public Task<bool> ShowConfirmAsync(string message, string title = "", string ok = "", string cancel = "")

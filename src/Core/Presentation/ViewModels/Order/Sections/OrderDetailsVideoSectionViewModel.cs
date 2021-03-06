@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
 using System.Collections.Generic;
@@ -184,7 +185,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
                 ? new FullScreenVideoParameter(_fullScreenVideos, _currentIndex)
                 : new FullScreenVideoParameter(Order.ToFullScreenVideo());
 
-            var shouldReload = await NavigationService.ShowFullScreenVideoView(navigationParams);
+            if (navigationParams.Videos.Count == 0)
+            {
+                return;
+            }
+
+            var shouldReload = await NavigationManager.NavigateAsync<FullScreenVideoViewModel, FullScreenVideoParameter, bool>(navigationParams);
             if (!shouldReload)
             {
                 return;

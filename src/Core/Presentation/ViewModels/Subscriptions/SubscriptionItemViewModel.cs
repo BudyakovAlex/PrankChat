@@ -1,8 +1,10 @@
 ﻿using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 {
@@ -39,7 +41,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
                 return Task.CompletedTask;
             }
 
-            return NavigationService.ShowUserProfile(_user.Id);
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return Task.CompletedTask;
+            }
+
+            return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_user.Id);
         }
     }
 }

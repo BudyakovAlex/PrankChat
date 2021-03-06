@@ -9,8 +9,10 @@ using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
 using System;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
@@ -28,10 +30,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             PasswordText = "qqqqqqqq";
 #endif
             LoginWithAppleCommand = new MvxAsyncCommand<AppleAuth>(LoginWithAppleAsync);
-            ShowDemoModeCommand = new MvxAsyncCommand(() => NavigationService.ShowMainView());
+            ShowDemoModeCommand = this.CreateCommand(ShowDemoModeAsync);
             LoginCommand = new MvxAsyncCommand<string>(LoginAsync);
-            ResetPasswordCommand = new MvxAsyncCommand(() => NavigationService.ShowPasswordRecoveryView());
-            RegistrationCommand = new MvxAsyncCommand(() => NavigationService.ShowRegistrationView());
+            ResetPasswordCommand = this.CreateCommand(ResetPasswordAsync);
+            RegistrationCommand = this.CreateCommand(RegistrationAsync);
         }
 
         private string _emailText;
@@ -56,7 +58,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         public IMvxAsyncCommand<string> LoginCommand { get; }
 
-        public IMvxAsyncCommand ResetPasswordCommand { get; }
+        public ICommand ResetPasswordCommand { get; }
 
         public IMvxAsyncCommand RegistrationCommand { get; }
 
@@ -73,7 +75,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                         var newActualVersion = await VersionManager.CheckAppVersionAsync();
                         if (!string.IsNullOrEmpty(newActualVersion?.Link))
                         {
-                            await NavigationService.ShowMaintananceView(newActualVersion.Link);
+                            await NavigationManager.NavigateAsync<MaintananceViewModel, string>(newActualVersion?.Link);
                             return;
                         }
                     }
@@ -129,7 +131,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                     var newActualVersion = await VersionManager.CheckAppVersionAsync();
                     if (!string.IsNullOrEmpty(newActualVersion?.Link))
                     {
-                        await NavigationService.ShowMaintananceView(newActualVersion.Link);
+                        await NavigationManager.NavigateAsync<MaintananceViewModel, string>(newActualVersion?.Link);
                         return;
                     }
                 }
@@ -176,6 +178,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             }
 
             return true;
+        }
+
+        private Task ResetPasswordAsync()
+        {
+            return NavigationManager.NavigateAsync<PasswordRecoveryViewModel>();
+        }
+
+        private Task RegistrationAsync()
+        {
+            return NavigationManager.NavigateAsync<RegistrationViewModel>();
+        }
+
+        private Task ShowDemoModeAsync()
+        {
+            return NavigationManager.NavigateAsync<MainViewModel>();
         }
     }
 }

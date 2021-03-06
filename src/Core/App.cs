@@ -24,6 +24,7 @@ using PrankChat.Mobile.Core.BusinessServices.TaskSchedulers.BackgroundTasks.Send
 using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.Managers.Competitions;
+using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Managers.Notifications;
 using PrankChat.Mobile.Core.Managers.Orders;
 using PrankChat.Mobile.Core.Managers.Payment;
@@ -85,6 +86,7 @@ namespace PrankChat.Mobile.Core
 
         private void RegisterManagers()
         {
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<INavigationManager, NavigationManager>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IAuthorizationManager, AuthorizationManager>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ILogsManager, LogsManager>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IVersionManager, VersionManager>();

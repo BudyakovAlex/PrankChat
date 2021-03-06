@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
@@ -22,9 +23,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public BasePageViewModel()
         {
-            ShowNotificationCommand = new MvxRestrictedAsyncCommand(NavigationService.ShowNotificationView, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
-            ShowSearchCommand = new MvxAsyncCommand(NavigationService.ShowSearchView);
-            GoBackCommand = new MvxAsyncCommand(GoBackAsync);
+            ShowNotificationCommand = new MvxRestrictedAsyncCommand(ShowNotificationAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+            ShowSearchCommand = this.CreateCommand(ShowSearchAsync);
+            GoBackCommand = this.CreateCommand(GoBackAsync);
         }
 
         public event EventHandler<bool> AppearingChanged;
@@ -133,7 +134,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         private Task GoBackAsync()
         {
-            return NavigationService.CloseView(this);
+            return NavigationManager.CloseAsync(this);
+        }
+
+        private Task ShowNotificationAsync()
+        {
+            return NavigationManager.NavigateAsync<NotificationViewModel>();
+        }
+
+        private Task ShowSearchAsync()
+        {
+            return NavigationManager.NavigateAsync<SearchViewModel>();
         }
     }
 }

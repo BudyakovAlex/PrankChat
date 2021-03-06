@@ -56,7 +56,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.main_view_layout);
-            ViewModel.ShowContentCommand.Execute();
+            ViewModel.LoadContentCommand.Execute();
 
             Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
 

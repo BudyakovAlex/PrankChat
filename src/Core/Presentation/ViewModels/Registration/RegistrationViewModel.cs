@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
@@ -21,7 +22,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                                      IPushNotificationProvider pushNotificationService)
             : base(authorizationManager, versionManager, usersManager, externalAuthService, pushNotificationService)
         {
-            ShowSecondStepCommand = new MvxAsyncCommand(OnShowSecondStepAsync);
+            ShowSecondStepCommand = new MvxAsyncCommand(ShowSecondStepAsync);
             LoginCommand = new MvxAsyncCommand<LoginType>(LoginAsync);
         }
 
@@ -47,7 +48,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             await NavigateAfterLoginAsync();
         }
 
-        private async Task OnShowSecondStepAsync()
+        private async Task ShowSecondStepAsync()
         {
             if (!CheckValidation())
             {
@@ -55,18 +56,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             }
 
             var isExists = await AuthorizationManager.CheckIsEmailExistsAsync(Email);
-            if (isExists is null)
-            {
-                return;
-            }
-
-            if (isExists.Value)
+            if (isExists is null || isExists.Value)
             {
                 DialogService.ShowToast(Resources.Email_Already_Exists, ToastType.Negative);
                 return;
             }
 
-            await NavigationService.ShowRegistrationSecondStepView(Email);
+            var parameter = new RegistrationNavigationParameter(Email);
+            await NavigationManager.NavigateAsync<RegistrationSecondStepViewModel, RegistrationNavigationParameter>(parameter);
         }
 
         private bool CheckValidation()

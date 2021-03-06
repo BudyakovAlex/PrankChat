@@ -9,10 +9,13 @@ using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 {
@@ -166,7 +169,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
             Interaction.Raise();
 
-            var shouldRefresh = await NavigationService.ShowUserProfile(_currentVideo.UserId);
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return;
+            }
+
+            var shouldRefresh = await NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_currentVideo.UserId);
             if (!shouldRefresh)
             {
                 return;
@@ -183,7 +191,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         {
             Interaction.Raise();
 
-            var commentsCount = await NavigationService.ShowCommentsView(VideoId);
+            var commentsCount = await NavigationManager.NavigateAsync<CommentsViewModel, int, int>(VideoId);
             NumberOfComments = commentsCount > 0 ? commentsCount : NumberOfComments;
             await RaisePropertyChanged(nameof(NumberOfCommentsPresentation));
             _isReloadNeeded = true;

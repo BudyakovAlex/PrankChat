@@ -10,6 +10,8 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers;
 using System;
 using System.Linq;
@@ -41,7 +43,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
             Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
 
-            ShowContentCommand = this.CreateCommand(NavigationService.ShowMainViewContent);
+            LoadContentCommand = this.CreateCommand(LoadContentAsync);
             ShowLoginCommand = this.CreateCommand(NavigationService.ShowLoginView);
             CheckDemoCommand = this.CreateCommand<int>(CheckDemoModeAsync);
             ShowWalkthrouthCommand = this.CreateCommand<int>(ShowWalthroughAsync);
@@ -49,7 +51,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             CheckActualAppVersionCommand = this.CreateCommand(CheckActualAppVersionAsync);
         }
 
-        public ICommand ShowContentCommand { get; }
+        public ICommand LoadContentCommand { get; }
         public ICommand ShowLoginCommand { get; }
 
         public IMvxAsyncCommand<int> CheckDemoCommand { get; }
@@ -67,7 +69,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             var newActualVersion = await _versionManager.CheckAppVersionAsync();
             if (!string.IsNullOrEmpty(newActualVersion?.Link))
             {
-                await NavigationService.ShowMaintananceView(newActualVersion.Link);
+                await NavigationManager.NavigateAsync<MaintananceViewModel, string>(newActualVersion?.Link);
                 return;
             }
         }
@@ -93,6 +95,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
 
             return true;
+        }
+
+        private Task LoadContentAsync()
+        {
+            return Task.WhenAll(NavigationManager.NavigateAsync<PublicationsViewModel>(),
+                    NavigationManager.NavigateAsync<CompetitionsViewModel>(),
+                    NavigationManager.NavigateAsync<CreateOrderViewModel>(),
+                    NavigationManager.NavigateAsync<OrdersViewModel>(),
+                    NavigationManager.NavigateAsync<ProfileViewModel>());
         }
 
         private Task ShowWalthroughIfNeedAsync(int position)
@@ -131,7 +142,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         {
             Disposables.Remove(_refreshTokenExpiredMessageSubscription);
             _refreshTokenExpiredMessageSubscription.Dispose();
-            NavigationService.Logout().FireAndForget();
+            NavigationManager.NavigateAsync<LoginViewModel>();
         }
     }
 }

@@ -56,7 +56,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
                 Preferences.Set(Constants.Keys.IsOnBoardingShown, true);
                 if (VersionTracking.IsFirstLaunchEver || UserSessionProvider.User != null)
                 {
-                    await NavigationService.ShowMainView();
+                    await NavigationManager.NavigateAsync<MainViewModel>();
                     return;
                 }
 

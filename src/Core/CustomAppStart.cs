@@ -2,7 +2,7 @@ using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.BusinessServices.TaskSchedulers;
 using PrankChat.Mobile.Core.Infrastructure;
-using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
@@ -14,18 +14,18 @@ namespace PrankChat.Mobile.Core
 {
     public class CustomAppStart : MvxAppStart
     {
-        private readonly INavigationService _navigationService;
+        private readonly INavigationManager _navigationManager;
         private readonly IUserSessionProvider _userSessionProvider;
         private readonly IBackgroundTaskScheduler _backgroundTaskScheduler;
 
         public CustomAppStart(IMvxApplication application,
                               IMvxNavigationService mvxNavigationService,
-                              INavigationService navigationService,
+                              INavigationManager navigationManager,
                               IUserSessionProvider userSessionProvider,
                               IBackgroundTaskScheduler backgroundTaskScheduler)
             : base(application, mvxNavigationService)
         {
-            _navigationService = navigationService;
+            _navigationManager = navigationManager;
             _userSessionProvider = userSessionProvider;
             _backgroundTaskScheduler = backgroundTaskScheduler;
         }
@@ -47,15 +47,15 @@ namespace PrankChat.Mobile.Core
             var isOnBoardingShown = Preferences.Get(Constants.Keys.IsOnBoardingShown, false);
             if (!isOnBoardingShown)
             {
-                return NavigationService.Navigate<OnboardingViewModel>();
+                return _navigationManager.NavigateAsync<OnboardingViewModel>();
             }
 
             if (VersionTracking.IsFirstLaunchEver || _userSessionProvider.User != null)
             {
-                return NavigationService.Navigate<MainViewModel>();
+                return _navigationManager.NavigateAsync<MainViewModel>();
             }
 
-            return NavigationService.Navigate<LoginViewModel>();
+            return _navigationManager.NavigateAsync<LoginViewModel>();
         }
     }
 }

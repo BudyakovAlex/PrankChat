@@ -43,7 +43,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
                     return;
                 }
 
-                await NavigationService.ShowFinishPasswordRecoveryView();
+                await NavigationManager.NavigateAsync<FinishPasswordRecoveryViewModel>();
             });
         }
 

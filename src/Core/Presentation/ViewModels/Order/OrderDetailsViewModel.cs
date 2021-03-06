@@ -5,6 +5,7 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
+using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -18,6 +19,8 @@ using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -240,7 +243,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 var canGoProfile = await DialogService.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
                 if (canGoProfile)
                 {
-                    await NavigationService.ShowUpdateProfileView();
+                    await NavigationManager.NavigateAsync<ProfileUpdateViewModel, ProfileUpdateResult>();
                 }
 
                 return;
@@ -301,7 +304,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return;
             }
 
-            await NavigationService.ShowRefillView();
+            var navigationParameter = new CashboxTypeNavigationParameter(CashboxType.Refill);
+            await NavigationManager.NavigateAsync<CashboxViewModel, CashboxTypeNavigationParameter, bool>(navigationParameter);
         }
 
         private async Task SubscribeOrderAsync()

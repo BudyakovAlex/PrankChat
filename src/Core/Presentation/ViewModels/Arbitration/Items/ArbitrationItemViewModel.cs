@@ -1,15 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
 {
@@ -120,7 +125,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
                 return Task.CompletedTask;
             }
 
-            return _navigationService.ShowUserProfile(_order.Customer.Id);
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return Task.CompletedTask;
+            }
+
+            return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_order.Customer.Id);
         }
 
         private async Task OnOpenDetailsOrderAsync()
@@ -129,7 +139,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
             var currentItem = items.FirstOrDefault(item => item.VideoId == _order.Video?.Id);
             var index = currentItem is null ? 0 : items.IndexOf(currentItem);
 
-            var result = await _navigationService.ShowOrderDetailsView(_orderId, items, index);
+            var parameter = new OrderDetailsNavigationParameter(_orderId, items, index);
+            var result = await NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter, OrderDetailsResult>(parameter);
             if (result == null)
             {
                 return;

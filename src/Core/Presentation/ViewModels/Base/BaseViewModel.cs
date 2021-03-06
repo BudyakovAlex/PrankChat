@@ -3,9 +3,11 @@ using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
+using System.ComponentModel;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
 
@@ -44,7 +46,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public virtual SafeExecutionWrapper SafeExecutionWrapper { get; }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected INavigationService NavigationService => Mvx.IoCProvider.Resolve<INavigationService>();
+
+        protected INavigationManager NavigationManager => Mvx.IoCProvider.Resolve<INavigationManager>();
 
         protected IMvxMessenger Messenger => Mvx.IoCProvider.Resolve<IMvxMessenger>();
 

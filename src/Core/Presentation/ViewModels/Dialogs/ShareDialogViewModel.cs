@@ -50,7 +50,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
                 return;
             }
 
-            await NavigationService.CloseView(this);
+            await NavigationManager.CloseAsync(this);
         }
     }
 }

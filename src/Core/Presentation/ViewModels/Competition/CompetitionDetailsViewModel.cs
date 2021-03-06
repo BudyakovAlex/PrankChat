@@ -4,6 +4,7 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -16,8 +17,10 @@ using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 using System;
 using System.Collections.Generic;
@@ -220,7 +223,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 return;
             }
 
-            var shouldRefresh = await NavigationService.ShowRefillView();
+            var navigationParameter = new CashboxTypeNavigationParameter(CashboxType.Refill);
+            var shouldRefresh = await NavigationManager.NavigateAsync<CashboxViewModel, CashboxTypeNavigationParameter, bool>(navigationParameter);
             if (!shouldRefresh)
             {
                 return;

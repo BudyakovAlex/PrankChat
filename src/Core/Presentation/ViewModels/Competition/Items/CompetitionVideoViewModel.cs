@@ -11,6 +11,8 @@ using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
 using System.Collections.Generic;
@@ -18,6 +20,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
@@ -185,7 +188,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                 return Task.CompletedTask;
             }
 
-            return _navigationService.ShowUserProfile(_video.User.Id);
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return Task.FromResult(false);
+            }
+
+            return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_video.User.Id);
         }
 
         private void Like()
@@ -230,8 +238,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             var currentItem = items.FirstOrDefault(item => item.VideoId == VideoId);
             var index = currentItem is null ? 0 : items.IndexOf(currentItem);
             var navigationParams = new FullScreenVideoParameter(items, index);
+            if (navigationParams.Videos.Count == 0)
+            {
+                return;
+            }
 
-            var shouldRefresh = await _navigationService.ShowFullScreenVideoView(navigationParams);
+            var shouldRefresh = await NavigationManager.NavigateAsync<FullScreenVideoViewModel, FullScreenVideoParameter, bool>(navigationParams);
             if (!shouldRefresh)
             {
                 return;

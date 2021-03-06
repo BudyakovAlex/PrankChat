@@ -1,7 +1,5 @@
 ﻿using MvvmCross;
-using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -27,8 +25,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 Mvx.IoCProvider.IoCConstruct<WithdrawalViewModel>()
             };
 
-            ShowContentCommand = new MvxAsyncCommand(NavigationService.ShowCashboxContent);
+            ShowContentCommand = this.CreateCommand(ShowContentAsync);
             Messenger.SubscribeOnMainThread<ReloadProfileMessage>((msg) => _isReloadNeeded = true).DisposeWith(Disposables);
+        }
+
+        private Task ShowContentAsync()
+        {
+            return Task.WhenAll(NavigationManager.NavigateAsync<RefillViewModel>(), NavigationManager.NavigateAsync<WithdrawalViewModel>());
         }
 
         public List<BasePageViewModel> Items { get; }

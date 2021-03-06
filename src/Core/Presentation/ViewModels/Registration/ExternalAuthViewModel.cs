@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             var newActualVersion = await VersionManager.CheckAppVersionAsync();
             if (!string.IsNullOrEmpty(newActualVersion?.Link))
             {
-                await NavigationService.ShowMaintananceView(newActualVersion.Link);
+                await NavigationManager.NavigateAsync<MaintananceViewModel, string>(newActualVersion?.Link);
                 return false;
             }
 
@@ -66,10 +66,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             // TODO: not wait
             await UsersManager.GetCurrentUserAsync();
-
             await _pushNotificationService.TryUpdateTokenAsync();
-
-            await NavigationService.ShowMainView();
+            await NavigationManager.NavigateAsync<MainViewModel>();
         }
     }
 }

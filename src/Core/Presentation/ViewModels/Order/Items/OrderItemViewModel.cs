@@ -7,11 +7,15 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 {
@@ -124,7 +128,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                 return Task.CompletedTask;
             }
 
-            return _navigationService.ShowUserProfile(_order.Customer.Id);
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return Task.CompletedTask;
+            }
+
+            return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_order.Customer.Id);
         }
 
         private void OnTimerTick(TimerTickMessage message)
@@ -140,7 +149,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             // var currentItem = items.FirstOrDefault(item => item.VideoId == _orderDataModel.Video?.Id);
             // var index = currentItem is null ? 0 : items.IndexOf(currentItem);
 
-            var result = await _navigationService.ShowOrderDetailsView(OrderId, null, -1);
+            var parameter = new OrderDetailsNavigationParameter(OrderId, null, -1);
+            var result = await NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter, OrderDetailsResult>(parameter);
             if (result == null)
             {
                 return;

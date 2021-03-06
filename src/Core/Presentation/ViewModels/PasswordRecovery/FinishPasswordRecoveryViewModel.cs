@@ -23,7 +23,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
 
         private Task ShowPublicationAsync()
         {
-            return NavigationService.ShowMainView();
+            return NavigationManager.NavigateAsync<MainViewModel>();
         }
     }
 }

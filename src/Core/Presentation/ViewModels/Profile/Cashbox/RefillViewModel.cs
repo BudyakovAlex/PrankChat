@@ -4,6 +4,7 @@ using PrankChat.Mobile.Core.Managers.Payment;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,7 +71,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 return;
             }
 
-            await NavigationService.ShowWebView(paymentData.PaymentLink);
+            var parameter = new WebViewNavigationParameter(paymentData.PaymentLink);
+            await NavigationManager.NavigateAsync<WebViewModel, WebViewNavigationParameter>(parameter);
             Messenger.Publish(new ReloadProfileMessage(this));
         }
 

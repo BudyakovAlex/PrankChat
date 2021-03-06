@@ -3,8 +3,10 @@ using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items
 {
@@ -46,7 +48,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items
                 return Task.CompletedTask;
             }
 
-            return _navigationService.ShowUserProfile(_comment.User.Id);
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return Task.FromResult(false);
+            }
+
+            return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_comment.User.Id);
         }
     }
 }

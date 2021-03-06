@@ -11,8 +11,11 @@ using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using System;
 using System.Threading.Tasks;
 
@@ -86,7 +89,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             }
 
             UserSessionProvider.User = await UsersManager.UpdateProfileAsync(userUpdateProfile);
-            await NavigationService.CloseViewWithResult(this, new ProfileUpdateResult(true, _isUserPhotoUpdated));
+            await NavigationManager.CloseAsync(this, new ProfileUpdateResult(true, _isUserPhotoUpdated));
         }
 
         private async Task ShowMenuAsync()
@@ -165,12 +168,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 _externalAuthService.LogoutFromVkontakte();
             }
 
-            await NavigationService.Logout();
+            await NavigationManager.NavigateAsync<LoginViewModel>();
         }
 
         private Task ChangePasswordAsync()
         {
-            return NavigationService.ShowPasswordRecoveryView();
+            return NavigationManager.NavigateAsync<PasswordRecoveryViewModel>();
         }
 
         private async Task ChangeProfilePhotoAsync()
@@ -190,7 +193,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            var croppedImagePath = await NavigationService.ShowImageCropView(file.Path);
+            var parameter = new ImagePathNavigationParameter(file.Path);
+            var croppedImagePath = await NavigationManager.NavigateAsync<ImageCropViewModel, ImagePathNavigationParameter, ImageCropPathResult>(parameter);
             if (croppedImagePath == null)
             {
                 return;

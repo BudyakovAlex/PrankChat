@@ -3,12 +3,11 @@ using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -17,23 +16,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
     public class CompetitionItemViewModel : BaseViewModel, IDisposable
     {
-        private readonly IMvxMessenger _mvxMessenger;
-        private readonly INavigationService _navigationService;
         private readonly IDisposable _timerTickSubscription;
 
-        public CompetitionItemViewModel(bool isUserSessionInitialized,
-                                        IMvxMessenger mvxMessenger,
-                                        INavigationService navigationService,
-                                        Models.Data.Competition competition)
+        public CompetitionItemViewModel(bool isUserSessionInitialized, Models.Data.Competition competition)
         {
-            _mvxMessenger = mvxMessenger;
-            _navigationService = navigationService;
             Competition = competition;
 
-            _timerTickSubscription = _mvxMessenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
+            _timerTickSubscription = Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
 
             RefreshCountDownTimer();
-            ActionCommand = new MvxRestrictedAsyncCommand(ExecuteActionAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigationService.ShowLoginView);
+            ActionCommand = new MvxRestrictedAsyncCommand(ExecuteActionAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: ShowLoginAsync);
         }
 
         public Models.Data.Competition Competition { get; }
@@ -99,13 +91,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         private async Task ExecuteActionAsync()
         {
-            var shouldRefresh = await _navigationService.ShowCompetitionDetailsView(Competition);
+            var shouldRefresh = await NavigationManager.NavigateAsync<CompetitionDetailsViewModel, Models.Data.Competition, bool>(Competition);
             if (!shouldRefresh)
             {
                 return;
             }
 
-            _mvxMessenger.Publish(new ReloadCompetitionsMessage(this));
+            Messenger.Publish(new ReloadCompetitionsMessage(this));
         }
 
         private void OnTimerTick(TimerTickMessage message)
@@ -138,6 +130,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             var createdAt = CreatedAt is null ? string.Empty : CreatedAt.Value.ToString(Constants.Formats.DateTimeFormat);
             var activeTo = ActiveTo is null ? string.Empty : ActiveTo.Value.ToString(Constants.Formats.DateTimeFormat);
             return $"{createdAt} - {activeTo}";
+        }
+
+        private Task ShowLoginAsync()
+        {
+            return NavigationManager.NavigateAsync<LoginViewModel>();
         }
     }
 }
