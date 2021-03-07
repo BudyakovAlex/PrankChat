@@ -537,7 +537,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             NSNotificationCenter.DefaultCenter.RemoveObserver(this);
 
-            ViewModel.GoBackCommand.ExecuteAsync();
+            ViewModel.CloseCommand.ExecuteAsync();
             ViewModel.ViewDestroy(true);
         }
 

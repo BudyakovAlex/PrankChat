@@ -1,10 +1,8 @@
 ﻿using MvvmCross;
-using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
-using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
@@ -13,6 +11,7 @@ using PrankChat.Mobile.Core.Wrappers;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 {
@@ -24,13 +23,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 
         public BasePageViewModel()
         {
-            ShowNotificationCommand = new MvxRestrictedAsyncCommand(
+            ShowNotificationCommand = this.CreateRestrictedCommand(
                 ShowNotificationAsync,
                 restrictedCanExecute: () => IsUserSessionInitialized,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
 
             ShowSearchCommand = this.CreateCommand(ShowSearchAsync);
-            GoBackCommand = this.CreateCommand(GoBackAsync);
+            CloseCommand = this.CreateCommand<bool?>(CloseAsync);
         }
 
         public event EventHandler<bool> AppearingChanged;
@@ -47,11 +46,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 
         public bool IsUserSessionInitialized => UserSessionProvider.User != null;
 
-        public MvxAsyncCommand GoBackCommand { get; }
+        public ICommand CloseCommand { get; }
        
-        public MvxAsyncCommand ShowSearchCommand { get; }
+        public ICommand ShowSearchCommand { get; }
 
-        public IMvxAsyncCommand ShowNotificationCommand { get; }
+        public ICommand ShowNotificationCommand { get; }
 
         public virtual void ViewCreated()
         {
@@ -137,9 +136,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
             }
         }
 
-        private Task GoBackAsync()
+        public virtual Task<bool> ConfirmPlatformCloseAsync()
         {
-            return NavigationManager.CloseAsync(this);
+            return Task.FromResult(true);
+        }
+
+        protected virtual async Task CloseAsync(bool? isPlatform)
+        {
+            var isCloseDeclined = isPlatform == true && !await ConfirmPlatformCloseAsync();
+            if (isCloseDeclined)
+            {
+                return;
+            }
+
+            await NavigationManager.CloseAsync(this);
         }
 
         private Task ShowNotificationAsync()

@@ -133,7 +133,7 @@
             android:text="@string/RegistrationView_Login_Button"
             android:textColor="@color/applicationWhite"
             android:textSize="16dp"
-            app:MvxBind="Click GoBackCommand" />
+            app:MvxBind="Click CloseCommand" />
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton

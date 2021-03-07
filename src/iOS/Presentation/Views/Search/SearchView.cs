@@ -53,7 +53,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 
         protected override void SetupControls()
         {
-            var backButton = NavigationItemHelper.CreateBarButton("ic_back", ViewModel.GoBackCommand);
+            var backButton = NavigationItemHelper.CreateBarButton("ic_back", ViewModel.CloseCommand);
 
             var navigationBarWidth = NavigationController?.NavigationBar.Frame.Width;
             var searchBarWidth = navigationBarWidth - BackButtonWidth - SearchBarRightPadding;

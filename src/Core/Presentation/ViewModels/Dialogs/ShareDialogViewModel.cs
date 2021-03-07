@@ -39,7 +39,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
         private async Task CopyLinkAsync()
         {
             await _platformService.CopyTextAsync(_url);
-            await GoBackCommand.ExecuteAsync();
+            await CloseCommand.ExecuteAsync();
         }
 
         private async Task ShareAsync()

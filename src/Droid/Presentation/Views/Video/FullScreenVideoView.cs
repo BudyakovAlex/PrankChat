@@ -179,7 +179,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 
             bindingSet.Bind(_backImageView)
                       .For(v => v.BindClick())
-                      .To(vm => vm.GoBackCommand);
+                      .To(vm => vm.CloseCommand);
 
             bindingSet.Bind(_titleTextView)
                       .For(v => v.Text)
@@ -319,7 +319,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             view.Animate()
                 .TranslationY(view.Height)
                 .SetDuration(AnimationDuration)
-                .WithEndAction(new Runnable(() => ViewModel.GoBackCommand.ExecuteAsync()))
+                .WithEndAction(new Runnable(() => ViewModel.CloseCommand.ExecuteAsync()))
                 .Start();
         }
 
