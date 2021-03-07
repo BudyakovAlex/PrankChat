@@ -171,7 +171,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private OrderItemViewModel ProduceOrderItemViewModel(Models.Data.Order order)
         {
             return new OrderItemViewModel(
-                NavigationService,
                 UserSessionProvider,
                 order,
                 GetFullScreenVideos);

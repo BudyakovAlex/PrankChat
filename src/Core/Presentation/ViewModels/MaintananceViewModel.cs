@@ -1,6 +1,6 @@
 ﻿using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;

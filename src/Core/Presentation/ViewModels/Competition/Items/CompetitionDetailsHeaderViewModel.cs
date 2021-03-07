@@ -1,7 +1,5 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -9,10 +7,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
     public class CompetitionDetailsHeaderViewModel : CompetitionItemViewModel
     {
-        public CompetitionDetailsHeaderViewModel(bool isUserSessionInitialized,
-                                                 IMvxAsyncCommand actionCommand,
-                                                 Models.Data.Competition competition)
-            : base(isUserSessionInitialized, competition)
+        public CompetitionDetailsHeaderViewModel(
+            bool isUserSessionInitialized,
+            IMvxAsyncCommand actionCommand,
+            Models.Data.Competition competition) : base(isUserSessionInitialized, competition)
         {
             ActionCommand = actionCommand;
             OpenPrizePoolCommand = new MvxAsyncCommand(OpenPrizePoolAsync);

@@ -1,6 +1,6 @@
 ﻿using MvvmCross.Commands;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 {
     public interface INotificationBageViewModel
     {

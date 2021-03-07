@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MvvmCross.Commands;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery

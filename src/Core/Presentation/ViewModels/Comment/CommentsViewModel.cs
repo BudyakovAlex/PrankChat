@@ -102,10 +102,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
 
         private CommentItemViewModel ProduceCommentItemViewModel(Models.Data.Comment comment)
         {
-            return new CommentItemViewModel(
-                NavigationService,
-                UserSessionProvider,
-                comment);
+            return new CommentItemViewModel(UserSessionProvider, comment);
         }
 
         private async Task SendCommentAsync()

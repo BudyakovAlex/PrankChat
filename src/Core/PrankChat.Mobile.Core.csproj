@@ -94,5 +94,7 @@
     <Folder Include="Providers\UserSession\" />
     <Folder Include="Managers\Navigation\" />
     <Folder Include="Ioc\" />
+    <Folder Include="Presentation\ViewModels\Abstract\" />
+    <Folder Include="Presentation\ViewModels\Profile\Abstract\" />
   </ItemGroup>
 </Project>

@@ -11,7 +11,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 using PrankChat.Mobile.Core.Providers;
@@ -219,28 +219,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private OrderItemViewModel ProduceOrderViewModel(Models.Data.Order order)
         {
-            return new OrderItemViewModel(NavigationService,
-                                          UserSessionProvider,
-                                          order,
-                                          GetFullScreenVideos);
+            return new OrderItemViewModel(
+                UserSessionProvider,
+                order,
+                GetFullScreenVideos);
         }
 
         private ArbitrationItemViewModel ProduceArbitrationOrderViewModel(ArbitrationOrder order)
         {
-            return new ArbitrationItemViewModel(NavigationService,
-                                                UserSessionProvider,
-                                                IsUserSessionInitialized,
-                                                order.Id,
-                                                order.Title,
-                                                order.Customer?.Avatar,
-                                                order.Customer?.Login,
-                                                order.Price,
-                                                order.Likes,
-                                                order.Dislikes,
-                                                order.ArbitrationFinishAt ?? DateTime.UtcNow,
-                                                order.Customer?.Id,
-                                                order,
-                                                GetFullScreenVideos);
+            return new ArbitrationItemViewModel(
+                UserSessionProvider,
+                IsUserSessionInitialized,
+                order.Id,
+                order.Title,
+                order.Customer?.Avatar,
+                order.Customer?.Login,
+                order.Price,
+                order.Likes,
+                order.Dislikes,
+                order.ArbitrationFinishAt ?? DateTime.UtcNow,
+                order.Customer?.Id,
+                order,
+                GetFullScreenVideos);
         }
 
         private List<FullScreenVideo> GetFullScreenVideos()

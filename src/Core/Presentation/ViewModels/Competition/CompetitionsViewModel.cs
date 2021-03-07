@@ -7,7 +7,7 @@ using PrankChat.Mobile.Core.Managers.Competitions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Providers;
 using System.Linq;
 using System.Threading.Tasks;
@@ -68,7 +68,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             var competitionsPage = await _competitionsManager.GetCompetitionsAsync(1, 100);
 
             var sections = competitionsPage.Items.GroupBy(competition => competition.GetPhase())
-                                                 .Select(group => new CompetitionsSectionViewModel(IsUserSessionInitialized, Messenger, NavigationService, group.Key, group.ToList()))
+                                                 .Select(group => new CompetitionsSectionViewModel(IsUserSessionInitialized, group.Key, group.ToList()))
                                                  .OrderBy(item => item.Phase)
                                                  .ToList();
             Items.SwitchTo(sections);

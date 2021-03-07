@@ -12,7 +12,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
@@ -49,7 +49,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public BasePublicationViewModel(IPublicationsManager publicationsManager, IVideoManager videoManager) : base(publicationsManager)
         {
             _videoManager = videoManager;
-            ShowCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+            ShowCommentsCommand = new MvxRestrictedAsyncCommand(
+                ShowCommentsAsync,
+                restrictedCanExecute: () => IsUserSessionInitialized,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
         public BasePublicationViewModel(

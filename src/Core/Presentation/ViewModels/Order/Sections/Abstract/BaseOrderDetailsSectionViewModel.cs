@@ -1,5 +1,5 @@
 ﻿using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections.Abstract
 {

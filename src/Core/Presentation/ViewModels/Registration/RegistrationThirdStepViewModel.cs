@@ -1,7 +1,6 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
-using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
@@ -9,14 +8,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
     {
         public RegistrationThirdStepViewModel()
         {
-            FinishRegistrationCommand = this.CreateCommand(FinishRegistrationAsync);
+            FinishRegistrationCommand = this.CreateCommand(NavigationManager.NavigateAsync<MainViewModel>);
         }
 
         public MvxAsyncCommand FinishRegistrationCommand { get; }
-
-        private Task FinishRegistrationAsync()
-        {
-            return NavigationManager.NavigateAsync<MainViewModel>();
-        }
     }
 }

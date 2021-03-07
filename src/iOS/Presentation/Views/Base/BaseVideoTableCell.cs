@@ -8,7 +8,7 @@ using CoreMedia;
 using FFImageLoading.Cross;
 using Foundation;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.iOS.AppTheme;
 using UIKit;
 

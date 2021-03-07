@@ -16,8 +16,9 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions;
 using PrankChat.Mobile.Core.Providers;
@@ -34,10 +35,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
-        public ProfileViewModel(IOrdersManager ordersManager,
-                                IUsersManager usersManager,
-                                IVideoPlayerService videoPlayerService,
-                                IWalkthroughsProvider walkthroughsProvider) : base(usersManager)
+        public ProfileViewModel(
+            IOrdersManager ordersManager,
+            IUsersManager usersManager,
+            IVideoPlayerService videoPlayerService,
+            IWalkthroughsProvider walkthroughsProvider) : base(usersManager)
         {
             _ordersManager = ordersManager;
             _videoPlayerService = videoPlayerService;
@@ -278,7 +280,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private OrderItemViewModel ProduceOrderItemViewModel(Models.Data.Order order)
         {
             return new OrderItemViewModel(
-                NavigationService,
                 UserSessionProvider,
                 order,
                 GetFullScreenVideos);

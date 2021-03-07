@@ -1,6 +1,6 @@
 ﻿using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {

@@ -1,7 +1,7 @@
 ﻿using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Walthroughs

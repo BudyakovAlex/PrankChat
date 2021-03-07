@@ -37,10 +37,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 
         private NotificationItemViewModel ProduceNotificationItem(Models.Data.Notification notification)
         {
-            return new NotificationItemViewModel(
-                NavigationService,
-                UserSessionProvider,
-                notification);
+            return new NotificationItemViewModel(UserSessionProvider, notification);
         }
 
         private async Task MarkReadedNotificationsAsync()

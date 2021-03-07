@@ -3,7 +3,7 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using System.Threading.Tasks;

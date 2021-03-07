@@ -32,7 +32,7 @@ using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Managers.Search;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Managers.Video;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Providers;
 using PrankChat.Mobile.Managers.Common;
 

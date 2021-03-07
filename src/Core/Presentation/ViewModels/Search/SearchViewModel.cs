@@ -7,7 +7,7 @@ using PrankChat.Mobile.Core.Managers.Search;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items;
@@ -138,12 +138,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private BaseViewModel ProduceUserViewModel(User model)
         {
-            return new ProfileSearchItemViewModel(NavigationService, UserSessionProvider, model);
+            return new ProfileSearchItemViewModel(UserSessionProvider, model);
         }
 
         private BaseViewModel ProduceOrderViewModel(Models.Data.Order model)
         {
-            return new OrderItemViewModel(NavigationService, UserSessionProvider, model, GetFullScreenVideos);
+            return new OrderItemViewModel(UserSessionProvider, model, GetFullScreenVideos);
         }
 
         private List<FullScreenVideo> GetFullScreenVideos()

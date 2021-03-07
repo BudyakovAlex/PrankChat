@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Essentials;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract
 {
     public abstract class BaseProfileViewModel : PaginationViewModel
     {

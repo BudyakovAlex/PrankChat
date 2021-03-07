@@ -1,5 +1,4 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
@@ -18,7 +17,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
@@ -106,8 +105,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             _competition = parameter;
             _header = new CompetitionDetailsHeaderViewModel(
                 IsUserSessionInitialized,
-                Messenger,
-                NavigationService,
                 new MvxAsyncCommand(ExecuteActionAsync),
                 parameter);
 
@@ -185,8 +182,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
                     _header = new CompetitionDetailsHeaderViewModel(
                         IsUserSessionInitialized,
-                        Messenger,
-                        NavigationService,
                         new MvxAsyncCommand(ExecuteActionAsync),
                         _competition);
 
@@ -265,9 +260,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             return new CompetitionVideoViewModel(
                 _publicationsManager,
                 _videoPlayerService,
-                NavigationService,
                 UserSessionProvider,
-                Messenger,
                 Logger,
                 video,
                 video.User.Id == UserSessionProvider.User.Id,
@@ -319,9 +312,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                         Items.Insert(1, new CompetitionVideoViewModel(
                             _publicationsManager,
                             _videoPlayerService,
-                            NavigationService,
                             UserSessionProvider,
-                            Messenger,
                             Logger,
                             video,
                             true,

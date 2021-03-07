@@ -13,8 +13,8 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using System;
 using System.Threading.Tasks;
@@ -30,11 +30,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private bool _isUserPhotoUpdated;
 
-        public ProfileUpdateViewModel(IAuthorizationManager authorizationManager,
-                                      IUsersManager usersManager,
-                                      IExternalAuthService externalAuthService,
-                                      IPushNotificationProvider pushNotificationService,
-                                      IMediaService mediaService) : base(usersManager)
+        public ProfileUpdateViewModel(
+            IAuthorizationManager authorizationManager,
+            IUsersManager usersManager,
+            IExternalAuthService externalAuthService,
+            IPushNotificationProvider pushNotificationService,
+            IMediaService mediaService) : base(usersManager)
         {
             _authorizationManager = authorizationManager;
             _externalAuthService = externalAuthService;

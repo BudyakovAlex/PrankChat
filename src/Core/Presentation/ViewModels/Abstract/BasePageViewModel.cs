@@ -14,7 +14,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 {
     public abstract class BasePageViewModel : BaseViewModel, IMvxViewModel
     {

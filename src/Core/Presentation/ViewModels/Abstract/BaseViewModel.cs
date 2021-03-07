@@ -9,7 +9,7 @@ using System;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 {
     public abstract class BaseViewModel : MvxNotifyPropertyChanged, IDisposable
     {

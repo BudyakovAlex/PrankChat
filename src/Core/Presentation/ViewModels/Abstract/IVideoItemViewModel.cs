@@ -1,7 +1,7 @@
 ﻿using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 {
     public interface IVideoItemViewModel : IFullScreenVideoOwnerViewModel
     {

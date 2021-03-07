@@ -9,7 +9,7 @@ using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
@@ -28,7 +28,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
     {
         private readonly IPublicationsManager _publicationsManager;
         private readonly IUserSessionProvider _userSessionProvider;
-        private readonly IMvxMessenger _mvxMessenger;
 
         private readonly Models.Data.Video _video;
         private readonly long _numberOfDislikes;
@@ -42,7 +41,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             IPublicationsManager publicationsManager,
             IVideoPlayerService videoPlayerService,
             IUserSessionProvider userSessionProvider,
-            IMvxMessenger mvxMessenger,
             ILogger logger,
             Models.Data.Video video,
             bool isMyPublication,
@@ -50,7 +48,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             Func<List<FullScreenVideo>> getAllFullScreenVideoDataFunc)
         {
             _userSessionProvider = userSessionProvider;
-            _mvxMessenger = mvxMessenger;
             _video = video;
 
             Logger = logger;
@@ -250,12 +247,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                 return;
             }
 
-            _mvxMessenger.Publish(new ReloadCompetitionMessage(this));
+            Messenger.Publish(new ReloadCompetitionMessage(this));
         }
 
         private void Subscribe()
         {
-            _updateNumberOfViewsSubscriptionToken = _mvxMessenger.Subscribe<ViewCountMessage>(viewCountMessage =>
+            _updateNumberOfViewsSubscriptionToken = Messenger.Subscribe<ViewCountMessage>(viewCountMessage =>
             {
                 if (viewCountMessage.VideoId == VideoId)
                 {

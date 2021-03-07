@@ -9,7 +9,7 @@ using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract;
 using System;
 using System.Threading.Tasks;
 
@@ -21,10 +21,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         private readonly IMvxWebBrowserTask _mvxWebBrowserTask;
         private readonly IPushNotificationProvider _pushNotificationService;
 
-        public RegistrationSecondStepViewModel(IAuthorizationManager authorizationManager,
-                                               IUsersManager usersManager,
-                                               IMvxWebBrowserTask mvxWebBrowserTask,
-                                               IPushNotificationProvider pushNotificationService) : base(usersManager)
+        public RegistrationSecondStepViewModel(
+            IAuthorizationManager authorizationManager,
+            IUsersManager usersManager,
+            IMvxWebBrowserTask mvxWebBrowserTask,
+            IPushNotificationProvider pushNotificationService) : base(usersManager)
         {
             _authorizationManager = authorizationManager;
             _mvxWebBrowserTask = mvxWebBrowserTask;

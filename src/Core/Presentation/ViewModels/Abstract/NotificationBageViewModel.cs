@@ -5,7 +5,7 @@ using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 {
     public class NotificationBageViewModel : BaseViewModel, INotificationBageViewModel
     {
