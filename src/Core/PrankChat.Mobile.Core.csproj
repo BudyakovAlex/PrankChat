@@ -73,8 +73,6 @@
     <Folder Include="Presentation\ViewModels\Video\" />
     <Folder Include="BusinessServices\Crashlytic\" />
     <Folder Include="Commands\" />
-    <Folder Include="Presentation\ViewModels\Shared\" />
-    <Folder Include="Presentation\ViewModels\Shared\Abstract\" />
     <Folder Include="ApplicationServices\Notifications\" />
     <Folder Include="Data\Models\Shared\" />
     <Folder Include="Providers\" />
@@ -96,5 +94,8 @@
     <Folder Include="Ioc\" />
     <Folder Include="Presentation\ViewModels\Abstract\" />
     <Folder Include="Presentation\ViewModels\Profile\Abstract\" />
+    <Folder Include="Presentation\ViewModels\Common\" />
+    <Folder Include="Presentation\ViewModels\Subscriptions\Items\" />
+    <Folder Include="Presentation\ViewModels\Common\Abstract\" />
   </ItemGroup>
 </Project>

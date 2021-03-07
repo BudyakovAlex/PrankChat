@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common
 {
     public class PaginationViewModel : BasePageViewModel
     {

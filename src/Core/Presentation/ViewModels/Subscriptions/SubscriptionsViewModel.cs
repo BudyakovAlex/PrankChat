@@ -8,12 +8,12 @@ using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items
 {
     public class SubscriptionsViewModel : PaginationViewModel, IMvxViewModel<SubscriptionsNavigationParameter, bool>
     {
@@ -160,7 +160,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 
         private SubscriptionItemViewModel ProduceSubscriptionItemViewModel(User user)
         {
-            return new SubscriptionItemViewModel(user);
+            return new SubscriptionItemViewModel(UserSessionProvider, user);
         }
     }
 }

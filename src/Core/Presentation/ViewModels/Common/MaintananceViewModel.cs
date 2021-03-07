@@ -1,13 +1,12 @@
-﻿using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+﻿using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common
 {
-    public class MaintananceViewModel : BasePageViewModel, IMvxViewModel<string>
+    public class MaintananceViewModel : BasePageViewModel<string>
     {
         private string _applicationUrl;
 
@@ -18,7 +17,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         public ICommand OpenInBrowserCommand { get; }
 
-        public void Prepare(string parameter)
+        public override void Prepare(string parameter)
         {
             _applicationUrl = parameter;
         }

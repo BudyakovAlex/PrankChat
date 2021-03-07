@@ -7,7 +7,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
 {
     public abstract class LikeableViewModel : BasePageViewModel
     {

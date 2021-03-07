@@ -3,23 +3,27 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items
 {
-    public class SubscriptionItemViewModel : BasePageViewModel
+    public class SubscriptionItemViewModel : BaseViewModel
     {
+        private readonly IUserSessionProvider _userSessionProvider;
+
         private readonly User _user;
 
-        public SubscriptionItemViewModel(User user)
+        public SubscriptionItemViewModel(IUserSessionProvider userSessionProvider, User user)
         {
+            _userSessionProvider = userSessionProvider;
             _user = user;
 
             OpenUserProfileCommand = this.CreateRestrictedCommand(
                 OpenUserProfileAsync,
-                restrictedCanExecute: () => UserSessionProvider.User != null,
+                restrictedCanExecute: () => userSessionProvider.User != null,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
@@ -37,12 +41,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 
         private Task OpenUserProfileAsync()
         {
-            if (_user.Id == UserSessionProvider.User.Id)
-            {
-                return Task.CompletedTask;
-            }
-
-            if (!Connectivity.NetworkAccess.HasConnection())
+            if (_user.Id == _userSessionProvider.User.Id ||
+                !Connectivity.NetworkAccess.HasConnection())
             {
                 return Task.CompletedTask;
             }
