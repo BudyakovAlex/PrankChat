@@ -1,6 +1,5 @@
-﻿using System;
-using Foundation;
-using PrankChat.Mobile.Core.Presentation.ViewModels;
+﻿using Foundation;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Web
