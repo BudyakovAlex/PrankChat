@@ -4,10 +4,8 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Navigation;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
-using System.ComponentModel;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
 
@@ -22,9 +20,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
             Disposables = new CompositeDisposable();
             ExecutionStateWrapper = new ExecutionStateWrapper();
 
-            ExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(OnIsBusyChanged,
-                                                                               (wrapper, handler) => wrapper.IsBusyChanged += handler,
-                                                                               (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
+            ExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(
+                OnIsBusyChanged,
+                (wrapper, handler) => wrapper.IsBusyChanged += handler,
+                (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
 
             SafeExecutionWrapper = new SafeExecutionWrapper(OnExceptionHandledAsync);
         }
@@ -45,9 +44,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
         public virtual bool IsBusy => ExecutionStateWrapper.IsBusy;
 
         public virtual SafeExecutionWrapper SafeExecutionWrapper { get; }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected INavigationService NavigationService => Mvx.IoCProvider.Resolve<INavigationService>();
 
         protected INavigationManager NavigationManager => Mvx.IoCProvider.Resolve<INavigationManager>();
 

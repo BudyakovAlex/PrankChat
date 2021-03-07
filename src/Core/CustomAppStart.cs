@@ -2,9 +2,13 @@ using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.BusinessServices.TaskSchedulers;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
@@ -17,6 +21,8 @@ namespace PrankChat.Mobile.Core
         private readonly INavigationManager _navigationManager;
         private readonly IUserSessionProvider _userSessionProvider;
         private readonly IBackgroundTaskScheduler _backgroundTaskScheduler;
+
+        private int? _orderId;
 
         public CustomAppStart(IMvxApplication application,
                               IMvxNavigationService mvxNavigationService,
@@ -36,7 +42,7 @@ namespace PrankChat.Mobile.Core
 
             if (hint is int orderId)
             {
-                return _navigationService.AppStartFromNotification(orderId);
+                return AppStartFromNotification(orderId);
             }
 
             return StartApp();
@@ -56,6 +62,34 @@ namespace PrankChat.Mobile.Core
             }
 
             return _navigationManager.NavigateAsync<LoginViewModel>();
+        }
+
+        private Task AppStartFromNotification(int orderId)
+        {
+            _orderId = orderId;
+            if (_userSessionProvider.User != null)
+            {
+                NavigationService.AfterNavigate += NavigatenAfterMainViewByPushNotification;
+                return _navigationManager.NavigateAsync<MainViewModel>();
+            }
+
+            return _navigationManager.NavigateAsync<LoginViewModel>();
+        }
+
+        private void NavigatenAfterMainViewByPushNotification(object sender, MvvmCross.Navigation.EventArguments.IMvxNavigateEventArgs e)
+        {
+            NavigationService.AfterNavigate -= NavigatenAfterMainViewByPushNotification;
+
+            if (_orderId == null)
+            {
+                return;
+            }
+
+            if (e.ViewModel is MainViewModel mainViewModel)
+            {
+                var parameter = new OrderDetailsNavigationParameter(_orderId.Value, null, 0);
+                _navigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter, OrderDetailsResult>(parameter).FireAndForget();
+            }
         }
     }
 }

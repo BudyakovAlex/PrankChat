@@ -6,7 +6,6 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
@@ -52,7 +51,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
                 return;
             }
 
-            Mvx.IoCProvider.CallbackWhenRegistered<INavigationService>(() =>
+            Mvx.IoCProvider.CallbackWhenRegistered<INavigationManager>(() =>
             {
                 try
                 {

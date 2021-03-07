@@ -11,6 +11,7 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract;
 using System.Collections.Generic;
 using System.Linq;
@@ -155,7 +156,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         private Task NavigateByRestrictionsAsync()
         {
             Interaction.Raise();
-            return NavigationService.ShowLoginView();
+            return NavigationManager.NavigateAsync<LoginViewModel>();
         }
 
         private async Task OpenUserProfileAsync()

@@ -1,9 +1,9 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -13,14 +13,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
     public class OrderDetailsExecutorSectionViewModel : BaseOrderDetailsSectionViewModel
     {
         private readonly IUserSessionProvider _userSessionProvider;
-        private readonly INavigationService _navigationService;
 
-        public OrderDetailsExecutorSectionViewModel(IUserSessionProvider userSessionProvider, INavigationService navigationService)
+        public OrderDetailsExecutorSectionViewModel(IUserSessionProvider userSessionProvider)
         {
             _userSessionProvider = userSessionProvider;
-            _navigationService = navigationService;
 
-            OpenExecutorProfileCommand = new MvxRestrictedAsyncCommand(OpenExecutorProfileAsync, restrictedCanExecute: () => userSessionProvider.User != null, handleFunc: navigationService.ShowLoginView);
+            OpenExecutorProfileCommand = new MvxRestrictedAsyncCommand(
+                OpenExecutorProfileAsync,
+                restrictedCanExecute: () => userSessionProvider.User != null,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
         public string ExecutorPhotoUrl => Order?.Executor?.Avatar;

@@ -2,6 +2,7 @@
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -19,7 +20,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
             OpenUserProfileCommand = this.CreateRestrictedCommand(
                 OpenUserProfileAsync,
                 restrictedCanExecute: () => UserSessionProvider.User != null,
-                handleFunc: NavigationService.ShowLoginView);
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
         public string Login => _user.Login;

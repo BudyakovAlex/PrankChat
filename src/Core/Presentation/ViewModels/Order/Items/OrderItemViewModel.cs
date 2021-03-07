@@ -11,6 +11,7 @@ using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 {
     public class OrderItemViewModel : BaseViewModel, IFullScreenVideoOwnerViewModel, IDisposable
     {
-        private readonly INavigationService _navigationService;
         private readonly IUserSessionProvider _userSessionProvider;
 
         private readonly Models.Data.Order _order;
@@ -30,12 +30,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
         private IDisposable _timerTickMessageToken;
 
         public OrderItemViewModel(
-            INavigationService navigationService,
             IUserSessionProvider userSessionProvider,
             Models.Data.Order order,
             Func<List<FullScreenVideo>> getAllFullScreenVideoDataFunc)
         {
-            _navigationService = navigationService;
             _userSessionProvider = userSessionProvider;
             _order = order;
             _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
@@ -46,8 +44,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
             _timerTickMessageToken = Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
 
-            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => _userSessionProvider.User != null, handleFunc: _navigationService.ShowLoginView);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _userSessionProvider.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(
+                OnOpenDetailsOrderAsync,
+                restrictedCanExecute: () => _userSessionProvider.User != null,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
+
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => _userSessionProvider.User != null,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
         public int OrderId => _order.Id;

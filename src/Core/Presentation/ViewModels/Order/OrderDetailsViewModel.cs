@@ -21,6 +21,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -483,7 +484,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 if (!IsUserSessionInitialized)
                 {
-                    await NavigationService.ShowLoginView();
+                    await NavigationManager.NavigateAsync<LoginViewModel>();
                     return;
                 }
 

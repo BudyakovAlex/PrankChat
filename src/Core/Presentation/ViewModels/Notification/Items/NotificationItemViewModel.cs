@@ -2,9 +2,9 @@
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -13,17 +13,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 {
     public class NotificationItemViewModel : BaseViewModel
     {
-        private readonly INavigationService _navigationService;
         private readonly IUserSessionProvider _userSessionProvider;
 
         private NotificationType? _notificationType;
         private int? _userId;
 
-        public NotificationItemViewModel(INavigationService navigationService,
-                                         IUserSessionProvider userSessionProvider,
-                                         Models.Data.Notification notification)
+        public NotificationItemViewModel(IUserSessionProvider userSessionProvider, Models.Data.Notification notification)
         {
-            _navigationService = navigationService;
             _userSessionProvider = userSessionProvider;
             Title = notification.Title;
             Description = notification.Text;
@@ -49,7 +45,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
                     break;
             }
 
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _userSessionProvider.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => _userSessionProvider.User != null,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
         public string ProfileName { get; }

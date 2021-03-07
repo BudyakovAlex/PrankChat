@@ -44,7 +44,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
 
             LoadContentCommand = this.CreateCommand(LoadContentAsync);
-            ShowLoginCommand = this.CreateCommand(NavigationService.ShowLoginView);
+            ShowLoginCommand = this.CreateCommand(NavigationManager.NavigateAsync<LoginViewModel>);
             CheckDemoCommand = this.CreateCommand<int>(CheckDemoModeAsync);
             ShowWalkthrouthCommand = this.CreateCommand<int>(ShowWalthroughAsync);
             ShowWalkthrouthIfNeedCommand = this.CreateCommand<int>(ShowWalthroughIfNeedAsync);
@@ -134,7 +134,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         {
             if (!CanSwitchTabs(position))
             {
-                await NavigationService.ShowLoginView();
+                await NavigationManager.NavigateAsync<LoginViewModel>();
             }
         }
 

@@ -1,9 +1,9 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -12,20 +12,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items
 {
     public class CommentItemViewModel : BaseViewModel
     {
-        private readonly INavigationService _navigationService;
         private readonly IUserSessionProvider _userSessionProvider;
 
         private readonly Models.Data.Comment _comment;
 
-        public CommentItemViewModel(INavigationService navigationService,
-                                    IUserSessionProvider userSessionProvider,
-                                    Models.Data.Comment comment)
+        public CommentItemViewModel(IUserSessionProvider userSessionProvider, Models.Data.Comment comment)
         {
-            _navigationService = navigationService;
             _userSessionProvider = userSessionProvider;
             _comment = comment;
 
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _userSessionProvider.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => _userSessionProvider.User != null,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
         public string ProfileName => _comment.User?.Login;

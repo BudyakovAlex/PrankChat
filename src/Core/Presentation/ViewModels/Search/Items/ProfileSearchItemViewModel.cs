@@ -2,9 +2,9 @@
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -13,21 +13,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items
 {
     public class ProfileSearchItemViewModel : BaseViewModel
     {
-        private readonly INavigationService _navigationService;
         private readonly IUserSessionProvider _userSessionProvider;
 
         private readonly User _user;
 
-        public ProfileSearchItemViewModel(
-            INavigationService navigationService,
-            IUserSessionProvider userSessionProvider,
-            User user)
+        public ProfileSearchItemViewModel(IUserSessionProvider userSessionProvider, User user)
         {
-            _navigationService = navigationService;
             _userSessionProvider = userSessionProvider;
             _user = user;
 
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _userSessionProvider.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => _userSessionProvider.User != null,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
         public string ProfileName => _user.Login;

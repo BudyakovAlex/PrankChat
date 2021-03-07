@@ -1,17 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using CoreFoundation;
+﻿using CoreFoundation;
 using CoreGraphics;
 using MvvmCross;
 using MvvmCross.Base;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
+using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.Presentation.Dialogs.DatePicker;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.ApplicationServices
@@ -27,8 +27,8 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
 
         public override bool IsToastShown { get; protected set; }
 
-        public DialogService(INavigationService navigationService, IMvxMainThreadAsyncDispatcher dispatcher)
-            : base(navigationService)
+        public DialogService(INavigationManager navigationManager, IMvxMainThreadAsyncDispatcher dispatcher)
+            : base(navigationManager)
         {
             _dispatcher = dispatcher;
         }

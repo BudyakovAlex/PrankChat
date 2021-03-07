@@ -3,6 +3,7 @@ using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,8 +20,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract
         {
             _publicationsManager = publicationsManager;
 
-            LikeCommand = new MvxRestrictedCommand(OnLike, restrictedExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
-            DislikeCommand = new MvxRestrictedCommand(OnDislike, restrictedExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+            LikeCommand = new MvxRestrictedCommand(
+                OnLike,
+                restrictedExecute: () => IsUserSessionInitialized,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
+
+            DislikeCommand = new MvxRestrictedCommand(
+                OnDislike,
+                restrictedExecute: () => IsUserSessionInitialized,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
         public IMvxCommand LikeCommand { get; }

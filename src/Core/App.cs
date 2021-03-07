@@ -32,7 +32,6 @@ using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Managers.Search;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Managers.Video;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Providers;
 using PrankChat.Mobile.Managers.Common;
@@ -62,7 +61,6 @@ namespace PrankChat.Mobile.Core
             //TODO: do not replace with LazyConstructAndRegisterSingleton
             Mvx.IoCProvider.ConstructAndRegisterSingleton<ITimerService, TimerService>();
 
-            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<INavigationService, NavigationService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISentryService, SentryService>();
 
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IAuthorizationService, AuthorizationService>();

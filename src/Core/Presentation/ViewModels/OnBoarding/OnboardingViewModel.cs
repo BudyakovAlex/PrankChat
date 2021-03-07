@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
@@ -60,7 +61,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
                     return;
                 }
 
-                await NavigationService.ShowLoginView();
+                await NavigationManager.NavigateAsync<LoginViewModel>();
             }
 
             SelectedIndex += 1;

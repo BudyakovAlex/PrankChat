@@ -3,12 +3,12 @@ using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
     public class ArbitrationItemViewModel : BaseViewModel, IFullScreenVideoOwnerViewModel
     {
         private readonly IUserSessionProvider _userSessionProvider;
-        private readonly INavigationService _navigationService;
 
         private readonly int? _customerId;
         private readonly ArbitrationOrder _order;
@@ -29,8 +28,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
         private readonly DateTime? _arbitrationFinishAt;
         private readonly int _orderId;
 
-        public ArbitrationItemViewModel(INavigationService navigatiobService,
-                                        IUserSessionProvider userSessionProvider,
+        public ArbitrationItemViewModel(IUserSessionProvider userSessionProvider,
                                         bool isUserSessionInitialized,
                                         int orderId,
                                         string orderTitle,
@@ -45,7 +43,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
                                         Func<List<FullScreenVideo>> getAllFullScreenVideoDataFunc)
         {
             _userSessionProvider = userSessionProvider;
-            _navigationService = navigatiobService;
             OrderTitle = orderTitle;
             ProfilePhotoUrl = customerPhotoUrl;
             PriceText = priceText.ToPriceString();
@@ -59,8 +56,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
             _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
             _orderId = orderId;
 
-            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigationService.ShowLoginView);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _userSessionProvider.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(
+                OnOpenDetailsOrderAsync,
+                restrictedCanExecute: () => isUserSessionInitialized,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
+
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => _userSessionProvider.User != null,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
         public string OrderTitle { get; }

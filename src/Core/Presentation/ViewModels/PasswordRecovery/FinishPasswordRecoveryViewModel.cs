@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
 {
@@ -18,7 +19,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
 
         private Task ShowLoginAsync()
         {
-            return NavigationService.ShowLoginView();
+            return NavigationManager.NavigateAsync<LoginViewModel>();
         }
 
         private Task ShowPublicationAsync()

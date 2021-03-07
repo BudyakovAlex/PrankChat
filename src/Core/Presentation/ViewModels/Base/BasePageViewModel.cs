@@ -7,6 +7,7 @@ using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
@@ -23,7 +24,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Base
 
         public BasePageViewModel()
         {
-            ShowNotificationCommand = new MvxRestrictedAsyncCommand(ShowNotificationAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+            ShowNotificationCommand = new MvxRestrictedAsyncCommand(
+                ShowNotificationAsync,
+                restrictedCanExecute: () => IsUserSessionInitialized,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
+
             ShowSearchCommand = this.CreateCommand(ShowSearchAsync);
             GoBackCommand = this.CreateCommand(GoBackAsync);
         }

@@ -14,6 +14,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
@@ -187,7 +188,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     case PublicationType.MyVideosOfCreatedOrders:
                         if (!IsUserSessionInitialized)
                         {
-                            await NavigationService.ShowLoginView();
+                            await NavigationManager.NavigateAsync<LoginViewModel>();
                             return 0;
                         }
 

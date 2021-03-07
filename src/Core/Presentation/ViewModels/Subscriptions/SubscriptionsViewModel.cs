@@ -8,8 +8,10 @@ using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 {
@@ -141,7 +143,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 
         private async Task ShowProfileAsync(SubscriptionItemViewModel viewModel)
         {
-            var shouldRefresh = await NavigationService.ShowUserProfile(viewModel.Id);
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return;
+            }
+
+            var shouldRefresh = await NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(viewModel.Id);
             if (!shouldRefresh)
             {
                 return;

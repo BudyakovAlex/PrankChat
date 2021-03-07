@@ -8,10 +8,10 @@ using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
@@ -24,10 +24,9 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
-    public class CompetitionVideoViewModel : BaseViewModel, IVideoItemViewModel, IDisposable
+    public class CompetitionVideoViewModel : BaseViewModel, IVideoItemViewModel
     {
         private readonly IPublicationsManager _publicationsManager;
-        private readonly INavigationService _navigationService;
         private readonly IUserSessionProvider _userSessionProvider;
         private readonly IMvxMessenger _mvxMessenger;
 
@@ -39,18 +38,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
         private MvxSubscriptionToken _updateNumberOfViewsSubscriptionToken;
 
-        public CompetitionVideoViewModel(IPublicationsManager publicationsManager,
-                                         IVideoPlayerService videoPlayerService,
-                                         INavigationService navigationService,
-                                         IUserSessionProvider userSessionProvider,
-                                         IMvxMessenger mvxMessenger,
-                                         ILogger logger,
-                                         Models.Data.Video video,
-                                         bool isMyPublication,
-                                         bool isVotingAvailable,
-                                         Func<List<FullScreenVideo>> getAllFullScreenVideoDataFunc)
+        public CompetitionVideoViewModel(
+            IPublicationsManager publicationsManager,
+            IVideoPlayerService videoPlayerService,
+            IUserSessionProvider userSessionProvider,
+            IMvxMessenger mvxMessenger,
+            ILogger logger,
+            Models.Data.Video video,
+            bool isMyPublication,
+            bool isVotingAvailable,
+            Func<List<FullScreenVideo>> getAllFullScreenVideoDataFunc)
         {
-            _navigationService = navigationService;
             _userSessionProvider = userSessionProvider;
             _mvxMessenger = mvxMessenger;
             _video = video;
@@ -71,7 +69,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
 
             LikeCommand = new MvxCommand(Like);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _userSessionProvider.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => _userSessionProvider.User != null,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
 
             Subscribe();
         }

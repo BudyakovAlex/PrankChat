@@ -15,6 +15,7 @@ using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using System;
@@ -87,9 +88,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             Messenger.Subscribe<ViewCountMessage>(OnViewCountChanged).DisposeWith(Disposables);
 
-            ShowCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => UserSessionProvider.User != null, handleFunc: NavigationService.ShowLoginView);
-            BookmarkCommand = new MvxRestrictedAsyncCommand(BookmarkAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigationService.ShowLoginView);
+            ShowCommentsCommand = new MvxRestrictedAsyncCommand(
+                ShowCommentsAsync,
+                restrictedCanExecute: () => IsUserSessionInitialized,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
+
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => UserSessionProvider.User != null,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
+
+            BookmarkCommand = new MvxRestrictedAsyncCommand(
+                BookmarkAsync,
+                restrictedCanExecute: () => IsUserSessionInitialized,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
+
             ShowFullScreenVideoCommand = new MvxAsyncCommand(ShowFullScreenVideoAsync);
             ShareCommand = new MvxAsyncCommand(ShareAsync);
             OpenSettingsCommand = new MvxAsyncCommand(OpenSettingAsync);
@@ -279,7 +292,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             if (!IsUserSessionInitialized && _restrictedActionsInDemoMode.Contains(result))
             {
-                await NavigationService.ShowLoginView();
+                await NavigationManager.NavigateAsync<LoginViewModel>();
                 return;
             }
 

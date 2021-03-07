@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Acr.UserDialogs;
+﻿using Acr.UserDialogs;
 using Plugin.DeviceInfo;
 using Plugin.DeviceInfo.Abstractions;
 using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 {
@@ -80,7 +81,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Dialogs
 
         public async Task<string> ShowArrayDialogAsync(List<string> items, string title = "")
         {
-            var result = await _navigationService.ShowArrayDialog(new ArrayDialogParameter(items, title));
+            var result = await _navigationManager.NavigateAsync<ArrayDialogViewModel, ArrayDialogParameter, ArrayDialogResult>(new ArrayDialogParameter(items, title));
             return result?.SelectedItem;
         }
 
