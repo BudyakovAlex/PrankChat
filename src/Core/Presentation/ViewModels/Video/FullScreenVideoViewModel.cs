@@ -12,7 +12,7 @@ using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

@@ -4,7 +4,7 @@ using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Managers.Notifications;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using System.Linq;
 using System.Threading.Tasks;
 

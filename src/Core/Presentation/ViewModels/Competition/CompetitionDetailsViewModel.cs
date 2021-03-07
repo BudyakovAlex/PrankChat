@@ -20,7 +20,7 @@ using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -15,7 +15,7 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
 using System.Collections.Generic;

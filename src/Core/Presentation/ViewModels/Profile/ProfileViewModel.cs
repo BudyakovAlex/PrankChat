@@ -21,6 +21,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items;
 using PrankChat.Mobile.Core.Providers;
 using System;
 using System.Collections.Generic;

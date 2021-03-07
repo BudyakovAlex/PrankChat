@@ -9,6 +9,7 @@ using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
 using System;
 using System.Threading.Tasks;
@@ -18,22 +19,23 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class LoginViewModel : ExternalAuthViewModel
     {
-        public LoginViewModel(IAuthorizationManager authorizationManager,
-                              IVersionManager versionManager,
-                              IUsersManager usersManager,
-                              IExternalAuthService externalAuthService,
-                              IPushNotificationProvider pushNotificationService)
+        public LoginViewModel(
+            IAuthorizationManager authorizationManager,
+            IVersionManager versionManager,
+            IUsersManager usersManager,
+            IExternalAuthService externalAuthService,
+            IPushNotificationProvider pushNotificationService)
             : base(authorizationManager, versionManager, usersManager, externalAuthService, pushNotificationService)
         {
 #if DEBUG
             EmailText = "alexeysorochan@gmail.com";
             PasswordText = "qqqqqqqq";
 #endif
-            LoginWithAppleCommand = new MvxAsyncCommand<AppleAuth>(LoginWithAppleAsync);
-            ShowDemoModeCommand = this.CreateCommand(ShowDemoModeAsync);
-            LoginCommand = new MvxAsyncCommand<string>(LoginAsync);
-            ResetPasswordCommand = this.CreateCommand(ResetPasswordAsync);
-            RegistrationCommand = this.CreateCommand(RegistrationAsync);
+            LoginWithAppleCommand = this.CreateCommand<AppleAuth>(LoginWithAppleAsync);
+            ShowDemoModeCommand = this.CreateCommand(NavigationManager.NavigateAsync<MainViewModel>);
+            LoginCommand = this.CreateCommand<string>(LoginAsync);
+            ResetPasswordCommand = this.CreateCommand(NavigationManager.NavigateAsync<PasswordRecoveryViewModel>);
+            RegistrationCommand = this.CreateCommand(NavigationManager.NavigateAsync<RegistrationViewModel>);
         }
 
         private string _emailText;
@@ -178,21 +180,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             }
 
             return true;
-        }
-
-        private Task ResetPasswordAsync()
-        {
-            return NavigationManager.NavigateAsync<PasswordRecoveryViewModel>();
-        }
-
-        private Task RegistrationAsync()
-        {
-            return NavigationManager.NavigateAsync<RegistrationViewModel>();
-        }
-
-        private Task ShowDemoModeAsync()
-        {
-            return NavigationManager.NavigateAsync<MainViewModel>();
         }
     }
 }
