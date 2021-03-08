@@ -15,15 +15,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class RegistrationViewModel : ExternalAuthViewModel
     {
-        public RegistrationViewModel(IAuthorizationManager authorizationManager,
-                                     IVersionManager versionManager,
-                                     IUsersManager usersManager,
-                                     IExternalAuthService externalAuthService,
-                                     IPushNotificationProvider pushNotificationService)
-            : base(authorizationManager, versionManager, usersManager, externalAuthService, pushNotificationService)
+        public RegistrationViewModel(
+            IAuthorizationManager authorizationManager,
+            IVersionManager versionManager,
+            IUsersManager usersManager,
+            IExternalAuthService externalAuthService,
+            IPushNotificationProvider pushNotificationService) : base(authorizationManager, versionManager, usersManager, externalAuthService, pushNotificationService)
         {
-            ShowSecondStepCommand = new MvxAsyncCommand(ShowSecondStepAsync);
-            LoginCommand = new MvxAsyncCommand<LoginType>(LoginAsync);
+            ShowSecondStepCommand = this.CreateCommand(ShowSecondStepAsync);
+            LoginCommand = this.CreateCommand<LoginType>(LoginAsync);
         }
 
         private string _email;

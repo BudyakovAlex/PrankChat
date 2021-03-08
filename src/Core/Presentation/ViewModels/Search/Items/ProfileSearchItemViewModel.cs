@@ -1,5 +1,4 @@
 ﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
@@ -22,7 +21,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items
             _userSessionProvider = userSessionProvider;
             _user = user;
 
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(
+            OpenUserProfileCommand = this.CreateRestrictedCommand(
                 OpenUserProfileAsync,
                 restrictedCanExecute: () => _userSessionProvider.User != null,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
@@ -40,12 +39,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items
 
         private Task OpenUserProfileAsync()
         {
-            if (_user.Id == _userSessionProvider.User.Id)
-            {
-                return Task.CompletedTask;
-            }
-
-            if (!Connectivity.NetworkAccess.HasConnection())
+            if (_user.Id == _userSessionProvider.User.Id ||
+                !Connectivity.NetworkAccess.HasConnection())
             {
                 return Task.CompletedTask;
             }

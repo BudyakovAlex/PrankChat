@@ -16,13 +16,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         public bool IsSelected
         {
             get => _isSelected;
-            set
-            {
-                if (SetProperty(ref _isSelected, value))
-                {
-                    RaisePropertyChanged(nameof(Type));
-                }
-            }
+            set => SetProperty(ref _isSelected, value, () => RaisePropertyChanged(nameof(Type)));
         }
     }
 }

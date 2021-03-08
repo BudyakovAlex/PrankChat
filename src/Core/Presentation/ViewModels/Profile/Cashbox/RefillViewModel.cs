@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Payment;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -21,8 +22,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             _paymentManager = paymentManager;
 
             Items = new List<PaymentMethodItemViewModel>();
-            RefillCommand = new MvxAsyncCommand(OnRefillAsync);
-            SelectionChangedCommand = new MvxAsyncCommand<PaymentMethodItemViewModel>(OnSelectionChangedAsync);
+            RefillCommand = this.CreateCommand(OnRefillAsync);
+            SelectionChangedCommand = this.CreateCommand<PaymentMethodItemViewModel>(OnSelectionChangedAsync);
         }
 
         private double? _cost;

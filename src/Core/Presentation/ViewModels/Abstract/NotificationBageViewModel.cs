@@ -1,5 +1,7 @@
 ﻿using Badge.Plugin;
 using MvvmCross.Commands;
+using PrankChat.Mobile.Core.ApplicationServices.Timer;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Notifications;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
@@ -9,6 +11,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 {
     public class NotificationBageViewModel : BaseViewModel, INotificationBageViewModel
     {
+        private const int RefreshAfterSeconds = 15;
+
+        private int _timerThicksCount;
+
         private readonly INotificationsManager _notificationManager;
         private readonly IUserSessionProvider _userSessionProvider;
 
@@ -17,7 +23,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
             _notificationManager = notificationManager;
             _userSessionProvider = userSessionProvider;
 
-            RefreshDataCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(RefreshDataAsync));
+            Messenger.Subscribe<TimerTickMessage>(OnTimerTick).DisposeWith(Disposables);
+
+            RefreshDataCommand = this.CreateCommand(RefreshDataAsync);
         }
 
         public IMvxAsyncCommand RefreshDataCommand { get; }
@@ -38,6 +46,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
             if (HasUnreadNotifications)
             {
                 MainThread.BeginInvokeOnMainThread(() => CrossBadge.Current.SetBadge(unreadNotifications));
+            }
+        }
+
+        private void OnTimerTick(TimerTickMessage message)
+        {
+            _timerThicksCount++;
+            if (_timerThicksCount >= RefreshAfterSeconds)
+            {
+                _timerThicksCount = 0;
+                RefreshDataCommand.ExecuteAsync(null).FireAndForget();
             }
         }
     }

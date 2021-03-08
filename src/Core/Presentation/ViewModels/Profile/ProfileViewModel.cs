@@ -1,7 +1,5 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -16,11 +14,9 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items;
 using PrankChat.Mobile.Core.Providers;
 using System;
@@ -48,16 +44,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
             Items = new MvxObservableCollection<OrderItemViewModel>();
 
-            ShowWithdrawalCommand = new MvxAsyncCommand(ShowWithdrawalAsync);
-            ShowRefillCommand = new MvxAsyncCommand(ShowRefillAsync);
-            ShowSubscriptionsCommand = new MvxAsyncCommand(ShowSubscriptionsAsync);
-            ShowSubscribersCommand = new MvxAsyncCommand(ShowSubscribersAsync);
-            ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
-            LoadProfileCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(LoadProfileAsync, awaitWhenBusy: true));
-            ShowUpdateProfileCommand = new MvxAsyncCommand(ShowUpdateProfileAsync);
+            ShowWithdrawalCommand = this.CreateCommand(ShowWithdrawalAsync);
+            ShowRefillCommand = this.CreateCommand(ShowRefillAsync);
+            ShowSubscriptionsCommand = this.CreateCommand(ShowSubscriptionsAsync);
+            ShowSubscribersCommand = this.CreateCommand(ShowSubscribersAsync);
+            ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
+            LoadProfileCommand = this.CreateCommand(LoadProfileAsync);
+            ShowUpdateProfileCommand = this.CreateCommand(ShowUpdateProfileAsync);
 
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
-            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<OrderChangedMessage>((msg) => ReloadItemsCommand?.Execute()).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<SubscriptionChangedMessage>((msg) => LoadProfileCommand.Execute()).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => ReloadItemsCommand?.Execute()).DisposeWith(Disposables);

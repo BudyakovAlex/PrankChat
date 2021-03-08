@@ -4,6 +4,7 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
@@ -31,8 +32,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             _mvxWebBrowserTask = mvxWebBrowserTask;
             _pushNotificationService = pushNotificationService;
 
-            UserRegistrationCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(UserRegistrationAsync));
-            ShowTermsAndRulesCommand = new MvxCommand(ShowTermsAndRules);
+            UserRegistrationCommand = this.CreateCommand(UserRegistrationAsync);
+            ShowTermsAndRulesCommand = this.CreateCommand(ShowTermsAndRules);
         }
 
         private string _password;
@@ -86,13 +87,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
             try
             {
-                var userInfo = new UserRegistration(Name,
-                                                             Email,
-                                                             Login,
-                                                             Birthday,
-                                                             Gender,
-                                                             Password,
-                                                             RepeatedPassword);
+                var userInfo = new UserRegistration(
+                    Name,
+                    Email,
+                    Login,
+                    Birthday,
+                    Gender,
+                    Password,
+                    RepeatedPassword);
 
                 await _authorizationManager.RegisterAsync(userInfo);
                 // TODO: not wait

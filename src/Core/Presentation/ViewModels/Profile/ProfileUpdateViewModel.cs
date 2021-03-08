@@ -42,10 +42,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             _pushNotificationService = pushNotificationService;
             _mediaService = mediaService;
 
-            SaveProfileCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(SaveProfileAsync));
-            ChangePasswordCommand = new MvxAsyncCommand(ChangePasswordAsync);
-            ShowMenuCommand = new MvxAsyncCommand(ShowMenuAsync);
-            ChangeProfilePhotoCommand = new MvxAsyncCommand(ChangeProfilePhotoAsync);
+            SaveProfileCommand = this.CreateCommand(SaveProfileAsync);
+            ChangePasswordCommand = this.CreateCommand(ChangePasswordAsync);
+            ShowMenuCommand = this.CreateCommand(ShowMenuAsync);
+            ChangeProfilePhotoCommand = this.CreateCommand(ChangeProfilePhotoAsync);
         }
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();

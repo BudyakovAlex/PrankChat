@@ -10,9 +10,9 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -46,8 +46,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             ShareCommand = this.CreateCommand(ShareAsync);
             MoveNextCommand = this.CreateCommand(MoveNext);
             MovePreviousCommand = this.CreateCommand(MovePrevious);
-            OpenCommentsCommand = this.CreateRestrictedCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigateByRestrictionsAsync);
-            OpenUserProfileCommand = this.CreateRestrictedCommand(OpenUserProfileAsync, restrictedCanExecute: () => UserSessionProvider.User != null, handleFunc: NavigateByRestrictionsAsync);
+
+            OpenCommentsCommand = this.CreateRestrictedCommand(
+                ShowCommentsAsync,
+                restrictedCanExecute: () => IsUserSessionInitialized,
+                handleFunc: NavigateByRestrictionsAsync);
+
+            OpenUserProfileCommand = this.CreateRestrictedCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => UserSessionProvider.User != null,
+                handleFunc: NavigateByRestrictionsAsync);
         }
 
         public IMvxAsyncCommand ShareCommand { get; }
@@ -71,10 +79,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         public bool IsMuted
         {
-            get => Xamarin.Essentials.Preferences.Get(Constants.Keys.MuteStateKey, false);
+            get => Preferences.Get(Constants.Keys.MuteStateKey, false);
             set
             {
-                Xamarin.Essentials.Preferences.Set(Constants.Keys.MuteStateKey, value);
+                Preferences.Set(Constants.Keys.MuteStateKey, value);
                 RaisePropertyChanged();
             }
         }

@@ -1,8 +1,6 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
-using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -13,9 +11,9 @@ using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
 using System.Collections.Generic;
@@ -36,10 +34,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private ExecutionStateWrapper _refreshFilterExecutionStateWrapper;
 
-        public PublicationsViewModel(IPublicationsManager publicationsManager,
-                                     IVideoManager videoManager,
-                                     IPlatformService platformService,
-                                     IVideoPlayerService videoPlayerService)
+        public PublicationsViewModel(
+            IPublicationsManager publicationsManager,
+            IVideoManager videoManager,
+            IPlatformService platformService,
+            IVideoPlayerService videoPlayerService)
             : base(Constants.Pagination.DefaultPaginationSize)
         {
             _publicationsManager = publicationsManager;
@@ -59,9 +58,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 { DateFilterType.HalfYear, Resources.Publication_Tab_Filter_HalfYear },
             };
 
-            _refreshFilterExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>((s, e) => RaisePropertyChanged(nameof(IsRefreshingFilter)),
-                                                                                              (wrapper, handler) => wrapper.IsBusyChanged += handler,
-                                                                                              (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
+            _refreshFilterExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(
+                (s, e) => RaisePropertyChanged(nameof(IsRefreshingFilter)),
+                (wrapper, handler) => wrapper.IsBusyChanged += handler,
+                (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
 
             ItemsChangedInteraction = new MvxInteraction();
             OpenFilterCommand = new MvxAsyncCommand(OnOpenFilterAsync);
@@ -69,17 +69,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             Messenger.SubscribeOnMainThread<ReloadPublicationsMessage>((msg) => OnReloadItems()).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => OnReloadItems()).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
-            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
         }
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
-            set
-            {
-                SetProperty(ref _selectedPublicationType, value, () => _ = RefreshDataAsync());
-            }
+            set => SetProperty(ref _selectedPublicationType, value, () => _ = RefreshDataAsync());
         }
 
         public bool IsRefreshingFilter => _refreshFilterExecutionStateWrapper.IsBusy;

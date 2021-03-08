@@ -1,9 +1,9 @@
 ﻿using MvvmCross;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Ioc;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
@@ -17,30 +17,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 {
     public abstract class BasePageViewModel : BaseViewModel, IMvxViewModel
     {
-        private const int RefreshAfterSeconds = 15;
-
-        private int _timerThicksCount;
-
         public BasePageViewModel()
         {
             ShowNotificationCommand = this.CreateRestrictedCommand(
-                ShowNotificationAsync,
+                NavigationManager.NavigateAsync<NotificationViewModel>,
                 restrictedCanExecute: () => IsUserSessionInitialized,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
 
-            ShowSearchCommand = this.CreateCommand(ShowSearchAsync);
+            NotificationBageViewModel = CompositionRoot.Container.Resolve<INotificationBageViewModel>();
+
+            ShowSearchCommand = this.CreateCommand(NavigationManager.NavigateAsync<SearchViewModel>);
             CloseCommand = this.CreateCommand<bool?>(CloseAsync);
         }
 
         public event EventHandler<bool> AppearingChanged;
 
-        public IErrorHandleService ErrorHandleService => Mvx.IoCProvider.Resolve<IErrorHandleService>();
+        public IErrorHandleService ErrorHandleService => CompositionRoot.Container.Resolve<IErrorHandleService>();
 
-        public IUserSessionProvider UserSessionProvider => Mvx.IoCProvider.Resolve<IUserSessionProvider>();
+        public IUserSessionProvider UserSessionProvider => CompositionRoot.Container.Resolve<IUserSessionProvider>();
 
         public ILogger Logger => Mvx.IoCProvider.Resolve<ILogger>();
 
-        public INotificationBageViewModel NotificationBageViewModel => Mvx.IoCProvider.Resolve<INotificationBageViewModel>();
+        public INotificationBageViewModel NotificationBageViewModel { get; }
 
         public bool IsInitialized { get; private set; }
 
@@ -126,16 +124,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
             return Task.WhenAll(raisePropertiesTasks);
         }
 
-        protected void OnTimerTick(TimerTickMessage msg)
-        {
-            _timerThicksCount++;
-            if (_timerThicksCount >= RefreshAfterSeconds)
-            {
-                _timerThicksCount = 0;
-                NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null).FireAndForget();
-            }
-        }
-
         public virtual Task<bool> ConfirmPlatformCloseAsync()
         {
             return Task.FromResult(true);
@@ -150,16 +138,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
             }
 
             await NavigationManager.CloseAsync(this);
-        }
-
-        private Task ShowNotificationAsync()
-        {
-            return NavigationManager.NavigateAsync<NotificationViewModel>();
-        }
-
-        private Task ShowSearchAsync()
-        {
-            return NavigationManager.NavigateAsync<SearchViewModel>();
         }
     }
 }

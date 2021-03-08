@@ -66,67 +66,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         public IMvxAsyncCommand<AppleAuth> LoginWithAppleCommand { get; }
 
-        private Task LoginAsync(string loginType)
+        private async Task LoginAsync(string loginType)
         {
-            return ExecutionStateWrapper.WrapAsync(async () =>
-            {
-                try
-                {
-                    if (!UserSessionProvider.IsDebugMode)
-                    {
-                        var newActualVersion = await VersionManager.CheckAppVersionAsync();
-                        if (!string.IsNullOrEmpty(newActualVersion?.Link))
-                        {
-                            await NavigationManager.NavigateAsync<MaintananceViewModel, string>(newActualVersion?.Link);
-                            return;
-                        }
-                    }
-                    if (!Enum.TryParse<LoginType>(loginType, out var socialNetworkType))
-                    {
-                        throw new ArgumentException(nameof(loginType));
-                    }
-
-                    switch (socialNetworkType)
-                    {
-                        case LoginType.Vk:
-                        case LoginType.Facebook:
-                            var isLoggedIn = await TryLoginWithExternalServicesAsync(socialNetworkType);
-                            if (!isLoggedIn)
-                            {
-                                return;
-                            }
-
-                            break;
-
-                        case LoginType.Ok:
-                        case LoginType.Gmail:
-                            return;
-
-                        case LoginType.UsernameAndPassword:
-                            if (!CheckValidation())
-                            {
-                                return;
-                            }
-
-                            var email = EmailText?.Trim();
-                            var password = PasswordText?.Trim();
-                            await AuthorizationManager.AuthorizeAsync(email, password);
-                            break;
-                    }
-
-                    await NavigateAfterLoginAsync();
-                }
-                catch (Exception ex)
-                {
-                    ErrorHandleService.HandleException(ex);
-                    ErrorHandleService.LogError(this, "Can't sign into application.", ex);
-                }
-            });
-        }
-
-        private Task LoginWithAppleAsync(AppleAuth appleAuth)
-        {
-            return ExecutionStateWrapper.WrapAsync(async () =>
+            try
             {
                 if (!UserSessionProvider.IsDebugMode)
                 {
@@ -137,23 +79,75 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                         return;
                     }
                 }
-
-                try
+                if (!Enum.TryParse<LoginType>(loginType, out var socialNetworkType))
                 {
-                    var isAuthorized = await AuthorizationManager.AuthorizeWithAppleAsync(appleAuth);
-                    if (!isAuthorized)
-                    {
+                    throw new ArgumentException(nameof(loginType));
+                }
+
+                switch (socialNetworkType)
+                {
+                    case LoginType.Vk:
+                    case LoginType.Facebook:
+                        var isLoggedIn = await TryLoginWithExternalServicesAsync(socialNetworkType);
+                        if (!isLoggedIn)
+                        {
+                            return;
+                        }
+
+                        break;
+
+                    case LoginType.Ok:
+                    case LoginType.Gmail:
                         return;
-                    }
 
-                    await NavigateAfterLoginAsync();
+                    case LoginType.UsernameAndPassword:
+                        if (!CheckValidation())
+                        {
+                            return;
+                        }
+
+                        var email = EmailText?.Trim();
+                        var password = PasswordText?.Trim();
+                        await AuthorizationManager.AuthorizeAsync(email, password);
+                        break;
                 }
-                catch (Exception ex)
+
+                await NavigateAfterLoginAsync();
+            }
+            catch (Exception ex)
+            {
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Can't sign into application.", ex);
+            }
+        }
+
+        private async Task LoginWithAppleAsync(AppleAuth appleAuth)
+        {
+            if (!UserSessionProvider.IsDebugMode)
+            {
+                var newActualVersion = await VersionManager.CheckAppVersionAsync();
+                if (!string.IsNullOrEmpty(newActualVersion?.Link))
                 {
-                    ErrorHandleService.HandleException(ex);
-                    ErrorHandleService.LogError(this, "Can't sign into application.", ex);
+                    await NavigationManager.NavigateAsync<MaintananceViewModel, string>(newActualVersion?.Link);
+                    return;
                 }
-            });
+            }
+
+            try
+            {
+                var isAuthorized = await AuthorizationManager.AuthorizeWithAppleAsync(appleAuth);
+                if (!isAuthorized)
+                {
+                    return;
+                }
+
+                await NavigateAfterLoginAsync();
+            }
+            catch (Exception ex)
+            {
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Can't sign into application.", ex);
+            }
         }
 
         private bool CheckValidation()

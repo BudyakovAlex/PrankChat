@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
-    public class CashboxViewModel : BasePageViewModel, IMvxViewModel<CashboxTypeNavigationParameter, bool>
+    public class CashboxViewModel : BasePageViewModel<CashboxTypeNavigationParameter, bool>
     {
         private bool _isReloadNeeded;
 
@@ -29,11 +29,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             Messenger.SubscribeOnMainThread<ReloadProfileMessage>((msg) => _isReloadNeeded = true).DisposeWith(Disposables);
         }
 
-        private Task ShowContentAsync()
-        {
-            return Task.WhenAll(NavigationManager.NavigateAsync<RefillViewModel>(), NavigationManager.NavigateAsync<WithdrawalViewModel>());
-        }
-
         public List<BasePageViewModel> Items { get; }
 
         public ICommand ShowContentCommand { get; }
@@ -45,17 +40,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             set => SetProperty(ref _selectedPage, value);
         }
 
-        public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
+        protected override bool DefaultResult => _isReloadNeeded;
 
-        public override async Task InitializeAsync()
-        {
-            foreach (var item in Items)
-            {
-                await item.InitializeAsync();
-            }
-        }
-
-        public void Prepare(CashboxTypeNavigationParameter parameter)
+        public override void Prepare(CashboxTypeNavigationParameter parameter)
         {
             SelectedPage = parameter.Type switch
             {
@@ -65,17 +52,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             };
         }
 
-        public override void ViewDestroy(bool viewFinishing = true)
+        public override async Task InitializeAsync()
         {
-            if (viewFinishing &&
-                CloseCompletionSource != null &&
-                !CloseCompletionSource.Task.IsCompleted &&
-                !CloseCompletionSource.Task.IsFaulted)
+            foreach (var item in Items)
             {
-                CloseCompletionSource?.SetResult(_isReloadNeeded);
+                await item.InitializeAsync();
             }
+        }
 
-            base.ViewDestroy(viewFinishing);
+        private Task ShowContentAsync()
+        {
+            return Task.WhenAll(NavigationManager.NavigateAsync<RefillViewModel>(), NavigationManager.NavigateAsync<WithdrawalViewModel>());
         }
     }
 }

@@ -30,8 +30,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items
 
             Items = new MvxObservableCollection<SubscriptionItemViewModel>();
             CloseCompletionSource = new TaskCompletionSource<object>();
-            LoadDataCommand = new MvxAsyncCommand(LoadDataAsync);
-            ShowProfileCommand = new MvxAsyncCommand<SubscriptionItemViewModel>(ShowProfileAsync);
+
+            LoadDataCommand = this.CreateCommand(LoadDataAsync);
+            ShowProfileCommand = this.CreateCommand<SubscriptionItemViewModel>(ShowProfileAsync);
         }
 
         public MvxObservableCollection<SubscriptionItemViewModel> Items { get; }

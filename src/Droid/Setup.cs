@@ -2,15 +2,14 @@ using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.Widget;
 using Google.Android.Material.Tabs;
-using MvvmCross;
 using MvvmCross.Binding.Bindings.Target.Construction;
-using MvvmCross.IoC;
 using MvvmCross.Platforms.Android.Core;
 using MvvmCross.Platforms.Android.Presenters;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
+using PrankChat.Mobile.Core.Ioc;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Droid.ApplicationServices;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Crashlytic;
@@ -26,11 +25,11 @@ namespace PrankChat.Mobile.Droid
         {
             base.InitializeFirstChance();
 
-            Mvx.IoCProvider.RegisterType<IVideoPlayerService, VideoPlayerService>();
-            Mvx.IoCProvider.RegisterType<ICrashlyticsService, CrashlyticsService>();
-            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IDialogService, DialogService>();
-            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IExternalAuthService, ExternalAuthService>();
-            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IUserSessionProvider, UserSessionProvider>();
+            CompositionRoot.Container.RegisterType<IVideoPlayerService, VideoPlayerService>();
+            CompositionRoot.Container.RegisterType<ICrashlyticsService, CrashlyticsService>();
+            CompositionRoot.Container.RegisterSingleton<IDialogService, DialogService>();
+            CompositionRoot.Container.RegisterSingleton<IExternalAuthService, ExternalAuthService>();
+            CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()

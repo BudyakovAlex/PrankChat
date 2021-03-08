@@ -22,9 +22,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         private readonly IUsersManager _usersManager;
         private readonly IMediaService _mediaService;
 
-        public WithdrawalViewModel(IPaymentManager paymentManager,
-                                   IUsersManager usersManager,
-                                   IMediaService mediaService)
+        private Card _currentCard;
+        private Withdrawal _lastWithdrawal;
+
+        public WithdrawalViewModel(
+            IPaymentManager paymentManager,
+            IUsersManager usersManager,
+            IMediaService mediaService)
         {
             _paymentManager = paymentManager;
             _usersManager = usersManager;
@@ -32,15 +36,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
             AvailableForWithdrawal = $"{Resources.CashboxView_WithdrawalAvailable_Title} {UserSessionProvider.User?.Balance.ToPriceString()}";
 
-            WithdrawCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(WithdrawAsync));
-            CancelWithdrawCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(CancelWithdrawAsync));
-            AttachFileCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(AttachFileAsync));
-            OpenCardOptionsCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(OpenCardOptionsAsync));
-            UpdateDataCommand = new MvxAsyncCommand(UpdateDataAsync);
+            WithdrawCommand = this.CreateCommand(WithdrawAsync);
+            CancelWithdrawCommand = this.CreateCommand(CancelWithdrawAsync);
+            AttachFileCommand = this.CreateCommand(AttachFileAsync);
+            OpenCardOptionsCommand = this.CreateCommand(OpenCardOptionsAsync);
+            UpdateDataCommand = this.CreateCommand(UpdateDataAsync);
         }
-
-        private Card _currentCard;
-        private Withdrawal _lastWithdrawal;
 
         private double? _cost;
         public double? Cost

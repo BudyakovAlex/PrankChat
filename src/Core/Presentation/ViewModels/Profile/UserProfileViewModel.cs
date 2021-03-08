@@ -38,10 +38,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             Items = new MvxObservableCollection<OrderItemViewModel>();
             CloseCompletionSource = new TaskCompletionSource<object>();
 
-            RefreshUserDataCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(RefreshUserDataAsync));
-            SubscribeCommand = new MvxCommand(Subscribe);
-            ShowSubscriptionsCommand = new MvxAsyncCommand(ShowSubscriptionsAsync);
-            ShowSubscribersCommand = new MvxAsyncCommand(ShowSubscribersAsync);
+            RefreshUserDataCommand = this.CreateCommand(RefreshUserDataAsync);
+            SubscribeCommand = this.CreateCommand(Subscribe);
+            ShowSubscriptionsCommand = this.CreateCommand(ShowSubscriptionsAsync);
+            ShowSubscribersCommand = this.CreateCommand(ShowSubscribersAsync);
         }
 
         private ProfileOrderType _selectedOrderType;

@@ -2,7 +2,6 @@
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.Presentation.Messages;
@@ -41,8 +40,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             _walkthroughsProvider = walkthroughsProvider;
 
             _refreshTokenExpiredMessageSubscription = Messenger.Subscribe<RefreshTokenExpiredMessage>(RefreshTokenExpired, MvxReference.Strong).DisposeWith(Disposables);
-            Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
-            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
+            Messenger.Subscribe<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
 
             LoadContentCommand = this.CreateCommand(LoadContentAsync);
             ShowLoginCommand = this.CreateCommand(NavigationManager.NavigateAsync<LoginViewModel>);
@@ -131,12 +129,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             };
         }
 
-        private async Task CheckDemoModeAsync(int position)
+        private Task CheckDemoModeAsync(int position)
         {
             if (!CanSwitchTabs(position))
             {
-                await NavigationManager.NavigateAsync<LoginViewModel>();
+                return NavigationManager.NavigateAsync<LoginViewModel>();
             }
+
+            return Task.CompletedTask;
         }
 
         private void RefreshTokenExpired(RefreshTokenExpiredMessage _)
