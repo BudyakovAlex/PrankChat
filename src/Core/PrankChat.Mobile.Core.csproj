@@ -84,10 +84,6 @@
     <Folder Include="ApplicationServices\Network\Contents\" />
     <Folder Include="Presentation\ViewModels\Subscriptions\" />
     <Folder Include="BusinessServices\Logger\" />
-    <Folder Include="BusinessServices\TaskSchedulers\" />
-    <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\" />
-    <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\Abstract\" />
-    <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\SendLogs\" />
     <Folder Include="Presentation\ViewModels\Order\Sections\" />
     <Folder Include="Wrappers\" />
     <Folder Include="Presentation\ViewModels\Order\Sections\Abstract\" />

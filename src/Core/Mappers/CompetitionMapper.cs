@@ -31,6 +31,7 @@ namespace PrankChat.Mobile.Core.Mappers
                 dto.PrizePool,
                 dto.LikesCount,
                 dto.VideosCount,
+                dto.EntryTax,
                 dto.IsPaidCompetitionMember,
                 dto.CanJoin,
                 dto.PrizePoolList,

@@ -1,6 +1,5 @@
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.BusinessServices.TaskSchedulers;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Navigation;
@@ -20,26 +19,21 @@ namespace PrankChat.Mobile.Core
     {
         private readonly INavigationManager _navigationManager;
         private readonly IUserSessionProvider _userSessionProvider;
-        private readonly IBackgroundTaskScheduler _backgroundTaskScheduler;
-
+        
         private int? _orderId;
 
         public CustomAppStart(IMvxApplication application,
                               IMvxNavigationService mvxNavigationService,
                               INavigationManager navigationManager,
-                              IUserSessionProvider userSessionProvider,
-                              IBackgroundTaskScheduler backgroundTaskScheduler)
+                              IUserSessionProvider userSessionProvider)
             : base(application, mvxNavigationService)
         {
             _navigationManager = navigationManager;
             _userSessionProvider = userSessionProvider;
-            _backgroundTaskScheduler = backgroundTaskScheduler;
         }
 
         protected override Task NavigateToFirstViewModel(object hint = null)
         {
-            _backgroundTaskScheduler.Start();
-
             if (hint is int orderId)
             {
                 return AppStartFromNotification(orderId);

@@ -18,8 +18,6 @@ using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.BusinessServices.Sentry;
-using PrankChat.Mobile.Core.BusinessServices.TaskSchedulers;
-using PrankChat.Mobile.Core.BusinessServices.TaskSchedulers.BackgroundTasks.SendLogs;
 using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.Managers.Competitions;
@@ -92,7 +90,6 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<IUsersManager, UsersManager>();
             Container.RegisterSingleton<INavigationManager, NavigationManager>();
             Container.RegisterSingleton<IAuthorizationManager, AuthorizationManager>();
-            Container.RegisterSingleton<ILogsManager, LogsManager>();
             Container.RegisterSingleton<IVersionManager, VersionManager>();
             Container.RegisterSingleton<ICompetitionsManager, CompetitionsManager>();
             Container.RegisterSingleton<INotificationsManager, NotificationsManager>();
@@ -106,8 +103,6 @@ namespace PrankChat.Mobile.Core.Ioc
         private void RegisterDependencies()
         {
             Container.RegisterSingleton<ILogger, Logger>();
-            Container.RegisterSingleton<ISendLogsBackgroundTask, SendLogsBackgroundTask>();
-            Container.RegisterSingleton<IBackgroundTaskScheduler, BackgroundTaskScheduler>();
             Container.RegisterSingleton<INotificationBageViewModel, NotificationBageViewModel>();
         }
 

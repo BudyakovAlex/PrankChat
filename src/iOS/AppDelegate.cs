@@ -3,11 +3,9 @@ using Firebase.InstanceID;
 using Foundation;
 using MvvmCross;
 using MvvmCross.Platforms.Ios.Core;
-using MvvmCross.Plugin.Messenger;
 using Plugin.DownloadManager;
 using PrankChat.Mobile.Core;
 using PrankChat.Mobile.Core.BusinessServices.AppCenter;
-using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
 using System;
 using UIKit;
@@ -21,8 +19,6 @@ namespace PrankChat.Mobile.iOS
     {
         //TODO: move it to config
         public const string VkAppId = "7343996";
-
-        private Lazy<IMvxMessenger> MvxMessenger => new Lazy<IMvxMessenger>(Mvx.IoCProvider.Resolve<IMvxMessenger>());
 
         private int? _orderId;
 
