@@ -27,8 +27,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
 
             Messenger.SubscribeOnMainThread<ReloadCompetitionsMessage>((msg) => LoadDataCommand?.Execute()).DisposeWith(Disposables);
-            Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => LoadDataCommand?.Execute()).DisposeWith(Disposables);
-
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
         }
 

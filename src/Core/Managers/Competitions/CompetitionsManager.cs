@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.Core.Managers.Competitions
         public async Task<List<CompetitionResult>> GetCompetitionRatingsAsync(int id)
         {
             var response = await _competitionsService.GetCompetitionRatingsAsync(id);
-            return response.Select(comp => comp.Map()).ToList();
+            return response?.Select(comp => comp.Map()).ToList() ?? new List<CompetitionResultDataModel>();
         }
 
         public async Task<Pagination<Models.Data.Video>> GetCompetitionVideosAsync(int competitionId, int page, int pageSize)

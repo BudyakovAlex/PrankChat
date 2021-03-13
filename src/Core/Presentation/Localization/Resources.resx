@@ -1078,4 +1078,10 @@
   <data name="Competition_Pay_For_Join" xml:space="preserve">
     <value>Оплатить участие</value>
   </data>
+  <data name="Competion_Rules_Template" xml:space="preserve">
+    <value>Чтобы принять участие в конкурсе, Вам необходимо заплатить {0} ₽</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Оплатить</value>
+  </data>
 </root>

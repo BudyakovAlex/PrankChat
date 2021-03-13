@@ -48,6 +48,9 @@ namespace PrankChat.Mobile.Core.Data.Dtos
         [JsonProperty("videos_count")]
         public int? VideosCount { get; set; }
 
+        [JsonProperty("entry_tax")]
+        public decimal? EntryTax { get; set; }
+
         [JsonProperty("competition_likes_to")]
         public DateTime? VoteTo { get; set; }
 

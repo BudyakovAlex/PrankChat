@@ -67,7 +67,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             OpenFilterCommand = new MvxAsyncCommand(OnOpenFilterAsync);
 
             Messenger.SubscribeOnMainThread<ReloadPublicationsMessage>((msg) => OnReloadItems()).DisposeWith(Disposables);
-            Messenger.SubscribeOnMainThread<EnterForegroundMessage>((msg) => OnReloadItems()).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
         }
 
