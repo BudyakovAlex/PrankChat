@@ -30,6 +30,9 @@
     <PackageReference Include="Xam.Plugin.Badge" Version="1.0.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
     <PackageReference Include="Xam.Plugins.DownloadManager" Version="1.4.0" />
+    <PackageReference Include="Microsoft.AppCenter" Version="4.1.0" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.1.0" />
   </ItemGroup>
   <ItemGroup>
      <EmbeddedResource Update="Presentation\Localization\Resources.resx">
@@ -71,7 +74,7 @@
     <Folder Include="ApplicationServices\Timer\" />
     <Folder Include="ApplicationServices\Dialogs\" />
     <Folder Include="Presentation\ViewModels\Video\" />
-    <Folder Include="BusinessServices\Crashlytic\" />
+    <Folder Include="BusinessServices\AppCenter\" />
     <Folder Include="Commands\" />
     <Folder Include="ApplicationServices\Notifications\" />
     <Folder Include="Data\Models\Shared\" />

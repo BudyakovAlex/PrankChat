@@ -1,9 +1,9 @@
 ﻿using System;
-using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
+using PrankChat.Mobile.Core.BusinessServices.AppCenter;
 
-namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Crashlytic
+namespace PrankChat.Mobile.Droid.PlatformBusinessServices.AppCenter
 {
-    public class CrashlyticsService : ICrashlyticsService
+    public class AppCenterService : IAppCenterService
     {
 		public void TrackEvent(string message)
 		{

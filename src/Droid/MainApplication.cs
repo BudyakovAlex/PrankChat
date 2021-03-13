@@ -90,9 +90,7 @@ namespace PrankChat.Mobile.Droid
 
         private void InitializeFirebase()
         {
-            Fabric.Fabric.With(this, new Crashlytics.Crashlytics());
             FirebaseApp.InitializeApp(this);
-            Crashlytics.Crashlytics.HandleManagedExceptions();
             NotificationWrapper.Instance.Initialize();
         }
     }

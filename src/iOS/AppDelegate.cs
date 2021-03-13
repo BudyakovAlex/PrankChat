@@ -1,5 +1,4 @@
 ﻿using Firebase.CloudMessaging;
-using Firebase.Crashlytics;
 using Firebase.InstanceID;
 using Foundation;
 using MvvmCross;
@@ -7,7 +6,7 @@ using MvvmCross.Platforms.Ios.Core;
 using MvvmCross.Plugin.Messenger;
 using Plugin.DownloadManager;
 using PrankChat.Mobile.Core;
-using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
+using PrankChat.Mobile.Core.BusinessServices.AppCenter;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
 using System;
@@ -67,9 +66,9 @@ namespace PrankChat.Mobile.iOS
             }
             catch (Exception ex)
             {
-                if (Mvx.IoCProvider.TryResolve<ICrashlyticsService>(out var crashlyticsService))
+                if (Mvx.IoCProvider.TryResolve<IAppCenterService>(out var appCenterService))
                 {
-                    crashlyticsService.TrackError(ex);
+                    appCenterService.TrackError(ex);
                 }
 
                 return false;
@@ -102,7 +101,9 @@ namespace PrankChat.Mobile.iOS
         protected override object GetAppStartHint(object hint = null)
         {
             if (_orderId != null)
+            {
                 return _orderId;
+            }
 
             return hint;
         }
@@ -113,8 +114,6 @@ namespace PrankChat.Mobile.iOS
             {
                 Firebase.Core.App.Configure();
             }
-
-            Crashlytics.SharedInstance.Init();
         }
 
         private void InitializePushNotification()

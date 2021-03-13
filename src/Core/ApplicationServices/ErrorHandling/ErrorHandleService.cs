@@ -3,7 +3,7 @@ using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
+using PrankChat.Mobile.Core.BusinessServices.AppCenter;
 using PrankChat.Mobile.Core.BusinessServices.Sentry;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling
         private readonly IDialogService _dialogService;
         private readonly IMvxLogProvider _logProvider;
 
-        private readonly Lazy<ICrashlyticsService> _lazyCrashlyticsService = new Lazy<ICrashlyticsService>(() => Mvx.IoCProvider.Resolve<ICrashlyticsService>());
+        private readonly Lazy<IAppCenterService> _lazyCrashlyticsService = new Lazy<IAppCenterService>(() => Mvx.IoCProvider.Resolve<IAppCenterService>());
         private readonly Lazy<ISentryService> _lazySentryService = new Lazy<ISentryService>(() => Mvx.IoCProvider.Resolve<ISentryService>());
 
         private bool _isSuspended;

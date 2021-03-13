@@ -1,13 +1,13 @@
 ﻿using Firebase.Crashlytics;
 using Foundation;
-using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
+using PrankChat.Mobile.Core.BusinessServices.AppCenter;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Crashlytic
+namespace PrankChat.Mobile.iOS.PlatformBusinessServices.AppCenter
 {
-    public class CrashlyticsService : ICrashlyticsService
+    public class AppCenterService : IAppCenterService
     {
 		private static readonly Regex _stackTraceRegex = new Regex(@"\s*at\s*(\S+)\.(\S+\(?.*\)?)\s\[0x[\d\w]+\]\sin\s.+[\\/>](.*):(\d+)?");
 
