@@ -1,5 +1,4 @@
-﻿using Firebase.Crashlytics;
-using Foundation;
+﻿using Foundation;
 using PrankChat.Mobile.Core.BusinessServices.AppCenter;
 using System;
 using System.Collections.Generic;
