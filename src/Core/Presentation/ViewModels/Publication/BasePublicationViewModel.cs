@@ -49,7 +49,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public BasePublicationViewModel(IPublicationsManager publicationsManager, IVideoManager videoManager) : base(publicationsManager)
         {
             _videoManager = videoManager;
-            ShowCommentsCommand = new MvxRestrictedAsyncCommand(
+            ShowCommentsCommand = this.CreateRestrictedCommand(
                 ShowCommentsAsync,
                 restrictedCanExecute: () => IsUserSessionInitialized,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
@@ -91,25 +91,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             Messenger.Subscribe<ViewCountMessage>(OnViewCountChanged).DisposeWith(Disposables);
 
-            ShowCommentsCommand = new MvxRestrictedAsyncCommand(
+            ShowCommentsCommand = this.CreateRestrictedCommand(
                 ShowCommentsAsync,
                 restrictedCanExecute: () => IsUserSessionInitialized,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
 
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(
+            OpenUserProfileCommand = this.CreateRestrictedCommand(
                 OpenUserProfileAsync,
                 restrictedCanExecute: () => UserSessionProvider.User != null,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
 
-            BookmarkCommand = new MvxRestrictedAsyncCommand(
+            BookmarkCommand = this.CreateRestrictedCommand(
                 BookmarkAsync,
                 restrictedCanExecute: () => IsUserSessionInitialized,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
 
-            ShowFullScreenVideoCommand = new MvxAsyncCommand(ShowFullScreenVideoAsync);
-            ShareCommand = new MvxAsyncCommand(ShareAsync);
-            OpenSettingsCommand = new MvxAsyncCommand(OpenSettingAsync);
-            ToggleSoundCommand = new MvxCommand(ToggleSound);
+            ShowFullScreenVideoCommand = this.CreateCommand(ShowFullScreenVideoAsync);
+            ShareCommand = this.CreateCommand(ShareAsync);
+            OpenSettingsCommand = this.CreateCommand(OpenSettingAsync);
+            ToggleSoundCommand = this.CreateCommand(ToggleSound);
         }
 
         #region Profile

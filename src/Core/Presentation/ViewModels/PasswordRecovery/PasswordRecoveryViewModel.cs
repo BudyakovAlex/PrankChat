@@ -16,7 +16,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
         {
             _authorizationManager = authorizationManager;
 
-            RecoverPasswordCommand = new MvxAsyncCommand(RecoverPasswordAsync);
+            RecoverPasswordCommand = this.CreateCommand(RecoverPasswordAsync);
         }
 
         private string _email;

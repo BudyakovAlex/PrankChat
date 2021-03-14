@@ -52,9 +52,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             _ordersManager = ordersManager;
             _walkthroughsProvider = walkthroughsProvider;
 
-            OpenFilterCommand = new MvxAsyncCommand(OpenFilterAsync);
-            LoadDataCommand = new MvxAsyncCommand(LoadDataAsync);
-            ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
+            OpenFilterCommand = this.CreateCommand(OpenFilterAsync);
+            LoadDataCommand = this.CreateCommand(LoadDataAsync);
+            ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
 
             Messenger.SubscribeOnMainThread<OrderChangedMessage>(OrdersChanged).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RemoveOrderMessage>(OrderRemoved).DisposeWith(Disposables);

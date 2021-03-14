@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Commands;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -13,8 +14,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             Models.Data.Competition competition) : base(isUserSessionInitialized, competition)
         {
             ActionCommand = actionCommand;
-            OpenPrizePoolCommand = new MvxAsyncCommand(OpenPrizePoolAsync);
-            OpenRulesCommand = new MvxAsyncCommand(OpenRulesAsync);
+            OpenPrizePoolCommand = this.CreateCommand(OpenPrizePoolAsync);
+            OpenRulesCommand = this.CreateCommand(OpenRulesAsync);
         }
 
         public ICommand OpenPrizePoolCommand { get; set; }

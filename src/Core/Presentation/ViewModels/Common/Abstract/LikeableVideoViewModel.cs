@@ -1,9 +1,9 @@
 ﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,14 +20,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
         {
             _publicationsManager = publicationsManager;
 
-            LikeCommand = new MvxRestrictedCommand(
+            LikeCommand = this.CreateRestrictedCommand(
                 OnLike,
-                restrictedExecute: () => IsUserSessionInitialized,
+                restrictedCanExecute: () => IsUserSessionInitialized,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
 
-            DislikeCommand = new MvxRestrictedCommand(
+            DislikeCommand = this.CreateRestrictedCommand(
                 OnDislike,
-                restrictedExecute: () => IsUserSessionInitialized,
+                restrictedCanExecute: () => IsUserSessionInitialized,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
@@ -71,7 +71,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             NumberOfDislikes = totalDislikes > 0 ? totalDislikes : 0;
 
             OnDislikeChanged();
-            SendDislikeAsync().FireAndForget();
+
+            _ = SafeExecutionWrapper.WrapAsync(SendDislikeAsync);
 
             if (IsDisliked && IsLiked)
             {
@@ -91,7 +92,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             NumberOfLikes = totalLikes > 0 ? totalLikes : 0;
 
             OnLikeChanged();
-            SendLikeAsync().FireAndForget();
+
+            _ = SafeExecutionWrapper.WrapAsync(SendLikeAsync);
 
             if (IsLiked && IsDisliked)
             {
@@ -114,6 +116,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             try
             {
                 var video = await _publicationsManager.SendLikeAsync(VideoId, IsLiked, _cancellationSendingLikeTokenSource.Token);
+                if (video is null)
+                {
+                    return;
+                }
 
                 NumberOfLikes = video.LikesCount;
                 NumberOfDislikes = video.DislikesCount;
@@ -121,10 +127,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
                 IsDisliked = video.IsDisliked;
                 OnDislikeChanged();
                 OnLikeChanged();
-            }
-            catch
-            {
-                //TODO log this
             }
             finally
             {
@@ -144,6 +146,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             try
             {
                 var video = await _publicationsManager.SendDislikeAsync(VideoId, IsDisliked, _cancellationSendingDislikeTokenSource.Token);
+                if (video is null)
+                {
+                    return;
+                }
 
                 NumberOfLikes = video.LikesCount;
                 NumberOfDislikes = video.DislikesCount;
@@ -151,10 +157,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
                 IsDisliked = video.IsDisliked;
                 OnDislikeChanged();
                 OnLikeChanged();
-            }
-            catch
-            {
-                //TODO log this
             }
             finally
             {

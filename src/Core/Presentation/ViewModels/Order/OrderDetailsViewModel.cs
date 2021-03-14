@@ -43,18 +43,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             _ordersManager = ordersManager;
             _platformService = platformService;
 
-            TakeOrderCommand = new MvxAsyncCommand(TakeOrderAsync);
-            SubscribeOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(SubscribeOrderAsync));
-            UnsubscribeOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(UnsubscribeOrderAsync));
-            YesCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(YesAsync));
-            NoCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(NoAsync));
-            ExecuteOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(ExecuteOrderAsync));
-            CancelOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(CancelOrderAsync));
-            ArqueOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(ArgueOrderAsync));
-            AcceptOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(AcceptOrderAsync));
+            TakeOrderCommand = this.CreateCommand(TakeOrderAsync);
+            SubscribeOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(SubscribeOrderAsync));
+            UnsubscribeOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(UnsubscribeOrderAsync));
+            YesCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(YesAsync));
+            NoCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(NoAsync));
+            ExecuteOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(ExecuteOrderAsync));
+            CancelOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(CancelOrderAsync));
+            ArqueOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(ArgueOrderAsync));
+            AcceptOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(AcceptOrderAsync));
 
-            LoadOrderDetailsCommand = new MvxAsyncCommand(LoadOrderDetailsAsync);
-            OpenSettingsCommand = new MvxAsyncCommand(OpenSettingsAsync);
+            LoadOrderDetailsCommand = this.CreateCommand(LoadOrderDetailsAsync);
+            OpenSettingsCommand = this.CreateCommand(OpenSettingsAsync);
 
             Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
             _sections = new BaseOrderDetailsSectionViewModel[]

@@ -28,7 +28,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
 
             Items = new MvxObservableCollection<CommentItemViewModel>();
 
-            SendCommentCommand = new MvxAsyncCommand(SendCommentAsync, () => !string.IsNullOrWhiteSpace(Comment));
+            SendCommentCommand = this.CreateCommand(SendCommentAsync, () => !string.IsNullOrWhiteSpace(Comment));
             ScrollInteraction = new MvxInteraction<int>();
         }
 

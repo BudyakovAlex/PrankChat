@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             _competitionsManager = competitionsManager;
             Items = new MvxObservableCollection<CompetitionPrizePoolItemViewModel>();
 
-            RefreshCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(RefreshAsync));
+            RefreshCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(RefreshAsync));
         }
 
         public string PrizePool { get; private set; }

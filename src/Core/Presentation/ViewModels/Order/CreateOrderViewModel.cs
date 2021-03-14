@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Orders;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -35,10 +36,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             _ordersManager = ordersManager;
             _walkthroughsProvider = walkthroughsProvider;
 
-            ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
-            ShowWalkthrouthSecretCommand = new MvxAsyncCommand(ShowWalkthrouthSecretAsync);
-            ShowDateDialogCommand = new MvxAsyncCommand(ShowDateDialogAsync);
-            CreateCommand = new MvxAsyncCommand( CreateAsync);
+            ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
+            ShowWalkthrouthSecretCommand = this.CreateCommand(ShowWalkthrouthSecretAsync);
+            ShowDateDialogCommand = this.CreateCommand(ShowDateDialogAsync);
+            CreateCommand = this.CreateCommand(CreateAsync);
         }
 
         private Period _activeFor;

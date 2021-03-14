@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MvvmCross.Commands;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 
@@ -9,8 +10,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
     {
         public FinishPasswordRecoveryViewModel()
         {
-            ShowLoginCommand = new MvxAsyncCommand(ShowLoginAsync);
-            ShowPublicationCommand = new MvxAsyncCommand(ShowPublicationAsync);
+            ShowLoginCommand = this.CreateCommand(ShowLoginAsync);
+            ShowPublicationCommand = this.CreateCommand(ShowPublicationAsync);
         }
 
         public IMvxAsyncCommand ShowLoginCommand { get; }

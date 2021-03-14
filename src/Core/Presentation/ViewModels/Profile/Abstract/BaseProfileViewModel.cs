@@ -27,10 +27,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract
             _timer.Elapsed += OnTimerElapsed;
             _timer.Start();
 
-            ResendEmailValidationCommand = new MvxAsyncCommand(ResendEmailValidationAsync, () => CanResendEmailValidation);
-            ShowValidationWarningCommand = new MvxCommand(ShowValidationWarning);
-            SelectBirthdayCommand = new MvxAsyncCommand(SelectBirthdayAsync);
-            SelectGenderCommand = new MvxCommand<GenderType>(SelectGender);
+            ResendEmailValidationCommand = this.CreateCommand(ResendEmailValidationAsync, () => CanResendEmailValidation);
+            ShowValidationWarningCommand = this.CreateCommand(ShowValidationWarning);
+            SelectBirthdayCommand = this.CreateCommand(SelectBirthdayAsync);
+            SelectGenderCommand = this.CreateCommand<GenderType>(SelectGender);
         }
 
         protected IUsersManager UsersManager { get; }

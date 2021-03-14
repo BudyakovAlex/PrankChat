@@ -62,8 +62,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             IsVotingAvailable = isVotingAvailable;
             _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
 
-            LikeCommand = new MvxCommand(Like);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(
+            LikeCommand = this.CreateCommand(Like);
+            OpenUserProfileCommand = this.CreateRestrictedCommand(
                 OpenUserProfileAsync,
                 restrictedCanExecute: () => _userSessionProvider.User != null,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);

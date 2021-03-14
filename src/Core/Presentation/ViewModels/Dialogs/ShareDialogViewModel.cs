@@ -2,6 +2,7 @@
 using MvvmCross.ViewModels;
 using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
@@ -15,11 +16,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 
         private string _url;
 
-        public MvxAsyncCommand ShareToInstagramCommand => new MvxAsyncCommand(ShareToInstagramAsync);
+        public MvxAsyncCommand ShareToInstagramCommand => this.CreateCommand(ShareToInstagramAsync);
 
-        public MvxAsyncCommand CopyLinkCommand => new MvxAsyncCommand(CopyLinkAsync);
+        public MvxAsyncCommand CopyLinkCommand => this.CreateCommand(CopyLinkAsync);
 
-        public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(ShareAsync);
+        public MvxAsyncCommand ShareCommand => this.CreateCommand(ShareAsync);
 
         public ShareDialogViewModel(IPlatformService platformService)
         {

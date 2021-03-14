@@ -1,4 +1,5 @@
-﻿using MvvmCross;
+﻿using Microsoft.AppCenter.Crashes;
+using MvvmCross;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
@@ -57,6 +58,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 
         protected virtual Task OnExceptionHandledAsync(Exception exception)
         {
+            Crashes.TrackError(exception);
             return Task.CompletedTask;
         }
 

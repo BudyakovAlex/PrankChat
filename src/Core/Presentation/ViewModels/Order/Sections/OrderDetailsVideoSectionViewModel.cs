@@ -37,9 +37,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
             _videoManager = videoManager;
             _mediaService = mediaService;
 
-            CancelUploadingCommand = new MvxCommand(() => _cancellationTokenSource?.Cancel());
-            ShowFullVideoCommand = new MvxAsyncCommand(ShowFullVideoAsync);
-            LoadVideoCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(LoadVideoAsync));
+            CancelUploadingCommand = this.CreateCommand(() => _cancellationTokenSource?.Cancel());
+            ShowFullVideoCommand = this.CreateCommand(ShowFullVideoAsync);
+            LoadVideoCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(LoadVideoAsync));
         }
 
         public IMvxCommand CancelUploadingCommand { get; }

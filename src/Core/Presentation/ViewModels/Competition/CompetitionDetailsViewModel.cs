@@ -61,8 +61,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
             Messenger.SubscribeOnMainThread<ReloadCompetitionMessage>(OnReloadData).DisposeWith(Disposables);
 
-            RefreshDataCommand = new MvxAsyncCommand(RefreshDataAsync);
-            CancelUploadingCommand = new MvxCommand(() => _cancellationTokenSource?.Cancel());
+            RefreshDataCommand = this.CreateCommand(RefreshDataAsync);
+            CancelUploadingCommand = this.CreateCommand(() => _cancellationTokenSource?.Cancel());
         }
 
         private bool _isUploading;
@@ -105,7 +105,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             _competition = parameter;
             _header = new CompetitionDetailsHeaderViewModel(
                 IsUserSessionInitialized,
-                new MvxAsyncCommand(ExecuteActionAsync),
+                this.CreateCommand(ExecuteActionAsync),
                 parameter);
 
             Items.Add(_header);
@@ -189,7 +189,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
                     _header = new CompetitionDetailsHeaderViewModel(
                         IsUserSessionInitialized,
-                        new MvxAsyncCommand(ExecuteActionAsync),
+                        this.CreateCommand(ExecuteActionAsync),
                         _competition);
 
                     Items.ReplaceWith(new[] { _header });

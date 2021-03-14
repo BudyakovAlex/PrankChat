@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
@@ -16,7 +17,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
         public OnboardingViewModel()
         {
             Items = new MvxObservableCollection<OnboardingItemViewModel>();
-            ActionCommand = new MvxAsyncCommand(ExecuteActionAsync);
+            ActionCommand = this.CreateCommand(ExecuteActionAsync);
 
             ProduceSlides();
         }

@@ -23,8 +23,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             _competitionsManager = competitionsManager;
             _walkthroughsProvider = walkthroughsProvider;
 
-            LoadDataCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(LoadDataAsync, awaitWhenBusy: true));
-            ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
+            LoadDataCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(LoadDataAsync, awaitWhenBusy: true));
+            ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
 
             Messenger.SubscribeOnMainThread<ReloadCompetitionsMessage>((msg) => LoadDataCommand?.Execute()).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
