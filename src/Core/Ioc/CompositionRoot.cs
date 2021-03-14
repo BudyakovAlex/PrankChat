@@ -29,6 +29,7 @@ using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Providers;
+using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Managers.Common;
 
@@ -103,6 +104,8 @@ namespace PrankChat.Mobile.Core.Ioc
 
         private void RegisterProviders()
         {
+            Container.RegisterSingleton<IEnvironmentConfigurationProvider, EnvironmentConfigurationProvider>();
+            Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
             Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
             Container.RegisterSingleton<IPushNotificationProvider, PushNotificationProvider>();
             Container.RegisterSingleton<IWalkthroughsProvider, WalkthroughsProvider>();

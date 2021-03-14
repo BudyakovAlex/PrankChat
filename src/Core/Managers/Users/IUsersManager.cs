@@ -9,7 +9,7 @@ namespace PrankChat.Mobile.Core.Managers.Users
     {
         Task VerifyEmailAsync();
 
-        Task GetCurrentUserAsync();
+        Task GetAndRefreshUserInSessionAsync();
 
         Task<Pagination<User>> GetSubscriptionsAsync(int userId, int page, int pageSize);
 

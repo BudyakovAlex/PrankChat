@@ -1,0 +1,26 @@
+﻿{
+    "Environment": "Stage",
+    "Configurations": [
+        {
+            "EnvironmentName": "Dev",
+            "ApiUrl": "https://dev.prankchat.store",
+            "AppCenterIosId": "05b0d6ef-ca8b-41d6-81c1-f6d1f37d38d9",
+            "AppCenterDroidId": "0682507a-46fd-4b63-a5dd-003ddfc079bd",
+            "ApiVersion": "1.0"
+        },
+        {
+            "EnvironmentName": "Stage",
+            "ApiUrl": "https://stage.prankchat.store",
+            "AppCenterIosId": "05b0d6ef-ca8b-41d6-81c1-f6d1f37d38d9",
+            "AppCenterDroidId": "0682507a-46fd-4b63-a5dd-003ddfc079bd",
+            "ApiVersion": "1.0"
+        },
+        {
+            "EnvironmentName": "Production",
+            "ApiUrl": "https://api.prank.chat",
+            "AppCenterIosId": "05b0d6ef-ca8b-41d6-81c1-f6d1f37d38d9",
+            "AppCenterDroidId": "0682507a-46fd-4b63-a5dd-003ddfc079bd",
+            "ApiVersion": "1.0"
+        }
+    ]
+}

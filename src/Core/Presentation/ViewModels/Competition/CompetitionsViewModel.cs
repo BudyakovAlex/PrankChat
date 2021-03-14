@@ -70,10 +70,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
             var competitionsPage = await _competitionsManager.GetCompetitionsAsync(1, 100);
 
-            var sections = competitionsPage.Items.GroupBy(competition => competition.GetPhase())
-                                                 .Select(group => new CompetitionsSectionViewModel(IsUserSessionInitialized, group.Key, group.ToList()))
-                                                 .OrderBy(item => item.Phase)
-                                                 .ToList();
+            var sections = competitionsPage.Items
+                .GroupBy(competition => competition.GetPhase())
+                .Select(group => new CompetitionsSectionViewModel(IsUserSessionInitialized, group.Key, group.ToList()))
+                .OrderBy(item => item.Phase)
+                .ToList();
+
             Items.SwitchTo(sections);
         }
     }

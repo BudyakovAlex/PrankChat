@@ -1,10 +1,16 @@
-﻿using MvvmCross.Binding.Bindings.Target.Construction;
+﻿using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using MvvmCross;
+using MvvmCross.Binding.Bindings.Target.Construction;
+using MvvmCross.IoC;
 using MvvmCross.Platforms.Ios.Core;
 using PrankChat.Mobile.Core;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Ioc;
+using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.iOS.ApplicationServices;
 using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth;
@@ -19,6 +25,16 @@ namespace PrankChat.Mobile.iOS
 {
     public class Setup : MvxIosSetup<App>
     {
+        protected override void InitializeFirstChance()
+        {
+            base.InitializeFirstChance();
+
+            Mvx.IoCProvider.CallbackWhenRegistered<IEnvironmentConfigurationProvider>(provider =>
+            {
+                AppCenter.Start(provider.Environment.AppCenterIosId, typeof(Analytics), typeof(Crashes));
+            });
+        }
+
         protected override void InitializeLastChance()
         {
             base.InitializeLastChance();

@@ -1,42 +1,33 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Plugin.DeviceInfo;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
-using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
+using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Notifications
 {
-    public class NotificationsService : BaseRestService, INotificationsService
+    public class NotificationsService : INotificationsService
     {
-        private readonly IMvxMessenger _messenger;
-        private readonly IMvxLog _log;
-
         private readonly HttpClient _client;
 
         public NotificationsService(
             IUserSessionProvider userSessionProvider,
-            IAuthorizationService authorizeService,
+            IEnvironmentConfigurationProvider environmentConfigurationProvider,
             IMvxLogProvider logProvider,
-            IMvxMessenger messenger) : base(userSessionProvider, authorizeService, logProvider, messenger)
+            IMvxMessenger messenger)
         {
-            _messenger = messenger;
-            _log = logProvider.GetLogFor<NotificationsService>();
+            var log = logProvider.GetLogFor<NotificationsService>();
 
-            var configuration = ConfigurationProvider.GetConfiguration();
+            var environment = environmentConfigurationProvider.Environment;
             _client = new HttpClient(
-                configuration.BaseAddress,
-                configuration.ApiVersion,
+                environment.ApiUrl,
+                environment.ApiVersion,
                 userSessionProvider,
-                _log,
+                log,
                 messenger);
-
-            _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
         public Task<BaseBundleDto<NotificationDto>> GetNotificationsAsync()

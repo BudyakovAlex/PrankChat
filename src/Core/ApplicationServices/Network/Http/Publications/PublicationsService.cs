@@ -1,47 +1,40 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
-using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Publications
 {
-    public class PublicationsService : BaseRestService, IPublicationsService
+    public class PublicationsService : IPublicationsService
     {
         private readonly IUserSessionProvider _userSessionProvider;
-        private readonly IMvxMessenger _messenger;
-        private readonly IMvxLog _log;
 
         private readonly HttpClient _client;
 
         public PublicationsService(
             IUserSessionProvider userSessionProvider,
-            IAuthorizationService authorizeService,
+            IEnvironmentConfigurationProvider environmentConfigurationProvider,
             IMvxLogProvider logProvider,
-            IMvxMessenger messenger) : base(userSessionProvider, authorizeService, logProvider, messenger)
+            IMvxMessenger messenger)
         {
             _userSessionProvider = userSessionProvider;
-            _messenger = messenger;
-            _log = logProvider.GetLogFor<PublicationsService>();
+            var log = logProvider.GetLogFor<PublicationsService>();
 
-            var configuration = ConfigurationProvider.GetConfiguration();
+            var environment = environmentConfigurationProvider.Environment;
+
             _client = new HttpClient(
-                configuration.BaseAddress,
-                configuration.ApiVersion,
+                environment.ApiUrl,
+                environment.ApiVersion,
                 userSessionProvider,
-                _log,
+                log,
                 messenger);
-
-            _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
         public async Task<BaseBundleDto<VideoDto>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize)

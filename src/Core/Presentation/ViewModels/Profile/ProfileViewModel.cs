@@ -219,7 +219,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task LoadProfileAsync()
         {
-            await UsersManager.GetCurrentUserAsync();
+            await UsersManager.GetAndRefreshUserInSessionAsync();
             Reset();
 
             await InitializeProfileData();

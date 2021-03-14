@@ -2,7 +2,13 @@
 using Android.Content.PM;
 using Android.OS;
 using AndroidX.AppCompat.App;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using MvvmCross;
+using MvvmCross.IoC;
 using MvvmCross.Platforms.Android.Views;
+using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications;
 
 namespace PrankChat.Mobile.Droid
@@ -25,6 +31,11 @@ namespace PrankChat.Mobile.Droid
             AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
 
             base.OnCreate(bundle);
+
+            Mvx.IoCProvider.CallbackWhenRegistered<IEnvironmentConfigurationProvider>(provider =>
+            {
+                AppCenter.Start(provider.Environment.AppCenterDroidId, typeof(Analytics), typeof(Crashes));
+            });
 
             if (bundle == null &&                Intent != null)            {
                 _orderId = NotificationWrapper.GetOrderId(Intent);

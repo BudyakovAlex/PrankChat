@@ -57,11 +57,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
         {
         }
 
-        protected virtual Task OnExceptionHandledAsync(Exception exception)
+        protected virtual async Task OnExceptionHandledAsync(Exception exception)
         {
+            await Task.Delay(500);
+
             DialogService.ShowToast(Resources.Error_Something_Went_Wrong_Message, Models.Enums.ToastType.Negative);
             Crashes.TrackError(exception);
-            return Task.CompletedTask;
         }
 
         protected virtual void OnIsBusyChanged(object sender, bool value)

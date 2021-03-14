@@ -4,9 +4,12 @@ using Foundation;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using MvvmCross;
+using MvvmCross.IoC;
 using MvvmCross.Platforms.Ios.Core;
 using Plugin.DownloadManager;
 using PrankChat.Mobile.Core;
+using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
 using System;
 using UIKit;
@@ -48,7 +51,6 @@ namespace PrankChat.Mobile.iOS
         {
             Facebook.CoreKit.Profile.EnableUpdatesOnAccessTokenChange(true);
             Facebook.CoreKit.ApplicationDelegate.SharedInstance.FinishedLaunching(application, launchOptions);
-            AppCenter.Start("05b0d6ef-ca8b-41d6-81c1-f6d1f37d38d9", typeof(Analytics), typeof(Crashes));
 
             return base.FinishedLaunching(application, launchOptions);
         }

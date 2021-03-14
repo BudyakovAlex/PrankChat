@@ -1,40 +1,32 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
-using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Common
 {
-    public class VersionService : BaseRestService, IVersionService
+    public class VersionService : IVersionService
     {
-        private readonly IMvxMessenger _messenger;
-        private readonly IMvxLog _log;
-
         private readonly HttpClient _client;
 
         public VersionService(
             IUserSessionProvider userSessionProvider,
-            IAuthorizationService authorizeService,
+            IEnvironmentConfigurationProvider environmentConfigurationProvider,
             IMvxLogProvider logProvider,
-            IMvxMessenger messenger) : base(userSessionProvider, authorizeService, logProvider, messenger)
+            IMvxMessenger messenger) 
         {
-            _messenger = messenger;
-            _log = logProvider.GetLogFor<VersionService>();
+            var log = logProvider.GetLogFor<VersionService>();
 
-            var configuration = ConfigurationProvider.GetConfiguration();
-            _client = new HttpClient(configuration.BaseAddress,
-                                     configuration.ApiVersion,
-                                     userSessionProvider,
-                                     _log,
-                                     messenger);
-
-            _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
+            var environment = environmentConfigurationProvider.Environment;
+            _client = new HttpClient(
+                environment.ApiUrl,
+                environment.ApiVersion,
+                userSessionProvider,
+                log,
+                messenger);
         }
 
         public async Task<AppVersionDto> CheckAppVersionAsync()

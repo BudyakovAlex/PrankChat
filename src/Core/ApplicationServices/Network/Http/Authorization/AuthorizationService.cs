@@ -2,10 +2,10 @@
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using RestSharp;
 using System;
@@ -18,23 +18,27 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization
     {
         private readonly IUserSessionProvider _userSessionProvider;
         private readonly IMvxMessenger _messenger;
-        private readonly IMvxLog _log;
 
         private readonly HttpClient _client;
 
-        public AuthorizationService(IUserSessionProvider userSessionProvider,
-                                    IMvxLogProvider logProvider,
-                                    IMvxMessenger messenger)
+        public AuthorizationService(
+            IUserSessionProvider userSessionProvider,
+            IEnvironmentConfigurationProvider environmentConfigurationProvider,
+            IMvxLogProvider logProvider,
+            IMvxMessenger messenger)
         {
             _userSessionProvider = userSessionProvider;
             _messenger = messenger;
-            _log = logProvider.GetLogFor<AuthorizationService>();
-            var configuration = ConfigurationProvider.GetConfiguration();
-            _client = new HttpClient(configuration.BaseAddress,
-                                     configuration.ApiVersion,
-                                     userSessionProvider,
-                                     _log,
-                                     messenger);
+
+            var log = logProvider.GetLogFor<AuthorizationService>();
+
+            var environment = environmentConfigurationProvider.Environment;
+            _client = new HttpClient(
+                environment.ApiUrl,
+                environment.ApiVersion,
+                userSessionProvider,
+                log,
+                messenger);
 
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }

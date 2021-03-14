@@ -141,7 +141,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
                 if (IsDocumentPending)
                 {
-                    await _usersManager.GetCurrentUserAsync();
+                    await _usersManager.GetAndRefreshUserInSessionAsync();
                     await RaiseAllPropertiesChanged();
                 }
             }

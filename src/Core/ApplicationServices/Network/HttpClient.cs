@@ -41,21 +41,22 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         private readonly Version _apiVersion;
         private readonly string _baseAddress;
+
         private IDialogService _dialogService;
 
         public HttpClient(string baseAddress,
-                          Version apiVersion,
+                          string apiVersion,
                           IUserSessionProvider userSessionProvider,
                           IMvxLog mvxLog,
                           IMvxMessenger messenger)
         {
             _baseAddress = baseAddress;
-            _apiVersion = apiVersion;
+            _apiVersion = new Version(apiVersion);
             _userSessionProvider = userSessionProvider;
             _mvxLog = mvxLog;
             _messenger = messenger;
 
-            _client = new RestClient($"{baseAddress}/{ApiId}/v{apiVersion.Major}").UseSerializer(() => new JsonNetSerializer());
+            _client = new RestClient($"{baseAddress}/{ApiId}/v{_apiVersion.Major}").UseSerializer(() => new JsonNetSerializer());
             _client.Timeout = TimeSpan.FromMinutes(15).Milliseconds;
         }
 

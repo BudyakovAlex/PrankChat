@@ -1,6 +1,5 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
@@ -18,6 +17,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Walthroughs;
 using PrankChat.Mobile.Core.Providers;
+using PrankChat.Mobile.Core.Providers.Configuration;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,19 +28,29 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     {
         private readonly IOrdersManager _ordersManager;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
+        private readonly IEnvironmentConfigurationProvider _environmentConfigurationProvider;
 
         private bool _isExecuting;
 
-        public CreateOrderViewModel(IOrdersManager ordersManager, IWalkthroughsProvider walkthroughsProvider)
+        public CreateOrderViewModel(
+            IOrdersManager ordersManager,
+            IWalkthroughsProvider walkthroughsProvider,
+            IEnvironmentConfigurationProvider environmentConfigurationProvider)
         {
             _ordersManager = ordersManager;
             _walkthroughsProvider = walkthroughsProvider;
+            _environmentConfigurationProvider = environmentConfigurationProvider;
 
             ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
             ShowWalkthrouthSecretCommand = this.CreateCommand(ShowWalkthrouthSecretAsync);
             ShowDateDialogCommand = this.CreateCommand(ShowDateDialogAsync);
             CreateCommand = this.CreateCommand(CreateAsync);
         }
+
+        public IMvxAsyncCommand ShowDateDialogCommand { get; }
+        public IMvxAsyncCommand CreateCommand { get; }
+        public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
+        public IMvxAsyncCommand ShowWalkthrouthSecretCommand { get; }
 
         private Period _activeFor;
         public Period ActiveFor
@@ -79,14 +89,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             get => _isExecutorHidden;
             set => SetProperty(ref _isExecutorHidden, value);
         }
-
-        public IMvxAsyncCommand ShowDateDialogCommand { get; }
-
-        public IMvxAsyncCommand CreateCommand { get; }
-
-        public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
-
-        public IMvxAsyncCommand ShowWalkthrouthSecretCommand { get; }
 
         private Task ShowWalkthrouthAsync()
         {
@@ -197,7 +199,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task ShowDateDialogAsync()
         {
-            var periods = ConfigurationProvider.GetConfiguration().Periods;
+            var periods = _environmentConfigurationProvider.Periods;
             var titles = periods.Select(period => period.Title).ToList();
             var result = await DialogService.ShowArrayDialogAsync(titles, Resources.CreateOrderView_Choose_Time_Period);
             if (!string.IsNullOrWhiteSpace(result))

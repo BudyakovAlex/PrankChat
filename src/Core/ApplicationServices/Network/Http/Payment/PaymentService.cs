@@ -1,40 +1,34 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
-using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment
 {
-    public class PaymentService : BaseRestService, IPaymentService
+    public class PaymentService : IPaymentService
     {
-        private readonly IMvxMessenger _messenger;
         private readonly IMvxLog _log;
 
         private readonly HttpClient _client;
 
         public PaymentService(
             IUserSessionProvider userSessionProvider,
-            IAuthorizationService authorizeService,
+            IEnvironmentConfigurationProvider environmentConfigurationProvider,
             IMvxLogProvider logProvider,
-            IMvxMessenger messenger) : base(userSessionProvider, authorizeService, logProvider, messenger)
+            IMvxMessenger messenger)
         {
-            _messenger = messenger;
             _log = logProvider.GetLogFor<PaymentService>();
 
-            var configuration = ConfigurationProvider.GetConfiguration();
-            _client = new HttpClient(configuration.BaseAddress,
-                                     configuration.ApiVersion,
+            var environment = environmentConfigurationProvider.Environment;
+
+            _client = new HttpClient(environment.ApiUrl,
+                                     environment.ApiVersion,
                                      userSessionProvider,
                                      _log,
                                      messenger);
-
-            _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }
 
         public async Task<PaymentDto> RefillAsync(double coast)

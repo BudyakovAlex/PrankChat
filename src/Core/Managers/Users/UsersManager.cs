@@ -22,7 +22,7 @@ namespace PrankChat.Mobile.Core.Managers.Users
             return _usersService.VerifyEmailAsync();
         }
 
-        public Task GetCurrentUserAsync()
+        public Task GetAndRefreshUserInSessionAsync()
         {
             return _usersService.GetCurrentUserAsync();
         }

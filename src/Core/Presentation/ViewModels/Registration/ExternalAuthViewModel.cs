@@ -60,8 +60,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         protected virtual async Task NavigateAfterLoginAsync()
         {
-            // TODO: not wait
-            await UsersManager.GetCurrentUserAsync();
+            await UsersManager.GetAndRefreshUserInSessionAsync();
             await _pushNotificationService.TryUpdateTokenAsync();
             await NavigationManager.NavigateAsync<MainViewModel>();
         }

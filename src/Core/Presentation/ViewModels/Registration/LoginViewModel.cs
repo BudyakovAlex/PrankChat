@@ -38,15 +38,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             RegistrationCommand = this.CreateCommand(NavigationManager.NavigateAsync<RegistrationViewModel>);
         }
 
+        public IMvxAsyncCommand ShowDemoModeCommand { get; }
+        public IMvxAsyncCommand<string> LoginCommand { get; }
+        public ICommand ResetPasswordCommand { get; }
+        public IMvxAsyncCommand RegistrationCommand { get; }
+        public IMvxAsyncCommand<AppleAuth> LoginWithAppleCommand { get; }
+
         private string _emailText;
         public string EmailText
         {
             get => _emailText;
-            set
-            {
-                _emailText = value?.WithoutSpace();
-                RaisePropertyChanged(nameof(EmailText));
-            }
+            set => SetProperty(ref _emailText, value?.WithoutSpace());
         }
 
         private string _passwordText;
@@ -55,16 +57,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             get => _passwordText;
             set => SetProperty(ref _passwordText, value);
         }
-
-        public IMvxAsyncCommand ShowDemoModeCommand { get; }
-
-        public IMvxAsyncCommand<string> LoginCommand { get; }
-
-        public ICommand ResetPasswordCommand { get; }
-
-        public IMvxAsyncCommand RegistrationCommand { get; }
-
-        public IMvxAsyncCommand<AppleAuth> LoginWithAppleCommand { get; }
 
         private async Task LoginAsync(string loginType)
         {
