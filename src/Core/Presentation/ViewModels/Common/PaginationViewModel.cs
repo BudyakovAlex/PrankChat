@@ -32,7 +32,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common
                 (wrapper, handler) => wrapper.IsBusyChanged += handler,
                 (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
 
-            LoadMoreItemsCommand = this.CreateCommand(LoadMoreItemsInternalAsync, CanLoadMoreItems);
+            LoadMoreItemsCommand = this.CreateCommand(LoadMoreItemsInternalAsync, CanLoadMoreItems, useIsBusyWrapper: false);
             ReloadItemsCommand = this.CreateCommand(ReloadItemsAsync);
         }
 

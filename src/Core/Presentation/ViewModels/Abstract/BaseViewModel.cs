@@ -5,6 +5,7 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Navigation;
+using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
 using System.Reactive.Disposables;
@@ -58,6 +59,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 
         protected virtual Task OnExceptionHandledAsync(Exception exception)
         {
+            DialogService.ShowToast(Resources.Error_Something_Went_Wrong_Message, Models.Enums.ToastType.Negative);
             Crashes.TrackError(exception);
             return Task.CompletedTask;
         }

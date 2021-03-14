@@ -1,7 +1,6 @@
 ﻿using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
-using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
@@ -28,7 +27,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
-    public class OrderDetailsViewModel : BasePageViewModel, IMvxViewModel<OrderDetailsNavigationParameter, OrderDetailsResult>
+    public class OrderDetailsViewModel : BasePageViewModel<OrderDetailsNavigationParameter, OrderDetailsResult>
     {
         private readonly IOrdersManager _ordersManager;
         private readonly IPlatformService _platformService;
@@ -46,12 +45,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             TakeOrderCommand = this.CreateCommand(TakeOrderAsync);
             SubscribeOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(SubscribeOrderAsync));
             UnsubscribeOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(UnsubscribeOrderAsync));
-            YesCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(YesAsync));
-            NoCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(NoAsync));
-            ExecuteOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(ExecuteOrderAsync));
-            CancelOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(CancelOrderAsync));
-            ArqueOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(ArgueOrderAsync));
-            AcceptOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(AcceptOrderAsync));
+            YesCommand = this.CreateCommand(YesAsync);
+            NoCommand = this.CreateCommand(NoAsync);
+            ExecuteOrderCommand = this.CreateCommand(ExecuteOrderAsync);
+            CancelOrderCommand = this.CreateCommand(CancelOrderAsync);
+            ArqueOrderCommand = this.CreateCommand(ArgueOrderAsync);
+            AcceptOrderCommand = this.CreateCommand(AcceptOrderAsync);
 
             LoadOrderDetailsCommand = this.CreateCommand(LoadOrderDetailsAsync);
             OpenSettingsCommand = this.CreateCommand(OpenSettingsAsync);
@@ -148,8 +147,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsTimeAvailable => Order.CheckIsTimeAvailable();
 
-        public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
-
         public bool IsHiddenOrder => Order?.OrderCategory == OrderCategory.Private &&
                                      !CustomerSectionViewModel.IsUserCustomer &&
                                      !ExecutorSectionViewModel.IsUserExecutor;
@@ -158,7 +155,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string OrderDescription => Order?.Description;
 
-        public void Prepare(OrderDetailsNavigationParameter parameter)
+        public override void Prepare(OrderDetailsNavigationParameter parameter)
         {
             _orderId = parameter.OrderId;
             VideoSectionViewModel.SetFullScreenVideos(parameter.FullScreenVideos, parameter.CurrentIndex);
@@ -166,20 +163,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public override Task InitializeAsync()
         {
-            return LoadOrderDetailsCommand.ExecuteAsync();
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            if (viewFinishing &&
-                CloseCompletionSource != null &&
-                !CloseCompletionSource.Task.IsCompleted &&
-                !CloseCompletionSource.Task.IsFaulted)
-            {
-                CloseCompletionSource?.SetResult(new OrderDetailsResult(Order));
-            }
-
-            base.ViewDestroy(viewFinishing);
+            return Task.WhenAll(base.InitializeAsync(), LoadOrderDetailsAsync());
         }
 
         private new async void OnTimerTick(TimerTickMessage msg)
@@ -384,10 +368,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task CancelOrderAsync()
         {
-            var result = await DialogService.ShowConfirmAsync(Resources.OrderDetails_View_Cancel_Title,
-                                                              Resources.Attention,
-                                                              Resources.Ok,
-                                                              Resources.Cancel);
+            var result = await DialogService.ShowConfirmAsync(
+                Resources.OrderDetails_View_Cancel_Title,
+                Resources.Attention,
+                Resources.Ok,
+                Resources.Cancel);
             if (!result)
             {
                 return;

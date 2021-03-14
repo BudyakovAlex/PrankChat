@@ -13,6 +13,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Providers;
+using PrankChat.Mobile.Core.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     {
         private readonly IOrdersManager _ordersManager;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
+        private readonly ExecutionStateWrapper _loadDataStateWrapper;
 
         private readonly Dictionary<ArbitrationOrderFilterType, string> _arbitrationOrderFilterTypeTitleMap =
             new Dictionary<ArbitrationOrderFilterType, string>
@@ -52,14 +54,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             _ordersManager = ordersManager;
             _walkthroughsProvider = walkthroughsProvider;
 
+            _loadDataStateWrapper = new ExecutionStateWrapper();
+            _loadDataStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(
+                OnIsBusyChanged,
+                (wrapper, handler) => wrapper.IsBusyChanged += handler,
+                (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
+
             OpenFilterCommand = this.CreateCommand(OpenFilterAsync);
-            LoadDataCommand = this.CreateCommand(LoadDataAsync);
             ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
+            LoadDataCommand = this.CreateCommand(() => _loadDataStateWrapper.WrapAsync(LoadDataAsync), useIsBusyWrapper: false);
 
             Messenger.SubscribeOnMainThread<OrderChangedMessage>(OrdersChanged).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RemoveOrderMessage>(OrderRemoved).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
         }
+
+        public override bool IsBusy => base.IsBusy || _loadDataStateWrapper.IsBusy;
 
         public MvxObservableCollection<BaseViewModel> Items { get; } = new MvxObservableCollection<BaseViewModel>();
 

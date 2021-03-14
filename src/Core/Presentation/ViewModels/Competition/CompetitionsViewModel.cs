@@ -1,29 +1,37 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Competitions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract.Items;
 using PrankChat.Mobile.Core.Providers;
+using PrankChat.Mobile.Core.Wrappers;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
-    public class CompetitionsViewModel : BasePageViewModel
+    public class CompetitionsViewModel : BaseItemsPageViewModel<CompetitionsSectionViewModel>
     {
         private readonly ICompetitionsManager _competitionsManager;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
+
+        private ExecutionStateWrapper _loadDataStateWrapper;
 
         public CompetitionsViewModel(ICompetitionsManager competitionsManager, IWalkthroughsProvider walkthroughsProvider)
         {
             _competitionsManager = competitionsManager;
             _walkthroughsProvider = walkthroughsProvider;
 
-            LoadDataCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(LoadDataAsync, awaitWhenBusy: true));
+            _loadDataStateWrapper = new ExecutionStateWrapper();
+            _loadDataStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(
+                OnIsBusyChanged,
+                (wrapper, handler) => wrapper.IsBusyChanged += handler,
+                (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
+
+            LoadDataCommand = this.CreateCommand(() => _loadDataStateWrapper.WrapAsync(LoadDataAsync), useIsBusyWrapper : false);
             ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
 
             Messenger.SubscribeOnMainThread<ReloadCompetitionsMessage>((msg) => LoadDataCommand?.Execute()).DisposeWith(Disposables);
@@ -34,7 +42,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
 
-        public MvxObservableCollection<CompetitionsSectionViewModel> Items { get; set; } = new MvxObservableCollection<CompetitionsSectionViewModel>();
+        public override bool IsBusy => base.IsBusy || _loadDataStateWrapper.IsBusy;
 
         public override async Task InitializeAsync()
         {

@@ -1,7 +1,6 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Publications;
@@ -73,7 +72,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public ICommand LikeCommand { get; }
 
-        public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxAsyncCommand(ShowFullScreenVideoAsync);
+        public IMvxAsyncCommand ShowFullScreenVideoCommand => this.CreateCommand(ShowFullScreenVideoAsync);
 
         public IMvxAsyncCommand OpenUserProfileCommand { get; }
 
