@@ -1,11 +1,10 @@
 ﻿using Firebase.CloudMessaging;
 using Firebase.InstanceID;
 using Foundation;
-using MvvmCross;
+using Microsoft.AppCenter.Crashes;
 using MvvmCross.Platforms.Ios.Core;
 using Plugin.DownloadManager;
 using PrankChat.Mobile.Core;
-using PrankChat.Mobile.Core.BusinessServices.AppCenter;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
 using System;
 using UIKit;
@@ -62,11 +61,7 @@ namespace PrankChat.Mobile.iOS
             }
             catch (Exception ex)
             {
-                if (Mvx.IoCProvider.TryResolve<IAppCenterService>(out var appCenterService))
-                {
-                    appCenterService.TrackError(ex);
-                }
-
+                Crashes.TrackError(ex);
                 return false;
             }
         }

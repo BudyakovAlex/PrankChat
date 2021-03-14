@@ -1,5 +1,4 @@
 ﻿using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using System;
@@ -13,18 +12,15 @@ namespace PrankChat.Mobile.Core.BusinessServices
         private readonly IVideoManager _videoManager;
         private readonly IMvxMessenger _mvxMessenger;
 
-        protected BaseVideoPlayer(IVideoManager videoManager, ILogger logger, IMvxMessenger mvxMessenger)
+        protected BaseVideoPlayer(IVideoManager videoManager, IMvxMessenger mvxMessenger)
         {
             _videoManager = videoManager;
-            Logger = logger;
             _mvxMessenger = mvxMessenger;
         }
 
         public virtual void Dispose()
         {
         }
-
-        protected ILogger Logger { get; }
 
         public abstract bool IsPlaying { get; protected set; }
 

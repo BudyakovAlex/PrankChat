@@ -125,7 +125,6 @@
     <Compile Include="Controls\ExtendedVideoView.cs" />
     <Compile Include="Presentation\Listeners\MediaPlayerOnPreparedListener.cs" />
     <Compile Include="Presentation\Bindings\ViewTouchTargetBinding.cs" />
-    <Compile Include="PlatformBusinessServices\AppCenter\AppCenterService.cs" />
     <Compile Include="Presenters\Attributes\ClearStackActivityPresentationAttribute.cs" />
     <Compile Include="Presenters\CustomAndroidViewPresenter.cs" />
     <Compile Include="ApplicationServices\DialogService.cs" />

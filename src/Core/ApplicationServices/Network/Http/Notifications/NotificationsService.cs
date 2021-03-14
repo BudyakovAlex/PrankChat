@@ -4,7 +4,6 @@ using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
@@ -20,22 +19,22 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Notifications
 
         private readonly HttpClient _client;
 
-        public NotificationsService(IUserSessionProvider userSessionProvider,
-                                    IAuthorizationService authorizeService,
-                                    IMvxLogProvider logProvider,
-                                    IMvxMessenger messenger,
-                                    ILogger logger) : base(userSessionProvider, authorizeService, logProvider, messenger, logger)
+        public NotificationsService(
+            IUserSessionProvider userSessionProvider,
+            IAuthorizationService authorizeService,
+            IMvxLogProvider logProvider,
+            IMvxMessenger messenger) : base(userSessionProvider, authorizeService, logProvider, messenger)
         {
             _messenger = messenger;
             _log = logProvider.GetLogFor<NotificationsService>();
 
             var configuration = ConfigurationProvider.GetConfiguration();
-            _client = new HttpClient(configuration.BaseAddress,
-                                     configuration.ApiVersion,
-                                     userSessionProvider,
-                                     _log,
-                                     logger,
-                                     messenger);
+            _client = new HttpClient(
+                configuration.BaseAddress,
+                configuration.ApiVersion,
+                userSessionProvider,
+                _log,
+                messenger);
 
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
         }

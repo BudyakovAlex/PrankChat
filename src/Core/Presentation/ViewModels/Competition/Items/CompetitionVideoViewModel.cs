@@ -1,7 +1,6 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -41,7 +40,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             IPublicationsManager publicationsManager,
             IVideoPlayerService videoPlayerService,
             IUserSessionProvider userSessionProvider,
-            ILogger logger,
             Models.Data.Video video,
             bool isMyPublication,
             bool isVotingAvailable,
@@ -50,7 +48,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             _userSessionProvider = userSessionProvider;
             _video = video;
 
-            Logger = logger;
             _publicationsManager = publicationsManager;
             VideoPlayerService = videoPlayerService;
  
@@ -81,8 +78,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         public IMvxAsyncCommand OpenUserProfileCommand { get; }
 
         public IVideoPlayerService VideoPlayerService { get; }
-
-        public ILogger Logger { get; }
 
         public int VideoId => _video?.Id ?? -1;
 

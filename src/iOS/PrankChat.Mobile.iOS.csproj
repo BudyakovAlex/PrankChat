@@ -250,7 +250,6 @@
     <Compile Include="Presentation\Views\Video\FullScreenVideoView.designer.cs">
       <DependentUpon>FullScreenVideoView.cs</DependentUpon>
     </Compile>
-    <Compile Include="PlatformBusinessServices\AppCenter\AppCenterService.cs" />
     <Compile Include="Controls\FloatPlaceholderTextField.cs" />
     <Compile Include="ApplicationServices\DialogService.cs" />
     <InterfaceDefinition Include="Controls\ToastView.xib" />
@@ -1109,7 +1108,6 @@
     <Folder Include="Assets.xcassets\ic_accent_thumbs_up.imageset\" />
     <Folder Include="Presentation\Views\Web\" />
     <Folder Include="Presentation\Views\Video\" />
-    <Folder Include="PlatformBusinessServices\AppCenter\" />
     <Folder Include="Assets.xcassets\ic_play.imageset\" />
     <Folder Include="Assets.xcassets\ic_pause.imageset\" />
     <Folder Include="Assets.xcassets\ic_mute.imageset\" />

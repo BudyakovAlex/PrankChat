@@ -1,11 +1,10 @@
-﻿using System;
-using System.Diagnostics;
-using AVFoundation;
+﻿using AVFoundation;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Managers.Video;
+using System;
+using System.Diagnostics;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
 {
@@ -14,13 +13,11 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         private IVideoPlayer _player;
 
         private readonly IVideoManager _videoManager;
-        private readonly ILogger _logger;
         private readonly IMvxMessenger _mvxMessenger;
 
-        public VideoPlayerService(IVideoManager videoManager, ILogger logger, IMvxMessenger mvxMessenger)
+        public VideoPlayerService(IVideoManager videoManager, IMvxMessenger mvxMessenger)
         {
             _videoManager = videoManager;
-            _logger = logger;
             _mvxMessenger = mvxMessenger;
 
             AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
@@ -32,7 +29,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             {
                 if (_player == null)
                 {
-                    _player = new VideoPlayer(_videoManager, _logger, _mvxMessenger);
+                    _player = new VideoPlayer(_videoManager, _mvxMessenger);
                     _player.EnableRepeat(Constants.Delays.RepeatDelayInSeconds);
                 }
                 return _player;

@@ -74,7 +74,6 @@
     <Folder Include="ApplicationServices\Timer\" />
     <Folder Include="ApplicationServices\Dialogs\" />
     <Folder Include="Presentation\ViewModels\Video\" />
-    <Folder Include="BusinessServices\AppCenter\" />
     <Folder Include="Commands\" />
     <Folder Include="ApplicationServices\Notifications\" />
     <Folder Include="Data\Models\Shared\" />

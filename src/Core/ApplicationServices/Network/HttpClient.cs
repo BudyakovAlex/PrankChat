@@ -6,7 +6,6 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Builders;
 using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Exceptions;
@@ -38,7 +37,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         private readonly IMvxMessenger _messenger;
 
         private readonly IMvxLog _mvxLog;
-        private readonly ILogger _logger;
         private readonly IUserSessionProvider _userSessionProvider;
 
         private readonly Version _apiVersion;
@@ -49,14 +47,12 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                           Version apiVersion,
                           IUserSessionProvider userSessionProvider,
                           IMvxLog mvxLog,
-                          ILogger logger,
                           IMvxMessenger messenger)
         {
             _baseAddress = baseAddress;
             _apiVersion = apiVersion;
             _userSessionProvider = userSessionProvider;
             _mvxLog = mvxLog;
-            _logger = logger;
             _messenger = messenger;
 
             _client = new RestClient($"{baseAddress}/{ApiId}/v{apiVersion.Major}").UseSerializer(() => new JsonNetSerializer());
@@ -82,9 +78,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
             AddLanguageHeader(request);
 
-            _logger.WriteRequestInfoAsync(DateTime.Now, method.ToString(), endpoint, request.Parameters).FireAndForget();
             var response = await _client.ExecuteAsync(request);
-            _logger.WriteResponseInfoAsync(DateTime.Now, response.StatusCode, method.ToString(), endpoint, response.Content, response.Headers.ToList()).FireAndForget();
             return response;
         }
 
@@ -171,8 +165,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     var headers = multipartData.Headers.Select(header => new Parameter(header.Key, header.Value, ParameterType.HttpHeader)).ToList();
                     var requestParameters = paramsToLog.Union(headers).ToList();
 
-                    _logger.WriteRequestInfoAsync(DateTime.Now, Method.POST.ToString(), endpoint, requestParameters).FireAndForget();
-
                     response = await client.PostAsync(url, multipartData);
                     return response.IsSuccessStatusCode;
                 }
@@ -257,18 +249,15 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                     var headers = multipartData.Headers.Select(header => new Parameter(header.Key, header.Value, ParameterType.HttpHeader)).ToList();
                     var requestParameters = parameters.Union(headers).ToList();
-                    _logger.WriteRequestInfoAsync(DateTime.Now, Method.POST.ToString(), endpoint, requestParameters).FireAndForget();
 
                     response = await client.PostAsync(url, multipartData, cancellationToken);
                     if (response.IsSuccessStatusCode)
                     {
                         var responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        _logger.WriteResponseInfoAsync(DateTime.Now, response.StatusCode, Method.POST.ToString(), endpoint, responseJson).FireAndForget();
                         return JsonConvert.DeserializeObject<TResult>(responseJson);
                     }
 
                     var errorContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    _logger.WriteResponseInfoAsync(DateTime.Now, response.StatusCode, Method.POST.ToString(), endpoint, errorContent).FireAndForget();
 
                     var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsDto>(errorContent);
                     var problemDetailsData = problemDetails.Map(); //  MappingConfig.Mapper.Map<ProblemDetailsDataModel>(problemDetails);
@@ -354,13 +343,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                 AddLanguageHeader(request);
 
-                _logger.WriteRequestInfoAsync(DateTime.Now, request.Method.ToString(), endpoint, parameters: request.Parameters).FireAndForget();
-
                 var content = cancellationToken.HasValue
                     ? await _client.ExecuteAsync(request, request.Method, cancellationToken.Value)
                     : await _client.ExecuteAsync(request, request.Method);
-
-                _logger.WriteResponseInfoAsync(DateTime.Now, content.StatusCode, request.Method.ToString(), endpoint, content.Content, content.Headers.ToList()).FireAndForget();
 
                 CheckResponse(request, content, exceptionThrowingEnabled);
             }
@@ -388,13 +373,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                 AddLanguageHeader(request);
 
-                _logger.WriteRequestInfoAsync(DateTime.Now, request.Method.ToString(), endpoint, parameters: request.Parameters).FireAndForget();
-
                 var content = cancellationToken.HasValue
                     ? await _client.ExecuteAsync<T>(request, cancellationToken.Value)
                     : await _client.ExecuteAsync<T>(request);
-
-                _logger.WriteResponseInfoAsync(DateTime.Now, content.StatusCode, request.Method.ToString(), endpoint, content.Content, content.Headers.ToList()).FireAndForget();
 
                 CheckResponse(request, content, exceptionThrowingEnabled);
                 return content.Data;

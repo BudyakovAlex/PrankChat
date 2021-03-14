@@ -3,7 +3,6 @@ using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Configuration;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Providers.UserSession;
@@ -19,11 +18,11 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Common
 
         private readonly HttpClient _client;
 
-        public VersionService(IUserSessionProvider userSessionProvider,
-                              IAuthorizationService authorizeService,
-                              IMvxLogProvider logProvider,
-                              IMvxMessenger messenger,
-                              ILogger logger) : base(userSessionProvider, authorizeService, logProvider, messenger, logger)
+        public VersionService(
+            IUserSessionProvider userSessionProvider,
+            IAuthorizationService authorizeService,
+            IMvxLogProvider logProvider,
+            IMvxMessenger messenger) : base(userSessionProvider, authorizeService, logProvider, messenger)
         {
             _messenger = messenger;
             _log = logProvider.GetLogFor<VersionService>();
@@ -33,7 +32,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Common
                                      configuration.ApiVersion,
                                      userSessionProvider,
                                      _log,
-                                     logger,
                                      messenger);
 
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);

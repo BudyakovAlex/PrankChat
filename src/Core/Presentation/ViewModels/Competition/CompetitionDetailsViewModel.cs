@@ -18,9 +18,9 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -268,7 +268,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 _publicationsManager,
                 _videoPlayerService,
                 UserSessionProvider,
-                Logger,
                 video,
                 video.User.Id == UserSessionProvider.User.Id,
                 _competition.GetPhase() == CompetitionPhase.Voting,
@@ -320,7 +319,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                             _publicationsManager,
                             _videoPlayerService,
                             UserSessionProvider,
-                            Logger,
                             video,
                             true,
                             false,

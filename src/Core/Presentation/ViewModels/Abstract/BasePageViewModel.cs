@@ -1,7 +1,5 @@
-﻿using MvvmCross;
-using MvvmCross.ViewModels;
+﻿using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Ioc;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
@@ -35,8 +33,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
         public IErrorHandleService ErrorHandleService => CompositionRoot.Container.Resolve<IErrorHandleService>();
 
         public IUserSessionProvider UserSessionProvider => CompositionRoot.Container.Resolve<IUserSessionProvider>();
-
-        public ILogger Logger => Mvx.IoCProvider.Resolve<ILogger>();
 
         public INotificationBageViewModel NotificationBageViewModel { get; }
 

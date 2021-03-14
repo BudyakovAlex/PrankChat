@@ -16,8 +16,6 @@ using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Permissions;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
-using PrankChat.Mobile.Core.BusinessServices.Sentry;
 using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.Managers.Competitions;
@@ -65,10 +63,8 @@ namespace PrankChat.Mobile.Core.Ioc
         private void RegisterServices()
         {
             Container.RegisterSingleton<ITimerService, TimerService>();
-            Container.RegisterSingleton<ISentryService, SentryService>();
 
             Container.RegisterSingleton<IAuthorizationService, AuthorizationService>();
-            Container.RegisterSingleton<ILogsService, LogsService>();
             Container.RegisterSingleton<IVersionService, VersionService>();
             Container.RegisterSingleton<ICompetitionsService, CompetitionsService>();
             Container.RegisterSingleton<INotificationsService, NotificationsService>();
@@ -102,7 +98,6 @@ namespace PrankChat.Mobile.Core.Ioc
 
         private void RegisterDependencies()
         {
-            Container.RegisterSingleton<ILogger, Logger>();
             Container.RegisterSingleton<INotificationBageViewModel, NotificationBageViewModel>();
         }
 
