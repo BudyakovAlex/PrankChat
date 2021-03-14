@@ -3,8 +3,10 @@ using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Firebase;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications;
-using Sentry;
 using System;
 using System.Net;
 using VKontakte;
@@ -52,10 +54,7 @@ namespace PrankChat.Mobile.Droid
         {
             base.OnCreate();
 
-            using (SentrySdk.Init("https://077bd6b9706f4247a2bf8cab4ac3bf44@o453054.ingest.sentry.io/5454419"))
-            {
-
-            }
+            AppCenter.Start("0682507a-46fd-4b63-a5dd-003ddfc079bd", typeof(Analytics), typeof(Crashes));
 
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             Xamarin.Essentials.Platform.Init(this);

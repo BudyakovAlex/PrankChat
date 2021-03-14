@@ -21,7 +21,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
 {
     public class UsersService : BaseRestService, IUsersService
     {
-        private readonly IUserSessionProvider _settingsService;
+        private readonly IUserSessionProvider _userSesionProvider;
         private readonly IMvxMessenger _messenger;
         private readonly IMvxLog _log;
 
@@ -33,7 +33,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
             IMvxLogProvider logProvider,
             IMvxMessenger messenger) : base(userSessionProvider, authorizeService, logProvider, messenger)
         {
-            _settingsService = userSessionProvider;
+            _userSesionProvider = userSessionProvider;
             _messenger = messenger;
             _log = logProvider.GetLogFor<UsersService>();
 
@@ -69,7 +69,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
                     return;
                 }
 
-                _settingsService.User = user.Map();
+                _userSesionProvider.User = user.Map();
             }
             catch (Exception ex)
             {

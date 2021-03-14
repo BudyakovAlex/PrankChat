@@ -1,7 +1,6 @@
 ﻿using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Managers.Video;
 using System;
@@ -13,7 +12,6 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
     {
         private readonly IErrorHandleService _errorHandleService;
         private readonly IVideoManager _videoManager;
-        private readonly ILogger _logger;
         private readonly IMvxMessenger _mvxMessenger;
 
         private IVideoPlayer _player;
@@ -21,13 +19,11 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         //TODO: fix gap with injection Manager to service layer
         public VideoPlayerService(IVideoManager videoManager,
-                                  ILogger logger,
                                   IMvxMessenger mvxMessenger,
                                   IErrorHandleService errorHandleService)
         {
             _videoManager = videoManager;
 
-            _logger = logger;
             _mvxMessenger = mvxMessenger;
             _errorHandleService = errorHandleService;
         }
@@ -38,7 +34,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             {
                 if (_player == null)
                 {
-                    _player = new VideoPlayer(_videoManager, _logger, _mvxMessenger, _errorHandleService);
+                    _player = new VideoPlayer(_videoManager, _mvxMessenger, _errorHandleService);
                     _player.EnableRepeat(Constants.Delays.RepeatDelayInSeconds);
                 }
 

@@ -8,10 +8,10 @@ using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
 using System.Diagnostics;
 using Xamarin.Essentials;
@@ -36,8 +36,8 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
         {
             try
             {
-                var settingService = Mvx.IoCProvider.Resolve<ISettingsService>();
-                settingService.PushToken = token;
+                var userSession = Mvx.IoCProvider.Resolve<IUserSessionProvider>();
+                userSession.PushToken = token;
 
                 var pushNotificationService = Mvx.IoCProvider.Resolve<IPushNotificationProvider>();
                 pushNotificationService.TryUpdateTokenAsync().FireAndForget();

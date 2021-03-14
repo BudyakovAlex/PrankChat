@@ -62,7 +62,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             switch (item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    ViewModel.CloseCommand.Execute();
+                    ViewModel.CloseCommand.Execute(null);
                     break;
             }
             return base.OnOptionsItemSelected(item);
@@ -104,7 +104,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 
 		public override void OnBackPressed()
         {
-            ViewModel.CloseCommand.Execute();
+            ViewModel.CloseCommand.Execute(null);
         }
     }
 }

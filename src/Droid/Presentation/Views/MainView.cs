@@ -56,7 +56,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.main_view_layout);
-            ViewModel.LoadContentCommand.Execute();
+            ViewModel.LoadContentCommand.Execute(null);
 
             Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
 
@@ -94,13 +94,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             switch (item.ItemId)
             {
                 case Resource.Id.notification_button:
-                    ViewModel.ShowNotificationCommand.Execute();
+                    ViewModel.ShowNotificationCommand.Execute(null);
                     return true;
                 case Resource.Id.info_button:
                     ViewModel.ShowWalkthrouthCommand?.Execute(_tabLayout.SelectedTabPosition);
                     return true;
                 case Resource.Id.search_button:
-                    ViewModel.ShowSearchCommand.Execute();
+                    ViewModel.ShowSearchCommand.Execute(null);
                     return true;
             }
             return base.OnOptionsItemSelected(item);
