@@ -8,11 +8,9 @@ using MvvmCross.Platforms.Android.Presenters;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.BusinessServices.AppCenter;
 using PrankChat.Mobile.Core.Ioc;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Droid.ApplicationServices;
-using PrankChat.Mobile.Droid.PlatformBusinessServices.AppCenter;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Video;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presenters;
@@ -26,7 +24,6 @@ namespace PrankChat.Mobile.Droid
             base.InitializeLastChance();
 
             CompositionRoot.Container.RegisterType<IVideoPlayerService, VideoPlayerService>();
-            CompositionRoot.Container.RegisterSingleton<IAppCenterService, AppCenterService>();
             CompositionRoot.Container.RegisterSingleton<IDialogService, DialogService>();
             CompositionRoot.Container.RegisterSingleton<IExternalAuthService, ExternalAuthService>();
             CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
