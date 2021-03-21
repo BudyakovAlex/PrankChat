@@ -1,29 +1,42 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>PrankChat.Mobile.Core</AssemblyName>
     <RootNamespace>PrankChat.Mobile.Core</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NETStandard.Library" version="2.0.3" Version="2.0.3" />
-    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.470" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.481" />
     <PackageReference Include="MvvmCross" Version="7.1.2" />
     <PackageReference Include="MvvmCross.Plugin.Messenger" Version="7.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="RestSharp" Version="106.11.7" />
-    <PackageReference Include="Sentry" Version="2.1.8" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
     <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="CreditCardValidator" Version="2.0.1" />
     <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="7.1.2" />
     <PackageReference Include="MimeTypesMap" Version="1.0.8" />
     <PackageReference Include="Xam.Plugin.Badge" Version="1.0.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
     <PackageReference Include="Xam.Plugins.DownloadManager" Version="1.4.0" />
+    <PackageReference Include="Microsoft.AppCenter" Version="4.1.0" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AppConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
      <EmbeddedResource Update="Presentation\Localization\Resources.resx">
@@ -47,7 +60,7 @@
     <Folder Include="Managers\Competitions\" />
     <Folder Include="Presentation\Navigation\" />
     <Folder Include="Presentation\Navigation\Parameters\" />
-    <Folder Include="Models\Enums\" />
+    <Folder Include="Data\Enums\" />
     <Folder Include="Presentation\ViewModels\Search\" />
     <Folder Include="Presentation\ViewModels\Publication\Items\" />
     <Folder Include="Presentation\ViewModels\PasswordRecovery\" />
@@ -61,29 +74,34 @@
     <Folder Include="Presentation\ViewModels\Profile\Cashbox\" />
     <Folder Include="Presentation\ViewModels\Dialogs\" />
     <Folder Include="ApplicationServices\Platforms\" />
-    <Folder Include="Models\Data\FilterTypes\" />
     <Folder Include="Exceptions\Network\" />
     <Folder Include="ApplicationServices\Timer\" />
     <Folder Include="ApplicationServices\Dialogs\" />
     <Folder Include="Presentation\ViewModels\Video\" />
-    <Folder Include="BusinessServices\Crashlytic\" />
     <Folder Include="Commands\" />
-    <Folder Include="Presentation\ViewModels\Shared\" />
-    <Folder Include="Presentation\ViewModels\Shared\Abstract\" />
     <Folder Include="ApplicationServices\Notifications\" />
-    <Folder Include="Models\Data\Shared\" />
+    <Folder Include="Data\Models\Shared\" />
     <Folder Include="Providers\" />
     <Folder Include="Presentation\ViewModels\Walthroughs\" />
     <Folder Include="ApplicationServices\Network\Builders\" />
     <Folder Include="ApplicationServices\Network\Contents\" />
     <Folder Include="Presentation\ViewModels\Subscriptions\" />
-    <Folder Include="BusinessServices\Logger\" />
-    <Folder Include="BusinessServices\TaskSchedulers\" />
-    <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\" />
-    <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\Abstract\" />
-    <Folder Include="BusinessServices\TaskSchedulers\BackgroundTasks\SendLogs\" />
     <Folder Include="Presentation\ViewModels\Order\Sections\" />
     <Folder Include="Wrappers\" />
     <Folder Include="Presentation\ViewModels\Order\Sections\Abstract\" />
+    <Folder Include="Data\Enums\FilterTypes\" />
+    <Folder Include="Providers\UserSession\" />
+    <Folder Include="Managers\Navigation\" />
+    <Folder Include="Ioc\" />
+    <Folder Include="Presentation\ViewModels\Abstract\" />
+    <Folder Include="Presentation\ViewModels\Profile\Abstract\" />
+    <Folder Include="Presentation\ViewModels\Common\" />
+    <Folder Include="Presentation\ViewModels\Subscriptions\Items\" />
+    <Folder Include="Presentation\ViewModels\Common\Abstract\" />
+    <Folder Include="Data\Models\Configurations\" />
+    <Folder Include="Providers\Configuration\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="AppConfig.json" />
   </ItemGroup>
 </Project>

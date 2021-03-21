@@ -7,7 +7,7 @@ using Foundation;
 using MvvmCross.Binding.Extensions;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 

@@ -4,6 +4,11 @@ namespace PrankChat.Mobile.Core.Infrastructure
 {
     public static class Constants
     {
+        public static class Configuration
+        {
+            public const string AppConfigFileName = "AppConfig.json";
+        }
+
         public static class Profile
         {
             public const int DescriptionMaxLength = 120;

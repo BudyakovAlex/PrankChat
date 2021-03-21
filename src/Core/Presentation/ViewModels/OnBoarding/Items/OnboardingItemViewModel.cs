@@ -1,11 +1,14 @@
 ﻿using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding.Items
 {
     public class OnboardingItemViewModel : BaseViewModel
     {
-        public OnboardingItemViewModel(string title, string description, OnBoardingPageType type)
+        public OnboardingItemViewModel(
+            string title,
+            string description,
+            OnBoardingPageType type)
         {
             Title = title;
             Description = description;

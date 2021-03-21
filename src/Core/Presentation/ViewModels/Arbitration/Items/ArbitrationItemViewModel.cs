@@ -1,31 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
+﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.Navigation.Results;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using PrankChat.Mobile.Core.Providers.UserSession;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
 {
     public class ArbitrationItemViewModel : BaseViewModel, IFullScreenVideoOwnerViewModel
     {
-        private readonly ISettingsService _settingsService;
-        private readonly INavigationService _navigationService;
+        private readonly IUserSessionProvider _userSessionProvider;
 
         private readonly int? _customerId;
-        private readonly ArbitrationOrderDataModel _orderDataModel;
-        private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
+        private readonly ArbitrationOrder _order;
+        private readonly Func<List<FullScreenVideo>> _getAllFullScreenVideoDataFunc;
         private readonly DateTime? _arbitrationFinishAt;
         private readonly int _orderId;
 
-        public ArbitrationItemViewModel(INavigationService navigatiobService,
-                                        ISettingsService settingsService,
+        public ArbitrationItemViewModel(IUserSessionProvider userSessionProvider,
                                         bool isUserSessionInitialized,
                                         int orderId,
                                         string orderTitle,
@@ -36,11 +39,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
                                         int dislikes,
                                         DateTime? arbitrationFinishAt,
                                         int? customerId,
-                                        ArbitrationOrderDataModel orderDataModel,
-                                        Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
+                                        ArbitrationOrder order,
+                                        Func<List<FullScreenVideo>> getAllFullScreenVideoDataFunc)
         {
-            _settingsService = settingsService;
-            _navigationService = navigatiobService;
+            _userSessionProvider = userSessionProvider;
             OrderTitle = orderTitle;
             ProfilePhotoUrl = customerPhotoUrl;
             PriceText = priceText.ToPriceString();
@@ -50,12 +52,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
 
             _arbitrationFinishAt = arbitrationFinishAt;
             _customerId = customerId;
-            _orderDataModel = orderDataModel;
+            _order = order;
             _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
             _orderId = orderId;
 
-            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: _navigationService.ShowLoginView);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(
+                OnOpenDetailsOrderAsync,
+                restrictedCanExecute: () => isUserSessionInitialized,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
+
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => _userSessionProvider.User != null,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
         public string OrderTitle { get; }
@@ -68,7 +77,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
 
         public string PriceText { get; }
 
-        public bool CanPlayVideo => _orderDataModel?.Video != null;
+        public bool CanPlayVideo => _order?.Video != null;
 
         private int _likes;
         public int Likes
@@ -88,47 +97,54 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
 
         public IMvxAsyncCommand OpenUserProfileCommand { get; }
 
-        public OrderType OrderType => _settingsService.User?.Id == _customerId
+        public OrderType OrderType => _userSessionProvider.User?.Id == _customerId
             ? OrderType.MyOrder
             : OrderType.NotMyOrder;
 
-        public FullScreenVideoDataModel GetFullScreenVideoDataModel()
+        public FullScreenVideo GetFullScreenVideo()
         {
-            return new FullScreenVideoDataModel(_orderDataModel.Customer.Id,
-                                                _orderDataModel.Customer.IsSubscribed,
-                                                _orderDataModel.Video.Id,
-                                                _orderDataModel.Video.StreamUri,
-                                                _orderDataModel.Title,
-                                                _orderDataModel.Description,
-                                                _orderDataModel.Video.ShareUri,
-                                                _orderDataModel.Customer.Avatar,
-                                                _orderDataModel.Customer?.Login?.ToShortenName(),
-                                                _orderDataModel.Video.LikesCount,
-                                                _orderDataModel.Video.DislikesCount,
-                                                _orderDataModel.Video.CommentsCount,
-                                                _orderDataModel.Video.IsLiked,
-                                                _orderDataModel.Video.IsDisliked,
-                                                _orderDataModel.Video.Poster);
+            return new FullScreenVideo(
+                _order.Customer.Id,
+                _order.Customer.IsSubscribed,
+                _order.Video.Id,
+                _order.Video.StreamUri,
+                _order.Title,
+                _order.Description,
+                _order.Video.ShareUri,
+                _order.Customer.Avatar,
+                _order.Customer?.Login?.ToShortenName(),
+                _order.Video.LikesCount,
+                _order.Video.DislikesCount,
+                _order.Video.CommentsCount,
+                _order.Video.IsLiked,
+                _order.Video.IsDisliked,
+                _order.Video.Poster);
         }
 
         private Task OpenUserProfileAsync()
         {
-            if (_orderDataModel.Customer?.Id is null ||
-                _orderDataModel.Customer.Id == _settingsService.User.Id)
+            if (_order.Customer?.Id is null ||
+                _order.Customer.Id == _userSessionProvider.User.Id)
             {
                 return Task.CompletedTask;
             }
 
-            return _navigationService.ShowUserProfile(_orderDataModel.Customer.Id);
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return Task.CompletedTask;
+            }
+
+            return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_order.Customer.Id);
         }
 
         private async Task OnOpenDetailsOrderAsync()
         {
-            var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideoDataModel> { GetFullScreenVideoDataModel() };
-            var currentItem = items.FirstOrDefault(item => item.VideoId == _orderDataModel.Video?.Id);
+            var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideo> { GetFullScreenVideo() };
+            var currentItem = items.FirstOrDefault(item => item.VideoId == _order.Video?.Id);
             var index = currentItem is null ? 0 : items.IndexOf(currentItem);
 
-            var result = await _navigationService.ShowOrderDetailsView(_orderId, items, index);
+            var parameter = new OrderDetailsNavigationParameter(_orderId, items, index);
+            var result = await NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter, OrderDetailsResult>(parameter);
             if (result == null)
             {
                 return;

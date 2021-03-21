@@ -5,7 +5,6 @@ using CoreMedia;
 using Foundation;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Video;
 using System;
@@ -28,7 +27,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         private int _id;
         private string _uri;
 
-        public VideoPlayer(IVideoManager videoManager, ILogger logger, IMvxMessenger mvxMessenger) : base(videoManager, logger, mvxMessenger)
+        public VideoPlayer(IVideoManager videoManager, IMvxMessenger mvxMessenger) : base(videoManager, mvxMessenger)
         {
             _player = new AVQueuePlayer
             {
@@ -103,16 +102,12 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
                 return;
             }
 
-            Logger.LogEventAsync(DateTime.Now, "[Video_Buffering]", $"Video uri is {_uri}, video ID is {_id}").FireAndForget();
-
             _player.Play();
             IsPlaying = true;
         }
 
         public override void Stop()
         {
-            Logger.LogEventAsync(DateTime.Now, "[Video_Stop]", $"Video uri is {_uri}").FireAndForget();
-
             Debug.WriteLine("Play stopped.");
             _player.Seek(new CMTime(0, 1));
             _player.Pause();
@@ -149,7 +144,6 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
                 DispatchQueue.MainQueue,
                 PlayerTimeChanged);
 
-            Logger.LogEventAsync(DateTime.Now, "[Video_Initialization]", $"Video uri is {_uri}, video ID is {_id}").FireAndForget();
             _player.ReplaceCurrentItemWithPlayerItem(new AVPlayerItem(new NSUrl(uri)));
         }
 
@@ -164,7 +158,6 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             {
                 if (_playerPerdiodicTimeObserver != null)
                 {
-                    Logger.LogEventAsync(DateTime.Now, "[Video_Play]", $"Video uri is {_uri}, video ID is {_id}").FireAndForget();
                     _player.RemoveTimeObserver(_playerPerdiodicTimeObserver);
                     _playerPerdiodicTimeObserver = null;
                 }

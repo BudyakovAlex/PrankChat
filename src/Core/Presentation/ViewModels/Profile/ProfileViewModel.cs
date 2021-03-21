@@ -1,8 +1,7 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Orders;
@@ -14,8 +13,11 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items;
 using PrankChat.Mobile.Core.Providers;
 using System;
 using System.Collections.Generic;
@@ -30,10 +32,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private readonly IVideoPlayerService _videoPlayerService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
-        public ProfileViewModel(IOrdersManager ordersManager,
-                                IUsersManager usersManager,
-                                IVideoPlayerService videoPlayerService,
-                                IWalkthroughsProvider walkthroughsProvider) : base(usersManager)
+        public ProfileViewModel(
+            IOrdersManager ordersManager,
+            IUsersManager usersManager,
+            IVideoPlayerService videoPlayerService,
+            IWalkthroughsProvider walkthroughsProvider) : base(usersManager)
         {
             _ordersManager = ordersManager;
             _videoPlayerService = videoPlayerService;
@@ -41,16 +44,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
             Items = new MvxObservableCollection<OrderItemViewModel>();
 
-            ShowWithdrawalCommand = new MvxAsyncCommand(ShowWithdrawalAsync);
-            ShowRefillCommand = new MvxAsyncCommand(ShowRefillAsync);
-            ShowSubscriptionsCommand = new MvxAsyncCommand(ShowSubscriptionsAsync);
-            ShowSubscribersCommand = new MvxAsyncCommand(ShowSubscribersAsync);
-            ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
-            LoadProfileCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(LoadProfileAsync));
-            ShowUpdateProfileCommand = new MvxAsyncCommand(ShowUpdateProfileAsync);
+            ShowWithdrawalCommand = this.CreateCommand(ShowWithdrawalAsync);
+            ShowRefillCommand = this.CreateCommand(ShowRefillAsync);
+            ShowSubscriptionsCommand = this.CreateCommand(ShowSubscriptionsAsync);
+            ShowSubscribersCommand = this.CreateCommand(ShowSubscribersAsync);
+            ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
+            LoadProfileCommand = this.CreateCommand(LoadProfileAsync);
+            ShowUpdateProfileCommand = this.CreateCommand(ShowUpdateProfileAsync);
 
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
-            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<OrderChangedMessage>((msg) => ReloadItemsCommand?.Execute()).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<SubscriptionChangedMessage>((msg) => LoadProfileCommand.Execute()).DisposeWith(Disposables);
         }
@@ -117,7 +119,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             SelectedOrderType = ProfileOrderType.MyOrdered;
             await base.InitializeAsync();
-            await LoadProfileCommand.ExecuteAsync();
+
+            _ = SafeExecutionWrapper.WrapAsync(LoadProfileAsync);
         }
 
         public override void ViewDisappearing()
@@ -141,8 +144,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task ShowSubscribersAsync()
         {
-            var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscribers, SettingsService.User.Id, SettingsService.User.Name);
-            var shouldRefresh = await NavigationService.ShowSubscriptionsView(navigationParameters);
+            var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscribers, UserSessionProvider.User.Id, UserSessionProvider.User.Name);
+            var shouldRefresh = await NavigationManager.NavigateAsync<SubscriptionsViewModel, SubscriptionsNavigationParameter, bool>(navigationParameters);
             if (!shouldRefresh)
             {
                 return;
@@ -153,8 +156,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task ShowSubscriptionsAsync()
         {
-            var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscriptions, SettingsService.User.Id, SettingsService.User.Name);
-            var shouldRefresh = await NavigationService.ShowSubscriptionsView(navigationParameters);
+            var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscriptions, UserSessionProvider.User.Id, UserSessionProvider.User.Name);
+            var shouldRefresh = await NavigationManager.NavigateAsync<SubscriptionsViewModel, SubscriptionsNavigationParameter, bool>(navigationParameters);
             if (!shouldRefresh)
             {
                 return;
@@ -170,13 +173,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 var canGoProfile = await DialogService.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
                 if (canGoProfile)
                 {
-                    await NavigationService.ShowUpdateProfileView();
+                    await NavigationManager.NavigateAsync<ProfileUpdateViewModel, ProfileUpdateResult>();
                 }
 
                 return;
             }
 
-            var isReloadNeeded = await NavigationService.ShowRefillView();
+            var navigationParameter = new CashboxTypeNavigationParameter(CashboxType.Refill);
+            var isReloadNeeded = await NavigationManager.NavigateAsync<CashboxViewModel, CashboxTypeNavigationParameter, bool>(navigationParameter);
             if (!isReloadNeeded)
             {
                 return;
@@ -192,13 +196,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 var canGoProfile = await DialogService.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
                 if (canGoProfile)
                 {
-                    await NavigationService.ShowUpdateProfileView();
+                    await NavigationManager.NavigateAsync<ProfileUpdateViewModel, ProfileUpdateResult>();
                 }
 
                 return;
             }
 
-            var isReloadNeeded = await NavigationService.ShowWithdrawalView();
+            var navigationParameter = new CashboxTypeNavigationParameter(CashboxType.Withdrawal);
+            var isReloadNeeded = await NavigationManager.NavigateAsync<CashboxViewModel, CashboxTypeNavigationParameter, bool>(navigationParameter);
             if (!isReloadNeeded)
             {
                 return;
@@ -214,7 +219,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task LoadProfileAsync()
         {
-            await UsersManager.GetCurrentUserAsync();
+            await UsersManager.GetAndRefreshUserInSessionAsync();
             Reset();
 
             await InitializeProfileData();
@@ -222,7 +227,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task ShowUpdateProfileAsync()
         {
-            var isUpdated = await NavigationService.ShowUpdateProfileView();
+            var result = await NavigationManager.NavigateAsync<ProfileUpdateViewModel, ProfileUpdateResult>();
+            var isUpdated =(result?.IsProfileUpdated ?? false) || (result?.IsAvatarUpdated ?? false);
             if (!isUpdated)
             {
                 return;
@@ -240,7 +246,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            var user = SettingsService.User;
+            var user = UserSessionProvider.User;
             ProfilePhotoUrl = user.Avatar;
             Price = user.Balance.ToPriceString();
             OrdersValue = user.OrdersExecuteCount.ToCountString();
@@ -257,32 +263,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             return SetList(items, page, ProduceOrderItemViewModel, Items);
         }
 
-        protected virtual async Task<PaginationModel<OrderDataModel>> GetOrdersAsync(int page, int pageSize)
+        protected virtual async Task<Pagination<Models.Data.Order>> GetOrdersAsync(int page, int pageSize)
         {
-            switch (SelectedOrderType)
+            return SelectedOrderType switch
             {
-                case ProfileOrderType.MyOrdered:
-                    return await _ordersManager.GetOrdersAsync(OrderFilterType.MyOrdered, page, pageSize);
-
-                case ProfileOrderType.OrdersCompletedByMe:
-                    return await _ordersManager.GetOrdersAsync(OrderFilterType.MyCompletion, page, pageSize);
-            }
-
-            return new PaginationModel<OrderDataModel>();
+                ProfileOrderType.MyOrdered => await _ordersManager.GetOrdersAsync(OrderFilterType.MyOrdered, page, pageSize),
+                ProfileOrderType.OrdersCompletedByMe => await _ordersManager.GetOrdersAsync(OrderFilterType.MyCompletion, page, pageSize),
+                _ => new Pagination<Models.Data.Order>(),
+            };
         }
 
-        private OrderItemViewModel ProduceOrderItemViewModel(OrderDataModel order)
+        private OrderItemViewModel ProduceOrderItemViewModel(Models.Data.Order order)
         {
-            return new OrderItemViewModel(NavigationService,
-                                          SettingsService,
-                                          order,
-                                          GetFullScreenVideoDataModels);
+            return new OrderItemViewModel(
+                UserSessionProvider,
+                order,
+                GetFullScreenVideos);
         }
 
-        protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        protected override int SetList<TDataModel, TApiModel>(Pagination<TApiModel> pagination, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
         {
-            SetTotalItemsCount(dataModel.TotalCount);
-            var viewModels = dataModel.Items.Select(produceItemViewModel).ToList();
+            SetTotalItemsCount(pagination.TotalCount);
+            var viewModels = pagination.Items.Select(produceItemViewModel).ToList();
 
             if (page > 1)
             {
@@ -296,10 +298,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             return viewModels.Count;
         }
 
-        private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
+        private List<FullScreenVideo> GetFullScreenVideos()
         {
             return Items.Where(item => item.CanPlayVideo)
-                        .Select(item => item.GetFullScreenVideoDataModel())
+                        .Select(item => item.GetFullScreenVideo())
                         .ToList();
         }
     }

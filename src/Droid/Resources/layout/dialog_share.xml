@@ -98,5 +98,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@null"
         android:text="Отмена"
-        app:MvxBind="Click GoBackCommand"/>
+        app:MvxBind="Click CloseCommand"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

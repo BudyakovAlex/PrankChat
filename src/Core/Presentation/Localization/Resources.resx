@@ -1084,4 +1084,7 @@
   <data name="Pay" xml:space="preserve">
     <value>Оплатить</value>
   </data>
+  <data name="Error_Something_Went_Wrong_Message" xml:space="preserve">
+    <value>Упс, что то пошло не так :(</value>
+  </data>
 </root>

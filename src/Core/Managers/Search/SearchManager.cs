@@ -15,19 +15,19 @@ namespace PrankChat.Mobile.Core.Managers.Search
             _searchService = searchService;
         }
 
-        public async Task<PaginationModel<VideoDataModel>> SearchVideosAsync(string query, int page, int pageSize)
+        public async Task<Pagination<Models.Data.Video>> SearchVideosAsync(string query, int page, int pageSize)
         {
             var response = await _searchService.SearchVideosAsync(query, page, pageSize);
             return response.Map(item => item.Map());
         }
 
-        public async Task<PaginationModel<UserDataModel>> SearchUsersAsync(string query, int page, int pageSize)
+        public async Task<Pagination<User>> SearchUsersAsync(string query, int page, int pageSize)
         {
             var response = await _searchService.SearchUsersAsync(query, page, pageSize);
             return response.Map(item => item.Map());
         }
 
-        public async Task<PaginationModel<OrderDataModel>> SearchOrdersAsync(string query, int page, int pageSize)
+        public async Task<Pagination<Order>> SearchOrdersAsync(string query, int page, int pageSize)
         {
             var response = await _searchService.SearchOrdersAsync(query, page, pageSize);
             return response.Map(item => item.Map());

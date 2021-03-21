@@ -4,12 +4,13 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract;
 using System;
 using System.Threading.Tasks;
 
@@ -21,17 +22,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         private readonly IMvxWebBrowserTask _mvxWebBrowserTask;
         private readonly IPushNotificationProvider _pushNotificationService;
 
-        public RegistrationSecondStepViewModel(IAuthorizationManager authorizationManager,
-                                               IUsersManager usersManager,
-                                               IMvxWebBrowserTask mvxWebBrowserTask,
-                                               IPushNotificationProvider pushNotificationService) : base(usersManager)
+        public RegistrationSecondStepViewModel(
+            IAuthorizationManager authorizationManager,
+            IUsersManager usersManager,
+            IMvxWebBrowserTask mvxWebBrowserTask,
+            IPushNotificationProvider pushNotificationService) : base(usersManager)
         {
             _authorizationManager = authorizationManager;
             _mvxWebBrowserTask = mvxWebBrowserTask;
             _pushNotificationService = pushNotificationService;
 
-            UserRegistrationCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(UserRegistrationAsync));
-            ShowTermsAndRulesCommand = new MvxCommand(ShowTermsAndRules);
+            UserRegistrationCommand = this.CreateCommand(UserRegistrationAsync);
+            ShowTermsAndRulesCommand = this.CreateCommand(ShowTermsAndRules);
         }
 
         private string _password;
@@ -85,20 +87,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
             try
             {
-                var userInfo = new UserRegistrationDataModel(Name,
-                                                             Email,
-                                                             Login,
-                                                             Birthday,
-                                                             Gender,
-                                                             Password,
-                                                             RepeatedPassword);
+                var userInfo = new UserRegistration(
+                    Name,
+                    Email,
+                    Login,
+                    Birthday,
+                    Gender,
+                    Password,
+                    RepeatedPassword);
 
                 await _authorizationManager.RegisterAsync(userInfo);
                 // TODO: not wait
-                await UsersManager.GetCurrentUserAsync();
+                await UsersManager.GetAndRefreshUserInSessionAsync();
 
                 await _pushNotificationService.TryUpdateTokenAsync();
-                await NavigationService.ShowRegistrationThirdStepView();
+                await NavigationManager.NavigateAsync<RegistrationThirdStepViewModel>();
             }
             catch (Exception ex)
             {

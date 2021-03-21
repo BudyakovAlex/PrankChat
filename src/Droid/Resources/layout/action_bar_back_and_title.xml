@@ -33,7 +33,7 @@
                 android:background="?attr/actionBarItemBackground"
                 android:src="@drawable/ic_back_arrow"
                 app:srcCompat="@drawable/ic_back_arrow"
-                app:MvxBind="Click GoBackCommand" />
+                app:MvxBind="Click CloseCommand" />
 
             <TextView
                 android:id="@+id/toolbar_title"

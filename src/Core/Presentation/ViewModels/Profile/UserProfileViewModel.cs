@@ -9,8 +9,9 @@ using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -37,10 +38,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             Items = new MvxObservableCollection<OrderItemViewModel>();
             CloseCompletionSource = new TaskCompletionSource<object>();
 
-            RefreshUserDataCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(RefreshUserDataAsync));
-            SubscribeCommand = new MvxCommand(Subscribe);
-            ShowSubscriptionsCommand = new MvxAsyncCommand(ShowSubscriptionsAsync);
-            ShowSubscribersCommand = new MvxAsyncCommand(ShowSubscribersAsync);
+            RefreshUserDataCommand = this.CreateCommand(RefreshUserDataAsync);
+            SubscribeCommand = this.CreateCommand(Subscribe);
+            ShowSubscriptionsCommand = this.CreateCommand(ShowSubscriptionsAsync);
+            ShowSubscribersCommand = this.CreateCommand(ShowSubscribersAsync);
         }
 
         private ProfileOrderType _selectedOrderType;
@@ -157,39 +158,35 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             return SetList(items, page, ProduceOrderItemViewModel, Items);
         }
 
-        protected virtual async Task<PaginationModel<OrderDataModel>> GetOrdersAsync(int page, int pageSize)
+        protected virtual async Task<Pagination<Models.Data.Order>> GetOrdersAsync(int page, int pageSize)
         {
-            switch (SelectedOrderType)
+            return SelectedOrderType switch
             {
-                case ProfileOrderType.MyOrdered:
-                    return await _ordersManager.GetUserOwnOrdersAsync(_userId, page, pageSize);
-
-                case ProfileOrderType.OrdersCompletedByMe:
-                    return await _ordersManager.GetUserExecuteOrdersAsync(_userId, page, pageSize);
-            }
-
-            return new PaginationModel<OrderDataModel>();
+                ProfileOrderType.MyOrdered => await _ordersManager.GetUserOwnOrdersAsync(_userId, page, pageSize),
+                ProfileOrderType.OrdersCompletedByMe => await _ordersManager.GetUserExecuteOrdersAsync(_userId, page, pageSize),
+                _ => new Pagination<Models.Data.Order>(),
+            };
         }
 
-        private OrderItemViewModel ProduceOrderItemViewModel(OrderDataModel order)
+        private OrderItemViewModel ProduceOrderItemViewModel(Models.Data.Order order)
         {
-            return new OrderItemViewModel(NavigationService,
-                                          SettingsService,
-                                          order,
-                                          GetFullScreenVideoDataModels);
+            return new OrderItemViewModel(
+                UserSessionProvider,
+                order,
+                GetFullScreenVideos);
         }
 
-        private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
+        private List<FullScreenVideo> GetFullScreenVideos()
         {
             return Items.Where(item => item.CanPlayVideo)
-                        .Select(item => item.GetFullScreenVideoDataModel())
+                        .Select(item => item.GetFullScreenVideo())
                         .ToList();
         }
 
         private async Task ShowSubscribersAsync()
         {
             var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscribers, _userId, Login);
-            var shouldRefresh = await NavigationService.ShowSubscriptionsView(navigationParameters);
+            var shouldRefresh = await NavigationManager.NavigateAsync<SubscriptionsViewModel, SubscriptionsNavigationParameter, bool>(navigationParameters);
             if (!shouldRefresh)
             {
                 return;
@@ -201,7 +198,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private async Task ShowSubscriptionsAsync()
         {
             var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscriptions, _userId, Login);
-            var shouldRefresh = await NavigationService.ShowSubscriptionsView(navigationParameters);
+            var shouldRefresh = await NavigationManager.NavigateAsync<SubscriptionsViewModel, SubscriptionsNavigationParameter, bool>(navigationParameters);
             if (!shouldRefresh)
             {
                 return;

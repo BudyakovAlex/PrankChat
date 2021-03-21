@@ -1,19 +1,16 @@
-using Android.Views;
+﻿using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.Widget;
 using Google.Android.Material.Tabs;
-using MvvmCross;
 using MvvmCross.Binding.Bindings.Target.Construction;
-using MvvmCross.IoC;
 using MvvmCross.Platforms.Android.Core;
 using MvvmCross.Platforms.Android.Presenters;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
+using PrankChat.Mobile.Core.Ioc;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Droid.ApplicationServices;
-using PrankChat.Mobile.Droid.PlatformBusinessServices.Crashlytic;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Video;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presenters;
@@ -22,15 +19,14 @@ namespace PrankChat.Mobile.Droid
 {
     public class Setup : MvxAndroidSetup<Core.App>
     {
-        protected override void InitializeFirstChance()
+        protected override void InitializeLastChance()
         {
-            base.InitializeFirstChance();
+            base.InitializeLastChance();
 
-            Mvx.IoCProvider.RegisterType<IVideoPlayerService, VideoPlayerService>();
-            Mvx.IoCProvider.RegisterType<ICrashlyticsService, CrashlyticsService>();
-            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IDialogService, DialogService>();
-            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IExternalAuthService, ExternalAuthService>();
-            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ISettingsService, SettingsService>();
+            CompositionRoot.Container.RegisterType<IVideoPlayerService, VideoPlayerService>();
+            CompositionRoot.Container.RegisterSingleton<IDialogService, DialogService>();
+            CompositionRoot.Container.RegisterSingleton<IExternalAuthService, ExternalAuthService>();
+            CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()

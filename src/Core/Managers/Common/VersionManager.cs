@@ -15,7 +15,7 @@ namespace PrankChat.Mobile.Managers.Common
             _versionService = versionService;
         }
 
-        public async Task<AppVersionDataModel> CheckAppVersionAsync()
+        public async Task<AppVersion> CheckAppVersionAsync()
         {
             var response = await _versionService.CheckAppVersionAsync();
             return response.Map();

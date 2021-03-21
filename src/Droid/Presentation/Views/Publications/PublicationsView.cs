@@ -1,12 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using Android.Graphics;
+﻿using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using AndroidX.RecyclerView.Widget;
-using Google.Android.Material.Tabs;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -25,6 +22,8 @@ using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications;
 using PrankChat.Mobile.Droid.Presentation.Converters;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
+using System;
+using System.Threading.Tasks;
 using static Google.Android.Material.Tabs.TabLayout;
 using Debug = System.Diagnostics.Debug;
 
@@ -232,7 +231,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
             videoService.Player.SetPlatformVideoPlayerContainer(textureView);
             videoService.Player.VideoRenderingStartedAction = itemViewHolder.OnRenderingStarted;
-            itemViewHolder.ViewModel.Logger.LogEventAsync(DateTime.Now, "[Publications_Start_Play]", $"Video id is {itemViewHolder.ViewModel.VideoId}");
             videoService.Play(itemViewHolder.ViewModel.PreviewUrl, itemViewHolder.ViewModel.VideoId);
             
             _previousPublicationViewHolder = itemViewHolder;
@@ -250,7 +248,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
             viewHolder.ViewModel.VideoPlayerService.Player.VideoRenderingStartedAction = null;
             viewHolder.StubImageView.Visibility = ViewStates.Visible;
-            viewHolder.ViewModel.Logger.LogEventAsync(DateTime.Now, "[Publications_Stop_Play]", $"Video id is {viewHolder.ViewModel.VideoId}");
 
             viewHolder.ViewModel.VideoPlayerService.Stop();
             viewHolder.LoadingProgressBar.Visibility = ViewStates.Invisible;

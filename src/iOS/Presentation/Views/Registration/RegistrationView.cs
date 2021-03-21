@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
                 .To(vm => vm.Email);
 
             set.Bind(showLoginButton)
-                .To(vm => vm.GoBackCommand);
+                .To(vm => vm.CloseCommand);
 
             set.Bind(vkButton)
                 .To(vm => vm.LoginCommand)

@@ -7,14 +7,14 @@ namespace PrankChat.Mobile.Core.Managers.Publications
 {
     public interface IPublicationsManager
     {
-        Task<VideoDataModel> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null);
+        Task<Models.Data.Video> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null);
 
-        Task<VideoDataModel> SendDislikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null);
+        Task<Models.Data.Video> SendDislikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null);
 
-        Task<PaginationModel<VideoDataModel>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize);
+        Task<Pagination<Models.Data.Video>> GetPopularVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize);
 
-        Task<PaginationModel<VideoDataModel>> GetActualVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize);
+        Task<Pagination<Models.Data.Video>> GetActualVideoFeedAsync(DateFilterType dateFilterType, int page, int pageSize);
 
-        Task<PaginationModel<VideoDataModel>> GetMyVideoFeedAsync(int page, int pageSize, DateFilterType? dateFilterType = null);
+        Task<Pagination<Models.Data.Video>> GetMyVideoFeedAsync(int page, int pageSize, DateFilterType? dateFilterType = null);
     }
 }

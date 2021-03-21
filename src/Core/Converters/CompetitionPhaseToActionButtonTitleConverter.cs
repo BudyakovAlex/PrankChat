@@ -10,17 +10,13 @@ namespace PrankChat.Mobile.Core.Converters
     {
         protected override string Convert(CompetitionPhase value, Type targetType, object parameter, CultureInfo culture)
         {
-            switch (value)
+            return value switch
             {
-                case CompetitionPhase.New:
-                    return Resources.Competitions_Participate;
-                case CompetitionPhase.Voting:
-                    return Resources.Competitions_See;
-                case CompetitionPhase.Finished:
-                    return Resources.Competitions_More;
-                default:
-                    return string.Empty;
-            }
+                CompetitionPhase.New => Resources.Competitions_Participate,
+                CompetitionPhase.Voting => Resources.Competitions_See,
+                CompetitionPhase.Finished => Resources.Competitions_More,
+                _ => string.Empty,
+            };
         }
     }
 }

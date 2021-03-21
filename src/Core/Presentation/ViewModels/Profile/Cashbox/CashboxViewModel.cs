@@ -1,11 +1,10 @@
 ﻿using MvvmCross;
-using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
+using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +13,11 @@ using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
-    public class CashboxViewModel : BasePageViewModel, IMvxViewModel<CashboxTypeNavigationParameter, bool>
+    public class CashboxViewModel : BasePageViewModel<CashboxTypeNavigationParameter, bool>
     {
         private bool _isReloadNeeded;
 
-        public CashboxViewModel(IMediaService mediaService)
+        public CashboxViewModel()
         {
             Items = new List<BasePageViewModel>
             {
@@ -26,7 +25,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 Mvx.IoCProvider.IoCConstruct<WithdrawalViewModel>()
             };
 
-            ShowContentCommand = new MvxAsyncCommand(NavigationService.ShowCashboxContent);
+            ShowContentCommand = this.CreateCommand(ShowContentAsync);
             Messenger.SubscribeOnMainThread<ReloadProfileMessage>((msg) => _isReloadNeeded = true).DisposeWith(Disposables);
         }
 
@@ -41,7 +40,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             set => SetProperty(ref _selectedPage, value);
         }
 
-        public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
+        protected override bool DefaultResult => _isReloadNeeded;
+
+        public override void Prepare(CashboxTypeNavigationParameter parameter)
+        {
+            SelectedPage = parameter.Type switch
+            {
+                CashboxType.Refill => Items.IndexOf(Items.SingleOrDefault(item => item is RefillViewModel)),
+                CashboxType.Withdrawal => Items.IndexOf(Items.SingleOrDefault(item => item is WithdrawalViewModel)),
+                _ => throw new ArgumentOutOfRangeException(),
+            };
+        }
 
         public override async Task InitializeAsync()
         {
@@ -51,34 +60,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
         }
 
-        public void Prepare(CashboxTypeNavigationParameter parameter)
+        private Task ShowContentAsync()
         {
-            switch(parameter.Type)
-            {
-                case CashboxTypeNavigationParameter.CashboxType.Refill:
-                    SelectedPage = Items.IndexOf(Items.SingleOrDefault(item => item is RefillViewModel));
-                    break;
-
-                case CashboxTypeNavigationParameter.CashboxType.Withdrawal:
-                    SelectedPage = Items.IndexOf(Items.SingleOrDefault(item => item is WithdrawalViewModel));
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            if (viewFinishing &&
-                CloseCompletionSource != null &&
-                !CloseCompletionSource.Task.IsCompleted &&
-                !CloseCompletionSource.Task.IsFaulted)
-            {
-                CloseCompletionSource?.SetResult(_isReloadNeeded);
-            }
-
-            base.ViewDestroy(viewFinishing);
+            return Task.WhenAll(NavigationManager.NavigateAsync<RefillViewModel>(), NavigationManager.NavigateAsync<WithdrawalViewModel>());
         }
     }
 }

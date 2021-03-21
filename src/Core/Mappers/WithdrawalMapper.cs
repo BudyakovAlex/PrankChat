@@ -1,34 +1,36 @@
-﻿using PrankChat.Mobile.Core.Models.Api;
+﻿using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.Core.Mappers
 {
     public static class WithdrawalMapper
     {
-        public static WithdrawalDataModel Map(this WithdrawalApiModel withdrawalApiModel)
+        public static Withdrawal Map(this WithdrawalDto dto)
         {
-            if (withdrawalApiModel is null)
+            if (dto is null)
             {
                 return null;
             }
 
-            return new WithdrawalDataModel(withdrawalApiModel.Id,
-                                           withdrawalApiModel.Amount,
-                                           withdrawalApiModel.Status,
-                                           withdrawalApiModel.CreatedAt);
+            return new Withdrawal(
+                dto.Id,
+                dto.Amount,
+                dto.Status,
+                dto.CreatedAt);
         }
 
-        public static WithdrawalDataModel Map(this DataApiModel<WithdrawalApiModel> dataApiModel)
+        public static Withdrawal Map(this ResponseDto<WithdrawalDto> dto)
         {
-            if (dataApiModel.Data is null)
+            if (dto.Data is null)
             {
                 return null;
             }
 
-            return new WithdrawalDataModel(dataApiModel.Data.Id,
-                                           dataApiModel.Data.Amount,
-                                           dataApiModel.Data.Status,
-                                           dataApiModel.Data.CreatedAt);
+            return new Withdrawal(
+                dto.Data.Id,
+                dto.Data.Amount,
+                dto.Data.Status,
+                dto.Data.CreatedAt);
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Orders;
@@ -10,11 +8,12 @@ using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 using PrankChat.Mobile.Core.Providers;
+using PrankChat.Mobile.Core.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +25,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     {
         private readonly IOrdersManager _ordersManager;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
+        private readonly ExecutionStateWrapper _loadDataStateWrapper;
 
         private readonly Dictionary<ArbitrationOrderFilterType, string> _arbitrationOrderFilterTypeTitleMap =
             new Dictionary<ArbitrationOrderFilterType, string>
@@ -54,15 +54,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             _ordersManager = ordersManager;
             _walkthroughsProvider = walkthroughsProvider;
 
-            OpenFilterCommand = new MvxAsyncCommand(OpenFilterAsync);
-            LoadDataCommand = new MvxAsyncCommand(LoadDataAsync);
-            ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
+            _loadDataStateWrapper = new ExecutionStateWrapper();
+            _loadDataStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(
+                OnIsBusyChanged,
+                (wrapper, handler) => wrapper.IsBusyChanged += handler,
+                (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
+
+            OpenFilterCommand = this.CreateCommand(OpenFilterAsync);
+            ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
+            LoadDataCommand = this.CreateCommand(() => _loadDataStateWrapper.WrapAsync(LoadDataAsync), useIsBusyWrapper: false);
 
             Messenger.SubscribeOnMainThread<OrderChangedMessage>(OrdersChanged).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RemoveOrderMessage>(OrderRemoved).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
-            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
         }
+
+        public override bool IsBusy => base.IsBusy || _loadDataStateWrapper.IsBusy;
 
         public MvxObservableCollection<BaseViewModel> Items { get; } = new MvxObservableCollection<BaseViewModel>();
 
@@ -126,7 +133,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             ArbitrationFilterType = ArbitrationOrderFilterType.All;
             TabType = OrdersTabType.Order;
 
-            await LoadDataCommand.ExecuteAsync();
+            _ = LoadDataCommand.ExecuteAsync();
         }
 
         protected async override Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
@@ -216,37 +223,37 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
         }
 
-        private OrderItemViewModel ProduceOrderViewModel(OrderDataModel order)
+        private OrderItemViewModel ProduceOrderViewModel(Models.Data.Order order)
         {
-            return new OrderItemViewModel(NavigationService,
-                                          SettingsService,
-                                          order,
-                                          GetFullScreenVideoDataModels);
+            return new OrderItemViewModel(
+                UserSessionProvider,
+                order,
+                GetFullScreenVideos);
         }
 
-        private ArbitrationItemViewModel ProduceArbitrationOrderViewModel(ArbitrationOrderDataModel order)
+        private ArbitrationItemViewModel ProduceArbitrationOrderViewModel(ArbitrationOrder order)
         {
-            return new ArbitrationItemViewModel(NavigationService,
-                                                SettingsService,
-                                                IsUserSessionInitialized,
-                                                order.Id,
-                                                order.Title,
-                                                order.Customer?.Avatar,
-                                                order.Customer?.Login,
-                                                order.Price,
-                                                order.Likes,
-                                                order.Dislikes,
-                                                order.ArbitrationFinishAt ?? DateTime.UtcNow,
-                                                order.Customer?.Id,
-                                                order,
-                                                GetFullScreenVideoDataModels);
+            return new ArbitrationItemViewModel(
+                UserSessionProvider,
+                IsUserSessionInitialized,
+                order.Id,
+                order.Title,
+                order.Customer?.Avatar,
+                order.Customer?.Login,
+                order.Price,
+                order.Likes,
+                order.Dislikes,
+                order.ArbitrationFinishAt ?? DateTime.UtcNow,
+                order.Customer?.Id,
+                order,
+                GetFullScreenVideos);
         }
 
-        private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
+        private List<FullScreenVideo> GetFullScreenVideos()
         {
             return Items.OfType<IFullScreenVideoOwnerViewModel>()
                         .Where(item => item.CanPlayVideo)
-                        .Select(item => item.GetFullScreenVideoDataModel())
+                        .Select(item => item.GetFullScreenVideo())
                         .ToList();
         }
 

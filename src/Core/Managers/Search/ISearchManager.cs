@@ -6,10 +6,10 @@ namespace PrankChat.Mobile.Core.Managers.Search
 {
     public interface ISearchManager
     {
-        Task<PaginationModel<VideoDataModel>> SearchVideosAsync(string query, int page, int pageSize);
+        Task<Pagination<Models.Data.Video>> SearchVideosAsync(string query, int page, int pageSize);
 
-        Task<PaginationModel<UserDataModel>> SearchUsersAsync(string query, int page, int pageSize);
+        Task<Pagination<User>> SearchUsersAsync(string query, int page, int pageSize);
 
-        Task<PaginationModel<OrderDataModel>> SearchOrdersAsync(string query, int page, int pageSize);
+        Task<Pagination<Order>> SearchOrdersAsync(string query, int page, int pageSize);
     }
 }

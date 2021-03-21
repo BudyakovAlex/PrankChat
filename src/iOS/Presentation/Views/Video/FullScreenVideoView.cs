@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using AVFoundation;
+﻿using AVFoundation;
 using AVKit;
 using CoreFoundation;
 using CoreGraphics;
@@ -15,6 +12,9 @@ using ObjCRuntime;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Video
@@ -537,7 +537,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             NSNotificationCenter.DefaultCenter.RemoveObserver(this);
 
-            ViewModel.GoBackCommand.ExecuteAsync();
+            ViewModel.CloseCommand.Execute(null);
             ViewModel.ViewDestroy(true);
         }
 

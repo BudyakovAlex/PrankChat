@@ -3,14 +3,10 @@ using Android.OS;
 using Android.Views;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
-using System;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
@@ -32,9 +28,8 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
         private string _cachedUri;
 
         public VideoPlayer(IVideoManager videoManager,
-                           ILogger logger,
                            IMvxMessenger mvxMessenger,
-                           IErrorHandleService errorHandleService) : base(videoManager, logger, mvxMessenger)
+                           IErrorHandleService errorHandleService) : base(videoManager, mvxMessenger)
         {
             _errorHandleService = errorHandleService;
         }
@@ -151,8 +146,6 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
                 _mediaPlayer.Release();
             }
 
-            Logger.LogEventAsync(DateTime.Now, "[Video_Initialization]", $"Video uri is {_cachedUri}, video ID is {_cachedId}").FireAndForget();
-
             _mediaPlayer = new MediaPlayer();
             _mediaPlayer.SetAudioStreamType(Stream.Music);
             await _mediaPlayer.SetDataSourceAsync(_cachedUri);
@@ -200,13 +193,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
         {
             if (mediaInfo == MediaInfo.VideoRenderingStart)
             {
-                Logger.LogEventAsync(DateTime.Now, "[Video_Play]", $"Video uri is {_cachedUri}, video ID is {_cachedId}").FireAndForget();
                 VideoRenderingStartedAction?.Invoke();
-            }
-
-            if (mediaInfo == MediaInfo.BufferingStart)
-            {
-                Logger.LogEventAsync(DateTime.Now, "[Video_Buffering]", $"Video uri is {_cachedUri}, video ID is {_cachedId}").FireAndForget();
             }
 
             return true;
@@ -239,8 +226,6 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             {
                 return;
             }
-
-            Logger.LogEventAsync(DateTime.Now, "[Video_Stop]", $"Video uri is {_cachedUri}, video ID is {_cachedId}").FireAndForget();
 
             if (_isPrepared)
             {

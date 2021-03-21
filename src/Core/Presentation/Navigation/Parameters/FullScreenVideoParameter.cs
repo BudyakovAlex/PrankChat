@@ -5,17 +5,17 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation.Parameters
 {
     public class FullScreenVideoParameter
     {
-        public FullScreenVideoParameter(FullScreenVideoDataModel video) : this(new List<FullScreenVideoDataModel> { video }, 0)
+        public FullScreenVideoParameter(FullScreenVideo video) : this(new List<FullScreenVideo> { video }, 0)
         {
         }
 
-        public FullScreenVideoParameter(List<FullScreenVideoDataModel> videos, int index)
+        public FullScreenVideoParameter(List<FullScreenVideo> videos, int index)
         {
             Videos = videos;
             Index = index;
         }
 
-        public List<FullScreenVideoDataModel> Videos { get; }
+        public List<FullScreenVideo> Videos { get; }
 
         public int Index { get; }
     }

@@ -1,109 +1,104 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
-using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
-    public class CompetitionVideoViewModel : BaseViewModel, IVideoItemViewModel, IDisposable
+    public class CompetitionVideoViewModel : BaseViewModel, IVideoItemViewModel
     {
         private readonly IPublicationsManager _publicationsManager;
-        private readonly INavigationService _navigationService;
-        private readonly ISettingsService _settingsService;
-        private readonly IMvxMessenger _mvxMessenger;
+        private readonly IUserSessionProvider _userSessionProvider;
 
-        private readonly VideoDataModel _videoDataModel;
+        private readonly Models.Data.Video _video;
         private readonly long _numberOfDislikes;
         private readonly bool _isDisliked;
-        private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
+        private readonly Func<List<FullScreenVideo>> _getAllFullScreenVideoDataFunc;
 
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
         private MvxSubscriptionToken _updateNumberOfViewsSubscriptionToken;
 
-        public CompetitionVideoViewModel(IPublicationsManager publicationsManager,
-                                         IVideoPlayerService videoPlayerService,
-                                         INavigationService navigationService,
-                                         ISettingsService settingsService,
-                                         IMvxMessenger mvxMessenger,
-                                         ILogger logger,
-                                         VideoDataModel videoDataModel,
-                                         bool isMyPublication,
-                                         bool isVotingAvailable,
-                                         Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
+        public CompetitionVideoViewModel(
+            IPublicationsManager publicationsManager,
+            IVideoPlayerService videoPlayerService,
+            IUserSessionProvider userSessionProvider,
+            Models.Data.Video video,
+            bool isMyPublication,
+            bool isVotingAvailable,
+            Func<List<FullScreenVideo>> getAllFullScreenVideoDataFunc)
         {
-            _navigationService = navigationService;
-            _settingsService = settingsService;
-            _mvxMessenger = mvxMessenger;
-            _videoDataModel = videoDataModel;
+            _userSessionProvider = userSessionProvider;
+            _video = video;
 
-            Logger = logger;
             _publicationsManager = publicationsManager;
             VideoPlayerService = videoPlayerService;
  
-            NumberOfLikes = _videoDataModel.LikesCount;
-            _numberOfDislikes = _videoDataModel.DislikesCount;
+            NumberOfLikes = _video.LikesCount;
+            _numberOfDislikes = _video.DislikesCount;
 
-            NumberOfViews = _videoDataModel.ViewsCount;
-            IsLiked = videoDataModel.IsLiked;
-            _isDisliked = videoDataModel.IsDisliked;
+            NumberOfViews = _video.ViewsCount;
+            IsLiked = video.IsLiked;
+            _isDisliked = video.IsDisliked;
 
             IsMyPublication = isMyPublication;
             IsVotingAvailable = isVotingAvailable;
             _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
 
-            LikeCommand = new MvxCommand(Like);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+            LikeCommand = this.CreateCommand(Like);
+            OpenUserProfileCommand = this.CreateRestrictedCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => _userSessionProvider.User != null,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
 
             Subscribe();
         }
 
         public ICommand LikeCommand { get; }
 
-        public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxAsyncCommand(ShowFullScreenVideoAsync);
+        public IMvxAsyncCommand ShowFullScreenVideoCommand => this.CreateCommand(ShowFullScreenVideoAsync);
 
         public IMvxAsyncCommand OpenUserProfileCommand { get; }
 
         public IVideoPlayerService VideoPlayerService { get; }
 
-        public ILogger Logger { get; }
+        public int VideoId => _video?.Id ?? -1;
 
-        public int VideoId => _videoDataModel?.Id ?? -1;
+        public string VideoUrl => _video?.StreamUri;
 
-        public string VideoUrl => _videoDataModel?.StreamUri;
+        public string PreviewUrl => _video?.PreviewUri;
 
-        public string PreviewUrl => _videoDataModel?.PreviewUri;
+        public string ShareLink => _video?.ShareUri;
 
-        public string ShareLink => _videoDataModel?.ShareUri;
-
-        public string UserName => _videoDataModel?.User?.Login;
+        public string UserName => _video?.User?.Login;
 
         public string ProfileShortName => UserName?.ToShortenName();
 
-        public string VideoName => _videoDataModel?.Title;
+        public string VideoName => _video?.Title;
 
-        public string Description => _videoDataModel?.Description;
+        public string Description => _video?.Description;
 
-        public string AvatarUrl => _videoDataModel?.User?.Avatar;
+        public string AvatarUrl => _video?.User?.Avatar;
 
-        public string StubImageUrl => _videoDataModel?.Poster;
+        public string StubImageUrl => _video?.Poster;
 
-        public DateTime PublicationDate => _videoDataModel?.CreatedAt.UtcDateTime ?? DateTime.MinValue;
+        public DateTime PublicationDate => _video?.CreatedAt.UtcDateTime ?? DateTime.MinValue;
 
         public bool IsMyPublication { get; }
 
@@ -111,7 +106,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public bool IsVideoProcessing => string.IsNullOrEmpty(VideoUrl);
 
-        public long NumberOfComments => _videoDataModel?.CommentsCount ?? 0;
+        public long NumberOfComments => _video?.CommentsCount ?? 0;
 
         public bool CanPlayVideo => true;
 
@@ -156,35 +151,41 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             set => SetProperty(ref _isLiked, value);
         }
 
-        public FullScreenVideoDataModel GetFullScreenVideoDataModel()
+        public FullScreenVideo GetFullScreenVideo()
         {
-            return new FullScreenVideoDataModel(_videoDataModel.User?.Id ?? 0,
-                                                _videoDataModel.User?.IsSubscribed ?? false,
-                                                VideoId,
-                                                VideoUrl,
-                                                VideoName,
-                                                Description,
-                                                ShareLink,
-                                                AvatarUrl,
-                                                _videoDataModel.User?.Login?.ToShortenName(),
-                                                NumberOfLikes,
-                                                _numberOfDislikes,
-                                                NumberOfComments,
-                                                IsLiked,
-                                                _isDisliked,
-                                                StubImageUrl,
-                                                CanVoteVideo);
+            return new FullScreenVideo(
+                _video.User?.Id ?? 0,
+                _video.User?.IsSubscribed ?? false,
+                VideoId,
+                VideoUrl,
+                VideoName,
+                Description,
+                ShareLink,
+                AvatarUrl,
+                _video.User?.Login?.ToShortenName(),
+                NumberOfLikes,
+                _numberOfDislikes,
+                NumberOfComments,
+                IsLiked,
+                _isDisliked,
+                StubImageUrl,
+                CanVoteVideo);
         }
 
         private Task OpenUserProfileAsync()
         {
-            if (_videoDataModel.User?.Id is null ||
-                _videoDataModel.User.Id == _settingsService.User.Id)
+            if (_video.User?.Id is null ||
+                _video.User.Id == _userSessionProvider.User.Id)
             {
                 return Task.CompletedTask;
             }
 
-            return _navigationService.ShowUserProfile(_videoDataModel.User.Id);
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return Task.FromResult(false);
+            }
+
+            return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_video.User.Id);
         }
 
         private void Like()
@@ -225,23 +226,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         {
             VideoPlayerService.Player.TryRegisterViewedFact(VideoId, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
 
-            var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideoDataModel> { GetFullScreenVideoDataModel() };
+            var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideo> { GetFullScreenVideo() };
             var currentItem = items.FirstOrDefault(item => item.VideoId == VideoId);
             var index = currentItem is null ? 0 : items.IndexOf(currentItem);
             var navigationParams = new FullScreenVideoParameter(items, index);
+            if (navigationParams.Videos.Count == 0)
+            {
+                return;
+            }
 
-            var shouldRefresh = await _navigationService.ShowFullScreenVideoView(navigationParams);
+            var shouldRefresh = await NavigationManager.NavigateAsync<FullScreenVideoViewModel, FullScreenVideoParameter, bool>(navigationParams);
             if (!shouldRefresh)
             {
                 return;
             }
 
-            _mvxMessenger.Publish(new ReloadCompetitionMessage(this));
+            Messenger.Publish(new ReloadCompetitionMessage(this));
         }
 
         private void Subscribe()
         {
-            _updateNumberOfViewsSubscriptionToken = _mvxMessenger.Subscribe<ViewCountMessage>(viewCountMessage =>
+            _updateNumberOfViewsSubscriptionToken = Messenger.Subscribe<ViewCountMessage>(viewCountMessage =>
             {
                 if (viewCountMessage.VideoId == VideoId)
                 {
@@ -261,14 +266,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             _updateNumberOfViewsSubscriptionToken = null;
         }
 
-        public void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+            base.Dispose(disposing);
 
-        protected virtual void Dispose(bool disposing)
-        {
             if (disposing)
             {
                 Unsubscribe();

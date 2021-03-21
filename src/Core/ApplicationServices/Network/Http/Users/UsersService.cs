@@ -1,15 +1,12 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
-using PrankChat.Mobile.Core.Configuration;
+using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Data.Dtos.Base;
+using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Mappers;
-using PrankChat.Mobile.Core.Models.Api;
-using PrankChat.Mobile.Core.Models.Api.Base;
+using PrankChat.Mobile.Core.Providers.Configuration;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,38 +16,34 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
 {
-    public class UsersService : BaseRestService, IUsersService
+    public class UsersService : IUsersService
     {
-        private readonly ISettingsService _settingsService;
-        private readonly IMvxMessenger _messenger;
+        private readonly IUserSessionProvider _userSesionProvider;
         private readonly IMvxLog _log;
 
         private readonly HttpClient _client;
 
-        public UsersService(ISettingsService settingsService,
-                            IAuthorizationService authorizeService,
-                            IMvxLogProvider logProvider,
-                            IMvxMessenger messenger,
-                            ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
+        public UsersService(
+            IUserSessionProvider userSessionProvider,
+            IEnvironmentConfigurationProvider environmentConfigurationProvider,
+            IMvxLogProvider logProvider,
+            IMvxMessenger messenger)
         {
-            _settingsService = settingsService;
-            _messenger = messenger;
+            _userSesionProvider = userSessionProvider;
             _log = logProvider.GetLogFor<UsersService>();
 
-            var configuration = ConfigurationProvider.GetConfiguration();
-            _client = new HttpClient(configuration.BaseAddress,
-                                     configuration.ApiVersion,
-                                     settingsService,
-                                     _log,
-                                     logger,
-                                     messenger);
-
-            _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
+            var environment = environmentConfigurationProvider.Environment;
+            _client = new HttpClient(
+                environment.ApiUrl,
+                environment.ApiVersion,
+                userSessionProvider,
+                _log,
+                messenger);
         }
 
         public Task VerifyEmailAsync()
         {
-            return _client.PostAsync<DataApiModel>("me/verify/resend");
+            return _client.PostAsync<ResponseDto>("me/verify/resend");
         }
 
         public async Task GetCurrentUserAsync()
@@ -62,14 +55,14 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
                     return;
                 }
 
-                var dataApiModel = await _client.GetAsync<DataApiModel<UserApiModel>>("me", true, IncludeType.Document);
+                var dataApiModel = await _client.GetAsync<ResponseDto<UserDto>>("me", true, IncludeType.Document);
                 var user = dataApiModel?.Data; // MappingConfig.Mapper.Map<UserDataModel>(dataApiModel?.Data);
                 if (user is null)
                 {
                     return;
                 }
 
-                _settingsService.User = user.Map();
+                _userSesionProvider.User = user.Map();
             }
             catch (Exception ex)
             {
@@ -77,39 +70,39 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
             }
         }
 
-        public async Task<UserApiModel> GetUserAsync(int userId)
+        public async Task<UserDto> GetUserAsync(int userId)
         {
-            var dataApiModel = await _client.GetAsync<DataApiModel<UserApiModel>>($"users/{userId}");
+            var dataApiModel = await _client.GetAsync<ResponseDto<UserDto>>($"users/{userId}");
             return dataApiModel?.Data;
         }
 
-        public async Task<UserApiModel> SubscribeToUserAsync(int userId, CancellationToken? cancellationToken = null)
+        public async Task<UserDto> SubscribeToUserAsync(int userId, CancellationToken? cancellationToken = null)
         {
-            var dataApiModel = await _client.PostAsync<DataApiModel<UserApiModel>>($"users/{userId}/subscribe", cancellationToken: cancellationToken);
+            var dataApiModel = await _client.PostAsync<ResponseDto<UserDto>>($"users/{userId}/subscribe", cancellationToken: cancellationToken);
             return dataApiModel?.Data;
         }
 
-        public async Task<UserApiModel> UnsubscribeFromUserAsync(int userId, CancellationToken? cancellationToken = null)
+        public async Task<UserDto> UnsubscribeFromUserAsync(int userId, CancellationToken? cancellationToken = null)
         {
-            var dataApiModel = await _client.PostAsync<DataApiModel<UserApiModel>>($"users/{userId}/unsubscribe", cancellationToken: cancellationToken);
+            var dataApiModel = await _client.PostAsync<ResponseDto<UserDto>>($"users/{userId}/unsubscribe", cancellationToken: cancellationToken);
             return dataApiModel?.Data;
         }
 
-        public async Task<UserApiModel> SendAvatarAsync(string path)
+        public async Task<UserDto> SendAvatarAsync(string path)
         {
-            var dataApiModel = await _client.PostPhotoFile<DataApiModel<UserApiModel>>("me/picture", path, "avatar");
+            var dataApiModel = await _client.PostPhotoFile<ResponseDto<UserDto>>("me/picture", path, "avatar");
             return dataApiModel?.Data;
         }
 
-        public async Task<UserApiModel> UpdateProfileAsync(UserUpdateProfileApiModel userUpdateProfileApiModel)
+        public async Task<UserDto> UpdateProfileAsync(UserUpdateProfileDto userUpdateProfileApiModel)
         {
-            var dataApiModel = await _client.PostAsync<UserUpdateProfileApiModel, DataApiModel<UserApiModel>>("me", userUpdateProfileApiModel);
+            var dataApiModel = await _client.PostAsync<UserUpdateProfileDto, ResponseDto<UserDto>>("me", userUpdateProfileApiModel);
             return dataApiModel?.Data;
         }
 
         public Task ComplainUserAsync(int userId, string title, string description)
         {
-            var dataApiModel = new ComplainApiModel()
+            var dataApiModel = new ComplainDto()
             {
                 Title = title,
                 Description = description
@@ -118,37 +111,37 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
             return _client.PostAsync(url, dataApiModel);
         }
 
-        public async Task<DocumentApiModel> SendVerifyDocumentAsync(string path)
+        public async Task<DocumentDto> SendVerifyDocumentAsync(string path)
         {
-            var dataApiModel = await _client.PostPhotoFile<DataApiModel<DocumentApiModel>>("user/dcs", path, "document");
+            var dataApiModel = await _client.PostPhotoFile<ResponseDto<DocumentDto>>("user/dcs", path, "document");
             return dataApiModel?.Data;
         }
 
-        public async Task<CardApiModel> SaveCardAsync(string number, string userName)
+        public async Task<CardDto> SaveCardAsync(string number, string userName)
         {
-            var createCreditCard = new CreateCardApiModel()
+            var createCreditCard = new CreateCardDto()
             {
                 Number = number.WithoutSpace(),
                 CardUserName = userName,
             };
-            var dataApiModel = await _client.PostAsync<CreateCardApiModel, DataApiModel<CardApiModel>>("me/cards", createCreditCard, true);
+            var dataApiModel = await _client.PostAsync<CreateCardDto, ResponseDto<CardDto>>("me/cards", createCreditCard, true);
             return dataApiModel?.Data;
         }
 
-        public async Task<CardApiModel> GetCardsAsync()
+        public async Task<CardDto> GetCardsAsync()
         {
-            var dataApiModel = await _client.GetAsync<DataApiModel<List<CardApiModel>>>("me/cards");
+            var dataApiModel = await _client.GetAsync<ResponseDto<List<CardDto>>>("me/cards");
             return dataApiModel?.Data?.FirstOrDefault();
         }
 
-        public async Task<BaseBundleApiModel<UserApiModel>> GetSubscriptionsAsync(int userId, int page, int pageSize)
+        public async Task<BaseBundleDto<UserDto>> GetSubscriptionsAsync(int userId, int page, int pageSize)
         {
-            return await _client.GetAsync<BaseBundleApiModel<UserApiModel>>($"users/{userId}/subscriptions?page={page}&items_per_page={pageSize}");
+            return await _client.GetAsync<BaseBundleDto<UserDto>>($"users/{userId}/subscriptions?page={page}&items_per_page={pageSize}");
         }
 
-        public async Task<BaseBundleApiModel<UserApiModel>> GetSubscribersAsync(int userId, int page, int pageSize)
+        public async Task<BaseBundleDto<UserDto>> GetSubscribersAsync(int userId, int page, int pageSize)
         {
-            return await _client.GetAsync<BaseBundleApiModel<UserApiModel>>($"users/{userId}/subscribers?page={page}&items_per_page={pageSize}");
+            return await _client.GetAsync<BaseBundleDto<UserDto>>($"users/{userId}/subscribers?page={page}&items_per_page={pageSize}");
         }
 
         public Task DeleteCardAsync(int id)

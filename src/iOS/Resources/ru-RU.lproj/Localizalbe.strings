@@ -353,3 +353,4 @@
 "Competition_Pay_For_Join" = "Оплатить участие";
 "Competion_Rules_Template" = "Чтобы принять участие в конкурсе, Вам необходимо заплатить {0} ₽";
 "Pay" = "Оплатить";
+"Error_Something_Went_Wrong_Message" = "Упс, что то пошло не так :(";

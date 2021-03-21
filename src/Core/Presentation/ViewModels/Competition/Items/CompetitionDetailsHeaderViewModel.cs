@@ -1,8 +1,6 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -10,21 +8,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
     public class CompetitionDetailsHeaderViewModel : CompetitionItemViewModel
     {
-        public CompetitionDetailsHeaderViewModel(bool isUserSessionInitialized,
-                                                 IMvxMessenger mvxMessenger,
-                                                 INavigationService navigationService,
-                                                 IMvxAsyncCommand actionCommand,
-                                                 CompetitionDataModel competition)
-            : base(isUserSessionInitialized, mvxMessenger, navigationService, competition)
+        public CompetitionDetailsHeaderViewModel(
+            bool isUserSessionInitialized,
+            IMvxAsyncCommand actionCommand,
+            Models.Data.Competition competition) : base(isUserSessionInitialized, competition)
         {
-            _navigationService = navigationService;
-
             ActionCommand = actionCommand;
-            OpenPrizePoolCommand = new MvxAsyncCommand(OpenPrizePoolAsync);
-            OpenRulesCommand = new MvxAsyncCommand(OpenRulesAsync);
+            OpenPrizePoolCommand = this.CreateCommand(OpenPrizePoolAsync);
+            OpenRulesCommand = this.CreateCommand(OpenRulesAsync);
         }
-
-        private readonly INavigationService _navigationService;
 
         public ICommand OpenPrizePoolCommand { get; set; }
 
@@ -50,12 +42,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         private Task OpenRulesAsync()
         {
-            return _navigationService.ShowCompetitionRulesView(HtmlContent);
+            return NavigationManager.NavigateAsync<CompetitionRulesViewModel, string>(HtmlContent);
         }
 
         private Task OpenPrizePoolAsync()
         {
-            return _navigationService.ShowCompetitionPrizePoolView(Competition);
+            return NavigationManager.NavigateAsync<CompetitionPrizePoolViewModel, Models.Data.Competition>(Competition);
         }
     }
 }

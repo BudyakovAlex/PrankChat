@@ -2,9 +2,10 @@
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 {
@@ -14,8 +15,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 
         public ArrayDialogViewModel()
         {
-            SelectItemCommand = new MvxAsyncCommand<string>(SelectItemAsync);
-            DoneCommand = new MvxAsyncCommand(DoneAsync);
+            SelectItemCommand = this.CreateCommand<string>(SelectItemAsync);
+            DoneCommand = this.CreateCommand(DoneAsync);
             Items = new MvxObservableCollection<string>();
         }
 
@@ -62,8 +63,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 
         private async Task PickItemAsync(string value)
         {
-            CloseCompletionSource.SetResult(new ArrayDialogResult(value));
-            await NavigationService.CloseView(this);
+            await NavigationManager.CloseAsync(this, new ArrayDialogResult(value));
         }
     }
 }

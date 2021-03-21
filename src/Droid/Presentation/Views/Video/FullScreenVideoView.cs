@@ -1,11 +1,12 @@
 ﻿using Android.App;
 using Android.Content.PM;
+using Android.Content.Res;
 using Android.Media;
 using Android.OS;
-using AndroidX.Core.Content.Resources;
 using Android.Views;
 using Android.Widget;
 using AndroidX.ConstraintLayout.Widget;
+using AndroidX.Core.Content.Resources;
 using Java.Lang;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
@@ -15,7 +16,6 @@ using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
-using Android.Content.Res;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 {
@@ -179,7 +179,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 
             bindingSet.Bind(_backImageView)
                       .For(v => v.BindClick())
-                      .To(vm => vm.GoBackCommand);
+                      .To(vm => vm.CloseCommand);
 
             bindingSet.Bind(_titleTextView)
                       .For(v => v.Text)
@@ -319,7 +319,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             view.Animate()
                 .TranslationY(view.Height)
                 .SetDuration(AnimationDuration)
-                .WithEndAction(new Runnable(() => ViewModel.GoBackCommand.ExecuteAsync()))
+                .WithEndAction(new Runnable(() => ViewModel.CloseCommand.Execute(null)))
                 .Start();
         }
 

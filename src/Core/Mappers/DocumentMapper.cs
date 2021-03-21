@@ -1,30 +1,28 @@
-﻿using PrankChat.Mobile.Core.Models.Api;
+﻿using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.Core.Mappers
 {
     public static class DocumentMapper
     {
-        public static DocumentDataModel Map(this DocumentApiModel documentApiModel)
+        public static Document Map(this DocumentDto dto)
         {
-            if (documentApiModel is null)
+            if (dto is null)
             {
                 return null;
             }
 
-            return new DocumentDataModel(documentApiModel.Id,
-                                         documentApiModel.Path);
+            return new Document(dto.Id, dto.Path);
         }
 
-        public static DocumentDataModel Map(this DataApiModel<DocumentApiModel> documentApiModel)
+        public static Document Map(this ResponseDto<DocumentDto> dto)
         {
-            if (documentApiModel.Data is null)
+            if (dto.Data is null)
             {
                 return null;
             }
 
-            return new DocumentDataModel(documentApiModel.Data.Id,
-                                         documentApiModel.Data.Path);
+            return new Document(dto.Data.Id, dto.Data.Path);
         }
     }
 }

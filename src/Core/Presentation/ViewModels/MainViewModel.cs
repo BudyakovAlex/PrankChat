@@ -2,19 +2,21 @@
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Common;
-using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
@@ -26,45 +28,39 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private readonly int[] _skipTabIndexesInDemoMode = new[] { 2, 4 };
 
-        private int _lastSelectedTab;
+        private readonly IDisposable _refreshTokenExpiredMessageSubscription;
 
-        public MvxAsyncCommand ShowContentCommand { get; }
-
-        public MvxAsyncCommand ShowLoginCommand { get; }
-
-        public IMvxAsyncCommand<int> CheckDemoCommand { get; }
-
-        public IMvxAsyncCommand<int> ShowWalkthrouthCommand { get; set; }
-
-        public IMvxAsyncCommand<int> ShowWalkthrouthIfNeedCommand { get; set; }
-
-        public IMvxAsyncCommand CheckActualAppVersionCommand { get; }
-
-        private IDisposable _refreshTokenExpiredMessageSubscription;
-
-        public MainViewModel(IVersionManager versionManager,
-                             IPushNotificationProvider notificationService,
-                             IWalkthroughsProvider walkthroughsProvider)
+        public MainViewModel(
+            IVersionManager versionManager,
+            IPushNotificationProvider notificationService,
+            IWalkthroughsProvider walkthroughsProvider)
         {
             _versionManager = versionManager;
             _notificationService = notificationService;
             _walkthroughsProvider = walkthroughsProvider;
 
-            ShowContentCommand = new MvxAsyncCommand(NavigationService.ShowMainViewContent);
-            ShowLoginCommand = new MvxAsyncCommand(NavigationService.ShowLoginView);
-            CheckDemoCommand = new MvxAsyncCommand<int>(CheckDemoModeAsync);
-            ShowWalkthrouthCommand = new MvxAsyncCommand<int>(ShowWalthroughAsync);
-            ShowWalkthrouthIfNeedCommand = new MvxAsyncCommand<int>(ShowWalthroughIfNeedAsync);
-            CheckActualAppVersionCommand = new MvxAsyncCommand(CheckActualAppVersionAsync);
-
             _refreshTokenExpiredMessageSubscription = Messenger.Subscribe<RefreshTokenExpiredMessage>(RefreshTokenExpired, MvxReference.Strong).DisposeWith(Disposables);
-            Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
-            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
+            Messenger.Subscribe<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
+
+            LoadContentCommand = this.CreateCommand(LoadContentAsync);
+            ShowLoginCommand = this.CreateCommand(NavigationManager.NavigateAsync<LoginViewModel>);
+            CheckDemoCommand = this.CreateCommand<int>(CheckDemoModeAsync);
+            ShowWalkthrouthCommand = this.CreateCommand<int>(ShowWalthroughAsync);
+            ShowWalkthrouthIfNeedCommand = this.CreateCommand<int>(ShowWalthroughIfNeedAsync);
+            CheckActualAppVersionCommand = this.CreateCommand(CheckActualAppVersionAsync);
         }
+
+        public ICommand LoadContentCommand { get; }
+        public ICommand ShowLoginCommand { get; }
+
+        public IMvxAsyncCommand<int> CheckDemoCommand { get; }
+        public IMvxAsyncCommand<int> ShowWalkthrouthCommand { get; set; }
+        public IMvxAsyncCommand<int> ShowWalkthrouthIfNeedCommand { get; set; }
+        public IMvxAsyncCommand CheckActualAppVersionCommand { get; }
 
         private async Task CheckActualAppVersionAsync()
         {
-            if (SettingsService.IsDebugMode)
+            if (UserSessionProvider.IsDebugMode)
             {
                 return;
             }
@@ -72,7 +68,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             var newActualVersion = await _versionManager.CheckAppVersionAsync();
             if (!string.IsNullOrEmpty(newActualVersion?.Link))
             {
-                await NavigationService.ShowMaintananceView(newActualVersion.Link);
+                await NavigationManager.NavigateAsync<MaintananceViewModel, string>(newActualVersion?.Link);
                 return;
             }
         }
@@ -100,53 +96,54 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             return true;
         }
 
+        private Task LoadContentAsync()
+        {
+            return Task.WhenAll(NavigationManager.NavigateAsync<PublicationsViewModel>(),
+                    NavigationManager.NavigateAsync<CompetitionsViewModel>(),
+                    NavigationManager.NavigateAsync<CreateOrderViewModel>(),
+                    NavigationManager.NavigateAsync<OrdersViewModel>(),
+                    NavigationManager.NavigateAsync<ProfileViewModel>());
+        }
+
         private Task ShowWalthroughIfNeedAsync(int position)
         {
-            switch (position)
+            return position switch
             {
-                case 1 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CompetitionsViewModel>():
-                    return _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>();
-                case 2 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CreateOrderViewModel>():
-                    return _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>();
-                case 3 when _walkthroughsProvider.CheckCanShowOnFirstLoad<OrdersViewModel>():
-                    return _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>();
-                case 4 when _walkthroughsProvider.CheckCanShowOnFirstLoad<ProfileViewModel>():
-                    return _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>();
-                default:
-                    return Task.FromResult(false);
-            }
+                1 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CompetitionsViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>(),
+                2 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CreateOrderViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>(),
+                3 when _walkthroughsProvider.CheckCanShowOnFirstLoad<OrdersViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>(),
+                4 when _walkthroughsProvider.CheckCanShowOnFirstLoad<ProfileViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>(),
+                _ => Task.FromResult(false),
+            };
         }
 
         private Task ShowWalthroughAsync(int position)
         {
-            switch (position)
+            return position switch
             {
-                case 1:
-                    return _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>();
-                case 2:
-                    return _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>();
-                case 3:
-                    return _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>();
-                case 4:
-                    return _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>();
-                default:
-                    return Task.FromResult(false);
-            }
+                1 => _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>(),
+                2 => _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>(),
+                3 => _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>(),
+                4 => _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>(),
+                _ => Task.FromResult(false),
+            };
         }
 
-        private async Task CheckDemoModeAsync(int position)
+        private Task CheckDemoModeAsync(int position)
         {
             if (!CanSwitchTabs(position))
             {
-                await NavigationService.ShowLoginView();
+                return NavigationManager.NavigateAsync<LoginViewModel>();
             }
+
+            return Task.CompletedTask;
         }
 
         private void RefreshTokenExpired(RefreshTokenExpiredMessage _)
         {
             Disposables.Remove(_refreshTokenExpiredMessageSubscription);
             _refreshTokenExpiredMessageSubscription.Dispose();
-            NavigationService.Logout().FireAndForget();
+            NavigationManager.NavigateAsync<LoginViewModel>();
         }
     }
 }

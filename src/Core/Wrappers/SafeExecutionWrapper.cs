@@ -33,38 +33,18 @@ namespace PrankChat.Mobile.Core.Wrappers
             }
         }
 
-        public T Wrap<T>(Func<T> executionAction, Action<Exception> handlerAction = null)
+        public async Task WrapAsync(Func<Task> executionAction, Func<Exception, Task> handlerAction = null)
         {
             executionAction.ThrowIfNull();
 
             try
             {
-                return executionAction.Invoke();
+                await executionAction.Invoke();
             }
             catch (Exception ex)
             {
-                if (handlerAction is null)
-                {
-                    _defaultHandleFunc.Invoke(ex);
-                    return default;
-                }
-
-                handlerAction.Invoke(ex);
-                return default;
-            }
-        }
-
-        public Task WrapAsync(Func<Task> executionAction, Func<Exception, Task> handlerAction = null)
-        {
-            executionAction.ThrowIfNull();
-
-            try
-            {
-                return executionAction.Invoke();
-            }
-            catch (Exception ex)
-            {
-                return handlerAction?.Invoke(ex) ?? _defaultHandleFunc.Invoke(ex);
+                var handleTask = handlerAction?.Invoke(ex) ?? _defaultHandleFunc.Invoke(ex);
+                await handleTask;
             }
         }
 

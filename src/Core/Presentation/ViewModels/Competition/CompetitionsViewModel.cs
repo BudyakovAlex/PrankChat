@@ -1,48 +1,53 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
-using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Competitions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract.Items;
 using PrankChat.Mobile.Core.Providers;
+using PrankChat.Mobile.Core.Wrappers;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 {
-    public class CompetitionsViewModel : BasePageViewModel
+    public class CompetitionsViewModel : BaseItemsPageViewModel<CompetitionsSectionViewModel>
     {
         private readonly ICompetitionsManager _competitionsManager;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
+
+        private ExecutionStateWrapper _loadDataStateWrapper;
 
         public CompetitionsViewModel(ICompetitionsManager competitionsManager, IWalkthroughsProvider walkthroughsProvider)
         {
             _competitionsManager = competitionsManager;
             _walkthroughsProvider = walkthroughsProvider;
 
-            LoadDataCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(LoadDataAsync));
-            ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
+            _loadDataStateWrapper = new ExecutionStateWrapper();
+            _loadDataStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(
+                OnIsBusyChanged,
+                (wrapper, handler) => wrapper.IsBusyChanged += handler,
+                (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
+
+            LoadDataCommand = this.CreateCommand(() => _loadDataStateWrapper.WrapAsync(LoadDataAsync), useIsBusyWrapper : false);
+            ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
 
             Messenger.SubscribeOnMainThread<ReloadCompetitionsMessage>((msg) => LoadDataCommand?.Execute()).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
-            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
         }
 
         public IMvxAsyncCommand LoadDataCommand { get; }
 
         public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
 
-        public MvxObservableCollection<CompetitionsSectionViewModel> Items { get; set; } = new MvxObservableCollection<CompetitionsSectionViewModel>();
+        public override bool IsBusy => base.IsBusy || _loadDataStateWrapper.IsBusy;
 
         public override async Task InitializeAsync()
         {
             await base.InitializeAsync();
-            await LoadDataAsync();
+            _ = LoadDataCommand.ExecuteAsync();
         }
 
         private Task ShowWalkthrouthAsync()
@@ -65,10 +70,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
             var competitionsPage = await _competitionsManager.GetCompetitionsAsync(1, 100);
 
-            var sections = competitionsPage.Items.GroupBy(competition => competition.GetPhase())
-                                                 .Select(group => new CompetitionsSectionViewModel(IsUserSessionInitialized, Messenger, NavigationService, group.Key, group.ToList()))
-                                                 .OrderBy(item => item.Phase)
-                                                 .ToList();
+            var sections = competitionsPage.Items
+                .GroupBy(competition => competition.GetPhase())
+                .Select(group => new CompetitionsSectionViewModel(IsUserSessionInitialized, group.Key, group.ToList()))
+                .OrderBy(item => item.Phase)
+                .ToList();
+
             Items.SwitchTo(sections);
         }
     }

@@ -2,11 +2,11 @@
 {
     public class ImageCropPathResult
     {
-        public string FilePath { get; }
-
         public ImageCropPathResult(string filePath)
         {
             FilePath = filePath;
         }
+
+        public string FilePath { get; }
     }
 }

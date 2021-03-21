@@ -1,5 +1,5 @@
-﻿using PrankChat.Mobile.Core.Models.Api;
-using PrankChat.Mobile.Core.Models.Api.Base;
+﻿using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Data.Dtos.Base;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,27 +11,27 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
 
         Task GetCurrentUserAsync();
 
-        Task<BaseBundleApiModel<UserApiModel>> GetSubscriptionsAsync(int userId, int page, int pageSize);
+        Task<BaseBundleDto<UserDto>> GetSubscriptionsAsync(int userId, int page, int pageSize);
 
-        Task<BaseBundleApiModel<UserApiModel>> GetSubscribersAsync(int userId, int page, int pageSize);
+        Task<BaseBundleDto<UserDto>> GetSubscribersAsync(int userId, int page, int pageSize);
 
-        Task<UserApiModel> UpdateProfileAsync(UserUpdateProfileApiModel userInfo);
+        Task<UserDto> UpdateProfileAsync(UserUpdateProfileDto userInfo);
 
-        Task<UserApiModel> SendAvatarAsync(string path);
+        Task<UserDto> SendAvatarAsync(string path);
 
         Task ComplainUserAsync(int userId, string title, string description);
 
-        Task<UserApiModel> GetUserAsync(int userId);
+        Task<UserDto> GetUserAsync(int userId);
 
-        Task<UserApiModel> SubscribeToUserAsync(int userId, CancellationToken? cancellationToken = null);
+        Task<UserDto> SubscribeToUserAsync(int userId, CancellationToken? cancellationToken = null);
 
-        Task<UserApiModel> UnsubscribeFromUserAsync(int userId, CancellationToken? cancellationToken = null);
+        Task<UserDto> UnsubscribeFromUserAsync(int userId, CancellationToken? cancellationToken = null);
 
-        Task<DocumentApiModel> SendVerifyDocumentAsync(string path);
+        Task<DocumentDto> SendVerifyDocumentAsync(string path);
 
-        Task<CardApiModel> SaveCardAsync(string number, string userName);
+        Task<CardDto> SaveCardAsync(string number, string userName);
 
-        Task<CardApiModel> GetCardsAsync();
+        Task<CardDto> GetCardsAsync();
 
         Task DeleteCardAsync(int id);
     }

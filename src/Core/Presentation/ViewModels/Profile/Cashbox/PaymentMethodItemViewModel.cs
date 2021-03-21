@@ -1,5 +1,5 @@
 ﻿using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
@@ -16,13 +16,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         public bool IsSelected
         {
             get => _isSelected;
-            set
-            {
-                if (SetProperty(ref _isSelected, value))
-                {
-                    RaisePropertyChanged(nameof(Type));
-                }
-            }
+            set => SetProperty(ref _isSelected, value, () => RaisePropertyChanged(nameof(Type)));
         }
     }
 }

@@ -5,17 +5,14 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
     public static class CompetitionExtensions
     {
-        public static CompetitionPhase GetPhase(this CompetitionDataModel competition)
+        public static CompetitionPhase GetPhase(this Competition competition)
         {
-            switch (competition.Status)
+            return competition.Status switch
             {
-                case Constants.CompetitionStatuses.Finished:
-                    return CompetitionPhase.Finished;
-                case Constants.CompetitionStatuses.Voting:
-                    return CompetitionPhase.Voting;
-                default:
-                    return CompetitionPhase.New;
-            }
+                Constants.CompetitionStatuses.Finished => CompetitionPhase.Finished,
+                Constants.CompetitionStatuses.Voting => CompetitionPhase.Voting,
+                _ => CompetitionPhase.New,
+            };
         }
     }
 }

@@ -7,11 +7,11 @@ using PrankChat.Mobile.Core.Managers.Search;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,12 +29,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
 
-        public SearchViewModel(ISearchManager searchManager,
-                               IPublicationsManager publicationsManager,
-                               IVideoManager videoManager,
-                               IPlatformService platformService,
-                               IVideoPlayerService videoPlayerService)
-            : base(Constants.Pagination.DefaultPaginationSize)
+        public SearchViewModel(
+            ISearchManager searchManager,
+            IPublicationsManager publicationsManager,
+            IVideoManager videoManager,
+            IPlatformService platformService,
+            IVideoPlayerService videoPlayerService) : base(Constants.Pagination.DefaultPaginationSize)
         {
             Items = new MvxObservableCollection<MvxNotifyPropertyChanged>();
 
@@ -126,31 +126,31 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             }
         }
 
-        private MvxNotifyPropertyChanged ProduceVideoViewModel(VideoDataModel publication)
+        private MvxNotifyPropertyChanged ProduceVideoViewModel(Models.Data.Video publication)
         {
             return new PublicationItemViewModel(_publicationsManager,
                                                 _videoManager,
                                                 _platformService,
                                                 _videoPlayerService,
                                                 publication,
-                                                GetFullScreenVideoDataModels);
+                                                GetFullScreenVideos);
         }
 
-        private BaseViewModel ProduceUserViewModel(UserDataModel model)
+        private BaseViewModel ProduceUserViewModel(User model)
         {
-            return new ProfileSearchItemViewModel(NavigationService, SettingsService, model);
+            return new ProfileSearchItemViewModel(UserSessionProvider, model);
         }
 
-        private BaseViewModel ProduceOrderViewModel(OrderDataModel model)
+        private BaseViewModel ProduceOrderViewModel(Models.Data.Order model)
         {
-            return new OrderItemViewModel(NavigationService, SettingsService, model, GetFullScreenVideoDataModels);
+            return new OrderItemViewModel(UserSessionProvider, model, GetFullScreenVideos);
         }
 
-        private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
+        private List<FullScreenVideo> GetFullScreenVideos()
         {
             return Items.OfType<IFullScreenVideoOwnerViewModel>()
                         .Where(item => item.CanPlayVideo)
-                        .Select(item => item.GetFullScreenVideoDataModel())
+                        .Select(item => item.GetFullScreenVideo())
                         .ToList();
         }
     }

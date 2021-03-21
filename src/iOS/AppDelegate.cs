@@ -1,14 +1,15 @@
 ﻿using Firebase.CloudMessaging;
-using Firebase.Crashlytics;
 using Firebase.InstanceID;
 using Foundation;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using MvvmCross;
+using MvvmCross.IoC;
 using MvvmCross.Platforms.Ios.Core;
-using MvvmCross.Plugin.Messenger;
 using Plugin.DownloadManager;
 using PrankChat.Mobile.Core;
-using PrankChat.Mobile.Core.BusinessServices.CrashlyticService;
-using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
 using System;
 using UIKit;
@@ -22,8 +23,6 @@ namespace PrankChat.Mobile.iOS
     {
         //TODO: move it to config
         public const string VkAppId = "7343996";
-
-        private Lazy<IMvxMessenger> MvxMessenger => new Lazy<IMvxMessenger>(Mvx.IoCProvider.Resolve<IMvxMessenger>());
 
         private int? _orderId;
 
@@ -67,11 +66,7 @@ namespace PrankChat.Mobile.iOS
             }
             catch (Exception ex)
             {
-                if (Mvx.IoCProvider.TryResolve<ICrashlyticsService>(out var crashlyticsService))
-                {
-                    crashlyticsService.TrackError(ex);
-                }
-
+                Crashes.TrackError(ex);
                 return false;
             }
         }
@@ -95,7 +90,9 @@ namespace PrankChat.Mobile.iOS
         protected override object GetAppStartHint(object hint = null)
         {
             if (_orderId != null)
+            {
                 return _orderId;
+            }
 
             return hint;
         }
@@ -106,8 +103,6 @@ namespace PrankChat.Mobile.iOS
             {
                 Firebase.Core.App.Configure();
             }
-
-            Crashlytics.SharedInstance.Init();
         }
 
         private void InitializePushNotification()

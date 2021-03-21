@@ -9,10 +9,14 @@ using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Shared.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 {
@@ -25,24 +29,33 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         private string _shareLink;
         private int _index;
 
-        private FullScreenVideoDataModel _currentVideo;
+        private FullScreenVideo _currentVideo;
 
-        private List<FullScreenVideoDataModel> _videos;
+        private List<FullScreenVideo> _videos;
 
-        public FullScreenVideoViewModel(IUsersManager usersManager,
-                                        IPublicationsManager publicationsManager,
-                                        IPlatformService platformService) : base(publicationsManager)
+        public FullScreenVideoViewModel(
+            IUsersManager usersManager,
+            IPublicationsManager publicationsManager,
+            IPlatformService platformService) : base(publicationsManager)
         {
             Interaction = new MvxInteraction();
 
             _usersManager = usersManager;
             _platformService = platformService;
 
-            ShareCommand = new MvxAsyncCommand(ShareAsync);
-            MoveNextCommand = new MvxCommand(MoveNext);
-            MovePreviousCommand = new MvxCommand(MovePrevious);
-            OpenCommentsCommand = new MvxRestrictedAsyncCommand(ShowCommentsAsync, restrictedCanExecute: () => IsUserSessionInitialized, handleFunc: NavigateByRestrictionsAsync);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => SettingsService.User != null, handleFunc: NavigateByRestrictionsAsync);
+            ShareCommand = this.CreateCommand(ShareAsync);
+            MoveNextCommand = this.CreateCommand(MoveNext);
+            MovePreviousCommand = this.CreateCommand(MovePrevious);
+
+            OpenCommentsCommand = this.CreateRestrictedCommand(
+                ShowCommentsAsync,
+                restrictedCanExecute: () => IsUserSessionInitialized,
+                handleFunc: NavigateByRestrictionsAsync);
+
+            OpenUserProfileCommand = this.CreateRestrictedCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => UserSessionProvider.User != null,
+                handleFunc: NavigateByRestrictionsAsync);
         }
 
         public IMvxAsyncCommand ShareCommand { get; }
@@ -66,10 +79,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         public bool IsMuted
         {
-            get => Xamarin.Essentials.Preferences.Get(Constants.Keys.MuteStateKey, false);
+            get => Preferences.Get(Constants.Keys.MuteStateKey, false);
             set
             {
-                Xamarin.Essentials.Preferences.Set(Constants.Keys.MuteStateKey, value);
+                Preferences.Set(Constants.Keys.MuteStateKey, value);
                 RaisePropertyChanged();
             }
         }
@@ -83,6 +96,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         public string ProfileShortName { get; private set; }
 
         public bool IsLikeFlowAvailable { get; private set; }
+
         public string StubImageUrl { get; private set; }
 
         public bool IsSubscribed { get; private set; }
@@ -150,21 +164,26 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         private Task NavigateByRestrictionsAsync()
         {
             Interaction.Raise();
-            return NavigationService.ShowLoginView();
+            return NavigationManager.NavigateAsync<LoginViewModel>();
         }
 
         private async Task OpenUserProfileAsync()
         {
             if (_currentVideo?.UserId is null ||
                 _currentVideo.UserId == 0 ||
-                _currentVideo.UserId == SettingsService.User.Id)
+                _currentVideo.UserId == UserSessionProvider.User.Id)
             {
                 return;
             }
 
             Interaction.Raise();
 
-            var shouldRefresh = await NavigationService.ShowUserProfile(_currentVideo.UserId);
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return;
+            }
+
+            var shouldRefresh = await NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_currentVideo.UserId);
             if (!shouldRefresh)
             {
                 return;
@@ -181,7 +200,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         {
             Interaction.Raise();
 
-            var commentsCount = await NavigationService.ShowCommentsView(VideoId);
+            var commentsCount = await NavigationManager.NavigateAsync<CommentsViewModel, int, int>(VideoId);
             NumberOfComments = commentsCount > 0 ? commentsCount : NumberOfComments;
             await RaisePropertyChanged(nameof(NumberOfCommentsPresentation));
             _isReloadNeeded = true;

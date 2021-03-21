@@ -1,8 +1,6 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Platforms;
-using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -13,8 +11,9 @@ using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
 using System.Collections.Generic;
@@ -35,10 +34,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private ExecutionStateWrapper _refreshFilterExecutionStateWrapper;
 
-        public PublicationsViewModel(IPublicationsManager publicationsManager,
-                                     IVideoManager videoManager,
-                                     IPlatformService platformService,
-                                     IVideoPlayerService videoPlayerService) : base(Constants.Pagination.DefaultPaginationSize)
+        public PublicationsViewModel(
+            IPublicationsManager publicationsManager,
+            IVideoManager videoManager,
+            IPlatformService platformService,
+            IVideoPlayerService videoPlayerService)
+            : base(Constants.Pagination.DefaultPaginationSize)
         {
             _publicationsManager = publicationsManager;
             _videoManager = videoManager;
@@ -57,26 +58,23 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 { DateFilterType.HalfYear, Resources.Publication_Tab_Filter_HalfYear },
             };
 
-            _refreshFilterExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>((s, e) => RaisePropertyChanged(nameof(IsRefreshingFilter)),
-                                                                                              (wrapper, handler) => wrapper.IsBusyChanged += handler,
-                                                                                              (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
+            _refreshFilterExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(
+                (s, e) => RaisePropertyChanged(nameof(IsRefreshingFilter)),
+                (wrapper, handler) => wrapper.IsBusyChanged += handler,
+                (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
 
             ItemsChangedInteraction = new MvxInteraction();
             OpenFilterCommand = new MvxAsyncCommand(OnOpenFilterAsync);
 
             Messenger.SubscribeOnMainThread<ReloadPublicationsMessage>((msg) => OnReloadItems()).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
-            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
         }
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
         {
             get => _selectedPublicationType;
-            set
-            {
-                SetProperty(ref _selectedPublicationType, value, () => _ = RefreshDataAsync());
-            }
+            set => SetProperty(ref _selectedPublicationType, value, () => _ = RefreshDataAsync());
         }
 
         public bool IsRefreshingFilter => _refreshFilterExecutionStateWrapper.IsBusy;
@@ -120,7 +118,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             await base.InitializeAsync();
 
             ActiveFilter = DateFilterType.HalfYear;
-            await LoadMoreItemsCommand.ExecuteAsync();
+            _ = SafeExecutionWrapper.WrapAsync(() => LoadMoreItemsAsync());
         }
 
         public override void ViewDisappearing()
@@ -171,7 +169,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         {
             try
             {
-                PaginationModel<VideoDataModel> pageContainer = null;
+                Pagination<Models.Data.Video> pageContainer = null;
                 switch (SelectedPublicationType)
                 {
                     case PublicationType.Popular:
@@ -185,7 +183,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                     case PublicationType.MyVideosOfCreatedOrders:
                         if (!IsUserSessionInitialized)
                         {
-                            await NavigationService.ShowLoginView();
+                            await NavigationManager.NavigateAsync<LoginViewModel>();
                             return 0;
                         }
 
@@ -203,26 +201,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             }
         }
 
-        private PublicationItemViewModel ProducePublicationItemViewModel(VideoDataModel publication)
+        private PublicationItemViewModel ProducePublicationItemViewModel(Models.Data.Video publication)
         {
-            return new PublicationItemViewModel(_publicationsManager,
-                                                _videoManager,
-                                                _platformService,
-                                                _videoPlayerService,
-                                                publication,
-                                                GetFullScreenVideoDataModels);
+            return new PublicationItemViewModel(
+                _publicationsManager,
+                _videoManager,
+                _platformService,
+                _videoPlayerService,
+                publication,
+                GetFullScreenVidos);
         }
 
-        protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        protected override int SetList<TDataModel, TApiModel>(Pagination<TApiModel> pagination, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
         {
-            var count = base.SetList(dataModel, page, produceItemViewModel, items);
+            var count = base.SetList(pagination, page, produceItemViewModel, items);
             ItemsChangedInteraction.Raise();
             return count;
         }
 
-        private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
+        private List<FullScreenVideo> GetFullScreenVidos()
         {
-            return Items.Select(item => item.GetFullScreenVideoDataModel()).ToList();
+            return Items.Select(item => item.GetFullScreenVideo()).ToList();
         }
 
         private void OnReloadItems()

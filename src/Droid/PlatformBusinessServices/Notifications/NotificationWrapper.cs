@@ -45,7 +45,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             return true;
         }
 
-        public void ScheduleLocalNotification(PushNotificationData pushNotificationData)
+        public void ScheduleLocalNotification(PushNotification pushNotificationData)
         {
             if (pushNotificationData.Type == null)
             {
@@ -147,7 +147,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             return Constants.Notification.ChannelId;
         }
 
-        private static PendingIntent GetPendingIntent(PushNotificationData pushNotificationData)
+        private static PendingIntent GetPendingIntent(PushNotification pushNotificationData)
         {
             var intent = new Intent(Application.Context, typeof(NotificationActionService));
 

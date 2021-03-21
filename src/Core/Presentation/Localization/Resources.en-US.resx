@@ -1077,4 +1077,7 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   <data name="Pay" xml:space="preserve">
     <value>Pay</value>
   </data>
+  <data name="Error_Something_Went_Wrong_Message" xml:space="preserve">
+    <value>Oops, something went wrong :(</value>
+  </data>
 </root>
