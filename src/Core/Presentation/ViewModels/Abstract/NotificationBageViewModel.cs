@@ -3,13 +3,15 @@ using MvvmCross.Commands;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Notifications;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 {
-    public class NotificationBageViewModel : BaseViewModel, INotificationBageViewModel
+    public class NotificationBageViewModel : BaseViewModel
     {
         private const int RefreshAfterSeconds = 15;
 
@@ -18,12 +20,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
         private readonly INotificationsManager _notificationManager;
         private readonly IUserSessionProvider _userSessionProvider;
 
+        private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
+
         public NotificationBageViewModel(INotificationsManager notificationManager, IUserSessionProvider userSessionProvider)
         {
             _notificationManager = notificationManager;
             _userSessionProvider = userSessionProvider;
 
             Messenger.Subscribe<TimerTickMessage>(OnTimerTick).DisposeWith(Disposables);
+
+            Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>((msg) => RefreshDataCommand.Execute()).DisposeWith(Disposables);
 
             RefreshDataCommand = this.CreateCommand(RefreshDataAsync);
         }
@@ -39,14 +45,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
                 return;
             }
 
-            var unreadNotifications = await _notificationManager.GetUnreadNotificationsCountAsync();
-            HasUnreadNotifications = unreadNotifications > 0;
-            await RaisePropertyChanged(nameof(HasUnreadNotifications));
-
-            if (HasUnreadNotifications)
+            await _semaphoreSlim.WrapAsync(async () =>
             {
-                MainThread.BeginInvokeOnMainThread(() => CrossBadge.Current.SetBadge(unreadNotifications));
-            }
+                var unreadNotifications = await _notificationManager.GetUnreadNotificationsCountAsync();
+                HasUnreadNotifications = unreadNotifications > 0;
+                await RaisePropertyChanged(nameof(HasUnreadNotifications));
+
+                if (HasUnreadNotifications)
+                {
+                    MainThread.BeginInvokeOnMainThread(() => CrossBadge.Current.SetBadge(unreadNotifications));
+                }
+            });
         }
 
         private void OnTimerTick(TimerTickMessage message)

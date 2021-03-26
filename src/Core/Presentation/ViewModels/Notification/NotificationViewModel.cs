@@ -7,6 +7,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 {
@@ -48,7 +49,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
             await _notificationsManager.MarkNotificationsAsReadedAsync();
 
             Messenger.Publish(new RefreshNotificationsMessage(this));
-            CrossBadge.Current.ClearBadge();
+            MainThread.BeginInvokeOnMainThread(CrossBadge.Current.ClearBadge);
         }
     }
 }

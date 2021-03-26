@@ -66,7 +66,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
             Messenger.SubscribeOnMainThread<OrderChangedMessage>(OrdersChanged).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RemoveOrderMessage>(OrderRemoved).DisposeWith(Disposables);
-            Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
         }
 
         public override bool IsBusy => base.IsBusy || _loadDataStateWrapper.IsBusy;

@@ -55,7 +55,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
                 var pushNotificationData = HandleNotificationPayload(userInfo);
                 ScheduleLocalNotification(pushNotificationData?.Title, pushNotificationData?.Body);
 
-                if(Mvx.IoCProvider.TryResolve<IMvxMessenger>(out var mvxMessenger))
+                if (Mvx.IoCProvider.TryResolve<IMvxMessenger>(out var mvxMessenger))
                 {
                     mvxMessenger.Publish(new RefreshNotificationsMessage(this));
                 }

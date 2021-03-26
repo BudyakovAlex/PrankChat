@@ -52,7 +52,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             LoadProfileCommand = this.CreateCommand(LoadProfileAsync);
             ShowUpdateProfileCommand = this.CreateCommand(ShowUpdateProfileAsync);
 
-            Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<OrderChangedMessage>((msg) => ReloadItemsCommand?.Execute()).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<SubscriptionChangedMessage>((msg) => LoadProfileCommand.Execute()).DisposeWith(Disposables);
         }
