@@ -96,7 +96,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                     NavigationManager.NavigateAsync<CreateOrderViewModel>(),
                     NavigationManager.NavigateAsync<OrdersViewModel>(),
                     NavigationManager.NavigateAsync<ProfileViewModel>(),
-                    NotificationBageViewModel.RefreshDataCommand.ExecuteAsync());
+                    NotificationBadgeViewModel.RefreshDataCommand.ExecuteAsync());
         }
 
         private Task ShowWalthroughIfNeedAsync(int position)

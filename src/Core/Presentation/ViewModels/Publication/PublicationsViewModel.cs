@@ -1,6 +1,6 @@
-﻿using MvvmCross.Commands;
+﻿using FFImageLoading;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -27,7 +27,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     {
         private readonly IPublicationsManager _publicationsManager;
         private readonly IVideoManager _videoManager;
-        private readonly IPlatformService _platformService;
         private readonly IVideoPlayerService _videoPlayerService;
 
         private readonly Dictionary<DateFilterType, string> _dateFilterTypeTitleMap;
@@ -37,13 +36,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public PublicationsViewModel(
             IPublicationsManager publicationsManager,
             IVideoManager videoManager,
-            IPlatformService platformService,
             IVideoPlayerService videoPlayerService)
             : base(Constants.Pagination.DefaultPaginationSize)
         {
             _publicationsManager = publicationsManager;
             _videoManager = videoManager;
-            _platformService = platformService;
             _videoPlayerService = videoPlayerService;
 
             Items = new MvxObservableCollection<PublicationItemViewModel>();
@@ -123,6 +120,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         public override void ViewDisappearing()
         {
             _videoPlayerService.Pause();
+
             base.ViewDisappearing();
         }
 
@@ -190,6 +188,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                         break;
                 }
 
+                var preloadImagesTasks = pageContainer.Items.Select(item => ImageService.Instance.LoadUrl(item.Poster).PreloadAsync()).ToArray();
+                _ = Task.WhenAll(preloadImagesTasks);
+
                 return SetList(pageContainer, page, ProducePublicationItemViewModel, Items);
             }
             catch (Exception ex)
@@ -205,8 +206,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             return new PublicationItemViewModel(
                 _publicationsManager,
                 _videoManager,
-                _platformService,
-                _videoPlayerService,
                 publication,
                 GetFullScreenVidos);
         }

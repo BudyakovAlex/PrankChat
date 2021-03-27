@@ -1,4 +1,5 @@
-﻿using MvvmCross.Commands;
+﻿using FFImageLoading;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
@@ -140,6 +141,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 Items.Add(ProduceVideoItemViewModel(video));
                 return 1;
             }
+
+            var preloadImagesTasks = pageContainer.Items.Select(item => ImageService.Instance.LoadUrl(item.Poster).PreloadAsync()).ToArray();
+            _ = Task.WhenAll(preloadImagesTasks);
 
             var count = SetList(pageContainer, page, ProduceVideoItemViewModel, Items);
             return count;

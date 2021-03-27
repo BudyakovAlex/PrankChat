@@ -41,7 +41,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         private (int, int)? _registrationParameters;
 
-        public override bool Muted
+        public override bool IsMuted
         {
             get => _isMuted;
             set
@@ -261,7 +261,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
                 return;
             }
 
-            var isSent = await SendRegisterViewedFactAsync(id, registrationDelayInMilliseconds, _mediaPlayer.CurrentPosition);
+            var isSent = await TryIncrementVideoViewsCountAsync(id, registrationDelayInMilliseconds, _mediaPlayer.CurrentPosition);
 
             if (!isSent)
             {

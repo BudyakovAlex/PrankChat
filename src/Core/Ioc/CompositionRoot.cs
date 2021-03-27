@@ -100,7 +100,7 @@ namespace PrankChat.Mobile.Core.Ioc
 
         private void RegisterDependencies()
         {
-            Container.RegisterSingleton(Container.IocConstruct<NotificationBageViewModel>());
+            Container.RegisterSingleton(Container.IocConstruct<NotificationBadgeViewModel>());
         }
 
         private void RegisterProviders()

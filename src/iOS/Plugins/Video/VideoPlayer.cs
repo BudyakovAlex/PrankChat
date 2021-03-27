@@ -41,7 +41,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
         public override bool IsPlaying { get; protected set; }
 
         /// <inheritdoc />>
-        public override bool Muted
+        public override bool IsMuted
         {
             get => _player.Muted;
             set => _player.Muted = value;
@@ -203,7 +203,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
             var currentTimeInMilliseconds = (int)_player.CurrentItem.CurrentTime.Seconds * 1000;
             if (currentTimeInMilliseconds >= registrationDelayInMilliseconds)
             {
-                await SendRegisterViewedFactAsync(id, registrationDelayInMilliseconds, currentTimeInMilliseconds);
+                await TryIncrementVideoViewsCountAsync(id, registrationDelayInMilliseconds, currentTimeInMilliseconds);
                 RemoveViewedFactRegistrationObserver();
             }
         }

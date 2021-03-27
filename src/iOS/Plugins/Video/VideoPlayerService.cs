@@ -38,8 +38,8 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
 
         public override bool Muted
         {
-            get => _player.Muted;
-            set => _player.Muted = value;
+            get => _player.IsMuted;
+            set => _player.IsMuted = value;
         }
 
         public override void Play(string uri, int id)

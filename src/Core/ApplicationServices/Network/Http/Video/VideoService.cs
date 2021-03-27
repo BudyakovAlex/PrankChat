@@ -48,14 +48,15 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
                 Description = description,
             };
 
-            var videoMetadataApiModel = await _client.PostVideoFileAsync<UploadVideoDto, ResponseDto<VideoDto>>("videos",
-                                                                                                                         loadVideoApiModel,
-                                                                                                                         onChangedProgressAction: onChangedProgressAction,
-                                                                                                                         cancellationToken: cancellationToken);
+            var videoMetadataApiModel = await _client.PostVideoFileAsync<UploadVideoDto, ResponseDto<VideoDto>>(
+                "videos",
+                loadVideoApiModel,
+                onChangedProgressAction: onChangedProgressAction,
+                cancellationToken: cancellationToken);
             return videoMetadataApiModel?.Data;
         }
 
-        public async Task<long?> RegisterVideoViewedFactAsync(int videoId)
+        public async Task<long?> IncrementVideoViewsAsync(int videoId)
         {
             var videoApiModel = await _client.UnauthorizedGetAsync<ResponseDto<VideoDto>>($"videos/{videoId}/looked");
             _log.Log(MvxLogLevel.Debug, () => $"Registered {videoApiModel?.Data?.ViewsCount} for video with id {videoId}");

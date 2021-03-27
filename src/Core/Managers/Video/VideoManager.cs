@@ -1,7 +1,9 @@
-﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video;
+﻿using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video;
 using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
+using PrankChat.Mobile.Core.Presentation.Messages;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,10 +13,12 @@ namespace PrankChat.Mobile.Core.Managers.Video
     public class VideoManager : IVideoManager
     {
         private readonly IVideoService _videoService;
+        private readonly IMvxMessenger _mvxMessenger;
 
-        public VideoManager(IVideoService videoService)
+        public VideoManager(IVideoService videoService, IMvxMessenger mvxMessenger)
         {
             _videoService = videoService;
+            _mvxMessenger = mvxMessenger;
         }
 
         public async Task<Models.Data.Video> SendVideoAsync(
@@ -29,9 +33,15 @@ namespace PrankChat.Mobile.Core.Managers.Video
             return response.Map();
         }
 
-        public Task<long?> RegisterVideoViewedFactAsync(int videoId)
+        public async Task<long?> IncrementVideoViewsAsync(int videoId)
         {
-            return _videoService.RegisterVideoViewedFactAsync(videoId);
+            var views = await _videoService.IncrementVideoViewsAsync(videoId);
+            if (views.HasValue)
+            {
+                _mvxMessenger.Publish(new ViewCountMessage(this, videoId, views.Value));
+            }
+
+            return views;
         }
 
         public Task ComplainVideoAsync(int videoId, string title, string description)

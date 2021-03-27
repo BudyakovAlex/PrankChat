@@ -1,5 +1,4 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -33,7 +32,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         private readonly Func<List<FullScreenVideo>> _getAllFullScreenVideoDataFunc;
 
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
-        private MvxSubscriptionToken _updateNumberOfViewsSubscriptionToken;
 
         public CompetitionVideoViewModel(
             IPublicationsManager publicationsManager,
@@ -67,7 +65,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
                 restrictedCanExecute: () => _userSessionProvider.User != null,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
 
-            Subscribe();
+           Messenger.SubscribeWithCondition<ViewCountMessage>(msg => msg.VideoId == VideoId, msg => NumberOfViews = msg.ViewsCount).DisposeWith(Disposables);
         }
 
         public ICommand LikeCommand { get; }
@@ -242,38 +240,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             }
 
             Messenger.Publish(new ReloadCompetitionMessage(this));
-        }
-
-        private void Subscribe()
-        {
-            _updateNumberOfViewsSubscriptionToken = Messenger.Subscribe<ViewCountMessage>(viewCountMessage =>
-            {
-                if (viewCountMessage.VideoId == VideoId)
-                {
-                    NumberOfViews = viewCountMessage.ViewsCount;
-                }
-            });
-        }
-
-        private void Unsubscribe()
-        {
-            if (_updateNumberOfViewsSubscriptionToken is null)
-            {
-                return;
-            }
-
-            _updateNumberOfViewsSubscriptionToken.Dispose();
-            _updateNumberOfViewsSubscriptionToken = null;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-
-            if (disposing)
-            {
-                Unsubscribe();
-            }
         }
     }
 }

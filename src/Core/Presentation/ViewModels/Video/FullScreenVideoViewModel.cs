@@ -260,9 +260,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         private Task ShareAsync()
         {
             Interaction.Raise();
-            return _platformService.ShareUrlAsync(Resources.ShareDialog_LinkShareTitle, _shareLink);
-            //TODO: remove comments when logic will be ready
-            //return DialogService.ShowShareDialogAsync(_shareLink);
+
+            return Share.RequestAsync(new ShareTextRequest
+            {
+                Uri = _shareLink,
+                Title = Resources.ShareDialog_LinkShareTitle
+            });
         }
     }
 }

@@ -11,7 +11,7 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 {
-    public class NotificationBageViewModel : BaseViewModel
+    public class NotificationBadgeViewModel : BaseViewModel
     {
         private const int RefreshAfterSeconds = 15;
 
@@ -22,7 +22,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 
         private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
 
-        public NotificationBageViewModel(INotificationsManager notificationManager, IUserSessionProvider userSessionProvider)
+        public NotificationBadgeViewModel(INotificationsManager notificationManager, IUserSessionProvider userSessionProvider)
         {
             _notificationManager = notificationManager;
             _userSessionProvider = userSessionProvider;
