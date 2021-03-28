@@ -1,5 +1,4 @@
-﻿using System;
-using AVFoundation;
+﻿using AVFoundation;
 using AVKit;
 using CoreAnimation;
 using CoreFoundation;
@@ -8,8 +7,9 @@ using CoreMedia;
 using FFImageLoading.Cross;
 using Foundation;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.iOS.AppTheme;
+using System;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Base
@@ -27,7 +27,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
         {
         }
 
-        public IVideoItemViewModel ViewModel => BindingContext.DataContext as IVideoItemViewModel;
+        public BaseVideoItemViewModel ViewModel => BindingContext.DataContext as BaseVideoItemViewModel;
 
         public AVPlayerViewController AVPlayerViewControllerInstance { get; private set; }
 
@@ -170,7 +170,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         private void StopVideo()
         {
-            ViewModel?.VideoPlayerService?.Stop();
+            ViewModel?.VideoPlayer?.Stop();
 
             if (AVPlayerViewControllerInstance != null)
             {
@@ -191,7 +191,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
     public abstract class BaseVideoTableCell<TCell, TViewModel> : BaseVideoTableCell
         where TCell : BaseVideoTableCell
-		where TViewModel : class, IVideoItemViewModel
+		where TViewModel : BaseVideoItemViewModel
     {
         protected BaseVideoTableCell(IntPtr handle)
             : base(handle)

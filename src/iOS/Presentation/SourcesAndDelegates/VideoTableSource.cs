@@ -1,14 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using FFImageLoading;
+﻿using FFImageLoading;
 using Foundation;
 using MvvmCross.Binding.Extensions;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
@@ -65,10 +64,9 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
         {
             var cell = base.GetOrCreateCellFor(tableView, indexPath, item);
-            if (cell is BaseVideoTableCell videoCell &&
-                item is IVideoItemViewModel itemViewModel)
+            if (cell is BaseVideoTableCell videoCell)
             {
-                _ = ImageService.Instance.LoadUrl(itemViewModel.StubImageUrl).IntoAsync(videoCell.StubImageView);
+                _ = ImageService.Instance.LoadUrl(videoCell.ViewModel.StubImageUrl).IntoAsync(videoCell.StubImageView);
             }
 
             return cell;
@@ -131,15 +129,14 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
                 return;
             }
 
-            var service = viewModel.VideoPlayerService;
-            if (service.Player.IsPlaying)
+            var player = viewModel.VideoPlayer;
+            if (player.IsPlaying)
             {
                 return;
             }
 
-            service.Player.SetPlatformVideoPlayerContainer(cell.AVPlayerViewControllerInstance);
             cell.AddObserverForPeriodicTime();
-            service.Play(viewModel.PreviewUrl, viewModel.VideoId);
+            player.Play();
             _previousVideoCell = cell;
         }
 
@@ -149,12 +146,12 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
 
             var viewModel = cell?.ViewModel;
             if (viewModel is null ||
-                !viewModel.VideoPlayerService.Player.IsPlaying)
+                !viewModel.VideoPlayer.IsPlaying)
             {
                 return;
             }
 
-            viewModel.VideoPlayerService.Stop();
+            viewModel.VideoPlayer.Stop();
             cell.AVPlayerViewControllerInstance.Player = null;
         }
 

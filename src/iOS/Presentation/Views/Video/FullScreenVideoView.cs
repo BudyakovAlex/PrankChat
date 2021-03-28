@@ -196,8 +196,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             var bindingSet = this.CreateBindingSet<FullScreenVideoView, FullScreenVideoViewModel>();
 
-            bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.IsDisliked);
-            bindingSet.Bind(this).For(v => v.IsSubscribed).To(vm => vm.IsSubscribed);
+            bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.CurrentVideo.IsDisliked);
+            bindingSet.Bind(this).For(v => v.IsSubscribed).To(vm => vm.CurrentVideo.IsSubscribedToUser);
 
             bindingSet.Bind(this)
                       .For(v => v.VideoUrl)
@@ -205,10 +205,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             bindingSet.Bind(titleLabel)
                       .For(v => v.Text)
-                      .To(vm => vm.VideoName);
+                      .To(vm => vm.CurrentVideo.VideoName);
             bindingSet.Bind(descriptionLabel)
                       .For(v => v.Text)
-                      .To(vm => vm.Description);
+                      .To(vm => vm.CurrentVideo.Description);
 
             bindingSet.Bind(profileView)
                       .For(v => v.BindTap())
@@ -216,11 +216,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             bindingSet.Bind(profileImageView)
                       .For(v => v.ImagePath)
-                      .To(vm => vm.ProfilePhotoUrl);
+                      .To(vm => vm.CurrentVideo.AvatarUrl);
 
             bindingSet.Bind(profileImageView)
                       .For(v => v.PlaceholderText)
-                      .To(vm => vm.ProfileShortName);
+                      .To(vm => vm.CurrentVideo.ProfileShortName);
 
             bindingSet.Bind(commentsView)
                       .For(v => v.BindTap())
@@ -228,23 +228,23 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             bindingSet.Bind(likeView)
                       .For(v => v.BindTap())
-                      .To(vm => vm.LikeCommand);
+                      .To(vm => vm.CurrentVideo.LikeCommand);
 
             bindingSet.Bind(likeView)
                       .For(v => v.UserInteractionEnabled)
-                      .To(vm => vm.IsLikeFlowAvailable);
+                      .To(vm => vm.CurrentVideo.CanVoteVideo);
 
             bindingSet.Bind(dislikeView)
                       .For(v => v.BindTap())
-                      .To(vm => vm.DislikeCommand);
+                      .To(vm => vm.CurrentVideo.DislikeCommand);
 
             bindingSet.Bind(dislikeView)
                       .For(v => v.UserInteractionEnabled)
-                      .To(vm => vm.IsLikeFlowAvailable);
+                      .To(vm => vm.CurrentVideo.CanVoteVideo);
 
             bindingSet.Bind(this)
                       .For(v => v.IsLiked)
-                      .To(vm => vm.IsLiked);
+                      .To(vm => vm.CurrentVideo.IsLiked);
 
             bindingSet.Bind(this)
                       .For(v => v.IsMuted)
