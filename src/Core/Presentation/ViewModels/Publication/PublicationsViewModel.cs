@@ -186,10 +186,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private PublicationItemViewModel ProducePublicationItemViewModel(Models.Data.Video publication)
         {
             return new PublicationItemViewModel(
-                _publicationsManager,
                 _videoManager,
+                UserSessionProvider,
                 publication,
-                GetFullScreenVidos);
+                () => Items.ToArray());
         }
 
         protected override int SetList<TDataModel, TApiModel>(Pagination<TApiModel> pagination, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
@@ -197,11 +197,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             var count = base.SetList(pagination, page, produceItemViewModel, items);
             ItemsChangedInteraction.Raise();
             return count;
-        }
-
-        private List<FullScreenVideo> GetFullScreenVidos()
-        {
-            return Items.Select(item => item.GetFullScreenVideo()).ToList();
         }
 
         private void OnReloadItems()

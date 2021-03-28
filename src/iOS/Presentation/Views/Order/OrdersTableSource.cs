@@ -27,7 +27,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 return tableView.DequeueReusableCell(OrderItemCell.CellId);
             }
 
-            if (item is ArbitrationItemViewModel)
+            if (item is ArbitrationOrderItemViewModel)
             {
                 return tableView.DequeueReusableCell(ArbitrationItemCell.CellId);
             }

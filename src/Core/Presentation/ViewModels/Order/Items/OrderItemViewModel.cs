@@ -8,25 +8,21 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 {
-    public class OrderItemViewModel : BaseViewModel
+    public class OrderItemViewModel : BaseOrderItemViewModel
     {
         private readonly IUserSessionProvider _userSessionProvider;
 
         private readonly Models.Data.Order _order;
-        private readonly Func<BaseVideoItemViewModel[]> _getAllFullScreenVideosFunc;
 
         private IDisposable _timerTickMessageToken;
 
@@ -34,19 +30,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             IVideoManager videoManager,
             IUserSessionProvider userSessionProvider,
             Models.Data.Order order,
-            Func<BaseVideoItemViewModel[]> getAllFullScreenVideosFunc)
+            Func<BaseVideoItemViewModel[]> getAllFullScreenVideosFunc) : base(
+                videoManager,
+                userSessionProvider,
+                order.Video,
+                order?.Customer.Id,
+                getAllFullScreenVideosFunc)
         {
             _userSessionProvider = userSessionProvider;
             _order = order;
-            _getAllFullScreenVideosFunc = getAllFullScreenVideosFunc;
-
-            if (_order.Video != null)
-            {
-                VideoItemViewModel = new OrderedVideoItemViewModel(
-                    videoManager,
-                    userSessionProvider,
-                    order.Video);
-            }
 
             ElapsedTime = _order.ActiveTo is null
                 ? TimeSpan.FromHours(_order.DurationInHours)
@@ -58,16 +50,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                 OpenDetailsOrderAsync,
                 restrictedCanExecute: () => _userSessionProvider.User != null,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
-
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(
-                OpenUserProfileAsync,
-                restrictedCanExecute: () => _userSessionProvider.User != null,
-                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
         public IMvxAsyncCommand OpenDetailsOrderCommand { get; }
-
-        public IMvxAsyncCommand OpenUserProfileCommand { get; }
 
         public int OrderId => _order.Id;
 
@@ -113,41 +98,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public bool IsHiddenOrder => _order?.OrderCategory == OrderCategory.Private;
 
-        public BaseVideoItemViewModel VideoItemViewModel { get; }
-
-        private Task OpenUserProfileAsync()
-        {
-            if (_order.Customer?.Id is null ||
-                _order.Customer.Id == _userSessionProvider.User.Id)
-            {
-                return Task.CompletedTask;
-            }
-
-            if (!Connectivity.NetworkAccess.HasConnection())
-            {
-                return Task.CompletedTask;
-            }
-
-            return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_order.Customer.Id);
-        }
-
         private void OnTimerTick(TimerTickMessage message)
         {
             ElapsedTime = _order.ActiveTo is null
                ? TimeSpan.FromHours(_order.DurationInHours)
                : _order.GetActiveOrderTime();
-        }
-
-        private BaseVideoItemViewModel[] GetFullScreenVideos()
-        {
-            if (_getAllFullScreenVideosFunc != null)
-            {
-                return _getAllFullScreenVideosFunc.Invoke();
-            }
-
-            return VideoItemViewModel is null
-                ? Array.Empty<BaseVideoItemViewModel>()
-                : new BaseVideoItemViewModel[] { VideoItemViewModel };
         }
 
         private async Task OpenDetailsOrderAsync()
