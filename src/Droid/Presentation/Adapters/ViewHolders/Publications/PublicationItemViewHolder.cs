@@ -120,7 +120,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
             bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.IsDisliked);
             bindingSet.Bind(_comentsTextView).For(v => v.Text).To(vm => vm.NumberOfCommentsPresentation);
             bindingSet.Bind(_commentsView).For(v => v.BindClick()).To(vm => vm.ShowCommentsCommand);
-            bindingSet.Bind(_profileImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl);
+            bindingSet.Bind(_profileImageView).For(v => v.ImagePath).To(vm => vm.AvatarUrl);
             bindingSet.Bind(_profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName);
             bindingSet.Bind(_profileImageView).For(v => v.BindClick()).To(vm => vm.OpenUserProfileCommand);
             bindingSet.Bind(_profileNameTextView).For(v => v.Text).To(vm => vm.ProfileName);

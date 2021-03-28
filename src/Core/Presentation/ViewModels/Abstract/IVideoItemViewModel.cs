@@ -2,7 +2,7 @@
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 {
-    public interface IVideoItemViewModel : IFullScreenVideoOwnerViewModel
+    public interface IVideoItemViewModel
     {
         IVideoPlayer VideoPlayer { get; }
 
@@ -13,5 +13,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
         string StubImageUrl { get; }
 
         int VideoId { get; }
+
+        bool CanPlayVideo { get; }
     }
 }

@@ -23,6 +23,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
@@ -483,7 +484,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
             if (result == Resources.Publication_Item_Copy_Link)
             {
-                await _platformService.CopyTextAsync(Order?.Video?.ShareUri);
+                await Clipboard.SetTextAsync(Order?.Video?.ShareUri);
                 DialogService.ShowToast(Resources.LinkCopied, ToastType.Positive);
                 return;
             }

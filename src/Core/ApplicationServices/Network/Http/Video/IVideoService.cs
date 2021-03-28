@@ -17,5 +17,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
         Task<CommentDto> CommentVideoAsync(int videoId, string comment);
 
         Task<BaseBundleDto<CommentDto>> GetVideoCommentsAsync(int videoId, int page, int pageSize);
+
+        Task<VideoDto> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null);
+
+        Task<VideoDto> SendDislikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null);
     }
 }

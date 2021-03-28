@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using PrankChat.Mobile.Core.Models.Data;
+﻿using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation.Parameters
 {
@@ -7,7 +6,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation.Parameters
     {
         public OrderDetailsNavigationParameter(
             int orderId,
-            List<FullScreenVideo> fullScreenVideos,
+            BaseVideoItemViewModel[] fullScreenVideos,
             int currentIndex)
         {
             OrderId = orderId;
@@ -17,7 +16,7 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation.Parameters
 
         public int OrderId { get; }
 
-        public List<FullScreenVideo> FullScreenVideos { get; }
+        public BaseVideoItemViewModel[] FullScreenVideos { get; }
 
         public int CurrentIndex { get; }
     }

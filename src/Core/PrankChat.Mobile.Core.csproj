@@ -101,6 +101,7 @@
     <Folder Include="Providers\Configuration\" />
     <Folder Include="Plugins\" />
     <Folder Include="Plugins\Video\" />
+    <Folder Include="Presentation\ViewModels\Order\Items\Abstract\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="AppConfig.json" />

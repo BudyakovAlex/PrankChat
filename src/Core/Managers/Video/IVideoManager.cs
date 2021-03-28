@@ -17,5 +17,9 @@ namespace PrankChat.Mobile.Core.Managers.Video
         Task<Comment> CommentVideoAsync(int videoId, string comment);
 
         Task<Pagination<Comment>> GetVideoCommentsAsync(int videoId, int page, int pageSize);
+
+        Task<Models.Data.Video> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null);
+
+        Task<Models.Data.Video> SendDislikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null);
     }
 }

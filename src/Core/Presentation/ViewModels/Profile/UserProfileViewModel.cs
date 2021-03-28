@@ -4,15 +4,15 @@ using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Orders;
 using PrankChat.Mobile.Core.Managers.Users;
-using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,6 +23,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
     {
         private readonly IUsersManager _usersManager;
         private readonly IOrdersManager _ordersManager;
+        private readonly IVideoManager _videoManager;
 
         private CancellationTokenSource _cancellationSunsciptionTokenSource;
 
@@ -30,10 +31,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private bool _isReloadNeeded;
         private int _subscribersCount;
 
-        public UserProfileViewModel(IUsersManager usersManager, IOrdersManager ordersManager) : base(Constants.Pagination.DefaultPaginationSize)
+        public UserProfileViewModel(
+            IUsersManager usersManager,
+            IOrdersManager ordersManager,
+            IVideoManager videoManager) : base(Constants.Pagination.DefaultPaginationSize)
         {
             _usersManager = usersManager;
             _ordersManager = ordersManager;
+            _videoManager = videoManager;
 
             Items = new MvxObservableCollection<OrderItemViewModel>();
             CloseCompletionSource = new TaskCompletionSource<object>();
@@ -171,16 +176,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private OrderItemViewModel ProduceOrderItemViewModel(Models.Data.Order order)
         {
             return new OrderItemViewModel(
+                _videoManager,
                 UserSessionProvider,
                 order,
                 GetFullScreenVideos);
         }
 
-        private List<FullScreenVideo> GetFullScreenVideos()
+        private BaseVideoItemViewModel[] GetFullScreenVideos()
         {
-            return Items.Where(item => item.CanPlayVideo)
-                        .Select(item => item.GetFullScreenVideo())
-                        .ToList();
+            return Items.Where(item => item.VideoItemViewModel != null)
+                        .Select(item => item.VideoItemViewModel)
+                        .ToArray();
         }
 
         private async Task ShowSubscribersAsync()

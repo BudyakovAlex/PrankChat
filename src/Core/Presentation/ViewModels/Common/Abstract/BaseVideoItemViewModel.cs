@@ -4,34 +4,38 @@ using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Ioc;
-using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
 {
-    public abstract class VideoItemViewModel : BasePageViewModel, IVideoItemViewModel
+    public abstract class BaseVideoItemViewModel : BaseViewModel, IVideoItemViewModel
     {
-        private readonly IPublicationsManager _publicationsManager;
-        private readonly IVideoManager _videoManager;
-
-        private readonly Models.Data.Video _video;
-
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
         private CancellationTokenSource _cancellationSendingDislikeTokenSource;
 
-        public VideoItemViewModel(
-            IPublicationsManager publicationsManager,
+        public BaseVideoItemViewModel(
             IVideoManager videoManager,
+            IUserSessionProvider userSessionProvider,
             Models.Data.Video video)
         {
-            _publicationsManager = publicationsManager;
-            _videoManager = videoManager;
-            _video = video;
+            VideoManager = videoManager;
+            UserSessionProvider = userSessionProvider;
+            Video = video;
+
+            IsLiked = video.IsLiked;
+            IsDisliked = video.IsDisliked;
+            NumberOfLikes = video.LikesCount;
+            NumberOfDislikes = video.DislikesCount;
+            NumberOfComments = Video.CommentsCount;
+
             VideoPlayer = CompositionRoot.Container.Resolve<IVideoPlayer>();
             VideoPlayer.SubscribeToEvent<IVideoPlayer, VideoPlayingStatus>(
                 OnVideoPlayingStatusChanged,
@@ -47,23 +51,30 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
                 OnDislike,
                 restrictedCanExecute: () => IsUserSessionInitialized,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
+
+            OpenUserProfileCommand = this.CreateRestrictedCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => IsUserSessionInitialized,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
-        protected long? NumberOfLikes { get; set; }
+        public abstract bool CanPlayVideo { get; }
 
-        protected long? NumberOfDislikes { get; set; }
+        public abstract bool CanVoteVideo { get; }
 
         public IMvxCommand LikeCommand { get; }
 
         public IMvxCommand DislikeCommand { get; }
 
-        public abstract string AvatarUrl { get; }
+        public IMvxAsyncCommand OpenUserProfileCommand { get; }
 
-        public abstract string LoginShortName { get; }
+        public string ProfileShortName => User?.Login?.ToShortenName();
 
-        public abstract bool CanPlayVideo { get; }
+        public string AvatarUrl => User?.Avatar;
 
-        public abstract bool CanVoteVideo { get; }
+        public int ProfileId => User?.Id ?? 0;
+
+        public bool IsSubscribedToProfile => User?.IsSubscribed ?? false;
 
         private bool _isLiked;
         public bool IsLiked
@@ -79,44 +90,58 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             set => SetProperty(ref _isDisliked, value);
         }
 
-        public int VideoId => _video.Id;
+        public int VideoId => Video.Id;
 
         public IVideoPlayer VideoPlayer { get; }
 
-        public string VideoUrl => _video.StreamUri;
+        public string VideoUrl => Video.StreamUri;
 
-        public string PreviewUrl => _video.PreviewUri;
+        public string PreviewUrl => Video.PreviewUri;
 
-        public string StubImageUrl => _video.Poster;
+        public string StubImageUrl => Video.Poster;
 
-        public string VideoName => _video.Title;
+        public string VideoName => Video.Title;
 
-        public string Description => _video.Description;
+        public string Description => Video.Description;
 
-        public string ShareLink => _video.ShareUri;
+        public string ShareLink => Video.ShareUri;
 
-        public long NumberOfComments => _video.CommentsCount;
+        public long NumberOfComments { get; protected set; }
 
-        public FullScreenVideo GetFullScreenVideo()
-        {
-            return new FullScreenVideo(
-                _video.User?.Id ?? 0,
-                _video.User?.IsSubscribed ?? false,
-                VideoId,
-                VideoUrl,
-                VideoName,
-                Description,
-                ShareLink,
-                AvatarUrl,
-                LoginShortName,
-                NumberOfLikes,
-                NumberOfDislikes,
-                NumberOfComments,
-                IsLiked,
-                IsDisliked,
-                StubImageUrl,
-                CanVoteVideo);
-        }
+        public long? NumberOfLikes { get; set; }
+
+        public long? NumberOfDislikes { get; set; }
+
+        protected abstract User User { get; }
+
+        protected IVideoManager VideoManager { get; }
+
+        protected IUserSessionProvider UserSessionProvider { get; }
+
+        protected bool IsUserSessionInitialized => UserSessionProvider.User != null;
+
+        protected Models.Data.Video Video { get; }
+
+        //public FullScreenVideo GetFullScreenVideo()
+        //{
+        //    return new FullScreenVideo(
+        //        ProfileId,
+        //        Video.User?.IsSubscribed ?? false,
+        //        VideoId,
+        //        VideoUrl,
+        //        VideoName,
+        //        Description,
+        //        ShareLink,
+        //        AvatarUrl,
+        //        ProfileShortName,
+        //        NumberOfLikes,
+        //        NumberOfDislikes,
+        //        NumberOfComments,
+        //        IsLiked,
+        //        IsDisliked,
+        //        StubImageUrl,
+        //        CanVoteVideo);
+        //}
 
         protected virtual void OnLikeChanged()
         {
@@ -175,11 +200,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
                 return;
             }
 
-            _ = SafeExecutionWrapper.WrapAsync(() => _videoManager.IncrementVideoViewsAsync(VideoId), (ex) => 
+            _ = SafeExecutionWrapper.WrapAsync(() => VideoManager.IncrementVideoViewsAsync(VideoId), (ex) => 
             {
                 Crashes.TrackError(ex);
                 return Task.CompletedTask;
             });
+        }
+
+        protected virtual Task OpenUserProfileAsync()
+        {
+            if (User?.Id is null ||
+                User.Id == UserSessionProvider.User.Id)
+            {
+                return Task.CompletedTask;
+            }
+
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return Task.FromResult(false);
+            }
+
+            return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(User.Id);
         }
 
         private async Task SendLikeAsync()
@@ -192,7 +233,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
 
             try
             {
-                var video = await _publicationsManager.SendLikeAsync(VideoId, IsLiked, _cancellationSendingLikeTokenSource.Token);
+                var video = await VideoManager.SendLikeAsync(VideoId, IsLiked, _cancellationSendingLikeTokenSource.Token);
                 if (video is null)
                 {
                     return;
@@ -222,7 +263,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
 
             try
             {
-                var video = await _publicationsManager.SendDislikeAsync(VideoId, IsDisliked, _cancellationSendingDislikeTokenSource.Token);
+                var video = await VideoManager.SendDislikeAsync(VideoId, IsDisliked, _cancellationSendingDislikeTokenSource.Token);
                 if (video is null)
                 {
                     return;

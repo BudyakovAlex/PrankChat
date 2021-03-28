@@ -118,7 +118,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.IsDisliked);
 
             bindingSet.Bind(profileImage.Tap()).For(v => v.Command).To(vm => vm.OpenUserProfileCommand);
-            bindingSet.Bind(profileImage).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl);
+            bindingSet.Bind(profileImage).For(v => v.ImagePath).To(vm => vm.AvatarUrl);
 
             bindingSet.Bind(commentsLabel).For(v => v.Text).To(vm => vm.NumberOfCommentsPresentation);
             bindingSet.Bind(commentButton).For(v => v.BindTap()).To(vm => vm.ShowCommentsCommand);

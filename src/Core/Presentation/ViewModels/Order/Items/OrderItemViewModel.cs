@@ -3,40 +3,50 @@ using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 {
-    public class OrderItemViewModel : BaseViewModel, IFullScreenVideoOwnerViewModel, IDisposable
+    public class OrderItemViewModel : BaseViewModel
     {
         private readonly IUserSessionProvider _userSessionProvider;
 
         private readonly Models.Data.Order _order;
-        private readonly Func<List<FullScreenVideo>> _getAllFullScreenVideoDataFunc;
+        private readonly Func<BaseVideoItemViewModel[]> _getAllFullScreenVideosFunc;
 
         private IDisposable _timerTickMessageToken;
 
         public OrderItemViewModel(
+            IVideoManager videoManager,
             IUserSessionProvider userSessionProvider,
             Models.Data.Order order,
-            Func<List<FullScreenVideo>> getAllFullScreenVideoDataFunc)
+            Func<BaseVideoItemViewModel[]> getAllFullScreenVideosFunc)
         {
             _userSessionProvider = userSessionProvider;
             _order = order;
-            _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
+            _getAllFullScreenVideosFunc = getAllFullScreenVideosFunc;
+
+            if (_order.Video != null)
+            {
+                VideoItemViewModel = new OrderedVideoItemViewModel(
+                    videoManager,
+                    userSessionProvider,
+                    order.Video);
+            }
 
             ElapsedTime = _order.ActiveTo is null
                 ? TimeSpan.FromHours(_order.DurationInHours)
@@ -45,7 +55,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             _timerTickMessageToken = Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
 
             OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(
-                OnOpenDetailsOrderAsync,
+                OpenDetailsOrderAsync,
                 restrictedCanExecute: () => _userSessionProvider.User != null,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
 
@@ -54,6 +64,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                 restrictedCanExecute: () => _userSessionProvider.User != null,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
+
+        public IMvxAsyncCommand OpenDetailsOrderCommand { get; }
+
+        public IMvxAsyncCommand OpenUserProfileCommand { get; }
 
         public int OrderId => _order.Id;
 
@@ -89,8 +103,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             }
         }
 
-        public bool CanPlayVideo => _order?.Video != null;
-
         public bool IsTimeAvailable => _elapsedTime.HasValue;
 
         public string TimeText => _elapsedTime?.ToTimeWithSpaceString();
@@ -101,29 +113,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public bool IsHiddenOrder => _order?.OrderCategory == OrderCategory.Private;
 
-        public IMvxAsyncCommand OpenDetailsOrderCommand { get; }
-
-        public IMvxAsyncCommand OpenUserProfileCommand { get; }
-
-        public FullScreenVideo GetFullScreenVideo()
-        {
-            return new FullScreenVideo(
-                _order.Customer.Id,
-                _order.Customer.IsSubscribed,
-                _order.Video.Id,
-                _order.Video.StreamUri,
-                _order.Title,
-                _order.Description,
-                _order.Video.ShareUri,
-                _order.Customer.Avatar,
-                _order.Customer.Login.ToShortenName(),
-                _order.Video.LikesCount,
-                _order.Video.DislikesCount,
-                _order.Video.CommentsCount,
-                _order.Video.IsLiked,
-                _order.Video.IsDisliked,
-                _order.Video.Poster);
-        }
+        public BaseVideoItemViewModel VideoItemViewModel { get; }
 
         private Task OpenUserProfileAsync()
         {
@@ -148,13 +138,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                : _order.GetActiveOrderTime();
         }
 
-        private async Task OnOpenDetailsOrderAsync()
+        private BaseVideoItemViewModel[] GetFullScreenVideos()
         {
-            // var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideoDataModel> { GetFullScreenVideoDataModel() };
-            // var currentItem = items.FirstOrDefault(item => item.VideoId == _orderDataModel.Video?.Id);
-            // var index = currentItem is null ? 0 : items.IndexOf(currentItem);
+            if (_getAllFullScreenVideosFunc != null)
+            {
+                return _getAllFullScreenVideosFunc.Invoke();
+            }
 
-            var parameter = new OrderDetailsNavigationParameter(OrderId, null, -1);
+            return VideoItemViewModel is null
+                ? Array.Empty<BaseVideoItemViewModel>()
+                : new BaseVideoItemViewModel[] { VideoItemViewModel };
+        }
+
+        private async Task OpenDetailsOrderAsync()
+        {
+            var items = GetFullScreenVideos();
+            var currentItem = items.FirstOrDefault(item => item.VideoId == _order.Video?.Id);
+            var index = currentItem is null ? 0 : items.IndexOfOrDefault(currentItem);
+
+            var parameter = new OrderDetailsNavigationParameter(_order.Id, items, index);
             var result = await NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter, OrderDetailsResult>(parameter);
             if (result == null)
             {

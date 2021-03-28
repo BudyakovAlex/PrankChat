@@ -90,5 +90,19 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
         {
             return _client.GetAsync<BaseBundleDto<CommentDto>>($"videos/{videoId}/comments?page={page}&items_per_page={pageSize}");
         }
+
+        public async Task<VideoDto> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
+        {
+            var url = isChecked ? $"videos/{videoId}/like" : $"videos/{videoId}/like/remove";
+            var data = await _client.PostAsync<ResponseDto<VideoDto>>(url, cancellationToken: cancellationToken);
+            return data?.Data;
+        }
+
+        public async Task<VideoDto> SendDislikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
+        {
+            var url = isChecked ? $"videos/{videoId}/dislike" : $"videos/{videoId}/dislike/remove";
+            var data = await _client.PostAsync<ResponseDto<VideoDto>>(url, cancellationToken: cancellationToken);
+            return data?.Data;
+        }
     }
 }

@@ -60,5 +60,17 @@ namespace PrankChat.Mobile.Core.Managers.Video
             var response = await _videoService.GetVideoCommentsAsync(videoId, page, pageSize);
             return response.Map(item => item.Map());
         }
+
+        public async Task<Models.Data.Video> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
+        {
+            var response = await _videoService.SendLikeAsync(videoId, isChecked, cancellationToken);
+            return response.Map();
+        }
+
+        public async Task<Models.Data.Video> SendDislikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
+        {
+            var response = await _videoService.SendDislikeAsync(videoId, isChecked, cancellationToken);
+            return response.Map();
+        }
     }
 }

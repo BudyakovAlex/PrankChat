@@ -3,23 +3,21 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Managers.Users;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 {
-    public class FullScreenVideoViewModel : VideoItemViewModel, IMvxViewModel<FullScreenVideoParameter, bool>
+    public class FullScreenVideoViewModel : BasePageViewModel<FullScreenVideoParameter, bool>
     {
         private readonly IUsersManager _usersManager;
 
@@ -27,13 +25,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         private string _shareLink;
         private int _index;
 
-        private FullScreenVideo _currentVideo;
+        private BaseVideoItemViewModel _currentVideo;
+        private BaseVideoItemViewModel[] _videos;
 
-        private List<FullScreenVideo> _videos;
-
-        public FullScreenVideoViewModel(
-            IUsersManager usersManager,
-            IPublicationsManager publicationsManager) : base(publicationsManager)
+        public FullScreenVideoViewModel(IUsersManager usersManager)
         {
             Interaction = new MvxInteraction();
 
@@ -99,18 +94,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         public long? NumberOfComments { get; private set; }
 
-        public string NumberOfLikesPresentation => NumberOfLikes.ToCountString();
+        public string NumberOfLikesPresentation => _currentVideo.NumberOfLikes.ToCountString();
 
-        public string NumberOfDislikesPresentation => NumberOfDislikes.ToCountString();
+        public string NumberOfDislikesPresentation => _currentVideo.NumberOfLikes.ToCountString();
 
-        public string NumberOfCommentsPresentation => NumberOfComments.ToCountString();
+        public string NumberOfCommentsPresentation => _currentVideo.NumberOfComments.ToCountString();
 
-        public TaskCompletionSource<object> CloseCompletionSource { get; set; }
-
-        public void Prepare(FullScreenVideoParameter parameter)
+        public override void Prepare(FullScreenVideoParameter parameter)
         {
             _videos = parameter.Videos;
-            _index = parameter.Index;
+            _index = parameter.StartIndex;
 
             RefreshCurrentVideoState();
         }
