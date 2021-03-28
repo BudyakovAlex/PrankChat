@@ -40,7 +40,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
             Models.Data.Video video,
             Func<BaseVideoItemViewModel[]> getAllFullScreenVideosFunc) : base(videoManager, userSessionProvider, video)
         {
-            VideoPlayer.CanRepeat = true;
             ProfileName = video.Customer?.Login;
             IsCompetitionVideo = video.OrderCategory.CheckIsCompetitionOrder();
 
@@ -223,7 +222,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
         private void ToggleSound()
         {
             HasSoundTurnOn = !HasSoundTurnOn;
-            VideoPlayer.IsMuted = !HasSoundTurnOn;
+            PreviewVideoPlayer.IsMuted = !HasSoundTurnOn;
         }
     }
 }

@@ -61,6 +61,7 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
         public void Play()
         {
+            _player.Play();
             IsPlaying = true;
             VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Started);
         }

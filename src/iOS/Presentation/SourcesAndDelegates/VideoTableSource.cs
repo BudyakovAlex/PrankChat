@@ -1,8 +1,10 @@
-﻿using FFImageLoading;
+﻿using AVFoundation;
+using FFImageLoading;
 using Foundation;
 using MvvmCross.Binding.Extensions;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using System;
 using System.Diagnostics;
@@ -64,9 +66,10 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
         {
             var cell = base.GetOrCreateCellFor(tableView, indexPath, item);
-            if (cell is BaseVideoTableCell videoCell)
+            if (cell is BaseVideoTableCell videoCell &&
+                item is BaseVideoItemViewModel itemViewModel)
             {
-                _ = ImageService.Instance.LoadUrl(videoCell.ViewModel.StubImageUrl).IntoAsync(videoCell.StubImageView);
+                _ = ImageService.Instance.LoadUrl(itemViewModel.StubImageUrl).IntoAsync(videoCell.StubImageView);
             }
 
             return cell;
@@ -129,29 +132,29 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
                 return;
             }
 
-            var player = viewModel.VideoPlayer;
+            var player = viewModel.PreviewVideoPlayer;
             if (player.IsPlaying)
             {
                 return;
             }
 
-            cell.AddObserverForPeriodicTime();
+            cell.AVPlayerViewControllerInstance.Player = player.GetNativePlayer() as AVPlayer;
             player.Play();
             _previousVideoCell = cell;
         }
 
         private void StopVideo(BaseVideoTableCell cell)
         {
-            cell?.ShowStub();
+            //cell?.ShowStub();
 
             var viewModel = cell?.ViewModel;
             if (viewModel is null ||
-                !viewModel.VideoPlayer.IsPlaying)
+                !viewModel.PreviewVideoPlayer.IsPlaying)
             {
                 return;
             }
 
-            viewModel.VideoPlayer.Stop();
+            viewModel.PreviewVideoPlayer.Stop();
             cell.AVPlayerViewControllerInstance.Player = null;
         }
 

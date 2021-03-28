@@ -176,7 +176,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
         {
             if (CurrentVideo != null)
             {
-                CurrentVideo.VideoPlayer.Stop();
+                CurrentVideo.FullVideoPlayer.Stop();
                 _likeChangedSubscription?.Dispose();
                 _likeChangedSubscription = null;
 
@@ -196,7 +196,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             CurrentVideo.RaiseAllPropertiesChanged();
             RaiseAllPropertiesChanged();
 
-            CurrentVideo.VideoPlayer.Play();
+            CurrentVideo.FullVideoPlayer.Play();
         }
 
         private Task ShareAsync()

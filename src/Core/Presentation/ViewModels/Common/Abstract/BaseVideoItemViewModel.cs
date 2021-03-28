@@ -37,8 +37,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             NumberOfComments = Video.CommentsCount;
             IsSubscribedToUser = User?.IsSubscribed ?? false;
 
-            VideoPlayer = CompositionRoot.Container.Resolve<IVideoPlayer>();
-            VideoPlayer.SubscribeToEvent<IVideoPlayer, VideoPlayingStatus>(
+            PreviewVideoPlayer = CompositionRoot.Container.Resolve<IVideoPlayer>();
+            PreviewVideoPlayer.SubscribeToEvent<IVideoPlayer, VideoPlayingStatus>(
+                OnVideoPlayingStatusChanged,
+                (wrapper, handler) => wrapper.VideoPlayingStatusChanged += handler,
+                (wrapper, handler) => wrapper.VideoPlayingStatusChanged -= handler).DisposeWith(Disposables);
+
+            FullVideoPlayer = CompositionRoot.Container.Resolve<IVideoPlayer>();
+
+            PreviewVideoPlayer.CanRepeat = true;
+            PreviewVideoPlayer.SetVideoUrl(Video.PreviewUri);
+            FullVideoPlayer.SetVideoUrl(Video.StreamUri);
+
+            FullVideoPlayer.SubscribeToEvent<IVideoPlayer, VideoPlayingStatus>(
                 OnVideoPlayingStatusChanged,
                 (wrapper, handler) => wrapper.VideoPlayingStatusChanged += handler,
                 (wrapper, handler) => wrapper.VideoPlayingStatusChanged -= handler).DisposeWith(Disposables);
@@ -98,7 +109,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
 
         public int VideoId => Video.Id;
 
-        public IVideoPlayer VideoPlayer { get; }
+        public IVideoPlayer PreviewVideoPlayer { get; }
+
+        public IVideoPlayer FullVideoPlayer { get; }
 
         public string VideoUrl => Video.StreamUri;
 
