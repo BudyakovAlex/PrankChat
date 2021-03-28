@@ -1,6 +1,4 @@
 ﻿using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Platforms;
-using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Managers.Search;
@@ -26,23 +24,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly ISearchManager _searchManager;
         private readonly IPublicationsManager _publicationsManager;
         private readonly IVideoManager _videoManager;
-        private readonly IPlatformService _platformService;
-        private readonly IVideoPlayerService _videoPlayerService;
 
         public SearchViewModel(
             ISearchManager searchManager,
             IPublicationsManager publicationsManager,
-            IVideoManager videoManager,
-            IPlatformService platformService,
-            IVideoPlayerService videoPlayerService) : base(Constants.Pagination.DefaultPaginationSize)
+            IVideoManager videoManager) : base(Constants.Pagination.DefaultPaginationSize)
         {
             Items = new MvxObservableCollection<MvxNotifyPropertyChanged>();
 
             _searchManager = searchManager;
             _publicationsManager = publicationsManager;
             _videoManager = videoManager;
-            _platformService = platformService;
-            _videoPlayerService = videoPlayerService;
         }
 
         public MvxObservableCollection<MvxNotifyPropertyChanged> Items { get; }
@@ -128,12 +120,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private MvxNotifyPropertyChanged ProduceVideoViewModel(Models.Data.Video publication)
         {
-            return new PublicationItemViewModel(_publicationsManager,
-                                                _videoManager,
-                                                _platformService,
-                                                _videoPlayerService,
-                                                publication,
-                                                GetFullScreenVideos);
+            return new PublicationItemViewModel(
+                _publicationsManager,
+                _videoManager,
+                publication,
+                GetFullScreenVideos);
         }
 
         private BaseViewModel ProduceUserViewModel(User model)
@@ -149,9 +140,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private List<FullScreenVideo> GetFullScreenVideos()
         {
             return Items.OfType<IFullScreenVideoOwnerViewModel>()
-                        .Where(item => item.CanPlayVideo)
-                        .Select(item => item.GetFullScreenVideo())
-                        .ToList();
+                .Where(item => item.CanPlayVideo)
+                .Select(item => item.GetFullScreenVideo())
+                .ToList();
         }
     }
 }

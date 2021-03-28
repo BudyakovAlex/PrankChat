@@ -5,6 +5,8 @@
         Prepared,
         Started,
         Paused,
+        PartiallyPlayed,
+        Played,
         Stopped
     }
 }

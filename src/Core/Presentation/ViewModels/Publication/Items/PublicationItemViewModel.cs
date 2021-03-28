@@ -24,7 +24,7 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
 {
-    public class PublicationItemViewModel : LikeableViewModel, IVideoItemViewModel, IDisposable
+    public class PublicationItemViewModel : VideoItemViewModel, IVideoItemViewModel, IDisposable
     {
         private readonly IVideoManager _videoManager;
 

@@ -1,7 +1,6 @@
 ﻿using FFImageLoading;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Publications;
@@ -27,7 +26,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     {
         private readonly IPublicationsManager _publicationsManager;
         private readonly IVideoManager _videoManager;
-        private readonly IVideoPlayerService _videoPlayerService;
 
         private readonly Dictionary<DateFilterType, string> _dateFilterTypeTitleMap;
 
@@ -35,13 +33,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public PublicationsViewModel(
             IPublicationsManager publicationsManager,
-            IVideoManager videoManager,
-            IVideoPlayerService videoPlayerService)
+            IVideoManager videoManager)
             : base(Constants.Pagination.DefaultPaginationSize)
         {
             _publicationsManager = publicationsManager;
             _videoManager = videoManager;
-            _videoPlayerService = videoPlayerService;
 
             Items = new MvxObservableCollection<PublicationItemViewModel>();
             _refreshFilterExecutionStateWrapper = new ExecutionStateWrapper();
@@ -115,20 +111,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
             ActiveFilter = DateFilterType.HalfYear;
             _ = SafeExecutionWrapper.WrapAsync(() => LoadMoreItemsAsync());
-        }
-
-        public override void ViewDisappearing()
-        {
-            _videoPlayerService.Pause();
-
-            base.ViewDisappearing();
-        }
-
-        public override void ViewAppeared()
-        {
-            base.ViewAppeared();
-
-            _videoPlayerService.Play();
         }
 
         public override void ViewDestroy(bool viewFinishing = true)

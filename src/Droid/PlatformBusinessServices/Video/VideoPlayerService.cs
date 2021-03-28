@@ -59,7 +59,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
             _currentVideoId = id;
             Player.Play();
-            Player.TryRegisterViewedFact(id, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
+            Player.TryRegisterViewedFact(id, Constants.Delays.VideoPartiallyPlayedDelay);
             Debug.WriteLine("Playing next source: " + uri);
         }
 

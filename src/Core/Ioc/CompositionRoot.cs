@@ -15,7 +15,6 @@ using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Permissions;
-using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Managers.Common;
@@ -78,7 +77,6 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<IVideoService, VideoService>();
 
             Container.RegisterSingleton<IErrorHandleService, ErrorHandleService>();
-            Container.RegisterSingleton<IPlatformService, PlatformService>();
             Container.RegisterSingleton<IPermissionService, PermissionService>();
             Container.RegisterSingleton<IMediaService, MediaService>();
         }

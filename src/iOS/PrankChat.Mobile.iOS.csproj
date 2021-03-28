@@ -391,7 +391,6 @@
     <Compile Include="Presentation\Views\Base\IRefreshableView.cs" />
     <Compile Include="Presentation\Views\Base\BaseRefreshableTabbedView.cs" />
     <Compile Include="Plugins\Video\VideoPlayer.cs" />
-    <Compile Include="Plugins\Video\VideoPlayerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

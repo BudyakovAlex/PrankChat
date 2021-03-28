@@ -2,7 +2,6 @@
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Exceptions;
@@ -30,17 +29,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     public class OrderDetailsViewModel : BasePageViewModel<OrderDetailsNavigationParameter, OrderDetailsResult>
     {
         private readonly IOrdersManager _ordersManager;
-        private readonly IPlatformService _platformService;
 
         private int _orderId;
         private int _timerThicksCount;
 
         private readonly BaseOrderDetailsSectionViewModel[] _sections;
 
-        public OrderDetailsViewModel(IOrdersManager ordersManager, IPlatformService platformService)
+        public OrderDetailsViewModel(IOrdersManager ordersManager)
         {
             _ordersManager = ordersManager;
-            _platformService = platformService;
 
             TakeOrderCommand = this.CreateCommand(TakeOrderAsync);
             SubscribeOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(SubscribeOrderAsync));

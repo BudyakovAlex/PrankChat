@@ -1,6 +1,5 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -20,10 +19,9 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 {
-    public class FullScreenVideoViewModel : LikeableViewModel, IMvxViewModel<FullScreenVideoParameter, bool>
+    public class FullScreenVideoViewModel : VideoItemViewModel, IMvxViewModel<FullScreenVideoParameter, bool>
     {
         private readonly IUsersManager _usersManager;
-        private readonly IPlatformService _platformService;
 
         private bool _isReloadNeeded;
         private string _shareLink;
@@ -35,13 +33,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         public FullScreenVideoViewModel(
             IUsersManager usersManager,
-            IPublicationsManager publicationsManager,
-            IPlatformService platformService) : base(publicationsManager)
+            IPublicationsManager publicationsManager) : base(publicationsManager)
         {
             Interaction = new MvxInteraction();
 
             _usersManager = usersManager;
-            _platformService = platformService;
 
             ShareCommand = this.CreateCommand(ShareAsync);
             MoveNextCommand = this.CreateCommand(MoveNext);

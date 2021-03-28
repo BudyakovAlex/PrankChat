@@ -1,228 +1,115 @@
 ﻿using AVFoundation;
-using AVKit;
-using CoreFoundation;
 using CoreMedia;
 using Foundation;
-using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Data.Enums;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Managers.Video;
 using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Reactive.Disposables;
 
-namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Video
+namespace PrankChat.Mobile.iOS.Plugins.Video
 {
-    public class VideoPlayer : BaseVideoPlayer
+    public class VideoPlayer : IVideoPlayer
     {
+        private readonly CompositeDisposable _disposables;
         private readonly AVPlayer _player;
 
-        private int _repeatDelayInSeconds;
-        private AVPlayerViewController _currentContainer;
-        private NSObject _repeatObserver;
-        private NSObject _viewedFactRegistrationObserver;
-        private NSObject _videoEndHandler;
-        private NSObject _playerPerdiodicTimeObserver;
+        private bool _isDisposed;
 
-        private int _id;
-        private string _uri;
-
-        public VideoPlayer(IVideoManager videoManager, IMvxMessenger mvxMessenger) : base(videoManager, mvxMessenger)
+        public VideoPlayer()
         {
-            _player = new AVQueuePlayer
+            _disposables = new CompositeDisposable();
+            _player = new AVPlayer
             {
-                AutomaticallyWaitsToMinimizeStalling = true,
+                ActionAtItemEnd = AVPlayerActionAtItemEnd.None,
+                AutomaticallyWaitsToMinimizeStalling = false,
                 Muted = true,
-                ActionAtItemEnd = AVPlayerActionAtItemEnd.None
-            };
+            }.DisposeWith(_disposables);
+
+            AVPlayerItem.Notifications.ObserveDidPlayToEndTime(_player, OnVideoEnded)
+                .DisposeWith(_disposables);
+
+            _player.AddBoundaryTimeObserver(
+                times: new[] { NSValue.FromCMTime(new CMTime(Constants.Delays.VideoPartiallyPlayedDelay, 1)) },
+                queue: null,
+                handler: () => VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.PartiallyPlayed))
+                .DisposeWith(_disposables);
         }
 
-        /// <inheritdoc />>
-        public override bool IsPlaying { get; protected set; }
+        public event EventHandler<VideoPlayingStatus> VideoPlayingStatusChanged;
 
-        /// <inheritdoc />>
-        public override bool IsMuted
+        public bool IsPlaying { get; private set; }
+
+        public bool IsMuted
         {
             get => _player.Muted;
             set => _player.Muted = value;
         }
 
-        public override void Dispose()
+        public bool CanRepeat { get; set; }
+
+        public void SetVideoUrl(string url)
+        {
+            var playerItem = new AVPlayerItem(new NSUrl(url))
+            {
+                PreferredForwardBufferDuration = 1
+            };
+
+            _player.ReplaceCurrentItemWithPlayerItem(playerItem);
+        }
+
+        public void Play()
+        {
+            IsPlaying = true;
+            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Started);
+        }
+
+        public void Pause()
+        {
+            _player.Pause();
+            IsPlaying = false;
+
+            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Paused);
+        }
+
+        public void Stop()
+        {
+            _player.Pause();
+            _ = _player.SeekAsync(CMTime.Zero);
+
+            IsPlaying = false;
+            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Stopped);
+        }
+
+        public object GetNativePlayer() => _player;
+
+        public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
-        /// <inheritdoc />>
-        public override void EnableRepeat(int repeatDelayInSeconds)
+        protected virtual void Dispose(bool isDisposing)
         {
-            //_repeatDelayInSeconds = repeatDelayInSeconds;
-            //_repeatObserver = _player.AddBoundaryTimeObserver(
-            //    times: new[] { NSValue.FromCMTime(new CMTime(repeatDelayInSeconds, 1)) },
-            //    queue: null,
-            //    handler: TryRepeatVideo);
-
-            _videoEndHandler = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, RepeatEndedItem);
-        }
-
-        public override void TryRegisterViewedFact(int id, int registrationDelayInMilliseconds)
-        {
-            var registrationDelayInSeconds = registrationDelayInMilliseconds / 1000;
-
-            if (_viewedFactRegistrationObserver != null)
-                RemoveViewedFactRegistrationObserver();
-
-            _viewedFactRegistrationObserver = _player.AddBoundaryTimeObserver(
-                times: new[] { NSValue.FromCMTime(new CMTime(registrationDelayInSeconds, 1)) },
-                queue: null,
-                handler: () => RegisterViewedVideoFactAsync(id, registrationDelayInSeconds).FireAndForget());
-        }
-
-        /// <inheritdoc />>
-        public override void Pause()
-        {
-            if (!IsPlaying)
+            if (!isDisposing || _isDisposed)
             {
                 return;
             }
 
-            _player.Pause();
-            IsPlaying = false;
+            _isDisposed = true;
+            _disposables.Dispose();
         }
 
-        public override void Play()
+        private void OnVideoEnded(object sender, NSNotificationEventArgs e)
         {
-            if (IsPlaying)
+            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Played);
+            if (!CanRepeat)
             {
+                IsPlaying = false;
                 return;
             }
 
-            if (_player.CurrentItem == null)
-            {
-                return;
-            }
-
-            _player.Play();
-            IsPlaying = true;
-        }
-
-        public override void Stop()
-        {
-            Debug.WriteLine("Play stopped.");
             _player.Seek(new CMTime(0, 1));
-            _player.Pause();
-            _player.ReplaceCurrentItemWithPlayerItem(null);
-            IsPlaying = false;
-        }
-
-        public override void SetPlatformVideoPlayerContainer(object container)
-        {
-            if (container is AVPlayerViewController viewController)
-            {
-                if (_currentContainer != null)
-                {
-                    _currentContainer.Player = null;
-                    _currentContainer = null;
-                }
-
-                _currentContainer = viewController;
-                _currentContainer.Player = _player;
-            }
-        }
-
-        public override void SetSourceUri(string uri, int id )
-        {
-            if (string.IsNullOrEmpty(uri))
-            {
-                return;
-            }
-
-            _id = id;
-            _uri = uri;
-            _playerPerdiodicTimeObserver = _player.AddPeriodicTimeObserver(
-                new CMTime(1, 2),
-                DispatchQueue.MainQueue,
-                PlayerTimeChanged);
-
-            _player.ReplaceCurrentItemWithPlayerItem(new AVPlayerItem(new NSUrl(uri)));
-        }
-
-        private void PlayerTimeChanged(CMTime obj)
-        {
-            if (_playerPerdiodicTimeObserver is null)
-            {
-                return;
-            }
-
-            if (obj.Value > 0)
-            {
-                if (_playerPerdiodicTimeObserver != null)
-                {
-                    _player.RemoveTimeObserver(_playerPerdiodicTimeObserver);
-                    _playerPerdiodicTimeObserver = null;
-                }
-            }
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_repeatObserver != null)
-                {
-                    _player?.RemoveTimeObserver(_repeatObserver);
-                    _repeatObserver = null;
-                }
-
-                RemoveViewedFactRegistrationObserver();
-
-                if (_videoEndHandler != null)
-                {
-                    NSNotificationCenter.DefaultCenter.RemoveObserver(_videoEndHandler);
-                    _videoEndHandler?.Dispose();
-                    _videoEndHandler = null;
-                }
-
-                _player?.Dispose();
-            }
-        }
-
-        private void TryRepeatVideo()
-        {
-            var timeValue = _player.CurrentItem.CurrentTime;
-            var currentTimePosition = timeValue.Seconds;
-
-            if (currentTimePosition >= _repeatDelayInSeconds)
-            {
-                _player.Seek(new CMTime(0, 1));
-            }
-        }
-
-        private async Task RegisterViewedVideoFactAsync(int id, int registrationDelayInMilliseconds)
-        {
-            var currentTimeInMilliseconds = (int)_player.CurrentItem.CurrentTime.Seconds * 1000;
-            if (currentTimeInMilliseconds >= registrationDelayInMilliseconds)
-            {
-                await TryIncrementVideoViewsCountAsync(id, registrationDelayInMilliseconds, currentTimeInMilliseconds);
-                RemoveViewedFactRegistrationObserver();
-            }
-        }
-
-        private void RepeatEndedItem(NSNotification obj)
-        {
-            _player.Seek(new CMTime(0, 1));
-        }
-
-        private void RemoveViewedFactRegistrationObserver()
-        {
-            if (_viewedFactRegistrationObserver == null)
-            {
-                return;
-            }
-
-            _player?.RemoveTimeObserver(_viewedFactRegistrationObserver);
-            _viewedFactRegistrationObserver?.Dispose();
-            _viewedFactRegistrationObserver = null;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace PrankChat.Mobile.Core.BusinessServices
 
         bool IsMuted { get; set; }
 
-        void EnableRepeat(int repeatDelayInSeconds);
+        bool CanRepeat { get; set; }
 
         void SetVideoUrl(string url);
 
@@ -18,6 +18,8 @@ namespace PrankChat.Mobile.Core.BusinessServices
         void Pause();
 
         void Stop();
+
+        object GetNativePlayer();
 
         event EventHandler<VideoPlayingStatus> VideoPlayingStatusChanged;
     }

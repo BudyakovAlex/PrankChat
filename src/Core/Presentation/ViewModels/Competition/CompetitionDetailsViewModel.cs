@@ -35,7 +35,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         private readonly ICompetitionsManager _competitionsManager;
         private readonly IPublicationsManager _publicationsManager;
         private readonly IVideoManager _videoManager;
-        private readonly IVideoPlayerService _videoPlayerService;
         private readonly IMediaService _mediaService;
 
         private Models.Data.Competition _competition;
@@ -49,13 +48,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         public CompetitionDetailsViewModel(ICompetitionsManager competitionsManager,
                                            IPublicationsManager publicationsManager,
                                            IVideoManager videoManager,
-                                           IVideoPlayerService videoPlayerService,
                                            IMediaService mediaService) : base(Constants.Pagination.DefaultPaginationSize)
         {
             _competitionsManager = competitionsManager;
             _publicationsManager = publicationsManager;
             _videoManager = videoManager;
-            _videoPlayerService = videoPlayerService;
             _mediaService = mediaService;
 
             Items = new MvxObservableCollection<BaseViewModel>();
@@ -270,7 +267,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         {
             return new CompetitionVideoViewModel(
                 _publicationsManager,
-                _videoPlayerService,
                 UserSessionProvider,
                 video,
                 video.User.Id == UserSessionProvider.User.Id,
