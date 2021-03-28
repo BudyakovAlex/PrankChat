@@ -16,7 +16,7 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
 {
-    public abstract class BaseVideoItemViewModel : BaseViewModel, IVideoItemViewModel
+    public abstract class BaseVideoItemViewModel : BaseViewModel
     {
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
         private CancellationTokenSource _cancellationSendingDislikeTokenSource;
@@ -35,6 +35,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             NumberOfLikes = video.LikesCount;
             NumberOfDislikes = video.DislikesCount;
             NumberOfComments = Video.CommentsCount;
+            IsSubscribedToUser = User?.IsSubscribed ?? false;
 
             VideoPlayer = CompositionRoot.Container.Resolve<IVideoPlayer>();
             VideoPlayer.SubscribeToEvent<IVideoPlayer, VideoPlayingStatus>(
@@ -72,9 +73,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
 
         public string AvatarUrl => User?.Avatar;
 
-        public int ProfileId => User?.Id ?? 0;
+        public int UserId => User?.Id ?? 0;
 
-        public bool IsSubscribedToProfile => User?.IsSubscribed ?? false;
+        private bool _isSubscribedToUser;
+        public bool IsSubscribedToUser
+        {
+            get => _isSubscribedToUser;
+            set => SetProperty(ref _isSubscribedToUser, value);
+        }
 
         private bool _isLiked;
         public bool IsLiked
@@ -106,11 +112,26 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
 
         public string ShareLink => Video.ShareUri;
 
-        public long NumberOfComments { get; protected set; }
+        private long _numberOfComments;
+        public long NumberOfComments
+        {
+            get => _numberOfComments;
+            set => SetProperty(ref _numberOfComments, value);
+        }
 
-        public long? NumberOfLikes { get; set; }
+        private long? _numberOfLikes;
+        public long? NumberOfLikes
+        {
+            get => _numberOfLikes;
+            set => SetProperty(ref _numberOfLikes, value);
+        }
 
-        public long? NumberOfDislikes { get; set; }
+        private long? _numberOfDislikes;
+        public long? NumberOfDislikes
+        {
+            get => _numberOfDislikes;
+            set => SetProperty(ref _numberOfDislikes, value);
+        }
 
         protected abstract User User { get; }
 
@@ -122,27 +143,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
 
         protected Models.Data.Video Video { get; }
 
-        //public FullScreenVideo GetFullScreenVideo()
-        //{
-        //    return new FullScreenVideo(
-        //        ProfileId,
-        //        Video.User?.IsSubscribed ?? false,
-        //        VideoId,
-        //        VideoUrl,
-        //        VideoName,
-        //        Description,
-        //        ShareLink,
-        //        AvatarUrl,
-        //        ProfileShortName,
-        //        NumberOfLikes,
-        //        NumberOfDislikes,
-        //        NumberOfComments,
-        //        IsLiked,
-        //        IsDisliked,
-        //        StubImageUrl,
-        //        CanVoteVideo);
-        //}
-
         protected virtual void OnLikeChanged()
         {
         }
@@ -153,6 +153,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
 
         protected virtual void OnDislike()
         {
+            if (!CanVoteVideo)
+            {
+                return;
+            }
+
             IsDisliked = !IsDisliked;
 
             var totalDislikes = IsDisliked ? NumberOfDislikes + 1 : NumberOfDislikes - 1;
@@ -174,6 +179,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
 
         protected virtual void OnLike()
         {
+            if (!CanVoteVideo)
+            {
+                return;
+            }
+
             IsLiked = !IsLiked;
 
             var totalLikes = IsLiked ? NumberOfLikes + 1 : NumberOfLikes - 1;
@@ -200,7 +210,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
                 return;
             }
 
-            _ = SafeExecutionWrapper.WrapAsync(() => VideoManager.IncrementVideoViewsAsync(VideoId), (ex) => 
+            _ = SafeExecutionWrapper.WrapAsync(() => VideoManager.IncrementVideoViewsAsync(VideoId), (ex) =>
             {
                 Crashes.TrackError(ex);
                 return Task.CompletedTask;

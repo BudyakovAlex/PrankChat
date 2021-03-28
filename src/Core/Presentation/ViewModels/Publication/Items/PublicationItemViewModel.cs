@@ -2,7 +2,6 @@
 using Plugin.DownloadManager;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -41,6 +40,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
             Models.Data.Video video,
             Func<BaseVideoItemViewModel[]> getAllFullScreenVideosFunc) : base(videoManager, userSessionProvider, video)
         {
+            VideoPlayer.CanRepeat = true;
             ProfileName = video.Customer?.Login;
             IsCompetitionVideo = video.OrderCategory.CheckIsCompetitionOrder();
 
