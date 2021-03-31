@@ -1,5 +1,4 @@
-﻿using AVFoundation;
-using FFImageLoading;
+﻿using FFImageLoading;
 using Foundation;
 using MvvmCross.Binding.Extensions;
 using MvvmCross.ViewModels;
@@ -126,36 +125,31 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
         {
             StopVideo(_previousVideoCell);
 
-            var viewModel = cell?.ViewModel;
-            if (viewModel is null)
+            if (cell is null)
             {
                 return;
             }
 
-            var player = viewModel.PreviewVideoPlayer;
+            var player = cell.VideoPlayer;
             if (player.IsPlaying)
             {
                 return;
             }
 
-            cell.AVPlayerViewControllerInstance.Player = player.GetNativePlayer() as AVPlayer;
-            player.Play();
+            cell.VideoPlayer.Play();
+            cell.StubImageView.Hidden = true;
             _previousVideoCell = cell;
         }
 
         private void StopVideo(BaseVideoTableCell cell)
         {
-            //cell?.ShowStub();
-
-            var viewModel = cell?.ViewModel;
-            if (viewModel is null ||
-                !viewModel.PreviewVideoPlayer.IsPlaying)
+            if (cell is null)
             {
                 return;
             }
 
-            viewModel.PreviewVideoPlayer.Stop();
-            cell.AVPlayerViewControllerInstance.Player = null;
+            cell.ShowStub();
+            cell.VideoPlayer.Stop();
         }
 
         private bool IsCompletelyVisible(BaseVideoTableCell publicationCell)

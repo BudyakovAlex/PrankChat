@@ -7,10 +7,11 @@ using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using System;
 using System.Reactive.Disposables;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.iOS.Plugins.Video
 {
-    public class VideoPlayer : IVideoPlayer
+    public class VideoPlayer : NSObject, IVideoPlayer
     {
         private readonly CompositeDisposable _disposables;
         private readonly AVPlayer _player;
@@ -23,15 +24,11 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
             _player = new AVPlayer
             {
                 ActionAtItemEnd = AVPlayerActionAtItemEnd.None,
-                AutomaticallyWaitsToMinimizeStalling = false,
                 Muted = true,
             }.DisposeWith(_disposables);
 
-            AVPlayerItem.Notifications.ObserveDidPlayToEndTime(_player, OnVideoEnded)
-                .DisposeWith(_disposables);
-
             _player.AddBoundaryTimeObserver(
-                times: new[] { NSValue.FromCMTime(new CMTime(Constants.Delays.VideoPartiallyPlayedDelay, 1)) },
+                times: new[] { NSValue.FromCMTime(CMTime.FromSeconds(Constants.Delays.VideoPartiallyPlayedDelay, 1)) },
                 queue: null,
                 handler: () => VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.PartiallyPlayed))
                 .DisposeWith(_disposables);
@@ -51,46 +48,67 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
         public void SetVideoUrl(string url)
         {
-            var playerItem = new AVPlayerItem(new NSUrl(url))
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                PreferredForwardBufferDuration = 1
-            };
+                var playerItem = AVPlayerItem.FromUrl(NSUrl.FromString(url));
+                _player.ReplaceCurrentItemWithPlayerItem(playerItem);
 
-            _player.ReplaceCurrentItemWithPlayerItem(playerItem);
+                AVPlayerItem.Notifications.ObserveDidPlayToEndTime(playerItem, OnVideoEnded)
+                    .DisposeWith(_disposables);
+            });
         }
 
         public void Play()
         {
-            _player.Play();
-            IsPlaying = true;
-            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Started);
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                if (_player.CurrentItem is null)
+                {
+                    return;
+                }
+
+                _player.Play();
+                IsPlaying = true;
+                VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Started);
+            });
         }
 
         public void Pause()
         {
-            _player.Pause();
-            IsPlaying = false;
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                if (_player.CurrentItem is null)
+                {
+                    return;
+                }
 
-            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Paused);
+                _player.Pause();
+                IsPlaying = false;
+
+                VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Paused);
+            });
         }
 
         public void Stop()
         {
-            _player.Pause();
-            _ = _player.SeekAsync(CMTime.Zero);
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                if (_player.CurrentItem is null)
+                {
+                    return;
+                }
 
-            IsPlaying = false;
-            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Stopped);
+                _player.Pause();
+                _player.Seek(new CMTime(0, 1));
+
+                IsPlaying = false;
+                VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Stopped);
+            });
         }
 
         public object GetNativePlayer() => _player;
 
-        public void Dispose()
-        {
-            Dispose(true);
-        }
-
-        protected virtual void Dispose(bool isDisposing)
+        protected override void Dispose(bool isDisposing)
         {
             if (!isDisposing || _isDisposed)
             {
@@ -99,11 +117,12 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
             _isDisposed = true;
             _disposables.Dispose();
+            _player?.ReplaceCurrentItemWithPlayerItem(null);
         }
 
         private void OnVideoEnded(object sender, NSNotificationEventArgs e)
         {
-            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Played);
+            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Stopped);
             if (!CanRepeat)
             {
                 IsPlaying = false;

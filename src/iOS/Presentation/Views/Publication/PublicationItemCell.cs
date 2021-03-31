@@ -16,14 +16,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
     public partial class PublicationItemCell : BaseVideoTableCell<PublicationItemCell, PublicationItemViewModel>
     {
-        private bool _isLiked;
-        private bool _isDisliked;
-
         protected PublicationItemCell(IntPtr handle)
             : base(handle)
         {
         }
 
+        private bool _isLiked;
         public bool IsLiked
         {
             get => _isLiked;
@@ -45,6 +43,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             }
         }
 
+        private bool _isDisliked;
         public bool IsDisliked
         {
             get => _isDisliked;
@@ -147,6 +146,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             bindingSet.Bind(competitionBorderView).For(v => v.BindVisible()).To(vm => vm.IsCompetitionVideo);
             bindingSet.Bind(competitionCupImageView).For(v => v.BindVisible()).To(vm => vm.IsCompetitionVideo);
+            bindingSet.Bind(this).For(v => v.VideoPlayer).To(vm => vm.PreviewVideoPlayer);
 
             bindingSet.Apply();
         }

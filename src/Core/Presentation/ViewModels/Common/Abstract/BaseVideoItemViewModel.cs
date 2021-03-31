@@ -47,12 +47,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
 
             PreviewVideoPlayer.CanRepeat = true;
             PreviewVideoPlayer.SetVideoUrl(Video.PreviewUri);
-            FullVideoPlayer.SetVideoUrl(Video.StreamUri);
 
             FullVideoPlayer.SubscribeToEvent<IVideoPlayer, VideoPlayingStatus>(
                 OnVideoPlayingStatusChanged,
                 (wrapper, handler) => wrapper.VideoPlayingStatusChanged += handler,
                 (wrapper, handler) => wrapper.VideoPlayingStatusChanged -= handler).DisposeWith(Disposables);
+
+            FullVideoPlayer.SetVideoUrl(Video.StreamUri);
 
             LikeCommand = this.CreateRestrictedCommand(
                 OnLike,

@@ -1,11 +1,9 @@
 ﻿using AVFoundation;
-using AVKit;
 using CoreAnimation;
-using CoreFoundation;
 using CoreGraphics;
-using CoreMedia;
 using FFImageLoading.Cross;
 using Foundation;
+using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.iOS.AppTheme;
@@ -16,11 +14,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 {
     public abstract class BaseVideoTableCell : BaseTableCell
     {
-        private const string PlayerStatusObserverKey = "status";
-
-        private NSObject _playerPerdiodicTimeObserver;
-        private bool _isObserverRemoved;
         private CAGradientLayer _gradientLayer;
+        private AVPlayerLayer _videoLayer;
+        private CALayer _backgroundLayer;
 
         protected BaseVideoTableCell(IntPtr handle)
             : base(handle)
@@ -28,8 +24,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
         }
 
         public BaseVideoItemViewModel ViewModel => BindingContext.DataContext as BaseVideoItemViewModel;
-
-        public AVPlayerViewController AVPlayerViewControllerInstance { get; private set; }
 
         public abstract MvxCachedImageView StubImageView { get; }
 
@@ -52,43 +46,33 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             set
             {
                 _canShowStub = value;
-                //_canShowStub = value;
-                //if (!value)
-                //{
-                //    StubImageView.Hidden = true;
-                //    LoadingActivityIndicator.Hidden = true;
-                //}
+                _canShowStub = value;
+                if (!value)
+                {
+                    StubImageView.Hidden = true;
+                    LoadingActivityIndicator.Hidden = true;
+                }
 
-                //ProcessingActivityIndicator.StartAnimating();
+                ProcessingActivityIndicator.StartAnimating();
             }
         }
 
-        //public override void ObserveValue(NSString keyPath, NSObject ofObject, NSDictionary change, IntPtr context)
-        //{
-        //    if (keyPath != PlayerStatusObserverKey)
-        //    {
-        //        return;
-        //    }
-
-        //    if (AVPlayerViewControllerInstance.Player != null &&
-        //        AVPlayerViewControllerInstance.Player.Status == AVPlayerStatus.ReadyToPlay)
-        //    {
-        //        LoadingActivityIndicator.Hidden = true;
-        //        StubImageView.Hidden = true;
-        //    }
-        //}
+        private IVideoPlayer _videoPlayer;
+        public IVideoPlayer VideoPlayer
+        {
+            get => _videoPlayer;
+            set
+            {
+                _videoPlayer = value;
+                SetPlayerState();
+            }
+        }
 
         public override void PrepareForReuse()
         {
             StubImageView.Image = null;
-
-            //ShowStub();
-
-            //if (!_isObserverRemoved)
-            //{
-            //    AVPlayerViewControllerInstance.Player?.RemoveTimeObserver(_playerPerdiodicTimeObserver);
-            //    _playerPerdiodicTimeObserver = null;
-            //}
+     
+            ShowStub();
 
             StopVideo();
             base.PrepareForReuse();
@@ -105,7 +89,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             base.SetupControls();
 
             VideoView.SetPreviewStyle();
-            InitializeVideoControl();
 
             RootProcessingBackgroundView.BackgroundColor = UIColor.Clear;
             _gradientLayer = new CAGradientLayer
@@ -115,6 +98,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
                 StartPoint = new CGPoint(0f, 1f),
                 EndPoint = new CGPoint(1f, 0f)
             };
+
+            _backgroundLayer = new CALayer() { BackgroundColor = UIColor.Black.CGColor };
+            _videoLayer = new AVPlayerLayer();
+
+            VideoView.Layer.AddSublayer(_backgroundLayer);
+            VideoView.Layer.AddSublayer(_videoLayer);
 
             ProcessingLabel.Text = Resources.Processing_Video;
             RootProcessingBackgroundView.Layer.InsertSublayer(_gradientLayer, 0);
@@ -129,67 +118,36 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             base.LayoutSubviews();
 
             _gradientLayer.Frame = RootProcessingBackgroundView.Bounds;
+            _backgroundLayer.Frame = RootProcessingBackgroundView.Bounds;
+            _videoLayer.Frame = VideoView.Bounds;
         }
 
         public CGRect GetVideoBounds(UITableView tableView) =>
             VideoView.ConvertRectToView(VideoView.Bounds, tableView);
 
-        //public void AddObserverForPeriodicTime()
-        //{
-        //    LoadingActivityIndicator.Hidden = false;
-        //    LoadingActivityIndicator.StartAnimating();
+        public void ShowStub()
+        {
+            if (!_canShowStub)
+            {
+                return;
+            }
 
-        //    _playerPerdiodicTimeObserver = AVPlayerViewControllerInstance.Player?.AddPeriodicTimeObserver(
-        //        new CMTime(1, 2),
-        //        DispatchQueue.MainQueue,
-        //        PlayerTimeChanged);
-        //}
-
-        //public void ShowStub()
-        //{
-        //    if (!_canShowStub)
-        //    {
-        //        return;
-        //    }
-
-        //    StubImageView.Hidden = false;
-        //    LoadingActivityIndicator.Hidden = true;
-        //}
-
-        //private void PlayerTimeChanged(CMTime obj)
-        //{
-        //    if (obj.Value > 0)
-        //    {
-        //        _isObserverRemoved = true;
-        //        if (_playerPerdiodicTimeObserver != null)
-        //        {
-        //            LoadingActivityIndicator.Hidden = true;
-        //            StubImageView.Hidden = true;
-
-        //            AVPlayerViewControllerInstance.Player?.RemoveTimeObserver(_playerPerdiodicTimeObserver);
-        //            _playerPerdiodicTimeObserver = null;
-        //        }
-        //    }
-        //}
+            StubImageView.Hidden = false;
+            LoadingActivityIndicator.Hidden = true;
+        }
 
         private void StopVideo()
         {
             ViewModel?.PreviewVideoPlayer?.Stop();
-
-            if (AVPlayerViewControllerInstance != null)
-            {
-                AVPlayerViewControllerInstance.Player = null;
-            }
         }
 
-        private void InitializeVideoControl()
+        private void SetPlayerState()
         {
-            AVPlayerViewControllerInstance = new AVPlayerViewController();
-            AVPlayerViewControllerInstance.View.Frame = new CGRect(0, 0, VideoView.Frame.Width, VideoView.Frame.Height);
-            AVPlayerViewControllerInstance.ShowsPlaybackControls = false;
-            AVPlayerViewControllerInstance.VideoGravity = AVLayerVideoGravity.ResizeAspect;
-
-            VideoView.Add(AVPlayerViewControllerInstance.View);
+            if (VideoPlayer?.GetNativePlayer() is AVPlayer player)
+            {
+                _videoLayer.Player = player;
+                VideoView.LayoutIfNeeded();
+            }
         }
     }
 
