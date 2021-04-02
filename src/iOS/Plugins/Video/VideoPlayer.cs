@@ -122,7 +122,7 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
         private void OnVideoEnded(object sender, NSNotificationEventArgs e)
         {
-            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Stopped);
+            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Played);
             if (!CanRepeat)
             {
                 IsPlaying = false;

@@ -114,7 +114,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
         {
             base.BindData();
 
-            var bindingSet = this.CreateBindingSet<PublicationItemViewHolder, PublicationItemViewModel>();
+            using var bindingSet = this.CreateBindingSet<PublicationItemViewHolder, PublicationItemViewModel>();
 
             bindingSet.Bind(this).For(v => v.IsLiked).To(vm => vm.IsLiked);
             bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.IsDisliked);
@@ -136,8 +136,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
                       .WithConversion<MvxInvertedBooleanConverter>();
             bindingSet.Bind(_competitionBorderView).For(v => v.BindVisible()).To(vm => vm.IsCompetitionVideo);
             bindingSet.Bind(_competitionCupImageView).For(v => v.BindVisible()).To(vm => vm.IsCompetitionVideo);
-
-            bindingSet.Apply();
         }
     }
 }

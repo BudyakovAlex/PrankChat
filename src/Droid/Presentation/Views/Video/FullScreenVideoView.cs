@@ -162,98 +162,40 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
         {
             base.DoBind();
 
-            var bindingSet = this.CreateBindingSet<FullScreenVideoView, FullScreenVideoViewModel>();
+            using var bindingSet = this.CreateBindingSet<FullScreenVideoView, FullScreenVideoViewModel>();
 
-            bindingSet.Bind(this).For(v => v.IsLiked).To(vm => vm.IsLiked);
-            bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.IsDisliked);
-            bindingSet.Bind(this).For(v => v.IsSubscribed).To(vm => vm.IsSubscribed);
+            bindingSet.Bind(this).For(v => v.IsLiked).To(vm => vm.CurrentVideo.IsLiked);
+            bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.CurrentVideo.IsDisliked);
+            bindingSet.Bind(this).For(v => v.IsSubscribed).To(vm => vm.CurrentVideo.IsSubscribedToUser);
 
-            bindingSet.Bind(_videoView)
-                      .For(VideoUrlTargetBinding.TargetBinding)
-                      .To(vm => vm.VideoUrl);
+            bindingSet.Bind(_videoView).For(VideoUrlTargetBinding.TargetBinding).To(vm => vm.VideoUrl);
+            bindingSet.Bind(_mediaController).For(v => v.IsMuted).To(vm => vm.IsMuted).TwoWay();
 
-            bindingSet.Bind(_mediaController)
-                      .For(v => v.IsMuted)
-                      .To(vm => vm.IsMuted)
-                      .TwoWay();
+            bindingSet.Bind(_backImageView).For(v => v.BindClick()).To(vm => vm.CloseCommand);
+            bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.CurrentVideo.VideoName);
+            bindingSet.Bind(_descriptionTextView).For(v => v.Text).To(vm => vm.CurrentVideo.Description);
 
-            bindingSet.Bind(_backImageView)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.CloseCommand);
+            bindingSet.Bind(_profileView).For(v => v.BindClick()).To(vm => vm.OpenUserProfileCommand);
+            bindingSet.Bind(_profileImageView).For(v => v.ImagePath).To(vm => vm.CurrentVideo.AvatarUrl);
 
-            bindingSet.Bind(_titleTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.VideoName);
+            bindingSet.Bind(_profileImageView).For(v => v.PlaceholderText).To(vm => vm.CurrentVideo.ProfileShortName);
 
-            bindingSet.Bind(_descriptionTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.Description);
+            bindingSet.Bind(_likeView).For(v => v.BindClick()).To(vm => vm.CurrentVideo.LikeCommand);
+            bindingSet.Bind(_dislikeView).For(v => v.BindClick()).To(vm => vm.CurrentVideo.DislikeCommand);
+            bindingSet.Bind(_commentsView).For(v => v.BindClick()).To(vm => vm.OpenCommentsCommand);
 
-            bindingSet.Bind(_profileView)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.OpenUserProfileCommand);
+            bindingSet.Bind(_likeView).For(v => v.Clickable).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(_likeView).For(v => v.Enabled).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(_likeView).For(v => v.Activated).To(vm => vm.CurrentVideo.IsLiked);
+            bindingSet.Bind(_likeTextView).For(v => v.Text).To(vm => vm.NumberOfLikesPresentation);
 
-            bindingSet.Bind(_profileImageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.ProfilePhotoUrl);
+            bindingSet.Bind(_dislikeView).For(v => v.Clickable).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(_dislikeView).For(v => v.Enabled).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(_dislikeView).For(v => v.Activated).To(vm => vm.CurrentVideo.IsDisliked);
 
-            bindingSet.Bind(_profileImageView)
-                      .For(v => v.PlaceholderText)
-                      .To(vm => vm.ProfileShortName);
-
-            bindingSet.Bind(_likeView)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.LikeCommand);
-
-            bindingSet.Bind(_dislikeView)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.DislikeCommand);
-
-            bindingSet.Bind(_commentsView)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.OpenCommentsCommand);
-
-            bindingSet.Bind(_likeView)
-                      .For(v => v.Clickable)
-                      .To(vm => vm.IsLikeFlowAvailable);
-
-            bindingSet.Bind(_likeView)
-                      .For(v => v.Enabled)
-                      .To(vm => vm.IsLikeFlowAvailable);
-
-            bindingSet.Bind(_likeView)
-                      .For(v => v.Activated)
-                      .To(vm => vm.IsLiked);
-
-            bindingSet.Bind(_likeTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.NumberOfLikesPresentation);
-
-            bindingSet.Bind(_dislikeView)
-                      .For(v => v.Clickable)
-                      .To(vm => vm.IsLikeFlowAvailable);
-
-            bindingSet.Bind(_dislikeView)
-                      .For(v => v.Enabled)
-                      .To(vm => vm.IsLikeFlowAvailable);
-
-            bindingSet.Bind(_dislikeView)
-                      .For(v => v.Activated)
-                      .To(vm => vm.IsDisliked);
-
-            bindingSet.Bind(_dislikeTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.NumberOfDislikesPresentation);
-
-            bindingSet.Bind(_commentsTextView)
-                     .For(v => v.Text)
-                     .To(vm => vm.NumberOfCommentsPresentation);
-
-            bindingSet.Bind(_shareImageView)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.ShareCommand);
-
-            bindingSet.Apply();
+            bindingSet.Bind(_dislikeTextView).For(v => v.Text).To(vm => vm.NumberOfDislikesPresentation);
+            bindingSet.Bind(_commentsTextView).For(v => v.Text).To(vm => vm.NumberOfCommentsPresentation);
+            bindingSet.Bind(_shareImageView).For(v => v.BindClick()).To(vm => vm.ShareCommand);
         }
 
         protected override void OnSaveInstanceState(Bundle outState)

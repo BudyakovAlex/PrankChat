@@ -1,47 +1,39 @@
 ﻿using Android.Media;
-using Android.OS;
 using Android.Views;
-using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.Managers.Video;
+using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
+using System;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 {
-    public class VideoPlayer : BaseVideoPlayer
+    public class VideoPlayer : Java.Lang.Object, IVideoPlayer
     {
-        private const int RecheckDelayInMilliseconds = 1000;
-
-        private readonly IErrorHandleService _errorHandleService;
-
         private AutoFitTextureView _textureView;
+        private Surface _surface;
         private MediaPlayer _mediaPlayer;
 
-        private bool _isRepeatEnabled;
         private bool _isPrepared;
         private bool _isPlayNeeded;
-        private int? _cachedId;
+        private string _url;
 
-        private string _cachedUri;
-
-        public VideoPlayer(IVideoManager videoManager,
-                           IMvxMessenger mvxMessenger,
-                           IErrorHandleService errorHandleService) : base(videoManager, mvxMessenger)
+        public VideoPlayer()
         {
-            _errorHandleService = errorHandleService;
+            SetupNewMediaPlayerIfNeeded();
         }
 
-        public override bool IsPlaying { get; protected set; }
+        public event EventHandler<VideoPlayingStatus> VideoPlayingStatusChanged;
+
+        public bool CanRepeat
+        {
+            get => _mediaPlayer.Looping;
+            set => _mediaPlayer.Looping = value;
+        }
 
         private bool _isMuted;
-        private Surface _surface;
-
-        private (int, int)? _registrationParameters;
-
-        public override bool IsMuted
+        public bool IsMuted
         {
             get => _isMuted;
             set
@@ -57,99 +49,82 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             }
         }
 
-        public override void EnableRepeat(int repeatDelayInSeconds)
-        {
-            _isRepeatEnabled = true;
-        }
+        public bool IsPlaying => _mediaPlayer.IsPlaying;
 
-        public override void Pause()
-        {
-            if (!IsPlaying || _textureView == null)
-            {
-                return;
-            }
+        public object GetNativePlayer() => _mediaPlayer;
 
+        public void Pause()
+        {
             if (_isPrepared)
             {
-                _mediaPlayer?.Pause();
+                _mediaPlayer.Pause();
             }
 
-            IsPlaying = false;
             _isPlayNeeded = false;
+
+            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Paused);
         }
 
-        public override void Play()
+        public void Play()
         {
-            if (IsPlaying || _textureView == null)
+            if (_isPrepared && !IsPlaying)
             {
-                return;
-            }
+                _mediaPlayer.Start();
 
-            if (_isPrepared)
-            {
-                _mediaPlayer?.Start();
-                IsPlaying = true;
                 _isPlayNeeded = false;
+
+                VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Started);
                 return;
             }
 
             _isPlayNeeded = true;
         }
 
-        public override void SetPlatformVideoPlayerContainer(object container)
+        public void Stop()
         {
-            if (_textureView == container)
+            if (_isPrepared && IsPlaying)
             {
-                return;
+                _mediaPlayer.Pause();
+                _mediaPlayer.SeekTo(0);
             }
 
-            Stop();
+            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Stopped);
 
+            _isPlayNeeded = false;
+        }
+
+        public void SetPlatformVideoPlayerContainer(object container)
+        {
             if (container is AutoFitTextureView textureView)
             {
+                _isPrepared = false;
+
                 _textureView = textureView;
+                _ = ResetPlayerAsync();
                 return;
             }
 
             _textureView = null;
         }
 
-        public override void TryRegisterViewedFact(int id, int registrationDelayInMilliseconds)
+        public void SetVideoUrl(string url)
         {
-            var handler = new Handler();
-            handler.PostDelayed(async () => await RegisterAction(id, registrationDelayInMilliseconds), registrationDelayInMilliseconds);
+            _url = url;
         }
 
-        public override void SetSourceUri(string uri, int id)
-        {
-            if (string.IsNullOrWhiteSpace(uri))
-            {
-                return;
-            }
-
-            _cachedId = id;
-            _cachedUri = uri;
-            _ = CreateMediaPlayerAsync();
-        }
-
-        private async Task CreateMediaPlayerAsync()
+        private async Task ResetPlayerAsync()
         {
             await Task.Delay(100);
 
-            if (string.IsNullOrWhiteSpace(_cachedUri))
+            if (string.IsNullOrWhiteSpace(_url))
             {
                 return;
             }
 
-            if (_mediaPlayer != null)
+            if (IsPlaying)
             {
-                _mediaPlayer.Release();
+                _mediaPlayer.Stop();
             }
-
-            _mediaPlayer = new MediaPlayer();
-            _mediaPlayer.SetAudioStreamType(Stream.Music);
-            await _mediaPlayer.SetDataSourceAsync(_cachedUri);
-            _mediaPlayer.PrepareAsync();
 
             if (_textureView?.SurfaceTexture is null)
             {
@@ -159,20 +134,16 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             if (_surface != null)
             {
                 _surface.Release();
+                _surface.Dispose();
             }
 
             _surface = new Surface(_textureView.SurfaceTexture);
-            if (_mediaPlayer is null)
-            {
-                return;
-            }
+
+            SetupNewMediaPlayerIfNeeded();
 
             _mediaPlayer.SetSurface(_surface);
-
-            _mediaPlayer.SetOnVideoSizeChangedListener(new MediaPlayerOnVideoSizeChanged(OnPlayerSizeChanged));
-            _mediaPlayer.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepeared));
-            _mediaPlayer.SetOnInfoListener(new MediaPlayerOnInfoListener(OnInfoChanged));
-            _mediaPlayer.SetOnErrorListener(new MediaPlayerOnErrorListener(OnError));
+            await _mediaPlayer.SetDataSourceAsync(_url);
+            _mediaPlayer.PrepareAsync();
         }
 
         private void OnPlayerSizeChanged(MediaPlayer mp, int width, int height)
@@ -182,91 +153,55 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         private bool OnError(MediaPlayer mp, MediaError error, int arg3)
         {
-            _errorHandleService.LogError(mp, $"Media error {error}");
             System.Diagnostics.Debug.WriteLine("Attempt to restore media player");
 
-            _ = CreateMediaPlayerAsync();
-            return true;
-        }
-
-        private bool OnInfoChanged(MediaPlayer mediaPlayer, MediaInfo mediaInfo, int extra)
-        {
-            if (mediaInfo == MediaInfo.VideoRenderingStart)
-            {
-                VideoRenderingStartedAction?.Invoke();
-            }
-
+            _ = ResetPlayerAsync();
             return true;
         }
 
         private void OnMediaPlayerPrepeared(MediaPlayer mediaPlayer)
         {
-            _mediaPlayer.Looping = _isRepeatEnabled;
-            _mediaPlayer.SetVolume(0, 0);
-
             _isPrepared = true;
 
             if (_isPlayNeeded)
             {
                 Play();
             }
-
-            if (_registrationParameters is null)
-            {
-                return;
-            }
-
-            TryRegisterViewedFact(_registrationParameters.Value.Item1, _registrationParameters.Value.Item2);
         }
 
-        public override void Stop()
+        private void SetupNewMediaPlayerIfNeeded()
         {
-            if (!IsPlaying ||
-                _textureView == null)
-            {
-                return;
-            }
-
             if (_isPrepared)
             {
-                _mediaPlayer?.Stop();
+                _mediaPlayer.Reset();
+                _mediaPlayer.Release();
+                _mediaPlayer.Dispose();
+                _mediaPlayer = null;
+
+                _isPrepared = false;
             }
 
-            _mediaPlayer?.SetOnPreparedListener(null);
-            _mediaPlayer?.Release();
-            _surface?.Release();
-
-            _textureView = null;
-            _textureView = null;
-            _cachedUri = null;
-            _cachedId = null;
-            _surface = null;
-
-            IsPlaying = false;
-            _isPlayNeeded = false;
-            _isPrepared = false;
+            if (_mediaPlayer is null)
+            {
+                _mediaPlayer = new MediaPlayer();
+                _mediaPlayer.SetAudioStreamType(Stream.Music);
+                _mediaPlayer.SetOnVideoSizeChangedListener(new MediaPlayerOnVideoSizeChanged(OnPlayerSizeChanged));
+                _mediaPlayer.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepeared));
+                _mediaPlayer.SetOnErrorListener(new MediaPlayerOnErrorListener(OnError));
+            }
         }
 
-        private async Task RegisterAction(int id, int registrationDelayInMilliseconds)
+        protected override void Dispose(bool disposing)
         {
-            if (_mediaPlayer == null)
+            base.Dispose(disposing);
+            if (disposing)
             {
-                _errorHandleService.LogError(nameof(VideoPlayer), $"{nameof(_mediaPlayer)} is null.");
-                return;
-            }
+                _mediaPlayer.Release();
+                _mediaPlayer.Dispose();
 
-            if (!_isPrepared)
-            {
-                _registrationParameters = (id, registrationDelayInMilliseconds);
-                return;
-            }
-
-            var isSent = await TryIncrementVideoViewsCountAsync(id, registrationDelayInMilliseconds, _mediaPlayer.CurrentPosition);
-
-            if (!isSent)
-            {
-                var handler = new Handler();
-                handler.PostDelayed(async () => await RegisterAction(id, registrationDelayInMilliseconds), RecheckDelayInMilliseconds);
+                _textureView = null;
+                _surface?.Release();
+                _surface?.Dispose();
             }
         }
     }

@@ -1,15 +1,16 @@
-﻿using Android.Media;
-using Android.Views;
+﻿using Android.Views;
 using Android.Widget;
 using FFImageLoading.Cross;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
-using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Droid.Controls;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Video
 {
-    public class VideoCardViewHolder<TViewModel> : CardViewHolder<TViewModel>
-        where TViewModel : MvxNotifyPropertyChanged
+    public class VideoCardViewHolder<TViewModel> : CardViewHolder<TViewModel>, IVideoViewHolder
+        where TViewModel : BaseVideoItemViewModel
     {
         public VideoCardViewHolder(View view, IMvxAndroidBindingContext context)
             : base(view, context)
@@ -38,6 +39,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
             }
         }
 
+        public IVideoPlayer VideoPlayer { get; set; }
+
         protected override void DoInit(View view)
         {
             base.DoInit(view);
@@ -50,18 +53,21 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
             LoadingProgressBar.Visibility = ViewStates.Gone;
         }
 
+        public override void BindData()
+        {
+            base.BindData();
+
+            using var bindingSet = this.CreateBindingSet<VideoCardViewHolder<TViewModel>, BaseVideoItemViewModel>();
+
+            bindingSet.Bind(this).For(v => v.VideoPlayer).To(vm => vm.PreviewVideoPlayer);
+        }
+
         public override void OnViewRecycled()
         {
             StubImageView.Visibility = ViewStates.Visible;
             LoadingProgressBar.Visibility = ViewStates.Invisible;
 
             base.OnViewRecycled();
-        }
-
-        public void OnRenderingStarted()
-        {
-            StubImageView.Visibility = ViewStates.Invisible;
-            LoadingProgressBar.Visibility = ViewStates.Invisible;
         }
     }
 }
