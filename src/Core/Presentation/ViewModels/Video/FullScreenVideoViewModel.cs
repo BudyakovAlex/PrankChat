@@ -66,13 +66,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         public MvxRestrictedAsyncCommand OpenCommentsCommand { get; }
 
-        private string _videoUrl;
-        public string VideoUrl
-        {
-            get => _videoUrl;
-            private set => SetProperty(ref _videoUrl, value);
-        }
-
         public bool IsMuted
         {
             get => Preferences.Get(Constants.Keys.MuteStateKey, false);

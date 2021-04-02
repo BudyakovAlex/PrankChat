@@ -70,7 +70,6 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             if (_isPrepared && !IsPlaying)
             {
                 _mediaPlayer.Start();
-
                 _isPlayNeeded = false;
 
                 VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Started);
@@ -84,8 +83,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
         {
             if (_isPrepared && IsPlaying)
             {
-                _mediaPlayer.Pause();
-                _mediaPlayer.SeekTo(0);
+                _mediaPlayer.Stop();
             }
 
             VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Stopped);
@@ -171,24 +169,20 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         private void SetupNewMediaPlayerIfNeeded()
         {
-            if (_isPrepared)
+            if (_mediaPlayer != null)
             {
                 _mediaPlayer.Reset();
                 _mediaPlayer.Release();
                 _mediaPlayer.Dispose();
-                _mediaPlayer = null;
-
-                _isPrepared = false;
             }
 
-            if (_mediaPlayer is null)
-            {
-                _mediaPlayer = new MediaPlayer();
-                _mediaPlayer.SetAudioStreamType(Stream.Music);
-                _mediaPlayer.SetOnVideoSizeChangedListener(new MediaPlayerOnVideoSizeChanged(OnPlayerSizeChanged));
-                _mediaPlayer.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepeared));
-                _mediaPlayer.SetOnErrorListener(new MediaPlayerOnErrorListener(OnError));
-            }
+            _isPrepared = false;
+
+            _mediaPlayer = new MediaPlayer();
+            _mediaPlayer.SetAudioStreamType(Stream.Music);
+            _mediaPlayer.SetOnVideoSizeChangedListener(new MediaPlayerOnVideoSizeChanged(OnPlayerSizeChanged));
+            _mediaPlayer.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepeared));
+            _mediaPlayer.SetOnErrorListener(new MediaPlayerOnErrorListener(OnError));
         }
 
         protected override void Dispose(bool disposing)

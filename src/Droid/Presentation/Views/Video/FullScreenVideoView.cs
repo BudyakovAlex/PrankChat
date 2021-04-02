@@ -168,7 +168,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.CurrentVideo.IsDisliked);
             bindingSet.Bind(this).For(v => v.IsSubscribed).To(vm => vm.CurrentVideo.IsSubscribedToUser);
 
-            bindingSet.Bind(_videoView).For(VideoUrlTargetBinding.TargetBinding).To(vm => vm.VideoUrl);
+            bindingSet.Bind(_videoView).For(VideoUrlTargetBinding.TargetBinding).To(vm => vm.CurrentVideo.VideoUrl);
             bindingSet.Bind(_mediaController).For(v => v.IsMuted).To(vm => vm.IsMuted).TwoWay();
 
             bindingSet.Bind(_backImageView).For(v => v.BindClick()).To(vm => vm.CloseCommand);
