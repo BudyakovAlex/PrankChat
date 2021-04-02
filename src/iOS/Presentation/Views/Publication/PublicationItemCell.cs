@@ -66,17 +66,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         }
 
         public override MvxCachedImageView StubImageView => stubImageView;
-
         protected override UIView VideoView => videoView;
-
         protected override UIActivityIndicatorView LoadingActivityIndicator => loadingActivityIndicator;
-
         protected override UIView RootProcessingBackgroundView => placeProcessingOverlay;
-
         protected override UIView ProcessingBackgroundView => processingBackgroundView;
-
         protected override UIActivityIndicatorView ProcessingActivityIndicator => processingIndicatorView;
-
         protected override UILabel ProcessingLabel => processingLabel;
 
         protected override void SetupControls()
@@ -109,9 +103,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             processingBackgroundView.Layer.CornerRadius = 8;
         }
 
-        protected override void SetBindings()
+        protected override void Bind()
         {
-            var bindingSet = this.CreateBindingSet<PublicationItemCell, PublicationItemViewModel>();
+            base.Bind();
+
+            using var bindingSet = this.CreateBindingSet<PublicationItemCell, PublicationItemViewModel>();
 
             bindingSet.Bind(this).For(v => v.IsLiked).To(vm => vm.IsLiked);
             bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.IsDisliked);
@@ -146,9 +142,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             bindingSet.Bind(competitionBorderView).For(v => v.BindVisible()).To(vm => vm.IsCompetitionVideo);
             bindingSet.Bind(competitionCupImageView).For(v => v.BindVisible()).To(vm => vm.IsCompetitionVideo);
-            bindingSet.Bind(this).For(v => v.VideoPlayer).To(vm => vm.PreviewVideoPlayer);
-
-            bindingSet.Apply();
         }
     }
 }

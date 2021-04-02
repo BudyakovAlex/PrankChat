@@ -9,6 +9,7 @@ using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.ViewModels;
 using ObjCRuntime;
+using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
@@ -62,14 +63,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             }
         }
 
-        private string _videoUrl;
-        public string VideoUrl
+        private IVideoPlayer _videoPlayer;
+        public IVideoPlayer VideoPlayer
         {
-            get => _videoUrl;
+            get => _videoPlayer;
             set
             {
-                _videoUrl = value;
-                if (_videoUrl is null)
+                _videoPlayer = value;
+                if (_videoPlayer is null)
                 {
                     return;
                 }
@@ -178,15 +179,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             dislikeImageView.Image = dislikeImageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
 
             overlayView.AddGestureRecognizer(new UITapGestureRecognizer(_ => overlayView.Hidden = true));
-
             playButton.AddGestureRecognizer(new UITapGestureRecognizer(PlayButtonTap));
-
             muteButton.AddGestureRecognizer(new UITapGestureRecognizer(MuteButtonTap));
-
             closeButton.AddGestureRecognizer(new UITapGestureRecognizer(Close));
-
             watchProgressControlContainer.AddGestureRecognizer(new UIPanGestureRecognizer(WatchProgressControlContainerPan));
-
             View.AddGestureRecognizer(new UIPanGestureRecognizer(ViewPan));
         }
 
@@ -198,78 +194,28 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
             bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.CurrentVideo.IsDisliked);
             bindingSet.Bind(this).For(v => v.IsSubscribed).To(vm => vm.CurrentVideo.IsSubscribedToUser);
+            bindingSet.Bind(this).For(v => v.VideoPlayer).To(vm => vm.CurrentVideo.FullVideoPlayer);
+            bindingSet.Bind(this).For(v => v.IsLiked).To(vm => vm.CurrentVideo.IsLiked);
+            bindingSet.Bind(this).For(v => v.IsMuted).To(vm => vm.IsMuted).TwoWay();
 
-            bindingSet.Bind(this)
-                      .For(v => v.VideoUrl)
-                      .To(vm => vm.VideoUrl);
+            bindingSet.Bind(titleLabel).For(v => v.Text).To(vm => vm.CurrentVideo.VideoName);
+            bindingSet.Bind(descriptionLabel).For(v => v.Text).To(vm => vm.CurrentVideo.Description);
 
-            bindingSet.Bind(titleLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.CurrentVideo.VideoName);
-            bindingSet.Bind(descriptionLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.CurrentVideo.Description);
+            bindingSet.Bind(profileView).For(v => v.BindTap()).To(vm => vm.OpenUserProfileCommand);
+            bindingSet.Bind(profileImageView).For(v => v.ImagePath).To(vm => vm.CurrentVideo.AvatarUrl);
+            bindingSet.Bind(profileImageView).For(v => v.PlaceholderText).To(vm => vm.CurrentVideo.ProfileShortName);
+            bindingSet.Bind(commentsView).For(v => v.BindTap()).To(vm => vm.OpenCommentsCommand);
 
-            bindingSet.Bind(profileView)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.OpenUserProfileCommand);
+            bindingSet.Bind(likeView).For(v => v.BindTap()).To(vm => vm.CurrentVideo.LikeCommand);
+            bindingSet.Bind(likeView).For(v => v.UserInteractionEnabled).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(dislikeView).For(v => v.BindTap()).To(vm => vm.CurrentVideo.DislikeCommand);
+            bindingSet.Bind(dislikeView).For(v => v.UserInteractionEnabled).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(likeLabel).For(v => v.Text).To(vm => vm.NumberOfLikesPresentation);
+            bindingSet.Bind(dislikeLabel).For(v => v.Text).To(vm => vm.NumberOfDislikesPresentation);
 
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.CurrentVideo.AvatarUrl);
-
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.PlaceholderText)
-                      .To(vm => vm.CurrentVideo.ProfileShortName);
-
-            bindingSet.Bind(commentsView)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.OpenCommentsCommand);
-
-            bindingSet.Bind(likeView)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.CurrentVideo.LikeCommand);
-
-            bindingSet.Bind(likeView)
-                      .For(v => v.UserInteractionEnabled)
-                      .To(vm => vm.CurrentVideo.CanVoteVideo);
-
-            bindingSet.Bind(dislikeView)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.CurrentVideo.DislikeCommand);
-
-            bindingSet.Bind(dislikeView)
-                      .For(v => v.UserInteractionEnabled)
-                      .To(vm => vm.CurrentVideo.CanVoteVideo);
-
-            bindingSet.Bind(this)
-                      .For(v => v.IsLiked)
-                      .To(vm => vm.CurrentVideo.IsLiked);
-
-            bindingSet.Bind(this)
-                      .For(v => v.IsMuted)
-                      .To(vm => vm.IsMuted)
-                      .TwoWay();
-
-            bindingSet.Bind(likeLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.NumberOfLikesPresentation);
-
-            bindingSet.Bind(dislikeLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.NumberOfDislikesPresentation);
-
-            bindingSet.Bind(commentsLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.NumberOfCommentsPresentation);
-
-            bindingSet.Bind(shareButton)
-                      .For(v => v.BindTouchUpInside())
-                      .To(vm => vm.ShareCommand);
-
-            bindingSet.Bind(this)
-                      .For(v => v.Interaction)
-                      .To(vm => vm.Interaction);
+            bindingSet.Bind(commentsLabel).For(v => v.Text).To(vm => vm.NumberOfCommentsPresentation);
+            bindingSet.Bind(shareButton).For(v => v.BindTouchUpInside()).To(vm => vm.ShareCommand);
+            bindingSet.Bind(this).For(v => v.Interaction).To(vm => vm.Interaction);
 
             bindingSet.Apply();
         }
@@ -308,9 +254,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private void InitializePlayer()
         {
-            var url = new NSUrl(_videoUrl);
-            var playerItem = new AVPlayerItem(url);
-
             if (_player != null)
             {
                 _player.RemoveTimeObserver(_playerPerdiodicTimeObserver);
@@ -318,15 +261,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                 _player.RemoveObserver(this, PlayerMutedKey, IntPtr.Zero);
                 _player.CurrentItem.RemoveObserver(this, PlayerItemLoadedTimeRangesKey, IntPtr.Zero);
 
+                _player.Seek(CMTime.Zero);
                 _player.Pause();
-                _player.Dispose();
             }
 
-            _player = new AVPlayer(playerItem)
-            {
-                Muted = _isMuted
-            };
-
+            _player = VideoPlayer.GetNativePlayer() as AVPlayer;
             PlayerMutedChanged();
 
             if (_playToEndObserver != null)
@@ -334,7 +273,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                 NSNotificationCenter.DefaultCenter.RemoveObserver(_playToEndObserver);
             }
 
-            _playToEndObserver = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, OnPlayerPlayedToEnd, playerItem);
+            _playToEndObserver = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, OnPlayerPlayedToEnd, _player.CurrentItem);
 
             _playerPerdiodicTimeObserver = _player.AddPeriodicTimeObserver(new CMTime(1, 2), DispatchQueue.MainQueue, PlayerTimeChanged);
             _player.AddObserver(this, PlayerTimeControlStatusKey, NSKeyValueObservingOptions.New, IntPtr.Zero);
@@ -526,8 +465,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                 _player.RemoveObserver(this, PlayerMutedKey, IntPtr.Zero);
                 _player.CurrentItem.RemoveObserver(this, PlayerItemLoadedTimeRangesKey, IntPtr.Zero);
 
+                _player.Seek(CMTime.Zero);
                 _player.Pause();
-                _player.Dispose();
             }
 
             if (_playToEndObserver != null)

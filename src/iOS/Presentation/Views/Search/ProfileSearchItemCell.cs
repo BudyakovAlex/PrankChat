@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
             profileDescriptionLabel.SetSmallSubtitleStyle();
         }
 
-        protected override void SetBindings()
+        protected override void Bind()
         {
             var set = this.CreateBindingSet<ProfileSearchItemCell, ProfileSearchItemViewModel>();
 

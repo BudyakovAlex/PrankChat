@@ -3,6 +3,8 @@ using CoreAnimation;
 using CoreGraphics;
 using FFImageLoading.Cross;
 using Foundation;
+using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
@@ -148,6 +150,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
                 _videoLayer.Player = player;
                 VideoView.LayoutIfNeeded();
             }
+        }
+
+        protected override void Bind()
+        {
+            base.Bind();
+
+            using var bindingSet = this.CreateBindingSet<BaseVideoTableCell, BaseVideoItemViewModel>();
+
+            bindingSet.Bind(this).For(v => v.VideoPlayer).To(vm => vm.PreviewVideoPlayer);
         }
     }
 

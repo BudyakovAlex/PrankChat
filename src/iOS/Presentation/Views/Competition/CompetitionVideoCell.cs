@@ -94,9 +94,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             InitializeLikeButton();
         }
 
-        protected override void SetBindings()
+        protected override void Bind()
         {
-            base.SetBindings();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<CompetitionVideoCell, CompetitionVideoViewModel>();
 

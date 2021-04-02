@@ -163,7 +163,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         private void MoveNext()
         {
-            if (_index - 1 == _videos.Length)
+            if (_index == _videos.Length - 1)
             {
                 return;
             }

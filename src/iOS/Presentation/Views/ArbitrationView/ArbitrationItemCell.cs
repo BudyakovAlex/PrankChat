@@ -47,7 +47,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 			OrderStatusLabel.Text = Resources.OrderStatus_InArbitration;
 		}
 
-		protected override void SetBindings()
+		protected override void Bind()
 		{
 			var set = this.CreateBindingSet<ArbitrationItemCell, ArbitrationOrderItemViewModel>();
 
