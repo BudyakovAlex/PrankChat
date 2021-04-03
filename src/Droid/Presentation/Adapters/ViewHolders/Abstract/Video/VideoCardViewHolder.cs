@@ -6,6 +6,8 @@ using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Droid.Controls;
+using PrankChat.Mobile.Droid.Extensions;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Video
 {
@@ -25,21 +27,37 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
 
         public ProgressBar LoadingProgressBar { get; private set; }
 
-        private bool _canShowStub = true;
-        public bool CanShowStub
+        private bool _isVideoProcessing;
+        public bool IsVideoProcessing
         {
-            get => _canShowStub;
+            get => _isVideoProcessing;
             set
             {
-                _canShowStub = value;
-                if (!value)
+                _isVideoProcessing = value;
+                if (_isVideoProcessing)
                 {
-                    StubImageView.Visibility = ViewStates.Invisible;
+                    HideStubs();
+                }
+                else
+                {
+                    StubImageView.Visibility = ViewStates.Visible;
                 }
             }
         }
 
-        public IVideoPlayer VideoPlayer { get; set; }
+        private IVideoPlayer _videoPlayer;
+        public IVideoPlayer VideoPlayer
+        {
+            get => _videoPlayer;
+            set
+            {
+                _videoPlayer = value;
+                if (_videoPlayer != null)
+                {
+                    _videoPlayer.ReadyToPlayAction = HideStubs;
+                }
+            }
+        }
 
         protected override void DoInit(View view)
         {
@@ -60,6 +78,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
             using var bindingSet = this.CreateBindingSet<VideoCardViewHolder<TViewModel>, BaseVideoItemViewModel>();
 
             bindingSet.Bind(this).For(v => v.VideoPlayer).To(vm => vm.PreviewVideoPlayer);
+            bindingSet.Bind(this).For(v => v.IsVideoProcessing).To(vm => vm.IsVideoProcessing);
         }
 
         public override void OnViewRecycled()
@@ -68,6 +87,18 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
             LoadingProgressBar.Visibility = ViewStates.Invisible;
 
             base.OnViewRecycled();
+        }
+
+        public void ShowStubAndLoader()
+        {
+            StubImageView.Visibility = ViewStates.Visible;
+            LoadingProgressBar.Visibility = ViewStates.Visible;
+        }
+
+        private void HideStubs()
+        {
+            StubImageView.Visibility = ViewStates.Invisible;
+            LoadingProgressBar.Visibility = ViewStates.Invisible;
         }
     }
 }

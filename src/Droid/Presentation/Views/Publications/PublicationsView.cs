@@ -38,7 +38,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private Typeface _unselectedTypeface;
         private EndlessRecyclerView _publicationRecyclerView;
         private FrameLayout _loadingOverlay;
-        private VideoViewRecyclerViewScrollListener _stateScrollListener;
+        private VideoRecyclerViewScrollListener _stateScrollListener;
 
         private SafeLinearLayoutManager _layoutManager;
 
@@ -131,7 +131,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             _publicationRecyclerView.ItemTemplateSelector = new TemplateSelector()
                 .AddElement<PublicationItemViewModel, PublicationItemViewHolder>(Resource.Layout.cell_publication);
 
-            _stateScrollListener = new VideoViewRecyclerViewScrollListener(_layoutManager);
+            _stateScrollListener = new VideoRecyclerViewScrollListener(_layoutManager);
             _publicationRecyclerView.AddOnScrollListener(_stateScrollListener);
 
             var dividerItemDecoration = new DividerItemDecoration(Context, LinearLayoutManager.Vertical);

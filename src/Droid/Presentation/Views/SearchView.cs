@@ -58,7 +58,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             _adapter = new RecycleViewBindableAdapter((IMvxAndroidBindingContext)BindingContext);
             _recyclerView.Adapter = _adapter;
 
-            var scrollListener = new VideoViewRecyclerViewScrollListener(_layoutManager);
+            var scrollListener = new VideoRecyclerViewScrollListener(_layoutManager);
             _recyclerView.AddOnScrollListener(scrollListener);
 
             _recyclerView.ItemTemplateSelector = new TemplateSelector()

@@ -117,11 +117,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .For(v => v.BindHidden())
                       .To(vm => vm.IsVideoProcessing);
 
-            bindingSet.Bind(this)
-                      .For(v => v.CanShowStub)
-                      .To(vm => vm.IsVideoProcessing)
-                      .WithConversion<MvxInvertedBooleanConverter>();
-
             bindingSet.Apply();
         }
     }

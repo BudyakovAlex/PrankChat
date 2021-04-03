@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video.Listeners
 {
-    public class VideoViewRecyclerViewScrollListener : RecyclerView.OnScrollListener
+    public class VideoRecyclerViewScrollListener : RecyclerView.OnScrollListener
     {
         private IVideoViewHolder _previousVideoViewHolder;
 
         private SafeLinearLayoutManager _layoutManager;
 
-        public VideoViewRecyclerViewScrollListener(SafeLinearLayoutManager layoutManager)
+        public VideoRecyclerViewScrollListener(SafeLinearLayoutManager layoutManager)
         {
             _layoutManager = layoutManager;
         }
@@ -45,9 +45,10 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video.Listeners
                 : targetPosition;
 
             var viewHolder = recyclerView.FindViewHolderForAdapterPosition(targetPosition);
-            if (viewHolder is IVideoViewHolder itemViewHolder)
+            if (viewHolder is IVideoViewHolder itemViewHolder &&
+                itemViewHolder != _previousVideoViewHolder)
             {
-                itemViewHolder.LoadingProgressBar.Visibility = ViewStates.Visible;
+                itemViewHolder.ShowStubAndLoader();
                 PlayVideo(itemViewHolder);
             }
 
@@ -67,9 +68,6 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video.Listeners
 
             videoPlayer.SetPlatformVideoPlayerContainer(itemViewHolder.TextureView);
             videoPlayer.Play();
-
-            itemViewHolder.StubImageView.Visibility = ViewStates.Invisible;
-            itemViewHolder.LoadingProgressBar.Visibility = ViewStates.Invisible;
 
             _previousVideoViewHolder = itemViewHolder;
         }

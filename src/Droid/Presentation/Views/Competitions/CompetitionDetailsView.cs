@@ -64,7 +64,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
                 .AddElement<CompetitionDetailsHeaderViewModel, CompetitionDetailsHeaderViewHolder>(Resource.Layout.cell_competition_details_header)
                 .AddElement<CompetitionVideoViewModel, CompetitionVideoViewHolder>(Resource.Layout.cell_competition_video);
 
-            var stateScrollListener = new VideoViewRecyclerViewScrollListener(_layoutManager);
+            var stateScrollListener = new VideoRecyclerViewScrollListener(_layoutManager);
             _recyclerView.AddOnScrollListener(stateScrollListener);
 
             _uploadingContainerView = FindViewById<View>(Resource.Id.uploading_progress_container);

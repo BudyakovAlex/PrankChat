@@ -14,5 +14,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
         MvxCachedImageView StubImageView { get; }
 
         ProgressBar LoadingProgressBar { get; }
+
+        void ShowStubAndLoader();
     }
 }

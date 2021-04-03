@@ -87,6 +87,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
 
         public int UserId => User?.Id ?? 0;
 
+        public bool IsVideoProcessing => VideoUrl.IsNullOrEmpty();
+
         private bool _isSubscribedToUser;
         public bool IsSubscribedToUser
         {

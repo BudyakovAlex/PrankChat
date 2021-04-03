@@ -49,8 +49,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public bool IsVotingAvailable { get; }
 
-        public bool IsVideoProcessing => string.IsNullOrEmpty(VideoUrl);
-
         public string LikesCount => CountExtensions.ToCountString(NumberOfLikes);
 
         public string ViewsCount => CountExtensions.ToCountViewsString(NumberOfViews);

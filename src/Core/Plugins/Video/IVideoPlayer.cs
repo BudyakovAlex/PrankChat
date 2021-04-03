@@ -21,6 +21,8 @@ namespace PrankChat.Mobile.Core.BusinessServices
 
         object GetNativePlayer();
 
+        Action ReadyToPlayAction { get; set; }
+
         event EventHandler<VideoPlayingStatus> VideoPlayingStatusChanged;
     }
 }

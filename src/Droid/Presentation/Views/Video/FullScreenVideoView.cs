@@ -146,7 +146,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 
             _videoView = FindViewById<ExtendedVideoView>(Resource.Id.video_view);
             _videoView.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepared));
-
             _mediaController = new CustomMediaControllerView(this)
             {
                 Visibility = ViewStates.Gone,

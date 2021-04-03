@@ -1,19 +1,31 @@
-﻿using Android.Media;
+﻿using Android.App;
+using Android.Media;
+using Android.OS;
+using Android.Runtime;
 using Android.Views;
+using Microsoft.AppCenter.Crashes;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Data.Enums;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Droid.Controls;
-using PrankChat.Mobile.Droid.Presentation.Listeners;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 {
-    public class VideoPlayer : Java.Lang.Object, IVideoPlayer
+    public class VideoPlayer : Java.Lang.Object,
+        IVideoPlayer,
+        MediaPlayer.IOnPreparedListener,
+        MediaPlayer.IOnVideoSizeChangedListener,
+        MediaPlayer.IOnErrorListener,
+        MediaPlayer.IOnInfoListener,
+        MediaPlayer.IOnCompletionListener
     {
         private AutoFitTextureView _textureView;
         private Surface _surface;
         private MediaPlayer _mediaPlayer;
+        private CancellationTokenSource _registrationCancellationTokenSource;
 
         private bool _isPrepared;
         private bool _isPlayNeeded;
@@ -26,11 +38,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         public event EventHandler<VideoPlayingStatus> VideoPlayingStatusChanged;
 
-        public bool CanRepeat
-        {
-            get => _mediaPlayer.Looping;
-            set => _mediaPlayer.Looping = value;
-        }
+        public bool CanRepeat { get; set; }
 
         private bool _isMuted;
         public bool IsMuted
@@ -51,7 +59,19 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         public bool IsPlaying => _mediaPlayer.IsPlaying;
 
+        public Action ReadyToPlayAction { get; set; }
+
         public object GetNativePlayer() => _mediaPlayer;
+
+        public void OnPrepared(MediaPlayer mp)
+        {
+            _isPrepared = true;
+
+            if (_isPlayNeeded)
+            {
+                Play();
+            }
+        }
 
         public void Pause()
         {
@@ -67,6 +87,9 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         public void Play()
         {
+            _registrationCancellationTokenSource?.Cancel();
+            _registrationCancellationTokenSource = null;
+
             if (_isPrepared && !IsPlaying)
             {
                 _mediaPlayer.Start();
@@ -110,46 +133,12 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             _url = url;
         }
 
-        private async Task ResetPlayerAsync()
-        {
-            await Task.Delay(100);
-
-            if (string.IsNullOrWhiteSpace(_url))
-            {
-                return;
-            }
-
-            if (IsPlaying)
-            {
-                _mediaPlayer.Stop();
-            }
-
-            if (_textureView?.SurfaceTexture is null)
-            {
-                return;
-            }
-
-            if (_surface != null)
-            {
-                _surface.Release();
-                _surface.Dispose();
-            }
-
-            _surface = new Surface(_textureView.SurfaceTexture);
-
-            SetupNewMediaPlayerIfNeeded();
-
-            _mediaPlayer.SetSurface(_surface);
-            await _mediaPlayer.SetDataSourceAsync(_url);
-            _mediaPlayer.PrepareAsync();
-        }
-
-        private void OnPlayerSizeChanged(MediaPlayer mp, int width, int height)
+        public void OnVideoSizeChanged(MediaPlayer mp, int width, int height)
         {
             _textureView?.SetAspectRatio(width, height);
         }
 
-        private bool OnError(MediaPlayer mp, MediaError error, int arg3)
+        public bool OnError(MediaPlayer mp, [GeneratedEnum] MediaError what, int extra)
         {
             System.Diagnostics.Debug.WriteLine("Attempt to restore media player");
 
@@ -157,13 +146,56 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             return true;
         }
 
-        private void OnMediaPlayerPrepeared(MediaPlayer mediaPlayer)
+        public bool OnInfo(MediaPlayer mp, [GeneratedEnum] MediaInfo what, int extra)
         {
-            _isPrepared = true;
-
-            if (_isPlayNeeded)
+            if (what == MediaInfo.VideoRenderingStart)
             {
-                Play();
+                ReadyToPlayAction?.Invoke();
+                _ = RegisterVideoPlayingPartiallyCallbackAsync(_url);
+            }
+
+            return true;
+        }
+
+        public void OnCompletion(MediaPlayer mp) =>
+            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Played);
+
+        private async Task ResetPlayerAsync()
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(_url))
+                {
+                    return;
+                }
+
+                if (IsPlaying)
+                {
+                    _mediaPlayer.Stop();
+                }
+
+                if (_textureView?.SurfaceTexture is null)
+                {
+                    return;
+                }
+
+                if (_surface != null)
+                {
+                    _surface.Release();
+                    _surface.Dispose();
+                }
+
+                _surface = new Surface(_textureView.SurfaceTexture);
+
+                SetupNewMediaPlayerIfNeeded();
+
+                _mediaPlayer.SetSurface(_surface);
+                await _mediaPlayer.SetDataSourceAsync(_url);
+                _mediaPlayer.PrepareAsync();
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
             }
         }
 
@@ -178,11 +210,40 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
             _isPrepared = false;
 
-            _mediaPlayer = new MediaPlayer();
-            _mediaPlayer.SetAudioStreamType(Stream.Music);
-            _mediaPlayer.SetOnVideoSizeChangedListener(new MediaPlayerOnVideoSizeChanged(OnPlayerSizeChanged));
-            _mediaPlayer.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepeared));
-            _mediaPlayer.SetOnErrorListener(new MediaPlayerOnErrorListener(OnError));
+            _mediaPlayer = new MediaPlayer
+            {
+                Looping = CanRepeat
+            };
+
+            _mediaPlayer.SetAudioAttributes(new AudioAttributes.Builder()
+                .SetLegacyStreamType(Stream.Music)
+                .Build());
+
+            _mediaPlayer.SetWakeMode(Application.Context, WakeLockFlags.Partial);
+            _mediaPlayer.SetOnInfoListener(this);
+            _mediaPlayer.SetOnVideoSizeChangedListener(this);
+            _mediaPlayer.SetOnPreparedListener(this);
+            _mediaPlayer.SetOnErrorListener(this);
+            _mediaPlayer.SetOnCompletionListener(this);
+        }
+
+        private async Task RegisterVideoPlayingPartiallyCallbackAsync(string videoUrl)
+        {
+            try
+            {
+                _registrationCancellationTokenSource = new CancellationTokenSource();
+                await Task.Delay(TimeSpan.FromSeconds(Constants.Delays.VideoPartiallyPlayedDelay), _registrationCancellationTokenSource.Token);
+                _registrationCancellationTokenSource = null;
+
+                if (videoUrl == _url && IsPlaying)
+                {
+                    VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.PartiallyPlayed);
+                }
+            }
+            catch
+            {
+                System.Diagnostics.Debug.WriteLine("Failed to register partially played action");
+            }
         }
 
         protected override void Dispose(bool disposing)
