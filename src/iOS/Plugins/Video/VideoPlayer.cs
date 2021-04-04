@@ -13,10 +13,15 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 {
     public class VideoPlayer : NSObject, IVideoPlayer
     {
+        private const string StatusKey = "status";
+
         private readonly CompositeDisposable _disposables;
         private readonly AVPlayer _player;
 
         private bool _isDisposed;
+
+        private bool _isPrepared;
+        private bool _isPlayNeeded;
 
         public VideoPlayer()
         {
@@ -46,16 +51,47 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
         public bool CanRepeat { get; set; }
 
+        public Action ReadyToPlayAction { get; set; }
+
         public void SetVideoUrl(string url)
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
+                _isPrepared = false;
+
+                if (_player.CurrentItem != null)
+                {
+                    _player.CurrentItem.RemoveObserver(this, StatusKey);
+                }
+
                 var playerItem = AVPlayerItem.FromUrl(NSUrl.FromString(url));
+                playerItem.AddObserver(this, StatusKey, NSKeyValueObservingOptions.OldNew, IntPtr.Zero);
+
                 _player.ReplaceCurrentItemWithPlayerItem(playerItem);
 
                 AVPlayerItem.Notifications.ObserveDidPlayToEndTime(playerItem, OnVideoEnded)
                     .DisposeWith(_disposables);
             });
+        }
+
+        public override void ObserveValue(NSString keyPath, NSObject ofObject, NSDictionary change, IntPtr context)
+        {
+            if (keyPath != StatusKey)
+            {
+                return;
+            }
+
+            if (_player.Status != AVPlayerStatus.ReadyToPlay)
+            {
+                return;
+            }
+
+            _isPrepared = true;
+            if (_isPlayNeeded)
+            {
+                Play();
+                _isPlayNeeded = false;
+            }
         }
 
         public void Play()
@@ -67,7 +103,14 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
                     return;
                 }
 
+                if (!_isPrepared)
+                {
+                    _isPlayNeeded = true;
+                }
+
                 _player.Play();
+                ReadyToPlayAction?.Invoke();
+
                 IsPlaying = true;
                 VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Started);
             });
@@ -84,6 +127,7 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
                 _player.Pause();
                 IsPlaying = false;
+                _isPlayNeeded = false;
 
                 VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Paused);
             });
@@ -101,6 +145,7 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
                 _player.Pause();
                 _player.Seek(new CMTime(0, 1));
 
+                _isPlayNeeded = false;
                 IsPlaying = false;
                 VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Stopped);
             });
@@ -122,14 +167,18 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
         private void OnVideoEnded(object sender, NSNotificationEventArgs e)
         {
-            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Played);
-            if (!CanRepeat)
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                IsPlaying = false;
-                return;
-            }
+                VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Played);
+                if (!CanRepeat)
+                {
+                    IsPlaying = false;
+                    _isPlayNeeded = false;
+                    return;
+                }
 
-            _player.Seek(new CMTime(0, 1));
+                _player.Seek(new CMTime(0, 1));
+            });
         }
     }
 }

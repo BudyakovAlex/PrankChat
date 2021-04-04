@@ -24,17 +24,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         }
 
         public override MvxCachedImageView StubImageView => stubImageView;
-
+        public override UIActivityIndicatorView LoadingActivityIndicator => loadingActivityIndicator;
         protected override UIView VideoView => videoView;
-
-        protected override UIActivityIndicatorView LoadingActivityIndicator => loadingActivityIndicator;
-
         protected override UIView RootProcessingBackgroundView => rootProcessingBackgroundView;
-
         protected override UIView ProcessingBackgroundView => processingBackgroundView;
-
         protected override UILabel ProcessingLabel => processingLabel;
-
         protected override UIActivityIndicatorView ProcessingActivityIndicator => processingIndicatorView;
 
         public bool IsLikeButtonVisible

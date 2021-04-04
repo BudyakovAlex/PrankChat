@@ -66,8 +66,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         }
 
         public override MvxCachedImageView StubImageView => stubImageView;
+        public override UIActivityIndicatorView LoadingActivityIndicator => loadingActivityIndicator;
         protected override UIView VideoView => videoView;
-        protected override UIActivityIndicatorView LoadingActivityIndicator => loadingActivityIndicator;
         protected override UIView RootProcessingBackgroundView => placeProcessingOverlay;
         protected override UIView ProcessingBackgroundView => processingBackgroundView;
         protected override UIActivityIndicatorView ProcessingActivityIndicator => processingIndicatorView;

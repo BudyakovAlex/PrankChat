@@ -43,7 +43,6 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
 
         public override void DecelerationEnded(UIScrollView scrollView)
         {
-            StopVideo(_previousVideoCell);
             PrepareCellsForPlayingVideoAsync().FireAndForget();
         }
 
@@ -112,7 +111,7 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
                 cellToPlay = lastCompletelyVisibleCell;
             }
 
-            if (cellToPlay is null)
+            if (cellToPlay?.VideoPlayer is null)
             {
                 return Task.CompletedTask;
             }
@@ -125,19 +124,9 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
         {
             StopVideo(_previousVideoCell);
 
-            if (cell is null)
-            {
-                return;
-            }
-
-            var player = cell.VideoPlayer;
-            if (player.IsPlaying)
-            {
-                return;
-            }
-
+            cell.LoadingActivityIndicator.Hidden = false;
+            cell.LoadingActivityIndicator.StartAnimating();
             cell.VideoPlayer.Play();
-            cell.StubImageView.Hidden = true;
             _previousVideoCell = cell;
         }
 
