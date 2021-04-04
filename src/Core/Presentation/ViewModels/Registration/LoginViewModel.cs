@@ -62,15 +62,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             try
             {
-                if (!UserSessionProvider.IsDebugMode)
+                var isUpToDate = await CheckIsAppUpToDateAsync();
+                if (!isUpToDate)
                 {
-                    var newActualVersion = await VersionManager.CheckAppVersionAsync();
-                    if (!string.IsNullOrEmpty(newActualVersion?.Link))
-                    {
-                        await NavigationManager.NavigateAsync<MaintananceViewModel, string>(newActualVersion?.Link);
-                        return;
-                    }
+                    return;
                 }
+
                 if (!Enum.TryParse<LoginType>(loginType, out var socialNetworkType))
                 {
                     throw new ArgumentException(nameof(loginType));
@@ -115,14 +112,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         private async Task LoginWithAppleAsync(AppleAuth appleAuth)
         {
-            if (!UserSessionProvider.IsDebugMode)
+            var isUpToDate = await CheckIsAppUpToDateAsync();
+            if (!isUpToDate)
             {
-                var newActualVersion = await VersionManager.CheckAppVersionAsync();
-                if (!string.IsNullOrEmpty(newActualVersion?.Link))
-                {
-                    await NavigationManager.NavigateAsync<MaintananceViewModel, string>(newActualVersion?.Link);
-                    return;
-                }
+                return;
             }
 
             try
@@ -162,6 +155,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             {
                 ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Password, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Password field can't be empty.");
+                return false;
+            }
+
+            return true;
+        }
+
+        private async Task<bool> CheckIsAppUpToDateAsync()
+        {
+            var newActualVersion = await VersionManager.CheckAppVersionAsync();
+            if (!string.IsNullOrEmpty(newActualVersion?.Link))
+            {
+                await NavigationManager.NavigateAsync<MaintananceViewModel, string>(newActualVersion?.Link);
                 return false;
             }
 

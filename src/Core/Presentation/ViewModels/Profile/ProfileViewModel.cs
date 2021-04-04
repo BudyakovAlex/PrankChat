@@ -1,12 +1,11 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Orders;
 using PrankChat.Mobile.Core.Managers.Users;
-using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -14,13 +13,13 @@ using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items;
 using PrankChat.Mobile.Core.Providers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,18 +27,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 {
     public class ProfileViewModel : BaseProfileViewModel
     {
+        private readonly IVideoManager _videoManager;
         private readonly IOrdersManager _ordersManager;
-        private readonly IVideoPlayerService _videoPlayerService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
         public ProfileViewModel(
+            IVideoManager videoManager,
             IOrdersManager ordersManager,
             IUsersManager usersManager,
-            IVideoPlayerService videoPlayerService,
             IWalkthroughsProvider walkthroughsProvider) : base(usersManager)
         {
+            _videoManager = videoManager;
             _ordersManager = ordersManager;
-            _videoPlayerService = videoPlayerService;
             _walkthroughsProvider = walkthroughsProvider;
 
             Items = new MvxObservableCollection<OrderItemViewModel>();
@@ -52,7 +51,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             LoadProfileCommand = this.CreateCommand(LoadProfileAsync);
             ShowUpdateProfileCommand = this.CreateCommand(ShowUpdateProfileAsync);
 
-            Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<OrderChangedMessage>((msg) => ReloadItemsCommand?.Execute()).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<SubscriptionChangedMessage>((msg) => LoadProfileCommand.Execute()).DisposeWith(Disposables);
         }
@@ -115,24 +113,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public IMvxAsyncCommand ShowUpdateProfileCommand { get; }
 
-        public override async Task InitializeAsync()
+        public override Task InitializeAsync()
         {
             SelectedOrderType = ProfileOrderType.MyOrdered;
-            await base.InitializeAsync();
+            
+            _ = SafeExecutionWrapper.WrapAsync(async () =>
+            {
+                await base.InitializeAsync();
+                await LoadProfileAsync();
+            });
 
-            _ = SafeExecutionWrapper.WrapAsync(LoadProfileAsync);
-        }
-
-        public override void ViewDisappearing()
-        {
-            _videoPlayerService.Pause();
-            base.ViewDisappearing();
-        }
-
-        public override void ViewAppeared()
-        {
-            base.ViewAppeared();
-            _videoPlayerService.Play();
+            return Task.CompletedTask;
         }
 
         private void OnSelectedOrderTypeChanged()
@@ -276,6 +267,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         private OrderItemViewModel ProduceOrderItemViewModel(Models.Data.Order order)
         {
             return new OrderItemViewModel(
+                _videoManager,
                 UserSessionProvider,
                 order,
                 GetFullScreenVideos);
@@ -298,11 +290,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             return viewModels.Count;
         }
 
-        private List<FullScreenVideo> GetFullScreenVideos()
+        private BaseVideoItemViewModel[] GetFullScreenVideos()
         {
-            return Items.Where(item => item.CanPlayVideo)
-                        .Select(item => item.GetFullScreenVideo())
-                        .ToList();
+            return Items.Where(item => item.VideoItemViewModel != null)
+                        .Select(item => item.VideoItemViewModel)
+                        .ToArray();
         }
     }
 }

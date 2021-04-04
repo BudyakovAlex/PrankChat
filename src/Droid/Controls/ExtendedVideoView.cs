@@ -8,7 +8,7 @@ namespace PrankChat.Mobile.Droid.Controls
 {
     public class ExtendedVideoView : VideoView
     {
-        private IOnVideoViewStateChangedListener onVideoViewStateChangedListener;
+        private IOnVideoViewStateChangedListener _onVideoViewStateChangedListener;
 
         public ExtendedVideoView(Context context) : base(context)
         {
@@ -32,25 +32,25 @@ namespace PrankChat.Mobile.Droid.Controls
 
         public void SetOnVideoViewStateChangedListener(IOnVideoViewStateChangedListener listener)
         {
-            onVideoViewStateChangedListener = listener;
+            _onVideoViewStateChangedListener = listener;
         }
 
         public override void Pause()
         {
             base.Pause();
-            onVideoViewStateChangedListener?.Pause();
+            _onVideoViewStateChangedListener?.Pause();
         }
 
         public override void Start()
         {
             base.Start();
-            onVideoViewStateChangedListener?.Start();
+            _onVideoViewStateChangedListener?.Start();
         }
 
         public override void StopPlayback()
         {
             base.StopPlayback();
-            onVideoViewStateChangedListener?.StopPlayback();
+            _onVideoViewStateChangedListener?.StopPlayback();
         }
 
         public interface IOnVideoViewStateChangedListener

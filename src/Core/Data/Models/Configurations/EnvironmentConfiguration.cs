@@ -10,13 +10,15 @@ namespace PrankChat.Mobile.Core.Data.Models.Configurations
             string apiUrl,
             string apiVersion,
             string appCenterIosId,
-            string appCenterDroidId)
+            string appCenterDroidId,
+            bool shouldCheckAppUpdate)
         {
             EnvironmentName = environmentName;
             ApiUrl = apiUrl;
             ApiVersion = apiVersion;
             AppCenterIosId = appCenterIosId;
             AppCenterDroidId = appCenterDroidId;
+            ShouldCheckAppUpdate = shouldCheckAppUpdate;
         }
 
         public string EnvironmentName { get; }
@@ -28,5 +30,7 @@ namespace PrankChat.Mobile.Core.Data.Models.Configurations
         public string AppCenterIosId { get; }
 
         public string AppCenterDroidId { get; }
+
+        public bool ShouldCheckAppUpdate { get; }
     }
 }

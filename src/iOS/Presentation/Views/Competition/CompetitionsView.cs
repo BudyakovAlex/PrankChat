@@ -63,7 +63,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 
             bindingSet.Bind(_notificationBarItem)
                       .For(v => v.Image)
-                      .To(vm => vm.NotificationBageViewModel.HasUnreadNotifications)
+                      .To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
                       .WithConversion<BoolToNotificationImageConverter>();
 
             bindingSet.Apply();

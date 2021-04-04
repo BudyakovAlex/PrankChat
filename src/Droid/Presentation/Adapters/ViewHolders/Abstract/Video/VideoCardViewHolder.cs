@@ -1,15 +1,16 @@
-﻿using Android.Media;
-using Android.Views;
+﻿using Android.Views;
 using Android.Widget;
 using FFImageLoading.Cross;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
-using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Droid.Controls;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Video
 {
-    public class VideoCardViewHolder<TViewModel> : CardViewHolder<TViewModel>
-        where TViewModel : MvxNotifyPropertyChanged
+    public class VideoCardViewHolder<TViewModel> : CardViewHolder<TViewModel>, IVideoViewHolder
+        where TViewModel : BaseVideoItemViewModel
     {
         public VideoCardViewHolder(View view, IMvxAndroidBindingContext context)
             : base(view, context)
@@ -24,16 +25,34 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
 
         public ProgressBar LoadingProgressBar { get; private set; }
 
-        private bool _canShowStub = true;
-        public bool CanShowStub
+        private bool _isVideoProcessing;
+        public bool IsVideoProcessing
         {
-            get => _canShowStub;
+            get => _isVideoProcessing;
             set
             {
-                _canShowStub = value;
-                if (!value)
+                _isVideoProcessing = value;
+                if (_isVideoProcessing)
                 {
-                    StubImageView.Visibility = ViewStates.Invisible;
+                    HideStubs();
+                }
+                else
+                {
+                    StubImageView.Visibility = ViewStates.Visible;
+                }
+            }
+        }
+
+        private IVideoPlayer _videoPlayer;
+        public IVideoPlayer VideoPlayer
+        {
+            get => _videoPlayer;
+            set
+            {
+                _videoPlayer = value;
+                if (_videoPlayer != null)
+                {
+                    _videoPlayer.ReadyToPlayAction = HideStubs;
                 }
             }
         }
@@ -50,15 +69,32 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
             LoadingProgressBar.Visibility = ViewStates.Gone;
         }
 
+        public override void BindData()
+        {
+            base.BindData();
+
+            using var bindingSet = this.CreateBindingSet<VideoCardViewHolder<TViewModel>, BaseVideoItemViewModel>();
+
+            bindingSet.Bind(this).For(v => v.VideoPlayer).To(vm => vm.PreviewVideoPlayer);
+            bindingSet.Bind(this).For(v => v.IsVideoProcessing).To(vm => vm.IsVideoProcessing);
+        }
+
         public override void OnViewRecycled()
         {
+            VideoPlayer?.Stop();
             StubImageView.Visibility = ViewStates.Visible;
             LoadingProgressBar.Visibility = ViewStates.Invisible;
 
             base.OnViewRecycled();
         }
 
-        public void OnRenderingStarted()
+        public void ShowStubAndLoader()
+        {
+            StubImageView.Visibility = ViewStates.Visible;
+            LoadingProgressBar.Visibility = ViewStates.Visible;
+        }
+
+        private void HideStubs()
         {
             StubImageView.Visibility = ViewStates.Invisible;
             LoadingProgressBar.Visibility = ViewStates.Invisible;

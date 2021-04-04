@@ -5,7 +5,7 @@ using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Arbitration
 {
-    public class ArbitrationItemViewHolder : CardViewHolder<ArbitrationItemViewModel>
+    public class ArbitrationItemViewHolder : CardViewHolder<ArbitrationOrderItemViewModel>
     {
         public ArbitrationItemViewHolder(View view, IMvxAndroidBindingContext context)
             : base(view, context)

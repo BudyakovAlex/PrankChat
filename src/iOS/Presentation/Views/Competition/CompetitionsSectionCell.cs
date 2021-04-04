@@ -78,9 +78,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             forthButton.AddGestureRecognizer(new UITapGestureRecognizer(OnForthButtonTap));
         }
 
-        protected override void SetBindings()
+        protected override void Bind()
         {
-            base.SetBindings();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<CompetitionsSectionCell, CompetitionsSectionViewModel>();
 

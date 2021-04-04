@@ -11,11 +11,15 @@ using Java.Lang;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
+using System;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 {
@@ -60,14 +64,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             set
             {
                 _isLiked = value;
-                if (_isLiked)
-                {
-                    _likesImageView.ImageTintList = ResourcesCompat.GetColorStateList(Resources, Resource.Color.accent, Theme);
-                }
-                else
-                {
-                    _likesImageView.ImageTintList = null;
-                }
+                _likesImageView.ImageTintList = _isLiked ? ResourcesCompat.GetColorStateList(Resources, Resource.Color.accent, Theme) : null;
             }
         }
 
@@ -77,14 +74,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             set
             {
                 _isDisliked = value;
-                if (_isDisliked)
-                {
-                    _dislikesImageView.ImageTintList = ResourcesCompat.GetColorStateList(Resources, Resource.Color.accent, Theme);
-                }
-                else
-                {
-                    _dislikesImageView.ImageTintList = null;
-                }
+                _dislikesImageView.ImageTintList = _isDisliked ? ResourcesCompat.GetColorStateList(Resources, Resource.Color.accent, Theme) : null;
             }
         }
 
@@ -94,10 +84,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             set
             {
                 _isSubscribed = value;
-                var id = _isSubscribed ? Resource.Drawable.ic_check_mark : Resource.Drawable.ic_plus;
-                _subscriptionTagImageView.SetImageResource(id);
+                _subscriptionTagImageView.SetImageResource(_isSubscribed ? Resource.Drawable.ic_check_mark : Resource.Drawable.ic_plus);
             }
         }
+
+        public BaseVideoItemViewModel CurrentItem { get; set; }
 
         public override void OnConfigurationChanged(Configuration newConfig)
         {
@@ -146,7 +137,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 
             _videoView = FindViewById<ExtendedVideoView>(Resource.Id.video_view);
             _videoView.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepared));
-
             _mediaController = new CustomMediaControllerView(this)
             {
                 Visibility = ViewStates.Gone,
@@ -162,98 +152,41 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
         {
             base.DoBind();
 
-            var bindingSet = this.CreateBindingSet<FullScreenVideoView, FullScreenVideoViewModel>();
+            using var bindingSet = this.CreateBindingSet<FullScreenVideoView, FullScreenVideoViewModel>();
 
-            bindingSet.Bind(this).For(v => v.IsLiked).To(vm => vm.IsLiked);
-            bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.IsDisliked);
-            bindingSet.Bind(this).For(v => v.IsSubscribed).To(vm => vm.IsSubscribed);
+            bindingSet.Bind(this).For(v => v.IsLiked).To(vm => vm.CurrentVideo.IsLiked);
+            bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.CurrentVideo.IsDisliked);
+            bindingSet.Bind(this).For(v => v.IsSubscribed).To(vm => vm.CurrentVideo.IsSubscribedToUser);
 
-            bindingSet.Bind(_videoView)
-                      .For(VideoUrlTargetBinding.TargetBinding)
-                      .To(vm => vm.VideoUrl);
+            bindingSet.Bind(this).For(v => v.CurrentItem).To(vm => vm.CurrentVideo);
+            bindingSet.Bind(_videoView).For(VideoUrlTargetBinding.TargetBinding).To(vm => vm.CurrentVideo.VideoUrl);
+            bindingSet.Bind(_mediaController).For(v => v.IsMuted).To(vm => vm.IsMuted).TwoWay();
 
-            bindingSet.Bind(_mediaController)
-                      .For(v => v.IsMuted)
-                      .To(vm => vm.IsMuted)
-                      .TwoWay();
+            bindingSet.Bind(_backImageView).For(v => v.BindClick()).To(vm => vm.CloseCommand);
+            bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.CurrentVideo.VideoName);
+            bindingSet.Bind(_descriptionTextView).For(v => v.Text).To(vm => vm.CurrentVideo.Description);
 
-            bindingSet.Bind(_backImageView)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.CloseCommand);
+            bindingSet.Bind(_profileView).For(v => v.BindClick()).To(vm => vm.OpenUserProfileCommand);
+            bindingSet.Bind(_profileImageView).For(v => v.ImagePath).To(vm => vm.CurrentVideo.AvatarUrl);
 
-            bindingSet.Bind(_titleTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.VideoName);
+            bindingSet.Bind(_profileImageView).For(v => v.PlaceholderText).To(vm => vm.CurrentVideo.ProfileShortName);
 
-            bindingSet.Bind(_descriptionTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.Description);
+            bindingSet.Bind(_likeView).For(v => v.BindClick()).To(vm => vm.CurrentVideo.LikeCommand);
+            bindingSet.Bind(_dislikeView).For(v => v.BindClick()).To(vm => vm.CurrentVideo.DislikeCommand);
+            bindingSet.Bind(_commentsView).For(v => v.BindClick()).To(vm => vm.OpenCommentsCommand);
 
-            bindingSet.Bind(_profileView)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.OpenUserProfileCommand);
+            bindingSet.Bind(_likeView).For(v => v.Clickable).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(_likeView).For(v => v.Enabled).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(_likeView).For(v => v.Activated).To(vm => vm.CurrentVideo.IsLiked);
+            bindingSet.Bind(_likeTextView).For(v => v.Text).To(vm => vm.NumberOfLikesPresentation);
 
-            bindingSet.Bind(_profileImageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.ProfilePhotoUrl);
+            bindingSet.Bind(_dislikeView).For(v => v.Clickable).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(_dislikeView).For(v => v.Enabled).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(_dislikeView).For(v => v.Activated).To(vm => vm.CurrentVideo.IsDisliked);
 
-            bindingSet.Bind(_profileImageView)
-                      .For(v => v.PlaceholderText)
-                      .To(vm => vm.ProfileShortName);
-
-            bindingSet.Bind(_likeView)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.LikeCommand);
-
-            bindingSet.Bind(_dislikeView)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.DislikeCommand);
-
-            bindingSet.Bind(_commentsView)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.OpenCommentsCommand);
-
-            bindingSet.Bind(_likeView)
-                      .For(v => v.Clickable)
-                      .To(vm => vm.IsLikeFlowAvailable);
-
-            bindingSet.Bind(_likeView)
-                      .For(v => v.Enabled)
-                      .To(vm => vm.IsLikeFlowAvailable);
-
-            bindingSet.Bind(_likeView)
-                      .For(v => v.Activated)
-                      .To(vm => vm.IsLiked);
-
-            bindingSet.Bind(_likeTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.NumberOfLikesPresentation);
-
-            bindingSet.Bind(_dislikeView)
-                      .For(v => v.Clickable)
-                      .To(vm => vm.IsLikeFlowAvailable);
-
-            bindingSet.Bind(_dislikeView)
-                      .For(v => v.Enabled)
-                      .To(vm => vm.IsLikeFlowAvailable);
-
-            bindingSet.Bind(_dislikeView)
-                      .For(v => v.Activated)
-                      .To(vm => vm.IsDisliked);
-
-            bindingSet.Bind(_dislikeTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.NumberOfDislikesPresentation);
-
-            bindingSet.Bind(_commentsTextView)
-                     .For(v => v.Text)
-                     .To(vm => vm.NumberOfCommentsPresentation);
-
-            bindingSet.Bind(_shareImageView)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.ShareCommand);
-
-            bindingSet.Apply();
+            bindingSet.Bind(_dislikeTextView).For(v => v.Text).To(vm => vm.NumberOfDislikesPresentation);
+            bindingSet.Bind(_commentsTextView).For(v => v.Text).To(vm => vm.NumberOfCommentsPresentation);
+            bindingSet.Bind(_shareImageView).For(v => v.BindClick()).To(vm => vm.ShareCommand);
         }
 
         protected override void OnSaveInstanceState(Bundle outState)
@@ -272,7 +205,23 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
         private void OnMediaPlayerPrepared(MediaPlayer mediaPlayer)
         {
             _mediaController.MediaPlayer = mediaPlayer;
+            if (CurrentItem != null)
+            {
+                _mediaController.MediaPlayer.Looping = CurrentItem.FullVideoPlayer.CanRepeat;
+                _ = RegisterVideoPartiallyPlayedAsync(CurrentItem.VideoUrl);
+            }
+
             _mediaController.MediaPlayer.Looping = true;
+        }
+
+        private async Task RegisterVideoPartiallyPlayedAsync(string currentItemUrl)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(Constants.Delays.VideoPartiallyPlayedDelay));
+            if (currentItemUrl == CurrentItem?.VideoUrl &&
+                _mediaController.IsPlaying)
+            {
+                CurrentItem?.IncrementVideoCountCommand.Execute();
+            }
         }
 
         private bool OnRootViewTouched(View view, MotionEvent motionEvent)

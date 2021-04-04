@@ -114,7 +114,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
             bindingSet.Bind(this)
                       .For(v => v.HasUnreadNotifications)
-                      .To(vm => vm.NotificationBageViewModel.HasUnreadNotifications);
+                      .To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications);
 
             bindingSet.Apply();
         }

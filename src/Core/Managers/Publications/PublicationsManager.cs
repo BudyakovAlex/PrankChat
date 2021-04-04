@@ -2,7 +2,6 @@
 using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Managers.Publications
@@ -32,18 +31,6 @@ namespace PrankChat.Mobile.Core.Managers.Publications
         {
             var response = await _publicationsService.GetMyVideoFeedAsync(page, pageSize, dateFilterType);
             return response.Map(item => item.Map());
-        }
-
-        public async Task<Models.Data.Video> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
-        {
-            var response = await _publicationsService.SendLikeAsync(videoId, isChecked, cancellationToken);
-            return response.Map();
-        }
-
-        public async Task<Models.Data.Video> SendDislikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
-        {
-            var response = await _publicationsService.SendDislikeAsync(videoId, isChecked, cancellationToken);
-            return response.Map();
         }
     }
 }

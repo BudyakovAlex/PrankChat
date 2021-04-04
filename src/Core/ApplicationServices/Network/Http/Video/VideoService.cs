@@ -48,14 +48,15 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
                 Description = description,
             };
 
-            var videoMetadataApiModel = await _client.PostVideoFileAsync<UploadVideoDto, ResponseDto<VideoDto>>("videos",
-                                                                                                                         loadVideoApiModel,
-                                                                                                                         onChangedProgressAction: onChangedProgressAction,
-                                                                                                                         cancellationToken: cancellationToken);
+            var videoMetadataApiModel = await _client.PostVideoFileAsync<UploadVideoDto, ResponseDto<VideoDto>>(
+                "videos",
+                loadVideoApiModel,
+                onChangedProgressAction: onChangedProgressAction,
+                cancellationToken: cancellationToken);
             return videoMetadataApiModel?.Data;
         }
 
-        public async Task<long?> RegisterVideoViewedFactAsync(int videoId)
+        public async Task<long?> IncrementVideoViewsAsync(int videoId)
         {
             var videoApiModel = await _client.UnauthorizedGetAsync<ResponseDto<VideoDto>>($"videos/{videoId}/looked");
             _log.Log(MvxLogLevel.Debug, () => $"Registered {videoApiModel?.Data?.ViewsCount} for video with id {videoId}");
@@ -88,6 +89,20 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video
         public Task<BaseBundleDto<CommentDto>> GetVideoCommentsAsync(int videoId, int page, int pageSize)
         {
             return _client.GetAsync<BaseBundleDto<CommentDto>>($"videos/{videoId}/comments?page={page}&items_per_page={pageSize}");
+        }
+
+        public async Task<VideoDto> SendLikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
+        {
+            var url = isChecked ? $"videos/{videoId}/like" : $"videos/{videoId}/like/remove";
+            var data = await _client.PostAsync<ResponseDto<VideoDto>>(url, cancellationToken: cancellationToken);
+            return data?.Data;
+        }
+
+        public async Task<VideoDto> SendDislikeAsync(int videoId, bool isChecked, CancellationToken? cancellationToken = null)
+        {
+            var url = isChecked ? $"videos/{videoId}/dislike" : $"videos/{videoId}/dislike/remove";
+            var data = await _client.PostAsync<ResponseDto<VideoDto>>(url, cancellationToken: cancellationToken);
+            return data?.Data;
         }
     }
 }

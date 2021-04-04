@@ -73,7 +73,6 @@
     <Folder Include="Presentation\ViewModels\Profile\" />
     <Folder Include="Presentation\ViewModels\Profile\Cashbox\" />
     <Folder Include="Presentation\ViewModels\Dialogs\" />
-    <Folder Include="ApplicationServices\Platforms\" />
     <Folder Include="Exceptions\Network\" />
     <Folder Include="ApplicationServices\Timer\" />
     <Folder Include="ApplicationServices\Dialogs\" />
@@ -100,6 +99,10 @@
     <Folder Include="Presentation\ViewModels\Common\Abstract\" />
     <Folder Include="Data\Models\Configurations\" />
     <Folder Include="Providers\Configuration\" />
+    <Folder Include="Plugins\" />
+    <Folder Include="Plugins\Video\" />
+    <Folder Include="Presentation\ViewModels\Order\Items\Abstract\" />
+    <Folder Include="Infrastructure\Extensions\DateFilter\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="AppConfig.json" />

@@ -14,6 +14,12 @@ namespace System.Linq
             }
         }
 
+        public static int IndexOfOrDefault<T>(this T[] array, T item, int @default = 0)
+        {
+            var index = Array.IndexOf(array, item);
+            return index < 0 ? @default : index;
+        }
+
         public static bool IsNullOrEmpty<T>(this IEnumerable<T> items)
         {
             return items == null || !items.Any();

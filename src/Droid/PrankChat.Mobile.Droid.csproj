@@ -113,7 +113,6 @@
     <Compile Include="Presentation\Converters\BooleanToSoundResourceConverter.cs" />
     <Compile Include="Presentation\Dialogs\ShareDialog.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
-    <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
     <Compile Include="Presentation\Dialogs\ArrayDialog.cs" />
     <Compile Include="Controls\SelectableButton.cs" />
     <Compile Include="Presentation\Views\WebPageView.cs" />
@@ -188,9 +187,7 @@
     <Compile Include="Controls\WebView\BindableWebView.cs" />
     <Compile Include="Presentation\Adapters\ArrayDialogRecyclerViewAdapter.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Dialogs\ArrayDialogItemViewHolder.cs" />
-    <Compile Include="Presentation\Listeners\MediaPlayerOnErrorListener.cs" />
     <Compile Include="Controls\AutoFitTextureView.cs" />
-    <Compile Include="Presentation\Listeners\MediaPlayerOnVideoSizeChanged.cs" />
     <Compile Include="Presentation\Views\Walthroughs\WalthroughView.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Comments\CommentViewHolder.cs" />
     <Compile Include="Controls\CircleProgressBar.cs" />
@@ -205,6 +202,9 @@
     <Compile Include="Presentation\Views\Base\IRefreshableView.cs" />
     <Compile Include="Presentation\Views\Base\BaseRefreshableTabFragment.cs" />
     <Compile Include="Controls\ExtendedTabLayout.cs" />
+    <Compile Include="PlatformBusinessServices\Video\Listeners\VideoRecyclerViewScrollListener.cs" />
+    <Compile Include="Presentation\Adapters\ViewHolders\Abstract\Video\IVideoViewHolder.cs" />
+    <Compile Include="Extensions\MvxFluentBindingExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
