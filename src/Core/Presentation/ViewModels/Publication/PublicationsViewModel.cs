@@ -3,6 +3,7 @@ using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Infrastructure.Extensions.DateFilter;
 using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
@@ -15,7 +16,6 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,9 +27,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private readonly IPublicationsManager _publicationsManager;
         private readonly IVideoManager _videoManager;
 
-        private readonly Dictionary<DateFilterType, string> _dateFilterTypeTitleMap;
-
-        private ExecutionStateWrapper _refreshFilterExecutionStateWrapper;
+        private readonly ExecutionStateWrapper _refreshFilterExecutionStateWrapper;
 
         public PublicationsViewModel(
             IPublicationsManager publicationsManager,
@@ -42,24 +40,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             Items = new MvxObservableCollection<PublicationItemViewModel>();
             _refreshFilterExecutionStateWrapper = new ExecutionStateWrapper();
 
-            _dateFilterTypeTitleMap = new Dictionary<DateFilterType, string>
-            {
-                { DateFilterType.Day, Resources.Publication_Tab_Filter_Day },
-                { DateFilterType.Week, Resources.Publication_Tab_Filter_Week },
-                { DateFilterType.Month, Resources.Publication_Tab_Filter_Month },
-                { DateFilterType.Quarter, Resources.Publication_Tab_Filter_Quarter },
-                { DateFilterType.HalfYear, Resources.Publication_Tab_Filter_HalfYear },
-            };
-
             _refreshFilterExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(
-                (s, e) => RaisePropertyChanged(nameof(IsRefreshingFilter)),
+                (_, __) => RaisePropertyChanged(nameof(IsRefreshingFilter)),
                 (wrapper, handler) => wrapper.IsBusyChanged += handler,
                 (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
 
             ItemsChangedInteraction = new MvxInteraction();
             OpenFilterCommand = new MvxAsyncCommand(OnOpenFilterAsync);
 
-            Messenger.SubscribeOnMainThread<ReloadPublicationsMessage>((msg) => OnReloadItems()).DisposeWith(Disposables);
+            Messenger.SubscribeOnMainThread<ReloadPublicationsMessage>(_ => ReloadItems()).DisposeWith(Disposables);
         }
 
         private PublicationType _selectedPublicationType;
@@ -73,12 +62,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         public MvxInteraction ItemsChangedInteraction { get; }
 
-        private string _activeFilterName;
-        public string ActiveFilterName
-        {
-            get => _activeFilterName;
-            set => SetProperty(ref _activeFilterName, value);
-        }
+        public string ActiveFilterName => ActiveFilter.ToLocalizedString();
 
         private DateFilterType _activeFilter;
         public DateFilterType ActiveFilter
@@ -87,10 +71,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             set
             {
                 _activeFilter = value;
-                if (_dateFilterTypeTitleMap.TryGetValue(_activeFilter, out var activeFilterName))
-                {
-                    ActiveFilterName = activeFilterName;
-                }
+                _ = RaisePropertyChanged(nameof(ActiveFilterName));
             }
         }
 
@@ -123,15 +104,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private async Task OnOpenFilterAsync(CancellationToken arg)
         {
-            var parameters = _dateFilterTypeTitleMap.Values.ToArray();
-            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parameters, Resources.Cancel);
-
-            if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
+            var isExtracted = typeof(DateFilterType).TryExtractValues<DateFilterType>(out var enumValues);
+            var dictionary = enumValues.ToDictionary(kv => kv.ToLocalizedString(), kv => kv);
+            if (!isExtracted)
             {
                 return;
             }
 
-            ActiveFilter = _dateFilterTypeTitleMap.FirstOrDefault(filter => filter.Value == selectedFilterName).Key;
+            var selectedFilterName = await DialogService.ShowMenuDialogAsync(dictionary.Keys.ToArray(), Resources.Cancel);
+            if (string.IsNullOrWhiteSpace(selectedFilterName) ||
+                selectedFilterName == Resources.Cancel)
+            {
+                return;
+            }
+
+            ActiveFilter = dictionary[selectedFilterName];
             await ReloadItemsCommand.ExecuteAsync();
         }
 
@@ -183,6 +170,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             }
         }
 
+        protected override int SetList<TDataModel, TApiModel>(Pagination<TApiModel> pagination, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        {
+            var count = base.SetList(pagination, page, produceItemViewModel, items);
+            ItemsChangedInteraction.Raise();
+            return count;
+        }
+
         private PublicationItemViewModel ProducePublicationItemViewModel(Models.Data.Video publication)
         {
             return new PublicationItemViewModel(
@@ -192,14 +186,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 () => Items.ToArray());
         }
 
-        protected override int SetList<TDataModel, TApiModel>(Pagination<TApiModel> pagination, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
-        {
-            var count = base.SetList(pagination, page, produceItemViewModel, items);
-            ItemsChangedInteraction.Raise();
-            return count;
-        }
-
-        private void OnReloadItems()
+        private void ReloadItems()
         {
             Items.Clear();
             ReloadItemsCommand.Execute();

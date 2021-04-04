@@ -102,6 +102,7 @@
     <Folder Include="Plugins\" />
     <Folder Include="Plugins\Video\" />
     <Folder Include="Presentation\ViewModels\Order\Items\Abstract\" />
+    <Folder Include="Infrastructure\Extensions\DateFilter\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="AppConfig.json" />

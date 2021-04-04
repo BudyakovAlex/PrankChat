@@ -14,6 +14,7 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common
 {
+    //TODO: make it as internal VM not parent
     public class PaginationViewModel : BasePageViewModel
     {
         private const int DefaultPageIndex = 1;

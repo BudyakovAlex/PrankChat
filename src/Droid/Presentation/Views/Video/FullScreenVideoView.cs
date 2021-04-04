@@ -11,11 +11,15 @@ using Java.Lang;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
+using System;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Video
 {
@@ -60,14 +64,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             set
             {
                 _isLiked = value;
-                if (_isLiked)
-                {
-                    _likesImageView.ImageTintList = ResourcesCompat.GetColorStateList(Resources, Resource.Color.accent, Theme);
-                }
-                else
-                {
-                    _likesImageView.ImageTintList = null;
-                }
+                _likesImageView.ImageTintList = _isLiked ? ResourcesCompat.GetColorStateList(Resources, Resource.Color.accent, Theme) : null;
             }
         }
 
@@ -77,14 +74,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             set
             {
                 _isDisliked = value;
-                if (_isDisliked)
-                {
-                    _dislikesImageView.ImageTintList = ResourcesCompat.GetColorStateList(Resources, Resource.Color.accent, Theme);
-                }
-                else
-                {
-                    _dislikesImageView.ImageTintList = null;
-                }
+                _dislikesImageView.ImageTintList = _isDisliked ? ResourcesCompat.GetColorStateList(Resources, Resource.Color.accent, Theme) : null;
             }
         }
 
@@ -94,10 +84,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             set
             {
                 _isSubscribed = value;
-                var id = _isSubscribed ? Resource.Drawable.ic_check_mark : Resource.Drawable.ic_plus;
-                _subscriptionTagImageView.SetImageResource(id);
+                _subscriptionTagImageView.SetImageResource(_isSubscribed ? Resource.Drawable.ic_check_mark : Resource.Drawable.ic_plus);
             }
         }
+
+        public BaseVideoItemViewModel CurrentItem { get; set; }
 
         public override void OnConfigurationChanged(Configuration newConfig)
         {
@@ -167,6 +158,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.CurrentVideo.IsDisliked);
             bindingSet.Bind(this).For(v => v.IsSubscribed).To(vm => vm.CurrentVideo.IsSubscribedToUser);
 
+            bindingSet.Bind(this).For(v => v.CurrentItem).To(vm => vm.CurrentVideo);
             bindingSet.Bind(_videoView).For(VideoUrlTargetBinding.TargetBinding).To(vm => vm.CurrentVideo.VideoUrl);
             bindingSet.Bind(_mediaController).For(v => v.IsMuted).To(vm => vm.IsMuted).TwoWay();
 
@@ -213,7 +205,23 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
         private void OnMediaPlayerPrepared(MediaPlayer mediaPlayer)
         {
             _mediaController.MediaPlayer = mediaPlayer;
+            if (CurrentItem != null)
+            {
+                _mediaController.MediaPlayer.Looping = CurrentItem.FullVideoPlayer.CanRepeat;
+                _ = RegisterVideoPartiallyPlayedAsync(CurrentItem.VideoUrl);
+            }
+
             _mediaController.MediaPlayer.Looping = true;
+        }
+
+        private async Task RegisterVideoPartiallyPlayedAsync(string currentItemUrl)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(Constants.Delays.VideoPartiallyPlayedDelay));
+            if (currentItemUrl == CurrentItem?.VideoUrl &&
+                _mediaController.IsPlaying)
+            {
+                CurrentItem?.IncrementVideoCountCommand.Execute();
+            }
         }
 
         private bool OnRootViewTouched(View view, MotionEvent motionEvent)

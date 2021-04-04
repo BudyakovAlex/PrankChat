@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -28,6 +29,18 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
         public static bool IsEnum(this Type type)
         {
             return type.GetTypeInfo().IsEnum;
+        }
+
+        public static bool TryExtractValues<T>(this Type type, out T[] values)
+        {
+            if (type == typeof(T))
+            {
+                values = Enum.GetValues(type).OfType<T>().ToArray();
+                return true;
+            }
+
+            values = Array.Empty<T>();
+            return false;
         }
 
         public static IEnumerable<T> Split<T>(this Enum obj, int value)

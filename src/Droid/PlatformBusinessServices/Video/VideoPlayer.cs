@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Graphics;
 using Android.Media;
 using Android.OS;
 using Android.Runtime;
@@ -7,6 +8,7 @@ using Microsoft.AppCenter.Crashes;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Wrappers;
 using PrankChat.Mobile.Droid.Controls;
 using System;
 using System.Threading;
@@ -20,12 +22,15 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
         MediaPlayer.IOnVideoSizeChangedListener,
         MediaPlayer.IOnErrorListener,
         MediaPlayer.IOnInfoListener,
-        MediaPlayer.IOnCompletionListener
+        MediaPlayer.IOnCompletionListener,
+        TextureView.ISurfaceTextureListener
     {
         private AutoFitTextureView _textureView;
         private Surface _surface;
         private MediaPlayer _mediaPlayer;
         private CancellationTokenSource _registrationCancellationTokenSource;
+
+        private readonly SafeExecutionWrapper _safeExecutionWrapper;
 
         private bool _isPrepared;
         private bool _isPlayNeeded;
@@ -33,6 +38,12 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         public VideoPlayer()
         {
+            _safeExecutionWrapper = new SafeExecutionWrapper((ex) =>
+            {
+                Crashes.TrackError(ex);
+                return Task.CompletedTask;
+            });
+
             SetupNewMediaPlayerIfNeeded();
         }
 
@@ -145,7 +156,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             if (what == MediaInfo.VideoRenderingStart)
             {
                 ReadyToPlayAction?.Invoke();
-                _ = RegisterVideoPlayingPartiallyCallbackAsync(_url);
+                _ = _safeExecutionWrapper.WrapAsync(() => RegisterVideoPlayingPartiallyCallbackAsync(_url));
             }
 
             return true;
@@ -154,9 +165,33 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
         public void OnCompletion(MediaPlayer mp) =>
             VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Played);
 
-        private async Task ResetPlayerAsync()
+        public void OnSurfaceTextureAvailable(SurfaceTexture surface, int width, int height)
         {
-            try
+        }
+
+        public bool OnSurfaceTextureDestroyed(SurfaceTexture surface)
+        {
+            Stop();
+
+            _textureView.SurfaceTextureListener = null;
+            _surface?.Release();
+            _surface?.Dispose();
+            _textureView = null;
+
+            return true;
+        }
+
+        public void OnSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height)
+        {
+        }
+
+        public void OnSurfaceTextureUpdated(SurfaceTexture surface)
+        {
+        }
+
+        private Task ResetPlayerAsync()
+        {
+            return _safeExecutionWrapper.WrapAsync(async () =>
             {
                 if (string.IsNullOrWhiteSpace(_url))
                 {
@@ -173,12 +208,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
                     return;
                 }
 
-                if (_surface != null)
-                {
-                    _surface.Release();
-                    _surface.Dispose();
-                }
-
+                _textureView.SurfaceTextureListener = this;
                 _surface = new Surface(_textureView.SurfaceTexture);
 
                 SetupNewMediaPlayerIfNeeded();
@@ -186,11 +216,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
                 _mediaPlayer.SetSurface(_surface);
                 await _mediaPlayer.SetDataSourceAsync(_url);
                 _mediaPlayer.PrepareAsync();
-            }
-            catch (Exception ex)
-            {
-                Crashes.TrackError(ex);
-            }
+            });
         }
 
         private void SetupNewMediaPlayerIfNeeded()
@@ -225,20 +251,13 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         private async Task RegisterVideoPlayingPartiallyCallbackAsync(string videoUrl)
         {
-            try
-            {
-                _registrationCancellationTokenSource = new CancellationTokenSource();
-                await Task.Delay(TimeSpan.FromSeconds(Constants.Delays.VideoPartiallyPlayedDelay), _registrationCancellationTokenSource.Token);
-                _registrationCancellationTokenSource = null;
+            _registrationCancellationTokenSource = new CancellationTokenSource();
+            await Task.Delay(TimeSpan.FromSeconds(Constants.Delays.VideoPartiallyPlayedDelay), _registrationCancellationTokenSource.Token);
+            _registrationCancellationTokenSource = null;
 
-                if (videoUrl == _url && IsPlaying)
-                {
-                    VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.PartiallyPlayed);
-                }
-            }
-            catch
+            if (videoUrl == _url && IsPlaying)
             {
-                System.Diagnostics.Debug.WriteLine("Failed to register partially played action");
+                VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.PartiallyPlayed);
             }
         }
 

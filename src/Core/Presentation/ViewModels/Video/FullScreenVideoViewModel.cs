@@ -87,6 +87,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             _videos = parameter.Videos;
             _index = parameter.StartIndex;
 
+            _videos.ForEach(SubscribeToVideoViewsChanged);
+
             RefreshCurrentVideoState();
         }
 
@@ -201,6 +203,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
                 Uri = CurrentVideo.ShareLink,
                 Title = Resources.ShareDialog_LinkShareTitle
             });
+        }
+
+        private void SubscribeToVideoViewsChanged(BaseVideoItemViewModel videoItemViewModel)
+        {
+            videoItemViewModel.SubscribeToEvent(
+                (_, __) => _isReloadNeeded = true,
+                (wrapper, handler) => wrapper.ViewsCountChanged += handler,
+                (wrapper, handler) => wrapper.ViewsCountChanged -= handler).DisposeWith(Disposables);
         }
     }
 }

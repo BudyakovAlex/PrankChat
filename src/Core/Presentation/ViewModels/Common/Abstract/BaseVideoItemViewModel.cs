@@ -10,6 +10,8 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using PrankChat.Mobile.Core.Wrappers;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -21,6 +23,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
         private CancellationTokenSource _cancellationSendingDislikeTokenSource;
 
+        private SafeExecutionWrapper _silentSafeExecutionWrapper;
+
         public BaseVideoItemViewModel(
             IVideoManager videoManager,
             IUserSessionProvider userSessionProvider,
@@ -29,6 +33,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             VideoManager = videoManager;
             UserSessionProvider = userSessionProvider;
             Video = video;
+
+            _silentSafeExecutionWrapper = new SafeExecutionWrapper((ex) =>
+            {
+                Crashes.TrackError(ex);
+                return Task.CompletedTask;
+            });
 
             IsLiked = video.IsLiked;
             IsDisliked = video.IsDisliked;
@@ -70,7 +80,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
                 OpenUserProfileAsync,
                 restrictedCanExecute: () => IsUserSessionInitialized,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
+
+            IncrementVideoCountCommand = this.CreateCommand(IncrementVideoCountAsync);
         }
+
+        public event EventHandler ViewsCountChanged;
 
         public abstract bool CanPlayVideo { get; }
 
@@ -81,6 +95,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
         public IMvxCommand DislikeCommand { get; }
 
         public IMvxAsyncCommand OpenUserProfileCommand { get; }
+
+        public IMvxCommand IncrementVideoCountCommand { get; }
 
         public string ProfileShortName => User?.Login?.ToShortenName();
 
@@ -227,11 +243,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
                 return;
             }
 
-            _ = SafeExecutionWrapper.WrapAsync(() => VideoManager.IncrementVideoViewsAsync(VideoId), (ex) =>
-            {
-                Crashes.TrackError(ex);
-                return Task.CompletedTask;
-            });
+            IncrementVideoCountCommand.Execute();
         }
 
         protected virtual Task OpenUserProfileAsync()
@@ -308,6 +320,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
                 _cancellationSendingDislikeTokenSource?.Dispose();
                 _cancellationSendingDislikeTokenSource = null;
             }
+        }
+
+        private Task IncrementVideoCountAsync()
+        {
+            return _silentSafeExecutionWrapper.WrapAsync(async () =>
+            {
+                var newCount = await VideoManager.IncrementVideoViewsAsync(VideoId);
+                if (newCount > NumberOfLikes)
+                {
+                    ViewsCountChanged?.Invoke(this, EventArgs.Empty);
+                }
+            });
         }
     }
 }

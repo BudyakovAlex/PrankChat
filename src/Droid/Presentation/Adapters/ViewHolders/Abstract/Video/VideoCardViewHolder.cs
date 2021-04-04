@@ -6,8 +6,6 @@ using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Droid.Controls;
-using PrankChat.Mobile.Droid.Extensions;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Video
 {
@@ -83,6 +81,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Vide
 
         public override void OnViewRecycled()
         {
+            VideoPlayer?.Stop();
             StubImageView.Visibility = ViewStates.Visible;
             LoadingProgressBar.Visibility = ViewStates.Invisible;
 
