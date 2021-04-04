@@ -113,12 +113,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         public IMvxAsyncCommand ShowUpdateProfileCommand { get; }
 
-        public override async Task InitializeAsync()
+        public override Task InitializeAsync()
         {
             SelectedOrderType = ProfileOrderType.MyOrdered;
-            await base.InitializeAsync();
+            
+            _ = SafeExecutionWrapper.WrapAsync(async () =>
+            {
+                await base.InitializeAsync();
+                await LoadProfileAsync();
+            });
 
-            _ = SafeExecutionWrapper.WrapAsync(LoadProfileAsync);
+            return Task.CompletedTask;
         }
 
         private void OnSelectedOrderTypeChanged()

@@ -43,11 +43,15 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
 
         public override void DecelerationEnded(UIScrollView scrollView)
         {
+            base.DecelerationEnded(scrollView);
+
             PrepareCellsForPlayingVideoAsync().FireAndForget();
         }
 
         public override void DraggingEnded(UIScrollView scrollView, bool willDecelerate)
         {
+            base.DraggingEnded(scrollView, willDecelerate);
+
             if (willDecelerate)
             {
                 return;

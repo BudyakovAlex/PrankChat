@@ -27,7 +27,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         private readonly IPublicationsManager _publicationsManager;
         private readonly IVideoManager _videoManager;
 
-        private readonly ExecutionStateWrapper _refreshFilterExecutionStateWrapper;
+        private readonly ExecutionStateWrapper _refreshDataExecutionStateWrapper;
 
         public PublicationsViewModel(
             IPublicationsManager publicationsManager,
@@ -38,10 +38,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             _videoManager = videoManager;
 
             Items = new MvxObservableCollection<PublicationItemViewModel>();
-            _refreshFilterExecutionStateWrapper = new ExecutionStateWrapper();
+            _refreshDataExecutionStateWrapper = new ExecutionStateWrapper();
 
-            _refreshFilterExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(
-                (_, __) => RaisePropertyChanged(nameof(IsRefreshingFilter)),
+            _refreshDataExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(
+                (_, __) => RaisePropertyChanged(nameof(IsRefreshingData)),
                 (wrapper, handler) => wrapper.IsBusyChanged += handler,
                 (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
 
@@ -58,7 +58,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             set => SetProperty(ref _selectedPublicationType, value, () => _ = RefreshDataAsync());
         }
 
-        public bool IsRefreshingFilter => _refreshFilterExecutionStateWrapper.IsBusy;
+        public bool IsRefreshingData => _refreshDataExecutionStateWrapper.IsBusy;
 
         public MvxInteraction ItemsChangedInteraction { get; }
 
@@ -91,7 +91,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
             await base.InitializeAsync();
 
             ActiveFilter = DateFilterType.HalfYear;
-            _ = SafeExecutionWrapper.WrapAsync(() => LoadMoreItemsAsync());
+            _ = SafeExecutionWrapper.WrapAsync(() => _refreshDataExecutionStateWrapper.WrapAsync(() => LoadMoreItemsAsync()));
         }
 
         public override void ViewDestroy(bool viewFinishing = true)
@@ -126,7 +126,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
         {
             ShouldNotifyIsBusy = false;
 
-            await _refreshFilterExecutionStateWrapper.WrapAsync(ReloadItemsAsync);
+            await _refreshDataExecutionStateWrapper.WrapAsync(ReloadItemsAsync);
 
             ShouldNotifyIsBusy = true;
         }

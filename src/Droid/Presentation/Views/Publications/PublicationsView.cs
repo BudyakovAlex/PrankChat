@@ -100,10 +100,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             bindingSet.Bind(_publicationRecyclerView).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(this).For(v => v.ItemsChangedInteraction).To(vm => vm.ItemsChangedInteraction).OneWay();
             bindingSet.Bind(_publicationRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
-            bindingSet.Bind(_loadingOverlay).For(v => v.Visibility).To(vm => vm.IsRefreshingFilter)
+            bindingSet.Bind(_loadingOverlay).For(v => v.Visibility).To(vm => vm.IsRefreshingData)
                       .WithConversion<BoolToGoneConverter>();
 
-            bindingSet.Bind(_publicationTypeTabLayout).For(v => v.IsSelectionEnabled).To(vm => vm.IsRefreshingFilter)
+            bindingSet.Bind(_publicationTypeTabLayout).For(v => v.IsSelectionEnabled).To(vm => vm.IsRefreshingData)
                       .WithConversion<MvxInvertedBooleanConverter>();
         }
 

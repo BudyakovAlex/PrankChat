@@ -69,7 +69,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common
             }
             else
             {
-                items.SwitchTo(viewModels);
+                items.ReplaceWith(viewModels);
             }
 
             return viewModels.Count;
