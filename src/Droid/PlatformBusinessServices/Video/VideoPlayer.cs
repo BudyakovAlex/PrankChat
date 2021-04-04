@@ -47,13 +47,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             set
             {
                 _isMuted = value;
-                if (_isMuted)
-                {
-                    _mediaPlayer?.SetVolume(0, 0);
-                    return;
-                }
-
-                _mediaPlayer?.SetVolume(1, 1);
+                RefreshMutedState();
             }
         }
 
@@ -225,6 +219,8 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             _mediaPlayer.SetOnPreparedListener(this);
             _mediaPlayer.SetOnErrorListener(this);
             _mediaPlayer.SetOnCompletionListener(this);
+
+            RefreshMutedState();
         }
 
         private async Task RegisterVideoPlayingPartiallyCallbackAsync(string videoUrl)
@@ -244,6 +240,12 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
             {
                 System.Diagnostics.Debug.WriteLine("Failed to register partially played action");
             }
+        }
+
+        private void RefreshMutedState()
+        {
+            var volume = IsMuted ? 0 : 1;
+           _mediaPlayer?.SetVolume(volume, volume);
         }
 
         protected override void Dispose(bool disposing)

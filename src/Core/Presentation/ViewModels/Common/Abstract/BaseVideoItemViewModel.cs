@@ -46,6 +46,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             FullVideoPlayer = CompositionRoot.Container.Resolve<IVideoPlayer>();
 
             PreviewVideoPlayer.CanRepeat = true;
+            PreviewVideoPlayer.IsMuted = true;
             PreviewVideoPlayer.SetVideoUrl(Video.PreviewUri);
 
             FullVideoPlayer.SubscribeToEvent<IVideoPlayer, VideoPlayingStatus>(

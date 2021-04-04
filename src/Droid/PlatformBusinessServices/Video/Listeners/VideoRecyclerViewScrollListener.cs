@@ -45,8 +45,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video.Listeners
                 : targetPosition;
 
             var viewHolder = recyclerView.FindViewHolderForAdapterPosition(targetPosition);
-            if (viewHolder is IVideoViewHolder itemViewHolder &&
-                itemViewHolder != _previousVideoViewHolder)
+            if (viewHolder is IVideoViewHolder itemViewHolder)
             {
                 itemViewHolder.ShowStubAndLoader();
                 PlayVideo(itemViewHolder);
