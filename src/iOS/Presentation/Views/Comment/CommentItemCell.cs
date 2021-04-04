@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
             commentLabel.SetTitleStyle();
         }
 
-        protected override void SetBindings()
+        protected override void Bind()
         {
             var bindingSet = this.CreateBindingSet<CommentItemCell, CommentItemViewModel>();
 

@@ -16,16 +16,15 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.LayoutManagers;
+using PrankChat.Mobile.Droid.PlatformBusinessServices.Video.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Adapters;
 using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications;
 using PrankChat.Mobile.Droid.Presentation.Converters;
-using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using System;
 using System.Threading.Tasks;
 using static Google.Android.Material.Tabs.TabLayout;
-using Debug = System.Diagnostics.Debug;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 {
@@ -39,10 +38,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private Typeface _unselectedTypeface;
         private EndlessRecyclerView _publicationRecyclerView;
         private FrameLayout _loadingOverlay;
-        private StateScrollListener _stateScrollListener;
-        private LinearLayoutManager _layoutManager;
-        private PublicationItemViewHolder _previousPublicationViewHolder;
-        private AutoFitTextureView _previousVideoView;
+        private VideoRecyclerViewScrollListener _stateScrollListener;
+
+        private SafeLinearLayoutManager _layoutManager;
+
         private View _filterView;
         private View _filterDividerView;
 
@@ -85,45 +84,27 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         {
             _publicationTypeTabLayout.TabSelected += PublicationTypeTabLayoutTabSelected;
             _publicationTypeTabLayout.TabUnselected += PublicationTypeTabLayoutTabUnselected;
-            _stateScrollListener.FinishScroll += StateScrollListenerFinishScroll;
         }
 
         protected override void Unsubscription()
         {
             _publicationTypeTabLayout.TabSelected -= PublicationTypeTabLayoutTabSelected;
             _publicationTypeTabLayout.TabUnselected -= PublicationTypeTabLayoutTabUnselected;
-            _stateScrollListener.FinishScroll -= StateScrollListenerFinishScroll;
             _itemsChangedInteraction.Requested -= OnDataSetChanged;
         }
 
         private void DoBind()
         {
-            var bindingSet = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
+            using var bindingSet = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
 
-            bindingSet.Bind(_publicationRecyclerView)
-                      .For(v => v.ItemsSource)
-                      .To(vm => vm.Items);
-
-            bindingSet.Bind(this)
-                      .For(v => v.ItemsChangedInteraction)
-                      .To(vm => vm.ItemsChangedInteraction)
-                      .OneWay();
-
-            bindingSet.Bind(_publicationRecyclerView)
-                      .For(v => v.LoadMoreItemsCommand)
-                      .To(vm => vm.LoadMoreItemsCommand);
-
-            bindingSet.Bind(_loadingOverlay)
-                      .For(v => v.Visibility)
-                      .To(vm => vm.IsRefreshingFilter)
+            bindingSet.Bind(_publicationRecyclerView).For(v => v.ItemsSource).To(vm => vm.Items);
+            bindingSet.Bind(this).For(v => v.ItemsChangedInteraction).To(vm => vm.ItemsChangedInteraction).OneWay();
+            bindingSet.Bind(_publicationRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
+            bindingSet.Bind(_loadingOverlay).For(v => v.Visibility).To(vm => vm.IsRefreshingData)
                       .WithConversion<BoolToGoneConverter>();
 
-            bindingSet.Bind(_publicationTypeTabLayout)
-                     .For(v => v.IsSelectionEnabled)
-                     .To(vm => vm.IsRefreshingFilter)
-                     .WithConversion<MvxInvertedBooleanConverter>();
-
-            bindingSet.Apply();
+            bindingSet.Bind(_publicationTypeTabLayout).For(v => v.IsSelectionEnabled).To(vm => vm.IsRefreshingData)
+                      .WithConversion<MvxInvertedBooleanConverter>();
         }
 
         private void InitializeControls(View view)
@@ -150,7 +131,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
             _publicationRecyclerView.ItemTemplateSelector = new TemplateSelector()
                 .AddElement<PublicationItemViewModel, PublicationItemViewHolder>(Resource.Layout.cell_publication);
 
-            _stateScrollListener = new StateScrollListener();
+            _stateScrollListener = new VideoRecyclerViewScrollListener(_layoutManager);
             _publicationRecyclerView.AddOnScrollListener(_stateScrollListener);
 
             var dividerItemDecoration = new DividerItemDecoration(Context, LinearLayoutManager.Vertical);
@@ -172,85 +153,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private async Task PlayVideoAfterReloadDataAsync()
         {
             await Task.Delay(MillisecondsDelay);
-            await PlayVisibleVideoAsync();
-        }
-
-        private void StateScrollListenerFinishScroll(object sender, EventArgs e)
-        {
-            PlayVisibleVideoAsync().FireAndForget();
-        }
-
-        private Task PlayVisibleVideoAsync()
-        {
-            var firstCompletelyVisibleItemPosition = _layoutManager.FindFirstCompletelyVisibleItemPosition();
-            var lastCompletelyVisibleItemPosition = _layoutManager.FindLastCompletelyVisibleItemPosition();
-
-            var targetPosition = firstCompletelyVisibleItemPosition;
-            if (firstCompletelyVisibleItemPosition == -1)
-            {
-                targetPosition = lastCompletelyVisibleItemPosition;
-            }
-
-            targetPosition = targetPosition == -1
-                ? _layoutManager.FindFirstVisibleItemPosition()
-                : targetPosition;
-
-            var viewHolder = _publicationRecyclerView.FindViewHolderForAdapterPosition(targetPosition);
-            if (viewHolder is PublicationItemViewHolder itemViewHolder)
-            {
-                itemViewHolder.LoadingProgressBar.Visibility = ViewStates.Visible;
-                PlayVideo(itemViewHolder, itemViewHolder.TextureView);
-            }
-
-            return Task.CompletedTask;
-        }
-
-        private void PlayVideo(PublicationItemViewHolder itemViewHolder, AutoFitTextureView textureView)
-        {
-            if (_previousPublicationViewHolder?.ViewModel != null &&
-                _previousPublicationViewHolder.ViewModel.VideoPlayerService != null &&
-                _previousVideoView != null)
-            {
-                StopVideo(_previousPublicationViewHolder);
-            }
-
-            Debug.WriteLine("PlayVideo [Start]");
-
-            if (itemViewHolder?.ViewModel?.VideoPlayerService is null ||
-                textureView is null)
-            {
-                return;
-            }
-
-            if (itemViewHolder.ViewModel.VideoPlayerService.Player.IsPlaying)
-            {
-                return;
-            }
-
-            var videoService = itemViewHolder.ViewModel.VideoPlayerService;
-
-            videoService.Player.SetPlatformVideoPlayerContainer(textureView);
-            videoService.Player.VideoRenderingStartedAction = itemViewHolder.OnRenderingStarted;
-            videoService.Play(itemViewHolder.ViewModel.PreviewUrl, itemViewHolder.ViewModel.VideoId);
-            
-            _previousPublicationViewHolder = itemViewHolder;
-            _previousVideoView = textureView;
-            Debug.WriteLine("PlayVideo [End]");
-        }
-
-        private void StopVideo(PublicationItemViewHolder viewHolder)
-        {
-            Debug.WriteLine("StopVideo [Start]");
-            if (viewHolder is null)
-            {
-                return;
-            }
-
-            viewHolder.ViewModel.VideoPlayerService.Player.VideoRenderingStartedAction = null;
-            viewHolder.StubImageView.Visibility = ViewStates.Visible;
-
-            viewHolder.ViewModel.VideoPlayerService.Stop();
-            viewHolder.LoadingProgressBar.Visibility = ViewStates.Invisible;
+            await _stateScrollListener.PlayVisibleVideoAsync(RecyclerView);
         }
 
         private void PublicationTypeTabLayoutTabUnselected(object sender, TabUnselectedEventArgs e)

@@ -16,14 +16,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
     public partial class PublicationItemCell : BaseVideoTableCell<PublicationItemCell, PublicationItemViewModel>
     {
-        private bool _isLiked;
-        private bool _isDisliked;
-
         protected PublicationItemCell(IntPtr handle)
             : base(handle)
         {
         }
 
+        private bool _isLiked;
         public bool IsLiked
         {
             get => _isLiked;
@@ -45,6 +43,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             }
         }
 
+        private bool _isDisliked;
         public bool IsDisliked
         {
             get => _isDisliked;
@@ -67,17 +66,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         }
 
         public override MvxCachedImageView StubImageView => stubImageView;
-
+        public override UIActivityIndicatorView LoadingActivityIndicator => loadingActivityIndicator;
         protected override UIView VideoView => videoView;
-
-        protected override UIActivityIndicatorView LoadingActivityIndicator => loadingActivityIndicator;
-
         protected override UIView RootProcessingBackgroundView => placeProcessingOverlay;
-
         protected override UIView ProcessingBackgroundView => processingBackgroundView;
-
         protected override UIActivityIndicatorView ProcessingActivityIndicator => processingIndicatorView;
-
         protected override UILabel ProcessingLabel => processingLabel;
 
         protected override void SetupControls()
@@ -110,15 +103,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
             processingBackgroundView.Layer.CornerRadius = 8;
         }
 
-        protected override void SetBindings()
+        protected override void Bind()
         {
-            var bindingSet = this.CreateBindingSet<PublicationItemCell, PublicationItemViewModel>();
+            base.Bind();
+
+            using var bindingSet = this.CreateBindingSet<PublicationItemCell, PublicationItemViewModel>();
 
             bindingSet.Bind(this).For(v => v.IsLiked).To(vm => vm.IsLiked);
             bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.IsDisliked);
 
             bindingSet.Bind(profileImage.Tap()).For(v => v.Command).To(vm => vm.OpenUserProfileCommand);
-            bindingSet.Bind(profileImage).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl);
+            bindingSet.Bind(profileImage).For(v => v.ImagePath).To(vm => vm.AvatarUrl);
 
             bindingSet.Bind(commentsLabel).For(v => v.Text).To(vm => vm.NumberOfCommentsPresentation);
             bindingSet.Bind(commentButton).For(v => v.BindTap()).To(vm => vm.ShowCommentsCommand);
@@ -147,8 +142,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
             bindingSet.Bind(competitionBorderView).For(v => v.BindVisible()).To(vm => vm.IsCompetitionVideo);
             bindingSet.Bind(competitionCupImageView).For(v => v.BindVisible()).To(vm => vm.IsCompetitionVideo);
-
-            bindingSet.Apply();
         }
     }
 }

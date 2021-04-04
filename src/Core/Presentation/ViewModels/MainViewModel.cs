@@ -4,7 +4,6 @@ using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Common;
-using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
@@ -40,7 +39,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             _walkthroughsProvider = walkthroughsProvider;
 
             _refreshTokenExpiredMessageSubscription = Messenger.Subscribe<RefreshTokenExpiredMessage>(RefreshTokenExpired, MvxReference.Strong).DisposeWith(Disposables);
-            Messenger.Subscribe<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
 
             LoadContentCommand = this.CreateCommand(LoadContentAsync);
             ShowLoginCommand = this.CreateCommand(NavigationManager.NavigateAsync<LoginViewModel>);
@@ -60,11 +58,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private async Task CheckActualAppVersionAsync()
         {
-            if (UserSessionProvider.IsDebugMode)
-            {
-                return;
-            }
-
             var newActualVersion = await _versionManager.CheckAppVersionAsync();
             if (!string.IsNullOrEmpty(newActualVersion?.Link))
             {
@@ -102,7 +95,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                     NavigationManager.NavigateAsync<CompetitionsViewModel>(),
                     NavigationManager.NavigateAsync<CreateOrderViewModel>(),
                     NavigationManager.NavigateAsync<OrdersViewModel>(),
-                    NavigationManager.NavigateAsync<ProfileViewModel>());
+                    NavigationManager.NavigateAsync<ProfileViewModel>(),
+                    NotificationBadgeViewModel.RefreshDataCommand.ExecuteAsync());
         }
 
         private Task ShowWalthroughIfNeedAsync(int position)

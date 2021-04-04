@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.ReloadItemsCommand);
             bindingSet.Bind(OrdersTableSource).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
-            bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBageViewModel.HasUnreadNotifications).WithConversion<BoolToNotificationImageConverter>();
+            bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications).WithConversion<BoolToNotificationImageConverter>();
 
             bindingSet.Apply();
 		}

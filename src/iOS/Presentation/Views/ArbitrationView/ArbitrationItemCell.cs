@@ -10,7 +10,7 @@ using PrankChat.Mobile.iOS.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 {
-    public partial class ArbitrationItemCell : BaseTableCell<ArbitrationItemCell, ArbitrationItemViewModel>
+    public partial class ArbitrationItemCell : BaseTableCell<ArbitrationItemCell, ArbitrationOrderItemViewModel>
 	{
 		protected ArbitrationItemCell(IntPtr handle)
             : base(handle)
@@ -47,9 +47,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 			OrderStatusLabel.Text = Resources.OrderStatus_InArbitration;
 		}
 
-		protected override void SetBindings()
+		protected override void Bind()
 		{
-			var set = this.CreateBindingSet<ArbitrationItemCell, ArbitrationItemViewModel>();
+			var set = this.CreateBindingSet<ArbitrationItemCell, ArbitrationOrderItemViewModel>();
 
 			set.Bind(this)
 				.For(v => v.BindTap())

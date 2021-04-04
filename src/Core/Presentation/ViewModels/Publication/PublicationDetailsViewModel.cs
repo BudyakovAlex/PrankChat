@@ -2,6 +2,7 @@
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Managers.Video;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using System;
@@ -9,12 +10,13 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 {
-    public class PublicationDetailsViewModel : BasePublicationViewModel
+    //TODO: stub for future 
+    public class PublicationDetailsViewModel : BasePageViewModel
     {
         private DateTime _commentDate = new DateTime(2018, 4, 24);
         private int? _numberOfComments = 125;
 
-        public PublicationDetailsViewModel(IPublicationsManager publicationsManager, IVideoManager videoManager) : base(publicationsManager, videoManager)
+        public PublicationDetailsViewModel(IPublicationsManager publicationsManager, IVideoManager videoManager)
         {
             OpenCommentsCommand = this.CreateRestrictedCommand(
                 ShowCommentsAsync,
@@ -44,7 +46,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
 
         private Task ShowCommentsAsync()
         {
-            return NavigationManager.NavigateAsync<CommentsViewModel, int, int>(VideoId);
+            return NavigationManager.NavigateAsync<CommentsViewModel, int, int>(0);
         }
     }
 }

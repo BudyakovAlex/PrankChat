@@ -1,31 +1,31 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using Plugin.DeviceInfo;
-using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 {
     public class ShareDialogViewModel : BasePageViewModel, IMvxViewModel<ShareDialogParameter>
     {
-        private readonly IPlatformService _platformService;
-
         private string _url;
 
-        public MvxAsyncCommand ShareToInstagramCommand => this.CreateCommand(ShareToInstagramAsync);
-
-        public MvxAsyncCommand CopyLinkCommand => this.CreateCommand(CopyLinkAsync);
-
-        public MvxAsyncCommand ShareCommand => this.CreateCommand(ShareAsync);
-
-        public ShareDialogViewModel(IPlatformService platformService)
+        public ShareDialogViewModel()
         {
-            _platformService = platformService;
+            ShareToInstagramCommand = this.CreateCommand(ShareToInstagramAsync);
+            CopyLinkCommand = this.CreateCommand(CopyLinkAsync);
+            ShareCommand = this.CreateCommand(ShareAsync);
         }
+
+        public MvxAsyncCommand ShareToInstagramCommand { get; }
+
+        public MvxAsyncCommand CopyLinkCommand { get; } 
+
+        public MvxAsyncCommand ShareCommand { get; }
 
         public void Prepare(ShareDialogParameter parameter)
         {
@@ -39,13 +39,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 
         private async Task CopyLinkAsync()
         {
-            await _platformService.CopyTextAsync(_url);
+            await Clipboard.SetTextAsync(_url);
             CloseCommand.Execute(null);
         }
 
         private async Task ShareAsync()
         {
-            await _platformService.ShareUrlAsync(Resources.ShareDialog_LinkShareTitle, _url);
+            await Share.RequestAsync(new ShareTextRequest
+            {
+                Uri = _url,
+                Title = Resources.ShareDialog_LinkShareTitle
+            });
+
             if (CrossDeviceInfo.Current.Platform != Plugin.DeviceInfo.Abstractions.Platform.Android)
             {
                 return;

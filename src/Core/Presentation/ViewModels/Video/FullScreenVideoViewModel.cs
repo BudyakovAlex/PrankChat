@@ -1,47 +1,39 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Managers.Users;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 {
-    public class FullScreenVideoViewModel : LikeableViewModel, IMvxViewModel<FullScreenVideoParameter, bool>
+    public class FullScreenVideoViewModel : BasePageViewModel<FullScreenVideoParameter, bool>
     {
         private readonly IUsersManager _usersManager;
-        private readonly IPlatformService _platformService;
 
         private bool _isReloadNeeded;
-        private string _shareLink;
         private int _index;
 
-        private FullScreenVideo _currentVideo;
+        private BaseVideoItemViewModel[] _videos;
+        private IDisposable _likeChangedSubscription;
+        private IDisposable _dislikeChangedSubscription;
 
-        private List<FullScreenVideo> _videos;
-
-        public FullScreenVideoViewModel(
-            IUsersManager usersManager,
-            IPublicationsManager publicationsManager,
-            IPlatformService platformService) : base(publicationsManager)
+        public FullScreenVideoViewModel(IUsersManager usersManager)
         {
             Interaction = new MvxInteraction();
 
             _usersManager = usersManager;
-            _platformService = platformService;
 
             ShareCommand = this.CreateCommand(ShareAsync);
             MoveNextCommand = this.CreateCommand(MoveNext);
@@ -58,6 +50,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
                 handleFunc: NavigateByRestrictionsAsync);
         }
 
+        protected override bool DefaultResult => _isReloadNeeded;
+
         public IMvxAsyncCommand ShareCommand { get; }
 
         public IMvxAsyncCommand OpenUserProfileCommand { get; }
@@ -66,16 +60,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         public IMvxCommand MovePreviousCommand { get; }
 
+        public BaseVideoItemViewModel CurrentVideo { get; private set; }
+
         public MvxInteraction Interaction { get; }
 
         public MvxRestrictedAsyncCommand OpenCommentsCommand { get; }
-
-        private string _videoUrl;
-        public string VideoUrl
-        {
-            get => _videoUrl;
-            private set => SetProperty(ref _videoUrl, value);
-        }
 
         public bool IsMuted
         {
@@ -87,75 +76,29 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             }
         }
 
-        public string VideoName { get; private set; }
+        public string NumberOfLikesPresentation => CurrentVideo.NumberOfLikes.ToCountString();
 
-        public string Description { get; private set; }
+        public string NumberOfDislikesPresentation => CurrentVideo.NumberOfLikes.ToCountString();
 
-        public string ProfilePhotoUrl { get; private set; }
+        public string NumberOfCommentsPresentation => CurrentVideo.NumberOfComments.ToCountString();
 
-        public string ProfileShortName { get; private set; }
-
-        public bool IsLikeFlowAvailable { get; private set; }
-
-        public string StubImageUrl { get; private set; }
-
-        public bool IsSubscribed { get; private set; }
-
-        public long? NumberOfComments { get; private set; }
-
-        public string NumberOfLikesPresentation => NumberOfLikes.ToCountString();
-
-        public string NumberOfDislikesPresentation => NumberOfDislikes.ToCountString();
-
-        public string NumberOfCommentsPresentation => NumberOfComments.ToCountString();
-
-        public TaskCompletionSource<object> CloseCompletionSource { get; set; }
-
-        public void Prepare(FullScreenVideoParameter parameter)
+        public override void Prepare(FullScreenVideoParameter parameter)
         {
             _videos = parameter.Videos;
-            _index = parameter.Index;
+            _index = parameter.StartIndex;
+
+            _videos.ForEach(SubscribeToVideoViewsChanged);
 
             RefreshCurrentVideoState();
         }
 
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
-            {
-                CloseCompletionSource?.SetResult(_isReloadNeeded);
-            }
-
-            base.ViewDestroy(viewFinishing);
-        }
-
-        protected override void OnLike()
-        {
-            if (!IsLikeFlowAvailable)
-            {
-                return;
-            }
-
-            base.OnLike();
-        }
-
-        protected override void OnDislike()
-        {
-            if (!IsLikeFlowAvailable)
-            {
-                return;
-            }
-
-            base.OnDislike();
-        }
-
-        protected override void OnLikeChanged()
+        private void OnLikeChanged()
         {
             RaisePropertyChanged(nameof(NumberOfLikesPresentation));
             _isReloadNeeded = true;
         }
 
-        protected override void OnDislikeChanged()
+        private void OnDislikeChanged()
         {
             RaisePropertyChanged(nameof(NumberOfDislikesPresentation));
             _isReloadNeeded = true;
@@ -169,9 +112,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         private async Task OpenUserProfileAsync()
         {
-            if (_currentVideo?.UserId is null ||
-                _currentVideo.UserId == 0 ||
-                _currentVideo.UserId == UserSessionProvider.User.Id)
+            if (CurrentVideo.UserId == 0 ||
+                CurrentVideo.UserId == UserSessionProvider.User.Id)
             {
                 return;
             }
@@ -183,25 +125,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
                 return;
             }
 
-            var shouldRefresh = await NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_currentVideo.UserId);
+            var shouldRefresh = await NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(CurrentVideo.UserId);
             if (!shouldRefresh)
             {
                 return;
             }
 
-            var user = await _usersManager.GetUserAsync(_currentVideo.UserId);
-            _currentVideo.IsSubscribed = user.IsSubscribed;
-            IsSubscribed = _currentVideo.IsSubscribed;
-
-            await RaisePropertyChanged(nameof(IsSubscribed));
+            var user = await _usersManager.GetUserAsync(CurrentVideo.UserId);
+            CurrentVideo.IsSubscribedToUser = user.IsSubscribed;
         }
 
         private async Task ShowCommentsAsync()
         {
             Interaction.Raise();
 
-            var commentsCount = await NavigationManager.NavigateAsync<CommentsViewModel, int, int>(VideoId);
-            NumberOfComments = commentsCount > 0 ? commentsCount : NumberOfComments;
+            var commentsCount = await NavigationManager.NavigateAsync<CommentsViewModel, int, int>(CurrentVideo.VideoId);
+            CurrentVideo.NumberOfComments = commentsCount > 0 ? commentsCount : CurrentVideo.NumberOfComments;
             await RaisePropertyChanged(nameof(NumberOfCommentsPresentation));
             _isReloadNeeded = true;
         }
@@ -219,7 +158,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         private void MoveNext()
         {
-            if (_index - 1 == _videos.Count)
+            if (_index == _videos.Length - 1)
             {
                 return;
             }
@@ -230,39 +169,48 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         private void RefreshCurrentVideoState()
         {
-            _currentVideo = _videos.ElementAtOrDefault(_index);
-            if (_currentVideo is null)
+            if (CurrentVideo != null)
             {
-                return;
+                CurrentVideo.FullVideoPlayer.Stop();
+                _likeChangedSubscription?.Dispose();
+                _likeChangedSubscription = null;
+
+                _dislikeChangedSubscription?.Dispose();
+                _dislikeChangedSubscription = null;
             }
 
-            VideoId = _currentVideo.VideoId;
-       
-            VideoName = _currentVideo.VideoName;
-            Description = _currentVideo.Description;
-            ProfilePhotoUrl = _currentVideo.ProfilePhotoUrl;
-            ProfileShortName = _currentVideo.UserShortName;
-            NumberOfLikes = _currentVideo.NumberOfLikes;
-            NumberOfDislikes = _currentVideo.NumberOfDislikes;
-            IsLikeFlowAvailable = _currentVideo.IsLikeFlowAvailable;
-            StubImageUrl = _currentVideo.StubImageUrl;
-            NumberOfComments = _currentVideo.NumberOfComments;
-            IsSubscribed = _currentVideo.IsSubscribed;
+            CurrentVideo = _videos.ElementAtOrDefault(_index);
+            if (CurrentVideo is null)
+            {
+                throw new ArgumentOutOfRangeException($"Failed to load video on index {_index}");
+            }
 
-            _shareLink = _currentVideo.ShareLink;
+            _likeChangedSubscription = CurrentVideo.SubscribeToPropertyChanged(nameof(BaseVideoItemViewModel.IsLiked), OnLikeChanged);
+            _dislikeChangedSubscription = CurrentVideo.SubscribeToPropertyChanged(nameof(BaseVideoItemViewModel.IsDisliked), OnDislikeChanged);
+
+            CurrentVideo.RaiseAllPropertiesChanged();
             RaiseAllPropertiesChanged();
 
-            IsLiked = _currentVideo.IsLiked;
-            IsDisliked = _currentVideo.IsDisliked;
-            VideoUrl = _currentVideo.VideoUrl;
+            CurrentVideo.FullVideoPlayer.Play();
         }
 
         private Task ShareAsync()
         {
             Interaction.Raise();
-            return _platformService.ShareUrlAsync(Resources.ShareDialog_LinkShareTitle, _shareLink);
-            //TODO: remove comments when logic will be ready
-            //return DialogService.ShowShareDialogAsync(_shareLink);
+
+            return Share.RequestAsync(new ShareTextRequest
+            {
+                Uri = CurrentVideo.ShareLink,
+                Title = Resources.ShareDialog_LinkShareTitle
+            });
+        }
+
+        private void SubscribeToVideoViewsChanged(BaseVideoItemViewModel videoItemViewModel)
+        {
+            videoItemViewModel.SubscribeToEvent(
+                (_, __) => _isReloadNeeded = true,
+                (wrapper, handler) => wrapper.ViewsCountChanged += handler,
+                (wrapper, handler) => wrapper.ViewsCountChanged -= handler).DisposeWith(Disposables);
         }
     }
 }

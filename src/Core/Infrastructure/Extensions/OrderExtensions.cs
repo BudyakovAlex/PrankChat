@@ -61,31 +61,6 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             };
         }
 
-        public static FullScreenVideo ToFullScreenVideo(this Order order)
-        {
-            if (order is null)
-            {
-                return null;
-            }
-
-            return new FullScreenVideo(
-                order.Customer.Id,
-                order.Customer.IsSubscribed,
-                order.Video.Id,
-                order.Video.StreamUri,
-                order.Title,
-                order.Description,
-                order.Video.ShareUri,
-                order.Customer.Avatar,
-                order.Customer.Login.ToShortenName(),
-                order.Video.LikesCount,
-                order.Video.DislikesCount,
-                order.Video.CommentsCount,
-                order.Video.IsLiked,
-                order.Video.IsDisliked,
-                order.Video.Poster);
-        }
-
         public static bool CheckIsTimeAvailable(this Order Order)
         {
             var timeValue = Order.GetActiveOrderTime();

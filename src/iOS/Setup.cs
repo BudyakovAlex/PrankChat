@@ -16,7 +16,7 @@ using PrankChat.Mobile.iOS.ApplicationServices;
 using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn;
 using PrankChat.Mobile.iOS.Controls;
-using PrankChat.Mobile.iOS.PlatformBusinessServices.Video;
+using PrankChat.Mobile.iOS.Plugins.Video;
 using PrankChat.Mobile.iOS.Presentation.Binding;
 using UIKit;
 using WebKit;
@@ -39,7 +39,7 @@ namespace PrankChat.Mobile.iOS
         {
             base.InitializeLastChance();
 
-            CompositionRoot.Container.RegisterType<IVideoPlayerService, VideoPlayerService>();
+            CompositionRoot.Container.RegisterType<IVideoPlayer, VideoPlayer>();
             CompositionRoot.Container.RegisterSingleton<IDialogService, DialogService>();
             CompositionRoot.Container.RegisterSingleton<IExternalAuthService, ExternalAuthService>();
             CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();

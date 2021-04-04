@@ -11,7 +11,7 @@ namespace PrankChat.Mobile.Core.Data.Dtos
         public int Id { get; set; }
 
         [JsonProperty("price")]
-        public long? Price { get; set; }
+        public double? Price { get; set; }
 
         [JsonProperty("title")]
         public string Title { get; set; }

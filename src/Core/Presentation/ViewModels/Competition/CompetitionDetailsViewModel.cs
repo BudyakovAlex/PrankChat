@@ -1,17 +1,15 @@
-﻿using MvvmCross.Commands;
+﻿using FFImageLoading;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
-using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Competitions;
-using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Managers.Video;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -19,10 +17,10 @@ using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,9 +30,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
     public class CompetitionDetailsViewModel : PaginationViewModel, IMvxViewModel<Models.Data.Competition, bool>
     {
         private readonly ICompetitionsManager _competitionsManager;
-        private readonly IPublicationsManager _publicationsManager;
         private readonly IVideoManager _videoManager;
-        private readonly IVideoPlayerService _videoPlayerService;
         private readonly IMediaService _mediaService;
 
         private Models.Data.Competition _competition;
@@ -45,16 +41,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        public CompetitionDetailsViewModel(ICompetitionsManager competitionsManager,
-                                           IPublicationsManager publicationsManager,
-                                           IVideoManager videoManager,
-                                           IVideoPlayerService videoPlayerService,
-                                           IMediaService mediaService) : base(Constants.Pagination.DefaultPaginationSize)
+        public CompetitionDetailsViewModel(
+            ICompetitionsManager competitionsManager,
+            IVideoManager videoManager,
+            IMediaService mediaService) : base(Constants.Pagination.DefaultPaginationSize)
         {
             _competitionsManager = competitionsManager;
-            _publicationsManager = publicationsManager;
             _videoManager = videoManager;
-            _videoPlayerService = videoPlayerService;
             _mediaService = mediaService;
 
             Items = new MvxObservableCollection<BaseViewModel>();
@@ -140,6 +133,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 Items.Add(ProduceVideoItemViewModel(video));
                 return 1;
             }
+
+            var preloadImagesTasks = pageContainer.Items.Select(item => ImageService.Instance.LoadUrl(item.Poster).PreloadAsync()).ToArray();
+            _ = Task.WhenAll(preloadImagesTasks);
 
             var count = SetList(pageContainer, page, ProduceVideoItemViewModel, Items);
             return count;
@@ -255,18 +251,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
             }
         }
 
-        private List<FullScreenVideo> GetFullScreenVideos()
-        {
-            return Items.OfType<CompetitionVideoViewModel>()
-                        .Select(item => item.GetFullScreenVideo())
-                        .ToList();
-        }
+        private BaseVideoItemViewModel[] GetFullScreenVideos() =>
+            Items.OfType<CompetitionVideoViewModel>().ToArray();
 
         private CompetitionVideoViewModel ProduceVideoItemViewModel(Models.Data.Video video)
         {
             return new CompetitionVideoViewModel(
-                _publicationsManager,
-                _videoPlayerService,
+                _videoManager,
                 UserSessionProvider,
                 video,
                 video.User.Id == UserSessionProvider.User.Id,
@@ -316,8 +307,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                     {
                         video.User = UserSessionProvider.User;
                         Items.Insert(1, new CompetitionVideoViewModel(
-                            _publicationsManager,
-                            _videoPlayerService,
+                            _videoManager,
                             UserSessionProvider,
                             video,
                             true,

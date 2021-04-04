@@ -23,7 +23,7 @@ namespace PrankChat.Mobile.Droid
         {
             base.InitializeLastChance();
 
-            CompositionRoot.Container.RegisterType<IVideoPlayerService, VideoPlayerService>();
+            CompositionRoot.Container.RegisterType<IVideoPlayer, VideoPlayer>();
             CompositionRoot.Container.RegisterSingleton<IDialogService, DialogService>();
             CompositionRoot.Container.RegisterSingleton<IExternalAuthService, ExternalAuthService>();
             CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();

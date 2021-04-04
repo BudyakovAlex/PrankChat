@@ -218,8 +218,6 @@
     <Compile Include="Presentation\Views\Base\BaseCollectionCell.cs" />
     <Compile Include="Presentation\Converters\BoolToUIImageConverter.cs" />
     <Compile Include="Presentation\Converters\DateFormatConverter.cs" />
-    <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
-    <Compile Include="PlatformBusinessServices\Video\VideoPlayerService.cs" />
     <Compile Include="Presentation\Dialogs\Share\ShareController.cs" />
     <Compile Include="Presentation\Dialogs\Share\ShareController.designer.cs">
       <DependentUpon>..\..\Views\Share\ShareController.cs</DependentUpon>
@@ -392,6 +390,7 @@
     <Compile Include="Controls\CheckBox.cs" />
     <Compile Include="Presentation\Views\Base\IRefreshableView.cs" />
     <Compile Include="Presentation\Views\Base\BaseRefreshableTabbedView.cs" />
+    <Compile Include="Plugins\Video\VideoPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -1179,6 +1178,8 @@
     <Folder Include="Presentation\SourcesAndDelegates\Search\" />
     <Folder Include="Assets.xcassets\ic_order_hidden.imageset\" />
     <Folder Include="Assets.xcassets\ic_order_paid.imageset\" />
+    <Folder Include="Plugins\" />
+    <Folder Include="Plugins\Video\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

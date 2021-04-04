@@ -2,16 +2,16 @@
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Video;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,13 +25,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
         private readonly IMediaService _mediaService;
 
         private CancellationTokenSource _cancellationTokenSource;
-        private List<FullScreenVideo> _fullScreenVideos;
+        private BaseVideoItemViewModel[] _fullScreenVideos;
 
         private int _currentIndex;
 
-        public OrderDetailsVideoSectionViewModel(IVideoManager videoManager,
-                                                 IUserSessionProvider userSessionProvider,
-                                                 IMediaService mediaService)
+        public OrderDetailsVideoSectionViewModel(
+            IVideoManager videoManager,
+            IUserSessionProvider userSessionProvider,
+            IMediaService mediaService)
         {
             _userSessionProvider = userSessionProvider;
             _videoManager = videoManager;
@@ -90,21 +91,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
             private set => SetProperty(ref _uploadingProgressStringPresentation, value);
         }
 
-        public void SetFullScreenVideos(List<FullScreenVideo> fullScreenVideos, int currentIndex)
+        public void SetFullScreenVideos(BaseVideoItemViewModel[] fullScreenVideos, int currentIndex)
         {
-            _fullScreenVideos = fullScreenVideos ?? new List<FullScreenVideo>();
+            _fullScreenVideos = fullScreenVideos ?? Array.Empty<BaseVideoItemViewModel>();
             _currentIndex = currentIndex;
         }
 
         public void RefreshFullScreenVideo()
         {
+            if (Order.Video?.StreamUri.IsNullOrEmpty() ?? true)
+            {
+                return;
+            }
+
             var fullScreenVideo = _fullScreenVideos.FirstOrDefault(item => item.VideoId == Order?.Video?.Id);
             if (fullScreenVideo is null)
             {
                 return;
             }
 
-            fullScreenVideo.VideoUrl = Order?.Video?.StreamUri;
+            var videoIndex = _fullScreenVideos.IndexOfOrDefault(fullScreenVideo);
+            _fullScreenVideos[videoIndex] = new OrderedVideoItemViewModel(_videoManager, _userSessionProvider, Order.Video);
         }
 
         private async Task LoadVideoAsync()
@@ -154,8 +161,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
 
             if (!_fullScreenVideos.Any(item => item.VideoId == video.Id))
             {
-                _fullScreenVideos.Add(Order.ToFullScreenVideo());
-                _currentIndex = _fullScreenVideos.Count - 1;
+                var videoVideModel = new OrderedVideoItemViewModel(_videoManager, _userSessionProvider, Order.Video);
+                _fullScreenVideos.Append(videoVideModel);
+                _currentIndex = _fullScreenVideos.Length - 1;
             }
 
             Messenger.Publish(new OrderChangedMessage(this, Order));
@@ -181,11 +189,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
                 return;
             }
 
-            var navigationParams = _fullScreenVideos.Count > 0
+            var navigationParams = _fullScreenVideos.Length > 0
                 ? new FullScreenVideoParameter(_fullScreenVideos, _currentIndex)
-                : new FullScreenVideoParameter(Order.ToFullScreenVideo());
+                : new FullScreenVideoParameter(new OrderedVideoItemViewModel(_videoManager, _userSessionProvider, Order.Video));
 
-            if (navigationParams.Videos.Count == 0)
+            if (navigationParams.Videos.Length == 0)
             {
                 return;
             }

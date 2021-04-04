@@ -22,7 +22,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
                 restrictedCanExecute: () => IsUserSessionInitialized,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
 
-            NotificationBageViewModel = CompositionRoot.Container.Resolve<INotificationBageViewModel>();
+            NotificationBadgeViewModel = CompositionRoot.Container.Resolve<NotificationBadgeViewModel>();
 
             ShowSearchCommand = this.CreateCommand(NavigationManager.NavigateAsync<SearchViewModel>);
             CloseCommand = this.CreateCommand<bool?>(CloseAsync);
@@ -34,7 +34,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 
         public IUserSessionProvider UserSessionProvider => CompositionRoot.Container.Resolve<IUserSessionProvider>();
 
-        public INotificationBageViewModel NotificationBageViewModel { get; }
+        public NotificationBadgeViewModel NotificationBadgeViewModel { get; }
 
         public bool IsInitialized { get; private set; }
 

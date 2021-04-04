@@ -1,5 +1,6 @@
 ﻿using MvvmCross;
 using MvvmCross.IoC;
+using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
 using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
@@ -14,7 +15,6 @@ using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.ApplicationServices.Permissions;
-using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Managers.Common;
@@ -63,7 +63,7 @@ namespace PrankChat.Mobile.Core.Ioc
 
         private void RegisterServices()
         {
-            Container.RegisterSingleton<ITimerService, TimerService>();
+            Container.RegisterSingleton<ITimerService>(new TimerService(Container.Resolve<IMvxMessenger>()));
 
             Container.RegisterSingleton<IAuthorizationService, AuthorizationService>();
             Container.RegisterSingleton<IVersionService, VersionService>();
@@ -77,7 +77,6 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<IVideoService, VideoService>();
 
             Container.RegisterSingleton<IErrorHandleService, ErrorHandleService>();
-            Container.RegisterSingleton<IPlatformService, PlatformService>();
             Container.RegisterSingleton<IPermissionService, PermissionService>();
             Container.RegisterSingleton<IMediaService, MediaService>();
         }
@@ -99,7 +98,7 @@ namespace PrankChat.Mobile.Core.Ioc
 
         private void RegisterDependencies()
         {
-            Container.RegisterSingleton<INotificationBageViewModel, NotificationBageViewModel>();
+            Container.RegisterSingleton(Container.IocConstruct<NotificationBadgeViewModel>());
         }
 
         private void RegisterProviders()

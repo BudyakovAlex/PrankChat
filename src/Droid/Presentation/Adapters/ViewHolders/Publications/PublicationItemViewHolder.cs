@@ -114,13 +114,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
         {
             base.BindData();
 
-            var bindingSet = this.CreateBindingSet<PublicationItemViewHolder, PublicationItemViewModel>();
+            using var bindingSet = this.CreateBindingSet<PublicationItemViewHolder, PublicationItemViewModel>();
 
             bindingSet.Bind(this).For(v => v.IsLiked).To(vm => vm.IsLiked);
             bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.IsDisliked);
             bindingSet.Bind(_comentsTextView).For(v => v.Text).To(vm => vm.NumberOfCommentsPresentation);
             bindingSet.Bind(_commentsView).For(v => v.BindClick()).To(vm => vm.ShowCommentsCommand);
-            bindingSet.Bind(_profileImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl);
+            bindingSet.Bind(_profileImageView).For(v => v.ImagePath).To(vm => vm.AvatarUrl);
             bindingSet.Bind(_profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName);
             bindingSet.Bind(_profileImageView).For(v => v.BindClick()).To(vm => vm.OpenUserProfileCommand);
             bindingSet.Bind(_profileNameTextView).For(v => v.Text).To(vm => vm.ProfileName);
@@ -132,12 +132,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
             bindingSet.Bind(_videoContainerView).For(ViewTouchTargetBinding.TargetBinding).To(vm => vm.ShowFullScreenVideoCommand);
             bindingSet.Bind(ProcessingView).For(v => v.BindVisible()).To(vm => vm.IsVideoProcessing);
             bindingSet.Bind(TextureView).For(v => v.BindHidden()).To(vm => vm.IsVideoProcessing);
-            bindingSet.Bind(this).For(v => v.CanShowStub).To(vm => vm.IsVideoProcessing)
-                      .WithConversion<MvxInvertedBooleanConverter>();
             bindingSet.Bind(_competitionBorderView).For(v => v.BindVisible()).To(vm => vm.IsCompetitionVideo);
             bindingSet.Bind(_competitionCupImageView).For(v => v.BindVisible()).To(vm => vm.IsCompetitionVideo);
-
-            bindingSet.Apply();
         }
     }
 }

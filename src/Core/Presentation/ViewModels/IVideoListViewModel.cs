@@ -1,5 +1,4 @@
-﻿using System;
-using MvvmCross.ViewModels;
+﻿using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels

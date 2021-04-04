@@ -65,7 +65,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             orderDetailsButton.TitleLabel.Text = Resources.Order_View_Details;
         }
 
-        protected override void SetBindings()
+        protected override void Bind()
         {
             var set = this.CreateBindingSet<OrderItemCell, OrderItemViewModel>();
 
