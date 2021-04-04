@@ -13,6 +13,7 @@ using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
+using System.Linq;
 using UIKit;
 using Xamarin.Essentials;
 
@@ -25,8 +26,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         private UIBarButtonItem _notificationBarItem;
         private OrdersTableSource _source;
 
-        private bool _hasDescription;
+        private bool _isExpanded = true;
 
+        private bool _hasDescription;
         public bool HasDescription
         {
             get => _hasDescription;
@@ -47,6 +49,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         }
 
         public UITableView TableView => tableView;
+
+        public override void ViewDidLayoutSubviews()
+        {
+            base.ViewDidLayoutSubviews();
+
+            var topOffset = 10 + headerContainerView.Frame.Height;
+            tableView.ContentInset = new UIEdgeInsets(topOffset, 0, 0, 0);
+            tableView.SetContentOffset(new CGPoint(0, -topOffset), false);
+        }
 
         protected override void SetupBinding()
         {
@@ -175,11 +186,40 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         private void InitializeTableView()
         {
-            _source = new OrdersTableSource(tableView);
+            _source = new OrdersTableSource(tableView, OnTableViewScrolled);
             tableView.Source = _source;
             tableView.SeparatorColor = Theme.Color.Separator;
             tableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
-            tableView.ContentInset = new UIEdgeInsets(10, 0, 0, 0);
+        }
+
+        private void OnTableViewScrolled()
+        {
+            var isExpanded = TableView.ContentOffset.Y <= 100;
+            AnimateHeaderState(isExpanded);
+        }
+
+        private void AnimateHeaderState(bool isExpanded)
+        {
+            if (_isExpanded == isExpanded)
+            {
+                return;
+            }
+
+            _isExpanded = isExpanded;
+
+            headerContainerTopConstraint.Constant = _isExpanded ? 0 : - headerContainerView.Frame.Height;
+            var alpha = isExpanded ? 1 : 0;
+            UIView.Animate(
+                0.25,
+                0,
+                UIViewAnimationOptions.AllowUserInteraction | UIViewAnimationOptions.TransitionCrossDissolve,
+                () =>
+                {
+                    headerContainerView.Subviews.ForEach(item => item.Alpha = alpha);
+                    headerContainerView.Alpha = alpha;
+                    View.LayoutIfNeeded();
+                },
+                null);
         }
     }
 }

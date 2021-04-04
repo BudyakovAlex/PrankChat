@@ -55,6 +55,11 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
         public void SetVideoUrl(string url)
         {
+            if (url.IsNullOrEmpty())
+            {
+                return;
+            }
+
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 _isPrepared = false;

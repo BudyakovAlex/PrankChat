@@ -13,6 +13,7 @@ using PrankChat.Mobile.Droid.Controls;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 {
@@ -135,6 +136,11 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         public void SetVideoUrl(string url)
         {
+            if (url.IsNullOrEmpty())
+            {
+                return;
+            }
+
             _url = url;
         }
 
