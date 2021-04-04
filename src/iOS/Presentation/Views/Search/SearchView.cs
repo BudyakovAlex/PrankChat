@@ -31,24 +31,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 
         protected override void SetupBinding()
         {
-            var bindingSet = this.CreateBindingSet<SearchView, SearchViewModel>();
+            using var bindingSet = this.CreateBindingSet<SearchView, SearchViewModel>();
 
-            bindingSet.Bind(OrdersTableSource)
-                      .To(vm => vm.Items);
-            bindingSet.Bind(PeoplesTableSource)
-                     .To(vm => vm.Items);
-            bindingSet.Bind(VideosTableSource)
-                     .To(vm => vm.Items);
+            bindingSet.Bind(OrdersTableSource).To(vm => vm.Items);
+            bindingSet.Bind(PeoplesTableSource).To(vm => vm.Items);
+            bindingSet.Bind(VideosTableSource).To(vm => vm.Items);
 
-            bindingSet.Bind(SearchBar)
-                      .For(v => v.Text)
-                      .To(vm => vm.SearchValue);
-
-            bindingSet.Bind(loadingView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsBusy);
-
-            bindingSet.Apply();
+            bindingSet.Bind(SearchBar).For(v => v.Text).To(vm => vm.SearchValue);
+            bindingSet.Bind(loadingView).For(v => v.BindVisible()).To(vm => vm.IsBusy);
         }
 
         protected override void SetupControls()

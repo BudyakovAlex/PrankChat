@@ -1,5 +1,4 @@
 ﻿using AVFoundation;
-using AVKit;
 using CoreAnimation;
 using CoreGraphics;
 using FFImageLoading.Cross;
@@ -11,14 +10,13 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.iOS.AppTheme;
 using System;
 using UIKit;
-using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 {
     public abstract class BaseVideoTableCell : BaseTableCell
     {
         private CAGradientLayer _gradientLayer;
-        private AVPlayerViewController _controller;
+        private AVPlayerLayer _videoLayer;
         private CALayer _backgroundLayer;
 
         protected BaseVideoTableCell(IntPtr handle)
@@ -29,6 +27,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
         public BaseVideoItemViewModel ViewModel => BindingContext.DataContext as BaseVideoItemViewModel;
 
         public abstract MvxCachedImageView StubImageView { get; }
+
         public abstract UIActivityIndicatorView LoadingActivityIndicator { get; }
         protected abstract UIView VideoView { get; }
         protected abstract UIView RootProcessingBackgroundView { get; }
@@ -69,15 +68,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             StubImageView.Image = null;
      
             ShowStub();
-            StopVideo();
 
+            StopVideo();
             base.PrepareForReuse();
         }
 
         protected override void Dispose(bool disposing)
         {
             StopVideo();
-
             base.Dispose(disposing);
         }
 
@@ -97,8 +95,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             };
 
             _backgroundLayer = new CALayer() { BackgroundColor = UIColor.Black.CGColor };
+            _videoLayer = new AVPlayerLayer();
 
             VideoView.Layer.AddSublayer(_backgroundLayer);
+            VideoView.Layer.AddSublayer(_videoLayer);
 
             ProcessingLabel.Text = Resources.Processing_Video;
             RootProcessingBackgroundView.Layer.InsertSublayer(_gradientLayer, 0);
@@ -114,11 +114,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
             _gradientLayer.Frame = RootProcessingBackgroundView.Bounds;
             _backgroundLayer.Frame = RootProcessingBackgroundView.Bounds;
-
-            if (_controller != null)
-            {
-                _controller.View.Frame = VideoView.Bounds;
-            }
+            _videoLayer.Frame = VideoView.Bounds;
         }
 
         public CGRect GetVideoBounds(UITableView tableView) =>
@@ -150,17 +146,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
         {
             if (VideoPlayer?.GetNativePlayer() is AVPlayer player)
             {
-                _controller?.View.RemoveFromSuperview();
-                _controller = new AVPlayerViewController
-                {
-                    Player = player,
-                    ShowsPlaybackControls = false
-                };
-
-                VideoView.AddSubview(_controller.View);
-                _controller.View.Frame = VideoView.Bounds;
-                
                 _videoPlayer.ReadyToPlayAction = HideStubs;
+                _videoLayer.Player = player;
+                VideoView.LayoutIfNeeded();
             }
         }
 

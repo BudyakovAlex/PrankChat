@@ -85,7 +85,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 return;
             }
 
-            await ExecutionStateWrapper.WrapAsync(() => ReloadItemsCommand.ExecuteAsync());
+            await ReloadItemsCommand.ExecuteAsync();
         }
 
         protected async override Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
