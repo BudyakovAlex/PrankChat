@@ -3,7 +3,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Platforms.Android.Views;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Base
@@ -62,7 +62,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             switch (item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    ViewModel.GoBackCommand.Execute();
+                    ViewModel.CloseCommand.Execute(null);
                     break;
             }
             return base.OnOptionsItemSelected(item);
@@ -104,7 +104,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 
 		public override void OnBackPressed()
         {
-            ViewModel.GoBackCommand.Execute();
+            ViewModel.CloseCommand.Execute(null);
         }
     }
 }

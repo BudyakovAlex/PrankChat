@@ -8,10 +8,12 @@ using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
-namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
+namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items
 {
     public class SubscriptionsViewModel : PaginationViewModel, IMvxViewModel<SubscriptionsNavigationParameter, bool>
     {
@@ -28,8 +30,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
 
             Items = new MvxObservableCollection<SubscriptionItemViewModel>();
             CloseCompletionSource = new TaskCompletionSource<object>();
-            LoadDataCommand = new MvxAsyncCommand(LoadDataAsync);
-            ShowProfileCommand = new MvxAsyncCommand<SubscriptionItemViewModel>(ShowProfileAsync);
+
+            LoadDataCommand = this.CreateCommand(LoadDataAsync);
+            ShowProfileCommand = this.CreateCommand<SubscriptionItemViewModel>(ShowProfileAsync);
         }
 
         public MvxObservableCollection<SubscriptionItemViewModel> Items { get; }
@@ -118,7 +121,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
             return SetList(items, page, ProduceSubscriptionItemViewModel, Items);
         }
 
-        protected virtual async Task<PaginationModel<UserDataModel>> GetSubscriptionsAsync(int page, int pageSize)
+        protected virtual async Task<Pagination<User>> GetSubscriptionsAsync(int page, int pageSize)
         {
             var getSubscriptionsTask = _usersManager.GetSubscriptionsAsync(_userId, page, pageSize);
             var getSubscribersTask = _usersManager.GetSubscribersAsync(_userId, page, pageSize);
@@ -136,12 +139,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
                     return getSubscriptionsTask.Result;
             }
 
-            return new PaginationModel<UserDataModel>();
+            return new Pagination<User>();
         }
 
         private async Task ShowProfileAsync(SubscriptionItemViewModel viewModel)
         {
-            var shouldRefresh = await NavigationService.ShowUserProfile(viewModel.Id);
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return;
+            }
+
+            var shouldRefresh = await NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(viewModel.Id);
             if (!shouldRefresh)
             {
                 return;
@@ -151,9 +159,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions
             await LoadDataCommand.ExecuteAsync();
         }
 
-        private SubscriptionItemViewModel ProduceSubscriptionItemViewModel(UserDataModel userDataModel)
+        private SubscriptionItemViewModel ProduceSubscriptionItemViewModel(User user)
         {
-            return new SubscriptionItemViewModel(userDataModel);
+            return new SubscriptionItemViewModel(UserSessionProvider, user);
         }
     }
 }

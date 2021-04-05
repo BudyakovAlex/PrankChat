@@ -1,11 +1,13 @@
-﻿using System.Threading.Tasks;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding.Items;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
@@ -15,7 +17,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
         public OnboardingViewModel()
         {
             Items = new MvxObservableCollection<OnboardingItemViewModel>();
-            ActionCommand = new MvxAsyncCommand(ExecuteActionAsync);
+            ActionCommand = this.CreateCommand(ExecuteActionAsync);
 
             ProduceSlides();
         }
@@ -54,13 +56,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
             if (IsLastSlide)
             {
                 Preferences.Set(Constants.Keys.IsOnBoardingShown, true);
-                if (VersionTracking.IsFirstLaunchEver || SettingsService.User != null)
+                if (VersionTracking.IsFirstLaunchEver || UserSessionProvider.User != null)
                 {
-                    await NavigationService.ShowMainView();
+                    await NavigationManager.NavigateAsync<MainViewModel>();
                     return;
                 }
 
-                await NavigationService.ShowLoginView();
+                await NavigationManager.NavigateAsync<LoginViewModel>();
             }
 
             SelectedIndex += 1;

@@ -19,6 +19,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		UIKit.NSLayoutConstraint descriptionTopConstraint { get; set; }
 
 		[Outlet]
+		UIKit.NSLayoutConstraint headerContainerTopConstraint { get; set; }
+
+		[Outlet]
+		UIKit.UIView headerContainerView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel nameLabel { get; set; }
 
 		[Outlet]
@@ -62,14 +68,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (descriptionTopConstraint != null) {
-				descriptionTopConstraint.Dispose ();
-				descriptionTopConstraint = null;
+			if (headerContainerTopConstraint != null) {
+				headerContainerTopConstraint.Dispose ();
+				headerContainerTopConstraint = null;
 			}
 
 			if (descriptionLabel != null) {
 				descriptionLabel.Dispose ();
 				descriptionLabel = null;
+			}
+
+			if (descriptionTopConstraint != null) {
+				descriptionTopConstraint.Dispose ();
+				descriptionTopConstraint = null;
+			}
+
+			if (headerContainerView != null) {
+				headerContainerView.Dispose ();
+				headerContainerView = null;
 			}
 
 			if (nameLabel != null) {

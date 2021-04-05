@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Android.App;
+﻿using Android.App;
 using Android.Views;
 using Android.Widget;
 using AndroidX.CoordinatorLayout.Widget;
@@ -8,10 +6,12 @@ using MvvmCross.Base;
 using MvvmCross.Platforms.Android;
 using MvvmCross.Platforms.Android.Views;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
+using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
+using System;
+using System.Threading.Tasks;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 namespace PrankChat.Mobile.Droid.ApplicationServices
@@ -25,8 +25,8 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
 
         public override bool IsToastShown { get; protected set; }
 
-        public DialogService(INavigationService navigationService, IMvxAndroidCurrentTopActivity topActivity, IMvxMainThreadAsyncDispatcher mvxMainThreadAsyncDispatcher)
-             : base(navigationService)
+        public DialogService(INavigationManager navigationManager, IMvxAndroidCurrentTopActivity topActivity, IMvxMainThreadAsyncDispatcher mvxMainThreadAsyncDispatcher)
+             : base(navigationManager)
         {
             _topActivity = topActivity;
             _mvxMainThreadAsyncDispatcher = mvxMainThreadAsyncDispatcher;

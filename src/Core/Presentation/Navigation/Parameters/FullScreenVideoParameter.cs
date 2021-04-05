@@ -1,22 +1,21 @@
-﻿using PrankChat.Mobile.Core.Models.Data;
-using System.Collections.Generic;
+﻿using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 
 namespace PrankChat.Mobile.Core.Presentation.Navigation.Parameters
 {
     public class FullScreenVideoParameter
     {
-        public FullScreenVideoParameter(FullScreenVideoDataModel video) : this(new List<FullScreenVideoDataModel> { video }, 0)
+        public FullScreenVideoParameter(BaseVideoItemViewModel video) : this(new [] { video }, 0)
         {
         }
 
-        public FullScreenVideoParameter(List<FullScreenVideoDataModel> videos, int index)
+        public FullScreenVideoParameter(BaseVideoItemViewModel[] videos, int index)
         {
             Videos = videos;
-            Index = index;
+            StartIndex = index;
         }
 
-        public List<FullScreenVideoDataModel> Videos { get; }
+        public BaseVideoItemViewModel[] Videos { get; }
 
-        public int Index { get; }
+        public int StartIndex { get; }
     }
 }

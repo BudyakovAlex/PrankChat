@@ -8,16 +8,16 @@ namespace PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn
 {
     public class AppleSignInService : NSObject, IAppleSignInService, IASAuthorizationControllerDelegate, IASAuthorizationControllerPresentationContextProviding
 	{
-		private TaskCompletionSource<AppleAuthDataModel> _loginTaskCompletionSource;
+		private TaskCompletionSource<AppleAuth> _loginTaskCompletionSource;
 
 		public UIWindow GetPresentationAnchor(ASAuthorizationController controller)
 		{
 			return UIApplication.SharedApplication.KeyWindow;
 		}
 
-		public async Task<AppleAuthDataModel> LoginAsync()
+		public async Task<AppleAuth> LoginAsync()
 		{
-			_loginTaskCompletionSource = new TaskCompletionSource<AppleAuthDataModel>();
+			_loginTaskCompletionSource = new TaskCompletionSource<AppleAuth>();
 			var appleIdProvider = new ASAuthorizationAppleIdProvider();
 			var request = appleIdProvider.CreateRequest();
 			request.RequestedScopes = new[] { ASAuthorizationScope.Email, ASAuthorizationScope.FullName };
@@ -37,7 +37,7 @@ namespace PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn
 		{
 			if (authorization.GetCredential<ASAuthorizationAppleIdCredential>() is ASAuthorizationAppleIdCredential appleIdCredential)
 			{
-				_loginTaskCompletionSource.TrySetResult(new AppleAuthDataModel(string.Empty,
+				_loginTaskCompletionSource.TrySetResult(new AppleAuth(string.Empty,
 																			   appleIdCredential.Email,
 																			   appleIdCredential.IdentityToken.ToString(),
 																			   string.Empty,
@@ -47,7 +47,7 @@ namespace PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn
 
 			if (authorization.GetCredential<ASPasswordCredential>() is ASPasswordCredential passwordCredential)
 			{
-				_loginTaskCompletionSource.TrySetResult(new AppleAuthDataModel(passwordCredential.User,
+				_loginTaskCompletionSource.TrySetResult(new AppleAuth(passwordCredential.User,
 																			   string.Empty,
 																			   string.Empty,
 																			   string.Empty,
@@ -57,7 +57,7 @@ namespace PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn
 
 			if (authorization.GetCredential<ASAuthorizationSingleSignOnCredential>() is ASAuthorizationSingleSignOnCredential ssoCredentials)
 			{
-				_loginTaskCompletionSource.TrySetResult(new AppleAuthDataModel(string.Empty,
+				_loginTaskCompletionSource.TrySetResult(new AppleAuth(string.Empty,
 																			   string.Empty,
 																			   ssoCredentials.IdentityToken.ToString(),
 																			   ssoCredentials.AccessToken.ToString(),

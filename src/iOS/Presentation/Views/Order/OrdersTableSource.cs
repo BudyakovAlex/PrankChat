@@ -11,14 +11,20 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
     public class OrdersTableSource : PagedTableViewSource
     {
-        public OrdersTableSource(UITableView tableView)
+        private readonly Action _scrollAction;
+
+        public OrdersTableSource(UITableView tableView, Action scrollAction = null)
             : base(tableView)
         {
             UseAnimations = true;
 
             tableView.RegisterNibForCellReuse(OrderItemCell.Nib, OrderItemCell.CellId);
             tableView.RegisterNibForCellReuse(ArbitrationItemCell.Nib, ArbitrationItemCell.CellId);
+            _scrollAction = scrollAction;
         }
+
+        public override void Scrolled(UIScrollView scrollView) =>
+            _scrollAction?.Invoke();
 
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
         {
@@ -27,7 +33,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 return tableView.DequeueReusableCell(OrderItemCell.CellId);
             }
 
-            if (item is ArbitrationItemViewModel)
+            if (item is ArbitrationOrderItemViewModel)
             {
                 return tableView.DequeueReusableCell(ArbitrationItemCell.CellId);
             }

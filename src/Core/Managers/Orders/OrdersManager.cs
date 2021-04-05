@@ -1,6 +1,6 @@
 ﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders;
 using PrankChat.Mobile.Core.Mappers;
-using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Data.Shared;
@@ -18,59 +18,59 @@ namespace PrankChat.Mobile.Core.Managers.Orders
             _ordersService = ordersService;
         }
 
-        public async Task<OrderDataModel> CreateOrderAsync(CreateOrderDataModel createOrderDataModel)
+        public async Task<Order> CreateOrderAsync(CreateOrder createOrder)
         {
-            var apiModel = new CreateOrderApiModel()
+            var apiModel = new CreateOrderDto()
             {
-                Title = createOrderDataModel.Title,
-                ActiveFor = createOrderDataModel.ActiveFor,
-                AutoProlongation = createOrderDataModel.AutoProlongation,
-                Description = createOrderDataModel.Description,
-                IsHidden = createOrderDataModel.IsHidden,
-                Price = createOrderDataModel.Price
+                Title = createOrder.Title,
+                ActiveFor = createOrder.ActiveFor,
+                AutoProlongation = createOrder.AutoProlongation,
+                Description = createOrder.Description,
+                IsHidden = createOrder.IsHidden,
+                Price = createOrder.Price
             };
 
             var response = await _ordersService.CreateOrderAsync(apiModel);
             return response.Map();
         }
 
-        public async Task<PaginationModel<OrderDataModel>> GetUserOwnOrdersAsync(int userId, int page, int pageSize)
+        public async Task<Pagination<Order>> GetUserOwnOrdersAsync(int userId, int page, int pageSize)
         {
             var response = await _ordersService.GetUserOwnOrdersAsync(userId, page, pageSize);
             return response.Map(item => item.Map());
         }
 
-        public async Task<PaginationModel<OrderDataModel>> GetUserExecuteOrdersAsync(int userId, int page, int pageSize)
+        public async Task<Pagination<Order>> GetUserExecuteOrdersAsync(int userId, int page, int pageSize)
         {
             var response = await _ordersService.GetUserExecuteOrdersAsync(userId, page, pageSize);
             return response.Map(item => item.Map());
         }
 
-        public async Task<PaginationModel<OrderDataModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize)
+        public async Task<Pagination<Order>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize)
         {
             var response = await _ordersService.GetOrdersAsync(orderFilterType, page, pageSize);
             return response.Map(item => item.Map());
         }
 
-        public async Task<OrderDataModel> GetOrderDetailsAsync(int orderId)
+        public async Task<Order> GetOrderDetailsAsync(int orderId)
         {
             var response = await _ordersService.GetOrderDetailsAsync(orderId);
             return response.Map();
         }
 
-        public async Task<OrderDataModel> TakeOrderAsync(int orderId)
+        public async Task<Order> TakeOrderAsync(int orderId)
         {
             var response = await _ordersService.TakeOrderAsync(orderId);
             return response.Map();
         }
 
-        public async Task<PaginationModel<ArbitrationOrderDataModel>> GetArbitrationOrdersAsync(ArbitrationOrderFilterType filter, int page, int pageSize)
+        public async Task<Pagination<ArbitrationOrder>> GetArbitrationOrdersAsync(ArbitrationOrderFilterType filter, int page, int pageSize)
         {
             var response = await _ordersService.GetArbitrationOrdersAsync(filter, page, pageSize);
             return response.Map(item => item.Map());
         }
 
-        public async Task<OrderDataModel> CancelOrderAsync(int orderId)
+        public async Task<Order> CancelOrderAsync(int orderId)
         {
             var response = await _ordersService.CancelOrderAsync(orderId);
             return response.Map();
@@ -81,31 +81,31 @@ namespace PrankChat.Mobile.Core.Managers.Orders
             return _ordersService.ComplainOrderAsync(orderId, title, description);
         }
 
-        public async Task<OrderDataModel> SubscribeOrderAsync(int orderId)
+        public async Task<Order> SubscribeOrderAsync(int orderId)
         {
             var response = await _ordersService.SubscribeOrderAsync(orderId);
             return response.Map();
         }
 
-        public async Task<OrderDataModel> UnsubscribeOrderAsync(int orderId)
+        public async Task<Order> UnsubscribeOrderAsync(int orderId)
         {
             var response = await _ordersService.UnsubscribeOrderAsync(orderId);
             return response.Map();
         }
 
-        public async Task<OrderDataModel> ArgueOrderAsync(int orderId)
+        public async Task<Order> ArgueOrderAsync(int orderId)
         {
             var response = await _ordersService.ArgueOrderAsync(orderId);
             return response.Map();
         }
 
-        public async Task<OrderDataModel> AcceptOrderAsync(int orderId)
+        public async Task<Order> AcceptOrderAsync(int orderId)
         {
             var response = await _ordersService.AcceptOrderAsync(orderId);
             return response.Map();
         }
 
-        public async Task<OrderDataModel> VoteVideoAsync(int orderId, ArbitrationValueType isLiked)
+        public async Task<Order> VoteVideoAsync(int orderId, ArbitrationValueType isLiked)
         {
             var response = await _ordersService.VoteVideoAsync(orderId, isLiked);
             return response.Map();

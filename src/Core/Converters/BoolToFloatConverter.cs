@@ -7,7 +7,11 @@ namespace PrankChat.Mobile.Core.Converters
     {
         public const string Name = "BoolToFloat";
 
-        public override object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public override object Convert(
+            object value,
+            Type targetType,
+            object parameter,
+            System.Globalization.CultureInfo culture)
         {
             if (!(value is bool boolValue))
             {

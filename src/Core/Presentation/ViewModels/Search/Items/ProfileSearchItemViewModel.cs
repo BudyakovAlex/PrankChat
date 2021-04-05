@@ -1,50 +1,51 @@
 ﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items
 {
     public class ProfileSearchItemViewModel : BaseViewModel
     {
-        private readonly INavigationService _navigationService;
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
 
-        private readonly UserDataModel _userDataModel;
+        private readonly User _user;
 
-        public ProfileSearchItemViewModel(INavigationService navigationService,
-                                          ISettingsService settingsService,
-                                          UserDataModel userDataModel)
+        public ProfileSearchItemViewModel(IUserSessionProvider userSessionProvider, User user)
         {
-            _navigationService = navigationService;
-            _settingsService = settingsService;
-            _userDataModel = userDataModel;
+            _userSessionProvider = userSessionProvider;
+            _user = user;
 
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenUserProfileCommand = this.CreateRestrictedCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => _userSessionProvider.User != null,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
-        public string ProfileName => _userDataModel.Login;
+        public string ProfileName => _user.Login;
 
         public string ProfileShortName => ProfileName.ToShortenName();
 
-        public string ProfileDescription => _userDataModel.Description;
+        public string ProfileDescription => _user.Description;
 
-        public string ImageUrl => _userDataModel.Avatar;
+        public string ImageUrl => _user.Avatar;
 
         public IMvxAsyncCommand OpenUserProfileCommand { get; }
 
         private Task OpenUserProfileAsync()
         {
-            if (_userDataModel.Id == _settingsService.User.Id)
+            if (_user.Id == _userSessionProvider.User.Id ||
+                !Connectivity.NetworkAccess.HasConnection())
             {
                 return Task.CompletedTask;
             }
 
-            return _navigationService.ShowUserProfile(_userDataModel.Id);
+            return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_user.Id);
         }
     }
 }

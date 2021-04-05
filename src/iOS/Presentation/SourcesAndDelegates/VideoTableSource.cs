@@ -1,14 +1,14 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using FFImageLoading;
+﻿using FFImageLoading;
 using Foundation;
 using MvvmCross.Binding.Extensions;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
@@ -43,12 +43,15 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
 
         public override void DecelerationEnded(UIScrollView scrollView)
         {
-            StopVideo(_previousVideoCell);
+            base.DecelerationEnded(scrollView);
+
             PrepareCellsForPlayingVideoAsync().FireAndForget();
         }
 
         public override void DraggingEnded(UIScrollView scrollView, bool willDecelerate)
         {
+            base.DraggingEnded(scrollView, willDecelerate);
+
             if (willDecelerate)
             {
                 return;
@@ -66,7 +69,7 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
         {
             var cell = base.GetOrCreateCellFor(tableView, indexPath, item);
             if (cell is BaseVideoTableCell videoCell &&
-                item is IVideoItemViewModel itemViewModel)
+                item is BaseVideoItemViewModel itemViewModel)
             {
                 _ = ImageService.Instance.LoadUrl(itemViewModel.StubImageUrl).IntoAsync(videoCell.StubImageView);
             }
@@ -112,7 +115,7 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
                 cellToPlay = lastCompletelyVisibleCell;
             }
 
-            if (cellToPlay is null)
+            if (cellToPlay?.VideoPlayer is null)
             {
                 return Task.CompletedTask;
             }
@@ -125,37 +128,21 @@ namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
         {
             StopVideo(_previousVideoCell);
 
-            var viewModel = cell?.ViewModel;
-            if (viewModel is null)
-            {
-                return;
-            }
-
-            var service = viewModel.VideoPlayerService;
-            if (service.Player.IsPlaying)
-            {
-                return;
-            }
-
-            service.Player.SetPlatformVideoPlayerContainer(cell.AVPlayerViewControllerInstance);
-            cell.AddObserverForPeriodicTime();
-            service.Play(viewModel.PreviewUrl, viewModel.VideoId);
+            cell.LoadingActivityIndicator.Hidden = false;
+            cell.LoadingActivityIndicator.StartAnimating();
+            cell.VideoPlayer.Play();
             _previousVideoCell = cell;
         }
 
         private void StopVideo(BaseVideoTableCell cell)
         {
-            cell?.ShowStub();
-
-            var viewModel = cell?.ViewModel;
-            if (viewModel is null ||
-                !viewModel.VideoPlayerService.Player.IsPlaying)
+            if (cell is null)
             {
                 return;
             }
 
-            viewModel.VideoPlayerService.Stop();
-            cell.AVPlayerViewControllerInstance.Player = null;
+            cell.ShowStub();
+            cell.VideoPlayer.Stop();
         }
 
         private bool IsCompletelyVisible(BaseVideoTableCell publicationCell)

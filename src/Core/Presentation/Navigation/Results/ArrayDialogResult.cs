@@ -2,11 +2,11 @@
 {
     public class ArrayDialogResult
     {
-        public string SelectedItem { get; }
-
         public ArrayDialogResult(string selectedItem)
         {
             SelectedItem = selectedItem;
         }
+
+        public string SelectedItem { get; }
     }
 }

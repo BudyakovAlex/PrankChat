@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Foundation;
 using MvvmCross.Platforms.Ios.Views;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using UIKit;
@@ -103,7 +103,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
             if (NavigationItem.HidesBackButton == false && !IsTabbedView)
             {
-                var backButton = NavigationItemHelper.CreateBarButton("ic_back", ViewModel.GoBackCommand);
+                var backButton = NavigationItemHelper.CreateBarButton("ic_back", ViewModel.CloseCommand);
                 NavigationItem.LeftBarButtonItem = backButton;
             }
         }

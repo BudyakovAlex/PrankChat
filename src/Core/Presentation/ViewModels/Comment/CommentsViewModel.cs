@@ -4,10 +4,9 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Video;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +28,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
 
             Items = new MvxObservableCollection<CommentItemViewModel>();
 
-            SendCommentCommand = new MvxAsyncCommand(SendCommentAsync, () => !string.IsNullOrWhiteSpace(Comment));
+            SendCommentCommand = this.CreateCommand(SendCommentAsync, () => !string.IsNullOrWhiteSpace(Comment));
             ScrollInteraction = new MvxInteraction<int>();
         }
 
@@ -44,9 +43,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
             set => SetProperty(ref _comment, value, () => SendCommentCommand.RaiseCanExecuteChanged());
         }
 
-        public string ProfilePhotoUrl => SettingsService.User?.Avatar;
+        public string ProfilePhotoUrl => UserSessionProvider.User?.Avatar;
 
-        public string ProfileShortName => SettingsService.User?.Login?.ToShortenName();
+        public string ProfileShortName => UserSessionProvider.User?.Login?.ToShortenName();
 
         public IMvxAsyncCommand SendCommentCommand { get; }
 
@@ -86,20 +85,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
             return count;
         }
 
-        protected override int SetList<TDataModel, TApiModel>(PaginationModel<TApiModel> dataModel, int page, Func<TApiModel, TDataModel> produceItemViewModel, MvxObservableCollection<TDataModel> items)
+        protected override int SetList<TDataModel, TApiModel>(
+            Pagination<TApiModel> pagination,
+            int page,
+            Func<TApiModel, TDataModel> produceItemViewModel,
+            MvxObservableCollection<TDataModel> items)
         {
-            SetTotalItemsCount(dataModel?.TotalCount ?? 0);
-            _newCommentsCounter = (int)(dataModel?.TotalCount ?? 0);
+            SetTotalItemsCount(pagination?.TotalCount ?? 0);
+            _newCommentsCounter = (int)(pagination?.TotalCount ?? 0);
 
-            var orderViewModels = dataModel?.Items?.Select(produceItemViewModel).ToList();
+            var orderViewModels = pagination?.Items?.Select(produceItemViewModel).ToList();
 
             items.AddRange(orderViewModels);
             return orderViewModels.Count;
         }
 
-        private CommentItemViewModel ProduceCommentItemViewModel(CommentDataModel commentDataModel)
+        private CommentItemViewModel ProduceCommentItemViewModel(Models.Data.Comment comment)
         {
-            return new CommentItemViewModel(NavigationService, SettingsService, commentDataModel);
+            return new CommentItemViewModel(UserSessionProvider, comment);
         }
 
         private async Task SendCommentAsync()
@@ -117,7 +120,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
                     return;
                 }
 
-                comment.User = SettingsService.User;
+                comment.User = UserSessionProvider.User;
                 Items.Add(ProduceCommentItemViewModel(comment));
                 _newCommentsCounter += 1;
                 SetTotalItemsCount(_newCommentsCounter);

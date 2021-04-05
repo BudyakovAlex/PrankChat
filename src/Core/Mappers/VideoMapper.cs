@@ -1,66 +1,68 @@
-﻿using PrankChat.Mobile.Core.Models.Api;
+﻿using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.Core.Mappers
 {
     public static class VideoMapper
     {
-        public static VideoDataModel Map(this VideoApiModel videoApiModel)
+        public static Video Map(this VideoDto dto)
         {
-            if (videoApiModel is null)
+            if (dto is null)
             {
                 return null;
             }
 
-            return new VideoDataModel(videoApiModel.Id,
-                                      videoApiModel.Title,
-                                      videoApiModel.Description,
-                                      videoApiModel.Poster,
-                                      videoApiModel.Status,
-                                      videoApiModel.ViewsCount ?? 0,
-                                      videoApiModel.RepostsCount ?? 0,
-                                      videoApiModel.LikesCount ?? 0,
-                                      videoApiModel.DislikesCount ?? 0,
-                                      videoApiModel.CommentsCount ?? 0,
-                                      videoApiModel.StreamUri,
-                                      videoApiModel.PreviewUri,
-                                      videoApiModel.MarkedStreamUri,
-                                      videoApiModel.ShareUri,
-                                      videoApiModel.IsLiked,
-                                      videoApiModel.IsDisliked,
-                                      videoApiModel.OrderCategory,
-                                      videoApiModel.CreatedAt,
-                                      videoApiModel.User?.Map(),
-                                      videoApiModel.Customer?.Map());
+            return new Video(
+                dto.Id,
+                dto.Title,
+                dto.Description,
+                dto.Poster,
+                dto.Status,
+                dto.ViewsCount ?? 0,
+                dto.RepostsCount ?? 0,
+                dto.LikesCount ?? 0,
+                dto.DislikesCount ?? 0,
+                dto.CommentsCount ?? 0,
+                dto.StreamUri,
+                dto.PreviewUri,
+                dto.MarkedStreamUri,
+                dto.ShareUri,
+                dto.IsLiked,
+                dto.IsDisliked,
+                dto.OrderCategory,
+                dto.CreatedAt,
+                dto.User?.Map(),
+                dto.Customer?.Map());
         }
 
-        public static VideoDataModel Map(this DataApiModel<VideoApiModel> dataApiModel)
+        public static Video Map(this ResponseDto<VideoDto> dto)
         {
-            if (dataApiModel.Data is null)
+            if (dto.Data is null)
             {
                 return null;
             }
 
-            return new VideoDataModel(dataApiModel.Data.Id,
-                                      dataApiModel.Data.Title,
-                                      dataApiModel.Data.Description,
-                                      dataApiModel.Data.Poster,
-                                      dataApiModel.Data.Status,
-                                      dataApiModel.Data.ViewsCount ?? 0,
-                                      dataApiModel.Data.RepostsCount ?? 0,
-                                      dataApiModel.Data.LikesCount ?? 0,
-                                      dataApiModel.Data.DislikesCount ?? 0,
-                                      dataApiModel.Data.CommentsCount ?? 0,
-                                      dataApiModel.Data.StreamUri,
-                                      dataApiModel.Data.PreviewUri,
-                                      dataApiModel.Data.MarkedStreamUri,
-                                      dataApiModel.Data.ShareUri,
-                                      dataApiModel.Data.IsLiked,
-                                      dataApiModel.Data.IsDisliked,
-                                      dataApiModel.Data.OrderCategory,
-                                      dataApiModel.Data.CreatedAt,
-                                      dataApiModel.Data.User?.Map(),
-                                      dataApiModel.Data.Customer?.Map());
+            return new Video(
+                dto.Data.Id,
+                dto.Data.Title,
+                dto.Data.Description,
+                dto.Data.Poster,
+                dto.Data.Status,
+                dto.Data.ViewsCount ?? 0,
+                dto.Data.RepostsCount ?? 0,
+                dto.Data.LikesCount ?? 0,
+                dto.Data.DislikesCount ?? 0,
+                dto.Data.CommentsCount ?? 0,
+                dto.Data.StreamUri,
+                dto.Data.PreviewUri,
+                dto.Data.MarkedStreamUri,
+                dto.Data.ShareUri,
+                dto.Data.IsLiked,
+                dto.Data.IsDisliked,
+                dto.Data.OrderCategory,
+                dto.Data.CreatedAt,
+                dto.Data.User?.Map(),
+                dto.Data.Customer?.Map());
         }
     }
 }

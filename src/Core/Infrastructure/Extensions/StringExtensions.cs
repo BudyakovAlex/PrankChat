@@ -14,6 +14,12 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             return match.Success;
         }
 
+        public static bool IsNullOrEmpty(this string value) =>
+            string.IsNullOrEmpty(value);
+
+        public static bool IsNotNullNorEmpty(this string value) =>
+            !IsNullOrEmpty(value);
+
         public static string ToShortenName(this string name)
         {
             if (string.IsNullOrWhiteSpace(name))

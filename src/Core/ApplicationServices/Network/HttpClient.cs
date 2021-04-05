@@ -6,16 +6,15 @@ using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Builders;
 using PrankChat.Mobile.Core.ApplicationServices.Network.JsonSerializers;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
-using PrankChat.Mobile.Core.Configuration;
+using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Mappers;
-using PrankChat.Mobile.Core.Models.Api;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -38,28 +37,26 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         private readonly IMvxMessenger _messenger;
 
         private readonly IMvxLog _mvxLog;
-        private readonly ILogger _logger;
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
 
         private readonly Version _apiVersion;
         private readonly string _baseAddress;
+
         private IDialogService _dialogService;
 
         public HttpClient(string baseAddress,
-                          Version apiVersion,
-                          ISettingsService settingsService,
+                          string apiVersion,
+                          IUserSessionProvider userSessionProvider,
                           IMvxLog mvxLog,
-                          ILogger logger,
                           IMvxMessenger messenger)
         {
             _baseAddress = baseAddress;
-            _apiVersion = apiVersion;
-            _settingsService = settingsService;
+            _apiVersion = new Version(apiVersion);
+            _userSessionProvider = userSessionProvider;
             _mvxLog = mvxLog;
-            _logger = logger;
             _messenger = messenger;
 
-            _client = new RestClient($"{baseAddress}/{ApiId}/v{apiVersion.Major}").UseSerializer(() => new JsonNetSerializer());
+            _client = new RestClient($"{baseAddress}/{ApiId}/v{_apiVersion.Major}").UseSerializer(() => new JsonNetSerializer());
             _client.Timeout = TimeSpan.FromMinutes(15).Milliseconds;
         }
 
@@ -82,9 +79,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
             AddLanguageHeader(request);
 
-            _logger.WriteRequestInfoAsync(DateTime.Now, method.ToString(), endpoint, request.Parameters).FireAndForget();
             var response = await _client.ExecuteAsync(request);
-            _logger.WriteResponseInfoAsync(DateTime.Now, response.StatusCode, method.ToString(), endpoint, response.Content, response.Headers.ToList()).FireAndForget();
             return response;
         }
 
@@ -143,7 +138,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             {
                 using (var client = new System.Net.Http.HttpClient() { Timeout = TimeSpan.FromMinutes(15) })
                 {
-                    var accessToken = await _settingsService.GetAccessTokenAsync();
+                    var accessToken = await _userSessionProvider.GetAccessTokenAsync();
                     client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
 
                     var currentCulture = CultureInfo.CurrentCulture;
@@ -171,8 +166,6 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
                     var headers = multipartData.Headers.Select(header => new Parameter(header.Key, header.Value, ParameterType.HttpHeader)).ToList();
                     var requestParameters = paramsToLog.Union(headers).ToList();
 
-                    _logger.WriteRequestInfoAsync(DateTime.Now, Method.POST.ToString(), endpoint, requestParameters).FireAndForget();
-
                     response = await client.PostAsync(url, multipartData);
                     return response.IsSuccessStatusCode;
                 }
@@ -185,7 +178,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             catch (Exception ex) when (ex.Message.Contains("Socket closed") || ex.Message.Contains("Failed to connect"))
             {
                 //TODO: add no internet connection message
-                var error = new ProblemDetailsDataModel(Resources.Error_Unexpected_Network)
+                var error = new ProblemDetailsException(Resources.Error_Unexpected_Network)
                 {
                     MessageServerError = Resources.Error_Unexpected_Network
                 };
@@ -213,14 +206,19 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
         }
 
         //TODO: refactor it
-        public async Task<TResult> PostVideoFileAsync<TEntity, TResult>(string endpoint, TEntity item, bool exceptionThrowingEnabled = false, Action<double, double> onChangedProgressAction = null, CancellationToken cancellationToken = default) where TEntity : LoadVideoApiModel where TResult : new()
+        public async Task<TResult> PostVideoFileAsync<TEntity, TResult>(
+            string endpoint,
+            TEntity item,
+            bool exceptionThrowingEnabled = false,
+            Action<double, double> onChangedProgressAction = null,
+            CancellationToken cancellationToken = default) where TEntity : UploadVideoDto where TResult : new()
         {
             var response = default(HttpResponseMessage);
             try
             {
                 using (var client = new System.Net.Http.HttpClient() { Timeout = TimeSpan.FromMinutes(15) })
                 {
-                    var accessToken = await _settingsService.GetAccessTokenAsync();
+                    var accessToken = await _userSessionProvider.GetAccessTokenAsync();
                     client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
 
                     var currentCulture = CultureInfo.CurrentCulture;
@@ -252,20 +250,17 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                     var headers = multipartData.Headers.Select(header => new Parameter(header.Key, header.Value, ParameterType.HttpHeader)).ToList();
                     var requestParameters = parameters.Union(headers).ToList();
-                    _logger.WriteRequestInfoAsync(DateTime.Now, Method.POST.ToString(), endpoint, requestParameters).FireAndForget();
 
                     response = await client.PostAsync(url, multipartData, cancellationToken);
                     if (response.IsSuccessStatusCode)
                     {
                         var responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        _logger.WriteResponseInfoAsync(DateTime.Now, response.StatusCode, Method.POST.ToString(), endpoint, responseJson).FireAndForget();
                         return JsonConvert.DeserializeObject<TResult>(responseJson);
                     }
 
                     var errorContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    _logger.WriteResponseInfoAsync(DateTime.Now, response.StatusCode, Method.POST.ToString(), endpoint, errorContent).FireAndForget();
 
-                    var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(errorContent);
+                    var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsDto>(errorContent);
                     var problemDetailsData = problemDetails.Map(); //  MappingConfig.Mapper.Map<ProblemDetailsDataModel>(problemDetails);
                     throw problemDetailsData;
                 }
@@ -278,7 +273,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
             catch (Exception ex) when (!string.IsNullOrEmpty(ex.Message) && (ex.Message.Contains("Socket closed") || ex.Message.Contains("Failed to connect")))
             {
                 //TODO: add no internet connection message
-                var error = new ProblemDetailsDataModel(Resources.Error_Unexpected_Network)
+                var error = new ProblemDetailsException(Resources.Error_Unexpected_Network)
                 {
                     MessageServerError = Resources.Error_Unexpected_Network
                 };
@@ -349,13 +344,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                 AddLanguageHeader(request);
 
-                _logger.WriteRequestInfoAsync(DateTime.Now, request.Method.ToString(), endpoint, parameters: request.Parameters).FireAndForget();
-
                 var content = cancellationToken.HasValue
                     ? await _client.ExecuteAsync(request, request.Method, cancellationToken.Value)
                     : await _client.ExecuteAsync(request, request.Method);
-
-                _logger.WriteResponseInfoAsync(DateTime.Now, content.StatusCode, request.Method.ToString(), endpoint, content.Content, content.Headers.ToList()).FireAndForget();
 
                 CheckResponse(request, content, exceptionThrowingEnabled);
             }
@@ -383,13 +374,9 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                 AddLanguageHeader(request);
 
-                _logger.WriteRequestInfoAsync(DateTime.Now, request.Method.ToString(), endpoint, parameters: request.Parameters).FireAndForget();
-
                 var content = cancellationToken.HasValue
                     ? await _client.ExecuteAsync<T>(request, cancellationToken.Value)
                     : await _client.ExecuteAsync<T>(request);
-
-                _logger.WriteResponseInfoAsync(DateTime.Now, content.StatusCode, request.Method.ToString(), endpoint, content.Content, content.Headers.ToList()).FireAndForget();
 
                 CheckResponse(request, content, exceptionThrowingEnabled);
                 return content.Data;
@@ -417,7 +404,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
                 try
                 {
-                    var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsApiModel>(response.Content);
+                    var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsDto>(response.Content);
                    // var problemDetailsData = problemDetails.Map(); // MappingConfig.Mapper.Map<ProblemDetailsDataModel>(problemDetails);
                     throw problemDetails.Map();
                 }
@@ -440,7 +427,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network
 
         private async Task AddAuthorizationHeaderAsync(IRestRequest request)
         {
-            var accessToken = await _settingsService.GetAccessTokenAsync();
+            var accessToken = await _userSessionProvider.GetAccessTokenAsync();
             request.AddHeader(HttpRequestHeader.Authorization.ToString(), $"Bearer {accessToken}");
         }
 

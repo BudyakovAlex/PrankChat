@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CoreGraphics;
+﻿using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
@@ -32,44 +31,20 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         protected override void SetupBinding()
 		{
-			var bindingSet = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
+			using var bindingSet = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
 
-            bindingSet.Bind(filterContainerView.Tap())
-                      .For(v => v.Command)
-                      .To(vm => vm.OpenFilterCommand);
+            bindingSet.Bind(filterContainerView.Tap()).For(v => v.Command).To(vm => vm.OpenFilterCommand);
+            bindingSet.Bind(filterTitleLabel).To(vm => vm.ActiveFilterName);
 
-            bindingSet.Bind(filterTitleLabel)
-                      .To(vm => vm.ActiveFilterName);
+            bindingSet.Bind(PublicationTableSource).To(vm => vm.Items);
+            bindingSet.Bind(PublicationTableSource).For(v => v.ItemsChangedInteraction).To(vm => vm.ItemsChangedInteraction);
+            bindingSet.Bind(PublicationTableSource).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
 
-            bindingSet.Bind(PublicationTableSource)
-                      .To(vm => vm.Items);
+            bindingSet.Bind(loadingOverlayView).For(v => v.BindVisible()).To(vm => vm.IsRefreshingData);
+            bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy);
+            bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.ReloadItemsCommand);
 
-            bindingSet.Bind(PublicationTableSource)
-                      .For(v => v.ItemsChangedInteraction)
-                      .To(vm => vm.ItemsChangedInteraction);
-
-            bindingSet.Bind(PublicationTableSource)
-                      .For(v => v.LoadMoreItemsCommand)
-                      .To(vm => vm.LoadMoreItemsCommand);
-
-            bindingSet.Bind(_refreshControl)
-                      .For(v => v.IsRefreshing)
-                      .To(vm => vm.IsBusy);
-
-            bindingSet.Bind(loadingOverlayView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsRefreshingFilter);
-
-            bindingSet.Bind(_refreshControl)
-                      .For(v => v.RefreshCommand)
-                      .To(vm => vm.ReloadItemsCommand);
-
-            bindingSet.Bind(_notificationBarItem)
-                      .For(v => v.Image)
-                      .To(vm => vm.NotificationBageViewModel.HasUnreadNotifications)
-                      .WithConversion<BoolToNotificationImageConverter>();
-
-            bindingSet.Apply();
+            bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications).WithConversion<BoolToNotificationImageConverter>();
 		}
 
 		protected override void SetupControls()

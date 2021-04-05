@@ -1,61 +1,70 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Presentation.Navigation.Results;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 {
-    public class OrderItemViewModel : BaseViewModel, IFullScreenVideoOwnerViewModel, IDisposable
+    public class OrderItemViewModel : BaseOrderItemViewModel
     {
-        private readonly INavigationService _navigationService;
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
 
-        private readonly OrderDataModel _orderDataModel;
-        private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
+        private readonly Models.Data.Order _order;
 
         private IDisposable _timerTickMessageToken;
 
-        public OrderItemViewModel(INavigationService navigationService,
-                                  ISettingsService settingsService,
-                                  OrderDataModel orderDataModel,
-                                  Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
+        public OrderItemViewModel(
+            IVideoManager videoManager,
+            IUserSessionProvider userSessionProvider,
+            Models.Data.Order order,
+            Func<BaseVideoItemViewModel[]> getAllFullScreenVideosFunc) : base(
+                videoManager,
+                userSessionProvider,
+                order.Video,
+                order?.Customer.Id,
+                getAllFullScreenVideosFunc)
         {
-            _navigationService = navigationService;
-            _settingsService = settingsService;
-            _orderDataModel = orderDataModel;
-            _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
+            _userSessionProvider = userSessionProvider;
+            _order = order;
 
-            ElapsedTime = _orderDataModel.ActiveTo is null
-                ? TimeSpan.FromHours(_orderDataModel.DurationInHours)
-                : _orderDataModel.GetActiveOrderTime();
+            ElapsedTime = _order.ActiveTo is null
+                ? TimeSpan.FromHours(_order.DurationInHours)
+                : _order.GetActiveOrderTime();
 
             _timerTickMessageToken = Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
 
-            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(OnOpenDetailsOrderAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(
+                OpenDetailsOrderAsync,
+                restrictedCanExecute: () => _userSessionProvider.User != null,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
-        public int OrderId => _orderDataModel.Id;
+        public IMvxAsyncCommand OpenDetailsOrderCommand { get; }
 
-        public string Title => _orderDataModel.Title;
+        public int OrderId => _order.Id;
 
-        public string ProfilePhotoUrl => _orderDataModel.Customer?.Avatar;
+        public string Title => _order.Title;
 
-        public string ProfileShortName => _orderDataModel.Customer?.Login.ToShortenName();
+        public string ProfilePhotoUrl => _order.Customer?.Avatar;
 
-        public OrderType OrderType => _settingsService.User.GetOrderType(_orderDataModel.Customer?.Id, _orderDataModel?.Status ?? OrderStatusType.None);
+        public string ProfileShortName => _order.Customer?.Login.ToShortenName();
 
-        public OrderTagType OrderTagType => _settingsService.User.GetOrderTagType(_orderDataModel.Customer?.Id, _orderDataModel?.Status);
+        public OrderType OrderType => _userSessionProvider.User.GetOrderType(_order.Customer?.Id, _order?.Status ?? OrderStatusType.None);
+
+        public OrderTagType OrderTagType => _userSessionProvider.User.GetOrderTagType(_order.Customer?.Id, _order?.Status);
 
         private TimeSpan? _elapsedTime;
         public TimeSpan? ElapsedTime
@@ -79,86 +88,51 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             }
         }
 
-        public bool CanPlayVideo => _orderDataModel?.Video != null;
-
         public bool IsTimeAvailable => _elapsedTime.HasValue;
 
         public string TimeText => _elapsedTime?.ToTimeWithSpaceString();
 
-        public string PriceText => _orderDataModel.Price.ToPriceString();
+        public string PriceText => _order.Price.ToPriceString();
 
-        public string StatusText => _orderDataModel.GetOrderStatusTitle(_settingsService?.User);
+        public string StatusText => _order.GetOrderStatusTitle(_userSessionProvider?.User);
 
-        public bool IsHiddenOrder => _orderDataModel?.OrderCategory == OrderCategory.Private;
-
-        public IMvxAsyncCommand OpenDetailsOrderCommand { get; }
-
-        public IMvxAsyncCommand OpenUserProfileCommand { get; }
-
-        public FullScreenVideoDataModel GetFullScreenVideoDataModel()
-        {
-            return new FullScreenVideoDataModel(_orderDataModel.Customer.Id,
-                                                _orderDataModel.Customer.IsSubscribed,
-                                                _orderDataModel.Video.Id,
-                                                _orderDataModel.Video.StreamUri,
-                                                _orderDataModel.Title,
-                                                _orderDataModel.Description,
-                                                _orderDataModel.Video.ShareUri,
-                                                _orderDataModel.Customer.Avatar,
-                                                _orderDataModel.Customer.Login.ToShortenName(),
-                                                _orderDataModel.Video.LikesCount,
-                                                _orderDataModel.Video.DislikesCount,
-                                                _orderDataModel.Video.CommentsCount,
-                                                _orderDataModel.Video.IsLiked,
-                                                _orderDataModel.Video.IsDisliked,
-                                                _orderDataModel.Video.Poster);
-        }
-
-        private Task OpenUserProfileAsync()
-        {
-            if (_orderDataModel.Customer?.Id is null ||
-                _orderDataModel.Customer.Id == _settingsService.User.Id)
-            {
-                return Task.CompletedTask;
-            }
-
-            return _navigationService.ShowUserProfile(_orderDataModel.Customer.Id);
-        }
+        public bool IsHiddenOrder => _order?.OrderCategory == OrderCategory.Private;
 
         private void OnTimerTick(TimerTickMessage message)
         {
-            ElapsedTime = _orderDataModel.ActiveTo is null
-               ? TimeSpan.FromHours(_orderDataModel.DurationInHours)
-               : _orderDataModel.GetActiveOrderTime();
+            ElapsedTime = _order.ActiveTo is null
+               ? TimeSpan.FromHours(_order.DurationInHours)
+               : _order.GetActiveOrderTime();
         }
 
-        private async Task OnOpenDetailsOrderAsync()
+        private async Task OpenDetailsOrderAsync()
         {
-            // var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideoDataModel> { GetFullScreenVideoDataModel() };
-            // var currentItem = items.FirstOrDefault(item => item.VideoId == _orderDataModel.Video?.Id);
-            // var index = currentItem is null ? 0 : items.IndexOf(currentItem);
+            var items = GetFullScreenVideos();
+            var currentItem = items.FirstOrDefault(item => item.VideoId == _order.Video?.Id);
+            var index = currentItem is null ? 0 : items.IndexOfOrDefault(currentItem);
 
-            var result = await _navigationService.ShowOrderDetailsView(OrderId, null, -1);
+            var parameter = new OrderDetailsNavigationParameter(_order.Id, items, index);
+            var result = await NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter, OrderDetailsResult>(parameter);
             if (result == null)
             {
                 return;
             }
 
-            _orderDataModel.Status = result.Status ?? OrderStatusType.None;
-            _orderDataModel.ActiveTo = result.ActiveTo;
+            _order.Status = result.Status ?? OrderStatusType.None;
+            _order.ActiveTo = result.ActiveTo;
 
-            if (_orderDataModel.Status == OrderStatusType.Cancelled ||
-                _orderDataModel.Status == OrderStatusType.Finished ||
-                _orderDataModel.Status == OrderStatusType.InArbitration)
+            if (_order.Status == OrderStatusType.Cancelled ||
+                _order.Status == OrderStatusType.Finished ||
+                _order.Status == OrderStatusType.InArbitration)
             {
-                var status = _orderDataModel.Status.Value;
+                var status = _order.Status.Value;
                 Messenger.Publish(new RemoveOrderMessage(this, OrderId, status));
                 return;
             }
 
-            ElapsedTime = _orderDataModel.ActiveTo is null
-              ? TimeSpan.FromHours(_orderDataModel.DurationInHours)
-              : _orderDataModel.GetActiveOrderTime();
+            ElapsedTime = _order.ActiveTo is null
+              ? TimeSpan.FromHours(_order.DurationInHours)
+              : _order.GetActiveOrderTime();
 
             await RaisePropertyChanged(nameof(StatusText));
             await RaisePropertyChanged(nameof(OrderType));

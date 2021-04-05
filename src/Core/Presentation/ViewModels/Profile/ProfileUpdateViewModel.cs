@@ -11,8 +11,11 @@ using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using System;
 using System.Threading.Tasks;
 
@@ -27,21 +30,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private bool _isUserPhotoUpdated;
 
-        public ProfileUpdateViewModel(IAuthorizationManager authorizationManager,
-                                      IUsersManager usersManager,
-                                      IExternalAuthService externalAuthService,
-                                      IPushNotificationProvider pushNotificationService,
-                                      IMediaService mediaService) : base(usersManager)
+        public ProfileUpdateViewModel(
+            IAuthorizationManager authorizationManager,
+            IUsersManager usersManager,
+            IExternalAuthService externalAuthService,
+            IPushNotificationProvider pushNotificationService,
+            IMediaService mediaService) : base(usersManager)
         {
             _authorizationManager = authorizationManager;
             _externalAuthService = externalAuthService;
             _pushNotificationService = pushNotificationService;
             _mediaService = mediaService;
 
-            SaveProfileCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(SaveProfileAsync));
-            ChangePasswordCommand = new MvxAsyncCommand(ChangePasswordAsync);
-            ShowMenuCommand = new MvxAsyncCommand(ShowMenuAsync);
-            ChangeProfilePhotoCommand = new MvxAsyncCommand(ChangeProfilePhotoAsync);
+            SaveProfileCommand = this.CreateCommand(SaveProfileAsync);
+            ChangePasswordCommand = this.CreateCommand(ChangePasswordAsync);
+            ShowMenuCommand = this.CreateCommand(ShowMenuAsync);
+            ChangeProfilePhotoCommand = this.CreateCommand(ChangeProfilePhotoAsync);
         }
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
@@ -68,12 +72,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            var dataModel = new UserUpdateProfileDataModel(Name,
-                                                           Email,
-                                                           Login,
-                                                           Gender.Value,
-                                                           Birthday?.ToShortDateString(),
-                                                           Description);
+            var userUpdateProfile = new UserUpdateProfile(
+                Name,
+                Email,
+                Login,
+                Gender.Value,
+                Birthday?.ToShortDateString(),
+                Description);
 
             if (_isUserPhotoUpdated)
             {
@@ -84,8 +89,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 }
             }
 
-            SettingsService.User = await UsersManager.UpdateProfileAsync(dataModel);
-            await NavigationService.CloseViewWithResult(this, new ProfileUpdateResult(true, _isUserPhotoUpdated));
+            UserSessionProvider.User = await UsersManager.UpdateProfileAsync(userUpdateProfile);
+            await NavigationManager.CloseAsync(this, new ProfileUpdateResult(true, _isUserPhotoUpdated));
         }
 
         private async Task ShowMenuAsync()
@@ -153,10 +158,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 }
             }
 
-            SettingsService.User = null;
-            SettingsService.IsPushTokenSend = false;
+            UserSessionProvider.User = null;
+            UserSessionProvider.IsPushTokenSend = false;
 
-            await SettingsService.SetAccessTokenAsync(string.Empty);
+            await UserSessionProvider.SetAccessTokenAsync(string.Empty);
 
             if (Xamarin.Essentials.Connectivity.NetworkAccess.HasConnection())
             {
@@ -164,12 +169,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 _externalAuthService.LogoutFromVkontakte();
             }
 
-            await NavigationService.Logout();
+            await NavigationManager.NavigateAsync<LoginViewModel>();
         }
 
         private Task ChangePasswordAsync()
         {
-            return NavigationService.ShowPasswordRecoveryView();
+            return NavigationManager.NavigateAsync<PasswordRecoveryViewModel>();
         }
 
         private async Task ChangeProfilePhotoAsync()
@@ -189,7 +194,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            var croppedImagePath = await NavigationService.ShowImageCropView(file.Path);
+            var parameter = new ImagePathNavigationParameter(file.Path);
+            var croppedImagePath = await NavigationManager.NavigateAsync<ImageCropViewModel, ImagePathNavigationParameter, ImageCropPathResult>(parameter);
             if (croppedImagePath == null)
             {
                 return;

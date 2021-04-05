@@ -17,9 +17,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         {
         }
 
-        protected override void SetBindings()
+        protected override void Bind()
         {
-            base.SetBindings();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<CompetitionPrizePoolItemCell, CompetitionPrizePoolItemViewModel>();
 

@@ -1,54 +1,54 @@
 ﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 {
     public class NotificationItemViewModel : BaseViewModel
     {
-        private readonly INavigationService _navigationService;
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
 
         private NotificationType? _notificationType;
         private int? _userId;
 
-        public NotificationItemViewModel(INavigationService navigationService,
-                                         ISettingsService settingsService,
-                                         NotificationDataModel notificationDataModel)
+        public NotificationItemViewModel(IUserSessionProvider userSessionProvider, Models.Data.Notification notification)
         {
-            _navigationService = navigationService;
-            _settingsService = settingsService;
-            Title = notificationDataModel.Title;
-            Description = notificationDataModel.Text;
-            DateText = notificationDataModel.CreatedAt?.ToTimeAgoCommentString();
+            _userSessionProvider = userSessionProvider;
+            Title = notification.Title;
+            Description = notification.Text;
+            DateText = notification.CreatedAt?.ToTimeAgoCommentString();
 
-            IsDelivered = notificationDataModel.IsDelivered ?? false;
-            _notificationType = notificationDataModel.Type;
+            IsDelivered = notification.IsDelivered ?? false;
+            _notificationType = notification.Type;
 
             switch (_notificationType)
             {
                 case NotificationType.WalletEvent:
-                    ProfileName = notificationDataModel.RelatedTransaction?.User?.Login;
-                    ImageUrl = notificationDataModel.RelatedTransaction?.User?.Avatar;
+                    ProfileName = notification.RelatedTransaction?.User?.Login;
+                    ImageUrl = notification.RelatedTransaction?.User?.Avatar;
                     break;
 
                 case NotificationType.SubscriptionEvent:
                 case NotificationType.LikeEvent:
                 case NotificationType.CommentEvent:
                 case NotificationType.ExecutorEvent:
-                    ProfileName = notificationDataModel.RelatedUser?.Login;
-                    ImageUrl = notificationDataModel.RelatedUser?.Avatar;
-                    _userId = notificationDataModel.RelatedUser?.Id;
+                    ProfileName = notification.RelatedUser?.Login;
+                    ImageUrl = notification.RelatedUser?.Avatar;
+                    _userId = notification.RelatedUser?.Id;
                     break;
             }
 
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => _userSessionProvider.User != null,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
         public string ProfileName { get; }
@@ -75,12 +75,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
         private Task OpenUserProfileAsync()
         {
             if (_userId is null ||
-                _userId.Value == _settingsService.User?.Id)
+                _userId.Value == _userSessionProvider.User?.Id)
             {
                 return Task.CompletedTask;
             }
 
-            return _navigationService.ShowUserProfile(_userId.Value);
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return Task.CompletedTask;
+            }
+
+            return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_userId.Value);
         }
     }
 }

@@ -1,53 +1,58 @@
 ﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Presentation.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items
 {
     public class CommentItemViewModel : BaseViewModel
     {
-        private readonly INavigationService _navigationService;
-        private readonly ISettingsService _settingsService;
+        private readonly IUserSessionProvider _userSessionProvider;
 
-        private readonly CommentDataModel _commentDataModel;
+        private readonly Models.Data.Comment _comment;
 
-        public CommentItemViewModel(INavigationService navigationService,
-                                    ISettingsService settingsService,
-                                    CommentDataModel commentDataModel)
+        public CommentItemViewModel(IUserSessionProvider userSessionProvider, Models.Data.Comment comment)
         {
-            _navigationService = navigationService;
-            _settingsService = settingsService;
-            _commentDataModel = commentDataModel;
+            _userSessionProvider = userSessionProvider;
+            _comment = comment;
 
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
+            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(
+                OpenUserProfileAsync,
+                restrictedCanExecute: () => _userSessionProvider.User != null,
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
         }
 
-        public string ProfileName => _commentDataModel.User?.Login;
+        public string ProfileName => _comment.User?.Login;
 
         public string ProfileShortName => ProfileName.ToShortenName();
 
-        public string ProfilePhotoUrl => _commentDataModel.User?.Avatar;
+        public string ProfilePhotoUrl => _comment.User?.Avatar;
 
-        public string Comment => _commentDataModel.Text;
+        public string Comment => _comment.Text;
 
-        public string DateText => _commentDataModel.CreatedAt.ToTimeAgoCommentString();
+        public string DateText => _comment.CreatedAt.ToTimeAgoCommentString();
 
         public IMvxAsyncCommand OpenUserProfileCommand { get; }
 
         private Task OpenUserProfileAsync()
         {
-            if (_commentDataModel.User?.Id is null ||
-                _commentDataModel.User.Id == _settingsService.User.Id)
+            if (_comment.User?.Id is null ||
+                _comment.User.Id == _userSessionProvider.User.Id)
             {
                 return Task.CompletedTask;
             }
 
-            return _navigationService.ShowUserProfile(_commentDataModel.User.Id);
+            if (!Connectivity.NetworkAccess.HasConnection())
+            {
+                return Task.FromResult(false);
+            }
+
+            return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_comment.User.Id);
         }
     }
 }

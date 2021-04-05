@@ -13,6 +13,8 @@ using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
+using System;
+using System.Linq;
 using UIKit;
 using Xamarin.Essentials;
 
@@ -25,8 +27,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         private UIBarButtonItem _notificationBarItem;
         private OrdersTableSource _source;
 
-        private bool _hasDescription;
+        private bool _isExpanded = true;
 
+        private bool _hasDescription;
         public bool HasDescription
         {
             get => _hasDescription;
@@ -47,6 +50,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         }
 
         public UITableView TableView => tableView;
+
+        public override void ViewDidLayoutSubviews()
+        {
+            base.ViewDidLayoutSubviews();
+
+            var topOffset = 10 + headerContainerView.Frame.Height;
+            tableView.ContentInset = new UIEdgeInsets(topOffset, 0, 0, 0);
+            tableView.SetContentOffset(new CGPoint(0, -topOffset), false);
+        }
 
         protected override void SetupBinding()
         {
@@ -118,7 +130,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             bindingSet.Bind(_notificationBarItem)
                       .For(v => v.Image)
-                      .To(vm => vm.NotificationBageViewModel.HasUnreadNotifications)
+                      .To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
                       .WithConversion<BoolToNotificationImageConverter>();
 
             bindingSet.Apply();
@@ -175,11 +187,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         private void InitializeTableView()
         {
-            _source = new OrdersTableSource(tableView);
+            _source = new OrdersTableSource(tableView, OnTableViewScrolled);
             tableView.Source = _source;
             tableView.SeparatorColor = Theme.Color.Separator;
             tableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
-            tableView.ContentInset = new UIEdgeInsets(10, 0, 0, 0);
+        }
+
+        private void OnTableViewScrolled()
+        {
+            var headerScrollOffset = (TableView.ContentOffset.Y + TableView.ContentInset.Top) * 0.7f;
+            var headerClearOffset = -Math.Min(Math.Max(0, headerScrollOffset), headerContainerView.Frame.Height);
+            headerContainerTopConstraint.Constant = (float)headerClearOffset;
         }
     }
 }

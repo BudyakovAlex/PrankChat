@@ -6,7 +6,7 @@ namespace PrankChat.Mobile.Core.Managers.Notifications
 {
     public interface INotificationsManager
     {
-        Task<PaginationModel<NotificationDataModel>> GetNotificationsAsync();
+        Task<Pagination<Notification>> GetNotificationsAsync();
 
         Task MarkNotificationsAsReadedAsync();
 

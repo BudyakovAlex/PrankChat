@@ -1,9 +1,12 @@
 ﻿using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation;
+using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Walthroughs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,8 +15,6 @@ namespace PrankChat.Mobile.Core.Providers
 {
     public class WalkthroughsProvider : IWalkthroughsProvider
     {
-        private readonly INavigationService _navigationService;
-
         private readonly Dictionary<Type, string> _titles = new Dictionary<Type, string>
         {
             [typeof(CompetitionsViewModel)] = Resources.Walkthrouth_Competitions_Title,
@@ -30,9 +31,11 @@ namespace PrankChat.Mobile.Core.Providers
             [typeof(ProfileViewModel)] = Resources.Walkthrouth_Profile_Description
         };
 
-        public WalkthroughsProvider(INavigationService navigationService)
+        private readonly INavigationManager _navigationManager;
+
+        public WalkthroughsProvider(INavigationManager navigationManager)
         {
-            _navigationService = navigationService;
+            _navigationManager = navigationManager;
         }
 
         public bool CheckCanShowOnFirstLoad<TViewModel>() where TViewModel : IMvxViewModel
@@ -48,7 +51,8 @@ namespace PrankChat.Mobile.Core.Providers
 
             var title = _titles[typeof(TViewModel)];
             var description = _descriptions[typeof(TViewModel)];
-            return _navigationService.ShowWalthroughView(title, description);
+            var parameters = new WalthroughNavigationParameter(title, description);
+            return _navigationManager.NavigateAsync<WalthroughViewModel, WalthroughNavigationParameter>(parameters);
         }
     }
 }

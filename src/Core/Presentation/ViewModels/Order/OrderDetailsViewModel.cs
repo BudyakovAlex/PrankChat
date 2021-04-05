@@ -1,57 +1,57 @@
 ﻿using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
-using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.ApplicationServices.Platforms;
 using PrankChat.Mobile.Core.ApplicationServices.Timer;
+using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Orders;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.Navigation.Results;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
-    public class OrderDetailsViewModel : BasePageViewModel, IMvxViewModel<OrderDetailsNavigationParameter, OrderDetailsResult>
+    public class OrderDetailsViewModel : BasePageViewModel<OrderDetailsNavigationParameter, OrderDetailsResult>
     {
         private readonly IOrdersManager _ordersManager;
-        private readonly IPlatformService _platformService;
 
         private int _orderId;
         private int _timerThicksCount;
 
         private readonly BaseOrderDetailsSectionViewModel[] _sections;
 
-        public OrderDetailsViewModel(IOrdersManager ordersManager, IPlatformService platformService)
+        public OrderDetailsViewModel(IOrdersManager ordersManager)
         {
             _ordersManager = ordersManager;
-            _platformService = platformService;
 
-            TakeOrderCommand = new MvxAsyncCommand(TakeOrderAsync);
-            SubscribeOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(SubscribeOrderAsync));
-            UnsubscribeOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(UnsubscribeOrderAsync));
-            YesCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(YesAsync));
-            NoCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(NoAsync));
-            ExecuteOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(ExecuteOrderAsync));
-            CancelOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(CancelOrderAsync));
-            ArqueOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(ArgueOrderAsync));
-            AcceptOrderCommand = new MvxAsyncCommand(() => ExecutionStateWrapper.WrapAsync(AcceptOrderAsync));
+            TakeOrderCommand = this.CreateCommand(TakeOrderAsync);
+            SubscribeOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(SubscribeOrderAsync));
+            UnsubscribeOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(UnsubscribeOrderAsync));
+            YesCommand = this.CreateCommand(YesAsync);
+            NoCommand = this.CreateCommand(NoAsync);
+            ExecuteOrderCommand = this.CreateCommand(ExecuteOrderAsync);
+            CancelOrderCommand = this.CreateCommand(CancelOrderAsync);
+            ArqueOrderCommand = this.CreateCommand(ArgueOrderAsync);
+            AcceptOrderCommand = this.CreateCommand(AcceptOrderAsync);
 
-            LoadOrderDetailsCommand = new MvxAsyncCommand(LoadOrderDetailsAsync);
-            OpenSettingsCommand = new MvxAsyncCommand(OpenSettingsAsync);
+            LoadOrderDetailsCommand = this.CreateCommand(LoadOrderDetailsAsync);
+            OpenSettingsCommand = this.CreateCommand(OpenSettingsAsync);
 
             Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
             _sections = new BaseOrderDetailsSectionViewModel[]
@@ -90,8 +90,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             set => SetProperty(ref _isYesSelected, value);
         }
 
-        private OrderDataModel _order;
-        public OrderDataModel Order
+        private Models.Data.Order _order;
+        public Models.Data.Order Order
         {
             get => _order;
             set
@@ -145,8 +145,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public bool IsTimeAvailable => Order.CheckIsTimeAvailable();
 
-        public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
-
         public bool IsHiddenOrder => Order?.OrderCategory == OrderCategory.Private &&
                                      !CustomerSectionViewModel.IsUserCustomer &&
                                      !ExecutorSectionViewModel.IsUserExecutor;
@@ -155,7 +153,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public string OrderDescription => Order?.Description;
 
-        public void Prepare(OrderDetailsNavigationParameter parameter)
+        public override void Prepare(OrderDetailsNavigationParameter parameter)
         {
             _orderId = parameter.OrderId;
             VideoSectionViewModel.SetFullScreenVideos(parameter.FullScreenVideos, parameter.CurrentIndex);
@@ -163,20 +161,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public override Task InitializeAsync()
         {
-            return LoadOrderDetailsCommand.ExecuteAsync();
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            if (viewFinishing &&
-                CloseCompletionSource != null &&
-                !CloseCompletionSource.Task.IsCompleted &&
-                !CloseCompletionSource.Task.IsFaulted)
-            {
-                CloseCompletionSource?.SetResult(new OrderDetailsResult(Order));
-            }
-
-            base.ViewDestroy(viewFinishing);
+            return Task.WhenAll(base.InitializeAsync(), LoadOrderDetailsAsync());
         }
 
         private new async void OnTimerTick(TimerTickMessage msg)
@@ -234,14 +219,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task TakeOrderAsync()
         {
-            var user = SettingsService.User;
+            var user = UserSessionProvider.User;
 
             if (user?.EmailVerifiedAt == null)
             {
                 var canGoProfile = await DialogService.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
                 if (canGoProfile)
                 {
-                    await NavigationService.ShowUpdateProfileView();
+                    await NavigationManager.NavigateAsync<ProfileUpdateViewModel, ProfileUpdateResult>();
                 }
 
                 return;
@@ -263,7 +248,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 if (takenOrder != null && Order != null)
                 {
                     Order.Status = takenOrder.Status;
-                    Order.Executor = SettingsService.User;
+                    Order.Executor = UserSessionProvider.User;
                     Order.ActiveTo = takenOrder.ActiveTo;
                     Order.Title = takenOrder.Title;
                     Order.Description = takenOrder.Description;
@@ -279,7 +264,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 Messenger.Publish(new OrderChangedMessage(this, Order));
             }
-            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsDataModel problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
+            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsException problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
             {
                 await HandleLowBalanceExceptionAsync(ex);
             }
@@ -302,7 +287,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return;
             }
 
-            await NavigationService.ShowRefillView();
+            var navigationParameter = new CashboxTypeNavigationParameter(CashboxType.Refill);
+            await NavigationManager.NavigateAsync<CashboxViewModel, CashboxTypeNavigationParameter, bool>(navigationParameter);
         }
 
         private async Task SubscribeOrderAsync()
@@ -380,10 +366,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task CancelOrderAsync()
         {
-            var result = await DialogService.ShowConfirmAsync(Resources.OrderDetails_View_Cancel_Title,
-                                                              Resources.Attention,
-                                                              Resources.Ok,
-                                                              Resources.Cancel);
+            var result = await DialogService.ShowConfirmAsync(
+                Resources.OrderDetails_View_Cancel_Title,
+                Resources.Attention,
+                Resources.Ok,
+                Resources.Cancel);
             if (!result)
             {
                 return;
@@ -480,7 +467,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             {
                 if (!IsUserSessionInitialized)
                 {
-                    await NavigationService.ShowLoginView();
+                    await NavigationManager.NavigateAsync<LoginViewModel>();
                     return;
                 }
 
@@ -497,7 +484,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
             if (result == Resources.Publication_Item_Copy_Link)
             {
-                await _platformService.CopyTextAsync(Order?.Video?.ShareUri);
+                await Clipboard.SetTextAsync(Order?.Video?.ShareUri);
                 DialogService.ShowToast(Resources.LinkCopied, ToastType.Positive);
                 return;
             }

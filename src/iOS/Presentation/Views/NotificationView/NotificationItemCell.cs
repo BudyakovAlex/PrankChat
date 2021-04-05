@@ -70,7 +70,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
             _topAnchorDateCreateConstraint = dateLabel.TopAnchor.ConstraintEqualTo(descriptionLabel.TopAnchor);
         }
 
-        protected override void SetBindings()
+        protected override void Bind()
         {
             var set = this.CreateBindingSet<NotificationItemCell, NotificationItemViewModel>();
 

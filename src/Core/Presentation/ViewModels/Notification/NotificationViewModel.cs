@@ -2,12 +2,12 @@
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Managers.Notifications;
-using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 {
@@ -36,9 +36,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
             return count;
         }
 
-        private NotificationItemViewModel ProduceNotificationItem(NotificationDataModel notificationDataModel)
+        private NotificationItemViewModel ProduceNotificationItem(Models.Data.Notification notification)
         {
-            return new NotificationItemViewModel(NavigationService, SettingsService, notificationDataModel);
+            return new NotificationItemViewModel(UserSessionProvider, notification);
         }
 
         private async Task MarkReadedNotificationsAsync()
@@ -49,7 +49,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
             await _notificationsManager.MarkNotificationsAsReadedAsync();
 
             Messenger.Publish(new RefreshNotificationsMessage(this));
-            CrossBadge.Current.ClearBadge();
+            MainThread.BeginInvokeOnMainThread(CrossBadge.Current.ClearBadge);
         }
     }
 }

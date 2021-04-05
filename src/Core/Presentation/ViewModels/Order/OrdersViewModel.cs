@@ -1,20 +1,21 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.Timer;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Orders;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Shared;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items.Abstract;
 using PrankChat.Mobile.Core.Providers;
+using PrankChat.Mobile.Core.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
     public class OrdersViewModel : PaginationViewModel
     {
+        private readonly IVideoManager _videoManager;
         private readonly IOrdersManager _ordersManager;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
+
+        private readonly ExecutionStateWrapper _loadDataStateWrapper;
 
         private readonly Dictionary<ArbitrationOrderFilterType, string> _arbitrationOrderFilterTypeTitleMap =
             new Dictionary<ArbitrationOrderFilterType, string>
@@ -49,22 +53,34 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private string _activeOrderFilterName = string.Empty;
         private string _activeArbitrationFilterName = string.Empty;
 
-        public OrdersViewModel(IOrdersManager ordersManager, IWalkthroughsProvider walkthroughsProvider) : base(Constants.Pagination.DefaultPaginationSize)
+        public OrdersViewModel(
+            IVideoManager videoManager,
+            IOrdersManager ordersManager,
+            IWalkthroughsProvider walkthroughsProvider) : base(Constants.Pagination.DefaultPaginationSize)
         {
+            _videoManager = videoManager;
             _ordersManager = ordersManager;
             _walkthroughsProvider = walkthroughsProvider;
 
-            OpenFilterCommand = new MvxAsyncCommand(OpenFilterAsync);
-            LoadDataCommand = new MvxAsyncCommand(LoadDataAsync);
-            ShowWalkthrouthCommand = new MvxAsyncCommand(ShowWalkthrouthAsync);
+            _loadDataStateWrapper = new ExecutionStateWrapper();
+            _loadDataStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(
+                OnIsBusyChanged,
+                (wrapper, handler) => wrapper.IsBusyChanged += handler,
+                (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
+
+            Items = new MvxObservableCollection<BaseOrderItemViewModel>();
+
+            OpenFilterCommand = this.CreateCommand(OpenFilterAsync);
+            ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
+            LoadDataCommand = this.CreateCommand(() => _loadDataStateWrapper.WrapAsync(LoadDataAsync), useIsBusyWrapper: false);
 
             Messenger.SubscribeOnMainThread<OrderChangedMessage>(OrdersChanged).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<RemoveOrderMessage>(OrderRemoved).DisposeWith(Disposables);
-            Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>(async (msg) => await NotificationBageViewModel.RefreshDataCommand.ExecuteAsync(null)).DisposeWith(Disposables);
-            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
         }
 
-        public MvxObservableCollection<BaseViewModel> Items { get; } = new MvxObservableCollection<BaseViewModel>();
+        public override bool IsBusy => base.IsBusy || _loadDataStateWrapper.IsBusy;
+
+        public MvxObservableCollection<BaseOrderItemViewModel> Items { get; }
 
         public string ActiveFilterName => TabType == OrdersTabType.Order ? _activeOrderFilterName : _activeArbitrationFilterName;
 
@@ -126,7 +142,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             ArbitrationFilterType = ArbitrationOrderFilterType.All;
             TabType = OrdersTabType.Order;
 
-            await LoadDataCommand.ExecuteAsync();
+            _ = LoadDataCommand.ExecuteAsync();
         }
 
         protected async override Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
@@ -201,53 +217,36 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             return LoadMoreItemsCommand.ExecuteAsync();
         }
 
-        private Task OpenFilterAsync()
+        private Task OpenFilterAsync() => TabType switch
         {
-            switch (TabType)
-            {
-                case OrdersTabType.Order:
-                    return OpenOrderFilterAsync();
+            OrdersTabType.Order => OpenOrderFilterAsync(),
+            OrdersTabType.Arbitration => OpenArbitrationFilterAsync(),
+            _ => throw new ArgumentOutOfRangeException(),
+        };
 
-                case OrdersTabType.Arbitration:
-                    return OpenArbitrationFilterAsync();
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+        private OrderItemViewModel ProduceOrderViewModel(Models.Data.Order order)
+        {
+            return new OrderItemViewModel(
+                _videoManager,
+                UserSessionProvider,
+                order,
+                GetFullScreenVideos);
         }
 
-        private OrderItemViewModel ProduceOrderViewModel(OrderDataModel order)
+        private ArbitrationOrderItemViewModel ProduceArbitrationOrderViewModel(ArbitrationOrder order)
         {
-            return new OrderItemViewModel(NavigationService,
-                                          SettingsService,
-                                          order,
-                                          GetFullScreenVideoDataModels);
+            return new ArbitrationOrderItemViewModel(
+                _videoManager,
+                UserSessionProvider,
+                order,
+                GetFullScreenVideos);
         }
 
-        private ArbitrationItemViewModel ProduceArbitrationOrderViewModel(ArbitrationOrderDataModel order)
+        private BaseVideoItemViewModel[] GetFullScreenVideos()
         {
-            return new ArbitrationItemViewModel(NavigationService,
-                                                SettingsService,
-                                                IsUserSessionInitialized,
-                                                order.Id,
-                                                order.Title,
-                                                order.Customer?.Avatar,
-                                                order.Customer?.Login,
-                                                order.Price,
-                                                order.Likes,
-                                                order.Dislikes,
-                                                order.ArbitrationFinishAt ?? DateTime.UtcNow,
-                                                order.Customer?.Id,
-                                                order,
-                                                GetFullScreenVideoDataModels);
-        }
-
-        private List<FullScreenVideoDataModel> GetFullScreenVideoDataModels()
-        {
-            return Items.OfType<IFullScreenVideoOwnerViewModel>()
-                        .Where(item => item.CanPlayVideo)
-                        .Select(item => item.GetFullScreenVideoDataModel())
-                        .ToList();
+            return Items.Where(item => item.VideoItemViewModel != null)
+                        .Select(item => item.VideoItemViewModel)
+                        .ToArray();
         }
 
         private void OrdersChanged(OrderChangedMessage newOrderMessage)

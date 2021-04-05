@@ -4,6 +4,11 @@ namespace PrankChat.Mobile.Core.Infrastructure
 {
     public static class Constants
     {
+        public static class Configuration
+        {
+            public const string AppConfigFileName = "AppConfig.json";
+        }
+
         public static class Profile
         {
             public const int DescriptionMaxLength = 120;
@@ -41,7 +46,7 @@ namespace PrankChat.Mobile.Core.Infrastructure
 
         public static class Delays
         {
-            public const int ViewedFactRegistrationDelayInMilliseconds = 3000;
+            public const int VideoPartiallyPlayedDelay = 3;
             public const int MillisecondsDelayBeforeMarkAsReaded = 3000;
             public const int RepeatDelayInSeconds = 10;
             public const int DebounceDelay = 500;

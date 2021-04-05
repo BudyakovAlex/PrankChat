@@ -1,10 +1,12 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Payment;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,8 +22,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             _paymentManager = paymentManager;
 
             Items = new List<PaymentMethodItemViewModel>();
-            RefillCommand = new MvxAsyncCommand(OnRefillAsync);
-            SelectionChangedCommand = new MvxAsyncCommand<PaymentMethodItemViewModel>(OnSelectionChangedAsync);
+            RefillCommand = this.CreateCommand(OnRefillAsync);
+            SelectionChangedCommand = this.CreateCommand<PaymentMethodItemViewModel>(OnSelectionChangedAsync);
         }
 
         private double? _cost;
@@ -70,7 +72,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 return;
             }
 
-            await NavigationService.ShowWebView(paymentData.PaymentLink);
+            await NavigationManager.NavigateAsync<WebViewModel, string>(paymentData.PaymentLink);
             Messenger.Publish(new ReloadProfileMessage(this));
         }
 

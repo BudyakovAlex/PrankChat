@@ -4,7 +4,8 @@ using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
@@ -14,11 +15,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         private readonly IExternalAuthService _externalAuthService;
         private readonly IPushNotificationProvider _pushNotificationService;
 
-        public ExternalAuthViewModel(IAuthorizationManager authorizationManager,
-                                     IVersionManager versionManager,
-                                     IUsersManager usersManager,
-                                     IExternalAuthService externalAuthService,
-                                     IPushNotificationProvider pushNotificationService)
+        public ExternalAuthViewModel(
+            IAuthorizationManager authorizationManager,
+            IVersionManager versionManager,
+            IUsersManager usersManager,
+            IExternalAuthService externalAuthService,
+            IPushNotificationProvider pushNotificationService)
         {
             AuthorizationManager = authorizationManager;
             VersionManager = versionManager;
@@ -36,22 +38,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             var newActualVersion = await VersionManager.CheckAppVersionAsync();
             if (!string.IsNullOrEmpty(newActualVersion?.Link))
             {
-                await NavigationService.ShowMaintananceView(newActualVersion.Link);
+                await NavigationManager.NavigateAsync<MaintananceViewModel, string>(newActualVersion?.Link);
                 return false;
             }
 
-            string token;
-            switch (loginType)
+            var token = loginType switch
             {
-                case LoginType.Vk:
-                    token = await _externalAuthService.LoginWithVkontakteAsync();
-                    break;
-                case LoginType.Facebook:
-                    token = await _externalAuthService.LoginWithFacebookAsync();
-                    break;
-                default:
-                    return false;
-            }
+                LoginType.Vk => await _externalAuthService.LoginWithVkontakteAsync(),
+                LoginType.Facebook => await _externalAuthService.LoginWithFacebookAsync(),
+                _ => string.Empty
+            };
 
             if (string.IsNullOrEmpty(token))
             {
@@ -64,12 +60,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         protected virtual async Task NavigateAfterLoginAsync()
         {
-            // TODO: not wait
-            await UsersManager.GetCurrentUserAsync();
-
+            await UsersManager.GetAndRefreshUserInSessionAsync();
             await _pushNotificationService.TryUpdateTokenAsync();
-
-            await NavigationService.ShowMainView();
+            await NavigationManager.NavigateAsync<MainViewModel>();
         }
     }
 }

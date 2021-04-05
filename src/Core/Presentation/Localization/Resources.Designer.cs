@@ -1912,5 +1912,11 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Pay", resourceCulture);
             }
         }
+        
+        public static string Error_Something_Went_Wrong_Message {
+            get {
+                return ResourceManager.GetString("Error_Something_Went_Wrong_Message", resourceCulture);
+            }
+        }
     }
 }

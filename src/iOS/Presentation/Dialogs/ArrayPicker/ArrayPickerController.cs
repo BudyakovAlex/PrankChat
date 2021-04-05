@@ -25,7 +25,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.ArrayPicker
                 .To(vm => vm.DoneCommand);
 
             set.Bind(cancelButton)
-                .To(vm => vm.GoBackCommand);
+                .To(vm => vm.CloseCommand);
 
             set.Apply();
         }

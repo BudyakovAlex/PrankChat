@@ -21,14 +21,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             SelectionStyle = UITableViewCellSelectionStyle.Gray;
         }
 
-        protected virtual void SetBindings()
+        protected virtual void Bind()
         {
         }
 
         private void SetupCell()
         {
             SetupControls();
-            SetBindings();
+            Bind();
         }
     }
 

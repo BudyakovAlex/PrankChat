@@ -35,7 +35,7 @@
         android:background="@null"
         android:text="@android:string/cancel"
         android:textColor="@color/accent"
-        app:MvxBind="Click GoBackCommand"
+        app:MvxBind="Click CloseCommand"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

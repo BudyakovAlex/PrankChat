@@ -31,9 +31,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             openPrizePoolButton.SetBorderlessStyle(Resources.Competition_Results, Theme.Color.White, Theme.Color.White);
         }
 
-        protected override void SetBindings()
+        protected override void Bind()
         {
-            base.SetBindings();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<CompetitionDetailsHeaderCell, CompetitionDetailsHeaderViewModel>();
 

@@ -1,119 +1,53 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
-using PrankChat.Mobile.Core.Commands;
-using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Managers.Publications;
+using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Base;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 {
-    public class CompetitionVideoViewModel : BaseViewModel, IVideoItemViewModel, IDisposable
+    public class CompetitionVideoViewModel : BaseVideoItemViewModel
     {
-        private readonly IPublicationsManager _publicationsManager;
-        private readonly INavigationService _navigationService;
-        private readonly ISettingsService _settingsService;
-        private readonly IMvxMessenger _mvxMessenger;
+        private readonly Func<BaseVideoItemViewModel[]> _getAllFullScreenVideosFunc;
 
-        private readonly VideoDataModel _videoDataModel;
-        private readonly long _numberOfDislikes;
-        private readonly bool _isDisliked;
-        private readonly Func<List<FullScreenVideoDataModel>> _getAllFullScreenVideoDataFunc;
-
-        private CancellationTokenSource _cancellationSendingLikeTokenSource;
-        private MvxSubscriptionToken _updateNumberOfViewsSubscriptionToken;
-
-        public CompetitionVideoViewModel(IPublicationsManager publicationsManager,
-                                         IVideoPlayerService videoPlayerService,
-                                         INavigationService navigationService,
-                                         ISettingsService settingsService,
-                                         IMvxMessenger mvxMessenger,
-                                         ILogger logger,
-                                         VideoDataModel videoDataModel,
-                                         bool isMyPublication,
-                                         bool isVotingAvailable,
-                                         Func<List<FullScreenVideoDataModel>> getAllFullScreenVideoDataFunc)
+        public CompetitionVideoViewModel(
+            IVideoManager videoManager,
+            IUserSessionProvider userSessionProvider,
+            Models.Data.Video video,
+            bool isMyPublication,
+            bool isVotingAvailable,
+            Func<BaseVideoItemViewModel[]> getAllFullScreenVideosFunc) : base(videoManager, userSessionProvider, video)
         {
-            _navigationService = navigationService;
-            _settingsService = settingsService;
-            _mvxMessenger = mvxMessenger;
-            _videoDataModel = videoDataModel;
-
-            Logger = logger;
-            _publicationsManager = publicationsManager;
-            VideoPlayerService = videoPlayerService;
- 
-            NumberOfLikes = _videoDataModel.LikesCount;
-            _numberOfDislikes = _videoDataModel.DislikesCount;
-
-            NumberOfViews = _videoDataModel.ViewsCount;
-            IsLiked = videoDataModel.IsLiked;
-            _isDisliked = videoDataModel.IsDisliked;
+            NumberOfViews = Video.ViewsCount;
 
             IsMyPublication = isMyPublication;
             IsVotingAvailable = isVotingAvailable;
-            _getAllFullScreenVideoDataFunc = getAllFullScreenVideoDataFunc;
+            _getAllFullScreenVideosFunc = getAllFullScreenVideosFunc;
 
-            LikeCommand = new MvxCommand(Like);
-            OpenUserProfileCommand = new MvxRestrictedAsyncCommand(OpenUserProfileAsync, restrictedCanExecute: () => _settingsService.User != null, handleFunc: _navigationService.ShowLoginView);
-
-            Subscribe();
+           Messenger.SubscribeWithCondition<ViewCountMessage>(msg => msg.VideoId == VideoId, msg => NumberOfViews = msg.ViewsCount)
+                .DisposeWith(Disposables);
         }
 
-        public ICommand LikeCommand { get; }
+        public override bool CanVoteVideo => IsVotingAvailable && !IsMyPublication;
 
-        public IMvxAsyncCommand ShowFullScreenVideoCommand => new MvxAsyncCommand(ShowFullScreenVideoAsync);
+        public override bool CanPlayVideo => true;
 
-        public IMvxAsyncCommand OpenUserProfileCommand { get; }
+        public IMvxAsyncCommand ShowFullScreenVideoCommand => this.CreateCommand(ShowFullScreenVideoAsync);
 
-        public IVideoPlayerService VideoPlayerService { get; }
+        public string UserName => User?.Login;
 
-        public ILogger Logger { get; }
-
-        public int VideoId => _videoDataModel?.Id ?? -1;
-
-        public string VideoUrl => _videoDataModel?.StreamUri;
-
-        public string PreviewUrl => _videoDataModel?.PreviewUri;
-
-        public string ShareLink => _videoDataModel?.ShareUri;
-
-        public string UserName => _videoDataModel?.User?.Login;
-
-        public string ProfileShortName => UserName?.ToShortenName();
-
-        public string VideoName => _videoDataModel?.Title;
-
-        public string Description => _videoDataModel?.Description;
-
-        public string AvatarUrl => _videoDataModel?.User?.Avatar;
-
-        public string StubImageUrl => _videoDataModel?.Poster;
-
-        public DateTime PublicationDate => _videoDataModel?.CreatedAt.UtcDateTime ?? DateTime.MinValue;
+        public DateTime PublicationDate => Video.CreatedAt.UtcDateTime;
 
         public bool IsMyPublication { get; }
 
         public bool IsVotingAvailable { get; }
-
-        public bool IsVideoProcessing => string.IsNullOrEmpty(VideoUrl);
-
-        public long NumberOfComments => _videoDataModel?.CommentsCount ?? 0;
-
-        public bool CanPlayVideo => true;
 
         public string LikesCount => CountExtensions.ToCountString(NumberOfLikes);
 
@@ -121,158 +55,39 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public string PublicationDateString => PublicationDate.ToTimeAgoPublicationString();
 
-        public bool CanVoteVideo => IsVotingAvailable && !IsMyPublication;
-
-        private long _numberOfLikes;
-        public long NumberOfLikes
-        {
-            get => _numberOfLikes;
-            set
-            {
-                if (SetProperty(ref _numberOfLikes, value))
-                {
-                    RaisePropertyChanged(nameof(LikesCount));
-                }
-            }
-        }
-
         private long _numberOfViews;
         public long NumberOfViews
         {
             get => _numberOfViews;
-            set
-            {
-                if (SetProperty(ref _numberOfViews, value))
-                {
-                    RaisePropertyChanged(nameof(ViewsCount));
-                }
-            }
+            set => SetProperty(ref _numberOfViews, value, () => RaisePropertyChanged(nameof(ViewsCount)));
         }
 
-        private bool _isLiked;
-        public bool IsLiked
-        {
-            get => _isLiked;
-            set => SetProperty(ref _isLiked, value);
-        }
+        protected override User User => Video.User;
 
-        public FullScreenVideoDataModel GetFullScreenVideoDataModel()
-        {
-            return new FullScreenVideoDataModel(_videoDataModel.User?.Id ?? 0,
-                                                _videoDataModel.User?.IsSubscribed ?? false,
-                                                VideoId,
-                                                VideoUrl,
-                                                VideoName,
-                                                Description,
-                                                ShareLink,
-                                                AvatarUrl,
-                                                _videoDataModel.User?.Login?.ToShortenName(),
-                                                NumberOfLikes,
-                                                _numberOfDislikes,
-                                                NumberOfComments,
-                                                IsLiked,
-                                                _isDisliked,
-                                                StubImageUrl,
-                                                CanVoteVideo);
-        }
+        protected override void OnLikeChanged() =>
+            RaisePropertyChanged(LikesCount);
 
-        private Task OpenUserProfileAsync()
-        {
-            if (_videoDataModel.User?.Id is null ||
-                _videoDataModel.User.Id == _settingsService.User.Id)
-            {
-                return Task.CompletedTask;
-            }
+        protected override void OnDislikeChanged() =>
+            RaisePropertyChanged(LikesCount);
 
-            return _navigationService.ShowUserProfile(_videoDataModel.User.Id);
-        }
-
-        private void Like()
+        private async Task ShowFullScreenVideoAsync()
         {
-            if (IsLiked)
+            var items = _getAllFullScreenVideosFunc?.Invoke() ?? new [] { this };
+            var currentItem = items.FirstOrDefault(item => item.VideoId == VideoId);
+            var index = currentItem is null ? 0 : items.IndexOfOrDefault(currentItem);
+            var navigationParams = new FullScreenVideoParameter(items, index);
+            if (navigationParams.Videos.Length == 0)
             {
                 return;
             }
 
-            IsLiked = !IsLiked;
-
-            var totalLikes = IsLiked ? NumberOfLikes + 1 : NumberOfLikes - 1;
-            NumberOfLikes = totalLikes > 0 ? totalLikes : 0;
-
-            SendLikeAsync().FireAndForget();
-        }
-
-        private async Task SendLikeAsync()
-        {
-            _cancellationSendingLikeTokenSource?.Cancel();
-            if (_cancellationSendingLikeTokenSource == null)
-            {
-                _cancellationSendingLikeTokenSource = new CancellationTokenSource();
-            }
-
-            try
-            {
-                await _publicationsManager.SendLikeAsync(VideoId, IsLiked, _cancellationSendingLikeTokenSource.Token);
-            }
-            finally
-            {
-                _cancellationSendingLikeTokenSource?.Dispose();
-                _cancellationSendingLikeTokenSource = null;
-            }
-        }
-
-        private async Task ShowFullScreenVideoAsync()
-        {
-            VideoPlayerService.Player.TryRegisterViewedFact(VideoId, Constants.Delays.ViewedFactRegistrationDelayInMilliseconds);
-
-            var items = _getAllFullScreenVideoDataFunc?.Invoke() ?? new List<FullScreenVideoDataModel> { GetFullScreenVideoDataModel() };
-            var currentItem = items.FirstOrDefault(item => item.VideoId == VideoId);
-            var index = currentItem is null ? 0 : items.IndexOf(currentItem);
-            var navigationParams = new FullScreenVideoParameter(items, index);
-
-            var shouldRefresh = await _navigationService.ShowFullScreenVideoView(navigationParams);
+            var shouldRefresh = await NavigationManager.NavigateAsync<FullScreenVideoViewModel, FullScreenVideoParameter, bool>(navigationParams);
             if (!shouldRefresh)
             {
                 return;
             }
 
-            _mvxMessenger.Publish(new ReloadCompetitionMessage(this));
-        }
-
-        private void Subscribe()
-        {
-            _updateNumberOfViewsSubscriptionToken = _mvxMessenger.Subscribe<ViewCountMessage>(viewCountMessage =>
-            {
-                if (viewCountMessage.VideoId == VideoId)
-                {
-                    NumberOfViews = viewCountMessage.ViewsCount;
-                }
-            });
-        }
-
-        private void Unsubscribe()
-        {
-            if (_updateNumberOfViewsSubscriptionToken is null)
-            {
-                return;
-            }
-
-            _updateNumberOfViewsSubscriptionToken.Dispose();
-            _updateNumberOfViewsSubscriptionToken = null;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Unsubscribe();
-            }
+            Messenger.Publish(new ReloadCompetitionMessage(this));
         }
     }
 }

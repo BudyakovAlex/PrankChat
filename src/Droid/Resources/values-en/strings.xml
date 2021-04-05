@@ -353,4 +353,5 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <string name="Competition_Pay_For_Join">"Pay for participation"</string>
     <string name="Competion_Rules_Template">"To take part in the competition, you need to pay {0} ₽"</string>
     <string name="Pay">"Pay"</string>
+    <string name="Error_Something_Went_Wrong_Message">"Oops, something went wrong :("</string>
 </resources>

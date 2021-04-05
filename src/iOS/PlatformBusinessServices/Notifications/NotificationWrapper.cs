@@ -5,11 +5,11 @@ using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.iOS.Delegates;
 using System;
 using System.Diagnostics;
@@ -24,8 +24,8 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
 
         public void TokenRefreshNotification(object sender, NSNotificationEventArgs e)
         {
-            var settingService = Mvx.IoCProvider.Resolve<ISettingsService>();
-            settingService.PushToken = Messaging.SharedInstance.FcmToken;
+            var userSessionProvider = Mvx.IoCProvider.Resolve<IUserSessionProvider>();
+            userSessionProvider.PushToken = Messaging.SharedInstance.FcmToken;
 
             try
             {
@@ -55,7 +55,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
                 var pushNotificationData = HandleNotificationPayload(userInfo);
                 ScheduleLocalNotification(pushNotificationData?.Title, pushNotificationData?.Body);
 
-                if(Mvx.IoCProvider.TryResolve<IMvxMessenger>(out var mvxMessenger))
+                if (Mvx.IoCProvider.TryResolve<IMvxMessenger>(out var mvxMessenger))
                 {
                     mvxMessenger.Publish(new RefreshNotificationsMessage(this));
                 }
@@ -78,7 +78,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
             NotificationManager.Instance.TryNavigateToView(pushNotificationData?.OrderId);
         }
 
-        public PushNotificationData HandleNotificationPayload(NSDictionary userInfo)
+        public PushNotification HandleNotificationPayload(NSDictionary userInfo)
         {
             if (userInfo == null)
             {
@@ -100,12 +100,12 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
             return NotificationManager.Instance.GenerateNotificationData(key?.ToString(), value?.ToString(), title?.ToString(), body?.ToString());
         }
 
-        private UserDataModel ExtractUserSession()
+        private User ExtractUserSession()
         {
             try
             {
-                var dataModel = JsonConvert.DeserializeObject<UserDataModel>(Preferences.Get(Constants.Keys.User, string.Empty));
-                return dataModel;
+                var user = JsonConvert.DeserializeObject<User>(Preferences.Get(Constants.Keys.User, string.Empty));
+                return user;
             }
             catch
             {

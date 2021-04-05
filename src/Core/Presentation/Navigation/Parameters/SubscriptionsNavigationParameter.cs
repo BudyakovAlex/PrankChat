@@ -4,7 +4,10 @@ namespace PrankChat.Mobile.Core.Presentation.Navigation.Parameters
 {
     public class SubscriptionsNavigationParameter
     {
-        public SubscriptionsNavigationParameter(SubscriptionTabType subscriptionTabType, int userId, string userName)
+        public SubscriptionsNavigationParameter(
+            SubscriptionTabType subscriptionTabType,
+            int userId,
+            string userName)
         {
             SubscriptionTabType = subscriptionTabType;
             UserId = userId;

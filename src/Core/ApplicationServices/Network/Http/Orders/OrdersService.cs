@@ -1,99 +1,92 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Abstract;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
-using PrankChat.Mobile.Core.ApplicationServices.Settings;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
-using PrankChat.Mobile.Core.Configuration;
+using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Data.Dtos.Base;
+using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Models.Api;
-using PrankChat.Mobile.Core.Models.Api.Base;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Providers.Configuration;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
 {
-    public class OrdersService : BaseRestService, IOrdersService
+    public class OrdersService : IOrdersService
     {
-        private readonly ISettingsService _settingsService;
-        private readonly IMvxMessenger _messenger;
+        private readonly IUserSessionProvider _userSessionProvider;
         private readonly IMvxLog _log;
 
         private readonly HttpClient _client;
 
-        public OrdersService(ISettingsService settingsService,
-                             IAuthorizationService authorizeService,
-                             IMvxLogProvider logProvider,
-                             IMvxMessenger messenger,
-                             ILogger logger) : base(settingsService, authorizeService, logProvider, messenger, logger)
+        public OrdersService(
+            IUserSessionProvider userSessionProvider,
+            IEnvironmentConfigurationProvider environmentConfigurationProvider,
+            IMvxLogProvider logProvider,
+            IMvxMessenger messenger)
         {
-            _settingsService = settingsService;
-            _messenger = messenger;
+            _userSessionProvider = userSessionProvider;
             _log = logProvider.GetLogFor<OrdersService>();
 
-            var configuration = ConfigurationProvider.GetConfiguration();
-            _client = new HttpClient(configuration.BaseAddress,
-                                     configuration.ApiVersion,
-                                     settingsService,
-                                     _log,
-                                     logger,
-                                     messenger);
-
-            _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
+            var environment = environmentConfigurationProvider.Environment;
+            _client = new HttpClient(
+                environment.ApiUrl,
+                environment.ApiVersion,
+                userSessionProvider,
+                _log,
+                messenger);
         }
 
-        public async Task<OrderApiModel> CreateOrderAsync(CreateOrderApiModel orderInfo)
+        public async Task<OrderDto> CreateOrderAsync(CreateOrderDto orderInfo)
         {
-            var newOrder = await _client.PostAsync<CreateOrderApiModel, DataApiModel<OrderApiModel>>("orders", orderInfo, true);
+            var newOrder = await _client.PostAsync<CreateOrderDto, ResponseDto<OrderDto>>("orders", orderInfo, true);
             return newOrder?.Data;
         }
 
-        public Task<BaseBundleApiModel<OrderApiModel>> GetUserOwnOrdersAsync(int userId, int page, int pageSize)
+        public Task<BaseBundleDto<OrderDto>> GetUserOwnOrdersAsync(int userId, int page, int pageSize)
         {
-            return _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"user/{userId}/orders/own?page={page}&items_per_page={pageSize}",
+            return _client.GetAsync<BaseBundleDto<OrderDto>>($"user/{userId}/orders/own?page={page}&items_per_page={pageSize}",
                                                                              includes: new[] { IncludeType.Customer, IncludeType.Videos });
         }
 
-        public Task<BaseBundleApiModel<OrderApiModel>> GetUserExecuteOrdersAsync(int userId, int page, int pageSize)
+        public Task<BaseBundleDto<OrderDto>> GetUserExecuteOrdersAsync(int userId, int page, int pageSize)
         {
-            return _client.GetAsync<BaseBundleApiModel<OrderApiModel>>($"user/{userId}/orders/execute?page={page}&items_per_page={pageSize}",
+            return _client.GetAsync<BaseBundleDto<OrderDto>>($"user/{userId}/orders/execute?page={page}&items_per_page={pageSize}",
                                                                              includes: new[] { IncludeType.Customer, IncludeType.Videos });
         }
 
-        public Task<BaseBundleApiModel<OrderApiModel>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize)
+        public Task<BaseBundleDto<OrderDto>> GetOrdersAsync(OrderFilterType orderFilterType, int page, int pageSize)
         {
             var endpoint = $"{orderFilterType.GetUrlResource()}?page={page}&items_per_page={pageSize}";
             switch (orderFilterType)
             {
-                case OrderFilterType.MyOwn when _settingsService.User != null:
-                    endpoint = $"{endpoint}&customer_id={_settingsService.User.Id}";
+                case OrderFilterType.MyOwn when _userSessionProvider.User != null:
+                    endpoint = $"{endpoint}&customer_id={_userSessionProvider.User.Id}";
                     break;
 
-                case OrderFilterType.MyOwn when _settingsService.User == null:
-                case OrderFilterType.MyCompletion when _settingsService.User == null:
-                case OrderFilterType.MyOrdered when _settingsService.User == null:
-                    return Task.FromResult(new BaseBundleApiModel<OrderApiModel>());
+                case OrderFilterType.MyOwn when _userSessionProvider.User == null:
+                case OrderFilterType.MyCompletion when _userSessionProvider.User == null:
+                case OrderFilterType.MyOrdered when _userSessionProvider.User == null:
+                    return Task.FromResult(new BaseBundleDto<OrderDto>());
             }
 
-            return _client.GetAsync<BaseBundleApiModel<OrderApiModel>>(endpoint, includes: new[] { IncludeType.Customer, IncludeType.Videos });
+            return _client.GetAsync<BaseBundleDto<OrderDto>>(endpoint, includes: new[] { IncludeType.Customer, IncludeType.Videos });
         }
 
-        public async Task<OrderApiModel> GetOrderDetailsAsync(int orderId)
+        public async Task<OrderDto> GetOrderDetailsAsync(int orderId)
         {
-            var data = await _client.GetAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}", includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor, IncludeType.Videos });
+            var data = await _client.GetAsync<ResponseDto<OrderDto>>($"orders/{orderId}", includes: new IncludeType[] { IncludeType.Customer, IncludeType.Executor, IncludeType.Videos });
             return data?.Data;
         }
 
-        public async Task<OrderApiModel> TakeOrderAsync(int orderId)
+        public async Task<OrderDto> TakeOrderAsync(int orderId)
         {
-            var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/executor/appoint", true);
+            var data = await _client.PostAsync<ResponseDto<OrderDto>>($"orders/{orderId}/executor/appoint", true);
             return data?.Data;
         }
 
-        public async Task<BaseBundleApiModel<ArbitrationOrderApiModel>> GetArbitrationOrdersAsync(ArbitrationOrderFilterType filter, int page, int pageSize)
+        public async Task<BaseBundleDto<ArbitrationOrderDto>> GetArbitrationOrdersAsync(ArbitrationOrderFilterType filter, int page, int pageSize)
         {
             var endpoint = $"orders?page={page}&items_per_page={pageSize}&status={OrderStatusType.InArbitration.GetEnumMemberAttrValue()}";
             switch (filter)
@@ -107,25 +100,25 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
                     break;
 
                 case ArbitrationOrderFilterType.My:
-                    if (_settingsService.User == null)
-                        return new BaseBundleApiModel<ArbitrationOrderApiModel>();
+                    if (_userSessionProvider.User == null)
+                        return new BaseBundleDto<ArbitrationOrderDto>();
 
-                    endpoint = $"{endpoint}&customer_id={_settingsService.User.Id}";
+                    endpoint = $"{endpoint}&customer_id={_userSessionProvider.User.Id}";
                     break;
             }
 
-            return await _client.GetAsync<BaseBundleApiModel<ArbitrationOrderApiModel>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
+            return await _client.GetAsync<BaseBundleDto<ArbitrationOrderDto>>(endpoint, includes: new IncludeType[] { IncludeType.ArbitrationValues, IncludeType.Customer });
         }
 
-        public async Task<OrderApiModel> CancelOrderAsync(int orderId)
+        public async Task<OrderDto> CancelOrderAsync(int orderId)
         {
-            var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/cancel", false);
+            var data = await _client.PostAsync<ResponseDto<OrderDto>>($"orders/{orderId}/cancel", false);
             return data?.Data;
         }
 
         public Task ComplainOrderAsync(int orderId, string title, string description)
         {
-            var dataApiModel = new ComplainApiModel()
+            var dataApiModel = new ComplainDto()
             {
                 Title = title,
                 Description = description
@@ -134,37 +127,37 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders
             return _client.PostAsync(url, dataApiModel);
         }
 
-        public async Task<OrderApiModel> SubscribeOrderAsync(int orderId)
+        public async Task<OrderDto> SubscribeOrderAsync(int orderId)
         {
-            var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
+            var data = await _client.PostAsync<ResponseDto<OrderDto>>($"orders/{orderId}/subscribe", true);
             return data?.Data;
         }
 
-        public async Task<OrderApiModel> UnsubscribeOrderAsync(int orderId)
+        public async Task<OrderDto> UnsubscribeOrderAsync(int orderId)
         {
-            var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/subscribe", true);
+            var data = await _client.PostAsync<ResponseDto<OrderDto>>($"orders/{orderId}/subscribe", true);
             return data?.Data;
         }
 
-        public async Task<OrderApiModel> ArgueOrderAsync(int orderId)
+        public async Task<OrderDto> ArgueOrderAsync(int orderId)
         {
-            var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/arbitration", true);
+            var data = await _client.PostAsync<ResponseDto<OrderDto>>($"orders/{orderId}/arbitration", true);
             return data?.Data;
         }
 
-        public async Task<OrderApiModel> AcceptOrderAsync(int orderId)
+        public async Task<OrderDto> AcceptOrderAsync(int orderId)
         {
-            var data = await _client.PostAsync<DataApiModel<OrderApiModel>>($"orders/{orderId}/finish", true);
+            var data = await _client.PostAsync<ResponseDto<OrderDto>>($"orders/{orderId}/finish", true);
             return data?.Data;
         }
 
-        public async Task<OrderApiModel> VoteVideoAsync(int orderId, ArbitrationValueType isLiked)
+        public async Task<OrderDto> VoteVideoAsync(int orderId, ArbitrationValueType isLiked)
         {
-            var arbitrationValue = new ChangeArbitrationApiModel()
+            var arbitrationValue = new ChangeArbitrationDto()
             {
                 Value = isLiked.ToString().ToLower(),
             };
-            var data = await _client.PostAsync<ChangeArbitrationApiModel, DataApiModel<OrderApiModel>>($"orders/{orderId}/arbitration/value", arbitrationValue, true);
+            var data = await _client.PostAsync<ChangeArbitrationDto, ResponseDto<OrderDto>>($"orders/{orderId}/arbitration/value", arbitrationValue, true);
             return data?.Data;
         }
     }

@@ -75,7 +75,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 
             _endlessRecyclerView.ItemTemplateSelector = new TemplateSelector()
                 .AddElement<OrderItemViewModel, OrderItemViewHolder>(Resource.Layout.cell_order)
-                .AddElement<ArbitrationItemViewModel, ArbitrationItemViewHolder>(Resource.Layout.cell_arbitration_order);
+                .AddElement<ArbitrationOrderItemViewModel, ArbitrationItemViewHolder>(Resource.Layout.cell_arbitration_order);
 
             _stateScrollListener = new StateScrollListener();
             _endlessRecyclerView.AddOnScrollListener(_stateScrollListener);

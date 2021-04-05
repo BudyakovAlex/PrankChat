@@ -1,6 +1,6 @@
 ﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
 using PrankChat.Mobile.Core.Mappers;
-using PrankChat.Mobile.Core.Models.Api;
+using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using System.Threading.Tasks;
@@ -26,17 +26,17 @@ namespace PrankChat.Mobile.Core.Managers.Authorization
             return _authorizationService.AuthorizeExternalAsync(authToken, loginType);
         }
 
-        public Task RegisterAsync(UserRegistrationDataModel userRegistrationDataModel)
+        public Task RegisterAsync(UserRegistration userRegistration)
         {
-            var apiModel = new UserRegistrationApiModel()
+            var apiModel = new UserRegistrationDto()
             {
-                Email = userRegistrationDataModel.Email,
-                Name = userRegistrationDataModel.Name,
-                Login = userRegistrationDataModel.Login,
-                Sex = userRegistrationDataModel.Sex,
-                Birthday = userRegistrationDataModel.Birthday,
-                Password = userRegistrationDataModel.Password,
-                PasswordConfirmation = userRegistrationDataModel.PasswordConfirmation
+                Email = userRegistration.Email,
+                Name = userRegistration.Name,
+                Login = userRegistration.Login,
+                Sex = userRegistration.Sex,
+                Birthday = userRegistration.Birthday,
+                Password = userRegistration.Password,
+                PasswordConfirmation = userRegistration.PasswordConfirmation
             };
 
             return _authorizationService.RegisterAsync(apiModel);
@@ -57,21 +57,21 @@ namespace PrankChat.Mobile.Core.Managers.Authorization
             return _authorizationService.CheckIsEmailExistsAsync(email);
         }
 
-        public async Task<RecoverPasswordResultDataModel> RecoverPasswordAsync(string email)
+        public async Task<RecoverPasswordResult> RecoverPasswordAsync(string email)
         {
             var response = await _authorizationService.RecoverPasswordAsync(email);
             return response.Map();
         }
 
-        public Task<bool> AuthorizeWithAppleAsync(AppleAuthDataModel appleAuthDataModel)
+        public Task<bool> AuthorizeWithAppleAsync(AppleAuth appleAuth)
         {
-            var apiModel = new AppleAuthApiModel()
+            var apiModel = new AppleAuthDto
             {
-                UserName = appleAuthDataModel.UserName,
-                Email = appleAuthDataModel.Email,
-                IdentityToken = appleAuthDataModel.IdentityToken,
-                Token = appleAuthDataModel.Token,
-                Password = appleAuthDataModel.Password,
+                UserName = appleAuth.UserName,
+                Email = appleAuth.Email,
+                IdentityToken = appleAuth.IdentityToken,
+                Token = appleAuth.Token,
+                Password = appleAuth.Password,
             };
 
             return _authorizationService.AuthorizeWithAppleAsync(apiModel);

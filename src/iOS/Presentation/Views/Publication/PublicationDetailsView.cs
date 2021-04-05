@@ -28,9 +28,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.To(vm => vm.CommentatorPhotoUrl)
 				.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(commentatorPhotoImageView)
-			   .For(v => v.BindTap())
-	           .To(vm => vm.OpenUserProfileCommand);
+			//TODO: uncomment when vm will be ready
+			//set.Bind(commentatorPhotoImageView)
+			//   .For(v => v.BindTap())
+			//   .To(vm => vm.OpenUserProfileCommand);
 
 			set.Bind(commentLabel)
 				.To(vm => vm.NumberOfCommentText)
@@ -45,39 +46,40 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 				.To(vm => vm.CommentDateText)
 				.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(likeLabel)
-				.To(vm => vm.NumberOfLikesText)
-				.Mode(MvxBindingMode.OneTime);
+			//TODO: uncomment when vm will be ready
+			//set.Bind(likeLabel)
+			//	.To(vm => vm.NumberOfLikesText)
+			//	.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(profileNameLabel)
-				.To(vm => vm.ProfileName)
-				.Mode(MvxBindingMode.OneTime);
+			//set.Bind(profileNameLabel)
+			//	.To(vm => vm.ProfileName)
+			//	.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(profilePhotoImageView)
-				.For(v => v.ImagePath)
-				.To(vm => vm.ProfilePhotoUrl)
-				.Mode(MvxBindingMode.OneTime);
+			//set.Bind(profilePhotoImageView)
+			//	.For(v => v.ImagePath)
+			//	.To(vm => vm.ProfilePhotoUrl)
+			//	.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(profilePhotoImageView)
-	            .For(v => v.PlaceholderText)
-	            .To(vm => vm.ProfileShortName)
-	            .Mode(MvxBindingMode.OneTime);
+			//set.Bind(profilePhotoImageView)
+			//   .For(v => v.PlaceholderText)
+			//   .To(vm => vm.ProfileShortName)
+			//   .Mode(MvxBindingMode.OneTime);
 
-			set.Bind(publicationInfoLabel)
-				.To(vm => vm.VideoInformationText);
+			//set.Bind(publicationInfoLabel)
+			//	.To(vm => vm.VideoInformationText);
 
 			set.Bind(videoDescriptionButton)
 				.To(vm => vm.VideoDescription)
 				.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(videoImageView)
-				.For(v => v.ImagePath)
-				.To(vm => vm.StubImageUrl)
-				.Mode(MvxBindingMode.OneTime);
+			//set.Bind(videoImageView)
+			//	.For(v => v.ImagePath)
+			//	.To(vm => vm.StubImageUrl)
+			//	.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(videoNameLabel)
-				.To(vm => vm.VideoName)
-				.Mode(MvxBindingMode.OneTime);
+			//set.Bind(videoNameLabel)
+			//	.To(vm => vm.VideoName)
+			//	.Mode(MvxBindingMode.OneTime);
 
 			set.Apply();
 		}

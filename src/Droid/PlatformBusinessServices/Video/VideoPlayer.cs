@@ -1,287 +1,289 @@
-﻿using Android.Media;
+﻿using Android.App;
+using Android.Graphics;
+using Android.Media;
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
-using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Network;
+using Microsoft.AppCenter.Crashes;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.BusinessServices.Logger;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Managers.Video;
+using PrankChat.Mobile.Core.Data.Enums;
+using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Wrappers;
 using PrankChat.Mobile.Droid.Controls;
-using PrankChat.Mobile.Droid.Presentation.Listeners;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 {
-    public class VideoPlayer : BaseVideoPlayer
+    public class VideoPlayer : Java.Lang.Object,
+        IVideoPlayer,
+        MediaPlayer.IOnPreparedListener,
+        MediaPlayer.IOnVideoSizeChangedListener,
+        MediaPlayer.IOnErrorListener,
+        MediaPlayer.IOnInfoListener,
+        MediaPlayer.IOnCompletionListener,
+        TextureView.ISurfaceTextureListener
     {
-        private const int RecheckDelayInMilliseconds = 1000;
-
-        private readonly IErrorHandleService _errorHandleService;
-
         private AutoFitTextureView _textureView;
+        private Surface _surface;
         private MediaPlayer _mediaPlayer;
+        private CancellationTokenSource _registrationCancellationTokenSource;
 
-        private bool _isRepeatEnabled;
+        private readonly SafeExecutionWrapper _safeExecutionWrapper;
+
         private bool _isPrepared;
         private bool _isPlayNeeded;
-        private int? _cachedId;
+        private string _url;
 
-        private string _cachedUri;
-
-        public VideoPlayer(IVideoManager videoManager,
-                           ILogger logger,
-                           IMvxMessenger mvxMessenger,
-                           IErrorHandleService errorHandleService) : base(videoManager, logger, mvxMessenger)
+        public VideoPlayer()
         {
-            _errorHandleService = errorHandleService;
+            _safeExecutionWrapper = new SafeExecutionWrapper((ex) =>
+            {
+                Crashes.TrackError(ex);
+                return Task.CompletedTask;
+            });
+
+            SetupNewMediaPlayerIfNeeded();
         }
 
-        public override bool IsPlaying { get; protected set; }
+        public event EventHandler<VideoPlayingStatus> VideoPlayingStatusChanged;
+
+        public bool CanRepeat { get; set; }
 
         private bool _isMuted;
-        private Surface _surface;
-
-        private (int, int)? _registrationParameters;
-
-        public override bool Muted
+        public bool IsMuted
         {
             get => _isMuted;
             set
             {
                 _isMuted = value;
-                if (_isMuted)
-                {
-                    _mediaPlayer?.SetVolume(0, 0);
-                    return;
-                }
-
-                _mediaPlayer?.SetVolume(1, 1);
+                RefreshMutedState();
             }
         }
 
-        public override void EnableRepeat(int repeatDelayInSeconds)
+        public bool IsPlaying => _mediaPlayer.IsPlaying;
+
+        public Action ReadyToPlayAction { get; set; }
+
+        public object GetNativePlayer() => _mediaPlayer;
+
+        public void OnPrepared(MediaPlayer mp)
         {
-            _isRepeatEnabled = true;
-        }
-
-        public override void Pause()
-        {
-            if (!IsPlaying || _textureView == null)
-            {
-                return;
-            }
-
-            if (_isPrepared)
-            {
-                _mediaPlayer?.Pause();
-            }
-
-            IsPlaying = false;
-            _isPlayNeeded = false;
-        }
-
-        public override void Play()
-        {
-            if (IsPlaying || _textureView == null)
-            {
-                return;
-            }
-
-            if (_isPrepared)
-            {
-                _mediaPlayer?.Start();
-                IsPlaying = true;
-                _isPlayNeeded = false;
-                return;
-            }
-
-            _isPlayNeeded = true;
-        }
-
-        public override void SetPlatformVideoPlayerContainer(object container)
-        {
-            if (_textureView == container)
-            {
-                return;
-            }
-
-            Stop();
-
-            if (container is AutoFitTextureView textureView)
-            {
-                _textureView = textureView;
-                return;
-            }
-
-            _textureView = null;
-        }
-
-        public override void TryRegisterViewedFact(int id, int registrationDelayInMilliseconds)
-        {
-            var handler = new Handler();
-            handler.PostDelayed(async () => await RegisterAction(id, registrationDelayInMilliseconds), registrationDelayInMilliseconds);
-        }
-
-        public override void SetSourceUri(string uri, int id)
-        {
-            if (string.IsNullOrWhiteSpace(uri))
-            {
-                return;
-            }
-
-            _cachedId = id;
-            _cachedUri = uri;
-            _ = CreateMediaPlayerAsync();
-        }
-
-        private async Task CreateMediaPlayerAsync()
-        {
-            await Task.Delay(100);
-
-            if (string.IsNullOrWhiteSpace(_cachedUri))
-            {
-                return;
-            }
-
-            if (_mediaPlayer != null)
-            {
-                _mediaPlayer.Release();
-            }
-
-            Logger.LogEventAsync(DateTime.Now, "[Video_Initialization]", $"Video uri is {_cachedUri}, video ID is {_cachedId}").FireAndForget();
-
-            _mediaPlayer = new MediaPlayer();
-            _mediaPlayer.SetAudioStreamType(Stream.Music);
-            await _mediaPlayer.SetDataSourceAsync(_cachedUri);
-            _mediaPlayer.PrepareAsync();
-
-            if (_textureView?.SurfaceTexture is null)
-            {
-                return;
-            }
-
-            if (_surface != null)
-            {
-                _surface.Release();
-            }
-
-            _surface = new Surface(_textureView.SurfaceTexture);
-            if (_mediaPlayer is null)
-            {
-                return;
-            }
-
-            _mediaPlayer.SetSurface(_surface);
-
-            _mediaPlayer.SetOnVideoSizeChangedListener(new MediaPlayerOnVideoSizeChanged(OnPlayerSizeChanged));
-            _mediaPlayer.SetOnPreparedListener(new MediaPlayerOnPreparedListener(OnMediaPlayerPrepeared));
-            _mediaPlayer.SetOnInfoListener(new MediaPlayerOnInfoListener(OnInfoChanged));
-            _mediaPlayer.SetOnErrorListener(new MediaPlayerOnErrorListener(OnError));
-        }
-
-        private void OnPlayerSizeChanged(MediaPlayer mp, int width, int height)
-        {
-            _textureView?.SetAspectRatio(width, height);
-        }
-
-        private bool OnError(MediaPlayer mp, MediaError error, int arg3)
-        {
-            _errorHandleService.LogError(mp, $"Media error {error}");
-            System.Diagnostics.Debug.WriteLine("Attempt to restore media player");
-
-            _ = CreateMediaPlayerAsync();
-            return true;
-        }
-
-        private bool OnInfoChanged(MediaPlayer mediaPlayer, MediaInfo mediaInfo, int extra)
-        {
-            if (mediaInfo == MediaInfo.VideoRenderingStart)
-            {
-                Logger.LogEventAsync(DateTime.Now, "[Video_Play]", $"Video uri is {_cachedUri}, video ID is {_cachedId}").FireAndForget();
-                VideoRenderingStartedAction?.Invoke();
-            }
-
-            if (mediaInfo == MediaInfo.BufferingStart)
-            {
-                Logger.LogEventAsync(DateTime.Now, "[Video_Buffering]", $"Video uri is {_cachedUri}, video ID is {_cachedId}").FireAndForget();
-            }
-
-            return true;
-        }
-
-        private void OnMediaPlayerPrepeared(MediaPlayer mediaPlayer)
-        {
-            _mediaPlayer.Looping = _isRepeatEnabled;
-            _mediaPlayer.SetVolume(0, 0);
-
             _isPrepared = true;
 
             if (_isPlayNeeded)
             {
                 Play();
             }
-
-            if (_registrationParameters is null)
-            {
-                return;
-            }
-
-            TryRegisterViewedFact(_registrationParameters.Value.Item1, _registrationParameters.Value.Item2);
         }
 
-        public override void Stop()
+        public void Pause()
         {
-            if (!IsPlaying ||
-                _textureView == null)
-            {
-                return;
-            }
-
-            Logger.LogEventAsync(DateTime.Now, "[Video_Stop]", $"Video uri is {_cachedUri}, video ID is {_cachedId}").FireAndForget();
-
             if (_isPrepared)
             {
-                _mediaPlayer?.Stop();
+                _mediaPlayer.Pause();
             }
 
-            _mediaPlayer?.SetOnPreparedListener(null);
-            _mediaPlayer?.Release();
-            _surface?.Release();
-
-            _textureView = null;
-            _textureView = null;
-            _cachedUri = null;
-            _cachedId = null;
-            _surface = null;
-
-            IsPlaying = false;
             _isPlayNeeded = false;
-            _isPrepared = false;
+
+            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Paused);
         }
 
-        private async Task RegisterAction(int id, int registrationDelayInMilliseconds)
+        public void Play()
         {
-            if (_mediaPlayer == null)
+            _registrationCancellationTokenSource?.Cancel();
+            _registrationCancellationTokenSource = null;
+
+            if (_isPrepared && !IsPlaying)
             {
-                _errorHandleService.LogError(nameof(VideoPlayer), $"{nameof(_mediaPlayer)} is null.");
+                _mediaPlayer.Start();
+                _isPlayNeeded = false;
+
+                VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Started);
                 return;
             }
 
-            if (!_isPrepared)
+            _isPlayNeeded = true;
+        }
+
+        public void Stop()
+        {
+            if (_isPrepared && IsPlaying)
             {
-                _registrationParameters = (id, registrationDelayInMilliseconds);
+                _mediaPlayer.Stop();
+            }
+
+            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Stopped);
+
+            _isPlayNeeded = false;
+        }
+
+        public void SetPlatformVideoPlayerContainer(object container)
+        {
+            if (container is AutoFitTextureView textureView)
+            {
+                _isPrepared = false;
+
+                _textureView = textureView;
+                _ = ResetPlayerAsync();
                 return;
             }
 
-            var isSent = await SendRegisterViewedFactAsync(id, registrationDelayInMilliseconds, _mediaPlayer.CurrentPosition);
+            _textureView = null;
+        }
 
-            if (!isSent)
+        public void SetVideoUrl(string url)
+        {
+            if (url.IsNullOrEmpty())
             {
-                var handler = new Handler();
-                handler.PostDelayed(async () => await RegisterAction(id, registrationDelayInMilliseconds), RecheckDelayInMilliseconds);
+                return;
+            }
+
+            _url = url;
+        }
+
+        public void OnVideoSizeChanged(MediaPlayer mp, int width, int height)
+        {
+            _textureView?.SetAspectRatio(width, height);
+        }
+
+        public bool OnError(MediaPlayer mp, [GeneratedEnum] MediaError what, int extra)
+        {
+            System.Diagnostics.Debug.WriteLine("Attempt to restore media player");
+
+            _ = ResetPlayerAsync();
+            return true;
+        }
+
+        public bool OnInfo(MediaPlayer mp, [GeneratedEnum] MediaInfo what, int extra)
+        {
+            if (what == MediaInfo.VideoRenderingStart)
+            {
+                ReadyToPlayAction?.Invoke();
+                _ = _safeExecutionWrapper.WrapAsync(() => RegisterVideoPlayingPartiallyCallbackAsync(_url));
+            }
+
+            return true;
+        }
+
+        public void OnCompletion(MediaPlayer mp) =>
+            VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Played);
+
+        public void OnSurfaceTextureAvailable(SurfaceTexture surface, int width, int height)
+        {
+        }
+
+        public bool OnSurfaceTextureDestroyed(SurfaceTexture surface)
+        {
+            Stop();
+
+            _textureView.SurfaceTextureListener = null;
+            _surface?.Release();
+            _surface?.Dispose();
+            _textureView = null;
+
+            return true;
+        }
+
+        public void OnSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height)
+        {
+        }
+
+        public void OnSurfaceTextureUpdated(SurfaceTexture surface)
+        {
+        }
+
+        private Task ResetPlayerAsync()
+        {
+            return _safeExecutionWrapper.WrapAsync(async () =>
+            {
+                if (string.IsNullOrWhiteSpace(_url))
+                {
+                    return;
+                }
+
+                if (IsPlaying)
+                {
+                    _mediaPlayer.Stop();
+                }
+
+                if (_textureView?.SurfaceTexture is null)
+                {
+                    return;
+                }
+
+                _textureView.SurfaceTextureListener = this;
+                _surface = new Surface(_textureView.SurfaceTexture);
+
+                SetupNewMediaPlayerIfNeeded();
+
+                _mediaPlayer.SetSurface(_surface);
+                await _mediaPlayer.SetDataSourceAsync(_url);
+                _mediaPlayer.PrepareAsync();
+            });
+        }
+
+        private void SetupNewMediaPlayerIfNeeded()
+        {
+            if (_mediaPlayer != null)
+            {
+                _mediaPlayer.Reset();
+                _mediaPlayer.Release();
+                _mediaPlayer.Dispose();
+            }
+
+            _isPrepared = false;
+
+            _mediaPlayer = new MediaPlayer
+            {
+                Looping = CanRepeat
+            };
+
+            _mediaPlayer.SetAudioAttributes(new AudioAttributes.Builder()
+                .SetLegacyStreamType(Stream.Music)
+                .Build());
+
+            _mediaPlayer.SetWakeMode(Application.Context, WakeLockFlags.Partial);
+            _mediaPlayer.SetOnInfoListener(this);
+            _mediaPlayer.SetOnVideoSizeChangedListener(this);
+            _mediaPlayer.SetOnPreparedListener(this);
+            _mediaPlayer.SetOnErrorListener(this);
+            _mediaPlayer.SetOnCompletionListener(this);
+
+            RefreshMutedState();
+        }
+
+        private async Task RegisterVideoPlayingPartiallyCallbackAsync(string videoUrl)
+        {
+            _registrationCancellationTokenSource = new CancellationTokenSource();
+            await Task.Delay(TimeSpan.FromSeconds(Constants.Delays.VideoPartiallyPlayedDelay), _registrationCancellationTokenSource.Token);
+            _registrationCancellationTokenSource = null;
+
+            if (videoUrl == _url && IsPlaying)
+            {
+                VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.PartiallyPlayed);
+            }
+        }
+
+        private void RefreshMutedState()
+        {
+            var volume = IsMuted ? 0 : 1;
+           _mediaPlayer?.SetVolume(volume, volume);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            if (disposing)
+            {
+                _mediaPlayer.Release();
+                _mediaPlayer.Dispose();
+
+                _textureView = null;
+                _surface?.Release();
+                _surface?.Dispose();
             }
         }
     }

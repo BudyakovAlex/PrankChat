@@ -30,7 +30,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.Share
                 .To(vm => vm.ShareToInstagramCommand);
 
             set.Bind(cancelButton)
-                .To(vm => vm.GoBackCommand);
+                .To(vm => vm.CloseCommand);
 
             set.Bind(shareButton)
                 .To(vm => vm.ShareCommand);
