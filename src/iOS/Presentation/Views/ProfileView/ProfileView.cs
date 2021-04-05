@@ -13,6 +13,7 @@ using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
+using System;
 using System.Linq;
 using UIKit;
 using Xamarin.Essentials;
@@ -194,32 +195,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         private void OnTableViewScrolled()
         {
-            var isExpanded = TableView.ContentOffset.Y <= 100;
-            AnimateHeaderState(isExpanded);
-        }
-
-        private void AnimateHeaderState(bool isExpanded)
-        {
-            if (_isExpanded == isExpanded)
-            {
-                return;
-            }
-
-            _isExpanded = isExpanded;
-
-            headerContainerTopConstraint.Constant = _isExpanded ? 0 : - headerContainerView.Frame.Height;
-            var alpha = isExpanded ? 1 : 0;
-            UIView.Animate(
-                0.25,
-                0,
-                UIViewAnimationOptions.AllowUserInteraction | UIViewAnimationOptions.TransitionCrossDissolve,
-                () =>
-                {
-                    headerContainerView.Subviews.ForEach(item => item.Alpha = alpha);
-                    headerContainerView.Alpha = alpha;
-                    View.LayoutIfNeeded();
-                },
-                null);
+            var headerScrollOffset = (TableView.ContentOffset.Y + TableView.ContentInset.Top) * 0.7f;
+            var headerClearOffset = -Math.Min(Math.Max(0, headerScrollOffset), headerContainerView.Frame.Height);
+            headerContainerTopConstraint.Constant = (float)headerClearOffset;
         }
     }
 }
