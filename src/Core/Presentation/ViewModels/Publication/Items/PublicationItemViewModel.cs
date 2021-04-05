@@ -68,7 +68,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
 
         public override bool CanPlayVideo => true;
 
-        public override bool CanVoteVideo => false;
+        public override bool CanVoteVideo => true;
 
         public IMvxAsyncCommand BookmarkCommand { get; }
 

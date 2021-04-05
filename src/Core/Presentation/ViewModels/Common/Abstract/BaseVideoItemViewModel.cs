@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -23,7 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
         private CancellationTokenSource _cancellationSendingLikeTokenSource;
         private CancellationTokenSource _cancellationSendingDislikeTokenSource;
 
-        private SafeExecutionWrapper _silentSafeExecutionWrapper;
+        private readonly SafeExecutionWrapper _silentSafeExecutionWrapper;
 
         public BaseVideoItemViewModel(
             IVideoManager videoManager,
@@ -67,12 +68,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             FullVideoPlayer.SetVideoUrl(Video.StreamUri);
 
             LikeCommand = this.CreateRestrictedCommand(
-                OnLike,
+                Like,
                 restrictedCanExecute: () => IsUserSessionInitialized,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
 
             DislikeCommand = this.CreateRestrictedCommand(
-                OnDislike,
+                Dislike,
                 restrictedCanExecute: () => IsUserSessionInitialized,
                 handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
 
@@ -184,7 +185,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
         {
         }
 
-        protected virtual void OnDislike()
+        protected virtual void Dislike()
         {
             if (!CanVoteVideo)
             {
@@ -210,7 +211,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             }
         }
 
-        protected virtual void OnLike()
+        protected virtual void Like()
         {
             if (!CanVoteVideo)
             {
@@ -285,6 +286,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
                 OnDislikeChanged();
                 OnLikeChanged();
             }
+            catch (TaskCanceledException)
+            {
+                Debug.WriteLine("Task for dislike cancelled");
+            }
             finally
             {
                 _cancellationSendingLikeTokenSource?.Dispose();
@@ -315,6 +320,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
                 OnDislikeChanged();
                 OnLikeChanged();
             }
+            catch (TaskCanceledException)
+            {
+                Debug.WriteLine("Task for dislike cancelled");
+            }
             finally
             {
                 _cancellationSendingDislikeTokenSource?.Dispose();
@@ -327,7 +336,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             return _silentSafeExecutionWrapper.WrapAsync(async () =>
             {
                 var newCount = await VideoManager.IncrementVideoViewsAsync(VideoId);
-                if (newCount > NumberOfLikes)
+                if (newCount > Video.ViewsCount)
                 {
                     ViewsCountChanged?.Invoke(this, EventArgs.Empty);
                 }
