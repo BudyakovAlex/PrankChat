@@ -1,5 +1,4 @@
 ﻿using MvvmCross.Commands;
-using Plugin.DownloadManager;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Video;
@@ -194,15 +193,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
 
             if (result == Resources.Publication_Item_Download)
             {
-                DownloadVideo();
+                _ = DownloadVideoAsync();
             }
         }
 
-        private void DownloadVideo()
+        private Task DownloadVideoAsync()
         {
-            var downloadManager = CrossDownloadManager.Current;
-            var file = downloadManager.CreateDownloadFile(Video.MarkedStreamUri);
-            downloadManager.Start(file);
+            var videoFileName = Video.Title.ReplaceSpacesWithUnderscores().ToLower();
+            return VideoManager.DownloadVideoAsync(Video.MarkedStreamUri, videoFileName);
         }
 
         private async Task ComplaintAsync()

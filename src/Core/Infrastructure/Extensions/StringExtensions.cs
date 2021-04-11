@@ -73,5 +73,16 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
             target = Regex.Replace(target, pattern, string.Empty, RegexOptions.Singleline);
             return target;
         }
+
+        public static string ReplaceSpacesWithUnderscores(this string target)
+        {
+            if (string.IsNullOrWhiteSpace(target))
+            {
+                return target;
+            }
+
+            var newString = target.Replace(' ', '_');
+            return newString;
+        }
     }
 }

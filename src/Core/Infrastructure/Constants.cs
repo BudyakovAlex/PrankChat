@@ -30,6 +30,12 @@ namespace PrankChat.Mobile.Core.Infrastructure
 
             public const string MoneyFormat = "{0:### ### ### ###} ₽";
             public const string NumberFormat = @"{0:\#000#}";
+            public const string DownloadVideoDateTimeFormat = "MM_dd_yyyy";
+        }
+
+        public static class File
+        {
+            public const string DownloadVideoFormat = ".mp4";
         }
 
         public static class Rest
