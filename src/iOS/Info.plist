@@ -16,6 +16,10 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>MinimumOSVersion</key>
 	<string>14.4</string>
 	<key>UIDeviceFamily</key>

@@ -1,15 +1,9 @@
 ﻿using Firebase.CloudMessaging;
 using Firebase.InstanceID;
 using Foundation;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using MvvmCross;
-using MvvmCross.IoC;
 using MvvmCross.Platforms.Ios.Core;
-using Plugin.DownloadManager;
 using PrankChat.Mobile.Core;
-using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
 using System;
 using UIKit;
@@ -80,11 +74,6 @@ namespace PrankChat.Mobile.iOS
         public void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
         {
             NotificationWrapper.Instance.HandleForegroundNotification(notification.Request.Content.UserInfo);
-        }
-
-        public override void HandleEventsForBackgroundUrl(UIApplication application, string sessionIdentifier, Action completionHandler)
-        {
-            CrossDownloadManager.BackgroundSessionCompletionHandler = completionHandler;
         }
 
         protected override object GetAppStartHint(object hint = null)
