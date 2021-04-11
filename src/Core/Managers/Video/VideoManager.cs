@@ -1,23 +1,37 @@
 ﻿using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video;
+using PrankChat.Mobile.Core.ApplicationServices.Permissions;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Providers.Platform;
 using System;
+using System.IO;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Managers.Video
 {
     public class VideoManager : IVideoManager
     {
+        private readonly IPlatformPathsProvider _pathsProvider;
         private readonly IVideoService _videoService;
+        private readonly IPermissionService _permissionService;
         private readonly IMvxMessenger _mvxMessenger;
 
-        public VideoManager(IVideoService videoService, IMvxMessenger mvxMessenger)
+        public VideoManager(
+            IPlatformPathsProvider pathsProvider,
+            IVideoService videoService,
+            IPermissionService permissionService,
+            IMvxMessenger mvxMessenger)
         {
+            _pathsProvider = pathsProvider;
             _videoService = videoService;
+            _permissionService = permissionService;
             _mvxMessenger = mvxMessenger;
         }
 
@@ -71,6 +85,30 @@ namespace PrankChat.Mobile.Core.Managers.Video
         {
             var response = await _videoService.SendDislikeAsync(videoId, isChecked, cancellationToken);
             return response.Map();
+        }
+
+        public async Task<string> DownloadVideoAsync(string videoUrl, string videoName)
+        {
+            try
+            {
+                var isPermissionGranted = await _permissionService.RequestPermissionAsync<Permissions.StorageWrite>();
+                if (!isPermissionGranted)
+                {
+                    return null;
+                }
+
+                var documentName = $"{videoName}_{DateTime.Now.ToString(Constants.Formats.DownloadVideoDateTimeFormat)}{Constants.File.DownloadVideoFormat}";
+                var localPath = Path.Combine(_pathsProvider.DownloadsFolderPath, documentName);
+
+                using var webClient = new WebClient();
+                await webClient.DownloadFileTaskAsync(videoUrl, localPath);
+
+                return localPath;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

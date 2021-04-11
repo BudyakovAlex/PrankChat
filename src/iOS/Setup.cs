@@ -11,6 +11,7 @@ using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Ioc;
 using PrankChat.Mobile.Core.Providers.Configuration;
+using PrankChat.Mobile.Core.Providers.Platform;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.iOS.ApplicationServices;
 using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth;
@@ -18,6 +19,7 @@ using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn;
 using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.Plugins.Video;
 using PrankChat.Mobile.iOS.Presentation.Binding;
+using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 using WebKit;
 
@@ -44,6 +46,7 @@ namespace PrankChat.Mobile.iOS
             CompositionRoot.Container.RegisterSingleton<IExternalAuthService, ExternalAuthService>();
             CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
             CompositionRoot.Container.RegisterSingleton<IAppleSignInService, AppleSignInService>();
+            CompositionRoot.Container.RegisterSingleton<IPlatformPathsProvider, PlatformPathsProvider>();
         }
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
