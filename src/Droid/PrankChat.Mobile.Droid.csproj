@@ -109,7 +109,7 @@
     <Compile Include="Presentation\Views\Comment\CommentsView.cs" />
     <Compile Include="Presentation\Views\Publications\PublicationDetailsView.cs" />
     <Compile Include="Presentation\Views\Order\OrderDetailsView.cs" />
-    <Compile Include="Presentation\Listeners\StateScrollListener.cs" />
+    <Compile Include="Presentation\Listeners\RecyclerViewScrollListener.cs" />
     <Compile Include="Presentation\Converters\BooleanToSoundResourceConverter.cs" />
     <Compile Include="Presentation\Dialogs\ShareDialog.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
@@ -1504,9 +1504,6 @@
     <PackageReference Include="Microsoft.AppCenter.Analytics">
       <Version>4.1.0</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\splash_screen_layout.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\main_view_layout.xml" />

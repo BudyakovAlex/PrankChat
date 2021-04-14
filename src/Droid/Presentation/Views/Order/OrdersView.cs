@@ -16,7 +16,6 @@ using PrankChat.Mobile.Droid.Presentation.Adapters;
 using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Arbitration;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders;
-using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Order
@@ -28,7 +27,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         private EndlessRecyclerView _endlessRecyclerView;
         private LinearLayoutManager _layoutManager;
         private RecycleViewBindableAdapter _adapter;
-        private StateScrollListener _stateScrollListener;
 
         public RecyclerView RecyclerView => _endlessRecyclerView;
 
@@ -76,9 +74,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             _endlessRecyclerView.ItemTemplateSelector = new TemplateSelector()
                 .AddElement<OrderItemViewModel, OrderItemViewHolder>(Resource.Layout.cell_order)
                 .AddElement<ArbitrationOrderItemViewModel, ArbitrationItemViewHolder>(Resource.Layout.cell_arbitration_order);
-
-            _stateScrollListener = new StateScrollListener();
-            _endlessRecyclerView.AddOnScrollListener(_stateScrollListener);
 
             var tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
             tabLayout.AddOnTabSelectedListener(this);

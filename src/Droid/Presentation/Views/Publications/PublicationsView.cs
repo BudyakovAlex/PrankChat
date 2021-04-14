@@ -28,7 +28,10 @@ using static Google.Android.Material.Tabs.TabLayout;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 {
-    [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
+    [MvxTabLayoutPresentation(
+        TabLayoutResourceId = Resource.Id.tabs,
+        ViewPagerResourceId = Resource.Id.viewpager,
+        ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(PublicationsView))]
     public class PublicationsView : BaseRefreshableTabFragment<PublicationsViewModel>, IScrollableView
     {
@@ -136,14 +139,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
             var dividerItemDecoration = new DividerItemDecoration(Context, LinearLayoutManager.Vertical);
             _publicationRecyclerView.AddItemDecoration(dividerItemDecoration);
-
-            //_publicationTypeTabLayout.SetOnTouchListener(new ViewOnTouchListener(OnTabLayoutTouch));
         }
-
-        //private bool OnTabLayoutTouch(View view, MotionEvent motionEvent)
-        //{
-        //    return ViewModel?.IsRefreshingFilter == false;
-        //}
 
         private void OnDataSetChanged(object sender, EventArgs e)
         {

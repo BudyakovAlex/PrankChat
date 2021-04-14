@@ -25,6 +25,15 @@
         <item name="colorPrimaryDark">@color/border</item>
     </style>
 
+    <style name="Theme.PrankChat.OnBoarding" parent="Theme.PrankChat.Base.Dark">
+        <!-- TextEdit Hint Color Workaround-->
+        <item name="colorControlNormal">@color/accent</item>
+        <item name="colorControlActivated">@color/accent</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimaryDark">@color/inactive</item>
+        <item name="colorPrimary">@color/accent</item>
+    </style>
+
     <style name="Theme.PrankChat.Splash" parent="Theme.PrankChat.Base">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@drawable/bg_splash_screen</item>

@@ -1,5 +1,4 @@
 ﻿using MvvmCross;
-using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.Messages;

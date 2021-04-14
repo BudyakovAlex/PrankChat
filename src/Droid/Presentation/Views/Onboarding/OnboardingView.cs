@@ -29,14 +29,14 @@ using System.Collections.Generic;
 namespace PrankChat.Mobile.Droid.Presentation.Views.Onboarding
 {
     [MvxActivityPresentation]
-    [Activity(LaunchMode = LaunchMode.SingleTop,
-              Theme = "@style/Theme.PrankChat.Base.Dark",
-              ScreenOrientation = ScreenOrientation.Portrait,
-              ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(
+        LaunchMode = LaunchMode.SingleTop,
+        Theme = "@style/Theme.PrankChat.OnBoarding",
+        ScreenOrientation = ScreenOrientation.Portrait,
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class OnboardingView : BaseView<OnboardingViewModel>
     {
         private readonly List<IndicatorView> _indicatorViews = new List<IndicatorView>();
-        private readonly StateScrollListener _scrollStateListener = new StateScrollListener();
 
         private MvxRecyclerView _recyclerView;
         private LinearLayout _indicatorLinearLayout;
@@ -100,26 +100,20 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Onboarding
             var snapHelper = new PagerSnapHelper();
             snapHelper.AttachToRecyclerView(_recyclerView);
 
-            _recyclerView.AddOnScrollListener(_scrollStateListener);
+            _recyclerView.AddOnScrollListener(new RecyclerViewScrollListener(OnScrollChanged));
         }
 
-        protected override void Subscription()
-        {
-            _scrollStateListener.FinishScroll += OnFinishScroll;
-            base.Subscription();
-        }
-
-        protected override void Unsubscription()
-        {
-            _scrollStateListener.FinishScroll -= OnFinishScroll;
-            base.Unsubscription();
-        }
-
-        private void OnFinishScroll(object sender, EventArgs e)
+        private void OnScrollChanged(RecyclerView recyclerView, int dx, int dy)
         {
             if (ViewModel != null)
             {
-                ViewModel.SelectedIndex = _layoutManager.FindFirstCompletelyVisibleItemPosition();
+                if (dx < 0)
+                {
+                    ViewModel.SelectedIndex = _layoutManager.FindFirstVisibleItemPosition();
+                    return;
+                }
+
+                ViewModel.SelectedIndex = _layoutManager.FindLastVisibleItemPosition();
             }
         }
 
@@ -127,15 +121,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Onboarding
         {
             base.DoBind();
 
-            var bindingSet = this.CreateBindingSet<OnboardingView, OnboardingViewModel>();
+            using var bindingSet = this.CreateBindingSet<OnboardingView, OnboardingViewModel>();
 
             bindingSet.Bind(this).For(v => v.Count).To(vm => vm.ItemsCount);
             bindingSet.Bind(this).For(v => v.SelectedIndex).To(vm => vm.SelectedIndex);
             bindingSet.Bind(_recyclerView).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_actionButton).For(v => v.Text).To(vm => vm.ActionTitle);
             bindingSet.Bind(_actionButton).For(v => v.BindClick()).To(vm => vm.ActionCommand);
-
-            bindingSet.Apply();
         }
 
         private void CountChanged(int count)

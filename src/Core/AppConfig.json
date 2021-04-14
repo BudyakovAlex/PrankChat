@@ -4,24 +4,24 @@
         {
             "EnvironmentName": "Dev",
             "ApiUrl": "https://dev.prankchat.store",
-            "AppCenterIosId": "05b0d6ef-ca8b-41d6-81c1-f6d1f37d38d9",
-            "AppCenterDroidId": "0682507a-46fd-4b63-a5dd-003ddfc079bd",
-            "ShouldCheckAppUpdate" : false,
+            "AppCenterIosId": "76e077a5-8fd6-4cdf-ab9f-e7c8497cfab3",
+            "AppCenterDroidId": "d66eb2a1-bfe9-427b-94d2-7da03471f3ed",
+            "ShouldCheckAppUpdate": false,
             "ApiVersion": "1.0"
         },
         {
             "EnvironmentName": "Stage",
             "ApiUrl": "https://stage.prankchat.store",
-            "AppCenterIosId": "05b0d6ef-ca8b-41d6-81c1-f6d1f37d38d9",
-            "AppCenterDroidId": "0682507a-46fd-4b63-a5dd-003ddfc079bd",
+            "AppCenterIosId": "1d6a9a49-6b4d-44e0-bab8-17b1eaa8a95c",
+            "AppCenterDroidId": "be90f386-13b3-4fb5-be50-c3691c88ac17",
             "ShouldCheckAppUpdate": false,
             "ApiVersion": "1.0"
         },
         {
             "EnvironmentName": "Production",
             "ApiUrl": "https://api.prank.chat",
-            "AppCenterIosId": "05b0d6ef-ca8b-41d6-81c1-f6d1f37d38d9",
-            "AppCenterDroidId": "0682507a-46fd-4b63-a5dd-003ddfc079bd",
+            "AppCenterIosId": "1d6a9a49-6b4d-44e0-bab8-17b1eaa8a95c",
+            "AppCenterDroidId": "be90f386-13b3-4fb5-be50-c3691c88ac17",
             "ShouldCheckAppUpdate": true,
             "ApiVersion": "1.0"
         }
