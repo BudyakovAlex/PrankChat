@@ -34,22 +34,25 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
 
         public override void ShowToast(string text, ToastType toastType)
         {
-            IsToastShown = true;
+            _ = _mvxMainThreadAsyncDispatcher.ExecuteOnMainThreadAsync(() =>
+            {
+                IsToastShown = true;
 
-            var activity = (MvxActivity)_topActivity.Activity;
-            var yOffset = GetToastYOffset(activity);
+                var activity = (MvxActivity)_topActivity.Activity;
+                var yOffset = GetToastYOffset(activity);
 
-            var inflater = activity.LayoutInflater;
-            var toastView = inflater.Inflate(Resource.Layout.toast_view, null);
-            var textView = toastView.FindViewById<TextView>(Resource.Id.text_view);
-            textView.Text = text;
-            textView.SetBackgroundResource(GetBackgroundId(toastType));
+                var inflater = activity.LayoutInflater;
+                var toastView = inflater.Inflate(Resource.Layout.toast_view, null);
+                var textView = toastView.FindViewById<TextView>(Resource.Id.text_view);
+                textView.Text = text;
+                textView.SetBackgroundResource(GetBackgroundId(toastType));
 
-            var toast = new Toast(activity.ApplicationContext);
-            toast.SetGravity(GravityFlags.Top | GravityFlags.FillHorizontal, 0, yOffset);
-            toast.Duration = ToastLength.Long;
-            toast.View = toastView;
-            toast.Show();
+                var toast = new Toast(activity.ApplicationContext);
+                toast.SetGravity(GravityFlags.Top | GravityFlags.FillHorizontal, 0, yOffset);
+                toast.Duration = ToastLength.Long;
+                toast.View = toastView;
+                toast.Show();
+            });
 
             Task.Run(async () =>
             {
