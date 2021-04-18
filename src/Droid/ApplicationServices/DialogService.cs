@@ -85,7 +85,14 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
                     taskCompletionSource.TrySetResult(e.Date);
                 });
 
-                var datePicker = new DatePickerDialog(activity, Resource.Style.Theme_PrankChat_DateDialog, dateEvent, selectedDate.Year, selectedDate.Month, selectedDate.Day);
+                var datePicker = new DatePickerDialog(
+                    activity,
+                    Resource.Style.Theme_PrankChat_DateDialog,
+                    dateEvent,
+                    selectedDate.Year,
+                    selectedDate.Month,
+                    selectedDate.Day);
+
                 datePicker.CancelEvent += (s, e) =>
                 {
                     taskCompletionSource.TrySetResult(null);

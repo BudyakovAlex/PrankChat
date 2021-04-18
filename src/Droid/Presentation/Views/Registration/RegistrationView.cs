@@ -9,7 +9,9 @@ using PrankChat.Mobile.Droid.Presentation.Views.Base;
 namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
 {
     [MvxActivityPresentation]
-    [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(
+        ScreenOrientation = ScreenOrientation.Portrait,
+        Theme = "@style/Theme.PrankChat.Base.Dark")]
     public class RegistrationView : BaseView<RegistrationViewModel>
     {
         protected override bool HasBackButton => true;
@@ -20,16 +22,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
 
             Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_background);
 
-            var textViewLogin = this.FindViewById<TextView>(Resource.Id.go_to_login_text_view);
+            var textViewLogin = FindViewById<TextView>(Resource.Id.go_to_login_text_view);
             textViewLogin.PaintFlags |= Android.Graphics.PaintFlags.UnderlineText;
         }
-
-		protected override void Subscription()
-		{
-		}
-
-		protected override void Unsubscription()
-		{
-		}
 	}
 }

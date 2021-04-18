@@ -26,13 +26,5 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.PasswordRecovery
             var view = base.OnCreateView(inflater, container, savedInstanceState, Resource.Layout.fragment_finish_password_recovery);
             return view;
         }
-
-        protected override void Subscription()
-        {
-        }
-
-        protected override void Unsubscription()
-        {
-        }
     }
 }

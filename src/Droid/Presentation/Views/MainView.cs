@@ -163,7 +163,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
         private void OnTabLayoutTabSelected(object sender, TabLayout.TabSelectedEventArgs e)
         {
-            if (e.Tab == null)
+            if (e.Tab is null)
             {
                 return;
             }

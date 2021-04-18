@@ -27,13 +27,5 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
             privacyLinkTextView.PaintFlags = Android.Graphics.PaintFlags.UnderlineText;
             return view;
         }
-
-        protected override void Subscription()
-		{
-		}
-
-		protected override void Unsubscription()
-		{
-		}
 	}
 }

@@ -19,6 +19,7 @@
 			<com.google.android.material.textfield.TextInputLayout
 				android:id="@+id/create_order_text_input_name"
 				style="@style/Theme.PrankChat.TextFieldLayout.Dark"
+                android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:hint="@string/CreateOrderView_Name_Placeholder"

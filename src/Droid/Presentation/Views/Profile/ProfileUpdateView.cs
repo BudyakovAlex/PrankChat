@@ -1,5 +1,5 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
+using Android.Content.PM;
 using Android.OS;
 using Android.Text;
 using Android.Views;
@@ -7,9 +7,9 @@ using Android.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Utils.Helpers;
@@ -17,7 +17,9 @@ using PrankChat.Mobile.Droid.Utils.Helpers;
 namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 {
     [MvxActivityPresentation]
-    [Activity]
+    [Activity(
+        ScreenOrientation = ScreenOrientation.Portrait,
+        Theme = "@style/Theme.PrankChat.Base.Dark")]
     public class ProfileUpdateView : BaseView<ProfileUpdateViewModel>
     {
         private EditText _emailEditText;
@@ -74,44 +76,16 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         {
             base.DoBind();
 
-            var bindingSet = this.CreateBindingSet<ProfileUpdateView, ProfileUpdateViewModel>();
+            using var bindingSet = this.CreateBindingSet<ProfileUpdateView, ProfileUpdateViewModel>();
 
-            bindingSet.Bind(_updateWarningImage)
-                      .For(v => v.BindHidden())
-                      .To(vm => vm.IsEmailVerified);
-
-            bindingSet.Bind(_resendConfirmationTextView)
-                      .For(v => v.BindHidden())
-                      .To(vm => vm.IsEmailVerified)
-                      .OneWay();
-
-            bindingSet.Bind(_updateWarningImage)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.ShowValidationWarningCommand);
-
-            bindingSet.Bind(_resendConfirmationTextView)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.ResendEmailValidationCommand);
-
-            bindingSet.Bind(_emailEditText)
-                      .For(PaddingTargetBinding.EndPadding)
-                      .To(vm => vm.IsEmailVerified)
-                      .WithConversion(BoolToIntConverter.Name, Tuple.Create(0, DisplayUtils.DpToPx(45)));
-
-            bindingSet.Bind(_resendConfirmationTextView)
-                      .For(v => v.Alpha)
-                      .To(vm => vm.CanResendEmailValidation)
-                      .WithConversion(BoolToFloatConverter.Name, Tuple.Create(1f, 0.5f));
-
-            bindingSet.Apply();
-        }
-
-        protected override void Subscription()
-        {
-        }
-
-        protected override void Unsubscription()
-        {
+            bindingSet.Bind(_updateWarningImage).For(v => v.BindHidden()).To(vm => vm.IsEmailVerified);
+            bindingSet.Bind(_resendConfirmationTextView).For(v => v.BindHidden()).To(vm => vm.IsEmailVerified);
+            bindingSet.Bind(_updateWarningImage).For(v => v.BindClick()).To(vm => vm.ShowValidationWarningCommand);
+            bindingSet.Bind(_resendConfirmationTextView).For(v => v.BindClick()).To(vm => vm.ResendEmailValidationCommand);
+            bindingSet.Bind(_emailEditText).For(PaddingTargetBinding.EndPadding).To(vm => vm.IsEmailVerified)
+                      .WithConversion((bool value) => value ? 0 : DisplayUtils.DpToPx(45));
+            bindingSet.Bind(_resendConfirmationTextView).For(v => v.Alpha).To(vm => vm.CanResendEmailValidation)
+                      .WithConversion((bool value) => value ? 1 : 0.5f);
         }
     }
 }

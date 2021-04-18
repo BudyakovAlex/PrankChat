@@ -49,26 +49,17 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders
 
         private int GetDrawableId(OrderTagType orderTagType)
         {
-            switch (orderTagType)
+            return orderTagType switch
             {
-                case OrderTagType.InModeration:
-                    return Resource.Drawable.ic_order_tag_type_in_moderation;
-                case OrderTagType.New:
-                    return Resource.Drawable.ic_order_tag_type_new;
-                case OrderTagType.NewNotMine:
-                    return Resource.Drawable.ic_order_tag_type_new_not_mine;
-                case OrderTagType.Wait:
-                    return Resource.Drawable.ic_order_tag_type_wait;
-                case OrderTagType.Finished:
-                    return Resource.Drawable.ic_order_tag_type_finished;
-                case OrderTagType.InArbitration:
-                    return Resource.Drawable.ic_order_tag_type_in_arbitration;
-                case OrderTagType.InWork:
-                    return Resource.Drawable.ic_order_tag_type_in_work;
-                case OrderTagType.None:
-                default:
-                    return 0;
-            }
+                OrderTagType.InModeration => Resource.Drawable.ic_order_tag_type_in_moderation,
+                OrderTagType.New => Resource.Drawable.ic_order_tag_type_new,
+                OrderTagType.NewNotMine => Resource.Drawable.ic_order_tag_type_new_not_mine,
+                OrderTagType.Wait => Resource.Drawable.ic_order_tag_type_wait,
+                OrderTagType.Finished => Resource.Drawable.ic_order_tag_type_finished,
+                OrderTagType.InArbitration => Resource.Drawable.ic_order_tag_type_in_arbitration,
+                OrderTagType.InWork => Resource.Drawable.ic_order_tag_type_in_work,
+                _ => 0,
+            };
         }
     }
 }

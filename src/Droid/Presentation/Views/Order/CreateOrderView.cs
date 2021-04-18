@@ -12,7 +12,10 @@ using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 {
-    [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
+    [MvxTabLayoutPresentation(
+        TabLayoutResourceId = Resource.Id.tabs,
+        ViewPagerResourceId = Resource.Id.viewpager,
+        ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(CreateOrderView))]
     public class CreateOrderView : BaseTabFragment<CreateOrderViewModel>
     {
@@ -30,6 +33,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = this.BindingInflate(Resource.Layout.fragment_create_order, null);
+
             _priceEditText = view.FindViewById<TextInputEditText>(Resource.Id.create_order_price_edit_text);
             _descriptionEditText = view.FindViewById<TextInputEditText>(Resource.Id.order_description_edit_text);
             _descriptionEditText.SetFilters(new[] { new InputFilterLengthFilter(Constants.Orders.DescriptionMaxLength) });
