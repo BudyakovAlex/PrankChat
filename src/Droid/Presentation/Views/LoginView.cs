@@ -18,7 +18,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
     [ClearStackActivityPresentation]
     [Activity(
         ScreenOrientation = ScreenOrientation.Portrait,
-        Theme = "@style/Theme.PrankChat.Base.Dark")]
+        Theme = "@style/Theme.PrankChat.Base")]
     public class LoginView : BaseView<LoginViewModel>
     {
         private TextInputEditText _emailEditText;

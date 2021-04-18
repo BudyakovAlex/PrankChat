@@ -19,7 +19,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
     [MvxActivityPresentation]
     [Activity(
         ScreenOrientation = ScreenOrientation.Portrait,
-        Theme = "@style/Theme.PrankChat.Base.Dark")]
+        Theme = "@style/Theme.PrankChat.Base")]
     public class ProfileUpdateView : BaseView<ProfileUpdateViewModel>
     {
         private EditText _emailEditText;

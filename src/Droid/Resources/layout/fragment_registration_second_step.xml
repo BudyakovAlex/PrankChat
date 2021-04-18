@@ -14,7 +14,9 @@
         android:layout_height="wrap_content" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Theme.PrankChat.TextFieldLayout"
+        android:theme="@style/Theme.PrankChat.TextFieldLayout"
+        app:boxStrokeColor="@color/text_input_box_stroke"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -34,7 +36,9 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Theme.PrankChat.TextFieldLayout"
+        android:theme="@style/Theme.PrankChat.TextFieldLayout"
+        app:boxStrokeColor="@color/text_input_box_stroke"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -85,7 +89,9 @@
     </RelativeLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Theme.PrankChat.TextFieldLayout"
+        android:theme="@style/Theme.PrankChat.TextFieldLayout"
+        app:boxStrokeColor="@color/text_input_box_stroke"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -106,7 +112,9 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Theme.PrankChat.TextFieldLayout"
+        android:theme="@style/Theme.PrankChat.TextFieldLayout"
+        app:boxStrokeColor="@color/text_input_box_stroke"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"

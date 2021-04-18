@@ -11,7 +11,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
     [MvxActivityPresentation]
     [Activity(
         ScreenOrientation = ScreenOrientation.Portrait,
-        Theme = "@style/Theme.PrankChat.Base.Dark")]
+        Theme = "@style/Theme.PrankChat.Base")]
     public class RegistrationView : BaseView<RegistrationViewModel>
     {
         protected override bool HasBackButton => true;

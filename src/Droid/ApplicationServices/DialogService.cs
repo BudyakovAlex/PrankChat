@@ -1,7 +1,9 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Views;
 using Android.Widget;
 using AndroidX.CoordinatorLayout.Widget;
+using AndroidX.Core.Content;
 using MvvmCross.Base;
 using MvvmCross.Platforms.Android;
 using MvvmCross.Platforms.Android.Views;
@@ -98,6 +100,15 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
                     taskCompletionSource.TrySetResult(null);
                 };
                 datePicker.Show();
+
+                var positiveButton = datePicker.GetButton((int)DialogButtonType.Positive);
+                var negativeButton = datePicker.GetButton((int)DialogButtonType.Negative);
+                var neutralButton = datePicker.GetButton((int)DialogButtonType.Neutral);
+
+                var textColor = ContextCompat.GetColorStateList(activity, Resource.Color.accent);
+                positiveButton.SetTextColor(textColor);
+                negativeButton.SetTextColor(textColor);
+                neutralButton.SetTextColor(textColor);
             });
 
             return await taskCompletionSource.Task;
@@ -132,12 +143,12 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
 
         private int GetBackgroundId(ToastType toastType)
         {
-            switch (toastType)
+            return toastType switch
             {
-                case ToastType.Positive: return Resource.Color.successful;
-                case ToastType.Negative: return Resource.Color.unsuccessful;
-                default: throw new ArgumentOutOfRangeException();
-            }
+                ToastType.Positive => Resource.Color.successful,
+                ToastType.Negative => Resource.Color.unsuccessful,
+                _ => throw new ArgumentOutOfRangeException(),
+            };
         }
     }
 }

@@ -81,23 +81,20 @@
         <item name="android:colorAccent">#fff</item>
         <item name="boxStrokeColor">#fff</item>
         <item name="colorAccent">#fff</item>
-        <item name="colorControlNormal">@color/applicationWhite</item>
-        <item name="colorControlActivated">@color/applicationWhite</item>
-    </style>
-
-    <style name="Theme.PrankChat.TextFieldLayout.Dark" parent="Theme.PrankChat.TextFieldLayout">
-        <item name="boxStrokeColor">@color/border</item>
-        <item name="boxStrokeWidth">1dp</item>
-        <item name="android:textColorHint">@drawable/text_field_hint_color_selector</item>
-        <item name="android:colorAccent">@color/dark_placeholder</item>
-        <item name="colorAccent">@color/dark_placeholder</item>
+        <item name="colorPrimary">@color/applicationWhite</item>
         <item name="colorControlNormal">@color/border</item>
         <item name="colorControlActivated">@color/applicationWhite</item>
     </style>
 
-    <style name="Theme.PrankChat.TextField" parent="Theme.PrankChat.Base">
-        <item name="colorControlNormal">@color/applicationWhite</item>
-        <item name="colorControlActivated">@color/applicationWhite</item>
+    <style name="Theme.PrankChat.TextFieldLayout.Dark" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="android:textColorHint">@color/dark_placeholder</item>
+        <item name="android:colorAccent">@color/border</item>
+        <item name="boxStrokeColor">@color/border</item>
+        <item name="colorAccent">@color/border</item>
+        <item name="colorPrimary">@color/border</item>
+        <item name="colorControlNormal">@color/border</item>
+        <item name="colorControlActivated">@color/border</item>
     </style>
 
     <style name="Theme.PrankChat.EditText" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -165,6 +162,8 @@
     </style>
 
     <style name="Theme.PrankChat.DateDialog" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorPrimary">@color/accent</item>
+        <item name="colorPrimaryDark">@color/accent</item>
         <item name="colorAccent">@color/accent</item>
     </style>
 
