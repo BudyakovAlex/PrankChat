@@ -65,9 +65,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             _progressBar = FindViewById<ProgressBar>(Resource.Id.progressBar);
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
             using var bindingSet = CreateBindingSet();
 

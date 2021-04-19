@@ -1,5 +1,4 @@
-﻿using Android.OS;
-using Android.Runtime;
+﻿using Android.Runtime;
 using Android.Views;
 using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.Tabs;
@@ -28,18 +27,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         private LinearLayoutManager _layoutManager;
         private RecycleViewBindableAdapter _adapter;
 
-        public RecyclerView RecyclerView => _endlessRecyclerView;
-
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        public OrdersView() : base(Resource.Layout.fragment_orders)
         {
-            base.OnCreateView(inflater, container, savedInstanceState);
-            var view = this.BindingInflate(Resource.Layout.fragment_orders, null);
-
-            InitializeControls(view);
-            DoBind();
-           
-            return view;
         }
+
+        public RecyclerView RecyclerView => _endlessRecyclerView;
 
         public void OnTabReselected(TabLayout.Tab tab)
         {
@@ -55,13 +47,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         {
         }
 
-        protected override void RefreshData()
-        {
+        protected override void RefreshData() =>
             ViewModel?.ReloadItemsCommand.Execute();
-        }
 
-        private void InitializeControls(View view)
+        protected override void SetViewProperties(View view)
         {
+            base.SetViewProperties(view);
+
             _endlessRecyclerView = view.FindViewById<EndlessRecyclerView>(Resource.Id.publication_recycler_view);
 
             _layoutManager = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
@@ -79,14 +71,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             tabLayout.AddOnTabSelectedListener(this);
         }
 
-        private void DoBind()
+        protected override void Bind()
         {
-            var bindingSet = this.CreateBindingSet<OrdersView, OrdersViewModel>();
+            base.Bind();
+
+            using var bindingSet = this.CreateBindingSet<OrdersView, OrdersViewModel>();
 
             bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_endlessRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
-
-            bindingSet.Apply();
         }
     }
 }

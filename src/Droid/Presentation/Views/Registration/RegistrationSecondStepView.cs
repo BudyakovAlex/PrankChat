@@ -1,5 +1,4 @@
-﻿using Android.OS;
-using Android.Runtime;
+﻿using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -16,16 +15,20 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
     [Register(nameof(RegistrationSecondStepView))]
     public class RegistrationSecondStepView : BaseFragment<RegistrationSecondStepViewModel>
     {
+        public RegistrationSecondStepView() : base(Resource.Layout.fragment_registration_second_step)
+        {
+        }
+
         protected override bool HasBackButton => true;
 
         protected override string TitleActionBar => Core.Presentation.Localization.Resources.RegistrationView_StepTwo_Title;
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        protected override void SetViewProperties(View view)
         {
-            var view = base.OnCreateView(inflater, container, savedInstanceState, Resource.Layout.fragment_registration_second_step);
+            base.SetViewProperties(view);
+
             var privacyLinkTextView = view.FindViewById<TextView>(Resource.Id.terms_link_text_view);
             privacyLinkTextView.PaintFlags = Android.Graphics.PaintFlags.UnderlineText;
-            return view;
         }
-	}
+    }
 }

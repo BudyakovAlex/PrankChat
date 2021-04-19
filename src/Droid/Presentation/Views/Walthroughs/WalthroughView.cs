@@ -29,9 +29,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Walthroughs
             _descriptionTextView = FindViewById<TextView>(Resource.Id.description_text_view);
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
             using var bindingSet = this.CreateBindingSet<WalthroughView, WalthroughViewModel>();
 

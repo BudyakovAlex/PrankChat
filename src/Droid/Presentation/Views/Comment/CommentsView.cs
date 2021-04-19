@@ -83,9 +83,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Comment
                 .AddElement<CommentItemViewModel, CommentViewHolder>(Resource.Layout.cell_comment);
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<CommentsView, CommentsViewModel>();
 

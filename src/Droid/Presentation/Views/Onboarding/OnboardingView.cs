@@ -117,9 +117,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Onboarding
             }
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
             using var bindingSet = this.CreateBindingSet<OnboardingView, OnboardingViewModel>();
 

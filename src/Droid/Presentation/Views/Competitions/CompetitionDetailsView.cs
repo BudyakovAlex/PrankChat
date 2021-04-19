@@ -79,9 +79,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
             _uploadingProgressBar.Progress = 0f;
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
             using var bindingSet = this.CreateBindingSet<CompetitionDetailsView, CompetitionDetailsViewModel>();
 

@@ -72,9 +72,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             textViewChangeProfilePhoto.PaintFlags = Android.Graphics.PaintFlags.UnderlineText;
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
             using var bindingSet = this.CreateBindingSet<ProfileUpdateView, ProfileUpdateViewModel>();
 

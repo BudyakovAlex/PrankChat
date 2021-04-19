@@ -81,11 +81,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Subscriptions
             tabLayout.AddOnTabSelectedListener(this);
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
-            var bindingSet = this.CreateBindingSet<SubscriptionsView, SubscriptionsViewModel>();
+            using var bindingSet = this.CreateBindingSet<SubscriptionsView, SubscriptionsViewModel>();
 
             bindingSet.Bind(this).For(v => v.SelectedTabType).To(vm => vm.SelectedTabType);
             bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.Title);
@@ -93,8 +93,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Subscriptions
             bindingSet.Bind(_subscriptionsTab).For(TabLayoutTabTextBinding.TargetBinding).To(vm => vm.SubscriptionsTitle);
             bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_recyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
-
-            bindingSet.Apply();
         }
 
         public void OnTabReselected(TabLayout.Tab tab)

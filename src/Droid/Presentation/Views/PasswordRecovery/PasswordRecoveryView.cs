@@ -1,6 +1,4 @@
-﻿using Android.OS;
-using Android.Runtime;
-using Android.Views;
+﻿using Android.Runtime;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
@@ -16,12 +14,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.PasswordRecovery
     [Register(nameof(PasswordRecoveryView))]
     public class PasswordRecoveryView : BaseFragment<PasswordRecoveryViewModel>
     {
-        protected override bool HasBackButton => true;
-
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        public PasswordRecoveryView() : base(Resource.Layout.fragment_password_recovery)
         {
-            var view = base.OnCreateView(inflater, container, savedInstanceState, Resource.Layout.fragment_password_recovery);
-            return view;
         }
+
+        protected override bool HasBackButton => true;
 	}
 }

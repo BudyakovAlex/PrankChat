@@ -206,6 +206,7 @@
     <Compile Include="Presentation\Adapters\ViewHolders\Abstract\Video\IVideoViewHolder.cs" />
     <Compile Include="Extensions\MvxFluentBindingExtensions.cs" />
     <Compile Include="Providers\PlatformPathsProvider.cs" />
+    <Compile Include="Extensions\BindingExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

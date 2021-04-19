@@ -13,8 +13,14 @@ namespace PrankChat.Mobile.Droid
 {
     // This class is never actually executed, but when Xamarin linking is enabled it does how to ensure types and properties
     // are preserved in the deployed app
+    [Android.Runtime.Preserve(AllMembers = true)]
     public class LinkerPleaseInclude
     {
+        public void Include(RadioButton radioButton)
+        {
+            radioButton.CheckedChange += (sender, args) => radioButton.Checked = args.IsChecked;
+        }
+
         public void Include(MaterialButton button)
         {
             button.Click += (s, e) => button.Text = button.Text + "";
