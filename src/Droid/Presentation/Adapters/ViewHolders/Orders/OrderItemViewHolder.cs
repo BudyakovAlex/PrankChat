@@ -14,6 +14,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders
 {
     public class OrderItemViewHolder : CardViewHolder<OrderItemViewModel>
     {
+        private View _view;
         private ImageView _statusImageView;
         private View _backgroundView;
         private CircleCachedImageView _profilePhotoView;
@@ -49,6 +50,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders
         {
             base.DoInit(view);
 
+            _view = view;
             _statusImageView = view.FindViewById<ImageView>(Resource.Id.status_image_view);
             _backgroundView = view.FindViewById<View>(Resource.Id.background_view);
             _profilePhotoView = view.FindViewById<CircleCachedImageView>(Resource.Id.profile_photo);
@@ -69,6 +71,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders
 
             using var bindingSet = this.CreateBindingSet<OrderItemViewHolder, OrderItemViewModel>();
 
+            bindingSet.Bind(_view).For(v => v.BindClick()).To(vm => vm.OpenDetailsOrderCommand);
             bindingSet.Bind(_hiddenOrderImageView).For(v => v.BindVisible()).To(vm => vm.IsHiddenOrder);
             bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.Title);
             bindingSet.Bind(_profilePhotoView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl);

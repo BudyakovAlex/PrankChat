@@ -5,7 +5,6 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	app:MvxBind="Click OpenDetailsOrderCommand"
 	app:contentPaddingBottom="8dp"
 	app:contentPaddingLeft="16dp"
 	app:contentPaddingRight="16dp"
