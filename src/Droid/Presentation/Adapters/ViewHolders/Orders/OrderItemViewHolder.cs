@@ -1,5 +1,6 @@
 ﻿using Android.Views;
 using Android.Widget;
+using AndroidX.AppCompat.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
@@ -8,6 +9,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract;
+using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presentation.Converters;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders
@@ -27,6 +29,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders
         private TextView _minutesTextView;
         private TextView _priceValueTextView;
         private TextView _taskStatusTextView;
+        private AppCompatButton _actionButton;
 
         public OrderItemViewHolder(View view, IMvxAndroidBindingContext context)
             : base(view, context)
@@ -63,6 +66,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders
             _minutesTextView = view.FindViewById<TextView>(Resource.Id.minutes_text_view);
             _priceValueTextView = view.FindViewById<TextView>(Resource.Id.price_value_text);
             _taskStatusTextView = view.FindViewById<TextView>(Resource.Id.task_status_value_text);
+            _actionButton = view.FindViewById<AppCompatButton>(Resource.Id.task_button);
         }
 
         public override void BindData()
@@ -86,6 +90,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders
             bindingSet.Bind(_dayTextView).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
             bindingSet.Bind(_hoursTextView).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
             bindingSet.Bind(_minutesTextView).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
+
+            bindingSet.Bind(_actionButton).For(v => v.BindClick()).To(vm => vm.OpenDetailsOrderCommand);
+            bindingSet.Bind(_actionButton).For(OrderButtonStyleBinding.TargetBinding).To(vm => vm.OrderType);
 
             bindingSet.Bind(this).For(v => v.OrderTagType).To(vm => vm.OrderTagType);
             bindingSet.Bind(_backgroundView).For(v => v.BindDrawable()).To(vm => vm.OrderType)
