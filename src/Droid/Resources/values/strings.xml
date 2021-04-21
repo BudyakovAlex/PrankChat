@@ -112,7 +112,7 @@
     <string name="CashboxView_Withdrawal_Tab">"Снятие"</string>
     <string name="CashboxView_Fillup_Button">"Пополнить"</string>
     <string name="CashboxView_FillupMethodSelect_Title">"Выберите метод для пополнения:"</string>
-    <string name="CashboxView_WithdrawalAvailable_Title">"Доступно для снятия:"</string>
+    <string name="CashboxView_WithdrawalAvailable_Title">"Доступно для снятия с учётом комиссии платёжного шлюза (оператора):"</string>
     <string name="CashboxView_Withdrawal_Button">"Снять"</string>
     <string name="CashboxView_WithdrawalMethodSelect_Title">"Выберите метод для снятия:"</string>
     <string name="CashboxView_Price_Placeholder">"1 000 000 ₽"</string>

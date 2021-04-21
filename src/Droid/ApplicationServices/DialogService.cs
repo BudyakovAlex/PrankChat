@@ -1,7 +1,9 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Views;
 using Android.Widget;
 using AndroidX.CoordinatorLayout.Widget;
+using AndroidX.Core.Content;
 using MvvmCross.Base;
 using MvvmCross.Platforms.Android;
 using MvvmCross.Platforms.Android.Views;
@@ -34,22 +36,25 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
 
         public override void ShowToast(string text, ToastType toastType)
         {
-            IsToastShown = true;
+            _ = _mvxMainThreadAsyncDispatcher.ExecuteOnMainThreadAsync(() =>
+            {
+                IsToastShown = true;
 
-            var activity = (MvxActivity)_topActivity.Activity;
-            var yOffset = GetToastYOffset(activity);
+                var activity = (MvxActivity)_topActivity.Activity;
+                var yOffset = GetToastYOffset(activity);
 
-            var inflater = activity.LayoutInflater;
-            var toastView = inflater.Inflate(Resource.Layout.toast_view, null);
-            var textView = toastView.FindViewById<TextView>(Resource.Id.text_view);
-            textView.Text = text;
-            textView.SetBackgroundResource(GetBackgroundId(toastType));
+                var inflater = activity.LayoutInflater;
+                var toastView = inflater.Inflate(Resource.Layout.toast_view, null);
+                var textView = toastView.FindViewById<TextView>(Resource.Id.text_view);
+                textView.Text = text;
+                textView.SetBackgroundResource(GetBackgroundId(toastType));
 
-            var toast = new Toast(activity.ApplicationContext);
-            toast.SetGravity(GravityFlags.Top | GravityFlags.FillHorizontal, 0, yOffset);
-            toast.Duration = ToastLength.Long;
-            toast.View = toastView;
-            toast.Show();
+                var toast = new Toast(activity.ApplicationContext);
+                toast.SetGravity(GravityFlags.Top | GravityFlags.FillHorizontal, 0, yOffset);
+                toast.Duration = ToastLength.Long;
+                toast.View = toastView;
+                toast.Show();
+            });
 
             Task.Run(async () =>
             {
@@ -82,12 +87,28 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
                     taskCompletionSource.TrySetResult(e.Date);
                 });
 
-                var datePicker = new DatePickerDialog(activity, Resource.Style.Theme_PrankChat_DateDialog, dateEvent, selectedDate.Year, selectedDate.Month, selectedDate.Day);
+                var datePicker = new DatePickerDialog(
+                    activity,
+                    Resource.Style.Theme_PrankChat_DateDialog,
+                    dateEvent,
+                    selectedDate.Year,
+                    selectedDate.Month,
+                    selectedDate.Day);
+
                 datePicker.CancelEvent += (s, e) =>
                 {
                     taskCompletionSource.TrySetResult(null);
                 };
                 datePicker.Show();
+
+                var positiveButton = datePicker.GetButton((int)DialogButtonType.Positive);
+                var negativeButton = datePicker.GetButton((int)DialogButtonType.Negative);
+                var neutralButton = datePicker.GetButton((int)DialogButtonType.Neutral);
+
+                var textColor = ContextCompat.GetColorStateList(activity, Resource.Color.accent);
+                positiveButton.SetTextColor(textColor);
+                negativeButton.SetTextColor(textColor);
+                neutralButton.SetTextColor(textColor);
             });
 
             return await taskCompletionSource.Task;
@@ -122,12 +143,12 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
 
         private int GetBackgroundId(ToastType toastType)
         {
-            switch (toastType)
+            return toastType switch
             {
-                case ToastType.Positive: return Resource.Color.successful;
-                case ToastType.Negative: return Resource.Color.unsuccessful;
-                default: throw new ArgumentOutOfRangeException();
-            }
+                ToastType.Positive => Resource.Color.successful,
+                ToastType.Negative => Resource.Color.unsuccessful,
+                _ => throw new ArgumentOutOfRangeException(),
+            };
         }
     }
 }

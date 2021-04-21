@@ -4,6 +4,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -14,12 +15,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items
     {
         private readonly IUserSessionProvider _userSessionProvider;
 
+        private readonly Func<Task> _refreshDataFunc;
         private readonly User _user;
 
-        public SubscriptionItemViewModel(IUserSessionProvider userSessionProvider, User user)
+        public SubscriptionItemViewModel(IUserSessionProvider userSessionProvider, User user, Func<Task> refreshDataFunc)
         {
             _userSessionProvider = userSessionProvider;
             _user = user;
+            _refreshDataFunc = refreshDataFunc;
 
             OpenUserProfileCommand = this.CreateRestrictedCommand(
                 OpenUserProfileAsync,
@@ -39,15 +42,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items
 
         public ICommand OpenUserProfileCommand { get; }
 
-        private Task OpenUserProfileAsync()
+        private async Task OpenUserProfileAsync()
         {
             if (_user.Id == _userSessionProvider.User.Id ||
                 !Connectivity.NetworkAccess.HasConnection())
             {
-                return Task.CompletedTask;
+                return;
             }
 
-            return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_user.Id);
+            var shouldRefresh = await NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(_user.Id);
+            if (!shouldRefresh)
+            {
+                return;
+            }
+
+            var refreshTask = _refreshDataFunc?.Invoke() ?? Task.CompletedTask;
+            await refreshTask;
         }
     }
 }

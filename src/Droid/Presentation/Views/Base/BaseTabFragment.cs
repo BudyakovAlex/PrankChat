@@ -4,6 +4,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 {
     public abstract class BaseTabFragment<TMvxViewModel> : BaseFragment<TMvxViewModel> where TMvxViewModel : BasePageViewModel
     {
+        protected BaseTabFragment(int layoutId) : base(layoutId)
+        {
+        }
+
         public override bool UserVisibleHint
         {
             get => base.UserVisibleHint;

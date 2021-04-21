@@ -1,5 +1,4 @@
 ﻿using Android.Graphics;
-using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
@@ -28,7 +27,10 @@ using static Google.Android.Material.Tabs.TabLayout;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 {
-    [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.tabs, ViewPagerResourceId = Resource.Id.viewpager, ActivityHostViewModelType = typeof(MainViewModel))]
+    [MvxTabLayoutPresentation(
+        TabLayoutResourceId = Resource.Id.tabs,
+        ViewPagerResourceId = Resource.Id.viewpager,
+        ActivityHostViewModelType = typeof(MainViewModel))]
     [Register(nameof(PublicationsView))]
     public class PublicationsView : BaseRefreshableTabFragment<PublicationsViewModel>, IScrollableView
     {
@@ -46,6 +48,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private View _filterDividerView;
 
         private MvxInteraction _itemsChangedInteraction;
+
+        public PublicationsView() : base(Resource.Layout.publications_layout)
+        {
+        }
+
         public MvxInteraction ItemsChangedInteraction
         {
             get => _itemsChangedInteraction;
@@ -63,52 +70,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
         public RecyclerView RecyclerView => _publicationRecyclerView;
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        protected override void SetViewProperties(View view)
         {
-            base.OnCreateView(inflater, container, savedInstanceState);
+            base.SetViewProperties(view);
 
-            var view = this.BindingInflate(Resource.Layout.publications_layout, null);
-
-            InitializeControls(view);
-            DoBind();
-
-            return view;
-        }
-
-        protected override void RefreshData()
-        {
-            ViewModel?.ReloadItemsCommand.Execute();
-        }
-
-        protected override void Subscription()
-        {
-            _publicationTypeTabLayout.TabSelected += PublicationTypeTabLayoutTabSelected;
-            _publicationTypeTabLayout.TabUnselected += PublicationTypeTabLayoutTabUnselected;
-        }
-
-        protected override void Unsubscription()
-        {
-            _publicationTypeTabLayout.TabSelected -= PublicationTypeTabLayoutTabSelected;
-            _publicationTypeTabLayout.TabUnselected -= PublicationTypeTabLayoutTabUnselected;
-            _itemsChangedInteraction.Requested -= OnDataSetChanged;
-        }
-
-        private void DoBind()
-        {
-            using var bindingSet = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
-
-            bindingSet.Bind(_publicationRecyclerView).For(v => v.ItemsSource).To(vm => vm.Items);
-            bindingSet.Bind(this).For(v => v.ItemsChangedInteraction).To(vm => vm.ItemsChangedInteraction).OneWay();
-            bindingSet.Bind(_publicationRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
-            bindingSet.Bind(_loadingOverlay).For(v => v.Visibility).To(vm => vm.IsRefreshingData)
-                      .WithConversion<BoolToGoneConverter>();
-
-            bindingSet.Bind(_publicationTypeTabLayout).For(v => v.IsSelectionEnabled).To(vm => vm.IsRefreshingData)
-                      .WithConversion<MvxInvertedBooleanConverter>();
-        }
-
-        private void InitializeControls(View view)
-        {
             _filterView = view.FindViewById<View>(Resource.Id.filter_view);
             _filterDividerView = view.FindViewById<View>(Resource.Id.filter_view_divider);
             _publicationTypeTabLayout = view.FindViewById<ExtendedTabLayout>(Resource.Id.publication_type_tab_layout);
@@ -136,14 +101,39 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
             var dividerItemDecoration = new DividerItemDecoration(Context, LinearLayoutManager.Vertical);
             _publicationRecyclerView.AddItemDecoration(dividerItemDecoration);
-
-            //_publicationTypeTabLayout.SetOnTouchListener(new ViewOnTouchListener(OnTabLayoutTouch));
         }
 
-        //private bool OnTabLayoutTouch(View view, MotionEvent motionEvent)
-        //{
-        //    return ViewModel?.IsRefreshingFilter == false;
-        //}
+        protected override void Bind()
+        {
+            base.Bind();
+
+            using var bindingSet = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
+
+            bindingSet.Bind(_publicationRecyclerView).For(v => v.ItemsSource).To(vm => vm.Items);
+            bindingSet.Bind(this).For(v => v.ItemsChangedInteraction).To(vm => vm.ItemsChangedInteraction).OneWay();
+            bindingSet.Bind(_publicationRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
+            bindingSet.Bind(_loadingOverlay).For(v => v.Visibility).To(vm => vm.IsRefreshingData)
+                      .WithConversion<BoolToGoneConverter>();
+
+            bindingSet.Bind(_publicationTypeTabLayout).For(v => v.IsSelectionEnabled).To(vm => vm.IsRefreshingData)
+                      .WithConversion<MvxInvertedBooleanConverter>();
+        }
+
+        protected override void RefreshData() =>
+            ViewModel?.ReloadItemsCommand.Execute();
+
+        protected override void Subscription()
+        {
+            _publicationTypeTabLayout.TabSelected += PublicationTypeTabLayoutTabSelected;
+            _publicationTypeTabLayout.TabUnselected += PublicationTypeTabLayoutTabUnselected;
+        }
+
+        protected override void Unsubscription()
+        {
+            _publicationTypeTabLayout.TabSelected -= PublicationTypeTabLayoutTabSelected;
+            _publicationTypeTabLayout.TabUnselected -= PublicationTypeTabLayoutTabUnselected;
+            _itemsChangedInteraction.Requested -= OnDataSetChanged;
+        }
 
         private void OnDataSetChanged(object sender, EventArgs e)
         {

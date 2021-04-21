@@ -1,5 +1,4 @@
-﻿using Android.OS;
-using Android.Runtime;
+﻿using Android.Runtime;
 using Android.Views;
 using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.Tabs;
@@ -16,7 +15,6 @@ using PrankChat.Mobile.Droid.Presentation.Adapters;
 using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Arbitration;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders;
-using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Order
@@ -28,20 +26,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         private EndlessRecyclerView _endlessRecyclerView;
         private LinearLayoutManager _layoutManager;
         private RecycleViewBindableAdapter _adapter;
-        private StateScrollListener _stateScrollListener;
+
+        public OrdersView() : base(Resource.Layout.fragment_orders)
+        {
+        }
 
         public RecyclerView RecyclerView => _endlessRecyclerView;
-
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            base.OnCreateView(inflater, container, savedInstanceState);
-            var view = this.BindingInflate(Resource.Layout.fragment_orders, null);
-
-            InitializeControls(view);
-            DoBind();
-           
-            return view;
-        }
 
         public void OnTabReselected(TabLayout.Tab tab)
         {
@@ -57,13 +47,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         {
         }
 
-        protected override void RefreshData()
-        {
+        protected override void RefreshData() =>
             ViewModel?.ReloadItemsCommand.Execute();
-        }
 
-        private void InitializeControls(View view)
+        protected override void SetViewProperties(View view)
         {
+            base.SetViewProperties(view);
+
             _endlessRecyclerView = view.FindViewById<EndlessRecyclerView>(Resource.Id.publication_recycler_view);
 
             _layoutManager = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
@@ -77,21 +67,18 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
                 .AddElement<OrderItemViewModel, OrderItemViewHolder>(Resource.Layout.cell_order)
                 .AddElement<ArbitrationOrderItemViewModel, ArbitrationItemViewHolder>(Resource.Layout.cell_arbitration_order);
 
-            _stateScrollListener = new StateScrollListener();
-            _endlessRecyclerView.AddOnScrollListener(_stateScrollListener);
-
             var tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
             tabLayout.AddOnTabSelectedListener(this);
         }
 
-        private void DoBind()
+        protected override void Bind()
         {
-            var bindingSet = this.CreateBindingSet<OrdersView, OrdersViewModel>();
+            base.Bind();
+
+            using var bindingSet = this.CreateBindingSet<OrdersView, OrdersViewModel>();
 
             bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_endlessRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
-
-            bindingSet.Apply();
         }
     }
 }

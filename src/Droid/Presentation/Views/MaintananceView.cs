@@ -28,17 +28,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             _downloadButton = FindViewById<MaterialButton>(Resource.Id.download_button);
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
-            var bindingSet = this.CreateBindingSet<MaintananceView, MaintananceViewModel>();
+            using var bindingSet = this.CreateBindingSet<MaintananceView, MaintananceViewModel>();
 
-            bindingSet.Bind(_downloadButton)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.OpenInBrowserCommand);
-
-            bindingSet.Apply();
+            bindingSet.Bind(_downloadButton).For(v => v.BindClick()).To(vm => vm.OpenInBrowserCommand);
         }
     }
 }

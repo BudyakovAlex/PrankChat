@@ -70,7 +70,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         protected override void RefreshData()
         {
             ViewModel?.ReloadItemsCommand.Execute();
-            MainThread.BeginInvokeOnMainThread(() => TableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true));
+            MainThread.BeginInvokeOnMainThread(() =>
+                ViewModel.SafeExecutionWrapper.Wrap(() =>
+                TableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true)));
         }
 
         private void OnTabSelected(int position)

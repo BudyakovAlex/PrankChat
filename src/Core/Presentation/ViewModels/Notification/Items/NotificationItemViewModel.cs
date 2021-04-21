@@ -55,6 +55,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items
 
         public string ProfileShortName => ProfileName?.ToShortenName();
 
+        public bool HasDescription => Description.IsNotNullNorEmpty();
+
         public string ImageUrl { get; }
 
         public string Description { get; }

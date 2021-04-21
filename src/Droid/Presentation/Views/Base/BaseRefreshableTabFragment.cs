@@ -8,6 +8,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
     {
         private DateTime _timeStamp;
 
+        protected BaseRefreshableTabFragment(int layoutId) : base(layoutId)
+        {
+        }
+
         protected abstract void RefreshData();
 
         public override void OnPause()

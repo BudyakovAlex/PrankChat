@@ -176,7 +176,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         protected override void RefreshData()
         {
             ViewModel?.LoadProfileCommand.Execute();
-            MainThread.BeginInvokeOnMainThread(() => rootScrollView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true));
+            MainThread.BeginInvokeOnMainThread(() =>
+                ViewModel.SafeExecutionWrapper.Wrap(() =>
+                rootScrollView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true)));
         }
 
         private void TabSelected(ProfileOrderType profileOrderType)

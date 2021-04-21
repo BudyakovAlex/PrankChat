@@ -1,5 +1,4 @@
 ﻿using Android.App;
-using Android.Content.PM;
 using Android.OS;
 using Android.Widget;
 using MvvmCross.Binding.BindingContext;
@@ -30,25 +29,15 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Walthroughs
             _descriptionTextView = FindViewById<TextView>(Resource.Id.description_text_view);
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
-            var bindingSet = this.CreateBindingSet<WalthroughView, WalthroughViewModel>();
+            using var bindingSet = this.CreateBindingSet<WalthroughView, WalthroughViewModel>();
 
-            bindingSet.Bind(_titleTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.Title);
-
-            bindingSet.Bind(_descriptionTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.Description);
-
-            bindingSet.Bind(_closeImageView)
-                     .For(v => v.BindClick())
-                     .To(vm => vm.CloseCommand);
-
-            bindingSet.Apply();
+            bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.Title);
+            bindingSet.Bind(_descriptionTextView).For(v => v.Text).To(vm => vm.Description);
+            bindingSet.Bind(_closeImageView).For(v => v.BindClick()).To(vm => vm.CloseCommand);
         }
     }
 }

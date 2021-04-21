@@ -1,7 +1,5 @@
-﻿using Android.OS;
-using Android.Runtime;
+﻿using Android.Runtime;
 using Android.Views;
-using AndroidX.ConstraintLayout.Widget;
 using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.Tabs;
 using MvvmCross.Binding.BindingContext;
@@ -31,23 +29,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 
         public RecyclerView RecyclerView => _endlessRecyclerView;
 
-        public ProfileView()
+        public ProfileView() : base(Resource.Layout.fragment_profile)
         {
             HasOptionsMenu = true;
-        }
-
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            base.OnCreateView(inflater, container, savedInstanceState);
-            var view = this.BindingInflate(Resource.Layout.fragment_profile, null);
-
-            InitializeControls(view);
-            DoBind();
-
-            var tabLayout = view.FindViewById<TabLayout>(Resource.Id.publication_type_tab_layout);
-            tabLayout.AddOnTabSelectedListener(this);
-
-            return view;
         }
 
         public void OnTabReselected(TabLayout.Tab tab)
@@ -65,13 +49,20 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         {
         }
 
-        protected override void RefreshData()
+        protected override void Bind()
         {
-            ViewModel?.LoadProfileCommand.Execute();
+            base.Bind();
+
+            using var bindingSet = this.CreateBindingSet<ProfileView, ProfileViewModel>();
+
+            bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
+            bindingSet.Bind(_endlessRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
         }
 
-        private void InitializeControls(View view)
+        protected override void SetViewProperties(View view)
         {
+            base.SetViewProperties(view);
+
             _endlessRecyclerView = view.FindViewById<EndlessRecyclerView>(Resource.Id.profile_publication_recycler_view);
 
             _layoutManager = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
@@ -83,16 +74,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 
             _endlessRecyclerView.ItemTemplateSelector = new TemplateSelector()
                 .AddElement<OrderItemViewModel, OrderItemViewHolder>(Resource.Layout.cell_order);
+
+            var tabLayout = view.FindViewById<TabLayout>(Resource.Id.publication_type_tab_layout);
+            tabLayout.AddOnTabSelectedListener(this);
         }
 
-        private void DoBind()
-        {
-            var bindingSet = this.CreateBindingSet<ProfileView, ProfileViewModel>();
-
-            bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
-            bindingSet.Bind(_endlessRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
-
-            bindingSet.Apply();
-        }
+        protected override void RefreshData() =>
+            ViewModel?.LoadProfileCommand.Execute();
     }
 }

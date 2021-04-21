@@ -112,7 +112,7 @@
     <string name="CashboxView_Withdrawal_Tab">"Withdrawal"</string>
     <string name="CashboxView_Fillup_Button">"Replenish"</string>
     <string name="CashboxView_FillupMethodSelect_Title">"Choose a method to replenish:"</string>
-    <string name="CashboxView_WithdrawalAvailable_Title">"Available for removal:"</string>
+    <string name="CashboxView_WithdrawalAvailable_Title">"Available for removal including payment service commission:"</string>
     <string name="CashboxView_Withdrawal_Button">"Take off"</string>
     <string name="CashboxView_WithdrawalMethodSelect_Title">"Select a method to remove:"</string>
     <string name="CashboxView_Price_Placeholder">"1 000 000 ₽"</string>

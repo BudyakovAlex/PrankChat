@@ -1,5 +1,4 @@
-﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
+﻿using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
@@ -34,8 +33,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             _usersManager = usersManager;
             _mediaService = mediaService;
 
-            AvailableForWithdrawal = $"{Resources.CashboxView_WithdrawalAvailable_Title} {UserSessionProvider.User?.Balance.ToPriceString()}";
-
             WithdrawCommand = this.CreateCommand(WithdrawAsync);
             CancelWithdrawCommand = this.CreateCommand(CancelWithdrawAsync);
             AttachFileCommand = this.CreateCommand(AttachFileAsync);
@@ -50,11 +47,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             set => SetProperty(ref _cost, value);
         }
 
-        private string _availableForWithdrawal;
-        public string AvailableForWithdrawal
+        public string AvailableForWithdrawal => GetWithdrawalAvailableTotalString();
+
+        private string GetWithdrawalAvailableTotalString()
         {
-            get => _availableForWithdrawal;
-            set => SetProperty(ref _availableForWithdrawal, value);
+            var balance = UserSessionProvider.User.Balance - UserSessionProvider.User?.Balance * Constants.Cashbox.PaymentServceCommissionMultiplier;
+            return $"{Resources.CashboxView_WithdrawalAvailable_Title} {balance.ToPriceString()}";
         }
 
         private string _cardNumber;
@@ -73,8 +71,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                 else
                 {
                     _cardNumber = InternationalCardValidator.Instance.VisualCardNumber(value);
-
                 }
+
                 RaisePropertyChanged(nameof(CardNumber));
             }
         }

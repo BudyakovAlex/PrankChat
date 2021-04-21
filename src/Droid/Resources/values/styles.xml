@@ -19,10 +19,18 @@
 
     <style name="Theme.PrankChat.Base.Dark" parent="Theme.PrankChat.Base">
         <!-- TextEdit Hint Color Workaround-->
-        <item name="colorControlNormal">@color/border</item>
-        <item name="colorControlActivated">@color/border</item>
-        <item name="colorPrimary">@color/border</item>
-        <item name="colorPrimaryDark">@color/border</item>
+        <item name="colorControlNormal">@color/applicationWhite</item>
+        <item name="colorControlActivated">@color/applicationWhite</item>
+        <item name="colorPrimaryDark">@color/applicationWhite</item>
+    </style>
+
+    <style name="Theme.PrankChat.OnBoarding" parent="Theme.PrankChat.Base.Dark">
+        <!-- TextEdit Hint Color Workaround-->
+        <item name="colorControlNormal">@color/accent</item>
+        <item name="colorControlActivated">@color/accent</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimaryDark">@color/inactive</item>
+        <item name="colorPrimary">@color/accent</item>
     </style>
 
     <style name="Theme.PrankChat.Splash" parent="Theme.PrankChat.Base">
@@ -73,19 +81,20 @@
         <item name="android:colorAccent">#fff</item>
         <item name="boxStrokeColor">#fff</item>
         <item name="colorAccent">#fff</item>
+        <item name="colorPrimary">@color/applicationWhite</item>
+        <item name="colorControlNormal">@color/border</item>
+        <item name="colorControlActivated">@color/applicationWhite</item>
     </style>
 
-    <style name="Theme.PrankChat.TextFieldLayout.Dark" parent="Theme.PrankChat.TextFieldLayout">
-        <item name="boxStrokeColor">@color/border</item>
+    <style name="Theme.PrankChat.TextFieldLayout.Dark" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeWidth">1dp</item>
         <item name="android:textColorHint">@color/dark_placeholder</item>
-        <item name="android:colorAccent">@color/dark_placeholder</item>
-        <item name="colorAccent">@color/dark_placeholder</item>
-    </style>
-
-    <style name="Theme.PrankChat.TextField" parent="Theme.PrankChat.Base">
-        <item name="colorControlNormal">@color/applicationWhite</item>
-        <item name="colorControlActivated">@color/applicationWhite</item>
+        <item name="android:colorAccent">@color/border</item>
+        <item name="boxStrokeColor">@color/border</item>
+        <item name="colorAccent">@color/border</item>
+        <item name="colorPrimary">@color/border</item>
+        <item name="colorControlNormal">@color/border</item>
+        <item name="colorControlActivated">@color/border</item>
     </style>
 
     <style name="Theme.PrankChat.EditText" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -153,6 +162,8 @@
     </style>
 
     <style name="Theme.PrankChat.DateDialog" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorPrimary">@color/accent</item>
+        <item name="colorPrimaryDark">@color/accent</item>
         <item name="colorAccent">@color/accent</item>
     </style>
 
@@ -164,6 +175,8 @@
     </style>
 
     <style name="Theme.PrankChat.DialogStyle" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimary">@color/applicationWhite</item>
         <item name="windowFixedWidthMajor">65%</item>
         <item name="windowFixedWidthMinor">65%</item>
     </style>
