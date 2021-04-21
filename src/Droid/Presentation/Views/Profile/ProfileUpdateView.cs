@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         private RadioButton _maleRadioButton;
         private RadioButton _femaleRadioButton;
         private ProgressBar _progressBar;
-        private RadioButton _saveButton;
+        private Button _saveButton;
         private TextView _textViewChangeProfilePhoto;
         private TextView _textViewChangePassword;
 
@@ -83,7 +83,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             _maleRadioButton = FindViewById<RadioButton>(Resource.Id.male_radio_button);
             _femaleRadioButton = FindViewById<RadioButton>(Resource.Id.female_radio_button);
             _progressBar = FindViewById<ProgressBar>(Resource.Id.progressBar);
-            _saveButton = FindViewById<RadioButton>(Resource.Id.save_button);
+            _saveButton = FindViewById<Button>(Resource.Id.save_button);
 
             _descriptionEditText.SetFilters(new[] { new InputFilterLengthFilter(Constants.Profile.DescriptionMaxLength) });
 
@@ -122,11 +122,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             bindingSet.Bind(_textViewChangeProfilePhoto).For(v => v.BindClick()).To(vm => vm.ChangeProfilePhotoCommand);
             bindingSet.Bind(_birthdayContainerView).For(v => v.BindClick()).To(vm => vm.SelectBirthdayCommand);
 
-            bindingSet.Bind(_maleRadioButton).For(v => v.Checked).To(vm => vm.IsGenderFemale);
+            bindingSet.Bind(_maleRadioButton).For(v => v.Checked).To(vm => vm.IsGenderMale).OneWay();
             bindingSet.Bind(_maleRadioButton).For(v => v.BindClick()).To(vm => vm.SelectGenderCommand)
                       .CommandParameter(GenderType.Male);
 
-            bindingSet.Bind(_femaleRadioButton).For(v => v.Checked).To(vm => vm.IsGenderFemale);
+            bindingSet.Bind(_femaleRadioButton).For(v => v.Checked).To(vm => vm.IsGenderFemale).OneWay();
             bindingSet.Bind(_femaleRadioButton).For(v => v.BindClick()).To(vm => vm.SelectGenderCommand)
                       .CommandParameter(GenderType.Female);
 
