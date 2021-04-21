@@ -8,7 +8,9 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
@@ -22,10 +24,21 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         Theme = "@style/Theme.PrankChat.Base")]
     public class ProfileUpdateView : BaseView<ProfileUpdateViewModel>
     {
+        private CircleCachedImageView _profileImageView;
         private EditText _emailEditText;
-        private EditText _descriptionTextView;
+        private EditText _loginEditText;
+        private EditText _descriptionEditText;
         private ImageView _updateWarningImage;
         private TextView _resendConfirmationTextView;
+        private TextView _limitTextView;
+        private TextView _birthdayTextView;
+        private View _birthdayContainerView;
+        private RadioButton _maleRadioButton;
+        private RadioButton _femaleRadioButton;
+        private ProgressBar _progressBar;
+        private RadioButton _saveButton;
+        private TextView _textViewChangeProfilePhoto;
+        private TextView _textViewChangePassword;
 
         protected override string TitleActionBar => Core.Presentation.Localization.Resources.ProfileUpdateView_Title;
 
@@ -58,18 +71,28 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         {
             base.SetViewProperties();
 
+            _profileImageView = FindViewById<CircleCachedImageView>(Resource.Id.profile_image_view);
             _emailEditText = FindViewById<EditText>(Resource.Id.email_edit_text);
-            _descriptionTextView = FindViewById<EditText>(Resource.Id.description_edit_text);
+            _loginEditText = FindViewById<EditText>(Resource.Id.login_edit_text);
+            _descriptionEditText = FindViewById<EditText>(Resource.Id.description_edit_text);
             _updateWarningImage = FindViewById<ImageView>(Resource.Id.update_warning_image);
             _resendConfirmationTextView = FindViewById<TextView>(Resource.Id.resend_confirmation_text_view);
-            _descriptionTextView.SetFilters(new[] { new InputFilterLengthFilter(Constants.Profile.DescriptionMaxLength) });
+            _limitTextView = FindViewById<TextView>(Resource.Id.limit_text_view);
+            _birthdayTextView = FindViewById<TextView>(Resource.Id.birthday_text_view);
+            _birthdayContainerView = FindViewById<View>(Resource.Id.birthday_container_view);
+            _maleRadioButton = FindViewById<RadioButton>(Resource.Id.male_radio_button);
+            _femaleRadioButton = FindViewById<RadioButton>(Resource.Id.female_radio_button);
+            _progressBar = FindViewById<ProgressBar>(Resource.Id.progressBar);
+            _saveButton = FindViewById<RadioButton>(Resource.Id.save_button);
 
-            var textViewChangePassword = FindViewById<TextView>(Resource.Id.text_view_change_password);
-            var textViewChangeProfilePhoto = FindViewById<TextView>(Resource.Id.text_view_change_photo);
+            _descriptionEditText.SetFilters(new[] { new InputFilterLengthFilter(Constants.Profile.DescriptionMaxLength) });
+
+            _textViewChangeProfilePhoto = FindViewById<TextView>(Resource.Id.text_view_change_photo);
+            _textViewChangePassword = FindViewById<TextView>(Resource.Id.text_view_change_password);
 
             _resendConfirmationTextView.PaintFlags = Android.Graphics.PaintFlags.UnderlineText;
-            textViewChangePassword.PaintFlags = Android.Graphics.PaintFlags.UnderlineText;
-            textViewChangeProfilePhoto.PaintFlags = Android.Graphics.PaintFlags.UnderlineText;
+            _textViewChangePassword.PaintFlags = Android.Graphics.PaintFlags.UnderlineText;
+            _textViewChangeProfilePhoto.PaintFlags = Android.Graphics.PaintFlags.UnderlineText;
         }
 
         protected override void Bind()
@@ -82,10 +105,34 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             bindingSet.Bind(_resendConfirmationTextView).For(v => v.BindHidden()).To(vm => vm.IsEmailVerified);
             bindingSet.Bind(_updateWarningImage).For(v => v.BindClick()).To(vm => vm.ShowValidationWarningCommand);
             bindingSet.Bind(_resendConfirmationTextView).For(v => v.BindClick()).To(vm => vm.ResendEmailValidationCommand);
+
+            bindingSet.Bind(_birthdayTextView).For(v => v.Text).To(vm => vm.BirthdayText);
+            bindingSet.Bind(_limitTextView).For(v => v.Text).To(vm => vm.LimitTextPresentation);
+            bindingSet.Bind(_descriptionEditText).For(v => v.Text).To(vm => vm.Description);
+            bindingSet.Bind(_loginEditText).For(v => v.Text).To(vm => vm.Login);
+            bindingSet.Bind(_emailEditText).For(v => v.Text).To(vm => vm.Email);
             bindingSet.Bind(_emailEditText).For(PaddingTargetBinding.EndPadding).To(vm => vm.IsEmailVerified)
                       .WithConversion((bool value) => value ? 0 : DisplayUtils.DpToPx(45));
             bindingSet.Bind(_resendConfirmationTextView).For(v => v.Alpha).To(vm => vm.CanResendEmailValidation)
                       .WithConversion((bool value) => value ? 1 : 0.5f);
+
+            bindingSet.Bind(_profileImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl);
+            bindingSet.Bind(_profileImageView).For(v => v.BindClick()).To(vm => vm.ChangeProfilePhotoCommand);
+            bindingSet.Bind(_profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName);
+            bindingSet.Bind(_textViewChangeProfilePhoto).For(v => v.BindClick()).To(vm => vm.ChangeProfilePhotoCommand);
+            bindingSet.Bind(_birthdayContainerView).For(v => v.BindClick()).To(vm => vm.SelectBirthdayCommand);
+
+            bindingSet.Bind(_maleRadioButton).For(v => v.Checked).To(vm => vm.IsGenderFemale);
+            bindingSet.Bind(_maleRadioButton).For(v => v.BindClick()).To(vm => vm.SelectGenderCommand)
+                      .CommandParameter(GenderType.Male);
+
+            bindingSet.Bind(_femaleRadioButton).For(v => v.Checked).To(vm => vm.IsGenderFemale);
+            bindingSet.Bind(_femaleRadioButton).For(v => v.BindClick()).To(vm => vm.SelectGenderCommand)
+                      .CommandParameter(GenderType.Female);
+
+            bindingSet.Bind(_textViewChangePassword).For(v => v.BindClick()).To(vm => vm.ChangePasswordCommand);
+            bindingSet.Bind(_saveButton).For(v => v.BindClick()).To(vm => vm.SaveProfileCommand);
+            bindingSet.Bind(_progressBar).For(v => v.BindVisible()).To(vm => vm.IsBusy);
         }
     }
 }

@@ -22,11 +22,11 @@
             android:orientation="vertical">
 
             <CircleCachedImageView
+                android:id="@+id/profile_image_view"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                app:MvxBind="ImagePath ProfilePhotoUrl; Click ChangeProfilePhotoCommand; PlaceholderText ProfileShortName, Mode = OneTime" />
+                android:layout_marginTop="10dp"/>
 
             <TextView
                 android:id="@+id/text_view_change_photo"
@@ -38,8 +38,7 @@
                 android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
                 android:text="@string/ProfileUpdateView_PhotoChange_Title"
-                android:textColor="@android:color/white"
-                app:MvxBind="Click ChangeProfilePhotoCommand" />
+                android:textColor="@android:color/white" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -64,8 +63,7 @@
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:textColor="@color/applicationWhite"
-                        android:textSize="14dp"
-                        app:MvxBind="Text Email" />
+                        android:textSize="14dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageView
@@ -109,12 +107,12 @@
                 app:boxStrokeWidth="1dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:textColor="@color/applicationWhite"
-                    android:textSize="14dp"
-                    app:MvxBind="Text Login" />
+                    android:textSize="14dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -157,11 +155,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/applicationWhite"
-                    android:textSize="14dp"
-                    app:MvxBind="Text Description" />
+                    android:textSize="14dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/limit_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -170,19 +168,19 @@
                 android:gravity="end"
                 android:textColor="@color/border"
                 android:textSize="12dp"
-                app:MvxBind="Text LimitTextPresentation;"
                 tools:text="10/100" />
 
             <RelativeLayout
+                android:id="@+id/birthday_container_view"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/border_white"
-                app:MvxBind="Click SelectBirthdayCommand">
+                android:background="@drawable/border_white">
 
                 <TextView
+                    android:id="@+id/birthday_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
@@ -191,8 +189,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/ProfileUpdateView_Birthday_Placeholder"
                     android:textColor="@color/applicationWhite"
-                    android:textSize="14dp"
-                    app:MvxBind="Text BirthdayText;" />
+                    android:textSize="14dp" />
 
                 <ImageView
                     android:layout_width="18dp"
@@ -221,6 +218,7 @@
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/male_radio_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="9dp"
@@ -228,10 +226,10 @@
                     android:drawableTop="@drawable/radio_button_background"
                     android:padding="10dp"
                     android:text="@string/RegistrationView_Male_Button"
-                    android:textColor="@color/applicationWhite"
-                    app:MvxBind="Click SelectGenderCommand, CommandParameter=Male; Checked IsGenderMale" />
+                    android:textColor="@color/applicationWhite" />
 
                 <RadioButton
+                    android:id="@+id/female_radio_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="9dp"
@@ -239,8 +237,7 @@
                     android:drawableTop="@drawable/radio_button_background"
                     android:padding="10dp"
                     android:text="@string/RegistrationView_Female_Button"
-                    android:textColor="@color/applicationWhite"
-                    app:MvxBind="Click SelectGenderCommand, CommandParameter=Female; Checked IsGenderFemale" />
+                    android:textColor="@color/applicationWhite" />
             </RadioGroup>
 
             <RelativeLayout
@@ -250,7 +247,7 @@
                 android:layout_marginTop="16dp">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/registration_button"
+                    android:id="@+id/save_button"
                     style="@style/Theme.PrankChat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="46dp"
@@ -259,19 +256,17 @@
                     android:layout_centerHorizontal="true"
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
-                    android:text="@string/ProfileUpdateView_Button_Save"
-                    app:MvxBind="Click SaveProfileCommand" />
+                    android:text="@string/ProfileUpdateView_Button_Save" />
 
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="@style/Theme.PrankChat.ProgressBar.Accent"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_alignEnd="@+id/registration_button"
+                    android:layout_alignEnd="@+id/save_button"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_centerInParent="true"
-                    app:MvxBind="Visibility Visibility(IsBusy)" />
+                    android:layout_centerInParent="true"/>
             </RelativeLayout>
 
             <TextView
@@ -282,8 +277,7 @@
                 android:layout_marginTop="15dp"
                 android:padding="5dp"
                 android:text="@string/ProfileUpdateView_ChangePassword"
-                android:textColor="@android:color/white"
-                app:MvxBind="Click ChangePasswordCommand" />
+                android:textColor="@android:color/white" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

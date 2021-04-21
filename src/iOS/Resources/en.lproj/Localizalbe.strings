@@ -110,7 +110,7 @@
 "CashboxView_Withdrawal_Tab" = "Withdrawal";
 "CashboxView_Fillup_Button" = "Replenish";
 "CashboxView_FillupMethodSelect_Title" = "Choose a method to replenish:";
-"CashboxView_WithdrawalAvailable_Title" = "Available for removal:";
+"CashboxView_WithdrawalAvailable_Title" = "Available for removal including payment service commission:";
 "CashboxView_Withdrawal_Button" = "Take off";
 "CashboxView_WithdrawalMethodSelect_Title" = "Select a method to remove:";
 "CashboxView_Price_Placeholder" = "1 000 000 ₽";
