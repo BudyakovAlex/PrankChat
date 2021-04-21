@@ -1,5 +1,4 @@
-﻿using Android.OS;
-using Android.Runtime;
+﻿using Android.Runtime;
 using Android.Views;
 using AndroidX.RecyclerView.Widget;
 using MvvmCross.Binding.BindingContext;
@@ -24,51 +23,19 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
         private MvxSwipeRefreshLayout _refreshView;
         private MvxRecyclerView _competitionsRecyclerView;
 
+        public CompetitionsView() : base(Resource.Layout.fragment_competitions)
+        {
+        }
+
         public RecyclerView RecyclerView => _competitionsRecyclerView;
 
-        public override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-
-            // Create your fragment here
-        }
-
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            base.OnCreateView(inflater, container, savedInstanceState);
-            var view = this.BindingInflate(Resource.Layout.fragment_competitions, null);
-
-            InitializeControls(view);
-            DoBind();
-            return view;
-        }
-
-        protected override void RefreshData()
-        {
+        protected override void RefreshData() =>
             ViewModel?.LoadDataCommand.Execute();
-        }
 
-        private void DoBind()
+        protected override void SetViewProperties(View view)
         {
-            var bindingSet = this.CreateBindingSet<CompetitionsView, CompetitionsViewModel>();
+            base.SetViewProperties(view);
 
-            bindingSet.Bind(_adapter)
-                      .For(v => v.ItemsSource)
-                      .To(vm => vm.Items);
-
-            bindingSet.Bind(_refreshView)
-                      .For(v => v.Refreshing)
-                      .To(vm => vm.IsBusy);
-
-            bindingSet.Bind(_refreshView)
-                      .For(v => v.RefreshCommand)
-                      .To(vm => vm.LoadDataCommand);
-
-            bindingSet.Apply();
-        }
-
-        private void InitializeControls(View view)
-        {
             _refreshView = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swipe_refresh);
 
             _competitionsRecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.competitions_recycler_view);
@@ -79,6 +46,17 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
             _competitionsRecyclerView.Adapter = _adapter;
             _competitionsRecyclerView.ItemTemplateSelector = new TemplateSelector()
                 .AddElement<CompetitionsSectionViewModel, CompetitionsSectionViewHolder>(Resource.Layout.cell_competitions_section);
+        }
+
+        protected override void Bind()
+        {
+            base.Bind();
+
+            using var bindingSet = this.CreateBindingSet<CompetitionsView, CompetitionsViewModel>();
+
+            bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
+            bindingSet.Bind(_refreshView).For(v => v.Refreshing).To(vm => vm.IsBusy);
+            bindingSet.Bind(_refreshView).For(v => v.RefreshCommand).To(vm => vm.LoadDataCommand);
         }
     }
 }

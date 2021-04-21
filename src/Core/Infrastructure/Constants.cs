@@ -21,6 +21,11 @@ namespace PrankChat.Mobile.Core.Infrastructure
             public const int DescriptionMaxLength = 1000;
         }
 
+        public static class Cashbox
+        {
+            public const double PaymentServceCommissionMultiplier = 0.03;
+        }
+
         public static class Formats
         {
             public const string DateWithSpace = "dd' : 'hh' : 'mm";

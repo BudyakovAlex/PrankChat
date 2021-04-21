@@ -22,7 +22,7 @@ namespace PrankChat.Mobile.Droid
     {
         private int? _orderId;
 
-        public SplashScreen() : base(Resource.Layout.splash_screen_layout)
+        public SplashScreen() : base(0)
         {
         }
 

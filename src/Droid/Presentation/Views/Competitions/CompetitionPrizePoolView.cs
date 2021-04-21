@@ -53,9 +53,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
                 .AddElement<CompetitionPrizePoolItemViewModel, CompetitionPrizePoolItemViewHolder>(Resource.Layout.cell_competiton_prize_pool);
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<CompetitionPrizePoolView, CompetitionPrizePoolViewModel>();
 

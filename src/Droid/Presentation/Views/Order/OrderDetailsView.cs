@@ -54,9 +54,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             _uploadingProgressBar.Progress = 0f;
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<OrderDetailsView, OrderDetailsViewModel>();
 

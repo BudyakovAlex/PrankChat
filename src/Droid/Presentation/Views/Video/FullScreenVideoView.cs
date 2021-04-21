@@ -148,9 +148,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             _videoView.RequestFocus();
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
             using var bindingSet = this.CreateBindingSet<FullScreenVideoView, FullScreenVideoViewModel>();
 

@@ -50,9 +50,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
                 .AddElement<NotificationItemViewModel, NotificationItemViewHolder>(Resource.Layout.cell_notification);
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<NotificationView, NotificationViewModel>();
 

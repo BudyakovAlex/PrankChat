@@ -24,16 +24,18 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_edit_text"
-        style="@style/Theme.PrankChat.TextFieldLayout"
+        android:theme="@style/Theme.PrankChat.TextFieldLayout"
+        app:boxStrokeColor="@color/text_input_box_stroke"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:textColorHint="@color/applicationWhite"
+        app:boxStrokeWidth="1dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/enter_text_view"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="36dp"
         android:layout_marginRight="16dp"
-        android:hint="@string/LoginView_Email_Placeholder"
-        android:textColorHint="@color/applicationWhite"
-        app:boxStrokeWidth="1dp">
+        android:hint="@string/LoginView_Email_Placeholder">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email_text_input_text"
@@ -41,31 +43,32 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textColor="@color/applicationWhite"
-            android:textSize="14dp"
-            app:MvxBind="Text EmailText" />
+            android:textSize="14dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_edit_text"
-        style="@style/Theme.PrankChat.TextFieldLayout"
+        android:theme="@style/Theme.PrankChat.TextFieldLayout"
+        app:boxStrokeColor="@color/text_input_box_stroke"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:textColorHint="@color/applicationWhite"
+        app:boxStrokeWidth="1dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/email_edit_text"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
-        android:hint="@string/LoginView_Password_Placeholder"
-        android:textColorHint="@color/applicationWhite"
-        app:boxStrokeWidth="1dp">
+        android:hint="@string/LoginView_Password_Placeholder">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_text_input_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:singleLine="true"
             android:textColor="@color/applicationWhite"
-            android:textSize="14dp"
-            app:MvxBind="Text PasswordText" />
+            android:textSize="14dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <RelativeLayout
@@ -99,8 +102,7 @@
             android:gravity="center"
             android:text="@string/LoginView_ForgotPassword_Button"
             android:textColor="@color/applicationWhite"
-            android:textSize="12dp"
-            app:MvxBind="Click ResetPasswordCommand" />
+            android:textSize="12dp"/>
     </RelativeLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -113,8 +115,7 @@
         android:layout_below="@+id/forgot_password_container"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="@string/LoginView_Continue_Button"
-        app:MvxBind="Click LoginCommand, CommandParameter=UsernameAndPassword" />
+        android:text="@string/LoginView_Continue_Button" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -125,8 +126,7 @@
         android:layout_alignTop="@+id/login_button"
         android:layout_alignBottom="@+id/login_button"
         android:layout_alignRight="@+id/login_button"
-        android:layout_gravity="right"
-        app:MvxBind="Visibility Visibility(IsBusy)" />
+        android:layout_gravity="right" />
 
     <TextView
         android:id="@+id/login_from_text"
@@ -149,37 +149,37 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/vk_login_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginRight="8dp"
             android:text="Registration"
-            app:MvxBind="Click LoginCommand, CommandParameter=Vk"
             app:srcCompat="@drawable/ic_vk" />
 
         <ImageButton
+            android:id="@+id/ok_login_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:visibility="gone"
-            app:MvxBind="Click LoginCommand, CommandParameter=Ok"
             app:srcCompat="@drawable/ic_odnoklassniki" />
 
         <ImageButton
+            android:id="@+id/fb_login_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            app:MvxBind="Click LoginCommand, CommandParameter=Facebook"
             app:srcCompat="@drawable/ic_facebook" />
 
         <ImageButton
+            android:id="@+id/gmail_login_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:visibility="gone"
-            app:MvxBind="Click LoginCommand, CommandParameter=Gmail"
             app:srcCompat="@drawable/ic_gmail" />
     </LinearLayout>
 
@@ -196,8 +196,7 @@
         android:gravity="center"
         android:text="@string/LoginView_CreateAccount_Button"
         android:textColor="@color/applicationWhite"
-        android:textSize="16dp"
-        app:MvxBind="Click RegistrationCommand" />
+        android:textSize="16dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/demo_button"
@@ -207,8 +206,7 @@
         android:layout_below="@+id/create_account_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="@string/Login_Without_Registration"
-        app:MvxBind="Click ShowDemoModeCommand" />
+        android:text="@string/Login_Without_Registration" />
 
     <FrameLayout
         android:id="@+id/container_layout"

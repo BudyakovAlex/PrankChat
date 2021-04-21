@@ -32,9 +32,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
             _webView = FindViewById<WebView>(Resource.Id.web_view);
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<CompetitionRulesView, CompetitionRulesViewModel>();
 

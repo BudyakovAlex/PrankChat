@@ -72,7 +72,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         protected override void RefreshData()
         {
             ViewModel?.LoadDataCommand.Execute();
-            MainThread.BeginInvokeOnMainThread(() => TableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true));
+            MainThread.BeginInvokeOnMainThread(() =>
+                ViewModel.SafeExecutionWrapper.Wrap(() =>
+                TableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true)));
         }
 
         private void InitializeNavigationBar()

@@ -17,104 +17,35 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
         protected override void SetupBinding()
         {
-            var set = this.CreateBindingSet<WithdrawalView, WithdrawalViewModel>();
+            using var bindingSet = this.CreateBindingSet<WithdrawalView, WithdrawalViewModel>();
 
-            #region CreditCardView
+            bindingSet.Bind(creditCardView).For(v => v.BindVisible()).To(vm => vm.IsWithdrawalAvailable);
+            bindingSet.Bind(costTextField).To(vm => vm.Cost).WithConversion<PriceConverter>();
+            bindingSet.Bind(cardNumberEditText).To(vm => vm.CardNumber);
+            bindingSet.Bind(cardNumberEditText).For(v => v.Hidden).To(vm => vm.IsPresavedWithdrawalAvailable);
 
-            set.Bind(creditCardView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsWithdrawalAvailable);
+            bindingSet.Bind(savedCardNumberEditText.Tap()).For(v => v.Command).To(vm => vm.OpenCardOptionsCommand);
+            bindingSet.Bind(savedCardNumberEditText).For(v => v.BindVisible()).To(vm => vm.IsPresavedWithdrawalAvailable);
+            bindingSet.Bind(savedCardNumberEditText).To(vm => vm.CurrentCardNumber);
 
-            set.Bind(costTextField)
-                .To(vm => vm.Cost)
-                .WithConversion<PriceConverter>();
+            bindingSet.Bind(firstNameTextField).To(vm => vm.Name);
+            bindingSet.Bind(surnameTextField).To(vm => vm.Surname);
+            bindingSet.Bind(nameContainerStackView).For(v => v.Hidden).To(vm => vm.IsPresavedWithdrawalAvailable);
+            bindingSet.Bind(withdrawButton).To(vm => vm.WithdrawCommand);
+            bindingSet.Bind(availableAmountTitleLabel).To(vm => vm.AvailableForWithdrawal);
 
-            set.Bind(cardNumberEditText)
-                .To(vm => vm.CardNumber);
+            bindingSet.Bind(pendingWithdrawalView).For(v => v.BindVisible()).To(vm => vm.IsWithdrawalPending);
+            bindingSet.Bind(dateValueLabel).To(vm => vm.CreateAtWithdrawal);
+            bindingSet.Bind(costValueLabel).To(vm => vm.AmountValue);
 
-            set.Bind(cardNumberEditText)
-                .For(v => v.Hidden)
-                .To(vm => vm.IsPresavedWithdrawalAvailable);
+            bindingSet.Bind(verifyUserView).For(v => v.BindVisible()).To(vm => vm.IsAttachDocumentAvailable);
+            bindingSet.Bind(attachDocumentButton).To(vm => vm.AttachFileCommand);
+            bindingSet.Bind(pendingVerifyUserView).For(v => v.BindVisible()).To(vm => vm.IsDocumentPending);
+            bindingSet.Bind(cancelWithdrawalButton).To(vm => vm.CancelWithdrawCommand);
 
-            set.Bind(savedCardNumberEditText.Tap())
-                .For(v => v.Command)
-                .To(vm => vm.OpenCardOptionsCommand);
-
-            set.Bind(savedCardNumberEditText)
-                .For(v => v.Hidden)
-                .To(vm => vm.IsPresavedWithdrawalAvailable)
-                .WithConversion<MvxInvertedBooleanConverter>();
-
-            set.Bind(savedCardNumberEditText)
-                .To(vm => vm.CurrentCardNumber);
-
-            set.Bind(firstNameTextField)
-                .To(vm => vm.Name);
-
-            set.Bind(surnameTextField)
-                .To(vm => vm.Surname);
-
-            set.Bind(nameContainerStackView)
-                .For(v => v.Hidden)
-                .To(vm => vm.IsPresavedWithdrawalAvailable);
-
-            set.Bind(withdrawButton)
-                .To(vm => vm.WithdrawCommand);
-
-            set.Bind(availableAmountTitleLabel)
-                .To(vm => vm.AvailableForWithdrawal);
-
-            #endregion
-
-            #region PendingWithdrawalView
-
-            set.Bind(pendingWithdrawalView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsWithdrawalPending);
-
-            set.Bind(dateValueLabel)
-                .To(vm => vm.CreateAtWithdrawal);
-
-            set.Bind(costValueLabel)
-                .To(vm => vm.AmountValue);
-
-            #endregion
-
-            #region VerifyUserView
-
-            set.Bind(verifyUserView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsAttachDocumentAvailable);
-
-            set.Bind(attachDocumentButton)
-                .To(vm => vm.AttachFileCommand);
-
-            #endregion
-
-            #region PendingVerifyUserView
-
-            set.Bind(pendingVerifyUserView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsDocumentPending);
-
-            set.Bind(cancelWithdrawalButton)
-                .To(vm => vm.CancelWithdrawCommand);
-
-            #endregion
-
-            set.Bind(progressBarView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsBusy);
-
-            set.Bind(_refreshControl)
-                .For(v => v.IsRefreshing)
-                .To(vm => vm.IsUpdatingData);
-
-            set.Bind(_refreshControl)
-                .For(v => v.RefreshCommand)
-                .To(vm => vm.UpdateDataCommand);
-
-            set.Apply();
+            bindingSet.Bind(progressBarView).For(v => v.BindVisible()).To(vm => vm.IsBusy);
+            bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsUpdatingData);
+            bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.UpdateDataCommand);
         }
 
         protected override void SetupControls()
@@ -143,8 +74,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
             verifyUserSeparator.BackgroundColor = Theme.Color.Accent;
             pendingVerifyUserSeparator.BackgroundColor = Theme.Color.Accent;
             pendingWithdrawalSeparator.BackgroundColor = Theme.Color.Accent;
-
-            questionImageView.Image = UIImage.FromBundle("ic_question");
 
             statusValueLabel.SetRegularStyle(12, Theme.Color.Black);
             statusValueLabel.Text = Resources.WithdrawalView_Pending;

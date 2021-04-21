@@ -1,6 +1,5 @@
 ﻿using AuthenticationServices;
 using MvvmCross;
-using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
@@ -26,47 +25,22 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 
         protected override void SetupBinding()
         {
-            var set = this.CreateBindingSet<LoginView, LoginViewModel>();
-            set.Bind(loginButton)
-                .To(vm => vm.LoginCommand)
-                .CommandParameter(nameof(LoginType.UsernameAndPassword));
+            using var bindingSet = CreateBindingSet();
 
-            set.Bind(registrationButton)
-                .To(vm => vm.RegistrationCommand);
+            bindingSet.Bind(loginButton).To(vm => vm.LoginCommand)
+                      .CommandParameter(LoginType.UsernameAndPassword);
+            bindingSet.Bind(registrationButton).To(vm => vm.RegistrationCommand);
+            bindingSet.Bind(demoButton).To(vm => vm.ShowDemoModeCommand);
+            bindingSet.Bind(resetPasswordButton).To(vm => vm.ResetPasswordCommand);
+            bindingSet.Bind(emailTextField).To(vm => vm.EmailText);
+            bindingSet.Bind(passwordTextField).To(vm => vm.PasswordText);
+            bindingSet.Bind(progressBar).For(v => v.BindHidden()).To(vm => vm.IsBusy)
+                      .WithConversion<MvxInvertedBooleanConverter>();
 
-            set.Bind(demoButton)
-               .To(vm => vm.ShowDemoModeCommand);
-
-            set.Bind(resetPasswordButton)
-                .To(vm => vm.ResetPasswordCommand);
-
-            set.Bind(emailTextField)
-                .To(vm => vm.EmailText);
-
-            set.Bind(passwordTextField)
-                .To(vm => vm.PasswordText);
-
-            set.Bind(progressBar)
-                .For(v => v.BindHidden())
-                .To(vm => vm.IsBusy)
-                .WithConversion<MvxInvertedBooleanConverter>();
-
-            set.Bind(vkButton)
-                .To(vm => vm.LoginCommand)
-                .CommandParameter(nameof(LoginType.Vk));
-
-            set.Bind(okButton)
-                .To(vm => vm.LoginCommand)
-                .CommandParameter(nameof(LoginType.Ok));
-
-            set.Bind(facebookButton)
-                .To(vm => vm.LoginCommand)
-                .CommandParameter(nameof(LoginType.Facebook));
-
-            set.Bind(gmailButton)
-                .To(vm => vm.LoginCommand)
-                .CommandParameter(nameof(LoginType.Gmail));
-            set.Apply();
+            bindingSet.Bind(vkButton).To(vm => vm.LoginCommand).CommandParameter(LoginType.Vk);
+            bindingSet.Bind(okButton).To(vm => vm.LoginCommand).CommandParameter(LoginType.Ok);
+            bindingSet.Bind(facebookButton).To(vm => vm.LoginCommand).CommandParameter(LoginType.Facebook);
+            bindingSet.Bind(gmailButton).To(vm => vm.LoginCommand).CommandParameter(LoginType.Gmail);
         }
 
         protected override void SetupControls()

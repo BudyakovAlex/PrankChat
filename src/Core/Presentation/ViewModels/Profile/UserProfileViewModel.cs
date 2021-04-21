@@ -133,15 +133,24 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 !CloseCompletionSource.Task.IsCompleted &&
                 !CloseCompletionSource.Task.IsFaulted)
             {
-                CloseCompletionSource?.SetResult(_isReloadNeeded);
+                CloseCompletionSource?.TrySetResult(_isReloadNeeded);
             }
 
             base.ViewDestroy(viewFinishing);
         }
 
-        public override Task InitializeAsync()
+        public override Task InitializeAsync() =>
+            Task.WhenAll(base.InitializeAsync(), RefreshUserDataAsync());
+
+        protected override async Task CloseAsync(bool? isPlatform)
         {
-            return Task.WhenAll(base.InitializeAsync(), RefreshUserDataAsync());
+            var isCloseDeclined = isPlatform == true && !await ConfirmPlatformCloseAsync();
+            if (isCloseDeclined)
+            {
+                return;
+            }
+
+            await NavigationManager.CloseAsync(this, _isReloadNeeded);
         }
 
         protected virtual void Subscribe()

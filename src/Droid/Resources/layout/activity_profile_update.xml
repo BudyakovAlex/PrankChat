@@ -1,244 +1,274 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background">
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical">
+
     <include
         android:id="@+id/action_bar"
         layout="@layout/action_bar_back_and_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <CircleCachedImageView
+                android:id="@+id/profile_image_view"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                app:MvxBind="ImagePath ProfilePhotoUrl; Click ChangeProfilePhotoCommand; PlaceholderText ProfileShortName, Mode = OneTime"/>
+                android:layout_marginTop="10dp"/>
+
             <TextView
                 android:id="@+id/text_view_change_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
                 android:paddingTop="10dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
                 android:text="@string/ProfileUpdateView_PhotoChange_Title"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="5dp"
-                android:layout_gravity="center_horizontal"
-                app:MvxBind="Click ChangeProfilePhotoCommand"/>
+                android:textColor="@android:color/white" />
+
             <FrameLayout
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:boxStrokeWidth="1dp"
-                android:textColorHint="@color/applicationWhite"
-                android:hint="@string/ProfileUpdateView_Email_Placeholder"
-                style="@style/Theme.PrankChat.TextFieldLayout">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/email_edit_text"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:theme="@style/Theme.PrankChat.TextFieldLayout"
+                    app:boxStrokeColor="@color/text_input_box_stroke"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14dp"
-                    android:textColor="@color/applicationWhite"
-                    android:singleLine="true"
-                    app:MvxBind="Text Email" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:hint="@string/ProfileUpdateView_Email_Placeholder"
+                    android:textColorHint="@color/applicationWhite"
+                    app:boxStrokeWidth="1dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/email_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:textColor="@color/applicationWhite"
+                        android:textSize="14dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <ImageView
                     android:id="@+id/update_warning_image"
-                    android:layout_gravity="end|center_vertical"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:scaleType="center"
+                    android:layout_gravity="end|center_vertical"
                     android:layout_marginEnd="3dp"
-                    app:srcCompat="@drawable/ic_warning"
-                    android:src="@drawable/ic_warning"/>
+                    android:scaleType="center"
+                    android:src="@drawable/ic_warning"
+                    app:srcCompat="@drawable/ic_warning" />
             </FrameLayout>
+
             <TextView
                 android:id="@+id/resend_confirmation_text_view"
-                tools:text="Отправить повторно"
-                android:textSize="14dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="end"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="18dp"
+                android:layout_marginBottom="2dp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
                 android:text="@string/Profile_Resend_Confirmation"
                 android:textColor="@color/applicationWhite"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
+                android:textSize="14dp"
+                tools:text="Отправить повторно" />
+
             <com.google.android.material.textfield.TextInputLayout
+                android:theme="@style/Theme.PrankChat.TextFieldLayout"
+                app:boxStrokeColor="@color/text_input_box_stroke"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="13dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                app:boxStrokeWidth="1dp"
-                android:textColorHint="@color/applicationWhite"
                 android:hint="@string/ProfileUpdateView_Login_Placeholder"
-                style="@style/Theme.PrankChat.TextFieldLayout">
+                android:textColorHint="@color/applicationWhite"
+                app:boxStrokeWidth="1dp">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14dp"
-                    android:textColor="@color/applicationWhite"
                     android:singleLine="true"
-                    app:MvxBind="Text Login" />
+                    android:textColor="@color/applicationWhite"
+                    android:textSize="14dp" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
+                android:theme="@style/Theme.PrankChat.TextFieldLayout"
+                app:boxStrokeColor="@color/text_input_box_stroke"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                app:boxStrokeWidth="1dp"
-                android:textColorHint="@color/applicationWhite"
                 android:hint="@string/ProfileUpdateView_Name_Placeholder"
-                style="@style/Theme.PrankChat.TextFieldLayout">
+                android:textColorHint="@color/applicationWhite"
+                app:boxStrokeWidth="1dp">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="14dp"
-                    android:textColor="@color/applicationWhite"
                     android:singleLine="true"
+                    android:textColor="@color/applicationWhite"
+                    android:textSize="14dp"
                     app:MvxBind="Text Name" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
+                android:theme="@style/Theme.PrankChat.TextFieldLayout"
+                app:boxStrokeColor="@color/text_input_box_stroke"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                app:boxStrokeWidth="1dp"
-                android:textColorHint="@color/applicationWhite"
                 android:hint="@string/ProfileUpdateView_Description_Placeholder"
-                style="@style/Theme.PrankChat.TextFieldLayout">
+                android:textColorHint="@color/applicationWhite"
+                app:boxStrokeWidth="1dp">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/description_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="14dp"
                     android:textColor="@color/applicationWhite"
-                    app:MvxBind="Text Description" />
+                    android:textSize="14dp"/>
             </com.google.android.material.textfield.TextInputLayout>
+
             <TextView
+                android:id="@+id/limit_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                tools:text="10/100"
-                android:textSize="12dp"
-                android:textColor="@color/border"
-                android:layout_marginEnd="16dp"
                 android:layout_marginTop="6dp"
+                android:layout_marginEnd="16dp"
                 android:gravity="end"
-                app:MvxBind="Text LimitTextPresentation;"/>
+                android:textColor="@color/border"
+                android:textSize="12dp"
+                tools:text="10/100" />
+
             <RelativeLayout
+                android:id="@+id/birthday_container_view"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:background="@drawable/border_white"
-                app:MvxBind="Click SelectBirthdayCommand">
+                android:background="@drawable/border_white">
+
                 <TextView
+                    android:id="@+id/birthday_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="11dp"
                     android:gravity="center_vertical"
-                    android:textSize="14dp"
-                    android:textColor="@color/applicationWhite"
                     android:text="@string/ProfileUpdateView_Birthday_Placeholder"
-                    app:MvxBind="Text BirthdayText;" />
+                    android:textColor="@color/applicationWhite"
+                    android:textSize="14dp" />
+
                 <ImageView
                     android:layout_width="18dp"
                     android:layout_height="20dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="14dp"
-                    app:srcCompat="@drawable/ic_calendar"
-                    android:src="@drawable/ic_calendar"/>
+                    android:src="@drawable/ic_calendar"
+                    app:srcCompat="@drawable/ic_calendar" />
             </RelativeLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="@string/ProfileUpdateView_GenderSelect_Title"
                 android:textColor="@color/applicationWhite"
-                android:textSize="14dp"
-                android:text="@string/ProfileUpdateView_GenderSelect_Title"/>
+                android:textSize="14dp" />
+
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="8dp">
+                android:orientation="horizontal">
+
                 <RadioButton
-                    android:padding="10dp"
+                    android:id="@+id/male_radio_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="9dp"
-                    android:textColor="@color/applicationWhite"
-                    android:drawableTop="@drawable/radio_button_background"
                     android:button="@null"
-                    android:text="@string/RegistrationView_Male_Button"
-                    app:MvxBind="Click SelectGenderCommand, CommandParameter=Male; Checked IsGenderMale"/>
-                <RadioButton
+                    android:drawableTop="@drawable/radio_button_background"
                     android:padding="10dp"
+                    android:text="@string/RegistrationView_Male_Button"
+                    android:textColor="@color/applicationWhite" />
+
+                <RadioButton
+                    android:id="@+id/female_radio_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="9dp"
-                    android:drawableTop="@drawable/radio_button_background"
                     android:button="@null"
-                    android:textColor="@color/applicationWhite"
+                    android:drawableTop="@drawable/radio_button_background"
+                    android:padding="10dp"
                     android:text="@string/RegistrationView_Female_Button"
-                    app:MvxBind="Click SelectGenderCommand, CommandParameter=Female; Checked IsGenderFemale"/>
+                    android:textColor="@color/applicationWhite" />
             </RadioGroup>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp">
+
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/registration_button"
+                    android:id="@+id/save_button"
+                    style="@style/Theme.PrankChat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="46dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
-                    android:text="@string/ProfileUpdateView_Button_Save"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    style="@style/Theme.PrankChat.Button.Borderless"
-                    app:MvxBind="Click SaveProfileCommand" />
+                    android:text="@string/ProfileUpdateView_Button_Save" />
 
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="@style/Theme.PrankChat.ProgressBar.Accent"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_alignEnd="@+id/registration_button"
-                    android:layout_alignParentBottom="true"
+                    android:layout_alignEnd="@+id/save_button"
                     android:layout_alignParentTop="true"
-                    android:layout_centerInParent="true"
-                    app:MvxBind="Visibility Visibility(IsBusy)" />
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"/>
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/text_view_change_password"
                 android:layout_width="wrap_content"
@@ -247,8 +277,7 @@
                 android:layout_marginTop="15dp"
                 android:padding="5dp"
                 android:text="@string/ProfileUpdateView_ChangePassword"
-                android:textColor="@android:color/white"
-                app:MvxBind="Click ChangePasswordCommand"/>
+                android:textColor="@android:color/white" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -29,7 +29,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             Toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             if (Toolbar == null)
             {
-                DoBind();
+                Bind();
                 return;
             }
 
@@ -52,9 +52,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
 
             var title = FindViewById<TextView>(Resource.Id.toolbar_title);
             if (title != null)
+            {
                 title.Text = TitleActionBar;
+            }
 
-            DoBind();
+            Bind();
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -74,7 +76,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Base
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-        protected virtual void DoBind()
+        protected virtual void Bind()
         {
         }
 

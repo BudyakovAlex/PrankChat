@@ -9,9 +9,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items
 {
@@ -32,14 +30,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items
             CloseCompletionSource = new TaskCompletionSource<object>();
 
             LoadDataCommand = this.CreateCommand(LoadDataAsync);
-            ShowProfileCommand = this.CreateCommand<SubscriptionItemViewModel>(ShowProfileAsync);
         }
 
         public MvxObservableCollection<SubscriptionItemViewModel> Items { get; }
 
         public IMvxAsyncCommand LoadDataCommand { get; }
-
-        public IMvxAsyncCommand<SubscriptionItemViewModel> ShowProfileCommand { get; }
 
         public string Title { get; private set; }
 
@@ -130,38 +125,15 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items
             SubscribersTitle = string.Format(Resources.Subscribers_Title_Template, getSubscribersTask.Result.TotalCount.ToCountString());
             SubscriptionsTitle = string.Format(Resources.Subscription_Title_Template, getSubscriptionsTask.Result.TotalCount.ToCountString());
 
-            switch (SelectedTabType)
+            return SelectedTabType switch
             {
-                case SubscriptionTabType.Subscribers:
-                    return getSubscribersTask.Result;
-
-                case SubscriptionTabType.Subscriptions:
-                    return getSubscriptionsTask.Result;
-            }
-
-            return new Pagination<User>();
+                SubscriptionTabType.Subscribers => getSubscribersTask.Result,
+                SubscriptionTabType.Subscriptions => getSubscriptionsTask.Result,
+                _ => new Pagination<User>(),
+            };
         }
 
-        private async Task ShowProfileAsync(SubscriptionItemViewModel viewModel)
-        {
-            if (!Connectivity.NetworkAccess.HasConnection())
-            {
-                return;
-            }
-
-            var shouldRefresh = await NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(viewModel.Id);
-            if (!shouldRefresh)
-            {
-                return;
-            }
-
-            _isUpdateNeeded = shouldRefresh;
-            await LoadDataCommand.ExecuteAsync();
-        }
-
-        private SubscriptionItemViewModel ProduceSubscriptionItemViewModel(User user)
-        {
-            return new SubscriptionItemViewModel(UserSessionProvider, user);
-        }
+        private SubscriptionItemViewModel ProduceSubscriptionItemViewModel(User user) =>
+            new SubscriptionItemViewModel(UserSessionProvider, user, LoadDataAsync);
     }
 }

@@ -33,13 +33,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 #endif
             LoginWithAppleCommand = this.CreateCommand<AppleAuth>(LoginWithAppleAsync);
             ShowDemoModeCommand = this.CreateCommand(NavigationManager.NavigateAsync<MainViewModel>);
-            LoginCommand = this.CreateCommand<string>(LoginAsync);
+            LoginCommand = this.CreateCommand<LoginType>(LoginAsync);
             ResetPasswordCommand = this.CreateCommand(NavigationManager.NavigateAsync<PasswordRecoveryViewModel>);
             RegistrationCommand = this.CreateCommand(NavigationManager.NavigateAsync<RegistrationViewModel>);
         }
 
         public IMvxAsyncCommand ShowDemoModeCommand { get; }
-        public IMvxAsyncCommand<string> LoginCommand { get; }
+        public IMvxAsyncCommand<LoginType> LoginCommand { get; }
         public ICommand ResetPasswordCommand { get; }
         public IMvxAsyncCommand RegistrationCommand { get; }
         public IMvxAsyncCommand<AppleAuth> LoginWithAppleCommand { get; }
@@ -58,7 +58,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             set => SetProperty(ref _passwordText, value);
         }
 
-        private async Task LoginAsync(string loginType)
+        private async Task LoginAsync(LoginType loginType)
         {
             try
             {
@@ -68,16 +68,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
                     return;
                 }
 
-                if (!Enum.TryParse<LoginType>(loginType, out var socialNetworkType))
-                {
-                    throw new ArgumentException(nameof(loginType));
-                }
-
-                switch (socialNetworkType)
+                switch (loginType)
                 {
                     case LoginType.Vk:
                     case LoginType.Facebook:
-                        var isLoggedIn = await TryLoginWithExternalServicesAsync(socialNetworkType);
+                        var isLoggedIn = await TryLoginWithExternalServicesAsync(loginType);
                         if (!isLoggedIn)
                         {
                             return;

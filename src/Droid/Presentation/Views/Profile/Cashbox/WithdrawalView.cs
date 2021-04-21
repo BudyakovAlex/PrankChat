@@ -5,31 +5,41 @@ using Android.Text;
 using Android.Views;
 using Android.Widget;
 using Google.Android.Material.TextField;
-using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
 {
-    [MvxTabLayoutPresentation(TabLayoutResourceId = Resource.Id.cashbox_tab_layout, ViewPagerResourceId = Resource.Id.cashbox_pager, ActivityHostViewModelType = typeof(CashboxViewModel))]
+    [MvxTabLayoutPresentation(
+        TabLayoutResourceId = Resource.Id.cashbox_tab_layout,
+        ViewPagerResourceId = Resource.Id.cashbox_pager,
+        ActivityHostViewModelType = typeof(CashboxViewModel))]
     [Register(nameof(WithdrawalView))]
     public class WithdrawalView : BaseFragment<WithdrawalViewModel>
     {
         private TextInputEditText _costEditText;
         private TextInputEditText _cardEditText;
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        public WithdrawalView() : base(Resource.Layout.withdrawal_layout)
         {
-            Context.SetTheme(Resource.Style.Theme_PrankChat_Base_Dark);
-            base.OnCreateView(inflater, container, savedInstanceState);
-            var view = this.BindingInflate(Resource.Layout.withdrawal_layout, null);
+        }
+
+        protected override void SetViewProperties(View view)
+        {
+            base.SetViewProperties(view);
+
             var availableAmountTextView = view.FindViewById<TextView>(Resource.Id.withdrawal_available_amount_text);
-            availableAmountTextView.PaintFlags = availableAmountTextView.PaintFlags | PaintFlags.UnderlineText;
+            availableAmountTextView.PaintFlags |= PaintFlags.UnderlineText;
 
             _costEditText = view.FindViewById<TextInputEditText>(Resource.Id.credit_cost_text_input_edit_text);
             _cardEditText = view.FindViewById<TextInputEditText>(Resource.Id.credit_card_text_input_edit_text);
-            return view;
+        }
+
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            Context.SetTheme(Resource.Style.Theme_PrankChat_Base_Dark);
+            return base.OnCreateView(inflater, container, savedInstanceState);
         }
 
         protected override void Subscription()
@@ -57,7 +67,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
         {
             var text = e.Text.ToString();
             if (string.IsNullOrWhiteSpace(text))
+            {
                 return;
+            }
 
             _cardEditText.SetSelection(text.Length);
         }

@@ -21,9 +21,10 @@ using Localization = PrankChat.Mobile.Core.Presentation.Localization.Resources;
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {
     [ClearStackActivityPresentation]
-    [Activity(LaunchMode = LaunchMode.SingleTop,
-              ScreenOrientation = ScreenOrientation.Portrait,
-              ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.KeyboardHidden)]
+    [Activity(
+        LaunchMode = LaunchMode.SingleTop,
+        ScreenOrientation = ScreenOrientation.Portrait,
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.KeyboardHidden)]
     public class MainView : BaseView<MainViewModel>
     {
         private readonly ViewOnTouchListener _tabViewOnTouchListener;
@@ -106,9 +107,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             return base.OnOptionsItemSelected(item);
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<MainView, MainViewModel>();
 
@@ -162,7 +163,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
         private void OnTabLayoutTabSelected(object sender, TabLayout.TabSelectedEventArgs e)
         {
-            if (e.Tab == null)
+            if (e.Tab is null)
             {
                 return;
             }

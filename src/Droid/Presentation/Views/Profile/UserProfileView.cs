@@ -101,9 +101,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         {
         }
 
-        protected override void DoBind()
+        protected override void Bind()
         {
-            base.DoBind();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<UserProfileView, UserProfileViewModel>();
 

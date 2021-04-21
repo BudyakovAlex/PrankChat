@@ -79,7 +79,9 @@
                     app:boxStrokeWidth="1dp"
                     android:textColorHint="@color/dark_placeholder"
                     android:hint="@string/WithdrawalView_Card_Number"
-                    style="@style/Theme.PrankChat.TextFieldLayout.Dark"
+                    android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
+                    app:boxStrokeColor="@color/border"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:MvxBind="Visibility Invisible(IsPresavedWithdrawalAvailable)">
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -103,7 +105,9 @@
                     app:boxStrokeWidth="1dp"
                     android:textColorHint="@color/dark_placeholder"
                     android:hint="@string/WithdrawalView_Card_Number"
-                    style="@style/Theme.PrankChat.TextFieldLayout.Dark"
+                    android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
+                    app:boxStrokeColor="@color/border"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:MvxBind="Visibility InvertedInvisible(IsPresavedWithdrawalAvailable)">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/credit_card_text_input_edit_text"
@@ -127,7 +131,9 @@
                     app:boxStrokeWidth="1dp"
                     android:textColorHint="@color/dark_placeholder"
                     android:hint="@string/WithdrawalView_Name"
-                    style="@style/Theme.PrankChat.TextFieldLayout.Dark"
+                    android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
+                    app:boxStrokeColor="@color/border"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:MvxBind="Visibility InvertedVisibility(IsPresavedWithdrawalAvailable)">
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -148,7 +154,9 @@
                     app:boxStrokeWidth="1dp"
                     android:textColorHint="@color/dark_placeholder"
                     android:hint="@string/WithdrawalView_Surname"
-                    style="@style/Theme.PrankChat.TextFieldLayout.Dark"
+                    android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
+                    app:boxStrokeColor="@color/border"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:MvxBind="Visibility InvertedVisibility(IsPresavedWithdrawalAvailable)">
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -170,7 +178,9 @@
                     android:gravity="right|center_vertical"
                     android:hint="@string/WithdrawalView_Cost"
                     android:textColorHint="@color/dark_placeholder"
-                    style="@style/Theme.PrankChat.TextFieldLayout.Dark">
+                    android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
+                    app:boxStrokeColor="@color/border"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/credit_cost_text_input_edit_text"
                         android:layout_width="match_parent"

@@ -20,13 +20,15 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
         {
             switch (value)
             {
-                case OrderType.MyOrder:
                 case OrderType.NotMyOrder:
                     Target.SetBackgroundResource(Resource.Drawable.button_accent_background);
                     Target.SetTextColor(ContextCompat.GetColorStateList(Target.Context, Resource.Color.applicationWhite));
                     break;
 
+                case OrderType.MyOrder:
                 case OrderType.MyOrderInModeration:
+                case OrderType.MyOrderCompleted:
+                case OrderType.NotMyOrderCompleted:
                     Target.SetBackgroundResource(Resource.Drawable.button_white_secondary_background);
                     Target.SetTextColor(ContextCompat.GetColorStateList(Target.Context, Resource.Color.applicationBlack));
                     break;
