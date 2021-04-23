@@ -16,17 +16,16 @@
         android:hint="@string/CashboxView_Price_Placeholder"
         android:inputType="number"
         android:maxLines="1"
-        app:MvxBind="Text Price(Cost)"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/refill_button"
         style="@style/Theme.PrankChat.Button.Accent"
         app:backgroundTint="@color/accent"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:text="@string/CashboxView_Fillup_Button"
-        app:MvxBind="Click RefillCommand"
         app:layout_constraintLeft_toRightOf="@+id/refill_cost_edit_text"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +58,6 @@
         android:stretchMode="columnWidth"
         android:verticalSpacing="8dp"
         android:visibility="invisible"
-        app:MvxBind="ItemsSource Items; ItemClick SelectionChangedCommand;"
         app:MvxItemTemplate="@layout/cell_payment_method"
         app:layout_constraintHeight_default="spread"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.ApplicationServices.FileSystem;
 using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video;
 using PrankChat.Mobile.Core.ApplicationServices.Permissions;
 using PrankChat.Mobile.Core.Infrastructure;
@@ -21,17 +22,20 @@ namespace PrankChat.Mobile.Core.Managers.Video
         private readonly IPlatformPathsProvider _pathsProvider;
         private readonly IVideoService _videoService;
         private readonly IPermissionService _permissionService;
+        private readonly IFileSystemService _fileSystemService;
         private readonly IMvxMessenger _mvxMessenger;
 
         public VideoManager(
             IPlatformPathsProvider pathsProvider,
             IVideoService videoService,
             IPermissionService permissionService,
+            IFileSystemService fileSystemService,
             IMvxMessenger mvxMessenger)
         {
             _pathsProvider = pathsProvider;
             _videoService = videoService;
             _permissionService = permissionService;
+            _fileSystemService = fileSystemService;
             _mvxMessenger = mvxMessenger;
         }
 
@@ -102,6 +106,7 @@ namespace PrankChat.Mobile.Core.Managers.Video
 
                 using var webClient = new WebClient();
                 await webClient.DownloadFileTaskAsync(videoUrl, localPath);
+                await _fileSystemService.StoreVideoFileToGalleryAsync(localPath);
 
                 return localPath;
             }

@@ -129,12 +129,12 @@
                 app:boxStrokeWidth="1dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:singleLine="true"
                     android:textColor="@color/applicationWhite"
-                    android:textSize="14dp"
-                    app:MvxBind="Text Name" />
+                    android:textSize="14dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

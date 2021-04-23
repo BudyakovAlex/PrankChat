@@ -207,6 +207,7 @@
     <Compile Include="Extensions\MvxFluentBindingExtensions.cs" />
     <Compile Include="Providers\PlatformPathsProvider.cs" />
     <Compile Include="Extensions\BindingExtensions.cs" />
+    <Compile Include="PlatformBusinessServices\FileSystem\FileSystemService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -236,12 +237,6 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\shadow.xml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\search_layout.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -1718,6 +1713,7 @@
     <Folder Include="Presentation\Views\Subscriptions\" />
     <Folder Include="Presentation\Adapters\ViewHolders\Subscriptions\" />
     <Folder Include="Resources\drawable-v24\" />
+    <Folder Include="PlatformBusinessServices\FileSystem\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />

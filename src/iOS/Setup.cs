@@ -8,6 +8,7 @@ using MvvmCross.Platforms.Ios.Core;
 using PrankChat.Mobile.Core;
 using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
 using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
+using PrankChat.Mobile.Core.ApplicationServices.FileSystem;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Ioc;
 using PrankChat.Mobile.Core.Providers.Configuration;
@@ -17,6 +18,7 @@ using PrankChat.Mobile.iOS.ApplicationServices;
 using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth;
 using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn;
 using PrankChat.Mobile.iOS.Controls;
+using PrankChat.Mobile.iOS.PlatformBusinessServices.FileSystem;
 using PrankChat.Mobile.iOS.Plugins.Video;
 using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Providers;
@@ -43,6 +45,7 @@ namespace PrankChat.Mobile.iOS
 
             CompositionRoot.Container.RegisterType<IVideoPlayer, VideoPlayer>();
             CompositionRoot.Container.RegisterSingleton<IDialogService, DialogService>();
+            CompositionRoot.Container.RegisterSingleton<IFileSystemService, FileSystemService>();
             CompositionRoot.Container.RegisterSingleton<IExternalAuthService, ExternalAuthService>();
             CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
             CompositionRoot.Container.RegisterSingleton<IAppleSignInService, AppleSignInService>();
