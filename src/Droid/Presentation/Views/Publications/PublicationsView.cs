@@ -4,6 +4,8 @@ using Android.Views;
 using Android.Widget;
 using AndroidX.RecyclerView.Widget;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.DroidX;
+using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using MvvmCross.ViewModels;
@@ -43,8 +45,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         private VideoRecyclerViewScrollListener _stateScrollListener;
 
         private SafeLinearLayoutManager _layoutManager;
-
+        private MvxSwipeRefreshLayout _swipeRefreshLayout;
+        private TextView _filterTitleTextView;
         private View _filterView;
+        private View _filterContainerView;
         private View _filterDividerView;
 
         private MvxInteraction _itemsChangedInteraction;
@@ -74,7 +78,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
         {
             base.SetViewProperties(view);
 
+            _swipeRefreshLayout = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swipe_refresh);
+            _filterTitleTextView = view.FindViewById<TextView>(Resource.Id.filter_button_title);
             _filterView = view.FindViewById<View>(Resource.Id.filter_view);
+            _filterContainerView = view.FindViewById<View>(Resource.Id.filter_container_view);
             _filterDividerView = view.FindViewById<View>(Resource.Id.filter_view_divider);
             _publicationTypeTabLayout = view.FindViewById<ExtendedTabLayout>(Resource.Id.publication_type_tab_layout);
             _publicationRecyclerView = view.FindViewById<EndlessRecyclerView>(Resource.Id.publication_recycler_view);
@@ -109,6 +116,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Publications
 
             using var bindingSet = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
 
+            bindingSet.Bind(_swipeRefreshLayout).For(v => v.Refreshing).To(vm => vm.IsBusy);
+            bindingSet.Bind(_swipeRefreshLayout).For(v => v.RefreshCommand).To(vm => vm.ReloadItemsCommand);
+
+            bindingSet.Bind(_filterTitleTextView).For(v => v.Text).To(vm => vm.ActiveFilterName);
+            bindingSet.Bind(_filterContainerView).For(v => v.BindClick()).To(vm => vm.OpenFilterCommand);
             bindingSet.Bind(_publicationRecyclerView).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(this).For(v => v.ItemsChangedInteraction).To(vm => vm.ItemsChangedInteraction).OneWay();
             bindingSet.Bind(_publicationRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);

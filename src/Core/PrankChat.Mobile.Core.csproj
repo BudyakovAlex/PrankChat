@@ -103,6 +103,7 @@
     <Folder Include="Presentation\ViewModels\Order\Items\Abstract\" />
     <Folder Include="Infrastructure\Extensions\DateFilter\" />
     <Folder Include="Providers\Platform\" />
+    <Folder Include="ApplicationServices\FileSystem\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="AppConfig.json" />

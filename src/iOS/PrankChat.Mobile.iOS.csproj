@@ -392,6 +392,7 @@
     <Compile Include="Presentation\Views\Base\BaseRefreshableTabbedView.cs" />
     <Compile Include="Plugins\Video\VideoPlayer.cs" />
     <Compile Include="Providers\PlatformPathsProvider.cs" />
+    <Compile Include="PlatformBusinessServices\FileSystem\FileSystemService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -1179,6 +1180,7 @@
     <Folder Include="Plugins\" />
     <Folder Include="Plugins\Video\" />
     <Folder Include="Providers\" />
+    <Folder Include="PlatformBusinessServices\FileSystem\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

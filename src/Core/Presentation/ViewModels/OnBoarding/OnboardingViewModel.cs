@@ -63,6 +63,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
                 }
 
                 await NavigationManager.NavigateAsync<LoginViewModel>();
+                return;
             }
 
             SelectedIndex += 1;
