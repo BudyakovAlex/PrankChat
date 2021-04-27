@@ -369,4 +369,7 @@
     <string name="Competion_Rules_Template">"Чтобы принять участие в конкурсе, Вам необходимо заплатить {0} ₽"</string>
     <string name="Pay">"Оплатить"</string>
     <string name="Error_Something_Went_Wrong_Message">"Упс, что то пошло не так :("</string>
+    <string name="WithdrawalView_MiddleName">"Отчество"</string>
+    <string name="WithdrawalView_Location">"Место жительства"</string>
+    <string name="WithdrawalView_Nationality">"Гражданство"</string>
 </resources>

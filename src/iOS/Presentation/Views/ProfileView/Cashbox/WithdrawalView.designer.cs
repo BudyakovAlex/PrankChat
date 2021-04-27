@@ -49,10 +49,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 		UIKit.UITextField firstNameTextField { get; set; }
 
 		[Outlet]
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField locationTextField { get; set; }
+
+		[Outlet]
 		Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
 
 		[Outlet]
-		UIKit.UIStackView nameContainerStackView { get; set; }
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField middleNameTextField { get; set; }
+
+		[Outlet]
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField nationalityTextField { get; set; }
+
+		[Outlet]
+		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField passportTextField { get; set; }
 
 		[Outlet]
 		UIKit.UILabel pendingVerifyUserLabel { get; set; }
@@ -74,9 +83,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
 		[Outlet]
 		UIKit.UIView progressBarView { get; set; }
-
-		[Outlet]
-		UIKit.UIImageView questionImageView { get; set; }
 
 		[Outlet]
 		UIKit.UITextField savedCardNumberEditText { get; set; }
@@ -130,11 +136,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				cancelWithdrawalButton = null;
 			}
 
-			if (scrollView != null) {
-				scrollView.Dispose ();
-				scrollView = null;
-			}
-
 			if (cardNumberEditText != null) {
 				cardNumberEditText.Dispose ();
 				cardNumberEditText = null;
@@ -175,14 +176,29 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				firstNameTextField = null;
 			}
 
+			if (locationTextField != null) {
+				locationTextField.Dispose ();
+				locationTextField = null;
+			}
+
 			if (lottieAnimationView != null) {
 				lottieAnimationView.Dispose ();
 				lottieAnimationView = null;
 			}
 
-			if (nameContainerStackView != null) {
-				nameContainerStackView.Dispose ();
-				nameContainerStackView = null;
+			if (middleNameTextField != null) {
+				middleNameTextField.Dispose ();
+				middleNameTextField = null;
+			}
+
+			if (nationalityTextField != null) {
+				nationalityTextField.Dispose ();
+				nationalityTextField = null;
+			}
+
+			if (passportTextField != null) {
+				passportTextField.Dispose ();
+				passportTextField = null;
 			}
 
 			if (pendingVerifyUserLabel != null) {
@@ -220,14 +236,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				progressBarView = null;
 			}
 
-			if (questionImageView != null) {
-				questionImageView.Dispose ();
-				questionImageView = null;
-			}
-
 			if (savedCardNumberEditText != null) {
 				savedCardNumberEditText.Dispose ();
 				savedCardNumberEditText = null;
+			}
+
+			if (scrollView != null) {
+				scrollView.Dispose ();
+				scrollView = null;
 			}
 
 			if (statusTitleLabel != null) {

@@ -1918,5 +1918,23 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Error_Something_Went_Wrong_Message", resourceCulture);
             }
         }
+        
+        public static string WithdrawalView_MiddleName {
+            get {
+                return ResourceManager.GetString("WithdrawalView_MiddleName", resourceCulture);
+            }
+        }
+        
+        public static string WithdrawalView_Location {
+            get {
+                return ResourceManager.GetString("WithdrawalView_Location", resourceCulture);
+            }
+        }
+        
+        public static string WithdrawalView_Nationality {
+            get {
+                return ResourceManager.GetString("WithdrawalView_Nationality", resourceCulture);
+            }
+        }
     }
 }
