@@ -142,7 +142,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            await LoadProfileCommand.ExecuteAsync();
+            await LoadProfileAsync();
         }
 
         private async Task ShowSubscriptionsAsync()
@@ -154,7 +154,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            await LoadProfileCommand.ExecuteAsync();
+            await LoadProfileAsync();
         }
 
         private async Task ShowRefillAsync()
@@ -177,7 +177,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            await LoadProfileCommand.ExecuteAsync();
+            await LoadProfileAsync();
         }
 
         private async Task ShowWithdrawalAsync()
@@ -200,7 +200,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            await LoadProfileCommand.ExecuteAsync();
+            await LoadProfileAsync();
         }
 
         private async Task ShowWalkthrouthAsync()
@@ -225,7 +225,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
                 return;
             }
 
-            await LoadProfileCommand.ExecuteAsync();
+            await LoadProfileAsync();
         }
 
         protected override async Task InitializeProfileData()

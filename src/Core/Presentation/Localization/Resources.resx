@@ -1087,4 +1087,13 @@
   <data name="Error_Something_Went_Wrong_Message" xml:space="preserve">
     <value>Упс, что то пошло не так :(</value>
   </data>
+  <data name="WithdrawalView_MiddleName" xml:space="preserve">
+    <value>Отчество</value>
+  </data>
+  <data name="WithdrawalView_Location" xml:space="preserve">
+    <value>Место жительства</value>
+  </data>
+  <data name="WithdrawalView_Nationality" xml:space="preserve">
+    <value>Гражданство</value>
+  </data>
 </root>

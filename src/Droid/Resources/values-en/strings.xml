@@ -137,10 +137,9 @@
     <string name="Ok">"OK"</string>
     <string name="Attention">"Attention!"</string>
     <string name="OrderDetailsView_TakeOrderTitle">"Take an order"</string>
-    <string name="OrderDetailsView_TakeOrderQuestion">
-      "To accept the order, you must pay a Deposit as a guarantee of its implementation
-      20\%% of the cost for simple orders
-      40\%% for secret orders"</string>
+    <string name="OrderDetailsView_TakeOrderQuestion">"To accept the order, you must pay a Deposit as a guarantee of its implementation 
+20% of the cost for simple orders
+40% for secret orders"</string>
 
     <!-- Fuzzy -->
     <string name="Seconds_Short">"s."</string>
@@ -354,4 +353,7 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <string name="Competion_Rules_Template">"To take part in the competition, you need to pay {0} ₽"</string>
     <string name="Pay">"Pay"</string>
     <string name="Error_Something_Went_Wrong_Message">"Oops, something went wrong :("</string>
+    <string name="WithdrawalView_MiddleName">"Middle name"</string>
+    <string name="WithdrawalView_Location">"Location"</string>
+    <string name="WithdrawalView_Nationality">"Nationality"</string>
 </resources>

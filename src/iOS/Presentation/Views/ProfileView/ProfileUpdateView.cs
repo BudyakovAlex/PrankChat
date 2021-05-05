@@ -235,6 +235,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             descriptionTextView.SetTitleStyle(size: 14);
             descriptionTextView.TextColor = Theme.Color.White;
+            descriptionTextView.TintColor = Theme.Color.White;
             descriptionTextView.ContentInset = UIEdgeInsets.Zero;
             descriptionTextView.ShouldChangeText = (textField, range, replacementString) =>
             {

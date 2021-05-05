@@ -1080,4 +1080,13 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   <data name="Error_Something_Went_Wrong_Message" xml:space="preserve">
     <value>Oops, something went wrong :(</value>
   </data>
+  <data name="WithdrawalView_MiddleName" xml:space="preserve">
+    <value>Middle name</value>
+  </data>
+  <data name="WithdrawalView_Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="WithdrawalView_Nationality" xml:space="preserve">
+    <value>Nationality</value>
+  </data>
 </root>
