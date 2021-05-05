@@ -138,8 +138,8 @@
     <string name="Attention">"Attention!"</string>
     <string name="OrderDetailsView_TakeOrderTitle">"Take an order"</string>
     <string name="OrderDetailsView_TakeOrderQuestion">"To accept the order, you must pay a Deposit as a guarantee of its implementation 
-20% of the cost for simple orders
-40% for secret orders"</string>
+20\%% of the cost for simple orders
+40\%% for secret orders"</string>
 
     <!-- Fuzzy -->
     <string name="Seconds_Short">"s."</string>

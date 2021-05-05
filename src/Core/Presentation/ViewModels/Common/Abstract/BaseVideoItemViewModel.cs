@@ -70,12 +70,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             LikeCommand = this.CreateRestrictedCommand(
                 Like,
                 restrictedCanExecute: () => IsUserSessionInitialized,
-                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>,
+                useIsBusyWrapper: false);
 
             DislikeCommand = this.CreateRestrictedCommand(
                 Dislike,
                 restrictedCanExecute: () => IsUserSessionInitialized,
-                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
+                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>,
+                useIsBusyWrapper: false);
 
             OpenUserProfileCommand = this.CreateRestrictedCommand(
                 OpenUserProfileAsync,
@@ -86,6 +88,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
         }
 
         public event EventHandler ViewsCountChanged;
+
+        public event EventHandler LikesChanged;
 
         public abstract bool CanPlayVideo { get; }
 
@@ -198,6 +202,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             NumberOfDislikes = totalDislikes > 0 ? totalDislikes : 0;
 
             OnDislikeChanged();
+            LikesChanged?.Invoke(this, EventArgs.Empty);
 
             _ = SafeExecutionWrapper.WrapAsync(SendDislikeAsync);
 
@@ -208,6 +213,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
                 NumberOfLikes = totalLikes > 0 ? totalLikes : 0;
 
                 OnLikeChanged();
+                LikesChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -224,6 +230,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             NumberOfLikes = totalLikes > 0 ? totalLikes : 0;
 
             OnLikeChanged();
+            LikesChanged?.Invoke(this, EventArgs.Empty);
 
             _ = SafeExecutionWrapper.WrapAsync(SendLikeAsync);
 
@@ -234,6 +241,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
                 NumberOfDislikes = totalDislikes > 0 ? totalDislikes : 0;
 
                 OnDislikeChanged();
+                LikesChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 

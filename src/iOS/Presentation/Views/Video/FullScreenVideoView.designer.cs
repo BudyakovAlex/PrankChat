@@ -34,7 +34,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 		UIKit.UILabel dislikeLabel { get; set; }
 
 		[Outlet]
-		UIKit.UIStackView dislikeView { get; set; }
+		UIKit.UIView dislikeView { get; set; }
 
 		[Outlet]
 		UIKit.UIImageView likeImageView { get; set; }
@@ -130,11 +130,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 				dislikeLabel = null;
 			}
 
-			if (dislikeView != null) {
-				dislikeView.Dispose ();
-				dislikeView = null;
-			}
-
 			if (likeImageView != null) {
 				likeImageView.Dispose ();
 				likeImageView = null;
@@ -228,6 +223,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 			if (watchProgressViewWidthConstraint != null) {
 				watchProgressViewWidthConstraint.Dispose ();
 				watchProgressViewWidthConstraint = null;
+			}
+
+			if (dislikeView != null) {
+				dislikeView.Dispose ();
+				dislikeView = null;
 			}
 		}
 	}
