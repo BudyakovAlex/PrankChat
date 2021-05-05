@@ -256,13 +256,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         {
             if (_player != null)
             {
-                _player.RemoveTimeObserver(_playerPerdiodicTimeObserver);
-                _player.RemoveObserver(this, PlayerTimeControlStatusKey, IntPtr.Zero);
-                _player.RemoveObserver(this, PlayerMutedKey, IntPtr.Zero);
-                _player.CurrentItem.RemoveObserver(this, PlayerItemLoadedTimeRangesKey, IntPtr.Zero);
+                try
+                {
+                    _player.RemoveTimeObserver(_playerPerdiodicTimeObserver);
+                    _player.RemoveObserver(this, PlayerTimeControlStatusKey, IntPtr.Zero);
+                    _player.RemoveObserver(this, PlayerMutedKey, IntPtr.Zero);
+                    _player.CurrentItem.RemoveObserver(this, PlayerItemLoadedTimeRangesKey, IntPtr.Zero);
 
-                _player.Seek(CMTime.Zero);
-                _player.Pause();
+                }
+                finally
+                {
+                    _player.Seek(CMTime.Zero);
+                    _player.Pause();
+                }
             }
 
             _player = VideoPlayer.GetNativePlayer() as AVPlayer;

@@ -27,7 +27,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         private BaseVideoItemViewModel[] _videos;
         private IDisposable _likeChangedSubscription;
-        private IDisposable _dislikeChangedSubscription;
 
         public FullScreenVideoViewModel(IUsersManager usersManager)
         {
@@ -78,7 +77,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         public string NumberOfLikesPresentation => CurrentVideo.NumberOfLikes.ToCountString();
 
-        public string NumberOfDislikesPresentation => CurrentVideo.NumberOfLikes.ToCountString();
+        public string NumberOfDislikesPresentation => CurrentVideo.NumberOfDislikes.ToCountString();
 
         public string NumberOfCommentsPresentation => CurrentVideo.NumberOfComments.ToCountString();
 
@@ -92,14 +91,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             RefreshCurrentVideoState();
         }
 
-        private void OnLikeChanged()
+        private void OnLikesChanged()
         {
             RaisePropertyChanged(nameof(NumberOfLikesPresentation));
-            _isReloadNeeded = true;
-        }
-
-        private void OnDislikeChanged()
-        {
             RaisePropertyChanged(nameof(NumberOfDislikesPresentation));
             _isReloadNeeded = true;
         }
@@ -174,9 +168,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
                 CurrentVideo.FullVideoPlayer.Stop();
                 _likeChangedSubscription?.Dispose();
                 _likeChangedSubscription = null;
-
-                _dislikeChangedSubscription?.Dispose();
-                _dislikeChangedSubscription = null;
             }
 
             CurrentVideo = _videos.ElementAtOrDefault(_index);
@@ -185,8 +176,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
                 throw new ArgumentOutOfRangeException($"Failed to load video on index {_index}");
             }
 
-            _likeChangedSubscription = CurrentVideo.SubscribeToPropertyChanged(nameof(BaseVideoItemViewModel.IsLiked), OnLikeChanged);
-            _dislikeChangedSubscription = CurrentVideo.SubscribeToPropertyChanged(nameof(BaseVideoItemViewModel.IsDisliked), OnDislikeChanged);
+            _likeChangedSubscription = CurrentVideo.SubscribeToEvent(
+                (_, __) => OnLikesChanged(),
+                (wrapper, handler) => wrapper.LikesChanged += handler,
+                (wrapper, handler) => wrapper.LikesChanged -= handler);
 
             CurrentVideo.RaiseAllPropertiesChanged();
             RaiseAllPropertiesChanged();
