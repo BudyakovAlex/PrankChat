@@ -26,6 +26,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
     {
         private CircleCachedImageView _profileImageView;
         private EditText _emailEditText;
+        private EditText _nameEditText;
         private EditText _loginEditText;
         private EditText _descriptionEditText;
         private ImageView _updateWarningImage;
@@ -73,6 +74,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 
             _profileImageView = FindViewById<CircleCachedImageView>(Resource.Id.profile_image_view);
             _emailEditText = FindViewById<EditText>(Resource.Id.email_edit_text);
+            _nameEditText = FindViewById<EditText>(Resource.Id.name_edit_text);
             _loginEditText = FindViewById<EditText>(Resource.Id.login_edit_text);
             _descriptionEditText = FindViewById<EditText>(Resource.Id.description_edit_text);
             _updateWarningImage = FindViewById<ImageView>(Resource.Id.update_warning_image);
@@ -110,6 +112,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             bindingSet.Bind(_limitTextView).For(v => v.Text).To(vm => vm.LimitTextPresentation);
             bindingSet.Bind(_descriptionEditText).For(v => v.Text).To(vm => vm.Description);
             bindingSet.Bind(_loginEditText).For(v => v.Text).To(vm => vm.Login);
+            bindingSet.Bind(_nameEditText).For(v => v.Text).To(vm => vm.Name);
             bindingSet.Bind(_emailEditText).For(v => v.Text).To(vm => vm.Email);
             bindingSet.Bind(_emailEditText).For(PaddingTargetBinding.EndPadding).To(vm => vm.IsEmailVerified)
                       .WithConversion((bool value) => value ? 0 : DisplayUtils.DpToPx(45));

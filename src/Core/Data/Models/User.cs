@@ -16,6 +16,7 @@ namespace PrankChat.Mobile.Core.Models.Data
             DateTime? emailVerifiedAt,
             Document document,
             bool isSubscribed,
+            bool isPassportSaved,
             string login,
             string email,
             double? balance,
@@ -35,6 +36,7 @@ namespace PrankChat.Mobile.Core.Models.Data
             EmailVerifiedAt = emailVerifiedAt;
             Document = document;
             IsSubscribed = isSubscribed;
+            IsPassportSaved = isPassportSaved;
             Login = login;
             Email = email;
             Balance = balance;
@@ -64,6 +66,8 @@ namespace PrankChat.Mobile.Core.Models.Data
         public Document Document { get; set; }
 
         public bool IsSubscribed { get; set; }
+
+        public bool IsPassportSaved { get; set; }
 
         public string Login { get; set; }
 

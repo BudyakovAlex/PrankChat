@@ -342,3 +342,6 @@
 "Competion_Rules_Template" = "To take part in the competition, you need to pay {0} ₽";
 "Pay" = "Pay";
 "Error_Something_Went_Wrong_Message" = "Oops, something went wrong :(";
+"WithdrawalView_MiddleName" = "Middle name";
+"WithdrawalView_Location" = "Location";
+"WithdrawalView_Nationality" = "Nationality";

@@ -100,6 +100,34 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             set => SetProperty(ref _isUpdatingData, value);
         }
 
+        private string _passport;
+        public string Passport
+        {
+            get => _passport;
+            set => SetProperty(ref _passport, value);
+        }
+
+        private string _nationality;
+        public string Nationality
+        {
+            get => _nationality;
+            set => SetProperty(ref _nationality, value);
+        }
+
+        private string _location;
+        public string Location
+        {
+            get => _location;
+            set => SetProperty(ref _location, value);
+        }
+
+        private string _middleName;
+        public string MiddleName
+        {
+            get => _middleName;
+            set => SetProperty(ref _middleName, value);
+        }
+
         public DateTime? CreateAtWithdrawal => _lastWithdrawal?.CreatedAt;
 
         public string AmountValue => _lastWithdrawal?.Amount.ToPriceString();
@@ -113,6 +141,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         public bool IsWithdrawalPending => !IsAttachDocumentAvailable && !IsDocumentPending && _lastWithdrawal != null;
 
         public bool IsPresavedWithdrawalAvailable => _currentCard != null && IsWithdrawalAvailable;
+
+        public bool IsUserDataSaved => !UserSessionProvider.User?.IsPassportSaved ?? true;
 
         public ICommand WithdrawCommand { get; }
 
@@ -128,7 +158,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         {
             await base.InitializeAsync();
             await GetUserCardAsync();
+
+            await _usersManager.GetAndRefreshUserInSessionAsync();
             await GetWithdrawalsAsync();
+
+            _ = RaisePropertyChanged(nameof(IsUserDataSaved));
         }
 
         private async Task UpdateDataAsync()
@@ -168,6 +202,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                     }
                     _currentCard = card;
                     await RaiseAllPropertiesChanged();
+                }
+
+                if (!IsUserDataSaved)
+                {
+                    await SendUserDataAsync();
                 }
 
                 var result = await _paymentManager.WithdrawalAsync(Cost.Value, _currentCard.Id);
@@ -301,6 +340,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             }
 
             return true;
+        }
+
+        //TODO: implement logic
+        private Task SendUserDataAsync()
+        {
+            return Task.CompletedTask;
         }
     }
 }
