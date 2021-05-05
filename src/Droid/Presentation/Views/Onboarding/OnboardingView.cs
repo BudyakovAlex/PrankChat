@@ -105,16 +105,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Onboarding
 
         private void OnScrollChanged(RecyclerView recyclerView, int dx, int dy)
         {
-            if (ViewModel != null)
+            if (ViewModel is null)
             {
-                if (dx < 0)
-                {
-                    ViewModel.SelectedIndex = _layoutManager.FindFirstVisibleItemPosition();
-                    return;
-                }
-
-                ViewModel.SelectedIndex = _layoutManager.FindLastVisibleItemPosition();
+                return;
             }
+
+            ViewModel.SelectedIndex = dx < 0
+                ? _layoutManager.FindFirstVisibleItemPosition()
+                : _layoutManager.FindLastVisibleItemPosition();
         }
 
         protected override void Bind()

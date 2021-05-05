@@ -123,7 +123,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                     return;
                 }
 
-                await ExecutionStateWrapper.WrapAsync(SaveOrderAsync);
+                await SaveOrderAsync();
             }
             catch (NetworkException ex) when (ex.InnerException is ProblemDetailsException problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
             {
@@ -148,11 +148,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private async Task SaveOrderAsync()
         {
             var createOrderModel = new CreateOrder(Title,
-                                                            Description,
-                                                            Price.Value,
-                                                            ActiveFor?.Hours ?? 0,
-                                                            false,
-                                                            IsExecutorHidden);
+                                                   Description,
+                                                   Price.Value,
+                                                   ActiveFor?.Hours ?? 0,
+                                                   false,
+                                                   IsExecutorHidden);
 
             ErrorHandleService.SuspendServerErrorsHandling();
             var newOrder = await _ordersManager.CreateOrderAsync(createOrderModel);
