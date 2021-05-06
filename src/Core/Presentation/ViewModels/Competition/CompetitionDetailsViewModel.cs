@@ -265,58 +265,55 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
                 GetFullScreenVideos);
         }
 
-        private Task LoadVideoAsync()
+        private async Task LoadVideoAsync()
         {
             try
             {
-                return ExecutionStateWrapper.WrapAsync(async () =>
+                var file = await _mediaService.PickVideoAsync();
+                if (file == null)
                 {
-                    var file = await _mediaService.PickVideoAsync();
-                    if (file == null)
-                    {
-                        return;
-                    }
+                    return;
+                }
 
-                    UploadingProgress = 0;
-                    UploadingProgressStringPresentation = "- / -";
-                    IsUploading = true;
+                UploadingProgress = 0;
+                UploadingProgressStringPresentation = "- / -";
+                IsUploading = true;
 
-                    _cancellationTokenSource = new CancellationTokenSource();
+                _cancellationTokenSource = new CancellationTokenSource();
 
-                    var video = await _videoManager.SendVideoAsync(
-                        _competition.Id,
-                        file.Path,
-                        _competition.Title,
-                        _competition.Description,
-                        OnUploadingProgressChanged,
-                        _cancellationTokenSource.Token);
+                var video = await _videoManager.SendVideoAsync(
+                    _competition.Id,
+                    file.Path,
+                    _competition.Title,
+                    _competition.Description,
+                    OnUploadingProgressChanged,
+                    _cancellationTokenSource.Token);
 
-                    if (video == null && (!_cancellationTokenSource?.IsCancellationRequested ?? true))
-                    {
-                        DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
-                        _cancellationTokenSource = null;
-                        IsUploading = false;
-                        return;
-                    }
-
+                if (video == null && (!_cancellationTokenSource?.IsCancellationRequested ?? true))
+                {
+                    DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
                     _cancellationTokenSource = null;
                     IsUploading = false;
+                    return;
+                }
 
-                    _header.Competition.CanUploadVideo = false;
-                    Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
-                    {
-                        video.User = UserSessionProvider.User;
-                        Items.Insert(1, new CompetitionVideoViewModel(
-                            _videoManager,
-                            UserSessionProvider,
-                            video,
-                            true,
-                            false,
-                            GetFullScreenVideos));
-                    });
+                _cancellationTokenSource = null;
+                IsUploading = false;
 
-                    await _header.RaisePropertyChanged(nameof(_header.CanExecuteActionVideo));
+                _header.Competition.CanUploadVideo = false;
+                Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    video.User = UserSessionProvider.User;
+                    Items.Insert(1, new CompetitionVideoViewModel(
+                        _videoManager,
+                        UserSessionProvider,
+                        video,
+                        true,
+                        false,
+                        GetFullScreenVideos));
                 });
+
+                await _header.RaisePropertyChanged(nameof(_header.CanExecuteActionVideo));
             }
             finally
             {
