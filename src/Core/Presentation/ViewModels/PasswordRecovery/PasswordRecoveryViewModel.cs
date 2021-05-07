@@ -27,24 +27,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
         }
 
         public MvxAsyncCommand RecoverPasswordCommand { get; }
-        
-        private Task RecoverPasswordAsync()
+
+        private async Task RecoverPasswordAsync()
         {
             if (!CheckValidation())
             {
-                return Task.CompletedTask;
+                return;
             }
 
-            return ExecutionStateWrapper.WrapAsync(async () =>
+            var result = await _authorizationManager.RecoverPasswordAsync(Email);
+            if (string.IsNullOrWhiteSpace(result?.Result))
             {
-                var result = await _authorizationManager.RecoverPasswordAsync(Email);
-                if (string.IsNullOrWhiteSpace(result?.Result))
-                {
-                    return;
-                }
+                return;
+            }
 
-                await NavigationManager.NavigateAsync<FinishPasswordRecoveryViewModel>();
-            });
+            await NavigationManager.NavigateAsync<FinishPasswordRecoveryViewModel>();
         }
 
         private bool CheckValidation()

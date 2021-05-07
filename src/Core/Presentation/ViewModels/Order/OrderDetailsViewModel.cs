@@ -41,8 +41,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             _ordersManager = ordersManager;
 
             TakeOrderCommand = this.CreateCommand(TakeOrderAsync);
-            SubscribeOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(SubscribeOrderAsync));
-            UnsubscribeOrderCommand = this.CreateCommand(() => ExecutionStateWrapper.WrapAsync(UnsubscribeOrderAsync));
+            SubscribeOrderCommand = this.CreateCommand(SubscribeOrderAsync);
+            UnsubscribeOrderCommand = this.CreateCommand(UnsubscribeOrderAsync);
             YesCommand = this.CreateCommand(YesAsync);
             NoCommand = this.CreateCommand(NoAsync);
             ExecuteOrderCommand = this.CreateCommand(ExecuteOrderAsync);
