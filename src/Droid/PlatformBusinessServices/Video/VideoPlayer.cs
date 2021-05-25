@@ -93,7 +93,12 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 
         public void Play()
         {
-            _registrationCancellationTokenSource?.Cancel();
+            if (_registrationCancellationTokenSource != null &&
+                !_registrationCancellationTokenSource.IsCancellationRequested)
+            {
+                _registrationCancellationTokenSource?.Cancel();
+            }
+
             _registrationCancellationTokenSource = null;
 
             if (_isPrepared && !IsPlaying)

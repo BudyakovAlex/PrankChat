@@ -20,7 +20,7 @@ namespace PrankChat.Mobile.Core.Managers.Orders
 
         public async Task<Order> CreateOrderAsync(CreateOrder createOrder)
         {
-            var apiModel = new CreateOrderDto()
+            var dto = new CreateOrderDto()
             {
                 Title = createOrder.Title,
                 ActiveFor = createOrder.ActiveFor,
@@ -30,7 +30,7 @@ namespace PrankChat.Mobile.Core.Managers.Orders
                 Price = createOrder.Price
             };
 
-            var response = await _ordersService.CreateOrderAsync(apiModel);
+            var response = await _ordersService.CreateOrderAsync(dto);
             return response.Map();
         }
 
