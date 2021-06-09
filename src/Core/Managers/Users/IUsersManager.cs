@@ -1,4 +1,6 @@
-﻿using PrankChat.Mobile.Core.Models.Data;
+﻿using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Data.Models.User;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,6 +34,8 @@ namespace PrankChat.Mobile.Core.Managers.Users
         Task<Card> SaveCardAsync(string number, string userName);
 
         Task<Card> GetCardsAsync();
+
+        Task<bool> SavePasportDataAsync(UserPasportData userPasportData);
 
         Task DeleteCardAsync(int id);
     }

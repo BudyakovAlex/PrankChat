@@ -43,18 +43,6 @@ namespace PrankChat.Mobile.Core.Infrastructure
             public const string DownloadVideoFormat = ".mp4";
         }
 
-        public static class Rest
-        {
-            public const string AllOrders = "newsline/orders/all";
-            public const string NewOrders = "newsline/orders/new";
-            public const string InWork = "newsline/orders/in_work";
-            public const string InWaiting = "newsline/orders/in_waiting";
-            public const string NewVideos = "newsline/videos/new";
-            public const string ProfileOwnOrders = "profile/orders/own";
-            public const string ProfileOwnOrdersInExecute = "profile/orders/execute";
-            public const string PolicyEndpoint = "https://prankchat.store/policy";
-        }
-
         public static class Delays
         {
             public const int VideoPartiallyPlayedDelay = 3;

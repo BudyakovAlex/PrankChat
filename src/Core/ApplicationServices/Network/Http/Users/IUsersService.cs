@@ -1,5 +1,6 @@
 ﻿using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
+using PrankChat.Mobile.Core.Data.Dtos.Users;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -30,6 +31,8 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
         Task<DocumentDto> SendVerifyDocumentAsync(string path);
 
         Task<CardDto> SaveCardAsync(string number, string userName);
+
+        Task<bool> SavePasportDataAsync(UserPasportDataDto userPasportDataDto);
 
         Task<CardDto> GetCardsAsync();
 
