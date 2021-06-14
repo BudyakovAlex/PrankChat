@@ -2,7 +2,9 @@
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
+using PrankChat.Mobile.Core.Data.Dtos.Users;
 using PrankChat.Mobile.Core.Data.Enums;
+using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Providers.Configuration;
@@ -147,6 +149,16 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users
         public Task DeleteCardAsync(int id)
         {
             return _client.DeleteAsync($"me/cards/{id}", true);
+        }
+
+        public async Task<bool> SavePasportDataAsync(UserPasportDataDto userPasportDataDto)
+        {
+            var dataApiModel = await _client.PostAsync<UserPasportDataDto, ResponseDto<StoredPassportDataDto>>(
+                RestConstants.StorePassportDataResource,
+                userPasportDataDto,
+                true);
+
+            return dataApiModel?.Data != null;
         }
     }
 }

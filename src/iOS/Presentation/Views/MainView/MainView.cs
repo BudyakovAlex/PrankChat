@@ -42,6 +42,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
             {
                 ItemReselected(tabPosition);
             }
+            else
+            {
+                if (tabPosition != 0 && tabPosition != 3)
+                {
+                    RefreshTabData(tabPosition);
+                }
+            }
 
             _lastTabPosition = tabPosition;
             ViewModel?.CheckDemoCommand.Execute(tabPosition);
@@ -52,7 +59,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
             }
         }
 
-        private void ItemReselected(int position)
+        private void ItemReselected(int position) =>
+            RefreshTabData(position);
+
+        private void RefreshTabData(int position)
         {
             var viewController = ViewControllers.ElementAtOrDefault(position);
             switch (viewController)
@@ -74,9 +84,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
 
         private void ScrollContentToTop(UIViewController viewController)
         {
-            if (viewController is IScrollableView scrollableView && scrollableView.TableView != null)
+            if (viewController is IScrollableView scrollableView && scrollableView.ScrollView != null)
             {
-                scrollableView.TableView.SetContentOffset(new CoreGraphics.CGPoint(0, 0), false);
+                scrollableView.ScrollView.SetContentOffset(new CoreGraphics.CGPoint(0, 0), false);
             }
         }
 

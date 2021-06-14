@@ -51,12 +51,12 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
         {
             return filterType switch
             {
-                OrderFilterType.All => Constants.Rest.AllOrders,
-                OrderFilterType.MyOwn => Constants.Rest.AllOrders,
-                OrderFilterType.InProgress => Constants.Rest.InWork,
-                OrderFilterType.New => Constants.Rest.NewOrders,
-                OrderFilterType.MyOrdered => Constants.Rest.ProfileOwnOrders,
-                OrderFilterType.MyCompletion => Constants.Rest.ProfileOwnOrdersInExecute,
+                OrderFilterType.All => RestConstants.AllOrders,
+                OrderFilterType.MyOwn => RestConstants.AllOrders,
+                OrderFilterType.InProgress => RestConstants.InWork,
+                OrderFilterType.New => RestConstants.NewOrders,
+                OrderFilterType.MyOrdered => RestConstants.ProfileOwnOrders,
+                OrderFilterType.MyCompletion => RestConstants.ProfileOwnOrdersInExecute,
                 _ => throw new ArgumentException($"Uri path for {filterType} not found"),
             };
         }

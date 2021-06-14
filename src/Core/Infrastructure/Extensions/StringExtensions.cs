@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 {
@@ -83,6 +84,12 @@ namespace PrankChat.Mobile.Core.Infrastructure.Extensions
 
             var newString = target.Replace(' ', '_');
             return newString;
+        }
+
+        public static string ToUnicode(this string source)
+        {
+            var stringBytes = Encoding.UTF8.GetBytes(source);
+            return Encoding.Unicode.GetString(stringBytes);
         }
     }
 }

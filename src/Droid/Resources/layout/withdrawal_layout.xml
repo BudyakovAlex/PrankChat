@@ -6,7 +6,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/applicationWhite"
     android:id="@+id/swipe_refresh">
-    <FrameLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -485,4 +488,5 @@
 			    app:lottie_autoPlay="true" />
 	    </FrameLayout>
     </FrameLayout>
+    </ScrollView>
 </mvvmcross.droidx.MvxSwipeRefreshLayout>

@@ -75,7 +75,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
         private void ShowTermsAndRules()
         {
-            _mvxWebBrowserTask.ShowWebPage(Constants.Rest.PolicyEndpoint);
+            _mvxWebBrowserTask.ShowWebPage(RestConstants.PolicyEndpoint);
         }
 
         private async Task UserRegistrationAsync()

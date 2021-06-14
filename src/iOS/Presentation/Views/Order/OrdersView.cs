@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         public OrdersTableSource OrdersTableSource { get; private set; }
 
-        public UITableView TableView => tableView;
+        public UIScrollView ScrollView => tableView;
 
         protected override void SetupBinding()
 		{
@@ -69,7 +69,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             ViewModel?.ReloadItemsCommand.Execute();
             MainThread.BeginInvokeOnMainThread(() =>
                 ViewModel.SafeExecutionWrapper.Wrap(() =>
-                TableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true)));
+                tableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true)));
         }
 
         private void InitializeTableView()

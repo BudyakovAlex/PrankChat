@@ -111,13 +111,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         {
             base.Bind();
 
-            var bindingSet = this.CreateBindingSet<MainView, MainViewModel>();
+            using var bindingSet = this.CreateBindingSet<MainView, MainViewModel>();
 
-            bindingSet.Bind(this)
-                      .For(v => v.HasUnreadNotifications)
-                      .To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications);
-
-            bindingSet.Apply();
+            bindingSet.Bind(this).For(v => v.HasUnreadNotifications).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications);
         }
 
         protected override void Subscription()
@@ -125,20 +121,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             _tabLayout.TabSelected += OnTabLayoutTabSelected;
             _tabLayout.TabUnselected += OnTabLayoutTabUnselected;
             _tabLayout.TabReselected += OnTabLayoutTabReselected;
-        }
-
-        private void OnTabLayoutTabReselected(object sender, TabLayout.TabReselectedEventArgs e)
-        {
-            var currentFragment = SupportFragmentManager.Fragments.ElementAtOrDefault(e.Tab.Position);
-            if (currentFragment is IScrollableView scrollableView && scrollableView.RecyclerView != null)
-            {
-                scrollableView.RecyclerView.Post(() => scrollableView.RecyclerView.ScrollToPosition(0));
-            }
-
-            if (currentFragment is IRefreshableView refreshableView)
-            {
-                refreshableView.RefreshData();
-            }
         }
 
         protected override void Unsubscription()
@@ -161,6 +143,23 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             OnTabLayoutTabSelected(this, new TabLayout.TabSelectedEventArgs(_tabLayout.GetTabAt(0)));
         }
 
+        private void RefreshTabData(int position)
+        {
+            var currentFragment = SupportFragmentManager.Fragments.ElementAtOrDefault(position);
+            if (currentFragment is IScrollableView scrollableView && scrollableView.RecyclerView != null)
+            {
+                scrollableView.RecyclerView.Post(() => scrollableView.RecyclerView.ScrollToPosition(0));
+            }
+
+            if (currentFragment is IRefreshableView refreshableView)
+            {
+                refreshableView.RefreshData();
+            }
+        }
+
+        private void OnTabLayoutTabReselected(object sender, TabLayout.TabReselectedEventArgs e) =>
+            RefreshTabData(e.Tab.Position);
+
         private void OnTabLayoutTabSelected(object sender, TabLayout.TabSelectedEventArgs e)
         {
             if (e.Tab is null)
@@ -179,6 +178,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
             var textView = e.Tab.View.FindViewById<TextView>(Resource.Id.tab_title);
 
             textView?.SetTextColor(ContextCompat.GetColorStateList(ApplicationContext, Resource.Color.applicationBlack));
+
+            if (e.Tab.Position != 0 && e.Tab.Position != 3)
+            {
+                RefreshTabData(e.Tab.Position);
+            }
 
             if (e.Tab.Position == 2)
             {
