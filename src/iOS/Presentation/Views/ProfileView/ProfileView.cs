@@ -14,7 +14,6 @@ using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
 using System;
-using System.Linq;
 using UIKit;
 using Xamarin.Essentials;
 
@@ -26,8 +25,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
         private OrdersTableSource _source;
-
-        private bool _isExpanded = true;
 
         private bool _hasDescription;
         public bool HasDescription
@@ -49,7 +46,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             }
         }
 
-        public UITableView TableView => tableView;
+        public UIScrollView ScrollView => rootScrollView;
 
         public override void ViewDidLayoutSubviews()
         {
@@ -197,7 +194,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         private void OnTableViewScrolled()
         {
-            var headerScrollOffset = (TableView.ContentOffset.Y + TableView.ContentInset.Top) * 0.7f;
+            var headerScrollOffset = (tableView.ContentOffset.Y + tableView.ContentInset.Top) * 0.7f;
             var headerClearOffset = -Math.Min(Math.Max(0, headerScrollOffset), headerContainerView.Frame.Height);
             headerContainerTopConstraint.Constant = (float)headerClearOffset;
         }

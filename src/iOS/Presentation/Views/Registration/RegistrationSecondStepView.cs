@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using MvvmCross.Binding.BindingContext;
+﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
-using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using System.Collections.Generic;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
@@ -87,8 +86,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             adultCheckButton.SetSelectableImageStyleWithTint("ic_checkbox_unchecked", "ic_checkbox_checked", Theme.Color.White);
             privacyCheckButton.SetSelectableImageStyleWithTint("ic_checkbox_unchecked", "ic_checkbox_checked", Theme.Color.White);
 
-            privacyCheckButton.AddGestureRecognizer(new UITapGestureRecognizer(() => ViewModel.IsPolicyChecked = !ViewModel.IsPolicyChecked));
-            adultCheckButton.AddGestureRecognizer(new UITapGestureRecognizer(() => ViewModel.IsAdultChecked = !ViewModel.IsAdultChecked));
+            privacyCheckButton.AddGestureRecognizer(new UITapGestureRecognizer(SwitchPolicyState));
+            adultCheckButton.AddGestureRecognizer(new UITapGestureRecognizer(SwitchAdultState));
+
+            privacyContainerView.AddGestureRecognizer(new UITapGestureRecognizer(SwitchPolicyState));
+            adultContainerView.AddGestureRecognizer(new UITapGestureRecognizer(SwitchAdultState));
 
             adultLabel.SetSmallSubtitleStyle(Resources.Registration_Confirm_Adult);
             adultLabel.TextColor = Theme.Color.White;
@@ -120,6 +122,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 
             base.RegisterKeyboardDismissTextFields(viewList);
         }
+
+        private void SwitchPolicyState() =>
+            ViewModel.IsPolicyChecked = !ViewModel.IsPolicyChecked;
+
+        private void SwitchAdultState() =>
+            ViewModel.IsAdultChecked = !ViewModel.IsAdultChecked;
     }
 }
 
