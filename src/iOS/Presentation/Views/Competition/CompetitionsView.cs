@@ -20,7 +20,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
 
-        public UITableView TableView => tableView;
+        public UIScrollView ScrollView => tableView;
 
         protected override void SetupControls()
         {
@@ -74,7 +74,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             ViewModel?.LoadDataCommand.Execute();
             MainThread.BeginInvokeOnMainThread(() =>
                 ViewModel.SafeExecutionWrapper.Wrap(() =>
-                TableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true)));
+                tableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true)));
         }
 
         private void InitializeNavigationBar()

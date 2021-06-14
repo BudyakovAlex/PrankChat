@@ -142,7 +142,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         public bool IsPresavedWithdrawalAvailable => _currentCard != null && IsWithdrawalAvailable;
 
-        public bool IsUserDataSaved => !UserSessionProvider.User?.IsPassportSaved ?? true;
+        public bool IsUserDataSaved => UserSessionProvider.User?.IsPassportSaved ?? false;
 
         public ICommand WithdrawCommand { get; }
 

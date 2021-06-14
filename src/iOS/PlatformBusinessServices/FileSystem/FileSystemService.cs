@@ -3,7 +3,9 @@ using Foundation;
 using Microsoft.AppCenter.Crashes;
 using PrankChat.Mobile.Core.ApplicationServices.FileSystem;
 using System;
+using System.Text;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.FileSystem
 {
@@ -14,7 +16,8 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.FileSystem
 			try
 			{
 				var library = new ALAssetsLibrary();
-				_ = await library.WriteVideoToSavedPhotosAlbumAsync(new NSUrl(path));
+				//var escapedPath = path.ToUnicode();
+				_ = await library.WriteVideoToSavedPhotosAlbumAsync(NSUrl.FromFilename(path));
 				return true;
 			}
 			catch (Exception ex)

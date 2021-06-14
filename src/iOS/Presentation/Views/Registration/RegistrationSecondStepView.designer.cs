@@ -16,6 +16,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 		UIKit.UIButton adultCheckButton { get; set; }
 
 		[Outlet]
+		UIKit.UIView adultContainerView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel adultLabel { get; set; }
 
 		[Outlet]
@@ -43,6 +46,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 		UIKit.UIButton privacyCheckButton { get; set; }
 
 		[Outlet]
+		UIKit.UIView privacyContainerView { get; set; }
+
+		[Outlet]
 		UIKit.UIActivityIndicatorView progressBar { get; set; }
 
 		[Outlet]
@@ -59,9 +65,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (termsBottomLineView != null) {
-				termsBottomLineView.Dispose ();
-				termsBottomLineView = null;
+			if (adultContainerView != null) {
+				adultContainerView.Dispose ();
+				adultContainerView = null;
+			}
+
+			if (privacyContainerView != null) {
+				privacyContainerView.Dispose ();
+				privacyContainerView = null;
 			}
 
 			if (adultCheckButton != null) {
@@ -127,6 +138,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 			if (scrollView != null) {
 				scrollView.Dispose ();
 				scrollView = null;
+			}
+
+			if (termsBottomLineView != null) {
+				termsBottomLineView.Dispose ();
+				termsBottomLineView = null;
 			}
 
 			if (termsLabel != null) {

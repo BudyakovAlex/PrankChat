@@ -5,6 +5,7 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using System.Threading;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Data.Models.User;
 
 namespace PrankChat.Mobile.Core.Managers.Users
 {
@@ -105,6 +106,12 @@ namespace PrankChat.Mobile.Core.Managers.Users
         public Task DeleteCardAsync(int id)
         {
             return _usersService.DeleteCardAsync(id);
+        }
+
+        public Task<bool> SavePasportDataAsync(UserPasportData userPasportData)
+        {
+            var dto = userPasportData.Map();
+            return _usersService.SavePasportDataAsync(dto);
         }
     }
 }
