@@ -92,7 +92,8 @@
                         android:maxLines="1"
                         android:inputType="number"
                         android:textColor="@color/applicationBlack"
-                        android:drawableLeft="@drawable/ic_card"
+                        android:drawablePadding="10dp"
+                        android:drawableLeft="@drawable/ic_yoomoney_account"
                         android:focusable="false"
                         android:cursorVisible="true" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -117,16 +118,40 @@
                         android:maxLines="1"
                         android:inputType="number"
                         android:textColor="@color/applicationBlack"
-                        android:drawableLeft="@drawable/ic_card" />
+                        android:drawablePadding="10dp"
+                        android:drawableLeft="@drawable/ic_yoomoney_account" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/name_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/surname_text"
+                    app:layout_constraintTop_toBottomOf="@+id/credit_card_text"
+                    android:layout_marginTop="12dp"
+                    app:boxStrokeWidth="1dp"
+                    android:textColorHint="@color/dark_placeholder"
+                    android:hint="@string/WithdrawalView_Name"
+                    android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
+                    app:boxStrokeColor="@color/border"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14dp"
+                        android:maxLines="1"
+                        android:textColor="@color/applicationBlack" />
+                </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/surname_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/credit_card_text"
+                    app:layout_constraintLeft_toRightOf="@+id/name_text"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="12dp"
                     app:boxStrokeWidth="1dp"
                     android:textColorHint="@color/dark_placeholder"
@@ -144,127 +169,12 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/name_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/middle_name_text"
-                    app:layout_constraintTop_toBottomOf="@+id/surname_text"
-                    android:layout_marginTop="12dp"
-                    app:boxStrokeWidth="1dp"
-                    android:textColorHint="@color/dark_placeholder"
-                    android:hint="@string/WithdrawalView_Name"
-                    android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
-                    app:boxStrokeColor="@color/border"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/name_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:maxLines="1"
-                        android:textColor="@color/applicationBlack" />
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/middle_name_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/surname_text"
-                    app:layout_constraintLeft_toRightOf="@+id/name_text"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="12dp"
-                    app:boxStrokeWidth="1dp"
-                    android:textColorHint="@color/dark_placeholder"
-                    android:hint="@string/WithdrawalView_MiddleName"
-                    android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
-                    app:boxStrokeColor="@color/border"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/middle_name_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:maxLines="1"
-                        android:textColor="@color/applicationBlack" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/passport_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/name_text"
-                    android:layout_marginTop="12dp"
-                    app:boxStrokeWidth="1dp"
-                    android:textColorHint="@color/dark_placeholder"
-                    android:hint="@string/WithdrawalView_Passport"
-                    android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
-                    app:boxStrokeColor="@color/border"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/passport_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:maxLines="1"
-                        android:textColor="@color/applicationBlack" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/nationality_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/passport_text"
-                    android:layout_marginTop="12dp"
-                    app:boxStrokeWidth="1dp"
-                    android:textColorHint="@color/dark_placeholder"
-                    android:hint="@string/WithdrawalView_Nationality"
-                    android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
-                    app:boxStrokeColor="@color/border"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/nationality_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:maxLines="1"
-                        android:textColor="@color/applicationBlack" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/location_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/nationality_text"
-                    android:layout_marginTop="12dp"
-                    app:boxStrokeWidth="1dp"
-                    android:textColorHint="@color/dark_placeholder"
-                    android:hint="@string/WithdrawalView_Location"
-                    android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
-                    app:boxStrokeColor="@color/border"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/location_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:maxLines="1"
-                        android:textColor="@color/applicationBlack" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/withdrawal_cost_edit_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/withdrawal_button"
-                    app:layout_constraintTop_toBottomOf="@+id/location_text"
+                    app:layout_constraintTop_toBottomOf="@+id/name_text"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="12dp"
                     app:boxStrokeWidth="1dp"
@@ -286,8 +196,9 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/withdrawal_button"
-                    android:layout_width="100dp"
+                    android:layout_width="110dp"
                     android:layout_height="36dp"
+                    android:gravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/withdrawal_cost_edit_text"
                     app:layout_constraintBottom_toBottomOf="@+id/withdrawal_cost_edit_text"

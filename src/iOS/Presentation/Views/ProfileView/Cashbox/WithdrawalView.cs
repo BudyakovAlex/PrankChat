@@ -1,5 +1,4 @@
 ﻿using MvvmCross.Binding.BindingContext;
-using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Views;
@@ -31,25 +30,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
             bindingSet.Bind(firstNameTextField).To(vm => vm.Name);
             bindingSet.Bind(surnameTextField).To(vm => vm.Surname);
-            bindingSet.Bind(middleNameTextField).To(vm => vm.MiddleName);
-            bindingSet.Bind(locationTextField).To(vm => vm.Location);
-            bindingSet.Bind(passportTextField).To(vm => vm.Passport);
-            bindingSet.Bind(nationalityTextField).To(vm => vm.Nationality);
 
-            bindingSet.Bind(middleNameTextField).For(v => v.Hidden).To(vm => vm.IsUserDataSaved);
-            bindingSet.Bind(passportTextField).For(v => v.Hidden).To(vm => vm.IsUserDataSaved);
-            bindingSet.Bind(nationalityTextField).For(v => v.Hidden).To(vm => vm.IsUserDataSaved);
-            bindingSet.Bind(nationalityTextField).For(v => v.Hidden).To(vm => vm.IsUserDataSaved);
-
-            bindingSet.Bind(firstNameTextField).For(v => v.Hidden).ByCombining(
-               new MvxAndValueCombiner(),
-               vm => vm.IsPresavedWithdrawalAvailable,
-               vm => vm.IsUserDataSaved);
-
-            bindingSet.Bind(surnameTextField).For(v => v.Hidden).ByCombining(
-                new MvxAndValueCombiner(),
-                vm => vm.IsPresavedWithdrawalAvailable,
-                vm => vm.IsUserDataSaved);
+            bindingSet.Bind(userInfoContainerView).For(v => v.Hidden).To(vm => vm.IsPresavedWithdrawalAvailable);
 
             bindingSet.Bind(withdrawButton).To(vm => vm.WithdrawCommand);
             bindingSet.Bind(availableAmountTitleLabel).To(vm => vm.AvailableForWithdrawal);
@@ -70,18 +52,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
         protected override void SetupControls()
         {
-            cardNumberEditText.SetDarkStyle(Resources.WithdrawalView_CardNumber_Placeholder, UIImage.FromBundle("ic_credit_card"));
+            cardNumberEditText.SetDarkStyle(Resources.WithdrawalView_CardNumber_Placeholder, UIImage.FromBundle("ic_yoomoney_account"));
             savedCardNumberEditText.SetDarkStyle(
                 Resources.WithdrawalView_CardNumber_Placeholder,
-                UIImage.FromBundle("ic_credit_card"),
+                UIImage.FromBundle("ic_yoomoney_account"),
                 UIImage.FromBundle("ic_arrow_dropdown"));
 
             firstNameTextField.SetDarkStyle(Resources.WithdrawalView_FirstName_Placeholder);
             surnameTextField.SetDarkStyle(Resources.WithdrawalView_LastName_Placeholder);
-            middleNameTextField.SetDarkStyle(Resources.WithdrawalView_MiddleName);
-            passportTextField.SetDarkStyle(Resources.WithdrawalView_Passport);
-            nationalityTextField.SetDarkStyle(Resources.WithdrawalView_Nationality);
-            locationTextField.SetDarkStyle(Resources.WithdrawalView_Location);
 
             costTextField.SetDarkStyle(Resources.CashboxView_Price_Placeholder);
             costTextField.TextAlignment = UITextAlignment.Right;

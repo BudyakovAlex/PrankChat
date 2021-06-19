@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/ic_card"
+        android:gravity="center" />
+    <item
+        android:bottom="3dp"
+        android:drawable="@drawable/ic_yoomoney"
+        android:gravity="bottom|center_horizontal" />
+</layer-list>

@@ -12,6 +12,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 {
@@ -38,6 +39,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             AttachFileCommand = this.CreateCommand(AttachFileAsync);
             OpenCardOptionsCommand = this.CreateCommand(OpenCardOptionsAsync);
             UpdateDataCommand = this.CreateCommand(UpdateDataAsync);
+            GoToYoomoneyCommand = this.CreateCommand(GoToYoomoneyAync);
         }
 
         private double? _cost;
@@ -59,25 +61,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         public string CardNumber
         {
             get => _cardNumber;
-            set
-            {
-                //check for delete symbol
-                if (_cardNumber?.Length > 1 && value.Length > 1
-                    && _cardNumber.Length > value.Length
-                    && !_cardNumber[_cardNumber.Length - 1].IsDigit())
-                {
-                    _cardNumber = value.Substring(0, value.Length - 1);
-                }
-                else
-                {
-                    _cardNumber = InternationalCardValidator.Instance.VisualCardNumber(value);
-                }
-
-                RaisePropertyChanged(nameof(CardNumber));
-            }
+            set => SetProperty(ref _cardNumber, value);
         }
 
-        public string CurrentCardNumber => InternationalCardValidator.Instance.VisualCardNumber(_currentCard?.Number);
+        public string CurrentCardNumber => _currentCard?.Number ?? string.Empty;
 
         private string _name;
         public string Name
@@ -100,34 +87,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             set => SetProperty(ref _isUpdatingData, value);
         }
 
-        private string _passport;
-        public string Passport
-        {
-            get => _passport;
-            set => SetProperty(ref _passport, value);
-        }
-
-        private string _nationality;
-        public string Nationality
-        {
-            get => _nationality;
-            set => SetProperty(ref _nationality, value);
-        }
-
-        private string _location;
-        public string Location
-        {
-            get => _location;
-            set => SetProperty(ref _location, value);
-        }
-
-        private string _middleName;
-        public string MiddleName
-        {
-            get => _middleName;
-            set => SetProperty(ref _middleName, value);
-        }
-
         public DateTime? CreateAtWithdrawal => _lastWithdrawal?.CreatedAt;
 
         public string AmountValue => _lastWithdrawal?.Amount.ToPriceString();
@@ -142,8 +101,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         public bool IsPresavedWithdrawalAvailable => _currentCard != null && IsWithdrawalAvailable;
 
-        public bool IsUserDataSaved => UserSessionProvider.User?.IsPassportSaved ?? false;
-
         public ICommand WithdrawCommand { get; }
 
         public ICommand CancelWithdrawCommand { get; }
@@ -154,6 +111,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         public ICommand UpdateDataCommand { get; }
 
+        public ICommand GoToYoomoneyCommand { get; }
+
         public override async Task InitializeAsync()
         {
             await base.InitializeAsync();
@@ -161,8 +120,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
             await _usersManager.GetAndRefreshUserInSessionAsync();
             await GetWithdrawalsAsync();
-
-            _ = RaisePropertyChanged(nameof(IsUserDataSaved));
         }
 
         private async Task UpdateDataAsync()
@@ -202,11 +159,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                     }
                     _currentCard = card;
                     await RaiseAllPropertiesChanged();
-                }
-
-                if (!IsUserDataSaved)
-                {
-                    await SendUserDataAsync();
                 }
 
                 var result = await _paymentManager.WithdrawalAsync(Cost.Value, _currentCard.Id);
@@ -342,10 +294,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             return true;
         }
 
-        //TODO: implement logic
-        private Task SendUserDataAsync()
-        {
-            return Task.CompletedTask;
-        }
+        private Task GoToYoomoneyAync() =>
+            Browser.OpenAsync(RestConstants.YoomoneyResourceUrl);
     }
 }
