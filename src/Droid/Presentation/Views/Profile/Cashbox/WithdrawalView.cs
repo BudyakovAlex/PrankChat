@@ -2,16 +2,18 @@
 using Android.OS;
 using Android.Runtime;
 using Android.Text;
+using Android.Text.Method;
+using Android.Text.Style;
 using Android.Views;
 using Android.Widget;
 using Google.Android.Material.Button;
 using Google.Android.Material.TextField;
-using MvvmCross.Binding.Combiners;
 using MvvmCross.DroidX;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
+using PrankChat.Mobile.Droid.Presentation.Spans;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
@@ -27,17 +29,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
         private TextInputLayout _creditCardTextInputLayout;
         private TextInputLayout _nameTextInputLayout;
         private TextInputLayout _surnameTextInputLayout;
-        private TextInputLayout _middleNameTextInputLayout;
-        private TextInputLayout _nationalityTextInputLayout;
-        private TextInputLayout _passportTextInputLayout;
+
         private TextInputEditText _costEditText;
         private TextInputEditText _cardEditText;
         private TextInputEditText _currentCardEditText;
         private TextInputEditText _creditCardEditText;
         private TextInputEditText _nameEditText;
         private TextInputEditText _surnameEditText;
-        private TextInputEditText _middleNameEditText;
-        private TextInputEditText _nationalityEditText;
         private MvxSwipeRefreshLayout _swipeRefreshLayout;
         private View _attachDocumentContainerView;
         private MaterialButton _attachDocumentButton;
@@ -46,13 +44,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
         private View _pendingDocumentContainerView;
         private View _withdrawalContainerView;
         private View _pendingWithdrawalContainerView;
+        private TextView _yoomoneyDescriptionTextView;
         private View _loadingOverlayView;
         private TextView _pendingWithdrawalCostTextView;
         private TextView _pendingWithdrawalDateTextView;
         private TextView _availableAmountTextView;
-        private TextInputLayout _locationTextInputLayout;
-        private TextInputEditText _passportEditText;
-        private TextInputEditText _locationEditText;
 
         public WithdrawalView() : base(Resource.Layout.withdrawal_layout)
         {
@@ -65,17 +61,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
             _pendingWithdrawalCostTextView = view.FindViewById<TextView>(Resource.Id.pending_withdrawal_cost_value);
             _pendingWithdrawalDateTextView = view.FindViewById<TextView>(Resource.Id.pending_withdrawal_date_value);
             _availableAmountTextView = view.FindViewById<TextView>(Resource.Id.withdrawal_available_amount_text);
-            _availableAmountTextView.PaintFlags |= PaintFlags.UnderlineText;
 
             _savedCreditCardTextInputLayout = view.FindViewById<TextInputLayout>(Resource.Id.saved_credit_card_text);
             _creditCardTextInputLayout = view.FindViewById<TextInputLayout>(Resource.Id.credit_card_text);
 
             _nameTextInputLayout = view.FindViewById<TextInputLayout>(Resource.Id.name_text);
             _surnameTextInputLayout = view.FindViewById<TextInputLayout>(Resource.Id.surname_text);
-            _middleNameTextInputLayout = view.FindViewById<TextInputLayout>(Resource.Id.middle_name_text);
-            _nationalityTextInputLayout = view.FindViewById<TextInputLayout>(Resource.Id.nationality_text);
-            _passportTextInputLayout = view.FindViewById<TextInputLayout>(Resource.Id.passport_text);
-            _locationTextInputLayout = view.FindViewById<TextInputLayout>(Resource.Id.location_text);
 
             _costEditText = view.FindViewById<TextInputEditText>(Resource.Id.credit_cost_text_input_edit_text);
             _cardEditText = view.FindViewById<TextInputEditText>(Resource.Id.credit_card_text_input_edit_text);
@@ -84,10 +75,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
 
             _nameEditText = view.FindViewById<TextInputEditText>(Resource.Id.name_edit_text);
             _surnameEditText = view.FindViewById<TextInputEditText>(Resource.Id.surname_edit_text);
-            _middleNameEditText = view.FindViewById<TextInputEditText>(Resource.Id.middle_name_edit_text);
-            _nationalityEditText = view.FindViewById<TextInputEditText>(Resource.Id.nationality_edit_text);
-            _passportEditText = view.FindViewById<TextInputEditText>(Resource.Id.passport_edit_text);
-            _locationEditText = view.FindViewById<TextInputEditText>(Resource.Id.location_edit_text);
 
             _swipeRefreshLayout = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swipe_refresh);
             _attachDocumentContainerView = view.FindViewById<View>(Resource.Id.attach_document_container_view);
@@ -98,6 +85,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
             _withdrawalContainerView = view.FindViewById<View>(Resource.Id.withdrawal_container_view);
             _pendingWithdrawalContainerView = view.FindViewById<View>(Resource.Id.pending_withdrawal_container_view);
             _loadingOverlayView = view.FindViewById<View>(Resource.Id.loading_overlay);
+            _yoomoneyDescriptionTextView = view.FindViewById<TextView>(Resource.Id.withdrawal_yoomoney_description_text_view);
+
+            SetupYoomoneyDescriptionTextView();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -127,31 +117,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
             bindingSet.Bind(_savedCreditCardTextInputLayout).For(v => v.BindVisible()).To(vm => vm.IsPresavedWithdrawalAvailable);
             bindingSet.Bind(_creditCardTextInputLayout).For(v => v.BindHidden()).To(vm => vm.IsPresavedWithdrawalAvailable);
 
-            bindingSet.Bind(_nameTextInputLayout).For(v => v.BindHidden()).ByCombining(
-                new MvxAndValueCombiner(),
-                vm => vm.IsPresavedWithdrawalAvailable,
-                vm => vm.IsUserDataSaved);
-
-            bindingSet.Bind(_surnameTextInputLayout).For(v => v.BindHidden()).ByCombining(
-                new MvxAndValueCombiner(),
-                vm => vm.IsPresavedWithdrawalAvailable,
-                vm => vm.IsUserDataSaved);
-
-            bindingSet.Bind(_middleNameTextInputLayout).For(v => v.BindHidden()).To(vm => vm.IsUserDataSaved);
-            bindingSet.Bind(_passportTextInputLayout).For(v => v.BindHidden()).To(vm => vm.IsUserDataSaved);
-            bindingSet.Bind(_nationalityTextInputLayout).For(v => v.BindHidden()).To(vm => vm.IsUserDataSaved);
-            bindingSet.Bind(_locationTextInputLayout).For(v => v.BindHidden()).To(vm => vm.IsUserDataSaved);
+            bindingSet.Bind(_surnameTextInputLayout).For(v => v.BindHidden()).To(vm => vm.IsPresavedWithdrawalAvailable);
+            bindingSet.Bind(_nameTextInputLayout).For(v => v.BindHidden()).To(vm => vm.IsPresavedWithdrawalAvailable);
 
             bindingSet.Bind(_creditCardEditText).For(v => v.Text).To(vm => vm.CardNumber);
             bindingSet.Bind(_nameEditText).For(v => v.Text).To(vm => vm.Name);
             bindingSet.Bind(_surnameEditText).For(v => v.Text).To(vm => vm.Surname);
             bindingSet.Bind(_costEditText).For(v => v.Text).To(vm => vm.Cost)
                       .WithConversion<PriceConverter>();
-
-            bindingSet.Bind(_middleNameEditText).For(v => v.Text).To(vm => vm.MiddleName);
-            bindingSet.Bind(_passportEditText).For(v => v.Text).To(vm => vm.Passport);
-            bindingSet.Bind(_locationEditText).For(v => v.Text).To(vm => vm.Location);
-            bindingSet.Bind(_nationalityEditText).For(v => v.Text).To(vm => vm.Nationality);
 
             bindingSet.Bind(_withdrawalButton).For(v => v.BindClick()).To(vm => vm.WithdrawCommand);
             bindingSet.Bind(_availableAmountTextView).For(v => v.Text).To(vm => vm.AvailableForWithdrawal);
@@ -193,6 +166,23 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
             }
 
             _cardEditText.SetSelection(text.Length);
+        }
+
+
+        private void SetupYoomoneyDescriptionTextView()
+        {
+            var spannableString = new SpannableString(Core.Presentation.Localization.Resources.Withdrawal_Yoomoney_Description);
+            var startIndex = Core.Presentation.Localization.Resources.Withdrawal_Yoomoney_Description.IndexOf(Core.Presentation.Localization.Resources.Withdrawal_Yoomoney);
+            var endIndex = startIndex + Core.Presentation.Localization.Resources.Withdrawal_Yoomoney.Length;
+            var clickableSpan = new LinkSpan((_) => ViewModel?.GoToYoomoneyCommand?.Execute(null));
+            var foregroundSpan = new ForegroundColorSpan(Color.Blue);
+
+            spannableString.SetSpan(foregroundSpan, startIndex, endIndex, SpanTypes.ExclusiveExclusive);
+            spannableString.SetSpan(clickableSpan, startIndex, endIndex, SpanTypes.ExclusiveExclusive);
+
+            _yoomoneyDescriptionTextView.SetText(spannableString, TextView.BufferType.Spannable);
+            _yoomoneyDescriptionTextView.MovementMethod = LinkMovementMethod.Instance;
+            _yoomoneyDescriptionTextView.SetHighlightColor(Color.Transparent);
         }
     }
 }

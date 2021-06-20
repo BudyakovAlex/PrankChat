@@ -1,5 +1,5 @@
-﻿using MvvmCross.Binding.BindingContext;
-using MvvmCross.Binding.Combiners;
+﻿using Foundation;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Views;
@@ -7,6 +7,7 @@ using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -15,6 +16,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
     public partial class WithdrawalView : BaseGradientBarView<WithdrawalViewModel>
     {
         private MvxUIRefreshControl _refreshControl;
+        private NSRange _yoomoneyRange;
 
         protected override void SetupBinding()
         {
@@ -31,25 +33,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
             bindingSet.Bind(firstNameTextField).To(vm => vm.Name);
             bindingSet.Bind(surnameTextField).To(vm => vm.Surname);
-            bindingSet.Bind(middleNameTextField).To(vm => vm.MiddleName);
-            bindingSet.Bind(locationTextField).To(vm => vm.Location);
-            bindingSet.Bind(passportTextField).To(vm => vm.Passport);
-            bindingSet.Bind(nationalityTextField).To(vm => vm.Nationality);
 
-            bindingSet.Bind(middleNameTextField).For(v => v.Hidden).To(vm => vm.IsUserDataSaved);
-            bindingSet.Bind(passportTextField).For(v => v.Hidden).To(vm => vm.IsUserDataSaved);
-            bindingSet.Bind(nationalityTextField).For(v => v.Hidden).To(vm => vm.IsUserDataSaved);
-            bindingSet.Bind(nationalityTextField).For(v => v.Hidden).To(vm => vm.IsUserDataSaved);
-
-            bindingSet.Bind(firstNameTextField).For(v => v.Hidden).ByCombining(
-               new MvxAndValueCombiner(),
-               vm => vm.IsPresavedWithdrawalAvailable,
-               vm => vm.IsUserDataSaved);
-
-            bindingSet.Bind(surnameTextField).For(v => v.Hidden).ByCombining(
-                new MvxAndValueCombiner(),
-                vm => vm.IsPresavedWithdrawalAvailable,
-                vm => vm.IsUserDataSaved);
+            bindingSet.Bind(userInfoContainerView).For(v => v.Hidden).To(vm => vm.IsPresavedWithdrawalAvailable);
 
             bindingSet.Bind(withdrawButton).To(vm => vm.WithdrawCommand);
             bindingSet.Bind(availableAmountTitleLabel).To(vm => vm.AvailableForWithdrawal);
@@ -70,18 +55,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
         protected override void SetupControls()
         {
-            cardNumberEditText.SetDarkStyle(Resources.WithdrawalView_CardNumber_Placeholder, UIImage.FromBundle("ic_credit_card"));
+            cardNumberEditText.SetDarkStyle(Resources.Withdrawal_Enter_Wallet_Number, UIImage.FromBundle("ic_yoomoney_account"));
             savedCardNumberEditText.SetDarkStyle(
-                Resources.WithdrawalView_CardNumber_Placeholder,
-                UIImage.FromBundle("ic_credit_card"),
+                Resources.Withdrawal_Enter_Wallet_Number,
+                UIImage.FromBundle("ic_yoomoney_account"),
                 UIImage.FromBundle("ic_arrow_dropdown"));
 
             firstNameTextField.SetDarkStyle(Resources.WithdrawalView_FirstName_Placeholder);
             surnameTextField.SetDarkStyle(Resources.WithdrawalView_LastName_Placeholder);
-            middleNameTextField.SetDarkStyle(Resources.WithdrawalView_MiddleName);
-            passportTextField.SetDarkStyle(Resources.WithdrawalView_Passport);
-            nationalityTextField.SetDarkStyle(Resources.WithdrawalView_Nationality);
-            locationTextField.SetDarkStyle(Resources.WithdrawalView_Location);
 
             costTextField.SetDarkStyle(Resources.CashboxView_Price_Placeholder);
             costTextField.TextAlignment = UITextAlignment.Right;
@@ -91,6 +72,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
             withdrawButton.SetDarkStyle(Resources.CashboxView_Withdrawal_Button);
 
             availableAmountTitleLabel.SetRegularStyle(14, Theme.Color.Black);
+
+            SetupYoomoneyAttributedText();
+
             verifyUserLabel.SetRegularStyle(14, Theme.Color.Black);
             pendingVerifyUserLabel.SetRegularStyle(14, Theme.Color.Black);
             pendingWithdrawalLabel.SetRegularStyle(14, Theme.Color.Black);
@@ -119,6 +103,34 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
             _refreshControl = new MvxUIRefreshControl();
             scrollView.RefreshControl = _refreshControl;
+        }
+
+        private void SetupYoomoneyAttributedText()
+        {
+            var linkAttributes = new UIStringAttributes
+            {
+                UnderlineStyle = NSUnderlineStyle.Single,
+                ForegroundColor = UIColor.Blue
+            };
+
+            yoomoneyDescriptionLabel.SetRegularStyle(14, Theme.Color.Black);
+            var yoomoneyDescriptionAttributedString = new NSMutableAttributedString(Resources.Withdrawal_Yoomoney_Description);
+
+            var startPosition = Resources.Withdrawal_Yoomoney_Description.IndexOf(Resources.Withdrawal_Yoomoney);
+            _yoomoneyRange = new NSRange(startPosition, Resources.Withdrawal_Yoomoney.Length);
+            yoomoneyDescriptionAttributedString.AddAttributes(linkAttributes, _yoomoneyRange);
+
+            yoomoneyDescriptionLabel.AttributedText = yoomoneyDescriptionAttributedString;
+            yoomoneyDescriptionLabel.AddGestureRecognizer(new UITapGestureRecognizer(OnLabelTapped));
+            yoomoneyDescriptionLabel.UserInteractionEnabled = true;
+        }
+
+        private void OnLabelTapped(UITapGestureRecognizer gesture)
+        {
+            if (gesture.DidTapAttributedTextInLabel(yoomoneyDescriptionLabel, _yoomoneyRange))
+            {
+                ViewModel?.GoToYoomoneyCommand?.Execute(null);
+            }
         }
     }
 }

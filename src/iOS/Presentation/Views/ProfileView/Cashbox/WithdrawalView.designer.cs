@@ -49,19 +49,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 		UIKit.UITextField firstNameTextField { get; set; }
 
 		[Outlet]
-		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField locationTextField { get; set; }
-
-		[Outlet]
 		Airbnb.Lottie.LOTAnimationView lottieAnimationView { get; set; }
-
-		[Outlet]
-		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField middleNameTextField { get; set; }
-
-		[Outlet]
-		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField nationalityTextField { get; set; }
-
-		[Outlet]
-		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField passportTextField { get; set; }
 
 		[Outlet]
 		UIKit.UILabel pendingVerifyUserLabel { get; set; }
@@ -100,6 +88,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 		UIKit.UITextField surnameTextField { get; set; }
 
 		[Outlet]
+		UIKit.UIStackView userInfoContainerView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel verifyUserLabel { get; set; }
 
 		[Outlet]
@@ -113,6 +104,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
 		[Outlet]
 		UIKit.UIButton withdrawButton { get; set; }
+
+		[Outlet]
+		UIKit.UILabel yoomoneyDescriptionLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -176,29 +170,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				firstNameTextField = null;
 			}
 
-			if (locationTextField != null) {
-				locationTextField.Dispose ();
-				locationTextField = null;
-			}
-
 			if (lottieAnimationView != null) {
 				lottieAnimationView.Dispose ();
 				lottieAnimationView = null;
-			}
-
-			if (middleNameTextField != null) {
-				middleNameTextField.Dispose ();
-				middleNameTextField = null;
-			}
-
-			if (nationalityTextField != null) {
-				nationalityTextField.Dispose ();
-				nationalityTextField = null;
-			}
-
-			if (passportTextField != null) {
-				passportTextField.Dispose ();
-				passportTextField = null;
 			}
 
 			if (pendingVerifyUserLabel != null) {
@@ -261,6 +235,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				surnameTextField = null;
 			}
 
+			if (userInfoContainerView != null) {
+				userInfoContainerView.Dispose ();
+				userInfoContainerView = null;
+			}
+
 			if (verifyUserLabel != null) {
 				verifyUserLabel.Dispose ();
 				verifyUserLabel = null;
@@ -284,6 +263,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 			if (withdrawButton != null) {
 				withdrawButton.Dispose ();
 				withdrawButton = null;
+			}
+
+			if (yoomoneyDescriptionLabel != null) {
+				yoomoneyDescriptionLabel.Dispose ();
+				yoomoneyDescriptionLabel = null;
 			}
 		}
 	}
