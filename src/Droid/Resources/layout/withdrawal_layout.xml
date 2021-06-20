@@ -80,7 +80,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:boxStrokeWidth="1dp"
                     android:textColorHint="@color/dark_placeholder"
-                    android:hint="@string/WithdrawalView_Card_Number"
+                    android:hint="@string/Withdrawal_Enter_Wallet_Number"
                     android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
                     app:boxStrokeColor="@color/border"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -106,7 +106,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:boxStrokeWidth="1dp"
                     android:textColorHint="@color/dark_placeholder"
-                    android:hint="@string/WithdrawalView_Card_Number"
+                    android:hint="@string/Withdrawal_Enter_Wallet_Number"
                     android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
                     app:boxStrokeColor="@color/border"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -205,44 +205,49 @@
                     android:text="@string/CashboxView_Withdrawal_Button"
                     style="@style/Theme.PrankChat.Button.Accent"
                     app:backgroundTint="@color/accent" />
+
                 <View
                     android:id="@+id/withdrawal_vertical_separator"
                     android:layout_width="3dp"
-                    android:layout_height="36dp"
-                    app:layout_constraintHorizontal_chainStyle="packed"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="26dp"
+                    android:background="@color/accent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    android:layout_marginBottom="16dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/withdrawal_available_amount_text"
-                    app:layout_constraintTop_toBottomOf="@id/withdrawal_cost_edit_text"
-                    android:layout_marginTop="26dp"
-                    app:layout_constraintHorizontal_bias="0"
-                    android:background="@color/accent" />
+                    app:layout_constraintTop_toBottomOf="@id/withdrawal_cost_edit_text" />
                 <TextView
                     android:id="@+id/withdrawal_available_amount_text"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintWidth_default="wrap"
-                    app:layout_constraintHeight_default="wrap"
-                    app:layout_constraintLeft_toRightOf="@id/withdrawal_vertical_separator"
-                    app:layout_constraintRight_toLeftOf="@id/withdrawal_question_image"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toEndOf="@id/withdrawal_vertical_separator"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/withdrawal_vertical_separator"
-                    app:layout_constraintBottom_toBottomOf="@id/withdrawal_vertical_separator"
-                    app:layout_constraintVertical_bias="0.5"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
                     android:textColor="@color/applicationBlack"
+                    tools:text="@string/Cashbox_Commision_Warning"
                     android:textSize="14dp"/>
-                <ImageView
-                    android:id="@+id/withdrawal_question_image"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    app:layout_constraintLeft_toRightOf="@id/withdrawal_available_amount_text"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/withdrawal_available_amount_text"
-                    app:layout_constraintBottom_toBottomOf="@id/withdrawal_available_amount_text"
-                    app:layout_constraintVertical_bias="0.5"
-                    app:layout_constraintHorizontal_bias="0"
-                    android:layout_marginLeft="16dp"
-                    app:srcCompat="@drawable/ic_question_black"
-                    android:src="@drawable/ic_question_black" />
+
+                <TextView
+                    android:id="@+id/withdrawal_yoomoney_description_text_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintStart_toEndOf="@id/withdrawal_vertical_separator"
+                    app:layout_constraintTop_toBottomOf="@id/withdrawal_available_amount_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="23dp"
+                    android:textColor="@color/applicationBlack"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="14dp"
+                    tools:text="@string/Withdrawal_Yoomoney_Description"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -255,8 +260,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/pending_withdrawal_text"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintHorizontal_bias="0"
                     android:layout_marginTop="26dp"
                     android:background="@color/accent" />
                 <TextView

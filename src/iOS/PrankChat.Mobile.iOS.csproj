@@ -393,6 +393,8 @@
     <Compile Include="Plugins\Video\VideoPlayer.cs" />
     <Compile Include="Providers\PlatformPathsProvider.cs" />
     <Compile Include="PlatformBusinessServices\FileSystem\FileSystemService.cs" />
+    <Compile Include="Extensions\UITapGestureExtensions.cs" />
+    <Compile Include="Extensions\CALayerExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -1184,6 +1186,7 @@
     <Folder Include="Providers\" />
     <Folder Include="PlatformBusinessServices\FileSystem\" />
     <Folder Include="Assets.xcassets\ic_yoomoney_account.imageset\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

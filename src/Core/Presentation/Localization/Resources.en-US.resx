@@ -1089,4 +1089,13 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   <data name="WithdrawalView_Nationality" xml:space="preserve">
     <value>Nationality</value>
   </data>
+  <data name="Withdrawal_Yoomoney_Description" xml:space="preserve">
+    <value>Funds are withdrawn through the Yoomoney wallet.</value>
+  </data>
+  <data name="Withdrawal_Yoomoney" xml:space="preserve">
+    <value>Yoomoney</value>
+  </data>
+  <data name="Withdrawal_Enter_Wallet_Number" xml:space="preserve">
+    <value>Enter Yoomoney wallet number</value>
+  </data>
 </root>

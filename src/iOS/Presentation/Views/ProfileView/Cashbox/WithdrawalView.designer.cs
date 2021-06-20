@@ -104,14 +104,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
 		[Outlet]
 		UIKit.UIButton withdrawButton { get; set; }
+
+		[Outlet]
+		UIKit.UILabel yoomoneyDescriptionLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (userInfoContainerView != null) {
-				userInfoContainerView.Dispose ();
-				userInfoContainerView = null;
-			}
-
 			if (amountContainerStackView != null) {
 				amountContainerStackView.Dispose ();
 				amountContainerStackView = null;
@@ -237,6 +235,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 				surnameTextField = null;
 			}
 
+			if (userInfoContainerView != null) {
+				userInfoContainerView.Dispose ();
+				userInfoContainerView = null;
+			}
+
 			if (verifyUserLabel != null) {
 				verifyUserLabel.Dispose ();
 				verifyUserLabel = null;
@@ -260,6 +263,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 			if (withdrawButton != null) {
 				withdrawButton.Dispose ();
 				withdrawButton = null;
+			}
+
+			if (yoomoneyDescriptionLabel != null) {
+				yoomoneyDescriptionLabel.Dispose ();
+				yoomoneyDescriptionLabel = null;
 			}
 		}
 	}

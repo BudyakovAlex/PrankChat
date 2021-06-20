@@ -1,4 +1,5 @@
-﻿using MvvmCross.Binding.BindingContext;
+﻿using Foundation;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Views;
@@ -6,6 +7,7 @@ using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
@@ -14,6 +16,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
     public partial class WithdrawalView : BaseGradientBarView<WithdrawalViewModel>
     {
         private MvxUIRefreshControl _refreshControl;
+        private NSRange _yoomoneyRange;
 
         protected override void SetupBinding()
         {
@@ -52,9 +55,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
         protected override void SetupControls()
         {
-            cardNumberEditText.SetDarkStyle(Resources.WithdrawalView_CardNumber_Placeholder, UIImage.FromBundle("ic_yoomoney_account"));
+            cardNumberEditText.SetDarkStyle(Resources.Withdrawal_Enter_Wallet_Number, UIImage.FromBundle("ic_yoomoney_account"));
             savedCardNumberEditText.SetDarkStyle(
-                Resources.WithdrawalView_CardNumber_Placeholder,
+                Resources.Withdrawal_Enter_Wallet_Number,
                 UIImage.FromBundle("ic_yoomoney_account"),
                 UIImage.FromBundle("ic_arrow_dropdown"));
 
@@ -69,6 +72,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
             withdrawButton.SetDarkStyle(Resources.CashboxView_Withdrawal_Button);
 
             availableAmountTitleLabel.SetRegularStyle(14, Theme.Color.Black);
+
+            SetupYoomoneyAttributedText();
+
             verifyUserLabel.SetRegularStyle(14, Theme.Color.Black);
             pendingVerifyUserLabel.SetRegularStyle(14, Theme.Color.Black);
             pendingWithdrawalLabel.SetRegularStyle(14, Theme.Color.Black);
@@ -97,6 +103,34 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
             _refreshControl = new MvxUIRefreshControl();
             scrollView.RefreshControl = _refreshControl;
+        }
+
+        private void SetupYoomoneyAttributedText()
+        {
+            var linkAttributes = new UIStringAttributes
+            {
+                UnderlineStyle = NSUnderlineStyle.Single,
+                ForegroundColor = UIColor.Blue
+            };
+
+            yoomoneyDescriptionLabel.SetRegularStyle(14, Theme.Color.Black);
+            var yoomoneyDescriptionAttributedString = new NSMutableAttributedString(Resources.Withdrawal_Yoomoney_Description);
+
+            var startPosition = Resources.Withdrawal_Yoomoney_Description.IndexOf(Resources.Withdrawal_Yoomoney);
+            _yoomoneyRange = new NSRange(startPosition, Resources.Withdrawal_Yoomoney.Length);
+            yoomoneyDescriptionAttributedString.AddAttributes(linkAttributes, _yoomoneyRange);
+
+            yoomoneyDescriptionLabel.AttributedText = yoomoneyDescriptionAttributedString;
+            yoomoneyDescriptionLabel.AddGestureRecognizer(new UITapGestureRecognizer(OnLabelTapped));
+            yoomoneyDescriptionLabel.UserInteractionEnabled = true;
+        }
+
+        private void OnLabelTapped(UITapGestureRecognizer gesture)
+        {
+            if (gesture.DidTapAttributedTextInLabel(yoomoneyDescriptionLabel, _yoomoneyRange))
+            {
+                ViewModel?.GoToYoomoneyCommand?.Execute(null);
+            }
         }
     }
 }

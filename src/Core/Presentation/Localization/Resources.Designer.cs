@@ -1936,5 +1936,23 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("WithdrawalView_Nationality", resourceCulture);
             }
         }
+        
+        public static string Withdrawal_Yoomoney_Description {
+            get {
+                return ResourceManager.GetString("Withdrawal_Yoomoney_Description", resourceCulture);
+            }
+        }
+        
+        public static string Withdrawal_Yoomoney {
+            get {
+                return ResourceManager.GetString("Withdrawal_Yoomoney", resourceCulture);
+            }
+        }
+        
+        public static string Withdrawal_Enter_Wallet_Number {
+            get {
+                return ResourceManager.GetString("Withdrawal_Enter_Wallet_Number", resourceCulture);
+            }
+        }
     }
 }

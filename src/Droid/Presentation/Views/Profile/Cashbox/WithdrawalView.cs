@@ -2,6 +2,8 @@
 using Android.OS;
 using Android.Runtime;
 using Android.Text;
+using Android.Text.Method;
+using Android.Text.Style;
 using Android.Views;
 using Android.Widget;
 using Google.Android.Material.Button;
@@ -11,6 +13,7 @@ using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
+using PrankChat.Mobile.Droid.Presentation.Spans;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
@@ -41,6 +44,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
         private View _pendingDocumentContainerView;
         private View _withdrawalContainerView;
         private View _pendingWithdrawalContainerView;
+        private TextView _yoomoneyDescriptionTextView;
         private View _loadingOverlayView;
         private TextView _pendingWithdrawalCostTextView;
         private TextView _pendingWithdrawalDateTextView;
@@ -57,7 +61,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
             _pendingWithdrawalCostTextView = view.FindViewById<TextView>(Resource.Id.pending_withdrawal_cost_value);
             _pendingWithdrawalDateTextView = view.FindViewById<TextView>(Resource.Id.pending_withdrawal_date_value);
             _availableAmountTextView = view.FindViewById<TextView>(Resource.Id.withdrawal_available_amount_text);
-            _availableAmountTextView.PaintFlags |= PaintFlags.UnderlineText;
 
             _savedCreditCardTextInputLayout = view.FindViewById<TextInputLayout>(Resource.Id.saved_credit_card_text);
             _creditCardTextInputLayout = view.FindViewById<TextInputLayout>(Resource.Id.credit_card_text);
@@ -82,6 +85,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
             _withdrawalContainerView = view.FindViewById<View>(Resource.Id.withdrawal_container_view);
             _pendingWithdrawalContainerView = view.FindViewById<View>(Resource.Id.pending_withdrawal_container_view);
             _loadingOverlayView = view.FindViewById<View>(Resource.Id.loading_overlay);
+            _yoomoneyDescriptionTextView = view.FindViewById<TextView>(Resource.Id.withdrawal_yoomoney_description_text_view);
+
+            SetupYoomoneyDescriptionTextView();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -160,6 +166,23 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
             }
 
             _cardEditText.SetSelection(text.Length);
+        }
+
+
+        private void SetupYoomoneyDescriptionTextView()
+        {
+            var spannableString = new SpannableString(Core.Presentation.Localization.Resources.Withdrawal_Yoomoney_Description);
+            var startIndex = Core.Presentation.Localization.Resources.Withdrawal_Yoomoney_Description.IndexOf(Core.Presentation.Localization.Resources.Withdrawal_Yoomoney);
+            var endIndex = startIndex + Core.Presentation.Localization.Resources.Withdrawal_Yoomoney.Length;
+            var clickableSpan = new LinkSpan((_) => ViewModel?.GoToYoomoneyCommand?.Execute(null));
+            var foregroundSpan = new ForegroundColorSpan(Color.Blue);
+
+            spannableString.SetSpan(foregroundSpan, startIndex, endIndex, SpanTypes.ExclusiveExclusive);
+            spannableString.SetSpan(clickableSpan, startIndex, endIndex, SpanTypes.ExclusiveExclusive);
+
+            _yoomoneyDescriptionTextView.SetText(spannableString, TextView.BufferType.Spannable);
+            _yoomoneyDescriptionTextView.MovementMethod = LinkMovementMethod.Instance;
+            _yoomoneyDescriptionTextView.SetHighlightColor(Color.Transparent);
         }
     }
 }

@@ -357,3 +357,6 @@
 "WithdrawalView_MiddleName" = "Отчество";
 "WithdrawalView_Location" = "Место жительства";
 "WithdrawalView_Nationality" = "Гражданство";
+"Withdrawal_Yoomoney_Description" = "Вывод средств осуществляется через кошелек ЮMoney.";
+"Withdrawal_Yoomoney" = "ЮMoney";
+"Withdrawal_Enter_Wallet_Number" = "Введите номер кошелька ЮMoney";

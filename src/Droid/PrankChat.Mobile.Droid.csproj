@@ -208,6 +208,7 @@
     <Compile Include="Providers\PlatformPathsProvider.cs" />
     <Compile Include="Extensions\BindingExtensions.cs" />
     <Compile Include="PlatformBusinessServices\FileSystem\FileSystemService.cs" />
+    <Compile Include="Presentation\Spans\LinkSpan.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -1722,6 +1723,7 @@
     <Folder Include="Presentation\Adapters\ViewHolders\Subscriptions\" />
     <Folder Include="Resources\drawable-v24\" />
     <Folder Include="PlatformBusinessServices\FileSystem\" />
+    <Folder Include="Presentation\Spans\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />
