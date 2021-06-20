@@ -356,4 +356,7 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <string name="WithdrawalView_MiddleName">"Middle name"</string>
     <string name="WithdrawalView_Location">"Location"</string>
     <string name="WithdrawalView_Nationality">"Nationality"</string>
+    <string name="Withdrawal_Yoomoney_Description">"Funds are withdrawn through the Yoomoney wallet."</string>
+    <string name="Withdrawal_Yoomoney">"Yoomoney"</string>
+    <string name="Withdrawal_Enter_Wallet_Number">"Enter Yoomoney wallet number"</string>
 </resources>

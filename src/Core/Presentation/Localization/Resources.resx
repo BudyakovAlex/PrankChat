@@ -1096,4 +1096,13 @@
   <data name="WithdrawalView_Nationality" xml:space="preserve">
     <value>Гражданство</value>
   </data>
+  <data name="Withdrawal_Yoomoney_Description" xml:space="preserve">
+    <value>Вывод средств осуществляется через кошелек ЮMoney.</value>
+  </data>
+  <data name="Withdrawal_Yoomoney" xml:space="preserve">
+    <value>ЮMoney</value>
+  </data>
+  <data name="Withdrawal_Enter_Wallet_Number" xml:space="preserve">
+    <value>Введите номер кошелька ЮMoney</value>
+  </data>
 </root>

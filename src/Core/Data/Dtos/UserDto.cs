@@ -27,9 +27,6 @@ namespace PrankChat.Mobile.Core.Data.Dtos
         [JsonProperty("is_in_my_subscriptions")]
         public bool IsSubscribed { get; set; }
 
-        [JsonProperty("requisites_are_stored")]
-        public bool IsPassportSaved { get; set; }
-
         [JsonProperty("document_verified_at")]
         public DateTime? DocumentVerifiedAt { get; set; }
 

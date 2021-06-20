@@ -345,3 +345,6 @@
 "WithdrawalView_MiddleName" = "Middle name";
 "WithdrawalView_Location" = "Location";
 "WithdrawalView_Nationality" = "Nationality";
+"Withdrawal_Yoomoney_Description" = "Funds are withdrawn through the Yoomoney wallet.";
+"Withdrawal_Yoomoney" = "Yoomoney";
+"Withdrawal_Enter_Wallet_Number" = "Enter Yoomoney wallet number";
