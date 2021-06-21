@@ -372,7 +372,7 @@
     <string name="WithdrawalView_MiddleName">"Отчество"</string>
     <string name="WithdrawalView_Location">"Место жительства"</string>
     <string name="WithdrawalView_Nationality">"Гражданство"</string>
-    <string name="Withdrawal_Yoomoney_Description">"Вывод средств осуществляется через кошелек ЮMoney."</string>
+    <string name="Withdrawal_Yoomoney_Description">"Вывод средств осуществляется через кошелек ЮMoney (Яндекс кошелёк)."</string>
     <string name="Withdrawal_Yoomoney">"ЮMoney"</string>
-    <string name="Withdrawal_Enter_Wallet_Number">"Введите номер кошелька ЮMoney"</string>
+    <string name="Withdrawal_Enter_Wallet_Number">"Введите номер кошелька ЮMoney (Яндекс кошелёк)"</string>
 </resources>
