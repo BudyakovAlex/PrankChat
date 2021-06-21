@@ -1,0 +1,6 @@
+﻿"NSCameraUsageDescription" = "Application need access to the smartphone camera, if you want to take pictures for avatars.";
+"NSPhotoLibraryUsageDescription" = "Application need access to a catalog of photos and videos, so you can attach the captured video to the order or to choose a photo for avatars";
+"NSPhotoLibraryAddUsageDescription" = "Application need access to a catalog of photos and videos, so you can attach the captured video to the order or to choose a photo for avatars";
+"NSCalendarsUsageDescription" = "Application need access to the calendar to set the date on Your videos";
+"NSLocationAlwaysUsageDescription" = "the App requires a location to generate a list of videos for Your location.";
+"NSLocationWhenInUseUsageDescription" = " Allow location access when the app is in use.";

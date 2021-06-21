@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <PrankChat.Mobile.Droid.Controls.ApplicationSwipeViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:background="@color/applicationWhite" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        style="@style/Theme.PrankChat.TabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        android:elevation="25dp"
+        android:outlineProvider="paddedBounds"
+        android:outlineSpotShadowColor="@color/applicationBlack"
+        app:tabBackground="@color/applicationWhite"
+        app:tabTextAppearance="@style/Theme.PrankChat.MainTabLayout" />
+</LinearLayout>

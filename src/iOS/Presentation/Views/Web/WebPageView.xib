@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WebPageView">
+            <connections>
+                <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+                <outlet property="webView" destination="e77-x2-Mg0" id="ifG-Gu-hOW"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e77-x2-Mg0" customClass="CustomWKWebView">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <wkWebViewConfiguration key="configuration">
+                        <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                        <wkPreferences key="preferences"/>
+                    </wkWebViewConfiguration>
+                </wkWebView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="e77-x2-Mg0" secondAttribute="trailing" id="7dw-Hx-5wm"/>
+                <constraint firstItem="e77-x2-Mg0" firstAttribute="top" secondItem="2" secondAttribute="topMargin" id="Dhc-1r-uwV"/>
+                <constraint firstAttribute="bottomMargin" secondItem="e77-x2-Mg0" secondAttribute="bottom" id="Fgi-p8-HnE"/>
+                <constraint firstItem="e77-x2-Mg0" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" id="SCr-AT-P4V"/>
+                <constraint firstItem="e77-x2-Mg0" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="Smp-YS-Nyj"/>
+                <constraint firstItem="e77-x2-Mg0" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="hNy-bX-ZVu"/>
+            </constraints>
+            <point key="canvasLocation" x="24.800000000000001" y="51.724137931034484"/>
+        </view>
+    </objects>
+</document>

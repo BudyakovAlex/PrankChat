@@ -1,0 +1,99 @@
+pool:
+  vmImage: 'macOS-latest'
+  demands:
+  - xcode
+  - Xamarin.iOS
+
+trigger:
+  branches:
+    include:
+    - development
+
+pr: none
+
+variables:
+- group: Main-Variables-Group
+- group: Development-Environment-Variables
+
+steps:
+
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
+  inputs:
+    packageType: sdk
+    version: '$(NETCORE_VERSION)'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- bash: |
+   SYMLINK=$(MONO_VERSION)
+   
+   MONOPREFIX=/Library/Frameworks/Mono.framework/Versions/$SYMLINK
+   
+   echo "##vso[task.setvariable variable=DYLD_FALLBACK_LIBRARY_PATH;]$MONOPREFIX/lib:/lib:/usr/lib:$DYLD_LIBRARY_FALLBACK_PATH"
+   echo "##vso[task.setvariable variable=PKG_CONFIG_PATH;]$MONOPREFIX/lib/pkgconfig:$MONOPREFIX/share/pkgconfig:$PKG_CONFIG_PATH"
+   echo "##vso[task.setvariable variable=PATH;]$MONOPREFIX/bin:$PATH"
+  displayName: 'SET MONO $(MONO_VERSION)'
+
+- bash: 'sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)'
+  displayName: 'SET SDK to Mono $(MONO_VERSION)'
+
+- bash: |
+    sed -i "" 's/BaseAddress = StageAddress;/BaseAddress = $(ENVIRONMENT_CONFIGURATION);/g' $(PATH_TO_CONFIGURATION_FILE)
+    cat $(PATH_TO_CONFIGURATION_FILE) | xargs echo -e
+  displayName: 'Set application environment configuration to $(ENVIRONMENT_CONFIGURATION)'
+
+- bash: |
+    sed -i "" 's/development/production/g' $(PATH_TO_ENTITLEMENTS_PLIST)
+    cat $(PATH_TO_ENTITLEMENTS_PLIST) | xargs echo -e
+  displayName: 'Set Apple Push notifications environment configuration to Production'
+
+- task: InstallAppleCertificate@2
+  displayName: 'Install an Apple certificate'
+  inputs:
+    certSecureFile: '$(P12_CERTIFICATE_BUNDLE_FILE)'
+    certPwd: '$(P12_PASSWORD)'
+
+- task: InstallAppleProvisioningProfile@1
+  displayName: 'Install an Apple provisioning profile'
+  inputs:
+    provProfileSecureFile: '$(PROVISION_ADHOC_FILE)'
+
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet $(NUGET_VERSION)'
+  inputs:
+    versionSpec: $(NUGET_VERSION)
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: '$(SOLUTION_FILE)'
+
+- task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
+  displayName: 'Bump iOS Versions in $(INFO_PLIST_PATH)'
+  inputs:
+    sourcePath: '$(INFO_PLIST_PATH)'
+    versionName: '$(IOS_VERSION)'
+    versionCodeOffset: 2080
+
+- task: XamariniOS@2
+  displayName: 'Build Xamarin.iOS solution **/*.sln'
+  inputs:
+    solutionFile: '$(SOLUTION_FILE)'
+    configuration: '$(BUILD_CONFIGURATION)'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: '**/*.ipa'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+  condition: succeededOrFailed()
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+  condition: succeededOrFailed()
+
+
+

@@ -1,0 +1,63 @@
+pool:
+  vmImage: 'windows-latest'
+  demands:
+  - MSBuild
+  - Xamarin.Android
+  - JDK
+
+trigger:
+  branches:
+    include:
+    - development
+
+pr: none
+
+variables:
+- group: Main-Variables-Group
+- group: Development-Environment-Variables
+
+steps:
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet $(NUGET_VERSION)'
+  inputs:
+    versionSpec: $(NUGET_VERSION)
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: '$(SOLUTION_FILE)'
+
+- powershell: '(Get-Content -path $(PATH_TO_CONFIGURATION_FILE) -Raw) -replace ''BaseAddress = StageAddress;'',''BaseAddress = $(ENVIRONMENT_CONFIGURATION);'' | Set-Content -Path $(PATH_TO_CONFIGURATION_FILE)'
+  displayName: 'Set application environment configuration to $(ENVIRONMENT_CONFIGURATION)'
+  enabled: true
+
+- task: vs-publisher-473885.motz-mobile-buildtasks.android-manifest-version.android-manifest-version@1
+  displayName: 'Bump Android Versions in $(ANDROID_MANIFEST_PATH)'
+  inputs:
+    sourcePath: '$(ANDROID_MANIFEST_PATH)'
+    versionName: '$(ANDROID_VERSION)'
+    versionCodeOffset: 2080
+
+- task: XamarinAndroid@1
+  displayName: 'Build Xamarin.Android project **/*Droid*.csproj'
+  inputs:
+    projectFile: '**/*Droid*.csproj'
+    outputDirectory: '$(build.binariesdirectory)/$(BUILD_CONFIGURATION)'
+    configuration: '$(BUILD_CONFIGURATION)'
+    msbuildVersionOption: latest
+
+- task: AndroidSigning@3
+  enabled: true
+  displayName: 'Signing and aligning APK file(s) $(build.binariesdirectory)/$(BUILD_CONFIGURATION)/*.apk'
+  inputs:
+    apkFiles: '$(build.binariesdirectory)/$(BUILD_CONFIGURATION)/*.apk'
+    apksignerKeystoreFile: '$(KEYSTORE_FILE)'
+    apksignerKeystorePassword: '$(KEYSTORE_PASSWORD)'
+    apksignerKeystoreAlias: '$(ALIAS_NAME)'
+    apksignerKeyPassword: '$(KEYSTORE_PASSWORD)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+  inputs:
+    PathtoPublish: '$(build.binariesdirectory)/$(BUILD_CONFIGURATION)'
+  condition: succeededOrFailed()

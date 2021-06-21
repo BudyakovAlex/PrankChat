@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SubscriptionsView">
+            <connections>
+                <outlet property="TabView" destination="8hb-ov-XMP" id="bUC-LT-bdy"/>
+                <outlet property="TableView" destination="A0e-7S-k4I" id="tzV-80-F7D"/>
+                <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8hb-ov-XMP" customClass="TabView">
+                    <rect key="frame" x="0.0" y="52" width="414" height="34"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="34" id="T5P-DV-KMa"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="12v-1a-bnD">
+                    <rect key="frame" x="0.0" y="86" width="414" height="1"/>
+                    <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="cNW-iE-gr5"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="A0e-7S-k4I">
+                    <rect key="frame" x="0.0" y="87" width="414" height="775"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="12v-1a-bnD" firstAttribute="top" secondItem="8hb-ov-XMP" secondAttribute="bottom" id="1Bd-pq-sSz"/>
+                <constraint firstItem="A0e-7S-k4I" firstAttribute="top" secondItem="12v-1a-bnD" secondAttribute="bottom" id="2Qm-kP-PVX"/>
+                <constraint firstItem="8hb-ov-XMP" firstAttribute="leading" secondItem="t8X-8s-sA8" secondAttribute="leading" id="487-xA-Cmx"/>
+                <constraint firstItem="t8X-8s-sA8" firstAttribute="trailing" secondItem="8hb-ov-XMP" secondAttribute="trailing" id="U4q-3h-qMW"/>
+                <constraint firstItem="12v-1a-bnD" firstAttribute="leading" secondItem="t8X-8s-sA8" secondAttribute="leading" id="VgG-Oy-WbV"/>
+                <constraint firstItem="A0e-7S-k4I" firstAttribute="leading" secondItem="t8X-8s-sA8" secondAttribute="leading" id="WJG-jo-F8t"/>
+                <constraint firstItem="t8X-8s-sA8" firstAttribute="bottom" secondItem="A0e-7S-k4I" secondAttribute="bottom" id="dTz-av-Shd"/>
+                <constraint firstItem="8hb-ov-XMP" firstAttribute="top" secondItem="t8X-8s-sA8" secondAttribute="top" constant="8" id="ghd-o9-Osy"/>
+                <constraint firstItem="t8X-8s-sA8" firstAttribute="trailing" secondItem="12v-1a-bnD" secondAttribute="trailing" id="koj-PX-Y3o"/>
+                <constraint firstItem="t8X-8s-sA8" firstAttribute="trailing" secondItem="A0e-7S-k4I" secondAttribute="trailing" id="q8o-Xc-hWI"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="t8X-8s-sA8"/>
+            <point key="canvasLocation" x="34" y="54"/>
+        </view>
+    </objects>
+</document>

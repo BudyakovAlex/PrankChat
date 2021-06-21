@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<mvvmcross.droidx.MvxSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <mvvmcross.droidx.recyclerview.MvxRecyclerView
+        android:id="@+id/competitions_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants" />
+</mvvmcross.droidx.MvxSwipeRefreshLayout>

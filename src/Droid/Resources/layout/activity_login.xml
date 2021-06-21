@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background">
+
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar_transparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/enter_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/action_bar"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/LoginView_Login_Title"
+        android:textColor="@android:color/white"
+        android:textSize="20dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_edit_text"
+        android:theme="@style/Theme.PrankChat.TextFieldLayout"
+        app:boxStrokeColor="@color/text_input_box_stroke"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:textColorHint="@color/applicationWhite"
+        app:boxStrokeWidth="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/enter_text_view"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginRight="16dp"
+        android:hint="@string/LoginView_Email_Placeholder">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email_text_input_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/applicationWhite"
+            android:textSize="14dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_edit_text"
+        android:theme="@style/Theme.PrankChat.TextFieldLayout"
+        app:boxStrokeColor="@color/text_input_box_stroke"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:textColorHint="@color/applicationWhite"
+        app:boxStrokeWidth="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/email_edit_text"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="@string/LoginView_Password_Placeholder">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_text_input_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="@color/applicationWhite"
+            android:textSize="14dp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RelativeLayout
+        android:id="@+id/forgot_password_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password_edit_text"
+        android:layout_marginTop="6dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/reset_password_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/LoginView_ForgotPassword_Title"
+            android:textColor="@color/applicationWhite"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/reset_password_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_toRightOf="@id/reset_password_title"
+            android:autoLink="all"
+            android:gravity="center"
+            android:text="@string/LoginView_ForgotPassword_Button"
+            android:textColor="@color/applicationWhite"
+            android:textSize="12dp"/>
+    </RelativeLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/login_button"
+        style="@style/Theme.PrankChat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_alignStart="@+id/demo_button"
+        android:layout_alignEnd="@+id/demo_button"
+        android:layout_below="@+id/forgot_password_container"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="@string/LoginView_Continue_Button" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Theme.PrankChat.ProgressBar.Accent"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="5dp"
+        android:layout_alignTop="@+id/login_button"
+        android:layout_alignBottom="@+id/login_button"
+        android:layout_alignRight="@+id/login_button"
+        android:layout_gravity="right" />
+
+    <TextView
+        android:id="@+id/login_from_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_button"
+        android:layout_marginTop="26dp"
+        android:gravity="center_horizontal"
+        android:text="@string/LoginView_AltLogin_Title"
+        android:textColor="@android:color/white"
+        android:textSize="12dp" />
+
+    <LinearLayout
+        android:id="@+id/social_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_from_text"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/vk_login_button"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="8dp"
+            android:text="Registration"
+            app:srcCompat="@drawable/ic_vk" />
+
+        <ImageButton
+            android:id="@+id/ok_login_button"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_odnoklassniki" />
+
+        <ImageButton
+            android:id="@+id/fb_login_button"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            app:srcCompat="@drawable/ic_facebook" />
+
+        <ImageButton
+            android:id="@+id/gmail_login_button"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_gmail" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/create_account_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/social_container"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:autoLink="all"
+        android:gravity="center"
+        android:text="@string/LoginView_CreateAccount_Button"
+        android:textColor="@color/applicationWhite"
+        android:textSize="16dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/demo_button"
+        style="@style/Theme.PrankChat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_below="@+id/create_account_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="@string/Login_Without_Registration" />
+
+    <FrameLayout
+        android:id="@+id/container_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

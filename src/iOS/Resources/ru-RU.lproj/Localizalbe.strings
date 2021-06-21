@@ -1,0 +1,362 @@
+"Close" = "Закрыть";
+"app_name" = "PrankChat";
+"Home_Tab" = "Главная";
+"Rate_Tab" = "Оценка";
+"Orders_Tab" = "Заказы";
+"Profile_Tab" = "Профиль";
+"Popular_Publication_Tab" = "Популярное";
+"Actual_Publication_Tab" = "Актуальное";
+"MyFeed_Publication_Tab" = "Моя лента";
+"Publication_Tab_Filter_Day" = "За день";
+"Publication_Tab_Filter_Week" = "За неделю";
+"Publication_Tab_Filter_Month" = "За месяц";
+"Publication_Tab_Filter_Quarter" = "За квартал";
+"Publication_Tab_Filter_HalfYear" = "За полгода";
+"Cancel" = "Отмена";
+"Search_View_Search_Placeholder" = "Поиск";
+"Share" = "Поделиться";
+"Error_Unexpected_Server" = "Непредвиденная ошибка на сервере.";
+"Error_Unexpected_Not_Found" = "Не удалось получить запрошенные данные.";
+"Error_Unexpected_Network" = "Неожиданная сетевая ошибка, попробуйте снова.";
+"LoginView_Email_Placeholder" = "Введите email";
+"LoginView_Password_Placeholder" = "Введите пароль";
+"LoginView_ForgotPassword_Title" = "Востановление пароля";
+"LoginView_ForgotPassword_Button" = "Востановить";
+"LoginView_Continue_Button" = "Продолжить";
+"LoginView_CreateAccount_Button" = "Нет аккаунта? Создать новый";
+"LoginView_Login_Title" = "Войти";
+"LoginView_AltLogin_Title" = "Войти через:";
+"RegistrationView_Title" = "Регистрация";
+"RegistrationView_Email_Placeholder" = "Введите email";
+"RegistrationView_RegisteredYet_Label" = "Уже зарегистрированы?";
+"RegistrationView_Login_Button" = "Войти в аккаунт";
+"RegistrationView_Login_Placeholder" = "Введите логин";
+"RegistrationView_Name_Placeholder" = "Введите имя";
+"RegistrationView_Birthday_Placeholder" = "Дата рождения";
+"RegistrationView_Password_Placeholder" = "Введите пароль";
+"RegistrationView_PasswordRepeat_Placeholder" = "Повторите пароль";
+"RegistrationView_GenderSelect_Title" = "Выберите пол:";
+"RegistrationView_Male_Button" = "муж";
+"RegistrationView_Female_Button" = "жен";
+"RegistrationView_Register_Button" = "Зарегистрироваться";
+"RegistrationView_StepTwo_Title" = "Шаг 2";
+"RegistrationView_StepThree_Title" = "Шаг 3";
+"RegistrationView_Congrats_Title" = "Поздравляем!";
+"RegistrationView_Confirmation_Label" = "На почту отправлено письмо с верификацией email адреса. Для завершения регистрации, пожалуйста, подтвердите Ваш email";
+"RegistrationView_GoToFeed_Button" = "Перейти в ленту";
+"Password_Recovery_View_Title" = "Восстановление пароля";
+"Password_Recovery_View_Email_Placeholder" = "Введите email";
+"Password_Recovery_View_Recovery_Button" = "Восстановить";
+"Password_Recovery_View_Attention" = "Внимание!";
+"Password_Recovery_View_Finish_Text" = "Ссылка для восстановления пароля отправлена на почту.";
+"ProfileView_Menu_Favourites" = "Избранные видео";
+"ProfileView_Menu_TaskSubscriptions" = "Подписки на заказ";
+"ProfileView_Menu_Faq" = "FAQ";
+"ProfileView_Menu_Support" = "Справки/отзывы";
+"ProfileView_Menu_Settings" = "Настройки";
+"ProfileView_Menu_LogOut" = "Выйти из аккаунта";
+"ProfileView_Refill" = "Пополнить";
+"ProfileView_Withdrawal" = "Вывести";
+"ProfileView_Orders_Subtitle" = "заказов";
+"ProfileView_Completed_Subtitle" = "выполнено";
+"ProfileView_Subscribers_Subtitle" = "подписчики";
+"ProfileView_Subscriptions_Subtitle" = "подписки";
+"ProfileView_MyOrders_Tab" = "Я заказал";
+"ProfileView_CompletedOrders_Tab" = "Я исполняю";
+"Order_View_Time_Text" = "Время заказа:";
+"Order_View_Price_Text" = "Сумма заказа:";
+"Order_View_Day" = "День";
+"Order_View_Hour" = "Часа";
+"Order_View_Minute" = "Минут";
+"Order_View_Details" = "Подробнее";
+"Order_View_New_Task" = "Новый заказ";
+"Order_View_My_Task" = "Мои заказы";
+"OrdersView_Filter_AllTasks" = "Все заказы";
+"OrdersView_Filter_NewTasks" = "Новые заказы";
+"OrdersView_Filter_CurrentTasks" = "Заказ в исполнении";
+"OrdersView_Filter_MyTasks" = "Мои заказы";
+"RateView_Filter_AllTasks" = "Все заказы в споре";
+"RateView_Filter_MyTasks" = "Мои заказы в споре";
+"RateView_Filter_NewTasks" = "Новые заказы в споре";
+"RateView_Title_Label" = "Оценка";
+"OrdersView_Title_Label" = "Заказы";
+"RateView_Vote_Button" = "Оценить";
+"CreateOrderView_Title" = "Создание заказа";
+"CreateOrderView_Name_Placeholder" = "Название заказа";
+"CreateOrderView_Description_Placeholder" = "Описание заказа";
+"CreateOrderView_Price_Placeholder" = "10 000 ₽";
+"CreateOrderView_CompleteDate_Placeholder" = "Дата исполнения";
+"CreateOrderView_HideExecutor_Button" = "Скрыть исполнителя";
+"CreateOrderView_Create_Button" = "Создать заказ";
+"NotificationView_Title" = "Уведомления";
+"OrderDetailsView_Price_Text" = "Сумма заказа:";
+"OrderDetailsView_Time_Text" = "Время заказа:";
+"OrderDetailsView_Take_Order_Button" = "Взять заказ";
+"OrderDetailsView_Subscribe_Button" = "Подписаться";
+"OrderDetailsView_Unsubscribe_Button" = "Отписаться";
+"OrderDetailsView_Download_Text" = "Загрузить видео:";
+"OrderDetailsView_Execute_Button" = "Выполнить";
+"OrderDetailsView_Cancel_Button" = "Отменить";
+"OrderDetailsView_Took_The_Order_Text" = "Исполнитель:";
+"OrderDetailsView_Yes_Button" = "Да";
+"OrderDetailsView_No_Button" = "Нет";
+"OrderDetailsView_Accept_Button" = "Принять";
+"OrderDetailsView_Argue_Button" = "В спор";
+"OrderDetailsView_Corresponds_To_Video_Text" = "Соответствует видео заказу?";
+"CreateOrderView_PriceTitle_Placeholder" = "Цена";
+"OrderDetailsView_Title" = "Заказ";
+"CashboxView_Title" = "Касса";
+"CashboxView_Fillup_Tab" = "Пополнение";
+"CashboxView_Withdrawal_Tab" = "Снятие";
+"CashboxView_Fillup_Button" = "Пополнить";
+"CashboxView_FillupMethodSelect_Title" = "Выберите метод для пополнения:";
+"CashboxView_WithdrawalAvailable_Title" = "Доступно для снятия с учётом комиссии платёжного шлюза (оператора):";
+"CashboxView_Withdrawal_Button" = "Снять";
+"CashboxView_WithdrawalMethodSelect_Title" = "Выберите метод для снятия:";
+"CashboxView_Price_Placeholder" = "1 000 000 ₽";
+"CommentView_Title" = "Комментарии";
+"Publication_Item_Complain" = "Пожаловаться...";
+"Publication_Item_Copy_Link" = "Копировать ссылку";
+"Publication_Item_Subscribe_To_Author" = "Подписаться на автора";
+"ShareDialog_Title" = "Поделиться";
+"ShareDialog_CopyLink_Label" = "Коп. ссылку";
+"ShareDialog_ShareInstagram_Label" = "В Instagram";
+"ShareDialog_LinkShareTitle" = "Поделиться ссылкой";
+"OrderStatus_New" = "На модерации";
+"OrderStatus_Rejected" = "Отменен модератором";
+"OrderStatus_Cancelled" = "Отменен";
+"OrderStatus_Active" = "Новый";
+"OrderStatus_InWork" = "В работе";
+"OrderStatus_InArbitration" = "В споре";
+"OrderStatus_ProcessCloseArbitration" = "Закрытие спора";
+"OrderStatus_ClosedAfterArbitrationCustomerWin" = "Спор выигран";
+"OrderStatus_ClosedAfterArbitrationExecutorWin" = "Спор проигран";
+"OrderStatus_Finished" = "Выполненный";
+"Ok" = "Ок";
+"Attention" = "Внимание!";
+"OrderDetailsView_TakeOrderTitle" = "Взять заказ";
+"OrderDetailsView_TakeOrderQuestion" = "Для принятия заказа необходимо внести задаток, как гарантию его выполнения:\n20% стоимости для обычных заказов\n40% для секретных заказов ";
+
+/*Fuzzy*/
+"Seconds_Short" = "сек.";
+
+/*Fuzzy*/
+"Minutes_Short" = "мин.";
+
+/*Fuzzy*/
+"Hours_Short" = "ч.";
+
+/*Fuzzy*/
+"Days_Short" = "д.";
+
+/*Fuzzy*/
+"Weeks_Short" = "нед.";
+
+/*Fuzzy*/
+"Count_Thousand" = "k";
+
+/*Fuzzy*/
+"Count_Millions" = "m";
+
+/*Fuzzy*/
+"Currency" = "₽";
+
+/*Fuzzy*/
+"Count_View" = "просмотр";
+
+/*Fuzzy*/
+"Count_Views" = "просмотров";
+
+/*Fuzzy*/
+"Count_Of_Viewing" = "просмотра";
+"Year_Short" = "г.";
+"OrderStatus_MyOrder" = "Мое";
+"OrderDetails_View_Cancel_Title" = "Вы уверены, что хотите отменить заказ?";
+"ProfileUpdateView_Email_Placeholder" = "Email";
+"ProfileUpdateView_Login_Placeholder" = "Логин";
+
+/*Fuzzy*/
+"ProfileUpdateView_Name_Placeholder" = "Имя";
+"ProfileUpdateView_Birthday_Placeholder" = "Дата рождения";
+"ProfileUpdateView_Button_Save" = "Сохранить";
+"ProfileUpdateView_GenderSelect_Title" = "Ваш пол";
+
+/*Fuzzy*/
+"ProfileUpdateView_Title" = "ПРОФИЛЬ";
+"ProfileUpdateView_ChangePassword" = "Сменить пароль";
+"TakePhoto" = "Cфотографировать";
+"PickPhoto" = "Выбрать из галереи";
+"ProfileUpdateView_Description_Placeholder" = "О себе";
+"ProfileUpdateView_PhotoChange_Title" = "Сменить фото профиля";
+"Select" = "Выбрать";
+"CreateOrderView_Choose_Time_Period" = "Выберите период действия заказа.";
+"OrderStatus_WaitFinish" = "В ожидании";
+"OrderDetailsView_LoadVideo" = "Загрузить видео";
+"NotificationStatus_Viewed" = "Просмотрено";
+"NotificationStatus_NotViewed" = "Непросмотрено";
+"Validation_Field_Title" = "Заголовок";
+"Validation_Field_Description" = "Описание";
+"Validation_Field_Price" = "Цена";
+"Validation_Field_OrderPeriod" = "Период";
+"Validation_Field_Cost" = "Стоимость";
+"Validation_Field_Login" = "Логин";
+"Validation_Field_Name" = "Имя";
+"Validation_Field_Birthday" = "День рождения";
+"Validation_Field_Gender" = "Пол";
+"Validation_Field_Email" = "E-mail";
+"Validation_Field_Password" = "Пароль";
+"Validation_Field_PasswordRepeat" = "Повтор пароля";
+"Validation_Error_Empty" = "{0} не может быть пустым.";
+"Validation_Error_GreaterThanRequired" = "{0} не может быть больше чем {1}.";
+"Validation_Error_LowerThanRequired" = "{0} не может быть меньше чем {1}.";
+"Validation_Error_NotMatch" = "{0} не совпадает с {1}.";
+"Validation_Error_CanNotMatch" = "{0} не может быть равно {1}.";
+"Validation_Error_Invalid" = "{0} имеет неверный формат.";
+"Demo" = "Демо";
+"com.crashlytics.android.build_id" = "e9e6beb9c4284289ac68b9ab76a9ee56";
+"FinishPasswordRecoveryView_GoToFeed_Button" = "Перейти в ленту";
+"FinishPasswordRecoveryView_GoToLogin_Button" = "Войти в аккаунт";
+"com_vk_sdk_AppId" = "7343996";
+"Count_Days" = "Дней";
+"Count_Hours" = "Часов";
+"Count_Minutes" = "Минут";
+"LinkCopied" = "Ссылка скопирована";
+"ComplainSuccessful" = "Отправлено модератору";
+"Competitions_Voting" = "Голосование";
+"Competitions_New" = "Новые";
+"Competitions_Finished" = "Итоги";
+"Competitions_Voting_Term" = "До конца голосования:";
+"Competitions_Finished_Term" = "Период проведения конкурса:";
+"Competitions_See" = "Смотреть";
+"Competitions_More" = "Подробнее";
+"Competitions_Participate" = "Принять участие";
+"Competitions_Prize_Pool" = "Призовой фонд турнира:";
+"Competitions_New_Term" = "До начала голосования:";
+"Competition_Load_Video" = "Загрузить видео";
+"Competition_Rules" = "Правила конкурса";
+"Competition_Results" = "Результаты";
+"WithdrawalView_FirstName_Placeholder" = "Имя";
+"WithdrawalView_LastName_Placeholder" = "Фамилия";
+"WithdrawalView_CardNumber_Placeholder" = "Номер карты";
+"WithdrawalView_AttachFile_Button" = "Прикрепить файл";
+"WithdrawalView_Revoke_Button" = "Отозвать";
+
+/*Fuzzy*/
+"Login_Without_Registration" = "Войти без регистрации";
+
+/*Fuzzy*/
+"Competition_Prize_Pool_Rating" = "Рейтинг";
+"Competition_Prize_Pool_Participant" = "Учасник";
+"Competition_Prize_Pool" = "Призовой фонд";
+"Competitions_Tab" = "Конкурсы";
+"WithdrawalView_Empty_Card_Error" = "Карта не может быть пустой.";
+"WithdrawalView_Cancel_Withdrawal_Error" = "Не удается отменить транзакцию для вывода средств";
+"WithdrawalView_Delete_Card_Text" = "Удалить карту";
+"Delete" = "Удалить";
+"WithdrawalView_Delete_Card_Question" = "Вы уверены что хотите удалить данную карту?";
+"WithdrawalView_Verify_User_Text" = "Для того чтобы вывести средства со своего счета, Вам необходимо подтвердить свою личность прикрепив селфи с паспортом в развернутом виде.";
+"WithdrawalView_Attach_File" = "Прикрепить файл";
+"WithdrawalView_Pendng_Verify_User_Text" = "Ваш запрос обрабатывается, время ожидания может составить до 24 часов";
+"WithdrawalView_Card_Number" = "Номер карты";
+"WithdrawalView_Surname" = "Фамилия";
+"WithdrawalView_Name" = "Имя";
+"WithdrawalView_Cost" = "Сумма";
+"WithdrawalView_Pending_Withdrawal_Text" = "В данный момент идет обработка Вашего запроса на вывод средств.";
+"WithdrawalView_Create_Date" = "Дата создания";
+"WithdrawalView_Status_Text" = "Статус";
+"WithdrawalView_Pending" = "В ожидании";
+"WithdrawalView_Withdraw_Text" = "Отозвать";
+"Competiton_Prize_Pool_Place" = "Место";
+"Orders_In_Dispute" = "В споре";
+"OnBoarding_Go_To_Main" = "Перейти в ленту";
+
+/*Fuzzy*/
+"OnBoarding_First_Title" = "Смотри и наслаждайся";
+"OnBoarding_Second_Title" = "Создай свой первый заказ";
+"OnBoarding_Third_Title" = "Зарабатывай, выполняя заказы";
+"OnBoarding_Fourth_Title" = "Участвуй в бесплатных конкурсах";
+"OnBoarding_Fifth_Title" = "Делай это смешно и под музыку!";
+"OnBoarding_First_Description" = "Авторы PrankChat публикуют только эксклюзивные, самые смешные и безумные видео! Смотри и наслаждайся";
+"OnBoarding_Second_Description" = "Размещай задание, стоимость и срок исполнения, по которому другие пользователи снимут для тебя видео. Получи ролик своей мечты!";
+
+/*Fuzzy*/
+"OnBoarding_Third_Description" = "Монетизируй свою любовь к творчеству! Снимай ролики для других пользователей и зарабатывай на этом реальные деньги";
+"OnBoarding_Fourth_Description" = "Принимай участие в креативных конкурсах! Сними лучшее видео и выиграй достойный денежный приз! А мы не возьмём с тебя ни копейки";
+"OnBoarding_Fifth_Description" = "Публикуй свое видео и стань известным";
+"Complaint_Spam" = "Это спам";
+"Complaint_Naked_Content" = "Порнография и нагота";
+"Complaint_Hostile_Utterances" = "Оскорбления или травля";
+"Complaint_Dangerous_Organizations" = "Насилие или опасные организации";
+"Complaint_Rights_Violation" = "Нарушение авторских прав";
+"Complaint_Cheating" = "Мошенничество или обман";
+"Complaint_Complete_Message" = "Спасибо, что сообщили нам об этом";
+"Complaint_Other" = "Прочее";
+"Complaint_Wrong_Name" = "Использует чужое имя";
+
+/*Fuzzy*/
+"Complaint_Unacceptable_Content" = "Неприемлемый контент";
+"Complaint_Unacceptable_Information_In_Profile" = "Неприемлемая информация в профиле";
+"Order_Add" = "Создать";
+"Order_Create_Message" = "Вы уверены что хотите создать заказ?";
+"Processing_Video" = "Обработка займёт несколько минут";
+"Profile_Your_Email_Not_Actual" = "Ваша почта не подтверждена";
+"Profile_Email_Confirmation_Sent" = "На Вашу почту отправлено письмо с подтверждением";
+"Profile_Resend_Confirmation" = "Отправить повторно";
+"OrderDetailsView_Video_Uploaded" = "У заказчика есть 24 часа на оплату";
+"Cashbox_Commision_Warning" = "Обратите внимание что к сумме пополнения будет добавлена комисия оператора";
+"Registration_Confirm_Adult" = "Подтверждаю, что мне есть 18 лет";
+"Registration_Agree_With" = "Я согласен с";
+"Registration_Terms_And_Rules" = "правилами и условиями";
+"Validation_Field_Adult_Check" = "Возраст";
+"Validation_Field_Privacy_Check" = "Правила и условия";
+
+/*Fuzzy*/
+"Registration_Checkmark_Not_Confirmed" = "Подтвердите возраст и согласие с правилами";
+"Not_Confirmed" = "{0} не подтверждено";
+"Competition_Prize" = "Приз";
+"Competition_Votes" = "Голоса";
+"Create_Order_Hour" = "час";
+"Create_Orders_Hours_Plural" = "часов";
+"Create_Orders_Hours_Singular" = "часа";
+"Walkthrouth_Competitions_Description" = "Участвуй в конкурсах с денежными призами! Читай условия и скорее размещай своё видео. Победители будут выбраны путём общего голосования и моментально получат на свой счёт призовые деньги. Не забудь позвать своих друзей на голосование, они увеличат твои шансы на победу!\n\nКонкурс состоит из трех этапов:\n1) На начальном этапе участники отправляют на конкурс свои видеоролики;\n2) Голосование. Пользователи PrankChat отдают голоса за понравившееся видео;\n3) Итоги. После подведения итогов на счета участников, чьи видео заняли призовые места, перечисляются выигранные деньги.";
+"Walkthrouth_CreateOrder_Description" = "Размещай своё задание, по которому другие пользователи снимут для тебя видео. Описывай задачу как можно подробнее, устанавливай срок исполнения и сумму вознаграждения, чтобы получить идеальный ролик.";
+"Walkthrouth_Orders_Description" = "Ты можешь взять любой заказ из категории «Новый» и загрузить готовое видео согласно заданию. Чтобы принять заказ, внеси 20% от его стоимости в качестве гарантии, что не забросишь его исполнение. Когда заказчик проверит твоё видео и одобрит его, жди оплату на свой счёт. Если же заказчик забыл одобрить заказ, деньги тебе поступят автоматически через 24 часа. 20 % от стоимости заказа составляет комиссия PrankChat.\n\nВ случае, если заказчику не понравилось твоё видео, он может отправить задание в «спор». Там в течение суток независимые пользователи решат, соответствует ли выполненное видео заказу. Если количество положительных голосов превысит количество отрицательных, то жди свои заслуженные премиальные. В обратной ситуации вознаграждение вернётся заказчику.";
+"Walkthrouth_Profile_Description" = "В профиле пользователь может отслеживать сумму денежных средств на расчетном счете, а также все свои задания: опубликованные, исполняемые и исполненные.";
+"Walkthrouth_Competitions_Title" = "Конкурсы";
+"Walkthrouth_CreateOrder_Title" = "Создание заказов";
+"Walkthrouth_Orders_Title" = "Лента заказов";
+"Walkthrouth_Profile_Title" = "Профиль";
+"No_Intentet_Connection" = "Интернет соединение отсувствует";
+"Video_Failed_To_Upload" = "Ошибка загрузки видео";
+"Bytes_Presentation" = "байт";
+"Kilobytes_Presentation" = "КБ";
+"Megabytes_Presentation" = "МБ";
+"Gigabytes_Presentation" = "ГБ";
+"Terabytes_Presentation" = "ТБ";
+"Subscription_Title_Template" = "Подписки {0}";
+"Subscribers_Title_Template" = "Подписчики {0}";
+"Search_Videos" = "Видео";
+"Search_Peoples" = "Люди";
+"Application_New_Version_Ready" = "Вышло важное обновление, похоже пора его установить.";
+
+/*Fuzzy*/
+"Download_Update" = "Скачать обновление";
+"Email_Already_Exists" = "Данный эмейл уже зарегистрирован";
+
+/*Creditcard save*/
+"WithdrawalView_Passport" = "Паспорт(серия и номер)";
+"Create_Order_Secret_order" = "Секретный заказ";
+
+/*Fuzzy*/
+"Walkthrouth_CreateOrder_Secret_Description" = "Текст «Секретного заказа» не виден и появляется только при принятии заказа исполнителем. \nДля принятия заказа необходимо внести 40% от его общей стоимости как гарантию выполнения заказа. \nВ случае невыполнения в отведенное время заказчик зарабатывает 20%, поэтому выгодно создавать труднорешаемые и интересные задачи. Задание может быть сложным, но обязательно выполнимым. \nЕсли задание невыполнимо, исполнитель может загрузить видео, в котором укажет причину, по которой невозможно снять видео, а заказчик при несогласии отправит задание в спор, где пользователи решат голосованием, кто прав.";
+"Publication_Item_Download" = "Скачать";
+"Competition_Pay_For_Join" = "Оплатить участие";
+"Competion_Rules_Template" = "Чтобы принять участие в конкурсе, Вам необходимо заплатить {0} ₽";
+"Pay" = "Оплатить";
+"Error_Something_Went_Wrong_Message" = "Упс, что то пошло не так :(";
+"WithdrawalView_MiddleName" = "Отчество";
+"WithdrawalView_Location" = "Место жительства";
+"WithdrawalView_Nationality" = "Гражданство";
+"Withdrawal_Yoomoney_Description" = "Вывод средств осуществляется через кошелек ЮMoney (Яндекс кошелёк).";
+"Withdrawal_Yoomoney" = "ЮMoney";
+"Withdrawal_Enter_Wallet_Number" = "Введите номер кошелька ЮMoney (Яндекс кошелёк)";

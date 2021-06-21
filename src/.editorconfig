@@ -1,0 +1,81 @@
+# top-most EditorConfig file
+root = true
+
+[*]
+
+# Don't use tabs for indentation.
+indent_style = space
+trim_trailing_whitespace = true
+insert_final_newline = false
+
+[*.cs]
+
+# Avoid "this." and "Me." if not necessary
+dotnet_style_qualification_for_field = false : warning
+dotnet_style_qualification_for_property = false : warning
+dotnet_style_qualification_for_method = false : warning
+dotnet_style_qualification_for_event = false : warning
+
+# Use language keywords instead of framework type names for type references
+dotnet_style_predefined_type_for_locals_parameters_members = true : warning
+dotnet_style_predefined_type_for_member_access = true : warning
+
+# Suggest more modern language features when available
+dotnet_style_object_initializer = true : suggestion
+dotnet_style_collection_initializer = true : suggestion
+dotnet_style_coalesce_expression = true : suggestion
+dotnet_style_null_propagation = true : suggestion
+dotnet_style_explicit_tuple_names = true : suggestion
+
+# Naming rules - async methods to be prefixed with Async
+dotnet_naming_rule.async_methods_must_end_with_async.severity = warning
+dotnet_naming_rule.async_methods_must_end_with_async.symbols = method_symbols
+dotnet_naming_rule.async_methods_must_end_with_async.style = end_in_async_style
+
+dotnet_naming_symbols.method_symbols.applicable_kinds = method
+dotnet_naming_symbols.method_symbols.required_modifiers = async
+
+dotnet_naming_style.end_in_async_style.capitalization = pascal_case
+dotnet_naming_style.end_in_async_style.required_suffix = Async
+
+# Naming rules - static fields should have PascalCase
+dotnet_naming_rule.static_fields_should_have_prefix.severity = suggestion
+dotnet_naming_rule.static_fields_should_have_prefix.symbols = static_fields
+dotnet_naming_rule.static_fields_should_have_prefix.style = static_prefix_style
+
+dotnet_naming_symbols.static_fields.applicable_kinds = field
+dotnet_naming_symbols.static_fields.required_modifiers = static
+
+dotnet_naming_style.static_prefix_style.capitalization = pascal_case
+
+# Naming rules - internal and private fields should be _camelCase
+dotnet_naming_rule.camel_case_for_private_internal_fields.severity = suggestion
+dotnet_naming_rule.camel_case_for_private_internal_fields.symbols = private_internal_fields
+dotnet_naming_rule.camel_case_for_private_internal_fields.style = camel_case_underscore_style
+
+dotnet_naming_symbols.private_internal_fields.applicable_kinds = field
+dotnet_naming_symbols.private_internal_fields.applicable_accessibilities = private, internal
+
+dotnet_naming_style.camel_case_underscore_style.required_prefix = _
+dotnet_naming_style.camel_case_underscore_style.capitalization = camel_case
+
+# Naming rules - private fields must start with an underscore
+dotnet_naming_rule.field_must_start_with_underscore.severity = warning
+dotnet_naming_rule.field_must_start_with_underscore.symbols = private_fields
+dotnet_naming_rule.field_must_start_with_underscore.style = start_underscore_style
+
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+
+dotnet_naming_style.start_underscore_style.capitalization = camel_case
+dotnet_naming_style.start_underscore_style.required_prefix = _
+
+# Naming rules - name all constant fields using PascalCase
+dotnet_naming_rule.constant_fields_should_be_pascal_case.severity = suggestion
+dotnet_naming_rule.constant_fields_should_be_pascal_case.symbols = constant_fields
+dotnet_naming_rule.constant_fields_should_be_pascal_case.style = pascal_case_style
+
+dotnet_naming_symbols.constant_fields.applicable_kinds = field
+dotnet_naming_symbols.constant_fields.required_modifiers = const
+
+dotnet_naming_style.pascal_case_style.capitalization = pascal_case

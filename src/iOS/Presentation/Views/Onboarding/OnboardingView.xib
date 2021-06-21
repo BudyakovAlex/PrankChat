@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OnboardingView">
+            <connections>
+                <outlet property="actionButton" destination="R00-66-PSc" id="wKt-Ev-ztx"/>
+                <outlet property="collectionView" destination="tXT-vt-VNI" id="WSI-mM-4o4"/>
+                <outlet property="pageIndicatorStackView" destination="qe5-zA-xtY" id="18z-We-BjX"/>
+                <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="tXT-vt-VNI">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tyj-s6-9sM">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R00-66-PSc">
+                    <rect key="frame" x="32" y="810" width="350" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="RLr-ba-dfl"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="qe5-zA-xtY">
+                    <rect key="frame" x="207" y="768" width="0.0" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" placeholder="YES" id="EQM-JP-1RP"/>
+                        <constraint firstAttribute="height" constant="20" id="hHg-OL-zYU"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="0.13333333333333333" green="0.039215686274509803" blue="0.24313725490196078" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Si4-zG-eRj" firstAttribute="trailing" secondItem="tXT-vt-VNI" secondAttribute="trailing" id="197-v3-lFc"/>
+                <constraint firstItem="tXT-vt-VNI" firstAttribute="leading" secondItem="Si4-zG-eRj" secondAttribute="leading" id="4tc-xW-Bbu"/>
+                <constraint firstItem="R00-66-PSc" firstAttribute="top" secondItem="qe5-zA-xtY" secondAttribute="bottom" constant="22" id="8xO-7k-1x6"/>
+                <constraint firstItem="R00-66-PSc" firstAttribute="leading" secondItem="tXT-vt-VNI" secondAttribute="leading" constant="32" id="9Gh-MM-ucd"/>
+                <constraint firstItem="tXT-vt-VNI" firstAttribute="bottom" secondItem="R00-66-PSc" secondAttribute="bottom" constant="16" id="GgL-RQ-WHI"/>
+                <constraint firstItem="qe5-zA-xtY" firstAttribute="centerX" secondItem="Si4-zG-eRj" secondAttribute="centerX" id="Y4Y-Ux-rHK"/>
+                <constraint firstItem="tXT-vt-VNI" firstAttribute="trailing" secondItem="R00-66-PSc" secondAttribute="trailing" constant="32" id="ekD-rN-hQA"/>
+                <constraint firstItem="Si4-zG-eRj" firstAttribute="bottom" secondItem="tXT-vt-VNI" secondAttribute="bottom" id="hCb-0g-JoS"/>
+                <constraint firstItem="tXT-vt-VNI" firstAttribute="top" secondItem="Si4-zG-eRj" secondAttribute="top" id="oDw-ox-Vk1"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Si4-zG-eRj"/>
+            <point key="canvasLocation" x="34" y="54"/>
+        </view>
+    </objects>
+</document>

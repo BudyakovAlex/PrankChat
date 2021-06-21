@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <mvvmcross.droidx.MvxSwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
+                android:id="@+id/competition_details_recycler_view"
+                android:layout_width="match_parent"
+                android:background="@color/applicationWhite"
+                android:layout_height="match_parent" />
+        </mvvmcross.droidx.MvxSwipeRefreshLayout>
+        <FrameLayout
+            android:id="@+id/loading_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/applicationTransparent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="ripple_animation.json"
+                app:lottie_loop="true" />
+        </FrameLayout>
+        <include layout="@layout/uploading_progress_overlay_layout"/>
+    </FrameLayout>
+</LinearLayout>

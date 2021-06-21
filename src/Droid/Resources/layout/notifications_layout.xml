@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <mvvmcross.droidx.MvxSwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:background="@color/applicationWhite"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+        <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </mvvmcross.droidx.MvxSwipeRefreshLayout>
+</LinearLayout>

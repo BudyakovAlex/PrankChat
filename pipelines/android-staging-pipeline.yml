@@ -1,0 +1,61 @@
+pool:
+  vmImage: 'windows-latest'
+  demands:
+  - MSBuild
+  - Xamarin.Android
+  - JDK
+
+trigger: none
+
+pr: none
+
+variables:
+- group: Main-Variables-Group
+- group: Staging-Environment-Variables
+
+steps:
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet $(NUGET_VERSION)'
+  inputs:
+    versionSpec: $(NUGET_VERSION)
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: '$(SOLUTION_FILE)'
+
+- powershell: '(Get-Content -path $(PATH_TO_CONFIGURATION_FILE) -Raw) -replace ''BaseAddress = StageAddress;'',''BaseAddress = $(ENVIRONMENT_CONFIGURATION);'' | Set-Content -Path $(PATH_TO_CONFIGURATION_FILE)'
+  displayName: 'Set application environment configuration to $(ENVIRONMENT_CONFIGURATION)'
+  enabled: true
+
+- task: vs-publisher-473885.motz-mobile-buildtasks.android-manifest-version.android-manifest-version@1
+  displayName: 'Bump Android Versions in $(ANDROID_MANIFEST_PATH)'
+  inputs:
+    sourcePath: '$(ANDROID_MANIFEST_PATH)'
+    versionName: '$(ANDROID_VERSION)'
+    versionCodeOffset: 2080
+
+- task: DownloadSecureFile@1
+  displayName: 'Download Android keystore from secure storage'
+  inputs:
+    secureFile: $(KEYSTORE_FILE)
+
+- bash: |
+    sed -i -e "s/<AndroidPackageFormat>apk<\/AndroidPackageFormat>/<AndroidPackageFormat>aab<\/AndroidPackageFormat>/g" $(PATH_TO_ANDROID_PROJECT_FILE)
+    cat $(PATH_TO_ANDROID_PROJECT_FILE) | xargs echo -e
+  displayName: 'Change package format to App Bundle'
+
+- task: XamarinAndroid@1
+  displayName: 'Build Xamarin.Android project **/*Droid*.csproj'
+  inputs:
+    projectFile: '**/*Droid*.csproj'
+    outputDirectory: '$(build.binariesdirectory)/$(BUILD_CONFIGURATION)'
+    configuration: '$(BUILD_CONFIGURATION)'
+    msbuildVersionOption: latest
+    msbuildArguments: '-t:SignAndroidPackage -p:Configuration=$(BUILD_CONFIGURATION) -p:AndroidKeyStore=True -p:AndroidSigningKeyStore=$(Agent.TempDirectory)/$(KEYSTORE_FILE) -p:AndroidSigningStorePass=$(KEYSTORE_PASSWORD) -p:AndroidSigningKeyAlias=$(ALIAS_NAME) -p:AndroidSigningKeyPass=$(KEYSTORE_PASSWORD)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+  inputs:
+    PathtoPublish: '$(build.binariesdirectory)/$(BUILD_CONFIGURATION)'
+  condition: succeededOrFailed()

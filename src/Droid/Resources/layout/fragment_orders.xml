@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        style="@style/Theme.PrankChat.Publication.TabLayout"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.tabs.TabItem
+            android:text="@string/Orders_Tab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <com.google.android.material.tabs.TabItem
+            android:text="@string/Orders_In_Dispute"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.google.android.material.tabs.TabLayout>
+    <LinearLayout
+        android:id="@+id/filter_view"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        app:MvxBind="Click OpenFilterCommand"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout">
+        <TextView
+            android:id="@+id/filter_button_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="17dp"
+            android:layout_weight="1"
+            android:gravity="end|center_vertical"
+            android:textColor="@color/filter"
+            android:textSize="14dp"
+            app:MvxBind="Text ActiveFilterName"
+            tools:text="Все заказы" />
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="23dp"
+            app:srcCompat="@drawable/ic_filter_arrow"
+            android:src="@drawable/ic_filter_arrow" />
+    </LinearLayout>
+    <mvvmcross.droidx.MvxSwipeRefreshLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filter_view"
+        app:MvxBind="Refreshing IsBusy; RefreshCommand LoadDataCommand">
+        <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
+            android:id="@+id/publication_recycler_view"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
+    </mvvmcross.droidx.MvxSwipeRefreshLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar_back_and_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:theme="@style/Theme.PrankChat.TextFieldLayout"
+        app:boxStrokeColor="@color/text_input_box_stroke"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginRight="16dp"
+        android:hint="@string/RegistrationView_Login_Placeholder"
+        android:textColorHint="@color/applicationWhite"
+        app:boxStrokeWidth="1dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/applicationWhite"
+            android:textSize="14dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:theme="@style/Theme.PrankChat.TextFieldLayout"
+        app:boxStrokeColor="@color/text_input_box_stroke"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="@string/RegistrationView_Name_Placeholder"
+        android:textColorHint="@color/applicationWhite"
+        app:boxStrokeWidth="1dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:textColor="@color/applicationWhite"
+            android:textSize="14dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RelativeLayout
+        android:id="@+id/select_birthday_container_view"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/border_white">
+
+        <TextView
+            android:id="@+id/birthday_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"
+            android:gravity="center_vertical"
+            android:text="@string/RegistrationView_Birthday_Placeholder"
+            android:textColor="@color/applicationWhite"
+            android:textSize="14dp" />
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="14dp"
+            app:srcCompat="@drawable/ic_calendar"
+            android:src="@drawable/ic_calendar" />
+    </RelativeLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:theme="@style/Theme.PrankChat.TextFieldLayout"
+        app:boxStrokeColor="@color/text_input_box_stroke"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="@string/RegistrationView_Password_Placeholder"
+        android:textColorHint="@color/applicationWhite"
+        app:boxStrokeWidth="1dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="@color/applicationWhite"
+            android:textSize="14dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:theme="@style/Theme.PrankChat.TextFieldLayout"
+        app:boxStrokeColor="@color/text_input_box_stroke"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="@string/RegistrationView_PasswordRepeat_Placeholder"
+        android:textColorHint="@color/applicationWhite"
+        app:boxStrokeWidth="1dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/repeat_password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="@color/applicationWhite"
+            android:textSize="14dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/adult_check_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="19dp"
+        android:checked="true"
+        android:textColor="@color/applicationWhite"
+        android:textSize="12dp"
+        android:text="@string/Registration_Confirm_Adult" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="19dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/terms_check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:checked="true"
+            android:textColor="@color/applicationWhite"
+            android:textSize="12dp"
+            android:text="@string/Registration_Agree_With" />
+
+        <TextView
+            android:id="@+id/terms_link_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="3dp"
+            android:textSize="12dp"
+            android:textColor="@color/description"
+            android:text="@string/Registration_Terms_And_Rules" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="29dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/registration_button"
+            style="@style/Theme.PrankChat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="@string/RegistrationView_Register_Button" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Theme.PrankChat.ProgressBar.Accent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@+id/registration_button"
+            android:layout_alignEnd="@+id/registration_button"
+            android:layout_alignRight="@+id/registration_button"
+            android:layout_gravity="right" />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="24dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp">
+
+    <EditText
+        android:id="@+id/refill_cost_edit_text"
+        style="@style/Theme.PrankChat.EditText"
+        android:layout_width="206dp"
+        android:layout_height="36dp"
+        android:hint="@string/CashboxView_Price_Placeholder"
+        android:inputType="number"
+        android:maxLines="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/refill_button"
+        style="@style/Theme.PrankChat.Button.Accent"
+        app:backgroundTint="@color/accent"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:text="@string/CashboxView_Fillup_Button"
+        app:layout_constraintLeft_toRightOf="@+id/refill_cost_edit_text"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/refill_methods_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="26dp"
+        android:text="@string/CashboxView_FillupMethodSelect_Title"
+        android:textColor="@color/description"
+        android:textSize="14dp"
+        android:visibility="invisible"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/refill_cost_edit_text"
+        app:layout_constraintWidth_default="spread" />
+
+    <mvvmcross.platforms.android.binding.views.MvxGridView
+        android:id="@+id/refill_methods_collection"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="46dp"
+        android:columnWidth="69dp"
+        android:gravity="center_horizontal|top"
+        android:horizontalSpacing="8dp"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="8dp"
+        android:visibility="invisible"
+        app:MvxItemTemplate="@layout/cell_payment_method"
+        app:layout_constraintHeight_default="spread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/refill_methods_title"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintWidth_default="wrap" />
+
+    <ImageView
+        android:id="@+id/refill_banner_mastercard_image"
+        android:layout_width="89dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_banner_mastercard"
+        app:layout_constraintBottom_toBottomOf="@id/refill_banner_visa_image"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/refill_banner_visa_image"
+        app:layout_constraintTop_toTopOf="@id/refill_banner_visa_image"
+        app:layout_constraintVertical_bias="0.7"
+        app:srcCompat="@drawable/ic_banner_mastercard" />
+
+    <ImageView
+        android:id="@+id/refill_banner_visa_image"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_banner_visa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/refill_banner_mastercard_image"
+        app:layout_constraintRight_toLeftOf="@id/refill_banner_secure_image"
+        app:layout_constraintTop_toBottomOf="@+id/refill_methods_collection"
+        app:layout_constraintVertical_bias="1"
+        app:srcCompat="@drawable/ic_banner_visa" />
+
+    <ImageView
+        android:id="@+id/refill_banner_secure_image"
+        android:layout_width="101dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_banner_secure"
+        app:layout_constraintBottom_toBottomOf="@id/refill_banner_visa_image"
+        app:layout_constraintLeft_toRightOf="@id/refill_banner_visa_image"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/refill_banner_visa_image"
+        app:layout_constraintVertical_bias="0.7"
+        app:srcCompat="@drawable/ic_banner_secure" />
+
+    <View
+        android:id="@+id/warning_indicator_view"
+        android:layout_width="3dp"
+        android:layout_height="0dp"
+        android:background="@color/accent"
+        app:layout_constraintBottom_toBottomOf="@+id/warning_text_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/refill_methods_title" />
+
+    <TextView
+        android:id="@+id/warning_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="26dp"
+        android:lineSpacingExtra="6dp"
+        android:text="@string/Cashbox_Commision_Warning"
+        android:textColor="@color/applicationBlack"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/warning_indicator_view"
+        app:layout_constraintTop_toBottomOf="@+id/refill_cost_edit_text" />
+</androidx.constraintlayout.widget.ConstraintLayout>

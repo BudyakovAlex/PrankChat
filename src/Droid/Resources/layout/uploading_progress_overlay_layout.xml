@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/uploading_progress_container"
+    android:layout_height="match_parent"
+    android:background="@color/black_with_opacity"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_circle_clear"
+        app:layout_constraintBottom_toBottomOf="@+id/uploading_progress_bar"
+        app:layout_constraintEnd_toEndOf="@+id/uploading_progress_bar"
+        app:layout_constraintStart_toStartOf="@+id/uploading_progress_bar"
+        app:layout_constraintTop_toTopOf="@+id/uploading_progress_bar" />
+
+    <PrankChat.Mobile.Droid.Controls.CircleProgressBar
+        android:id="@+id/uploading_progress_bar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/uploading_info_container"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:background="@color/dark_with_opacity"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <TextView
+            android:id="@+id/uploaded_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="10 МБ / 1000 МБ"
+            android:textSize="12dp"
+            android:layout_gravity="center"
+            android:textColor="@color/applicationWhite" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

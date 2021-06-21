@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background">
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar_back_and_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/applicationWhite"
+        android:textSize="14dp"
+        android:text="@string/RegistrationView_Congrats_Title"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="62dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textColor="@color/applicationWhite"
+        android:textSize="14dp"
+        android:text="На почту отправлено письмо с верификацией email адреса. Для завершения регистрации, пожалуйста подтвердите Ваш email"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/registration_button"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:text="@string/RegistrationView_GoToFeed_Button"
+        style="@style/Theme.PrankChat.Button.Borderless" />
+</LinearLayout>

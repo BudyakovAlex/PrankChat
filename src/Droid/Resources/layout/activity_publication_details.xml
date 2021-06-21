@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <CircleCachedImageView
+            android:id="@+id/user_photo"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="7dp"
+            app:MvxBind="ImagePath ProfilePhotoUrl, Mode = OneTime; PlaceholderText ProfileShortName, Mode = OneTime; Click OpenUserProfileCommand"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/applicationBlack"
+            android:textSize="14dp"
+            android:textStyle="normal|bold"
+            app:MvxBind="Text ProfileName, Mode = OneTime"
+            app:layout_constraintLeft_toRightOf="@+id/user_photo"
+            app:layout_constraintRight_toLeftOf="@+id/more_button"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/video_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:textSize="12dp"
+            app:MvxBind="Text VideoInformationText, Mode = OneTime"
+            app:layout_constraintLeft_toRightOf="@+id/user_photo"
+            app:layout_constraintRight_toLeftOf="@+id/more_button"
+            app:layout_constraintTop_toBottomOf="@+id/user_name" />
+
+        <ImageButton
+            android:id="@+id/more_button"
+            android:layout_width="4dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginRight="3dp"
+            android:background="@null"
+            android:src="@drawable/ic_more"
+            app:MvxBind="Click OpenSettingsCommand"
+            app:layout_constraintBottom_toBottomOf="@+id/user_photo"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/user_photo"
+            app:srcCompat="@drawable/ic_more" />
+
+        <VideoView
+            android:id="@+id/video_file"
+            android:layout_width="0dp"
+            android:layout_height="246dp"
+            android:layout_marginTop="8dp"
+            app:MvxBind="Click ToggleSoundCommand"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_photo" />
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginBottom="13dp"
+            app:MvxBind="DrawableName BooleanToSoundResource(HasSoundTurnOn)"
+            app:layout_constraintBottom_toBottomOf="@+id/video_file"
+            app:layout_constraintRight_toRightOf="@+id/video_file" />
+        <!--Likes-->
+        <ImageButton
+            android:id="@+id/like_button"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="11dp"
+            android:background="@null"
+            android:src="@drawable/ic_like"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/video_file"
+            app:srcCompat="@drawable/ic_like" />
+
+        <TextView
+            android:id="@+id/like_text"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
+            android:text="112"
+            android:textColor="@color/applicationBlack"
+            android:textSize="12dp"
+            app:MvxBind="Text NumberOfLikesText, Mode = OneTime"
+            app:layout_constraintBottom_toBottomOf="@+id/like_button"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toRightOf="@+id/like_button"
+            app:layout_constraintRight_toLeftOf="@+id/comment_button"
+            app:layout_constraintTop_toTopOf="@+id/like_button"
+            app:layout_constraintVertical_bias="0.5" />
+        <!--Comments-->
+        <ImageButton
+            android:id="@+id/comment_button"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="11dp"
+            android:background="@null"
+            android:src="@drawable/ic_comment"
+            app:layout_constraintLeft_toRightOf="@+id/like_button"
+            app:layout_constraintTop_toBottomOf="@+id/video_file"
+            app:srcCompat="@drawable/ic_comment" />
+
+        <TextView
+            android:id="@+id/comment_text"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
+            android:text="123"
+            android:textColor="@color/applicationBlack"
+            android:textSize="12dp"
+            app:MvxBind="Text NumberOfCommentText, Mode = OneTime"
+            app:layout_constraintBottom_toBottomOf="@+id/comment_button"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toRightOf="@+id/comment_button"
+            app:layout_constraintRight_toLeftOf="@+id/share_button"
+            app:layout_constraintTop_toTopOf="@+id/comment_button"
+            app:layout_constraintVertical_bias="0.5" />
+        <!--Share-->
+        <ImageButton
+            android:id="@+id/share_button"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="11dp"
+            android:background="@null"
+            android:src="@drawable/ic_share"
+            app:MvxBind="Click ShareCommand"
+            app:layout_constraintLeft_toRightOf="@+id/comment_button"
+            app:layout_constraintTop_toBottomOf="@+id/video_file"
+            app:srcCompat="@drawable/ic_share" />
+
+        <TextView
+            android:id="@+id/share_text"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
+            android:text="@string/Share"
+            android:textColor="@color/applicationBlack"
+            android:textSize="12dp"
+            app:MvxBind="Click ShareCommand"
+            app:layout_constraintBottom_toBottomOf="@+id/share_button"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toRightOf="@+id/share_button"
+            app:layout_constraintTop_toTopOf="@+id/share_button"
+            app:layout_constraintVertical_bias="0.5" />
+        <!--Bookmark-->
+        <ImageButton
+            android:id="@+id/bookmark_button"
+            android:layout_width="14dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginRight="3dp"
+            android:background="@null"
+            android:src="@drawable/ic_bookmark"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintLeft_toRightOf="@+id/share_text"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/video_file"
+            app:srcCompat="@drawable/ic_bookmark" />
+        <!--Video data-->
+        <TextView
+            android:id="@+id/video_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/applicationBlack"
+            android:textSize="14dp"
+            android:textStyle="normal|bold"
+            app:MvxBind="Text VideoName, Mode = OneTime"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/like_button" />
+
+        <TextView
+            android:id="@+id/video_details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/applicationBlack"
+            android:textSize="14dp"
+            app:MvxBind="Text VideoDescription, Mode = OneTime"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/video_name" />
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/separator"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/video_details" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--Comment-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        app:MvxBind="Click OpenCommentsCommand, Mode = OneTime">
+
+        <FFImageLoading.Cross.MvxCachedImageView
+            android:id="@+id/commentator_photo"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="12dp"
+            app:MvxBind="DownsampleWidth DownsampleWidth, Mode = OneTime; ImagePath CommentatorPhotoUrl, Mode = OneTime" />
+
+        <TextView
+            android:id="@+id/commentator_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/commentator_photo"
+            android:textColor="@color/applicationBlack"
+            android:textSize="14dp"
+            android:textStyle="normal|bold"
+            app:MvxBind="Text ProfileName, Mode = OneTime" />
+
+        <TextView
+            android:id="@+id/comment_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/commentator_name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/commentator_photo"
+            android:singleLine="true"
+            android:textSize="12dp"
+            app:MvxBind="Text CommentDateText, Mode = OneTime" />
+    </RelativeLayout>
+</LinearLayout>

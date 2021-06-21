@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SelectableButton">
+        <attr name="selected_drawable" format="integer" />
+        <attr name="unselected_drawable" format="integer" />
+        <attr name="type_arbitration" format="string" />
+    </declare-styleable>
+    <declare-styleable name="MvvmCross">
+        <attr name="MvxBind" format="string" />
+        <attr name="MvxItemTemplate" format="string" />
+    </declare-styleable>
+    <declare-styleable name="Lottie">
+        <attr name="lottie_autoPlay" format="boolean" />
+        <attr name="lottie_fileName" format="string" />
+        <attr name="lottie_loop" format="boolean" />
+    </declare-styleable>
+</resources>

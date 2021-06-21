@@ -1,0 +1,296 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp">
+
+    <View
+        android:id="@+id/stub_view"
+        android:layout_width="0dp"
+        android:layout_height="246dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:background="@color/applicationBlack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/video_name_text_view" />
+
+    <View
+        android:id="@+id/competition_border_view"
+        android:layout_width="46dp"
+        android:background="@color/competition_border"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="46dp"/>
+
+    <CircleCachedImageView
+        android:id="@+id/profile_image_view"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="7dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/competition_cup_image_view"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="2dp"
+        android:src="@drawable/ic_competition_cup"
+        app:layout_constraintBottom_toBottomOf="@+id/competition_border_view"
+        app:layout_constraintEnd_toEndOf="@+id/profile_image_view" />
+
+    <ImageButton
+        android:id="@+id/more_image_button"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginRight="8dp"
+        android:background="@null"
+        android:rotation="90"
+        android:src="@drawable/ic_more"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/profile_image_view"
+        app:srcCompat="@drawable/ic_more" />
+
+    <TextView
+        android:id="@+id/profile_name_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/applicationBlack"
+        android:textSize="14dp"
+        android:textStyle="normal|bold"
+        app:layout_constraintLeft_toRightOf="@+id/profile_image_view"
+        app:layout_constraintRight_toLeftOf="@+id/more_image_button"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/video_info_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:singleLine="true"
+        android:textSize="12dp"
+        app:layout_constraintLeft_toRightOf="@+id/profile_image_view"
+        app:layout_constraintRight_toLeftOf="@+id/more_image_button"
+        app:layout_constraintTop_toBottomOf="@+id/profile_name_text_view" />
+
+    <TextView
+        android:id="@+id/video_name_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/applicationBlack"
+        android:textSize="14dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
+
+    <FrameLayout
+        android:id="@+id/texture_view_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/stub_view"
+        app:layout_constraintEnd_toEndOf="@+id/stub_view"
+        app:layout_constraintStart_toStartOf="@+id/stub_view"
+        app:layout_constraintTop_toTopOf="@+id/stub_view">
+
+        <AutoFitTextureView
+            android:id="@+id/texture_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:focusableInTouchMode="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="7dp"
+            app:srcCompat="@drawable/ic_fullscreen" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/like_view"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stub_view">
+
+        <ImageView
+            android:id="@+id/like_image_view"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_like_hollow"
+            app:srcCompat="@drawable/ic_like_hollow" />
+
+        <TextView
+            android:id="@+id/like_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:textColor="@color/applicationBlack"
+            android:textSize="12dp"
+            tools:text="2k" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dislike_view"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/like_view"
+        app:layout_constraintStart_toEndOf="@+id/like_view"
+        app:layout_constraintTop_toTopOf="@+id/like_view">
+
+        <ImageView
+            android:id="@+id/dislike_image_view"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_dislike_hollow"
+            app:srcCompat="@drawable/ic_dislike_hollow" />
+
+        <TextView
+            android:id="@+id/dislike_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:textColor="@color/applicationBlack"
+            android:textSize="12dp"
+            tools:text="1k" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/comments_view"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/dislike_view"
+        app:layout_constraintStart_toEndOf="@+id/dislike_view"
+        app:layout_constraintTop_toTopOf="@+id/dislike_view">
+
+        <ImageView
+            android:id="@+id/comments_image_view"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_comment"
+            app:srcCompat="@drawable/ic_comment" />
+
+        <TextView
+            android:id="@+id/comments_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:textColor="@color/applicationBlack"
+            android:textSize="12dp"
+            tools:text="10" />
+    </LinearLayout>
+
+    <!--TODO: Make it button visible after video saving will become available.-->
+    <ImageButton
+        android:id="@+id/share_image_button"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="12dp"
+        android:background="@null"
+        android:src="@drawable/ic_share_up"
+        app:layout_constraintBottom_toBottomOf="@+id/comments_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/comments_view"
+        app:srcCompat="@drawable/ic_share_up" />
+
+    <ImageButton
+        android:id="@+id/bookmark_button"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="13dp"
+        android:background="@null"
+        android:src="@drawable/ic_bookmark"
+        android:visibility="invisible"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintLeft_toRightOf="@+id/share_image_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stub_view"
+        app:srcCompat="@drawable/ic_bookmark" />
+
+    <ffimageloading.cross.MvxCachedImageView
+        android:id="@+id/stub_image_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:background="@color/applicationBlack"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/stub_view"
+        app:layout_constraintEnd_toEndOf="@+id/stub_view"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/stub_view"
+        app:layout_constraintTop_toTopOf="@+id/stub_view"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ProgressBar
+        android:id="@+id/loading_progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/texture_view_container"
+        app:layout_constraintEnd_toEndOf="@+id/stub_view"
+        app:layout_constraintStart_toStartOf="@+id/stub_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/video_name_text_view" />
+
+    <FrameLayout
+        android:id="@+id/processing_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/border_accent_load_video"
+        app:layout_constraintBottom_toBottomOf="@+id/stub_view"
+        app:layout_constraintEnd_toEndOf="@+id/stub_view"
+        app:layout_constraintStart_toStartOf="@+id/stub_view"
+        app:layout_constraintTop_toTopOf="@+id/stub_view">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:id="@+id/processing_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"
+            android:gravity="center"
+            android:maxLines="3"
+            android:text="@string/Processing_Video"
+            android:textColor="@android:color/white"
+            android:textSize="17dp" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
