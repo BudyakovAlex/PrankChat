@@ -1097,12 +1097,12 @@
     <value>Гражданство</value>
   </data>
   <data name="Withdrawal_Yoomoney_Description" xml:space="preserve">
-    <value>Вывод средств осуществляется через кошелек ЮMoney.</value>
+    <value>Вывод средств осуществляется через кошелек ЮMoney (Яндекс кошелёк).</value>
   </data>
   <data name="Withdrawal_Yoomoney" xml:space="preserve">
     <value>ЮMoney</value>
   </data>
   <data name="Withdrawal_Enter_Wallet_Number" xml:space="preserve">
-    <value>Введите номер кошелька ЮMoney</value>
+    <value>Введите номер кошелька ЮMoney (Яндекс кошелёк)</value>
   </data>
 </root>
