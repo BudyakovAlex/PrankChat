@@ -23,7 +23,7 @@ namespace PrankChat.Mobile.Core.Infrastructure
 
         public static class Cashbox
         {
-            public const double PaymentServceCommissionMultiplier = 0.03;
+            public const double PaymentServceCommissionMultiplier = 0.028;
         }
 
         public static class Formats
