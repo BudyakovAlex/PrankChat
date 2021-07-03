@@ -14,6 +14,7 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
     public class VideoPlayer : NSObject, IVideoPlayer
     {
         private const string StatusKey = "status";
+        private const string PlaybackLikelyToKeepUpKey = "playbackLikelyToKeepUp";
 
         private readonly CompositeDisposable _disposables;
         private readonly AVPlayer _player;
@@ -30,6 +31,7 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
             {
                 ActionAtItemEnd = AVPlayerActionAtItemEnd.None,
                 Muted = true,
+                AutomaticallyWaitsToMinimizeStalling = false
             }.DisposeWith(_disposables);
 
             _player.AddBoundaryTimeObserver(
@@ -67,12 +69,17 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
                 if (_player.CurrentItem != null)
                 {
                     _player.CurrentItem.RemoveObserver(this, StatusKey);
+                    _player.CurrentItem.RemoveObserver(this, PlaybackLikelyToKeepUpKey);
                 }
 
                 var playerItem = AVPlayerItem.FromUrl(NSUrl.FromString(url));
+                playerItem.CanUseNetworkResourcesForLiveStreamingWhilePaused = true;
                 playerItem.AddObserver(this, StatusKey, NSKeyValueObservingOptions.OldNew, IntPtr.Zero);
+                playerItem.AddObserver(this, PlaybackLikelyToKeepUpKey, NSKeyValueObservingOptions.New, IntPtr.Zero);
 
                 _player.ReplaceCurrentItemWithPlayerItem(playerItem);
+                _player.AutomaticallyWaitsToMinimizeStalling = playerItem.PlaybackBufferEmpty;
+                playerItem.PreferredForwardBufferDuration = 5;
 
                 AVPlayerItem.Notifications.ObserveDidPlayToEndTime(playerItem, OnVideoEnded)
                     .DisposeWith(_disposables);
@@ -81,21 +88,24 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
         public override void ObserveValue(NSString keyPath, NSObject ofObject, NSDictionary change, IntPtr context)
         {
-            if (keyPath != StatusKey)
+            switch (keyPath.ToString())
             {
-                return;
+                case StatusKey:
+                case PlaybackLikelyToKeepUpKey:
+                    PrepareAndPlayIfNeed();
+                    return;
+                default:
+                    return;
             }
 
-            if (_player.Status != AVPlayerStatus.ReadyToPlay)
+            void PrepareAndPlayIfNeed()
             {
-                return;
-            }
-
-            _isPrepared = true;
-            if (_isPlayNeeded)
-            {
-                Play();
-                _isPlayNeeded = false;
+                _isPrepared = true;
+                if (_isPlayNeeded)
+                {
+                    Play();
+                    _isPlayNeeded = false;
+                }
             }
         }
 
@@ -108,9 +118,10 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
                     return;
                 }
 
+                _isPlayNeeded = true;
                 if (!_isPrepared)
                 {
-                    _isPlayNeeded = true;
+                    return;
                 }
 
                 _player.Play();
