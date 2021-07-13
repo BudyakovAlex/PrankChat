@@ -1,5 +1,5 @@
 ﻿{
-    "Environment": "Stage",
+    "Environment": "Production",
     "Configurations": [
         {
             "EnvironmentName": "Dev",
@@ -22,7 +22,7 @@
             "ApiUrl": "https://api.prank.chat",
             "AppCenterIosId": "1d6a9a49-6b4d-44e0-bab8-17b1eaa8a95c",
             "AppCenterDroidId": "be90f386-13b3-4fb5-be50-c3691c88ac17",
-            "ShouldCheckAppUpdate": true,
+            "ShouldCheckAppUpdate": false,
             "ApiVersion": "1.0"
         }
     ]

@@ -1,20 +1,18 @@
-﻿using AVFoundation;
-using AVKit;
-using CoreFoundation;
-using CoreGraphics;
-using CoreMedia;
+﻿using CoreGraphics;
 using Foundation;
+using LibVLCSharp.Platforms.iOS;
+using LibVLCSharp.Shared;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.ViewModels;
 using ObjCRuntime;
 using PrankChat.Mobile.Core.BusinessServices;
+using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
 
@@ -23,10 +21,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
     [MvxModalPresentation(ModalPresentationStyle = UIModalPresentationStyle.FullScreen)]
     public partial class FullScreenVideoView : BaseView<FullScreenVideoViewModel>
     {
-        private const string PlayerTimeControlStatusKey = "timeControlStatus";
-        private const string PlayerItemLoadedTimeRangesKey = "loadedTimeRanges";
-        private const string PlayerMutedKey = "muted";
-
         private const int ThreeSecondsTicks = 30_000_000;
         private const double AnimationDuration = 0.3d;
 
@@ -36,10 +30,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         private nfloat _lastX;
         private nfloat _firstX;
 
-        private NSObject _playerPerdiodicTimeObserver;
-        private AVPlayer _player;
-        private NSObject _playToEndObserver;
-        private AVPlayerViewController _controller;
+        private bool _isSwipeTriggered;
+        private VideoView _player;
+        private UITapGestureRecognizer _tapGestureRecognizer;
+
+        private IDisposable _onEndReachedSubscription;
+        private IDisposable _onTimeChangedSubscription;
+        private IDisposable _onBufferingSubscription;
+        private IDisposable _onPausedSubscription;
+        private IDisposable _onPlayingSubscription;
+        private IDisposable _onStoppedSubscription;
+        private IDisposable _onMutedChangedSubscription;
 
         public event EventHandler IsMutedChanged;
 
@@ -115,24 +116,25 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         }
 
         private bool _isMuted;
-        private bool _isSwipeTriggered;
-
         public bool IsMuted
         {
             get => _isMuted;
             set
             {
                 _isMuted = value;
-                if (_player is null)
+                if (_videoPlayer is null)
                 {
                     return;
                 }
 
-                _player.Muted = value;
+                _videoPlayer.IsMuted = value;
             }
         }
 
-        private bool IsPlayerInvalid => _player?.CurrentItem == null || _player.CurrentItem.Duration.IsIndefinite;
+        private bool IsPlayerInvalid =>
+            _player?.MediaPlayer?.Media == null ||
+            _player.MediaPlayer.State == VLCState.Error ||
+            _player.MediaPlayer.Media?.Duration < 0;
 
         public override void ViewDidLoad()
         {
@@ -148,29 +150,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         {
             coordinator.AnimateAlongsideTransition(context =>
             {
-                PlayerItemLoadedTimeRangesChanged();
+                PlayerBufferingChanged();
                 UpdateTimePassedWidthConstraint();
             }, null);
 
             base.ViewWillTransitionToSize(toSize, coordinator);
-        }
-
-        public override void ObserveValue(NSString keyPath, NSObject ofObject, NSDictionary change, IntPtr context)
-        {
-            switch (keyPath)
-            {
-                case PlayerItemLoadedTimeRangesKey:
-                    PlayerItemLoadedTimeRangesChanged();
-                    break;
-
-                case PlayerTimeControlStatusKey:
-                    PlayerTimeControlStatusChanged();
-                    break;
-
-                case PlayerMutedKey:
-                    PlayerMutedChanged();
-                    break;
-            }
         }
 
         protected override void SetupControls()
@@ -184,6 +168,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             closeButton.AddGestureRecognizer(new UITapGestureRecognizer(Close));
             watchProgressControlContainer.AddGestureRecognizer(new UIPanGestureRecognizer(WatchProgressControlContainerPan));
             View.AddGestureRecognizer(new UIPanGestureRecognizer(ViewPan));
+            _tapGestureRecognizer = new UITapGestureRecognizer(_ =>
+            {
+                UpdateLastActionTicks();
+                overlayView.Hidden = false;
+            });
         }
 
         protected override void SetupBinding()
@@ -230,6 +219,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             profileImageView.Layer.BorderWidth = 1f;
 
             watchProgressControl.Layer.CornerRadius = 5f;
+            View.BackgroundColor = UIColor.Black;
         }
 
         private void Initialize()
@@ -239,14 +229,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             UpdateLastActionTicks();
             Task.Run(HideOverlayAsync);
 
-            _player.Play();
+            VideoPlayer.Play();
         }
 
         private void OnInteractionRequested(object sender, EventArgs e)
         {
-            if (_player.TimeControlStatus != AVPlayerTimeControlStatus.Paused)
+            if (_player.MediaPlayer.State != VLCState.Paused)
             {
-                _player.Pause();
+                VideoPlayer.Pause();
             }
 
             UpdateLastActionTicks();
@@ -254,60 +244,63 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private void InitializePlayer()
         {
-            if (_player != null)
+            if (_player?.MediaPlayer != null)
             {
-                try
-                {
-                    _player.RemoveTimeObserver(_playerPerdiodicTimeObserver);
-                    _player.RemoveObserver(this, PlayerTimeControlStatusKey, IntPtr.Zero);
-                    _player.RemoveObserver(this, PlayerMutedKey, IntPtr.Zero);
-                    _player.CurrentItem.RemoveObserver(this, PlayerItemLoadedTimeRangesKey, IntPtr.Zero);
-
-                }
-                finally
-                {
-                    _player.Seek(CMTime.Zero);
-                    _player.Pause();
-                }
+                _player.MediaPlayer.Pause();
+                _player.MediaPlayer.Position = 0.0f;
             }
 
-            _player = VideoPlayer.GetNativePlayer() as AVPlayer;
+            _player?.RemoveGestureRecognizer(_tapGestureRecognizer);
+            _player?.RemoveFromSuperview();
+
+            _player = VideoPlayer.GetNativePlayer() as VideoView;
             PlayerMutedChanged();
 
-            if (_playToEndObserver != null)
+            _onEndReachedSubscription?.Dispose();
+            _onEndReachedSubscription = _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, EventArgs>(OnEndReached,
+                 (wrapper, handler) => wrapper.EndReached += handler,
+                 (wrapper, handler) => wrapper.Playing -= handler);
+
+            _onTimeChangedSubscription?.Dispose();
+            _onTimeChangedSubscription = _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, MediaPlayerTimeChangedEventArgs>(OnTimeChanged,
+                 (wrapper, handler) => wrapper.TimeChanged += handler,
+                 (wrapper, handler) => wrapper.TimeChanged -= handler);
+
+            _onMutedChangedSubscription?.Dispose();
+            _onMutedChangedSubscription = _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, EventArgs>((_ , __) => PlayerMutedChanged(),
+                 (wrapper, handler) => wrapper.Muted += handler,
+                 (wrapper, handler) => wrapper.Muted -= handler);
+
+            _onBufferingSubscription?.Dispose();
+            _onBufferingSubscription = _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, MediaPlayerBufferingEventArgs>((_, __) => PlayerBufferingChanged(),
+                 (wrapper, handler) => wrapper.Buffering += handler,
+                 (wrapper, handler) => wrapper.Buffering -= handler);
+
+            _onPausedSubscription?.Dispose();
+            _onPausedSubscription = _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, EventArgs>((_, __) => PlayerTimeControlStatusChanged(),
+                 (wrapper, handler) => wrapper.Paused += handler,
+                 (wrapper, handler) => wrapper.Paused -= handler);
+
+            _onPlayingSubscription?.Dispose();
+            _onPlayingSubscription = _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, EventArgs>((_, __) => PlayerTimeControlStatusChanged(),
+                 (wrapper, handler) => wrapper.Playing += handler,
+                 (wrapper, handler) => wrapper.Playing -= handler);
+
+            _onStoppedSubscription?.Dispose();
+            _onStoppedSubscription = _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, EventArgs>((_, __) => PlayerTimeControlStatusChanged(),
+                 (wrapper, handler) => wrapper.Stopped += handler,
+                 (wrapper, handler) => wrapper.Stopped -= handler);
+
+            View.AddSubview(_player);
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
-                NSNotificationCenter.DefaultCenter.RemoveObserver(_playToEndObserver);
-            }
+                _player.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _player.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _player.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _player.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            });
 
-            _playToEndObserver = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, OnPlayerPlayedToEnd, _player.CurrentItem);
-
-            _playerPerdiodicTimeObserver = _player.AddPeriodicTimeObserver(new CMTime(1, 2), DispatchQueue.MainQueue, PlayerTimeChanged);
-            _player.AddObserver(this, PlayerTimeControlStatusKey, NSKeyValueObservingOptions.New, IntPtr.Zero);
-            _player.AddObserver(this, PlayerMutedKey, NSKeyValueObservingOptions.New, IntPtr.Zero);
-            _player.CurrentItem.AddObserver(this, PlayerItemLoadedTimeRangesKey, NSKeyValueObservingOptions.New, IntPtr.Zero);
-
-            if (_controller != null)
-            {
-                _controller.Player = _player;
-                return;
-            }
-
-            _controller = new AVPlayerViewController
-            {
-                Player = _player,
-                ShowsPlaybackControls = false
-            };
-
-            _controller.View.AddGestureRecognizer(new UITapGestureRecognizer(_ =>
-            {
-                UpdateLastActionTicks();
-                overlayView.Hidden = false;
-            }));
-
-            AddChildViewController(_controller);
-            View.AddSubview(_controller.View);
-            _controller.View.Frame = View.Frame;
-            _controller.DidMoveToParentViewController(this);
+            _player.AddGestureRecognizer(_tapGestureRecognizer);
 
             View.BringSubviewToFront(overlayView);
         }
@@ -336,35 +329,38 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         {
             var hideOverlay = true;
             InvokeOnMainThread(() => hideOverlay = !overlayView.Hidden
-                                                && _player.TimeControlStatus != AVPlayerTimeControlStatus.Paused);
+                                                && _player.MediaPlayer.State != VLCState.Paused);
             return hideOverlay;
         }
 
-        private void OnPlayerPlayedToEnd(NSNotification notification)
+        private void OnEndReached(object sender, EventArgs e)
         {
-            _player.Seek(CMTime.Zero);
-            _player.Play();
-
-            notification.Dispose();
-        }
-
-        private void PlayerTimeChanged(CMTime _)
-        {
-            if (IsPlayerInvalid)
+            InvokeOnMainThread(() =>
             {
-                return;
-            }
-
-            var time = GetTextRepresentation(_player.CurrentItem.CurrentTime);
-            var duration = GetTextRepresentation(_player.CurrentItem.Duration);
-            timeLabel.Text = $"{time} / {duration}";
-
-            UpdateTimePassedWidthConstraint();
+                _player.MediaPlayer.Position = 0.1f;
+            });
         }
 
-        private string GetTextRepresentation(CMTime time)
+        private void OnTimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
         {
-            var totalSeconds = (int) Math.Ceiling(time.Seconds);
+            InvokeOnMainThread(() =>
+            {
+                if (IsPlayerInvalid)
+                {
+                    return;
+                }
+
+                var time = GetTextRepresentation(_player.MediaPlayer.Time);
+                var duration = GetTextRepresentation(_player.MediaPlayer.Media.Duration);
+                timeLabel.Text = $"{time} / {duration}";
+
+                UpdateTimePassedWidthConstraint();
+            });
+        }
+
+        private string GetTextRepresentation(long timeInMs)
+        {
+            var totalSeconds = timeInMs == 0 ? 0 : (int) Math.Ceiling(timeInMs / 1000d);
             var minutes = totalSeconds / 60;
             var seconds = totalSeconds % 60;
 
@@ -373,59 +369,65 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private void UpdateTimePassedWidthConstraint()
         {
-            if (IsPlayerInvalid)
+            InvokeOnMainThread(() =>
             {
-                return;
-            }
+                if (IsPlayerInvalid)
+                {
+                    return;
+                }
 
-            var ratio = _player.CurrentItem.CurrentTime.Seconds / _player.CurrentItem.Duration.Seconds;
-            var width = (nfloat) ratio * progressView.Frame.Width;
-            watchProgressViewWidthConstraint.Constant = width;
+                var ratio = _player.MediaPlayer.Time / 1000f / (_player.MediaPlayer.Media.Duration / 1000f);
+                var width = ratio * progressView.Frame.Width;
+                watchProgressViewWidthConstraint.Constant = width;
+            });
         }
 
         private void PlayerMutedChanged()
         {
-            var imageName = _player.Muted ? "ic_sound_muted" : "ic_mute";
-            muteButton.SetImage(UIImage.FromBundle(imageName), UIControlState.Normal);
+            InvokeOnMainThread(() =>
+            {
+                var imageName = _player.MediaPlayer.Mute ? "ic_sound_muted" : "ic_mute";
+                muteButton.SetImage(UIImage.FromBundle(imageName), UIControlState.Normal);
+            });
         }
 
         private void PlayerTimeControlStatusChanged()
         {
-            var imageName = _player.TimeControlStatus == AVPlayerTimeControlStatus.Paused
-                ? "ic_play"
-                : "ic_pause";
+            InvokeOnMainThread(() =>
+            {
+                var imageName = _player.MediaPlayer.State == VLCState.Paused
+                    ? "ic_play"
+                    : "ic_pause";
 
-            playButton.SetImage(UIImage.FromBundle(imageName), UIControlState.Normal);
+                playButton.SetImage(UIImage.FromBundle(imageName), UIControlState.Normal);
+            });
         }
 
-        private void PlayerItemLoadedTimeRangesChanged()
+        private void PlayerBufferingChanged()
         {
-            if (IsPlayerInvalid)
+            InvokeOnMainThread(() =>
             {
-                return;
-            }
+                if (IsPlayerInvalid)
+                {
+                    return;
+                }
 
-            var value = _player.CurrentItem.LoadedTimeRanges.LastOrDefault();
-            if (value == null)
-            {
-                return;
-            }
-
-            var seconds = value.CMTimeRangeValue.Start.Seconds + value.CMTimeRangeValue.Duration.Seconds;
-            var ratio = seconds / _player.CurrentItem.Duration.Seconds;
-            var width = (nfloat) ratio * progressView.Frame.Width;
-            loadProgressViewWidthConstraint.Constant = width;
+                var seconds = _player.MediaPlayer.NetworkCaching / 1000;
+                var ratio = seconds / _player.MediaPlayer.Media.Duration / 1000;
+                var width = ratio * progressView.Frame.Width;
+                loadProgressViewWidthConstraint.Constant = width;
+            });
         }
 
         private void PlayButtonTap()
         {
-            if (_player.TimeControlStatus == AVPlayerTimeControlStatus.Paused)
+            if (_player.MediaPlayer.State == VLCState.Paused)
             {
-                _player.Play();
+                VideoPlayer.Play();
             }
             else
             {
-                _player.Pause();
+                VideoPlayer.Pause();
             }
 
             UpdateLastActionTicks();
@@ -436,15 +438,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             var point = recognizer.LocationInView(overlayView);
             var newWidth = point.X - watchProgressView.Frame.X;
             var ratio = newWidth / progressView.Frame.Width;
-            var value = ratio * _player.CurrentItem.Duration.Seconds;
-            _player.Seek(new CMTime((long) value, 1));
+            _player.MediaPlayer.Position = (float)ratio;
 
             UpdateLastActionTicks();
         }
 
         private void MuteButtonTap()
         {
-            IsMuted = !_player.Muted;
+            IsMuted = !IsMuted;
             IsMutedChanged?.Invoke(this, EventArgs.Empty);
 
             UpdateLastActionTicks();
@@ -452,35 +453,23 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private void Close()
         {
-            if (_controller != null)
-            {
-                _controller.WillMoveToParentViewController(null);
-                _controller.View.RemoveFromSuperview();
-                _controller.RemoveFromParentViewController();
-            }
-
             if (_interaction != null)
             {
                 _interaction.Requested -= OnInteractionRequested;
             }
 
-            if (_player != null)
+            if (VideoPlayer != null)
             {
-                _player.RemoveTimeObserver(_playerPerdiodicTimeObserver);
-                _player.RemoveObserver(this, PlayerTimeControlStatusKey, IntPtr.Zero);
-                _player.RemoveObserver(this, PlayerMutedKey, IntPtr.Zero);
-                _player.CurrentItem.RemoveObserver(this, PlayerItemLoadedTimeRangesKey, IntPtr.Zero);
-
-                _player.Seek(CMTime.Zero);
-                _player.Pause();
+                VideoPlayer.Stop();
             }
 
-            if (_playToEndObserver != null)
-            {
-                NSNotificationCenter.DefaultCenter.RemoveObserver(_playToEndObserver);
-            }
-
-            NSNotificationCenter.DefaultCenter.RemoveObserver(this);
+            _onEndReachedSubscription?.Dispose();
+            _onTimeChangedSubscription?.Dispose();
+            _onBufferingSubscription?.Dispose();
+            _onPausedSubscription?.Dispose();
+            _onPlayingSubscription?.Dispose();
+            _onStoppedSubscription?.Dispose();
+            _onMutedChangedSubscription?.Dispose();
 
             ViewModel.CloseCommand.Execute(null);
             ViewModel.ViewDestroy(true);
@@ -589,8 +578,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
                 return;
             }
 
-            _wasPlaying = _player.TimeControlStatus == AVPlayerTimeControlStatus.Playing;
-            _player.Pause();
+            _wasPlaying = _player.MediaPlayer.State == VLCState.Playing;
+            VideoPlayer?.Pause();
         }
 
         [Export(nameof(DidBecomeActive))]
@@ -598,7 +587,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         {
             if (_wasPlaying)
             {
-                _player.Play();
+                VideoPlayer?.Play();
             }
         }
     }
