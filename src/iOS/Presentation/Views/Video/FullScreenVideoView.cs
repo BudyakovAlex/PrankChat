@@ -259,7 +259,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             _onEndReachedSubscription?.Dispose();
             _onEndReachedSubscription = _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, EventArgs>(OnEndReached,
                  (wrapper, handler) => wrapper.EndReached += handler,
-                 (wrapper, handler) => wrapper.Playing -= handler);
+                 (wrapper, handler) => wrapper.EndReached -= handler);
 
             _onTimeChangedSubscription?.Dispose();
             _onTimeChangedSubscription = _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, MediaPlayerTimeChangedEventArgs>(OnTimeChanged,
@@ -335,9 +335,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
 
         private void OnEndReached(object sender, EventArgs e)
         {
-            InvokeOnMainThread(() =>
+            InvokeOnMainThread(async () =>
             {
-                _player.MediaPlayer.Position = 0.1f;
+                await Task.Run(() => _player.MediaPlayer.Stop());
+                _player.MediaPlayer.Play();
             });
         }
 
@@ -386,7 +387,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         {
             InvokeOnMainThread(() =>
             {
-                var imageName = _player.MediaPlayer.Mute ? "ic_sound_muted" : "ic_mute";
+                var imageName = IsMuted ? "ic_sound_muted" : "ic_mute";
                 muteButton.SetImage(UIImage.FromBundle(imageName), UIControlState.Normal);
             });
         }
@@ -446,6 +447,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         private void MuteButtonTap()
         {
             IsMuted = !IsMuted;
+            PlayerMutedChanged();
             IsMutedChanged?.Invoke(this, EventArgs.Empty);
 
             UpdateLastActionTicks();

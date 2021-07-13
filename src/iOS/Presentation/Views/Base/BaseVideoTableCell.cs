@@ -18,6 +18,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
     public abstract class BaseVideoTableCell : BaseTableCell
     {
         private CAGradientLayer _gradientLayer;
+        private UITapGestureRecognizer _tapGestureRecognizer;
         private CALayer _backgroundLayer;
 
         protected BaseVideoTableCell(IntPtr handle)
@@ -74,6 +75,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             base.PrepareForReuse();
         }
 
+        protected abstract void OnVideoViewTap();
+
         protected override void Dispose(bool disposing)
         {
             StopVideo();
@@ -95,6 +98,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
                 EndPoint = new CGPoint(1f, 0f)
             };
 
+            _tapGestureRecognizer = new UITapGestureRecognizer(OnVideoViewTap);
             _backgroundLayer = new CALayer() { BackgroundColor = UIColor.Black.CGColor };
             VideoView.Layer.AddSublayer(_backgroundLayer);
 
@@ -147,12 +151,18 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             if (VideoPlayer?.GetNativePlayer() is VideoView player)
             {
                 _videoPlayer.ReadyToPlayAction = HideStubs;
-                foreach (var subviews in VideoView.Subviews)
+                foreach (var subview in VideoView.Subviews)
                 {
-                    subviews.RemoveFromSuperview();
+                    foreach (var gestureRecognizer in subview.GestureRecognizers)
+                    {
+                        subview.RemoveGestureRecognizer(gestureRecognizer);
+                    }
+
+                    subview.RemoveFromSuperview();
                 }
 
                 VideoView.AddSubview(player);
+                player.AddGestureRecognizer(_tapGestureRecognizer);
 
                 NSLayoutConstraint.ActivateConstraints(new[]
                 {

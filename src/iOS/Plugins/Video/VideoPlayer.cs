@@ -13,8 +13,8 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 {
     public class VideoPlayer : NSObject, IVideoPlayer
     {
-        private readonly CompositeDisposable _disposables;
-        private readonly LibVLCSharp.Platforms.iOS.VideoView _player;
+        private CompositeDisposable _disposables;
+        private LibVLCSharp.Platforms.iOS.VideoView _player;
 
         private LibVLC _libVLC;
 
@@ -23,61 +23,29 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
         public VideoPlayer()
         {
-            _disposables = new CompositeDisposable();
-            _player = new LibVLCSharp.Platforms.iOS.VideoView
-            {
-                TranslatesAutoresizingMaskIntoConstraints = false,
-                UserInteractionEnabled = true,
-            };
-
-            _libVLC = new LibVLC();
-            _player.MediaPlayer = new LibVLCSharp.Shared.MediaPlayer(_libVLC);
-            _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, MediaPlayerTimeChangedEventArgs>(OnTimeChanged,
-                (wrapper, handler) => wrapper.TimeChanged += handler,
-                (wrapper, handler) => wrapper.TimeChanged -= handler).DisposeWith(_disposables);
-
-            _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, EventArgs>(OnPlaying,
-                  (wrapper, handler) => wrapper.Playing += handler,
-                  (wrapper, handler) => wrapper.Playing -= handler).DisposeWith(_disposables);
-
-            _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, EventArgs>(OnEndReached,
-                  (wrapper, handler) => wrapper.EndReached += handler,
-                  (wrapper, handler) => wrapper.Playing -= handler).DisposeWith(_disposables);
-        }
-
-        private void OnEndReached(object sender, EventArgs e)
-        {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Played);
-                if (!CanRepeat)
+                _disposables = new CompositeDisposable();
+                _player = new LibVLCSharp.Platforms.iOS.VideoView
                 {
-                    return;
-                }
+                    TranslatesAutoresizingMaskIntoConstraints = false,
+                    UserInteractionEnabled = true,
+                };
 
-                _shouldNotifyPartiallyPlayed = true;
-                _player.MediaPlayer.Position = 0.0f;
+                _libVLC = new LibVLC();
+                _player.MediaPlayer = new LibVLCSharp.Shared.MediaPlayer(_libVLC);
+                _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, MediaPlayerTimeChangedEventArgs>(OnTimeChanged,
+                    (wrapper, handler) => wrapper.TimeChanged += handler,
+                    (wrapper, handler) => wrapper.TimeChanged -= handler).DisposeWith(_disposables);
+
+                _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, EventArgs>(OnPlaying,
+                      (wrapper, handler) => wrapper.Playing += handler,
+                      (wrapper, handler) => wrapper.Playing -= handler).DisposeWith(_disposables);
+
+                _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, EventArgs>(OnEndReached,
+                      (wrapper, handler) => wrapper.EndReached += handler,
+                      (wrapper, handler) => wrapper.EndReached -= handler).DisposeWith(_disposables);
             });
-        }
-
-        private async void OnPlaying(object sender, EventArgs e)
-        {
-            await Task.Delay(1000);
-            if (ReadyToPlayAction is null)
-            {
-                return;
-            }
-
-            MainThread.BeginInvokeOnMainThread(ReadyToPlayAction);
-        }
-
-        private void OnTimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
-        {
-            if (e.Time >= Constants.Delays.VideoPartiallyPlayedDelay && _shouldNotifyPartiallyPlayed)
-            {
-                _shouldNotifyPartiallyPlayed = false;
-                VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.PartiallyPlayed);
-            }
         }
 
         public event EventHandler<VideoPlayingStatus> VideoPlayingStatusChanged;
@@ -87,7 +55,7 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
         public bool IsMuted
         {
             get => _player.MediaPlayer.Mute;
-            set => _player.MediaPlayer.Mute = value;
+            set => MainThread.BeginInvokeOnMainThread(() => _player.MediaPlayer.Mute = value);
         }
 
         public bool CanRepeat { get; set; }
@@ -103,7 +71,8 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                _player.MediaPlayer.Media = new Media(_libVLC, url, FromType.FromLocation);
+                var mediaOptions = new string[] { "input-repeat=-1" };
+                _player.MediaPlayer.Media = new Media(_libVLC, url, FromType.FromLocation, mediaOptions);
             });
         }
 
@@ -148,6 +117,43 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
             _isDisposed = true;
             _disposables.Dispose();
+        }
+
+
+        private void OnEndReached(object sender, EventArgs e)
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Played);
+                if (!CanRepeat)
+                {
+                    return;
+                }
+
+                _shouldNotifyPartiallyPlayed = true;
+                await Task.Run(() => _player.MediaPlayer.Stop());
+                _player.MediaPlayer.Play();
+            });
+        }
+
+        private async void OnPlaying(object sender, EventArgs e)
+        {
+            await Task.Delay(1000);
+            if (ReadyToPlayAction is null)
+            {
+                return;
+            }
+
+            MainThread.BeginInvokeOnMainThread(ReadyToPlayAction);
+        }
+
+        private void OnTimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
+        {
+            if (e.Time >= Constants.Delays.VideoPartiallyPlayedDelay && _shouldNotifyPartiallyPlayed)
+            {
+                _shouldNotifyPartiallyPlayed = false;
+                VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.PartiallyPlayed);
+            }
         }
     }
 }
