@@ -1,4 +1,5 @@
-﻿using Microsoft.AppCenter;
+﻿using AVFoundation;
+using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using MvvmCross;
@@ -50,6 +51,8 @@ namespace PrankChat.Mobile.iOS
             CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
             CompositionRoot.Container.RegisterSingleton<IAppleSignInService, AppleSignInService>();
             CompositionRoot.Container.RegisterSingleton<IPlatformPathsProvider, PlatformPathsProvider>();
+
+            AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
         }
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
