@@ -41,12 +41,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             OpenCommentsCommand = this.CreateRestrictedCommand(
                 ShowCommentsAsync,
                 restrictedCanExecute: () => IsUserSessionInitialized,
-                handleFunc: NavigateByRestrictionsAsync);
+                handleFunc: NavigateByRestrictionAsync);
 
             OpenUserProfileCommand = this.CreateRestrictedCommand(
                 OpenUserProfileAsync,
                 restrictedCanExecute: () => UserSessionProvider.User != null,
-                handleFunc: NavigateByRestrictionsAsync);
+                handleFunc: NavigateByRestrictionAsync);
         }
 
         protected override bool DefaultResult => _isReloadNeeded;
@@ -98,7 +98,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             _isReloadNeeded = true;
         }
 
-        private Task NavigateByRestrictionsAsync()
+        private Task NavigateByRestrictionAsync()
         {
             Interaction.Raise();
             return NavigationManager.NavigateAsync<LoginViewModel>();

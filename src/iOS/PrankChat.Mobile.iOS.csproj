@@ -466,6 +466,18 @@
     <PackageReference Include="Microsoft.AppCenter">
       <Version>4.1.0</Version>
     </PackageReference>
+    <PackageReference Include="VideoLAN.LibVLC.iOS">
+      <Version>3.3.10</Version>
+    </PackageReference>
+    <PackageReference Include="VLC.Native">
+      <Version>3.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="LibVLCSharp">
+      <Version>3.5.1</Version>
+    </PackageReference>
+    <PackageReference Include="Vlc.DotNet.Core">
+      <Version>3.1.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">

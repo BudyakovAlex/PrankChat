@@ -70,19 +70,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             LikeCommand = this.CreateRestrictedCommand(
                 Like,
                 restrictedCanExecute: () => IsUserSessionInitialized,
-                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>,
+                handleFunc: NavigateByRestrictionAsync,
                 useIsBusyWrapper: false);
 
             DislikeCommand = this.CreateRestrictedCommand(
                 Dislike,
                 restrictedCanExecute: () => IsUserSessionInitialized,
-                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>,
+                handleFunc: NavigateByRestrictionAsync,
                 useIsBusyWrapper: false);
 
             OpenUserProfileCommand = this.CreateRestrictedCommand(
                 OpenUserProfileAsync,
                 restrictedCanExecute: () => IsUserSessionInitialized,
-                handleFunc: NavigationManager.NavigateAsync<LoginViewModel>);
+                handleFunc: NavigateByRestrictionAsync);
 
             IncrementVideoCountCommand = this.CreateCommand(IncrementVideoCountAsync);
         }
@@ -269,6 +269,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract
             }
 
             return NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(User.Id);
+        }
+
+        protected virtual Task NavigateByRestrictionAsync()
+        {
+            FullVideoPlayer?.Stop();
+            PreviewVideoPlayer?.Stop();
+            return NavigationManager.NavigateAsync<LoginViewModel>();
         }
 
         private async Task SendLikeAsync()

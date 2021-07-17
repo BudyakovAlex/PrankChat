@@ -3,6 +3,7 @@ using CoreAnimation;
 using CoreGraphics;
 using FFImageLoading.Cross;
 using Foundation;
+using LibVLCSharp.Platforms.iOS;
 using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Presentation.Localization;
@@ -10,14 +11,14 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.iOS.AppTheme;
 using System;
 using UIKit;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 {
     public abstract class BaseVideoTableCell : BaseTableCell
     {
         private CAGradientLayer _gradientLayer;
-        private AVPlayerLayer _videoLayer;
-        private CALayer _backgroundLayer;
+        private UITapGestureRecognizer _tapGestureRecognizer;
 
         protected BaseVideoTableCell(IntPtr handle)
             : base(handle)
@@ -73,6 +74,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             base.PrepareForReuse();
         }
 
+        protected abstract void OnVideoViewTap();
+
         protected override void Dispose(bool disposing)
         {
             StopVideo();
@@ -94,18 +97,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
                 EndPoint = new CGPoint(1f, 0f)
             };
 
-            _backgroundLayer = new CALayer() { BackgroundColor = UIColor.Black.CGColor };
-            _videoLayer = new AVPlayerLayer();
-
-            VideoView.Layer.AddSublayer(_backgroundLayer);
-            VideoView.Layer.AddSublayer(_videoLayer);
+            _tapGestureRecognizer = new UITapGestureRecognizer(OnVideoViewTap);
+            VideoView.BackgroundColor = UIColor.Black;
+            StubImageView.BackgroundColor = UIColor.Black;
 
             ProcessingLabel.Text = Resources.Processing_Video;
             RootProcessingBackgroundView.Layer.InsertSublayer(_gradientLayer, 0);
             ProcessingBackgroundView.Layer.CornerRadius = 8;
 
             LoadingActivityIndicator.Hidden = true;
-            StubImageView.Hidden = true;
         }
 
         public override void LayoutSubviews()
@@ -113,8 +113,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             base.LayoutSubviews();
 
             _gradientLayer.Frame = RootProcessingBackgroundView.Bounds;
-            _backgroundLayer.Frame = RootProcessingBackgroundView.Bounds;
-            _videoLayer.Frame = VideoView.Bounds;
         }
 
         public CGRect GetVideoBounds(UITableView tableView) =>
@@ -133,8 +131,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         private void HideStubs()
         {
-            StubImageView.Hidden = true;
-            LoadingActivityIndicator.Hidden = true;
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                StubImageView.Hidden = true;
+                LoadingActivityIndicator.Hidden = true;
+            });
         }
 
         private void StopVideo()
@@ -144,11 +145,30 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         private void SetPlayerState()
         {
-            if (VideoPlayer?.GetNativePlayer() is AVPlayer player)
+            if (VideoPlayer?.GetNativePlayer() is VideoView player)
             {
                 _videoPlayer.ReadyToPlayAction = HideStubs;
-                _videoLayer.Player = player;
-                VideoView.LayoutIfNeeded();
+                foreach (var subview in VideoView.Subviews)
+                {
+                    foreach (var gestureRecognizer in subview.GestureRecognizers)
+                    {
+                        subview.RemoveGestureRecognizer(gestureRecognizer);
+                    }
+
+                    subview.RemoveFromSuperview();
+                }
+
+                VideoView.AddSubview(player);
+                player.BackgroundColor = UIColor.Black;
+                player.AddGestureRecognizer(_tapGestureRecognizer);
+
+                NSLayoutConstraint.ActivateConstraints(new[]
+                {
+                    player.TopAnchor.ConstraintEqualTo(VideoView.TopAnchor),
+                    player.LeadingAnchor.ConstraintEqualTo(VideoView.LeadingAnchor),
+                    player.TrailingAnchor.ConstraintEqualTo(VideoView.TrailingAnchor),
+                    player.BottomAnchor.ConstraintEqualTo(VideoView.BottomAnchor)
+                });
             }
         }
 

@@ -73,6 +73,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
         protected override UIActivityIndicatorView ProcessingActivityIndicator => processingIndicatorView;
         protected override UILabel ProcessingLabel => processingLabel;
 
+        protected override void OnVideoViewTap() =>
+            ViewModel?.ShowFullScreenVideoCommand.Execute();
+
         protected override void SetupControls()
         {
             base.SetupControls();

@@ -1,44 +1,51 @@
-﻿using AVFoundation;
-using CoreMedia;
-using Foundation;
+﻿using Foundation;
+using LibVLCSharp.Shared;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using System;
 using System.Reactive.Disposables;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.iOS.Plugins.Video
 {
     public class VideoPlayer : NSObject, IVideoPlayer
     {
-        private const string StatusKey = "status";
-        private const string PlaybackLikelyToKeepUpKey = "playbackLikelyToKeepUp";
+        private CompositeDisposable _disposables;
+        private LibVLCSharp.Platforms.iOS.VideoView _player;
 
-        private readonly CompositeDisposable _disposables;
-        private readonly AVPlayer _player;
+        private LibVLC _libVLC;
 
         private bool _isDisposed;
-
-        private bool _isPrepared;
-        private bool _isPlayNeeded;
+        private bool _shouldNotifyPartiallyPlayed;
 
         public VideoPlayer()
         {
-            _disposables = new CompositeDisposable();
-            _player = new AVPlayer
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                ActionAtItemEnd = AVPlayerActionAtItemEnd.None,
-                Muted = true,
-                AutomaticallyWaitsToMinimizeStalling = false
-            }.DisposeWith(_disposables);
+                _disposables = new CompositeDisposable();
+                _player = new LibVLCSharp.Platforms.iOS.VideoView
+                {
+                    TranslatesAutoresizingMaskIntoConstraints = false,
+                    UserInteractionEnabled = true,
+                };
 
-            _player.AddBoundaryTimeObserver(
-                times: new[] { NSValue.FromCMTime(CMTime.FromSeconds(Constants.Delays.VideoPartiallyPlayedDelay, 1)) },
-                queue: null,
-                handler: () => VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.PartiallyPlayed))
-                .DisposeWith(_disposables);
+                _libVLC = new LibVLC();
+                _player.MediaPlayer = new LibVLCSharp.Shared.MediaPlayer(_libVLC);
+                _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, MediaPlayerTimeChangedEventArgs>(OnTimeChanged,
+                    (wrapper, handler) => wrapper.TimeChanged += handler,
+                    (wrapper, handler) => wrapper.TimeChanged -= handler).DisposeWith(_disposables);
+
+                _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, EventArgs>(OnPlaying,
+                      (wrapper, handler) => wrapper.Playing += handler,
+                      (wrapper, handler) => wrapper.Playing -= handler).DisposeWith(_disposables);
+
+                _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, EventArgs>(OnEndReached,
+                      (wrapper, handler) => wrapper.EndReached += handler,
+                      (wrapper, handler) => wrapper.EndReached -= handler).DisposeWith(_disposables);
+            });
         }
 
         public event EventHandler<VideoPlayingStatus> VideoPlayingStatusChanged;
@@ -47,8 +54,8 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
         public bool IsMuted
         {
-            get => _player.Muted;
-            set => _player.Muted = value;
+            get => _player.MediaPlayer.Mute;
+            set => MainThread.BeginInvokeOnMainThread(() => _player.MediaPlayer.Mute = value);
         }
 
         public bool CanRepeat { get; set; }
@@ -64,71 +71,18 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                _isPrepared = false;
-
-                if (_player.CurrentItem != null)
-                {
-                    _player.CurrentItem.RemoveObserver(this, StatusKey);
-                    _player.CurrentItem.RemoveObserver(this, PlaybackLikelyToKeepUpKey);
-                }
-
-                var playerItem = AVPlayerItem.FromUrl(NSUrl.FromString(url));
-                playerItem.CanUseNetworkResourcesForLiveStreamingWhilePaused = true;
-                playerItem.AddObserver(this, StatusKey, NSKeyValueObservingOptions.OldNew, IntPtr.Zero);
-                playerItem.AddObserver(this, PlaybackLikelyToKeepUpKey, NSKeyValueObservingOptions.New, IntPtr.Zero);
-
-                _player.ReplaceCurrentItemWithPlayerItem(playerItem);
-                _player.AutomaticallyWaitsToMinimizeStalling = playerItem.PlaybackBufferEmpty;
-                playerItem.PreferredForwardBufferDuration = 5;
-
-                AVPlayerItem.Notifications.ObserveDidPlayToEndTime(playerItem, OnVideoEnded)
-                    .DisposeWith(_disposables);
+                var mediaOptions = new string[] { "input-repeat=-1" };
+                _player.MediaPlayer.Media = new Media(_libVLC, url, FromType.FromLocation, mediaOptions);
             });
-        }
-
-        public override void ObserveValue(NSString keyPath, NSObject ofObject, NSDictionary change, IntPtr context)
-        {
-            switch (keyPath.ToString())
-            {
-                case StatusKey:
-                case PlaybackLikelyToKeepUpKey:
-                    PrepareAndPlayIfNeed();
-                    return;
-                default:
-                    return;
-            }
-
-            void PrepareAndPlayIfNeed()
-            {
-                _isPrepared = true;
-                if (_isPlayNeeded)
-                {
-                    Play();
-                    _isPlayNeeded = false;
-                }
-            }
         }
 
         public void Play()
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                if (_player.CurrentItem is null)
-                {
-                    return;
-                }
-
-                _isPlayNeeded = true;
-                if (!_isPrepared)
-                {
-                    return;
-                }
-
-                _player.Play();
-                ReadyToPlayAction?.Invoke();
-
+                _shouldNotifyPartiallyPlayed = true;
+                _player.MediaPlayer.Play();
                 IsPlaying = true;
-                VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Started);
             });
         }
 
@@ -136,15 +90,8 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                if (_player.CurrentItem is null)
-                {
-                    return;
-                }
-
-                _player.Pause();
+                _player.MediaPlayer.Pause();
                 IsPlaying = false;
-                _isPlayNeeded = false;
-
                 VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Paused);
             });
         }
@@ -153,15 +100,7 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                if (_player.CurrentItem is null)
-                {
-                    return;
-                }
-
-                _player.Pause();
-                _player.Seek(new CMTime(0, 1));
-
-                _isPlayNeeded = false;
+                _player.MediaPlayer.Stop();
                 IsPlaying = false;
                 VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Stopped);
             });
@@ -178,23 +117,43 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
             _isDisposed = true;
             _disposables.Dispose();
-            _player?.ReplaceCurrentItemWithPlayerItem(null);
         }
 
-        private void OnVideoEnded(object sender, NSNotificationEventArgs e)
+
+        private void OnEndReached(object sender, EventArgs e)
         {
-            MainThread.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(async () =>
             {
                 VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Played);
                 if (!CanRepeat)
                 {
-                    IsPlaying = false;
-                    _isPlayNeeded = false;
                     return;
                 }
 
-                _player.Seek(new CMTime(0, 1));
+                _shouldNotifyPartiallyPlayed = true;
+                await Task.Run(() => _player.MediaPlayer.Stop());
+                _player.MediaPlayer.Play();
             });
+        }
+
+        private async void OnPlaying(object sender, EventArgs e)
+        {
+            await Task.Delay(1000);
+            if (ReadyToPlayAction is null)
+            {
+                return;
+            }
+
+            MainThread.BeginInvokeOnMainThread(ReadyToPlayAction);
+        }
+
+        private void OnTimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
+        {
+            if (e.Time >= Constants.Delays.VideoPartiallyPlayedDelay && _shouldNotifyPartiallyPlayed)
+            {
+                _shouldNotifyPartiallyPlayed = false;
+                VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.PartiallyPlayed);
+            }
         }
     }
 }

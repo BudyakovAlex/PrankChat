@@ -172,7 +172,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         protected override void RefreshData()
         {
-            ViewModel?.LoadProfileCommand.Execute();
+            if (ViewModel is null)
+            {
+                return;
+            }
+
+            ViewModel.LoadProfileCommand.Execute();
             MainThread.BeginInvokeOnMainThread(() =>
                 ViewModel.SafeExecutionWrapper.Wrap(() =>
                 rootScrollView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true)));

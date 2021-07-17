@@ -73,6 +73,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             }
         }
 
+        protected override void OnVideoViewTap() =>
+           ViewModel?.ShowFullScreenVideoCommand.Execute();
+
         protected override void SetupControls()
         {
             base.SetupControls();
