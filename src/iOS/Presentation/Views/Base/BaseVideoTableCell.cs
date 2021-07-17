@@ -19,7 +19,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
     {
         private CAGradientLayer _gradientLayer;
         private UITapGestureRecognizer _tapGestureRecognizer;
-        private CALayer _backgroundLayer;
 
         protected BaseVideoTableCell(IntPtr handle)
             : base(handle)
@@ -99,15 +98,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             };
 
             _tapGestureRecognizer = new UITapGestureRecognizer(OnVideoViewTap);
-            _backgroundLayer = new CALayer() { BackgroundColor = UIColor.Black.CGColor };
-            VideoView.Layer.AddSublayer(_backgroundLayer);
+            VideoView.BackgroundColor = UIColor.Black;
+            StubImageView.BackgroundColor = UIColor.Black;
 
             ProcessingLabel.Text = Resources.Processing_Video;
             RootProcessingBackgroundView.Layer.InsertSublayer(_gradientLayer, 0);
             ProcessingBackgroundView.Layer.CornerRadius = 8;
 
             LoadingActivityIndicator.Hidden = true;
-            StubImageView.Hidden = true;
         }
 
         public override void LayoutSubviews()
@@ -115,7 +113,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             base.LayoutSubviews();
 
             _gradientLayer.Frame = RootProcessingBackgroundView.Bounds;
-            _backgroundLayer.Frame = RootProcessingBackgroundView.Bounds;
         }
 
         public CGRect GetVideoBounds(UITableView tableView) =>
@@ -162,6 +159,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
                 }
 
                 VideoView.AddSubview(player);
+                player.BackgroundColor = UIColor.Black;
                 player.AddGestureRecognizer(_tapGestureRecognizer);
 
                 NSLayoutConstraint.ActivateConstraints(new[]
