@@ -127,11 +127,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
         private void OnLabelTapped(UITapGestureRecognizer gesture)
         {
-            if (gesture.DidTapAttributedTextInLabel(yoomoneyDescriptionLabel, _yoomoneyRange))
-            {
-                ViewModel?.GoToYoomoneyCommand?.Execute(null);
-            }
+            ViewModel?.GoToYoomoneyCommand?.Execute(null);
         }
     }
 }
-
