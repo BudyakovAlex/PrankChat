@@ -49,6 +49,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		PrankChat.Mobile.iOS.Controls.FloatPlaceholderTextField priceTextField { get; set; }
 
 		[Outlet]
+		UIKit.UILabel privacyPolicyLabel { get; set; }
+
+		[Outlet]
 		UIKit.UIView progressBarView { get; set; }
 
 		[Outlet]
@@ -68,6 +71,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (privacyPolicyLabel != null) {
+				privacyPolicyLabel.Dispose ();
+				privacyPolicyLabel = null;
+			}
+
 			if (completeDateTextField != null) {
 				completeDateTextField.Dispose ();
 				completeDateTextField = null;
@@ -106,6 +114,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (hideExecutorCheckboxLabel != null) {
 				hideExecutorCheckboxLabel.Dispose ();
 				hideExecutorCheckboxLabel = null;
+			}
+
+			if (InfoImageView != null) {
+				InfoImageView.Dispose ();
+				InfoImageView = null;
 			}
 
 			if (lottieAnimationView != null) {
@@ -151,11 +164,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 			if (TextViewHeightConstraint != null) {
 				TextViewHeightConstraint.Dispose ();
 				TextViewHeightConstraint = null;
-			}
-
-			if (InfoImageView != null) {
-				InfoImageView.Dispose ();
-				InfoImageView = null;
 			}
 		}
 	}

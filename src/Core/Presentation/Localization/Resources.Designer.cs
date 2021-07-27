@@ -1954,5 +1954,17 @@ namespace PrankChat.Mobile.Core.Presentation.Localization {
                 return ResourceManager.GetString("Withdrawal_Enter_Wallet_Number", resourceCulture);
             }
         }
+        
+        public static string Create_Order_Privacy_Message {
+            get {
+                return ResourceManager.GetString("Create_Order_Privacy_Message", resourceCulture);
+            }
+        }
+        
+        public static string Create_Order_Privacy_Link {
+            get {
+                return ResourceManager.GetString("Create_Order_Privacy_Link", resourceCulture);
+            }
+        }
     }
 }
