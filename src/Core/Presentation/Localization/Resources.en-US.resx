@@ -984,7 +984,9 @@
 The competition consists of three stages:
 1) At the initial stage, the participants send their videos to the competition;
 2) Voting. PrankChat users vote for their favorite video;
-3) Results. After summing up the accounts of participants whose videos won prizes, the money won is transferred.</value>
+3) Results. After summing up the accounts of participants whose videos won prizes, the money won is transferred.
+
+Apple Inc. is not a sponsor of the competitions.</value>
   </data>
   <data name="Walkthrouth_CreateOrder_Description" xml:space="preserve">
     <value>Post your assignment, according to which other users will make a video for you. Describe the task in as much detail as possible, set the deadline and the amount of remuneration to get the perfect movie.</value>
@@ -1097,5 +1099,11 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   </data>
   <data name="Withdrawal_Enter_Wallet_Number" xml:space="preserve">
     <value>Enter Yoomoney wallet number</value>
+  </data>
+  <data name="Create_Order_Privacy_Message" xml:space="preserve">
+    <value>By completing the creation of the order, I confirm the registration with the terms of the public offer, user agreement and privacy policy</value>
+  </data>
+  <data name="Create_Order_Privacy_Link" xml:space="preserve">
+    <value>terms of the public offer, user agreement and privacy policy</value>
   </data>
 </root>

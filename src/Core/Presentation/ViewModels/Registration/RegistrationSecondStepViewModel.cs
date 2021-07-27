@@ -33,7 +33,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             _pushNotificationService = pushNotificationService;
 
             UserRegistrationCommand = this.CreateCommand(UserRegistrationAsync);
-            ShowTermsAndRulesCommand = this.CreateCommand(ShowTermsAndRules);
+            ShowTermsAndRulesCommand = this.CreateCommand(ShowTermsAndRulesAsync);
         }
 
         private string _password;
@@ -73,10 +73,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             Email = parameter.Email;
         }
 
-        private void ShowTermsAndRules()
-        {
-            _mvxWebBrowserTask.ShowWebPage(RestConstants.PolicyEndpoint);
-        }
+        private Task ShowTermsAndRulesAsync() =>
+            Xamarin.Essentials.Browser.OpenAsync(RestConstants.PolicyEndpoint);
 
         private async Task UserRegistrationAsync()
         {
