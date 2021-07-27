@@ -45,12 +45,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             ShowWalkthrouthSecretCommand = this.CreateCommand(ShowWalkthrouthSecretAsync);
             ShowDateDialogCommand = this.CreateCommand(ShowDateDialogAsync);
             CreateCommand = this.CreateCommand(CreateAsync);
+            ShowPrivacyPolicyCommand = this.CreateCommand(ShowProvacyPolicyAsync);
         }
 
         public IMvxAsyncCommand ShowDateDialogCommand { get; }
         public IMvxAsyncCommand CreateCommand { get; }
         public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
         public IMvxAsyncCommand ShowWalkthrouthSecretCommand { get; }
+        public IMvxAsyncCommand ShowPrivacyPolicyCommand { get; }
 
         private Period _activeFor;
         public Period ActiveFor
@@ -256,5 +258,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             ActiveFor = null;
             Price = null;
         }
+
+        private Task ShowProvacyPolicyAsync() =>
+            Xamarin.Essentials.Browser.OpenAsync(RestConstants.PolicyEndpoint);
     }
 }

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,6 +23,7 @@
                 <outlet property="lottieAnimationView" destination="vbs-Iv-n1K" id="Mhs-Nd-S84"/>
                 <outlet property="nameTextField" destination="jJE-mS-9rl" id="fGM-8d-NSn"/>
                 <outlet property="priceTextField" destination="xEE-mS-qWc" id="FWK-pw-ghP"/>
+                <outlet property="privacyPolicyLabel" destination="FNd-vQ-DQ2" id="qEq-Kj-5kV"/>
                 <outlet property="progressBarView" destination="T6O-o6-bRu" id="kK8-Zv-8Pb"/>
                 <outlet property="rootView" destination="fQO-fP-Hac" id="AiB-5o-wvJ"/>
                 <outlet property="scrollView" destination="SnW-tf-9KZ" id="3QE-9r-TDm"/>
@@ -41,7 +41,7 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQO-fP-Hac">
-                            <rect key="frame" x="0.0" y="16" width="398" height="422"/>
+                            <rect key="frame" x="0.0" y="16" width="398" height="442"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="BDc-xh-Ib0">
                                     <rect key="frame" x="16" y="0.0" width="382" height="292"/>
@@ -156,20 +156,29 @@
                                     </constraints>
                                     <state key="normal" title="Button"/>
                                 </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNd-vQ-DQ2">
+                                    <rect key="frame" x="16" y="420" width="366" height="12"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="BDc-xh-Ib0" firstAttribute="leading" secondItem="fQO-fP-Hac" secondAttribute="leading" constant="16" id="5f7-WZ-vCp"/>
                                 <constraint firstItem="kIc-F7-6ov" firstAttribute="top" secondItem="Mkv-tc-vtV" secondAttribute="bottom" constant="23" id="6tw-9s-zbT"/>
+                                <constraint firstAttribute="trailing" secondItem="FNd-vQ-DQ2" secondAttribute="trailing" constant="16" id="7BE-gX-mrs"/>
                                 <constraint firstItem="kIc-F7-6ov" firstAttribute="centerX" secondItem="fQO-fP-Hac" secondAttribute="centerX" id="9LB-gc-Fe5"/>
+                                <constraint firstItem="FNd-vQ-DQ2" firstAttribute="top" secondItem="kIc-F7-6ov" secondAttribute="bottom" constant="8" id="AVv-4U-afy"/>
                                 <constraint firstItem="Mkv-tc-vtV" firstAttribute="leading" secondItem="fQO-fP-Hac" secondAttribute="leading" constant="5" id="CUk-jW-pfu"/>
                                 <constraint firstAttribute="trailing" secondItem="Hpb-fU-ykB" secondAttribute="trailing" priority="250" constant="16" id="E5l-dd-9CF"/>
+                                <constraint firstAttribute="bottom" secondItem="FNd-vQ-DQ2" secondAttribute="bottom" constant="10" id="Elt-RX-fUT"/>
                                 <constraint firstItem="XJw-V4-peh" firstAttribute="centerY" secondItem="Mkv-tc-vtV" secondAttribute="centerY" id="HI6-gl-WEw"/>
                                 <constraint firstItem="Hpb-fU-ykB" firstAttribute="centerY" secondItem="Mkv-tc-vtV" secondAttribute="centerY" id="N4r-oR-dL6"/>
                                 <constraint firstAttribute="trailing" secondItem="BDc-xh-Ib0" secondAttribute="trailing" id="NRe-tK-e1i"/>
                                 <constraint firstItem="Mkv-tc-vtV" firstAttribute="top" secondItem="BDc-xh-Ib0" secondAttribute="bottom" constant="16" id="cQP-eT-QJe"/>
-                                <constraint firstAttribute="bottom" secondItem="kIc-F7-6ov" secondAttribute="bottom" constant="10" id="fEA-iT-MsE"/>
                                 <constraint firstItem="BDc-xh-Ib0" firstAttribute="top" secondItem="fQO-fP-Hac" secondAttribute="top" id="j5q-Er-23j"/>
                                 <constraint firstItem="Hpb-fU-ykB" firstAttribute="leading" secondItem="XJw-V4-peh" secondAttribute="trailing" constant="10" id="kJ4-Tx-FGS"/>
+                                <constraint firstItem="FNd-vQ-DQ2" firstAttribute="leading" secondItem="fQO-fP-Hac" secondAttribute="leading" constant="16" id="noJ-Iv-MJS"/>
                                 <constraint firstItem="XJw-V4-peh" firstAttribute="leading" secondItem="Mkv-tc-vtV" secondAttribute="trailing" id="xdk-tZ-Ly6"/>
                             </constraints>
                         </view>
