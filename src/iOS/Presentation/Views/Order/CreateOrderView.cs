@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
@@ -9,6 +10,7 @@ using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
@@ -27,6 +29,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
         private UITextPosition _position;
         private UITextView _dynamicDescriptionTextView;
         private UIBarButtonItem _notificationBarItem;
+        private NSRange _privacyLinkRange;
 
         public string OrderDescription
         {
@@ -172,6 +175,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             lottieAnimationView.Play();
 
             stackView.SetCustomSpacing(8, stackView.ArrangedSubviews[0]);
+            SetupPrivacyLabelAttributedText();
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)
@@ -197,12 +201,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         protected override void Subscription()
         {
-            priceTextField.EditingChanged += PriceTextField_EditingChanged;
+            priceTextField.EditingChanged += OnPriceTextFieldEditingChanged;
         }
 
         protected override void Unsubscription()
         {
-            priceTextField.EditingChanged -= PriceTextField_EditingChanged;
+            priceTextField.EditingChanged -= OnPriceTextFieldEditingChanged;
         }
 
         private void OnViewTapped()
@@ -210,17 +214,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             View.EndEditing(true);
         }
 
-        private void PriceTextField_EditingChanged(object sender, System.EventArgs e)
+        private void OnPriceTextFieldEditingChanged(object sender, System.EventArgs e)
         {
             var text = priceTextField.Text;
             if (string.IsNullOrWhiteSpace(text))
+            {
                 return;
+            }
 
             if (text.EndsWith(Resources.Currency))
             {
                 var position = priceTextField.GetPosition(priceTextField.EndOfDocument, -2);
                 if (_position == position)
+                {
                     return;
+                }
 
                 _position = position;
                 priceTextField.SelectedTextRange = priceTextField.GetTextRange(_position, _position);
@@ -231,5 +239,28 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
         {
             HideExecutorCheckBoxButton.SwitchChecked();
         }
+
+        private void SetupPrivacyLabelAttributedText()
+        {
+            var linkAttributes = new UIStringAttributes
+            {
+                UnderlineStyle = NSUnderlineStyle.Single,
+                ForegroundColor = Theme.Color.Gray
+            };
+
+            privacyPolicyLabel.SetRegularStyle(10, Theme.Color.Gray);
+            var privacyMessageAttributedString = new NSMutableAttributedString(Resources.Create_Order_Privacy_Message);
+
+            var startPosition = Resources.Create_Order_Privacy_Message.IndexOf(Resources.Create_Order_Privacy_Link);
+            _privacyLinkRange = new NSRange(startPosition, Resources.Create_Order_Privacy_Link.Length);
+            privacyMessageAttributedString.AddAttributes(linkAttributes, _privacyLinkRange);
+
+            privacyPolicyLabel.AttributedText = privacyMessageAttributedString;
+            privacyPolicyLabel.AddGestureRecognizer(new UITapGestureRecognizer(OnPrivacyLabelTapped));
+            privacyPolicyLabel.UserInteractionEnabled = true;
+        }
+
+        private void OnPrivacyLabelTapped(UITapGestureRecognizer gesture) =>
+            ViewModel?.ShowPrivacyPolicyCommand?.Execute(null);
     }
 }
