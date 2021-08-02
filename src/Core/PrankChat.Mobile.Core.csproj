@@ -106,10 +106,12 @@
     <Folder Include="ApplicationServices\FileSystem\" />
     <Folder Include="Data\Models\User\" />
     <Folder Include="Data\Dtos\Users\" />
+    <Folder Include="Infrastructure\Extensions\MvvmCross\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="AppConfig.json" />
     <None Remove="Data\Models\User\" />
     <None Remove="Data\Dtos\Users\" />
+    <None Remove="Infrastructure\Extensions\MvvmCross\" />
   </ItemGroup>
 </Project>

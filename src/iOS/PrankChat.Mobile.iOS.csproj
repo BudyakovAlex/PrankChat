@@ -395,6 +395,7 @@
     <Compile Include="PlatformBusinessServices\FileSystem\FileSystemService.cs" />
     <Compile Include="Extensions\UITapGestureExtensions.cs" />
     <Compile Include="Extensions\CALayerExtensions.cs" />
+    <Compile Include="Extensions\BindingExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -22,7 +22,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
                 var logoImageView = new UIImageView(UIImage.FromBundle("ic_logo"), null);
                 NavigationItem.TitleView = logoImageView;
             }
-
         }
     }
 }
