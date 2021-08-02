@@ -1,68 +1,39 @@
-﻿using MvvmCross.Binding.BindingContext;
+﻿using System;
+using System.Collections.Generic;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
-using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using PrankChat.Mobile.Core.Converters;
+using PrankChat.Mobile.Core.Infrastructure.Extensions.MvvmCross;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Presentation.Binding;
+using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
-using System.Collections.Generic;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 {
-
     [MvxModalPresentation(WrapInNavigationController = true)]
     public partial class RegistrationSecondStepView : BaseTransparentBarView<RegistrationSecondStepViewModel>
     {
+        public override bool CanHandleKeyboardNotifications => true;
+
         protected override void SetupBinding()
         {
-            var set = this.CreateBindingSet<RegistrationSecondStepView, RegistrationSecondStepViewModel>();
+            using var bindingSet = this.CreateBindingSet<RegistrationSecondStepView, RegistrationSecondStepViewModel>();
 
-            set.Bind(nicknameTextField)
-                .To(vm => vm.Login);
+            bindingSet.Bind(nicknameTextField).To(vm => vm.Login);
+            bindingSet.Bind(nameTextField).To(vm => vm.Name);
+            bindingSet.Bind(birthdayTextField).To(vm => vm.BirthdayText);
 
-            set.Bind(nameTextField)
-                .To(vm => vm.Name);
-
-            set.Bind(birthdayTextField)
-                .To(vm => vm.BirthdayText);
-
-            set.Bind(birthdayTextField.Tap())
-                .For(v => v.Command)
-                .To(vm => vm.SelectBirthdayCommand);
-
-            set.Bind(passwordTextField)
-                .To(vm => vm.Password);
-
-            set.Bind(passwordRepeatTextField)
-                .To(vm => vm.RepeatedPassword);
-
-            set.Bind(nextStepButton)
-                .To(vm => vm.UserRegistrationCommand);
-
-            set.Bind(termsLabel)
-               .For(v => v.BindTap())
-               .To(vm => vm.ShowTermsAndRulesCommand);
-
-            set.Bind(privacyCheckButton)
-               .For(UIButtonSelectedTargetBinding.TargetBinding)
-               .To(vm => vm.IsPolicyChecked)
-               .OneWay();
-
-            set.Bind(adultCheckButton)
-               .For(UIButtonSelectedTargetBinding.TargetBinding)
-               .To(vm => vm.IsAdultChecked)
-               .OneWay();
-
-            set.Bind(progressBar)
-                .For(v => v.BindHidden())
-                .To(vm => vm.IsBusy)
-                .WithConversion<MvxInvertedBooleanConverter>();
-
-            set.Apply();
+            bindingSet.Bind(birthdayTextField).For(v => v.BindTap()).To(vm => vm.SelectBirthdayCommand);
+            bindingSet.Bind(passwordTextField).To(vm => vm.Password);
+            bindingSet.Bind(passwordRepeatTextField).To(vm => vm.RepeatedPassword);
+            bindingSet.Bind(nextStepButton).To(vm => vm.UserRegistrationCommand);
+            bindingSet.Bind(termsLabel).For(v => v.BindTap()).To(vm => vm.ShowTermsAndRulesCommand);
+            bindingSet.Bind(privacyCheckButton).For(v => v.BindSelected()).To(vm => vm.IsPolicyChecked).OneWay();
+            bindingSet.Bind(adultCheckButton).For(v => v.BindSelected()).To(vm => vm.IsAdultChecked).OneWay();
+            bindingSet.Bind(progressBar).For(v => v.BindHidden()).To(vm => vm.IsBusy).WithBoolInvertionConversion();
         }
 
         protected override void SetupControls()
@@ -70,9 +41,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             Title = Resources.RegistrationView_StepTwo_Title;
 
             nicknameTextField.SetLightStyle(Resources.RegistrationView_Login_Placeholder);
-
             nameTextField.SetLightStyle(Resources.RegistrationView_Name_Placeholder);
-
             birthdayTextField.SetLightStyle(Resources.RegistrationView_Birthday_Placeholder, rightImage: UIImage.FromBundle("ic_calendar"));
 
             passwordTextField.SetLightStyle(Resources.RegistrationView_Password_Placeholder);
@@ -123,6 +92,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             base.RegisterKeyboardDismissTextFields(viewList);
         }
 
+        protected override void OnKeyboardChanged(bool visible, nfloat keyboardHeight)
+        {
+            base.OnKeyboardChanged(visible, keyboardHeight);
+
+            var bottomInset = visible ? keyboardHeight : 0;
+            scrollView.ContentInset = new UIEdgeInsets(0, 0, bottomInset, 0);
+        }
+
         private void SwitchPolicyState() =>
             ViewModel.IsPolicyChecked = !ViewModel.IsPolicyChecked;
 
@@ -130,4 +107,3 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             ViewModel.IsAdultChecked = !ViewModel.IsAdultChecked;
     }
 }
-
