@@ -192,7 +192,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             foreach (var view in _viewForKeyboardDismiss)
             {
                 if (view is UIScrollView)
+                {
                     continue;
+                }
 
                 view.ResignFirstResponder();
             }
