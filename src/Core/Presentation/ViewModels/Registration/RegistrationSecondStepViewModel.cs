@@ -1,5 +1,6 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.WebBrowser;
+﻿using System;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ApplicationServices.Notifications;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
@@ -11,25 +12,20 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.Localization;
 using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract;
-using System;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 {
     public class RegistrationSecondStepViewModel : BaseProfileViewModel, IMvxViewModel<RegistrationNavigationParameter>
     {
         private readonly IAuthorizationManager _authorizationManager;
-        private readonly IMvxWebBrowserTask _mvxWebBrowserTask;
         private readonly IPushNotificationProvider _pushNotificationService;
 
         public RegistrationSecondStepViewModel(
             IAuthorizationManager authorizationManager,
             IUsersManager usersManager,
-            IMvxWebBrowserTask mvxWebBrowserTask,
             IPushNotificationProvider pushNotificationService) : base(usersManager)
         {
             _authorizationManager = authorizationManager;
-            _mvxWebBrowserTask = mvxWebBrowserTask;
             _pushNotificationService = pushNotificationService;
 
             UserRegistrationCommand = this.CreateCommand(UserRegistrationAsync);
