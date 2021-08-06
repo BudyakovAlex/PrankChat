@@ -83,21 +83,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items
             ? OrderType.MyOrder
             : OrderType.NotMyOrder;
 
-        private async Task OpenDetailsOrderAsync()
+        private Task OpenDetailsOrderAsync()
         {
             var items = GetFullScreenVideos();
             var currentItem = items.FirstOrDefault(item => item.VideoId == _order.Video?.Id);
             var index = currentItem is null ? 0 : items.IndexOfOrDefault(currentItem);
 
             var parameter = new OrderDetailsNavigationParameter(_order.Id, items, index);
-            var result = await NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter, OrderDetailsResult>(parameter);
-            if (result == null)
-            {
-                return;
-            }
-
-            Likes = result.PositiveArbitrationValuesCount ?? 0;
-            Dislikes = result.NegativeArbitrationValuesCount ?? 0;
+            return NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter>(parameter);
         }
     }
 }
