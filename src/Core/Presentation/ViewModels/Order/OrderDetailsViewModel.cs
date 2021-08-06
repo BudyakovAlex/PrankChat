@@ -27,7 +27,7 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 {
-    public class OrderDetailsViewModel : BasePageViewModel<OrderDetailsNavigationParameter, OrderDetailsResult>
+    public class OrderDetailsViewModel : BasePageViewModel<OrderDetailsNavigationParameter>
     {
         private readonly IOrdersManager _ordersManager;
 
@@ -479,6 +479,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 await _ordersManager.ComplainOrderAsync(_orderId, text, text);
                 DialogService.ShowToast(Resources.Complaint_Complete_Message, ToastType.Positive);
+                Messenger.Publish(new OrderChangedMessage(this, Order));
                 return;
             }
 

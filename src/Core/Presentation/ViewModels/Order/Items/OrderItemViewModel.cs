@@ -105,38 +105,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
                : _order.GetActiveOrderTime();
         }
 
-        private async Task OpenDetailsOrderAsync()
+        private Task OpenDetailsOrderAsync()
         {
             var items = GetFullScreenVideos();
             var currentItem = items.FirstOrDefault(item => item.VideoId == _order.Video?.Id);
             var index = currentItem is null ? 0 : items.IndexOfOrDefault(currentItem);
 
             var parameter = new OrderDetailsNavigationParameter(_order.Id, items, index);
-            var result = await NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter, OrderDetailsResult>(parameter);
-            if (result == null)
-            {
-                return;
-            }
-
-            _order.Status = result.Status ?? OrderStatusType.None;
-            _order.ActiveTo = result.ActiveTo;
-
-            if (_order.Status == OrderStatusType.Cancelled ||
-                _order.Status == OrderStatusType.Finished ||
-                _order.Status == OrderStatusType.InArbitration)
-            {
-                var status = _order.Status.Value;
-                Messenger.Publish(new RemoveOrderMessage(this, OrderId, status));
-                return;
-            }
-
-            ElapsedTime = _order.ActiveTo is null
-              ? TimeSpan.FromHours(_order.DurationInHours)
-              : _order.GetActiveOrderTime();
-
-            await RaisePropertyChanged(nameof(StatusText));
-            await RaisePropertyChanged(nameof(OrderType));
-            await RaisePropertyChanged(nameof(OrderTagType));
+            return NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter>(parameter);
         }
     }
 }
