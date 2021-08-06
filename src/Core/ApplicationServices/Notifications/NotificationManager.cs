@@ -61,7 +61,7 @@ namespace PrankChat.Mobile.Core.ApplicationServices.Notifications
                     }
 
                     var parameter = new OrderDetailsNavigationParameter(orderId.Value, null, 0);
-                    navigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter, OrderDetailsResult>(parameter).FireAndForget();
+                    navigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter>(parameter).FireAndForget();
                 }
                 catch (Exception e)
                 {
