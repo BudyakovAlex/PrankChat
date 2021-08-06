@@ -168,7 +168,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 Messenger.Publish(new OrderChangedMessage(this, newOrder));
 
                 var parameter = new OrderDetailsNavigationParameter(newOrder.Id, null, 0);
-                await NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter, OrderDetailsResult>(parameter);
+                await NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter>(parameter);
                 SetDefaultData();
                 return;
             }
