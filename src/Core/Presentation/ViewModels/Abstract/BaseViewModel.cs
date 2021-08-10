@@ -5,6 +5,7 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Navigation;
+using PrankChat.Mobile.Core.Plugins;
 using PrankChat.Mobile.Core.Services.Dialogs;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
@@ -51,7 +52,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 
         protected IMvxMessenger Messenger => Mvx.IoCProvider.Resolve<IMvxMessenger>();
 
-        protected IDialogService DialogService => Mvx.IoCProvider.Resolve<IDialogService>();
+        protected IUserInteraction DialogService => Mvx.IoCProvider.Resolve<IUserInteraction>();
 
         protected virtual void OnIsBusyWrapperChanged()
         {

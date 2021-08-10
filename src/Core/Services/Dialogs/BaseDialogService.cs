@@ -11,10 +11,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Plugins;
 
 namespace PrankChat.Mobile.Core.Services.Dialogs
 {
-    public abstract class BaseDialogService : IDialogService
+    public abstract class BaseDialogService : IUserInteraction
     {
         private readonly INavigationManager _navigationManager;
 

@@ -1,6 +1,7 @@
 ﻿using Plugin.Media;
 using Plugin.Media.Abstractions;
 using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Plugins;
 using PrankChat.Mobile.Core.Services.Dialogs;
 using PrankChat.Mobile.Core.Services.Permissions;
 using System.Threading.Tasks;
@@ -11,11 +12,11 @@ namespace PrankChat.Mobile.Core.Services.Media
     public class MediaService : IMediaService
     {
         private readonly IPermissionService _permissionService;
-        private readonly IDialogService _dialogService;
+        private readonly IUserInteraction _dialogService;
 
         private bool _isCrossMediaInitialized;
 
-        public MediaService(IPermissionService permissionService, IDialogService dialogService)
+        public MediaService(IPermissionService permissionService, IUserInteraction dialogService)
         {
             _permissionService = permissionService;
             _dialogService = dialogService;

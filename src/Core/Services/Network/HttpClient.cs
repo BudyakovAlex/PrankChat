@@ -10,6 +10,7 @@ using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Plugins;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Core.Services.Dialogs;
 using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
@@ -42,7 +43,7 @@ namespace PrankChat.Mobile.Core.Services.Network
         private readonly Version _apiVersion;
         private readonly string _baseAddress;
 
-        private IDialogService _dialogService;
+        private IUserInteraction _dialogService;
 
         public HttpClient(string baseAddress,
                           string apiVersion,
@@ -60,7 +61,7 @@ namespace PrankChat.Mobile.Core.Services.Network
             _client.Timeout = TimeSpan.FromMinutes(15).Milliseconds;
         }
 
-        private IDialogService DialogService => _dialogService ?? (_dialogService = Mvx.IoCProvider.Resolve<IDialogService>());
+        private IUserInteraction DialogService => _dialogService ?? (_dialogService = Mvx.IoCProvider.Resolve<IUserInteraction>());
 
         public async Task<IRestResponse> ExecuteRawAsync(string endpoint, Method method, bool includeAccessToken)
         {

@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Services.Dialogs;
+using PrankChat.Mobile.Core.Plugins;
 
 namespace PrankChat.Mobile.Core.Services.ErrorHandling
 {
@@ -22,13 +23,13 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
         private const int ZeroSkipDelay = 0;
 
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
-        private readonly IDialogService _dialogService;
+        private readonly IUserInteraction _dialogService;
         private readonly IMvxLogProvider _logProvider;
         private bool _isSuspended;
 
         public ErrorHandleService(
             IMvxMessenger messenger,
-            IDialogService dialogService,
+            IUserInteraction dialogService,
             IMvxLogProvider logProvider)
         {
             _dialogService = dialogService;

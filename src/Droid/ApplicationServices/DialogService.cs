@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Services.Dialogs;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
+using PrankChat.Mobile.Core.Plugins;
 using System;
 using System.Threading.Tasks;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
