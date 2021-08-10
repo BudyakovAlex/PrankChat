@@ -1,4 +1,4 @@
-﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Contents;
+﻿using PrankChat.Mobile.Core.Services.Network.Contents;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;

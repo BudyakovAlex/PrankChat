@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Facebook.LoginKit;
-using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
+using PrankChat.Mobile.Core.Services.ExternalAuth;
 using PrankChat.Mobile.iOS.ApplicationServices.Callbacks;
 using PrankChat.Mobile.iOS.Utils.Helpers;
 using VKontakte;

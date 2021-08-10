@@ -1,6 +1,6 @@
 ﻿using System;
 using MvvmCross.Platforms.Ios;
-using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.iOS.AppTheme;
 using UIKit;
 

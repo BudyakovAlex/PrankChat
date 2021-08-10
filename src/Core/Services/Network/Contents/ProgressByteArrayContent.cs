@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PrankChat.Mobile.Core.ApplicationServices.Network.Contents
+namespace PrankChat.Mobile.Core.Services.Network.Contents
 {
     public class ProgressByteArrayContent : HttpContent
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace PrankChat.Mobile.Core.Common.Constants
+namespace PrankChat.Mobile.Core.Common
 {
     public static class DateFormats
     {

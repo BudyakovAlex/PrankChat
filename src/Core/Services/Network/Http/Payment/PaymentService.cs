@@ -1,6 +1,6 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment;
+using PrankChat.Mobile.Core.Services.Network.Http.Payment;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;

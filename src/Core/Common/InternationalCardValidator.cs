@@ -2,7 +2,7 @@
 using PrankChat.Mobile.Core.Extensions;
 using System.Text.RegularExpressions;
 
-namespace PrankChat.Mobile.Core.Common.Constants
+namespace PrankChat.Mobile.Core.Common
 {
     public class InternationalCardValidator
     {

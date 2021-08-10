@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment
+namespace PrankChat.Mobile.Core.Services.Network.Http.Payment
 {
     public interface IPaymentService
     {

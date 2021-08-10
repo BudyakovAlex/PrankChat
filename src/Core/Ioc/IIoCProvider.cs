@@ -41,5 +41,9 @@ namespace PrankChat.Mobile.Core.Ioc
         bool TryResolve(Type type, out object resolvedObject);
 
         bool TryResolve<TObject>(out TObject resolvedObject) where TObject : class;
+
+        void CallbackWhenRegistered<TObject>(Action action) where TObject : class;
+
+        void CallbackWhenRegistered<TObject>(Action<TObject> action) where TObject : class;
     }
 }

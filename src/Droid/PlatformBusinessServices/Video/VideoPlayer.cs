@@ -13,7 +13,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using PrankChat.Mobile.Core.Extensions;
-using PrankChat.Mobile.Core.Common.Constants;
+using PrankChat.Mobile.Core.Common;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 {

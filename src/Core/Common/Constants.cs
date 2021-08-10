@@ -1,6 +1,6 @@
 ﻿using PrankChat.Mobile.Core.Localization;
 
-namespace PrankChat.Mobile.Core.Common.Constants
+namespace PrankChat.Mobile.Core.Common
 {
     public static class Constants
     {

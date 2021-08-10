@@ -1,4 +1,4 @@
-﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment;
+﻿using PrankChat.Mobile.Core.Services.Network.Http.Payment;
 using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using System.Collections.Generic;

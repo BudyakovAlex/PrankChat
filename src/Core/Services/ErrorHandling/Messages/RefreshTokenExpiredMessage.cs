@@ -1,6 +1,6 @@
 ﻿using MvvmCross.Plugin.Messenger;
 
-namespace PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages
+namespace PrankChat.Mobile.Core.Services.ErrorHandling.Messages
 {
     public class RefreshTokenExpiredMessage : MvxMessage
     {
