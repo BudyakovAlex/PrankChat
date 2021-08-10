@@ -1,14 +1,14 @@
 ﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.Infrastructure;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using System;
 using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Essentials;
+using PrankChat.Mobile.Core.Common.Constants;
+using PrankChat.Mobile.Core.Extensions;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract
 {

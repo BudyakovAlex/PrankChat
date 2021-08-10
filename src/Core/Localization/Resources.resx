@@ -1,0 +1,1117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="app_name" xml:space="preserve">
+    <value>PrankChat</value>
+  </data>
+  <data name="Home_Tab" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="Rate_Tab" xml:space="preserve">
+    <value>Оценка</value>
+  </data>
+  <data name="Orders_Tab" xml:space="preserve">
+    <value>Заказы</value>
+  </data>
+  <data name="Profile_Tab" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
+  <data name="Popular_Publication_Tab" xml:space="preserve">
+    <value>Популярное</value>
+  </data>
+  <data name="Actual_Publication_Tab" xml:space="preserve">
+    <value>Актуальное</value>
+  </data>
+  <data name="MyFeed_Publication_Tab" xml:space="preserve">
+    <value>Моя лента</value>
+  </data>
+  <data name="Publication_Tab_Filter_Day" xml:space="preserve">
+    <value>За день</value>
+  </data>
+  <data name="Publication_Tab_Filter_Week" xml:space="preserve">
+    <value>За неделю</value>
+  </data>
+  <data name="Publication_Tab_Filter_Month" xml:space="preserve">
+    <value>За месяц</value>
+  </data>
+  <data name="Publication_Tab_Filter_Quarter" xml:space="preserve">
+    <value>За квартал</value>
+  </data>
+  <data name="Publication_Tab_Filter_HalfYear" xml:space="preserve">
+    <value>За полгода</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Search_View_Search_Placeholder" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Поделиться</value>
+  </data>
+  <data name="Error_Unexpected_Server" xml:space="preserve">
+    <value>Непредвиденная ошибка на сервере.</value>
+  </data>
+  <data name="Error_Unexpected_Not_Found" xml:space="preserve">
+    <value>Не удалось получить запрошенные данные.</value>
+  </data>
+  <data name="Error_Unexpected_Network" xml:space="preserve">
+    <value>Неожиданная сетевая ошибка, попробуйте снова.</value>
+  </data>
+  <data name="LoginView_Email_Placeholder" xml:space="preserve">
+    <value>Введите email</value>
+  </data>
+  <data name="LoginView_Password_Placeholder" xml:space="preserve">
+    <value>Введите пароль</value>
+  </data>
+  <data name="LoginView_ForgotPassword_Title" xml:space="preserve">
+    <value>Востановление пароля</value>
+  </data>
+  <data name="LoginView_ForgotPassword_Button" xml:space="preserve">
+    <value>Востановить</value>
+  </data>
+  <data name="LoginView_Continue_Button" xml:space="preserve">
+    <value>Продолжить</value>
+  </data>
+  <data name="LoginView_CreateAccount_Button" xml:space="preserve">
+    <value>Нет аккаунта? Создать новый</value>
+  </data>
+  <data name="LoginView_Login_Title" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="LoginView_AltLogin_Title" xml:space="preserve">
+    <value>Войти через:</value>
+  </data>
+  <data name="RegistrationView_Title" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="RegistrationView_Email_Placeholder" xml:space="preserve">
+    <value>Введите email</value>
+  </data>
+  <data name="RegistrationView_RegisteredYet_Label" xml:space="preserve">
+    <value>Уже зарегистрированы?</value>
+  </data>
+  <data name="RegistrationView_Login_Button" xml:space="preserve">
+    <value>Войти в аккаунт</value>
+  </data>
+  <data name="RegistrationView_Login_Placeholder" xml:space="preserve">
+    <value>Введите логин</value>
+  </data>
+  <data name="RegistrationView_Name_Placeholder" xml:space="preserve">
+    <value>Введите имя</value>
+  </data>
+  <data name="RegistrationView_Birthday_Placeholder" xml:space="preserve">
+    <value>Дата рождения</value>
+  </data>
+  <data name="RegistrationView_Password_Placeholder" xml:space="preserve">
+    <value>Введите пароль</value>
+  </data>
+  <data name="RegistrationView_PasswordRepeat_Placeholder" xml:space="preserve">
+    <value>Повторите пароль</value>
+  </data>
+  <data name="RegistrationView_GenderSelect_Title" xml:space="preserve">
+    <value>Выберите пол:</value>
+  </data>
+  <data name="RegistrationView_Male_Button" xml:space="preserve">
+    <value>муж</value>
+  </data>
+  <data name="RegistrationView_Female_Button" xml:space="preserve">
+    <value>жен</value>
+  </data>
+  <data name="RegistrationView_Register_Button" xml:space="preserve">
+    <value>Зарегистрироваться</value>
+  </data>
+  <data name="RegistrationView_StepTwo_Title" xml:space="preserve">
+    <value>Шаг 2</value>
+  </data>
+  <data name="RegistrationView_StepThree_Title" xml:space="preserve">
+    <value>Шаг 3</value>
+  </data>
+  <data name="RegistrationView_Congrats_Title" xml:space="preserve">
+    <value>Поздравляем!</value>
+  </data>
+  <data name="RegistrationView_Confirmation_Label" xml:space="preserve">
+    <value>На почту отправлено письмо с верификацией email адреса. Для завершения регистрации, пожалуйста, подтвердите Ваш email</value>
+  </data>
+  <data name="RegistrationView_GoToFeed_Button" xml:space="preserve">
+    <value>Перейти в ленту</value>
+  </data>
+  <data name="Password_Recovery_View_Title" xml:space="preserve">
+    <value>Восстановление пароля</value>
+  </data>
+  <data name="Password_Recovery_View_Email_Placeholder" xml:space="preserve">
+    <value>Введите email</value>
+  </data>
+  <data name="Password_Recovery_View_Recovery_Button" xml:space="preserve">
+    <value>Восстановить</value>
+  </data>
+  <data name="Password_Recovery_View_Attention" xml:space="preserve">
+    <value>Внимание!</value>
+  </data>
+  <data name="Password_Recovery_View_Finish_Text" xml:space="preserve">
+    <value>Ссылка для восстановления пароля отправлена на почту.</value>
+  </data>
+  <data name="ProfileView_Menu_Favourites" xml:space="preserve">
+    <value>Избранные видео</value>
+  </data>
+  <data name="ProfileView_Menu_TaskSubscriptions" xml:space="preserve">
+    <value>Подписки на заказ</value>
+  </data>
+  <data name="ProfileView_Menu_Faq" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="ProfileView_Menu_Support" xml:space="preserve">
+    <value>Справки/отзывы</value>
+  </data>
+  <data name="ProfileView_Menu_Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="ProfileView_Menu_LogOut" xml:space="preserve">
+    <value>Выйти из аккаунта</value>
+  </data>
+  <data name="ProfileView_Refill" xml:space="preserve">
+    <value>Пополнить</value>
+  </data>
+  <data name="ProfileView_Withdrawal" xml:space="preserve">
+    <value>Вывести</value>
+  </data>
+  <data name="ProfileView_Orders_Subtitle" xml:space="preserve">
+    <value>заказов</value>
+  </data>
+  <data name="ProfileView_Completed_Subtitle" xml:space="preserve">
+    <value>выполнено</value>
+  </data>
+  <data name="ProfileView_Subscribers_Subtitle" xml:space="preserve">
+    <value>подписчики</value>
+  </data>
+  <data name="ProfileView_Subscriptions_Subtitle" xml:space="preserve">
+    <value>подписки</value>
+  </data>
+  <data name="ProfileView_MyOrders_Tab" xml:space="preserve">
+    <value>Я заказал</value>
+  </data>
+  <data name="ProfileView_CompletedOrders_Tab" xml:space="preserve">
+    <value>Я исполняю</value>
+  </data>
+  <data name="Order_View_Time_Text" xml:space="preserve">
+    <value>Время заказа:</value>
+  </data>
+  <data name="Order_View_Price_Text" xml:space="preserve">
+    <value>Сумма заказа:</value>
+  </data>
+  <data name="Order_View_Day" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="Order_View_Hour" xml:space="preserve">
+    <value>Часа</value>
+  </data>
+  <data name="Order_View_Minute" xml:space="preserve">
+    <value>Минут</value>
+  </data>
+  <data name="Order_View_Details" xml:space="preserve">
+    <value>Подробнее</value>
+  </data>
+  <data name="Order_View_New_Task" xml:space="preserve">
+    <value>Новый заказ</value>
+  </data>
+  <data name="Order_View_My_Task" xml:space="preserve">
+    <value>Мои заказы</value>
+  </data>
+  <data name="OrdersView_Filter_AllTasks" xml:space="preserve">
+    <value>Все заказы</value>
+  </data>
+  <data name="OrdersView_Filter_NewTasks" xml:space="preserve">
+    <value>Новые заказы</value>
+  </data>
+  <data name="OrdersView_Filter_CurrentTasks" xml:space="preserve">
+    <value>Заказ в исполнении</value>
+  </data>
+  <data name="OrdersView_Filter_MyTasks" xml:space="preserve">
+    <value>Мои заказы</value>
+  </data>
+  <data name="RateView_Filter_AllTasks" xml:space="preserve">
+    <value>Все заказы в споре</value>
+  </data>
+  <data name="RateView_Filter_MyTasks" xml:space="preserve">
+    <value>Мои заказы в споре</value>
+  </data>
+  <data name="RateView_Filter_NewTasks" xml:space="preserve">
+    <value>Новые заказы в споре</value>
+  </data>
+  <data name="RateView_Title_Label" xml:space="preserve">
+    <value>Оценка</value>
+  </data>
+  <data name="OrdersView_Title_Label" xml:space="preserve">
+    <value>Заказы</value>
+  </data>
+  <data name="RateView_Vote_Button" xml:space="preserve">
+    <value>Оценить</value>
+  </data>
+  <data name="CreateOrderView_Title" xml:space="preserve">
+    <value>Создание заказа</value>
+  </data>
+  <data name="CreateOrderView_Name_Placeholder" xml:space="preserve">
+    <value>Название заказа</value>
+  </data>
+  <data name="CreateOrderView_Description_Placeholder" xml:space="preserve">
+    <value>Описание заказа</value>
+  </data>
+  <data name="CreateOrderView_Price_Placeholder" xml:space="preserve">
+    <value>10 000 ₽</value>
+  </data>
+  <data name="CreateOrderView_CompleteDate_Placeholder" xml:space="preserve">
+    <value>Дата исполнения</value>
+  </data>
+  <data name="CreateOrderView_HideExecutor_Button" xml:space="preserve">
+    <value>Скрыть исполнителя</value>
+  </data>
+  <data name="CreateOrderView_Create_Button" xml:space="preserve">
+    <value>Создать заказ</value>
+  </data>
+  <data name="NotificationView_Title" xml:space="preserve">
+    <value>Уведомления</value>
+  </data>
+  <data name="OrderDetailsView_Price_Text" xml:space="preserve">
+    <value>Сумма заказа:</value>
+  </data>
+  <data name="OrderDetailsView_Time_Text" xml:space="preserve">
+    <value>Время заказа:</value>
+  </data>
+  <data name="OrderDetailsView_Take_Order_Button" xml:space="preserve">
+    <value>Взять заказ</value>
+  </data>
+  <data name="OrderDetailsView_Subscribe_Button" xml:space="preserve">
+    <value>Подписаться</value>
+  </data>
+  <data name="OrderDetailsView_Unsubscribe_Button" xml:space="preserve">
+    <value>Отписаться</value>
+  </data>
+  <data name="OrderDetailsView_Download_Text" xml:space="preserve">
+    <value>Загрузить видео:</value>
+  </data>
+  <data name="OrderDetailsView_Execute_Button" xml:space="preserve">
+    <value>Выполнить</value>
+  </data>
+  <data name="OrderDetailsView_Cancel_Button" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="OrderDetailsView_Took_The_Order_Text" xml:space="preserve">
+    <value>Исполнитель:</value>
+  </data>
+  <data name="OrderDetailsView_Yes_Button" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="OrderDetailsView_No_Button" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="OrderDetailsView_Accept_Button" xml:space="preserve">
+    <value>Принять</value>
+  </data>
+  <data name="OrderDetailsView_Argue_Button" xml:space="preserve">
+    <value>В спор</value>
+  </data>
+  <data name="OrderDetailsView_Corresponds_To_Video_Text" xml:space="preserve">
+    <value>Соответствует видео заказу?</value>
+  </data>
+  <data name="CreateOrderView_PriceTitle_Placeholder" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="OrderDetailsView_Title" xml:space="preserve">
+    <value>Заказ</value>
+  </data>
+  <data name="CashboxView_Title" xml:space="preserve">
+    <value>Касса</value>
+  </data>
+  <data name="CashboxView_Fillup_Tab" xml:space="preserve">
+    <value>Пополнение</value>
+  </data>
+  <data name="CashboxView_Withdrawal_Tab" xml:space="preserve">
+    <value>Снятие</value>
+  </data>
+  <data name="CashboxView_Fillup_Button" xml:space="preserve">
+    <value>Пополнить</value>
+  </data>
+  <data name="CashboxView_FillupMethodSelect_Title" xml:space="preserve">
+    <value>Выберите метод для пополнения:</value>
+  </data>
+  <data name="CashboxView_WithdrawalAvailable_Title" xml:space="preserve">
+    <value>Доступно для снятия с учётом комиссии платёжного шлюза (оператора):</value>
+  </data>
+  <data name="CashboxView_Withdrawal_Button" xml:space="preserve">
+    <value>Снять</value>
+  </data>
+  <data name="CashboxView_WithdrawalMethodSelect_Title" xml:space="preserve">
+    <value>Выберите метод для снятия:</value>
+  </data>
+  <data name="CashboxView_Price_Placeholder" xml:space="preserve">
+    <value>1 000 000 ₽</value>
+  </data>
+  <data name="CommentView_Title" xml:space="preserve">
+    <value>Комментарии</value>
+  </data>
+  <data name="Publication_Item_Complain" xml:space="preserve">
+    <value>Пожаловаться...</value>
+  </data>
+  <data name="Publication_Item_Copy_Link" xml:space="preserve">
+    <value>Копировать ссылку</value>
+  </data>
+  <data name="Publication_Item_Subscribe_To_Author" xml:space="preserve">
+    <value>Подписаться на автора</value>
+  </data>
+  <data name="ShareDialog_Title" xml:space="preserve">
+    <value>Поделиться</value>
+  </data>
+  <data name="ShareDialog_CopyLink_Label" xml:space="preserve">
+    <value>Коп. ссылку</value>
+  </data>
+  <data name="ShareDialog_ShareInstagram_Label" xml:space="preserve">
+    <value>В Instagram</value>
+  </data>
+  <data name="ShareDialog_LinkShareTitle" xml:space="preserve">
+    <value>Поделиться ссылкой</value>
+  </data>
+  <data name="OrderStatus_New" xml:space="preserve">
+    <value>На модерации</value>
+  </data>
+  <data name="OrderStatus_Rejected" xml:space="preserve">
+    <value>Отменен модератором</value>
+  </data>
+  <data name="OrderStatus_Cancelled" xml:space="preserve">
+    <value>Отменен</value>
+  </data>
+  <data name="OrderStatus_Active" xml:space="preserve">
+    <value>Новый</value>
+  </data>
+  <data name="OrderStatus_InWork" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="OrderStatus_InArbitration" xml:space="preserve">
+    <value>В споре</value>
+  </data>
+  <data name="OrderStatus_ProcessCloseArbitration" xml:space="preserve">
+    <value>Закрытие спора</value>
+  </data>
+  <data name="OrderStatus_ClosedAfterArbitrationCustomerWin" xml:space="preserve">
+    <value>Спор выигран</value>
+  </data>
+  <data name="OrderStatus_ClosedAfterArbitrationExecutorWin" xml:space="preserve">
+    <value>Спор проигран</value>
+  </data>
+  <data name="OrderStatus_Finished" xml:space="preserve">
+    <value>Выполненный</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ок</value>
+  </data>
+  <data name="Attention" xml:space="preserve">
+    <value>Внимание!</value>
+  </data>
+  <data name="OrderDetailsView_TakeOrderTitle" xml:space="preserve">
+    <value>Взять заказ</value>
+  </data>
+  <data name="OrderDetailsView_TakeOrderQuestion" xml:space="preserve">
+    <value>Для принятия заказа необходимо внести задаток, как гарантию его выполнения:
+20% стоимости для обычных заказов
+40% для секретных заказов </value>
+  </data>
+  <data name="Seconds_Short" xml:space="preserve">
+    <value>сек.</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Minutes_Short" xml:space="preserve">
+    <value>мин.</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Hours_Short" xml:space="preserve">
+    <value>ч.</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Days_Short" xml:space="preserve">
+    <value>д.</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Weeks_Short" xml:space="preserve">
+    <value>нед.</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Count_Thousand" xml:space="preserve">
+    <value>k</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Count_Millions" xml:space="preserve">
+    <value>m</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>₽</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Count_View" xml:space="preserve">
+    <value>просмотр</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Count_Views" xml:space="preserve">
+    <value>просмотров</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Count_Of_Viewing" xml:space="preserve">
+    <value>просмотра</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Year_Short" xml:space="preserve">
+    <value>г.</value>
+  </data>
+  <data name="OrderStatus_MyOrder" xml:space="preserve">
+    <value>Мое</value>
+  </data>
+  <data name="OrderDetails_View_Cancel_Title" xml:space="preserve">
+    <value>Вы уверены, что хотите отменить заказ?</value>
+  </data>
+  <data name="ProfileUpdateView_Email_Placeholder" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ProfileUpdateView_Login_Placeholder" xml:space="preserve">
+    <value>Логин</value>
+  </data>
+  <data name="ProfileUpdateView_Name_Placeholder" xml:space="preserve">
+    <value>Имя</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="ProfileUpdateView_Birthday_Placeholder" xml:space="preserve">
+    <value>Дата рождения</value>
+  </data>
+  <data name="ProfileUpdateView_Button_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="ProfileUpdateView_GenderSelect_Title" xml:space="preserve">
+    <value>Ваш пол</value>
+  </data>
+  <data name="ProfileUpdateView_Title" xml:space="preserve">
+    <value>ПРОФИЛЬ</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="ProfileUpdateView_ChangePassword" xml:space="preserve">
+    <value>Сменить пароль</value>
+  </data>
+  <data name="TakePhoto" xml:space="preserve">
+    <value>Cфотографировать</value>
+  </data>
+  <data name="PickPhoto" xml:space="preserve">
+    <value>Выбрать из галереи</value>
+  </data>
+  <data name="ProfileUpdateView_Description_Placeholder" xml:space="preserve">
+    <value>О себе</value>
+  </data>
+  <data name="ProfileUpdateView_PhotoChange_Title" xml:space="preserve">
+    <value>Сменить фото профиля</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Выбрать</value>
+  </data>
+  <data name="CreateOrderView_Choose_Time_Period" xml:space="preserve">
+    <value>Выберите период действия заказа.</value>
+  </data>
+  <data name="OrderStatus_WaitFinish" xml:space="preserve">
+    <value>В ожидании</value>
+  </data>
+  <data name="OrderDetailsView_LoadVideo" xml:space="preserve">
+    <value>Загрузить видео</value>
+  </data>
+  <data name="NotificationStatus_Viewed" xml:space="preserve">
+    <value>Просмотрено</value>
+  </data>
+  <data name="NotificationStatus_NotViewed" xml:space="preserve">
+    <value>Непросмотрено</value>
+  </data>
+  <data name="Validation_Field_Title" xml:space="preserve">
+    <value>Заголовок</value>
+  </data>
+  <data name="Validation_Field_Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Validation_Field_Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="Validation_Field_OrderPeriod" xml:space="preserve">
+    <value>Период</value>
+  </data>
+  <data name="Validation_Field_Cost" xml:space="preserve">
+    <value>Стоимость</value>
+  </data>
+  <data name="Validation_Field_Login" xml:space="preserve">
+    <value>Логин</value>
+  </data>
+  <data name="Validation_Field_Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Validation_Field_Birthday" xml:space="preserve">
+    <value>День рождения</value>
+  </data>
+  <data name="Validation_Field_Gender" xml:space="preserve">
+    <value>Пол</value>
+  </data>
+  <data name="Validation_Field_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Validation_Field_Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Validation_Field_PasswordRepeat" xml:space="preserve">
+    <value>Повтор пароля</value>
+  </data>
+  <data name="Validation_Error_Empty" xml:space="preserve">
+    <value>{0} не может быть пустым.</value>
+  </data>
+  <data name="Validation_Error_GreaterThanRequired" xml:space="preserve">
+    <value>{0} не может быть больше чем {1}.</value>
+  </data>
+  <data name="Validation_Error_LowerThanRequired" xml:space="preserve">
+    <value>{0} не может быть меньше чем {1}.</value>
+  </data>
+  <data name="Validation_Error_NotMatch" xml:space="preserve">
+    <value>{0} не совпадает с {1}.</value>
+  </data>
+  <data name="Validation_Error_CanNotMatch" xml:space="preserve">
+    <value>{0} не может быть равно {1}.</value>
+  </data>
+  <data name="Validation_Error_Invalid" xml:space="preserve">
+    <value>{0} имеет неверный формат.</value>
+  </data>
+  <data name="Demo" xml:space="preserve">
+    <value>Демо</value>
+  </data>
+  <data name="com.crashlytics.android.build_id" xml:space="preserve">
+    <value>e9e6beb9c4284289ac68b9ab76a9ee56</value>
+  </data>
+  <data name="FinishPasswordRecoveryView_GoToFeed_Button" xml:space="preserve">
+    <value>Перейти в ленту</value>
+  </data>
+  <data name="FinishPasswordRecoveryView_GoToLogin_Button" xml:space="preserve">
+    <value>Войти в аккаунт</value>
+  </data>
+  <data name="com_vk_sdk_AppId" xml:space="preserve">
+    <value>7343996</value>
+  </data>
+  <data name="Count_Days" xml:space="preserve">
+    <value>Дней</value>
+  </data>
+  <data name="Count_Hours" xml:space="preserve">
+    <value>Часов</value>
+  </data>
+  <data name="Count_Minutes" xml:space="preserve">
+    <value>Минут</value>
+  </data>
+  <data name="LinkCopied" xml:space="preserve">
+    <value>Ссылка скопирована</value>
+  </data>
+  <data name="ComplainSuccessful" xml:space="preserve">
+    <value>Отправлено модератору</value>
+  </data>
+  <data name="Competitions_Voting" xml:space="preserve">
+    <value>Голосование</value>
+  </data>
+  <data name="Competitions_New" xml:space="preserve">
+    <value>Новые</value>
+  </data>
+  <data name="Competitions_Finished" xml:space="preserve">
+    <value>Итоги</value>
+  </data>
+  <data name="Competitions_Voting_Term" xml:space="preserve">
+    <value>До конца голосования:</value>
+  </data>
+  <data name="Competitions_Finished_Term" xml:space="preserve">
+    <value>Период проведения конкурса:</value>
+  </data>
+  <data name="Competitions_See" xml:space="preserve">
+    <value>Смотреть</value>
+  </data>
+  <data name="Competitions_More" xml:space="preserve">
+    <value>Подробнее</value>
+  </data>
+  <data name="Competitions_Participate" xml:space="preserve">
+    <value>Принять участие</value>
+  </data>
+  <data name="Competitions_Prize_Pool" xml:space="preserve">
+    <value>Призовой фонд турнира:</value>
+  </data>
+  <data name="Competitions_New_Term" xml:space="preserve">
+    <value>До начала голосования:</value>
+  </data>
+  <data name="Competition_Load_Video" xml:space="preserve">
+    <value>Загрузить видео</value>
+  </data>
+  <data name="Competition_Rules" xml:space="preserve">
+    <value>Правила конкурса</value>
+  </data>
+  <data name="Competition_Results" xml:space="preserve">
+    <value>Результаты</value>
+  </data>
+  <data name="WithdrawalView_FirstName_Placeholder" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="WithdrawalView_LastName_Placeholder" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="WithdrawalView_CardNumber_Placeholder" xml:space="preserve">
+    <value>Номер карты</value>
+  </data>
+  <data name="WithdrawalView_AttachFile_Button" xml:space="preserve">
+    <value>Прикрепить файл</value>
+  </data>
+  <data name="WithdrawalView_Revoke_Button" xml:space="preserve">
+    <value>Отозвать</value>
+  </data>
+  <data name="Login_Without_Registration" xml:space="preserve">
+    <value>Войти без регистрации</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Competition_Prize_Pool_Rating" xml:space="preserve">
+    <value>Рейтинг</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Competition_Prize_Pool_Participant" xml:space="preserve">
+    <value>Учасник</value>
+  </data>
+  <data name="Competition_Prize_Pool" xml:space="preserve">
+    <value>Призовой фонд</value>
+  </data>
+  <data name="Competitions_Tab" xml:space="preserve">
+    <value>Конкурсы</value>
+  </data>
+  <data name="WithdrawalView_Empty_Card_Error" xml:space="preserve">
+    <value>Карта не может быть пустой.</value>
+  </data>
+  <data name="WithdrawalView_Cancel_Withdrawal_Error" xml:space="preserve">
+    <value>Не удается отменить транзакцию для вывода средств</value>
+  </data>
+  <data name="WithdrawalView_Delete_Card_Text" xml:space="preserve">
+    <value>Удалить карту</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="WithdrawalView_Delete_Card_Question" xml:space="preserve">
+    <value>Вы уверены что хотите удалить данную карту?</value>
+  </data>
+  <data name="WithdrawalView_Verify_User_Text" xml:space="preserve">
+    <value>Для того чтобы вывести средства со своего счета, Вам необходимо подтвердить свою личность прикрепив селфи с паспортом в развернутом виде.</value>
+  </data>
+  <data name="WithdrawalView_Attach_File" xml:space="preserve">
+    <value>Прикрепить файл</value>
+  </data>
+  <data name="WithdrawalView_Pendng_Verify_User_Text" xml:space="preserve">
+    <value>Ваш запрос обрабатывается, время ожидания может составить до 24 часов</value>
+  </data>
+  <data name="WithdrawalView_Card_Number" xml:space="preserve">
+    <value>Номер карты</value>
+  </data>
+  <data name="WithdrawalView_Surname" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="WithdrawalView_Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="WithdrawalView_Cost" xml:space="preserve">
+    <value>Сумма</value>
+  </data>
+  <data name="WithdrawalView_Pending_Withdrawal_Text" xml:space="preserve">
+    <value>В данный момент идет обработка Вашего запроса на вывод средств.</value>
+  </data>
+  <data name="WithdrawalView_Create_Date" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="WithdrawalView_Status_Text" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="WithdrawalView_Pending" xml:space="preserve">
+    <value>В ожидании</value>
+  </data>
+  <data name="WithdrawalView_Withdraw_Text" xml:space="preserve">
+    <value>Отозвать</value>
+  </data>
+  <data name="Competiton_Prize_Pool_Place" xml:space="preserve">
+    <value>Место</value>
+  </data>
+  <data name="Orders_In_Dispute" xml:space="preserve">
+    <value>В споре</value>
+  </data>
+  <data name="OnBoarding_Go_To_Main" xml:space="preserve">
+    <value>Перейти в ленту</value>
+  </data>
+  <data name="OnBoarding_First_Title" xml:space="preserve">
+    <value>Смотри и наслаждайся</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="OnBoarding_Second_Title" xml:space="preserve">
+    <value>Создай свой первый заказ</value>
+  </data>
+  <data name="OnBoarding_Third_Title" xml:space="preserve">
+    <value>Зарабатывай, выполняя заказы</value>
+  </data>
+  <data name="OnBoarding_Fourth_Title" xml:space="preserve">
+    <value>Участвуй в бесплатных конкурсах</value>
+  </data>
+  <data name="OnBoarding_Fifth_Title" xml:space="preserve">
+    <value>Делай это смешно и под музыку!</value>
+  </data>
+  <data name="OnBoarding_First_Description" xml:space="preserve">
+    <value>Авторы PrankChat публикуют только эксклюзивные, самые смешные и безумные видео! Смотри и наслаждайся</value>
+  </data>
+  <data name="OnBoarding_Second_Description" xml:space="preserve">
+    <value>Размещай задание, стоимость и срок исполнения, по которому другие пользователи снимут для тебя видео. Получи ролик своей мечты!</value>
+  </data>
+  <data name="OnBoarding_Third_Description" xml:space="preserve">
+    <value>Монетизируй свою любовь к творчеству! Снимай ролики для других пользователей и зарабатывай на этом реальные деньги</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="OnBoarding_Fourth_Description" xml:space="preserve">
+    <value>Принимай участие в креативных конкурсах! Сними лучшее видео и выиграй достойный денежный приз! А мы не возьмём с тебя ни копейки</value>
+  </data>
+  <data name="OnBoarding_Fifth_Description" xml:space="preserve">
+    <value>Публикуй свое видео и стань известным</value>
+  </data>
+  <data name="Complaint_Spam" xml:space="preserve">
+    <value>Это спам</value>
+  </data>
+  <data name="Complaint_Naked_Content" xml:space="preserve">
+    <value>Порнография и нагота</value>
+  </data>
+  <data name="Complaint_Hostile_Utterances" xml:space="preserve">
+    <value>Оскорбления или травля</value>
+  </data>
+  <data name="Complaint_Dangerous_Organizations" xml:space="preserve">
+    <value>Насилие или опасные организации</value>
+  </data>
+  <data name="Complaint_Rights_Violation" xml:space="preserve">
+    <value>Нарушение авторских прав</value>
+  </data>
+  <data name="Complaint_Cheating" xml:space="preserve">
+    <value>Мошенничество или обман</value>
+  </data>
+  <data name="Complaint_Complete_Message" xml:space="preserve">
+    <value>Спасибо, что сообщили нам об этом</value>
+  </data>
+  <data name="Complaint_Other" xml:space="preserve">
+    <value>Прочее</value>
+  </data>
+  <data name="Complaint_Wrong_Name" xml:space="preserve">
+    <value>Использует чужое имя</value>
+  </data>
+  <data name="Complaint_Unacceptable_Content" xml:space="preserve">
+    <value>Неприемлемый контент</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Complaint_Unacceptable_Information_In_Profile" xml:space="preserve">
+    <value>Неприемлемая информация в профиле</value>
+  </data>
+  <data name="Order_Add" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="Order_Create_Message" xml:space="preserve">
+    <value>Вы уверены что хотите создать заказ?</value>
+  </data>
+  <data name="Processing_Video" xml:space="preserve">
+    <value>Обработка займёт несколько минут</value>
+  </data>
+  <data name="Profile_Your_Email_Not_Actual" xml:space="preserve">
+    <value>Ваша почта не подтверждена</value>
+  </data>
+  <data name="Profile_Email_Confirmation_Sent" xml:space="preserve">
+    <value>На Вашу почту отправлено письмо с подтверждением</value>
+  </data>
+  <data name="Profile_Resend_Confirmation" xml:space="preserve">
+    <value>Отправить повторно</value>
+  </data>
+  <data name="OrderDetailsView_Video_Uploaded" xml:space="preserve">
+    <value>У заказчика есть 24 часа на оплату</value>
+  </data>
+  <data name="Cashbox_Commision_Warning" xml:space="preserve">
+    <value>Обратите внимание что к сумме пополнения будет добавлена комисия оператора</value>
+  </data>
+  <data name="Registration_Confirm_Adult" xml:space="preserve">
+    <value>Подтверждаю, что мне есть 18 лет</value>
+  </data>
+  <data name="Registration_Agree_With" xml:space="preserve">
+    <value>Я согласен с</value>
+  </data>
+  <data name="Registration_Terms_And_Rules" xml:space="preserve">
+    <value>правилами и условиями</value>
+  </data>
+  <data name="Validation_Field_Adult_Check" xml:space="preserve">
+    <value>Возраст</value>
+  </data>
+  <data name="Validation_Field_Privacy_Check" xml:space="preserve">
+    <value>Правила и условия</value>
+  </data>
+  <data name="Registration_Checkmark_Not_Confirmed" xml:space="preserve">
+    <value>Подтвердите возраст и согласие с правилами</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Not_Confirmed" xml:space="preserve">
+    <value>{0} не подтверждено</value>
+  </data>
+  <data name="Competition_Prize" xml:space="preserve">
+    <value>Приз</value>
+  </data>
+  <data name="Competition_Votes" xml:space="preserve">
+    <value>Голоса</value>
+  </data>
+  <data name="Create_Order_Hour" xml:space="preserve">
+    <value>час</value>
+  </data>
+  <data name="Create_Orders_Hours_Plural" xml:space="preserve">
+    <value>часов</value>
+  </data>
+  <data name="Create_Orders_Hours_Singular" xml:space="preserve">
+    <value>часа</value>
+  </data>
+  <data name="Walkthrouth_Competitions_Description" xml:space="preserve">
+    <value>Участвуй в конкурсах с денежными призами! Читай условия и скорее размещай своё видео. Победители будут выбраны путём общего голосования и моментально получат на свой счёт призовые деньги. Не забудь позвать своих друзей на голосование, они увеличат твои шансы на победу!
+
+Конкурс состоит из трех этапов:
+1) На начальном этапе участники отправляют на конкурс свои видеоролики;
+2) Голосование. Пользователи PrankChat отдают голоса за понравившееся видео;
+3) Итоги. После подведения итогов на счета участников, чьи видео заняли призовые места, перечисляются выигранные деньги.
+
+Apple Inc. не является спонсором проведения конкурсов.</value>
+  </data>
+  <data name="Walkthrouth_CreateOrder_Description" xml:space="preserve">
+    <value>Размещай своё задание, по которому другие пользователи снимут для тебя видео. Описывай задачу как можно подробнее, устанавливай срок исполнения и сумму вознаграждения, чтобы получить идеальный ролик.</value>
+  </data>
+  <data name="Walkthrouth_Orders_Description" xml:space="preserve">
+    <value>Ты можешь взять любой заказ из категории «Новый» и загрузить готовое видео согласно заданию. Чтобы принять заказ, внеси 20% от его стоимости в качестве гарантии, что не забросишь его исполнение. Когда заказчик проверит твоё видео и одобрит его, жди оплату на свой счёт. Если же заказчик забыл одобрить заказ, деньги тебе поступят автоматически через 24 часа. 20 % от стоимости заказа составляет комиссия PrankChat.
+
+В случае, если заказчику не понравилось твоё видео, он может отправить задание в «спор». Там в течение суток независимые пользователи решат, соответствует ли выполненное видео заказу. Если количество положительных голосов превысит количество отрицательных, то жди свои заслуженные премиальные. В обратной ситуации вознаграждение вернётся заказчику.</value>
+  </data>
+  <data name="Walkthrouth_Profile_Description" xml:space="preserve">
+    <value>В профиле пользователь может отслеживать сумму денежных средств на расчетном счете, а также все свои задания: опубликованные, исполняемые и исполненные.</value>
+  </data>
+  <data name="Walkthrouth_Competitions_Title" xml:space="preserve">
+    <value>Конкурсы</value>
+  </data>
+  <data name="Walkthrouth_CreateOrder_Title" xml:space="preserve">
+    <value>Создание заказов</value>
+  </data>
+  <data name="Walkthrouth_Orders_Title" xml:space="preserve">
+    <value>Лента заказов</value>
+  </data>
+  <data name="Walkthrouth_Profile_Title" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
+  <data name="No_Intentet_Connection" xml:space="preserve">
+    <value>Интернет соединение отсувствует</value>
+  </data>
+  <data name="Video_Failed_To_Upload" xml:space="preserve">
+    <value>Ошибка загрузки видео</value>
+  </data>
+  <data name="Bytes_Presentation" xml:space="preserve">
+    <value>байт</value>
+  </data>
+  <data name="Kilobytes_Presentation" xml:space="preserve">
+    <value>КБ</value>
+  </data>
+  <data name="Megabytes_Presentation" xml:space="preserve">
+    <value>МБ</value>
+  </data>
+  <data name="Gigabytes_Presentation" xml:space="preserve">
+    <value>ГБ</value>
+  </data>
+  <data name="Terabytes_Presentation" xml:space="preserve">
+    <value>ТБ</value>
+  </data>
+  <data name="Subscription_Title_Template" xml:space="preserve">
+    <value>Подписки {0}</value>
+  </data>
+  <data name="Subscribers_Title_Template" xml:space="preserve">
+    <value>Подписчики {0}</value>
+  </data>
+  <data name="Search_Videos" xml:space="preserve">
+    <value>Видео</value>
+  </data>
+  <data name="Search_Peoples" xml:space="preserve">
+    <value>Люди</value>
+  </data>
+  <data name="Application_New_Version_Ready" xml:space="preserve">
+    <value>Вышло важное обновление, похоже пора его установить.</value>
+  </data>
+  <data name="Download_Update" xml:space="preserve">
+    <value>Скачать обновление</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Email_Already_Exists" xml:space="preserve">
+    <value>Данный эмейл уже зарегистрирован</value>
+  </data>
+  <data name="WithdrawalView_Passport" xml:space="preserve">
+    <value>Паспорт(серия и номер)</value>
+    <comment>Creditcard save</comment>
+  </data>
+  <data name="Create_Order_Secret_order" xml:space="preserve">
+    <value>Секретный заказ</value>
+  </data>
+  <data name="Walkthrouth_CreateOrder_Secret_Description" xml:space="preserve">
+    <value>Текст «Секретного заказа» не виден и появляется только при принятии заказа исполнителем. 
+Для принятия заказа необходимо внести 40% от его общей стоимости как гарантию выполнения заказа. 
+В случае невыполнения в отведенное время заказчик зарабатывает 20%, поэтому выгодно создавать труднорешаемые и интересные задачи. Задание может быть сложным, но обязательно выполнимым. 
+Если задание невыполнимо, исполнитель может загрузить видео, в котором укажет причину, по которой невозможно снять видео, а заказчик при несогласии отправит задание в спор, где пользователи решат голосованием, кто прав.</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Publication_Item_Download" xml:space="preserve">
+    <value>Скачать</value>
+  </data>
+  <data name="Competition_Pay_For_Join" xml:space="preserve">
+    <value>Оплатить участие</value>
+  </data>
+  <data name="Competion_Rules_Template" xml:space="preserve">
+    <value>Чтобы принять участие в конкурсе, Вам необходимо заплатить {0} ₽</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Оплатить</value>
+  </data>
+  <data name="Error_Something_Went_Wrong_Message" xml:space="preserve">
+    <value>Упс, что то пошло не так :(</value>
+  </data>
+  <data name="WithdrawalView_MiddleName" xml:space="preserve">
+    <value>Отчество</value>
+  </data>
+  <data name="WithdrawalView_Location" xml:space="preserve">
+    <value>Место жительства</value>
+  </data>
+  <data name="WithdrawalView_Nationality" xml:space="preserve">
+    <value>Гражданство</value>
+  </data>
+  <data name="Withdrawal_Yoomoney_Description" xml:space="preserve">
+    <value>Вывод средств осуществляется через кошелек ЮMoney (Яндекс кошелёк).</value>
+  </data>
+  <data name="Withdrawal_Yoomoney" xml:space="preserve">
+    <value>ЮMoney</value>
+  </data>
+  <data name="Withdrawal_Enter_Wallet_Number" xml:space="preserve">
+    <value>Введите номер кошелька ЮMoney (Яндекс кошелёк)</value>
+  </data>
+  <data name="Create_Order_Privacy_Message" xml:space="preserve">
+    <value>Завершая создание заказа, я подтверждаю оформление с условиями публичной оферты, пользовательского соглашения и политики конфиденциальности</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Create_Order_Privacy_Link" xml:space="preserve">
+    <value>публичной оферты, пользовательского соглашения и политики конфиденциальности</value>
+  </data>
+</root>

@@ -16,7 +16,7 @@ using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Presenters.Attributes;
 using PrankChat.Mobile.Droid.Utils.Helpers;
 using System.Linq;
-using Localization = PrankChat.Mobile.Core.Presentation.Localization.Resources;
+using Localization = PrankChat.Mobile.Core.Localization.Resources;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views
 {

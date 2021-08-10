@@ -151,7 +151,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
         private void PriceEditTextOnTextChanged(object sender, TextChangedEventArgs e)
         {
             var text = e.Text.ToString();
-            if (text.EndsWith(Core.Presentation.Localization.Resources.Currency))
+            if (text.EndsWith(Core.Localization.Resources.Currency))
             {
                 _costEditText.SetSelection(text.Length - 2);
             }
@@ -171,9 +171,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
 
         private void SetupYoomoneyDescriptionTextView()
         {
-            var spannableString = new SpannableString(Core.Presentation.Localization.Resources.Withdrawal_Yoomoney_Description);
-            var startIndex = Core.Presentation.Localization.Resources.Withdrawal_Yoomoney_Description.IndexOf(Core.Presentation.Localization.Resources.Withdrawal_Yoomoney);
-            var endIndex = startIndex + Core.Presentation.Localization.Resources.Withdrawal_Yoomoney.Length;
+            var spannableString = new SpannableString(Core.Localization.Resources.Withdrawal_Yoomoney_Description);
+            var startIndex = Core.Localization.Resources.Withdrawal_Yoomoney_Description.IndexOf(Core.Localization.Resources.Withdrawal_Yoomoney);
+            var endIndex = startIndex + Core.Localization.Resources.Withdrawal_Yoomoney.Length;
             var clickableSpan = new LinkSpan((_) => ViewModel?.GoToYoomoneyCommand?.Execute(null));
             var foregroundSpan = new ForegroundColorSpan(Color.Blue);
 

@@ -2,7 +2,7 @@
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Data.Enums;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Ioc;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;

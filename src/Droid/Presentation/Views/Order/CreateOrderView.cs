@@ -3,7 +3,7 @@ using Android.Text;
 using Android.Views;
 using Google.Android.Material.TextField;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Common.Constants;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
@@ -25,7 +25,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             HasOptionsMenu = true;
         }
 
-        protected override string TitleActionBar => Core.Presentation.Localization.Resources.CreateOrderView_Title;
+        protected override string TitleActionBar => Core.Localization.Resources.CreateOrderView_Title;
 
         protected override void SetViewProperties(View view)
         {
@@ -49,7 +49,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         private void PriceEditTextOnTextChanged(object sender, TextChangedEventArgs e)
         {
             var text = e.Text.ToString();
-            if (text.EndsWith(Core.Presentation.Localization.Resources.Currency))
+            if (text.EndsWith(Core.Localization.Resources.Currency))
             {
                 _priceEditText.SetSelection(text.Length - 2);
             }

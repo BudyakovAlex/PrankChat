@@ -5,9 +5,6 @@ using Google.Android.Material.Tabs;
 using MvvmCross.Binding.Bindings.Target.Construction;
 using MvvmCross.Platforms.Android.Core;
 using MvvmCross.Platforms.Android.Presenters;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
-using PrankChat.Mobile.Core.ApplicationServices.FileSystem;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Ioc;
 using PrankChat.Mobile.Core.Providers.Platform;
@@ -18,6 +15,9 @@ using PrankChat.Mobile.Droid.PlatformBusinessServices.Video;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presenters;
 using PrankChat.Mobile.Droid.Providers;
+using PrankChat.Mobile.Core.Services.Dialogs;
+using PrankChat.Mobile.Core.Services.ExternalAuth;
+using PrankChat.Mobile.Core.Services.FileSystem;
 
 namespace PrankChat.Mobile.Droid
 {

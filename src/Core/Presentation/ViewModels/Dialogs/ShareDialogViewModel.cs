@@ -1,10 +1,10 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using Plugin.DeviceInfo;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Parameters;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 

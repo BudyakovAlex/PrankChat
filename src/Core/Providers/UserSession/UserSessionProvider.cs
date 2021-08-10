@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Plugin.DeviceInfo;
-using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Common.Constants;
 using PrankChat.Mobile.Core.Models.Data;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
