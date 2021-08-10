@@ -1,11 +1,11 @@
-﻿using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
-using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.Managers.Authorization;
+﻿using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
+using PrankChat.Mobile.Core.Services.ExternalAuth;
+using PrankChat.Mobile.Core.Services.Notifications;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration

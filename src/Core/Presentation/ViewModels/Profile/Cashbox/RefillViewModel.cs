@@ -1,10 +1,10 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Payment;
+using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using System.Collections.Generic;

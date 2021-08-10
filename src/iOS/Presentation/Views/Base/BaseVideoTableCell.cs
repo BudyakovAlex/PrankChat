@@ -1,12 +1,11 @@
-﻿using AVFoundation;
-using CoreAnimation;
+﻿using CoreAnimation;
 using CoreGraphics;
 using FFImageLoading.Cross;
 using Foundation;
 using LibVLCSharp.Platforms.iOS;
 using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.iOS.AppTheme;
 using System;

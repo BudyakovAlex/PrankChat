@@ -1,4 +1,4 @@
-﻿using PrankChat.Mobile.Core.Infrastructure.Extensions;
+﻿using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using System.Threading.Tasks;
 using System.Windows.Input;

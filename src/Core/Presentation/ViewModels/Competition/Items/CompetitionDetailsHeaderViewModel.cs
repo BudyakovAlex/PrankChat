@@ -1,6 +1,6 @@
 ﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Localization;
 using System.Threading.Tasks;
 using System.Windows.Input;
 

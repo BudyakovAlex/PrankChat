@@ -11,7 +11,7 @@ using Java.Lang;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Common.Constants;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.Droid.Controls;

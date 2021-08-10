@@ -1,7 +1,7 @@
-﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Search;
-using PrankChat.Mobile.Core.Mappers;
+﻿using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
+using PrankChat.Mobile.Core.Services.Network.Http.Search;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Managers.Search

@@ -7,16 +7,16 @@ using MvvmCross;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
-using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using PrankChat.Mobile.Core.Services.Notifications;
+using PrankChat.Mobile.Core.Extensions;
 using System;
 using System.Diagnostics;
 using Xamarin.Essentials;
-using Constants = PrankChat.Mobile.Core.Infrastructure.Constants;
-using NotificationManager = PrankChat.Mobile.Core.ApplicationServices.Notifications.NotificationManager;
+using Constants = PrankChat.Mobile.Core.Common.Constants;
+using NotificationManager = PrankChat.Mobile.Core.Services.Notifications.NotificationManager;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 {
@@ -89,7 +89,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
         {
             try
             {
-                var user = JsonConvert.DeserializeObject<User>(Preferences.Get(Constants.Keys.User, string.Empty));
+                var user = JsonConvert.DeserializeObject<User>(Preferences.Get(Constants.Constants.Keys.User, string.Empty));
                 return user;
             }
             catch

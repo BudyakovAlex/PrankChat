@@ -1,5 +1,5 @@
 ﻿using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Common.Constants;
 using PrankChat.Mobile.Core.Managers.Search;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;

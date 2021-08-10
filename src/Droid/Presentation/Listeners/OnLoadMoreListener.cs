@@ -1,5 +1,5 @@
 ﻿using System;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Extensions;
 
 namespace PrankChat.Mobile.Droid.Presentation.Listeners
 {

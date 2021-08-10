@@ -1,10 +1,10 @@
 ﻿using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PrankChat.Mobile.Core.Common.Constants;
 using PrankChat.Mobile.Core.Data.Models.Configurations;
-using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Presentation.Localization;
 using System;
 using System.Collections.Generic;
 using System.IO;

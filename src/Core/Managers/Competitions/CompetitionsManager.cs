@@ -1,7 +1,7 @@
-﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions;
-using PrankChat.Mobile.Core.Mappers;
+﻿using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
+using PrankChat.Mobile.Core.Services.Network.Http.Competitions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

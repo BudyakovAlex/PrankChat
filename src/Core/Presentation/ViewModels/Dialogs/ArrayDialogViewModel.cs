@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
-using PrankChat.Mobile.Core.Presentation.Navigation.Results;
+using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Parameters;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Results;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
 {

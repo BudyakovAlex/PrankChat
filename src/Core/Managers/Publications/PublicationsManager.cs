@@ -1,7 +1,7 @@
-﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Publications;
-using PrankChat.Mobile.Core.Mappers;
+﻿using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
+using PrankChat.Mobile.Core.Services.Network.Http.Publications;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Managers.Publications
