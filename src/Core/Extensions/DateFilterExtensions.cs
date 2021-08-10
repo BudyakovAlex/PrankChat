@@ -1,5 +1,5 @@
 ﻿using System;
-using PrankChat.Mobile.Core.Common.Constants;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Models.Data;
 
 namespace PrankChat.Mobile.Core.Extensions

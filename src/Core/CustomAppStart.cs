@@ -1,6 +1,6 @@
-using MvvmCross.Navigation;
+﻿using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.Common.Constants;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Presentation.ViewModels;

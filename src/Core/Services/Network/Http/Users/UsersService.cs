@@ -1,6 +1,6 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.Common.Constants;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
 using PrankChat.Mobile.Core.Data.Dtos.Users;

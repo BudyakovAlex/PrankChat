@@ -7,7 +7,7 @@ using System;
 using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Essentials;
-using PrankChat.Mobile.Core.Common.Constants;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract
