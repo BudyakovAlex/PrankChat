@@ -130,5 +130,15 @@ namespace PrankChat.Mobile.Core.Ioc
         {
             return iocProvider.TryResolve(out resolvedObject);
         }
+
+        public void CallbackWhenRegistered<TObject>(Action action) where TObject : class
+        {
+            iocProvider.CallbackWhenRegistered<TObject>(action);
+        }
+
+        public void CallbackWhenRegistered<TObject>(Action<TObject> action) where TObject : class
+        {
+            iocProvider.CallbackWhenRegistered(action);
+        }
     }
 }
