@@ -14,7 +14,7 @@ using System.Diagnostics;
 using UserNotifications;
 using Xamarin.Essentials;
 using PrankChat.Mobile.Core.Messages;
-using PrankChat.Mobile.Core.Common.Constants;
+using PrankChat.Mobile.Core.Common;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
 {
