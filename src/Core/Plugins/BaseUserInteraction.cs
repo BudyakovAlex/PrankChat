@@ -11,9 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Plugins;
 
-namespace PrankChat.Mobile.Core.Services.Dialogs
+namespace PrankChat.Mobile.Core.Plugins
 {
     public abstract class BaseUserInteraction : IUserInteraction
     {

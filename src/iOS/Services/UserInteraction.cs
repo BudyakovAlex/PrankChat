@@ -5,7 +5,7 @@ using MvvmCross.Base;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Services.Dialogs;
+using PrankChat.Mobile.Core.Plugins;
 using PrankChat.Mobile.Core.Services.ErrorHandling;
 using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.Presentation.Dialogs.DatePicker;

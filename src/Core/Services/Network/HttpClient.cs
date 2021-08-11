@@ -12,7 +12,6 @@ using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Plugins;
 using PrankChat.Mobile.Core.Providers.UserSession;
-using PrankChat.Mobile.Core.Services.Dialogs;
 using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Services.Network.Http.Authorization;
 using PrankChat.Mobile.Core.Services.Network.JsonSerializers;
