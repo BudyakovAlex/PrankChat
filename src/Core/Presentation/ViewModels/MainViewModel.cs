@@ -1,6 +1,6 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
+using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
@@ -16,6 +16,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using PrankChat.Mobile.Core.Managers.Authorization;
+using PrankChat.Mobile.Core.Ioc;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels
 {
@@ -34,6 +36,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             IPushNotificationProvider notificationService,
             IWalkthroughsProvider walkthroughsProvider)
         {
+            //NOTE: workaround for instantiate correctly IAuthorizationManager
+            CompositionRoot.Container.CallbackWhenRegistered<IAuthorizationManager>((_) => { });
+
             _versionManager = versionManager;
             _notificationService = notificationService;
             _walkthroughsProvider = walkthroughsProvider;

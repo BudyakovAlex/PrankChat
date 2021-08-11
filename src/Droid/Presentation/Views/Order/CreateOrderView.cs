@@ -3,7 +3,7 @@ using Android.Text;
 using Android.Views;
 using Google.Android.Material.TextField;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using PrankChat.Mobile.Core.Common.Constants;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;

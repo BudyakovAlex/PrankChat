@@ -1,4 +1,4 @@
-﻿namespace PrankChat.Mobile.Core.Common.Constants
+﻿namespace PrankChat.Mobile.Core.Common
 {
     public class RestConstants
     {

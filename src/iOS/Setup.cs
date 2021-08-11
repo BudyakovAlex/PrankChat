@@ -13,6 +13,7 @@ using PrankChat.Mobile.Core.Plugins;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.Platform;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using PrankChat.Mobile.Core.Services.Dialogs;
 using PrankChat.Mobile.Core.Services.ExternalAuth;
 using PrankChat.Mobile.Core.Services.FileSystem;
 using PrankChat.Mobile.iOS.ApplicationServices;

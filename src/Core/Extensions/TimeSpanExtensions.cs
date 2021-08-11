@@ -1,4 +1,4 @@
-﻿using PrankChat.Mobile.Core.Common.Constants;
+﻿using PrankChat.Mobile.Core.Common;
 using System;
 
 namespace PrankChat.Mobile.Core.Extensions

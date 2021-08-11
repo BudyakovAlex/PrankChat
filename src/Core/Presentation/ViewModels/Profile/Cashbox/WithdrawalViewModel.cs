@@ -1,4 +1,4 @@
-﻿using PrankChat.Mobile.Core.Common.Constants;
+﻿using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;

@@ -1,7 +1,7 @@
 ﻿using MvvmCross;
 using MvvmCross.IoC;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment;
+using PrankChat.Mobile.Core.Services.Network.Http.Payment;
 using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.Managers.Competitions;

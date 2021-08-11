@@ -1,5 +1,5 @@
 ﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.Common.Constants;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;

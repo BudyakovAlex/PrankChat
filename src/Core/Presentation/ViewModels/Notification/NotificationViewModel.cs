@@ -6,7 +6,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-using PrankChat.Mobile.Core.Common.Constants;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Messages;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification

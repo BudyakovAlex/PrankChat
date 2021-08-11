@@ -1,7 +1,7 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling.Messages;
+using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;

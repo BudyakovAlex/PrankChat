@@ -5,7 +5,7 @@ using Google.Android.Material.Button;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
-using PrankChat.Mobile.Core.Common.Constants;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;

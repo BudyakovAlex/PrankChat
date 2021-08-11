@@ -1,5 +1,5 @@
 ﻿using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.Common.Constants;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data;

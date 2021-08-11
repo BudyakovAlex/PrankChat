@@ -1,9 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Foundation;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
-using PrankChat.Mobile.Core.Presentation.Localization;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;

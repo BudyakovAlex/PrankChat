@@ -15,7 +15,7 @@ using PrankChat.Mobile.Core.Extensions;
 using System;
 using System.Diagnostics;
 using Xamarin.Essentials;
-using Constants = PrankChat.Mobile.Core.Common.Constants;
+using Constants = PrankChat.Mobile.Core.Common;
 using NotificationManager = PrankChat.Mobile.Core.Services.Notifications.NotificationManager;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
