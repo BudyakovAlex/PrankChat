@@ -4,7 +4,7 @@ using PrankChat.Mobile.Core.Models.Data;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn
+namespace PrankChat.Mobile.iOS.Services.ExternalAuth.AppleSignIn
 {
     public class AppleSignInService : NSObject, IAppleSignInService, IASAuthorizationControllerDelegate, IASAuthorizationControllerPresentationContextProviding
 	{

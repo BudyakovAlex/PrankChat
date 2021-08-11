@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace PrankChat.Mobile.iOS.ApplicationServices
+namespace PrankChat.Mobile.iOS.Services
 {
     public class UserInteraction : BaseUserInteraction
     {

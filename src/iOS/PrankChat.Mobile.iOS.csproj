@@ -249,17 +249,17 @@
       <DependentUpon>FullScreenVideoView.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\FloatPlaceholderTextField.cs" />
-    <Compile Include="ApplicationServices\UserInteraction.cs" />
+    <Compile Include="Services\UserInteraction.cs" />
     <InterfaceDefinition Include="Controls\ToastView.xib" />
     <Compile Include="Controls\ToastView.cs" />
     <Compile Include="Controls\ToastView.designer.cs">
       <DependentUpon>ToastView.cs</DependentUpon>
     </Compile>
-    <Compile Include="ApplicationServices\ExternalAuth\ExternalAuthService.cs" />
-    <Compile Include="ApplicationServices\Callbacks\VkontakteDelegate.cs" />
+    <Compile Include="Services\ExternalAuth\ExternalAuthService.cs" />
+    <Compile Include="Services\Callbacks\VkontakteDelegate.cs" />
     <Compile Include="Presentation\Binding\UIImageViewOrderTypeTargetBinding.cs" />
     <Compile Include="Presentation\Binding\UIButtonOrderTypeTargetBinding.cs" />
-    <Compile Include="ApplicationServices\Callbacks\FacebookCallback.cs" />
+    <Compile Include="Services\Callbacks\FacebookCallback.cs" />
     <Compile Include="Utils\Helpers\DeviceHelper.cs" />
     <InterfaceDefinition Include="Presentation\Views\ProfileView\ProfileView.xib" />
     <Compile Include="Presentation\Views\ProfileView\ProfileView.cs" />
@@ -382,8 +382,8 @@
     <Compile Include="Presentation\Views\ProfileView\UserProfileView.designer.cs">
       <DependentUpon>UserProfileView.cs</DependentUpon>
     </Compile>
-    <Compile Include="ApplicationServices\ExternalAuth\AppleSignIn\IAppleSignInService.cs" />
-    <Compile Include="ApplicationServices\ExternalAuth\AppleSignIn\AppleSignInService.cs" />
+    <Compile Include="Services\ExternalAuth\AppleSignIn\IAppleSignInService.cs" />
+    <Compile Include="Services\ExternalAuth\AppleSignIn\AppleSignInService.cs" />
     <Compile Include="Presentation\Views\Base\IScrollableView.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\Search\SearchTableSource.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\Search\OrdersSearchTableSource.cs" />
