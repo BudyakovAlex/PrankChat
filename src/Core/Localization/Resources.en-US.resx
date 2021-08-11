@@ -1106,4 +1106,11 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   <data name="Create_Order_Privacy_Link" xml:space="preserve">
     <value>terms of the public offer, user agreement and privacy policy</value>
   </data>
+  <data name="Block_User" xml:space="preserve">
+    <value>Block user?</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Blocked_User" xml:space="preserve">
+    <value>User {0} is blocked</value>
+  </data>
 </root>

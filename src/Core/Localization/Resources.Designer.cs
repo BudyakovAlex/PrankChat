@@ -97,6 +97,24 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Заблокировать пользователя?.
+        /// </summary>
+        public static string Block_User {
+            get {
+                return ResourceManager.GetString("Block_User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Пользователь {0} заблокирован.
+        /// </summary>
+        public static string Blocked_User {
+            get {
+                return ResourceManager.GetString("Blocked_User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на байт.
         /// </summary>
         public static string Bytes_Presentation {

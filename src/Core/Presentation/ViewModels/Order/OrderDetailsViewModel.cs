@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Orders;
+using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
@@ -30,15 +31,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     public class OrderDetailsViewModel : BasePageViewModel<OrderDetailsNavigationParameter>
     {
         private readonly IOrdersManager _ordersManager;
+        private readonly IUsersManager _usersManager;
 
         private int _orderId;
         private int _timerThicksCount;
 
         private readonly BaseOrderDetailsSectionViewModel[] _sections;
 
-        public OrderDetailsViewModel(IOrdersManager ordersManager)
+        public OrderDetailsViewModel(IOrdersManager ordersManager, IUsersManager usersManager)
         {
             _ordersManager = ordersManager;
+            _usersManager = usersManager;
 
             TakeOrderCommand = this.CreateCommand(TakeOrderAsync);
             SubscribeOrderCommand = this.CreateCommand(SubscribeOrderAsync);
@@ -164,7 +167,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             return Task.WhenAll(base.InitializeAsync(), LoadOrderDetailsAsync());
         }
 
-        private new async void OnTimerTick(TimerTickMessage msg)
+        private async void OnTimerTick(TimerTickMessage msg)
         {
             _timerThicksCount++;
             if (_timerThicksCount >= 5)
@@ -453,9 +456,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             var result = await DialogService.ShowMenuDialogAsync(new[]
             {
-                Resources.Publication_Item_Complain
+                Resources.Publication_Item_Complain,
+                Resources.Block_User,
                 // TODO: uncomment this when functionality will be available
-                //Resources.Publication_Item_Copy_Link
             });
 
             if (string.IsNullOrWhiteSpace(result))
@@ -479,6 +482,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
                 await _ordersManager.ComplainOrderAsync(_orderId, text, text);
                 DialogService.ShowToast(Resources.Complaint_Complete_Message, ToastType.Positive);
+                Messenger.Publish(new OrderChangedMessage(this, Order));
+                return;
+            }
+
+            if (result == Resources.Block_User)
+            {
+                int customerId = (int)CustomerSectionViewModel?.Order?.Customer?.Id;
+                int executorId = (int)ExecutorSectionViewModel?.Order?.Customer?.Id;
+                await _usersManager.ComplainUserAsync(customerId, "Request to block a user (test)", $"Executor id {executorId}");
+                DialogService.ShowToast(string.Format(Resources.Blocked_User, customerId), ToastType.Positive);
                 Messenger.Publish(new OrderChangedMessage(this, Order));
                 return;
             }

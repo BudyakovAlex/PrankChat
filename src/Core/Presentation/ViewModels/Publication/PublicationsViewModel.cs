@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Extensions.DateFilter;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Publications;
+using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data;
@@ -26,17 +27,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     {
         private readonly IPublicationsManager _publicationsManager;
         private readonly IVideoManager _videoManager;
+        private readonly IUsersManager _usersManager;
 
         private readonly ExecutionStateWrapper _refreshDataExecutionStateWrapper;
 
         public PublicationsViewModel(
             IPublicationsManager publicationsManager,
-            IVideoManager videoManager)
+            IVideoManager videoManager, IUsersManager usersManager)
             : base(Constants.Pagination.DefaultPaginationSize)
         {
             _publicationsManager = publicationsManager;
             _videoManager = videoManager;
-
+            _usersManager = usersManager; 
             Items = new MvxObservableCollection<PublicationItemViewModel>();
             _refreshDataExecutionStateWrapper = new ExecutionStateWrapper();
 
@@ -183,7 +185,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 _videoManager,
                 UserSessionProvider,
                 publication,
-                () => Items.ToArray());
+                () => Items.ToArray(),
+                _usersManager);
         }
 
         private void ReloadItems()
