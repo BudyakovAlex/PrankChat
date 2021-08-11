@@ -1,19 +1,15 @@
-﻿using System;
-using MvvmCross.Binding;
+﻿using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
-using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 {
-	[MvxModalPresentation(WrapInNavigationController = true)]
+    [MvxModalPresentation(WrapInNavigationController = true)]
 	public partial class PublicationDetailsView : BaseGradientBarView<PublicationDetailsViewModel>
 	{
 		protected override void SetupBinding()

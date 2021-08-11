@@ -1,5 +1,4 @@
 ﻿using System;
-using Foundation;
 using PrankChat.Mobile.Core.Services.Notifications;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
 using UserNotifications;

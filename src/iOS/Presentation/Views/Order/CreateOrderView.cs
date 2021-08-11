@@ -5,7 +5,7 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using PrankChat.Mobile.Core.Common;
+using PrankChat.Mobile.Core.Common.Constants;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
