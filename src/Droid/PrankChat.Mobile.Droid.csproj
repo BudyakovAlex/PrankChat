@@ -70,7 +70,7 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationServices\ExternalAuthService.cs" />
+    <Compile Include="Services\ExternalAuthService.cs" />
     <Compile Include="Controls\ApplicationSwipeViewPager.cs" />
     <Compile Include="PlatformBusinessServices\Video\Listeners\VideoPlayerOnPreparedListener.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Orders\OrderItemViewHolder.cs" />
@@ -126,11 +126,11 @@
     <Compile Include="Presentation\Bindings\ViewTouchTargetBinding.cs" />
     <Compile Include="Presenters\Attributes\ClearStackActivityPresentationAttribute.cs" />
     <Compile Include="Presenters\CustomAndroidViewPresenter.cs" />
-    <Compile Include="ApplicationServices\DialogService.cs" />
+    <Compile Include="Services\UserInteraction.cs" />
     <Compile Include="Presentation\Views\Base\IToolbarOwner.cs" />
     <Compile Include="Extensions\ViewExtensions.cs" />
-    <Compile Include="ApplicationServices\Callbacks\FacebookCallback.cs" />
-    <Compile Include="ApplicationServices\Callbacks\VkontakteCallback.cs" />
+    <Compile Include="Services\Callbacks\FacebookCallback.cs" />
+    <Compile Include="Services\Callbacks\VkontakteCallback.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Providers\OutlineProvider.cs" />
     <Compile Include="Controls\CircleCachedImageView.cs" />

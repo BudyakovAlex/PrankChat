@@ -23,16 +23,16 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
         private const int ZeroSkipDelay = 0;
 
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
-        private readonly IUserInteraction _dialogService;
+        private readonly IUserInteraction _userInteraction;
         private readonly IMvxLogProvider _logProvider;
         private bool _isSuspended;
 
         public ErrorHandleService(
             IMvxMessenger messenger,
-            IUserInteraction dialogService,
+            IUserInteraction userInteraction,
             IMvxLogProvider logProvider)
         {
-            _dialogService = dialogService;
+            _userInteraction = userInteraction;
             _logProvider = logProvider;
 
             messenger.Subscribe<ServerErrorMessage>(OnServerErrorEvent, MvxReference.Strong);
@@ -43,21 +43,21 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
             switch (exception)
             {
                 case NetworkException networkException when !string.IsNullOrWhiteSpace(networkException.Message):
-                    DisplayMessage(() => _dialogService.ShowToast(networkException.Message, ToastType.Negative));
+                    DisplayMessage(() => _userInteraction.ShowToast(networkException.Message, ToastType.Negative));
                     break;
 
                 case ValidationException validationException:
                     var loacalizedMessage = GetValidationErrorLocalizedMessage(validationException);
-                    DisplayMessage(() => _dialogService.ShowToast(loacalizedMessage, ToastType.Negative));
+                    DisplayMessage(() => _userInteraction.ShowToast(loacalizedMessage, ToastType.Negative));
                     break;
 
                 case BaseUserVisibleException userException when !string.IsNullOrWhiteSpace(userException.Message):
-                    DisplayMessage(() => _dialogService.ShowToast(userException.Message, ToastType.Negative));
+                    DisplayMessage(() => _userInteraction.ShowToast(userException.Message, ToastType.Negative));
                     break;
 
                 case Exception ex:
                     var message = string.IsNullOrWhiteSpace(ex.Message) ? Resources.Error_Unexpected_Network : ex.Message;
-                    DisplayMessage(() => _dialogService.ShowToast(message, ToastType.Negative));
+                    DisplayMessage(() => _userInteraction.ShowToast(message, ToastType.Negative));
                     Crashes.TrackError(exception);
                     break;
             }
@@ -88,18 +88,18 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
             switch (exception)
             {
                 case NetworkException networkException:
-                    DisplayMessage(async () => await _dialogService.ShowAlertAsync(Resources.Error_Unexpected_Server));
+                    DisplayMessage(async () => await _userInteraction.ShowAlertAsync(Resources.Error_Unexpected_Server));
                     return;
 
                 case ProblemDetailsException problemDetails:
                     if (string.IsNullOrWhiteSpace(problemDetails.Message) &&
                         string.IsNullOrWhiteSpace(problemDetails.Title))
                     {
-                        DisplayMessage(() => _dialogService.ShowToast(Resources.Error_Unexpected_Network, ToastType.Negative));
+                        DisplayMessage(() => _userInteraction.ShowToast(Resources.Error_Unexpected_Network, ToastType.Negative));
                         return;
                     }
 
-                    DisplayMessage(() => _dialogService.ShowToast(problemDetails.Message ?? problemDetails.Title, ToastType.Negative));
+                    DisplayMessage(() => _userInteraction.ShowToast(problemDetails.Message ?? problemDetails.Title, ToastType.Negative));
                     break;
 
                 case NullReferenceException nullReference:
@@ -112,12 +112,12 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
 
                 case Exception ex when ex.InnerException != null:
                     var message = ex.InnerException.Message ?? Resources.Error_Unexpected_Server;
-                    DisplayMessage(() => _dialogService.ShowToast(message, ToastType.Negative));
+                    DisplayMessage(() => _userInteraction.ShowToast(message, ToastType.Negative));
                     break;
 
                 case Exception ex when ex.GetType() != typeof(NullReferenceException):
                     var errorMessage = !string.IsNullOrEmpty(ex.Message) ? ex.Message : Resources.Error_Unexpected_Server;
-                    DisplayMessage(async () => await _dialogService.ShowAlertAsync(errorMessage));
+                    DisplayMessage(async () => await _userInteraction.ShowAlertAsync(errorMessage));
                     break;
             }
         }

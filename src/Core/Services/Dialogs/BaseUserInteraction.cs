@@ -15,13 +15,13 @@ using PrankChat.Mobile.Core.Plugins;
 
 namespace PrankChat.Mobile.Core.Services.Dialogs
 {
-    public abstract class BaseDialogService : IUserInteraction
+    public abstract class BaseUserInteraction : IUserInteraction
     {
         private readonly INavigationManager _navigationManager;
 
         public abstract bool IsToastShown { get; protected set; }
 
-        protected BaseDialogService(INavigationManager navigationManager)
+        protected BaseUserInteraction(INavigationManager navigationManager)
         {
             _navigationManager = navigationManager;
         }

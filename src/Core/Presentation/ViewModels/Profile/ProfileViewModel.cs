@@ -161,7 +161,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             if (!IsEmailVerified)
             {
-                var canGoProfile = await DialogService.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
+                var canGoProfile = await UserInteraction.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
                 if (canGoProfile)
                 {
                     await NavigationManager.NavigateAsync<ProfileUpdateViewModel, ProfileUpdateResult>();
@@ -184,7 +184,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             if (!IsEmailVerified)
             {
-                var canGoProfile = await DialogService.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
+                var canGoProfile = await UserInteraction.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
                 if (canGoProfile)
                 {
                     await NavigationManager.NavigateAsync<ProfileUpdateViewModel, ProfileUpdateResult>();

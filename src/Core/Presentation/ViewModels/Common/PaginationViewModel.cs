@@ -96,12 +96,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common
             {
                 if (!Connectivity.NetworkAccess.HasConnection())
                 {
-                    if (DialogService.IsToastShown)
+                    if (UserInteraction.IsToastShown)
                     {
                         return;
                     }
 
-                    DialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                    UserInteraction.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
                     return;
                 }
 

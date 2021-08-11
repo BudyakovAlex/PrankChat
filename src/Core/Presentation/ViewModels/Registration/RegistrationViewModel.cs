@@ -58,7 +58,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             var isExists = await AuthorizationManager.CheckIsEmailExistsAsync(Email);
             if (isExists is null || isExists.Value)
             {
-                DialogService.ShowToast(Resources.Email_Already_Exists, ToastType.Negative);
+                UserInteraction.ShowToast(Resources.Email_Already_Exists, ToastType.Negative);
                 return;
             }
 

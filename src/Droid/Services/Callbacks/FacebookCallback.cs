@@ -4,7 +4,7 @@ using Org.Json;
 using Xamarin.Facebook;
 using Xamarin.Facebook.Login;
 
-namespace PrankChat.Mobile.Droid.ApplicationServices.Callbacks
+namespace PrankChat.Mobile.Droid.Services.Callbacks
 {
     public class FacebookCallback : Java.Lang.Object, GraphRequest.IGraphJSONObjectCallback, GraphRequest.ICallback, IFacebookCallback
     {

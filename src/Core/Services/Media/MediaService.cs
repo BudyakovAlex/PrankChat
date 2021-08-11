@@ -12,14 +12,14 @@ namespace PrankChat.Mobile.Core.Services.Media
     public class MediaService : IMediaService
     {
         private readonly IPermissionService _permissionService;
-        private readonly IUserInteraction _dialogService;
+        private readonly IUserInteraction _userInteraction;
 
         private bool _isCrossMediaInitialized;
 
-        public MediaService(IPermissionService permissionService, IUserInteraction dialogService)
+        public MediaService(IPermissionService permissionService, IUserInteraction userInteraction)
         {
             _permissionService = permissionService;
-            _dialogService = dialogService;
+            _userInteraction = userInteraction;
         }
 
         public async Task<MediaFile> PickPhotoAsync()
@@ -27,7 +27,7 @@ namespace PrankChat.Mobile.Core.Services.Media
             var result = await _permissionService.RequestPermissionAsync<Xamarin.Essentials.Permissions.StorageRead>();
             if (!result)
             {
-                _dialogService.ShowAlertAsync("Разрешите приложению использовать хранилище.").FireAndForget();
+                _userInteraction.ShowAlertAsync("Разрешите приложению использовать хранилище.").FireAndForget();
                 return null;
             }
 
@@ -40,7 +40,7 @@ namespace PrankChat.Mobile.Core.Services.Media
             var result = await _permissionService.RequestPermissionAsync<Xamarin.Essentials.Permissions.Camera>();
             if (!result)
             {
-                _dialogService.ShowAlertAsync("Разрешите приложению использовать камеру.").FireAndForget();
+                _userInteraction.ShowAlertAsync("Разрешите приложению использовать камеру.").FireAndForget();
                 return null;
             }
 
@@ -61,7 +61,7 @@ namespace PrankChat.Mobile.Core.Services.Media
                 var result = await _permissionService.RequestPermissionAsync<Xamarin.Essentials.Permissions.StorageRead>();
                 if (!result)
                 {
-                    _dialogService.ShowAlertAsync("Разрешите приложению использовать хранилище.").FireAndForget();
+                    _userInteraction.ShowAlertAsync("Разрешите приложению использовать хранилище.").FireAndForget();
                     return null;
                 }
 

@@ -223,7 +223,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
             if (user?.EmailVerifiedAt == null)
             {
-                var canGoProfile = await DialogService.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
+                var canGoProfile = await UserInteraction.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
                 if (canGoProfile)
                 {
                     await NavigationManager.NavigateAsync<ProfileUpdateViewModel, ProfileUpdateResult>();
@@ -232,7 +232,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return;
             }
 
-            var result = await DialogService.ShowConfirmAsync(Resources.OrderDetailsView_TakeOrderQuestion,
+            var result = await UserInteraction.ShowConfirmAsync(Resources.OrderDetailsView_TakeOrderQuestion,
                                                               Resources.Attention,
                                                               Resources.OrderDetailsView_TakeOrderTitle,
                                                               Resources.Cancel);
@@ -281,7 +281,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task HandleLowBalanceExceptionAsync(Exception exception)
         {
-            var canRefil = await DialogService.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.ProfileView_Refill, Resources.Cancel);
+            var canRefil = await UserInteraction.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.ProfileView_Refill, Resources.Cancel);
             if (!canRefil)
             {
                 return;
@@ -366,7 +366,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task CancelOrderAsync()
         {
-            var result = await DialogService.ShowConfirmAsync(
+            var result = await UserInteraction.ShowConfirmAsync(
                 Resources.OrderDetails_View_Cancel_Title,
                 Resources.Attention,
                 Resources.Ok,
@@ -451,7 +451,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task OpenSettingsAsync()
         {
-            var result = await DialogService.ShowMenuDialogAsync(new[]
+            var result = await UserInteraction.ShowMenuDialogAsync(new[]
             {
                 Resources.Publication_Item_Complain
                 // TODO: uncomment this when functionality will be available
@@ -478,7 +478,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 }
 
                 await _ordersManager.ComplainOrderAsync(_orderId, text, text);
-                DialogService.ShowToast(Resources.Complaint_Complete_Message, ToastType.Positive);
+                UserInteraction.ShowToast(Resources.Complaint_Complete_Message, ToastType.Positive);
                 Messenger.Publish(new OrderChangedMessage(this, Order));
                 return;
             }
@@ -486,14 +486,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             if (result == Resources.Publication_Item_Copy_Link)
             {
                 await Clipboard.SetTextAsync(Order?.Video?.ShareUri);
-                DialogService.ShowToast(Resources.LinkCopied, ToastType.Positive);
+                UserInteraction.ShowToast(Resources.LinkCopied, ToastType.Positive);
                 return;
             }
         }
 
         private async Task<string> GetComplaintTextAsync()
         {
-            var result = await DialogService.ShowMenuDialogAsync(Constants.ComplaintConstants.CommonCompetitionAims);
+            var result = await UserInteraction.ShowMenuDialogAsync(Constants.ComplaintConstants.CommonCompetitionAims);
             return result;
         }
     }

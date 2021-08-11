@@ -52,7 +52,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 
         protected IMvxMessenger Messenger => Mvx.IoCProvider.Resolve<IMvxMessenger>();
 
-        protected IUserInteraction DialogService => Mvx.IoCProvider.Resolve<IUserInteraction>();
+        protected IUserInteraction UserInteraction => Mvx.IoCProvider.Resolve<IUserInteraction>();
 
         protected virtual void OnIsBusyWrapperChanged()
         {
@@ -62,7 +62,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
         {
             await Task.Delay(500);
 
-            DialogService.ShowToast(Resources.Error_Something_Went_Wrong_Message, Models.Enums.ToastType.Negative);
+            UserInteraction.ShowToast(Resources.Error_Something_Went_Wrong_Message, Models.Enums.ToastType.Negative);
             Crashes.TrackError(exception);
         }
 

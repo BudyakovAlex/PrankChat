@@ -111,7 +111,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 return;
             }
 
-            var selectedFilterName = await DialogService.ShowMenuDialogAsync(dictionary.Keys.ToArray(), Resources.Cancel);
+            var selectedFilterName = await UserInteraction.ShowMenuDialogAsync(dictionary.Keys.ToArray(), Resources.Cancel);
             if (string.IsNullOrWhiteSpace(selectedFilterName) ||
                 selectedFilterName == Resources.Cancel)
             {
