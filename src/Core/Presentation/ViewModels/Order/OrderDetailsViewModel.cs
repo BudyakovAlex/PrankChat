@@ -1,4 +1,7 @@
-﻿using MvvmCross;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Common;
@@ -21,9 +24,6 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Results;
 using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Services.Timer;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
@@ -488,11 +488,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
             if (result == Resources.Block_User)
             {
-                int customerId = (int)CustomerSectionViewModel?.Order?.Customer?.Id;
-                int executorId = (int)ExecutorSectionViewModel?.Order?.Customer?.Id;
-                await _usersManager.ComplainUserAsync(customerId, "Request to block a user (test)", $"Executor id {executorId}");
-                DialogService.ShowToast(string.Format(Resources.Blocked_User, customerId), ToastType.Positive);
-                Messenger.Publish(new OrderChangedMessage(this, Order));
+                await BlockUserAsync();
                 return;
             }
 
@@ -502,6 +498,28 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 DialogService.ShowToast(Resources.LinkCopied, ToastType.Positive);
                 return;
             }
+        }
+
+        private async Task BlockUserAsync()
+        {
+            if (CustomerSectionViewModel?.Order?.Customer?.Id is null)
+            {
+                return;
+            }
+
+            var customerId = CustomerSectionViewModel.Order.Customer.Id;
+            var isComplaintSent = await _usersManager.ComplainUserAsync(customerId, string.Empty, string.Empty);
+            if (!isComplaintSent)
+            {
+                DialogService.ShowToast(Resources.Error_Something_Went_Wrong_Message, ToastType.Negative);
+                return;
+            }
+
+            var customerUsername = CustomerSectionViewModel.Order.Customer.Login;
+            DialogService.ShowToast(string.Format(Resources.Blocked_User, customerUsername), ToastType.Positive);
+
+            Messenger.Publish(new OrderChangedMessage(this, Order));
+            return;
         }
 
         private async Task<string> GetComplaintTextAsync()

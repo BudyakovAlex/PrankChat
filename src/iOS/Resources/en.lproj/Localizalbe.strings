@@ -350,3 +350,7 @@
 "Withdrawal_Enter_Wallet_Number" = "Enter Yoomoney wallet number";
 "Create_Order_Privacy_Message" = "By completing the creation of the order, I confirm the registration with the terms of the public offer, user agreement and privacy policy";
 "Create_Order_Privacy_Link" = "terms of the public offer, user agreement and privacy policy";
+
+/*Fuzzy*/
+"Block_User" = "Block user";
+"Blocked_User" = "User {0} is blocked";

@@ -1107,7 +1107,7 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
     <value>terms of the public offer, user agreement and privacy policy</value>
   </data>
   <data name="Block_User" xml:space="preserve">
-    <value>Block user?</value>
+    <value>Block user</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="Blocked_User" xml:space="preserve">

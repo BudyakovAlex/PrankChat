@@ -375,4 +375,7 @@
     <string name="Withdrawal_Yoomoney_Description">"Вывод средств осуществляется через кошелек ЮMoney (Яндекс кошелёк)."</string>
     <string name="Withdrawal_Yoomoney">"ЮMoney"</string>
     <string name="Withdrawal_Enter_Wallet_Number">"Введите номер кошелька ЮMoney (Яндекс кошелёк)"</string>
+    <!-- Fuzzy -->
+    <string name="Block_User">"Заблокировать пользователя"</string>
+    <string name="Blocked_User">"Пользователь {0} заблокирован"</string>
 </resources>

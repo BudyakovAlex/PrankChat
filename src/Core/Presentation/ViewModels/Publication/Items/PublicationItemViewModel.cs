@@ -203,10 +203,22 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
 
             if (result == Resources.Block_User)
             {
-                await _usersManager.ComplainUserAsync(UserId, "Request to block a user (test)", "This request was sent from publications");
-                DialogService.ShowToast(string.Format(Resources.Blocked_User, UserId), ToastType.Positive);
+                await BlockUserAsync();
+            }
+        }
+
+        private async Task BlockUserAsync()
+        {
+            var isComplaintSent = await _usersManager.ComplainUserAsync(UserId, string.Empty, string.Empty);
+            if (!isComplaintSent)
+            {
+                DialogService.ShowToast(Resources.Error_Something_Went_Wrong_Message, ToastType.Negative);
                 return;
             }
+
+            var message = string.Format(Resources.Blocked_User, User.Login);
+            DialogService.ShowToast(message, ToastType.Positive);
+            Messenger.Publish(new ReloadPublicationsMessage(this));
         }
 
         private Task DownloadVideoAsync()
