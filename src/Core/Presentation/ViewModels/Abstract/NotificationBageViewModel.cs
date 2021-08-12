@@ -1,10 +1,10 @@
 ﻿using Badge.Plugin;
 using MvvmCross.Commands;
-using PrankChat.Mobile.Core.ApplicationServices.Timer;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Managers.Notifications;
-using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using PrankChat.Mobile.Core.Services.Timer;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;

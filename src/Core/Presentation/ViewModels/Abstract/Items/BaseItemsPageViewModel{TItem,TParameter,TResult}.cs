@@ -1,6 +1,6 @@
 ﻿using MvvmCross.ViewModels;
 using MvvmCross.WeakSubscription;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Extensions;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reactive.Disposables;

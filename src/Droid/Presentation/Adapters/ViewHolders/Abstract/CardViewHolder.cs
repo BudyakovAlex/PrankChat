@@ -3,6 +3,7 @@ using Android.Views;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.DroidX.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
+using System;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract
 {

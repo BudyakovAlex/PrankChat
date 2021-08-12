@@ -359,4 +359,7 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <string name="Withdrawal_Yoomoney_Description">"Funds are withdrawn through the Yoomoney wallet."</string>
     <string name="Withdrawal_Yoomoney">"Yoomoney"</string>
     <string name="Withdrawal_Enter_Wallet_Number">"Enter Yoomoney wallet number"</string>
+    <!-- Fuzzy -->
+    <string name="Block_User">"Block user"</string>
+    <string name="Blocked_User">"User {0} is blocked"</string>
 </resources>

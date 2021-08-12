@@ -1,11 +1,9 @@
 ﻿using AssetsLibrary;
 using Foundation;
 using Microsoft.AppCenter.Crashes;
-using PrankChat.Mobile.Core.ApplicationServices.FileSystem;
+using PrankChat.Mobile.Core.Services.FileSystem;
 using System;
-using System.Text;
 using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.FileSystem
 {

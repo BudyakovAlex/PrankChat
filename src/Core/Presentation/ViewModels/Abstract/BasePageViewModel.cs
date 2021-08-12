@@ -1,15 +1,15 @@
-﻿using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Ioc;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Notification;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using PrankChat.Mobile.Core.Services.ErrorHandling;
 using PrankChat.Mobile.Core.Wrappers;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 {

@@ -8,7 +8,7 @@ using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.ViewModels;
 using ObjCRuntime;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;

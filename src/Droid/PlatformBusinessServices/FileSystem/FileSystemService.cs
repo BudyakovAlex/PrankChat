@@ -1,4 +1,4 @@
-﻿using PrankChat.Mobile.Core.ApplicationServices.FileSystem;
+﻿using PrankChat.Mobile.Core.Services.FileSystem;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.FileSystem

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using MvvmCross.Converters;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Localization;
 
 namespace PrankChat.Mobile.Core.Converters
 {

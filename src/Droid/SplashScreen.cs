@@ -47,7 +47,7 @@ namespace PrankChat.Mobile.Droid
             }
 
             Finish();
-            Core.ApplicationServices.Notifications.NotificationManager.Instance.TryNavigateToView(_orderId);
+            Core.Services.Notifications.NotificationManager.Instance.TryNavigateToView(_orderId);
         }
 
         protected override object GetAppStartHint(object hint = null)

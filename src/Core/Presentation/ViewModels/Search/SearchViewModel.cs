@@ -1,6 +1,7 @@
 ﻿using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Managers.Search;
+using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -23,15 +24,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private readonly ISearchManager _searchManager;
         private readonly IVideoManager _videoManager;
+        private readonly IUsersManager _usersManager;
 
         public SearchViewModel(
             ISearchManager searchManager,
-            IVideoManager videoManager) : base(Constants.Pagination.DefaultPaginationSize)
+            IVideoManager videoManager,
+            IUsersManager usersManager) : base(Constants.Pagination.DefaultPaginationSize)
         {
             Items = new MvxObservableCollection<MvxNotifyPropertyChanged>();
 
             _searchManager = searchManager;
             _videoManager = videoManager;
+            _usersManager = usersManager;
         }
 
         public MvxObservableCollection<MvxNotifyPropertyChanged> Items { get; }
@@ -121,7 +125,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                 _videoManager,
                 UserSessionProvider,
                 video,
-                GetPublicationsFullScreenVideos);
+                GetPublicationsFullScreenVideos,
+                _usersManager);
         }
 
         private BaseViewModel ProduceUserViewModel(User model) =>

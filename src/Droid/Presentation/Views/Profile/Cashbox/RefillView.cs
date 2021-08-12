@@ -63,7 +63,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
         private void PriceEditTextOnTextChanged(object sender, TextChangedEventArgs e)
         {
             var text = e.Text.ToString();
-            if (text.EndsWith(Core.Presentation.Localization.Resources.Currency))
+            if (text.EndsWith(Core.Localization.Resources.Currency))
             {
                 _refillCostEditText.SetSelection(text.Length - 2);
             }

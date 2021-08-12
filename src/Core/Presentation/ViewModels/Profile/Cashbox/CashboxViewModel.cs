@@ -1,9 +1,9 @@
 ﻿using MvvmCross;
 using PrankChat.Mobile.Core.Data.Enums;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
+using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;

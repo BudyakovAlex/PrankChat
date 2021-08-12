@@ -4,17 +4,17 @@ using MvvmCross;
 using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
-using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.Infrastructure;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using PrankChat.Mobile.Core.Services.Notifications;
 using PrankChat.Mobile.iOS.Delegates;
 using System;
 using System.Diagnostics;
 using UserNotifications;
 using Xamarin.Essentials;
+using PrankChat.Mobile.Core.Messages;
+using PrankChat.Mobile.Core.Common;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
 {

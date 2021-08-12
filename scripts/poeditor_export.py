@@ -64,9 +64,9 @@ downloadFile(app_ios_en, '../src/iOS/Resources/en.lproj/Localizalbe.strings');
 #Core RU
 core_ru = getDownloadUrl(api_key, project_id, 'ru', 'resx') 
 print (core_ru)
-downloadFile(core_ru, '../src/Core/Presentation/Localization/Resources.resx');
+downloadFile(core_ru, '../src/Core/Localization/Resources.resx');
 
 #Core EN
 core_en = getDownloadUrl(api_key, project_id, 'en', 'resx') 
 print (core_en)
-downloadFile(core_en, '../src/Core/Presentation/Localization/Resources.en-US.resx');
+downloadFile(core_en, '../src/Core/Localization/Resources.en-US.resx');
