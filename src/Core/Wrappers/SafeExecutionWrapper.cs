@@ -1,4 +1,4 @@
-﻿using PrankChat.Mobile.Core.Infrastructure.Extensions;
+﻿using PrankChat.Mobile.Core.Extensions;
 using System;
 using System.Threading.Tasks;
 

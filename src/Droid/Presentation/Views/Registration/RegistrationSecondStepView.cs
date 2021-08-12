@@ -35,7 +35,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
 
         protected override bool HasBackButton => true;
 
-        protected override string TitleActionBar => Core.Presentation.Localization.Resources.RegistrationView_StepTwo_Title;
+        protected override string TitleActionBar => Core.Localization.Resources.RegistrationView_StepTwo_Title;
 
         protected override void SetViewProperties(View view)
         {

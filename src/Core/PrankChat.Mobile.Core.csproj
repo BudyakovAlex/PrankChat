@@ -38,11 +38,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-     <EmbeddedResource Update="Presentation\Localization\Resources.resx">
+     <EmbeddedResource Update="Localization\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Update="Presentation\Localization\Resources.Designer.cs">
+    <Compile Update="Localization\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <Autogen>True</Autogen>
       <DesignTime>True</DesignTime>
@@ -58,7 +58,6 @@
     <Folder Include="Managers\Payment\" />
     <Folder Include="Managers\Competitions\" />
     <Folder Include="Presentation\Navigation\" />
-    <Folder Include="Presentation\Navigation\Parameters\" />
     <Folder Include="Data\Enums\" />
     <Folder Include="Presentation\ViewModels\Search\" />
     <Folder Include="Presentation\ViewModels\Publication\Items\" />
@@ -73,19 +72,12 @@
     <Folder Include="Presentation\ViewModels\Profile\Cashbox\" />
     <Folder Include="Presentation\ViewModels\Dialogs\" />
     <Folder Include="Exceptions\Network\" />
-    <Folder Include="ApplicationServices\Timer\" />
-    <Folder Include="ApplicationServices\Dialogs\" />
     <Folder Include="Presentation\ViewModels\Video\" />
-    <Folder Include="Commands\" />
-    <Folder Include="ApplicationServices\Notifications\" />
     <Folder Include="Data\Models\Shared\" />
     <Folder Include="Providers\" />
     <Folder Include="Presentation\ViewModels\Walthroughs\" />
-    <Folder Include="ApplicationServices\Network\Builders\" />
-    <Folder Include="ApplicationServices\Network\Contents\" />
     <Folder Include="Presentation\ViewModels\Subscriptions\" />
     <Folder Include="Presentation\ViewModels\Order\Sections\" />
-    <Folder Include="Wrappers\" />
     <Folder Include="Presentation\ViewModels\Order\Sections\Abstract\" />
     <Folder Include="Data\Enums\FilterTypes\" />
     <Folder Include="Providers\UserSession\" />
@@ -101,17 +93,13 @@
     <Folder Include="Plugins\" />
     <Folder Include="Plugins\Video\" />
     <Folder Include="Presentation\ViewModels\Order\Items\Abstract\" />
-    <Folder Include="Infrastructure\Extensions\DateFilter\" />
     <Folder Include="Providers\Platform\" />
-    <Folder Include="ApplicationServices\FileSystem\" />
     <Folder Include="Data\Models\User\" />
     <Folder Include="Data\Dtos\Users\" />
-    <Folder Include="Infrastructure\Extensions\MvvmCross\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="AppConfig.json" />
     <None Remove="Data\Models\User\" />
     <None Remove="Data\Dtos\Users\" />
-    <None Remove="Infrastructure\Extensions\MvvmCross\" />
   </ItemGroup>
 </Project>

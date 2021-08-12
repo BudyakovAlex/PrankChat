@@ -25,7 +25,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         private LinearLayoutManager _layoutManager;
         private RecycleViewBindableAdapter _adapter;
 
-        protected override string TitleActionBar => Core.Presentation.Localization.Resources.Profile_Tab;
+        protected override string TitleActionBar => Core.Localization.Resources.Profile_Tab;
 
         public RecyclerView RecyclerView => _endlessRecyclerView;
 

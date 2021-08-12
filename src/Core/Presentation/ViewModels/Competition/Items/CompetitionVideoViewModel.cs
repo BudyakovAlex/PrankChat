@@ -1,10 +1,10 @@
 ﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Managers.Video;
+using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System;

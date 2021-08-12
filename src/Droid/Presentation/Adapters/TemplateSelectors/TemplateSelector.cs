@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract;
+using PrankChat.Mobile.Core.Extensions;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors
 {

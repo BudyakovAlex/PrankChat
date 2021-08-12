@@ -1,8 +1,8 @@
-﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Common;
-using PrankChat.Mobile.Core.Managers.Common;
+﻿using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Providers.Configuration;
+using PrankChat.Mobile.Core.Services.Network.Http.Common;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Managers.Common

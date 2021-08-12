@@ -1,16 +1,17 @@
 ﻿using FFImageLoading;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.Infrastructure;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Infrastructure.Extensions.DateFilter;
+using PrankChat.Mobile.Core.Common;
+using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Extensions.DateFilter;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Publications;
+using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Managers.Video;
+using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Messages;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
@@ -26,17 +27,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
     {
         private readonly IPublicationsManager _publicationsManager;
         private readonly IVideoManager _videoManager;
+        private readonly IUsersManager _usersManager;
 
         private readonly ExecutionStateWrapper _refreshDataExecutionStateWrapper;
 
         public PublicationsViewModel(
             IPublicationsManager publicationsManager,
-            IVideoManager videoManager)
+            IVideoManager videoManager, IUsersManager usersManager)
             : base(Constants.Pagination.DefaultPaginationSize)
         {
             _publicationsManager = publicationsManager;
             _videoManager = videoManager;
-
+            _usersManager = usersManager; 
             Items = new MvxObservableCollection<PublicationItemViewModel>();
             _refreshDataExecutionStateWrapper = new ExecutionStateWrapper();
 
@@ -183,7 +185,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication
                 _videoManager,
                 UserSessionProvider,
                 publication,
-                () => Items.ToArray());
+                () => Items.ToArray(),
+                _usersManager);
         }
 
         private void ReloadItems()

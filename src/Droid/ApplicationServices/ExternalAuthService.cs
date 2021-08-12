@@ -1,12 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Android.App;
 using MvvmCross.Platforms.Android;
-using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
+using PrankChat.Mobile.Core.Services.ExternalAuth;
 using PrankChat.Mobile.Droid.ApplicationServices.Callback;
 using PrankChat.Mobile.Droid.ApplicationServices.Callbacks;
 using VKontakte;
 using Xamarin.Facebook;
-using Xamarin.Facebook.AppEvents;
 using Xamarin.Facebook.Login;
 
 namespace PrankChat.Mobile.Droid.ApplicationServices

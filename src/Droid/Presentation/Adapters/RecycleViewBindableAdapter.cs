@@ -5,9 +5,9 @@ using Android.Views;
 using AndroidX.RecyclerView.Widget;
 using MvvmCross.DroidX.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract;
+using PrankChat.Mobile.Core.Extensions;
 using Object = Java.Lang.Object;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters

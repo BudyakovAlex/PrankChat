@@ -7,7 +7,7 @@ using Android.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.Droid.Controls;
@@ -41,7 +41,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         private TextView _textViewChangeProfilePhoto;
         private TextView _textViewChangePassword;
 
-        protected override string TitleActionBar => Core.Presentation.Localization.Resources.ProfileUpdateView_Title;
+        protected override string TitleActionBar => Core.Localization.Resources.ProfileUpdateView_Title;
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {

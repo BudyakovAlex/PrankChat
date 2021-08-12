@@ -1,14 +1,15 @@
 ﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.Infrastructure;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Common;
+using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Localization;
+using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Managers.Video;
+using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.Localization;
-using PrankChat.Mobile.Core.Presentation.Messages;
-using PrankChat.Mobile.Core.Presentation.Navigation.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Comment;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
+using PrankChat.Mobile.Core.Presentation.ViewModels.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.Core.Providers.UserSession;
@@ -29,6 +30,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
         };
 
         private readonly Func<BaseVideoItemViewModel[]> _getAllFullScreenVideosFunc;
+        private readonly IUsersManager _usersManager;
 
         private long? _numberOfViews;
         private readonly DateTime _publicationDate;
@@ -37,8 +39,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
             IVideoManager videoManager,
             IUserSessionProvider userSessionProvider,
             Models.Data.Video video,
-            Func<BaseVideoItemViewModel[]> getAllFullScreenVideosFunc) : base(videoManager, userSessionProvider, video)
+            Func<BaseVideoItemViewModel[]> getAllFullScreenVideosFunc,
+            IUsersManager usersManager) : base(videoManager, userSessionProvider, video)
         {
+            _usersManager = usersManager;
             ProfileName = video.Customer?.Login;
             IsCompetitionVideo = video.OrderCategory.CheckIsCompetitionOrder();
 
@@ -163,6 +167,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
             var result = await DialogService.ShowMenuDialogAsync(new string[]
             {
                 Resources.Publication_Item_Complain,
+                Resources.Block_User,
                 Resources.Publication_Item_Copy_Link,
                 Resources.Publication_Item_Download,
             });
@@ -195,6 +200,26 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
             {
                 _ = DownloadVideoAsync();
             }
+
+            if (result == Resources.Block_User)
+            {
+                await BlockUserAsync();
+            }
+        }
+
+        private async Task BlockUserAsync()
+        {
+            var complaintMessage = $"Complaint to user {Video.User.Id}";
+            var isComplaintSent = await _usersManager.ComplainUserAsync(Video.User.Id, complaintMessage, complaintMessage);
+            if (!isComplaintSent)
+            {
+                DialogService.ShowToast(Resources.Error_Something_Went_Wrong_Message, ToastType.Negative);
+                return;
+            }
+
+            var message = string.Format(Resources.Blocked_User, User.Login);
+            DialogService.ShowToast(message, ToastType.Positive);
+            Messenger.Publish(new ReloadPublicationsMessage(this));
         }
 
         private Task DownloadVideoAsync()

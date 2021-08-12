@@ -2,12 +2,12 @@
 using LibVLCSharp.Shared;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Data.Enums;
-using PrankChat.Mobile.Core.Infrastructure;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using System;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Common;
 
 namespace PrankChat.Mobile.iOS.Plugins.Video
 {

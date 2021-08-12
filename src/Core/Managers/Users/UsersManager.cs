@@ -1,11 +1,11 @@
-﻿using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users;
-using PrankChat.Mobile.Core.Mappers;
+﻿using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using System.Threading;
 using System.Threading.Tasks;
 using PrankChat.Mobile.Core.Data.Models.User;
+using PrankChat.Mobile.Core.Services.Network.Http.Users;
 
 namespace PrankChat.Mobile.Core.Managers.Users
 {
@@ -68,7 +68,7 @@ namespace PrankChat.Mobile.Core.Managers.Users
             return response.Map();
         }
 
-        public Task ComplainUserAsync(int userId, string title, string description)
+        public Task<bool> ComplainUserAsync(int userId, string title, string description)
         {
             return _usersService.ComplainUserAsync(userId, title, description);
         }
