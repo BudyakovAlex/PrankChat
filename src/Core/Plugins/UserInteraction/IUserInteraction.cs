@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using PrankChat.Mobile.Core.Models.Enums;
 
-namespace PrankChat.Mobile.Core.Plugins
+namespace PrankChat.Mobile.Core.Plugins.UserInteraction
 {
     public interface IUserInteraction
     {

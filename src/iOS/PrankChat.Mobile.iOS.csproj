@@ -249,7 +249,7 @@
       <DependentUpon>FullScreenVideoView.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\FloatPlaceholderTextField.cs" />
-    <Compile Include="Services\UserInteraction.cs" />
+    <Compile Include="Plugins\UserInteraction\UserInteraction.cs" />
     <InterfaceDefinition Include="Controls\ToastView.xib" />
     <Compile Include="Controls\ToastView.cs" />
     <Compile Include="Controls\ToastView.designer.cs">

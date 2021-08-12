@@ -13,7 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.Plugins;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
 
 namespace PrankChat.Mobile.Core.Services.ErrorHandling
 {

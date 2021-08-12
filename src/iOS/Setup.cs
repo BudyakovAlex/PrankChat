@@ -9,13 +9,11 @@ using MvvmCross.Platforms.Ios.Core;
 using PrankChat.Mobile.Core;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Ioc;
-using PrankChat.Mobile.Core.Plugins;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.Platform;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Core.Services.ExternalAuth;
 using PrankChat.Mobile.Core.Services.FileSystem;
-using PrankChat.Mobile.iOS.Services;
 using PrankChat.Mobile.iOS.Services.ExternalAuth;
 using PrankChat.Mobile.iOS.Services.ExternalAuth.AppleSignIn;
 using PrankChat.Mobile.iOS.Controls;
@@ -25,6 +23,8 @@ using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 using WebKit;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
+using PrankChat.Mobile.iOS.Plugins.UserInteraction;
 
 namespace PrankChat.Mobile.iOS
 {

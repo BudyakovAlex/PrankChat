@@ -1,7 +1,7 @@
 ﻿using Plugin.Media;
 using Plugin.Media.Abstractions;
 using PrankChat.Mobile.Core.Extensions;
-using PrankChat.Mobile.Core.Plugins;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.Core.Services.Permissions;
 using System.Threading.Tasks;
 

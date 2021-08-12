@@ -17,7 +17,8 @@ using PrankChat.Mobile.Droid.Presenters;
 using PrankChat.Mobile.Droid.Providers;
 using PrankChat.Mobile.Core.Services.ExternalAuth;
 using PrankChat.Mobile.Core.Services.FileSystem;
-using PrankChat.Mobile.Core.Plugins;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
+using PrankChat.Mobile.Droid.Plugins.UserInteraction;
 
 namespace PrankChat.Mobile.Droid
 {

@@ -10,7 +10,7 @@ using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Plugins;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Services.Network.Http.Authorization;

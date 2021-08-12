@@ -126,7 +126,7 @@
     <Compile Include="Presentation\Bindings\ViewTouchTargetBinding.cs" />
     <Compile Include="Presenters\Attributes\ClearStackActivityPresentationAttribute.cs" />
     <Compile Include="Presenters\CustomAndroidViewPresenter.cs" />
-    <Compile Include="Services\UserInteraction.cs" />
+    <Compile Include="Plugins\UserInteraction\UserInteraction.cs" />
     <Compile Include="Presentation\Views\Base\IToolbarOwner.cs" />
     <Compile Include="Extensions\ViewExtensions.cs" />
     <Compile Include="Services\Callbacks\FacebookCallback.cs" />

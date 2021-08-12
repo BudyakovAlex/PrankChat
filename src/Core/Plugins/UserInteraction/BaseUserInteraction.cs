@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PrankChat.Mobile.Core.Plugins
+namespace PrankChat.Mobile.Core.Plugins.UserInteraction
 {
     public abstract class BaseUserInteraction : IUserInteraction
     {

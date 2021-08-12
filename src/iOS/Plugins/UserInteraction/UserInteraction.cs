@@ -5,7 +5,7 @@ using MvvmCross.Base;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Plugins;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.Core.Services.ErrorHandling;
 using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.Presentation.Dialogs.DatePicker;
@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace PrankChat.Mobile.iOS.Services
+namespace PrankChat.Mobile.iOS.Plugins.UserInteraction
 {
     public class UserInteraction : BaseUserInteraction
     {
