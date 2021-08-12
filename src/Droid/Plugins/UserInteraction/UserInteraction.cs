@@ -9,16 +9,17 @@ using MvvmCross.Platforms.Android;
 using MvvmCross.Platforms.Android.Views;
 using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Services.Dialogs;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
+
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using System;
 using System.Threading.Tasks;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
-namespace PrankChat.Mobile.Droid.ApplicationServices
+namespace PrankChat.Mobile.Droid.Plugins.UserInteraction
 {
-    public class DialogService : BaseDialogService
+    public class UserInteraction : BaseUserInteraction
     {
         private const int ViewAppearingMillisecondsDelay = 500;
 
@@ -27,7 +28,7 @@ namespace PrankChat.Mobile.Droid.ApplicationServices
 
         public override bool IsToastShown { get; protected set; }
 
-        public DialogService(INavigationManager navigationManager, IMvxAndroidCurrentTopActivity topActivity, IMvxMainThreadAsyncDispatcher mvxMainThreadAsyncDispatcher)
+        public UserInteraction(INavigationManager navigationManager, IMvxAndroidCurrentTopActivity topActivity, IMvxMainThreadAsyncDispatcher mvxMainThreadAsyncDispatcher)
              : base(navigationManager)
         {
             _topActivity = topActivity;

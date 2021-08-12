@@ -155,7 +155,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract
         {
             await UsersManager.VerifyEmailAsync();
 
-            DialogService.ShowToast(Resources.Profile_Email_Confirmation_Sent, ToastType.Positive);
+            UserInteraction.ShowToast(Resources.Profile_Email_Confirmation_Sent, ToastType.Positive);
             Preferences.Set(nameof(CanResendEmailValidation), DateTime.Now.AddMinutes(Constants.Profile.UnlockResendMinutes));
             CanResendEmailValidation = false;
         }
@@ -168,12 +168,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract
 
         private void ShowValidationWarning()
         {
-            DialogService.ShowToast(Resources.Profile_Your_Email_Not_Actual, ToastType.Negative);
+            UserInteraction.ShowToast(Resources.Profile_Your_Email_Not_Actual, ToastType.Negative);
         }
 
         private async Task SelectBirthdayAsync()
         {
-            var result = await DialogService.ShowDateDialogAsync(Birthday);
+            var result = await UserInteraction.ShowDateDialogAsync(Birthday);
             if (result is null)
             {
                 return;

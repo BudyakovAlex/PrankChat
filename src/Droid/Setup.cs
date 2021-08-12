@@ -9,15 +9,16 @@ using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Ioc;
 using PrankChat.Mobile.Core.Providers.Platform;
 using PrankChat.Mobile.Core.Providers.UserSession;
-using PrankChat.Mobile.Droid.ApplicationServices;
+using PrankChat.Mobile.Droid.Services;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.FileSystem;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Video;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presenters;
 using PrankChat.Mobile.Droid.Providers;
-using PrankChat.Mobile.Core.Services.Dialogs;
 using PrankChat.Mobile.Core.Services.ExternalAuth;
 using PrankChat.Mobile.Core.Services.FileSystem;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
+using PrankChat.Mobile.Droid.Plugins.UserInteraction;
 
 namespace PrankChat.Mobile.Droid
 {
@@ -28,7 +29,7 @@ namespace PrankChat.Mobile.Droid
             base.InitializeLastChance();
 
             CompositionRoot.Container.RegisterType<IVideoPlayer, VideoPlayer>();
-            CompositionRoot.Container.RegisterSingleton<IDialogService, DialogService>();
+            CompositionRoot.Container.RegisterSingleton<IUserInteraction, UserInteraction>();
             CompositionRoot.Container.RegisterSingleton<IExternalAuthService, ExternalAuthService>();
             CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
             CompositionRoot.Container.RegisterSingleton<IPlatformPathsProvider, PlatformPathsProvider>();
