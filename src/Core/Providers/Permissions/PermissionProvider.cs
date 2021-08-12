@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace PrankChat.Mobile.Core.Services.Permissions
+namespace PrankChat.Mobile.Core.Providers.Permissions
 {
-    public class PermissionService : IPermissionService
+    public class PermissionProvider : IPermissionProvider
     {
         public async Task<bool> RequestPermissionAsync<TPermission>() where TPermission : Xamarin.Essentials.Permissions.BasePermission, new()
         {

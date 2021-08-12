@@ -4,10 +4,10 @@ using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
+using PrankChat.Mobile.Core.Providers.Permissions;
 using PrankChat.Mobile.Core.Providers.Platform;
 using PrankChat.Mobile.Core.Services.FileSystem;
 using PrankChat.Mobile.Core.Services.Network.Http.Video;
-using PrankChat.Mobile.Core.Services.Permissions;
 using System;
 using System.IO;
 using System.Net;
@@ -21,14 +21,14 @@ namespace PrankChat.Mobile.Core.Managers.Video
     {
         private readonly IPlatformPathsProvider _pathsProvider;
         private readonly IVideoService _videoService;
-        private readonly IPermissionService _permissionService;
+        private readonly IPermissionProvider _permissionService;
         private readonly IFileSystemService _fileSystemService;
         private readonly IMvxMessenger _mvxMessenger;
 
         public VideoManager(
             IPlatformPathsProvider pathsProvider,
             IVideoService videoService,
-            IPermissionService permissionService,
+            IPermissionProvider permissionService,
             IFileSystemService fileSystemService,
             IMvxMessenger mvxMessenger)
         {

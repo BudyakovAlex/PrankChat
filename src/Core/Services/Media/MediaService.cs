@@ -1,8 +1,8 @@
 ﻿using Plugin.Media;
 using Plugin.Media.Abstractions;
 using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Providers.Permissions;
 using PrankChat.Mobile.Core.Services.Dialogs;
-using PrankChat.Mobile.Core.Services.Permissions;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Services.Media
@@ -10,12 +10,12 @@ namespace PrankChat.Mobile.Core.Services.Media
     //TODO: move texts to AppStrings
     public class MediaService : IMediaService
     {
-        private readonly IPermissionService _permissionService;
+        private readonly IPermissionProvider _permissionService;
         private readonly IDialogService _dialogService;
 
         private bool _isCrossMediaInitialized;
 
-        public MediaService(IPermissionService permissionService, IDialogService dialogService)
+        public MediaService(IPermissionProvider permissionService, IDialogService dialogService)
         {
             _permissionService = permissionService;
             _dialogService = dialogService;
