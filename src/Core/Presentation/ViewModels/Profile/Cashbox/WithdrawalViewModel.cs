@@ -2,12 +2,12 @@
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
+using PrankChat.Mobile.Core.Managers.Media;
 using PrankChat.Mobile.Core.Managers.Payment;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
-using PrankChat.Mobile.Core.Services.Media;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,7 +20,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
     {
         private readonly IPaymentManager _paymentManager;
         private readonly IUsersManager _usersManager;
-        private readonly IMediaService _mediaService;
+        private readonly IMediaManager _mediaService;
 
         private Card _currentCard;
         private Withdrawal _lastWithdrawal;
@@ -28,7 +28,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         public WithdrawalViewModel(
             IPaymentManager paymentManager,
             IUsersManager usersManager,
-            IMediaService mediaService)
+            IMediaManager mediaService)
         {
             _paymentManager = paymentManager;
             _usersManager = usersManager;

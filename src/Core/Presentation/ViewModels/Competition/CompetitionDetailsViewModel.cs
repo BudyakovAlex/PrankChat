@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Competitions;
+using PrankChat.Mobile.Core.Managers.Media;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data.Shared;
@@ -19,7 +20,6 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.Services.Media;
 using System;
 using System.Linq;
 using System.Threading;
@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
     {
         private readonly ICompetitionsManager _competitionsManager;
         private readonly IVideoManager _videoManager;
-        private readonly IMediaService _mediaService;
+        private readonly IMediaManager _mediaService;
 
         private Models.Data.Competition _competition;
         private CompetitionDetailsHeaderViewModel _header;
@@ -44,7 +44,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         public CompetitionDetailsViewModel(
             ICompetitionsManager competitionsManager,
             IVideoManager videoManager,
-            IMediaService mediaService) : base(Constants.Pagination.DefaultPaginationSize)
+            IMediaManager mediaService) : base(Constants.Pagination.DefaultPaginationSize)
         {
             _competitionsManager = competitionsManager;
             _videoManager = videoManager;

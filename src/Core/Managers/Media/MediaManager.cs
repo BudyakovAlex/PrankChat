@@ -5,17 +5,17 @@ using PrankChat.Mobile.Core.Services.Dialogs;
 using PrankChat.Mobile.Core.Services.Permissions;
 using System.Threading.Tasks;
 
-namespace PrankChat.Mobile.Core.Services.Media
+namespace PrankChat.Mobile.Core.Managers.Media
 {
     //TODO: move texts to AppStrings
-    public class MediaService : IMediaService
+    public class MediaManager : IMediaManager
     {
         private readonly IPermissionService _permissionService;
         private readonly IDialogService _dialogService;
 
         private bool _isCrossMediaInitialized;
 
-        public MediaService(IPermissionService permissionService, IDialogService dialogService)
+        public MediaManager(IPermissionService permissionService, IDialogService dialogService)
         {
             _permissionService = permissionService;
             _dialogService = dialogService;

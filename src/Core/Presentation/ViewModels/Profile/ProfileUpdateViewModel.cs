@@ -5,6 +5,7 @@ using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Authorization;
+using PrankChat.Mobile.Core.Managers.Media;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data;
@@ -14,7 +15,6 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Results;
 using PrankChat.Mobile.Core.Services.ExternalAuth;
-using PrankChat.Mobile.Core.Services.Media;
 using PrankChat.Mobile.Core.Services.Notifications;
 using System;
 using System.Threading.Tasks;
@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
     public class ProfileUpdateViewModel : BaseProfileViewModel, IMvxViewModelResult<ProfileUpdateResult>
     {
         private readonly IAuthorizationManager _authorizationManager;
-        private readonly IMediaService _mediaService;
+        private readonly IMediaManager _mediaService;
         private readonly IExternalAuthService _externalAuthService;
         private readonly IPushNotificationProvider _pushNotificationService;
 
@@ -35,7 +35,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             IUsersManager usersManager,
             IExternalAuthService externalAuthService,
             IPushNotificationProvider pushNotificationService,
-            IMediaService mediaService) : base(usersManager)
+            IMediaManager mediaService) : base(usersManager)
         {
             _authorizationManager = authorizationManager;
             _externalAuthService = externalAuthService;
