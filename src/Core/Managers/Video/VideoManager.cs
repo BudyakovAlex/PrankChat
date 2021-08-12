@@ -21,20 +21,20 @@ namespace PrankChat.Mobile.Core.Managers.Video
     {
         private readonly IPlatformPathsProvider _pathsProvider;
         private readonly IVideoService _videoService;
-        private readonly IPermissionProvider _permissionService;
+        private readonly IPermissionProvider _permissionProvider;
         private readonly IFileSystemService _fileSystemService;
         private readonly IMvxMessenger _mvxMessenger;
 
         public VideoManager(
             IPlatformPathsProvider pathsProvider,
             IVideoService videoService,
-            IPermissionProvider permissionService,
+            IPermissionProvider permissionProvider,
             IFileSystemService fileSystemService,
             IMvxMessenger mvxMessenger)
         {
             _pathsProvider = pathsProvider;
             _videoService = videoService;
-            _permissionService = permissionService;
+            _permissionProvider = permissionProvider;
             _fileSystemService = fileSystemService;
             _mvxMessenger = mvxMessenger;
         }
@@ -95,7 +95,7 @@ namespace PrankChat.Mobile.Core.Managers.Video
         {
             try
             {
-                var isPermissionGranted = await _permissionService.RequestPermissionAsync<Permissions.StorageWrite>();
+                var isPermissionGranted = await _permissionProvider.RequestPermissionAsync<Permissions.StorageWrite>();
                 if (!isPermissionGranted)
                 {
                     return null;

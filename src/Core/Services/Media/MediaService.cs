@@ -10,20 +10,20 @@ namespace PrankChat.Mobile.Core.Services.Media
     //TODO: move texts to AppStrings
     public class MediaService : IMediaService
     {
-        private readonly IPermissionProvider _permissionService;
+        private readonly IPermissionProvider _permissionProvider;
         private readonly IDialogService _dialogService;
 
         private bool _isCrossMediaInitialized;
 
-        public MediaService(IPermissionProvider permissionService, IDialogService dialogService)
+        public MediaService(IPermissionProvider permissionProvider, IDialogService dialogService)
         {
-            _permissionService = permissionService;
+            _permissionProvider = permissionProvider;
             _dialogService = dialogService;
         }
 
         public async Task<MediaFile> PickPhotoAsync()
         {
-            var result = await _permissionService.RequestPermissionAsync<Xamarin.Essentials.Permissions.StorageRead>();
+            var result = await _permissionProvider.RequestPermissionAsync<Xamarin.Essentials.Permissions.StorageRead>();
             if (!result)
             {
                 _dialogService.ShowAlertAsync("Разрешите приложению использовать хранилище.").FireAndForget();
@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.Core.Services.Media
 
         public async Task<MediaFile> TakePhotoAsync()
         {
-            var result = await _permissionService.RequestPermissionAsync<Xamarin.Essentials.Permissions.Camera>();
+            var result = await _permissionProvider.RequestPermissionAsync<Xamarin.Essentials.Permissions.Camera>();
             if (!result)
             {
                 _dialogService.ShowAlertAsync("Разрешите приложению использовать камеру.").FireAndForget();
@@ -57,7 +57,7 @@ namespace PrankChat.Mobile.Core.Services.Media
         {
             try
             {
-                var result = await _permissionService.RequestPermissionAsync<Xamarin.Essentials.Permissions.StorageRead>();
+                var result = await _permissionProvider.RequestPermissionAsync<Xamarin.Essentials.Permissions.StorageRead>();
                 if (!result)
                 {
                     _dialogService.ShowAlertAsync("Разрешите приложению использовать хранилище.").FireAndForget();
