@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
     public class ProfileUpdateViewModel : BaseProfileViewModel, IMvxViewModelResult<ProfileUpdateResult>
     {
         private readonly IAuthorizationManager _authorizationManager;
-        private readonly IMediaManager _mediaService;
+        private readonly IMediaManager _mediaManager;
         private readonly IExternalAuthService _externalAuthService;
         private readonly IPushNotificationProvider _pushNotificationService;
 
@@ -35,12 +35,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             IUsersManager usersManager,
             IExternalAuthService externalAuthService,
             IPushNotificationProvider pushNotificationService,
-            IMediaManager mediaService) : base(usersManager)
+            IMediaManager mediaManager) : base(usersManager)
         {
             _authorizationManager = authorizationManager;
             _externalAuthService = externalAuthService;
             _pushNotificationService = pushNotificationService;
-            _mediaService = mediaService;
+            _mediaManager = mediaManager;
 
             SaveProfileCommand = this.CreateCommand(SaveProfileAsync);
             ChangePasswordCommand = this.CreateCommand(ChangePasswordAsync);
@@ -186,8 +186,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             });
 
             var file = result == Resources.TakePhoto
-                ? await _mediaService.TakePhotoAsync()
-                : await _mediaService.PickPhotoAsync();
+                ? await _mediaManager.TakePhotoAsync()
+                : await _mediaManager.PickPhotoAsync();
 
             if (file is null)
             {

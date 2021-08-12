@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
     {
         private readonly ICompetitionsManager _competitionsManager;
         private readonly IVideoManager _videoManager;
-        private readonly IMediaManager _mediaService;
+        private readonly IMediaManager _mediaManager;
 
         private Models.Data.Competition _competition;
         private CompetitionDetailsHeaderViewModel _header;
@@ -44,11 +44,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         public CompetitionDetailsViewModel(
             ICompetitionsManager competitionsManager,
             IVideoManager videoManager,
-            IMediaManager mediaService) : base(Constants.Pagination.DefaultPaginationSize)
+            IMediaManager mediaManager) : base(Constants.Pagination.DefaultPaginationSize)
         {
             _competitionsManager = competitionsManager;
             _videoManager = videoManager;
-            _mediaService = mediaService;
+            _mediaManager = mediaManager;
 
             Items = new MvxObservableCollection<BaseViewModel>();
 
@@ -269,7 +269,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         {
             try
             {
-                var file = await _mediaService.PickVideoAsync();
+                var file = await _mediaManager.PickVideoAsync();
                 if (file == null)
                 {
                     return;

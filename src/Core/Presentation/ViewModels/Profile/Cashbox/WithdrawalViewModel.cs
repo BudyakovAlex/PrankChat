@@ -20,7 +20,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
     {
         private readonly IPaymentManager _paymentManager;
         private readonly IUsersManager _usersManager;
-        private readonly IMediaManager _mediaService;
+        private readonly IMediaManager _mediaManager;
 
         private Card _currentCard;
         private Withdrawal _lastWithdrawal;
@@ -28,11 +28,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         public WithdrawalViewModel(
             IPaymentManager paymentManager,
             IUsersManager usersManager,
-            IMediaManager mediaService)
+            IMediaManager mediaManager)
         {
             _paymentManager = paymentManager;
             _usersManager = usersManager;
-            _mediaService = mediaService;
+            _mediaManager = mediaManager;
 
             WithdrawCommand = this.CreateCommand(WithdrawAsync);
             CancelWithdrawCommand = this.CreateCommand(CancelWithdrawAsync);
@@ -182,7 +182,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         {
             try
             {
-                var file = await _mediaService.PickPhotoAsync();
+                var file = await _mediaManager.PickPhotoAsync();
                 if (file == null)
                 {
                     return;
