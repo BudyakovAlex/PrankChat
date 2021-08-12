@@ -1,15 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MvvmCross.Plugin.Messenger;
 
-namespace PrankChat.Mobile.Core.Services.Timer
+namespace PrankChat.Mobile.Core.Plugins.Timer
 {
-    public class TimerService : ITimerService
+    public class Timer : ITimer
     {
         private const int TimerDelayInMilliseconds = 3000;
 
         private readonly IMvxMessenger _messenger;
 
-        public TimerService(IMvxMessenger messenger)
+        public Timer(IMvxMessenger messenger)
         {
             _messenger = messenger;
 
@@ -25,7 +26,7 @@ namespace PrankChat.Mobile.Core.Services.Timer
 
         private void OnTimerCallback()
         {
-            _messenger.Publish(new TimerTickMessage(this));
+            //_messenger.Publish(new TimerTickMessage(this));
         }
     }
 }

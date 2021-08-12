@@ -64,7 +64,7 @@ namespace PrankChat.Mobile.Core.Ioc
 
         private void RegisterServices()
         {
-            Container.RegisterSingleton<ITimerService>(new TimerService(Container.Resolve<IMvxMessenger>()));
+            //Container.RegisterSingleton<ITimerService>(new TimerService(Container.Resolve<IMvxMessenger>()));
 
             Container.RegisterSingleton<IAuthorizationService, AuthorizationService>();
             Container.RegisterSingleton<IVersionService, VersionService>();
