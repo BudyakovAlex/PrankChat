@@ -1,14 +1,12 @@
 ﻿using System;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
-using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Common;
-using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Localization;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Competition

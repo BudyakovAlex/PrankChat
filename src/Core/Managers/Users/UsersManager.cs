@@ -68,7 +68,7 @@ namespace PrankChat.Mobile.Core.Managers.Users
             return response.Map();
         }
 
-        public Task ComplainUserAsync(int userId, string title, string description)
+        public Task<bool> ComplainUserAsync(int userId, string title, string description)
         {
             return _usersService.ComplainUserAsync(userId, title, description);
         }

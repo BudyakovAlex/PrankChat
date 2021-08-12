@@ -2,7 +2,6 @@
 using Foundation;
 using MvvmCross.Binding.Extensions;
 using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using System;
@@ -10,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
+using PrankChat.Mobile.Core.Extensions;
 
 namespace PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates
 {

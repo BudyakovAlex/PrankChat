@@ -102,15 +102,24 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Users
             return dataApiModel?.Data;
         }
 
-        public Task ComplainUserAsync(int userId, string title, string description)
+        public async Task<bool> ComplainUserAsync(int userId, string title, string description)
         {
-            var dataApiModel = new ComplainDto()
+            try
             {
-                Title = title,
-                Description = description
-            };
-            var url = $"users/{userId}/complaint";
-            return _client.PostAsync(url, dataApiModel);
+                var dataApiModel = new ComplainDto()
+                {
+                    Title = title,
+                    Description = description
+                };
+
+                var resource = string.Format(RestConstants.ComplaintUserResourceTemplate, userId);
+                await _client.PostAsync(resource, dataApiModel, exceptionThrowingEnabled: true);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public async Task<DocumentDto> SendVerifyDocumentAsync(string path)

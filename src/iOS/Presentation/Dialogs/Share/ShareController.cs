@@ -1,10 +1,8 @@
 ﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
-using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Dialogs.Share

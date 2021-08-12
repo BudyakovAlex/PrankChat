@@ -2,9 +2,8 @@
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
-using MvvmCross.Plugin.Visibility;
-using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Localization;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Binding;

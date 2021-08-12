@@ -13,5 +13,6 @@
         public const string StorePassportDataResource = "me/requisites";
 
         public const string YoomoneyResourceUrl = "https://yoomoney.ru/";
+        public const string ComplaintUserResourceTemplate = "users/{0}/complaint";
     }
 }
