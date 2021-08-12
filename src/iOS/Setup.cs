@@ -12,12 +12,10 @@ using PrankChat.Mobile.Core.Ioc;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.Platform;
 using PrankChat.Mobile.Core.Providers.UserSession;
-using PrankChat.Mobile.Core.Services.Dialogs;
 using PrankChat.Mobile.Core.Services.ExternalAuth;
 using PrankChat.Mobile.Core.Services.FileSystem;
-using PrankChat.Mobile.iOS.ApplicationServices;
-using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth;
-using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn;
+using PrankChat.Mobile.iOS.Services.ExternalAuth;
+using PrankChat.Mobile.iOS.Services.ExternalAuth.AppleSignIn;
 using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.FileSystem;
 using PrankChat.Mobile.iOS.Plugins.Video;
@@ -25,6 +23,8 @@ using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 using WebKit;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
+using PrankChat.Mobile.iOS.Plugins.UserInteraction;
 
 namespace PrankChat.Mobile.iOS
 {
@@ -45,7 +45,7 @@ namespace PrankChat.Mobile.iOS
             base.InitializeLastChance();
 
             CompositionRoot.Container.RegisterType<IVideoPlayer, VideoPlayer>();
-            CompositionRoot.Container.RegisterSingleton<IDialogService, DialogService>();
+            CompositionRoot.Container.RegisterSingleton<IUserInteraction, UserInteraction>();
             CompositionRoot.Container.RegisterSingleton<IFileSystemService, FileSystemService>();
             CompositionRoot.Container.RegisterSingleton<IExternalAuthService, ExternalAuthService>();
             CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();

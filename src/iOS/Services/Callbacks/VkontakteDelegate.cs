@@ -6,7 +6,7 @@ using VKontakte;
 using VKontakte.Core;
 using VKontakte.Views;
 
-namespace PrankChat.Mobile.iOS.ApplicationServices.Callbacks
+namespace PrankChat.Mobile.iOS.Services.Callbacks
 {
     public class VkontakteDelegate : NSObject, IVKSdkDelegate, IVKSdkUIDelegate
     {

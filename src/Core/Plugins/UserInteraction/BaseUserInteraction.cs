@@ -12,15 +12,15 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PrankChat.Mobile.Core.Services.Dialogs
+namespace PrankChat.Mobile.Core.Plugins.UserInteraction
 {
-    public abstract class BaseDialogService : IDialogService
+    public abstract class BaseUserInteraction : IUserInteraction
     {
         private readonly INavigationManager _navigationManager;
 
         public abstract bool IsToastShown { get; protected set; }
 
-        protected BaseDialogService(INavigationManager navigationManager)
+        protected BaseUserInteraction(INavigationManager navigationManager)
         {
             _navigationManager = navigationManager;
         }

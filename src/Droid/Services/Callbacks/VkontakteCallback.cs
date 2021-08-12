@@ -3,7 +3,7 @@ using Android.App;
 using Android.Content;
 using VKontakte;
 
-namespace PrankChat.Mobile.Droid.ApplicationServices.Callback
+namespace PrankChat.Mobile.Droid.Services.Callback
 {
     public class VkontakteCallback
     {

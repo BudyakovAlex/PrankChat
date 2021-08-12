@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -89,7 +89,6 @@
     <Folder Include="Presentation\ViewModels\Common\Abstract\" />
     <Folder Include="Data\Models\Configurations\" />
     <Folder Include="Providers\Configuration\" />
-    <Folder Include="Plugins\" />
     <Folder Include="Plugins\Video\" />
     <Folder Include="Presentation\ViewModels\Order\Items\Abstract\" />
     <Folder Include="Providers\Platform\" />
