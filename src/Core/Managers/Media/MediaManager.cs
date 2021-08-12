@@ -1,6 +1,7 @@
 ﻿using Plugin.Media;
 using Plugin.Media.Abstractions;
 using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Services.Dialogs;
 using PrankChat.Mobile.Core.Services.Permissions;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace PrankChat.Mobile.Core.Managers.Media
             var result = await _permissionService.RequestPermissionAsync<Xamarin.Essentials.Permissions.StorageRead>();
             if (!result)
             {
-                _dialogService.ShowAlertAsync("Разрешите приложению использовать хранилище.").FireAndForget();
+                _dialogService.ShowAlertAsync(Resources.Allow_Storage).FireAndForget();
                 return null;
             }
 
@@ -39,7 +40,7 @@ namespace PrankChat.Mobile.Core.Managers.Media
             var result = await _permissionService.RequestPermissionAsync<Xamarin.Essentials.Permissions.Camera>();
             if (!result)
             {
-                _dialogService.ShowAlertAsync("Разрешите приложению использовать камеру.").FireAndForget();
+                _dialogService.ShowAlertAsync(Resources.Allow_Camera).FireAndForget();
                 return null;
             }
 
@@ -60,7 +61,7 @@ namespace PrankChat.Mobile.Core.Managers.Media
                 var result = await _permissionService.RequestPermissionAsync<Xamarin.Essentials.Permissions.StorageRead>();
                 if (!result)
                 {
-                    _dialogService.ShowAlertAsync("Разрешите приложению использовать хранилище.").FireAndForget();
+                    _dialogService.ShowAlertAsync(Resources.Allow_Storage).FireAndForget();
                     return null;
                 }
 
