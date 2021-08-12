@@ -2,7 +2,7 @@
 using Facebook.LoginKit;
 using Foundation;
 
-namespace PrankChat.Mobile.iOS.ApplicationServices.Callbacks
+namespace PrankChat.Mobile.iOS.Services.Callbacks
 {
     public class FacebookCallback
     {

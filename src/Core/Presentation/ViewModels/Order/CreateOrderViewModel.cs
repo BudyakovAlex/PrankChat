@@ -119,7 +119,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             try
             {
-                var canCreate = await DialogService.ShowConfirmAsync(Resources.Order_Create_Message, Resources.Attention, Resources.Order_Add, Resources.Cancel);
+                var canCreate = await UserInteraction.ShowConfirmAsync(Resources.Order_Create_Message, Resources.Attention, Resources.Order_Add, Resources.Cancel);
                 if (!canCreate)
                 {
                     return;
@@ -173,12 +173,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return;
             }
 
-            await DialogService.ShowAlertAsync(Resources.Error_Unexpected_Server);
+            await UserInteraction.ShowAlertAsync(Resources.Error_Unexpected_Server);
         }
 
         private async Task HandleLowBalanceExceptionAsync(Exception exception)
         {
-            var canRefil = await DialogService.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.ProfileView_Refill, Resources.Cancel);
+            var canRefil = await UserInteraction.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.ProfileView_Refill, Resources.Cancel);
             if (!canRefil)
             {
                 return;
@@ -190,7 +190,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task HandleUnauthorizedAsync(Exception exception)
         {
-            var canGoProfile = await DialogService.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.Ok, Resources.Cancel);
+            var canGoProfile = await UserInteraction.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.Ok, Resources.Cancel);
             if (!canGoProfile)
             {
                 return;
@@ -203,7 +203,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             var periods = _environmentConfigurationProvider.Periods;
             var titles = periods.Select(period => period.Title).ToList();
-            var result = await DialogService.ShowArrayDialogAsync(titles, Resources.CreateOrderView_Choose_Time_Period);
+            var result = await UserInteraction.ShowArrayDialogAsync(titles, Resources.CreateOrderView_Choose_Time_Period);
             if (!string.IsNullOrWhiteSpace(result))
             {
                 ActiveFor = periods.FirstOrDefault(p => p.Title == result);

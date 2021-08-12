@@ -106,7 +106,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             //Resources.ProfileView_Menu_LogOut,
             //};
 
-            //var result = await DialogService.ShowMenuDialogAsync(items, Resources.Cancel);
+            //var result = await UserInteraction.ShowMenuDialogAsync(items, Resources.Cancel);
             //if (string.IsNullOrWhiteSpace(result))
             //    return;
 
@@ -130,7 +130,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             //    await LogoutUserAsync();
             //}
 
-            var canLogout = await DialogService.ShowConfirmAsync($"{Resources.ProfileView_Menu_LogOut}?");
+            var canLogout = await UserInteraction.ShowConfirmAsync($"{Resources.ProfileView_Menu_LogOut}?");
             if (canLogout)
             {
                 await LogoutUserAsync();
@@ -179,7 +179,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
 
         private async Task ChangeProfilePhotoAsync()
         {
-            var result = await DialogService.ShowMenuDialogAsync(new string[]
+            var result = await UserInteraction.ShowMenuDialogAsync(new string[]
             {
                 Resources.TakePhoto,
                 Resources.PickPhoto,

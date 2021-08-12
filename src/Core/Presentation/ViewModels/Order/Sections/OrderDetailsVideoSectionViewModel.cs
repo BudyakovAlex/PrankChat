@@ -136,7 +136,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
                                                            _cancellationTokenSource.Token);
             if (video == null && (!_cancellationTokenSource?.IsCancellationRequested ?? true))
             {
-                DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
+                UserInteraction.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
                 _cancellationTokenSource = null;
                 IsUploading = false;
                 return;
@@ -148,7 +148,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
             var refreshTask = RefreshDataFunc?.Invoke() ?? Task.CompletedTask;
             await refreshTask;
 
-            DialogService.ShowToast(Resources.OrderDetailsView_Video_Uploaded, ToastType.Positive);
+            UserInteraction.ShowToast(Resources.OrderDetailsView_Video_Uploaded, ToastType.Positive);
             await RaiseAllPropertiesChanged();
 
             if (Order is null)

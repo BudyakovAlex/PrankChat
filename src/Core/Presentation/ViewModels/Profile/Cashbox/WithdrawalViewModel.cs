@@ -229,7 +229,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         private async Task OpenCardOptionsAsync()
         {
-            var result = await DialogService.ShowMenuDialogAsync(new string[] { Resources.WithdrawalView_Delete_Card_Text }, Resources.Close);
+            var result = await UserInteraction.ShowMenuDialogAsync(new string[] { Resources.WithdrawalView_Delete_Card_Text }, Resources.Close);
             if (result == Resources.WithdrawalView_Delete_Card_Text)
             {
                 await DeleteCardAsync();
@@ -257,7 +257,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
             try
             {
-                var isConfirmed = await DialogService.ShowConfirmAsync(Resources.WithdrawalView_Delete_Card_Question, Resources.Attention, Resources.Delete, Resources.Cancel);
+                var isConfirmed = await UserInteraction.ShowConfirmAsync(Resources.WithdrawalView_Delete_Card_Question, Resources.Attention, Resources.Delete, Resources.Cancel);
                 if (!isConfirmed)
                 {
                     return;

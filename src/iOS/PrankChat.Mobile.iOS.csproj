@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -249,17 +249,17 @@
       <DependentUpon>FullScreenVideoView.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\FloatPlaceholderTextField.cs" />
-    <Compile Include="ApplicationServices\DialogService.cs" />
+    <Compile Include="Plugins\UserInteraction\UserInteraction.cs" />
     <InterfaceDefinition Include="Controls\ToastView.xib" />
     <Compile Include="Controls\ToastView.cs" />
     <Compile Include="Controls\ToastView.designer.cs">
       <DependentUpon>ToastView.cs</DependentUpon>
     </Compile>
-    <Compile Include="ApplicationServices\ExternalAuth\ExternalAuthService.cs" />
-    <Compile Include="ApplicationServices\Callbacks\VkontakteDelegate.cs" />
+    <Compile Include="Services\ExternalAuth\ExternalAuthService.cs" />
+    <Compile Include="Services\Callbacks\VkontakteDelegate.cs" />
     <Compile Include="Presentation\Binding\UIImageViewOrderTypeTargetBinding.cs" />
     <Compile Include="Presentation\Binding\UIButtonOrderTypeTargetBinding.cs" />
-    <Compile Include="ApplicationServices\Callbacks\FacebookCallback.cs" />
+    <Compile Include="Services\Callbacks\FacebookCallback.cs" />
     <Compile Include="Utils\Helpers\DeviceHelper.cs" />
     <InterfaceDefinition Include="Presentation\Views\ProfileView\ProfileView.xib" />
     <Compile Include="Presentation\Views\ProfileView\ProfileView.cs" />
@@ -382,8 +382,8 @@
     <Compile Include="Presentation\Views\ProfileView\UserProfileView.designer.cs">
       <DependentUpon>UserProfileView.cs</DependentUpon>
     </Compile>
-    <Compile Include="ApplicationServices\ExternalAuth\AppleSignIn\IAppleSignInService.cs" />
-    <Compile Include="ApplicationServices\ExternalAuth\AppleSignIn\AppleSignInService.cs" />
+    <Compile Include="Services\ExternalAuth\AppleSignIn\IAppleSignInService.cs" />
+    <Compile Include="Services\ExternalAuth\AppleSignIn\AppleSignInService.cs" />
     <Compile Include="Presentation\Views\Base\IScrollableView.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\Search\SearchTableSource.cs" />
     <Compile Include="Presentation\SourcesAndDelegates\Search\OrdersSearchTableSource.cs" />
@@ -1215,97 +1215,64 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
-    <Folder Include="Utils\Extensions\" />
-    <Folder Include="Presentation\Dialogs\" />
-    <Folder Include="Presentation\Dialogs\Share\" />
-    <Folder Include="Presentation\Dialogs\ArrayPicker\" />
-    <Folder Include="Assets.xcassets\ic_image_background.imageset\" />
-    <Folder Include="Assets.xcassets\ic_change_profile.imageset\" />
-    <Folder Include="Assets.xcassets\ic_like_active.imageset\" />
-    <Folder Include="Presentation\Binding\" />
-    <Folder Include="Resources\Animations\" />
-    <Folder Include="Assets.xcassets\ic_accent_thumbs_down.imageset\" />
-    <Folder Include="Assets.xcassets\ic_accent_thumbs_up.imageset\" />
-    <Folder Include="Presentation\Views\Web\" />
-    <Folder Include="Presentation\Views\Video\" />
-    <Folder Include="Assets.xcassets\ic_play.imageset\" />
-    <Folder Include="Assets.xcassets\ic_pause.imageset\" />
-    <Folder Include="Assets.xcassets\ic_mute.imageset\" />
-    <Folder Include="ApplicationServices\" />
-    <Folder Include="ApplicationServices\ExternalAuth\" />
-    <Folder Include="ApplicationServices\Callbacks\" />
-    <Folder Include="Assets.xcassets\bg_order_type_my.imageset\" />
-    <Folder Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\" />
-    <Folder Include="Assets.xcassets\bg_order_type_not_my.imageset\" />
-    <Folder Include="Assets.xcassets\ic_plus.imageset\" />
-    <Folder Include="Assets.xcassets\ic_three_dots.imageset\" />
-    <Folder Include="Assets.xcassets\ic_notification_user.imageset\" />
-    <Folder Include="Presentation\Views\ProfileView\ImageCrop\" />
-    <Folder Include="Assets.xcassets\ic_have_notification.imageset\" />
-    <Folder Include="Presentation\SourcesAndDelegates\" />
-    <Folder Include="Delegates\" />
-    <Folder Include="Presentation\Views\Competition\" />
-    <Folder Include="Assets.xcassets\bg_order_type_completed.imageset\" />
-    <Folder Include="Assets.xcassets\ic_arrow_left_alt.imageset\" />
-    <Folder Include="Assets.xcassets\ic_arrow_right_alt.imageset\" />
-    <Folder Include="Assets.xcassets\dsadad.imageset\" />
-    <Folder Include="Presentation\Dialogs\DatePicker\" />
-    <Folder Include="Assets.xcassets\ic_competitions.imageset\" />
-    <Folder Include="Assets.xcassets\ic_prankcaht_icon.imageset\" />
-    <Folder Include="Assets.xcassets\ic_credit_card.imageset\" />
-    <Folder Include="Assets.xcassets\ic_arrow_dropdown.imageset\" />
-    <Folder Include="PlatformBusinessServices\Notifications\" />
-    <Folder Include="Assets.xcassets\ic_warning.imageset\" />
-    <Folder Include="Presentation\Views\Onboarding\" />
-    <Folder Include="Assets.xcassets\bg_onboarding_item.imageset\" />
+    <Folder Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\" />
     <Folder Include="Assets.xcassets\bg_onboarding_first_slide.imageset\" />
+    <Folder Include="Assets.xcassets\bg_onboarding_fourth_slide.imageset\" />
+    <Folder Include="Assets.xcassets\bg_onboarding_item.imageset\" />
     <Folder Include="Assets.xcassets\bg_onboarding_second_slide.imageset\" />
     <Folder Include="Assets.xcassets\bg_onboarding_third_slide.imageset\" />
-    <Folder Include="Assets.xcassets\bg_onboarding_fourth_slide.imageset\" />
-    <Folder Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\" />
+    <Folder Include="Assets.xcassets\bg_order_type_completed.imageset\" />
+    <Folder Include="Assets.xcassets\bg_order_type_my.imageset\" />
     <Folder Include="Assets.xcassets\bg_order_type_my_completed.imageset\" />
+    <Folder Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\" />
+    <Folder Include="Assets.xcassets\bg_order_type_not_my.imageset\" />
+    <Folder Include="Assets.xcassets\dsadad.imageset\" />
+    <Folder Include="Assets.xcassets\ic_accent_thumbs_down.imageset\" />
+    <Folder Include="Assets.xcassets\ic_accent_thumbs_up.imageset\" />
+    <Folder Include="Assets.xcassets\ic_apple.imageset\" />
+    <Folder Include="Assets.xcassets\ic_arrow_dropdown.imageset\" />
+    <Folder Include="Assets.xcassets\ic_arrow_left_alt.imageset\" />
+    <Folder Include="Assets.xcassets\ic_arrow_right_alt.imageset\" />
+    <Folder Include="Assets.xcassets\ic_change_profile.imageset\" />
+    <Folder Include="Assets.xcassets\ic_check_mark.imageset\" />
+    <Folder Include="Assets.xcassets\ic_circle_clear.imageset\" />
+    <Folder Include="Assets.xcassets\ic_clear.imageset\" />
+    <Folder Include="Assets.xcassets\ic_comments.imageset\" />
+    <Folder Include="Assets.xcassets\ic_competitions.imageset\" />
+    <Folder Include="Assets.xcassets\ic_competition_cup.imageset\" />
+    <Folder Include="Assets.xcassets\ic_credit_card.imageset\" />
+    <Folder Include="Assets.xcassets\ic_dislike.imageset\" />
+    <Folder Include="Assets.xcassets\ic_dislike_hollow.imageset\" />
     <Folder Include="Assets.xcassets\ic_fullscreen.imageset\" />
-    <Folder Include="Assets.xcassets\OrderTagTypeNewNotMine.imageset\" />
+    <Folder Include="Assets.xcassets\ic_have_notification.imageset\" />
+    <Folder Include="Assets.xcassets\ic_image_background.imageset\" />
+    <Folder Include="Assets.xcassets\ic_info.imageset\" />
+    <Folder Include="Assets.xcassets\ic_like.imageset\" />
+    <Folder Include="Assets.xcassets\ic_like_active.imageset\" />
+    <Folder Include="Assets.xcassets\ic_like_hollow.imageset\" />
+    <Folder Include="Assets.xcassets\ic_logout.imageset\" />
+    <Folder Include="Assets.xcassets\ic_maintanance.imageset\" />
+    <Folder Include="Assets.xcassets\ic_mute.imageset\" />
+    <Folder Include="Assets.xcassets\ic_notification_user.imageset\" />
+    <Folder Include="Assets.xcassets\ic_notification_with_bage.imageset\" />
+    <Folder Include="Assets.xcassets\ic_order_hidden.imageset\" />
+    <Folder Include="Assets.xcassets\ic_order_paid.imageset\" />
+    <Folder Include="Assets.xcassets\ic_pause.imageset\" />
+    <Folder Include="Assets.xcassets\ic_play.imageset\" />
+    <Folder Include="Assets.xcassets\ic_plus.imageset\" />
+    <Folder Include="Assets.xcassets\ic_prankcaht_icon.imageset\" />
+    <Folder Include="Assets.xcassets\ic_three_dots.imageset\" />
+    <Folder Include="Assets.xcassets\ic_warning.imageset\" />
+    <Folder Include="Assets.xcassets\ic_yoomoney_account.imageset\" />
     <Folder Include="Assets.xcassets\OrderTagTypeDone.imageset\" />
     <Folder Include="Assets.xcassets\OrderTagTypeFinished.imageset\" />
     <Folder Include="Assets.xcassets\OrderTagTypeInArbitration.imageset\" />
     <Folder Include="Assets.xcassets\OrderTagTypeInModeration.imageset\" />
     <Folder Include="Assets.xcassets\OrderTagTypeInWork.imageset\" />
     <Folder Include="Assets.xcassets\OrderTagTypeNew.imageset\" />
-    <Folder Include="Assets.xcassets\OrderTagTypeFinished.imageset\" />
+    <Folder Include="Assets.xcassets\OrderTagTypeNewNotMine.imageset\" />
     <Folder Include="Assets.xcassets\OrderTagTypeWait.imageset\" />
-    <Folder Include="Presentation\Views\Walthroughs\" />
-    <Folder Include="Assets.xcassets\ic_info.imageset\" />
-    <Folder Include="Assets.xcassets\ic_clear.imageset\" />
-    <Folder Include="Resources\en.lproj\" />
-    <Folder Include="Resources\ru-RU.lproj\" />
-    <Folder Include="Resources\Base.lproj\" />
-    <Folder Include="Assets.xcassets\ic_logout.imageset\" />
-    <Folder Include="Assets.xcassets\ic_comments.imageset\" />
-    <Folder Include="Assets.xcassets\ic_circle_clear.imageset\" />
-    <Folder Include="Assets.xcassets\ic_notification_with_bage.imageset\" />
-    <Folder Include="Presentation\Views\Maintanance\" />
-    <Folder Include="Assets.xcassets\ic_maintanance.imageset\" />
-    <Folder Include="Presentation\Views\Subscriptions\" />
-    <Folder Include="Presentation\Views\Subscriptions\Items\" />
-    <Folder Include="Assets.xcassets\ic_like.imageset\" />
-    <Folder Include="Assets.xcassets\ic_dislike.imageset\" />
-    <Folder Include="Assets.xcassets\ic_like_hollow.imageset\" />
-    <Folder Include="Assets.xcassets\ic_dislike_hollow.imageset\" />
-    <Folder Include="Assets.xcassets\ic_check_mark.imageset\" />
-    <Folder Include="ApplicationServices\ExternalAuth\AppleSignIn\" />
-    <Folder Include="Assets.xcassets\ic_apple.imageset\" />
-    <Folder Include="Assets.xcassets\ic_competition_cup.imageset\" />
-    <Folder Include="Presentation\SourcesAndDelegates\Search\" />
-    <Folder Include="Assets.xcassets\ic_order_hidden.imageset\" />
-    <Folder Include="Assets.xcassets\ic_order_paid.imageset\" />
-    <Folder Include="Plugins\" />
-    <Folder Include="Plugins\Video\" />
-    <Folder Include="Providers\" />
-    <Folder Include="PlatformBusinessServices\FileSystem\" />
-    <Folder Include="Assets.xcassets\ic_yoomoney_account.imageset\" />
-    <Folder Include="Extensions\" />
+    <Folder Include="Utils\Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
