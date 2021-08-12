@@ -209,7 +209,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
 
         private async Task BlockUserAsync()
         {
-            var isComplaintSent = await _usersManager.ComplainUserAsync(UserId, string.Empty, string.Empty);
+            var complaintMessage = $"Complaint to user {UserId}";
+            var isComplaintSent = await _usersManager.ComplainUserAsync(UserId, complaintMessage, complaintMessage);
             if (!isComplaintSent)
             {
                 DialogService.ShowToast(Resources.Error_Something_Went_Wrong_Message, ToastType.Negative);

@@ -508,7 +508,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
 
             var customerId = CustomerSectionViewModel.Order.Customer.Id;
-            var isComplaintSent = await _usersManager.ComplainUserAsync(customerId, string.Empty, string.Empty);
+            var complaintMessage = $"Complaint to user {customerId}";
+            var isComplaintSent = await _usersManager.ComplainUserAsync(customerId, complaintMessage, complaintMessage);
             if (!isComplaintSent)
             {
                 DialogService.ShowToast(Resources.Error_Something_Went_Wrong_Message, ToastType.Negative);
