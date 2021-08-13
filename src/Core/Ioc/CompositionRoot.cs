@@ -75,8 +75,6 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<IUsersService, UsersService>();
             Container.RegisterSingleton<IVideoService, VideoService>();
             Container.RegisterSingleton<IErrorHandleService, ErrorHandleService>();
-            Container.RegisterSingleton<IMediaManager, MediaManager>();
-            Container.RegisterSingleton<IPermissionProvider, PermissionProvider>();
         }
 
         private void RegisterManagers()
@@ -92,6 +90,7 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<IPublicationsManager, PublicationsManager>();
             Container.RegisterSingleton<ISearchManager, SearchManager>();
             Container.RegisterSingleton<IVideoManager, VideoManager>();
+            Container.RegisterSingleton<IMediaManager, MediaManager>();
         }
 
         private void RegisterDependencies()
@@ -106,6 +105,7 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
             Container.RegisterSingleton<IPushNotificationProvider, PushNotificationProvider>();
             Container.RegisterSingleton<IWalkthroughsProvider, WalkthroughsProvider>();
+            Container.RegisterSingleton<IPermissionProvider, PermissionProvider>();
         }
     }
 }
