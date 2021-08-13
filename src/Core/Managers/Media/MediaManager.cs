@@ -15,7 +15,7 @@ namespace PrankChat.Mobile.Core.Managers.Media
 
         private bool _isCrossMediaInitialized;
 
-        public MediaService(IPermissionProvider permissionProvider, IUserInteraction userInteraction)
+        public MediaManager(IPermissionProvider permissionProvider, IUserInteraction userInteraction)
         {
             _permissionProvider = permissionProvider;
             _userInteraction = userInteraction;
