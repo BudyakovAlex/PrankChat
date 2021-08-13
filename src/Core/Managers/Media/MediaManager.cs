@@ -1,8 +1,8 @@
 ﻿using Plugin.Media;
 using Plugin.Media.Abstractions;
 using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.Core.Providers.Permissions;
-using PrankChat.Mobile.Core.Services.Dialogs;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Managers.Media
@@ -11,14 +11,14 @@ namespace PrankChat.Mobile.Core.Managers.Media
     public class MediaManager : IMediaManager
     {
         private readonly IPermissionProvider _permissionProvider;
-        private readonly IDialogService _dialogService;
+        private readonly IUserInteraction _userInteraction;
 
         private bool _isCrossMediaInitialized;
 
-        public MediaService(IPermissionProvider permissionProvider, IDialogService dialogService)
+        public MediaService(IPermissionProvider permissionProvider, IUserInteraction userInteraction)
         {
             _permissionProvider = permissionProvider;
-            _dialogService = dialogService;
+            _userInteraction = userInteraction;
         }
 
         public async Task<MediaFile> PickPhotoAsync()
