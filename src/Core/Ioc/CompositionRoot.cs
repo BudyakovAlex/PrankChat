@@ -28,8 +28,10 @@ using PrankChat.Mobile.Core.Services.Network.Http.Users;
 using PrankChat.Mobile.Core.Services.Network.Http.Video;
 using PrankChat.Mobile.Core.Services.Notifications;
 using PrankChat.Mobile.Core.Services.Permissions;
+using PrankChat.Mobile.Core.Services.Timer;
 using PrankChat.Mobile.Managers.Common;
 using PrankChat.Mobile.Core.Plugins.Timer;
+using PrankChat.Mobile.Core.Providers.Permissions;
 
 namespace PrankChat.Mobile.Core.Ioc
 {
@@ -73,7 +75,7 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<IVideoService, VideoService>();
 
             Container.RegisterSingleton<IErrorHandleService, ErrorHandleService>();
-            Container.RegisterSingleton<IPermissionService, PermissionService>();
+            Container.RegisterSingleton<IPermissionProvider, PermissionProvider>();
             Container.RegisterSingleton<IMediaService, MediaService>();
         }
 

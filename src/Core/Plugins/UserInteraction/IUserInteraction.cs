@@ -4,9 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using PrankChat.Mobile.Core.Models.Enums;
 
-namespace PrankChat.Mobile.Core.Services.Dialogs
+namespace PrankChat.Mobile.Core.Plugins.UserInteraction
 {
-    public interface IDialogService
+    public interface IUserInteraction
     {
         bool IsToastShown { get; }
 

@@ -80,7 +80,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
         public IMvxAsyncCommand ShowCommentsCommand { get; }
 
         //TODO: remove comments when all logic will be ready
-        //public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(() => DialogService.ShowShareDialogAsync(_shareLink));
+        //public MvxAsyncCommand ShareCommand => new MvxAsyncCommand(() => UserInteraction.ShowShareDialogAsync(_shareLink));
 
         public IMvxAsyncCommand ShareCommand { get; }
 
@@ -164,7 +164,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
 
         private async Task OpenSettingAsync()
         {
-            var result = await DialogService.ShowMenuDialogAsync(new string[]
+            var result = await UserInteraction.ShowMenuDialogAsync(new string[]
             {
                 Resources.Publication_Item_Complain,
                 Resources.Block_User,
@@ -192,7 +192,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
             if (result == Resources.Publication_Item_Copy_Link)
             {
                 await Clipboard.SetTextAsync(ShareLink);
-                DialogService.ShowToast(Resources.LinkCopied, ToastType.Positive);
+                UserInteraction.ShowToast(Resources.LinkCopied, ToastType.Positive);
                 return;
             }
 
@@ -230,14 +230,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
 
         private async Task ComplaintAsync()
         {
-            var text = await DialogService.ShowMenuDialogAsync(Constants.ComplaintConstants.CommonCompetitionAims);
+            var text = await UserInteraction.ShowMenuDialogAsync(Constants.ComplaintConstants.CommonCompetitionAims);
             if (string.IsNullOrWhiteSpace(text))
             {
                 return;
             }
 
             await VideoManager.ComplainVideoAsync(VideoId, text, text);
-            DialogService.ShowToast(Resources.Complaint_Complete_Message, ToastType.Positive);
+            UserInteraction.ShowToast(Resources.Complaint_Complete_Message, ToastType.Positive);
             Messenger.Publish(new ReloadPublicationsMessage(this));
         }
 

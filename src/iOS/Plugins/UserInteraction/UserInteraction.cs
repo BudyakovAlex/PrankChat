@@ -5,7 +5,7 @@ using MvvmCross.Base;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Services.Dialogs;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.Core.Services.ErrorHandling;
 using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.Presentation.Dialogs.DatePicker;
@@ -14,9 +14,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace PrankChat.Mobile.iOS.ApplicationServices
+namespace PrankChat.Mobile.iOS.Plugins.UserInteraction
 {
-    public class DialogService : BaseDialogService
+    public class UserInteraction : BaseUserInteraction
     {
         private const double ToastAnimationDuration = 0.5d;
         private const double ToastDuration = 4d;
@@ -27,7 +27,7 @@ namespace PrankChat.Mobile.iOS.ApplicationServices
 
         public override bool IsToastShown { get; protected set; }
 
-        public DialogService(INavigationManager navigationManager, IMvxMainThreadAsyncDispatcher dispatcher)
+        public UserInteraction(INavigationManager navigationManager, IMvxMainThreadAsyncDispatcher dispatcher)
             : base(navigationManager)
         {
             _dispatcher = dispatcher;

@@ -200,7 +200,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private async Task OpenOrderFilterAsync()
         {
             var parameters = _orderFilterTypeTitleMap.Values.ToArray();
-            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parameters, Resources.Cancel);
+            var selectedFilterName = await UserInteraction.ShowMenuDialogAsync(parameters, Resources.Cancel);
             if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
             {
                 return;
@@ -276,7 +276,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private async Task OpenArbitrationFilterAsync()
         {
             var parameters = _arbitrationOrderFilterTypeTitleMap.Values.ToArray();
-            var selectedFilterName = await DialogService.ShowMenuDialogAsync(parameters, Resources.Cancel);
+            var selectedFilterName = await UserInteraction.ShowMenuDialogAsync(parameters, Resources.Cancel);
             if (string.IsNullOrWhiteSpace(selectedFilterName) || selectedFilterName == Resources.Cancel)
             {
                 return;

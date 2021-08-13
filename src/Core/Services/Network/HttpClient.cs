@@ -10,8 +10,8 @@ using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.Core.Providers.UserSession;
-using PrankChat.Mobile.Core.Services.Dialogs;
 using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Services.Network.Http.Authorization;
 using PrankChat.Mobile.Core.Services.Network.JsonSerializers;
@@ -42,7 +42,7 @@ namespace PrankChat.Mobile.Core.Services.Network
         private readonly Version _apiVersion;
         private readonly string _baseAddress;
 
-        private IDialogService _dialogService;
+        private IUserInteraction _userInteraction;
 
         public HttpClient(string baseAddress,
                           string apiVersion,
@@ -60,13 +60,13 @@ namespace PrankChat.Mobile.Core.Services.Network
             _client.Timeout = TimeSpan.FromMinutes(15).Milliseconds;
         }
 
-        private IDialogService DialogService => _dialogService ?? (_dialogService = Mvx.IoCProvider.Resolve<IDialogService>());
+        private IUserInteraction UserInteraction => _userInteraction ?? (_userInteraction = Mvx.IoCProvider.Resolve<IUserInteraction>());
 
         public async Task<IRestResponse> ExecuteRawAsync(string endpoint, Method method, bool includeAccessToken)
         {
             if (!Connectivity.NetworkAccess.HasConnection())
             {
-                DialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                UserInteraction.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
                 return null;
             }
 
@@ -304,7 +304,7 @@ namespace PrankChat.Mobile.Core.Services.Network
         {
             if (!Connectivity.NetworkAccess.HasConnection())
             {
-                DialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                UserInteraction.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
                 return default;
             }
 
@@ -318,7 +318,7 @@ namespace PrankChat.Mobile.Core.Services.Network
         {
             if (!Connectivity.NetworkAccess.HasConnection())
             {
-                DialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                UserInteraction.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
                 return Task.CompletedTask;
             }
 
@@ -332,7 +332,7 @@ namespace PrankChat.Mobile.Core.Services.Network
             {
                 if (!Connectivity.NetworkAccess.HasConnection())
                 {
-                    DialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                    UserInteraction.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
                     return;
                 }
 
@@ -362,7 +362,7 @@ namespace PrankChat.Mobile.Core.Services.Network
             {
                 if (!Connectivity.NetworkAccess.HasConnection())
                 {
-                    DialogService.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                    UserInteraction.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
                     return default;
                 }
 

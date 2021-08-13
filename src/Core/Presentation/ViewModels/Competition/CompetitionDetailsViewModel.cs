@@ -169,7 +169,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
         private async Task CompetitionJoinAsync()
         {
             var paymentMessage = string.Format(Resources.Competion_Rules_Template, _competition.EntryTax);
-            var isConfirmed = await DialogService.ShowConfirmAsync(paymentMessage, ok: Resources.Pay, cancel: Resources.Cancel);
+            var isConfirmed = await UserInteraction.ShowConfirmAsync(paymentMessage, ok: Resources.Pay, cancel: Resources.Cancel);
             if (!isConfirmed)
             {
                 return;
@@ -215,7 +215,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         private async Task HandleLowBalanceExceptionAsync(Exception exception)
         {
-            var canRefil = await DialogService.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.ProfileView_Refill, Resources.Cancel);
+            var canRefil = await UserInteraction.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.ProfileView_Refill, Resources.Cancel);
             if (!canRefil)
             {
                 return;
@@ -291,7 +291,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
                 if (video == null && (!_cancellationTokenSource?.IsCancellationRequested ?? true))
                 {
-                    DialogService.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
+                    UserInteraction.ShowToast(Resources.Video_Failed_To_Upload, ToastType.Negative);
                     _cancellationTokenSource = null;
                     IsUploading = false;
                     return;

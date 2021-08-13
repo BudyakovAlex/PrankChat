@@ -6,7 +6,7 @@ using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
-using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn;
+using PrankChat.Mobile.iOS.Services.ExternalAuth.AppleSignIn;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using System;
