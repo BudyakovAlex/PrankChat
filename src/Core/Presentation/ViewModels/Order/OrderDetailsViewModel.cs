@@ -1,4 +1,7 @@
-﻿using MvvmCross;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Common;
@@ -8,6 +11,7 @@ using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Orders;
+using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
@@ -20,9 +24,6 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Results;
 using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Services.Timer;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
@@ -30,15 +31,17 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
     public class OrderDetailsViewModel : BasePageViewModel<OrderDetailsNavigationParameter>
     {
         private readonly IOrdersManager _ordersManager;
+        private readonly IUsersManager _usersManager;
 
         private int _orderId;
         private int _timerThicksCount;
 
         private readonly BaseOrderDetailsSectionViewModel[] _sections;
 
-        public OrderDetailsViewModel(IOrdersManager ordersManager)
+        public OrderDetailsViewModel(IOrdersManager ordersManager, IUsersManager usersManager)
         {
             _ordersManager = ordersManager;
+            _usersManager = usersManager;
 
             TakeOrderCommand = this.CreateCommand(TakeOrderAsync);
             SubscribeOrderCommand = this.CreateCommand(SubscribeOrderAsync);
@@ -164,7 +167,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             return Task.WhenAll(base.InitializeAsync(), LoadOrderDetailsAsync());
         }
 
-        private new async void OnTimerTick(TimerTickMessage msg)
+        private async void OnTimerTick(TimerTickMessage msg)
         {
             _timerThicksCount++;
             if (_timerThicksCount >= 5)
@@ -453,9 +456,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             var result = await UserInteraction.ShowMenuDialogAsync(new[]
             {
-                Resources.Publication_Item_Complain
+                Resources.Publication_Item_Complain,
+                Resources.Block_User,
                 // TODO: uncomment this when functionality will be available
-                //Resources.Publication_Item_Copy_Link
             });
 
             if (string.IsNullOrWhiteSpace(result))
@@ -483,12 +486,41 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return;
             }
 
+            if (result == Resources.Block_User)
+            {
+                await BlockUserAsync();
+                return;
+            }
+
             if (result == Resources.Publication_Item_Copy_Link)
             {
                 await Clipboard.SetTextAsync(Order?.Video?.ShareUri);
                 UserInteraction.ShowToast(Resources.LinkCopied, ToastType.Positive);
                 return;
             }
+        }
+
+        private async Task BlockUserAsync()
+        {
+            if (CustomerSectionViewModel?.Order?.Customer?.Id is null)
+            {
+                return;
+            }
+
+            var customerId = CustomerSectionViewModel.Order.Customer.Id;
+            var complaintMessage = $"Complaint to user {customerId}";
+            var isComplaintSent = await _usersManager.ComplainUserAsync(customerId, complaintMessage, complaintMessage);
+            if (!isComplaintSent)
+            {
+                DialogService.ShowToast(Resources.Error_Something_Went_Wrong_Message, ToastType.Negative);
+                return;
+            }
+
+            var customerUsername = CustomerSectionViewModel.Order.Customer.Login;
+            DialogService.ShowToast(string.Format(Resources.Blocked_User, customerUsername), ToastType.Positive);
+
+            Messenger.Publish(new OrderChangedMessage(this, Order));
+            return;
         }
 
         private async Task<string> GetComplaintTextAsync()
