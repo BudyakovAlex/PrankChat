@@ -1,6 +1,5 @@
 ﻿using MvvmCross;
 using MvvmCross.IoC;
-using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Services.Network.Http.Payment;
 using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Managers.Common;
@@ -18,21 +17,19 @@ using PrankChat.Mobile.Core.Providers;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Core.Services.ErrorHandling;
-using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Services.Media;
 using PrankChat.Mobile.Core.Services.Network.Http.Authorization;
 using PrankChat.Mobile.Core.Services.Network.Http.Common;
 using PrankChat.Mobile.Core.Services.Network.Http.Competitions;
 using PrankChat.Mobile.Core.Services.Network.Http.Notifications;
-using PrankChat.Mobile.Core.Services.Network.Http.Payment;
 using PrankChat.Mobile.Core.Services.Network.Http.Publications;
 using PrankChat.Mobile.Core.Services.Network.Http.Search;
 using PrankChat.Mobile.Core.Services.Network.Http.Users;
 using PrankChat.Mobile.Core.Services.Network.Http.Video;
 using PrankChat.Mobile.Core.Services.Notifications;
 using PrankChat.Mobile.Core.Services.Permissions;
-using PrankChat.Mobile.Core.Services.Timer;
 using PrankChat.Mobile.Managers.Common;
+using PrankChat.Mobile.Core.Plugins.Timer;
 
 namespace PrankChat.Mobile.Core.Ioc
 {
@@ -64,8 +61,6 @@ namespace PrankChat.Mobile.Core.Ioc
 
         private void RegisterServices()
         {
-            //Container.RegisterSingleton<ITimerService>(new TimerService(Container.Resolve<IMvxMessenger>()));
-
             Container.RegisterSingleton<IAuthorizationService, AuthorizationService>();
             Container.RegisterSingleton<IVersionService, VersionService>();
             Container.RegisterSingleton<ICompetitionsService, CompetitionsService>();
@@ -100,6 +95,7 @@ namespace PrankChat.Mobile.Core.Ioc
         private void RegisterDependencies()
         {
             Container.RegisterSingleton(Container.IocConstruct<NotificationBadgeViewModel>());
+            Container.RegisterSingleton<ISystemTimer, SystemTimer>();
         }
 
         private void RegisterProviders()

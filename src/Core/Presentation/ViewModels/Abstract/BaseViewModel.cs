@@ -3,8 +3,10 @@ using MvvmCross;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Ioc;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Navigation;
+using PrankChat.Mobile.Core.Plugins.Timer;
 using PrankChat.Mobile.Core.Services.Dialogs;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
@@ -30,6 +32,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
             SafeExecutionWrapper = new SafeExecutionWrapper(OnExceptionHandledAsync);
         }
 
+        public ISystemTimer SystemTimer => CompositionRoot.Container.Resolve<ISystemTimer>();
         public CompositeDisposable Disposables { get; }
 
         private ExecutionStateWrapper _executionStateWrapper;

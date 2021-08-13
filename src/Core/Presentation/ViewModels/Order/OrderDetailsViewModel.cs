@@ -14,6 +14,7 @@ using PrankChat.Mobile.Core.Managers.Orders;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Plugins.Timer;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections.Abstract;
@@ -23,7 +24,6 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Results;
 using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.Services.Timer;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
@@ -56,7 +56,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             LoadOrderDetailsCommand = this.CreateCommand(LoadOrderDetailsAsync);
             OpenSettingsCommand = this.CreateCommand(OpenSettingsAsync);
 
-            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
+            SystemTimer.SubscribeToEvent(
+                OnTimerTick,
+                (timer, handler) => timer.TimerElapsed += handler,
+                (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
+
             _sections = new BaseOrderDetailsSectionViewModel[]
             {
                 CustomerSectionViewModel = Mvx.IoCProvider.IoCConstruct<OrderDetailsCustomerSectionViewModel>(),
@@ -167,7 +171,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             return Task.WhenAll(base.InitializeAsync(), LoadOrderDetailsAsync());
         }
 
-        private async void OnTimerTick(TimerTickMessage msg)
+        private async void OnTimerTick(object sender, EventArgs e)
         {
             _timerThicksCount++;
             if (_timerThicksCount >= 5)

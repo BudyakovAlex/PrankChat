@@ -6,6 +6,6 @@ namespace PrankChat.Mobile.Core.Plugins.Timer
     {
         event EventHandler TimerElapsed;
         void Start();
-        public void Stop();
+        void Stop();
     }
 }

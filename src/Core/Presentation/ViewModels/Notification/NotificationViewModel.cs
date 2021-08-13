@@ -9,19 +9,19 @@ using Xamarin.Essentials;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Plugins.Timer;
+using PrankChat.Mobile.Core.Extensions;
+using System;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 {
     public class NotificationViewModel : PaginationViewModel
     {
         private readonly INotificationsManager _notificationsManager;
-        private readonly ISystemTimer _systemTimer;
 
-        public NotificationViewModel(INotificationsManager notificationsManager, ISystemTimer systemTimer) : base(Constants.Pagination.DefaultPaginationSize)
+        public NotificationViewModel(INotificationsManager notificationsManager) : base(Constants.Pagination.DefaultPaginationSize)
         {
             Items = new MvxObservableCollection<NotificationItemViewModel>();
             _notificationsManager = notificationsManager;
-            _systemTimer = systemTimer;
         }
 
         public MvxObservableCollection<NotificationItemViewModel> Items { get; }
@@ -29,7 +29,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
         public override async Task InitializeAsync()
         {
             await LoadMoreItemsCommand.ExecuteAsync();
-            _ = MarkReadedNotificationsAsync();
+            SystemTimer.SubscribeToEvent(
+                MarkReadedNotificationsAsync,
+                (timer, handler) => timer.TimerElapsed += handler,
+                (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
         }
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
@@ -44,17 +47,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
             return new NotificationItemViewModel(UserSessionProvider, notification);
         }
 
-        private async Task MarkReadedNotificationsAsync()
+        private async void MarkReadedNotificationsAsync(object sender, EventArgs e)
         {
-            await Task.Delay(Constants.Delays.MillisecondsDelayBeforeMarkAsReaded);
-            _systemTimer.TimerElapsed += async (o,e) =>
-            {
-                Items.ForEach(item => item.IsDelivered = true);
-                await _notificationsManager.MarkNotificationsAsReadedAsync();
-
-                Messenger.Publish(new RefreshNotificationsMessage(this));
-                MainThread.BeginInvokeOnMainThread(CrossBadge.Current.ClearBadge);
-            };
+            Items.ForEach(item => item.IsDelivered = true);
+            await _notificationsManager.MarkNotificationsAsReadedAsync();
+            Messenger.Publish(new RefreshNotificationsMessage(this));
+            MainThread.BeginInvokeOnMainThread(CrossBadge.Current.ClearBadge);
         }
     }
 }

@@ -27,8 +27,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         private readonly IVersionManager _versionManager;
         private readonly IPushNotificationProvider _notificationService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
-        private readonly ISystemTimer _systemTimer;
-
         private readonly int[] _skipTabIndexesInDemoMode = new[] { 2, 4 };
 
         private readonly IDisposable _refreshTokenExpiredMessageSubscription;
@@ -36,8 +34,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
         public MainViewModel(
             IVersionManager versionManager,
             IPushNotificationProvider notificationService,
-            IWalkthroughsProvider walkthroughsProvider,
-            ISystemTimer systemTimer)
+            IWalkthroughsProvider walkthroughsProvider)
         {
             //NOTE: workaround for instantiate correctly IAuthorizationManager
             CompositionRoot.Container.CallbackWhenRegistered<IAuthorizationManager>((_) => { });
@@ -45,8 +42,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             _versionManager = versionManager;
             _notificationService = notificationService;
             _walkthroughsProvider = walkthroughsProvider;
-            _systemTimer = systemTimer;
-            
             _refreshTokenExpiredMessageSubscription = Messenger.Subscribe<RefreshTokenExpiredMessage>(RefreshTokenExpired, MvxReference.Strong).DisposeWith(Disposables);
 
             LoadContentCommand = this.CreateCommand(LoadContentAsync);
@@ -56,7 +51,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
             ShowWalkthrouthIfNeedCommand = this.CreateCommand<int>(ShowWalthroughIfNeedAsync);
             CheckActualAppVersionCommand = this.CreateCommand(CheckActualAppVersionAsync);
 
-            _systemTimer.Start();
+            SystemTimer.Start();
         }
 
         public ICommand LoadContentCommand { get; }
