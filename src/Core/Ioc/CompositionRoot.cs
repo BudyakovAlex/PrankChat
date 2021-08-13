@@ -18,6 +18,8 @@ using PrankChat.Mobile.Core.Providers;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Core.Services.ErrorHandling;
+using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
+using PrankChat.Mobile.Core.Services.Media;
 using PrankChat.Mobile.Core.Services.Network.Http.Authorization;
 using PrankChat.Mobile.Core.Services.Network.Http.Common;
 using PrankChat.Mobile.Core.Services.Network.Http.Competitions;
@@ -27,10 +29,10 @@ using PrankChat.Mobile.Core.Services.Network.Http.Search;
 using PrankChat.Mobile.Core.Services.Network.Http.Users;
 using PrankChat.Mobile.Core.Services.Network.Http.Video;
 using PrankChat.Mobile.Core.Services.Notifications;
-using PrankChat.Mobile.Core.Services.Permissions;
 using PrankChat.Mobile.Core.Services.Timer;
 using PrankChat.Mobile.Managers.Common;
 using PrankChat.Mobile.Core.Managers.Media;
+using PrankChat.Mobile.Core.Providers.Permissions;
 
 namespace PrankChat.Mobile.Core.Ioc
 {
@@ -74,10 +76,9 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<ISearchService, SearchService>();
             Container.RegisterSingleton<IUsersService, UsersService>();
             Container.RegisterSingleton<IVideoService, VideoService>();
-
             Container.RegisterSingleton<IErrorHandleService, ErrorHandleService>();
-            Container.RegisterSingleton<IPermissionService, PermissionService>();
             Container.RegisterSingleton<IMediaManager, MediaManager>();
+            Container.RegisterSingleton<IPermissionProvider, PermissionProvider>();
         }
 
         private void RegisterManagers()
