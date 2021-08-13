@@ -8,17 +8,20 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Messages;
+using PrankChat.Mobile.Core.Plugins.Timer;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 {
     public class NotificationViewModel : PaginationViewModel
     {
         private readonly INotificationsManager _notificationsManager;
+        private readonly ISystemTimer _systemTimer;
 
-        public NotificationViewModel(INotificationsManager notificationsManager) : base(Constants.Pagination.DefaultPaginationSize)
+        public NotificationViewModel(INotificationsManager notificationsManager, ISystemTimer systemTimer) : base(Constants.Pagination.DefaultPaginationSize)
         {
             Items = new MvxObservableCollection<NotificationItemViewModel>();
             _notificationsManager = notificationsManager;
+            _systemTimer = systemTimer;
         }
 
         public MvxObservableCollection<NotificationItemViewModel> Items { get; }
@@ -44,12 +47,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
         private async Task MarkReadedNotificationsAsync()
         {
             await Task.Delay(Constants.Delays.MillisecondsDelayBeforeMarkAsReaded);
+            _systemTimer.TimerElapsed += async (o,e) =>
+            {
+                Items.ForEach(item => item.IsDelivered = true);
+                await _notificationsManager.MarkNotificationsAsReadedAsync();
 
-            Items.ForEach(item => item.IsDelivered = true);
-            await _notificationsManager.MarkNotificationsAsReadedAsync();
-
-            Messenger.Publish(new RefreshNotificationsMessage(this));
-            MainThread.BeginInvokeOnMainThread(CrossBadge.Current.ClearBadge);
+                Messenger.Publish(new RefreshNotificationsMessage(this));
+                MainThread.BeginInvokeOnMainThread(CrossBadge.Current.ClearBadge);
+            };
         }
     }
 }
