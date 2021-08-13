@@ -18,7 +18,6 @@ using PrankChat.Mobile.Core.Providers;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Core.Services.ErrorHandling;
-using PrankChat.Mobile.Core.Services.Media;
 using PrankChat.Mobile.Core.Services.Network.Http.Authorization;
 using PrankChat.Mobile.Core.Services.Network.Http.Common;
 using PrankChat.Mobile.Core.Services.Network.Http.Competitions;
@@ -30,6 +29,7 @@ using PrankChat.Mobile.Core.Services.Network.Http.Video;
 using PrankChat.Mobile.Core.Services.Notifications;
 using PrankChat.Mobile.Core.Services.Timer;
 using PrankChat.Mobile.Managers.Common;
+using PrankChat.Mobile.Core.Managers.Media;
 using PrankChat.Mobile.Core.Providers.Permissions;
 
 namespace PrankChat.Mobile.Core.Ioc
@@ -74,10 +74,7 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<ISearchService, SearchService>();
             Container.RegisterSingleton<IUsersService, UsersService>();
             Container.RegisterSingleton<IVideoService, VideoService>();
-
             Container.RegisterSingleton<IErrorHandleService, ErrorHandleService>();
-            Container.RegisterSingleton<IPermissionProvider, PermissionProvider>();
-            Container.RegisterSingleton<IMediaService, MediaService>();
         }
 
         private void RegisterManagers()
@@ -93,6 +90,7 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<IPublicationsManager, PublicationsManager>();
             Container.RegisterSingleton<ISearchManager, SearchManager>();
             Container.RegisterSingleton<IVideoManager, VideoManager>();
+            Container.RegisterSingleton<IMediaManager, MediaManager>();
         }
 
         private void RegisterDependencies()
@@ -107,6 +105,7 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
             Container.RegisterSingleton<IPushNotificationProvider, PushNotificationProvider>();
             Container.RegisterSingleton<IWalkthroughsProvider, WalkthroughsProvider>();
+            Container.RegisterSingleton<IPermissionProvider, PermissionProvider>();
         }
     }
 }

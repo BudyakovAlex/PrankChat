@@ -1121,4 +1121,10 @@ Apple Inc. не является спонсором проведения кон�
   <data name="Blocked_User" xml:space="preserve">
     <value>Пользователь {0} заблокирован</value>
   </data>
+  <data name="Allow_Storage" xml:space="preserve">
+    <value>Разрешите приложению использовать хранилище.</value>
+  </data>
+  <data name="Allow_Camera" xml:space="preserve">
+    <value>Разрешите приложению использовать камеру.</value>
+  </data>
 </root>

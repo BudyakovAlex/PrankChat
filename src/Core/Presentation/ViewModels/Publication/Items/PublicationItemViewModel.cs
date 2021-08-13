@@ -213,12 +213,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
             var isComplaintSent = await _usersManager.ComplainUserAsync(Video.User.Id, complaintMessage, complaintMessage);
             if (!isComplaintSent)
             {
-                DialogService.ShowToast(Resources.Error_Something_Went_Wrong_Message, ToastType.Negative);
+                UserInteraction.ShowToast(Resources.Error_Something_Went_Wrong_Message, ToastType.Negative);
                 return;
             }
 
             var message = string.Format(Resources.Blocked_User, User.Login);
-            DialogService.ShowToast(message, ToastType.Positive);
+            UserInteraction.ShowToast(message, ToastType.Positive);
             Messenger.Publish(new ReloadPublicationsMessage(this));
         }
 

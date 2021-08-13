@@ -1113,4 +1113,10 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   <data name="Blocked_User" xml:space="preserve">
     <value>User {0} is blocked</value>
   </data>
+  <data name="Allow_Storage" xml:space="preserve">
+    <value>Allow the app to use the storage.</value>
+  </data>
+  <data name="Allow_Camera" xml:space="preserve">
+    <value>Allow the app to use the camera.</value>
+  </data>
 </root>
