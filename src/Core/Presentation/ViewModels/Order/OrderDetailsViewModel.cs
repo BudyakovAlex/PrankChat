@@ -516,12 +516,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             var isComplaintSent = await _usersManager.ComplainUserAsync(customerId, complaintMessage, complaintMessage);
             if (!isComplaintSent)
             {
-                DialogService.ShowToast(Resources.Error_Something_Went_Wrong_Message, ToastType.Negative);
+                UserInteraction.ShowToast(Resources.Error_Something_Went_Wrong_Message, ToastType.Negative);
                 return;
             }
 
             var customerUsername = CustomerSectionViewModel.Order.Customer.Login;
-            DialogService.ShowToast(string.Format(Resources.Blocked_User, customerUsername), ToastType.Positive);
+            UserInteraction.ShowToast(string.Format(Resources.Blocked_User, customerUsername), ToastType.Positive);
 
             Messenger.Publish(new OrderChangedMessage(this, Order));
             return;

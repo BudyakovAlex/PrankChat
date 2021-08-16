@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
+using PrankChat.Mobile.Core.Managers.Media;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -10,7 +11,6 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.Core.Providers.UserSession;
-using PrankChat.Mobile.Core.Services.Media;
 using System;
 using System.Linq;
 using System.Threading;
@@ -22,7 +22,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
     {
         private readonly IVideoManager _videoManager;
         private readonly IUserSessionProvider _userSessionProvider;
-        private readonly IMediaService _mediaService;
+        private readonly IMediaManager _mediaManager;
 
         private CancellationTokenSource _cancellationTokenSource;
         private BaseVideoItemViewModel[] _fullScreenVideos;
@@ -32,11 +32,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
         public OrderDetailsVideoSectionViewModel(
             IVideoManager videoManager,
             IUserSessionProvider userSessionProvider,
-            IMediaService mediaService)
+            IMediaManager mediaManager)
         {
             _userSessionProvider = userSessionProvider;
             _videoManager = videoManager;
-            _mediaService = mediaService;
+            _mediaManager = mediaManager;
 
             CancelUploadingCommand = this.CreateCommand(() => _cancellationTokenSource?.Cancel());
             ShowFullVideoCommand = this.CreateCommand(ShowFullVideoAsync);
@@ -116,7 +116,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
 
         private async Task LoadVideoAsync()
         {
-            var file = await _mediaService.PickVideoAsync();
+            var file = await _mediaManager.PickVideoAsync();
             if (file == null)
             {
                 return;
