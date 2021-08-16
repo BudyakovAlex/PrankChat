@@ -213,7 +213,6 @@
 "Validation_Error_CanNotMatch" = "{0} не может быть равно {1}.";
 "Validation_Error_Invalid" = "{0} имеет неверный формат.";
 "Demo" = "Демо";
-"com.crashlytics.android.build_id" = "e9e6beb9c4284289ac68b9ab76a9ee56";
 "FinishPasswordRecoveryView_GoToFeed_Button" = "Перейти в ленту";
 "FinishPasswordRecoveryView_GoToLogin_Button" = "Войти в аккаунт";
 "com_vk_sdk_AppId" = "7343996";
