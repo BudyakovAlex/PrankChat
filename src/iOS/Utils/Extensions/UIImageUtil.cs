@@ -2,11 +2,11 @@
 using CoreGraphics;
 using UIKit;
 
-namespace PrankChat.Mobile.iOS.Utils.Helpers
+namespace PrankChat.Mobile.iOS.Utils.Extensions
 {
     public static class UIImageUtil
     {
-        public static UIImage ImageWithColor(UIColor color, CGSize size)
+        public static UIImage ImageWithColor(this UIColor color, CGSize size)
         {
             var rect = new CGRect(0, 0, size.Width, size.Height);
             UIGraphics.BeginImageContext(rect.Size);

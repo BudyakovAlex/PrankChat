@@ -131,7 +131,7 @@
     <Compile Include="AppTheme\Styles.cs" />
     <Compile Include="AppTheme\Theme.cs" />
     <Compile Include="Controls\CustomSegmentedControl.cs" />
-    <Compile Include="Utils\Helpers\UIImageUtil.cs" />
+    <Compile Include="Utils\Extensions\UIImageUtil.cs" />
     <InterfaceDefinition Include="Presentation\Views\Search\SearchView.xib" />
     <Compile Include="Presentation\Views\Search\SearchView.cs" />
     <Compile Include="Presentation\Views\Search\SearchView.designer.cs">
@@ -1272,7 +1272,6 @@
     <Folder Include="Assets.xcassets\OrderTagTypeNew.imageset\" />
     <Folder Include="Assets.xcassets\OrderTagTypeNewNotMine.imageset\" />
     <Folder Include="Assets.xcassets\OrderTagTypeWait.imageset\" />
-    <Folder Include="Utils\Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
