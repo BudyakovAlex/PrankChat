@@ -30,7 +30,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
         {
             await LoadMoreItemsCommand.ExecuteAsync();
             SystemTimer.SubscribeToEvent(
-                MarkReadedNotificationsAsync,
+                async (o,e) => await SafeExecutionWrapper.WrapAsync(() =>  MarkReadedNotificationsAsync(o, e)),
                 (timer, handler) => timer.TimerElapsed += handler,
                 (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
         }
@@ -47,7 +47,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
             return new NotificationItemViewModel(UserSessionProvider, notification);
         }
 
-        private async void MarkReadedNotificationsAsync(object sender, EventArgs e)
+        private async Task MarkReadedNotificationsAsync(object sender, EventArgs e)
         {
             Items.ForEach(item => item.IsDelivered = true);
             await _notificationsManager.MarkNotificationsAsReadedAsync();

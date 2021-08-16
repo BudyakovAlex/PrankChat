@@ -32,7 +32,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
             SafeExecutionWrapper = new SafeExecutionWrapper(OnExceptionHandledAsync);
         }
 
-        public ISystemTimer SystemTimer => CompositionRoot.Container.Resolve<ISystemTimer>();
+        public ISystemTimer SystemTimer =>
+            CompositionRoot.Container.Resolve<ISystemTimer>();
+
         public CompositeDisposable Disposables { get; }
 
         private ExecutionStateWrapper _executionStateWrapper;

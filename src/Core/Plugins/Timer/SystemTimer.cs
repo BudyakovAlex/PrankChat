@@ -17,7 +17,6 @@ namespace PrankChat.Mobile.Core.Plugins.Timer
             _timer.Elapsed += OnTimerElapsed;
             _timer.AutoReset = true;
             _timer.Enabled = false;
-            _timer.Enabled = false;
         }
 
         private void OnTimerElapsed(object sender, ElapsedEventArgs e)
@@ -37,6 +36,7 @@ namespace PrankChat.Mobile.Core.Plugins.Timer
 
         public void Dispose()
         {
+            _timer.Elapsed -= OnTimerElapsed;
             _timer.Dispose();
         }
     }

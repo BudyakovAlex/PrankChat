@@ -26,11 +26,10 @@ using PrankChat.Mobile.Core.Services.Network.Http.Search;
 using PrankChat.Mobile.Core.Services.Network.Http.Users;
 using PrankChat.Mobile.Core.Services.Network.Http.Video;
 using PrankChat.Mobile.Core.Services.Notifications;
-using PrankChat.Mobile.Core.Services.Permissions;
-using PrankChat.Mobile.Core.Services.Timer;
 using PrankChat.Mobile.Managers.Common;
 using PrankChat.Mobile.Core.Plugins.Timer;
 using PrankChat.Mobile.Core.Providers.Permissions;
+using PrankChat.Mobile.Core.Managers.Media;
 
 namespace PrankChat.Mobile.Core.Ioc
 {
