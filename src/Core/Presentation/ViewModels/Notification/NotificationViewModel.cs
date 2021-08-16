@@ -22,6 +22,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
         {
             Items = new MvxObservableCollection<NotificationItemViewModel>();
             _notificationsManager = notificationsManager;
+            SystemTimer.SubscribeToEvent(
+                async (o,e) => await SafeExecutionWrapper.WrapAsync(() =>  MarkReadedNotificationsAsync(o, e)),
+                (timer, handler) => timer.TimerElapsed += handler,
+                (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
         }
 
         public MvxObservableCollection<NotificationItemViewModel> Items { get; }
@@ -29,10 +33,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
         public override async Task InitializeAsync()
         {
             await LoadMoreItemsCommand.ExecuteAsync();
-            SystemTimer.SubscribeToEvent(
-                async (o,e) => await SafeExecutionWrapper.WrapAsync(() =>  MarkReadedNotificationsAsync(o, e)),
-                (timer, handler) => timer.TimerElapsed += handler,
-                (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
         }
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
