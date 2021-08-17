@@ -8,6 +8,7 @@ namespace PrankChat.Mobile.Core.Plugins.Timer
     public class SystemTimer : ISystemTimer, IDisposable
     {
         private const int TimerDelayInMilliseconds = 3000;
+
         private System.Timers.Timer _timer;
         public event EventHandler TimerElapsed;
 

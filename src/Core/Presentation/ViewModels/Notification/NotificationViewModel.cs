@@ -8,9 +8,6 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Messages;
-using PrankChat.Mobile.Core.Plugins.Timer;
-using PrankChat.Mobile.Core.Extensions;
-using System;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
 {
@@ -22,10 +19,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
         {
             Items = new MvxObservableCollection<NotificationItemViewModel>();
             _notificationsManager = notificationsManager;
-            SystemTimer.SubscribeToEvent(
-                async (o,e) => await SafeExecutionWrapper.WrapAsync(() =>  MarkReadedNotificationsAsync(o, e)),
-                (timer, handler) => timer.TimerElapsed += handler,
-                (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
         }
 
         public MvxObservableCollection<NotificationItemViewModel> Items { get; }
@@ -33,6 +26,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
         public override async Task InitializeAsync()
         {
             await LoadMoreItemsCommand.ExecuteAsync();
+            _ = MarkReadedNotificationsAsync();
         }
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
@@ -47,10 +41,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Notification
             return new NotificationItemViewModel(UserSessionProvider, notification);
         }
 
-        private async Task MarkReadedNotificationsAsync(object sender, EventArgs e)
+        private async Task MarkReadedNotificationsAsync()
         {
+            await Task.Delay(Constants.Delays.MillisecondsDelayBeforeMarkAsReaded);
+
             Items.ForEach(item => item.IsDelivered = true);
             await _notificationsManager.MarkNotificationsAsReadedAsync();
+
             Messenger.Publish(new RefreshNotificationsMessage(this));
             MainThread.BeginInvokeOnMainThread(CrossBadge.Current.ClearBadge);
         }
