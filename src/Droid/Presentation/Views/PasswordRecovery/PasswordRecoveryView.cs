@@ -42,8 +42,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.PasswordRecovery
             bindingSet.Bind(_textInputEmailEditTextField).For(v => v.Text).To(vm => vm.Email);
             bindingSet.Bind(_materialButtonRegistration).For(v => v.BindClick()).To(vm => vm.RecoverPasswordCommand);
             bindingSet.Bind(_progressBar).For(v => v.BindVisible()).To(vm => vm.IsBusy);
-            bindingSet.Bind(_progressBar).For(v => v.Visibility).To(vm => vm.IsBusy)
-                .WithConversion<MvxVisibilityValueConverter>();
         }
 
         protected override void SetViewProperties(View view)
