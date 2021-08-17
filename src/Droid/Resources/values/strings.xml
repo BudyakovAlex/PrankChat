@@ -218,7 +218,6 @@
     <string name="Validation_Error_CanNotMatch">"{0} не может быть равно {1}."</string>
     <string name="Validation_Error_Invalid">"{0} имеет неверный формат."</string>
     <string name="Demo">"Демо"</string>
-    <string name="com.crashlytics.android.build_id">"e9e6beb9c4284289ac68b9ab76a9ee56"</string>
     <string name="FinishPasswordRecoveryView_GoToFeed_Button">"Перейти в ленту"</string>
     <string name="FinishPasswordRecoveryView_GoToLogin_Button">"Войти в аккаунт"</string>
     <integer name="com_vk_sdk_AppId">7343996</integer>

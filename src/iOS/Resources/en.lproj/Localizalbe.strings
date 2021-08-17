@@ -213,7 +213,6 @@
 "Validation_Error_CanNotMatch" = "{0} cannot be equal to {1}.";
 "Validation_Error_Invalid" = "{0} has the wrong format.";
 "Demo" = "Demo";
-"com.crashlytics.android.build_id" = "e9e6beb9c4284289ac68b9ab76a9ee56";
 "FinishPasswordRecoveryView_GoToFeed_Button" = "Go to feed";
 "FinishPasswordRecoveryView_GoToLogin_Button" = "Login to account";
 "com_vk_sdk_AppId" = "7343996";

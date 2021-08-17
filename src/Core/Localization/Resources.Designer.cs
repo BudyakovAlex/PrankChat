@@ -250,15 +250,6 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на e9e6beb9c4284289ac68b9ab76a9ee56.
-        /// </summary>
-        public static string com_crashlytics_android_build_id {
-            get {
-                return ResourceManager.GetString("com.crashlytics.android.build_id", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на 7343996.
         /// </summary>
         public static string com_vk_sdk_AppId {
