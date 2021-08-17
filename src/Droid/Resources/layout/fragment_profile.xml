@@ -240,11 +240,11 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <mvvmcross.droidx.MvxSwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+  <mvvmcross.droidx.MvxSwipeRefreshLayout
+      android:id="@+id/swipe_refresh_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
             android:id="@+id/profile_publication_recycler_view"
             android:layout_width="match_parent"
