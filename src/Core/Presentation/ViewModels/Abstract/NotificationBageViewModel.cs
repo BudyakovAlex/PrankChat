@@ -62,7 +62,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
             });
         }
 
-        private void OnTimerTick(object sender, EventArgs e)
+        private void OnTimerTick(object _, EventArgs __)
         {
             _timerThicksCount++;
             if (_timerThicksCount >= RefreshAfterSeconds)
