@@ -17,5 +17,10 @@ namespace PrankChat.Mobile.iOS.Utils.Extensions
             UIGraphics.EndImageContext();
             return image;
         }
+
+        public static UIImage ImageWithColor(this UIColor color, float width, float height)
+        {
+            return color.ImageWithColor(new CGSize(width, height));
+        }
     }
 }
