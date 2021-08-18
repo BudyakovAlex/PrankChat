@@ -23,7 +23,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             Competition = competition;
 
             SystemTimer.SubscribeToEvent(
-                (o,e) => OnTimerTick(),
+                OnTimerTick,
                 (timer, handler) => timer.TimerElapsed += handler,
                 (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
 
@@ -103,7 +103,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             Messenger.Publish(new ReloadCompetitionsMessage(this));
         }
 
-        private void OnTimerTick()
+        private void OnTimerTick(object _, EventArgs __)
         {
             RefreshCountDownTimer();
         }

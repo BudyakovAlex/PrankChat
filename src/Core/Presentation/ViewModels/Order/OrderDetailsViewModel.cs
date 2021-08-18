@@ -55,7 +55,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             OpenSettingsCommand = this.CreateCommand(OpenSettingsAsync);
 
             SystemTimer.SubscribeToEvent(
-                (o, e) => OnTimerTick(),
+                async (o, e) => await SafeExecutionWrapper.WrapAsync(HandleTimerTickAsync),
                 (timer, handler) => timer.TimerElapsed += handler,
                 (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
 
@@ -167,11 +167,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         public override Task InitializeAsync()
         {
             return Task.WhenAll(base.InitializeAsync(), LoadOrderDetailsAsync());
-        }
-
-        private void OnTimerTick()
-        {
-            _ = SafeExecutionWrapper.WrapAsync(HandleTimerTickAsync);
         }
 
         private async Task HandleTimerTickAsync()
