@@ -6,7 +6,7 @@ using Plugin.DeviceInfo;
 using PrankChat.Mobile.iOS.Controls;
 using System.Linq;
 using UIKit;
-using PrankChat.Mobile.iOS.Utils.Extensions;
+using PrankChat.Mobile.iOS.Extensions;
 
 namespace PrankChat.Mobile.iOS.AppTheme
 {
@@ -56,7 +56,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
 
                 UIImage imageDivider(UIColor color)
                 {
-                    return color.ImageWithColor(new CGSize(1, segmentedControl.Frame.Height));
+                    return color.ImageWithColor(1, (float)segmentedControl.Frame.Height);
                 }
 
                 // Must set the background image for normal to something (even clear) else the rest won't work.

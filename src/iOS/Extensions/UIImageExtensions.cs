@@ -2,9 +2,9 @@
 using CoreGraphics;
 using UIKit;
 
-namespace PrankChat.Mobile.iOS.Utils.Extensions
+namespace PrankChat.Mobile.iOS.Extensions
 {
-    public static class UIImageUtil
+    public static class UIImageExtensions
     {
         public static UIImage ImageWithColor(this UIColor color, CGSize size)
         {

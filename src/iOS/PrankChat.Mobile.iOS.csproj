@@ -131,7 +131,7 @@
     <Compile Include="AppTheme\Styles.cs" />
     <Compile Include="AppTheme\Theme.cs" />
     <Compile Include="Controls\CustomSegmentedControl.cs" />
-    <Compile Include="Utils\Extensions\UIImageUtil.cs" />
+    <Compile Include="Extensions\UIImageExtensions.cs" />
     <InterfaceDefinition Include="Presentation\Views\Search\SearchView.xib" />
     <Compile Include="Presentation\Views\Search\SearchView.cs" />
     <Compile Include="Presentation\Views\Search\SearchView.designer.cs">
