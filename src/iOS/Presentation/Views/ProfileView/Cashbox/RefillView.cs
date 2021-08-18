@@ -16,7 +16,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
         public MvxCollectionViewSource DataSource { get; private set; }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
             var set = this.CreateBindingSet<RefillView, RefillViewModel>();
 

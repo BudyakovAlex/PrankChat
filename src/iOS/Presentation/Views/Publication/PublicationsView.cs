@@ -29,7 +29,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 
         public UIScrollView ScrollView => tableView;
 
-        protected override void SetupBinding()
+        protected override void Bind()
 		{
 			using var bindingSet = this.CreateBindingSet<PublicationsView, PublicationsViewModel>();
 

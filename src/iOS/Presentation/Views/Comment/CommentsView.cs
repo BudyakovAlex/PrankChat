@@ -44,7 +44,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
             }
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
 		{
             var bindingSet = this.CreateBindingSet<CommentsView, CommentsViewModel>();
 

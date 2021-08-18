@@ -12,14 +12,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
     [MvxModalPresentation(WrapInNavigationController = true)]
 	public partial class PublicationDetailsView : BaseGradientBarView<PublicationDetailsViewModel>
 	{
-		protected override void SetupBinding()
+		protected override void Bind()
 		{
-			var set = this.CreateBindingSet<PublicationDetailsView, PublicationDetailsViewModel>();
+			var setBind = this.CreateBindingSet<PublicationDetailsView, PublicationDetailsViewModel>();
 
-			set.Bind(commentatorNameLabel)
+			setBind.Bind(commentatorNameLabel)
 				.To(vm => vm.CommentatorName);
 
-			set.Bind(commentatorPhotoImageView)
+			setBind.Bind(commentatorPhotoImageView)
 				.For(v => v.ImagePath)
 				.To(vm => vm.CommentatorPhotoUrl)
 				.Mode(MvxBindingMode.OneTime);
@@ -29,16 +29,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			//   .For(v => v.BindTap())
 			//   .To(vm => vm.OpenUserProfileCommand);
 
-			set.Bind(commentLabel)
+			setBind.Bind(commentLabel)
 				.To(vm => vm.NumberOfCommentText)
 				.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(commentView.Tap())
+			setBind.Bind(commentView.Tap())
 				.For(v => v.Command)
 				.To(vm => vm.OpenCommentsCommand)
 				.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(commentDateLabel)
+			setBind.Bind(commentDateLabel)
 				.To(vm => vm.CommentDateText)
 				.Mode(MvxBindingMode.OneTime);
 
@@ -64,7 +64,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			//set.Bind(publicationInfoLabel)
 			//	.To(vm => vm.VideoInformationText);
 
-			set.Bind(videoDescriptionButton)
+			setBind.Bind(videoDescriptionButton)
 				.To(vm => vm.VideoDescription)
 				.Mode(MvxBindingMode.OneTime);
 
@@ -77,7 +77,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			//	.To(vm => vm.VideoName)
 			//	.Mode(MvxBindingMode.OneTime);
 
-			set.Apply();
+			setBind.Apply();
 		}
 
 		protected override void SetupControls()

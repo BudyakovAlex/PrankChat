@@ -15,9 +15,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             Title = Resources.Competition_Rules;
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            base.SetupBinding();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<CompetitionRulesView, CompetitionRulesViewModel>();
 

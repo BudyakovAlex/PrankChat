@@ -10,7 +10,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
     [MvxModalPresentation(WrapInNavigationController = false)]
     public partial class RegistrationThirdStepView : BaseTransparentBarView<RegistrationThirdStepViewModel>
     {
-		protected override void SetupBinding()
+		protected override void Bind()
 		{
 			var set = this.CreateBindingSet<RegistrationThirdStepView, RegistrationThirdStepViewModel>();
 			set.Bind(finishRegistrationButton).To(vm => vm.FinishRegistrationCommand);

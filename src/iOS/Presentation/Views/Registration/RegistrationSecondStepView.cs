@@ -18,7 +18,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
     {
         public override bool CanHandleKeyboardNotifications => true;
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
             using var bindingSet = this.CreateBindingSet<RegistrationSecondStepView, RegistrationSecondStepViewModel>();
 

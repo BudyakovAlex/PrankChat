@@ -18,7 +18,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Walthroughs
             descriptionLabel.SetRegularStyle(16, Theme.Color.White);
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
             var bindingSet = this.CreateBindingSet<WalthroughView, WalthroughViewModel>();
 

@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
     [MvxModalPresentation(WrapInNavigationController = true)]
     public partial class RegistrationView : BaseTransparentBarView<RegistrationViewModel>
     {
-		protected override void SetupBinding()
+		protected override void Bind()
 		{
 			var set = this.CreateBindingSet<RegistrationView, RegistrationViewModel>();
 

@@ -470,8 +470,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@id/action_bar"
-		android:background="@color/applicationTransparent"
-		app:MvxBind="Visibility Visibility(VideoSectionViewModel.IsBusy)">
+		android:background="@color/applicationTransparent">
 
 		<com.airbnb.lottie.LottieAnimationView
 			android:id="@+id/animation_view"

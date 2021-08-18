@@ -20,9 +20,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Maintanance
             titleLabel.Text = Resources.Application_New_Version_Ready;
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            base.SetupBinding();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<MaintananceView, MaintananceViewModel>();
 

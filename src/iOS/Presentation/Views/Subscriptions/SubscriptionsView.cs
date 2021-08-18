@@ -41,9 +41,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Subscriptions
             InitializeTableView();
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            base.SetupBinding();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<SubscriptionsView, SubscriptionsViewModel>();
 

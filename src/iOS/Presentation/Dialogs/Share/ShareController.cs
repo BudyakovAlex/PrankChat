@@ -9,7 +9,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.Share
 {
     public partial class ShareController : BaseDialog<ShareDialogViewModel>
     {
-        protected override void SetupBinding()
+        protected override void Bind()
         {
             var set = this.CreateBindingSet<ShareController, ShareDialogViewModel>();
 

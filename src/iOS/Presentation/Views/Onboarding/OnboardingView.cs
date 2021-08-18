@@ -86,9 +86,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
             actionButton.SetDarkStyle(string.Empty);
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            base.SetupBinding();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<OnboardingView, OnboardingViewModel>();
 

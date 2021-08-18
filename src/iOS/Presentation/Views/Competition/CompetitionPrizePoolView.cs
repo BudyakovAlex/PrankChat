@@ -39,9 +39,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             tableView.RefreshControl = _refreshControl;
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            base.SetupBinding();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<CompetitionPrizePoolView, CompetitionPrizePoolViewModel>();
 

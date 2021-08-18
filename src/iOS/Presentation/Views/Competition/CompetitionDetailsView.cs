@@ -41,9 +41,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             uploadingProgressBar.Progress = 0f;
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            base.SetupBinding();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<CompetitionDetailsView, CompetitionDetailsViewModel>();
 

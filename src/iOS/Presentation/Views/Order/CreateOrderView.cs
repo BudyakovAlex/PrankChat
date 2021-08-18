@@ -59,7 +59,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             UIView.Animate(0.5, () => View.LayoutIfNeeded());
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
 		{
 			var set = this.CreateBindingSet<CreateOrderView, CreateOrderViewModel>();
 

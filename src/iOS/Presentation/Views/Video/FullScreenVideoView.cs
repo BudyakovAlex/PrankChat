@@ -175,9 +175,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             });
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            base.SetupBinding();
+            base.Bind();
 
             var bindingSet = this.CreateBindingSet<FullScreenVideoView, FullScreenVideoViewModel>();
 

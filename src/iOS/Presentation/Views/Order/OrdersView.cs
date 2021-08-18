@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         public UIScrollView ScrollView => tableView;
 
-        protected override void SetupBinding()
+        protected override void Bind()
 		{
 			var bindingSet = this.CreateBindingSet<OrdersView, OrdersViewModel>();
 

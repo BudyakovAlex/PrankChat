@@ -57,7 +57,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             tableView.SetContentOffset(new CGPoint(0, -topOffset), false);
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
             var bindingSet = this.CreateBindingSet<ProfileView, ProfileViewModel>();
 

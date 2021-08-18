@@ -18,7 +18,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
         private MvxUIRefreshControl _refreshControl;
         private NotificationTableSource _notificationTableSource;
 
-        protected override void SetupBinding()
+        protected override void Bind()
 		{
 			var bindingSet = this.CreateBindingSet<NotificationView, NotificationViewModel>();
 

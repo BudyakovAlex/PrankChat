@@ -23,7 +23,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
         private ASAuthorizationAppleIdButton _appleIdButton;
         private UITapGestureRecognizer _appleButtonTapGesture;
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
             using var bindingSet = CreateBindingSet();
 

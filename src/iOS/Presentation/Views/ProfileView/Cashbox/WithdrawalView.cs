@@ -17,7 +17,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
         private MvxUIRefreshControl _refreshControl;
         private NSRange _yoomoneyRange;
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
             using var bindingSet = this.CreateBindingSet<WithdrawalView, WithdrawalViewModel>();
 

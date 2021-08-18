@@ -9,7 +9,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.ArrayPicker
     {
         private MvxPickerViewModel _pickerViewModel;
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
             var set = this.CreateBindingSet<ArrayPickerController, ArrayDialogViewModel>();
 
