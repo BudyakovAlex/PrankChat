@@ -31,8 +31,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         private TextView _uploadedTextView;
         private View _uploadingInfoContainer;
         private TextView _orderDescriptionTextView;
-
-        //sdfsdfsdf
         private MaterialButton _materialButtonTakeOrder;
         private MaterialButton _materialButtonSubribe;
         private MaterialButton _materialButtonUnsubcribe;
@@ -88,7 +86,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             _uploadingInfoContainer = FindViewById<View>(Resource.Id.uploading_info_container);
             _orderDescriptionTextView = FindViewById<TextView>(Resource.Id.order_descroption_text_view);
             _uploadingInfoContainer.SetRoundedCorners(DisplayUtils.DpToPx(30) / 2);
-            //sdfdsffsd
             _materialButtonTakeOrder = FindViewById<MaterialButton>(Resource.Id.take_order_button);
             _materialButtonSubribe = FindViewById<MaterialButton>(Resource.Id.subscribe_material_button);
             _materialButtonUnsubcribe = FindViewById<MaterialButton>(Resource.Id.unsubscribe_button);
@@ -155,8 +152,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
                       .For(v => v.TextAlignment)
                       .To(vm => vm.IsHiddenOrder)
                       .WithConversion(new BoolToStateConverter<TextAlignment>(TextAlignment.TextStart, TextAlignment.Center));
-
-            //askdjasdk
             bindingSet.Bind(_materialButtonTakeOrder)
                       .For(v => v.BindClick())
                       .To(vm => vm.TakeOrderCommand);
@@ -316,7 +311,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             bindingSet.Bind(_textViewTimeMinutes)
                       .For(v => v.Text)
                       .To(vm => vm.TimeMinutesValue);
-
 
             bindingSet.Apply();
         }
