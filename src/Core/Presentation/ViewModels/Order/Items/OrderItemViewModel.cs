@@ -36,10 +36,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             _userSessionProvider = userSessionProvider;
             _order = order;
 
-            OnTimerTick(null, EventArgs.Empty);
+            OnTimerTick();
 
             SystemTimer.SubscribeToEvent(
-                OnTimerTick,
+                HandleTimerTickAsync,
                 (timer, handler) => timer.TimerElapsed += handler,
                 (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
 
@@ -95,7 +95,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public bool IsHiddenOrder => _order?.OrderCategory == OrderCategory.Private;
 
-        private void OnTimerTick(object _, EventArgs __)
+        private void HandleTimerTickAsync(object _, EventArgs __)
+        {
+            OnTimerTick();
+        }
+
+        private void OnTimerTick()
         {
             ElapsedTime = _order.ActiveTo is null
                 ? TimeSpan.FromHours(_order.DurationInHours)

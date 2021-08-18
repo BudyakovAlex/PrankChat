@@ -55,7 +55,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             OpenSettingsCommand = this.CreateCommand(OpenSettingsAsync);
 
             SystemTimer.SubscribeToEvent(
-                async (o, e) => await SafeExecutionWrapper.WrapAsync(HandleTimerTickAsync),
+                (o, e) => _ = SafeExecutionWrapper.WrapAsync(HandleTimerTickAsync),
                 (timer, handler) => timer.TimerElapsed += handler,
                 (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
 
