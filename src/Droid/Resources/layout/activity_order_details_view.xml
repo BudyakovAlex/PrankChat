@@ -46,7 +46,7 @@
 					android:textSize="14dp"/>
 
 				<TextView
-                    android:id="@+id/order_title"
+                    android:id="@+id/order_title_text_view"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="26dp"
@@ -61,7 +61,7 @@
 					android:orientation="horizontal"
 					android:layout_marginTop="16dp">
 					<View
-                        android:id="@+id/view_order_description"
+                        android:id="@+id/order_description_view"
 						android:layout_width="3dp"
 						android:layout_height="match_parent"
 						android:background="@color/accent"
@@ -85,7 +85,7 @@
 					android:text="@string/OrderDetailsView_Price_Text" />
 
 				<TextView
-                    android:id="@+id/price_value"
+                    android:id="@+id/price_value_text_view"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="16dp"
@@ -94,7 +94,7 @@
 					android:textSize="26dp"/>
 
 				<TextView
-                    android:id="@+id/orderDetailsView_time_text"
+                    android:id="@+id/orderDetailsView_time_text_view"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="26dp"
@@ -235,7 +235,7 @@
 					android:layout_marginTop="26dp"
 					android:text="@string/OrderDetailsView_Unsubscribe_Button"/>
 				<LinearLayout
-                    android:id="@+id/linear_layout_video_load"
+                    android:id="@+id/video_load_linear_layout"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="26dp"
@@ -292,7 +292,7 @@
 						android:background="@color/border"/>
 
 					<TextView
-						android:id="@+id/take_the_order_text"
+						android:id="@+id/take_the_order_text_view"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_below="@+id/separator"
@@ -303,7 +303,7 @@
 						android:text="@string/OrderDetailsView_Took_The_Order_Text"/>
 
 					<CircleCachedImageView
-						android:id="@+id/executor_photo"
+						android:id="@+id/executor_photo_image_view"
 						android:layout_width="42dp"
 						android:layout_height="42dp"
 						android:layout_below="@+id/take_the_order_text"
@@ -311,7 +311,7 @@
 						android:layout_marginTop="15dp"/>
 
 					<TextView
-						android:id="@+id/executor_name"
+						android:id="@+id/executor_name_text_view"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_below="@+id/take_the_order_text"
@@ -322,7 +322,7 @@
 						android:textSize="14dp"/>
 
 					<TextView
-						android:id="@+id/take_the_order_date"
+						android:id="@+id/take_the_order_date_text_view"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_below="@+id/executor_name"
@@ -333,7 +333,7 @@
 						android:textSize="12dp"/>
 
 					<androidx.cardview.widget.CardView
-                        android:id="@+id/card_view_full_video"
+                        android:id="@+id/full_video_card_view"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_below="@+id/executor_photo"
@@ -341,7 +341,7 @@
 						app:cardCornerRadius="5dp">
 
 						<FFImageLoading.Cross.MvxCachedImageView
-							android:id="@+id/completed_video"
+							android:id="@+id/completed_video_image_view"
 							android:layout_width="match_parent"
 							android:layout_height="204dp"
 							android:scaleType="fitCenter"
@@ -357,7 +357,7 @@
 					</androidx.cardview.widget.CardView>
 
 					<androidx.constraintlayout.widget.ConstraintLayout
-						android:id="@+id/processing_view"
+						android:id="@+id/processing_view_constraintLayout"
 						android:layout_width="match_parent"
 						android:layout_height="204dp"
 						android:layout_below="@+id/executor_photo"
@@ -391,7 +391,7 @@
 					</androidx.constraintlayout.widget.ConstraintLayout>
 				</RelativeLayout>
 				<androidx.percentlayout.widget.PercentRelativeLayout
-                    android:id="@+id/percentRelativeLayout_video"
+                    android:id="@+id/video_percentRelativeLayout"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="26dp"
@@ -466,7 +466,7 @@
 	</mvvmcross.droidx.MvxSwipeRefreshLayout>
 
 	<FrameLayout
-        android:id="@+id/frame_layout_animation"
+        android:id="@+id/animation_frame_layout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@id/action_bar"
