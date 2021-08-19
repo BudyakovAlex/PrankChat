@@ -1,8 +1,11 @@
 ﻿using Android.Runtime;
 using Android.Views;
+using Android.Widget;
 using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.Tabs;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.DroidX;
+using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -26,6 +29,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         private EndlessRecyclerView _endlessRecyclerView;
         private LinearLayoutManager _layoutManager;
         private RecycleViewBindableAdapter _adapter;
+        private LinearLayout _filterViewLayout;
+        private TextView _filterViewTextView;
+        private MvxSwipeRefreshLayout _publicationRefreshLayout;
 
         public OrdersView() : base(Resource.Layout.fragment_orders)
         {
@@ -62,6 +68,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 
             _adapter = new RecycleViewBindableAdapter((IMvxAndroidBindingContext)BindingContext);
             _endlessRecyclerView.Adapter = _adapter;
+            _filterViewLayout = view.FindViewById<LinearLayout>(Resource.Id.filter_view);
+            _filterViewTextView = view.FindViewById<TextView>(Resource.Id.filter_button_title);
+            _publicationRefreshLayout = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.publication_refresh_layout);
 
             _endlessRecyclerView.ItemTemplateSelector = new TemplateSelector()
                 .AddElement<OrderItemViewModel, OrderItemViewHolder>(Resource.Layout.cell_order)
@@ -79,6 +88,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 
             bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_endlessRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
+            bindingSet.Bind(_filterViewLayout).For(v => v.BindClick()).To(vm => vm.OpenFilterCommand);
+            bindingSet.Bind(_filterViewTextView).For(v => v.Text).To(vm => vm.ActiveFilterName);
+            bindingSet.Bind(_publicationRefreshLayout).For(v => v.Refreshing).To(vm => vm.IsBusy);
+            bindingSet.Bind(_publicationRefreshLayout).For(v => v.RefreshCommand).To(vm => vm.LoadDataCommand);
         }
     }
 }
