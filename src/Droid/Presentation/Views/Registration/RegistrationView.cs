@@ -35,6 +35,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
 
             var textViewLogin = FindViewById<TextView>(Resource.Id.go_to_login_text_view);
             textViewLogin.PaintFlags |= Android.Graphics.PaintFlags.UnderlineText;
+        }
+
+        protected override void SetViewProperties()
+        {
+            base.SetViewProperties();
 
             _emailText = FindViewById<TextInputEditText>(Resource.Id.email_text);
             _vkImageButton = FindViewById<ImageButton>(Resource.Id.vk_imageButton);
@@ -43,11 +48,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
             _gmailImageButton = FindViewById<ImageButton>(Resource.Id.gmail_login_imageButton);
             _goToLoginTextView = FindViewById<TextView>(Resource.Id.go_to_login_text_view);
             _registrationButton = FindViewById<MaterialButton>(Resource.Id.registration_button);
-        }
-
-        protected override void SetViewProperties()
-        {
-            base.SetViewProperties();
         }
 
         protected override void Bind()
