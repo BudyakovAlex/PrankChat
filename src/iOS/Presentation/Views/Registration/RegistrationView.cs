@@ -15,30 +15,30 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
     {
 		protected override void Bind()
 		{
-			var set = this.CreateBindingSet<RegistrationView, RegistrationViewModel>();
+			var setBind = this.CreateBindingSet<RegistrationView, RegistrationViewModel>();
 
-			set.Bind(nextStepButton)
+			setBind.Bind(nextStepButton)
                 .To(vm => vm.ShowSecondStepCommand);
 
-            set.Bind(emailTextField)
+            setBind.Bind(emailTextField)
                 .To(vm => vm.Email);
 
-            set.Bind(showLoginButton)
+            setBind.Bind(showLoginButton)
                 .To(vm => vm.CloseCommand);
 
-            set.Bind(vkButton)
+            setBind.Bind(vkButton)
                 .To(vm => vm.LoginCommand)
                 .CommandParameter(nameof(LoginType.Vk));
 
-            set.Bind(okButton)
+            setBind.Bind(okButton)
                 .To(vm => vm.LoginCommand)
                 .CommandParameter(nameof(LoginType.Ok));
 
-            set.Bind(facebookButton)
+            setBind.Bind(facebookButton)
                 .To(vm => vm.LoginCommand)
                 .CommandParameter(nameof(LoginType.Facebook));
 
-            set.Apply();
+            setBind.Apply();
 		}
 
 		protected override void SetupControls()

@@ -66,80 +66,80 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         protected override void Bind()
         {
-            var set = this.CreateBindingSet<OrderItemCell, OrderItemViewModel>();
+            var setBind = this.CreateBindingSet<OrderItemCell, OrderItemViewModel>();
 
-            set.Bind(this)
+            setBind.Bind(this)
                .For(v => v.OrderTagType)
                .To(vm => vm.OrderTagType);
 
-            set.Bind(this)
+            setBind.Bind(this)
                 .For(v => v.BindTap())
                 .To(vm => vm.OpenDetailsOrderCommand)
                 .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(backgroundImageView)
+            setBind.Bind(backgroundImageView)
                 .For(UIImageViewOrderTypeTargetBinding.TargetBinding)
                 .To(vm => vm.OrderType);
 
-            set.Bind(profilePhotoImage)
+            setBind.Bind(profilePhotoImage)
                 .For(v => v.ImagePath)
                 .To(vm => vm.ProfilePhotoUrl)
                 .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(profilePhotoImage)
+            setBind.Bind(profilePhotoImage)
                 .For(v => v.PlaceholderText)
                 .To(vm => vm.ProfileShortName)
                 .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(profilePhotoImage)
+            setBind.Bind(profilePhotoImage)
                .For(v => v.BindTap())
                .To(vm => vm.OpenUserProfileCommand);
 
-            set.Bind(orderTitleLabel)
+            setBind.Bind(orderTitleLabel)
                 .To(vm => vm.Title)
                 .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(orderTimeLabel)
+            setBind.Bind(orderTimeLabel)
                 .To(vm => vm.TimeText)
                 .Mode(MvxBindingMode.OneWay);
 
-            set.Bind(priceValueLabel)
+            setBind.Bind(priceValueLabel)
                 .To(vm => vm.PriceText)
                 .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(orderDetailsButton)
+            setBind.Bind(orderDetailsButton)
                 .To(vm => vm.OpenDetailsOrderCommand)
                 .Mode(MvxBindingMode.OneTime);
 
-            set.Bind(orderDetailsButton)
+            setBind.Bind(orderDetailsButton)
                 .For(UIButtonOrderTypeTargetBinding.TargetBinding)
                 .To(vm => vm.OrderType);
 
-            set.Bind(statusOrderLabel)
+            setBind.Bind(statusOrderLabel)
                 .To(vm => vm.StatusText)
                 .Mode(MvxBindingMode.OneWay);
 
-            set.Bind(orderTimeLabel)
+            setBind.Bind(orderTimeLabel)
                 .For(v => v.BindVisible())
                 .To(vm => vm.IsTimeAvailable);
 
-            set.Bind(titleTimeView)
+            setBind.Bind(titleTimeView)
                 .For(v => v.BindVisible())
                 .To(vm => vm.IsTimeAvailable);
 
-            set.Bind(timeLabel)
+            setBind.Bind(timeLabel)
                 .For(v => v.BindVisible())
                 .To(vm => vm.IsTimeAvailable);
 
-            set.Bind(OrderTagTypeImageView)
+            setBind.Bind(OrderTagTypeImageView)
                 .For(v => v.BindVisible())
                 .To(vm => vm.OrderTagType);
 
-            set.Bind(IsHiddenOrderImageView)
+            setBind.Bind(IsHiddenOrderImageView)
                 .For(v => v.BindVisible())
                 .To(vm => vm.IsHiddenOrder);
             
-            set.Apply();
+            setBind.Apply();
         }
 
         private string GetImageName(OrderTagType orderTagType)

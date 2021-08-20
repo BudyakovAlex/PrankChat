@@ -61,51 +61,51 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         protected override void Bind()
 		{
-			var set = this.CreateBindingSet<CreateOrderView, CreateOrderViewModel>();
+			var setBind = this.CreateBindingSet<CreateOrderView, CreateOrderViewModel>();
 
-            set.Bind(nameTextField)
+            setBind.Bind(nameTextField)
                .To(vm => vm.Title);
 
-            set.Bind(descriptionTextView)
+            setBind.Bind(descriptionTextView)
                .To(vm => vm.Description);
 
-            set.Bind(this)
+            setBind.Bind(this)
                .For(nameof(OrderDescription))
                .To(vm => vm.Description);
 
-            set.Bind(priceTextField)
+            setBind.Bind(priceTextField)
                .To(vm => vm.Price)
                .WithConversion<PriceConverter>();
 
-            set.Bind(completeDateTextField)
+            setBind.Bind(completeDateTextField)
                .To(vm => vm.ActiveFor.Title);
 
-            set.Bind(completeDateTextField.Tap())
+            setBind.Bind(completeDateTextField.Tap())
                .For(v => v.Command)
                .To(vm => vm.ShowDateDialogCommand);
 
-            set.Bind(createButton)
+            setBind.Bind(createButton)
                .To(vm => vm.CreateCommand);
 
-            set.Bind(progressBarView)
+            setBind.Bind(progressBarView)
                .For(v => v.BindVisible())
                .To(vm => vm.IsBusy);
 
-            set.Bind(_notificationBarItem)
+            setBind.Bind(_notificationBarItem)
                .For(v => v.Image)
                .To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
                .WithConversion<BoolToNotificationImageConverter>();
 
-            set.Bind(HideExecutorCheckBoxButton)
+            setBind.Bind(HideExecutorCheckBoxButton)
                 .For(v => v.IsChecked)
                 .To(vm => vm.IsExecutorHidden)
                 .Mode(MvvmCross.Binding.MvxBindingMode.TwoWay);
 
-            set.Bind(InfoImageView)
+            setBind.Bind(InfoImageView)
                .For(v => v.BindTap())
                .To(vm => vm.ShowWalkthrouthSecretCommand);
 
-            set.Apply();
+            setBind.Apply();
 		}
 
         private nfloat GetTextViewHeight(double width, UIFont font, string text)

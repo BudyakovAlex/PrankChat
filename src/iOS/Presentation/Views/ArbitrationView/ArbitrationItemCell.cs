@@ -49,52 +49,52 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 
 		protected override void Bind()
 		{
-			var set = this.CreateBindingSet<ArbitrationItemCell, ArbitrationOrderItemViewModel>();
+			var setBind = this.CreateBindingSet<ArbitrationItemCell, ArbitrationOrderItemViewModel>();
 
-			set.Bind(this)
+			setBind.Bind(this)
 				.For(v => v.BindTap())
 				.To(vm => vm.OpenDetailsOrderCommand)
 				.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(backgroundImageView)
+			setBind.Bind(backgroundImageView)
 				.For(UIImageViewOrderTypeTargetBinding.TargetBinding)
 				.To(vm => vm.OrderType);
 
-			set.Bind(profilePhotoImage)
+			setBind.Bind(profilePhotoImage)
 				.For(v => v.ImagePath)
 				.To(vm => vm.ProfilePhotoUrl)
 				.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(profilePhotoImage)
+			setBind.Bind(profilePhotoImage)
 	            .For(v => v.PlaceholderText)
 	            .To(vm => vm.ProfileShortName)
 	            .Mode(MvxBindingMode.OneTime);
 
-			set.Bind(profilePhotoImage)
+			setBind.Bind(profilePhotoImage)
 			   .For(v => v.BindTap())
 			   .To(vm => vm.OpenUserProfileCommand);
 
-			set.Bind(orderTitleLabel)
+			setBind.Bind(orderTitleLabel)
 				.To(vm => vm.OrderTitle)
 				.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(orderTimeLabel)
+			setBind.Bind(orderTimeLabel)
 				.To(vm => vm.TimeText)
 				.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(priceValueLabel)
+			setBind.Bind(priceValueLabel)
 				.To(vm => vm.PriceText)
 				.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(orderDetailsButton)
+			setBind.Bind(orderDetailsButton)
 				.To(vm => vm.OpenDetailsOrderCommand)
 				.Mode(MvxBindingMode.OneTime);
 
-			set.Bind(orderDetailsButton)
+			setBind.Bind(orderDetailsButton)
 				.For(UIButtonOrderTypeTargetBinding.TargetBinding)
 				.To(vm => vm.OrderType);
 
-			set.Apply();
+			setBind.Apply();
 		}
 	}
 }

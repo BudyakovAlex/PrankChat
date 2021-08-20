@@ -11,29 +11,29 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.Share
     {
         protected override void Bind()
         {
-            var set = this.CreateBindingSet<ShareController, ShareDialogViewModel>();
+            var setBind = this.CreateBindingSet<ShareController, ShareDialogViewModel>();
 
-            set.Bind(copyLinkImageButton)
+            setBind.Bind(copyLinkImageButton)
                 .To(vm => vm.CopyLinkCommand);
 
-            set.Bind(copyLinkTitleLabel.Tap())
+            setBind.Bind(copyLinkTitleLabel.Tap())
                 .For(v => v.Command)
                 .To(vm => vm.CopyLinkCommand);
 
-            set.Bind(shareInstagramImageButton)
+            setBind.Bind(shareInstagramImageButton)
                 .To(vm => vm.ShareToInstagramCommand);
 
-            set.Bind(shareInstagramTitleLabel.Tap())
+            setBind.Bind(shareInstagramTitleLabel.Tap())
                 .For(v => v.Command)
                 .To(vm => vm.ShareToInstagramCommand);
 
-            set.Bind(cancelButton)
+            setBind.Bind(cancelButton)
                 .To(vm => vm.CloseCommand);
 
-            set.Bind(shareButton)
+            setBind.Bind(shareButton)
                 .To(vm => vm.ShareCommand);
 
-            set.Apply();
+            setBind.Apply();
         }
 
         protected override void SetupControls()

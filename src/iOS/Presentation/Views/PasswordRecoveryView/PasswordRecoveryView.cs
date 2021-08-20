@@ -14,20 +14,20 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.PasswordRecoveryView
 	{
 		protected override void Bind()
 		{
-            var set = this.CreateBindingSet<PasswordRecoveryView, PasswordRecoveryViewModel>();
+            var setBind = this.CreateBindingSet<PasswordRecoveryView, PasswordRecoveryViewModel>();
 
-            set.Bind(emailEditText)
+            setBind.Bind(emailEditText)
                 .To(vm => vm.Email);
 
-            set.Bind(recoverPasswordButton)
+            setBind.Bind(recoverPasswordButton)
                 .To(vm => vm.RecoverPasswordCommand);
 
-            set.Bind(progresBar)
+            setBind.Bind(progresBar)
                 .For(v => v.BindHidden())
                 .To(vm => vm.IsBusy)
                 .WithConversion<MvxInvertedBooleanConverter>();
 
-            set.Apply();
+            setBind.Apply();
         }
 
 		protected override void SetupControls()
