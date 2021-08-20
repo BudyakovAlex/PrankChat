@@ -19,7 +19,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
     {
         protected override bool HasBackButton => true;
 
-        private TextInputEditText _emailText;
+        private TextInputEditText _emailEditText;
         private ImageButton _vkImageButton;
         private ImageButton _okImageButton;
         private ImageButton _facebookImageButton;
@@ -41,7 +41,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
         {
             base.SetViewProperties();
 
-            _emailText = FindViewById<TextInputEditText>(Resource.Id.email_text);
+            _emailEditText = FindViewById<TextInputEditText>(Resource.Id.email_text);
             _vkImageButton = FindViewById<ImageButton>(Resource.Id.vk_imageButton);
             _okImageButton = FindViewById<ImageButton>(Resource.Id.ok_imageButton);
             _facebookImageButton = FindViewById<ImageButton>(Resource.Id.facebook_login_imageButton);
@@ -55,7 +55,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
             base.Bind();
             using var bindingSet = CreateBindingSet();
 
-            bindingSet.Bind(_emailText).For(v => v.Text).To(vm => vm.Email);
+            bindingSet.Bind(_emailEditText).For(v => v.Text).To(vm => vm.Email);
             bindingSet.Bind(_vkImageButton).For(v => v.BindClick()).To(vm => vm.LoginCommand).CommandParameter("Gmail");
             bindingSet.Bind(_okImageButton).For(v => v.BindClick()).To(vm => vm.LoginCommand).CommandParameter("Ok");
             bindingSet.Bind(_facebookImageButton).For(v => v.BindClick()).To(vm => vm.LoginCommand).CommandParameter("Facebook");

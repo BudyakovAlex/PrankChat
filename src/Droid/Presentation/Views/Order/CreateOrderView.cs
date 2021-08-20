@@ -23,14 +23,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
     {
         private TextInputEditText _priceEditText;
         private TextInputEditText _descriptionEditText;
-        private TextInputEditText _titleText;
-        private TextInputEditText _descriptionText;
+        private TextInputEditText _titleEditText;
         private TextInputEditText _createOrderPriceEditText;
         private TextView _dateTextView;
         private CheckBox _createOrderCheckBox;
-        private ImageView _descriptionImageViewImageView;
+        private ImageView _descriptionImageView;
         private MaterialButton _createButton;
-        private FrameLayout _frameLayout;
+        private FrameLayout _createOrderFrameLayout;
 
         public CreateOrderView() : base(Resource.Layout.fragment_create_order)
         {
@@ -46,14 +45,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             _priceEditText = view.FindViewById<TextInputEditText>(Resource.Id.create_order_price_edit_text);
             _descriptionEditText = view.FindViewById<TextInputEditText>(Resource.Id.order_description_edit_text);
             _descriptionEditText.SetFilters(new[] { new InputFilterLengthFilter(Constants.Orders.DescriptionMaxLength) });
-            _titleText = view.FindViewById<TextInputEditText>(Resource.Id.title_text);
-            _descriptionText = view.FindViewById<TextInputEditText>(Resource.Id.order_description_edit_text);
+            _titleEditText = view.FindViewById<TextInputEditText>(Resource.Id.title_text);
             _createOrderPriceEditText = view.FindViewById<TextInputEditText>(Resource.Id.create_order_price_edit_text);
             _dateTextView = view.FindViewById<TextView>(Resource.Id.date_text);
             _createOrderCheckBox = view.FindViewById<CheckBox>(Resource.Id.create_order_check_box);
-            _descriptionImageViewImageView = view.FindViewById<ImageView>(Resource.Id.description_image_view);
+            _descriptionImageView = view.FindViewById<ImageView>(Resource.Id.description_image_view);
             _createButton = view.FindViewById<MaterialButton>(Resource.Id.create_button);
-            _frameLayout = view.FindViewById<FrameLayout>(Resource.Id.frame_layout);
+            _createOrderFrameLayout = view.FindViewById<FrameLayout>(Resource.Id.frame_layout);
         }
 
         protected override void Bind()
@@ -61,15 +59,15 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             base.Bind();
             using var bindingSet = CreateBindingSet();
 
-            bindingSet.Bind(_titleText).For(v => v.Text).To(vm => vm.Title);
-            bindingSet.Bind(_descriptionText).For(v => v.Text).To(vm => vm.Description);
+            bindingSet.Bind(_titleEditText).For(v => v.Text).To(vm => vm.Title);
+            bindingSet.Bind(_descriptionEditText).For(v => v.Text).To(vm => vm.Description);
             bindingSet.Bind(_createOrderPriceEditText).For(v => v.Text).To(vm => vm.Price).WithConversion<PriceConverter>();
             bindingSet.Bind(_dateTextView).For(v => v.Text).To(vm => vm.ActiveFor.Title);
             bindingSet.Bind(_dateTextView).For(v => v.BindClick()).To(vm => vm.ShowDateDialogCommand);
             bindingSet.Bind(_createOrderCheckBox).For(v => v.Checked).To(vm => vm.IsExecutorHidden);
-            bindingSet.Bind(_descriptionImageViewImageView).For(v => v.BindClick()).To(vm => vm.ShowWalkthrouthSecretCommand);
+            bindingSet.Bind(_descriptionImageView).For(v => v.BindClick()).To(vm => vm.ShowWalkthrouthSecretCommand);
             bindingSet.Bind(_createButton).For(v => v.BindClick()).To(vm => vm.CreateCommand);
-            bindingSet.Bind(_frameLayout).For(v => v.BindVisible()).To(vm => vm.IsBusy);
+            bindingSet.Bind(_createOrderFrameLayout).For(v => v.BindVisible()).To(vm => vm.IsBusy);
         }
 
         protected override void Subscription()
