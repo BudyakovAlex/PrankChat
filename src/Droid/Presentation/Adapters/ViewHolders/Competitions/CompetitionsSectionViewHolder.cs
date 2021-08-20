@@ -43,35 +43,17 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
 
             var bindingSet = this.CreateBindingSet<CompetitionsSectionViewHolder, CompetitionsSectionViewModel>();
 
-            bindingSet.Bind(_sectionRecyclerView)
-                      .For(v => v.ItemsSource)
-                      .To(vm => vm.Items);
-
-            bindingSet.Bind(_titleTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.Phase)
+            bindingSet.Bind(_sectionRecyclerView).For(v => v.ItemsSource).To(vm => vm.Items);
+            bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToSectionTitleConverter>();
-
-            bindingSet.Bind(_leftImageView)
-                      .For(v => v.Visibility)
-                      .To(vm => vm.HasNavigationControls)
+            bindingSet.Bind(_leftImageView).For(v => v.Visibility).To(vm => vm.HasNavigationControls)
                       .WithConversion<BoolToGoneConverter>();
-
-            bindingSet.Bind(_rightImageView)
-                      .For(v => v.Visibility)
-                      .To(vm => vm.HasNavigationControls)
+            bindingSet.Bind(_rightImageView).For(v => v.Visibility).To(vm => vm.HasNavigationControls)
                       .WithConversion<BoolToGoneConverter>();
-
-            bindingSet.Bind(_leftDivider)
-                      .For(BackgroundColorBinding.TargetBinding)
-                      .To(vm => vm.Phase)
+            bindingSet.Bind(_leftDivider).For(BackgroundColorBinding.TargetBinding).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
-
-            bindingSet.Bind(_rightDivider)
-                      .For(BackgroundColorBinding.TargetBinding)
-                      .To(vm => vm.Phase)
+            bindingSet.Bind(_rightDivider).For(BackgroundColorBinding.TargetBinding).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
-
             bindingSet.Apply();
         }
 

@@ -47,7 +47,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Dialogs
 
             bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.Title);
             bindingSet.Bind(_titleRecyclerView).For(v => v.ItemsSource).To(vm => vm.Items);
-            bindingSet.Bind(_titleRecyclerView).For(v => v.BindClick()).To(vm => vm.SelectItemCommand);
+            bindingSet.Bind(_titleRecyclerView).For(v => v.ItemClick).To(vm => vm.SelectItemCommand);
             bindingSet.Bind(_closeTextView).For(v => v.BindClick()).To(vm => vm.CloseCommand);
         }
     }
