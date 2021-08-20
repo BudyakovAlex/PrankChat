@@ -1,9 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using MvvmCross;
+﻿using MvvmCross;
 using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Exceptions;
@@ -23,7 +19,9 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Results;
 using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.Services.Timer;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
@@ -56,7 +54,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             LoadOrderDetailsCommand = this.CreateCommand(LoadOrderDetailsAsync);
             OpenSettingsCommand = this.CreateCommand(OpenSettingsAsync);
 
-            Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
+            SystemTimer.SubscribeToEvent(
+                (o, e) => _ = SafeExecutionWrapper.WrapAsync(HandleTimerTickAsync),
+                (timer, handler) => timer.TimerElapsed += handler,
+                (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
+
             _sections = new BaseOrderDetailsSectionViewModel[]
             {
                 CustomerSectionViewModel = Mvx.IoCProvider.IoCConstruct<OrderDetailsCustomerSectionViewModel>(),
@@ -167,32 +169,34 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             return Task.WhenAll(base.InitializeAsync(), LoadOrderDetailsAsync());
         }
 
-        private async void OnTimerTick(TimerTickMessage msg)
+        private async Task HandleTimerTickAsync()
         {
             _timerThicksCount++;
-            if (_timerThicksCount >= 5)
+            if (_timerThicksCount < 5)
             {
-                _timerThicksCount = 0;
-                try
-                {
-                    var refreshedOrder = await _ordersManager.GetOrderDetailsAsync(_orderId);
-                    if (refreshedOrder is null)
-                    {
-                        return;
-                    }
+                return;
+            }
 
-                    Order = refreshedOrder;
-                    VideoSectionViewModel.RefreshFullScreenVideo();
-                    await RaiseAllPropertiesChanged();
-
-                    IsNoSelected = SelectedArbitration == ArbitrationValueType.Negative;
-                    IsYesSelected = SelectedArbitration == ArbitrationValueType.Positive;
-                }
-                catch (Exception ex)
+            _timerThicksCount = 0;
+            try
+            {
+                var refreshedOrder = await _ordersManager.GetOrderDetailsAsync(_orderId);
+                if (refreshedOrder is null)
                 {
-                    ErrorHandleService.HandleException(ex);
-                    ErrorHandleService.LogError(this, "Error on loading order page.");
+                    return;
                 }
+
+                Order = refreshedOrder;
+                VideoSectionViewModel.RefreshFullScreenVideo();
+                await RaiseAllPropertiesChanged();
+
+                IsNoSelected = SelectedArbitration == ArbitrationValueType.Negative;
+                IsYesSelected = SelectedArbitration == ArbitrationValueType.Positive;
+            }
+            catch (Exception ex)
+            {
+                ErrorHandleService.HandleException(ex);
+                ErrorHandleService.LogError(this, "Error on loading order page.");
             }
         }
 

@@ -1,6 +1,5 @@
 ﻿using MvvmCross;
 using MvvmCross.IoC;
-using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Services.Network.Http.Payment;
 using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Managers.Common;
@@ -27,10 +26,10 @@ using PrankChat.Mobile.Core.Services.Network.Http.Search;
 using PrankChat.Mobile.Core.Services.Network.Http.Users;
 using PrankChat.Mobile.Core.Services.Network.Http.Video;
 using PrankChat.Mobile.Core.Services.Notifications;
-using PrankChat.Mobile.Core.Services.Timer;
 using PrankChat.Mobile.Managers.Common;
-using PrankChat.Mobile.Core.Managers.Media;
+using PrankChat.Mobile.Core.Plugins.Timer;
 using PrankChat.Mobile.Core.Providers.Permissions;
+using PrankChat.Mobile.Core.Managers.Media;
 
 namespace PrankChat.Mobile.Core.Ioc
 {
@@ -62,8 +61,6 @@ namespace PrankChat.Mobile.Core.Ioc
 
         private void RegisterServices()
         {
-            Container.RegisterSingleton<ITimerService>(new TimerService(Container.Resolve<IMvxMessenger>()));
-
             Container.RegisterSingleton<IAuthorizationService, AuthorizationService>();
             Container.RegisterSingleton<IVersionService, VersionService>();
             Container.RegisterSingleton<ICompetitionsService, CompetitionsService>();
@@ -95,6 +92,7 @@ namespace PrankChat.Mobile.Core.Ioc
 
         private void RegisterDependencies()
         {
+            Container.RegisterSingleton<ISystemTimer, SystemTimer>();
             Container.RegisterSingleton(Container.IocConstruct<NotificationBadgeViewModel>());
         }
 

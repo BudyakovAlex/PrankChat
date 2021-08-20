@@ -144,6 +144,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             {
                 try
                 {
+                    SystemTimer.Stop();
                     ErrorHandleService.SuspendServerErrorsHandling();
                     await _pushNotificationService.UnregisterNotificationsAsync();
                     await _authorizationManager.LogoutAsync();

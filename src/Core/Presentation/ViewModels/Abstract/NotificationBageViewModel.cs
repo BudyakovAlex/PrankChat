@@ -3,8 +3,9 @@ using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Managers.Notifications;
 using PrankChat.Mobile.Core.Messages;
+using PrankChat.Mobile.Core.Plugins.Timer;
 using PrankChat.Mobile.Core.Providers.UserSession;
-using PrankChat.Mobile.Core.Services.Timer;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -27,7 +28,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
             _notificationManager = notificationManager;
             _userSessionProvider = userSessionProvider;
 
-            Messenger.Subscribe<TimerTickMessage>(OnTimerTick).DisposeWith(Disposables);
+            SystemTimer.SubscribeToEvent(
+                OnTimerTick,
+                (timer, handler) => timer.TimerElapsed += handler,
+                (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
 
             Messenger.SubscribeOnMainThread<RefreshNotificationsMessage>((msg) => RefreshDataCommand.Execute()).DisposeWith(Disposables);
 
@@ -58,7 +62,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
             });
         }
 
-        private void OnTimerTick(TimerTickMessage message)
+        private void OnTimerTick(object _, EventArgs __)
         {
             _timerThicksCount++;
             if (_timerThicksCount >= RefreshAfterSeconds)

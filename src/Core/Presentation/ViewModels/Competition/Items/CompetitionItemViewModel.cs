@@ -5,9 +5,9 @@ using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Plugins.Timer;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
-using PrankChat.Mobile.Core.Services.Timer;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -22,7 +22,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         {
             Competition = competition;
 
-            _timerTickSubscription = Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
+            SystemTimer.SubscribeToEvent(
+                OnTimerTick,
+                (timer, handler) => timer.TimerElapsed += handler,
+                (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
 
             RefreshCountDownTimer();
             ActionCommand = new MvxRestrictedAsyncCommand(ExecuteActionAsync, restrictedCanExecute: () => isUserSessionInitialized, handleFunc: ShowLoginAsync);
@@ -100,7 +103,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
             Messenger.Publish(new ReloadCompetitionsMessage(this));
         }
 
-        private void OnTimerTick(TimerTickMessage message)
+        private void OnTimerTick(object _, EventArgs __)
         {
             RefreshCountDownTimer();
         }

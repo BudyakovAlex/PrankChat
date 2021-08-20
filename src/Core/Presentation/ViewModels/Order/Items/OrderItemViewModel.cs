@@ -1,5 +1,4 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Managers.Video;
@@ -9,7 +8,6 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Parameters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
-using PrankChat.Mobile.Core.Services.Timer;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,11 +36,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
             _userSessionProvider = userSessionProvider;
             _order = order;
 
-            ElapsedTime = _order.ActiveTo is null
-                ? TimeSpan.FromHours(_order.DurationInHours)
-                : _order.GetActiveOrderTime();
+            RefreshElapsedTime();
 
-            _timerTickMessageToken = Messenger.Subscribe<TimerTickMessage>(OnTimerTick, MvxReference.Strong).DisposeWith(Disposables);
+            SystemTimer.SubscribeToEvent(
+                OnTimerTick,
+                (timer, handler) => timer.TimerElapsed += handler,
+                (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
 
             OpenDetailsOrderCommand = new MvxRestrictedAsyncCommand(
                 OpenDetailsOrderAsync,
@@ -96,11 +95,16 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items
 
         public bool IsHiddenOrder => _order?.OrderCategory == OrderCategory.Private;
 
-        private void OnTimerTick(TimerTickMessage message)
+        private void OnTimerTick(object _, EventArgs __)
+        {
+            RefreshElapsedTime();
+        }
+
+        private void RefreshElapsedTime()
         {
             ElapsedTime = _order.ActiveTo is null
-               ? TimeSpan.FromHours(_order.DurationInHours)
-               : _order.GetActiveOrderTime();
+                ? TimeSpan.FromHours(_order.DurationInHours)
+                : _order.GetActiveOrderTime();
         }
 
         private Task OpenDetailsOrderAsync()
