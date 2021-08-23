@@ -45,13 +45,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             _priceEditText = view.FindViewById<TextInputEditText>(Resource.Id.create_order_price_edit_text);
             _descriptionEditText = view.FindViewById<TextInputEditText>(Resource.Id.order_description_edit_text);
             _descriptionEditText.SetFilters(new[] { new InputFilterLengthFilter(Constants.Orders.DescriptionMaxLength) });
-            _titleEditText = view.FindViewById<TextInputEditText>(Resource.Id.title_text);
+            _titleEditText = view.FindViewById<TextInputEditText>(Resource.Id.title_input_edit_text);
             _createOrderPriceEditText = view.FindViewById<TextInputEditText>(Resource.Id.create_order_price_edit_text);
-            _dateTextView = view.FindViewById<TextView>(Resource.Id.date_text);
+            _dateTextView = view.FindViewById<TextView>(Resource.Id.date_text_view);
             _createOrderCheckBox = view.FindViewById<CheckBox>(Resource.Id.create_order_check_box);
             _descriptionImageView = view.FindViewById<ImageView>(Resource.Id.description_image_view);
             _createButton = view.FindViewById<MaterialButton>(Resource.Id.create_button);
-            _createOrderFrameLayout = view.FindViewById<FrameLayout>(Resource.Id.frame_layout);
+            _createOrderFrameLayout = view.FindViewById<FrameLayout>(Resource.Id.animation_frame_layout);
         }
 
         protected override void Bind()

@@ -30,7 +30,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         private EndlessRecyclerView _endlessRecyclerView;
         private LinearLayoutManager _layoutManager;
         private RecycleViewBindableAdapter _adapter;
-        private CircleCachedImageView _imageViewCircleCached;
+        private CircleCachedImageView _profileCircleCachedImageView;
         private TextView _profileNameTextView;
         private TextView _profilePriceTextView;
         private TextView _profileSubscribersValueTextView;
@@ -74,9 +74,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 
             bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_endlessRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
-            bindingSet.Bind(_imageViewCircleCached).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl);
-            bindingSet.Bind(_imageViewCircleCached).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName).OneTime();
-            bindingSet.Bind(_imageViewCircleCached).For(v => v.BindClick()).To(vm => vm.ShowUpdateProfileCommand);
+            bindingSet.Bind(_profileCircleCachedImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl);
+            bindingSet.Bind(_profileCircleCachedImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName).OneTime();
+            bindingSet.Bind(_profileCircleCachedImageView).For(v => v.BindClick()).To(vm => vm.ShowUpdateProfileCommand);
             bindingSet.Bind(_profileNameTextView).For(v => v.Text).To(vm => vm.Login);
             bindingSet.Bind(_profilePriceTextView).For(v => v.Text).To(vm => vm.Price).OneWay();
             bindingSet.Bind(_profileSubscribersValueTextView).For(v => v.Text).To(vm => vm.SubscribersValue);
@@ -98,7 +98,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 
             _endlessRecyclerView = view.FindViewById<EndlessRecyclerView>(Resource.Id.profile_publication_recycler_view);
 
-            _imageViewCircleCached = view.FindViewById<CircleCachedImageView>(Resource.Id.profile_photo);
+            _profileCircleCachedImageView = view.FindViewById<CircleCachedImageView>(Resource.Id.profile_photo);
             _profileNameTextView = view.FindViewById<TextView>(Resource.Id.profile_name);
             _profilePriceTextView = view.FindViewById<TextView>(Resource.Id.profile_price);
             _profileSubscribersValueTextView = view.FindViewById<TextView>(Resource.Id.profile_subscribers_value);

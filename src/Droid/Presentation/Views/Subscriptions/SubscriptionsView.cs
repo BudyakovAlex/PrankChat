@@ -71,7 +71,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Subscriptions
                 .AddElement<SubscriptionItemViewModel, SubscriptionItemViewHolder>(Resource.Layout.cell_subscription);
 
             _titleTextView = FindViewById<TextView>(Resource.Id.toolbar_title);
-            _subscriptionsSwipeRefreshLayout = FindViewById<MvxSwipeRefreshLayout>(Resource.Id.subscriptions_swipeRefreshLayout);
+            _subscriptionsSwipeRefreshLayout = FindViewById<MvxSwipeRefreshLayout>(Resource.Id.subscriptions_swipe_refresh_layout);
             var tabLayout = FindViewById<TabLayout>(Resource.Id.tab_layout);
 
             _subscribersTab = tabLayout.NewTab();

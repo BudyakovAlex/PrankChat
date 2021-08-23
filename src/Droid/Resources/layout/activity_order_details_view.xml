@@ -12,7 +12,7 @@
 		android:layout_height="wrap_content" />
 
 	<mvvmcross.droidx.MvxSwipeRefreshLayout
-        android:id="@+id/mvxSwipeRefreshLayout"
+        android:id="@+id/order_swipe_refresh_layout"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/action_bar"
@@ -37,7 +37,7 @@
 					android:layout_marginTop="16dp"/>
 
 				<TextView
-                    android:id="@+id/profile_name"
+                    android:id="@+id/profile_name_text_view"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="8dp"
@@ -67,7 +67,7 @@
 						android:background="@color/accent"
 						android:layout_marginRight="16dp"/>
 					<TextView
-                        android:id="@+id/order_descroption_text_view"
+                        android:id="@+id/order_description_text_view"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:gravity="left|center_vertical"
@@ -94,7 +94,7 @@
 					android:textSize="26dp"/>
 
 				<TextView
-                    android:id="@+id/orderDetailsView_time_text_view"
+                    android:id="@+id/order_details_view_time_text_view"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="26dp"
@@ -104,7 +104,7 @@
 					android:text="@string/OrderDetailsView_Time_Text"/>
 
 				<LinearLayout
-                    android:id="@+id/linearLayout_timeDaysValue"
+                    android:id="@+id/linear_layout_time_days_value"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="16dp"

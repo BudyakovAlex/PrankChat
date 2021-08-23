@@ -18,7 +18,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Dialogs
     {
         private ImageButton _shareButton;
         private ImageButton _copyLinkButton;
-        private ImageButton _shareInstButton;
+        private ImageButton _shareInstagramButton;
         private MaterialButton _closeButton;
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -43,7 +43,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Dialogs
 
             bindingSet.Bind(_shareButton).For(v => v.BindClick()).To(vm => vm.ShareCommand);
             bindingSet.Bind(_copyLinkButton).For(v => v.BindClick()).To(vm => vm.CopyLinkCommand);
-            bindingSet.Bind(_shareInstButton).For(v => v.BindClick()).To(vm => vm.ShareToInstagramCommand);
+            bindingSet.Bind(_shareInstagramButton).For(v => v.BindClick()).To(vm => vm.ShareToInstagramCommand);
             bindingSet.Bind(_closeButton).For(v => v.BindClick()).To(vm => vm.CloseCommand);
         }
     }

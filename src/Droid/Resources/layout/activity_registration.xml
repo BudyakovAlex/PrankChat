@@ -38,7 +38,7 @@
         app:boxStrokeWidth="1dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/email_text"
+            android:id="@+id/email_input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
@@ -67,7 +67,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/vk_imageButton"
+            android:id="@+id/vk_image_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginRight="8dp"
@@ -75,7 +75,7 @@
             app:srcCompat="@drawable/ic_vk" />
 
         <ImageButton
-            android:id="@+id/ok_imageButton"
+            android:id="@+id/ok_image_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginLeft="8dp"
@@ -84,7 +84,7 @@
             app:srcCompat="@drawable/ic_odnoklassniki" />
 
         <ImageButton
-            android:id="@+id/facebook_login_imageButton"
+            android:id="@+id/facebook_login_image_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginLeft="8dp"
@@ -92,7 +92,7 @@
             app:srcCompat="@drawable/ic_facebook" />
 
         <ImageButton
-            android:id="@+id/gmail_login_imageButton"
+            android:id="@+id/gmail_login_image_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginLeft="8dp"

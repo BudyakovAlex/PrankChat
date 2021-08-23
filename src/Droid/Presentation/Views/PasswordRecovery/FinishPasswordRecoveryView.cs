@@ -43,7 +43,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.PasswordRecovery
             base.SetViewProperties(view);
 
             _finishPasswordRecoveryButton = view.FindViewById<MaterialButton>(Resource.Id.finish_password_recovery_button);
-            _showPublicationText = view.FindViewById<TextView>(Resource.Id.show_publication_text);
+            _showPublicationText = view.FindViewById<TextView>(Resource.Id.show_publication_text_view);
         }
     }
 }

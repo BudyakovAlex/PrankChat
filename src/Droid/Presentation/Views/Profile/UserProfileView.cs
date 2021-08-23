@@ -41,9 +41,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         private ConstraintLayout _subscriptionsViewConstraintLayout;
         private TextView _profileSubscriptionsValueTextView;
         private TextView _descriptionTextView;
-
-
         private bool _isSubscribed;
+
         public bool IsSubscribed
         {
             get => _isSubscribed;
@@ -63,7 +62,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
                 var colorArgb = ContextCompat.GetColor(this, Resource.Color.accent);
                 var color = new Color(colorArgb);
                 _subscribeButton.SetTextColor(color);
-
             }
         }
 
@@ -90,9 +88,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             _endlessRecyclerView.ItemTemplateSelector = new TemplateSelector()
                 .AddElement<OrderItemViewModel, OrderItemViewHolder>(Resource.Layout.cell_order);
 
-            _mvxSwipeRefreshLayout = FindViewById<MvxSwipeRefreshLayout>(Resource.Id.mvxSwipeRefreshLayout);
+            _mvxSwipeRefreshLayout = FindViewById<MvxSwipeRefreshLayout>(Resource.Id.order_swipe_refresh_layout);
             _profilePhotoImageView = FindViewById<CircleCachedImageView>(Resource.Id.profile_photo);
-            _profileNameTextView = FindViewById<TextView>(Resource.Id.profile_name);
+            _profileNameTextView = FindViewById<TextView>(Resource.Id.profile_name_text_view);
             _subscribeButton = FindViewById<MaterialButton>(Resource.Id.subscribe_button);
             _subscribersViewConstraintLayout = FindViewById<ConstraintLayout>(Resource.Id.subscribers_view);
             _profileSubscribersValueTextView = FindViewById<TextView>(Resource.Id.profile_subscribers_value);

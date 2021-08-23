@@ -19,6 +19,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Dialogs
         private TextView _titleTextView;
         private MvxRecyclerView _titleRecyclerView;
         private TextView _closeTextView;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

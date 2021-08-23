@@ -6,6 +6,7 @@ using Google.Android.Material.Button;
 using Google.Android.Material.TextField;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
@@ -19,7 +20,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
     {
         protected override bool HasBackButton => true;
 
-        private TextInputEditText _emailEditText;
+        private TextInputEditText _emailInputEditText;
         private ImageButton _vkImageButton;
         private ImageButton _okImageButton;
         private ImageButton _facebookImageButton;
@@ -41,11 +42,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
         {
             base.SetViewProperties();
 
-            _emailEditText = FindViewById<TextInputEditText>(Resource.Id.email_text);
-            _vkImageButton = FindViewById<ImageButton>(Resource.Id.vk_imageButton);
-            _okImageButton = FindViewById<ImageButton>(Resource.Id.ok_imageButton);
-            _facebookImageButton = FindViewById<ImageButton>(Resource.Id.facebook_login_imageButton);
-            _gmailImageButton = FindViewById<ImageButton>(Resource.Id.gmail_login_imageButton);
+            _emailInputEditText = FindViewById<TextInputEditText>(Resource.Id.email_input_edit_text);
+            _vkImageButton = FindViewById<ImageButton>(Resource.Id.vk_image_button);
+            _okImageButton = FindViewById<ImageButton>(Resource.Id.ok_image_button);
+            _facebookImageButton = FindViewById<ImageButton>(Resource.Id.facebook_login_image_button);
+            _gmailImageButton = FindViewById<ImageButton>(Resource.Id.gmail_login_image_button);
             _goToLoginTextView = FindViewById<TextView>(Resource.Id.go_to_login_text_view);
             _registrationButton = FindViewById<MaterialButton>(Resource.Id.registration_button);
         }
@@ -55,11 +56,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Registration
             base.Bind();
             using var bindingSet = CreateBindingSet();
 
-            bindingSet.Bind(_emailEditText).For(v => v.Text).To(vm => vm.Email);
-            bindingSet.Bind(_vkImageButton).For(v => v.BindClick()).To(vm => vm.LoginCommand).CommandParameter("Gmail");
-            bindingSet.Bind(_okImageButton).For(v => v.BindClick()).To(vm => vm.LoginCommand).CommandParameter("Ok");
-            bindingSet.Bind(_facebookImageButton).For(v => v.BindClick()).To(vm => vm.LoginCommand).CommandParameter("Facebook");
-            bindingSet.Bind(_gmailImageButton).For(v => v.BindClick()).To(vm => vm.LoginCommand).CommandParameter("Gmail");
+            bindingSet.Bind(_emailInputEditText).For(v => v.Text).To(vm => vm.Email);
+            bindingSet.Bind(_vkImageButton).For(v => v.BindClick()).To(vm => vm.LoginCommand).CommandParameter(LoginType.Vk);
+            bindingSet.Bind(_okImageButton).For(v => v.BindClick()).To(vm => vm.LoginCommand).CommandParameter(LoginType.Ok);
+            bindingSet.Bind(_facebookImageButton).For(v => v.BindClick()).To(vm => vm.LoginCommand).CommandParameter(LoginType.Facebook);
+            bindingSet.Bind(_gmailImageButton).For(v => v.BindClick()).To(vm => vm.LoginCommand).CommandParameter(LoginType.Gmail);
             bindingSet.Bind(_goToLoginTextView).For(v => v.BindClick()).To(vm => vm.CloseCommand);
             bindingSet.Bind(_registrationButton).For(v => v.BindClick()).To(vm => vm.ShowSecondStepCommand);
         }

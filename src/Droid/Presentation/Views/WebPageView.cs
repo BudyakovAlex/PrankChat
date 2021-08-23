@@ -12,8 +12,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
     [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class WebPageView : BaseView<WebViewModel>
     {
-        protected override bool HasBackButton => true;
+        
         private BindableWebView _bindableWebView;
+
+        protected override bool HasBackButton => true;
 
         protected override void OnCreate(Bundle bundle)
         {

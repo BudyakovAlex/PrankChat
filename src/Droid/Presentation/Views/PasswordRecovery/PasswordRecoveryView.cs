@@ -22,7 +22,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.PasswordRecovery
     [Register(nameof(PasswordRecoveryView))]
     public class PasswordRecoveryView : BaseFragment<PasswordRecoveryViewModel>
     {
-        private ImageButton _imageButtonBack;
+        private ImageButton _backImageButton;
         private TextInputEditText _textInputEmailEditText;
         private MaterialButton _materialButtonRegistration;
         private ProgressBar _progressBar;
@@ -38,7 +38,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.PasswordRecovery
             base.Bind();
             using var bindingSet = CreateBindingSet();
 
-            bindingSet.Bind(_imageButtonBack).For(v => v.BindClick()).To(vm => vm.CloseCommand);
+            bindingSet.Bind(_backImageButton).For(v => v.BindClick()).To(vm => vm.CloseCommand);
             bindingSet.Bind(_textInputEmailEditText).For(v => v.Text).To(vm => vm.Email);
             bindingSet.Bind(_materialButtonRegistration).For(v => v.BindClick()).To(vm => vm.RecoverPasswordCommand);
             bindingSet.Bind(_progressBar).For(v => v.BindVisible()).To(vm => vm.IsBusy);
@@ -47,7 +47,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.PasswordRecovery
         protected override void SetViewProperties(View view)
         {
             base.SetViewProperties(view);
-            _imageButtonBack = view.FindViewById<ImageButton>(Resource.Id.back_button);
+            _backImageButton = view.FindViewById<ImageButton>(Resource.Id.back_button);
             _textInputEmailEditText = view.FindViewById<TextInputEditText>(Resource.Id.email_edit_text_field);
             _materialButtonRegistration = view.FindViewById<MaterialButton>(Resource.Id.registration_button);
             _progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBar);

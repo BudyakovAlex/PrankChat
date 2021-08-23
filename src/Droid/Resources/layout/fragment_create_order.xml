@@ -28,7 +28,7 @@
 				app:boxStrokeWidth="1dp">
 
 				<com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/title_text"
+                    android:id="@+id/title_input_edit_text"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:maxLines="1"
@@ -82,7 +82,7 @@
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<TextView
-                android:id="@+id/date_text"
+                android:id="@id/date_text_view"
 				android:layout_width="match_parent"
 				android:layout_height="46dp"
 				android:layout_marginTop="16dp"
@@ -137,7 +137,7 @@
 	</ScrollView>
 
 	<FrameLayout
-        android:id="@+id/frame_layout"
+        android:id="@id/animation_frame_layout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@id/action_bar"
