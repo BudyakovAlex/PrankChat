@@ -95,66 +95,23 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         {
             base.Bind();
 
-            var bindingSet = this.CreateBindingSet<CompetitionVideoCell, CompetitionVideoViewModel>();
+            using var bindingSet = this.CreateBindingSet<CompetitionVideoCell, CompetitionVideoViewModel>();
 
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.OpenUserProfileCommand);
-
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.AvatarUrl);
-
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.PlaceholderText)
-                      .To(vm => vm.ProfileShortName);
-
-            bindingSet.Bind(profileNameLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.UserName);
-
-            bindingSet.Bind(viewsLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.ViewsCount);
-
-            bindingSet.Bind(postDateLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.PublicationDateString);
-
-            bindingSet.Bind(videoView)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.ShowFullScreenVideoCommand);
-
-            bindingSet.Bind(likeButton)
-                      .For(v => v.BindTouchUpInside())
-                      .To(vm => vm.LikeCommand);
-
-            bindingSet.Bind(likeButton)
-                      .For(v => v.BindTitle())
-                      .To(vm => vm.LikesCount);
-
-            bindingSet.Bind(this)
-                      .For(v => v.IsLiked)
-                      .To(vm => vm.IsLiked);
-
-            bindingSet.Bind(this)
-                      .For(v => v.IsLikeButtonVisible)
-                      .To(vm => vm.CanVoteVideo);
-
-            bindingSet.Bind(RootProcessingBackgroundView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsVideoProcessing);
-
-            bindingSet.Bind(videoView)
-                      .For(v => v.BindHidden())
-                      .To(vm => vm.IsVideoProcessing);
-
-            bindingSet.Bind(this)
-                      .For(v => v.CanShowStub)
-                      .To(vm => vm.IsVideoProcessing)
+            bindingSet.Bind(profileImageView).For(v => v.BindTap()).To(vm => vm.OpenUserProfileCommand);
+            bindingSet.Bind(profileImageView).For(v => v.ImagePath).To(vm => vm.AvatarUrl);
+            bindingSet.Bind(profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName);
+            bindingSet.Bind(profileNameLabel).For(v => v.Text).To(vm => vm.UserName);
+            bindingSet.Bind(viewsLabel).For(v => v.Text).To(vm => vm.ViewsCount);
+            bindingSet.Bind(postDateLabel).For(v => v.Text).To(vm => vm.PublicationDateString);
+            bindingSet.Bind(videoView).For(v => v.BindTap()).To(vm => vm.ShowFullScreenVideoCommand);
+            bindingSet.Bind(likeButton).For(v => v.BindTouchUpInside()).To(vm => vm.LikeCommand);
+            bindingSet.Bind(likeButton).For(v => v.BindTitle()).To(vm => vm.LikesCount);
+            bindingSet.Bind(this).For(v => v.IsLiked).To(vm => vm.IsLiked);
+            bindingSet.Bind(this).For(v => v.IsLikeButtonVisible).To(vm => vm.CanVoteVideo);
+            bindingSet.Bind(RootProcessingBackgroundView).For(v => v.BindVisible()).To(vm => vm.IsVideoProcessing);
+            bindingSet.Bind(videoView).For(v => v.BindHidden()).To(vm => vm.IsVideoProcessing);
+            bindingSet.Bind(this).For(v => v.CanShowStub).To(vm => vm.IsVideoProcessing)
                       .WithConversion<MvxInvertedBooleanConverter>();
-
-            bindingSet.Apply();
         }
 
         private void InitializeLikeButton()

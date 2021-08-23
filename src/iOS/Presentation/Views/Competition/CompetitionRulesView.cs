@@ -19,13 +19,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         {
             base.Bind();
 
-            var bindingSet = this.CreateBindingSet<CompetitionRulesView, CompetitionRulesViewModel>();
+            using var bindingSet = this.CreateBindingSet<CompetitionRulesView, CompetitionRulesViewModel>();
 
-            bindingSet.Bind(webView)
-                      .For(WKWebViewHtmlStringTargetBinding.TargetBinding)
-                      .To(vm => vm.HtmlContent);
-
-            bindingSet.Apply();
+            bindingSet.Bind(webView).For(WKWebViewHtmlStringTargetBinding.TargetBinding).To(vm => vm.HtmlContent);
         }
     }
 }

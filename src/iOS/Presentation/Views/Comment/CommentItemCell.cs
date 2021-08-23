@@ -26,40 +26,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 
         protected override void Bind()
         {
-            var bindingSet = this.CreateBindingSet<CommentItemCell, CommentItemViewModel>();
+            using var bindingSet = this.CreateBindingSet<CommentItemCell, CommentItemViewModel>();
 
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.ProfilePhotoUrl)
+            bindingSet.Bind(profileImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl)
                       .Mode(MvxBindingMode.OneTime);
-
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.OpenUserProfileCommand);
-
-            bindingSet.Bind(profileNameLabel)
-                      .To(vm => vm.ProfileName)
+            bindingSet.Bind(profileImageView).For(v => v.BindTap()).To(vm => vm.OpenUserProfileCommand);
+            bindingSet.Bind(profileNameLabel).To(vm => vm.ProfileName)
                       .Mode(MvxBindingMode.OneTime);
-
-            bindingSet.Bind(commentDateLabel)
-                      .To(vm => vm.DateText)
+            bindingSet.Bind(commentDateLabel).To(vm => vm.DateText)
                       .Mode(MvxBindingMode.OneTime);
-
-            bindingSet.Bind(commentLabel)
-                      .To(vm => vm.Comment)
+            bindingSet.Bind(commentLabel).To(vm => vm.Comment)
                       .Mode(MvxBindingMode.OneTime);
-
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.ProfilePhotoUrl)
+            bindingSet.Bind(profileImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl)
                       .Mode(MvxBindingMode.OneTime);
-
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.PlaceholderText)
-                      .To(vm => vm.ProfileShortName)
+            bindingSet.Bind(profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName)
                       .Mode(MvxBindingMode.OneTime);
-
-            bindingSet.Apply();
         }
     }
 }

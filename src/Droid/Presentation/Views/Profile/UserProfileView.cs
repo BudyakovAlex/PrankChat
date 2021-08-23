@@ -130,7 +130,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         {
             base.Bind();
 
-            var bindingSet = this.CreateBindingSet<UserProfileView, UserProfileViewModel>();
+            using var bindingSet = this.CreateBindingSet<UserProfileView, UserProfileViewModel>();
 
             bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(this).For(v => v.IsSubscribed).To(vm => vm.IsSubscribed);
@@ -147,8 +147,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             bindingSet.Bind(_profileSubscriptionsValueTextView).For(v => v.Text).To(vm => vm.SubscriptionsValue);
             bindingSet.Bind(_descriptionTextView).For(v => v.Text).To(vm => vm.Description);
             bindingSet.Bind(_descriptionTextView).For(v => v.BindVisible()).To(vm => vm.HasDescription);
-
-            bindingSet.Apply();
         }
     }
 }

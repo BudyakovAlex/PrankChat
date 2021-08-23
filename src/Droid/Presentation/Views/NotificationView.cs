@@ -54,25 +54,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         {
             base.Bind();
 
-            var bindingSet = this.CreateBindingSet<NotificationView, NotificationViewModel>();
+            using var bindingSet = this.CreateBindingSet<NotificationView, NotificationViewModel>();
 
-            bindingSet.Bind(_adapter)
-                      .For(v => v.ItemsSource)
-                      .To(vm => vm.Items);
-
-            bindingSet.Bind(_refreshView)
-                      .For(v => v.Refreshing)
-                      .To(vm => vm.IsBusy);
-
-            bindingSet.Bind(_refreshView)
-                      .For(v => v.RefreshCommand)
-                      .To(vm => vm.ReloadItemsCommand);
-
-            bindingSet.Bind(_recyclerView)
-                      .For(v => v.LoadMoreItemsCommand)
-                      .To(vm => vm.LoadMoreItemsCommand);
-
-            bindingSet.Apply();
+            bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
+            bindingSet.Bind(_refreshView).For(v => v.Refreshing).To(vm => vm.IsBusy);
+            bindingSet.Bind(_refreshView).For(v => v.RefreshCommand).To(vm => vm.ReloadItemsCommand);
+            bindingSet.Bind(_recyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
         }
     }
 }

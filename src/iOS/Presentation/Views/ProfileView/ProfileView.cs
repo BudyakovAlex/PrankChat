@@ -59,78 +59,31 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         protected override void Bind()
         {
-            var bindingSet = this.CreateBindingSet<ProfileView, ProfileViewModel>();
+            using var bindingSet = this.CreateBindingSet<ProfileView, ProfileViewModel>();
 
-            bindingSet.Bind(this)
-                      .For(v => v.HasDescription)
-                      .To(vm => vm.HasDescription);
-
-            bindingSet.Bind(_refreshControl)
-                      .For(v => v.IsRefreshing)
-                      .To(vm => vm.IsBusy);
-
-            bindingSet.Bind(_refreshControl)
-                      .For(v => v.RefreshCommand)
-                      .To(vm => vm.LoadProfileCommand);
-
-            bindingSet.Bind(_source)
-                      .To(vm => vm.Items);
-
-            bindingSet.Bind(_source)
-                      .For(v => v.LoadMoreItemsCommand)
-                      .To(vm => vm.LoadMoreItemsCommand);
-
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.ProfilePhotoUrl)
+            bindingSet.Bind(this).For(v => v.HasDescription).To(vm => vm.HasDescription);
+            bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy);
+            bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.LoadProfileCommand);
+            bindingSet.Bind(_source).To(vm => vm.Items);
+            bindingSet.Bind(_source).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
+            bindingSet.Bind(profileImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl)
                       .Mode(MvxBindingMode.OneWay);
-
-            bindingSet.Bind(profileImageView.Tap())
-                      .For(v => v.Command)
-                      .To(vm => vm.ShowUpdateProfileCommand);
-
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.PlaceholderText)
-                      .To(vm => vm.ProfileShortName)
+            bindingSet.Bind(profileImageView.Tap()).For(v => v.Command).To(vm => vm.ShowUpdateProfileCommand);
+            bindingSet.Bind(profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName)
                       .Mode(MvxBindingMode.OneTime);
-
-            bindingSet.Bind(nameLabel)
-                      .To(vm => vm.Login)
+            bindingSet.Bind(nameLabel).To(vm => vm.Login)
                       .Mode(MvxBindingMode.OneWay);
-
-            bindingSet.Bind(descriptionLabel)
-                      .To(vm => vm.Description)
+            bindingSet.Bind(descriptionLabel).To(vm => vm.Description)
                       .Mode(MvxBindingMode.OneWay);
-
-            bindingSet.Bind(refillButton)
-                      .To(vm => vm.ShowRefillCommand);
-
-            bindingSet.Bind(withdrawalButton)
-                      .To(vm => vm.ShowWithdrawalCommand);
-
-            bindingSet.Bind(priceLabel)
-                      .To(vm => vm.Price);
-
-            bindingSet.Bind(subscribersValueLabel)
-                      .To(vm => vm.SubscribersValue);
-
-            bindingSet.Bind(subscribersView)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.ShowSubscribersCommand);
-
-            bindingSet.Bind(subscriptionsValueLabel)
-                      .To(vm => vm.SubscriptionsValue);
-
-            bindingSet.Bind(subscriptionsView)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.ShowSubscriptionsCommand);
-
-            bindingSet.Bind(_notificationBarItem)
-                      .For(v => v.Image)
-                      .To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
+            bindingSet.Bind(refillButton).To(vm => vm.ShowRefillCommand);
+            bindingSet.Bind(withdrawalButton).To(vm => vm.ShowWithdrawalCommand);
+            bindingSet.Bind(priceLabel).To(vm => vm.Price);
+            bindingSet.Bind(subscribersValueLabel).To(vm => vm.SubscribersValue);
+            bindingSet.Bind(subscribersView).For(v => v.BindTap()).To(vm => vm.ShowSubscribersCommand);
+            bindingSet.Bind(subscriptionsValueLabel).To(vm => vm.SubscriptionsValue);
+            bindingSet.Bind(subscriptionsView).For(v => v.BindTap()).To(vm => vm.ShowSubscriptionsCommand);
+            bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
                       .WithConversion<BoolToNotificationImageConverter>();
-
-            bindingSet.Apply();
         }
 
         protected override void SetupControls()

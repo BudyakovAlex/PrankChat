@@ -34,7 +34,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Comments
         {
             base.BindData();
 
-            var bindingSet = this.CreateBindingSet<CommentViewHolder, CommentItemViewModel>();
+            using var bindingSet = this.CreateBindingSet<CommentViewHolder, CommentItemViewModel>();
 
             bindingSet.Bind(_profileImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl);
             bindingSet.Bind(_profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName);
@@ -42,8 +42,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Comments
             bindingSet.Bind(_userNameTextView).For(v => v.Text).To(vm => vm.ProfileName);
             bindingSet.Bind(_commentTextView).For(v => v.Text).To(vm => vm.Comment);
             bindingSet.Bind(_dateTextView).For(v => v.Text).To(vm => vm.DateText);
-
-            bindingSet.Apply();
         }
 
     }

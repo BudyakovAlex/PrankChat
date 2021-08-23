@@ -37,7 +37,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
         {
             base.BindData();
 
-            var bindingSet = this.CreateBindingSet<CompetitionPrizePoolItemViewHolder, CompetitionPrizePoolItemViewModel>();
+            using var bindingSet = this.CreateBindingSet<CompetitionPrizePoolItemViewHolder, CompetitionPrizePoolItemViewModel>();
 
             bindingSet.Bind(_numberTextView).For(v => v.Text).To(vm => vm.Position);
             bindingSet.Bind(_userTextView).For(v => v.Text).To(vm => vm.Participant);
@@ -45,8 +45,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_prizeTextView).For(v => v.Text).To(vm => vm.Prize);
             bindingSet.Bind(_parentView).For(BackgroundColorBinding.TargetBinding).To(vm => vm.IsMyPosition)
                 .WithConversion(BoolToResourceConverter.Name, Tuple.Create(Resource.Color.dark_purple, Resource.Color.deep_purple));
-
-            bindingSet.Apply();
         }
     }
 }

@@ -46,13 +46,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Onboarding
         {
             base.BindData();
 
-            var bindingSet = this.CreateBindingSet<OnboardingItemViewHolder, OnboardingItemViewModel>();
+            using var bindingSet = this.CreateBindingSet<OnboardingItemViewHolder, OnboardingItemViewModel>();
 
             bindingSet.Bind(this).For(v => v.Type).To(vm => vm.Type);
             bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.Title);
             bindingSet.Bind(_descriptionTextView).For(v => v.Text).To(vm => vm.Description);
-
-            bindingSet.Apply();
         }
 
         private int GetImageResourceId(OnBoardingPageType type)

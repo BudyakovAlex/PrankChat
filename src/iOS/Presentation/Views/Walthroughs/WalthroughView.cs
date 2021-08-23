@@ -20,21 +20,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Walthroughs
 
         protected override void Bind()
         {
-            var bindingSet = this.CreateBindingSet<WalthroughView, WalthroughViewModel>();
+            using var bindingSet = this.CreateBindingSet<WalthroughView, WalthroughViewModel>();
 
-            bindingSet.Bind(titleLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.Title);
-
-            bindingSet.Bind(descriptionLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.Description);
-
-            bindingSet.Bind(closeImageView)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.CloseCommand);
-
-            bindingSet.Apply();
-        }
+            bindingSet.Bind(titleLabel).For(v => v.Text).To(vm => vm.Title);
+            bindingSet.Bind(descriptionLabel).For(v => v.Text).To(vm => vm.Description);
+            bindingSet.Bind(closeImageView).For(v => v.BindTap()).To(vm => vm.CloseCommand);
+       }
     }
 }

@@ -57,13 +57,12 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
         {
             base.Bind();
 
-            var bindingSet = this.CreateBindingSet<CompetitionPrizePoolView, CompetitionPrizePoolViewModel>();
+            using var bindingSet = this.CreateBindingSet<CompetitionPrizePoolView, CompetitionPrizePoolViewModel>();
 
             bindingSet.Bind(_refreshView).For(v => v.Refreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(_refreshView).For(v => v.RefreshCommand).To(vm => vm.RefreshCommand);
             bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_prizePoolTextView).For(v => v.Text).To(vm => vm.PrizePool);
-            bindingSet.Apply();
         }
     }
 }

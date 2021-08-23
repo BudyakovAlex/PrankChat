@@ -179,7 +179,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         {
             base.Bind();
 
-            var bindingSet = this.CreateBindingSet<FullScreenVideoView, FullScreenVideoViewModel>();
+            using var bindingSet = this.CreateBindingSet<FullScreenVideoView, FullScreenVideoViewModel>();
 
             bindingSet.Bind(this).For(v => v.IsDisliked).To(vm => vm.CurrentVideo.IsDisliked);
             bindingSet.Bind(this).For(v => v.IsSubscribed).To(vm => vm.CurrentVideo.IsSubscribedToUser);
@@ -205,8 +205,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             bindingSet.Bind(commentsLabel).For(v => v.Text).To(vm => vm.NumberOfCommentsPresentation);
             bindingSet.Bind(shareButton).For(v => v.BindTouchUpInside()).To(vm => vm.ShareCommand);
             bindingSet.Bind(this).For(v => v.Interaction).To(vm => vm.Interaction);
-
-            bindingSet.Apply();
         }
 
         protected override void SetCommonStyles()

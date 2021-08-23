@@ -32,7 +32,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.PasswordRecovery
         protected override void Bind()
         {
             base.Bind();
-            var bindingSet = CreateBindingSet();
+            using var bindingSet = CreateBindingSet();
 
             bindingSet.Bind(_finishPasswordRecoveryButton).For(v => v.BindClick()).To(vm => vm.ShowLoginCommand);
             bindingSet.Bind(_showPublicationText).For(v => v.BindClick()).To(vm => vm.ShowPublicationCommand);

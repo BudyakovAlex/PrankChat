@@ -41,7 +41,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
         {
             base.BindData();
 
-            var bindingSet = this.CreateBindingSet<CompetitionsSectionViewHolder, CompetitionsSectionViewModel>();
+            using var bindingSet = this.CreateBindingSet<CompetitionsSectionViewHolder, CompetitionsSectionViewModel>();
 
             bindingSet.Bind(_sectionRecyclerView).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.Phase)
@@ -54,7 +54,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
             bindingSet.Bind(_rightDivider).For(BackgroundColorBinding.TargetBinding).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
-            bindingSet.Apply();
         }
 
         protected override void DoInit(View view)

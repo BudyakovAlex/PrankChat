@@ -45,7 +45,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Subscriptions
         {
             base.Bind();
 
-            var bindingSet = this.CreateBindingSet<SubscriptionsView, SubscriptionsViewModel>();
+            using var bindingSet = this.CreateBindingSet<SubscriptionsView, SubscriptionsViewModel>();
 
             bindingSet.Bind(this).For(v => v.TabType).To(vm => vm.SelectedTabType);
             bindingSet.Bind(this).For(v => v.Title).To(vm => vm.Title);
@@ -55,8 +55,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Subscriptions
             bindingSet.Bind(_source).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
             bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.LoadDataCommand);
-
-            bindingSet.Apply();
         }
 
         private void InitializeTabView()

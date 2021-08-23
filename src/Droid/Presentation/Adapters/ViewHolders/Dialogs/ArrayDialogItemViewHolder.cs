@@ -24,9 +24,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Dialogs
 
         private void Bind()
         {
-            var bindingSet = this.CreateBindingSet<ArrayDialogItemViewHolder, string>();
+            using var bindingSet = this.CreateBindingSet<ArrayDialogItemViewHolder, string>();
             bindingSet.Bind(_textView).For(v => v.Text).To(vm => vm);
-            bindingSet.Apply();
         }
     }
 }

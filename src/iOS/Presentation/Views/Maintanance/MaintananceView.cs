@@ -23,13 +23,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Maintanance
         protected override void Bind()
         {
             base.Bind();
+            using var bindingSet = this.CreateBindingSet<MaintananceView, MaintananceViewModel>();
 
-            var bindingSet = this.CreateBindingSet<MaintananceView, MaintananceViewModel>();
-
-            bindingSet.Bind(downloadButton)
-                      .To(vm => vm.OpenInBrowserCommand);
-
-            bindingSet.Apply();
+            bindingSet.Bind(downloadButton).To(vm => vm.OpenInBrowserCommand);
         }
     }
 }
