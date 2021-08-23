@@ -72,51 +72,25 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 
         protected override void Bind()
         {
-            var setBind = this.CreateBindingSet<NotificationItemCell, NotificationItemViewModel>();
+            using var bindingSet = this.CreateBindingSet<NotificationItemCell, NotificationItemViewModel>();
 
-            setBind.Bind(profilePhotoImageView)
-                .For(v => v.ImagePath)
-                .To(vm => vm.ImageUrl)
+            bindingSet.Bind(profilePhotoImageView).For(v => v.ImagePath).To(vm => vm.ImageUrl)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(this)
-               .For(v => v.BindTap())
-               .To(vm => vm.OpenUserProfileCommand);
-
-            setBind.Bind(profilePhotoImageView)
-                .For(v => v.PlaceholderText)
-                .To(vm => vm.ProfileShortName)
+            bindingSet.Bind(this).For(v => v.BindTap()).To(vm => vm.OpenUserProfileCommand);
+            bindingSet.Bind(profilePhotoImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(profileNameAndTitleLabel)
-                .To(vm => vm.Title)
+            bindingSet.Bind(profileNameAndTitleLabel).To(vm => vm.Title)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(dateLabel)
-                .To(vm => vm.DateText)
+            bindingSet.Bind(dateLabel).To(vm => vm.DateText)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(isReadedView)
-                .For(v => v.BindVisibility())
-                .To(vm => vm.IsDelivered)
+            bindingSet.Bind(isReadedView).For(v => v.BindVisibility()).To(vm => vm.IsDelivered)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(this)
-                .For(v => v.ProfileName)
-                .To(vm => vm.ProfileName)
+            bindingSet.Bind(this).For(v => v.ProfileName).To(vm => vm.ProfileName)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(this)
-                .For(v => v.NotificationDescription)
-                .To(vm => vm.Description)
+            bindingSet.Bind(this).For(v => v.NotificationDescription).To(vm => vm.Description)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(this)
-                .For(v => v.Title)
-                .To(vm => vm.Title)
+            bindingSet.Bind(this).For(v => v.Title).To(vm => vm.Title)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Apply();
         }
 
         private void UpdateTitleLabel()

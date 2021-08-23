@@ -28,31 +28,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 
         protected override void Bind()
         {
-            var setBind = this.CreateBindingSet<ProfileSearchItemCell, ProfileSearchItemViewModel>();
+            using var bindingSet = this.CreateBindingSet<ProfileSearchItemCell, ProfileSearchItemViewModel>();
 
-            setBind.Bind(profileNameLabel)
-                .To(vm => vm.ProfileName)
+            bindingSet.Bind(profileNameLabel).To(vm => vm.ProfileName)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(profileDescriptionLabel)
-                .To(vm => vm.ProfileDescription)
+            bindingSet.Bind(profileDescriptionLabel).To(vm => vm.ProfileDescription)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(profileImageView)
-                .For(v => v.ImagePath)
-                .To(vm => vm.ImageUrl)
+            bindingSet.Bind(profileImageView).For(v => v.ImagePath).To(vm => vm.ImageUrl)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(profileImageView)
-                .For(v => v.PlaceholderText)
-                .To(vm => vm.ProfileShortName)
+            bindingSet.Bind(profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(this)
-               .For(v => v.BindTap())
-               .To(vm => vm.OpenUserProfileCommand);
-
-            setBind.Apply();
+            bindingSet.Bind(this).For(v => v.BindTap()).To(vm => vm.OpenUserProfileCommand);
         }
     }
 }

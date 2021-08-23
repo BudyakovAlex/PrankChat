@@ -14,70 +14,47 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 	{
 		protected override void Bind()
 		{
-			var setBind = this.CreateBindingSet<PublicationDetailsView, PublicationDetailsViewModel>();
+			using var bindingSet = this.CreateBindingSet<PublicationDetailsView, PublicationDetailsViewModel>();
 
-			setBind.Bind(commentatorNameLabel)
-				.To(vm => vm.CommentatorName);
-
-			setBind.Bind(commentatorPhotoImageView)
-				.For(v => v.ImagePath)
-				.To(vm => vm.CommentatorPhotoUrl)
+			bindingSet.Bind(commentatorNameLabel).To(vm => vm.CommentatorName);
+			bindingSet.Bind(commentatorPhotoImageView).For(v => v.ImagePath).To(vm => vm.CommentatorPhotoUrl)
 				.Mode(MvxBindingMode.OneTime);
-
 			//TODO: uncomment when vm will be ready
 			//set.Bind(commentatorPhotoImageView)
 			//   .For(v => v.BindTap())
 			//   .To(vm => vm.OpenUserProfileCommand);
-
-			setBind.Bind(commentLabel)
-				.To(vm => vm.NumberOfCommentText)
+			bindingSet.Bind(commentLabel).To(vm => vm.NumberOfCommentText)
 				.Mode(MvxBindingMode.OneTime);
-
-			setBind.Bind(commentView.Tap())
-				.For(v => v.Command)
-				.To(vm => vm.OpenCommentsCommand)
+			bindingSet.Bind(commentView.Tap()).For(v => v.Command).To(vm => vm.OpenCommentsCommand)
 				.Mode(MvxBindingMode.OneTime);
-
-			setBind.Bind(commentDateLabel)
-				.To(vm => vm.CommentDateText)
+			bindingSet.Bind(commentDateLabel).To(vm => vm.CommentDateText)
 				.Mode(MvxBindingMode.OneTime);
-
 			//TODO: uncomment when vm will be ready
 			//set.Bind(likeLabel)
 			//	.To(vm => vm.NumberOfLikesText)
 			//	.Mode(MvxBindingMode.OneTime);
-
 			//set.Bind(profileNameLabel)
 			//	.To(vm => vm.ProfileName)
 			//	.Mode(MvxBindingMode.OneTime);
-
 			//set.Bind(profilePhotoImageView)
 			//	.For(v => v.ImagePath)
 			//	.To(vm => vm.ProfilePhotoUrl)
 			//	.Mode(MvxBindingMode.OneTime);
-
 			//set.Bind(profilePhotoImageView)
 			//   .For(v => v.PlaceholderText)
 			//   .To(vm => vm.ProfileShortName)
 			//   .Mode(MvxBindingMode.OneTime);
-
 			//set.Bind(publicationInfoLabel)
 			//	.To(vm => vm.VideoInformationText);
-
-			setBind.Bind(videoDescriptionButton)
-				.To(vm => vm.VideoDescription)
+			bindingSet.Bind(videoDescriptionButton).To(vm => vm.VideoDescription)
 				.Mode(MvxBindingMode.OneTime);
-
 			//set.Bind(videoImageView)
 			//	.For(v => v.ImagePath)
 			//	.To(vm => vm.StubImageUrl)
 			//	.Mode(MvxBindingMode.OneTime);
-
 			//set.Bind(videoNameLabel)
 			//	.To(vm => vm.VideoName)
 			//	.Mode(MvxBindingMode.OneTime);
-
-			setBind.Apply();
 		}
 
 		protected override void SetupControls()

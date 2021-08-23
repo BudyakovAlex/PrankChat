@@ -32,13 +32,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
         {
             base.SetBindings();
 
-            var setBind = this.CreateBindingSet<PaymentMethodCell, PaymentMethodItemViewModel>();
+            using var bindingSet = this.CreateBindingSet<PaymentMethodCell, PaymentMethodItemViewModel>();
 
-            setBind.Bind(paymentImageView)
-                .To(vm => vm.IsSelected)
+            bindingSet.Bind(paymentImageView).To(vm => vm.IsSelected)
                 .WithConversion<BoolToUIImageConverter>(ViewModel.Type);
-
-            setBind.Apply();
         }
     }
 }

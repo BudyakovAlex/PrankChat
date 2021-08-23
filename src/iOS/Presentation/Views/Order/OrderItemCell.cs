@@ -66,80 +66,33 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         protected override void Bind()
         {
-            var setBind = this.CreateBindingSet<OrderItemCell, OrderItemViewModel>();
+            using var bindingSet = this.CreateBindingSet<OrderItemCell, OrderItemViewModel>();
 
-            setBind.Bind(this)
-               .For(v => v.OrderTagType)
-               .To(vm => vm.OrderTagType);
-
-            setBind.Bind(this)
-                .For(v => v.BindTap())
-                .To(vm => vm.OpenDetailsOrderCommand)
+            bindingSet.Bind(this).For(v => v.OrderTagType).To(vm => vm.OrderTagType);
+            bindingSet.Bind(this).For(v => v.BindTap()).To(vm => vm.OpenDetailsOrderCommand)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(backgroundImageView)
-                .For(UIImageViewOrderTypeTargetBinding.TargetBinding)
-                .To(vm => vm.OrderType);
-
-            setBind.Bind(profilePhotoImage)
-                .For(v => v.ImagePath)
-                .To(vm => vm.ProfilePhotoUrl)
+            bindingSet.Bind(backgroundImageView).For(UIImageViewOrderTypeTargetBinding.TargetBinding).To(vm => vm.OrderType);
+            bindingSet.Bind(profilePhotoImage).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(profilePhotoImage)
-                .For(v => v.PlaceholderText)
-                .To(vm => vm.ProfileShortName)
+            bindingSet.Bind(profilePhotoImage).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(profilePhotoImage)
-               .For(v => v.BindTap())
-               .To(vm => vm.OpenUserProfileCommand);
-
-            setBind.Bind(orderTitleLabel)
-                .To(vm => vm.Title)
+            bindingSet.Bind(profilePhotoImage).For(v => v.BindTap()).To(vm => vm.OpenUserProfileCommand);
+            bindingSet.Bind(orderTitleLabel).To(vm => vm.Title)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(orderTimeLabel)
-                .To(vm => vm.TimeText)
+            bindingSet.Bind(orderTimeLabel).To(vm => vm.TimeText)
                 .Mode(MvxBindingMode.OneWay);
-
-            setBind.Bind(priceValueLabel)
-                .To(vm => vm.PriceText)
+            bindingSet.Bind(priceValueLabel).To(vm => vm.PriceText)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(orderDetailsButton)
-                .To(vm => vm.OpenDetailsOrderCommand)
+            bindingSet.Bind(orderDetailsButton).To(vm => vm.OpenDetailsOrderCommand)
                 .Mode(MvxBindingMode.OneTime);
-
-            setBind.Bind(orderDetailsButton)
-                .For(UIButtonOrderTypeTargetBinding.TargetBinding)
-                .To(vm => vm.OrderType);
-
-            setBind.Bind(statusOrderLabel)
-                .To(vm => vm.StatusText)
+            bindingSet.Bind(orderDetailsButton).For(UIButtonOrderTypeTargetBinding.TargetBinding).To(vm => vm.OrderType);
+            bindingSet.Bind(statusOrderLabel).To(vm => vm.StatusText)
                 .Mode(MvxBindingMode.OneWay);
-
-            setBind.Bind(orderTimeLabel)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsTimeAvailable);
-
-            setBind.Bind(titleTimeView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsTimeAvailable);
-
-            setBind.Bind(timeLabel)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsTimeAvailable);
-
-            setBind.Bind(OrderTagTypeImageView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.OrderTagType);
-
-            setBind.Bind(IsHiddenOrderImageView)
-                .For(v => v.BindVisible())
-                .To(vm => vm.IsHiddenOrder);
-            
-            setBind.Apply();
+            bindingSet.Bind(orderTimeLabel).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
+            bindingSet.Bind(titleTimeView).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
+            bindingSet.Bind(timeLabel).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
+            bindingSet.Bind(OrderTagTypeImageView).For(v => v.BindVisible()).To(vm => vm.OrderTagType);
+            bindingSet.Bind(IsHiddenOrderImageView).For(v => v.BindVisible()).To(vm => vm.IsHiddenOrder);
         }
 
         private string GetImageName(OrderTagType orderTagType)

@@ -11,23 +11,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.ArrayPicker
 
         protected override void Bind()
         {
-            var setBind = this.CreateBindingSet<ArrayPickerController, ArrayDialogViewModel>();
+            using var bindingSet = this.CreateBindingSet<ArrayPickerController, ArrayDialogViewModel>();
 
-            setBind.Bind(_pickerViewModel)
-                .For(p => p.SelectedItem)
-                .To(vm => vm.SelectedItem);
-
-            setBind.Bind(_pickerViewModel)
-                .For(p => p.ItemsSource)
-                .To(vm => vm.Items);
-
-            setBind.Bind(doneButton)
-                .To(vm => vm.DoneCommand);
-
-            setBind.Bind(cancelButton)
-                .To(vm => vm.CloseCommand);
-
-            setBind.Apply();
+            bindingSet.Bind(_pickerViewModel).For(p => p.SelectedItem).To(vm => vm.SelectedItem);
+            bindingSet.Bind(_pickerViewModel).For(p => p.ItemsSource).To(vm => vm.Items);
+            bindingSet.Bind(doneButton).To(vm => vm.DoneCommand);
+            bindingSet.Bind(cancelButton).To(vm => vm.CloseCommand);
         }
 
         protected override void SetupControls()
