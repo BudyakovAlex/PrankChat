@@ -81,7 +81,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             bindingSet.Bind(_profilePriceTextView).For(v => v.Text).To(vm => vm.Price).OneWay();
             bindingSet.Bind(_profileSubscribersValueTextView).For(v => v.Text).To(vm => vm.SubscribersValue);
             bindingSet.Bind(_subscriptionsViewConstraintLayout).For(v => v.BindClick()).To(vm => vm.ShowSubscriptionsCommand);
-            bindingSet.Bind(_profileSubscriptionsValueTextView).For(v => v.BindClick()).To(vm => vm.SubscriptionsValue);
+            bindingSet.Bind(_profileSubscriptionsValueTextView).For(v => v.BindClick()).To(vm => vm.ShowSubscriptionsCommand);
+            bindingSet.Bind(_profileSubscriptionsValueTextView).For(v => v.Text).To(vm => vm.SubscriptionsValue);
             bindingSet.Bind(_profileRefillButton).For(v => v.BindClick()).To(vm => vm.ShowRefillCommand);
             bindingSet.Bind(_profileViewWithdrawal).For(v => v.BindClick()).To(vm => vm.ShowWithdrawalCommand);
             bindingSet.Bind(_subscribersViewConstraintLayout).For(v => v.BindClick()).To(vm => vm.ShowSubscribersCommand);
@@ -108,7 +109,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             _profileViewWithdrawal = view.FindViewById<MaterialButton>(Resource.Id.profile_withdrawal_button);
             _subscribersViewConstraintLayout = view.FindViewById<ConstraintLayout>(Resource.Id.subscribers_view);
             _descriptionTextView = view.FindViewById<TextView>(Resource.Id.description_text_view);
-            _mvxSwipeRefreshLayout = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swipe_refresh_layout);
+            _mvxSwipeRefreshLayout = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.user_profile_swipe_refresh_layout);
 
             _layoutManager = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
             _endlessRecyclerView.SetLayoutManager(_layoutManager);
