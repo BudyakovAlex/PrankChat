@@ -7,7 +7,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
 {
     public class BackgroundResourceBinding : MvxAndroidTargetBinding
     {
-        public static string TargetBinding = "BackgroundResource";
+        public static string TargetBinding { get; } = "BackgroundResource";
 
         public override Type TargetType => typeof(View);
 

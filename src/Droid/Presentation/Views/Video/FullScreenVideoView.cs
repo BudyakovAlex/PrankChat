@@ -15,6 +15,7 @@ using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.Droid.Controls;
+using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Presentation.Bindings;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
@@ -159,7 +160,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Video
             bindingSet.Bind(this).For(v => v.IsSubscribed).To(vm => vm.CurrentVideo.IsSubscribedToUser);
 
             bindingSet.Bind(this).For(v => v.CurrentItem).To(vm => vm.CurrentVideo);
-            bindingSet.Bind(_videoView).For(VideoUrlTargetBinding.TargetBinding).To(vm => vm.CurrentVideo.VideoUrl);
+            bindingSet.Bind(_videoView).For(v => v.BindVideoUrl()).To(vm => vm.CurrentVideo.VideoUrl);
             bindingSet.Bind(_mediaController).For(v => v.IsMuted).To(vm => vm.IsMuted).TwoWay();
 
             bindingSet.Bind(_backImageView).For(v => v.BindClick()).To(vm => vm.CloseCommand);

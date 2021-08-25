@@ -10,7 +10,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
 {
     public class TextColorTargetBinding : MvxAndroidTargetBinding
     {
-        public static string TargetBinding = "TextColor";
+        public static string TargetBinding { get; } = "TextColor";
 
         public override Type TargetType => typeof(TextView);
 

@@ -102,9 +102,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
             bindingSet.Bind(_termToTextView).For(v => v.Text).To(vm => vm.ActiveTo)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
-            bindingSet.Bind(_borderFrame).For(BackgroundColorBinding.TargetBinding).To(vm => vm.Phase)
+            bindingSet.Bind(_borderFrame).For(v => v.BindColor()).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
-            bindingSet.Bind(_backgroundFrame).For(BackgroundResourceBinding.TargetBinding).To(vm => vm.Phase)
+            bindingSet.Bind(_backgroundFrame).For(v => v.BindResource()).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToBackgroundConverter>();
             bindingSet.Bind(_placeholderImageView).For(v => v.ImagePath).To(vm => vm.ImageUrl);
             bindingSet.Bind(_actionButton).For(v => v.Text).To(vm => vm.Phase)

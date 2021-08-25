@@ -10,7 +10,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
 {
     public class BackgroundColorBinding : MvxAndroidTargetBinding
     {
-        public static string TargetBinding = "BackgroundColor";
+        public static string TargetBinding { get; } = "BackgroundColor";
 
         public override Type TargetType => typeof(View);
 

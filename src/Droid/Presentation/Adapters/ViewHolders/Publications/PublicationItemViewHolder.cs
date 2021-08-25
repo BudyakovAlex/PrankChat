@@ -129,7 +129,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Publications
             bindingSet.Bind(StubImageView).For(v => v.ImagePath).To(vm => vm.StubImageUrl);
             bindingSet.Bind(_likeTextView).For(v => v.Text).To(vm => vm.NumberOfLikesText);
             bindingSet.Bind(_dislikeTextView).For(v => v.Text).To(vm => vm.NumberOfDislikesText);
-            bindingSet.Bind(_videoContainerView).For(ViewTouchTargetBinding.TargetBinding).To(vm => vm.ShowFullScreenVideoCommand);
+            bindingSet.Bind(_videoContainerView).For(v => v.BindViewTouch()).To(vm => vm.ShowFullScreenVideoCommand);
             bindingSet.Bind(ProcessingView).For(v => v.BindVisible()).To(vm => vm.IsVideoProcessing);
             bindingSet.Bind(TextureView).For(v => v.BindHidden()).To(vm => vm.IsVideoProcessing);
             bindingSet.Bind(_competitionBorderView).For(v => v.BindVisible()).To(vm => vm.IsCompetitionVideo);

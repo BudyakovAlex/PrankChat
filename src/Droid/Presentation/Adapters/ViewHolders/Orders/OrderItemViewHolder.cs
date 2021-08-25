@@ -92,7 +92,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders
             bindingSet.Bind(_minutesTextView).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
 
             bindingSet.Bind(_actionButton).For(v => v.BindClick()).To(vm => vm.OpenDetailsOrderCommand);
-            bindingSet.Bind(_actionButton).For(OrderButtonStyleBinding.TargetBinding).To(vm => vm.OrderType);
+            bindingSet.Bind(_actionButton).For(v => v.BindOrderButtonStyle()).To(vm => vm.OrderType);
 
             bindingSet.Bind(this).For(v => v.OrderTagType).To(vm => vm.OrderTagType);
             bindingSet.Bind(_backgroundView).For(v => v.BindDrawable()).To(vm => vm.OrderType)

@@ -11,7 +11,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
 {
     public class ImageViewTintColorTargetBinding : MvxAndroidTargetBinding
     {
-        public static string TargetBinding = "ImageViewTintColor";
+        public static string TargetBinding { get; } = "ImageViewTintColor";
 
         public override Type TargetType => typeof(ImageView);
 

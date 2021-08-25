@@ -6,7 +6,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
 {
     public class TabLayoutTabTextBinding : MvxTargetBinding<TabLayout.Tab, string>
     {
-        public static string TargetBinding = nameof(TabLayoutTabTextBinding);
+        public static string TargetBinding { get; } = nameof(TabLayoutTabTextBinding);
 
         public TabLayoutTabTextBinding(TabLayout.Tab target)
             : base(target)
