@@ -93,14 +93,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             _loadVideMaterialButton = FindViewById<MaterialButton>(Resource.Id.load_video_material_button);
             _executeMaterialButton = FindViewById<MaterialButton>(Resource.Id.execute_button);
             _cancelMaterialButton = FindViewById<MaterialButton>(Resource.Id.cancel_order_details_button);
-            _separatorView = FindViewById<View>(Resource.Id.separator);
-            _takeTheOrderTextTextView = FindViewById<TextView>(Resource.Id.take_the_order_text);
-            _executorPhotoImageView = FindViewById<CircleCachedImageView>(Resource.Id.executor_photo);
-            _executorNameTextView = FindViewById<TextView>(Resource.Id.executor_name);
+            _separatorView = FindViewById<View>(Resource.Id.order_details_separator_view);
+            _takeTheOrderTextTextView = FindViewById<TextView>(Resource.Id.take_the_order_text_view);
+            _executorPhotoImageView = FindViewById<CircleCachedImageView>(Resource.Id.executor_photo_image_view);
+            _executorNameTextView = FindViewById<TextView>(Resource.Id.executor_name_text_view);
             _takeTheOrderDateTextView = FindViewById<TextView>(Resource.Id.take_the_order_date_text_view);
             _fullVideoCardView = FindViewById<CardView>(Resource.Id.full_video_card_view);
             _completedVideoImageView = FindViewById<MvxCachedImageView>(Resource.Id.completed_video_image_view);
-            _processingViewConsraintLayout = FindViewById<ConstraintLayout>(Resource.Id.processing_view);
+            _processingViewConsraintLayout = FindViewById<ConstraintLayout>(Resource.Id.processing_view_constraintLayout);
             _percentRelativeLayoutVideo = FindViewById<PercentRelativeLayout>(Resource.Id.video_percentRelativeLayout);
             _yesSelectableButton = FindViewById<SelectableButton>(Resource.Id.yes_button);
             _noSelectableButton = FindViewById<SelectableButton>(Resource.Id.no_button);
@@ -109,7 +109,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             _animationFrameLayout = FindViewById<FrameLayout>(Resource.Id.animation_frame_layout);
             _mvxSwipeRefreshLayout = FindViewById<MvxSwipeRefreshLayout>(Resource.Id.order_swipe_refresh_layout);
             _userPhotoImageView = FindViewById<CircleCachedImageView>(Resource.Id.user_photo);
-            _profileNameTextView = FindViewById<TextView>(Resource.Id.profile_name);
+            _profileNameTextView = FindViewById<TextView>(Resource.Id.profile_name_text_view);
             _orderTitleTextView = FindViewById<TextView>(Resource.Id.order_title_text_view);
             _orderDescriptionView = FindViewById<View>(Resource.Id.order_description_view);
             _orderDescription = FindViewById<TextView>(Resource.Id.order_description_text_view);
@@ -132,23 +132,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
 
             using var bindingSet = this.CreateBindingSet<OrderDetailsView, OrderDetailsViewModel>();
 
-            bindingSet.Bind(_uploadingContainerView)
-.For(v => v.BindVisible())
-.To(vm => vm.VideoSectionViewModel.IsUploading);
-
-            bindingSet.Bind(_uploadingProgressBar)
-.For(v => v.Progress)
-.To(vm => vm.VideoSectionViewModel.UploadingProgress);
-
-            bindingSet.Bind(_uploadingProgressBar)
-.For(v => v.BindClick())
-.To(vm => vm.VideoSectionViewModel.CancelUploadingCommand);
-            bindingSet.Bind(_uploadedTextView)
-.For(v => v.Text)
-.To(vm => vm.VideoSectionViewModel.UploadingProgressStringPresentation);
-            bindingSet.Bind(_orderDescriptionTextView)
-.For(v => v.TextAlignment)
-.To(vm => vm.IsHiddenOrder)
+            bindingSet.Bind(_uploadingContainerView).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsUploading);
+            bindingSet.Bind(_uploadingProgressBar).For(v => v.Progress).To(vm => vm.VideoSectionViewModel.UploadingProgress);
+            bindingSet.Bind(_uploadingProgressBar).For(v => v.BindClick()).To(vm => vm.VideoSectionViewModel.CancelUploadingCommand);
+            bindingSet.Bind(_uploadedTextView).For(v => v.Text).To(vm => vm.VideoSectionViewModel.UploadingProgressStringPresentation);
+            bindingSet.Bind(_orderDescriptionTextView).For(v => v.TextAlignment).To(vm => vm.IsHiddenOrder)
                       .WithConversion(new BoolToStateConverter<TextAlignment>(TextAlignment.TextStart, TextAlignment.Center));
             bindingSet.Bind(_takeOrderMaterialButton).For(v => v.BindClick()).To(vm => vm.TakeOrderCommand);
             bindingSet.Bind(_takeOrderMaterialButton).For(v => v.BindVisible()).To(vm => vm.IsTakeOrderAvailable);

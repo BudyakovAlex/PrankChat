@@ -285,7 +285,7 @@
 					android:layout_marginBottom="26dp">
 
 					<View
-						android:id="@+id/separator"
+						android:id="@+id/order_details_separator_view"
 						android:layout_width="match_parent"
 						android:layout_height="1dp"
 						android:layout_alignParentTop="true"
@@ -295,7 +295,7 @@
 						android:id="@+id/take_the_order_text_view"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_below="@+id/separator"
+						android:layout_below="@+id/order_details_separator_view"
 						android:layout_marginTop="16dp"
 						android:gravity="center_horizontal"
 						android:textColor="@color/inactive"
