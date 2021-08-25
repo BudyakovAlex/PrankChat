@@ -90,7 +90,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
 
             _mvxSwipeRefreshLayout = FindViewById<MvxSwipeRefreshLayout>(Resource.Id.order_swipe_refresh_layout);
             _profilePhotoImageView = FindViewById<CircleCachedImageView>(Resource.Id.profile_photo);
-            _profileNameTextView = FindViewById<TextView>(Resource.Id.profile_name_text_view);
+            _profileNameTextView = FindViewById<TextView>(Resource.Id.profile_name);
             _subscribeButton = FindViewById<MaterialButton>(Resource.Id.subscribe_button);
             _subscribersViewConstraintLayout = FindViewById<ConstraintLayout>(Resource.Id.subscribers_view);
             _profileSubscribersValueTextView = FindViewById<TextView>(Resource.Id.profile_subscribers_value);
