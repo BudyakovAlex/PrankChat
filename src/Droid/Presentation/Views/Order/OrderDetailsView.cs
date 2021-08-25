@@ -176,7 +176,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             bindingSet.Bind(_arqueOrderSelectableButton).For(v => v.BindClick()).To(vm => vm.ArqueOrderCommand);
             bindingSet.Bind(_arqueOrderSelectableButton).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsDecisionVideoAvailable);
             bindingSet.Bind(_animationFrameLayout).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsBusy);
-            bindingSet.Bind(_mvxSwipeRefreshLayout).For(v => v.Refreshing).To(vm => vm.IsBusy).OneWay();
+            bindingSet.Bind(_mvxSwipeRefreshLayout).For(v => v.Refreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(_mvxSwipeRefreshLayout).For(v => v.RefreshCommand).To(vm => vm.LoadOrderDetailsCommand);
             bindingSet.Bind(_userPhotoImageView).For(v => v.ImagePath).To(vm => vm.CustomerSectionViewModel.ProfilePhotoUrl).OneWay();
             bindingSet.Bind(_userPhotoImageView).For(v => v.PlaceholderText).To(vm => vm.CustomerSectionViewModel.ProfileShortName).OneWay();
