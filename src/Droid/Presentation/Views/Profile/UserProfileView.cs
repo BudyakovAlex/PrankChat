@@ -28,14 +28,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
     [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class UserProfileView : BaseView<UserProfileViewModel>, TabLayout.IOnTabSelectedListener
     {
-        private MaterialButton _subscribeButton;
+        private MaterialButton _subscribeToUserButton;
         private EndlessRecyclerView _endlessRecyclerView;
         private LinearLayoutManager _layoutManager;
         private RecycleViewBindableAdapter _adapter;
         private MvxSwipeRefreshLayout _mvxSwipeRefreshLayout;
         private CircleCachedImageView _profilePhotoImageView;
         private TextView _profileNameTextView;
-        private MaterialButton _subscribeButtonUserProfile;
         private ConstraintLayout _subscribersViewConstraintLayout;
         private TextView _profileSubscribersValueTextView;
         private ConstraintLayout _subscriptionsViewConstraintLayout;
@@ -51,17 +50,17 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
                 _isSubscribed = value;
                 if (_isSubscribed)
                 {
-                    _subscribeButton.Text = Core.Localization.Resources.OrderDetailsView_Unsubscribe_Button;
-                    _subscribeButton.SetBackgroundResource(Resource.Drawable.button_accent_background);
-                    _subscribeButton.SetTextColor(Color.White);
+                    _subscribeToUserButton.Text = Core.Localization.Resources.OrderDetailsView_Unsubscribe_Button;
+                    _subscribeToUserButton.SetBackgroundResource(Resource.Drawable.button_accent_background);
+                    _subscribeToUserButton.SetTextColor(Color.White);
                     return;
                 }
 
-                _subscribeButton.Text = Core.Localization.Resources.OrderDetailsView_Subscribe_Button;
-                _subscribeButton.SetBackgroundResource(Resource.Drawable.border_accent);
+                _subscribeToUserButton.Text = Core.Localization.Resources.OrderDetailsView_Subscribe_Button;
+                _subscribeToUserButton.SetBackgroundResource(Resource.Drawable.border_accent);
                 var colorArgb = ContextCompat.GetColor(this, Resource.Color.accent);
                 var color = new Color(colorArgb);
-                _subscribeButton.SetTextColor(color);
+                _subscribeToUserButton.SetTextColor(color);
             }
         }
 
@@ -75,7 +74,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         {
             base.SetViewProperties();
 
-            _subscribeButton = FindViewById<MaterialButton>(Resource.Id.subscribe_button);
+            _subscribeToUserButton = FindViewById<MaterialButton>(Resource.Id.subscribe_button);
             _endlessRecyclerView = FindViewById<EndlessRecyclerView>(Resource.Id.profile_publication_recycler_view);
 
             _layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
@@ -91,7 +90,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             _mvxSwipeRefreshLayout = FindViewById<MvxSwipeRefreshLayout>(Resource.Id.order_swipe_refresh_layout);
             _profilePhotoImageView = FindViewById<CircleCachedImageView>(Resource.Id.profile_photo);
             _profileNameTextView = FindViewById<TextView>(Resource.Id.profile_name);
-            _subscribeButton = FindViewById<MaterialButton>(Resource.Id.subscribe_button);
+            _subscribeToUserButton = FindViewById<MaterialButton>(Resource.Id.subscribe_button);
             _subscribersViewConstraintLayout = FindViewById<ConstraintLayout>(Resource.Id.subscribers_view);
             _profileSubscribersValueTextView = FindViewById<TextView>(Resource.Id.profile_subscribers_value);
             _subscriptionsViewConstraintLayout = FindViewById<ConstraintLayout>(Resource.Id.subscriptions_view);
@@ -138,7 +137,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             bindingSet.Bind(_profilePhotoImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl);
             bindingSet.Bind(_profilePhotoImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortLogin);
             bindingSet.Bind(_profileNameTextView).For(v => v.Text).To(vm => vm.Login);
-            bindingSet.Bind(_subscribeButton).For(v => v.BindClick()).To(vm => vm.SubscribeCommand);
+            bindingSet.Bind(_subscribeToUserButton).For(v => v.BindClick()).To(vm => vm.SubscribeCommand);
             bindingSet.Bind(_subscribersViewConstraintLayout).For(v => v.BindClick()).To(vm => vm.ShowSubscribersCommand);
             bindingSet.Bind(_profileSubscribersValueTextView).For(v => v.Text).To(vm => vm.SubscribersValue);
             bindingSet.Bind(_subscriptionsViewConstraintLayout).For(v => v.BindClick()).To(vm => vm.ShowSubscriptionsCommand);

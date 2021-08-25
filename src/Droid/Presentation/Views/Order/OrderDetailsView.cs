@@ -30,7 +30,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         private CircleProgressBar _uploadingProgressBar;
         private TextView _uploadedTextView;
         private View _uploadingInfoContainerView;
-        private TextView _orderDescriptionTextView;
+        private TextView _orderDetailsDescriptionTextView;
         private MaterialButton _takeOrderMaterialButton;
         private MaterialButton _subribeMaterialButton;
         private MaterialButton _unsubcribeMaterialButton;
@@ -39,14 +39,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         private MaterialButton _executeMaterialButton;
         private MaterialButton _cancelMaterialButton;
         private View _separatorView;
-        private TextView _takeTheOrderTextTextView;
+        private TextView _takeTheOrderTextView;
         private CircleCachedImageView _executorPhotoImageView;
         private TextView _executorNameTextView;
         private TextView _takeTheOrderDateTextView;
         private CardView _fullVideoCardView;
         private MvxCachedImageView _completedVideoImageView;
         private ConstraintLayout _processingViewConsraintLayout;
-        private PercentRelativeLayout _percentRelativeLayoutVideo;
+        private PercentRelativeLayout _percentRelativeLayout;
         private SelectableButton _yesSelectableButton;
         private SelectableButton _noSelectableButton;
         private MaterialButton _acceptSelectableButton;
@@ -57,7 +57,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
         private TextView _profileNameTextView;
         private TextView _orderTitleTextView;
         private View _orderDescriptionView;
-        private TextView _orderDescription;
+        private TextView _orderDescriptionTextView;
         private TextView _priceValueTextView;
         private TextView _orderDetailsViewTimeTextView;
         private LinearLayout _timeDaysValueLinearLayout;
@@ -84,7 +84,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             _uploadingProgressBar = FindViewById<CircleProgressBar>(Resource.Id.uploading_progress_bar);
             _uploadedTextView = FindViewById<TextView>(Resource.Id.uploaded_text_view);
             _uploadingInfoContainerView = FindViewById<View>(Resource.Id.uploading_info_container);
-            _orderDescriptionTextView = FindViewById<TextView>(Resource.Id.order_description_text_view);
+            _orderDetailsDescriptionTextView = FindViewById<TextView>(Resource.Id.order_description_text_view);
             _uploadingInfoContainerView.SetRoundedCorners(DisplayUtils.DpToPx(15));
             _takeOrderMaterialButton = FindViewById<MaterialButton>(Resource.Id.take_order_button);
             _subribeMaterialButton = FindViewById<MaterialButton>(Resource.Id.subscribe_material_button);
@@ -94,14 +94,14 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             _executeMaterialButton = FindViewById<MaterialButton>(Resource.Id.execute_button);
             _cancelMaterialButton = FindViewById<MaterialButton>(Resource.Id.cancel_order_details_button);
             _separatorView = FindViewById<View>(Resource.Id.order_details_separator_view);
-            _takeTheOrderTextTextView = FindViewById<TextView>(Resource.Id.take_the_order_text_view);
+            _takeTheOrderTextView = FindViewById<TextView>(Resource.Id.take_the_order_text_view);
             _executorPhotoImageView = FindViewById<CircleCachedImageView>(Resource.Id.executor_photo_image_view);
             _executorNameTextView = FindViewById<TextView>(Resource.Id.executor_name_text_view);
             _takeTheOrderDateTextView = FindViewById<TextView>(Resource.Id.take_the_order_date_text_view);
             _fullVideoCardView = FindViewById<CardView>(Resource.Id.full_video_card_view);
             _completedVideoImageView = FindViewById<MvxCachedImageView>(Resource.Id.completed_video_image_view);
             _processingViewConsraintLayout = FindViewById<ConstraintLayout>(Resource.Id.processing_view_constraintLayout);
-            _percentRelativeLayoutVideo = FindViewById<PercentRelativeLayout>(Resource.Id.video_percentRelativeLayout);
+            _percentRelativeLayout = FindViewById<PercentRelativeLayout>(Resource.Id.video_percent_relative_layout);
             _yesSelectableButton = FindViewById<SelectableButton>(Resource.Id.yes_button);
             _noSelectableButton = FindViewById<SelectableButton>(Resource.Id.no_button);
             _acceptSelectableButton = FindViewById<MaterialButton>(Resource.Id.accept_button);
@@ -112,7 +112,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             _profileNameTextView = FindViewById<TextView>(Resource.Id.profile_name_text_view);
             _orderTitleTextView = FindViewById<TextView>(Resource.Id.order_title_text_view);
             _orderDescriptionView = FindViewById<View>(Resource.Id.order_description_view);
-            _orderDescription = FindViewById<TextView>(Resource.Id.order_description_text_view);
+            _orderDescriptionTextView = FindViewById<TextView>(Resource.Id.order_description_text_view);
             _priceValueTextView = FindViewById<TextView>(Resource.Id.price_value_text_view);
             _orderDetailsViewTimeTextView = FindViewById<TextView>(Resource.Id.order_details_view_time_text_view);
             _timeDaysValueLinearLayout = FindViewById<LinearLayout>(Resource.Id.linear_layout_time_days_value);
@@ -136,7 +136,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             bindingSet.Bind(_uploadingProgressBar).For(v => v.Progress).To(vm => vm.VideoSectionViewModel.UploadingProgress);
             bindingSet.Bind(_uploadingProgressBar).For(v => v.BindClick()).To(vm => vm.VideoSectionViewModel.CancelUploadingCommand);
             bindingSet.Bind(_uploadedTextView).For(v => v.Text).To(vm => vm.VideoSectionViewModel.UploadingProgressStringPresentation);
-            bindingSet.Bind(_orderDescriptionTextView).For(v => v.TextAlignment).To(vm => vm.IsHiddenOrder)
+            bindingSet.Bind(_orderDetailsDescriptionTextView).For(v => v.TextAlignment).To(vm => vm.IsHiddenOrder)
                       .WithConversion(new BoolToStateConverter<TextAlignment>(TextAlignment.TextStart, TextAlignment.Center));
             bindingSet.Bind(_takeOrderMaterialButton).For(v => v.BindClick()).To(vm => vm.TakeOrderCommand);
             bindingSet.Bind(_takeOrderMaterialButton).For(v => v.BindVisible()).To(vm => vm.IsTakeOrderAvailable);
@@ -151,7 +151,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             bindingSet.Bind(_cancelMaterialButton).For(v => v.BindClick()).To(vm => vm.CancelOrderCommand);
             bindingSet.Bind(_cancelMaterialButton).For(v => v.BindVisible()).To(vm => vm.IsCancelOrderAvailable);
             bindingSet.Bind(_separatorView).For(v => v.BindVisible()).To(vm => vm.ExecutorSectionViewModel.IsExecutorAvailable);
-            bindingSet.Bind(_takeTheOrderTextTextView).For(v => v.BindVisible()).To(vm => vm.ExecutorSectionViewModel.IsExecutorAvailable);
+            bindingSet.Bind(_takeTheOrderTextView).For(v => v.BindVisible()).To(vm => vm.ExecutorSectionViewModel.IsExecutorAvailable);
             bindingSet.Bind(_executorPhotoImageView).For(v => v.ImagePath).To(vm => vm.ExecutorSectionViewModel.ExecutorPhotoUrl);
             bindingSet.Bind(_executorPhotoImageView).For(v => v.PlaceholderText).To(vm => vm.ExecutorSectionViewModel.ExecutorShortName);
             bindingSet.Bind(_executorPhotoImageView).For(v => v.BindVisible()).To(vm => vm.ExecutorSectionViewModel.IsExecutorAvailable);
@@ -164,7 +164,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             bindingSet.Bind(_fullVideoCardView).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsVideoAvailable);
             bindingSet.Bind(_completedVideoImageView).For(v => v.ImagePath).To(vm => vm.VideoSectionViewModel.VideoPlaceholderUrl);
             bindingSet.Bind(_processingViewConsraintLayout).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsVideoProcessing);
-            bindingSet.Bind(_percentRelativeLayoutVideo).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsDecideVideoAvailable);
+            bindingSet.Bind(_percentRelativeLayout).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsDecideVideoAvailable);
             bindingSet.Bind(_yesSelectableButton).For(v => v.BindClick()).To(vm => vm.YesCommand);
             bindingSet.Bind(_yesSelectableButton).For(v => v.ArbitrationValue).To(vm => vm.SelectedArbitration);
             bindingSet.Bind(_yesSelectableButton).For(v => v.Text).To(vm => vm.YesText);
@@ -184,7 +184,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             bindingSet.Bind(_profileNameTextView).For(v => v.Text).To(vm => vm.CustomerSectionViewModel.ProfileName);
             bindingSet.Bind(_orderTitleTextView).For(v => v.Text).To(vm => vm.OrderTitle);
             bindingSet.Bind(_orderDescriptionView).For(v => v.BindVisible()).To(vm => vm.IsHiddenOrder);
-            bindingSet.Bind(_orderDescription).For(v => v.Text).To(vm => vm.OrderDescription);
+            bindingSet.Bind(_orderDescriptionTextView).For(v => v.Text).To(vm => vm.OrderDescription);
             bindingSet.Bind(_priceValueTextView).For(v => v.Text).To(vm => vm.PriceValue);
             bindingSet.Bind(_orderDetailsViewTimeTextView).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
             bindingSet.Bind(_timeDaysValueLinearLayout).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);

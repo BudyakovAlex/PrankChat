@@ -391,7 +391,7 @@
 					</androidx.constraintlayout.widget.ConstraintLayout>
 				</RelativeLayout>
 				<androidx.percentlayout.widget.PercentRelativeLayout
-                    android:id="@+id/video_percentRelativeLayout"
+                    android:id="@+id/video_percent_relative_layout"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="26dp"

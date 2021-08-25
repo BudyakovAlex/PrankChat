@@ -19,7 +19,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.PasswordRecovery
     public class FinishPasswordRecoveryView : BaseFragment<FinishPasswordRecoveryViewModel>
     {
         private MaterialButton _finishPasswordRecoveryButton;
-        private TextView _showPublicationText;
+        private TextView _showPublicationTextView;
 
         public FinishPasswordRecoveryView() : base(Resource.Layout.fragment_finish_password_recovery)
         {
@@ -35,7 +35,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.PasswordRecovery
             using var bindingSet = CreateBindingSet();
 
             bindingSet.Bind(_finishPasswordRecoveryButton).For(v => v.BindClick()).To(vm => vm.ShowLoginCommand);
-            bindingSet.Bind(_showPublicationText).For(v => v.BindClick()).To(vm => vm.ShowPublicationCommand);
+            bindingSet.Bind(_showPublicationTextView).For(v => v.BindClick()).To(vm => vm.ShowPublicationCommand);
         }
 
         protected override void SetViewProperties(View view)
@@ -43,7 +43,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.PasswordRecovery
             base.SetViewProperties(view);
 
             _finishPasswordRecoveryButton = view.FindViewById<MaterialButton>(Resource.Id.finish_password_recovery_button);
-            _showPublicationText = view.FindViewById<TextView>(Resource.Id.show_publication_text_view);
+            _showPublicationTextView = view.FindViewById<TextView>(Resource.Id.show_publication_text_view);
         }
     }
 }
