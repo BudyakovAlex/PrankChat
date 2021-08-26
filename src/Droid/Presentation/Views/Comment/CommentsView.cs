@@ -87,45 +87,17 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Comment
         {
             base.Bind();
 
-            var bindingSet = this.CreateBindingSet<CommentsView, CommentsViewModel>();
+            using var bindingSet = this.CreateBindingSet<CommentsView, CommentsViewModel>();
 
-            bindingSet.Bind(_adapter)
-                      .For(v => v.ItemsSource)
-                      .To(vm => vm.Items);
-
-            bindingSet.Bind(_refreshView)
-                      .For(v => v.Refreshing)
-                      .To(vm => vm.IsBusy);
-
-            bindingSet.Bind(_refreshView)
-                      .For(v => v.RefreshCommand)
-                      .To(vm => vm.ReloadItemsCommand);
-
-            bindingSet.Bind(this)
-                      .For(v => v.ScrollInteraction)
-                      .To(vm => vm.ScrollInteraction);
-
-            bindingSet.Bind(_recyclerView)
-                      .For(v => v.LoadMoreItemsCommand)
-                      .To(vm => vm.LoadMoreItemsCommand);
-
-            bindingSet.Bind(_profileImageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.ProfilePhotoUrl);
-
-            bindingSet.Bind(_profileImageView)
-                      .For(v => v.PlaceholderText)
-                      .To(vm => vm.ProfileShortName);
-
-            bindingSet.Bind(_commentEditText)
-                      .For(v => v.Text)
-                      .To(vm => vm.Comment);
-
-            bindingSet.Bind(_sendCommentImageButton)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.SendCommentCommand);
-
-            bindingSet.Apply();
+            bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
+            bindingSet.Bind(_refreshView).For(v => v.Refreshing).To(vm => vm.IsBusy);
+            bindingSet.Bind(_refreshView).For(v => v.RefreshCommand).To(vm => vm.ReloadItemsCommand);
+            bindingSet.Bind(this).For(v => v.ScrollInteraction).To(vm => vm.ScrollInteraction);
+            bindingSet.Bind(_recyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
+            bindingSet.Bind(_profileImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl);
+            bindingSet.Bind(_profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName);
+            bindingSet.Bind(_commentEditText).For(v => v.Text).To(vm => vm.Comment);
+            bindingSet.Bind(_sendCommentImageButton).For(v => v.BindClick()).To(vm => vm.SendCommentCommand);
         }
 
         private void OnInteractionRequested(object sender, MvxValueEventArgs<int> e)

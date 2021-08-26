@@ -43,30 +43,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             tableView.RefreshControl = _refreshControl;
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            base.SetupBinding();
+            base.Bind();
 
-            var bindingSet = this.CreateBindingSet<CompetitionsView, CompetitionsViewModel>();
+            using var bindingSet = this.CreateBindingSet<CompetitionsView, CompetitionsViewModel>();
 
-            bindingSet.Bind(_source)
-                      .For(v => v.ItemsSource)
-                      .To(vm => vm.Items);
-
-            bindingSet.Bind(_refreshControl)
-                      .For(v => v.IsRefreshing)
-                      .To(vm => vm.IsBusy);
-
-            bindingSet.Bind(_refreshControl)
-                      .For(v => v.RefreshCommand)
-                      .To(vm => vm.LoadDataCommand);
-
-            bindingSet.Bind(_notificationBarItem)
-                      .For(v => v.Image)
-                      .To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
+            bindingSet.Bind(_source).For(v => v.ItemsSource).To(vm => vm.Items);
+            bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy);
+            bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.LoadDataCommand);
+            bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
                       .WithConversion<BoolToNotificationImageConverter>();
-
-            bindingSet.Apply();
         }
 
         protected override void RefreshData()

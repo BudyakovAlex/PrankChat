@@ -30,7 +30,6 @@
                     android:layout_height="85dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    app:MvxBind="ImagePath ProfilePhotoUrl; PlaceholderText ProfileShortName, Mode = OneTime; Click ShowUpdateProfileCommand"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +51,6 @@
                     android:maxLines="1"
                     android:textColor="@color/applicationBlack"
                     android:textSize="14dp"
-                    app:MvxBind="Text Login"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/profile_photo"
                     app:layout_constraintTop_toTopOf="@+id/profile_photo"
@@ -66,7 +64,6 @@
                     android:maxLines="1"
                     android:textColor="@color/description"
                     android:textSize="12dp"
-                    app:MvxBind="Text Price, Mode=OneWay"
                     app:layout_constraintEnd_toEndOf="@+id/profile_name"
                     app:layout_constraintStart_toStartOf="@+id/profile_name"
                     app:layout_constraintTop_toBottomOf="@+id/profile_name"
@@ -81,7 +78,6 @@
                     android:padding="0dp"
                     android:text="@string/ProfileView_Refill"
                     android:textSize="13dp"
-                    app:MvxBind="Click ShowRefillCommand"
                     app:layout_constraintBottom_toBottomOf="@+id/profile_photo"
                     app:layout_constraintEnd_toStartOf="@+id/profile_withdrawal_button"
                     app:layout_constraintStart_toEndOf="@+id/profile_photo" />
@@ -96,7 +92,6 @@
                     android:padding="0dp"
                     android:text="@string/ProfileView_Withdrawal"
                     android:textSize="13dp"
-                    app:MvxBind="Click ShowWithdrawalCommand"
                     app:layout_constraintBottom_toBottomOf="@+id/profile_refill_button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/profile_refill_button"
@@ -115,7 +110,6 @@
                     android:id="@+id/subscribers_view"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:MvxBind="Click ShowSubscribersCommand"
                     app:layout_constraintBottom_toBottomOf="@+id/start_dummy_view"
                     app:layout_constraintEnd_toStartOf="@+id/subscriptions_view"
                     app:layout_constraintStart_toEndOf="@+id/start_dummy_view"
@@ -129,7 +123,6 @@
                         android:layout_marginTop="2dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        app:MvxBind="Text SubscribersValue"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -153,7 +146,6 @@
                     android:id="@+id/subscriptions_view"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:MvxBind="Click ShowSubscriptionsCommand"
                     app:layout_constraintBottom_toBottomOf="@+id/subscribers_view"
                     app:layout_constraintEnd_toStartOf="@+id/end_dummy_view"
                     app:layout_constraintStart_toEndOf="@+id/subscribers_view"
@@ -167,7 +159,6 @@
                         android:layout_marginTop="2dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        app:MvxBind="Text SubscriptionsValue"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -208,7 +199,6 @@
                     android:maxLines="4"
                     android:textColor="@color/applicationBlack"
                     android:textSize="14dp"
-                    app:MvxBind="Text Description; Visibility BoolToGone(HasDescription)"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/start_dummy_view"
@@ -250,11 +240,11 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <mvvmcross.droidx.MvxSwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:MvxBind="Refreshing IsBusy; RefreshCommand LoadProfileCommand">
+  <mvvmcross.droidx.MvxSwipeRefreshLayout
+      android:id="@+id/swipe_refresh_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
             android:id="@+id/profile_publication_recycler_view"
             android:layout_width="match_parent"

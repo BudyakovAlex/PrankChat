@@ -35,15 +35,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Subscriptions
         {
             base.BindData();
 
-            var bindingSet = this.CreateBindingSet<SubscriptionItemViewHolder, SubscriptionItemViewModel>();
+            using var bindingSet = this.CreateBindingSet<SubscriptionItemViewHolder, SubscriptionItemViewModel>();
 
             bindingSet.Bind(_view).For(v => v.BindClick()).To(vm => vm.OpenUserProfileCommand);
             bindingSet.Bind(_avatarImageView).For(v => v.ImagePath).To(vm => vm.Avatar);
             bindingSet.Bind(_avatarImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortLogin);
             bindingSet.Bind(_nameTextView).For(v => v.Text).To(vm => vm.Login);
             bindingSet.Bind(_descriptionTextView).For(v => v.Text).To(vm => vm.Description);
-
-            bindingSet.Apply();
         }
     }
 }

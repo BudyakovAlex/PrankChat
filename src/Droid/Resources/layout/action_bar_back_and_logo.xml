@@ -31,8 +31,7 @@
                 android:layout_marginStart="4dp"
                 android:background="?attr/actionBarItemBackground"
                 android:src="@drawable/ic_back_arrow"
-                app:srcCompat="@drawable/ic_back_arrow"
-                app:MvxBind="Click CloseCommand" />
+                app:srcCompat="@drawable/ic_back_arrow" />
 
             <ImageView
                 android:id="@+id/toolbar_logo"

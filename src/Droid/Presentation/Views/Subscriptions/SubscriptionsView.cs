@@ -5,6 +5,7 @@ using Android.Widget;
 using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.Tabs;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.DroidX;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -28,6 +29,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Subscriptions
         private EndlessRecyclerView _recyclerView;
         private TextView _titleTextView;
         private RecycleViewBindableAdapter _adapter;
+        private MvxSwipeRefreshLayout _subscriptionsSwipeRefreshLayout;
 
         private SubscriptionTabType _selectedTabType;
         public SubscriptionTabType SelectedTabType
@@ -69,7 +71,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Subscriptions
                 .AddElement<SubscriptionItemViewModel, SubscriptionItemViewHolder>(Resource.Layout.cell_subscription);
 
             _titleTextView = FindViewById<TextView>(Resource.Id.toolbar_title);
-
+            _subscriptionsSwipeRefreshLayout = FindViewById<MvxSwipeRefreshLayout>(Resource.Id.subscriptions_swipe_refresh_layout);
             var tabLayout = FindViewById<TabLayout>(Resource.Id.tab_layout);
 
             _subscribersTab = tabLayout.NewTab();
@@ -93,6 +95,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Subscriptions
             bindingSet.Bind(_subscriptionsTab).For(TabLayoutTabTextBinding.TargetBinding).To(vm => vm.SubscriptionsTitle);
             bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_recyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
+            bindingSet.Bind(_subscriptionsSwipeRefreshLayout).For(v => v.Refreshing).To(vm => vm.IsBusy);
+            bindingSet.Bind(_subscriptionsSwipeRefreshLayout).For(v => v.RefreshCommand).To(vm => vm.LoadDataCommand);
         }
 
         public void OnTabReselected(TabLayout.Tab tab)

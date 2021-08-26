@@ -56,109 +56,39 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         {
             base.SetBindings();
 
-            var bindingSet = this.CreateBindingSet<CompetitionItemCell, CompetitionItemViewModel>();
+            using var bindingSet = this.CreateBindingSet<CompetitionItemCell, CompetitionItemViewModel>();
 
-            bindingSet.Bind(this)
-                      .For(v => v.Phase)
-                      .To(vm => vm.Phase);
-
-            bindingSet.Bind(titleLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.Title);
-
-            bindingSet.Bind(imageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.ImageUrl);
-
-            bindingSet.Bind(descriptionLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.Description);
-
-            bindingSet.Bind(termLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.Phase)
+            bindingSet.Bind(this).For(v => v.Phase).To(vm => vm.Phase);
+            bindingSet.Bind(titleLabel).For(v => v.Text).To(vm => vm.Title);
+            bindingSet.Bind(imageView).For(v => v.ImagePath).To(vm => vm.ImageUrl);
+            bindingSet.Bind(descriptionLabel).For(v => v.Text).To(vm => vm.Description);
+            bindingSet.Bind(termLabel).For(v => v.Text).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToTermTitleConverter>();
-
-            bindingSet.Bind(timeContainer)
-                      .For(v => v.Hidden)
-                      .To(vm => vm.IsFinished);
-
-            bindingSet.Bind(timeLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.NextPhaseCountdown)
+            bindingSet.Bind(timeContainer).For(v => v.Hidden).To(vm => vm.IsFinished);
+            bindingSet.Bind(timeLabel).For(v => v.Text).To(vm => vm.NextPhaseCountdown)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateWithSpace);
-
-            bindingSet.Bind(daysLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.DaysText);
-
-            bindingSet.Bind(hoursLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.HoursText);
-
-            bindingSet.Bind(minutesLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.MinutesText);
-
-            bindingSet.Bind(termContainer)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsFinished);
-
-            bindingSet.Bind(termFromLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.CreatedAt)
+            bindingSet.Bind(daysLabel).For(v => v.Text).To(vm => vm.DaysText);
+            bindingSet.Bind(hoursLabel).For(v => v.Text).To(vm => vm.HoursText);
+            bindingSet.Bind(minutesLabel).For(v => v.Text).To(vm => vm.MinutesText);
+            bindingSet.Bind(termContainer).For(v => v.BindVisible()).To(vm => vm.IsFinished);
+            bindingSet.Bind(termFromLabel).For(v => v.Text).To(vm => vm.CreatedAt)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
-
-            bindingSet.Bind(termToLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.ActiveTo)
+            bindingSet.Bind(termToLabel).For(v => v.Text).To(vm => vm.ActiveTo)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
-
-            bindingSet.Bind(prizeLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.PrizePoolPresentation);
-
-            bindingSet.Bind(prizeBottomSeparator)
-                      .For(v => v.Hidden)
-                      .To(vm => vm.Phase)
+            bindingSet.Bind(prizeLabel).For(v => v.Text).To(vm => vm.PrizePoolPresentation);
+            bindingSet.Bind(prizeBottomSeparator).For(v => v.Hidden).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToHiddenConverter>();
-
-            bindingSet.Bind(idLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.Number);
-
-            bindingSet.Bind(idLabel)
-                      .For(v => v.Hidden)
-                      .To(vm => vm.CanExecuteActionVideo);
-
-            bindingSet.Bind(likeButton)
-                      .For(v => v.BindTitle())
-                      .To(vm => vm.LikesCountString);
-
-            bindingSet.Bind(likeButton)
-                      .For(v => v.Hidden)
-                      .To(vm => vm.CanExecuteActionVideo);
-
-            bindingSet.Bind(PrivateFlagImageView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.Category)
+            bindingSet.Bind(idLabel).For(v => v.Text).To(vm => vm.Number);
+            bindingSet.Bind(idLabel).For(v => v.Hidden).To(vm => vm.CanExecuteActionVideo);
+            bindingSet.Bind(likeButton).For(v => v.BindTitle()).To(vm => vm.LikesCountString);
+            bindingSet.Bind(likeButton).For(v => v.Hidden).To(vm => vm.CanExecuteActionVideo);
+            bindingSet.Bind(PrivateFlagImageView).For(v => v.BindVisible()).To(vm => vm.Category)
                       .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PrivatePaidCompetition));
-
-            bindingSet.Bind(PaidFlagImageView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.Category)
+            bindingSet.Bind(PaidFlagImageView).For(v => v.BindVisible()).To(vm => vm.Category)
                       .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PaidCompetition || category == OrderCategory.PrivatePaidCompetition));
-
-            bindingSet.Bind(button)
-                      .For(v => v.BindTitle())
-                      .To(vm => vm.Phase)
+            bindingSet.Bind(button).For(v => v.BindTitle()).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToActionButtonTitleConverter>();
-
-            bindingSet.Bind(button)
-                      .For(v => v.BindTouchUpInside())
-                      .To(vm => vm.ActionCommand);
-
-            bindingSet.Apply();
+            bindingSet.Bind(button).For(v => v.BindTouchUpInside()).To(vm => vm.ActionCommand);
         }
 
         private void InitializeLayer()

@@ -38,12 +38,12 @@
         app:boxStrokeWidth="1dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email_input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textColor="@color/applicationWhite"
-            android:textSize="14dp"
-            app:MvxBind="Text Email" />
+            android:textSize="14dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -67,37 +67,37 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/vk_image_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginRight="8dp"
             android:text="Registration"
-            app:MvxBind="Click LoginCommand, CommandParameter=Gmail"
             app:srcCompat="@drawable/ic_vk" />
 
         <ImageButton
+            android:id="@+id/ok_image_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:visibility="gone"
-            app:MvxBind="Click LoginCommand, CommandParameter=Ok"
             app:srcCompat="@drawable/ic_odnoklassniki" />
 
         <ImageButton
+            android:id="@+id/facebook_login_image_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            app:MvxBind="Click LoginCommand, CommandParameter=Facebook"
             app:srcCompat="@drawable/ic_facebook" />
 
         <ImageButton
+            android:id="@+id/gmail_login_image_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:visibility="gone"
-            app:MvxBind="Click LoginCommand, CommandParameter=Gmail"
             app:srcCompat="@drawable/ic_gmail" />
     </LinearLayout>
 
@@ -134,8 +134,7 @@
             android:paddingBottom="10dp"
             android:text="@string/RegistrationView_Login_Button"
             android:textColor="@color/applicationWhite"
-            android:textSize="16dp"
-            app:MvxBind="Click CloseCommand" />
+            android:textSize="16dp"/>
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -146,8 +145,7 @@
         android:layout_below="@+id/login_container"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="@string/LoginView_Continue_Button"
-        app:MvxBind="Click ShowSecondStepCommand" />
+        android:text="@string/LoginView_Continue_Button"/>
 
     <FrameLayout
         android:id="@+id/container_layout"

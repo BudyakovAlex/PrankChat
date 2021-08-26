@@ -36,11 +36,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
         {
             base.Bind();
 
-            var bindingSet = this.CreateBindingSet<CompetitionRulesView, CompetitionRulesViewModel>();
+            using var bindingSet = this.CreateBindingSet<CompetitionRulesView, CompetitionRulesViewModel>();
 
             bindingSet.Bind(_webView).For(v => v.BindWebViewHtml()).To(vm => vm.HtmlContent);
-
-            bindingSet.Apply();
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <mvvmcross.droidx.MvxSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/user_profile_swipe_refresh_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
-    app:MvxBind="Refreshing IsBusy; RefreshCommand RefreshUserDataCommand">
+    android:background="@android:color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,7 +28,6 @@
                 android:layout_height="85dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                app:MvxBind="ImagePath ProfilePhotoUrl; PlaceholderText ProfileShortLogin;"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +41,6 @@
                 android:maxLines="1"
                 android:textColor="@color/applicationBlack"
                 android:textSize="14dp"
-                app:MvxBind="Text Login"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/profile_photo"
                 app:layout_constraintTop_toTopOf="@+id/profile_photo"
@@ -58,7 +56,6 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textSize="13dp"
-                app:MvxBind="Click SubscribeCommand"
                 app:layout_constraintBottom_toBottomOf="@+id/profile_photo"
                 app:layout_constraintStart_toEndOf="@+id/profile_photo" />
 
@@ -75,7 +72,6 @@
                 android:id="@+id/subscribers_view"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:MvxBind="Click ShowSubscribersCommand"
                 app:layout_constraintBottom_toBottomOf="@+id/start_dummy_view"
                 app:layout_constraintEnd_toStartOf="@+id/subscriptions_view"
                 app:layout_constraintStart_toEndOf="@+id/start_dummy_view"
@@ -89,7 +85,6 @@
                     android:layout_marginTop="2dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    app:MvxBind="Text SubscribersValue"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -113,7 +108,6 @@
                 android:id="@+id/subscriptions_view"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:MvxBind="Click ShowSubscriptionsCommand"
                 app:layout_constraintBottom_toBottomOf="@+id/subscribers_view"
                 app:layout_constraintEnd_toStartOf="@+id/end_dummy_view"
                 app:layout_constraintStart_toEndOf="@+id/subscribers_view"
@@ -127,7 +121,6 @@
                     android:layout_marginTop="2dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    app:MvxBind="Text SubscriptionsValue"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -168,7 +161,6 @@
                 android:maxLines="4"
                 android:textColor="@color/applicationBlack"
                 android:textSize="14dp"
-                app:MvxBind="Text Description; Visibility BoolToGone(HasDescription)"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/start_dummy_view"

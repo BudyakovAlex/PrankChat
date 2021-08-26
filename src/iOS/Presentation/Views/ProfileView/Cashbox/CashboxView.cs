@@ -31,15 +31,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             }
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            var bindingSet = this.CreateBindingSet<CashboxView, CashboxViewModel>();
+            using var bindingSet = this.CreateBindingSet<CashboxView, CashboxViewModel>();
 
-            bindingSet.Bind(this)
-                      .For(v => v.SelectedTab)
-                      .To(vm => vm.SelectedPage);
-
-            bindingSet.Apply();
+            bindingSet.Bind(this).For(v => v.SelectedTab).To(vm => vm.SelectedPage);
         }
 
         protected override void SetupControls()

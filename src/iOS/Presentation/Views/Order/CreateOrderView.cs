@@ -59,53 +59,24 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             UIView.Animate(0.5, () => View.LayoutIfNeeded());
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
 		{
-			var set = this.CreateBindingSet<CreateOrderView, CreateOrderViewModel>();
+			using var bindingSet = this.CreateBindingSet<CreateOrderView, CreateOrderViewModel>();
 
-            set.Bind(nameTextField)
-               .To(vm => vm.Title);
-
-            set.Bind(descriptionTextView)
-               .To(vm => vm.Description);
-
-            set.Bind(this)
-               .For(nameof(OrderDescription))
-               .To(vm => vm.Description);
-
-            set.Bind(priceTextField)
-               .To(vm => vm.Price)
+            bindingSet.Bind(nameTextField).To(vm => vm.Title);
+            bindingSet.Bind(descriptionTextView).To(vm => vm.Description);
+            bindingSet.Bind(this).For(nameof(OrderDescription)).To(vm => vm.Description);
+            bindingSet.Bind(priceTextField).To(vm => vm.Price)
                .WithConversion<PriceConverter>();
-
-            set.Bind(completeDateTextField)
-               .To(vm => vm.ActiveFor.Title);
-
-            set.Bind(completeDateTextField.Tap())
-               .For(v => v.Command)
-               .To(vm => vm.ShowDateDialogCommand);
-
-            set.Bind(createButton)
-               .To(vm => vm.CreateCommand);
-
-            set.Bind(progressBarView)
-               .For(v => v.BindVisible())
-               .To(vm => vm.IsBusy);
-
-            set.Bind(_notificationBarItem)
-               .For(v => v.Image)
-               .To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
+            bindingSet.Bind(completeDateTextField).To(vm => vm.ActiveFor.Title);
+            bindingSet.Bind(completeDateTextField.Tap()).For(v => v.Command).To(vm => vm.ShowDateDialogCommand);
+            bindingSet.Bind(createButton).To(vm => vm.CreateCommand);
+            bindingSet.Bind(progressBarView).For(v => v.BindVisible()).To(vm => vm.IsBusy);
+            bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
                .WithConversion<BoolToNotificationImageConverter>();
-
-            set.Bind(HideExecutorCheckBoxButton)
-                .For(v => v.IsChecked)
-                .To(vm => vm.IsExecutorHidden)
+            bindingSet.Bind(HideExecutorCheckBoxButton).For(v => v.IsChecked).To(vm => vm.IsExecutorHidden)
                 .Mode(MvvmCross.Binding.MvxBindingMode.TwoWay);
-
-            set.Bind(InfoImageView)
-               .For(v => v.BindTap())
-               .To(vm => vm.ShowWalkthrouthSecretCommand);
-
-            set.Apply();
+            bindingSet.Bind(InfoImageView).For(v => v.BindTap()).To(vm => vm.ShowWalkthrouthSecretCommand);
 		}
 
         private nfloat GetTextViewHeight(double width, UIFont font, string text)

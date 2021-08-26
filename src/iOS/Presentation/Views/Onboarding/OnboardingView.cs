@@ -86,11 +86,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
             actionButton.SetDarkStyle(string.Empty);
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            base.SetupBinding();
+            base.Bind();
 
-            var bindingSet = this.CreateBindingSet<OnboardingView, OnboardingViewModel>();
+            using var bindingSet = this.CreateBindingSet<OnboardingView, OnboardingViewModel>();
 
             bindingSet.Bind(this).For(v => v.Count).To(vm => vm.ItemsCount);
             bindingSet.Bind(this).For(v => v.SelectedIndex).To(vm => vm.SelectedIndex);
@@ -98,8 +98,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
             bindingSet.Bind(actionButton).For(v => v.BindTouchUpInside()).To(vm => vm.ActionCommand);
             bindingSet.Bind(_source).For(p => p.PageIndex).To(vm => vm.SelectedIndex).TwoWay();
             bindingSet.Bind(_source).For(v => v.ItemsSource).To(vm => vm.Items);
-
-            bindingSet.Apply();
         }
 
         private void InitializeCollectionView()

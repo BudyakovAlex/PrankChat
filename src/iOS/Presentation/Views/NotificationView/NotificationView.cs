@@ -18,27 +18,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
         private MvxUIRefreshControl _refreshControl;
         private NotificationTableSource _notificationTableSource;
 
-        protected override void SetupBinding()
+        protected override void Bind()
 		{
-			var bindingSet = this.CreateBindingSet<NotificationView, NotificationViewModel>();
+			using var bindingSet = this.CreateBindingSet<NotificationView, NotificationViewModel>();
 
-            bindingSet.Bind(_notificationTableSource)
-                      .To(vm => vm.Items);
-
-            bindingSet.Bind(_refreshControl)
-                      .For(v => v.IsRefreshing)
-                      .To(vm => vm.IsBusy)
+            bindingSet.Bind(_notificationTableSource).To(vm => vm.Items);
+            bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy)
                       .Mode(MvxBindingMode.TwoWay);
-
-            bindingSet.Bind(_refreshControl)
-                      .For(v => v.RefreshCommand)
-                      .To(vm => vm.ReloadItemsCommand);
-
-            bindingSet.Bind(_notificationTableSource)
-                      .For(v => v.LoadMoreItemsCommand)
-                      .To(vm => vm.LoadMoreItemsCommand);
-
-            bindingSet.Apply();
+            bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.ReloadItemsCommand);
+            bindingSet.Bind(_notificationTableSource).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
 		}
 
 		protected override void SetupControls()

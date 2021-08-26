@@ -13,32 +13,19 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
     [MvxModalPresentation(WrapInNavigationController = true)]
     public partial class RegistrationView : BaseTransparentBarView<RegistrationViewModel>
     {
-		protected override void SetupBinding()
+		protected override void Bind()
 		{
-			var set = this.CreateBindingSet<RegistrationView, RegistrationViewModel>();
+			using var bindingSet = this.CreateBindingSet<RegistrationView, RegistrationViewModel>();
 
-			set.Bind(nextStepButton)
-                .To(vm => vm.ShowSecondStepCommand);
-
-            set.Bind(emailTextField)
-                .To(vm => vm.Email);
-
-            set.Bind(showLoginButton)
-                .To(vm => vm.CloseCommand);
-
-            set.Bind(vkButton)
-                .To(vm => vm.LoginCommand)
-                .CommandParameter(nameof(LoginType.Vk));
-
-            set.Bind(okButton)
-                .To(vm => vm.LoginCommand)
+			bindingSet.Bind(nextStepButton).To(vm => vm.ShowSecondStepCommand);
+            bindingSet.Bind(emailTextField).To(vm => vm.Email);
+            bindingSet.Bind(showLoginButton).To(vm => vm.CloseCommand);
+            bindingSet.Bind(vkButton).To(vm => vm.LoginCommand)
+                      .CommandParameter(nameof(LoginType.Vk));
+            bindingSet.Bind(okButton).To(vm => vm.LoginCommand)
                 .CommandParameter(nameof(LoginType.Ok));
-
-            set.Bind(facebookButton)
-                .To(vm => vm.LoginCommand)
+            bindingSet.Bind(facebookButton).To(vm => vm.LoginCommand)
                 .CommandParameter(nameof(LoginType.Facebook));
-
-            set.Apply();
 		}
 
 		protected override void SetupControls()

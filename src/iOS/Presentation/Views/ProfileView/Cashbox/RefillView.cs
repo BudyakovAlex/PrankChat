@@ -16,25 +16,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
         public MvxCollectionViewSource DataSource { get; private set; }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            var set = this.CreateBindingSet<RefillView, RefillViewModel>();
+            using var bindingSet = this.CreateBindingSet<RefillView, RefillViewModel>();
 
-            set.Bind(DataSource)
-                .To(vm => vm.Items);
-
-            set.Bind(DataSource)
-                .For(v => v.SelectionChangedCommand)
-                .To(vm => vm.SelectionChangedCommand);
-
-            set.Bind(refillButton)
-                .To(vm => vm.RefillCommand);
-             
-            set.Bind(costTextField)
-                .To(vm => vm.Cost)
+            bindingSet.Bind(DataSource).To(vm => vm.Items);
+            bindingSet.Bind(DataSource).For(v => v.SelectionChangedCommand).To(vm => vm.SelectionChangedCommand);
+            bindingSet.Bind(refillButton).To(vm => vm.RefillCommand);
+            bindingSet.Bind(costTextField).To(vm => vm.Cost)
                 .WithConversion<PriceConverter>();
-
-            set.Apply();
         }
 
         protected override void SetupControls()

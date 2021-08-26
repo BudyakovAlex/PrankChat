@@ -44,42 +44,20 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
             }
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
 		{
-            var bindingSet = this.CreateBindingSet<CommentsView, CommentsViewModel>();
+            using var bindingSet = this.CreateBindingSet<CommentsView, CommentsViewModel>();
 
-            bindingSet.Bind(_commentTableSource)
-                      .To(vm => vm.Items);
-
-            bindingSet.Bind(sendButton)
-                      .To(vm => vm.SendCommentCommand);
-
-            bindingSet.Bind(commentTextView)
-                      .To(vm => vm.Comment);
-
-            bindingSet.Bind(_refreshControl)
-                      .For(v => v.IsRefreshing)
-                      .To(vm => vm.IsBusy);
-
-            bindingSet.Bind(this)
-                      .For(v => v.ScrollInteraction)
-                      .To(vm => vm.ScrollInteraction);
-
-            bindingSet.Bind(_refreshControl)
-                      .For(v => v.RefreshCommand)
-                      .To(vm => vm.ReloadItemsCommand);
-
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.ProfilePhotoUrl)
+            bindingSet.Bind(_commentTableSource).To(vm => vm.Items);
+            bindingSet.Bind(sendButton).To(vm => vm.SendCommentCommand);
+            bindingSet.Bind(commentTextView).To(vm => vm.Comment);
+            bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy);
+            bindingSet.Bind(this).For(v => v.ScrollInteraction).To(vm => vm.ScrollInteraction);
+            bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.ReloadItemsCommand);
+            bindingSet.Bind(profileImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl)
                       .Mode(MvxBindingMode.OneTime);
-
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.PlaceholderText)
-                      .To(vm => vm.ProfileShortName)
+            bindingSet.Bind(profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName)
                       .Mode(MvxBindingMode.OneTime);
-
-            bindingSet.Apply();
         }
 
 		protected override void SetupControls()

@@ -20,16 +20,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Maintanance
             titleLabel.Text = Resources.Application_New_Version_Ready;
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            base.SetupBinding();
+            base.Bind();
+            using var bindingSet = this.CreateBindingSet<MaintananceView, MaintananceViewModel>();
 
-            var bindingSet = this.CreateBindingSet<MaintananceView, MaintananceViewModel>();
-
-            bindingSet.Bind(downloadButton)
-                      .To(vm => vm.OpenInBrowserCommand);
-
-            bindingSet.Apply();
+            bindingSet.Bind(downloadButton).To(vm => vm.OpenInBrowserCommand);
         }
     }
 }

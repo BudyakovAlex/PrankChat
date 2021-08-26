@@ -39,29 +39,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             tableView.RefreshControl = _refreshControl;
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            base.SetupBinding();
+            base.Bind();
 
-            var bindingSet = this.CreateBindingSet<CompetitionPrizePoolView, CompetitionPrizePoolViewModel>();
+            using var bindingSet = this.CreateBindingSet<CompetitionPrizePoolView, CompetitionPrizePoolViewModel>();
 
-            bindingSet.Bind(prizePoolLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.PrizePool);
-
-            bindingSet.Bind(_source)
-                      .For(v => v.ItemsSource)
-                      .To(vm => vm.Items);
-
-            bindingSet.Bind(_refreshControl)
-                     .For(v => v.IsRefreshing)
-                     .To(vm => vm.IsBusy);
-
-            bindingSet.Bind(_refreshControl)
-                      .For(v => v.RefreshCommand)
-                      .To(vm => vm.RefreshCommand);
-
-            bindingSet.Apply();
+            bindingSet.Bind(prizePoolLabel).For(v => v.Text).To(vm => vm.PrizePool);
+            bindingSet.Bind(_source).For(v => v.ItemsSource).To(vm => vm.Items);
+            bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy);
+            bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.RefreshCommand);
         }
     }
 }

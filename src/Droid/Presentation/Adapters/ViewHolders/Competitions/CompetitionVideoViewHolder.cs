@@ -48,76 +48,27 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
         {
             base.BindData();
 
-            var bindingSet = this.CreateBindingSet<CompetitionVideoViewHolder, CompetitionVideoViewModel>();
+            using var bindingSet = this.CreateBindingSet<CompetitionVideoViewHolder, CompetitionVideoViewModel>();
 
-            bindingSet.Bind(_userNameTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.UserName);
-
-            bindingSet.Bind(_userPhotoImageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.AvatarUrl);
-
-            bindingSet.Bind(_userPhotoImageView)
-                      .For(v => v.PlaceholderText)
-                      .To(vm => vm.ProfileShortName);
-
-            bindingSet.Bind(_userPhotoImageView)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.OpenUserProfileCommand);
-
-            bindingSet.Bind(_viewsCountTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.ViewsCount);
-
-            bindingSet.Bind(_postDateTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.PublicationDateString);
-
-            bindingSet.Bind(_likeTextView)
-                      .For(v => v.Text)
-                      .To(vm => vm.LikesCount);
-
-            bindingSet.Bind(_likeButton)
-                      .For(v => v.BindClick())
-                      .To(vm => vm.LikeCommand);
-
-            bindingSet.Bind(_likeButton)
-                      .For(v => v.Selected)
-                      .To(vm => vm.IsLiked);
-
-            bindingSet.Bind(_likeButton)
-                      .For(v => v.Visibility)
-                      .To(vm => vm.CanVoteVideo)
+            bindingSet.Bind(_userNameTextView).For(v => v.Text).To(vm => vm.UserName);
+            bindingSet.Bind(_userPhotoImageView).For(v => v.ImagePath).To(vm => vm.AvatarUrl);
+            bindingSet.Bind(_userPhotoImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName);
+            bindingSet.Bind(_userPhotoImageView).For(v => v.BindClick()).To(vm => vm.OpenUserProfileCommand);
+            bindingSet.Bind(_viewsCountTextView).For(v => v.Text).To(vm => vm.ViewsCount);
+            bindingSet.Bind(_postDateTextView).For(v => v.Text).To(vm => vm.PublicationDateString);
+            bindingSet.Bind(_likeTextView).For(v => v.Text).To(vm => vm.LikesCount);
+            bindingSet.Bind(_likeButton).For(v => v.BindClick()).To(vm => vm.LikeCommand);
+            bindingSet.Bind(_likeButton).For(v => v.Selected).To(vm => vm.IsLiked);
+            bindingSet.Bind(_likeButton).For(v => v.Visibility).To(vm => vm.CanVoteVideo)
                       .WithConversion<BoolToGoneConverter>();
-
-            bindingSet.Bind(StubImageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.StubImageUrl);
-
-            bindingSet.Bind(_videoContainerView)
-                      .For(ViewTouchTargetBinding.TargetBinding)
-                      .To(vm => vm.ShowFullScreenVideoCommand);
-
-            bindingSet.Bind(_likeTextView)
-                      .For(TextColorTargetBinding.TargetBinding)
-                      .To(vm => vm.IsLiked)
+            bindingSet.Bind(StubImageView).For(v => v.ImagePath).To(vm => vm.StubImageUrl);
+            bindingSet.Bind(_videoContainerView).For(ViewTouchTargetBinding.TargetBinding).To(vm => vm.ShowFullScreenVideoCommand);
+            bindingSet.Bind(_likeTextView).For(TextColorTargetBinding.TargetBinding).To(vm => vm.IsLiked)
                       .WithConversion(BoolToResourceConverter.Name, new Tuple<int, int>(Resource.Color.applicationWhite, Resource.Color.primary_button_border));
-
-            bindingSet.Bind(_likeImageView)
-                      .For(ImageViewTintColorTargetBinding.TargetBinding)
-                      .To(vm => vm.IsLiked)
+            bindingSet.Bind(_likeImageView).For(ImageViewTintColorTargetBinding.TargetBinding).To(vm => vm.IsLiked)
                       .WithConversion(BoolToResourceConverter.Name, new Tuple<int, int>(Resource.Color.applicationWhite, Resource.Color.primary_button_border));
-
-            bindingSet.Bind(ProcessingView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsVideoProcessing);
-
-            bindingSet.Bind(TextureView)
-                      .For(v => v.BindHidden())
-                      .To(vm => vm.IsVideoProcessing);
-
-            bindingSet.Apply();
+            bindingSet.Bind(ProcessingView).For(v => v.BindVisible()).To(vm => vm.IsVideoProcessing);
+            bindingSet.Bind(TextureView).For(v => v.BindHidden()).To(vm => vm.IsVideoProcessing);
         }
     }
 }

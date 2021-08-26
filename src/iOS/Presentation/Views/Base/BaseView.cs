@@ -42,7 +42,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
             SetCommonStyles();
             SetupControls();
-            SetupBinding();
+            Bind();
             Subscription();
         }
 
@@ -77,7 +77,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
         protected bool IsTabbedView { get; set; }
 
-        protected virtual void SetupBinding()
+        protected virtual void Bind()
         {
             // nothing do
         }

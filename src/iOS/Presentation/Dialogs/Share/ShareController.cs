@@ -9,31 +9,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.Share
 {
     public partial class ShareController : BaseDialog<ShareDialogViewModel>
     {
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            var set = this.CreateBindingSet<ShareController, ShareDialogViewModel>();
+            using var bindingSet = this.CreateBindingSet<ShareController, ShareDialogViewModel>();
 
-            set.Bind(copyLinkImageButton)
-                .To(vm => vm.CopyLinkCommand);
-
-            set.Bind(copyLinkTitleLabel.Tap())
-                .For(v => v.Command)
-                .To(vm => vm.CopyLinkCommand);
-
-            set.Bind(shareInstagramImageButton)
-                .To(vm => vm.ShareToInstagramCommand);
-
-            set.Bind(shareInstagramTitleLabel.Tap())
-                .For(v => v.Command)
-                .To(vm => vm.ShareToInstagramCommand);
-
-            set.Bind(cancelButton)
-                .To(vm => vm.CloseCommand);
-
-            set.Bind(shareButton)
-                .To(vm => vm.ShareCommand);
-
-            set.Apply();
+            bindingSet.Bind(copyLinkImageButton).To(vm => vm.CopyLinkCommand);
+            bindingSet.Bind(copyLinkTitleLabel.Tap()).For(v => v.Command).To(vm => vm.CopyLinkCommand);
+            bindingSet.Bind(shareInstagramImageButton).To(vm => vm.ShareToInstagramCommand);
+            bindingSet.Bind(shareInstagramTitleLabel.Tap()).For(v => v.Command).To(vm => vm.ShareToInstagramCommand);
+            bindingSet.Bind(cancelButton).To(vm => vm.CloseCommand);
+            bindingSet.Bind(shareButton).To(vm => vm.ShareCommand);
         }
 
         protected override void SetupControls()

@@ -32,299 +32,136 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             }
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            var bindingSet = this.CreateBindingSet<OrderDetailsView, OrderDetailsViewModel>();
+            using var bindingSet = this.CreateBindingSet<OrderDetailsView, OrderDetailsViewModel>();
 
             #region Customer
 
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.CustomerSectionViewModel.ProfilePhotoUrl);
-
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.PlaceholderText)
-                      .To(vm => vm.CustomerSectionViewModel.ProfileShortName);
-
-            bindingSet.Bind(profileImageView)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.CustomerSectionViewModel.OpenCustomerProfileCommand);
-
-            bindingSet.Bind(profileNameLabel)
-                      .To(vm => vm.CustomerSectionViewModel.ProfileName);
+            bindingSet.Bind(profileImageView).For(v => v.ImagePath).To(vm => vm.CustomerSectionViewModel.ProfilePhotoUrl);
+            bindingSet.Bind(profileImageView).For(v => v.PlaceholderText).To(vm => vm.CustomerSectionViewModel.ProfileShortName);
+            bindingSet.Bind(profileImageView).For(v => v.BindTap()).To(vm => vm.CustomerSectionViewModel.OpenCustomerProfileCommand);
+            bindingSet.Bind(profileNameLabel).To(vm => vm.CustomerSectionViewModel.ProfileName);
 
             #endregion Customer
 
             #region LoadVideo
 
-            bindingSet.Bind(downloadButton)
-                      .To(vm => vm.VideoSectionViewModel.LoadVideoCommand);
-
-            bindingSet.Bind(downloadButton)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.VideoSectionViewModel.IsVideoLoadAvailable);
-
-            bindingSet.Bind(downloadView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.VideoSectionViewModel.IsVideoLoadAvailable);
+            bindingSet.Bind(downloadButton).To(vm => vm.VideoSectionViewModel.LoadVideoCommand);
+            bindingSet.Bind(downloadButton).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsVideoLoadAvailable);
+            bindingSet.Bind(downloadView).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsVideoLoadAvailable);
 
             #endregion LoadVideo
 
             #region Orders
 
-            bindingSet.Bind(videoNameLabel)
-                      .To(vm => vm.OrderTitle);
-
-            bindingSet.Bind(hiddentView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsHiddenOrder);
-
-            bindingSet.Bind(videoDescriptionLabel)
-                      .For(v => v.TextAlignment)
-                      .To(vm => vm.IsHiddenOrder)
+            bindingSet.Bind(videoNameLabel).To(vm => vm.OrderTitle);
+            bindingSet.Bind(hiddentView).For(v => v.BindVisible()).To(vm => vm.IsHiddenOrder);
+            bindingSet.Bind(videoDescriptionLabel).For(v => v.TextAlignment).To(vm => vm.IsHiddenOrder)
                       .WithConversion(new BoolToStateConverter<UITextAlignment>(UITextAlignment.Left, UITextAlignment.Center));
-
-            bindingSet.Bind(videoDescriptionLabel)
-                      .To(vm => vm.OrderDescription);
-
-            bindingSet.Bind(priceValueLabel)
-                      .To(vm => vm.PriceValue);
-
-            bindingSet.Bind(daysValueLabel)
-                      .To(vm => vm.TimeDaysValue);
-
-            bindingSet.Bind(hourValueLabel)
-                      .To(vm => vm.TimeHourValue);
-
-            bindingSet.Bind(minutesValueLabel)
-                      .To(vm => vm.TimeMinutesValue);
-
-            bindingSet.Bind(timeTextLabel)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsTimeAvailable);
-
-            bindingSet.Bind(daysTitleLabel)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsTimeAvailable);
-
-            bindingSet.Bind(daysValueLabel)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsTimeAvailable);
-
-            bindingSet.Bind(delimiterTimeOneLabel)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsTimeAvailable);
-
-            bindingSet.Bind(delimiterTimeTwoLabel)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsTimeAvailable);
-
-            bindingSet.Bind(hourTitleLabel)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsTimeAvailable);
-
-            bindingSet.Bind(hourValueLabel)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsTimeAvailable);
-
-            bindingSet.Bind(minutesTitleLabel)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsTimeAvailable);
-
-            bindingSet.Bind(minutesValueLabel)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsTimeAvailable);
-
-            bindingSet.Bind(timeView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsTimeAvailable);
-
-            bindingSet.Bind(stackViewToPriceValueLabelConstraint)
-                      .For(v => v.Active)
-                      .To(vm => vm.IsTimeAvailable)
+            bindingSet.Bind(videoDescriptionLabel).To(vm => vm.OrderDescription);
+            bindingSet.Bind(priceValueLabel).To(vm => vm.PriceValue);
+            bindingSet.Bind(daysValueLabel).To(vm => vm.TimeDaysValue);
+            bindingSet.Bind(hourValueLabel).To(vm => vm.TimeHourValue);
+            bindingSet.Bind(minutesValueLabel).To(vm => vm.TimeMinutesValue);
+            bindingSet.Bind(timeTextLabel).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
+            bindingSet.Bind(daysTitleLabel).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
+            bindingSet.Bind(daysValueLabel).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
+            bindingSet.Bind(delimiterTimeOneLabel).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
+            bindingSet.Bind(delimiterTimeTwoLabel).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
+            bindingSet.Bind(hourTitleLabel).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
+            bindingSet.Bind(hourValueLabel).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
+            bindingSet.Bind(minutesTitleLabel).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
+            bindingSet.Bind(minutesValueLabel).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
+            bindingSet.Bind(timeView).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
+            bindingSet.Bind(stackViewToPriceValueLabelConstraint).For(v => v.Active).To(vm => vm.IsTimeAvailable)
                       .WithConversion<MvxInvertedBooleanConverter>();
 
             #endregion Orders
 
             #region Video
 
-            bindingSet.Bind(videoContainerView)
-                      .For(v => v.BindVisible())
+            bindingSet.Bind(videoContainerView).For(v => v.BindVisible())
                       .ByCombining(new MvxOrValueCombiner(),
                                    vm => vm.VideoSectionViewModel.IsVideoAvailable,
                                    vm => vm.VideoSectionViewModel.IsVideoProcessing);
-
-            bindingSet.Bind(processingRootBackgroundView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.VideoSectionViewModel.IsVideoProcessing);
-
-            bindingSet.Bind(videoView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.VideoSectionViewModel.IsVideoAvailable);
-
-            bindingSet.Bind(videoImageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.VideoSectionViewModel.VideoPlaceholderUrl);
-
-            bindingSet.Bind(videoImageView)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.VideoSectionViewModel.ShowFullVideoCommand);
+            bindingSet.Bind(processingRootBackgroundView).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsVideoProcessing);
+            bindingSet.Bind(videoView).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsVideoAvailable);
+            bindingSet.Bind(videoImageView).For(v => v.ImagePath).To(vm => vm.VideoSectionViewModel.VideoPlaceholderUrl);
+            bindingSet.Bind(videoImageView).For(v => v.BindTap()).To(vm => vm.VideoSectionViewModel.ShowFullVideoCommand);
 
             #endregion Video
 
-            bindingSet.Bind(orderActionsContainerView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsAnyOrderActionAvailable);
+            bindingSet.Bind(orderActionsContainerView).For(v => v.BindVisible()).To(vm => vm.IsAnyOrderActionAvailable);
 
             #region Subscribe and Unsubscribe
 
-            bindingSet.Bind(subscriptionButton)
-                      .To(vm => vm.SubscribeOrderCommand);
-
-            bindingSet.Bind(subscriptionButton)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsSubscribeAvailable);
-
-            bindingSet.Bind(unsubscriptionButton)
-                      .To(vm => vm.UnsubscribeOrderCommand);
-
-            bindingSet.Bind(unsubscriptionButton)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsUnsubscribeAvailable);
+            bindingSet.Bind(subscriptionButton).To(vm => vm.SubscribeOrderCommand);
+            bindingSet.Bind(subscriptionButton).For(v => v.BindVisible()).To(vm => vm.IsSubscribeAvailable);
+            bindingSet.Bind(unsubscriptionButton).To(vm => vm.UnsubscribeOrderCommand);
+            bindingSet.Bind(unsubscriptionButton).For(v => v.BindVisible()).To(vm => vm.IsUnsubscribeAvailable);
 
             #endregion Subscribe and Unsubscribe
 
             #region Take order
 
-            bindingSet.Bind(takeOrderButton)
-                      .To(vm => vm.TakeOrderCommand);
-
-            bindingSet.Bind(takeOrderButton)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsTakeOrderAvailable);
+            bindingSet.Bind(takeOrderButton).To(vm => vm.TakeOrderCommand);
+            bindingSet.Bind(takeOrderButton).For(v => v.BindVisible()).To(vm => vm.IsTakeOrderAvailable);
 
             #endregion Take order
 
             #region Decide View
 
-            bindingSet.Bind(decideView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.VideoSectionViewModel.IsDecideVideoAvailable);
-
-            bindingSet.Bind(noButton)
-                      .To(vm => vm.NoCommand);
-
-            bindingSet.Bind(noButton)
-                      .For(v => v.BindTitle())
-                      .To(vm => vm.NoText);
-
-            bindingSet.Bind(yesButton)
-                      .To(vm => vm.YesCommand);
-
-            bindingSet.Bind(yesButton)
-                      .For(v => v.BindTitle())
-                      .To(vm => vm.YesText);
-
-            bindingSet.Bind(this)
-                      .For(v => v.ArbitrationValue)
-                      .To(vm => vm.SelectedArbitration);
+            bindingSet.Bind(decideView).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsDecideVideoAvailable);
+            bindingSet.Bind(noButton).To(vm => vm.NoCommand);
+            bindingSet.Bind(noButton).For(v => v.BindTitle()).To(vm => vm.NoText);
+            bindingSet.Bind(yesButton).To(vm => vm.YesCommand);
+            bindingSet.Bind(yesButton).For(v => v.BindTitle()).To(vm => vm.YesText);
+            bindingSet.Bind(this).For(v => v.ArbitrationValue).To(vm => vm.SelectedArbitration);
 
             #endregion Decide View
 
             #region Executor
 
-            bindingSet.Bind(executorImageView)
-                      .For(v => v.ImagePath)
-                      .To(vm => vm.ExecutorSectionViewModel.ExecutorPhotoUrl);
-
-            bindingSet.Bind(executorImageView)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.ExecutorSectionViewModel.OpenExecutorProfileCommand);
-
-            bindingSet.Bind(executorImageView)
-                      .For(v => v.PlaceholderText)
-                      .To(vm => vm.ExecutorSectionViewModel.ExecutorShortName);
-
-            bindingSet.Bind(executorNameLabel)
-                      .To(vm => vm.ExecutorSectionViewModel.ExecutorName);
-
-            bindingSet.Bind(startDateLabel)
-                      .To(vm => vm.StartOrderDate);
-
-            bindingSet.Bind(executorView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.ExecutorSectionViewModel.IsExecutorAvailable);
+            bindingSet.Bind(executorImageView).For(v => v.ImagePath).To(vm => vm.ExecutorSectionViewModel.ExecutorPhotoUrl);
+            bindingSet.Bind(executorImageView).For(v => v.BindTap()).To(vm => vm.ExecutorSectionViewModel.OpenExecutorProfileCommand);
+            bindingSet.Bind(executorImageView).For(v => v.PlaceholderText).To(vm => vm.ExecutorSectionViewModel.ExecutorShortName);
+            bindingSet.Bind(executorNameLabel).To(vm => vm.ExecutorSectionViewModel.ExecutorName);
+            bindingSet.Bind(startDateLabel).To(vm => vm.StartOrderDate);
+            bindingSet.Bind(executorView).For(v => v.BindVisible()).To(vm => vm.ExecutorSectionViewModel.IsExecutorAvailable);
 
             #endregion Executor
 
             #region Decision View
 
-            bindingSet.Bind(decisionView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.VideoSectionViewModel.IsDecisionVideoAvailable);
-
-            bindingSet.Bind(acceptButton)
-                      .To(vm => vm.AcceptOrderCommand);
-
-            bindingSet.Bind(arqueButton)
-                      .To(vm => vm.ArqueOrderCommand);
+            bindingSet.Bind(decisionView).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsDecisionVideoAvailable);
+            bindingSet.Bind(acceptButton).To(vm => vm.AcceptOrderCommand);
+            bindingSet.Bind(arqueButton).To(vm => vm.ArqueOrderCommand);
 
             #endregion Decision View
 
             #region Cancel
 
-            bindingSet.Bind(cancelVideoButton)
-                      .To(vm => vm.CancelOrderCommand);
-
-            bindingSet.Bind(cancelVideoButton)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsCancelOrderAvailable);
+            bindingSet.Bind(cancelVideoButton).To(vm => vm.CancelOrderCommand);
+            bindingSet.Bind(cancelVideoButton).For(v => v.BindVisible()).To(vm => vm.IsCancelOrderAvailable);
 
             #endregion Cancel
 
             #region Execute video
 
-            bindingSet.Bind(executeVideoButton)
-                      .To(vm => vm.ExecuteOrderCommand);
-
-            bindingSet.Bind(executeVideoButton)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsExecuteOrderAvailable);
+            bindingSet.Bind(executeVideoButton).To(vm => vm.ExecuteOrderCommand);
+            bindingSet.Bind(executeVideoButton).For(v => v.BindVisible()).To(vm => vm.IsExecuteOrderAvailable);
 
             #endregion Execute video
 
-            bindingSet.Bind(progressBarView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.VideoSectionViewModel.IsBusy);
-
-            bindingSet.Bind(_refreshControl)
-                      .For(v => v.IsRefreshing)
-                      .To(vm => vm.IsBusy);
-
-            bindingSet.Bind(_refreshControl)
-                      .For(v => v.RefreshCommand)
-                      .To(vm => vm.LoadOrderDetailsCommand);
-
-            bindingSet.Bind(_rightBarButtonItem)
-                      .To(vm => vm.OpenSettingsCommand);
-
-            bindingSet.Bind(uploadingProgressView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.VideoSectionViewModel.IsUploading);
-
-            bindingSet.Bind(uploadingProgressBar)
-                      .For(v => v.Progress)
-                      .To(vm => vm.VideoSectionViewModel.UploadingProgress);
-
-            bindingSet.Bind(uploadingProgressBar)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.VideoSectionViewModel.CancelUploadingCommand);
-
-            bindingSet.Bind(uploadingLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.VideoSectionViewModel.UploadingProgressStringPresentation);
-
-            bindingSet.Apply();
+            bindingSet.Bind(progressBarView).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsBusy);
+            bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy);
+            bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.LoadOrderDetailsCommand);
+            bindingSet.Bind(_rightBarButtonItem).To(vm => vm.OpenSettingsCommand);
+            bindingSet.Bind(uploadingProgressView).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsUploading);
+            bindingSet.Bind(uploadingProgressBar).For(v => v.Progress).To(vm => vm.VideoSectionViewModel.UploadingProgress);
+            bindingSet.Bind(uploadingProgressBar).For(v => v.BindTap()).To(vm => vm.VideoSectionViewModel.CancelUploadingCommand);
+            bindingSet.Bind(uploadingLabel).For(v => v.Text).To(vm => vm.VideoSectionViewModel.UploadingProgressStringPresentation);
         }
 
         protected override void SetupControls()

@@ -41,49 +41,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             uploadingProgressBar.Progress = 0f;
         }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
-            base.SetupBinding();
+            base.Bind();
 
-            var bindingSet = this.CreateBindingSet<CompetitionDetailsView, CompetitionDetailsViewModel>();
+            using var bindingSet = this.CreateBindingSet<CompetitionDetailsView, CompetitionDetailsViewModel>();
 
-            bindingSet.Bind(_source)
-                      .For(v => v.ItemsSource)
-                      .To(vm => vm.Items);
-
-            bindingSet.Bind(loadingView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsBusy);
-
-            bindingSet.Bind(_source)
-                      .For(v => v.LoadMoreItemsCommand)
-                      .To(vm => vm.LoadMoreItemsCommand);
-
-            bindingSet.Bind(_refreshControl)
-                      .For(v => v.IsRefreshing)
-                      .To(vm => vm.IsRefreshing);
-
-            bindingSet.Bind(_refreshControl)
-                      .For(v => v.RefreshCommand)
-                      .To(vm => vm.RefreshDataCommand);
-
-            bindingSet.Bind(uploadingBackgroundView)
-                      .For(v => v.BindVisible())
-                      .To(vm => vm.IsUploading);
-
-            bindingSet.Bind(uploadingProgressBar)
-                      .For(v => v.Progress)
-                      .To(vm => vm.UploadingProgress);
-
-            bindingSet.Bind(uploadingLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.UploadingProgressStringPresentation);
-
-            bindingSet.Bind(uploadingProgressBar)
-                      .For(v => v.BindTap())
-                      .To(vm => vm.CancelUploadingCommand);
-
-            bindingSet.Apply();
+            bindingSet.Bind(_source).For(v => v.ItemsSource).To(vm => vm.Items);
+            bindingSet.Bind(loadingView).For(v => v.BindVisible()).To(vm => vm.IsBusy);
+            bindingSet.Bind(_source).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
+            bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsRefreshing);
+            bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.RefreshDataCommand);
+            bindingSet.Bind(uploadingBackgroundView).For(v => v.BindVisible()).To(vm => vm.IsUploading);
+            bindingSet.Bind(uploadingProgressBar).For(v => v.Progress).To(vm => vm.UploadingProgress);
+            bindingSet.Bind(uploadingLabel).For(v => v.Text).To(vm => vm.UploadingProgressStringPresentation);
+            bindingSet.Bind(uploadingProgressBar).For(v => v.BindTap()).To(vm => vm.CancelUploadingCommand);
         }
     }
 }

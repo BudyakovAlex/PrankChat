@@ -82,27 +82,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         {
             base.Bind();
 
-            var bindingSet = this.CreateBindingSet<CompetitionsSectionCell, CompetitionsSectionViewModel>();
+            using var bindingSet = this.CreateBindingSet<CompetitionsSectionCell, CompetitionsSectionViewModel>();
 
-            bindingSet.Bind(this)
-                      .For(v => v.Phase)
-                      .To(vm => vm.Phase);
-
-            bindingSet.Bind(titleLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.Phase)
+            bindingSet.Bind(this).For(v => v.Phase).To(vm => vm.Phase);
+            bindingSet.Bind(titleLabel).For(v => v.Text).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToSectionTitleConverter>();
-
-            bindingSet.Bind(_source)
-                      .For(v => v.ItemsSource)
-                      .To(vm => vm.Items);
-
-            bindingSet.Bind(buttonContainerZeroHeightConstraint)
-                      .For(v => v.Active)
-                      .To(vm => vm.HasNavigationControls)
+            bindingSet.Bind(_source).For(v => v.ItemsSource).To(vm => vm.Items);
+            bindingSet.Bind(buttonContainerZeroHeightConstraint).For(v => v.Active).To(vm => vm.HasNavigationControls)
                       .WithConversion<MvxInvertedBooleanConverter>();
-
-            bindingSet.Apply();
         }
 
         private void CustomizeTitleView(UIView view, UIColor color)

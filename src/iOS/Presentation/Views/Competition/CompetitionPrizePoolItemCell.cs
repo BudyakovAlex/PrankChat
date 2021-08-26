@@ -21,30 +21,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         {
             base.Bind();
 
-            var bindingSet = this.CreateBindingSet<CompetitionPrizePoolItemCell, CompetitionPrizePoolItemViewModel>();
+            using var bindingSet = this.CreateBindingSet<CompetitionPrizePoolItemCell, CompetitionPrizePoolItemViewModel>();
 
-            bindingSet.Bind(this)
-                      .For(v => v.BackgroundColor)
-                      .To(vm => vm.IsMyPosition)
+            bindingSet.Bind(this).For(v => v.BackgroundColor).To(vm => vm.IsMyPosition)
                       .WithConversion(BoolToUIColorConverter.Name, Tuple.Create(Theme.Color.DarkPurple, UIColor.Clear));
-
-            bindingSet.Bind(positionLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.Position);
-
-            bindingSet.Bind(participantLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.Participant);
-
-            bindingSet.Bind(votesLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.Rating);
-
-            bindingSet.Bind(prizeLabel)
-                      .For(v => v.Text)
-                      .To(vm => vm.Prize);
-
-            bindingSet.Apply();
+            bindingSet.Bind(positionLabel).For(v => v.Text).To(vm => vm.Position);
+            bindingSet.Bind(participantLabel).For(v => v.Text).To(vm => vm.Participant);
+            bindingSet.Bind(votesLabel).For(v => v.Text).To(vm => vm.Rating);
+            bindingSet.Bind(prizeLabel).For(v => v.Text).To(vm => vm.Prize);
         }
     }
 }

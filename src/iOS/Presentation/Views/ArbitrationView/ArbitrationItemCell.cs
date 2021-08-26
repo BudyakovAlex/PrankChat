@@ -49,52 +49,26 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 
 		protected override void Bind()
 		{
-			var set = this.CreateBindingSet<ArbitrationItemCell, ArbitrationOrderItemViewModel>();
+			using var bindingSet = this.CreateBindingSet<ArbitrationItemCell, ArbitrationOrderItemViewModel>();
 
-			set.Bind(this)
-				.For(v => v.BindTap())
-				.To(vm => vm.OpenDetailsOrderCommand)
+			bindingSet.Bind(this).For(v => v.BindTap()).To(vm => vm.OpenDetailsOrderCommand)
 				.Mode(MvxBindingMode.OneTime);
-
-			set.Bind(backgroundImageView)
-				.For(UIImageViewOrderTypeTargetBinding.TargetBinding)
-				.To(vm => vm.OrderType);
-
-			set.Bind(profilePhotoImage)
-				.For(v => v.ImagePath)
-				.To(vm => vm.ProfilePhotoUrl)
+			bindingSet.Bind(backgroundImageView).For(UIImageViewOrderTypeTargetBinding.TargetBinding).To(vm => vm.OrderType);
+			bindingSet.Bind(profilePhotoImage).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl)
 				.Mode(MvxBindingMode.OneTime);
-
-			set.Bind(profilePhotoImage)
-	            .For(v => v.PlaceholderText)
-	            .To(vm => vm.ProfileShortName)
+			bindingSet.Bind(profilePhotoImage).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName)
 	            .Mode(MvxBindingMode.OneTime);
-
-			set.Bind(profilePhotoImage)
-			   .For(v => v.BindTap())
-			   .To(vm => vm.OpenUserProfileCommand);
-
-			set.Bind(orderTitleLabel)
-				.To(vm => vm.OrderTitle)
+			bindingSet.Bind(profilePhotoImage).For(v => v.BindTap()).To(vm => vm.OpenUserProfileCommand);
+			bindingSet.Bind(orderTitleLabel).To(vm => vm.OrderTitle)
 				.Mode(MvxBindingMode.OneTime);
-
-			set.Bind(orderTimeLabel)
-				.To(vm => vm.TimeText)
+			bindingSet.Bind(orderTimeLabel).To(vm => vm.TimeText)
 				.Mode(MvxBindingMode.OneTime);
-
-			set.Bind(priceValueLabel)
-				.To(vm => vm.PriceText)
+			bindingSet.Bind(priceValueLabel).To(vm => vm.PriceText)
 				.Mode(MvxBindingMode.OneTime);
-
-			set.Bind(orderDetailsButton)
-				.To(vm => vm.OpenDetailsOrderCommand)
+			bindingSet.Bind(orderDetailsButton).To(vm => vm.OpenDetailsOrderCommand)
 				.Mode(MvxBindingMode.OneTime);
-
-			set.Bind(orderDetailsButton)
-				.For(UIButtonOrderTypeTargetBinding.TargetBinding)
+			bindingSet.Bind(orderDetailsButton).For(UIButtonOrderTypeTargetBinding.TargetBinding)
 				.To(vm => vm.OrderType);
-
-			set.Apply();
 		}
 	}
 }

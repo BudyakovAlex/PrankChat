@@ -26,9 +26,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         public UIScrollView ScrollView => tableView;
 
-        protected override void SetupBinding()
+        protected override void Bind()
 		{
-			var bindingSet = this.CreateBindingSet<OrdersView, OrdersViewModel>();
+			using var bindingSet = this.CreateBindingSet<OrdersView, OrdersViewModel>();
 
             bindingSet.Bind(OrdersTableSource).To(vm => vm.Items);
             bindingSet.Bind(filterContainerView.Tap()).For(v => v.Command).To(vm => vm.OpenFilterCommand);
@@ -37,8 +37,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.ReloadItemsCommand);
             bindingSet.Bind(OrdersTableSource).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
             bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications).WithConversion<BoolToNotificationImageConverter>();
-
-            bindingSet.Apply();
 		}
 
 		protected override void SetupControls()

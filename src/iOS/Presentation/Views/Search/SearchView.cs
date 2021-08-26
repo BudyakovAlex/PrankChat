@@ -29,7 +29,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 
         public UISearchBar SearchBar { get; set; }
 
-        protected override void SetupBinding()
+        protected override void Bind()
         {
             using var bindingSet = this.CreateBindingSet<SearchView, SearchViewModel>();
 

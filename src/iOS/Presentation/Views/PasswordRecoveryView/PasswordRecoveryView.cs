@@ -12,22 +12,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.PasswordRecoveryView
     [MvxModalPresentation(WrapInNavigationController = true)]
 	public partial class PasswordRecoveryView : BaseTransparentBarView<PasswordRecoveryViewModel>
 	{
-		protected override void SetupBinding()
+		protected override void Bind()
 		{
-            var set = this.CreateBindingSet<PasswordRecoveryView, PasswordRecoveryViewModel>();
+            using var bindingSet = this.CreateBindingSet<PasswordRecoveryView, PasswordRecoveryViewModel>();
 
-            set.Bind(emailEditText)
-                .To(vm => vm.Email);
-
-            set.Bind(recoverPasswordButton)
-                .To(vm => vm.RecoverPasswordCommand);
-
-            set.Bind(progresBar)
-                .For(v => v.BindHidden())
-                .To(vm => vm.IsBusy)
-                .WithConversion<MvxInvertedBooleanConverter>();
-
-            set.Apply();
+            bindingSet.Bind(emailEditText).To(vm => vm.Email);
+            bindingSet.Bind(recoverPasswordButton).To(vm => vm.RecoverPasswordCommand);
+            bindingSet.Bind(progresBar).For(v => v.BindHidden()).To(vm => vm.IsBusy).WithConversion<MvxInvertedBooleanConverter>();
         }
 
 		protected override void SetupControls()

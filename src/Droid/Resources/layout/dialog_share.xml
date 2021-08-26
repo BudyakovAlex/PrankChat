@@ -17,6 +17,7 @@
         android:text="Поделиться"
         android:textColor="@color/applicationBlack"/>
     <ImageButton
+        android:id="@+id/share_button"
         android:layout_width="28dp"
         android:layout_height="28dp"
         app:layout_constraintRight_toRightOf="parent"
@@ -25,8 +26,7 @@
         android:layout_marginTop="6dp"
         android:src="@drawable/ic_share"
         app:srcCompat="@drawable/ic_share"
-        android:background="@null"
-        app:MvxBind="Click ShareCommand"/>
+        android:background="@null"/>
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/line_1"
         android:orientation="vertical"
@@ -43,8 +43,7 @@
         android:layout_marginTop="42dp"
         android:src="@drawable/ic_copy"
         app:srcCompat="@drawable/ic_copy"
-        android:background="@null"
-        app:MvxBind="Click CopyLinkCommand"/>
+        android:background="@null"/>
     <TextView
         android:id="@+id/copy_link_text"
         android:layout_width="wrap_content"
@@ -67,8 +66,7 @@
         android:layout_marginTop="42dp"
         android:src="@drawable/ic_share_instagram"
         app:srcCompat="@drawable/ic_share_instagram"
-        android:background="@null"
-        app:MvxBind="Click ShareToInstagramCommand"/>
+        android:background="@null"/>
     <TextView
         android:id="@+id/share_inst_text"
         android:layout_width="wrap_content"
@@ -90,6 +88,7 @@
         app:layout_constraintTop_toBottomOf="@+id/share_inst_text"
         android:background="@color/separator"/>
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/close_button"
         android:layout_width="wrap_content"
         android:layout_height="42dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -97,6 +96,5 @@
         app:layout_constraintTop_toBottomOf="@+id/separator"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@null"
-        android:text="Отмена"
-        app:MvxBind="Click CloseCommand"/>
+        android:text="Отмена"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

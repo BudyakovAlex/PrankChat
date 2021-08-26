@@ -31,13 +31,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
         {
             base.SetBindings();
 
-            var bindingSet = this.CreateBindingSet<OnboardingItemCell, OnboardingItemViewModel>();
+            using var bindingSet = this.CreateBindingSet<OnboardingItemCell, OnboardingItemViewModel>();
 
             bindingSet.Bind(this).For(v => v.Type).To(vm => vm.Type);
             bindingSet.Bind(titleLabel).For(v => v.Text).To(vm => vm.Title);
             bindingSet.Bind(descriptionLabel).For(v => v.Text).To(vm => vm.Description);
-
-            bindingSet.Apply();
         }
 
         private string GetImageName(OnBoardingPageType type)
