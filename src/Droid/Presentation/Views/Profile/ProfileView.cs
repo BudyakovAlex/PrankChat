@@ -39,7 +39,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         private ConstraintLayout _subscriptionsViewConstraintLayout;
         private ConstraintLayout _subscribersViewConstraintLayout;
         private MaterialButton _profileRefillButton;
-        private MaterialButton _profileViewWithdrawal;
+        private MaterialButton _profileWithdrawalButton;
         private MvxSwipeRefreshLayout _mvxSwipeRefreshLayout;
 
         protected override string TitleActionBar => Core.Localization.Resources.Profile_Tab;
@@ -84,7 +84,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             bindingSet.Bind(_profileSubscriptionsValueTextView).For(v => v.BindClick()).To(vm => vm.ShowSubscriptionsCommand);
             bindingSet.Bind(_profileSubscriptionsValueTextView).For(v => v.Text).To(vm => vm.SubscriptionsValue);
             bindingSet.Bind(_profileRefillButton).For(v => v.BindClick()).To(vm => vm.ShowRefillCommand);
-            bindingSet.Bind(_profileViewWithdrawal).For(v => v.BindClick()).To(vm => vm.ShowWithdrawalCommand);
+            bindingSet.Bind(_profileWithdrawalButton).For(v => v.BindClick()).To(vm => vm.ShowWithdrawalCommand);
             bindingSet.Bind(_subscribersViewConstraintLayout).For(v => v.BindClick()).To(vm => vm.ShowSubscribersCommand);
             bindingSet.Bind(_descriptionTextView).For(v => v.BindClick()).To(vm => vm.Description);
             bindingSet.Bind(_descriptionTextView).For(v => v.Visibility).To(vm => vm.HasDescription)
@@ -106,7 +106,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
             _subscriptionsViewConstraintLayout = view.FindViewById<ConstraintLayout>(Resource.Id.subscriptions_view);
             _profileSubscriptionsValueTextView = view.FindViewById<TextView>(Resource.Id.profile_subscriptions_value);
             _profileRefillButton = view.FindViewById<MaterialButton>(Resource.Id.profile_refill_button);
-            _profileViewWithdrawal = view.FindViewById<MaterialButton>(Resource.Id.profile_withdrawal_button);
+            _profileWithdrawalButton = view.FindViewById<MaterialButton>(Resource.Id.profile_withdrawal_button);
             _subscribersViewConstraintLayout = view.FindViewById<ConstraintLayout>(Resource.Id.subscribers_view);
             _descriptionTextView = view.FindViewById<TextView>(Resource.Id.description_text_view);
             _mvxSwipeRefreshLayout = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.user_profile_swipe_refresh_layout);
