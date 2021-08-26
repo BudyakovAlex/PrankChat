@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
@@ -94,10 +95,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             bindingSet.Bind(changeProfilePhotoLabel.Tap()).For(v => v.Command).To(vm => vm.ChangeProfilePhotoCommand);
             bindingSet.Bind(femaleIconButton).To(vm => vm.SelectGenderCommand)
                       .CommandParameter(GenderType.Female);
-            bindingSet.Bind(femaleIconButton).For(UIButtonSelectedTargetBinding.TargetBinding).To(vm => vm.IsGenderFemale);
+            bindingSet.Bind(femaleIconButton).For(v => v.BindSelected()).To(vm => vm.IsGenderFemale);
             bindingSet.Bind(maleIconButton).To(vm => vm.SelectGenderCommand)
                       .CommandParameter(GenderType.Male);
-            bindingSet.Bind(maleIconButton).For(UIButtonSelectedTargetBinding.TargetBinding).To(vm => vm.IsGenderMale);
+            bindingSet.Bind(maleIconButton).For(v => v.BindSelected()).To(vm => vm.IsGenderMale);
             bindingSet.Bind(descriptionTextView).To(vm => vm.Description);
             bindingSet.Bind(this).For(nameof(UserDescription)).To(vm => vm.Description);
             bindingSet.Bind(emailValidationImageView).For(v => v.BindHidden()).To(vm => vm.IsEmailVerified);
@@ -105,7 +106,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
                       .OneWay();
             bindingSet.Bind(emailValidationImageView).For(v => v.BindTap()).To(vm => vm.ShowValidationWarningCommand);
             bindingSet.Bind(resendEmailLabel).For(v => v.BindTap()).To(vm => vm.ResendEmailValidationCommand);
-            bindingSet.Bind(emailTextField).For(FloatPlaceholderTextFieldPaddingTargetBinding.EndPadding).To(vm => vm.IsEmailVerified)
+            bindingSet.Bind(emailTextField).For(v => v.BindEndPadding()).To(vm => vm.IsEmailVerified)
                       .WithConversion(BoolToIntConverter.Name, Tuple.Create(0, 45));
             bindingSet.Bind(resendEmailLabel).For(v => v.Alpha).To(vm => vm.CanResendEmailValidation)
                       .WithConversion(BoolToFloatConverter.Name, Tuple.Create(1f, 0.5f));

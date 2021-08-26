@@ -8,8 +8,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Binding
 {
     public class UIImageViewOrderTypeTargetBinding : MvxTargetBinding<UIImageView, OrderType>
     {
-        public static string TargetBinding = "ImageViewOrderType";
-
         public UIImageViewOrderTypeTargetBinding(UIImageView target)
             : base(target)
         {

@@ -6,8 +6,6 @@ namespace PrankChat.Mobile.iOS.Presentation.Binding
 {
     public class WKWebViewHtmlStringTargetBinding : MvxTargetBinding<WKWebView, string>
     {
-        public static string TargetBinding = "WebViewHtmlString";
-
         public WKWebViewHtmlStringTargetBinding(WKWebView target)
             : base(target)
         {
