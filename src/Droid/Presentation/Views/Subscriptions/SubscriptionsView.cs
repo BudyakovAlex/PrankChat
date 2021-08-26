@@ -92,8 +92,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Subscriptions
 
             bindingSet.Bind(this).For(v => v.SelectedTabType).To(vm => vm.SelectedTabType);
             bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.Title);
-            bindingSet.Bind(_subscribersTab).For(v => v.BindTabLayoutTabText()).To(vm => vm.SubscribersTitle);
-            bindingSet.Bind(_subscriptionsTab).For(v => v.BindTabLayoutTabText()).To(vm => vm.SubscriptionsTitle);
+            bindingSet.Bind(_subscribersTab).For(v => v.BindTabText()).To(vm => vm.SubscribersTitle);
+            bindingSet.Bind(_subscriptionsTab).For(v => v.BindTabText()).To(vm => vm.SubscriptionsTitle);
             bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_recyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
             bindingSet.Bind(_subscriptionsSwipeRefreshLayout).For(v => v.Refreshing).To(vm => vm.IsBusy);

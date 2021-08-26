@@ -8,26 +8,17 @@ using MvvmCross.Platforms.Android.Binding.Target;
 
 namespace PrankChat.Mobile.Droid.Presentation.Bindings
 {
-    public class BackgroundColorBinding : MvxAndroidTargetBinding
+    public class BackgroundColorBinding : MvxAndroidTargetBinding<View, int>
     {
-        public static string TargetBinding { get; } = "BackgroundColor";
-
-        public override Type TargetType => typeof(View);
-
-        public override MvxBindingMode DefaultMode => MvxBindingMode.OneWay;
-
-        public BackgroundColorBinding(object target) : base(target)
+        public BackgroundColorBinding(View target) : base(target)
         {
         }
 
-        protected override void SetValueImpl(object target, object value)
+        protected override void SetValueImpl(View target, int value)
         {
-            if (target is View view && value is int colorResource)
-            {
-                var colorValue = ResourcesCompat.GetColor(Application.Context.Resources, colorResource, null);
-                var color = new Color(colorValue);
-                view.SetBackgroundColor(color);
-            }
+            var colorValue = ResourcesCompat.GetColor(Application.Context.Resources, value, null);
+            var color = new Color(colorValue);
+            target.SetBackgroundColor(color);
         }
     }
 }

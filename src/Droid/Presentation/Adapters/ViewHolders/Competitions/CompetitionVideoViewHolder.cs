@@ -63,10 +63,10 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_likeButton).For(v => v.Visibility).To(vm => vm.CanVoteVideo)
                       .WithConversion<BoolToGoneConverter>();
             bindingSet.Bind(StubImageView).For(v => v.ImagePath).To(vm => vm.StubImageUrl);
-            bindingSet.Bind(_videoContainerView).For(v => v.BindViewTouch()).To(vm => vm.ShowFullScreenVideoCommand);
+            bindingSet.Bind(_videoContainerView).For(v => v.BindTouch()).To(vm => vm.ShowFullScreenVideoCommand);
             bindingSet.Bind(_likeTextView).For(v => v.BindTextColor()).To(vm => vm.IsLiked)
                       .WithConversion(BoolToResourceConverter.Name, new Tuple<int, int>(Resource.Color.applicationWhite, Resource.Color.primary_button_border));
-            bindingSet.Bind(_likeImageView).For(v => v.BindImageViewTintColor()).To(vm => vm.IsLiked)
+            bindingSet.Bind(_likeImageView).For(v => v.BindTintColor()).To(vm => vm.IsLiked)
                       .WithConversion(BoolToResourceConverter.Name, new Tuple<int, int>(Resource.Color.applicationWhite, Resource.Color.primary_button_border));
             bindingSet.Bind(ProcessingView).For(v => v.BindVisible()).To(vm => vm.IsVideoProcessing);
             bindingSet.Bind(TextureView).For(v => v.BindHidden()).To(vm => vm.IsVideoProcessing);

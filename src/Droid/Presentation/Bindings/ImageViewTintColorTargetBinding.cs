@@ -9,27 +9,17 @@ using MvvmCross.Platforms.Android.Binding.Target;
 
 namespace PrankChat.Mobile.Droid.Presentation.Bindings
 {
-    public class ImageViewTintColorTargetBinding : MvxAndroidTargetBinding
+    public class ImageViewTintColorTargetBinding : MvxAndroidTargetBinding<ImageView, int>
     {
-        public static string TargetBinding { get; } = "ImageViewTintColor";
-
-        public override Type TargetType => typeof(ImageView);
-
-        public override MvxBindingMode DefaultMode => MvxBindingMode.OneWay;
-
-        public ImageViewTintColorTargetBinding(object target) : base(target)
+        public ImageViewTintColorTargetBinding(ImageView target) : base(target)
         {
         }
 
-        protected override void SetValueImpl(object target, object value)
+        protected override void SetValueImpl(ImageView target, int value)
         {
-            if (target is ImageView imageView && value is int colorResource)
-            {
-                var colorValue = ResourcesCompat.GetColor(Application.Context.Resources, colorResource, null);
-                var color = new Color(colorValue);
-                imageView.SetColorFilter(color);
-                return;
-            }
+            var colorValue = ResourcesCompat.GetColor(Application.Context.Resources, value, null);
+            var color = new Color(colorValue);
+            target.SetColorFilter(color);
         }
     }
 }

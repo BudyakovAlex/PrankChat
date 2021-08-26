@@ -8,8 +8,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
 {
     public class ViewTouchTargetBinding : MvxAndroidTargetBinding
     {
-        public static string TargetBinding { get; } = "Touch";
-
         private readonly View _view;
 
         private IMvxCommand _command;

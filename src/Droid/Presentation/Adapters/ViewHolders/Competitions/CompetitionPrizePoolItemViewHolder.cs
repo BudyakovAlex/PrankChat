@@ -44,7 +44,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_userTextView).For(v => v.Text).To(vm => vm.Participant);
             bindingSet.Bind(_votesTextView).For(v => v.Text).To(vm => vm.Rating);
             bindingSet.Bind(_prizeTextView).For(v => v.Text).To(vm => vm.Prize);
-            bindingSet.Bind(_parentView).For(v => v.BindColor()).To(vm => vm.IsMyPosition)
+            bindingSet.Bind(_parentView).For(v => v.BindBackgroundColor()).To(vm => vm.IsMyPosition)
                 .WithConversion(BoolToResourceConverter.Name, Tuple.Create(Resource.Color.dark_purple, Resource.Color.deep_purple));
         }
     }

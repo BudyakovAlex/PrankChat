@@ -95,7 +95,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Orders
             bindingSet.Bind(_actionButton).For(v => v.BindOrderButtonStyle()).To(vm => vm.OrderType);
 
             bindingSet.Bind(this).For(v => v.OrderTagType).To(vm => vm.OrderTagType);
-            bindingSet.Bind(_backgroundView).For(v => v.BindDrawable()).To(vm => vm.OrderType)
+            bindingSet.Bind(_backgroundView).For(v => v.BindBackgroundDrawable()).To(vm => vm.OrderType)
                       .WithConversion<OrderTypeToViewBackgroundConverter>();
         }
 

@@ -5,25 +5,13 @@ using MvvmCross.Platforms.Android.Binding.Target;
 
 namespace PrankChat.Mobile.Droid.Presentation.Bindings
 {
-    internal class BackgroundBinding : MvxAndroidTargetBinding
+    public class BackgroundBinding : MvxAndroidTargetBinding<View, int>
     {
-        public static string TargetBinding = "Background";
-
-        public override Type TargetType => typeof(View);
-
-        public override MvxBindingMode DefaultMode => MvxBindingMode.OneWay;
-
-        public BackgroundBinding(object target) : base(target)
+        public BackgroundBinding(View target) : base(target)
         {
         }
 
-        protected override void SetValueImpl(object target, object value)
-        {
-            if (target is View view && value is string drawableName)
-            {
-                var res = (int)typeof(Resource.Drawable).GetField(drawableName).GetValue(null);
-                view.SetBackgroundResource(res);
-            }
-        }
+        protected override void SetValueImpl(View target, int value)
+            => target.SetBackgroundResource(value);
     }
 }

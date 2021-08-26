@@ -6,8 +6,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
 {
     public class TabLayoutTabTextBinding : MvxTargetBinding<TabLayout.Tab, string>
     {
-        public static string TargetBinding { get; } = nameof(TabLayoutTabTextBinding);
-
         public TabLayoutTabTextBinding(TabLayout.Tab target)
             : base(target)
         {
@@ -15,6 +13,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
 
         public override MvxBindingMode DefaultMode => MvxBindingMode.OneWay;
 
-        protected override void SetValue(string value) => Target.SetText(value);
+        protected override void SetValue(string value)
+            => Target.SetText(value);
     }
 }
