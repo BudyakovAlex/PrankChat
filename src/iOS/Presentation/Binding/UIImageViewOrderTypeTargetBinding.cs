@@ -2,6 +2,7 @@
 using MvvmCross.Binding;
 using MvvmCross.Binding.Bindings.Target;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Binding
@@ -27,11 +28,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Binding
         {
             switch (orderType)
             {
-                case OrderType.MyOrder:             return "bg_order_type_my";
-                case OrderType.MyOrderInModeration: return "bg_order_type_my_in_moderation";
-                case OrderType.NotMyOrder:          return "bg_order_type_not_my";
-                case OrderType.MyOrderCompleted:    return "bg_order_type_my_completed";
-                case OrderType.NotMyOrderCompleted: return "bg_order_type_my_completed";
+                case OrderType.MyOrder:             return ImagePathProvider.BackgroundOrderTypeMy;
+                case OrderType.MyOrderInModeration: return ImagePathProvider.BackgroundOrderTypeMyInModeration;
+                case OrderType.NotMyOrder:          return ImagePathProvider.BackgroundOrderTypeNotMy;
+                case OrderType.MyOrderCompleted:    return ImagePathProvider.BackgroundOrderTypeMyCompleted;
+                case OrderType.NotMyOrderCompleted: return ImagePathProvider.BackgroundOrderTypeMyCompleted;
                 default: throw new ArgumentOutOfRangeException();
             }
         }

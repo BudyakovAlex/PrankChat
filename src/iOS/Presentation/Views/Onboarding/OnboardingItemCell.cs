@@ -3,6 +3,7 @@ using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding.Items;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
@@ -43,15 +44,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
             switch (type)
             {
                 case OnBoardingPageType.FirstSlide:
-                    return "bg_onboarding_first_slide";
+                    return ImagePathProvider.BackgroundOnboardingFirstSlide;
                 case OnBoardingPageType.SecondSlide:
-                    return "bg_onboarding_second_slide";
+                    return ImagePathProvider.BackgroundOnboardingSecondSlide;
                 case OnBoardingPageType.ThirdSlide:
-                    return "bg_onboarding_third_slide";
+                    return ImagePathProvider.BackgroundOnboardingThirdSlide;
                 case OnBoardingPageType.FourthSlide:
-                    return "bg_onboarding_fourth_slide";
+                    return ImagePathProvider.BackgroundOnboardingFourthSlide;
                 case OnBoardingPageType.FifthSlide:
-                    return "bg_onboarding_fifth_slide";
+                    return ImagePathProvider.BackgroundOnboardingFifthSlide;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

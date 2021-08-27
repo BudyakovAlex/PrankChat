@@ -58,9 +58,16 @@ namespace PrankChat.Mobile.iOS.Providers
         public const string IconMute = "ic_mute";
         public const string IconCheckMark = "ic_check_mark";
         public const string IconPlus = "ic_plus";
-
-        //ImagePathProvider.
         public const string BackgroundPayment = "bg_payment";
         public const string BackgroundSelectedPayment = "bg_selected_payment";
+        public const string BackgroundOnboardingFirstSlide = "bg_onboarding_first_slide";
+        public const string BackgroundOnboardingSecondSlide = "bg_onboarding_second_slide";
+        public const string BackgroundOnboardingThirdSlide = "bg_onboarding_third_slide";
+        public const string BackgroundOnboardingFourthSlide = "bg_onboarding_fourth_slide";
+        public const string BackgroundOnboardingFifthSlide = "bg_onboarding_fifth_slide";
+        public const string BackgroundOrderTypeMy = "bg_order_type_my";
+        public const string BackgroundOrderTypeMyInModeration = "bg_order_type_my_in_moderation";
+        public const string BackgroundOrderTypeNotMy = "bg_order_type_not_my";
+        public const string BackgroundOrderTypeMyCompleted = "bg_order_type_my_completed";
     }
 }
