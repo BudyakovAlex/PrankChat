@@ -57,7 +57,6 @@ namespace PrankChat.Mobile.iOS
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
         {
-            //registry.RegisterPropertyInfoBindingFactory(typeof(), typeof(UIButton), UIButtonSelectedTargetBinding.TargetBinding);
             registry.RegisterCustomBindingFactory<UIButton>(nameof(UIButtonSelectedTargetBinding), v => new UIButtonSelectedTargetBinding(v));
             registry.RegisterCustomBindingFactory<UIImageView>(nameof(UIImageViewOrderTypeTargetBinding), v => new UIImageViewOrderTypeTargetBinding(v));
             registry.RegisterCustomBindingFactory<UIButton>(nameof(UIButtonOrderTypeTargetBinding), v => new UIButtonOrderTypeTargetBinding(v));

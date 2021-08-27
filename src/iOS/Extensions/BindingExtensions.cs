@@ -10,13 +10,13 @@ namespace PrankChat.Mobile.iOS.Extensions
         public static string BindSelected(this UIButton _)
             => nameof(UIButtonSelectedTargetBinding);
 
-        public static string BindOrderType(this UIButton _)
+        public static string BindOrderButtonStyle(this UIButton _)
             => nameof(UIButtonOrderTypeTargetBinding);
 
         public static string BindHtmlString(this WKWebView _)
             => nameof(WKWebViewHtmlStringTargetBinding);
 
-        public static string BindOrderType(this UIImageView _)
+        public static string BindOrderImageStyle(this UIImageView _)
             => nameof(UIImageViewOrderTypeTargetBinding);
 
         public static string BindStartPadding(this FloatPlaceholderTextField _)
