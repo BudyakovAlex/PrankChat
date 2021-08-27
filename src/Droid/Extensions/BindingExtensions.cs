@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.Droid.Extensions
         public static string BindVideoUrl(this VideoView _)
             => nameof(VideoUrlTargetBinding);
 
-        public static string BindTouch(this FrameLayout _)
+        public static string BindTouch(this View _)
             => nameof(ViewTouchTargetBinding);
 
         public static string BindTintColor(this ImageView _)

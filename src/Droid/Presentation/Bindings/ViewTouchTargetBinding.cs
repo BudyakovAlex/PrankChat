@@ -6,25 +6,15 @@ using MvvmCross.Platforms.Android.Binding.Target;
 
 namespace PrankChat.Mobile.Droid.Presentation.Bindings
 {
-    public class ViewTouchTargetBinding : MvxAndroidTargetBinding
+    public class ViewTouchTargetBinding : MvxAndroidTargetBinding<View, IMvxCommand>
     {
-        private readonly View _view;
-
         private IMvxCommand _command;
         private bool _isDisposed;
 
         public ViewTouchTargetBinding(View view) : base(view)
         {
-            _view = view;
-            _view.Touch += OnViewTouch;
+            Target.Touch += OnViewTouch;
         }
-
-        public override void SetValue(object value)
-        {
-            _command = value as IMvxCommand;
-        }
-
-        public override Type TargetType => typeof(IMvxCommand);
 
         public override MvxBindingMode DefaultMode => MvxBindingMode.OneWay;
 
@@ -32,15 +22,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
         {
             if (isDisposing && !_isDisposed)
             {
-                _view.Touch -= OnViewTouch;
+                Target.Touch -= OnViewTouch;
             }
 
             base.Dispose(isDisposing);
             _isDisposed = true;
-        }
-
-        protected override void SetValueImpl(object target, object value)
-        {
         }
 
         private void OnViewTouch(object sender, View.TouchEventArgs eventArgs)
@@ -53,6 +39,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
 
             eventArgs.Handled = false;
             _command.Execute();
+        }
+
+        protected override void SetValueImpl(View target, IMvxCommand value)
+        {
+            _command = value;
         }
     }
 }
