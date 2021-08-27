@@ -21,7 +21,7 @@ namespace PrankChat.Mobile.Droid.Extensions
         public static string BindOrderButtonStyle(this AppCompatButton _)
             => nameof(OrderButtonStyleBinding);
 
-        public static string BindVideoUrl(this ExtendedVideoView _)
+        public static string BindVideoUrl(this VideoView _)
             => nameof(VideoUrlTargetBinding);
 
         public static string BindTouch(this FrameLayout _)
