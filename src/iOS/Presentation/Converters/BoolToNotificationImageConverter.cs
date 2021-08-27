@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Converters;
+using PrankChat.Mobile.iOS.Providers;
 using System;
 using System.Globalization;
 using UIKit;
@@ -9,7 +10,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Converters
     {
         protected override UIImage Convert(bool value, Type targetType, object parameter, CultureInfo culture)
         {
-            var imageName = value ? "ic_notification_with_bage" : "ic_notification";
+            var imageName = value ? ImagePathProvider.IconNotificationWithBage : ImagePathProvider.IconNotification;
             return UIImage.FromBundle(imageName).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
         }
     }

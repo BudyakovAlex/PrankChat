@@ -2,6 +2,7 @@
 using System.Globalization;
 using MvvmCross.Converters;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Converters
@@ -14,17 +15,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Converters
             switch (paymentType)
             {
                 case PaymentType.Alphabank:
-                    return value ? GetIcon("ic_payment_alphabank_selected") : GetIcon("ic_payment_alphabank");
+                    return value ? GetIcon(ImagePathProvider.IconPaymentAlphabankSelected) : GetIcon(ImagePathProvider.IconPaymentAlphabank);
                 case PaymentType.Card:
-                    return value ? GetIcon("ic_payment_cards_selected") : GetIcon("ic_payment_cards");
+                    return value ? GetIcon(ImagePathProvider.IconPaymentСardsSelected) : GetIcon(ImagePathProvider.IconPaymentСards);
                 case PaymentType.Phone:
-                    return value ? GetIcon("ic_payment_phone_selected") : GetIcon("ic_payment_phone");
+                    return value ? GetIcon(ImagePathProvider.IconPaymentPhoneSelected) : GetIcon(ImagePathProvider.IconPaymentPhone);
                 case PaymentType.Qiwi:
-                    return value ? GetIcon("ic_payment_qiwi_selected") : GetIcon("ic_payment_qiwi");
+                    return value ? GetIcon(ImagePathProvider.IconPaymentQiwiSelected) : GetIcon(ImagePathProvider.IconPaymentQiwi);
                 case PaymentType.Sberbank:
-                    return value ? GetIcon("ic_payment_sberbank_selected") : GetIcon("ic_payment_sberbank");
+                    return value ? GetIcon(ImagePathProvider.IconPaymentSberbankSelected) : GetIcon(ImagePathProvider.IconPaymentSberbank);
                 case PaymentType.YandexMoney:
-                    return value ? GetIcon("ic_payment_yandexmoney_selected") : GetIcon("ic_payment_yandexmoney");
+                    return value ? GetIcon(ImagePathProvider.IconPaymentYandexmoneySelected) : GetIcon(ImagePathProvider.IconPaymentYandexmoney);
                 default:
                     return new UIImage();
             }

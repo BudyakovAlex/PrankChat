@@ -15,6 +15,7 @@ using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Providers;
 using System;
 using System.Collections.Generic;
 using UIKit;
@@ -129,7 +130,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             textLengthLabel.SetRegularStyle(12, textLengthLabel.TextColor);
 
             rootView.AddGestureRecognizer(new UITapGestureRecognizer(OnViewTapped));
-            NavigationItem?.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton("ic_logout", ViewModel.ShowMenuCommand), true);
+            NavigationItem?.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton(ImagePathProvider.IconLogout, ViewModel.ShowMenuCommand), true);
 
             emailTextField.SetLightStyle(Resources.ProfileUpdateView_Email_Placeholder);
 
@@ -137,7 +138,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             nameTextField.SetLightStyle(Resources.ProfileUpdateView_Name_Placeholder);
 
-            birthdayTextField.SetLightStyle(Resources.ProfileUpdateView_Birthday_Placeholder, rightImage: UIImage.FromBundle("ic_calendar"));
+            birthdayTextField.SetLightStyle(Resources.ProfileUpdateView_Birthday_Placeholder, rightImage: UIImage.FromBundle(ImagePathProvider.IconCalendar));
 
             sexSelectTitleLabel.Text = Resources.ProfileUpdateView_GenderSelect_Title;
             sexSelectTitleLabel.TextColor = Theme.Color.White;
@@ -149,8 +150,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             femaleTitleButton.SetTitle(Resources.RegistrationView_Female_Button, UIControlState.Normal);
             femaleTitleButton.SetRadioTitleStyle();
 
-            femaleIconButton.SetSelectableImageStyle("ic_radio_button_inactive", "ic_radio_button_active");
-            maleIconButton.SetSelectableImageStyle("ic_radio_button_inactive", "ic_radio_button_active");
+            femaleIconButton.SetSelectableImageStyle(ImagePathProvider.IconRadioButtonInactive, ImagePathProvider.IconRadioButtonActive);
+            maleIconButton.SetSelectableImageStyle(ImagePathProvider.IconRadioButtonInactive, ImagePathProvider.IconRadioButtonActive);
 
             saveButton.SetLightStyle(Resources.ProfileUpdateView_Button_Save);
             resendEmailLabel.SetLinkStyle(Theme.Color.White, Resources.Profile_Resend_Confirmation, 14);

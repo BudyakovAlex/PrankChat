@@ -14,6 +14,7 @@ using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates.Search;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
 using PrankChat.Mobile.iOS.Presentation.Views.Publication;
+using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Search
@@ -43,7 +44,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
 
         protected override void SetupControls()
         {
-            var backButton = NavigationItemHelper.CreateBarButton("ic_back", ViewModel.CloseCommand);
+            var backButton = NavigationItemHelper.CreateBarButton(ImagePathProvider.IconBack, ViewModel.CloseCommand);
 
             var navigationBarWidth = NavigationController?.NavigationBar.Frame.Width;
             var searchBarWidth = navigationBarWidth - BackButtonWidth - SearchBarRightPadding;

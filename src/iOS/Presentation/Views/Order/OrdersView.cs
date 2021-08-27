@@ -11,6 +11,7 @@ using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 using Xamarin.Essentials;
 
@@ -48,7 +49,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             NavigationController.NavigationBar.SetNavigationBarStyle();
 
-            filterArrowImageView.Image = UIImage.FromBundle("ic_filter_arrow");
+            filterArrowImageView.Image = UIImage.FromBundle(ImagePathProvider.IconFilterArrow);
             filterTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
 
             orderTabLabel.UserInteractionEnabled = true;
@@ -89,16 +90,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
         private void InitializeNavigationBar()
         {
-            _notificationBarItem = NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImagePathProvider.IconNotification, ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                 _notificationBarItem,
-                NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand)
+                NavigationItemHelper.CreateBarButton(ImagePathProvider.IconInfo, ViewModel.ShowWalkthrouthCommand)
                 // TODO: This feature will be implemented.
                 //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
             }, true);
 
-            var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
+            var logoButton = NavigationItemHelper.CreateBarButton(ImagePathProvider.IconLogo, null);
             logoButton.Enabled = false;
             NavigationItem.LeftBarButtonItem = logoButton;
         }

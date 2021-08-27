@@ -2,6 +2,7 @@
 using CoreGraphics;
 using Foundation;
 using MvvmCross.Base;
+using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Controls
@@ -9,8 +10,6 @@ namespace PrankChat.Mobile.iOS.Controls
     [Register(nameof(CheckBox))]
     public class CheckBox : UIButton
     {
-        private const string IconChecked = "ic_checkbox_checked";
-        private const string IconUnchecked = "ic_checkbox_unchecked";
         private const float SizeCheckBox = 45f;
 
         public event EventHandler IsCheckedChanged;
@@ -86,7 +85,7 @@ namespace PrankChat.Mobile.iOS.Controls
 
         private void UpdateCheckImage()
         {
-            var image = IsChecked ? IconChecked : IconUnchecked;
+            var image = IsChecked ? ImagePathProvider.IconChecked : ImagePathProvider.IconUnchecked;
             SetImage(UIImage.FromBundle(image), UIControlState.Normal);
         }
     }

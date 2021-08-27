@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
@@ -120,7 +121,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             likeButton.Layer.BorderWidth = 1f;
             likeButton.Layer.BorderColor = Theme.Color.ButtonBorderPrimary.CGColor;
 
-            likeButton.SetImage(UIImage.FromBundle("ic_thumbs_up.png"), UIControlState.Normal);
+            likeButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconThumbsUp), UIControlState.Normal);
         }
     }
 }

@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
@@ -40,10 +41,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             socialNetworksLabel.Font = Theme.Font.RegularFontOfSize(12);
             socialNetworksLabel.TextColor = Theme.Color.White;
 
-            vkButton.SetImage(UIImage.FromBundle("ic_vk").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            okButton.SetImage(UIImage.FromBundle("ic_ok").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            facebookButton.SetImage(UIImage.FromBundle("ic_facebook").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            gmailButton.SetImage(UIImage.FromBundle("ic_gmail").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            vkButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconVK).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            okButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconOK).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            facebookButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconFacebook).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            gmailButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconGmail).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
 
             yetRegisteredLabel.Text = Resources.RegistrationView_RegisteredYet_Label;
             yetRegisteredLabel.Font = Theme.Font.RegularFontOfSize(16);

@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
@@ -40,11 +41,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
             paymentMethodsTitleLabel.Text = Resources.CashboxView_FillupMethodSelect_Title;
             paymentMethodsTitleLabel.SetRegularStyle(14, Theme.Color.Subtitle);
 
-            mastercardImageView.Image = UIImage.FromBundle("ic_mastercard_banner");
+            mastercardImageView.Image = UIImage.FromBundle(ImagePathProvider.IconMastercardBanner);
 
-            visaBannerImageView.Image = UIImage.FromBundle("ic_visa_banner");
+            visaBannerImageView.Image = UIImage.FromBundle(ImagePathProvider.IconVisaBanner);
 
-            secureBannerImageView.Image = UIImage.FromBundle("ic_3dsecure_banner");
+            secureBannerImageView.Image = UIImage.FromBundle(ImagePathProvider.IconSecureBanner);
 
             //TODO: remove when all payment methods will be ready
             paymentMethodsCollectionView.Hidden = true;

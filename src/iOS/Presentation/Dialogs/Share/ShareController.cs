@@ -3,6 +3,7 @@ using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Dialogs.Share
@@ -25,13 +26,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.Share
         {
             shareTitleLabel.SetTitleStyle(Resources.ShareDialog_Title);
 
-            shareButton.SetImage(UIImage.FromBundle("ic_share"), UIControlState.Normal);
+            shareButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconShare), UIControlState.Normal);
 
-            copyLinkImageButton.SetImage(UIImage.FromBundle("ic_share_copy").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            copyLinkImageButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconShareCopy).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
             copyLinkTitleLabel.SetRegularStyle(10, Theme.Color.Black);
             copyLinkTitleLabel.Text = Resources.ShareDialog_CopyLink_Label;
 
-            shareInstagramImageButton.SetImage(UIImage.FromBundle("ic_share_instagram").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            shareInstagramImageButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconShareInstagram).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
             shareInstagramTitleLabel.SetRegularStyle(10, Theme.Color.Black);
             shareInstagramTitleLabel.Text = Resources.ShareDialog_ShareInstagram_Label;
 

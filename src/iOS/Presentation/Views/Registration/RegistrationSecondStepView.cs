@@ -9,6 +9,7 @@ using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
@@ -42,7 +43,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 
             nicknameTextField.SetLightStyle(Resources.RegistrationView_Login_Placeholder);
             nameTextField.SetLightStyle(Resources.RegistrationView_Name_Placeholder);
-            birthdayTextField.SetLightStyle(Resources.RegistrationView_Birthday_Placeholder, rightImage: UIImage.FromBundle("ic_calendar"));
+            birthdayTextField.SetLightStyle(Resources.RegistrationView_Birthday_Placeholder, rightImage: UIImage.FromBundle(ImagePathProvider.IconCalendar));
 
             passwordTextField.SetLightStyle(Resources.RegistrationView_Password_Placeholder);
             passwordTextField.SecureTextEntry = true;
@@ -52,8 +53,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             passwordRepeatTextField.SecureTextEntry = true;
             passwordTextField.TextContentType = UITextContentType.OneTimeCode;
 
-            adultCheckButton.SetSelectableImageStyleWithTint("ic_checkbox_unchecked", "ic_checkbox_checked", Theme.Color.White);
-            privacyCheckButton.SetSelectableImageStyleWithTint("ic_checkbox_unchecked", "ic_checkbox_checked", Theme.Color.White);
+            adultCheckButton.SetSelectableImageStyleWithTint(ImagePathProvider.IconUnchecked, ImagePathProvider.IconChecked, Theme.Color.White);
+            privacyCheckButton.SetSelectableImageStyleWithTint(ImagePathProvider.IconUnchecked, ImagePathProvider.IconChecked, Theme.Color.White);
 
             privacyCheckButton.AddGestureRecognizer(new UITapGestureRecognizer(SwitchPolicyState));
             adultCheckButton.AddGestureRecognizer(new UITapGestureRecognizer(SwitchAdultState));

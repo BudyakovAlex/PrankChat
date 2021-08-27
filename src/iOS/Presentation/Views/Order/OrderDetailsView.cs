@@ -10,6 +10,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
@@ -242,7 +243,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             _rightBarButtonItem = new UIBarButtonItem
             {
                 Title = string.Empty,
-                Image = UIImage.FromBundle("ic_three_dots").ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate),
+                Image = UIImage.FromBundle(ImagePathProvider.IconThreeDots).ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate),
                 TintColor = Theme.Color.White
             };
 

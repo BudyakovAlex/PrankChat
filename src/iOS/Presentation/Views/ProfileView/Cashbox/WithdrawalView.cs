@@ -8,6 +8,7 @@ using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
@@ -54,11 +55,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
         protected override void SetupControls()
         {
-            cardNumberEditText.SetDarkStyle(Resources.Withdrawal_Enter_Wallet_Number, UIImage.FromBundle("ic_yoomoney_account"));
+            cardNumberEditText.SetDarkStyle(Resources.Withdrawal_Enter_Wallet_Number, UIImage.FromBundle(ImagePathProvider.IconYoomoneyAccount));
             savedCardNumberEditText.SetDarkStyle(
                 Resources.Withdrawal_Enter_Wallet_Number,
-                UIImage.FromBundle("ic_yoomoney_account"),
-                UIImage.FromBundle("ic_arrow_dropdown"));
+                UIImage.FromBundle(ImagePathProvider.IconYoomoneyAccount),
+                UIImage.FromBundle(ImagePathProvider.IconArrowDropdown));
 
             firstNameTextField.SetDarkStyle(Resources.WithdrawalView_FirstName_Placeholder);
             surnameTextField.SetDarkStyle(Resources.WithdrawalView_LastName_Placeholder);

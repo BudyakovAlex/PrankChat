@@ -8,7 +8,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Converters
     {
         protected override string Convert(bool value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value ? "ic_sound" : "ic_without_sound";
+            return value ? "ImagePathProvider" : "ic_without_sound";
         }
     }
 }

@@ -127,6 +127,7 @@
       <DependentUpon>RegistrationThirdStepView.cs</DependentUpon>
     </Compile>
     <Compile Include="LinkerPleaseInclude.cs" />
+    <Compile Include="Providers\ImagePathProvider.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="AppTheme\Styles.cs" />
     <Compile Include="AppTheme\Theme.cs" />

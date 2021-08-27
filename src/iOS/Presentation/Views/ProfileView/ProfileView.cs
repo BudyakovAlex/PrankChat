@@ -13,6 +13,7 @@ using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
+using PrankChat.Mobile.iOS.Providers;
 using System;
 using UIKit;
 using Xamarin.Essentials;
@@ -92,12 +93,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             InitializeTableView();
 
-            _notificationBarItem = NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImagePathProvider.IconNotification, ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(
                 new UIBarButtonItem[]
                 {
                     _notificationBarItem,
-                    NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand)
+                    NavigationItemHelper.CreateBarButton(ImagePathProvider.IconInfo, ViewModel.ShowWalkthrouthCommand)
                 },
                 true);
 
@@ -118,7 +119,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             _refreshControl = new MvxUIRefreshControl();
             rootScrollView.RefreshControl = _refreshControl;
 
-            var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
+            var logoButton = NavigationItemHelper.CreateBarButton(ImagePathProvider.IconLogo, null);
             logoButton.Enabled = false;
             NavigationItem.LeftBarButtonItem = logoButton;
         }

@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Providers;
 using System;
 using System.Threading.Tasks;
 using UIKit;
@@ -110,7 +111,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             {
                 _isSubscribed = value;
 
-                var imageName = _isSubscribed ? "ic_check_mark" : "ic_plus";
+                var imageName = _isSubscribed ? ImagePathProvider.IconCheckMark : ImagePathProvider.IconPlus;
                 subscriptionTagImageView.Image = UIImage.FromBundle(imageName);
             }
         }
@@ -385,7 +386,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
         {
             InvokeOnMainThread(() =>
             {
-                var imageName = IsMuted ? "ic_sound_muted" : "ic_mute";
+                var imageName = IsMuted ? ImagePathProvider.IconSoundMuted : ImagePathProvider.IconMute;
                 muteButton.SetImage(UIImage.FromBundle(imageName), UIControlState.Normal);
             });
         }
@@ -395,8 +396,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Video
             InvokeOnMainThread(() =>
             {
                 var imageName = _player.MediaPlayer.State == VLCState.Paused
-                    ? "ic_play"
-                    : "ic_pause";
+                    ? ImagePathProvider.IconPlay
+                    : ImagePathProvider.IconPause;
 
                 playButton.SetImage(UIImage.FromBundle(imageName), UIControlState.Normal);
             });

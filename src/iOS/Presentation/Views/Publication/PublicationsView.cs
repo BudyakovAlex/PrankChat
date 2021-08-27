@@ -14,6 +14,7 @@ using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 using Xamarin.Essentials;
 
@@ -59,7 +60,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 			}, OnTabSelected);
 
             topSeparatorView.BackgroundColor = Theme.Color.Separator;
-            filterArrowImageView.Image = UIImage.FromBundle("ic_filter_arrow");
+            filterArrowImageView.Image = UIImage.FromBundle(ImagePathProvider.IconFilterArrow);
             filterTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
 
             lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
@@ -90,14 +91,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
 		{
 			NavigationController.NavigationBar.SetNavigationBarStyle();
 
-            _notificationBarItem = NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImagePathProvider.IconNotification, ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                 _notificationBarItem,
-                NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
+                NavigationItemHelper.CreateBarButton(ImagePathProvider.IconSearch, ViewModel.ShowSearchCommand)
             }, true);
 
-            var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
+            var logoButton = NavigationItemHelper.CreateBarButton(ImagePathProvider.IconLogo, null);
             logoButton.Enabled = false;
             NavigationItem.LeftBarButtonItem = logoButton;
         }
