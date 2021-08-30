@@ -63,45 +63,45 @@ namespace PrankChat.Mobile.Core.Localization {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Актуальное.
         /// </summary>
-        public static string Actual_Publication_Tab {
+        public static string ActualPublicationTab {
             get {
-                return ResourceManager.GetString("Actual_Publication_Tab", resourceCulture);
+                return ResourceManager.GetString("ActualPublicationTab", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Разрешите приложению использовать камеру..
         /// </summary>
-        public static string Allow_Camera {
+        public static string AllowCamera {
             get {
-                return ResourceManager.GetString("Allow_Camera", resourceCulture);
+                return ResourceManager.GetString("AllowCamera", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Разрешите приложению использовать хранилище..
         /// </summary>
-        public static string Allow_Storage {
+        public static string AllowStorage {
             get {
-                return ResourceManager.GetString("Allow_Storage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на PrankChat.
-        /// </summary>
-        public static string app_name {
-            get {
-                return ResourceManager.GetString("app_name", resourceCulture);
+                return ResourceManager.GetString("AllowStorage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Вышло важное обновление, похоже пора его установить..
         /// </summary>
-        public static string Application_New_Version_Ready {
+        public static string ApplicationNewVersionReady {
             get {
-                return ResourceManager.GetString("Application_New_Version_Ready", resourceCulture);
+                return ResourceManager.GetString("ApplicationNewVersionReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на PrankChat.
+        /// </summary>
+        public static string appName {
+            get {
+                return ResourceManager.GetString("appName", resourceCulture);
             }
         }
         
@@ -115,29 +115,29 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Заблокировать пользователя.
+        ///   Ищет локализованную строку, похожую на Пользователь {0} заблокирован.
         /// </summary>
-        public static string Block_User {
+        public static string BlockedUser {
             get {
-                return ResourceManager.GetString("Block_User", resourceCulture);
+                return ResourceManager.GetString("BlockedUser", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Пользователь {0} заблокирован.
+        ///   Ищет локализованную строку, похожую на Заблокировать пользователя.
         /// </summary>
-        public static string Blocked_User {
+        public static string BlockUser {
             get {
-                return ResourceManager.GetString("Blocked_User", resourceCulture);
+                return ResourceManager.GetString("BlockUser", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на байт.
         /// </summary>
-        public static string Bytes_Presentation {
+        public static string BytesPresentation {
             get {
-                return ResourceManager.GetString("Bytes_Presentation", resourceCulture);
+                return ResourceManager.GetString("BytesPresentation", resourceCulture);
             }
         }
         
@@ -153,90 +153,90 @@ namespace PrankChat.Mobile.Core.Localization {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Обратите внимание что к сумме пополнения будет добавлена комисия оператора.
         /// </summary>
-        public static string Cashbox_Commision_Warning {
+        public static string CashboxCommisionWarning {
             get {
-                return ResourceManager.GetString("Cashbox_Commision_Warning", resourceCulture);
+                return ResourceManager.GetString("CashboxCommisionWarning", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Пополнить.
         /// </summary>
-        public static string CashboxView_Fillup_Button {
+        public static string CashboxViewFillupButton {
             get {
-                return ResourceManager.GetString("CashboxView_Fillup_Button", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Пополнение.
-        /// </summary>
-        public static string CashboxView_Fillup_Tab {
-            get {
-                return ResourceManager.GetString("CashboxView_Fillup_Tab", resourceCulture);
+                return ResourceManager.GetString("CashboxViewFillupButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Выберите метод для пополнения:.
         /// </summary>
-        public static string CashboxView_FillupMethodSelect_Title {
+        public static string CashboxViewFillupMethodSelectTitle {
             get {
-                return ResourceManager.GetString("CashboxView_FillupMethodSelect_Title", resourceCulture);
+                return ResourceManager.GetString("CashboxViewFillupMethodSelectTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Пополнение.
+        /// </summary>
+        public static string CashboxViewFillupTab {
+            get {
+                return ResourceManager.GetString("CashboxViewFillupTab", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на 1 000 000 ₽.
         /// </summary>
-        public static string CashboxView_Price_Placeholder {
+        public static string CashboxViewPricePlaceholder {
             get {
-                return ResourceManager.GetString("CashboxView_Price_Placeholder", resourceCulture);
+                return ResourceManager.GetString("CashboxViewPricePlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Касса.
         /// </summary>
-        public static string CashboxView_Title {
+        public static string CashboxViewTitle {
             get {
-                return ResourceManager.GetString("CashboxView_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Снять.
-        /// </summary>
-        public static string CashboxView_Withdrawal_Button {
-            get {
-                return ResourceManager.GetString("CashboxView_Withdrawal_Button", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Снятие.
-        /// </summary>
-        public static string CashboxView_Withdrawal_Tab {
-            get {
-                return ResourceManager.GetString("CashboxView_Withdrawal_Tab", resourceCulture);
+                return ResourceManager.GetString("CashboxViewTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Доступно для снятия с учётом комиссии платёжного шлюза (оператора):.
         /// </summary>
-        public static string CashboxView_WithdrawalAvailable_Title {
+        public static string CashboxViewWithdrawalAvailableTitle {
             get {
-                return ResourceManager.GetString("CashboxView_WithdrawalAvailable_Title", resourceCulture);
+                return ResourceManager.GetString("CashboxViewWithdrawalAvailableTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Снять.
+        /// </summary>
+        public static string CashboxViewWithdrawalButton {
+            get {
+                return ResourceManager.GetString("CashboxViewWithdrawalButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Выберите метод для снятия:.
         /// </summary>
-        public static string CashboxView_WithdrawalMethodSelect_Title {
+        public static string CashboxViewWithdrawalMethodSelectTitle {
             get {
-                return ResourceManager.GetString("CashboxView_WithdrawalMethodSelect_Title", resourceCulture);
+                return ResourceManager.GetString("CashboxViewWithdrawalMethodSelectTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Снятие.
+        /// </summary>
+        public static string CashboxViewWithdrawalTab {
+            get {
+                return ResourceManager.GetString("CashboxViewWithdrawalTab", resourceCulture);
             }
         }
         
@@ -250,218 +250,209 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 7343996.
-        /// </summary>
-        public static string com_vk_sdk_AppId {
-            get {
-                return ResourceManager.GetString("com_vk_sdk_AppId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Комментарии.
         /// </summary>
-        public static string CommentView_Title {
+        public static string CommentViewTitle {
             get {
-                return ResourceManager.GetString("CommentView_Title", resourceCulture);
+                return ResourceManager.GetString("CommentViewTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Чтобы принять участие в конкурсе, Вам необходимо заплатить {0} ₽.
         /// </summary>
-        public static string Competion_Rules_Template {
+        public static string CompetionRulesTemplate {
             get {
-                return ResourceManager.GetString("Competion_Rules_Template", resourceCulture);
+                return ResourceManager.GetString("CompetionRulesTemplate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Загрузить видео.
         /// </summary>
-        public static string Competition_Load_Video {
+        public static string CompetitionLoadVideo {
             get {
-                return ResourceManager.GetString("Competition_Load_Video", resourceCulture);
+                return ResourceManager.GetString("CompetitionLoadVideo", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Оплатить участие.
         /// </summary>
-        public static string Competition_Pay_For_Join {
+        public static string CompetitionPayForJoin {
             get {
-                return ResourceManager.GetString("Competition_Pay_For_Join", resourceCulture);
+                return ResourceManager.GetString("CompetitionPayForJoin", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Приз.
         /// </summary>
-        public static string Competition_Prize {
+        public static string CompetitionPrize {
             get {
-                return ResourceManager.GetString("Competition_Prize", resourceCulture);
+                return ResourceManager.GetString("CompetitionPrize", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Призовой фонд.
         /// </summary>
-        public static string Competition_Prize_Pool {
+        public static string CompetitionPrizePool {
             get {
-                return ResourceManager.GetString("Competition_Prize_Pool", resourceCulture);
+                return ResourceManager.GetString("CompetitionPrizePool", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Учасник.
         /// </summary>
-        public static string Competition_Prize_Pool_Participant {
+        public static string CompetitionPrizePoolParticipant {
             get {
-                return ResourceManager.GetString("Competition_Prize_Pool_Participant", resourceCulture);
+                return ResourceManager.GetString("CompetitionPrizePoolParticipant", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Рейтинг.
         /// </summary>
-        public static string Competition_Prize_Pool_Rating {
+        public static string CompetitionPrizePoolRating {
             get {
-                return ResourceManager.GetString("Competition_Prize_Pool_Rating", resourceCulture);
+                return ResourceManager.GetString("CompetitionPrizePoolRating", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Результаты.
         /// </summary>
-        public static string Competition_Results {
+        public static string CompetitionResults {
             get {
-                return ResourceManager.GetString("Competition_Results", resourceCulture);
+                return ResourceManager.GetString("CompetitionResults", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Правила конкурса.
         /// </summary>
-        public static string Competition_Rules {
+        public static string CompetitionRules {
             get {
-                return ResourceManager.GetString("Competition_Rules", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Голоса.
-        /// </summary>
-        public static string Competition_Votes {
-            get {
-                return ResourceManager.GetString("Competition_Votes", resourceCulture);
+                return ResourceManager.GetString("CompetitionRules", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Итоги.
         /// </summary>
-        public static string Competitions_Finished {
+        public static string CompetitionsFinished {
             get {
-                return ResourceManager.GetString("Competitions_Finished", resourceCulture);
+                return ResourceManager.GetString("CompetitionsFinished", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Период проведения конкурса:.
         /// </summary>
-        public static string Competitions_Finished_Term {
+        public static string CompetitionsFinishedTerm {
             get {
-                return ResourceManager.GetString("Competitions_Finished_Term", resourceCulture);
+                return ResourceManager.GetString("CompetitionsFinishedTerm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Подробнее.
         /// </summary>
-        public static string Competitions_More {
+        public static string CompetitionsMore {
             get {
-                return ResourceManager.GetString("Competitions_More", resourceCulture);
+                return ResourceManager.GetString("CompetitionsMore", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Новые.
         /// </summary>
-        public static string Competitions_New {
+        public static string CompetitionsNew {
             get {
-                return ResourceManager.GetString("Competitions_New", resourceCulture);
+                return ResourceManager.GetString("CompetitionsNew", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на До начала голосования:.
         /// </summary>
-        public static string Competitions_New_Term {
+        public static string CompetitionsNewTerm {
             get {
-                return ResourceManager.GetString("Competitions_New_Term", resourceCulture);
+                return ResourceManager.GetString("CompetitionsNewTerm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Принять участие.
         /// </summary>
-        public static string Competitions_Participate {
+        public static string CompetitionsParticipate {
             get {
-                return ResourceManager.GetString("Competitions_Participate", resourceCulture);
+                return ResourceManager.GetString("CompetitionsParticipate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Призовой фонд турнира:.
         /// </summary>
-        public static string Competitions_Prize_Pool {
+        public static string CompetitionsPrizePool {
             get {
-                return ResourceManager.GetString("Competitions_Prize_Pool", resourceCulture);
+                return ResourceManager.GetString("CompetitionsPrizePool", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Смотреть.
         /// </summary>
-        public static string Competitions_See {
+        public static string CompetitionsSee {
             get {
-                return ResourceManager.GetString("Competitions_See", resourceCulture);
+                return ResourceManager.GetString("CompetitionsSee", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Конкурсы.
         /// </summary>
-        public static string Competitions_Tab {
+        public static string CompetitionsTab {
             get {
-                return ResourceManager.GetString("Competitions_Tab", resourceCulture);
+                return ResourceManager.GetString("CompetitionsTab", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Голосование.
         /// </summary>
-        public static string Competitions_Voting {
+        public static string CompetitionsVoting {
             get {
-                return ResourceManager.GetString("Competitions_Voting", resourceCulture);
+                return ResourceManager.GetString("CompetitionsVoting", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на До конца голосования:.
         /// </summary>
-        public static string Competitions_Voting_Term {
+        public static string CompetitionsVotingTerm {
             get {
-                return ResourceManager.GetString("Competitions_Voting_Term", resourceCulture);
+                return ResourceManager.GetString("CompetitionsVotingTerm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Голоса.
+        /// </summary>
+        public static string CompetitionVotes {
+            get {
+                return ResourceManager.GetString("CompetitionVotes", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Место.
         /// </summary>
-        public static string Competiton_Prize_Pool_Place {
+        public static string CompetitonPrizePoolPlace {
             get {
-                return ResourceManager.GetString("Competiton_Prize_Pool_Place", resourceCulture);
+                return ResourceManager.GetString("CompetitonPrizePoolPlace", resourceCulture);
             }
         }
         
@@ -477,306 +468,315 @@ namespace PrankChat.Mobile.Core.Localization {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Мошенничество или обман.
         /// </summary>
-        public static string Complaint_Cheating {
+        public static string ComplaintCheating {
             get {
-                return ResourceManager.GetString("Complaint_Cheating", resourceCulture);
+                return ResourceManager.GetString("ComplaintCheating", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Спасибо, что сообщили нам об этом.
         /// </summary>
-        public static string Complaint_Complete_Message {
+        public static string ComplaintCompleteMessage {
             get {
-                return ResourceManager.GetString("Complaint_Complete_Message", resourceCulture);
+                return ResourceManager.GetString("ComplaintCompleteMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Насилие или опасные организации.
         /// </summary>
-        public static string Complaint_Dangerous_Organizations {
+        public static string ComplaintDangerousOrganizations {
             get {
-                return ResourceManager.GetString("Complaint_Dangerous_Organizations", resourceCulture);
+                return ResourceManager.GetString("ComplaintDangerousOrganizations", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Оскорбления или травля.
         /// </summary>
-        public static string Complaint_Hostile_Utterances {
+        public static string ComplaintHostileUtterances {
             get {
-                return ResourceManager.GetString("Complaint_Hostile_Utterances", resourceCulture);
+                return ResourceManager.GetString("ComplaintHostileUtterances", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Порнография и нагота.
         /// </summary>
-        public static string Complaint_Naked_Content {
+        public static string ComplaintNakedContent {
             get {
-                return ResourceManager.GetString("Complaint_Naked_Content", resourceCulture);
+                return ResourceManager.GetString("ComplaintNakedContent", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Прочее.
         /// </summary>
-        public static string Complaint_Other {
+        public static string ComplaintOther {
             get {
-                return ResourceManager.GetString("Complaint_Other", resourceCulture);
+                return ResourceManager.GetString("ComplaintOther", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Нарушение авторских прав.
         /// </summary>
-        public static string Complaint_Rights_Violation {
+        public static string ComplaintRightsViolation {
             get {
-                return ResourceManager.GetString("Complaint_Rights_Violation", resourceCulture);
+                return ResourceManager.GetString("ComplaintRightsViolation", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Это спам.
         /// </summary>
-        public static string Complaint_Spam {
+        public static string ComplaintSpam {
             get {
-                return ResourceManager.GetString("Complaint_Spam", resourceCulture);
+                return ResourceManager.GetString("ComplaintSpam", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Неприемлемый контент.
         /// </summary>
-        public static string Complaint_Unacceptable_Content {
+        public static string ComplaintUnacceptableContent {
             get {
-                return ResourceManager.GetString("Complaint_Unacceptable_Content", resourceCulture);
+                return ResourceManager.GetString("ComplaintUnacceptableContent", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Неприемлемая информация в профиле.
         /// </summary>
-        public static string Complaint_Unacceptable_Information_In_Profile {
+        public static string ComplaintUnacceptableInformationInProfile {
             get {
-                return ResourceManager.GetString("Complaint_Unacceptable_Information_In_Profile", resourceCulture);
+                return ResourceManager.GetString("ComplaintUnacceptableInformationInProfile", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Использует чужое имя.
         /// </summary>
-        public static string Complaint_Wrong_Name {
+        public static string ComplaintWrongName {
             get {
-                return ResourceManager.GetString("Complaint_Wrong_Name", resourceCulture);
+                return ResourceManager.GetString("ComplaintWrongName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на 7343996.
+        /// </summary>
+        public static string ComVkSdkAppId {
+            get {
+                return ResourceManager.GetString("ComVkSdkAppId", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Дней.
         /// </summary>
-        public static string Count_Days {
+        public static string CountDays {
             get {
-                return ResourceManager.GetString("Count_Days", resourceCulture);
+                return ResourceManager.GetString("CountDays", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Часов.
         /// </summary>
-        public static string Count_Hours {
+        public static string CountHours {
             get {
-                return ResourceManager.GetString("Count_Hours", resourceCulture);
+                return ResourceManager.GetString("CountHours", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на m.
         /// </summary>
-        public static string Count_Millions {
+        public static string CountMillions {
             get {
-                return ResourceManager.GetString("Count_Millions", resourceCulture);
+                return ResourceManager.GetString("CountMillions", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Минут.
         /// </summary>
-        public static string Count_Minutes {
+        public static string CountMinutes {
             get {
-                return ResourceManager.GetString("Count_Minutes", resourceCulture);
+                return ResourceManager.GetString("CountMinutes", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на просмотра.
         /// </summary>
-        public static string Count_Of_Viewing {
+        public static string CountOfViewing {
             get {
-                return ResourceManager.GetString("Count_Of_Viewing", resourceCulture);
+                return ResourceManager.GetString("CountOfViewing", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на k.
         /// </summary>
-        public static string Count_Thousand {
+        public static string CountThousand {
             get {
-                return ResourceManager.GetString("Count_Thousand", resourceCulture);
+                return ResourceManager.GetString("CountThousand", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на просмотр.
         /// </summary>
-        public static string Count_View {
+        public static string CountView {
             get {
-                return ResourceManager.GetString("Count_View", resourceCulture);
+                return ResourceManager.GetString("CountView", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на просмотров.
         /// </summary>
-        public static string Count_Views {
+        public static string CountViews {
             get {
-                return ResourceManager.GetString("Count_Views", resourceCulture);
+                return ResourceManager.GetString("CountViews", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на час.
         /// </summary>
-        public static string Create_Order_Hour {
+        public static string CreateOrderHour {
             get {
-                return ResourceManager.GetString("Create_Order_Hour", resourceCulture);
+                return ResourceManager.GetString("CreateOrderHour", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на публичной оферты, пользовательского соглашения и политики конфиденциальности.
         /// </summary>
-        public static string Create_Order_Privacy_Link {
+        public static string CreateOrderPrivacyLink {
             get {
-                return ResourceManager.GetString("Create_Order_Privacy_Link", resourceCulture);
+                return ResourceManager.GetString("CreateOrderPrivacyLink", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Завершая создание заказа, я подтверждаю оформление с условиями публичной оферты, пользовательского соглашения и политики конфиденциальности.
         /// </summary>
-        public static string Create_Order_Privacy_Message {
+        public static string CreateOrderPrivacyMessage {
             get {
-                return ResourceManager.GetString("Create_Order_Privacy_Message", resourceCulture);
+                return ResourceManager.GetString("CreateOrderPrivacyMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Секретный заказ.
         /// </summary>
-        public static string Create_Order_Secret_order {
+        public static string CreateOrderSecretOrder {
             get {
-                return ResourceManager.GetString("Create_Order_Secret_order", resourceCulture);
+                return ResourceManager.GetString("CreateOrderSecretOrder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на часов.
         /// </summary>
-        public static string Create_Orders_Hours_Plural {
+        public static string CreateOrdersHoursPlural {
             get {
-                return ResourceManager.GetString("Create_Orders_Hours_Plural", resourceCulture);
+                return ResourceManager.GetString("CreateOrdersHoursPlural", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на часа.
         /// </summary>
-        public static string Create_Orders_Hours_Singular {
+        public static string CreateOrdersHoursSingular {
             get {
-                return ResourceManager.GetString("Create_Orders_Hours_Singular", resourceCulture);
+                return ResourceManager.GetString("CreateOrdersHoursSingular", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Выберите период действия заказа..
         /// </summary>
-        public static string CreateOrderView_Choose_Time_Period {
+        public static string CreateOrderViewChooseTimePeriod {
             get {
-                return ResourceManager.GetString("CreateOrderView_Choose_Time_Period", resourceCulture);
+                return ResourceManager.GetString("CreateOrderViewChooseTimePeriod", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Дата исполнения.
         /// </summary>
-        public static string CreateOrderView_CompleteDate_Placeholder {
+        public static string CreateOrderViewCompleteDatePlaceholder {
             get {
-                return ResourceManager.GetString("CreateOrderView_CompleteDate_Placeholder", resourceCulture);
+                return ResourceManager.GetString("CreateOrderViewCompleteDatePlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Создать заказ.
         /// </summary>
-        public static string CreateOrderView_Create_Button {
+        public static string CreateOrderViewCreateButton {
             get {
-                return ResourceManager.GetString("CreateOrderView_Create_Button", resourceCulture);
+                return ResourceManager.GetString("CreateOrderViewCreateButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Описание заказа.
         /// </summary>
-        public static string CreateOrderView_Description_Placeholder {
+        public static string CreateOrderViewDescriptionPlaceholder {
             get {
-                return ResourceManager.GetString("CreateOrderView_Description_Placeholder", resourceCulture);
+                return ResourceManager.GetString("CreateOrderViewDescriptionPlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Скрыть исполнителя.
         /// </summary>
-        public static string CreateOrderView_HideExecutor_Button {
+        public static string CreateOrderViewHideExecutorButton {
             get {
-                return ResourceManager.GetString("CreateOrderView_HideExecutor_Button", resourceCulture);
+                return ResourceManager.GetString("CreateOrderViewHideExecutorButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Название заказа.
         /// </summary>
-        public static string CreateOrderView_Name_Placeholder {
+        public static string CreateOrderViewNamePlaceholder {
             get {
-                return ResourceManager.GetString("CreateOrderView_Name_Placeholder", resourceCulture);
+                return ResourceManager.GetString("CreateOrderViewNamePlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на 10 000 ₽.
         /// </summary>
-        public static string CreateOrderView_Price_Placeholder {
+        public static string CreateOrderViewPricePlaceholder {
             get {
-                return ResourceManager.GetString("CreateOrderView_Price_Placeholder", resourceCulture);
+                return ResourceManager.GetString("CreateOrderViewPricePlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Цена.
         /// </summary>
-        public static string CreateOrderView_PriceTitle_Placeholder {
+        public static string CreateOrderViewPriceTitlePlaceholder {
             get {
-                return ResourceManager.GetString("CreateOrderView_PriceTitle_Placeholder", resourceCulture);
+                return ResourceManager.GetString("CreateOrderViewPriceTitlePlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Создание заказа.
         /// </summary>
-        public static string CreateOrderView_Title {
+        public static string CreateOrderViewTitle {
             get {
-                return ResourceManager.GetString("CreateOrderView_Title", resourceCulture);
+                return ResourceManager.GetString("CreateOrderViewTitle", resourceCulture);
             }
         }
         
@@ -792,9 +792,9 @@ namespace PrankChat.Mobile.Core.Localization {
         /// <summary>
         ///   Ищет локализованную строку, похожую на д..
         /// </summary>
-        public static string Days_Short {
+        public static string DaysShort {
             get {
-                return ResourceManager.GetString("Days_Short", resourceCulture);
+                return ResourceManager.GetString("DaysShort", resourceCulture);
             }
         }
         
@@ -819,108 +819,108 @@ namespace PrankChat.Mobile.Core.Localization {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Скачать обновление.
         /// </summary>
-        public static string Download_Update {
+        public static string DownloadUpdate {
             get {
-                return ResourceManager.GetString("Download_Update", resourceCulture);
+                return ResourceManager.GetString("DownloadUpdate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Данный эмейл уже зарегистрирован.
         /// </summary>
-        public static string Email_Already_Exists {
+        public static string EmailAlreadyExists {
             get {
-                return ResourceManager.GetString("Email_Already_Exists", resourceCulture);
+                return ResourceManager.GetString("EmailAlreadyExists", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Упс, что то пошло не так :(.
         /// </summary>
-        public static string Error_Something_Went_Wrong_Message {
+        public static string ErrorSomethingWentWrongMessage {
             get {
-                return ResourceManager.GetString("Error_Something_Went_Wrong_Message", resourceCulture);
+                return ResourceManager.GetString("ErrorSomethingWentWrongMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Неожиданная сетевая ошибка, попробуйте снова..
         /// </summary>
-        public static string Error_Unexpected_Network {
+        public static string ErrorUnexpectedNetwork {
             get {
-                return ResourceManager.GetString("Error_Unexpected_Network", resourceCulture);
+                return ResourceManager.GetString("ErrorUnexpectedNetwork", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Не удалось получить запрошенные данные..
         /// </summary>
-        public static string Error_Unexpected_Not_Found {
+        public static string ErrorUnexpectedNotFound {
             get {
-                return ResourceManager.GetString("Error_Unexpected_Not_Found", resourceCulture);
+                return ResourceManager.GetString("ErrorUnexpectedNotFound", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Непредвиденная ошибка на сервере..
         /// </summary>
-        public static string Error_Unexpected_Server {
+        public static string ErrorUnexpectedServer {
             get {
-                return ResourceManager.GetString("Error_Unexpected_Server", resourceCulture);
+                return ResourceManager.GetString("ErrorUnexpectedServer", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Перейти в ленту.
         /// </summary>
-        public static string FinishPasswordRecoveryView_GoToFeed_Button {
+        public static string FinishPasswordRecoveryViewGoToFeedButton {
             get {
-                return ResourceManager.GetString("FinishPasswordRecoveryView_GoToFeed_Button", resourceCulture);
+                return ResourceManager.GetString("FinishPasswordRecoveryViewGoToFeedButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Войти в аккаунт.
         /// </summary>
-        public static string FinishPasswordRecoveryView_GoToLogin_Button {
+        public static string FinishPasswordRecoveryViewGoToLoginButton {
             get {
-                return ResourceManager.GetString("FinishPasswordRecoveryView_GoToLogin_Button", resourceCulture);
+                return ResourceManager.GetString("FinishPasswordRecoveryViewGoToLoginButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на ГБ.
         /// </summary>
-        public static string Gigabytes_Presentation {
+        public static string GigabytesPresentation {
             get {
-                return ResourceManager.GetString("Gigabytes_Presentation", resourceCulture);
+                return ResourceManager.GetString("GigabytesPresentation", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Главная.
         /// </summary>
-        public static string Home_Tab {
+        public static string HomeTab {
             get {
-                return ResourceManager.GetString("Home_Tab", resourceCulture);
+                return ResourceManager.GetString("HomeTab", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на ч..
         /// </summary>
-        public static string Hours_Short {
+        public static string HoursShort {
             get {
-                return ResourceManager.GetString("Hours_Short", resourceCulture);
+                return ResourceManager.GetString("HoursShort", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на КБ.
         /// </summary>
-        public static string Kilobytes_Presentation {
+        public static string KilobytesPresentation {
             get {
-                return ResourceManager.GetString("Kilobytes_Presentation", resourceCulture);
+                return ResourceManager.GetString("KilobytesPresentation", resourceCulture);
             }
         }
         
@@ -934,155 +934,155 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Войти без регистрации.
-        /// </summary>
-        public static string Login_Without_Registration {
-            get {
-                return ResourceManager.GetString("Login_Without_Registration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Войти через:.
         /// </summary>
-        public static string LoginView_AltLogin_Title {
+        public static string LoginViewAltLoginTitle {
             get {
-                return ResourceManager.GetString("LoginView_AltLogin_Title", resourceCulture);
+                return ResourceManager.GetString("LoginViewAltLoginTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Продолжить.
         /// </summary>
-        public static string LoginView_Continue_Button {
+        public static string LoginViewContinueButton {
             get {
-                return ResourceManager.GetString("LoginView_Continue_Button", resourceCulture);
+                return ResourceManager.GetString("LoginViewContinueButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Нет аккаунта? Создать новый.
         /// </summary>
-        public static string LoginView_CreateAccount_Button {
+        public static string LoginViewCreateAccountButton {
             get {
-                return ResourceManager.GetString("LoginView_CreateAccount_Button", resourceCulture);
+                return ResourceManager.GetString("LoginViewCreateAccountButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Введите email.
         /// </summary>
-        public static string LoginView_Email_Placeholder {
+        public static string LoginViewEmailPlaceholder {
             get {
-                return ResourceManager.GetString("LoginView_Email_Placeholder", resourceCulture);
+                return ResourceManager.GetString("LoginViewEmailPlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Востановить.
         /// </summary>
-        public static string LoginView_ForgotPassword_Button {
+        public static string LoginViewForgotPasswordButton {
             get {
-                return ResourceManager.GetString("LoginView_ForgotPassword_Button", resourceCulture);
+                return ResourceManager.GetString("LoginViewForgotPasswordButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Востановление пароля.
         /// </summary>
-        public static string LoginView_ForgotPassword_Title {
+        public static string LoginViewForgotPasswordTitle {
             get {
-                return ResourceManager.GetString("LoginView_ForgotPassword_Title", resourceCulture);
+                return ResourceManager.GetString("LoginViewForgotPasswordTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Войти.
         /// </summary>
-        public static string LoginView_Login_Title {
+        public static string LoginViewLoginTitle {
             get {
-                return ResourceManager.GetString("LoginView_Login_Title", resourceCulture);
+                return ResourceManager.GetString("LoginViewLoginTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Введите пароль.
         /// </summary>
-        public static string LoginView_Password_Placeholder {
+        public static string LoginViewPasswordPlaceholder {
             get {
-                return ResourceManager.GetString("LoginView_Password_Placeholder", resourceCulture);
+                return ResourceManager.GetString("LoginViewPasswordPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Войти без регистрации.
+        /// </summary>
+        public static string LoginWithoutRegistration {
+            get {
+                return ResourceManager.GetString("LoginWithoutRegistration", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на МБ.
         /// </summary>
-        public static string Megabytes_Presentation {
+        public static string MegabytesPresentation {
             get {
-                return ResourceManager.GetString("Megabytes_Presentation", resourceCulture);
+                return ResourceManager.GetString("MegabytesPresentation", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на мин..
         /// </summary>
-        public static string Minutes_Short {
+        public static string MinutesShort {
             get {
-                return ResourceManager.GetString("Minutes_Short", resourceCulture);
+                return ResourceManager.GetString("MinutesShort", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Моя лента.
         /// </summary>
-        public static string MyFeed_Publication_Tab {
+        public static string MyFeedPublicationTab {
             get {
-                return ResourceManager.GetString("MyFeed_Publication_Tab", resourceCulture);
+                return ResourceManager.GetString("MyFeedPublicationTab", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Интернет соединение отсувствует.
         /// </summary>
-        public static string No_Intentet_Connection {
+        public static string NoIntentetConnection {
             get {
-                return ResourceManager.GetString("No_Intentet_Connection", resourceCulture);
+                return ResourceManager.GetString("NoIntentetConnection", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на {0} не подтверждено.
         /// </summary>
-        public static string Not_Confirmed {
+        public static string NotConfirmed {
             get {
-                return ResourceManager.GetString("Not_Confirmed", resourceCulture);
+                return ResourceManager.GetString("NotConfirmed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Непросмотрено.
         /// </summary>
-        public static string NotificationStatus_NotViewed {
+        public static string NotificationStatusNotViewed {
             get {
-                return ResourceManager.GetString("NotificationStatus_NotViewed", resourceCulture);
+                return ResourceManager.GetString("NotificationStatusNotViewed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Просмотрено.
         /// </summary>
-        public static string NotificationStatus_Viewed {
+        public static string NotificationStatusViewed {
             get {
-                return ResourceManager.GetString("NotificationStatus_Viewed", resourceCulture);
+                return ResourceManager.GetString("NotificationStatusViewed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Уведомления.
         /// </summary>
-        public static string NotificationView_Title {
+        public static string NotificationViewTitle {
             get {
-                return ResourceManager.GetString("NotificationView_Title", resourceCulture);
+                return ResourceManager.GetString("NotificationViewTitle", resourceCulture);
             }
         }
         
@@ -1098,297 +1098,225 @@ namespace PrankChat.Mobile.Core.Localization {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Публикуй свое видео и стань известным.
         /// </summary>
-        public static string OnBoarding_Fifth_Description {
+        public static string OnBoardingFifthDescription {
             get {
-                return ResourceManager.GetString("OnBoarding_Fifth_Description", resourceCulture);
+                return ResourceManager.GetString("OnBoardingFifthDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Делай это смешно и под музыку!.
         /// </summary>
-        public static string OnBoarding_Fifth_Title {
+        public static string OnBoardingFifthTitle {
             get {
-                return ResourceManager.GetString("OnBoarding_Fifth_Title", resourceCulture);
+                return ResourceManager.GetString("OnBoardingFifthTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Авторы PrankChat публикуют только эксклюзивные, самые смешные и безумные видео! Смотри и наслаждайся.
         /// </summary>
-        public static string OnBoarding_First_Description {
+        public static string OnBoardingFirstDescription {
             get {
-                return ResourceManager.GetString("OnBoarding_First_Description", resourceCulture);
+                return ResourceManager.GetString("OnBoardingFirstDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Смотри и наслаждайся.
         /// </summary>
-        public static string OnBoarding_First_Title {
+        public static string OnBoardingFirstTitle {
             get {
-                return ResourceManager.GetString("OnBoarding_First_Title", resourceCulture);
+                return ResourceManager.GetString("OnBoardingFirstTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Принимай участие в креативных конкурсах! Сними лучшее видео и выиграй достойный денежный приз! А мы не возьмём с тебя ни копейки.
         /// </summary>
-        public static string OnBoarding_Fourth_Description {
+        public static string OnBoardingFourthDescription {
             get {
-                return ResourceManager.GetString("OnBoarding_Fourth_Description", resourceCulture);
+                return ResourceManager.GetString("OnBoardingFourthDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Участвуй в бесплатных конкурсах.
         /// </summary>
-        public static string OnBoarding_Fourth_Title {
+        public static string OnBoardingFourthTitle {
             get {
-                return ResourceManager.GetString("OnBoarding_Fourth_Title", resourceCulture);
+                return ResourceManager.GetString("OnBoardingFourthTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Перейти в ленту.
         /// </summary>
-        public static string OnBoarding_Go_To_Main {
+        public static string OnBoardingGoToMain {
             get {
-                return ResourceManager.GetString("OnBoarding_Go_To_Main", resourceCulture);
+                return ResourceManager.GetString("OnBoardingGoToMain", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Размещай задание, стоимость и срок исполнения, по которому другие пользователи снимут для тебя видео. Получи ролик своей мечты!.
         /// </summary>
-        public static string OnBoarding_Second_Description {
+        public static string OnBoardingSecondDescription {
             get {
-                return ResourceManager.GetString("OnBoarding_Second_Description", resourceCulture);
+                return ResourceManager.GetString("OnBoardingSecondDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Создай свой первый заказ.
         /// </summary>
-        public static string OnBoarding_Second_Title {
+        public static string OnBoardingSecondTitle {
             get {
-                return ResourceManager.GetString("OnBoarding_Second_Title", resourceCulture);
+                return ResourceManager.GetString("OnBoardingSecondTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Монетизируй свою любовь к творчеству! Снимай ролики для других пользователей и зарабатывай на этом реальные деньги.
         /// </summary>
-        public static string OnBoarding_Third_Description {
+        public static string OnBoardingThirdDescription {
             get {
-                return ResourceManager.GetString("OnBoarding_Third_Description", resourceCulture);
+                return ResourceManager.GetString("OnBoardingThirdDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Зарабатывай, выполняя заказы.
         /// </summary>
-        public static string OnBoarding_Third_Title {
+        public static string OnBoardingThirdTitle {
             get {
-                return ResourceManager.GetString("OnBoarding_Third_Title", resourceCulture);
+                return ResourceManager.GetString("OnBoardingThirdTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Создать.
         /// </summary>
-        public static string Order_Add {
+        public static string OrderAdd {
             get {
-                return ResourceManager.GetString("Order_Add", resourceCulture);
+                return ResourceManager.GetString("OrderAdd", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Вы уверены что хотите создать заказ?.
         /// </summary>
-        public static string Order_Create_Message {
+        public static string OrderCreateMessage {
             get {
-                return ResourceManager.GetString("Order_Create_Message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на День.
-        /// </summary>
-        public static string Order_View_Day {
-            get {
-                return ResourceManager.GetString("Order_View_Day", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Подробнее.
-        /// </summary>
-        public static string Order_View_Details {
-            get {
-                return ResourceManager.GetString("Order_View_Details", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Часа.
-        /// </summary>
-        public static string Order_View_Hour {
-            get {
-                return ResourceManager.GetString("Order_View_Hour", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Минут.
-        /// </summary>
-        public static string Order_View_Minute {
-            get {
-                return ResourceManager.GetString("Order_View_Minute", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мои заказы.
-        /// </summary>
-        public static string Order_View_My_Task {
-            get {
-                return ResourceManager.GetString("Order_View_My_Task", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Новый заказ.
-        /// </summary>
-        public static string Order_View_New_Task {
-            get {
-                return ResourceManager.GetString("Order_View_New_Task", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Сумма заказа:.
-        /// </summary>
-        public static string Order_View_Price_Text {
-            get {
-                return ResourceManager.GetString("Order_View_Price_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Время заказа:.
-        /// </summary>
-        public static string Order_View_Time_Text {
-            get {
-                return ResourceManager.GetString("Order_View_Time_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Вы уверены, что хотите отменить заказ?.
-        /// </summary>
-        public static string OrderDetails_View_Cancel_Title {
-            get {
-                return ResourceManager.GetString("OrderDetails_View_Cancel_Title", resourceCulture);
+                return ResourceManager.GetString("OrderCreateMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Принять.
         /// </summary>
-        public static string OrderDetailsView_Accept_Button {
+        public static string OrderDetailsViewAcceptButton {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Accept_Button", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewAcceptButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на В спор.
         /// </summary>
-        public static string OrderDetailsView_Argue_Button {
+        public static string OrderDetailsViewArgueButton {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Argue_Button", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewArgueButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Отменить.
         /// </summary>
-        public static string OrderDetailsView_Cancel_Button {
+        public static string OrderDetailsViewCancelButton {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Cancel_Button", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вы уверены, что хотите отменить заказ?.
+        /// </summary>
+        public static string OrderDetailsViewCancelTitle {
+            get {
+                return ResourceManager.GetString("OrderDetailsViewCancelTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Соответствует видео заказу?.
         /// </summary>
-        public static string OrderDetailsView_Corresponds_To_Video_Text {
+        public static string OrderDetailsViewCorrespondsToVideoText {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Corresponds_To_Video_Text", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewCorrespondsToVideoText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Загрузить видео:.
         /// </summary>
-        public static string OrderDetailsView_Download_Text {
+        public static string OrderDetailsViewDownloadText {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Download_Text", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewDownloadText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Выполнить.
         /// </summary>
-        public static string OrderDetailsView_Execute_Button {
+        public static string OrderDetailsViewExecuteButton {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Execute_Button", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewExecuteButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Загрузить видео.
         /// </summary>
-        public static string OrderDetailsView_LoadVideo {
+        public static string OrderDetailsViewLoadVideo {
             get {
-                return ResourceManager.GetString("OrderDetailsView_LoadVideo", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewLoadVideo", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Нет.
         /// </summary>
-        public static string OrderDetailsView_No_Button {
+        public static string OrderDetailsViewNoButton {
             get {
-                return ResourceManager.GetString("OrderDetailsView_No_Button", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewNoButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Сумма заказа:.
         /// </summary>
-        public static string OrderDetailsView_Price_Text {
+        public static string OrderDetailsViewPriceText {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Price_Text", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewPriceText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Подписаться.
         /// </summary>
-        public static string OrderDetailsView_Subscribe_Button {
+        public static string OrderDetailsViewSubscribeButton {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Subscribe_Button", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewSubscribeButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Взять заказ.
         /// </summary>
-        public static string OrderDetailsView_Take_Order_Button {
+        public static string OrderDetailsViewTakeOrderButton {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Take_Order_Button", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewTakeOrderButton", resourceCulture);
             }
         }
         
@@ -1397,288 +1325,360 @@ namespace PrankChat.Mobile.Core.Localization {
         ///20% стоимости для обычных заказов
         ///40% для секретных заказов .
         /// </summary>
-        public static string OrderDetailsView_TakeOrderQuestion {
+        public static string OrderDetailsViewTakeOrderQuestion {
             get {
-                return ResourceManager.GetString("OrderDetailsView_TakeOrderQuestion", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewTakeOrderQuestion", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Взять заказ.
         /// </summary>
-        public static string OrderDetailsView_TakeOrderTitle {
+        public static string OrderDetailsViewTakeOrderTitle {
             get {
-                return ResourceManager.GetString("OrderDetailsView_TakeOrderTitle", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewTakeOrderTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Время заказа:.
         /// </summary>
-        public static string OrderDetailsView_Time_Text {
+        public static string OrderDetailsViewTimeText {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Time_Text", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewTimeText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Заказ.
         /// </summary>
-        public static string OrderDetailsView_Title {
+        public static string OrderDetailsViewTitle {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Title", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Исполнитель:.
         /// </summary>
-        public static string OrderDetailsView_Took_The_Order_Text {
+        public static string OrderDetailsViewTookTheOrderText {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Took_The_Order_Text", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewTookTheOrderText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Отписаться.
         /// </summary>
-        public static string OrderDetailsView_Unsubscribe_Button {
+        public static string OrderDetailsViewUnsubscribeButton {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Unsubscribe_Button", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewUnsubscribeButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на У заказчика есть 24 часа на оплату.
         /// </summary>
-        public static string OrderDetailsView_Video_Uploaded {
+        public static string OrderDetailsViewVideoUploaded {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Video_Uploaded", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewVideoUploaded", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Да.
         /// </summary>
-        public static string OrderDetailsView_Yes_Button {
+        public static string OrderDetailsViewYesButton {
             get {
-                return ResourceManager.GetString("OrderDetailsView_Yes_Button", resourceCulture);
+                return ResourceManager.GetString("OrderDetailsViewYesButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на В споре.
         /// </summary>
-        public static string Orders_In_Dispute {
+        public static string OrdersInDispute {
             get {
-                return ResourceManager.GetString("Orders_In_Dispute", resourceCulture);
+                return ResourceManager.GetString("OrdersInDispute", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Заказы.
         /// </summary>
-        public static string Orders_Tab {
+        public static string OrdersTab {
             get {
-                return ResourceManager.GetString("Orders_Tab", resourceCulture);
+                return ResourceManager.GetString("OrdersTab", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Новый.
         /// </summary>
-        public static string OrderStatus_Active {
+        public static string OrderStatusActive {
             get {
-                return ResourceManager.GetString("OrderStatus_Active", resourceCulture);
+                return ResourceManager.GetString("OrderStatusActive", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Отменен.
         /// </summary>
-        public static string OrderStatus_Cancelled {
+        public static string OrderStatusCancelled {
             get {
-                return ResourceManager.GetString("OrderStatus_Cancelled", resourceCulture);
+                return ResourceManager.GetString("OrderStatusCancelled", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Спор выигран.
         /// </summary>
-        public static string OrderStatus_ClosedAfterArbitrationCustomerWin {
+        public static string OrderStatusClosedAfterArbitrationCustomerWin {
             get {
-                return ResourceManager.GetString("OrderStatus_ClosedAfterArbitrationCustomerWin", resourceCulture);
+                return ResourceManager.GetString("OrderStatusClosedAfterArbitrationCustomerWin", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Спор проигран.
         /// </summary>
-        public static string OrderStatus_ClosedAfterArbitrationExecutorWin {
+        public static string OrderStatusClosedAfterArbitrationExecutorWin {
             get {
-                return ResourceManager.GetString("OrderStatus_ClosedAfterArbitrationExecutorWin", resourceCulture);
+                return ResourceManager.GetString("OrderStatusClosedAfterArbitrationExecutorWin", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Выполненный.
         /// </summary>
-        public static string OrderStatus_Finished {
+        public static string OrderStatusFinished {
             get {
-                return ResourceManager.GetString("OrderStatus_Finished", resourceCulture);
+                return ResourceManager.GetString("OrderStatusFinished", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на В споре.
         /// </summary>
-        public static string OrderStatus_InArbitration {
+        public static string OrderStatusInArbitration {
             get {
-                return ResourceManager.GetString("OrderStatus_InArbitration", resourceCulture);
+                return ResourceManager.GetString("OrderStatusInArbitration", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на В работе.
         /// </summary>
-        public static string OrderStatus_InWork {
+        public static string OrderStatusInWork {
             get {
-                return ResourceManager.GetString("OrderStatus_InWork", resourceCulture);
+                return ResourceManager.GetString("OrderStatusInWork", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Мое.
         /// </summary>
-        public static string OrderStatus_MyOrder {
+        public static string OrderStatusMyOrder {
             get {
-                return ResourceManager.GetString("OrderStatus_MyOrder", resourceCulture);
+                return ResourceManager.GetString("OrderStatusMyOrder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на На модерации.
         /// </summary>
-        public static string OrderStatus_New {
+        public static string OrderStatusNew {
             get {
-                return ResourceManager.GetString("OrderStatus_New", resourceCulture);
+                return ResourceManager.GetString("OrderStatusNew", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Закрытие спора.
         /// </summary>
-        public static string OrderStatus_ProcessCloseArbitration {
+        public static string OrderStatusProcessCloseArbitration {
             get {
-                return ResourceManager.GetString("OrderStatus_ProcessCloseArbitration", resourceCulture);
+                return ResourceManager.GetString("OrderStatusProcessCloseArbitration", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Отменен модератором.
         /// </summary>
-        public static string OrderStatus_Rejected {
+        public static string OrderStatusRejected {
             get {
-                return ResourceManager.GetString("OrderStatus_Rejected", resourceCulture);
+                return ResourceManager.GetString("OrderStatusRejected", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на В ожидании.
         /// </summary>
-        public static string OrderStatus_WaitFinish {
+        public static string OrderStatusWaitFinish {
             get {
-                return ResourceManager.GetString("OrderStatus_WaitFinish", resourceCulture);
+                return ResourceManager.GetString("OrderStatusWaitFinish", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Все заказы.
         /// </summary>
-        public static string OrdersView_Filter_AllTasks {
+        public static string OrdersViewFilterAllTasks {
             get {
-                return ResourceManager.GetString("OrdersView_Filter_AllTasks", resourceCulture);
+                return ResourceManager.GetString("OrdersViewFilterAllTasks", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Заказ в исполнении.
         /// </summary>
-        public static string OrdersView_Filter_CurrentTasks {
+        public static string OrdersViewFilterCurrentTasks {
             get {
-                return ResourceManager.GetString("OrdersView_Filter_CurrentTasks", resourceCulture);
+                return ResourceManager.GetString("OrdersViewFilterCurrentTasks", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Мои заказы.
         /// </summary>
-        public static string OrdersView_Filter_MyTasks {
+        public static string OrdersViewFilterMyTasks {
             get {
-                return ResourceManager.GetString("OrdersView_Filter_MyTasks", resourceCulture);
+                return ResourceManager.GetString("OrdersViewFilterMyTasks", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Новые заказы.
         /// </summary>
-        public static string OrdersView_Filter_NewTasks {
+        public static string OrdersViewFilterNewTasks {
             get {
-                return ResourceManager.GetString("OrdersView_Filter_NewTasks", resourceCulture);
+                return ResourceManager.GetString("OrdersViewFilterNewTasks", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Заказы.
         /// </summary>
-        public static string OrdersView_Title_Label {
+        public static string OrdersViewTitleLabel {
             get {
-                return ResourceManager.GetString("OrdersView_Title_Label", resourceCulture);
+                return ResourceManager.GetString("OrdersViewTitleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на День.
+        /// </summary>
+        public static string OrderViewDay {
+            get {
+                return ResourceManager.GetString("OrderViewDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Подробнее.
+        /// </summary>
+        public static string OrderViewDetails {
+            get {
+                return ResourceManager.GetString("OrderViewDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Часа.
+        /// </summary>
+        public static string OrderViewHour {
+            get {
+                return ResourceManager.GetString("OrderViewHour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Минут.
+        /// </summary>
+        public static string OrderViewMinute {
+            get {
+                return ResourceManager.GetString("OrderViewMinute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Мои заказы.
+        /// </summary>
+        public static string OrderViewMyTask {
+            get {
+                return ResourceManager.GetString("OrderViewMyTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Новый заказ.
+        /// </summary>
+        public static string OrderViewNewTask {
+            get {
+                return ResourceManager.GetString("OrderViewNewTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сумма заказа:.
+        /// </summary>
+        public static string OrderViewPriceText {
+            get {
+                return ResourceManager.GetString("OrderViewPriceText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Время заказа:.
+        /// </summary>
+        public static string OrderViewTimeText {
+            get {
+                return ResourceManager.GetString("OrderViewTimeText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Внимание!.
         /// </summary>
-        public static string Password_Recovery_View_Attention {
+        public static string PasswordRecoveryViewAttention {
             get {
-                return ResourceManager.GetString("Password_Recovery_View_Attention", resourceCulture);
+                return ResourceManager.GetString("PasswordRecoveryViewAttention", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Введите email.
         /// </summary>
-        public static string Password_Recovery_View_Email_Placeholder {
+        public static string PasswordRecoveryViewEmailPlaceholder {
             get {
-                return ResourceManager.GetString("Password_Recovery_View_Email_Placeholder", resourceCulture);
+                return ResourceManager.GetString("PasswordRecoveryViewEmailPlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Ссылка для восстановления пароля отправлена на почту..
         /// </summary>
-        public static string Password_Recovery_View_Finish_Text {
+        public static string PasswordRecoveryViewFinishText {
             get {
-                return ResourceManager.GetString("Password_Recovery_View_Finish_Text", resourceCulture);
+                return ResourceManager.GetString("PasswordRecoveryViewFinishText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Восстановить.
         /// </summary>
-        public static string Password_Recovery_View_Recovery_Button {
+        public static string PasswordRecoveryViewRecoveryButton {
             get {
-                return ResourceManager.GetString("Password_Recovery_View_Recovery_Button", resourceCulture);
+                return ResourceManager.GetString("PasswordRecoveryViewRecoveryButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Восстановление пароля.
         /// </summary>
-        public static string Password_Recovery_View_Title {
+        public static string PasswordRecoveryViewTitle {
             get {
-                return ResourceManager.GetString("Password_Recovery_View_Title", resourceCulture);
+                return ResourceManager.GetString("PasswordRecoveryViewTitle", resourceCulture);
             }
         }
         
@@ -1703,639 +1703,639 @@ namespace PrankChat.Mobile.Core.Localization {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Популярное.
         /// </summary>
-        public static string Popular_Publication_Tab {
+        public static string PopularPublicationTab {
             get {
-                return ResourceManager.GetString("Popular_Publication_Tab", resourceCulture);
+                return ResourceManager.GetString("PopularPublicationTab", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Обработка займёт несколько минут.
         /// </summary>
-        public static string Processing_Video {
+        public static string ProcessingVideo {
             get {
-                return ResourceManager.GetString("Processing_Video", resourceCulture);
+                return ResourceManager.GetString("ProcessingVideo", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на На Вашу почту отправлено письмо с подтверждением.
         /// </summary>
-        public static string Profile_Email_Confirmation_Sent {
+        public static string ProfileEmailConfirmationSent {
             get {
-                return ResourceManager.GetString("Profile_Email_Confirmation_Sent", resourceCulture);
+                return ResourceManager.GetString("ProfileEmailConfirmationSent", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Отправить повторно.
         /// </summary>
-        public static string Profile_Resend_Confirmation {
+        public static string ProfileResendConfirmation {
             get {
-                return ResourceManager.GetString("Profile_Resend_Confirmation", resourceCulture);
+                return ResourceManager.GetString("ProfileResendConfirmation", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Профиль.
         /// </summary>
-        public static string Profile_Tab {
+        public static string ProfileTab {
             get {
-                return ResourceManager.GetString("Profile_Tab", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Ваша почта не подтверждена.
-        /// </summary>
-        public static string Profile_Your_Email_Not_Actual {
-            get {
-                return ResourceManager.GetString("Profile_Your_Email_Not_Actual", resourceCulture);
+                return ResourceManager.GetString("ProfileTab", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Дата рождения.
         /// </summary>
-        public static string ProfileUpdateView_Birthday_Placeholder {
+        public static string ProfileUpdateViewBirthdayPlaceholder {
             get {
-                return ResourceManager.GetString("ProfileUpdateView_Birthday_Placeholder", resourceCulture);
+                return ResourceManager.GetString("ProfileUpdateViewBirthdayPlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Сохранить.
         /// </summary>
-        public static string ProfileUpdateView_Button_Save {
+        public static string ProfileUpdateViewButtonSave {
             get {
-                return ResourceManager.GetString("ProfileUpdateView_Button_Save", resourceCulture);
+                return ResourceManager.GetString("ProfileUpdateViewButtonSave", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Сменить пароль.
         /// </summary>
-        public static string ProfileUpdateView_ChangePassword {
+        public static string ProfileUpdateViewChangePassword {
             get {
-                return ResourceManager.GetString("ProfileUpdateView_ChangePassword", resourceCulture);
+                return ResourceManager.GetString("ProfileUpdateViewChangePassword", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на О себе.
         /// </summary>
-        public static string ProfileUpdateView_Description_Placeholder {
+        public static string ProfileUpdateViewDescriptionPlaceholder {
             get {
-                return ResourceManager.GetString("ProfileUpdateView_Description_Placeholder", resourceCulture);
+                return ResourceManager.GetString("ProfileUpdateViewDescriptionPlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Email.
         /// </summary>
-        public static string ProfileUpdateView_Email_Placeholder {
+        public static string ProfileUpdateViewEmailPlaceholder {
             get {
-                return ResourceManager.GetString("ProfileUpdateView_Email_Placeholder", resourceCulture);
+                return ResourceManager.GetString("ProfileUpdateViewEmailPlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Ваш пол.
         /// </summary>
-        public static string ProfileUpdateView_GenderSelect_Title {
+        public static string ProfileUpdateViewGenderSelectTitle {
             get {
-                return ResourceManager.GetString("ProfileUpdateView_GenderSelect_Title", resourceCulture);
+                return ResourceManager.GetString("ProfileUpdateViewGenderSelectTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Логин.
         /// </summary>
-        public static string ProfileUpdateView_Login_Placeholder {
+        public static string ProfileUpdateViewLoginPlaceholder {
             get {
-                return ResourceManager.GetString("ProfileUpdateView_Login_Placeholder", resourceCulture);
+                return ResourceManager.GetString("ProfileUpdateViewLoginPlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Имя.
         /// </summary>
-        public static string ProfileUpdateView_Name_Placeholder {
+        public static string ProfileUpdateViewNamePlaceholder {
             get {
-                return ResourceManager.GetString("ProfileUpdateView_Name_Placeholder", resourceCulture);
+                return ResourceManager.GetString("ProfileUpdateViewNamePlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Сменить фото профиля.
         /// </summary>
-        public static string ProfileUpdateView_PhotoChange_Title {
+        public static string ProfileUpdateViewPhotoChangeTitle {
             get {
-                return ResourceManager.GetString("ProfileUpdateView_PhotoChange_Title", resourceCulture);
+                return ResourceManager.GetString("ProfileUpdateViewPhotoChangeTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на ПРОФИЛЬ.
         /// </summary>
-        public static string ProfileUpdateView_Title {
+        public static string ProfileUpdateViewTitle {
             get {
-                return ResourceManager.GetString("ProfileUpdateView_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на выполнено.
-        /// </summary>
-        public static string ProfileView_Completed_Subtitle {
-            get {
-                return ResourceManager.GetString("ProfileView_Completed_Subtitle", resourceCulture);
+                return ResourceManager.GetString("ProfileUpdateViewTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Я исполняю.
         /// </summary>
-        public static string ProfileView_CompletedOrders_Tab {
+        public static string ProfileViewCompletedOrdersTab {
             get {
-                return ResourceManager.GetString("ProfileView_CompletedOrders_Tab", resourceCulture);
+                return ResourceManager.GetString("ProfileViewCompletedOrdersTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на выполнено.
+        /// </summary>
+        public static string ProfileViewCompletedSubtitle {
+            get {
+                return ResourceManager.GetString("ProfileViewCompletedSubtitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на FAQ.
         /// </summary>
-        public static string ProfileView_Menu_Faq {
+        public static string ProfileViewMenuFaq {
             get {
-                return ResourceManager.GetString("ProfileView_Menu_Faq", resourceCulture);
+                return ResourceManager.GetString("ProfileViewMenuFaq", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Избранные видео.
         /// </summary>
-        public static string ProfileView_Menu_Favourites {
+        public static string ProfileViewMenuFavourites {
             get {
-                return ResourceManager.GetString("ProfileView_Menu_Favourites", resourceCulture);
+                return ResourceManager.GetString("ProfileViewMenuFavourites", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Выйти из аккаунта.
         /// </summary>
-        public static string ProfileView_Menu_LogOut {
+        public static string ProfileViewMenuLogOut {
             get {
-                return ResourceManager.GetString("ProfileView_Menu_LogOut", resourceCulture);
+                return ResourceManager.GetString("ProfileViewMenuLogOut", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Настройки.
         /// </summary>
-        public static string ProfileView_Menu_Settings {
+        public static string ProfileViewMenuSettings {
             get {
-                return ResourceManager.GetString("ProfileView_Menu_Settings", resourceCulture);
+                return ResourceManager.GetString("ProfileViewMenuSettings", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Справки/отзывы.
         /// </summary>
-        public static string ProfileView_Menu_Support {
+        public static string ProfileViewMenuSupport {
             get {
-                return ResourceManager.GetString("ProfileView_Menu_Support", resourceCulture);
+                return ResourceManager.GetString("ProfileViewMenuSupport", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Подписки на заказ.
         /// </summary>
-        public static string ProfileView_Menu_TaskSubscriptions {
+        public static string ProfileViewMenuTaskSubscriptions {
             get {
-                return ResourceManager.GetString("ProfileView_Menu_TaskSubscriptions", resourceCulture);
+                return ResourceManager.GetString("ProfileViewMenuTaskSubscriptions", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Я заказал.
         /// </summary>
-        public static string ProfileView_MyOrders_Tab {
+        public static string ProfileViewMyOrdersTab {
             get {
-                return ResourceManager.GetString("ProfileView_MyOrders_Tab", resourceCulture);
+                return ResourceManager.GetString("ProfileViewMyOrdersTab", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на заказов.
         /// </summary>
-        public static string ProfileView_Orders_Subtitle {
+        public static string ProfileViewOrdersSubtitle {
             get {
-                return ResourceManager.GetString("ProfileView_Orders_Subtitle", resourceCulture);
+                return ResourceManager.GetString("ProfileViewOrdersSubtitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Пополнить.
         /// </summary>
-        public static string ProfileView_Refill {
+        public static string ProfileViewRefill {
             get {
-                return ResourceManager.GetString("ProfileView_Refill", resourceCulture);
+                return ResourceManager.GetString("ProfileViewRefill", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на подписчики.
         /// </summary>
-        public static string ProfileView_Subscribers_Subtitle {
+        public static string ProfileViewSubscribersSubtitle {
             get {
-                return ResourceManager.GetString("ProfileView_Subscribers_Subtitle", resourceCulture);
+                return ResourceManager.GetString("ProfileViewSubscribersSubtitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на подписки.
         /// </summary>
-        public static string ProfileView_Subscriptions_Subtitle {
+        public static string ProfileViewSubscriptionsSubtitle {
             get {
-                return ResourceManager.GetString("ProfileView_Subscriptions_Subtitle", resourceCulture);
+                return ResourceManager.GetString("ProfileViewSubscriptionsSubtitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Вывести.
         /// </summary>
-        public static string ProfileView_Withdrawal {
+        public static string ProfileViewWithdrawal {
             get {
-                return ResourceManager.GetString("ProfileView_Withdrawal", resourceCulture);
+                return ResourceManager.GetString("ProfileViewWithdrawal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ваша почта не подтверждена.
+        /// </summary>
+        public static string ProfileYourEmailNotActual {
+            get {
+                return ResourceManager.GetString("ProfileYourEmailNotActual", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Пожаловаться....
         /// </summary>
-        public static string Publication_Item_Complain {
+        public static string PublicationItemComplain {
             get {
-                return ResourceManager.GetString("Publication_Item_Complain", resourceCulture);
+                return ResourceManager.GetString("PublicationItemComplain", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Копировать ссылку.
         /// </summary>
-        public static string Publication_Item_Copy_Link {
+        public static string PublicationItemCopyLink {
             get {
-                return ResourceManager.GetString("Publication_Item_Copy_Link", resourceCulture);
+                return ResourceManager.GetString("PublicationItemCopyLink", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Скачать.
         /// </summary>
-        public static string Publication_Item_Download {
+        public static string PublicationItemDownload {
             get {
-                return ResourceManager.GetString("Publication_Item_Download", resourceCulture);
+                return ResourceManager.GetString("PublicationItemDownload", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Подписаться на автора.
         /// </summary>
-        public static string Publication_Item_Subscribe_To_Author {
+        public static string PublicationItemSubscribeToAuthor {
             get {
-                return ResourceManager.GetString("Publication_Item_Subscribe_To_Author", resourceCulture);
+                return ResourceManager.GetString("PublicationItemSubscribeToAuthor", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на За день.
         /// </summary>
-        public static string Publication_Tab_Filter_Day {
+        public static string PublicationTabFilterDay {
             get {
-                return ResourceManager.GetString("Publication_Tab_Filter_Day", resourceCulture);
+                return ResourceManager.GetString("PublicationTabFilterDay", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на За полгода.
         /// </summary>
-        public static string Publication_Tab_Filter_HalfYear {
+        public static string PublicationTabFilterHalfYear {
             get {
-                return ResourceManager.GetString("Publication_Tab_Filter_HalfYear", resourceCulture);
+                return ResourceManager.GetString("PublicationTabFilterHalfYear", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на За месяц.
         /// </summary>
-        public static string Publication_Tab_Filter_Month {
+        public static string PublicationTabFilterMonth {
             get {
-                return ResourceManager.GetString("Publication_Tab_Filter_Month", resourceCulture);
+                return ResourceManager.GetString("PublicationTabFilterMonth", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на За квартал.
         /// </summary>
-        public static string Publication_Tab_Filter_Quarter {
+        public static string PublicationTabFilterQuarter {
             get {
-                return ResourceManager.GetString("Publication_Tab_Filter_Quarter", resourceCulture);
+                return ResourceManager.GetString("PublicationTabFilterQuarter", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на За неделю.
         /// </summary>
-        public static string Publication_Tab_Filter_Week {
+        public static string PublicationTabFilterWeek {
             get {
-                return ResourceManager.GetString("Publication_Tab_Filter_Week", resourceCulture);
+                return ResourceManager.GetString("PublicationTabFilterWeek", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Оценка.
         /// </summary>
-        public static string Rate_Tab {
+        public static string RateTab {
             get {
-                return ResourceManager.GetString("Rate_Tab", resourceCulture);
+                return ResourceManager.GetString("RateTab", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Все заказы в споре.
         /// </summary>
-        public static string RateView_Filter_AllTasks {
+        public static string RateViewFilterAllTasks {
             get {
-                return ResourceManager.GetString("RateView_Filter_AllTasks", resourceCulture);
+                return ResourceManager.GetString("RateViewFilterAllTasks", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Мои заказы в споре.
         /// </summary>
-        public static string RateView_Filter_MyTasks {
+        public static string RateViewFilterMyTasks {
             get {
-                return ResourceManager.GetString("RateView_Filter_MyTasks", resourceCulture);
+                return ResourceManager.GetString("RateViewFilterMyTasks", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Новые заказы в споре.
         /// </summary>
-        public static string RateView_Filter_NewTasks {
+        public static string RateViewFilterNewTasks {
             get {
-                return ResourceManager.GetString("RateView_Filter_NewTasks", resourceCulture);
+                return ResourceManager.GetString("RateViewFilterNewTasks", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Оценка.
         /// </summary>
-        public static string RateView_Title_Label {
+        public static string RateViewTitleLabel {
             get {
-                return ResourceManager.GetString("RateView_Title_Label", resourceCulture);
+                return ResourceManager.GetString("RateViewTitleLabel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Оценить.
         /// </summary>
-        public static string RateView_Vote_Button {
+        public static string RateViewVoteButton {
             get {
-                return ResourceManager.GetString("RateView_Vote_Button", resourceCulture);
+                return ResourceManager.GetString("RateViewVoteButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Я согласен с.
         /// </summary>
-        public static string Registration_Agree_With {
+        public static string RegistrationAgreeWith {
             get {
-                return ResourceManager.GetString("Registration_Agree_With", resourceCulture);
+                return ResourceManager.GetString("RegistrationAgreeWith", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Подтвердите возраст и согласие с правилами.
         /// </summary>
-        public static string Registration_Checkmark_Not_Confirmed {
+        public static string RegistrationCheckmarkNotConfirmed {
             get {
-                return ResourceManager.GetString("Registration_Checkmark_Not_Confirmed", resourceCulture);
+                return ResourceManager.GetString("RegistrationCheckmarkNotConfirmed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Подтверждаю, что мне есть 18 лет.
         /// </summary>
-        public static string Registration_Confirm_Adult {
+        public static string RegistrationConfirmAdult {
             get {
-                return ResourceManager.GetString("Registration_Confirm_Adult", resourceCulture);
+                return ResourceManager.GetString("RegistrationConfirmAdult", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на правилами и условиями.
         /// </summary>
-        public static string Registration_Terms_And_Rules {
+        public static string RegistrationTermsAndRules {
             get {
-                return ResourceManager.GetString("Registration_Terms_And_Rules", resourceCulture);
+                return ResourceManager.GetString("RegistrationTermsAndRules", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Дата рождения.
         /// </summary>
-        public static string RegistrationView_Birthday_Placeholder {
+        public static string RegistrationViewBirthdayPlaceholder {
             get {
-                return ResourceManager.GetString("RegistrationView_Birthday_Placeholder", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewBirthdayPlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на На почту отправлено письмо с верификацией email адреса. Для завершения регистрации, пожалуйста, подтвердите Ваш email.
         /// </summary>
-        public static string RegistrationView_Confirmation_Label {
+        public static string RegistrationViewConfirmationLabel {
             get {
-                return ResourceManager.GetString("RegistrationView_Confirmation_Label", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewConfirmationLabel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Поздравляем!.
         /// </summary>
-        public static string RegistrationView_Congrats_Title {
+        public static string RegistrationViewCongratsTitle {
             get {
-                return ResourceManager.GetString("RegistrationView_Congrats_Title", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewCongratsTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Введите email.
         /// </summary>
-        public static string RegistrationView_Email_Placeholder {
+        public static string RegistrationViewEmailPlaceholder {
             get {
-                return ResourceManager.GetString("RegistrationView_Email_Placeholder", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewEmailPlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на жен.
         /// </summary>
-        public static string RegistrationView_Female_Button {
+        public static string RegistrationViewFemaleButton {
             get {
-                return ResourceManager.GetString("RegistrationView_Female_Button", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewFemaleButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Выберите пол:.
         /// </summary>
-        public static string RegistrationView_GenderSelect_Title {
+        public static string RegistrationViewGenderSelectTitle {
             get {
-                return ResourceManager.GetString("RegistrationView_GenderSelect_Title", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewGenderSelectTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Перейти в ленту.
         /// </summary>
-        public static string RegistrationView_GoToFeed_Button {
+        public static string RegistrationViewGoToFeedButton {
             get {
-                return ResourceManager.GetString("RegistrationView_GoToFeed_Button", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewGoToFeedButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Войти в аккаунт.
         /// </summary>
-        public static string RegistrationView_Login_Button {
+        public static string RegistrationViewLoginButton {
             get {
-                return ResourceManager.GetString("RegistrationView_Login_Button", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewLoginButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Введите логин.
         /// </summary>
-        public static string RegistrationView_Login_Placeholder {
+        public static string RegistrationViewLoginPlaceholder {
             get {
-                return ResourceManager.GetString("RegistrationView_Login_Placeholder", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewLoginPlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на муж.
         /// </summary>
-        public static string RegistrationView_Male_Button {
+        public static string RegistrationViewMaleButton {
             get {
-                return ResourceManager.GetString("RegistrationView_Male_Button", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewMaleButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Введите имя.
         /// </summary>
-        public static string RegistrationView_Name_Placeholder {
+        public static string RegistrationViewNamePlaceholder {
             get {
-                return ResourceManager.GetString("RegistrationView_Name_Placeholder", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewNamePlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Введите пароль.
         /// </summary>
-        public static string RegistrationView_Password_Placeholder {
+        public static string RegistrationViewPasswordPlaceholder {
             get {
-                return ResourceManager.GetString("RegistrationView_Password_Placeholder", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewPasswordPlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Повторите пароль.
         /// </summary>
-        public static string RegistrationView_PasswordRepeat_Placeholder {
+        public static string RegistrationViewPasswordRepeatPlaceholder {
             get {
-                return ResourceManager.GetString("RegistrationView_PasswordRepeat_Placeholder", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewPasswordRepeatPlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Зарегистрироваться.
         /// </summary>
-        public static string RegistrationView_Register_Button {
+        public static string RegistrationViewRegisterButton {
             get {
-                return ResourceManager.GetString("RegistrationView_Register_Button", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewRegisterButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Уже зарегистрированы?.
         /// </summary>
-        public static string RegistrationView_RegisteredYet_Label {
+        public static string RegistrationViewRegisteredYetLabel {
             get {
-                return ResourceManager.GetString("RegistrationView_RegisteredYet_Label", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewRegisteredYetLabel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Шаг 3.
         /// </summary>
-        public static string RegistrationView_StepThree_Title {
+        public static string RegistrationViewStepThreeTitle {
             get {
-                return ResourceManager.GetString("RegistrationView_StepThree_Title", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewStepThreeTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Шаг 2.
         /// </summary>
-        public static string RegistrationView_StepTwo_Title {
+        public static string RegistrationViewStepTwoTitle {
             get {
-                return ResourceManager.GetString("RegistrationView_StepTwo_Title", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewStepTwoTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Регистрация.
         /// </summary>
-        public static string RegistrationView_Title {
+        public static string RegistrationViewTitle {
             get {
-                return ResourceManager.GetString("RegistrationView_Title", resourceCulture);
+                return ResourceManager.GetString("RegistrationViewTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Люди.
         /// </summary>
-        public static string Search_Peoples {
+        public static string SearchPeoples {
             get {
-                return ResourceManager.GetString("Search_Peoples", resourceCulture);
+                return ResourceManager.GetString("SearchPeoples", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Видео.
         /// </summary>
-        public static string Search_Videos {
+        public static string SearchVideos {
             get {
-                return ResourceManager.GetString("Search_Videos", resourceCulture);
+                return ResourceManager.GetString("SearchVideos", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Поиск.
         /// </summary>
-        public static string Search_View_Search_Placeholder {
+        public static string SearchViewSearchPlaceholder {
             get {
-                return ResourceManager.GetString("Search_View_Search_Placeholder", resourceCulture);
+                return ResourceManager.GetString("SearchViewSearchPlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на сек..
         /// </summary>
-        public static string Seconds_Short {
+        public static string SecondsShort {
             get {
-                return ResourceManager.GetString("Seconds_Short", resourceCulture);
+                return ResourceManager.GetString("SecondsShort", resourceCulture);
             }
         }
         
@@ -2360,54 +2360,54 @@ namespace PrankChat.Mobile.Core.Localization {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Коп. ссылку.
         /// </summary>
-        public static string ShareDialog_CopyLink_Label {
+        public static string ShareDialogCopyLinkLabel {
             get {
-                return ResourceManager.GetString("ShareDialog_CopyLink_Label", resourceCulture);
+                return ResourceManager.GetString("ShareDialogCopyLinkLabel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Поделиться ссылкой.
         /// </summary>
-        public static string ShareDialog_LinkShareTitle {
+        public static string ShareDialogLinkShareTitle {
             get {
-                return ResourceManager.GetString("ShareDialog_LinkShareTitle", resourceCulture);
+                return ResourceManager.GetString("ShareDialogLinkShareTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на В Instagram.
         /// </summary>
-        public static string ShareDialog_ShareInstagram_Label {
+        public static string ShareDialogShareInstagramLabel {
             get {
-                return ResourceManager.GetString("ShareDialog_ShareInstagram_Label", resourceCulture);
+                return ResourceManager.GetString("ShareDialogShareInstagramLabel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Поделиться.
         /// </summary>
-        public static string ShareDialog_Title {
+        public static string ShareDialogTitle {
             get {
-                return ResourceManager.GetString("ShareDialog_Title", resourceCulture);
+                return ResourceManager.GetString("ShareDialogTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Подписчики {0}.
         /// </summary>
-        public static string Subscribers_Title_Template {
+        public static string SubscribersTitleTemplate {
             get {
-                return ResourceManager.GetString("Subscribers_Title_Template", resourceCulture);
+                return ResourceManager.GetString("SubscribersTitleTemplate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Подписки {0}.
         /// </summary>
-        public static string Subscription_Title_Template {
+        public static string SubscriptionTitleTemplate {
             get {
-                return ResourceManager.GetString("Subscription_Title_Template", resourceCulture);
+                return ResourceManager.GetString("SubscriptionTitleTemplate", resourceCulture);
             }
         }
         
@@ -2423,198 +2423,198 @@ namespace PrankChat.Mobile.Core.Localization {
         /// <summary>
         ///   Ищет локализованную строку, похожую на ТБ.
         /// </summary>
-        public static string Terabytes_Presentation {
+        public static string TerabytesPresentation {
             get {
-                return ResourceManager.GetString("Terabytes_Presentation", resourceCulture);
+                return ResourceManager.GetString("TerabytesPresentation", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на {0} не может быть равно {1}..
         /// </summary>
-        public static string Validation_Error_CanNotMatch {
+        public static string ValidationErrorCanNotMatch {
             get {
-                return ResourceManager.GetString("Validation_Error_CanNotMatch", resourceCulture);
+                return ResourceManager.GetString("ValidationErrorCanNotMatch", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на {0} не может быть пустым..
         /// </summary>
-        public static string Validation_Error_Empty {
+        public static string ValidationErrorEmpty {
             get {
-                return ResourceManager.GetString("Validation_Error_Empty", resourceCulture);
+                return ResourceManager.GetString("ValidationErrorEmpty", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на {0} не может быть больше чем {1}..
         /// </summary>
-        public static string Validation_Error_GreaterThanRequired {
+        public static string ValidationErrorGreaterThanRequired {
             get {
-                return ResourceManager.GetString("Validation_Error_GreaterThanRequired", resourceCulture);
+                return ResourceManager.GetString("ValidationErrorGreaterThanRequired", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на {0} имеет неверный формат..
         /// </summary>
-        public static string Validation_Error_Invalid {
+        public static string ValidationErrorInvalid {
             get {
-                return ResourceManager.GetString("Validation_Error_Invalid", resourceCulture);
+                return ResourceManager.GetString("ValidationErrorInvalid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на {0} не может быть меньше чем {1}..
         /// </summary>
-        public static string Validation_Error_LowerThanRequired {
+        public static string ValidationErrorLowerThanRequired {
             get {
-                return ResourceManager.GetString("Validation_Error_LowerThanRequired", resourceCulture);
+                return ResourceManager.GetString("ValidationErrorLowerThanRequired", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на {0} не совпадает с {1}..
         /// </summary>
-        public static string Validation_Error_NotMatch {
+        public static string ValidationErrorNotMatch {
             get {
-                return ResourceManager.GetString("Validation_Error_NotMatch", resourceCulture);
+                return ResourceManager.GetString("ValidationErrorNotMatch", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Возраст.
         /// </summary>
-        public static string Validation_Field_Adult_Check {
+        public static string ValidationFieldAdultCheck {
             get {
-                return ResourceManager.GetString("Validation_Field_Adult_Check", resourceCulture);
+                return ResourceManager.GetString("ValidationFieldAdultCheck", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на День рождения.
         /// </summary>
-        public static string Validation_Field_Birthday {
+        public static string ValidationFieldBirthday {
             get {
-                return ResourceManager.GetString("Validation_Field_Birthday", resourceCulture);
+                return ResourceManager.GetString("ValidationFieldBirthday", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Стоимость.
         /// </summary>
-        public static string Validation_Field_Cost {
+        public static string ValidationFieldCost {
             get {
-                return ResourceManager.GetString("Validation_Field_Cost", resourceCulture);
+                return ResourceManager.GetString("ValidationFieldCost", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Описание.
         /// </summary>
-        public static string Validation_Field_Description {
+        public static string ValidationFieldDescription {
             get {
-                return ResourceManager.GetString("Validation_Field_Description", resourceCulture);
+                return ResourceManager.GetString("ValidationFieldDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на E-mail.
         /// </summary>
-        public static string Validation_Field_Email {
+        public static string ValidationFieldEmail {
             get {
-                return ResourceManager.GetString("Validation_Field_Email", resourceCulture);
+                return ResourceManager.GetString("ValidationFieldEmail", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Пол.
         /// </summary>
-        public static string Validation_Field_Gender {
+        public static string ValidationFieldGender {
             get {
-                return ResourceManager.GetString("Validation_Field_Gender", resourceCulture);
+                return ResourceManager.GetString("ValidationFieldGender", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Логин.
         /// </summary>
-        public static string Validation_Field_Login {
+        public static string ValidationFieldLogin {
             get {
-                return ResourceManager.GetString("Validation_Field_Login", resourceCulture);
+                return ResourceManager.GetString("ValidationFieldLogin", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Имя.
         /// </summary>
-        public static string Validation_Field_Name {
+        public static string ValidationFieldName {
             get {
-                return ResourceManager.GetString("Validation_Field_Name", resourceCulture);
+                return ResourceManager.GetString("ValidationFieldName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Период.
         /// </summary>
-        public static string Validation_Field_OrderPeriod {
+        public static string ValidationFieldOrderPeriod {
             get {
-                return ResourceManager.GetString("Validation_Field_OrderPeriod", resourceCulture);
+                return ResourceManager.GetString("ValidationFieldOrderPeriod", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Пароль.
         /// </summary>
-        public static string Validation_Field_Password {
+        public static string ValidationFieldPassword {
             get {
-                return ResourceManager.GetString("Validation_Field_Password", resourceCulture);
+                return ResourceManager.GetString("ValidationFieldPassword", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Повтор пароля.
         /// </summary>
-        public static string Validation_Field_PasswordRepeat {
+        public static string ValidationFieldPasswordRepeat {
             get {
-                return ResourceManager.GetString("Validation_Field_PasswordRepeat", resourceCulture);
+                return ResourceManager.GetString("ValidationFieldPasswordRepeat", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Цена.
         /// </summary>
-        public static string Validation_Field_Price {
+        public static string ValidationFieldPrice {
             get {
-                return ResourceManager.GetString("Validation_Field_Price", resourceCulture);
+                return ResourceManager.GetString("ValidationFieldPrice", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Правила и условия.
         /// </summary>
-        public static string Validation_Field_Privacy_Check {
+        public static string ValidationFieldPrivacyCheck {
             get {
-                return ResourceManager.GetString("Validation_Field_Privacy_Check", resourceCulture);
+                return ResourceManager.GetString("ValidationFieldPrivacyCheck", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Заголовок.
         /// </summary>
-        public static string Validation_Field_Title {
+        public static string ValidationFieldTitle {
             get {
-                return ResourceManager.GetString("Validation_Field_Title", resourceCulture);
+                return ResourceManager.GetString("ValidationFieldTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Ошибка загрузки видео.
         /// </summary>
-        public static string Video_Failed_To_Upload {
+        public static string VideoFailedToUpload {
             get {
-                return ResourceManager.GetString("Video_Failed_To_Upload", resourceCulture);
+                return ResourceManager.GetString("VideoFailedToUpload", resourceCulture);
             }
         }
         
@@ -2626,27 +2626,27 @@ namespace PrankChat.Mobile.Core.Localization {
         ///2) Голосование. Пользователи PrankChat отдают голоса за понравившееся видео;
         ///3) Итоги. После подведения итогов на счета участников, чьи в [остаток строки не уместился]&quot;;.
         /// </summary>
-        public static string Walkthrouth_Competitions_Description {
+        public static string WalkthrouthCompetitionsDescription {
             get {
-                return ResourceManager.GetString("Walkthrouth_Competitions_Description", resourceCulture);
+                return ResourceManager.GetString("WalkthrouthCompetitionsDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Конкурсы.
         /// </summary>
-        public static string Walkthrouth_Competitions_Title {
+        public static string WalkthrouthCompetitionsTitle {
             get {
-                return ResourceManager.GetString("Walkthrouth_Competitions_Title", resourceCulture);
+                return ResourceManager.GetString("WalkthrouthCompetitionsTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Размещай своё задание, по которому другие пользователи снимут для тебя видео. Описывай задачу как можно подробнее, устанавливай срок исполнения и сумму вознаграждения, чтобы получить идеальный ролик..
         /// </summary>
-        public static string Walkthrouth_CreateOrder_Description {
+        public static string WalkthrouthCreateOrderDescription {
             get {
-                return ResourceManager.GetString("Walkthrouth_CreateOrder_Description", resourceCulture);
+                return ResourceManager.GetString("WalkthrouthCreateOrderDescription", resourceCulture);
             }
         }
         
@@ -2656,18 +2656,18 @@ namespace PrankChat.Mobile.Core.Localization {
         ///В случае невыполнения в отведенное время заказчик зарабатывает 20%, поэтому выгодно создавать труднорешаемые и интересные задачи. Задание может быть сложным, но обязательно выполнимым. 
         ///Если задание невыполнимо, исполнитель может загрузить видео, в котором укажет причину, по которой невозможно снять видео, а заказчик при н [остаток строки не уместился]&quot;;.
         /// </summary>
-        public static string Walkthrouth_CreateOrder_Secret_Description {
+        public static string WalkthrouthCreateOrderSecretDescription {
             get {
-                return ResourceManager.GetString("Walkthrouth_CreateOrder_Secret_Description", resourceCulture);
+                return ResourceManager.GetString("WalkthrouthCreateOrderSecretDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Создание заказов.
         /// </summary>
-        public static string Walkthrouth_CreateOrder_Title {
+        public static string WalkthrouthCreateOrderTitle {
             get {
-                return ResourceManager.GetString("Walkthrouth_CreateOrder_Title", resourceCulture);
+                return ResourceManager.GetString("WalkthrouthCreateOrderTitle", resourceCulture);
             }
         }
         
@@ -2676,306 +2676,306 @@ namespace PrankChat.Mobile.Core.Localization {
         ///
         ///В случае, если заказчику не понравилось твоё видео, он может отправить задание в «спор». Там в т [остаток строки не уместился]&quot;;.
         /// </summary>
-        public static string Walkthrouth_Orders_Description {
+        public static string WalkthrouthOrdersDescription {
             get {
-                return ResourceManager.GetString("Walkthrouth_Orders_Description", resourceCulture);
+                return ResourceManager.GetString("WalkthrouthOrdersDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Лента заказов.
         /// </summary>
-        public static string Walkthrouth_Orders_Title {
+        public static string WalkthrouthOrdersTitle {
             get {
-                return ResourceManager.GetString("Walkthrouth_Orders_Title", resourceCulture);
+                return ResourceManager.GetString("WalkthrouthOrdersTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на В профиле пользователь может отслеживать сумму денежных средств на расчетном счете, а также все свои задания: опубликованные, исполняемые и исполненные..
         /// </summary>
-        public static string Walkthrouth_Profile_Description {
+        public static string WalkthrouthProfileDescription {
             get {
-                return ResourceManager.GetString("Walkthrouth_Profile_Description", resourceCulture);
+                return ResourceManager.GetString("WalkthrouthProfileDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Профиль.
         /// </summary>
-        public static string Walkthrouth_Profile_Title {
+        public static string WalkthrouthProfileTitle {
             get {
-                return ResourceManager.GetString("Walkthrouth_Profile_Title", resourceCulture);
+                return ResourceManager.GetString("WalkthrouthProfileTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на нед..
         /// </summary>
-        public static string Weeks_Short {
+        public static string WeeksShort {
             get {
-                return ResourceManager.GetString("Weeks_Short", resourceCulture);
+                return ResourceManager.GetString("WeeksShort", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Введите номер кошелька ЮMoney (Яндекс кошелёк).
         /// </summary>
-        public static string Withdrawal_Enter_Wallet_Number {
+        public static string WithdrawalEnterWalletNumber {
             get {
-                return ResourceManager.GetString("Withdrawal_Enter_Wallet_Number", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на ЮMoney.
-        /// </summary>
-        public static string Withdrawal_Yoomoney {
-            get {
-                return ResourceManager.GetString("Withdrawal_Yoomoney", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Вывод средств осуществляется через кошелек ЮMoney (Яндекс кошелёк)..
-        /// </summary>
-        public static string Withdrawal_Yoomoney_Description {
-            get {
-                return ResourceManager.GetString("Withdrawal_Yoomoney_Description", resourceCulture);
+                return ResourceManager.GetString("WithdrawalEnterWalletNumber", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Прикрепить файл.
         /// </summary>
-        public static string WithdrawalView_Attach_File {
+        public static string WithdrawalViewAttachFile {
             get {
-                return ResourceManager.GetString("WithdrawalView_Attach_File", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewAttachFile", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Прикрепить файл.
         /// </summary>
-        public static string WithdrawalView_AttachFile_Button {
+        public static string WithdrawalViewAttachFileButton {
             get {
-                return ResourceManager.GetString("WithdrawalView_AttachFile_Button", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewAttachFileButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Не удается отменить транзакцию для вывода средств.
         /// </summary>
-        public static string WithdrawalView_Cancel_Withdrawal_Error {
+        public static string WithdrawalViewCancelWithdrawalError {
             get {
-                return ResourceManager.GetString("WithdrawalView_Cancel_Withdrawal_Error", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewCancelWithdrawalError", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Номер карты.
         /// </summary>
-        public static string WithdrawalView_Card_Number {
+        public static string WithdrawalViewCardNumber {
             get {
-                return ResourceManager.GetString("WithdrawalView_Card_Number", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewCardNumber", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Номер карты.
         /// </summary>
-        public static string WithdrawalView_CardNumber_Placeholder {
+        public static string WithdrawalViewCardNumberPlaceholder {
             get {
-                return ResourceManager.GetString("WithdrawalView_CardNumber_Placeholder", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewCardNumberPlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Сумма.
         /// </summary>
-        public static string WithdrawalView_Cost {
+        public static string WithdrawalViewCost {
             get {
-                return ResourceManager.GetString("WithdrawalView_Cost", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewCost", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Дата создания.
         /// </summary>
-        public static string WithdrawalView_Create_Date {
+        public static string WithdrawalViewCreateDate {
             get {
-                return ResourceManager.GetString("WithdrawalView_Create_Date", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewCreateDate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Вы уверены что хотите удалить данную карту?.
         /// </summary>
-        public static string WithdrawalView_Delete_Card_Question {
+        public static string WithdrawalViewDeleteCardQuestion {
             get {
-                return ResourceManager.GetString("WithdrawalView_Delete_Card_Question", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewDeleteCardQuestion", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Удалить карту.
         /// </summary>
-        public static string WithdrawalView_Delete_Card_Text {
+        public static string WithdrawalViewDeleteCardText {
             get {
-                return ResourceManager.GetString("WithdrawalView_Delete_Card_Text", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewDeleteCardText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Карта не может быть пустой..
         /// </summary>
-        public static string WithdrawalView_Empty_Card_Error {
+        public static string WithdrawalViewEmptyCardError {
             get {
-                return ResourceManager.GetString("WithdrawalView_Empty_Card_Error", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewEmptyCardError", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Имя.
         /// </summary>
-        public static string WithdrawalView_FirstName_Placeholder {
+        public static string WithdrawalViewFirstNamePlaceholder {
             get {
-                return ResourceManager.GetString("WithdrawalView_FirstName_Placeholder", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewFirstNamePlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Фамилия.
         /// </summary>
-        public static string WithdrawalView_LastName_Placeholder {
+        public static string WithdrawalViewLastNamePlaceholder {
             get {
-                return ResourceManager.GetString("WithdrawalView_LastName_Placeholder", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewLastNamePlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Место жительства.
         /// </summary>
-        public static string WithdrawalView_Location {
+        public static string WithdrawalViewLocation {
             get {
-                return ResourceManager.GetString("WithdrawalView_Location", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewLocation", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Отчество.
         /// </summary>
-        public static string WithdrawalView_MiddleName {
+        public static string WithdrawalViewMiddleName {
             get {
-                return ResourceManager.GetString("WithdrawalView_MiddleName", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewMiddleName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Имя.
         /// </summary>
-        public static string WithdrawalView_Name {
+        public static string WithdrawalViewName {
             get {
-                return ResourceManager.GetString("WithdrawalView_Name", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Гражданство.
         /// </summary>
-        public static string WithdrawalView_Nationality {
+        public static string WithdrawalViewNationality {
             get {
-                return ResourceManager.GetString("WithdrawalView_Nationality", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewNationality", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Паспорт(серия и номер).
         /// </summary>
-        public static string WithdrawalView_Passport {
+        public static string WithdrawalViewPassport {
             get {
-                return ResourceManager.GetString("WithdrawalView_Passport", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewPassport", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на В ожидании.
         /// </summary>
-        public static string WithdrawalView_Pending {
+        public static string WithdrawalViewPending {
             get {
-                return ResourceManager.GetString("WithdrawalView_Pending", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewPending", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на В данный момент идет обработка Вашего запроса на вывод средств..
         /// </summary>
-        public static string WithdrawalView_Pending_Withdrawal_Text {
+        public static string WithdrawalViewPendingWithdrawalText {
             get {
-                return ResourceManager.GetString("WithdrawalView_Pending_Withdrawal_Text", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewPendingWithdrawalText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Ваш запрос обрабатывается, время ожидания может составить до 24 часов.
         /// </summary>
-        public static string WithdrawalView_Pendng_Verify_User_Text {
+        public static string WithdrawalViewPendngVerifyUserText {
             get {
-                return ResourceManager.GetString("WithdrawalView_Pendng_Verify_User_Text", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewPendngVerifyUserText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Отозвать.
         /// </summary>
-        public static string WithdrawalView_Revoke_Button {
+        public static string WithdrawalViewRevokeButton {
             get {
-                return ResourceManager.GetString("WithdrawalView_Revoke_Button", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewRevokeButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Статус.
         /// </summary>
-        public static string WithdrawalView_Status_Text {
+        public static string WithdrawalViewStatusText {
             get {
-                return ResourceManager.GetString("WithdrawalView_Status_Text", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewStatusText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Фамилия.
         /// </summary>
-        public static string WithdrawalView_Surname {
+        public static string WithdrawalViewSurname {
             get {
-                return ResourceManager.GetString("WithdrawalView_Surname", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewSurname", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Для того чтобы вывести средства со своего счета, Вам необходимо подтвердить свою личность прикрепив селфи с паспортом в развернутом виде..
         /// </summary>
-        public static string WithdrawalView_Verify_User_Text {
+        public static string WithdrawalViewVerifyUserText {
             get {
-                return ResourceManager.GetString("WithdrawalView_Verify_User_Text", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewVerifyUserText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Отозвать.
         /// </summary>
-        public static string WithdrawalView_Withdraw_Text {
+        public static string WithdrawalViewWithdrawText {
             get {
-                return ResourceManager.GetString("WithdrawalView_Withdraw_Text", resourceCulture);
+                return ResourceManager.GetString("WithdrawalViewWithdrawText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ЮMoney.
+        /// </summary>
+        public static string WithdrawalYoomoney {
+            get {
+                return ResourceManager.GetString("WithdrawalYoomoney", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вывод средств осуществляется через кошелек ЮMoney (Яндекс кошелёк)..
+        /// </summary>
+        public static string WithdrawalYoomoneyDescription {
+            get {
+                return ResourceManager.GetString("WithdrawalYoomoneyDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на г..
         /// </summary>
-        public static string Year_Short {
+        public static string YearShort {
             get {
-                return ResourceManager.GetString("Year_Short", resourceCulture);
+                return ResourceManager.GetString("YearShort", resourceCulture);
             }
         }
     }

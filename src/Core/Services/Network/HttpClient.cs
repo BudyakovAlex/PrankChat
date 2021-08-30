@@ -66,7 +66,7 @@ namespace PrankChat.Mobile.Core.Services.Network
         {
             if (!Connectivity.NetworkAccess.HasConnection())
             {
-                UserInteraction.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                UserInteraction.ShowToast(Resources.NoIntentetConnection, ToastType.Negative);
                 return null;
             }
 
@@ -178,13 +178,13 @@ namespace PrankChat.Mobile.Core.Services.Network
             catch (Exception ex) when (ex.Message.Contains("Socket closed") || ex.Message.Contains("Failed to connect"))
             {
                 //TODO: add no internet connection message
-                var error = new ProblemDetailsException(Resources.Error_Unexpected_Network)
+                var error = new ProblemDetailsException(Resources.ErrorUnexpectedNetwork)
                 {
-                    MessageServerError = Resources.Error_Unexpected_Network
+                    MessageServerError = Resources.ErrorUnexpectedNetwork
                 };
 
                 var problemException = new ServerErrorMessage(this, error);
-                _mvxLog.ErrorException(Resources.Error_Unexpected_Network, error);
+                _mvxLog.ErrorException(Resources.ErrorUnexpectedNetwork, error);
                 _messenger.Publish(problemException);
 
                 if (exceptionThrowingEnabled)
@@ -273,13 +273,13 @@ namespace PrankChat.Mobile.Core.Services.Network
             catch (Exception ex) when (!string.IsNullOrEmpty(ex.Message) && (ex.Message.Contains("Socket closed") || ex.Message.Contains("Failed to connect")))
             {
                 //TODO: add no internet connection message
-                var error = new ProblemDetailsException(Resources.Error_Unexpected_Network)
+                var error = new ProblemDetailsException(Resources.ErrorUnexpectedNetwork)
                 {
-                    MessageServerError = Resources.Error_Unexpected_Network
+                    MessageServerError = Resources.ErrorUnexpectedNetwork
                 };
 
                 var problemException = new ServerErrorMessage(this, error);
-                _mvxLog.ErrorException(Resources.Error_Unexpected_Network, error);
+                _mvxLog.ErrorException(Resources.ErrorUnexpectedNetwork, error);
                 _messenger.Publish(problemException);
 
                 if (exceptionThrowingEnabled)
@@ -304,7 +304,7 @@ namespace PrankChat.Mobile.Core.Services.Network
         {
             if (!Connectivity.NetworkAccess.HasConnection())
             {
-                UserInteraction.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                UserInteraction.ShowToast(Resources.NoIntentetConnection, ToastType.Negative);
                 return default;
             }
 
@@ -318,7 +318,7 @@ namespace PrankChat.Mobile.Core.Services.Network
         {
             if (!Connectivity.NetworkAccess.HasConnection())
             {
-                UserInteraction.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                UserInteraction.ShowToast(Resources.NoIntentetConnection, ToastType.Negative);
                 return Task.CompletedTask;
             }
 
@@ -332,7 +332,7 @@ namespace PrankChat.Mobile.Core.Services.Network
             {
                 if (!Connectivity.NetworkAccess.HasConnection())
                 {
-                    UserInteraction.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                    UserInteraction.ShowToast(Resources.NoIntentetConnection, ToastType.Negative);
                     return;
                 }
 
@@ -362,7 +362,7 @@ namespace PrankChat.Mobile.Core.Services.Network
             {
                 if (!Connectivity.NetworkAccess.HasConnection())
                 {
-                    UserInteraction.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                    UserInteraction.ShowToast(Resources.NoIntentetConnection, ToastType.Negative);
                     return default;
                 }
 

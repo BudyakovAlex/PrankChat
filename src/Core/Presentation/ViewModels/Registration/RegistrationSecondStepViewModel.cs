@@ -108,63 +108,63 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             if (string.IsNullOrWhiteSpace(Login))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Login, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldLogin, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Login can't be empty.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Name, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldName, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Name can't be empty.");
                 return false;
             }
 
             if (Birthday == null)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldBirthday, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Birthday can't be empty.");
                 return false;
             }
 
             //if ((DateTime.Now.Year - Birthday?.Year) <= Constants.Age.AdultAge)
             //{
-            //    ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.LowerThanRequired, Constants.Age.AdultAge.ToString()));
+            //    ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldBirthday, ValidationErrorType.LowerThanRequired, Constants.Age.AdultAge.ToString()));
             //    ErrorHandleService.LogError(this, $"User can't be younger than {Constants.Age.AdultAge} years.");
             //    return false;
             //}
 
             if (string.IsNullOrEmpty(Password))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Password, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldPassword, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Password can't be empty.");
                 return false;
             }
 
             if (string.IsNullOrEmpty(RepeatedPassword))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_PasswordRepeat, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldPasswordRepeat, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Password repeat can't be empty.");
                 return false;
             }
 
             if (Password != RepeatedPassword)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Password, ValidationErrorType.NotMatch, Resources.Validation_Field_PasswordRepeat));
+                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldPassword, ValidationErrorType.NotMatch, Resources.ValidationFieldPasswordRepeat));
                 ErrorHandleService.LogError(this, "Password and repeated password values don't match.");
                 return false;
             }
 
             if (!IsAdultChecked)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Registration_Checkmark_Not_Confirmed));
+                ErrorHandleService.HandleException(new ValidationException(Resources.RegistrationCheckmarkNotConfirmed));
                 ErrorHandleService.LogError(this, "Adult not checked");
                 return false;
             }
 
             if (!IsPolicyChecked)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Registration_Checkmark_Not_Confirmed));
+                ErrorHandleService.HandleException(new ValidationException(Resources.RegistrationCheckmarkNotConfirmed));
                 ErrorHandleService.LogError(this, "Policy not checked");
                 return false;
             }

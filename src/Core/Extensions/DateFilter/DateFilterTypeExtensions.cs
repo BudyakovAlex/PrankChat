@@ -10,11 +10,11 @@ namespace PrankChat.Mobile.Core.Extensions.DateFilter
         {
             return dateFilterType switch
             {
-                DateFilterType.Day => Resources.Publication_Tab_Filter_Day,
-                DateFilterType.Week => Resources.Publication_Tab_Filter_Week,
-                DateFilterType.Month => Resources.Publication_Tab_Filter_Month,
-                DateFilterType.Quarter => Resources.Publication_Tab_Filter_Quarter,
-                DateFilterType.HalfYear => Resources.Publication_Tab_Filter_HalfYear,
+                DateFilterType.Day => Resources.PublicationTabFilterDay,
+                DateFilterType.Week => Resources.PublicationTabFilterWeek,
+                DateFilterType.Month => Resources.PublicationTabFilterMonth,
+                DateFilterType.Quarter => Resources.PublicationTabFilterQuarter,
+                DateFilterType.HalfYear => Resources.PublicationTabFilterHalfYear,
                 _ => throw new NotSupportedException($"Not supported dataFilterType for value {dateFilterType}"),
             };
         }

@@ -73,7 +73,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Competitions
             _backgroundFrame = view.FindViewById<FrameLayout>(Resource.Id.background_frame);
             _prizeTitleTextView = view.FindViewById<TextView>(Resource.Id.prize_title_text_view);
             _thirdDividerView = view.FindViewById<View>(Resource.Id.third_divider);
-            _prizeTitleTextView.Text = Resources.Competitions_Prize_Pool;
+            _prizeTitleTextView.Text = Resources.CompetitionsPrizePool;
 
             _borderFrame.SetRoundedCorners(DisplayUtils.DpToPx(15));
             _backgroundFrame.SetRoundedCorners(DisplayUtils.DpToPx(13));

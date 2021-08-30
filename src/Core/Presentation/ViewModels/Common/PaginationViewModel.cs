@@ -101,7 +101,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common
                         return;
                     }
 
-                    UserInteraction.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                    UserInteraction.ShowToast(Resources.NoIntentetConnection, ToastType.Negative);
                     return;
                 }
 

@@ -103,7 +103,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             //Resources.ProfileView_Menu_Faq,
             //Resources.ProfileView_Menu_Support,
             //Resources.ProfileView_Menu_Settings,
-            //Resources.ProfileView_Menu_LogOut,
+            //Resources.ProfileViewMenuLogOut,
             //};
 
             //var result = await UserInteraction.ShowMenuDialogAsync(items, Resources.Cancel);
@@ -125,12 +125,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             //else if (result == Resources.ProfileView_Menu_Settings)
             //{
             //}
-            //else if (result == Resources.ProfileView_Menu_LogOut)
+            //else if (result == Resources.ProfileViewMenuLogOut)
             //{
             //    await LogoutUserAsync();
             //}
 
-            var canLogout = await UserInteraction.ShowConfirmAsync($"{Resources.ProfileView_Menu_LogOut}?");
+            var canLogout = await UserInteraction.ShowConfirmAsync($"{Resources.ProfileViewMenuLogOut}?");
             if (canLogout)
             {
                 await LogoutUserAsync();
@@ -212,42 +212,42 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             if (string.IsNullOrWhiteSpace(Login))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Login, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldLogin, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Login can't be empty.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Name, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldName, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Name can't be empty.");
                 return false;
             }
 
             if (Birthday == null)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldBirthday, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Birthday can't be empty.");
                 return false;
             }
 
             if (Birthday > DateTime.Now)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.GreaterThanRequired));
+                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldBirthday, ValidationErrorType.GreaterThanRequired));
                 ErrorHandleService.LogError(this, "Birthday date can't be greater than current date.");
                 return false;
             }
 
             if ((DateTime.Now.Year - Birthday?.Year) <= Constants.Age.AdultAge)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.LowerThanRequired, Constants.Age.AdultAge.ToString()));
+                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldBirthday, ValidationErrorType.LowerThanRequired, Constants.Age.AdultAge.ToString()));
                 ErrorHandleService.LogError(this, $"User can't be younger than {Constants.Age.AdultAge} years.");
                 return false;
             }
 
             if (Gender == null)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Gender, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldGender, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Gender can't be empty.");
                 return false;
             }

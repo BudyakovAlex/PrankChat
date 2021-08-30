@@ -194,7 +194,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             return Share.RequestAsync(new ShareTextRequest
             {
                 Uri = CurrentVideo.ShareLink,
-                Title = Resources.ShareDialog_LinkShareTitle
+                Title = Resources.ShareDialogLinkShareTitle
             });
         }
 

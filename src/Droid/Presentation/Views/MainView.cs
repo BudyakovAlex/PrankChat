@@ -134,11 +134,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
         {
             _tabLayout.SetTabTextColors(Resource.Color.applicationBlack, Resource.Color.inactive);
             var inflater = LayoutInflater.FromContext(Application.Context);
-            InitTab(0, Resource.Drawable.ic_home, Localization.Home_Tab, _tabLayout, inflater);
-            InitTab(1, Resource.Drawable.ic_competitions, Localization.Competitions_Tab, _tabLayout, inflater);
+            InitTab(0, Resource.Drawable.ic_home, Localization.HomeTab, _tabLayout, inflater);
+            InitTab(1, Resource.Drawable.ic_competitions, Localization.CompetitionsTab, _tabLayout, inflater);
             InitCentralTab(Resource.Drawable.ic_create_order, _tabLayout, inflater);
-            InitTab(3, Resource.Drawable.ic_orders, Localization.Orders_Tab, _tabLayout, inflater);
-            InitTab(4, Resource.Drawable.ic_profile, Localization.Profile_Tab, _tabLayout, inflater);
+            InitTab(3, Resource.Drawable.ic_orders, Localization.OrdersTab, _tabLayout, inflater);
+            InitTab(4, Resource.Drawable.ic_profile, Localization.ProfileTab, _tabLayout, inflater);
 
             OnTabLayoutTabSelected(this, new TabLayout.TabSelectedEventArgs(_tabLayout.GetTabAt(0)));
         }
@@ -169,7 +169,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
             _toolbarLogo.Visibility = e.Tab.Position != 2 ? ViewStates.Visible : ViewStates.Invisible;
             _toolbarTitle.Visibility = e.Tab.Position == 2 ? ViewStates.Visible : ViewStates.Invisible;
-            _toolbarTitle.Text = e.Tab.Position == 2 ? Localization.CreateOrderView_Title : string.Empty;
+            _toolbarTitle.Text = e.Tab.Position == 2 ? Localization.CreateOrderViewTitle : string.Empty;
 
             _infoMenuItem?.SetVisible(e.Tab.Position != 0);
             _searchMenuItem?.SetVisible(e.Tab.Position == 0);

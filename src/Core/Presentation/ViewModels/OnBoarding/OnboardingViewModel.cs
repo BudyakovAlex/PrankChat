@@ -30,7 +30,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
 
         public bool IsLastSlide => ItemsCount == SelectedIndex + 1;
 
-        public string ActionTitle => IsLastSlide ? Resources.OnBoarding_Go_To_Main : Resources.LoginView_Continue_Button;
+        public string ActionTitle => IsLastSlide ? Resources.OnBoardingGoToMain : Resources.LoginViewContinueButton;
 
         private int _selectedIndex;
         public int SelectedIndex
@@ -73,11 +73,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
         {
             var items = new[]
             {
-                new OnboardingItemViewModel(Resources.OnBoarding_First_Title, Resources.OnBoarding_First_Description, OnBoardingPageType.FirstSlide),
-                new OnboardingItemViewModel(Resources.OnBoarding_Second_Title, Resources.OnBoarding_Second_Description, OnBoardingPageType.SecondSlide),
-                new OnboardingItemViewModel(Resources.OnBoarding_Third_Title, Resources.OnBoarding_Third_Description, OnBoardingPageType.ThirdSlide),
-                new OnboardingItemViewModel(Resources.OnBoarding_Fourth_Title, Resources.OnBoarding_Fourth_Description, OnBoardingPageType.FourthSlide),
-                new OnboardingItemViewModel(Resources.OnBoarding_Fifth_Title, Resources.OnBoarding_Fifth_Description, OnBoardingPageType.FifthSlide)
+                new OnboardingItemViewModel(Resources.OnBoardingFirstTitle, Resources.OnBoardingFirstDescription, OnBoardingPageType.FirstSlide),
+                new OnboardingItemViewModel(Resources.OnBoardingSecondTitle, Resources.OnBoardingSecondDescription, OnBoardingPageType.SecondSlide),
+                new OnboardingItemViewModel(Resources.OnBoardingThirdTitle, Resources.OnBoardingThirdDescription, OnBoardingPageType.ThirdSlide),
+                new OnboardingItemViewModel(Resources.OnBoardingFourthTitle, Resources.OnBoardingFourthDescription, OnBoardingPageType.FourthSlide),
+                new OnboardingItemViewModel(Resources.OnBoardingFifthTitle, Resources.OnBoardingFifthDescription, OnBoardingPageType.FifthSlide)
             };
 
             Items.AddRange(items);

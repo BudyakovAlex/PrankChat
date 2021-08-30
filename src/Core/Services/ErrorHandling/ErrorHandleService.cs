@@ -55,7 +55,7 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
                     break;
 
                 case Exception ex:
-                    var message = string.IsNullOrWhiteSpace(ex.Message) ? Resources.Error_Unexpected_Network : ex.Message;
+                    var message = string.IsNullOrWhiteSpace(ex.Message) ? Resources.ErrorUnexpectedNetwork : ex.Message;
                     DisplayMessage(() => _userInteraction.ShowToast(message, ToastType.Negative));
                     Crashes.TrackError(exception);
                     break;
@@ -87,14 +87,14 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
             switch (exception)
             {
                 case NetworkException networkException:
-                    DisplayMessage(async () => await _userInteraction.ShowAlertAsync(Resources.Error_Unexpected_Server));
+                    DisplayMessage(async () => await _userInteraction.ShowAlertAsync(Resources.ErrorUnexpectedServer));
                     return;
 
                 case ProblemDetailsException problemDetails:
                     if (string.IsNullOrWhiteSpace(problemDetails.Message) &&
                         string.IsNullOrWhiteSpace(problemDetails.Title))
                     {
-                        DisplayMessage(() => _userInteraction.ShowToast(Resources.Error_Unexpected_Network, ToastType.Negative));
+                        DisplayMessage(() => _userInteraction.ShowToast(Resources.ErrorUnexpectedNetwork, ToastType.Negative));
                         return;
                     }
 
@@ -110,12 +110,12 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
                     break;
 
                 case Exception ex when ex.InnerException != null:
-                    var message = ex.InnerException.Message ?? Resources.Error_Unexpected_Server;
+                    var message = ex.InnerException.Message ?? Resources.ErrorUnexpectedServer;
                     DisplayMessage(() => _userInteraction.ShowToast(message, ToastType.Negative));
                     break;
 
                 case Exception ex when ex.GetType() != typeof(NullReferenceException):
-                    var errorMessage = !string.IsNullOrEmpty(ex.Message) ? ex.Message : Resources.Error_Unexpected_Server;
+                    var errorMessage = !string.IsNullOrEmpty(ex.Message) ? ex.Message : Resources.ErrorUnexpectedServer;
                     DisplayMessage(async () => await _userInteraction.ShowAlertAsync(errorMessage));
                     break;
             }
@@ -126,25 +126,25 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
             switch (exception.ErrorType)
             {
                 case ValidationErrorType.Empty:
-                    return string.Format(Resources.Validation_Error_Empty, exception.LocalizedFieldName);
+                    return string.Format(Resources.ValidationErrorEmpty, exception.LocalizedFieldName);
 
                 case ValidationErrorType.CanNotMatch:
-                    return string.Format(Resources.Validation_Error_CanNotMatch, exception.LocalizedFieldName, exception.RelativeValue);
+                    return string.Format(Resources.ValidationErrorCanNotMatch, exception.LocalizedFieldName, exception.RelativeValue);
 
                 case ValidationErrorType.GreaterThanRequired:
-                    return string.Format(Resources.Validation_Error_GreaterThanRequired, exception.LocalizedFieldName, exception.RelativeValue);
+                    return string.Format(Resources.ValidationErrorGreaterThanRequired, exception.LocalizedFieldName, exception.RelativeValue);
 
                 case ValidationErrorType.LowerThanRequired:
-                    return string.Format(Resources.Validation_Error_LowerThanRequired, exception.LocalizedFieldName, exception.RelativeValue);
+                    return string.Format(Resources.ValidationErrorLowerThanRequired, exception.LocalizedFieldName, exception.RelativeValue);
 
                 case ValidationErrorType.NotMatch:
-                    return string.Format(Resources.Validation_Error_NotMatch, exception.LocalizedFieldName, exception.RelativeValue);
+                    return string.Format(Resources.ValidationErrorNotMatch, exception.LocalizedFieldName, exception.RelativeValue);
 
                 case ValidationErrorType.Invalid:
-                    return string.Format(Resources.Validation_Error_Invalid, exception.LocalizedFieldName);
+                    return string.Format(Resources.ValidationErrorInvalid, exception.LocalizedFieldName);
 
                 case ValidationErrorType.NotConfirmed:
-                    return string.Format(Resources.Not_Confirmed, exception.LocalizedFieldName);
+                    return string.Format(Resources.NotConfirmed, exception.LocalizedFieldName);
 
                 case ValidationErrorType.Undefined:
                     return exception.Message;

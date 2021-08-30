@@ -77,11 +77,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
 
         public string PrizePoolPresentation => string.Format(Constants.Formats.MoneyFormat, PrizePool);
 
-        public string DaysText { get; } = Resources.Count_Days;
+        public string DaysText { get; } = Resources.CountDays;
 
-        public string HoursText { get; } = Resources.Count_Hours;
+        public string HoursText { get; } = Resources.CountHours;
 
-        public string MinutesText { get; } = Resources.Count_Minutes;
+        public string MinutesText { get; } = Resources.CountMinutes;
 
         private TimeSpan? _nextPhaseCountdown;
         public TimeSpan? NextPhaseCountdown

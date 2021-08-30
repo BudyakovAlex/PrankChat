@@ -122,8 +122,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items
             var getSubscribersTask = _usersManager.GetSubscribersAsync(_userId, page, pageSize);
             await Task.WhenAll(getSubscriptionsTask, getSubscribersTask);
 
-            SubscribersTitle = string.Format(Resources.Subscribers_Title_Template, getSubscribersTask.Result.TotalCount.ToCountString());
-            SubscriptionsTitle = string.Format(Resources.Subscription_Title_Template, getSubscriptionsTask.Result.TotalCount.ToCountString());
+            SubscribersTitle = string.Format(Resources.SubscribersTitleTemplate, getSubscribersTask.Result.TotalCount.ToCountString());
+            SubscriptionsTitle = string.Format(Resources.SubscriptionTitleTemplate, getSubscriptionsTask.Result.TotalCount.ToCountString());
 
             return SelectedTabType switch
             {

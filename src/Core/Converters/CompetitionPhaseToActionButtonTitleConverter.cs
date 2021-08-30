@@ -12,9 +12,9 @@ namespace PrankChat.Mobile.Core.Converters
         {
             return value switch
             {
-                CompetitionPhase.New => Resources.Competitions_Participate,
-                CompetitionPhase.Voting => Resources.Competitions_See,
-                CompetitionPhase.Finished => Resources.Competitions_More,
+                CompetitionPhase.New => Resources.CompetitionsParticipate,
+                CompetitionPhase.Voting => Resources.CompetitionsSee,
+                CompetitionPhase.Finished => Resources.CompetitionsMore,
                 _ => string.Empty,
             };
         }
