@@ -1,11 +1,11 @@
 ﻿
 namespace PrankChat.Mobile.iOS.Providers
 {
-    class ImagePathProvider
+    public class ImageNames
     {
         public const string IconLogo = "ic_logo";
-        public const string IconVK = "ic_vk";
-        public const string IconOK = "ic_ok";
+        public const string IconVk = "ic_vk";
+        public const string IconOk = "ic_ok";
         public const string IconFacebook = "ic_facebook";
         public const string IconGmail = "ic_gmail";
         public const string IconChecked = "ic_checkbox_checked";
@@ -56,8 +56,10 @@ namespace PrankChat.Mobile.iOS.Providers
         public const string IconPause = "ic_pause";
         public const string IconSoundMuted = "ic_sound_muted";
         public const string IconMute = "ic_mute";
-        public const string IconCheckMark = "ic_check_mark";
+        public const string IconCheckmark = "ic_check_mark";
         public const string IconPlus = "ic_plus";
+        public const string IconUnselected = "unselected";
+        public const string IconSelected = "selected";
         public const string BackgroundPayment = "bg_payment";
         public const string BackgroundSelectedPayment = "bg_selected_payment";
         public const string BackgroundOnboardingFirstSlide = "bg_onboarding_first_slide";

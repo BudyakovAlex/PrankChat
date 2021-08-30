@@ -15,17 +15,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Converters
             switch (paymentType)
             {
                 case PaymentType.Alphabank:
-                    return value ? GetIcon(ImagePathProvider.IconPaymentAlphabankSelected) : GetIcon(ImagePathProvider.IconPaymentAlphabank);
+                    return value ? GetIcon(ImageNames.IconPaymentAlphabankSelected) : GetIcon(ImageNames.IconPaymentAlphabank);
                 case PaymentType.Card:
-                    return value ? GetIcon(ImagePathProvider.IconPaymentСardsSelected) : GetIcon(ImagePathProvider.IconPaymentСards);
+                    return value ? GetIcon(ImageNames.IconPaymentСardsSelected) : GetIcon(ImageNames.IconPaymentСards);
                 case PaymentType.Phone:
-                    return value ? GetIcon(ImagePathProvider.IconPaymentPhoneSelected) : GetIcon(ImagePathProvider.IconPaymentPhone);
+                    return value ? GetIcon(ImageNames.IconPaymentPhoneSelected) : GetIcon(ImageNames.IconPaymentPhone);
                 case PaymentType.Qiwi:
-                    return value ? GetIcon(ImagePathProvider.IconPaymentQiwiSelected) : GetIcon(ImagePathProvider.IconPaymentQiwi);
+                    return value ? GetIcon(ImageNames.IconPaymentQiwiSelected) : GetIcon(ImageNames.IconPaymentQiwi);
                 case PaymentType.Sberbank:
-                    return value ? GetIcon(ImagePathProvider.IconPaymentSberbankSelected) : GetIcon(ImagePathProvider.IconPaymentSberbank);
+                    return value ? GetIcon(ImageNames.IconPaymentSberbankSelected) : GetIcon(ImageNames.IconPaymentSberbank);
                 case PaymentType.YandexMoney:
-                    return value ? GetIcon(ImagePathProvider.IconPaymentYandexmoneySelected) : GetIcon(ImagePathProvider.IconPaymentYandexmoney);
+                    return value ? GetIcon(ImageNames.IconPaymentYandexmoneySelected) : GetIcon(ImageNames.IconPaymentYandexmoney);
                 default:
                     return new UIImage();
             }

@@ -55,11 +55,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
         protected override void SetupControls()
         {
-            cardNumberEditText.SetDarkStyle(Resources.Withdrawal_Enter_Wallet_Number, UIImage.FromBundle(ImagePathProvider.IconYoomoneyAccount));
+            cardNumberEditText.SetDarkStyle(Resources.Withdrawal_Enter_Wallet_Number, UIImage.FromBundle(ImageNames.IconYoomoneyAccount));
             savedCardNumberEditText.SetDarkStyle(
                 Resources.Withdrawal_Enter_Wallet_Number,
-                UIImage.FromBundle(ImagePathProvider.IconYoomoneyAccount),
-                UIImage.FromBundle(ImagePathProvider.IconArrowDropdown));
+                UIImage.FromBundle(ImageNames.IconYoomoneyAccount),
+                UIImage.FromBundle(ImageNames.IconArrowDropdown));
 
             firstNameTextField.SetDarkStyle(Resources.WithdrawalView_FirstName_Placeholder);
             surnameTextField.SetDarkStyle(Resources.WithdrawalView_LastName_Placeholder);

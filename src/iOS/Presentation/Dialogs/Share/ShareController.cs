@@ -26,13 +26,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.Share
         {
             shareTitleLabel.SetTitleStyle(Resources.ShareDialog_Title);
 
-            shareButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconShare), UIControlState.Normal);
+            shareButton.SetImage(UIImage.FromBundle(ImageNames.IconShare), UIControlState.Normal);
 
-            copyLinkImageButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconShareCopy).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            copyLinkImageButton.SetImage(UIImage.FromBundle(ImageNames.IconShareCopy).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
             copyLinkTitleLabel.SetRegularStyle(10, Theme.Color.Black);
             copyLinkTitleLabel.Text = Resources.ShareDialog_CopyLink_Label;
 
-            shareInstagramImageButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconShareInstagram).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            shareInstagramImageButton.SetImage(UIImage.FromBundle(ImageNames.IconShareInstagram).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
             shareInstagramTitleLabel.SetRegularStyle(10, Theme.Color.Black);
             shareInstagramTitleLabel.Text = Resources.ShareDialog_ShareInstagram_Label;
 

@@ -130,7 +130,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             textLengthLabel.SetRegularStyle(12, textLengthLabel.TextColor);
 
             rootView.AddGestureRecognizer(new UITapGestureRecognizer(OnViewTapped));
-            NavigationItem?.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton(ImagePathProvider.IconLogout, ViewModel.ShowMenuCommand), true);
+            NavigationItem?.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton(ImageNames.IconLogout, ViewModel.ShowMenuCommand), true);
 
             emailTextField.SetLightStyle(Resources.ProfileUpdateView_Email_Placeholder);
 
@@ -138,7 +138,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             nameTextField.SetLightStyle(Resources.ProfileUpdateView_Name_Placeholder);
 
-            birthdayTextField.SetLightStyle(Resources.ProfileUpdateView_Birthday_Placeholder, rightImage: UIImage.FromBundle(ImagePathProvider.IconCalendar));
+            birthdayTextField.SetLightStyle(Resources.ProfileUpdateView_Birthday_Placeholder, rightImage: UIImage.FromBundle(ImageNames.IconCalendar));
 
             sexSelectTitleLabel.Text = Resources.ProfileUpdateView_GenderSelect_Title;
             sexSelectTitleLabel.TextColor = Theme.Color.White;
@@ -150,8 +150,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             femaleTitleButton.SetTitle(Resources.RegistrationView_Female_Button, UIControlState.Normal);
             femaleTitleButton.SetRadioTitleStyle();
 
-            femaleIconButton.SetSelectableImageStyle(ImagePathProvider.IconRadioButtonInactive, ImagePathProvider.IconRadioButtonActive);
-            maleIconButton.SetSelectableImageStyle(ImagePathProvider.IconRadioButtonInactive, ImagePathProvider.IconRadioButtonActive);
+            femaleIconButton.SetSelectableImageStyle(ImageNames.IconRadioButtonInactive, ImageNames.IconRadioButtonActive);
+            maleIconButton.SetSelectableImageStyle(ImageNames.IconRadioButtonInactive, ImageNames.IconRadioButtonActive);
 
             saveButton.SetLightStyle(Resources.ProfileUpdateView_Button_Save);
             resendEmailLabel.SetLinkStyle(Theme.Color.White, Resources.Profile_Resend_Confirmation, 14);

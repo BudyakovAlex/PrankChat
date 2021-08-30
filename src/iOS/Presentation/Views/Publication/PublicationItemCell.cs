@@ -31,13 +31,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 _isLiked = value;
                 if (_isLiked)
                 {
-                    var image = UIImage.FromBundle(ImagePathProvider.IconLike).ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+                    var image = UIImage.FromBundle(ImageNames.IconLike).ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
                     likeButton.SetImage(image, UIControlState.Normal);
                     likeButton.TintColor = Theme.Color.Accent;
                 }
                 else
                 {
-                    var image = UIImage.FromBundle(ImagePathProvider.IconLikeHollow);
+                    var image = UIImage.FromBundle(ImageNames.IconLikeHollow);
                     likeButton.SetImage(image, UIControlState.Normal);
                     likeButton.TintColor = null;
                 }
@@ -53,13 +53,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 _isDisliked = value;
                 if (_isDisliked)
                 {
-                    var image = UIImage.FromBundle(ImagePathProvider.IconDislike).ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+                    var image = UIImage.FromBundle(ImageNames.IconDislike).ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
                     dislikeButton.SetImage(image, UIControlState.Normal);
                     dislikeButton.TintColor = Theme.Color.Accent;
                 }
                 else
                 {
-                    var image = UIImage.FromBundle(ImagePathProvider.IconDislikeHollow);
+                    var image = UIImage.FromBundle(ImageNames.IconDislikeHollow);
                     dislikeButton.SetImage(image, UIControlState.Normal);
                     dislikeButton.TintColor = null;
                 }

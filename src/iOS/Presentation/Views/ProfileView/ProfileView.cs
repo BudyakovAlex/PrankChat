@@ -20,7 +20,7 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 {
-    [MvxTabPresentation(TabName = "Profile", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
+    [MvxTabPresentation(TabName = "Profile", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected, WrapInNavigationController = true)]
     public partial class ProfileView : BaseRefreshableTabbedView<ProfileViewModel>, IScrollableView
     {
         private MvxUIRefreshControl _refreshControl;
@@ -93,12 +93,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             InitializeTableView();
 
-            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImagePathProvider.IconNotification, ViewModel.ShowNotificationCommand);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(
                 new UIBarButtonItem[]
                 {
                     _notificationBarItem,
-                    NavigationItemHelper.CreateBarButton(ImagePathProvider.IconInfo, ViewModel.ShowWalkthrouthCommand)
+                    NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand)
                 },
                 true);
 
@@ -119,7 +119,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             _refreshControl = new MvxUIRefreshControl();
             rootScrollView.RefreshControl = _refreshControl;
 
-            var logoButton = NavigationItemHelper.CreateBarButton(ImagePathProvider.IconLogo, null);
+            var logoButton = NavigationItemHelper.CreateBarButton(ImageNames.IconLogo, null);
             logoButton.Enabled = false;
             NavigationItem.LeftBarButtonItem = logoButton;
         }

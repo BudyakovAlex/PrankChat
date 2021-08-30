@@ -20,7 +20,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
             if (string.IsNullOrWhiteSpace(Title))
             {
-                var logoImageView = new UIImageView(UIImage.FromBundle(ImagePathProvider.IconLogo), null);
+                var logoImageView = new UIImageView(UIImage.FromBundle(ImageNames.IconLogo), null);
                 NavigationItem.TitleView = logoImageView;
             }
         }

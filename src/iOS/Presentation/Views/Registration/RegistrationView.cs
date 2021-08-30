@@ -41,10 +41,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             socialNetworksLabel.Font = Theme.Font.RegularFontOfSize(12);
             socialNetworksLabel.TextColor = Theme.Color.White;
 
-            vkButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconVK).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            okButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconOK).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            facebookButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconFacebook).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            gmailButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconGmail).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            vkButton.SetImage(UIImage.FromBundle(ImageNames.IconVk).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            okButton.SetImage(UIImage.FromBundle(ImageNames.IconOk).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            facebookButton.SetImage(UIImage.FromBundle(ImageNames.IconFacebook).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            gmailButton.SetImage(UIImage.FromBundle(ImageNames.IconGmail).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
 
             yetRegisteredLabel.Text = Resources.RegistrationView_RegisteredYet_Label;
             yetRegisteredLabel.Font = Theme.Font.RegularFontOfSize(16);

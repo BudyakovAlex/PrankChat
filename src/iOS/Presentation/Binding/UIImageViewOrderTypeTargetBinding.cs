@@ -28,11 +28,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Binding
         {
             switch (orderType)
             {
-                case OrderType.MyOrder:             return ImagePathProvider.BackgroundOrderTypeMy;
-                case OrderType.MyOrderInModeration: return ImagePathProvider.BackgroundOrderTypeMyInModeration;
-                case OrderType.NotMyOrder:          return ImagePathProvider.BackgroundOrderTypeNotMy;
-                case OrderType.MyOrderCompleted:    return ImagePathProvider.BackgroundOrderTypeMyCompleted;
-                case OrderType.NotMyOrderCompleted: return ImagePathProvider.BackgroundOrderTypeMyCompleted;
+                case OrderType.MyOrder:             return ImageNames.BackgroundOrderTypeMy;
+                case OrderType.MyOrderInModeration: return ImageNames.BackgroundOrderTypeMyInModeration;
+                case OrderType.NotMyOrder:          return ImageNames.BackgroundOrderTypeNotMy;
+                case OrderType.MyOrderCompleted:    return ImageNames.BackgroundOrderTypeMyCompleted;
+                case OrderType.NotMyOrderCompleted: return ImageNames.BackgroundOrderTypeMyCompleted;
                 default: throw new ArgumentOutOfRangeException();
             }
         }

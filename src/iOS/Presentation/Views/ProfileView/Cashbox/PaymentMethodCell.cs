@@ -25,8 +25,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
         {
             base.SetupControls();
 
-            BackgroundView = new UIImageView(UIImage.FromBundle(ImagePathProvider.BackgroundPayment));
-            SelectedBackgroundView = new UIImageView(UIImage.FromBundle(ImagePathProvider.BackgroundSelectedPayment));
+            BackgroundView = new UIImageView(UIImage.FromBundle(ImageNames.BackgroundPayment));
+            SelectedBackgroundView = new UIImageView(UIImage.FromBundle(ImageNames.BackgroundSelectedPayment));
         }
 
         protected override void SetBindings()

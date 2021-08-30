@@ -43,7 +43,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 
             nicknameTextField.SetLightStyle(Resources.RegistrationView_Login_Placeholder);
             nameTextField.SetLightStyle(Resources.RegistrationView_Name_Placeholder);
-            birthdayTextField.SetLightStyle(Resources.RegistrationView_Birthday_Placeholder, rightImage: UIImage.FromBundle(ImagePathProvider.IconCalendar));
+            birthdayTextField.SetLightStyle(Resources.RegistrationView_Birthday_Placeholder, rightImage: UIImage.FromBundle(ImageNames.IconCalendar));
 
             passwordTextField.SetLightStyle(Resources.RegistrationView_Password_Placeholder);
             passwordTextField.SecureTextEntry = true;
@@ -53,8 +53,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             passwordRepeatTextField.SecureTextEntry = true;
             passwordTextField.TextContentType = UITextContentType.OneTimeCode;
 
-            adultCheckButton.SetSelectableImageStyleWithTint(ImagePathProvider.IconUnchecked, ImagePathProvider.IconChecked, Theme.Color.White);
-            privacyCheckButton.SetSelectableImageStyleWithTint(ImagePathProvider.IconUnchecked, ImagePathProvider.IconChecked, Theme.Color.White);
+            adultCheckButton.SetSelectableImageStyleWithTint(ImageNames.IconUnchecked, ImageNames.IconChecked, Theme.Color.White);
+            privacyCheckButton.SetSelectableImageStyleWithTint(ImageNames.IconUnchecked, ImageNames.IconChecked, Theme.Color.White);
 
             privacyCheckButton.AddGestureRecognizer(new UITapGestureRecognizer(SwitchPolicyState));
             adultCheckButton.AddGestureRecognizer(new UITapGestureRecognizer(SwitchAdultState));

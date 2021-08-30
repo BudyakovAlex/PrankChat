@@ -14,7 +14,7 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
 {
-    [MvxTabPresentation(TabName = "Competitions", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
+    [MvxTabPresentation(TabName = "Competitions", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected, WrapInNavigationController = true)]
     public partial class CompetitionsView : BaseRefreshableTabbedView<CompetitionsViewModel>, IScrollableView
     {
         private TableViewSource _source;
@@ -69,16 +69,16 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         {
             NavigationController.NavigationBar.SetNavigationBarStyle();
 
-            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImagePathProvider.IconNotification, ViewModel.ShowNotificationCommand);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                _notificationBarItem,
-                NavigationItemHelper.CreateBarButton(ImagePathProvider.IconInfo, ViewModel.ShowWalkthrouthCommand),
+                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand),
                 // TODO: This feature will be implemented.
                 //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
             }, true);
 
-            var logoButton = NavigationItemHelper.CreateBarButton(ImagePathProvider.IconLogo, null);
+            var logoButton = NavigationItemHelper.CreateBarButton(ImageNames.IconLogo, null);
             logoButton.Enabled = false;
             NavigationItem.LeftBarButtonItem = logoButton;
         }

@@ -86,10 +86,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             socialNetworksTitleLabel.Font = Theme.Font.RegularFontOfSize(12);
             socialNetworksTitleLabel.TextColor = Theme.Color.White;
 
-            vkButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconVK).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            okButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconOK).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            facebookButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconFacebook).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            gmailButton.SetImage(UIImage.FromBundle(ImagePathProvider.IconGmail).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            vkButton.SetImage(UIImage.FromBundle(ImageNames.IconVk).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            okButton.SetImage(UIImage.FromBundle(ImageNames.IconOk).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            facebookButton.SetImage(UIImage.FromBundle(ImageNames.IconFacebook).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            gmailButton.SetImage(UIImage.FromBundle(ImageNames.IconGmail).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
 
             _appleButtonTapGesture = new UITapGestureRecognizer(OnAppleIdButtonTouched);
             _appleIdButton.AddGestureRecognizer(_appleButtonTapGesture);

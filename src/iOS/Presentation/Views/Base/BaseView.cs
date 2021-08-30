@@ -104,7 +104,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
             if (NavigationItem.HidesBackButton == false && !IsTabbedView)
             {
-                var backButton = NavigationItemHelper.CreateBarButton(ImagePathProvider.IconBack, ViewModel.CloseCommand);
+                var backButton = NavigationItemHelper.CreateBarButton(ImageNames.IconBack, ViewModel.CloseCommand);
                 NavigationItem.LeftBarButtonItem = backButton;
             }
         }

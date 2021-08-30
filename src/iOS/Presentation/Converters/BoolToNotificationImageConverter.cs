@@ -10,7 +10,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Converters
     {
         protected override UIImage Convert(bool value, Type targetType, object parameter, CultureInfo culture)
         {
-            var imageName = value ? ImagePathProvider.IconNotificationWithBage : ImagePathProvider.IconNotification;
+            var imageName = value ? ImageNames.IconNotificationWithBage : ImageNames.IconNotification;
             return UIImage.FromBundle(imageName).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
         }
     }

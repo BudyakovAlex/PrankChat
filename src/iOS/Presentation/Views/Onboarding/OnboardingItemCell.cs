@@ -44,15 +44,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
             switch (type)
             {
                 case OnBoardingPageType.FirstSlide:
-                    return ImagePathProvider.BackgroundOnboardingFirstSlide;
+                    return ImageNames.BackgroundOnboardingFirstSlide;
                 case OnBoardingPageType.SecondSlide:
-                    return ImagePathProvider.BackgroundOnboardingSecondSlide;
+                    return ImageNames.BackgroundOnboardingSecondSlide;
                 case OnBoardingPageType.ThirdSlide:
-                    return ImagePathProvider.BackgroundOnboardingThirdSlide;
+                    return ImageNames.BackgroundOnboardingThirdSlide;
                 case OnBoardingPageType.FourthSlide:
-                    return ImagePathProvider.BackgroundOnboardingFourthSlide;
+                    return ImageNames.BackgroundOnboardingFourthSlide;
                 case OnBoardingPageType.FifthSlide:
-                    return ImagePathProvider.BackgroundOnboardingFifthSlide;
+                    return ImageNames.BackgroundOnboardingFifthSlide;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

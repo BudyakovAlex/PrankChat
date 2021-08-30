@@ -85,7 +85,7 @@ namespace PrankChat.Mobile.iOS.Controls
 
         private void UpdateCheckImage()
         {
-            var image = IsChecked ? ImagePathProvider.IconChecked : ImagePathProvider.IconUnchecked;
+            var image = IsChecked ? ImageNames.IconChecked : ImageNames.IconUnchecked;
             SetImage(UIImage.FromBundle(image), UIControlState.Normal);
         }
     }
