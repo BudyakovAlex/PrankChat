@@ -105,9 +105,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
             return new CommentItemViewModel(UserSessionProvider, comment);
         }
 
-        private async Task SendCommentAsync()
+        private Task SendCommentAsync()
         {
-            try
+            return SafeExecutionWrapper.WrapAsync(async () =>
             {
                 if (string.IsNullOrWhiteSpace(Comment))
                 {
@@ -128,11 +128,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
                 ScrollInteraction.Raise(Items.Count - 1);
 
                 Comment = string.Empty;
-            }
-            catch (Exception ex)
-            {
-                _mvxLog.ErrorException("Failed to send comments", ex);
-            }
+            });
         }
     }
 }

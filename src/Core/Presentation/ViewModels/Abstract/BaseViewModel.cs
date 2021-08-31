@@ -19,6 +19,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
     public abstract class BaseViewModel : MvxNotifyPropertyChanged, IDisposable
     {
         private bool _isDisposed;
+        private ExecutionStateWrapper _executionStateWrapper;
 
         protected BaseViewModel()
         {
@@ -38,7 +39,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 
         public CompositeDisposable Disposables { get; }
 
-        private ExecutionStateWrapper _executionStateWrapper;
         public ExecutionStateWrapper ExecutionStateWrapper
         {
             get => _executionStateWrapper;
