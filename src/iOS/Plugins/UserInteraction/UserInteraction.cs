@@ -8,7 +8,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.Core.Services.ErrorHandling;
 using PrankChat.Mobile.iOS.Controls;
-using PrankChat.Mobile.iOS.Presentation.Dialogs.DatePicker;
+using PrankChat.Mobile.iOS.Dialogs.DatePicker;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

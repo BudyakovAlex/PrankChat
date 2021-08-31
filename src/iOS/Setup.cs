@@ -19,7 +19,7 @@ using PrankChat.Mobile.iOS.Services.ExternalAuth.AppleSignIn;
 using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.FileSystem;
 using PrankChat.Mobile.iOS.Plugins.Video;
-using PrankChat.Mobile.iOS.Presentation.Binding;
+using PrankChat.Mobile.iOS.Binding;
 using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 using WebKit;
