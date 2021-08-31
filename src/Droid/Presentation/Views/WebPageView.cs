@@ -2,7 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
+using PrankChat.Mobile.Core.ViewModels.Common;
 using PrankChat.Mobile.Droid.Controls.WebView;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 

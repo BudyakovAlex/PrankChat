@@ -6,7 +6,7 @@ using Android.OS;
 using Android.Views;
 using Com.Theartofdev.Edmodo.Cropper;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.ViewModels.Profile;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.ImageCrop

@@ -9,7 +9,7 @@ using AndroidX.Core.Content;
 using FFImageLoading.Cross;
 using Google.Android.Material.Tabs;
 using MvvmCross.Binding.BindingContext;
-using PrankChat.Mobile.Core.Presentation.ViewModels;
+using PrankChat.Mobile.Core.ViewModels;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Listeners;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;

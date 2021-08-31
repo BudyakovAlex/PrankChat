@@ -8,7 +8,7 @@ using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using MvvmCross.Platforms.Android.Views.Fragments;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
+using PrankChat.Mobile.Core.ViewModels.Dialogs;
 
 namespace PrankChat.Mobile.Droid.Presentation.Dialogs
 {

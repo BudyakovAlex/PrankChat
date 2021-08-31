@@ -10,7 +10,7 @@ using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.ViewModels.Competition.Items;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract;
 using PrankChat.Mobile.Droid.Presentation.Converters;
 

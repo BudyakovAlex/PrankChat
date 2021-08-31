@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.ViewModels.Profile;
 using UIKit;
 using Xam.Plugins.ImageCropper.iOS;
 

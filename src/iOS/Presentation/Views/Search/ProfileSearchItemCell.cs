@@ -2,7 +2,7 @@
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items;
+using PrankChat.Mobile.Core.ViewModels.Search.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;

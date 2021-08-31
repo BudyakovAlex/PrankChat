@@ -7,8 +7,8 @@ using Google.Android.Material.TextField;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using MvvmCross.Plugin.Visibility;
-using PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using PrankChat.Mobile.Core.ViewModels.PasswordRecovery;
+using PrankChat.Mobile.Core.ViewModels.Registration;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 

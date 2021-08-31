@@ -7,7 +7,7 @@ using Android.Widget;
 using Google.Android.Material.TextField;
 using MvvmCross.Platforms.Android.Binding;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using PrankChat.Mobile.Core.ViewModels.Registration;
 using PrankChat.Mobile.Droid.Services.Callback;
 using PrankChat.Mobile.Droid.Services.Callbacks;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;

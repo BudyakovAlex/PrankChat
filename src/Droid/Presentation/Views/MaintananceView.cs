@@ -4,7 +4,7 @@ using Android.OS;
 using Google.Android.Material.Button;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Common;
+using PrankChat.Mobile.Core.ViewModels.Common;
 using PrankChat.Mobile.Droid.Presentation.Views.Base;
 using PrankChat.Mobile.Droid.Presenters.Attributes;
 

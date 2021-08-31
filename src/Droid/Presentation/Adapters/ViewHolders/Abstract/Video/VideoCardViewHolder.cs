@@ -4,7 +4,7 @@ using FFImageLoading.Cross;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.BusinessServices;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
+using PrankChat.Mobile.Core.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Droid.Controls;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Video

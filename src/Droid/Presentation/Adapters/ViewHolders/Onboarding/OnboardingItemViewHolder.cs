@@ -4,7 +4,7 @@ using Android.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding.Items;
+using PrankChat.Mobile.Core.ViewModels.Onboarding.Items;
 using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract;
 
 namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Onboarding

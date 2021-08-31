@@ -1,5 +1,5 @@
 ﻿using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.ViewModels.Profile;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.ProfileView.ImageCrop;
 using UIKit;

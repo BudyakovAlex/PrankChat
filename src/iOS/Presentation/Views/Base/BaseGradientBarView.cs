@@ -1,4 +1,4 @@
-﻿using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+﻿using PrankChat.Mobile.Core.ViewModels.Abstract;
 using PrankChat.Mobile.iOS.AppTheme;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Base
