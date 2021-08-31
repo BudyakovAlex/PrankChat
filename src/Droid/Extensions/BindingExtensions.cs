@@ -1,5 +1,5 @@
 ﻿using Android.Views;
-using PrankChat.Mobile.Droid.Presentation.Bindings;
+using PrankChat.Mobile.Droid.Bindings;
 
 namespace PrankChat.Mobile.Droid.Extensions
 {

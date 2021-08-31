@@ -12,7 +12,7 @@ using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Droid.Services;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.FileSystem;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Video;
-using PrankChat.Mobile.Droid.Presentation.Bindings;
+using PrankChat.Mobile.Droid.Bindings;
 using PrankChat.Mobile.Droid.Presenters;
 using PrankChat.Mobile.Droid.Providers;
 using PrankChat.Mobile.Core.Services.ExternalAuth;
