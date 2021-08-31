@@ -29,6 +29,11 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
             _isDisposed = true;
         }
 
+        protected override void SetValueImpl(View target, IMvxCommand value)
+        {
+            _command = value;
+        }
+
         private void OnViewTouch(object sender, View.TouchEventArgs eventArgs)
         {
             if (_command == null || eventArgs.Event.Action != MotionEventActions.Up)
@@ -39,11 +44,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
 
             eventArgs.Handled = false;
             _command.Execute();
-        }
-
-        protected override void SetValueImpl(View target, IMvxCommand value)
-        {
-            _command = value;
         }
     }
 }
