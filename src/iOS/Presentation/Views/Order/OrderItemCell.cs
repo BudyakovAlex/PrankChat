@@ -95,28 +95,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             bindingSet.Bind(IsHiddenOrderImageView).For(v => v.BindVisible()).To(vm => vm.IsHiddenOrder);
         }
 
-        private string GetImageName(OrderTagType orderTagType)
+        private string GetImageName(OrderTagType orderTagType) => orderTagType switch
         {
-            switch (orderTagType)
-            {
-                case OrderTagType.InModeration:
-                    return "OrderTagTypeInModeration";
-                case OrderTagType.New:
-                    return "OrderTagTypeNew";
-                case OrderTagType.NewNotMine:
-                    return "OrderTagTypeNewNotMine";
-                case OrderTagType.Wait:
-                    return "OrderTagTypeWait";
-                case OrderTagType.Finished:
-                    return "OrderTagTypeFinished";
-                case OrderTagType.InArbitration:
-                    return "OrderTagTypeInArbitration";
-                case OrderTagType.InWork:
-                    return "OrderTagTypeInWork";
-                case OrderTagType.None:
-                default:
-                    return null;
-            }
-        }
+            OrderTagType.InModeration => "OrderTagTypeInModeration",
+            OrderTagType.New => "OrderTagTypeNew",
+            OrderTagType.NewNotMine => "OrderTagTypeNewNotMine",
+            OrderTagType.Wait => "OrderTagTypeWait",
+            OrderTagType.Finished => "OrderTagTypeFinished",
+            OrderTagType.InArbitration => "OrderTagTypeInArbitration",
+            OrderTagType.InWork => "OrderTagTypeInWork",
+            OrderTagType.None => null,
+            _ => null,
+        };
     }
 }

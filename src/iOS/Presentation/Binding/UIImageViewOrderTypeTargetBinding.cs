@@ -24,17 +24,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Binding
             Target.Image = UIImage.FromBundle(imageName);
         }
 
-        private string GetImageName(OrderType orderType)
+        private string GetImageName(OrderType orderType) => orderType switch
         {
-            switch (orderType)
-            {
-                case OrderType.MyOrder:             return ImageNames.BackgroundOrderTypeMy;
-                case OrderType.MyOrderInModeration: return ImageNames.BackgroundOrderTypeMyInModeration;
-                case OrderType.NotMyOrder:          return ImageNames.BackgroundOrderTypeNotMy;
-                case OrderType.MyOrderCompleted:    return ImageNames.BackgroundOrderTypeMyCompleted;
-                case OrderType.NotMyOrderCompleted: return ImageNames.BackgroundOrderTypeMyCompleted;
-                default: throw new ArgumentOutOfRangeException();
-            }
-        }
+            OrderType.MyOrder => ImageNames.BackgroundOrderTypeMy,
+            OrderType.MyOrderInModeration => ImageNames.BackgroundOrderTypeMyInModeration,
+            OrderType.NotMyOrder => ImageNames.BackgroundOrderTypeNotMy,
+            OrderType.MyOrderCompleted => ImageNames.BackgroundOrderTypeMyCompleted,
+            OrderType.NotMyOrderCompleted => ImageNames.BackgroundOrderTypeMyCompleted,
+            _ => throw new ArgumentOutOfRangeException(),
+        };
     }
 }

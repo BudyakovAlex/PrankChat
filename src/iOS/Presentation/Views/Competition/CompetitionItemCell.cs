@@ -130,52 +130,35 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             _titleGradientSublayer.Colors = GetGradient(_phase);
         }
 
-        private UIColor GetPrimaryColor(CompetitionPhase phase)
+        private UIColor GetPrimaryColor(CompetitionPhase phase) => phase switch
         {
-            switch (phase)
-            {
-                case CompetitionPhase.New:
-                    return Theme.Color.CompetitionPhaseNewPrimary;
+            CompetitionPhase.New => Theme.Color.CompetitionPhaseNewPrimary,
+            CompetitionPhase.Voting => Theme.Color.CompetitionPhaseVotingPrimary,
+            CompetitionPhase.Finished => Theme.Color.CompetitionPhaseFinishedPrimary,
+            _ => throw new ArgumentOutOfRangeException(),
+        };
 
-                case CompetitionPhase.Voting:
-                    return Theme.Color.CompetitionPhaseVotingPrimary;
-
-                case CompetitionPhase.Finished:
-                    return Theme.Color.CompetitionPhaseFinishedPrimary;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        private CGColor[] GetGradient(CompetitionPhase phase)
+        private CGColor[] GetGradient(CompetitionPhase phase) => phase switch
         {
-            switch (phase)
-            {
-                case CompetitionPhase.New:
-                    return new[]
-                    {
+            CompetitionPhase.New =>
+                new[]
+                {
                         Theme.Color.CompetitionPhaseNewSecondary.CGColor,
                         Theme.Color.CompetitionPhaseNewPrimary.CGColor
-                    };
-
-                case CompetitionPhase.Voting:
-                    return new[]
-                    {
+                },
+            CompetitionPhase.Voting =>
+                new[]
+                {
                         Theme.Color.CompetitionPhaseVotingSecondary.CGColor,
                         Theme.Color.CompetitionPhaseVotingPrimary.CGColor
-                    };
-
-                case CompetitionPhase.Finished:
-                    return new[]
-                    {
+                },
+            CompetitionPhase.Finished =>
+                new[]
+                {
                         Theme.Color.CompetitionPhaseFinishedSecondary.CGColor,
                         Theme.Color.CompetitionPhaseFinishedPrimary.CGColor
-                    };
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+                },
+            _ => throw new ArgumentOutOfRangeException(),
+        };
     }
 }

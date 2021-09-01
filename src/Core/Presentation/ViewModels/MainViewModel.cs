@@ -105,29 +105,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                     NotificationBadgeViewModel.RefreshDataCommand.ExecuteAsync());
         }
 
-        private Task ShowWalthroughIfNeedAsync(int position)
+        private Task ShowWalthroughIfNeedAsync(int position) => position switch
         {
-            return position switch
-            {
-                1 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CompetitionsViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>(),
-                2 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CreateOrderViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>(),
-                3 when _walkthroughsProvider.CheckCanShowOnFirstLoad<OrdersViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>(),
-                4 when _walkthroughsProvider.CheckCanShowOnFirstLoad<ProfileViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>(),
-                _ => Task.FromResult(false),
-            };
-        }
+            1 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CompetitionsViewModel>() =>
+                _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>(),
+            2 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CreateOrderViewModel>() =>
+                _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>(),
+            3 when _walkthroughsProvider.CheckCanShowOnFirstLoad<OrdersViewModel>() =>
+                _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>(),
+            4 when _walkthroughsProvider.CheckCanShowOnFirstLoad<ProfileViewModel>() =>
+                _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>(),
+            _ => Task.FromResult(false),
+        };
 
-        private Task ShowWalthroughAsync(int position)
+        private Task ShowWalthroughAsync(int position) => position switch
         {
-            return position switch
-            {
-                1 => _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>(),
-                2 => _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>(),
-                3 => _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>(),
-                4 => _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>(),
-                _ => Task.FromResult(false),
-            };
-        }
+            1 => _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>(),
+            2 => _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>(),
+            3 => _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>(),
+            4 => _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>(),
+            _ => Task.FromResult(false),
+        };
 
         private Task CheckDemoModeAsync(int position)
         {

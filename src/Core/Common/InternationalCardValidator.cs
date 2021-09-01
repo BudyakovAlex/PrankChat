@@ -39,44 +39,28 @@ namespace PrankChat.Mobile.Core.Common
             return formattedNumber;
         }
 
-        private string GetCardMask(CardIssuer cardType, int cardLenght)
+        private string GetCardMask(CardIssuer cardType, int cardLenght) => cardType switch
         {
-            switch (cardType)
-            {
-                case CardIssuer.Unknown:
-                case CardIssuer.Visa:
-                case CardIssuer.Switch:
-                case CardIssuer.RuPay:
-                case CardIssuer.MasterCard:
-                case CardIssuer.Laser:
-                case CardIssuer.JCB:
-                case CardIssuer.Hipercard:
-                case CardIssuer.Discover:
-                case CardIssuer.Dankort:
-                case CardIssuer.AmericanExpress:
-                    return "#### #### #### ####";
-
-                case CardIssuer.ChinaUnionPay when cardLenght <= 16:
-                    return "#### #### #### ####";
-                case CardIssuer.ChinaUnionPay:
-                    return "###### #############";
-
-                case CardIssuer.DinersClub when cardLenght <= 14:
-                    return "#### ###### ####";
-                case CardIssuer.DinersClub:
-                    return "#### #### #### ####";
-
-                case CardIssuer.Maestro when cardLenght <= 13:
-                    return "#### #### #####";
-                case CardIssuer.Maestro when cardLenght <= 15:
-                    return "#### ###### #####";
-
-                case CardIssuer.Maestro:
-                    return "#### #### #### #### ###";
-            }
-
-            return "";
-        }
+            CardIssuer.Unknown => "#### #### #### ####",
+            CardIssuer.Visa => "#### #### #### ####",
+            CardIssuer.Switch => "#### #### #### ####",
+            CardIssuer.RuPay => "#### #### #### ####",
+            CardIssuer.MasterCard => "#### #### #### ####",
+            CardIssuer.Laser => "#### #### #### ####",
+            CardIssuer.JCB => "#### #### #### ####",
+            CardIssuer.Hipercard => "#### #### #### ####",
+            CardIssuer.Discover => "#### #### #### ####",
+            CardIssuer.Dankort => "#### #### #### ####",
+            CardIssuer.AmericanExpress => "#### #### #### ####",
+            CardIssuer.ChinaUnionPay when cardLenght <= 16 => "#### #### #### ####",
+            CardIssuer.ChinaUnionPay => "###### #############",
+            CardIssuer.DinersClub when cardLenght <= 14 => "#### ###### ####",
+            CardIssuer.DinersClub => "#### #### #### ####",
+            CardIssuer.Maestro when cardLenght <= 13 => "#### #### #####",
+            CardIssuer.Maestro when cardLenght <= 15 => "#### ###### #####",
+            CardIssuer.Maestro => "#### #### #### #### ###",
+            _ => "",
+        };
 
         private string GetPattern(int digitCount)
         {

@@ -125,19 +125,11 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Authorization
             RefreshTokenAsync().FireAndForget();
         }
 
-        private string GetAuthPathByLoginType(LoginType loginType)
+        private string GetAuthPathByLoginType(LoginType loginType) => loginType switch
         {
-            switch (loginType)
-            {
-                case LoginType.Vk:
-                    return "vk";
-
-                case LoginType.Facebook:
-                    return "fb";
-
-                default:
-                    throw new ArgumentException();
-            }
-        }
+            LoginType.Vk => "vk",
+            LoginType.Facebook => "fb",
+            _ => throw new ArgumentException(),
+        };
     }
 }

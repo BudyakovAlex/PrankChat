@@ -41,18 +41,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
 
         private string GetImageName(OnBoardingPageType type) => type switch
         {
-            OnBoardingPageType.FirstSlide =>
-                ImageNames.BackgroundOnboardingFirstSlide,
-            OnBoardingPageType.SecondSlide =>
-                ImageNames.BackgroundOnboardingSecondSlide,
-            OnBoardingPageType.ThirdSlide =>
-                ImageNames.BackgroundOnboardingThirdSlide,
-            OnBoardingPageType.FourthSlide =>
-                ImageNames.BackgroundOnboardingFourthSlide,
-            OnBoardingPageType.FifthSlide =>
-                ImageNames.BackgroundOnboardingFifthSlide,
-            _ =>
-                throw new ArgumentOutOfRangeException(),
+            OnBoardingPageType.FirstSlide => ImageNames.BackgroundOnboardingFirstSlide,
+            OnBoardingPageType.SecondSlide => ImageNames.BackgroundOnboardingSecondSlide,
+            OnBoardingPageType.ThirdSlide => ImageNames.BackgroundOnboardingThirdSlide,
+            OnBoardingPageType.FourthSlide => ImageNames.BackgroundOnboardingFourthSlide,
+            OnBoardingPageType.FifthSlide => ImageNames.BackgroundOnboardingFifthSlide,
+            _ => throw new ArgumentOutOfRangeException(),
         };
     }
 }

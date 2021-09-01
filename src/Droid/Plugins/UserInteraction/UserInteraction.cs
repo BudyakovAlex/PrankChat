@@ -142,14 +142,11 @@ namespace PrankChat.Mobile.Droid.Plugins.UserInteraction
             return null;
         }
 
-        private int GetBackgroundId(ToastType toastType)
+        private int GetBackgroundId(ToastType toastType) => toastType switch
         {
-            return toastType switch
-            {
-                ToastType.Positive => Resource.Color.successful,
-                ToastType.Negative => Resource.Color.unsuccessful,
-                _ => throw new ArgumentOutOfRangeException(),
-            };
-        }
+            ToastType.Positive => Resource.Color.successful,
+            ToastType.Negative => Resource.Color.unsuccessful,
+            _ => throw new ArgumentOutOfRangeException(),
+        };
     }
 }
