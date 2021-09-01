@@ -14,7 +14,7 @@ using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
-using PrankChat.Mobile.iOS.Providers;
+using PrankChat.Mobile.iOS.Common;
 using UIKit;
 using Xamarin.Essentials;
 

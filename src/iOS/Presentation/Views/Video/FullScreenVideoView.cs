@@ -12,7 +12,7 @@ using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Video;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
-using PrankChat.Mobile.iOS.Providers;
+using PrankChat.Mobile.iOS.Common;
 using System;
 using System.Threading.Tasks;
 using UIKit;

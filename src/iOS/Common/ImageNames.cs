@@ -1,5 +1,5 @@
 ﻿
-namespace PrankChat.Mobile.iOS.Providers
+namespace PrankChat.Mobile.iOS.Common
 {
     public class ImageNames
     {

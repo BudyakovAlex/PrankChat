@@ -1,5 +1,5 @@
 ﻿using MvvmCross.Converters;
-using PrankChat.Mobile.iOS.Providers;
+using PrankChat.Mobile.iOS.Common;
 using System;
 using System.Globalization;
 using UIKit;

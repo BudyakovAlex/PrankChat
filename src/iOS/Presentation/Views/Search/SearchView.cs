@@ -14,7 +14,7 @@ using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates.Search;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
 using PrankChat.Mobile.iOS.Presentation.Views.Publication;
-using PrankChat.Mobile.iOS.Providers;
+using PrankChat.Mobile.iOS.Common;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Search

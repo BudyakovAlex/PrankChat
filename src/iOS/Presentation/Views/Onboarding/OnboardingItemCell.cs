@@ -3,7 +3,7 @@ using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding.Items;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
-using PrankChat.Mobile.iOS.Providers;
+using PrankChat.Mobile.iOS.Common;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
@@ -39,23 +39,20 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
             bindingSet.Bind(descriptionLabel).For(v => v.Text).To(vm => vm.Description);
         }
 
-        private string GetImageName(OnBoardingPageType type)
+        private string GetImageName(OnBoardingPageType type) => type switch
         {
-            switch (type)
-            {
-                case OnBoardingPageType.FirstSlide:
-                    return ImageNames.BackgroundOnboardingFirstSlide;
-                case OnBoardingPageType.SecondSlide:
-                    return ImageNames.BackgroundOnboardingSecondSlide;
-                case OnBoardingPageType.ThirdSlide:
-                    return ImageNames.BackgroundOnboardingThirdSlide;
-                case OnBoardingPageType.FourthSlide:
-                    return ImageNames.BackgroundOnboardingFourthSlide;
-                case OnBoardingPageType.FifthSlide:
-                    return ImageNames.BackgroundOnboardingFifthSlide;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+            OnBoardingPageType.FirstSlide =>
+                ImageNames.BackgroundOnboardingFirstSlide,
+            OnBoardingPageType.SecondSlide =>
+                ImageNames.BackgroundOnboardingSecondSlide,
+            OnBoardingPageType.ThirdSlide =>
+                ImageNames.BackgroundOnboardingThirdSlide,
+            OnBoardingPageType.FourthSlide =>
+                ImageNames.BackgroundOnboardingFourthSlide,
+            OnBoardingPageType.FifthSlide =>
+                ImageNames.BackgroundOnboardingFifthSlide,
+            _ =>
+                throw new ArgumentOutOfRangeException(),
+        };
     }
 }

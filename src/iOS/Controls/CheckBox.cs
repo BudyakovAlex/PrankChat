@@ -2,7 +2,7 @@
 using CoreGraphics;
 using Foundation;
 using MvvmCross.Base;
-using PrankChat.Mobile.iOS.Providers;
+using PrankChat.Mobile.iOS.Common;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Controls
