@@ -6,6 +6,12 @@ namespace PrankChat.Mobile.Core.Common
 {
     public class InternationalCardValidator
     {
+        private const string DefaultCardFormat = "#### #### #### ####";
+        private const string ChinaUnionPayCardFormat = "###### #############";
+        private const string CartFormatDinersClub = "#### ###### ####";
+        private const string CartFormatMaestro = "#### #### #### #### ###";
+        private const string CartFormatMaestroLessThirteen = "#### #### #####";
+        private const string CartFormatMaestroLessFifteen = "#### ###### #####";
         private InternationalCardValidator()
         {
         }
@@ -41,24 +47,24 @@ namespace PrankChat.Mobile.Core.Common
 
         private string GetCardMask(CardIssuer cardType, int cardLenght) => cardType switch
         {
-            CardIssuer.Unknown => "#### #### #### ####",
-            CardIssuer.Visa => "#### #### #### ####",
-            CardIssuer.Switch => "#### #### #### ####",
-            CardIssuer.RuPay => "#### #### #### ####",
-            CardIssuer.MasterCard => "#### #### #### ####",
-            CardIssuer.Laser => "#### #### #### ####",
-            CardIssuer.JCB => "#### #### #### ####",
-            CardIssuer.Hipercard => "#### #### #### ####",
-            CardIssuer.Discover => "#### #### #### ####",
-            CardIssuer.Dankort => "#### #### #### ####",
-            CardIssuer.AmericanExpress => "#### #### #### ####",
-            CardIssuer.ChinaUnionPay when cardLenght <= 16 => "#### #### #### ####",
-            CardIssuer.ChinaUnionPay => "###### #############",
-            CardIssuer.DinersClub when cardLenght <= 14 => "#### ###### ####",
-            CardIssuer.DinersClub => "#### #### #### ####",
-            CardIssuer.Maestro when cardLenght <= 13 => "#### #### #####",
-            CardIssuer.Maestro when cardLenght <= 15 => "#### ###### #####",
-            CardIssuer.Maestro => "#### #### #### #### ###",
+            CardIssuer.Unknown => DefaultCardFormat,
+            CardIssuer.Visa => DefaultCardFormat,
+            CardIssuer.Switch => DefaultCardFormat,
+            CardIssuer.RuPay => DefaultCardFormat,
+            CardIssuer.MasterCard => DefaultCardFormat,
+            CardIssuer.Laser => DefaultCardFormat,
+            CardIssuer.JCB => DefaultCardFormat,
+            CardIssuer.Hipercard => DefaultCardFormat,
+            CardIssuer.Discover => DefaultCardFormat,
+            CardIssuer.Dankort => DefaultCardFormat,
+            CardIssuer.AmericanExpress => DefaultCardFormat,
+            CardIssuer.ChinaUnionPay when cardLenght <= 16 => DefaultCardFormat,
+            CardIssuer.ChinaUnionPay => ChinaUnionPayCardFormat,
+            CardIssuer.DinersClub when cardLenght <= 14 => CartFormatDinersClub,
+            CardIssuer.DinersClub => DefaultCardFormat,
+            CardIssuer.Maestro when cardLenght <= 13 => CartFormatMaestroLessThirteen,
+            CardIssuer.Maestro when cardLenght <= 15 => CartFormatMaestroLessFifteen,
+            CardIssuer.Maestro => CartFormatMaestro,
             _ => "",
         };
 

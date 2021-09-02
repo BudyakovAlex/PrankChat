@@ -19,8 +19,10 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Authorization
     {
         private readonly IUserSessionProvider _userSessionProvider;
         private readonly IMvxMessenger _messenger;
-
         private readonly HttpClient _client;
+
+        private const string LoginTypeVk = "vk";
+        private const string LoginTypeFacebook = "fb";
 
         public AuthorizationService(
             IUserSessionProvider userSessionProvider,
@@ -127,8 +129,8 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Authorization
 
         private string GetAuthPathByLoginType(LoginType loginType) => loginType switch
         {
-            LoginType.Vk => "vk",
-            LoginType.Facebook => "fb",
+            LoginType.Vk => LoginTypeVk,
+            LoginType.Facebook => LoginTypeFacebook,
             _ => throw new ArgumentException(),
         };
     }
