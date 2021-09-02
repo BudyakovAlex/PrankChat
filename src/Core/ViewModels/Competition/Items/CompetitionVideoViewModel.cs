@@ -17,6 +17,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
     {
         private readonly Func<BaseVideoItemViewModel[]> _getAllFullScreenVideosFunc;
 
+        public IMvxAsyncCommand ShowFullScreenVideoCommand;
+
         public CompetitionVideoViewModel(
             IVideoManager videoManager,
             IUserSessionProvider userSessionProvider,
@@ -33,18 +35,19 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 
            Messenger.SubscribeWithCondition<ViewCountMessage>(msg => msg.VideoId == VideoId, msg => NumberOfViews = msg.ViewsCount)
                 .DisposeWith(Disposables);
+
+            ShowFullScreenVideoCommand = this.CreateCommand(ShowFullScreenVideoAsync);
         }
 
         public override bool CanVoteVideo => IsVotingAvailable && !IsMyPublication;
 
         public override bool CanPlayVideo => true;
 
-        public IMvxAsyncCommand ShowFullScreenVideoCommand => this.CreateCommand(ShowFullScreenVideoAsync);
+
 
         public string UserName => User?.Login;
 
-        public DateTime PublicationDate
-            => Video.CreatedAt.UtcDateTime;
+        public DateTime PublicationDate => Video.CreatedAt.UtcDateTime;
 
         public bool IsMyPublication { get; }
 
