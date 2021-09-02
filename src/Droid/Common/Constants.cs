@@ -1,5 +1,5 @@
 ﻿using System;
-namespace PrankChat.Mobile.Droid.Utils
+namespace PrankChat.Mobile.Droid.Common
 {
     public static class Constants
     {
