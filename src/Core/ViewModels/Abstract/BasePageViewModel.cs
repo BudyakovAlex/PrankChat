@@ -114,12 +114,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Abstract
         {
         }
 
-        public virtual Task RaisePropertiesChanged(params string[] propertiesNames)
-        {
-            var raisePropertiesTasks = propertiesNames.Select(propertyName => RaisePropertyChanged(propertyName));
-            return Task.WhenAll(raisePropertiesTasks);
-        }
-
         public virtual Task<bool> ConfirmPlatformCloseAsync()
         {
             return Task.FromResult(true);

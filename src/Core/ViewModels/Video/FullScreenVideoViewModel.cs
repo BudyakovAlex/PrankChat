@@ -93,8 +93,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
 
         private void OnLikesChanged()
         {
-            RaisePropertyChanged(nameof(NumberOfLikesPresentation));
-            RaisePropertyChanged(nameof(NumberOfDislikesPresentation));
+            ExecutionStateWrapper.WrapAsync(() => RaisePropertiesChanged(nameof(NumberOfLikesPresentation), nameof(NumberOfDislikesPresentation)));
             _isReloadNeeded = true;
         }
 

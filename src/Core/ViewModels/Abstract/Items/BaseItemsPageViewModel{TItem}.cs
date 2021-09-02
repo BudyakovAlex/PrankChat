@@ -27,9 +27,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Abstract.Items
                 if (SetProperty(ref _items, value, OnItemsChanged))
                 {
                     _itemsSubscription.Disposable = value.WeakSubscribe(OnItemsCollectionChanged);
-                    RaisePropertyChanged(nameof(Count));
-                    RaisePropertyChanged(nameof(IsEmpty));
-                    RaisePropertyChanged(nameof(IsNotEmpty));
+                    ExecutionStateWrapper.WrapAsync(() => RaisePropertiesChanged(nameof(Count), nameof(IsEmpty), nameof(IsNotEmpty)));
                 }
             }
         }
@@ -42,9 +40,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Abstract.Items
 
         private void OnItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            RaisePropertyChanged(nameof(Count));
-            RaisePropertyChanged(nameof(IsEmpty));
-            RaisePropertyChanged(nameof(IsNotEmpty));
+            ExecutionStateWrapper.WrapAsync(() => RaisePropertiesChanged(nameof(Count), nameof(IsEmpty), nameof(IsNotEmpty)));
             OnItemsCollectionChanged();
         }
 

@@ -110,10 +110,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Common
                 ++CurrentPaginationIndex;
                 LoadedItemsCount += loadedItems;
 
-                await Task.WhenAll(
-                    RaisePropertyChanged(nameof(LoadedItemsCount)),
-                    RaisePropertyChanged(nameof(CurrentPaginationIndex)),
-                    RaisePropertyChanged(nameof(HasNextPage)));
+                await RaisePropertiesChanged(nameof(LoadedItemsCount), nameof(CurrentPaginationIndex), nameof(HasNextPage));
 
                 LoadMoreItemsCommand.RaiseCanExecuteChanged();
             }, ShouldNotifyIsBusy, true);
