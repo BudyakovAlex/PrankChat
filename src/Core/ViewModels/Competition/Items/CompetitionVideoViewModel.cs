@@ -35,17 +35,13 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
                 .DisposeWith(Disposables);
         }
 
-        public override bool CanVoteVideo
-            => IsVotingAvailable && !IsMyPublication;
+        public override bool CanVoteVideo => IsVotingAvailable && !IsMyPublication;
 
-        public override bool CanPlayVideo
-            => true;
+        public override bool CanPlayVideo => true;
 
-        public IMvxAsyncCommand ShowFullScreenVideoCommand
-            => this.CreateCommand(ShowFullScreenVideoAsync);
+        public IMvxAsyncCommand ShowFullScreenVideoCommand => this.CreateCommand(ShowFullScreenVideoAsync);
 
-        public string UserName
-            => User?.Login;
+        public string UserName => User?.Login;
 
         public DateTime PublicationDate
             => Video.CreatedAt.UtcDateTime;
@@ -54,14 +50,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 
         public bool IsVotingAvailable { get; }
 
-        public string LikesCount
-            => CountExtensions.ToCountString(NumberOfLikes);
+        public string LikesCount => CountExtensions.ToCountString(NumberOfLikes);
 
-        public string ViewsCount
-            => CountExtensions.ToCountViewsString(NumberOfViews);
+        public string ViewsCount => CountExtensions.ToCountViewsString(NumberOfViews);
 
-        public string PublicationDateString
-            => PublicationDate.ToTimeAgoPublicationString();
+        public string PublicationDateString => PublicationDate.ToTimeAgoPublicationString();
 
         private long _numberOfViews;
         public long NumberOfViews
@@ -70,8 +63,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
             set => SetProperty(ref _numberOfViews, value, () => RaisePropertyChanged(nameof(ViewsCount)));
         }
 
-        protected override User User
-            => Video.User;
+        protected override User User => Video.User;
 
         protected override void OnLikeChanged() =>
             RaisePropertyChanged(LikesCount);
