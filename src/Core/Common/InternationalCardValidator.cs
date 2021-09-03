@@ -8,10 +8,11 @@ namespace PrankChat.Mobile.Core.Common
     {
         private const string DefaultCardFormat = "#### #### #### ####";
         private const string ChinaUnionPayCardFormat = "###### #############";
-        private const string CartFormatDinersClub = "#### ###### ####";
-        private const string CartFormatMaestro = "#### #### #### #### ###";
-        private const string CartFormatMaestroLessThirteen = "#### #### #####";
-        private const string CartFormatMaestroLessFifteen = "#### ###### #####";
+        private const string DinersClubCardFormat = "#### ###### ####";
+        private const string MaestroCardFormat = "#### #### #### #### ###";
+        private const string MaestroLessThirteenCardFormat = "#### #### #####";
+        private const string MaestroLessFifteenCartFormat = "#### ###### #####";
+
         private InternationalCardValidator()
         {
         }
@@ -60,11 +61,11 @@ namespace PrankChat.Mobile.Core.Common
             CardIssuer.AmericanExpress => DefaultCardFormat,
             CardIssuer.ChinaUnionPay when cardLenght <= 16 => DefaultCardFormat,
             CardIssuer.ChinaUnionPay => ChinaUnionPayCardFormat,
-            CardIssuer.DinersClub when cardLenght <= 14 => CartFormatDinersClub,
+            CardIssuer.DinersClub when cardLenght <= 14 => DinersClubCardFormat,
             CardIssuer.DinersClub => DefaultCardFormat,
-            CardIssuer.Maestro when cardLenght <= 13 => CartFormatMaestroLessThirteen,
-            CardIssuer.Maestro when cardLenght <= 15 => CartFormatMaestroLessFifteen,
-            CardIssuer.Maestro => CartFormatMaestro,
+            CardIssuer.Maestro when cardLenght <= 13 => MaestroLessThirteenCardFormat,
+            CardIssuer.Maestro when cardLenght <= 15 => MaestroLessFifteenCartFormat,
+            CardIssuer.Maestro => MaestroCardFormat,
             _ => "",
         };
 

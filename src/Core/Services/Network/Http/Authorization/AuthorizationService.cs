@@ -17,12 +17,12 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Authorization
 {
     public class AuthorizationService : IAuthorizationService
     {
+        private const string VKAuthPath = "vk";
+        private const string FacebookAuthPath = "fb";
+
         private readonly IUserSessionProvider _userSessionProvider;
         private readonly IMvxMessenger _messenger;
         private readonly HttpClient _client;
-
-        private const string VKAuthPath = "vk";
-        private const string FacebookAuthPath = "fb";
 
         public AuthorizationService(
             IUserSessionProvider userSessionProvider,
