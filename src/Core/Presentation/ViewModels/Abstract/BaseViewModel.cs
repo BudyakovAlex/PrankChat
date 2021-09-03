@@ -39,7 +39,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
         public CompositeDisposable Disposables { get; }
 
         private ExecutionStateWrapper _executionStateWrapper;
-
         public ExecutionStateWrapper ExecutionStateWrapper
         {
             get => _executionStateWrapper;
