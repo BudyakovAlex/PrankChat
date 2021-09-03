@@ -17,8 +17,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
     {
         private readonly Func<BaseVideoItemViewModel[]> _getAllFullScreenVideosFunc;
 
-        public IMvxAsyncCommand ShowFullScreenVideoCommand;
-
         public CompetitionVideoViewModel(
             IVideoManager videoManager,
             IUserSessionProvider userSessionProvider,
@@ -65,6 +63,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
             get => _numberOfViews;
             set => SetProperty(ref _numberOfViews, value, () => RaisePropertyChanged(nameof(ViewsCount)));
         }
+
+        public IMvxAsyncCommand ShowFullScreenVideoCommand { get; }
 
         protected override User User => Video.User;
 
