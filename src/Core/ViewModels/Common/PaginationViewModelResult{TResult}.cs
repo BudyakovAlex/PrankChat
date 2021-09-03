@@ -1,7 +1,4 @@
 ﻿using MvvmCross.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Common
@@ -15,6 +12,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Common
         }
 
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
+
         protected virtual TResult DefaultResult { get; }
 
         protected override async Task CloseAsync(bool? isPlatform)
