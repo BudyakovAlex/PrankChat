@@ -56,9 +56,9 @@ namespace PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Arbitration
             bindingSet.Bind(_timeValueTextView).For(v => v.Text).To(vm => vm.TimeText);
 
             bindingSet.Bind(_actionButton).For(v => v.BindClick()).To(vm => vm.OpenDetailsOrderCommand);
-            bindingSet.Bind(_actionButton).For(OrderButtonStyleBinding.TargetBinding).To(vm => vm.OrderType);
+            bindingSet.Bind(_actionButton).For(v => v.BindOrderButtonStyle()).To(vm => vm.OrderType);
 
-            bindingSet.Bind(_backgroundView).For(v => v.BindDrawable()).To(vm => vm.OrderType)
+            bindingSet.Bind(_backgroundView).For(v => v.BindBackgroundDrawable()).To(vm => vm.OrderType)
                       .WithConversion<OrderTypeToViewBackgroundConverter>();
         }
     }

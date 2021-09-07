@@ -5,6 +5,7 @@ using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 
@@ -53,7 +54,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 
 			bindingSet.Bind(this).For(v => v.BindTap()).To(vm => vm.OpenDetailsOrderCommand)
 				.Mode(MvxBindingMode.OneTime);
-			bindingSet.Bind(backgroundImageView).For(UIImageViewOrderTypeTargetBinding.TargetBinding).To(vm => vm.OrderType);
+			bindingSet.Bind(backgroundImageView).For(v => v.BindOrderImageStyle()).To(vm => vm.OrderType);
 			bindingSet.Bind(profilePhotoImage).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl)
 				.Mode(MvxBindingMode.OneTime);
 			bindingSet.Bind(profilePhotoImage).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName)
@@ -67,8 +68,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 				.Mode(MvxBindingMode.OneTime);
 			bindingSet.Bind(orderDetailsButton).To(vm => vm.OpenDetailsOrderCommand)
 				.Mode(MvxBindingMode.OneTime);
-			bindingSet.Bind(orderDetailsButton).For(UIButtonOrderTypeTargetBinding.TargetBinding)
-				.To(vm => vm.OrderType);
+			bindingSet.Bind(orderDetailsButton).For(v => v.BindOrderButtonStyle()).To(vm => vm.OrderType);
 		}
 	}
 }

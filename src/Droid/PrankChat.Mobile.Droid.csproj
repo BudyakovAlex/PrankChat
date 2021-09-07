@@ -75,7 +75,7 @@
     <Compile Include="PlatformBusinessServices\Video\Listeners\VideoPlayerOnPreparedListener.cs" />
     <Compile Include="Presentation\Adapters\ViewHolders\Orders\OrderItemViewHolder.cs" />
     <Compile Include="Presentation\Bindings\OrderButtonStyleBinding.cs" />
-    <Compile Include="Presentation\Bindings\BackgroundBinding.cs" />
+    <Compile Include="Presentation\Bindings\BackgroundDrawableBinding.cs" />
     <Compile Include="Presentation\Converters\BooleanToResourcePathConverter.cs" />
     <Compile Include="Presentation\Converters\OrderTypeToViewBackgroundConverter.cs" />
     <Compile Include="Presentation\Views\Base\BaseFragment.cs" />

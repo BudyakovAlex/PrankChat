@@ -8,8 +8,6 @@ namespace PrankChat.Mobile.Droid.Presentation.Bindings
 {
     internal class OrderButtonStyleBinding : MvxTargetBinding<AppCompatButton, OrderType>
     {
-        public static string TargetBinding = "OrderButtonStyle";
-
         public override MvxBindingMode DefaultMode => MvxBindingMode.OneWay;
 
         public OrderButtonStyleBinding(AppCompatButton target) : base(target)

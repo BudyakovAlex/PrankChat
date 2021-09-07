@@ -5,19 +5,17 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Binding
 {
-    public class UIButtonSelectedTargetBinding : MvxPropertyInfoTargetBinding<UIButton>
+    public class UIButtonSelectedTargetBinding : MvxTargetBinding<UIButton, bool>
     {
-        public static string TargetBinding = "Selected";
-
-        public override MvxBindingMode DefaultMode => MvxBindingMode.TwoWay;
-
-        public UIButtonSelectedTargetBinding(object target, PropertyInfo targetPropertyInfo) : base(target, targetPropertyInfo)
+        public UIButtonSelectedTargetBinding(UIButton target) : base(target)
         {
         }
 
-        protected override void SetValueImpl(object target, object value)
+        public override MvxBindingMode DefaultMode => MvxBindingMode.TwoWay;
+
+        protected override void SetValue(bool value)
         {
-            View.Selected = (bool)value;
+            Target.Selected = (bool)value;
         }
     }
 }

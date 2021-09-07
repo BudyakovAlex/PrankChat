@@ -45,19 +45,19 @@ namespace PrankChat.Mobile.Droid
         {
             base.FillTargetFactories(registry);
 
-            registry.RegisterCustomBindingFactory<AppCompatButton>(OrderButtonStyleBinding.TargetBinding, button => new OrderButtonStyleBinding(button));
-            registry.RegisterCustomBindingFactory<View>(BackgroundBinding.TargetBinding, view => new BackgroundBinding(view));
-            registry.RegisterCustomBindingFactory<VideoView>(VideoUrlTargetBinding.TargetBinding, view => new VideoUrlTargetBinding(view));
-            registry.RegisterCustomBindingFactory<View>(ViewTouchTargetBinding.TargetBinding, view => new ViewTouchTargetBinding(view));
-            registry.RegisterCustomBindingFactory<View>(BackgroundColorBinding.TargetBinding, view => new BackgroundColorBinding(view));
-            registry.RegisterCustomBindingFactory<View>(BackgroundResourceBinding.TargetBinding, view => new BackgroundResourceBinding(view));
-            registry.RegisterCustomBindingFactory<ImageView>(ImageViewTintColorTargetBinding.TargetBinding, view => new ImageViewTintColorTargetBinding(view));
-            registry.RegisterCustomBindingFactory<TextView>(TextColorTargetBinding.TargetBinding, view => new TextColorTargetBinding(view));
+            registry.RegisterCustomBindingFactory<AppCompatButton>(nameof(OrderButtonStyleBinding), button => new OrderButtonStyleBinding(button));
+            registry.RegisterCustomBindingFactory<View>(nameof(BackgroundDrawableBinding), view => new BackgroundDrawableBinding(view));
+            registry.RegisterCustomBindingFactory<VideoView>(nameof(VideoUrlTargetBinding), view => new VideoUrlTargetBinding(view));
+            registry.RegisterCustomBindingFactory<View>(nameof(ViewTouchTargetBinding), view => new ViewTouchTargetBinding(view));
+            registry.RegisterCustomBindingFactory<View>(nameof(BackgroundColorBinding), view => new BackgroundColorBinding(view));
+            registry.RegisterCustomBindingFactory<View>(nameof(BackgroundResourceBinding), view => new BackgroundResourceBinding(view));
+            registry.RegisterCustomBindingFactory<ImageView>(nameof(ImageViewTintColorTargetBinding), view => new ImageViewTintColorTargetBinding(view));
+            registry.RegisterCustomBindingFactory<TextView>(nameof(TextColorTargetBinding), view => new TextColorTargetBinding(view));
             registry.RegisterCustomBindingFactory<View>(PaddingTargetBinding.StartPadding, view => new PaddingTargetBinding(view, PaddingTargetBinding.StartPadding));
             registry.RegisterCustomBindingFactory<View>(PaddingTargetBinding.EndPadding, view => new PaddingTargetBinding(view, PaddingTargetBinding.EndPadding));
             registry.RegisterCustomBindingFactory<View>(PaddingTargetBinding.TopPadding, view => new PaddingTargetBinding(view, PaddingTargetBinding.TopPadding));
             registry.RegisterCustomBindingFactory<View>(PaddingTargetBinding.BottomPadding, view => new PaddingTargetBinding(view, PaddingTargetBinding.BottomPadding));
-            registry.RegisterCustomBindingFactory<TabLayout.Tab>(TabLayoutTabTextBinding.TargetBinding, view => new TabLayoutTabTextBinding(view));
+            registry.RegisterCustomBindingFactory<TabLayout.Tab>(nameof(TabLayoutTabTextBinding), view => new TabLayoutTabTextBinding(view));
         }
     }
 }
