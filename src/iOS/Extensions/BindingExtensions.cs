@@ -1,4 +1,4 @@
-﻿using PrankChat.Mobile.iOS.Presentation.Binding;
+﻿using PrankChat.Mobile.iOS.Binding;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Extensions
