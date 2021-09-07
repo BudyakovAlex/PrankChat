@@ -105,30 +105,27 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
             return new CommentItemViewModel(UserSessionProvider, comment);
         }
 
-        private Task SendCommentAsync()
+        private async Task SendCommentAsync()
         {
-            return SafeExecutionWrapper.WrapAsync(async () =>
+            if (string.IsNullOrWhiteSpace(Comment))
             {
-                if (string.IsNullOrWhiteSpace(Comment))
-                {
-                    return;
-                }
+                return;
+            }
 
-                var comment = await _videoManager.CommentVideoAsync(_videoId, Comment);
-                if (comment is null)
-                {
-                    return;
-                }
+            var comment = await _videoManager.CommentVideoAsync(_videoId, Comment);
+            if (comment is null)
+            {
+                return;
+            }
 
-                comment.User = UserSessionProvider.User;
-                Items.Add(ProduceCommentItemViewModel(comment));
-                _newCommentsCounter += 1;
-                SetTotalItemsCount(_newCommentsCounter);
+            comment.User = UserSessionProvider.User;
+            Items.Add(ProduceCommentItemViewModel(comment));
+            _newCommentsCounter += 1;
+            SetTotalItemsCount(_newCommentsCounter);
 
-                ScrollInteraction.Raise(Items.Count - 1);
+            ScrollInteraction.Raise(Items.Count - 1);
 
-                Comment = string.Empty;
-            });
+            Comment = string.Empty;
         }
     }
 }
