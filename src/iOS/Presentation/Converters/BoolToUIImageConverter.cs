@@ -14,20 +14,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Converters
             var paymentType = (PaymentType)parameter;
             return paymentType switch
             {
-                PaymentType.Alphabank =>
-                    value ? GetIcon(ImageNames.IconPaymentAlphabankSelected) : GetIcon(ImageNames.IconPaymentAlphabank),
-                PaymentType.Card =>
-                    value ? GetIcon(ImageNames.IconPaymentСardsSelected) : GetIcon(ImageNames.IconPaymentСards),
-                PaymentType.Phone =>
-                    value ? GetIcon(ImageNames.IconPaymentPhoneSelected) : GetIcon(ImageNames.IconPaymentPhone),
-                PaymentType.Qiwi =>
-                    value ? GetIcon(ImageNames.IconPaymentQiwiSelected) : GetIcon(ImageNames.IconPaymentQiwi),
-                PaymentType.Sberbank =>
-                    value ? GetIcon(ImageNames.IconPaymentSberbankSelected) : GetIcon(ImageNames.IconPaymentSberbank),
-                PaymentType.YandexMoney =>
-                    value ? GetIcon(ImageNames.IconPaymentYandexmoneySelected) : GetIcon(ImageNames.IconPaymentYandexmoney),
-                _ =>
-                    new UIImage(),
+                PaymentType.Alphabank => value ? GetIcon(ImageNames.IconPaymentAlphabankSelected) : GetIcon(ImageNames.IconPaymentAlphabank),
+                PaymentType.Card => value ? GetIcon(ImageNames.IconPaymentСardsSelected) : GetIcon(ImageNames.IconPaymentСards),
+                PaymentType.Phone => value ? GetIcon(ImageNames.IconPaymentPhoneSelected) : GetIcon(ImageNames.IconPaymentPhone),
+                PaymentType.Qiwi => value ? GetIcon(ImageNames.IconPaymentQiwiSelected) : GetIcon(ImageNames.IconPaymentQiwi),
+                PaymentType.Sberbank => value ? GetIcon(ImageNames.IconPaymentSberbankSelected) : GetIcon(ImageNames.IconPaymentSberbank),
+                PaymentType.YandexMoney => value ? GetIcon(ImageNames.IconPaymentYandexmoneySelected) : GetIcon(ImageNames.IconPaymentYandexmoney),
+                _ => new UIImage(),
             };
         }
 

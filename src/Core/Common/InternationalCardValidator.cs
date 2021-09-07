@@ -46,7 +46,7 @@ namespace PrankChat.Mobile.Core.Common
             return formattedNumber;
         }
 
-        private string GetCardMask(CardIssuer cardType, int cardLenght) => cardType switch
+        private string GetCardMask(CardIssuer cardType, int cardLength) => cardType switch
         {
             CardIssuer.Unknown => DefaultCardFormat,
             CardIssuer.Visa => DefaultCardFormat,
@@ -59,14 +59,14 @@ namespace PrankChat.Mobile.Core.Common
             CardIssuer.Discover => DefaultCardFormat,
             CardIssuer.Dankort => DefaultCardFormat,
             CardIssuer.AmericanExpress => DefaultCardFormat,
-            CardIssuer.ChinaUnionPay when cardLenght <= 16 => DefaultCardFormat,
+            CardIssuer.ChinaUnionPay when cardLength <= 16 => DefaultCardFormat,
             CardIssuer.ChinaUnionPay => ChinaUnionPayCardFormat,
-            CardIssuer.DinersClub when cardLenght <= 14 => DinersClubCardFormat,
+            CardIssuer.DinersClub when cardLength <= 14 => DinersClubCardFormat,
             CardIssuer.DinersClub => DefaultCardFormat,
-            CardIssuer.Maestro when cardLenght <= 13 => MaestroLessThirteenCardFormat,
-            CardIssuer.Maestro when cardLenght <= 15 => MaestroLessFifteenCartFormat,
+            CardIssuer.Maestro when cardLength <= 13 => MaestroLessThirteenCardFormat,
+            CardIssuer.Maestro when cardLength <= 15 => MaestroLessFifteenCartFormat,
             CardIssuer.Maestro => MaestroCardFormat,
-            _ => "",
+            _ => string.Empty,
         };
 
         private string GetPattern(int digitCount)

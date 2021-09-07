@@ -107,14 +107,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
 
         private Task ShowWalthroughIfNeedAsync(int position) => position switch
         {
-            1 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CompetitionsViewModel>() =>
-                _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>(),
-            2 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CreateOrderViewModel>() =>
-                _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>(),
-            3 when _walkthroughsProvider.CheckCanShowOnFirstLoad<OrdersViewModel>() =>
-                _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>(),
-            4 when _walkthroughsProvider.CheckCanShowOnFirstLoad<ProfileViewModel>() =>
-                _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>(),
+            1 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CompetitionsViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>(),
+            2 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CreateOrderViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>(),
+            3 when _walkthroughsProvider.CheckCanShowOnFirstLoad<OrdersViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>(),
+            4 when _walkthroughsProvider.CheckCanShowOnFirstLoad<ProfileViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>(),
             _ => Task.FromResult(false),
         };
 

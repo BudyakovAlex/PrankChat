@@ -123,20 +123,13 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
 
         private string GetValidationErrorLocalizedMessage(ValidationException exception) => exception.ErrorType switch
         {
-            ValidationErrorType.Empty =>
-               string.Format(Resources.Validation_Error_Empty, exception.LocalizedFieldName),
-            ValidationErrorType.CanNotMatch =>
-               string.Format(Resources.Validation_Error_CanNotMatch, exception.LocalizedFieldName, exception.RelativeValue),
-            ValidationErrorType.GreaterThanRequired =>
-               string.Format(Resources.Validation_Error_GreaterThanRequired, exception.LocalizedFieldName, exception.RelativeValue),
-            ValidationErrorType.LowerThanRequired =>
-               string.Format(Resources.Validation_Error_LowerThanRequired, exception.LocalizedFieldName, exception.RelativeValue),
-            ValidationErrorType.NotMatch =>
-               string.Format(Resources.Validation_Error_NotMatch, exception.LocalizedFieldName, exception.RelativeValue),
-            ValidationErrorType.Invalid =>
-               string.Format(Resources.Validation_Error_Invalid, exception.LocalizedFieldName),
-            ValidationErrorType.NotConfirmed =>
-               string.Format(Resources.Not_Confirmed, exception.LocalizedFieldName),
+            ValidationErrorType.Empty => string.Format(Resources.Validation_Error_Empty, exception.LocalizedFieldName),
+            ValidationErrorType.CanNotMatch => string.Format(Resources.Validation_Error_CanNotMatch, exception.LocalizedFieldName, exception.RelativeValue),
+            ValidationErrorType.GreaterThanRequired => string.Format(Resources.Validation_Error_GreaterThanRequired, exception.LocalizedFieldName, exception.RelativeValue),
+            ValidationErrorType.LowerThanRequired => string.Format(Resources.Validation_Error_LowerThanRequired, exception.LocalizedFieldName, exception.RelativeValue),
+            ValidationErrorType.NotMatch => string.Format(Resources.Validation_Error_NotMatch, exception.LocalizedFieldName, exception.RelativeValue),
+            ValidationErrorType.Invalid => string.Format(Resources.Validation_Error_Invalid, exception.LocalizedFieldName),
+            ValidationErrorType.NotConfirmed => string.Format(Resources.Not_Confirmed, exception.LocalizedFieldName),
             ValidationErrorType.Undefined => exception.Message,
             _ => string.Empty,
         };

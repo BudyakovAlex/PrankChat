@@ -138,27 +138,34 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             _ => throw new ArgumentOutOfRangeException(),
         };
 
-        private CGColor[] GetGradient(CompetitionPhase phase) => phase switch
+        private CGColor[] GetGradient(CompetitionPhase phase)
         {
-            CompetitionPhase.New =>
-                new[]
-                {
+            switch (phase)
+            {
+                case CompetitionPhase.New:
+                    return new[]
+                    {
                         Theme.Color.CompetitionPhaseNewSecondary.CGColor,
                         Theme.Color.CompetitionPhaseNewPrimary.CGColor
-                },
-            CompetitionPhase.Voting =>
-                new[]
-                {
+                    };
+
+                case CompetitionPhase.Voting:
+                    return new[]
+                    {
                         Theme.Color.CompetitionPhaseVotingSecondary.CGColor,
                         Theme.Color.CompetitionPhaseVotingPrimary.CGColor
-                },
-            CompetitionPhase.Finished =>
-                new[]
-                {
+                    };
+
+                case CompetitionPhase.Finished:
+                    return new[]
+                    {
                         Theme.Color.CompetitionPhaseFinishedSecondary.CGColor,
                         Theme.Color.CompetitionPhaseFinishedPrimary.CGColor
-                },
-            _ => throw new ArgumentOutOfRangeException(),
-        };
+                    };
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
     }
 }

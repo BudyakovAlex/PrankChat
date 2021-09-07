@@ -17,7 +17,7 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Authorization
 {
     public class AuthorizationService : IAuthorizationService
     {
-        private const string VKAuthPath = "vk";
+        private const string VkontakteAuthPath = "vk";
         private const string FacebookAuthPath = "fb";
 
         private readonly IUserSessionProvider _userSessionProvider;
@@ -129,7 +129,7 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Authorization
 
         private string GetAuthPathByLoginType(LoginType loginType) => loginType switch
         {
-            LoginType.Vk => VKAuthPath,
+            LoginType.Vk => VkontakteAuthPath,
             LoginType.Facebook => FacebookAuthPath,
             _ => throw new ArgumentException(),
         };
