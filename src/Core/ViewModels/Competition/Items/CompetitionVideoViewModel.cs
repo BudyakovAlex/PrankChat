@@ -68,6 +68,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 
         protected override User User => Video.User;
 
+        public IMvxAsyncCommand ShowFullScreenVideoCommand { get; }
+
         protected override void OnLikeChanged() =>
             RaisePropertyChanged(LikesCount);
 
