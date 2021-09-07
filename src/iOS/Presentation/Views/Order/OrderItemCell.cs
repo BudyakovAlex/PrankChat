@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;
@@ -71,7 +72,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             bindingSet.Bind(this).For(v => v.OrderTagType).To(vm => vm.OrderTagType);
             bindingSet.Bind(this).For(v => v.BindTap()).To(vm => vm.OpenDetailsOrderCommand)
                 .Mode(MvxBindingMode.OneTime);
-            bindingSet.Bind(backgroundImageView).For(UIImageViewOrderTypeTargetBinding.TargetBinding).To(vm => vm.OrderType);
+            bindingSet.Bind(backgroundImageView).For(v => v.BindOrderImageStyle()).To(vm => vm.OrderType);
             bindingSet.Bind(profilePhotoImage).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl)
                 .Mode(MvxBindingMode.OneTime);
             bindingSet.Bind(profilePhotoImage).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName)
@@ -85,7 +86,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
                 .Mode(MvxBindingMode.OneTime);
             bindingSet.Bind(orderDetailsButton).To(vm => vm.OpenDetailsOrderCommand)
                 .Mode(MvxBindingMode.OneTime);
-            bindingSet.Bind(orderDetailsButton).For(UIButtonOrderTypeTargetBinding.TargetBinding).To(vm => vm.OrderType);
+            bindingSet.Bind(orderDetailsButton).For(v => v.BindOrderButtonStyle()).To(vm => vm.OrderType);
             bindingSet.Bind(statusOrderLabel).To(vm => vm.StatusText)
                 .Mode(MvxBindingMode.OneWay);
             bindingSet.Bind(orderTimeLabel).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
