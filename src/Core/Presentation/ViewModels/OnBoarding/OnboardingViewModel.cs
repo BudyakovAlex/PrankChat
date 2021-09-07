@@ -45,7 +45,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
 
                 if (SetProperty(ref _selectedIndex, value))
                 {
-                    ExecutionStateWrapper.WrapAsync(() => RaisePropertiesChanged(nameof(IsLastSlide), nameof(ActionTitle)));
+                    RaisePropertiesChanged(nameof(IsLastSlide), nameof(ActionTitle));
                 }
             }
         }
