@@ -6,6 +6,13 @@ namespace PrankChat.Mobile.Core.Common
 {
     public class InternationalCardValidator
     {
+        private const string DefaultCardFormat = "#### #### #### ####";
+        private const string ChinaUnionPayCardFormat = "###### #############";
+        private const string DinersClubCardFormat = "#### ###### ####";
+        private const string MaestroCardFormat = "#### #### #### #### ###";
+        private const string MaestroLessThirteenCardFormat = "#### #### #####";
+        private const string MaestroLessFifteenCartFormat = "#### ###### #####";
+
         private InternationalCardValidator()
         {
         }
@@ -39,44 +46,28 @@ namespace PrankChat.Mobile.Core.Common
             return formattedNumber;
         }
 
-        private string GetCardMask(CardIssuer cardType, int cardLenght)
+        private string GetCardMask(CardIssuer cardType, int cardLength) => cardType switch
         {
-            switch (cardType)
-            {
-                case CardIssuer.Unknown:
-                case CardIssuer.Visa:
-                case CardIssuer.Switch:
-                case CardIssuer.RuPay:
-                case CardIssuer.MasterCard:
-                case CardIssuer.Laser:
-                case CardIssuer.JCB:
-                case CardIssuer.Hipercard:
-                case CardIssuer.Discover:
-                case CardIssuer.Dankort:
-                case CardIssuer.AmericanExpress:
-                    return "#### #### #### ####";
-
-                case CardIssuer.ChinaUnionPay when cardLenght <= 16:
-                    return "#### #### #### ####";
-                case CardIssuer.ChinaUnionPay:
-                    return "###### #############";
-
-                case CardIssuer.DinersClub when cardLenght <= 14:
-                    return "#### ###### ####";
-                case CardIssuer.DinersClub:
-                    return "#### #### #### ####";
-
-                case CardIssuer.Maestro when cardLenght <= 13:
-                    return "#### #### #####";
-                case CardIssuer.Maestro when cardLenght <= 15:
-                    return "#### ###### #####";
-
-                case CardIssuer.Maestro:
-                    return "#### #### #### #### ###";
-            }
-
-            return "";
-        }
+            CardIssuer.Unknown => DefaultCardFormat,
+            CardIssuer.Visa => DefaultCardFormat,
+            CardIssuer.Switch => DefaultCardFormat,
+            CardIssuer.RuPay => DefaultCardFormat,
+            CardIssuer.MasterCard => DefaultCardFormat,
+            CardIssuer.Laser => DefaultCardFormat,
+            CardIssuer.JCB => DefaultCardFormat,
+            CardIssuer.Hipercard => DefaultCardFormat,
+            CardIssuer.Discover => DefaultCardFormat,
+            CardIssuer.Dankort => DefaultCardFormat,
+            CardIssuer.AmericanExpress => DefaultCardFormat,
+            CardIssuer.ChinaUnionPay when cardLength <= 16 => DefaultCardFormat,
+            CardIssuer.ChinaUnionPay => ChinaUnionPayCardFormat,
+            CardIssuer.DinersClub when cardLength <= 14 => DinersClubCardFormat,
+            CardIssuer.DinersClub => DefaultCardFormat,
+            CardIssuer.Maestro when cardLength <= 13 => MaestroLessThirteenCardFormat,
+            CardIssuer.Maestro when cardLength <= 15 => MaestroLessFifteenCartFormat,
+            CardIssuer.Maestro => MaestroCardFormat,
+            _ => string.Empty,
+        };
 
         private string GetPattern(int digitCount)
         {

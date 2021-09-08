@@ -1,6 +1,7 @@
 ﻿using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Common;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Base
@@ -19,7 +20,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
 
             if (string.IsNullOrWhiteSpace(Title))
             {
-                var logoImageView = new UIImageView(UIImage.FromBundle("ic_logo"), null);
+                var logoImageView = new UIImageView(UIImage.FromBundle(ImageNames.IconLogo), null);
                 NavigationItem.TitleView = logoImageView;
             }
         }

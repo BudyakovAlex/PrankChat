@@ -9,6 +9,7 @@ using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Common;
 using System;
 using UIKit;
 
@@ -30,13 +31,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 _isLiked = value;
                 if (_isLiked)
                 {
-                    var image = UIImage.FromBundle("ic_like").ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+                    var image = UIImage.FromBundle(ImageNames.IconLike).ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
                     likeButton.SetImage(image, UIControlState.Normal);
                     likeButton.TintColor = Theme.Color.Accent;
                 }
                 else
                 {
-                    var image = UIImage.FromBundle("ic_like_hollow");
+                    var image = UIImage.FromBundle(ImageNames.IconLikeHollow);
                     likeButton.SetImage(image, UIControlState.Normal);
                     likeButton.TintColor = null;
                 }
@@ -52,13 +53,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Publication
                 _isDisliked = value;
                 if (_isDisliked)
                 {
-                    var image = UIImage.FromBundle("ic_dislike").ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+                    var image = UIImage.FromBundle(ImageNames.IconDislike).ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
                     dislikeButton.SetImage(image, UIControlState.Normal);
                     dislikeButton.TintColor = Theme.Color.Accent;
                 }
                 else
                 {
-                    var image = UIImage.FromBundle("ic_dislike_hollow");
+                    var image = UIImage.FromBundle(ImageNames.IconDislikeHollow);
                     dislikeButton.SetImage(image, UIControlState.Normal);
                     dislikeButton.TintColor = null;
                 }

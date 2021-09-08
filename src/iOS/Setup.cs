@@ -20,7 +20,7 @@ using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.FileSystem;
 using PrankChat.Mobile.iOS.Plugins.Video;
 using PrankChat.Mobile.iOS.Presentation.Binding;
-using PrankChat.Mobile.iOS.Providers;
+using PrankChat.Mobile.iOS.Common;
 using UIKit;
 using WebKit;
 using PrankChat.Mobile.Core.Plugins.UserInteraction;

@@ -107,9 +107,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels
                     case SearchTabType.Videos:
                         var videosPaginationModel = await _searchManager.SearchVideosAsync(SearchValue, page, pageSize);
                         return SetList(videosPaginationModel, page, ProduceVideoViewModel, Items);
+                    default:
+                        return 0;
                 }
-
-                return 0;
             }
             catch (Exception ex)
             {

@@ -6,14 +6,11 @@ namespace PrankChat.Mobile.Core.Extensions
 {
     public static class CompetitionExtensions
     {
-        public static CompetitionPhase GetPhase(this Competition competition)
+        public static CompetitionPhase GetPhase(this Competition competition) => competition.Status switch
         {
-            return competition.Status switch
-            {
-                Constants.CompetitionStatuses.Finished => CompetitionPhase.Finished,
-                Constants.CompetitionStatuses.Voting => CompetitionPhase.Voting,
-                _ => CompetitionPhase.New,
-            };
-        }
+            Constants.CompetitionStatuses.Finished => CompetitionPhase.Finished,
+            Constants.CompetitionStatuses.Voting => CompetitionPhase.Voting,
+            _ => CompetitionPhase.New,
+        };
     }
 }
