@@ -18,6 +18,5 @@ namespace PrankChat.Mobile.Core.Extensions
             OrderCategory.PrivatePaidCompetition => true,
             _ => false,
         };
-        
     }
 }
