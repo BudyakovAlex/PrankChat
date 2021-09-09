@@ -4,6 +4,7 @@ using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Common;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
@@ -24,8 +25,8 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
         {
             base.SetupControls();
 
-            BackgroundView = new UIImageView(UIImage.FromBundle("bg_payment"));
-            SelectedBackgroundView = new UIImageView(UIImage.FromBundle("bg_selected_payment"));
+            BackgroundView = new UIImageView(UIImage.FromBundle(ImageNames.BackgroundPayment));
+            SelectedBackgroundView = new UIImageView(UIImage.FromBundle(ImageNames.BackgroundSelectedPayment));
         }
 
         protected override void SetBindings()

@@ -2,6 +2,7 @@
 using MvvmCross.Binding;
 using MvvmCross.Binding.Bindings.Target;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.iOS.Common;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Binding
@@ -21,17 +22,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Binding
             Target.Image = UIImage.FromBundle(imageName);
         }
 
-        private string GetImageName(OrderType orderType)
+        private string GetImageName(OrderType orderType) => orderType switch
         {
-            switch (orderType)
-            {
-                case OrderType.MyOrder:             return "bg_order_type_my";
-                case OrderType.MyOrderInModeration: return "bg_order_type_my_in_moderation";
-                case OrderType.NotMyOrder:          return "bg_order_type_not_my";
-                case OrderType.MyOrderCompleted:    return "bg_order_type_my_completed";
-                case OrderType.NotMyOrderCompleted: return "bg_order_type_my_completed";
-                default: throw new ArgumentOutOfRangeException();
-            }
-        }
+            OrderType.MyOrder => ImageNames.BackgroundOrderTypeMy,
+            OrderType.MyOrderInModeration => ImageNames.BackgroundOrderTypeMyInModeration,
+            OrderType.NotMyOrder => ImageNames.BackgroundOrderTypeNotMy,
+            OrderType.MyOrderCompleted => ImageNames.BackgroundOrderTypeMyCompleted,
+            OrderType.NotMyOrderCompleted => ImageNames.BackgroundOrderTypeMyCompleted,
+            _ => throw new ArgumentOutOfRangeException(),
+        };
     }
 }

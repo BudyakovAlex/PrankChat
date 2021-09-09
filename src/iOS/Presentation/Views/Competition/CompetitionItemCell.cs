@@ -130,23 +130,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             _titleGradientSublayer.Colors = GetGradient(_phase);
         }
 
-        private UIColor GetPrimaryColor(CompetitionPhase phase)
+        private UIColor GetPrimaryColor(CompetitionPhase phase) => phase switch
         {
-            switch (phase)
-            {
-                case CompetitionPhase.New:
-                    return Theme.Color.CompetitionPhaseNewPrimary;
-
-                case CompetitionPhase.Voting:
-                    return Theme.Color.CompetitionPhaseVotingPrimary;
-
-                case CompetitionPhase.Finished:
-                    return Theme.Color.CompetitionPhaseFinishedPrimary;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+            CompetitionPhase.New => Theme.Color.CompetitionPhaseNewPrimary,
+            CompetitionPhase.Voting => Theme.Color.CompetitionPhaseVotingPrimary,
+            CompetitionPhase.Finished => Theme.Color.CompetitionPhaseFinishedPrimary,
+            _ => throw new ArgumentOutOfRangeException(),
+        };
 
         private CGColor[] GetGradient(CompetitionPhase phase)
         {

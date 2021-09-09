@@ -17,18 +17,15 @@ namespace PrankChat.Mobile.Core.Extensions
             return (DateTime.UtcNow - TimeSpan.FromDays(days)).ToString(DateFormats.RestApiDate);
         }
 
-        private static int GetDays(DateFilterType dateFilterType)
+        private static int GetDays(DateFilterType dateFilterType) => dateFilterType switch
         {
-            return dateFilterType switch
-            {
-                DateFilterType.Day => 0,
-                DateFilterType.Week => DaysInWeek,
-                DateFilterType.Month => GetDaysInMonth(),
-                DateFilterType.Quarter => GetDaysInMonth(MonthsInQuarter),
-                DateFilterType.HalfYear => GetDaysInMonth(MonthsInHalfYear),
-                _ => 0,
-            };
-        }
+            DateFilterType.Day => 0,
+            DateFilterType.Week => DaysInWeek,
+            DateFilterType.Month => GetDaysInMonth(),
+            DateFilterType.Quarter => GetDaysInMonth(MonthsInQuarter),
+            DateFilterType.HalfYear => GetDaysInMonth(MonthsInHalfYear),
+            _ => 0,
+        };
 
         private static int GetDaysInMonth(int monthAgo = 0)
         {

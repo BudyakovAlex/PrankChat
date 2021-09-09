@@ -42,17 +42,14 @@ namespace PrankChat.Mobile.Core.Extensions
         {
             if (customerId.HasValue && user?.Id == customerId)
             {
-                switch (orderStatusType)
+                return orderStatusType switch
                 {
-                    case OrderStatusType.New:
-                        return OrderType.MyOrderInModeration;
-                    case OrderStatusType.Finished:
-                    case OrderStatusType.ClosedAfterArbitrationCustomerWin:
-                    case OrderStatusType.ClosedAfterArbitrationExecutorWin:
-                        return OrderType.MyOrderCompleted;
-                    default:
-                        return OrderType.MyOrder;
-                }
+                    OrderStatusType.New => OrderType.MyOrderInModeration,
+                    OrderStatusType.Finished => OrderType.MyOrderCompleted,
+                    OrderStatusType.ClosedAfterArbitrationCustomerWin => OrderType.MyOrderCompleted,
+                    OrderStatusType.ClosedAfterArbitrationExecutorWin => OrderType.MyOrderCompleted,
+                    _ => OrderType.MyOrder,
+                };
             }
 
             return orderStatusType == OrderStatusType.Finished ||

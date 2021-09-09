@@ -6,6 +6,7 @@ using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Presentation.ViewModels;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Common;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
@@ -105,11 +106,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
             
             if (TabBar.Items?.Length > 0)
             {
-                InitTab(0, "ic_home", Resources.Home_Tab);
-                InitTab(1, "ic_competitions", Resources.Competitions_Tab);
-                InitCentralTab("ic_create_order");
-                InitTab(3, "ic_orders", Resources.Orders_Tab);
-                InitTab(4, "ic_profile", Resources.Profile_Tab);
+                InitTab(0, ImageNames.IconHome, Resources.Home_Tab);
+                InitTab(1, ImageNames.IconCompetitions, Resources.Competitions_Tab);
+                InitCentralTab(ImageNames.IconCreateOrder);
+                InitTab(3, ImageNames.IconOrders, Resources.Orders_Tab);
+                InitTab(4, ImageNames.IconProfile, Resources.Profile_Tab);
             }
         }
 

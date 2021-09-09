@@ -13,13 +13,14 @@ using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Presentation.Views.Order;
+using PrankChat.Mobile.iOS.Common;
 using System;
 using UIKit;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 {
-    [MvxTabPresentation(TabName = "Profile", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
+    [MvxTabPresentation(TabName = "Profile", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected, WrapInNavigationController = true)]
     public partial class ProfileView : BaseRefreshableTabbedView<ProfileViewModel>, IScrollableView
     {
         private MvxUIRefreshControl _refreshControl;
@@ -92,12 +93,12 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             InitializeTableView();
 
-            _notificationBarItem = NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(
                 new UIBarButtonItem[]
                 {
                     _notificationBarItem,
-                    NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand)
+                    NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand)
                 },
                 true);
 
@@ -118,7 +119,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             _refreshControl = new MvxUIRefreshControl();
             rootScrollView.RefreshControl = _refreshControl;
 
-            var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
+            var logoButton = NavigationItemHelper.CreateBarButton(ImageNames.IconLogo, null);
             logoButton.Enabled = false;
             NavigationItem.LeftBarButtonItem = logoButton;
         }

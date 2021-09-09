@@ -3,6 +3,7 @@ using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding.Items;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Common;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
@@ -38,23 +39,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Onboarding
             bindingSet.Bind(descriptionLabel).For(v => v.Text).To(vm => vm.Description);
         }
 
-        private string GetImageName(OnBoardingPageType type)
+        private string GetImageName(OnBoardingPageType type) => type switch
         {
-            switch (type)
-            {
-                case OnBoardingPageType.FirstSlide:
-                    return "bg_onboarding_first_slide";
-                case OnBoardingPageType.SecondSlide:
-                    return "bg_onboarding_second_slide";
-                case OnBoardingPageType.ThirdSlide:
-                    return "bg_onboarding_third_slide";
-                case OnBoardingPageType.FourthSlide:
-                    return "bg_onboarding_fourth_slide";
-                case OnBoardingPageType.FifthSlide:
-                    return "bg_onboarding_fifth_slide";
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+            OnBoardingPageType.FirstSlide => ImageNames.BackgroundOnboardingFirstSlide,
+            OnBoardingPageType.SecondSlide => ImageNames.BackgroundOnboardingSecondSlide,
+            OnBoardingPageType.ThirdSlide => ImageNames.BackgroundOnboardingThirdSlide,
+            OnBoardingPageType.FourthSlide => ImageNames.BackgroundOnboardingFourthSlide,
+            OnBoardingPageType.FifthSlide => ImageNames.BackgroundOnboardingFifthSlide,
+            _ => throw new ArgumentOutOfRangeException(),
+        };
     }
 }

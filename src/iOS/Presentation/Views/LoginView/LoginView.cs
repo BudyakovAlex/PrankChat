@@ -12,6 +12,7 @@ using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using System;
 using System.Collections.Generic;
 using UIKit;
+using PrankChat.Mobile.iOS.Common;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
 {
@@ -85,10 +86,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.LoginView
             socialNetworksTitleLabel.Font = Theme.Font.RegularFontOfSize(12);
             socialNetworksTitleLabel.TextColor = Theme.Color.White;
 
-            vkButton.SetImage(UIImage.FromBundle("ic_vk").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            okButton.SetImage(UIImage.FromBundle("ic_ok").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            facebookButton.SetImage(UIImage.FromBundle("ic_facebook").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            gmailButton.SetImage(UIImage.FromBundle("ic_gmail").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            vkButton.SetImage(UIImage.FromBundle(ImageNames.IconVk).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            okButton.SetImage(UIImage.FromBundle(ImageNames.IconOk).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            facebookButton.SetImage(UIImage.FromBundle(ImageNames.IconFacebook).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            gmailButton.SetImage(UIImage.FromBundle(ImageNames.IconGmail).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
 
             _appleButtonTapGesture = new UITapGestureRecognizer(OnAppleIdButtonTouched);
             _appleIdButton.AddGestureRecognizer(_appleButtonTapGesture);

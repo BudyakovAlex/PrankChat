@@ -16,22 +16,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
         {
         }
 
-        protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
+        protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item) => item switch
         {
-            switch (item)
-            {
-                case ProfileSearchItemViewModel _:
-                    return tableView.DequeueReusableCell(ProfileSearchItemCell.CellId);
-                case OrderItemViewModel _:
-                    return tableView.DequeueReusableCell(OrderItemCell.CellId);
-                default:
-                    return new MvxStandardTableViewCell(string.Empty, UITableViewCellStyle.Default, new NSString("MvxStandardTableViewCell"));
-            }
-        }
+            ProfileSearchItemViewModel _ => tableView.DequeueReusableCell(ProfileSearchItemCell.CellId),
+            OrderItemViewModel _ => tableView.DequeueReusableCell(OrderItemCell.CellId),
+            _ => new MvxStandardTableViewCell(string.Empty, UITableViewCellStyle.Default, new NSString("MvxStandardTableViewCell")),
+        };
 
-        public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
-        {
-            return UITableView.AutomaticDimension;
-        }
+        public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath) =>
+            UITableView.AutomaticDimension;
     }
 }

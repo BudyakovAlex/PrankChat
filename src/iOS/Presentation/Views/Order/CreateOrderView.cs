@@ -13,11 +13,12 @@ using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
+using PrankChat.Mobile.iOS.Common;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 {
-    [MvxTabPresentation(TabName = "Create Order", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
+    [MvxTabPresentation(TabName = "Create Order", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected, WrapInNavigationController = true)]
     public partial class CreateOrderView : BaseTabbedView<CreateOrderViewModel>
     {
         private const int MinimumDescriptionHeight = 80;
@@ -100,15 +101,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             _dynamicDescriptionTextView = new UITextView();
             DefinesPresentationContext = true;
 
-            _notificationBarItem = NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                 _notificationBarItem,
-                NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand)
+                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand)
             }, true);
 
-            _checkedImage = UIImage.FromBundle("ic_checkbox_checked");
-            _uncheckedImage = UIImage.FromBundle("ic_checkbox_unchecked");
+            _checkedImage = UIImage.FromBundle(ImageNames.IconChecked);
+            _uncheckedImage = UIImage.FromBundle(ImageNames.IconUnchecked);
 
             Title = Resources.CreateOrderView_Title;
 
@@ -131,7 +132,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             priceTextField.SetDarkStyle(Resources.CreateOrderView_Price_Placeholder, rightPadding: 14);
             priceTextField.TextAlignment = UITextAlignment.Right;
 
-            completeDateTextField.SetDarkStyle(Resources.CreateOrderView_CompleteDate_Placeholder, rightImage: UIImage.FromBundle("ic_calendar_accent"));
+            completeDateTextField.SetDarkStyle(Resources.CreateOrderView_CompleteDate_Placeholder, rightImage: UIImage.FromBundle(ImageNames.IconCalendarAccent));
 
             hideExecutorCheckboxLabel.Text = Resources.Create_Order_Secret_order;
             hideExecutorCheckboxLabel.SetRegularStyle(14, Theme.Color.Black);
