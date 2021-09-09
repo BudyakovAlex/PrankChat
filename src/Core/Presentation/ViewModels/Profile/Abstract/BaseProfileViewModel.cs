@@ -65,7 +65,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract
             set => SetProperty(ref _birthdate, value, () => RaisePropertyChanged(nameof(BirthdayText)));
         }
 
-        public string BirthdayText => Birthday?.ToShortDateString() ?? Resources.ProfileUpdateViewBirthdayPlaceholder;
+        public string BirthdayText => Birthday?.ToShortDateString() ?? Resources.Birthday;
 
         private GenderType? _gender;
         public GenderType? Gender

@@ -34,10 +34,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition.Items
         {
             if (CanJoinToPaidCompetition)
             {
-                return Resources.CompetitionPayForJoin;
+                return Resources.PayForParticipation;
             }
 
-            return Resources.CompetitionLoadVideo;
+            return Resources.UploadVideo;
         }
 
         private Task OpenRulesAsync()

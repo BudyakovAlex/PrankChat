@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Order
             HasOptionsMenu = true;
         }
 
-        protected override string TitleActionBar => Core.Localization.Resources.CreateOrderViewTitle;
+        protected override string TitleActionBar => Core.Localization.Resources.CreateOrder;
 
         protected override void SetViewProperties(View view)
         {

@@ -8,11 +8,11 @@ namespace PrankChat.Mobile.Core.Extensions.DateFilter
     {
         public static string ToLocalizedString(this DateFilterType dateFilterType) => dateFilterType switch
         {
-            DateFilterType.Day => Resources.PublicationTabFilterDay,
-            DateFilterType.Week => Resources.PublicationTabFilterWeek,
-            DateFilterType.Month => Resources.PublicationTabFilterMonth,
-            DateFilterType.Quarter => Resources.PublicationTabFilterQuarter,
-            DateFilterType.HalfYear => Resources.PublicationTabFilterHalfYear,
+            DateFilterType.Day => Resources.PerDay,
+            DateFilterType.Week => Resources.PerWeek,
+            DateFilterType.Month => Resources.PerMonth,
+            DateFilterType.Quarter => Resources.PerQuarter,
+            DateFilterType.HalfYear => Resources.PerHalfYear,
             _ => throw new NotSupportedException($"Not supported dataFilterType for value {dateFilterType}"),
         };
     }

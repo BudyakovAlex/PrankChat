@@ -73,9 +73,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         public int DisikesCount => Order?.NegativeArbitrationValuesCount ?? 0;
 
-        public string YesText => IsDecideEnabled ? Resources.OrderDetailsViewYesButton : LikesCount.ToString();
+        public string YesText => IsDecideEnabled ? Resources.Yes : LikesCount.ToString();
 
-        public string NoText => IsDecideEnabled ? Resources.OrderDetailsViewNoButton : DisikesCount.ToString();
+        public string NoText => IsDecideEnabled ? Resources.No : DisikesCount.ToString();
 
         public ArbitrationValueType? SelectedArbitration => Order?.MyArbitrationValue;
 
@@ -239,9 +239,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return;
             }
 
-            var result = await UserInteraction.ShowConfirmAsync(Resources.OrderDetailsViewTakeOrderQuestion,
+            var result = await UserInteraction.ShowConfirmAsync(Resources.TakeOrderQuestion,
                                                               Resources.Attention,
-                                                              Resources.OrderDetailsViewTakeOrderTitle,
+                                                              Resources.TakeAnOrder,
                                                               Resources.Cancel);
             if (!result)
             {
@@ -288,7 +288,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private async Task HandleLowBalanceExceptionAsync(Exception exception)
         {
-            var canRefil = await UserInteraction.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.ProfileViewRefill, Resources.Cancel);
+            var canRefil = await UserInteraction.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.Replenish, Resources.Cancel);
             if (!canRefil)
             {
                 return;
@@ -374,7 +374,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private async Task CancelOrderAsync()
         {
             var result = await UserInteraction.ShowConfirmAsync(
-                Resources.OrderDetailsViewCancelTitle,
+                Resources.WantToCancelOrder,
                 Resources.Attention,
                 Resources.Ok,
                 Resources.Cancel);
@@ -460,7 +460,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             var result = await UserInteraction.ShowMenuDialogAsync(new[]
             {
-                Resources.PublicationItemComplain,
+                Resources.Complain,
                 Resources.BlockUser,
                 // TODO: uncomment this when functionality will be available
             });
@@ -470,7 +470,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return;
             }
 
-            if (result == Resources.PublicationItemComplain)
+            if (result == Resources.Complain)
             {
                 if (!IsUserSessionInitialized)
                 {
@@ -496,7 +496,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return;
             }
 
-            if (result == Resources.PublicationItemCopyLink)
+            if (result == Resources.CopyLink)
             {
                 await Clipboard.SetTextAsync(Order?.Video?.ShareUri);
                 UserInteraction.ShowToast(Resources.LinkCopied, ToastType.Positive);

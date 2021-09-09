@@ -34,18 +34,18 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         private readonly Dictionary<ArbitrationOrderFilterType, string> _arbitrationOrderFilterTypeTitleMap =
             new Dictionary<ArbitrationOrderFilterType, string>
             {
-                { ArbitrationOrderFilterType.All, Resources.RateViewFilterAllTasks },
-                { ArbitrationOrderFilterType.New, Resources.RateViewFilterNewTasks },
-                { ArbitrationOrderFilterType.My, Resources.RateViewFilterMyTasks },
+                { ArbitrationOrderFilterType.All, Resources.AllOrdersInDispute },
+                { ArbitrationOrderFilterType.New, Resources.NewDisputeOrders },
+                { ArbitrationOrderFilterType.My, Resources.MyOrdersInDispute },
             };
 
         private readonly Dictionary<OrderFilterType, string> _orderFilterTypeTitleMap =
             new Dictionary<OrderFilterType, string>
             {
-                { OrderFilterType.All, Resources.OrdersViewFilterAllTasks },
-                { OrderFilterType.New, Resources.OrdersViewFilterNewTasks },
-                { OrderFilterType.InProgress, Resources.OrdersViewFilterCurrentTasks },
-                { OrderFilterType.MyOwn, Resources.OrdersViewFilterMyTasks }
+                { OrderFilterType.All, Resources.AllOrders },
+                { OrderFilterType.New, Resources.NewOrders },
+                { OrderFilterType.InProgress, Resources.OrderExecuted },
+                { OrderFilterType.MyOwn, Resources.MyOrders }
             };
 
         private Task _reloadTask;

@@ -24,9 +24,9 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
     {
         private readonly string[] _restrictedActionsInDemoMode = new[]
         {
-             Resources.PublicationItemComplain,
-             Resources.PublicationItemSubscribeToAuthor,
-             Resources.PublicationItemDownload
+             Resources.Complain,
+             Resources.SubscribeToAuthor,
+             Resources.Download
         };
 
         private readonly Func<BaseVideoItemViewModel[]> _getAllFullScreenVideosFunc;
@@ -126,7 +126,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
         private Task ShareAsync() => Share.RequestAsync(new ShareTextRequest
         {
             Uri = ShareLink,
-            Title = Resources.ShareDialogLinkShareTitle
+            Title = Resources.ShareLink
         });
 
         private async Task ShowFullScreenVideoAsync()
@@ -166,10 +166,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
         {
             var result = await UserInteraction.ShowMenuDialogAsync(new string[]
             {
-                Resources.PublicationItemComplain,
+                Resources.Complain,
                 Resources.BlockUser,
-                Resources.PublicationItemCopyLink,
-                Resources.PublicationItemDownload,Resources.BlockUser
+                Resources.CopyLink,
+                Resources.Download,Resources.BlockUser
             });
 
             if (string.IsNullOrWhiteSpace(result))
@@ -183,20 +183,20 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
                 return;
             }
 
-            if (result == Resources.PublicationItemComplain)
+            if (result == Resources.Complain)
             {
                 await ComplaintAsync();
                 return;
             }
 
-            if (result == Resources.PublicationItemCopyLink)
+            if (result == Resources.CopyLink)
             {
                 await Clipboard.SetTextAsync(ShareLink);
                 UserInteraction.ShowToast(Resources.LinkCopied, ToastType.Positive);
                 return;
             }
 
-            if (result == Resources.PublicationItemDownload)
+            if (result == Resources.Download)
             {
                 _ = DownloadVideoAsync();
             }

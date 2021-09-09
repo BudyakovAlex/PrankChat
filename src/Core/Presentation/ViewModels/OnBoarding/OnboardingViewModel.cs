@@ -30,7 +30,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Onboarding
 
         public bool IsLastSlide => ItemsCount == SelectedIndex + 1;
 
-        public string ActionTitle => IsLastSlide ? Resources.OnBoardingGoToMain : Resources.LoginViewContinueButton;
+        public string ActionTitle => IsLastSlide ? Resources.GoToFeed : Resources.Continue;
 
         private int _selectedIndex;
         public int SelectedIndex

@@ -215,7 +215,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Competition
 
         private async Task HandleLowBalanceExceptionAsync(Exception exception)
         {
-            var canRefil = await UserInteraction.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.ProfileViewRefill, Resources.Cancel);
+            var canRefil = await UserInteraction.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.Replenish, Resources.Cancel);
             if (!canRefil)
             {
                 return;

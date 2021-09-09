@@ -169,33 +169,33 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
         {
             InitializeRightBarButtonItem();
 
-            Title = Resources.OrderDetailsViewTitle;
+            Title = Resources.Order;
 
-            takeOrderButton.SetDarkStyle(Resources.OrderDetailsViewTakeOrderButton);
-            subscriptionButton.SetDarkStyle(Resources.OrderDetailsViewSubscribeButton);
-            unsubscriptionButton.SetDarkStyle(Resources.OrderDetailsViewUnsubscribeButton);
-            executeVideoButton.SetDarkStyle(Resources.OrderDetailsViewExecuteButton);
-            acceptButton.SetDarkStyle(Resources.OrderDetailsViewAcceptButton);
-            arqueButton.SetBorderlessStyle(Resources.OrderDetailsViewArgueButton);
-            downloadButton.SetDarkStyle(Resources.OrderDetailsViewLoadVideo);
-            cancelVideoButton.SetDarkStyle(Resources.OrderDetailsViewCancelButton);
+            takeOrderButton.SetDarkStyle(Resources.TakeAnOrder);
+            subscriptionButton.SetDarkStyle(Resources.Subscribe);
+            unsubscriptionButton.SetDarkStyle(Resources.Unsubscribe);
+            executeVideoButton.SetDarkStyle(Resources.Run);
+            acceptButton.SetDarkStyle(Resources.ToAccept);
+            arqueButton.SetBorderlessStyle(Resources.InDispute);
+            downloadButton.SetDarkStyle(Resources.UploadVideo);
+            cancelVideoButton.SetDarkStyle(Resources.Cancel);
 
             profileNameLabel.SetTitleStyle();
             videoNameLabel.SetBoldTitleStyle();
             videoDescriptionLabel.SetTitleStyle();
-            priceTextLabel.SetSmallTitleStyle(Resources.OrderDetailsViewPriceText);
+            priceTextLabel.SetSmallTitleStyle(Resources.OrderPrice);
             priceValueLabel.SetMediumStyle(26, Theme.Color.Text);
-            timeTextLabel.SetSmallTitleStyle(Resources.OrderDetailsViewTimeText);
+            timeTextLabel.SetSmallTitleStyle(Resources.OrderTime);
             daysValueLabel.SetMediumStyle(26, Theme.Color.Text);
             hourValueLabel.SetMediumStyle(26, Theme.Color.Text);
             minutesValueLabel.SetMediumStyle(26, Theme.Color.Text);
             delimiterTimeOneLabel.SetMediumStyle(26, Theme.Color.Text);
             delimiterTimeTwoLabel.SetMediumStyle(26, Theme.Color.Text);
-            daysTitleLabel.SetSmallTitleStyle(Resources.OrderViewDay, 10);
-            hourTitleLabel.SetSmallTitleStyle(Resources.OrderViewHour, 10);
-            minutesTitleLabel.SetSmallTitleStyle(Resources.OrderViewMinute, 10);
-            downloadVideotextLabel.SetSmallTitleStyle(Resources.OrderDetailsViewDownloadText);
-            tookOrderTextLabel.SetSmallTitleStyle(Resources.OrderDetailsViewTookTheOrderText);
+            daysTitleLabel.SetSmallTitleStyle(Resources.Day, 10);
+            hourTitleLabel.SetSmallTitleStyle(Resources.Hour, 10);
+            minutesTitleLabel.SetSmallTitleStyle(Resources.Minute, 10);
+            downloadVideotextLabel.SetSmallTitleStyle(Resources.UploadVideo);
+            tookOrderTextLabel.SetSmallTitleStyle(Resources.Executor);
             executorNameLabel.SetTitleStyle();
             startDateLabel.SetSmallSubtitleStyle();
 

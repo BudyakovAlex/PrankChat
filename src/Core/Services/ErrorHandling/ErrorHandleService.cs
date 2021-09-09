@@ -123,13 +123,13 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
 
         private string GetValidationErrorLocalizedMessage(ValidationException exception) => exception.ErrorType switch
         {
-            ValidationErrorType.Empty => string.Format(Resources.ValidationErrorEmpty, exception.LocalizedFieldName),
+            ValidationErrorType.Empty => string.Format(Resources.CannotBeEmpty, exception.LocalizedFieldName),
             ValidationErrorType.CanNotMatch => string.Format(Resources.ValidationErrorCanNotMatch, exception.LocalizedFieldName, exception.RelativeValue),
             ValidationErrorType.GreaterThanRequired => string.Format(Resources.ValidationErrorGreaterThanRequired, exception.LocalizedFieldName, exception.RelativeValue),
             ValidationErrorType.LowerThanRequired => string.Format(Resources.ValidationErrorLowerThanRequired, exception.LocalizedFieldName, exception.RelativeValue),
             ValidationErrorType.NotMatch => string.Format(Resources.ValidationErrorNotMatch, exception.LocalizedFieldName, exception.RelativeValue),
             ValidationErrorType.Invalid => string.Format(Resources.ValidationErrorInvalid, exception.LocalizedFieldName),
-            ValidationErrorType.NotConfirmed => string.Format(Resources.NotConfirmed, exception.LocalizedFieldName),
+            ValidationErrorType.NotConfirmed => string.Format(Resources.NotVerified, exception.LocalizedFieldName),
             ValidationErrorType.Undefined => exception.Message,
             _ => string.Empty,
         };

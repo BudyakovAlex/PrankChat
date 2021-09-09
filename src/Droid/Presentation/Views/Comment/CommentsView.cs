@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Comment
 
         protected override bool HasBackButton => true;
 
-        protected override string TitleActionBar => Core.Localization.Resources.CommentViewTitle;
+        protected override string TitleActionBar => Core.Localization.Resources.Comments;
 
         private MvxInteraction<int> _scrollInteraction;
         public MvxInteraction<int> ScrollInteraction

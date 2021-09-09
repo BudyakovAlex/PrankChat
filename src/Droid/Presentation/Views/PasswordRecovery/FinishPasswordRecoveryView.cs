@@ -27,7 +27,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.PasswordRecovery
 
         protected override bool HasBackButton => false;
 
-        protected override string TitleActionBar => Core.Localization.Resources.PasswordRecoveryViewTitle;
+        protected override string TitleActionBar => Core.Localization.Resources.PasswordRecovery;
 
         protected override void Bind()
         {

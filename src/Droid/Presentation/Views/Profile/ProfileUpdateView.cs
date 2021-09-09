@@ -41,7 +41,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         private TextView _textViewChangeProfilePhoto;
         private TextView _textViewChangePassword;
 
-        protected override string TitleActionBar => Core.Localization.Resources.ProfileUpdateViewTitle;
+        protected override string TitleActionBar => Core.Localization.Resources.ProfileEditing;
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {

@@ -148,7 +148,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order.Sections
             var refreshTask = RefreshDataFunc?.Invoke() ?? Task.CompletedTask;
             await refreshTask;
 
-            UserInteraction.ShowToast(Resources.OrderDetailsViewVideoUploaded, ToastType.Positive);
+            UserInteraction.ShowToast(Resources.TwentyFourHoursToPay, ToastType.Positive);
             await RaiseAllPropertiesChanged();
 
             if (Order is null)

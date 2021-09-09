@@ -14,7 +14,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
     public class CashboxView : BaseView<CashboxViewModel>
     {
         private TabLayout _tabLayout;
-        protected override string TitleActionBar => Core.Localization.Resources.CashboxViewTitle;
+        protected override string TitleActionBar => Core.Localization.Resources.Cashbox;
 
         protected override bool HasBackButton => true;
 
@@ -30,8 +30,8 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile.Cashbox
             Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
 
             _tabLayout = FindViewById<TabLayout>(Resource.Id.cashbox_tab_layout);
-            _tabLayout.GetTabAt(0).SetText(Core.Localization.Resources.CashboxViewFillupTab);
-            _tabLayout.GetTabAt(1).SetText(Core.Localization.Resources.CashboxViewWithdrawalTab);
+            _tabLayout.GetTabAt(0).SetText(Core.Localization.Resources.Replenishment);
+            _tabLayout.GetTabAt(1).SetText(Core.Localization.Resources.Withdrawal);
 
             _tabLayout.GetTabAt(ViewModel.SelectedPage).Select();
         }

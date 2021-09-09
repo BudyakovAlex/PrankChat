@@ -27,7 +27,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views
 
         protected override bool HasBackButton => true;
 
-        protected override string TitleActionBar => Core.Localization.Resources.NotificationViewTitle;
+        protected override string TitleActionBar => Core.Localization.Resources.Notifications;
 
         protected override void OnCreate(Bundle bundle)
         {

@@ -130,7 +130,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             //    await LogoutUserAsync();
             //}
 
-            var canLogout = await UserInteraction.ShowConfirmAsync($"{Resources.ProfileViewMenuLogOut}?");
+            var canLogout = await UserInteraction.ShowConfirmAsync($"{Resources.SignOut}?");
             if (canLogout)
             {
                 await LogoutUserAsync();
@@ -182,11 +182,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             var result = await UserInteraction.ShowMenuDialogAsync(new string[]
             {
-                Resources.TakePhoto,
-                Resources.PickPhoto,
+                Resources.TakePicture,
+                Resources.ChooseFromGallery,
             });
 
-            var file = result == Resources.TakePhoto
+            var file = result == Resources.TakePicture
                 ? await _mediaManager.TakePhotoAsync()
                 : await _mediaManager.PickPhotoAsync();
 
@@ -212,42 +212,42 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
         {
             if (string.IsNullOrWhiteSpace(Login))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldLogin, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Login, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Login can't be empty.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldName, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Name, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Name can't be empty.");
                 return false;
             }
 
             if (Birthday == null)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldBirthday, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Birthday, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Birthday can't be empty.");
                 return false;
             }
 
             if (Birthday > DateTime.Now)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldBirthday, ValidationErrorType.GreaterThanRequired));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Birthday, ValidationErrorType.GreaterThanRequired));
                 ErrorHandleService.LogError(this, "Birthday date can't be greater than current date.");
                 return false;
             }
 
             if ((DateTime.Now.Year - Birthday?.Year) <= Constants.Age.AdultAge)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldBirthday, ValidationErrorType.LowerThanRequired, Constants.Age.AdultAge.ToString()));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Birthday, ValidationErrorType.LowerThanRequired, Constants.Age.AdultAge.ToString()));
                 ErrorHandleService.LogError(this, $"User can't be younger than {Constants.Age.AdultAge} years.");
                 return false;
             }
 
             if (Gender == null)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldGender, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Floor, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Gender can't be empty.");
                 return false;
             }

@@ -108,21 +108,21 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             if (string.IsNullOrWhiteSpace(Login))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldLogin, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Login, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Login can't be empty.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldName, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Name, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Name can't be empty.");
                 return false;
             }
 
             if (Birthday == null)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldBirthday, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Birthday, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Birthday can't be empty.");
                 return false;
             }
@@ -136,35 +136,35 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
             if (string.IsNullOrEmpty(Password))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldPassword, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Password, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Password can't be empty.");
                 return false;
             }
 
             if (string.IsNullOrEmpty(RepeatedPassword))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldPasswordRepeat, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.PasswordReplay, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Password repeat can't be empty.");
                 return false;
             }
 
             if (Password != RepeatedPassword)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldPassword, ValidationErrorType.NotMatch, Resources.ValidationFieldPasswordRepeat));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Password, ValidationErrorType.NotMatch, Resources.PasswordReplay));
                 ErrorHandleService.LogError(this, "Password and repeated password values don't match.");
                 return false;
             }
 
             if (!IsAdultChecked)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.RegistrationCheckmarkNotConfirmed));
+                ErrorHandleService.HandleException(new ValidationException(Resources.NotVerified));
                 ErrorHandleService.LogError(this, "Adult not checked");
                 return false;
             }
 
             if (!IsPolicyChecked)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.RegistrationCheckmarkNotConfirmed));
+                ErrorHandleService.HandleException(new ValidationException(Resources.NotVerified));
                 ErrorHandleService.LogError(this, "Policy not checked");
                 return false;
             }

@@ -48,7 +48,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs
             await Share.RequestAsync(new ShareTextRequest
             {
                 Uri = _url,
-                Title = Resources.ShareDialogLinkShareTitle
+                Title = Resources.ShareLink
             });
 
             if (CrossDeviceInfo.Current.Platform != Plugin.DeviceInfo.Abstractions.Platform.Android)

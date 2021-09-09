@@ -16,10 +16,10 @@ namespace PrankChat.Mobile.Core.Providers
     {
         private readonly Dictionary<Type, string> _titles = new Dictionary<Type, string>
         {
-            [typeof(CompetitionsViewModel)] = Resources.WalkthrouthCompetitionsTitle,
-            [typeof(CreateOrderViewModel)] = Resources.WalkthrouthCreateOrderTitle,
-            [typeof(OrdersViewModel)] = Resources.WalkthrouthOrdersTitle,
-            [typeof(ProfileViewModel)] = Resources.WalkthrouthProfileTitle
+            [typeof(CompetitionsViewModel)] = Resources.Contests,
+            [typeof(CreateOrderViewModel)] = Resources.CreateOrders,
+            [typeof(OrdersViewModel)] = Resources.OrderFeed,
+            [typeof(ProfileViewModel)] = Resources.Profile
         };
 
         private readonly Dictionary<Type, string> _descriptions = new Dictionary<Type, string>

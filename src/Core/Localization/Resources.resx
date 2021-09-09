@@ -120,64 +120,40 @@
   <data name="Close" xml:space="preserve">
     <value>Закрыть</value>
   </data>
-  <data name="appName" xml:space="preserve">
-    <value>PrankChat</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="HomeTab" xml:space="preserve">
+  <data name="Home" xml:space="preserve">
     <value>Главная</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="RateTab" xml:space="preserve">
-    <value>Оценка</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="OrdersTab" xml:space="preserve">
+  <data name="Orders" xml:space="preserve">
     <value>Заказы</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileTab" xml:space="preserve">
+  <data name="Profile" xml:space="preserve">
     <value>Профиль</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="PopularPublicationTab" xml:space="preserve">
-    <value>Популярное</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ActualPublicationTab" xml:space="preserve">
-    <value>Актуальное</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="MyFeedPublicationTab" xml:space="preserve">
-    <value>Моя лента</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="PublicationTabFilterDay" xml:space="preserve">
+  <data name="PerDay" xml:space="preserve">
     <value>За день</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="PublicationTabFilterWeek" xml:space="preserve">
+  <data name="PerWeek" xml:space="preserve">
     <value>За неделю</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="PublicationTabFilterMonth" xml:space="preserve">
+  <data name="PerMonth" xml:space="preserve">
     <value>За месяц</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="PublicationTabFilterQuarter" xml:space="preserve">
+  <data name="PerQuarter" xml:space="preserve">
     <value>За квартал</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="PublicationTabFilterHalfYear" xml:space="preserve">
+  <data name="PerHalfYear" xml:space="preserve">
     <value>За полгода</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
-  </data>
-  <data name="SearchViewSearchPlaceholder" xml:space="preserve">
-    <value>Поиск</value>
-    <comment>Fuzzy</comment>
   </data>
   <data name="Share" xml:space="preserve">
     <value>Поделиться</value>
@@ -186,467 +162,215 @@
     <value>Непредвиденная ошибка на сервере.</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ErrorUnexpectedNotFound" xml:space="preserve">
-    <value>Не удалось получить запрошенные данные.</value>
-    <comment>Fuzzy</comment>
-  </data>
   <data name="ErrorUnexpectedNetwork" xml:space="preserve">
     <value>Неожиданная сетевая ошибка, попробуйте снова.</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="LoginViewEmailPlaceholder" xml:space="preserve">
-    <value>Введите email</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="LoginViewPasswordPlaceholder" xml:space="preserve">
-    <value>Введите пароль</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="LoginViewForgotPasswordTitle" xml:space="preserve">
-    <value>Востановление пароля</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="LoginViewForgotPasswordButton" xml:space="preserve">
-    <value>Востановить</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="LoginViewContinueButton" xml:space="preserve">
+  <data name="Continue" xml:space="preserve">
     <value>Продолжить</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="LoginViewCreateAccountButton" xml:space="preserve">
-    <value>Нет аккаунта? Создать новый</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="LoginViewLoginTitle" xml:space="preserve">
-    <value>Войти</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="LoginViewAltLoginTitle" xml:space="preserve">
-    <value>Войти через:</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewTitle" xml:space="preserve">
-    <value>Регистрация</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewEmailPlaceholder" xml:space="preserve">
-    <value>Введите email</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewRegisteredYetLabel" xml:space="preserve">
-    <value>Уже зарегистрированы?</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewLoginButton" xml:space="preserve">
-    <value>Войти в аккаунт</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewLoginPlaceholder" xml:space="preserve">
-    <value>Введите логин</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewNamePlaceholder" xml:space="preserve">
-    <value>Введите имя</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewBirthdayPlaceholder" xml:space="preserve">
-    <value>Дата рождения</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewPasswordPlaceholder" xml:space="preserve">
-    <value>Введите пароль</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewPasswordRepeatPlaceholder" xml:space="preserve">
-    <value>Повторите пароль</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewGenderSelectTitle" xml:space="preserve">
-    <value>Выберите пол:</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewMaleButton" xml:space="preserve">
-    <value>муж</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewFemaleButton" xml:space="preserve">
-    <value>жен</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewRegisterButton" xml:space="preserve">
-    <value>Зарегистрироваться</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewStepTwoTitle" xml:space="preserve">
+  <data name="StepTwo" xml:space="preserve">
     <value>Шаг 2</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="RegistrationViewStepThreeTitle" xml:space="preserve">
+  <data name="StepThree" xml:space="preserve">
     <value>Шаг 3</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="RegistrationViewCongratsTitle" xml:space="preserve">
-    <value>Поздравляем!</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewConfirmationLabel" xml:space="preserve">
-    <value>На почту отправлено письмо с верификацией email адреса. Для завершения регистрации, пожалуйста, подтвердите Ваш email</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationViewGoToFeedButton" xml:space="preserve">
+  <data name="GoToFeed" xml:space="preserve">
     <value>Перейти в ленту</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="PasswordRecoveryViewTitle" xml:space="preserve">
+  <data name="PasswordRecovery" xml:space="preserve">
     <value>Восстановление пароля</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="PasswordRecoveryViewEmailPlaceholder" xml:space="preserve">
-    <value>Введите email</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="PasswordRecoveryViewRecoveryButton" xml:space="preserve">
-    <value>Восстановить</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="PasswordRecoveryViewAttention" xml:space="preserve">
-    <value>Внимание!</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="PasswordRecoveryViewFinishText" xml:space="preserve">
-    <value>Ссылка для восстановления пароля отправлена на почту.</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ProfileViewMenuFavourites" xml:space="preserve">
-    <value>Избранные видео</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ProfileViewMenuTaskSubscriptions" xml:space="preserve">
-    <value>Подписки на заказ</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ProfileViewMenuFaq" xml:space="preserve">
-    <value>FAQ</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ProfileViewMenuSupport" xml:space="preserve">
-    <value>Справки/отзывы</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ProfileViewMenuSettings" xml:space="preserve">
-    <value>Настройки</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ProfileViewMenuLogOut" xml:space="preserve">
+  <data name="SignOut" xml:space="preserve">
     <value>Выйти из аккаунта</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileViewRefill" xml:space="preserve">
+  <data name="Replenish" xml:space="preserve">
     <value>Пополнить</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileViewWithdrawal" xml:space="preserve">
-    <value>Вывести</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ProfileViewOrdersSubtitle" xml:space="preserve">
-    <value>заказов</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ProfileViewCompletedSubtitle" xml:space="preserve">
-    <value>выполнено</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ProfileViewSubscribersSubtitle" xml:space="preserve">
-    <value>подписчики</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ProfileViewSubscriptionsSubtitle" xml:space="preserve">
-    <value>подписки</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ProfileViewMyOrdersTab" xml:space="preserve">
-    <value>Я заказал</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ProfileViewCompletedOrdersTab" xml:space="preserve">
-    <value>Я исполняю</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="OrderViewTimeText" xml:space="preserve">
+  <data name="OrderTime" xml:space="preserve">
     <value>Время заказа:</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderViewPriceText" xml:space="preserve">
+  <data name="OrderPrice" xml:space="preserve">
     <value>Сумма заказа:</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderViewDay" xml:space="preserve">
+  <data name="Day" xml:space="preserve">
     <value>День</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderViewHour" xml:space="preserve">
+  <data name="Hour" xml:space="preserve">
     <value>Часа</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderViewMinute" xml:space="preserve">
+  <data name="Minute" xml:space="preserve">
     <value>Минут</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderViewDetails" xml:space="preserve">
+  <data name="MoreDetails" xml:space="preserve">
     <value>Подробнее</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderViewNewTask" xml:space="preserve">
-    <value>Новый заказ</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="OrderViewMyTask" xml:space="preserve">
+  <data name="MyOrders" xml:space="preserve">
     <value>Мои заказы</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrdersViewFilterAllTasks" xml:space="preserve">
+  <data name="AllOrders" xml:space="preserve">
     <value>Все заказы</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrdersViewFilterNewTasks" xml:space="preserve">
+  <data name="NewOrders" xml:space="preserve">
     <value>Новые заказы</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrdersViewFilterCurrentTasks" xml:space="preserve">
+  <data name="OrderExecuted" xml:space="preserve">
     <value>Заказ в исполнении</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrdersViewFilterMyTasks" xml:space="preserve">
-    <value>Мои заказы</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RateViewFilterAllTasks" xml:space="preserve">
+  <data name="AllOrdersInDispute" xml:space="preserve">
     <value>Все заказы в споре</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="RateViewFilterMyTasks" xml:space="preserve">
+  <data name="MyOrdersInDispute" xml:space="preserve">
     <value>Мои заказы в споре</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="RateViewFilterNewTasks" xml:space="preserve">
+  <data name="NewDisputeOrders" xml:space="preserve">
     <value>Новые заказы в споре</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="RateViewTitleLabel" xml:space="preserve">
-    <value>Оценка</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="OrdersViewTitleLabel" xml:space="preserve">
-    <value>Заказы</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RateViewVoteButton" xml:space="preserve">
-    <value>Оценить</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CreateOrderViewTitle" xml:space="preserve">
+  <data name="CreateOrder" xml:space="preserve">
     <value>Создание заказа</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CreateOrderViewNamePlaceholder" xml:space="preserve">
-    <value>Название заказа</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CreateOrderViewDescriptionPlaceholder" xml:space="preserve">
-    <value>Описание заказа</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CreateOrderViewPricePlaceholder" xml:space="preserve">
-    <value>10 000 ₽</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CreateOrderViewCompleteDatePlaceholder" xml:space="preserve">
-    <value>Дата исполнения</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CreateOrderViewHideExecutorButton" xml:space="preserve">
-    <value>Скрыть исполнителя</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CreateOrderViewCreateButton" xml:space="preserve">
-    <value>Создать заказ</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="NotificationViewTitle" xml:space="preserve">
+  <data name="Notifications" xml:space="preserve">
     <value>Уведомления</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsViewPriceText" xml:space="preserve">
-    <value>Сумма заказа:</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="OrderDetailsViewTimeText" xml:space="preserve">
-    <value>Время заказа:</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="OrderDetailsViewTakeOrderButton" xml:space="preserve">
+  <data name="TakeAnOrder" xml:space="preserve">
     <value>Взять заказ</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsViewSubscribeButton" xml:space="preserve">
+  <data name="Subscribe" xml:space="preserve">
     <value>Подписаться</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsViewUnsubscribeButton" xml:space="preserve">
+  <data name="Unsubscribe" xml:space="preserve">
     <value>Отписаться</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsViewDownloadText" xml:space="preserve">
+  <data name="UploadVideo" xml:space="preserve">
     <value>Загрузить видео:</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsViewExecuteButton" xml:space="preserve">
+  <data name="Run" xml:space="preserve">
     <value>Выполнить</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsViewCancelButton" xml:space="preserve">
-    <value>Отменить</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="OrderDetailsViewTookTheOrderText" xml:space="preserve">
+  <data name="Executor" xml:space="preserve">
     <value>Исполнитель:</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsViewYesButton" xml:space="preserve">
+  <data name="Yes" xml:space="preserve">
     <value>Да</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsViewNoButton" xml:space="preserve">
+  <data name="No" xml:space="preserve">
     <value>Нет</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsViewAcceptButton" xml:space="preserve">
+  <data name="ToAccept" xml:space="preserve">
     <value>Принять</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsViewArgueButton" xml:space="preserve">
+  <data name="InDispute" xml:space="preserve">
     <value>В спор</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsViewCorrespondsToVideoText" xml:space="preserve">
-    <value>Соответствует видео заказу?</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CreateOrderViewPriceTitlePlaceholder" xml:space="preserve">
+  <data name="Price" xml:space="preserve">
     <value>Цена</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsViewTitle" xml:space="preserve">
+  <data name="Order" xml:space="preserve">
     <value>Заказ</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CashboxViewTitle" xml:space="preserve">
+  <data name="Cashbox" xml:space="preserve">
     <value>Касса</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CashboxViewFillupTab" xml:space="preserve">
+  <data name="Replenishment" xml:space="preserve">
     <value>Пополнение</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CashboxViewWithdrawalTab" xml:space="preserve">
+  <data name="Withdrawal" xml:space="preserve">
     <value>Снятие</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CashboxViewFillupButton" xml:space="preserve">
-    <value>Пополнить</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CashboxViewFillupMethodSelectTitle" xml:space="preserve">
-    <value>Выберите метод для пополнения:</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CashboxViewWithdrawalAvailableTitle" xml:space="preserve">
+  <data name="AvailableForRemoval" xml:space="preserve">
     <value>Доступно для снятия с учётом комиссии платёжного шлюза (оператора):</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CashboxViewWithdrawalButton" xml:space="preserve">
-    <value>Снять</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CashboxViewWithdrawalMethodSelectTitle" xml:space="preserve">
-    <value>Выберите метод для снятия:</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CashboxViewPricePlaceholder" xml:space="preserve">
-    <value>1 000 000 ₽</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CommentViewTitle" xml:space="preserve">
+  <data name="Comments" xml:space="preserve">
     <value>Комментарии</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="PublicationItemComplain" xml:space="preserve">
+  <data name="Complain" xml:space="preserve">
     <value>Пожаловаться...</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="PublicationItemCopyLink" xml:space="preserve">
+  <data name="CopyLink" xml:space="preserve">
     <value>Копировать ссылку</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="PublicationItemSubscribeToAuthor" xml:space="preserve">
+  <data name="SubscribeToAuthor" xml:space="preserve">
     <value>Подписаться на автора</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ShareDialogTitle" xml:space="preserve">
-    <value>Поделиться</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ShareDialogCopyLinkLabel" xml:space="preserve">
-    <value>Коп. ссылку</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ShareDialogShareInstagramLabel" xml:space="preserve">
-    <value>В Instagram</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ShareDialogLinkShareTitle" xml:space="preserve">
+  <data name="ShareLink" xml:space="preserve">
     <value>Поделиться ссылкой</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatusNew" xml:space="preserve">
+  <data name="Moderation" xml:space="preserve">
     <value>На модерации</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatusRejected" xml:space="preserve">
+  <data name="CanceledByModerator" xml:space="preserve">
     <value>Отменен модератором</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatusCancelled" xml:space="preserve">
+  <data name="Canceled" xml:space="preserve">
     <value>Отменен</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatusActive" xml:space="preserve">
+  <data name="New" xml:space="preserve">
     <value>Новый</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatusInWork" xml:space="preserve">
+  <data name="InWork" xml:space="preserve">
     <value>В работе</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatusInArbitration" xml:space="preserve">
-    <value>В споре</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="OrderStatusProcessCloseArbitration" xml:space="preserve">
+  <data name="ClosingDispute" xml:space="preserve">
     <value>Закрытие спора</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatusClosedAfterArbitrationCustomerWin" xml:space="preserve">
+  <data name="DisputeWon" xml:space="preserve">
     <value>Спор выигран</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatusClosedAfterArbitrationExecutorWin" xml:space="preserve">
+  <data name="DisputeLost" xml:space="preserve">
     <value>Спор проигран</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatusFinished" xml:space="preserve">
+  <data name="Accomplished" xml:space="preserve">
     <value>Выполненный</value>
     <comment>Fuzzy</comment>
   </data>
@@ -656,11 +380,7 @@
   <data name="Attention" xml:space="preserve">
     <value>Внимание!</value>
   </data>
-  <data name="OrderDetailsViewTakeOrderTitle" xml:space="preserve">
-    <value>Взять заказ</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="OrderDetailsViewTakeOrderQuestion" xml:space="preserve">
+  <data name="TakeOrderQuestion" xml:space="preserve">
     <value>Для принятия заказа необходимо внести задаток, как гарантию его выполнения:
 20% стоимости для обычных заказов
 40% для секретных заказов </value>
@@ -698,15 +418,15 @@
     <value>₽</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CountView" xml:space="preserve">
+  <data name="View" xml:space="preserve">
     <value>просмотр</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CountViews" xml:space="preserve">
+  <data name="Views" xml:space="preserve">
     <value>просмотров</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CountOfViewing" xml:space="preserve">
+  <data name="OfViewing" xml:space="preserve">
     <value>просмотра</value>
     <comment>Fuzzy</comment>
   </data>
@@ -714,132 +434,78 @@
     <value>г.</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatusMyOrder" xml:space="preserve">
-    <value>Мое</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="OrderDetailsViewCancelTitle" xml:space="preserve">
+  <data name="WantToCancelOrder" xml:space="preserve">
     <value>Вы уверены, что хотите отменить заказ?</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileUpdateViewEmailPlaceholder" xml:space="preserve">
+  <data name="Email" xml:space="preserve">
     <value>Email</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileUpdateViewLoginPlaceholder" xml:space="preserve">
+  <data name="Login" xml:space="preserve">
     <value>Логин</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileUpdateViewNamePlaceholder" xml:space="preserve">
+  <data name="Name" xml:space="preserve">
     <value>Имя</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileUpdateViewBirthdayPlaceholder" xml:space="preserve">
+  <data name="Birthday" xml:space="preserve">
     <value>Дата рождения</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileUpdateViewButtonSave" xml:space="preserve">
-    <value>Сохранить</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ProfileUpdateViewGenderSelectTitle" xml:space="preserve">
-    <value>Ваш пол</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ProfileUpdateViewTitle" xml:space="preserve">
+  <data name="ProfileEditing" xml:space="preserve">
     <value>ПРОФИЛЬ</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileUpdateViewChangePassword" xml:space="preserve">
-    <value>Сменить пароль</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="TakePhoto" xml:space="preserve">
+  <data name="TakePicture" xml:space="preserve">
     <value>Cфотографировать</value>
-  </data>
-  <data name="PickPhoto" xml:space="preserve">
-    <value>Выбрать из галереи</value>
-  </data>
-  <data name="ProfileUpdateViewDescriptionPlaceholder" xml:space="preserve">
-    <value>О себе</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileUpdateViewPhotoChangeTitle" xml:space="preserve">
-    <value>Сменить фото профиля</value>
+  <data name="ChooseFromGallery" xml:space="preserve">
+    <value>Выбрать из галереи</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="Select" xml:space="preserve">
     <value>Выбрать</value>
   </data>
-  <data name="CreateOrderViewChooseTimePeriod" xml:space="preserve">
+  <data name="SelectValidityPeriod" xml:space="preserve">
     <value>Выберите период действия заказа.</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatusWaitFinish" xml:space="preserve">
+  <data name="Pending" xml:space="preserve">
     <value>В ожидании</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsViewLoadVideo" xml:space="preserve">
-    <value>Загрузить видео</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="NotificationStatusViewed" xml:space="preserve">
-    <value>Просмотрено</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="NotificationStatusNotViewed" xml:space="preserve">
-    <value>Непросмотрено</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ValidationFieldTitle" xml:space="preserve">
+  <data name="Headline" xml:space="preserve">
     <value>Заголовок</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ValidationFieldDescription" xml:space="preserve">
+  <data name="Description" xml:space="preserve">
     <value>Описание</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ValidationFieldPrice" xml:space="preserve">
-    <value>Цена</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ValidationFieldOrderPeriod" xml:space="preserve">
+  <data name="Period" xml:space="preserve">
     <value>Период</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ValidationFieldCost" xml:space="preserve">
+  <data name="Cost" xml:space="preserve">
     <value>Стоимость</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ValidationFieldLogin" xml:space="preserve">
-    <value>Логин</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ValidationFieldName" xml:space="preserve">
-    <value>Имя</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ValidationFieldBirthday" xml:space="preserve">
-    <value>День рождения</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ValidationFieldGender" xml:space="preserve">
+  <data name="Floor" xml:space="preserve">
     <value>Пол</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ValidationFieldEmail" xml:space="preserve">
-    <value>E-mail</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ValidationFieldPassword" xml:space="preserve">
+  <data name="Password" xml:space="preserve">
     <value>Пароль</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ValidationFieldPasswordRepeat" xml:space="preserve">
+  <data name="PasswordReplay" xml:space="preserve">
     <value>Повтор пароля</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ValidationErrorEmpty" xml:space="preserve">
+  <data name="CannotBeEmpty" xml:space="preserve">
     <value>{0} не может быть пустым.</value>
     <comment>Fuzzy</comment>
   </data>
@@ -863,49 +529,26 @@
     <value>{0} имеет неверный формат.</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="Demo" xml:space="preserve">
-    <value>Демо</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="FinishPasswordRecoveryViewGoToFeedButton" xml:space="preserve">
-    <value>Перейти в ленту</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="FinishPasswordRecoveryViewGoToLoginButton" xml:space="preserve">
-    <value>Войти в аккаунт</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ComVkSdkAppId" xml:space="preserve">
-    <value>7343996</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CountDays" xml:space="preserve">
+  <data name="Days" xml:space="preserve">
     <value>Дней</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CountHours" xml:space="preserve">
+  <data name="Hours" xml:space="preserve">
     <value>Часов</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CountMinutes" xml:space="preserve">
+  <data name="Minutes" xml:space="preserve">
     <value>Минут</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="LinkCopied" xml:space="preserve">
     <value>Ссылка скопирована</value>
   </data>
-  <data name="ComplainSuccessful" xml:space="preserve">
-    <value>Отправлено модератору</value>
-  </data>
-  <data name="CompetitionsVoting" xml:space="preserve">
+  <data name="Voting" xml:space="preserve">
     <value>Голосование</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CompetitionsNew" xml:space="preserve">
-    <value>Новые</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CompetitionsFinished" xml:space="preserve">
+  <data name="Summary" xml:space="preserve">
     <value>Итоги</value>
     <comment>Fuzzy</comment>
   </data>
@@ -917,19 +560,15 @@
     <value>Период проведения конкурса:</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CompetitionsSee" xml:space="preserve">
+  <data name="Watch" xml:space="preserve">
     <value>Смотреть</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CompetitionsMore" xml:space="preserve">
-    <value>Подробнее</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CompetitionsParticipate" xml:space="preserve">
+  <data name="Participate" xml:space="preserve">
     <value>Принять участие</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CompetitionsPrizePool" xml:space="preserve">
+  <data name="TournamentPrizePool" xml:space="preserve">
     <value>Призовой фонд турнира:</value>
     <comment>Fuzzy</comment>
   </data>
@@ -937,135 +576,35 @@
     <value>До начала голосования:</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CompetitionLoadVideo" xml:space="preserve">
-    <value>Загрузить видео</value>
-    <comment>Fuzzy</comment>
-  </data>
   <data name="CompetitionRules" xml:space="preserve">
     <value>Правила конкурса</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CompetitionResults" xml:space="preserve">
+  <data name="Results" xml:space="preserve">
     <value>Результаты</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="WithdrawalViewFirstNamePlaceholder" xml:space="preserve">
-    <value>Имя</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewLastNamePlaceholder" xml:space="preserve">
-    <value>Фамилия</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewCardNumberPlaceholder" xml:space="preserve">
-    <value>Номер карты</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewAttachFileButton" xml:space="preserve">
-    <value>Прикрепить файл</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewRevokeButton" xml:space="preserve">
-    <value>Отозвать</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="LoginWithoutRegistration" xml:space="preserve">
-    <value>Войти без регистрации</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CompetitionPrizePoolRating" xml:space="preserve">
-    <value>Рейтинг</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CompetitionPrizePoolParticipant" xml:space="preserve">
-    <value>Учасник</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CompetitionPrizePool" xml:space="preserve">
-    <value>Призовой фонд</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CompetitionsTab" xml:space="preserve">
+  <data name="Contests" xml:space="preserve">
     <value>Конкурсы</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="WithdrawalViewEmptyCardError" xml:space="preserve">
+  <data name="EmptyCardError" xml:space="preserve">
     <value>Карта не может быть пустой.</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="WithdrawalViewCancelWithdrawalError" xml:space="preserve">
+  <data name="CancelWithdrawalError" xml:space="preserve">
     <value>Не удается отменить транзакцию для вывода средств</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="WithdrawalViewDeleteCardText" xml:space="preserve">
+  <data name="DeleteCard" xml:space="preserve">
     <value>Удалить карту</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
-  <data name="WithdrawalViewDeleteCardQuestion" xml:space="preserve">
+  <data name="DeleteCardQuestion" xml:space="preserve">
     <value>Вы уверены что хотите удалить данную карту?</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewVerifyUserText" xml:space="preserve">
-    <value>Для того чтобы вывести средства со своего счета, Вам необходимо подтвердить свою личность прикрепив селфи с паспортом в развернутом виде.</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewAttachFile" xml:space="preserve">
-    <value>Прикрепить файл</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewPendngVerifyUserText" xml:space="preserve">
-    <value>Ваш запрос обрабатывается, время ожидания может составить до 24 часов</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewCardNumber" xml:space="preserve">
-    <value>Номер карты</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewSurname" xml:space="preserve">
-    <value>Фамилия</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewName" xml:space="preserve">
-    <value>Имя</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewCost" xml:space="preserve">
-    <value>Сумма</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewPendingWithdrawalText" xml:space="preserve">
-    <value>В данный момент идет обработка Вашего запроса на вывод средств.</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewCreateDate" xml:space="preserve">
-    <value>Дата создания</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewStatusText" xml:space="preserve">
-    <value>Статус</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewPending" xml:space="preserve">
-    <value>В ожидании</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewWithdrawText" xml:space="preserve">
-    <value>Отозвать</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CompetitonPrizePoolPlace" xml:space="preserve">
-    <value>Место</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="OrdersInDispute" xml:space="preserve">
-    <value>В споре</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="OnBoardingGoToMain" xml:space="preserve">
-    <value>Перейти в ленту</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="OnBoardingFirstTitle" xml:space="preserve">
@@ -1152,7 +691,7 @@
     <value>Неприемлемая информация в профиле</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="OrderAdd" xml:space="preserve">
+  <data name="Create" xml:space="preserve">
     <value>Создать</value>
     <comment>Fuzzy</comment>
   </data>
@@ -1172,64 +711,12 @@
     <value>На Вашу почту отправлено письмо с подтверждением</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileResendConfirmation" xml:space="preserve">
-    <value>Отправить повторно</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="OrderDetailsViewVideoUploaded" xml:space="preserve">
+  <data name="TwentyFourHoursToPay" xml:space="preserve">
     <value>У заказчика есть 24 часа на оплату</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CashboxCommisionWarning" xml:space="preserve">
-    <value>Обратите внимание что к сумме пополнения будет добавлена комисия оператора</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationConfirmAdult" xml:space="preserve">
-    <value>Подтверждаю, что мне есть 18 лет</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationAgreeWith" xml:space="preserve">
-    <value>Я согласен с</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationTermsAndRules" xml:space="preserve">
-    <value>правилами и условиями</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ValidationFieldAdultCheck" xml:space="preserve">
-    <value>Возраст</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ValidationFieldPrivacyCheck" xml:space="preserve">
-    <value>Правила и условия</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="RegistrationCheckmarkNotConfirmed" xml:space="preserve">
-    <value>Подтвердите возраст и согласие с правилами</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="NotConfirmed" xml:space="preserve">
+  <data name="NotVerified" xml:space="preserve">
     <value>{0} не подтверждено</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CompetitionPrize" xml:space="preserve">
-    <value>Приз</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CompetitionVotes" xml:space="preserve">
-    <value>Голоса</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CreateOrderHour" xml:space="preserve">
-    <value>час</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CreateOrdersHoursPlural" xml:space="preserve">
-    <value>часов</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CreateOrdersHoursSingular" xml:space="preserve">
-    <value>часа</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="WalkthrouthCompetitionsDescription" xml:space="preserve">
@@ -1257,20 +744,12 @@ Apple Inc. не является спонсором проведения кон�
     <value>В профиле пользователь может отслеживать сумму денежных средств на расчетном счете, а также все свои задания: опубликованные, исполняемые и исполненные.</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="WalkthrouthCompetitionsTitle" xml:space="preserve">
-    <value>Конкурсы</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WalkthrouthCreateOrderTitle" xml:space="preserve">
+  <data name="CreateOrders" xml:space="preserve">
     <value>Создание заказов</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="WalkthrouthOrdersTitle" xml:space="preserve">
+  <data name="OrderFeed" xml:space="preserve">
     <value>Лента заказов</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WalkthrouthProfileTitle" xml:space="preserve">
-    <value>Профиль</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="NoIntentetConnection" xml:space="preserve">
@@ -1281,60 +760,39 @@ Apple Inc. не является спонсором проведения кон�
     <value>Ошибка загрузки видео</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="BytesPresentation" xml:space="preserve">
+  <data name="Bytes" xml:space="preserve">
     <value>байт</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="KilobytesPresentation" xml:space="preserve">
+  <data name="KB" xml:space="preserve">
     <value>КБ</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="MegabytesPresentation" xml:space="preserve">
+  <data name="MB" xml:space="preserve">
     <value>МБ</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="GigabytesPresentation" xml:space="preserve">
+  <data name="GB" xml:space="preserve">
     <value>ГБ</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="TerabytesPresentation" xml:space="preserve">
+  <data name="TB" xml:space="preserve">
     <value>ТБ</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="SubscriptionTitleTemplate" xml:space="preserve">
+  <data name="SubscriptionTemplate" xml:space="preserve">
     <value>Подписки {0}</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="SubscribersTitleTemplate" xml:space="preserve">
+  <data name="SubscribersTemplate" xml:space="preserve">
     <value>Подписчики {0}</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="SearchVideos" xml:space="preserve">
-    <value>Видео</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="SearchPeoples" xml:space="preserve">
-    <value>Люди</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="ApplicationNewVersionReady" xml:space="preserve">
-    <value>Вышло важное обновление, похоже пора его установить.</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="DownloadUpdate" xml:space="preserve">
-    <value>Скачать обновление</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="EmailAlreadyExists" xml:space="preserve">
     <value>Данный эмейл уже зарегистрирован</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="WithdrawalViewPassport" xml:space="preserve">
-    <value>Паспорт(серия и номер)</value>
-    <comment>Creditcard save
-Fuzzy</comment>
-  </data>
-  <data name="CreateOrderSecretOrder" xml:space="preserve">
+  <data name="SecretOrder" xml:space="preserve">
     <value>Секретный заказ</value>
     <comment>Fuzzy</comment>
   </data>
@@ -1345,11 +803,11 @@ Fuzzy</comment>
 Если задание невыполнимо, исполнитель может загрузить видео, в котором укажет причину, по которой невозможно снять видео, а заказчик при несогласии отправит задание в спор, где пользователи решат голосованием, кто прав.</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="PublicationItemDownload" xml:space="preserve">
+  <data name="Download" xml:space="preserve">
     <value>Скачать</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CompetitionPayForJoin" xml:space="preserve">
+  <data name="PayForParticipation" xml:space="preserve">
     <value>Оплатить участие</value>
     <comment>Fuzzy</comment>
   </data>
@@ -1364,36 +822,12 @@ Fuzzy</comment>
     <value>Упс, что то пошло не так :(</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="WithdrawalViewMiddleName" xml:space="preserve">
-    <value>Отчество</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewLocation" xml:space="preserve">
-    <value>Место жительства</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalViewNationality" xml:space="preserve">
-    <value>Гражданство</value>
-    <comment>Fuzzy</comment>
-  </data>
   <data name="WithdrawalYoomoneyDescription" xml:space="preserve">
     <value>Вывод средств осуществляется через кошелек ЮMoney (Яндекс кошелёк).</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="WithdrawalYoomoney" xml:space="preserve">
+  <data name="Yoomoney" xml:space="preserve">
     <value>ЮMoney</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="WithdrawalEnterWalletNumber" xml:space="preserve">
-    <value>Введите номер кошелька ЮMoney (Яндекс кошелёк)</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CreateOrderPrivacyMessage" xml:space="preserve">
-    <value>Завершая создание заказа, я подтверждаю оформление с условиями публичной оферты, пользовательского соглашения и политики конфиденциальности</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="CreateOrderPrivacyLink" xml:space="preserve">
-    <value>публичной оферты, пользовательского соглашения и политики конфиденциальности</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="BlockUser" xml:space="preserve">
@@ -1402,14 +836,6 @@ Fuzzy</comment>
   </data>
   <data name="BlockedUser" xml:space="preserve">
     <value>Пользователь {0} заблокирован</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="AllowStorage" xml:space="preserve">
-    <value>Разрешите приложению использовать хранилище.</value>
-    <comment>Fuzzy</comment>
-  </data>
-  <data name="AllowCamera" xml:space="preserve">
-    <value>Разрешите приложению использовать камеру.</value>
     <comment>Fuzzy</comment>
   </data>
 </root>

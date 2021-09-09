@@ -14,11 +14,11 @@ namespace PrankChat.Mobile.Core.Extensions
 
         private static readonly string[] _weightSuffixes = new[]
         {
-            Resources.BytesPresentation,
-            Resources.KilobytesPresentation,
-            Resources.MegabytesPresentation,
-            Resources.GigabytesPresentation,
-            Resources.TerabytesPresentation
+            Resources.Bytes,
+            Resources.KB,
+            Resources.MB,
+            Resources.GB,
+            Resources.TB
         };
 
         public static string ToCountString(this int count)
@@ -69,18 +69,18 @@ namespace PrankChat.Mobile.Core.Extensions
             var lastTwoChars = long.Parse(lastTwoCharsString);
             if (lastTwoChars >= 11 && lastTwoChars <= 19)
             {
-                return $"{count.ToCountString()} {Resources.CountViews}";
+                return $"{count.ToCountString()} {Resources.Views}";
             }
 
             var lastChar = count.ToString().LastOrDefault();
             if (lastChar == '1')
             {
-                return $"{count.ToCountString()} {Resources.CountView}";
+                return $"{count.ToCountString()} {Resources.View}";
             }
 
             var viewsText = new[] { '2', '3', '4' }.Contains(lastChar)
-                  ? Resources.CountOfViewing
-                  : Resources.CountViews;
+                  ? Resources.OfViewing
+                  : Resources.Views;
 
             return $"{count.ToCountString()} {viewsText}";
         }
