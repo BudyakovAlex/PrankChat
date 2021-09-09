@@ -10,6 +10,7 @@ using PrankChat.Mobile.Core.Plugins.Timer;
 using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
+using System.Linq;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
 
@@ -94,6 +95,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
         public void Dispose()
         {
             Dispose(true);
+        }
+
+        public virtual Task RaisePropertiesChanged(params string[] propertiesNames)
+        {
+            var raisePropertiesTasks = propertiesNames.Select(propertyName => RaisePropertyChanged(propertyName));
+            return Task.WhenAll(raisePropertiesTasks);
         }
     }
 }
