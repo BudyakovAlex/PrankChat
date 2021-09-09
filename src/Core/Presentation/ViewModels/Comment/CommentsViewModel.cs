@@ -107,32 +107,25 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Comment
 
         private async Task SendCommentAsync()
         {
-            try
+            if (string.IsNullOrWhiteSpace(Comment))
             {
-                if (string.IsNullOrWhiteSpace(Comment))
-                {
-                    return;
-                }
-
-                var comment = await _videoManager.CommentVideoAsync(_videoId, Comment);
-                if (comment is null)
-                {
-                    return;
-                }
-
-                comment.User = UserSessionProvider.User;
-                Items.Add(ProduceCommentItemViewModel(comment));
-                _newCommentsCounter += 1;
-                SetTotalItemsCount(_newCommentsCounter);
-
-                ScrollInteraction.Raise(Items.Count - 1);
-
-                Comment = string.Empty;
+                return;
             }
-            catch (Exception ex)
+
+            var comment = await _videoManager.CommentVideoAsync(_videoId, Comment);
+            if (comment is null)
             {
-                _mvxLog.ErrorException("Failed to send comments", ex);
+                return;
             }
+
+            comment.User = UserSessionProvider.User;
+            Items.Add(ProduceCommentItemViewModel(comment));
+            _newCommentsCounter += 1;
+            SetTotalItemsCount(_newCommentsCounter);
+
+            ScrollInteraction.Raise(Items.Count - 1);
+
+            Comment = string.Empty;
         }
     }
 }
