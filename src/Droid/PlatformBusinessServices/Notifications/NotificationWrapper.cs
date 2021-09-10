@@ -102,7 +102,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             var title = bundle.Get("title")?.ToString();
             var body = bundle.Get("body")?.ToString();
 
-            var pushNotificationData = Core.Services.Notifications.NotificationManager.Instance.GenerateNotificationData(key, value, title, body);
+            var pushNotificationData = Core.Services.Notifications.NotificationHandler.Instance.GenerateNotificationData(key, value, title, body);
             if (pushNotificationData?.Type == NotificationType.OrderEvent)
             {
                 return pushNotificationData.OrderId;

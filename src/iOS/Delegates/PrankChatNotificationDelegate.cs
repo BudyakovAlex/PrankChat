@@ -11,7 +11,7 @@ namespace PrankChat.Mobile.iOS.Delegates
 		{
 			var userInfo = response.Notification.Request.Content.UserInfo;
 			var pushNotificationData = NotificationWrapper.Instance.HandleNotificationPayload(userInfo);
-			NotificationManager.Instance.TryNavigateToView(pushNotificationData?.OrderId);
+			NotificationHandler.Instance.TryNavigateToView(pushNotificationData?.OrderId);
 			completionHandler?.Invoke();
 		}
 

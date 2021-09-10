@@ -12,9 +12,9 @@ using System;
 
 namespace PrankChat.Mobile.Core.Services.Notifications
 {
-    public class NotificationManager
+    public class NotificationHandler
     {
-        public static NotificationManager Instance { get; } = new NotificationManager();
+        public static NotificationHandler Instance { get; } = new NotificationHandler();
 
         public PushNotification GenerateNotificationData(string key, string value, string title, string body)
         {

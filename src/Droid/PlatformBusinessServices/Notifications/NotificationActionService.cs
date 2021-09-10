@@ -28,7 +28,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 			StartActivity(splashActivity);
 
 			_orderId = NotificationWrapper.GetOrderId(intent);
-			Core.Services.Notifications.NotificationManager.Instance.TryNavigateToView(_orderId);
+			Core.Services.Notifications.NotificationHandler.Instance.TryNavigateToView(_orderId);
 		}
 	}
 }
