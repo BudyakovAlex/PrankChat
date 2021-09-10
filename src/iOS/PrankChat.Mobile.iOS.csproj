@@ -74,56 +74,56 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
-    <Compile Include="Presentation\Views\Base\BaseView.cs" />
-    <Compile Include="Presentation\Views\Base\BaseTableCell.cs" />
-    <InterfaceDefinition Include="Presentation\Views\MainView\MainView.xib" />
-    <Compile Include="Presentation\Views\MainView\MainView.cs" />
-    <Compile Include="Presentation\Views\MainView\MainView.designer.cs">
+    <Compile Include="Views\Base\BaseView.cs" />
+    <Compile Include="Views\Base\BaseTableCell.cs" />
+    <InterfaceDefinition Include="Views\MainView\MainView.xib" />
+    <Compile Include="Views\MainView\MainView.cs" />
+    <Compile Include="Views\MainView\MainView.designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\LoginView\LoginView.xib" />
-    <Compile Include="Presentation\Views\LoginView\LoginView.cs" />
-    <Compile Include="Presentation\Views\LoginView\LoginView.designer.cs">
+    <InterfaceDefinition Include="Views\LoginView\LoginView.xib" />
+    <Compile Include="Views\LoginView\LoginView.cs" />
+    <Compile Include="Views\LoginView\LoginView.designer.cs">
       <DependentUpon>LoginView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\NotificationView\NotificationView.xib" />
-    <Compile Include="Presentation\Views\NotificationView\NotificationView.cs" />
-    <Compile Include="Presentation\Views\NotificationView\NotificationView.designer.cs">
+    <InterfaceDefinition Include="Views\NotificationView\NotificationView.xib" />
+    <Compile Include="Views\NotificationView\NotificationView.cs" />
+    <Compile Include="Views\NotificationView\NotificationView.designer.cs">
       <DependentUpon>NotificationView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\PasswordRecoveryView\PasswordRecoveryView.xib" />
-    <Compile Include="Presentation\Views\PasswordRecoveryView\PasswordRecoveryView.cs" />
-    <Compile Include="Presentation\Views\PasswordRecoveryView\PasswordRecoveryView.designer.cs">
+    <InterfaceDefinition Include="Views\PasswordRecoveryView\PasswordRecoveryView.xib" />
+    <Compile Include="Views\PasswordRecoveryView\PasswordRecoveryView.cs" />
+    <Compile Include="Views\PasswordRecoveryView\PasswordRecoveryView.designer.cs">
       <DependentUpon>PasswordRecoveryView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Order\OrdersView.xib" />
-    <Compile Include="Presentation\Views\Order\OrdersView.cs" />
-    <Compile Include="Presentation\Views\Order\OrdersView.designer.cs">
+    <InterfaceDefinition Include="Views\Order\OrdersView.xib" />
+    <Compile Include="Views\Order\OrdersView.cs" />
+    <Compile Include="Views\Order\OrdersView.designer.cs">
       <DependentUpon>OrdersView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Order\CreateOrderView.xib" />
-    <Compile Include="Presentation\Views\Order\CreateOrderView.cs" />
-    <Compile Include="Presentation\Views\Order\CreateOrderView.designer.cs">
+    <InterfaceDefinition Include="Views\Order\CreateOrderView.xib" />
+    <Compile Include="Views\Order\CreateOrderView.cs" />
+    <Compile Include="Views\Order\CreateOrderView.designer.cs">
       <DependentUpon>CreateOrderView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Publication\PublicationsView.xib" />
-    <Compile Include="Presentation\Views\Publication\PublicationsView.cs" />
-    <Compile Include="Presentation\Views\Publication\PublicationsView.designer.cs">
+    <InterfaceDefinition Include="Views\Publication\PublicationsView.xib" />
+    <Compile Include="Views\Publication\PublicationsView.cs" />
+    <Compile Include="Views\Publication\PublicationsView.designer.cs">
       <DependentUpon>PublicationsView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Registration\RegistrationView.xib" />
-    <Compile Include="Presentation\Views\Registration\RegistrationView.cs" />
-    <Compile Include="Presentation\Views\Registration\RegistrationView.designer.cs">
+    <InterfaceDefinition Include="Views\Registration\RegistrationView.xib" />
+    <Compile Include="Views\Registration\RegistrationView.cs" />
+    <Compile Include="Views\Registration\RegistrationView.designer.cs">
       <DependentUpon>RegistrationView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Registration\RegistrationSecondStepView.xib" />
-    <Compile Include="Presentation\Views\Registration\RegistrationSecondStepView.cs" />
-    <Compile Include="Presentation\Views\Registration\RegistrationSecondStepView.designer.cs">
+    <InterfaceDefinition Include="Views\Registration\RegistrationSecondStepView.xib" />
+    <Compile Include="Views\Registration\RegistrationSecondStepView.cs" />
+    <Compile Include="Views\Registration\RegistrationSecondStepView.designer.cs">
       <DependentUpon>RegistrationSecondStepView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Registration\RegistrationThirdStepView.xib" />
-    <Compile Include="Presentation\Views\Registration\RegistrationThirdStepView.cs" />
-    <Compile Include="Presentation\Views\Registration\RegistrationThirdStepView.designer.cs">
+    <InterfaceDefinition Include="Views\Registration\RegistrationThirdStepView.xib" />
+    <Compile Include="Views\Registration\RegistrationThirdStepView.cs" />
+    <Compile Include="Views\Registration\RegistrationThirdStepView.designer.cs">
       <DependentUpon>RegistrationThirdStepView.cs</DependentUpon>
     </Compile>
     <Compile Include="LinkerPleaseInclude.cs" />
@@ -132,120 +132,118 @@
     <Compile Include="AppTheme\Theme.cs" />
     <Compile Include="Controls\CustomSegmentedControl.cs" />
     <Compile Include="Extensions\UIImageExtensions.cs" />
-    <InterfaceDefinition Include="Presentation\Views\Search\SearchView.xib" />
-    <Compile Include="Presentation\Views\Search\SearchView.cs" />
-    <Compile Include="Presentation\Views\Search\SearchView.designer.cs">
+    <InterfaceDefinition Include="Views\Search\SearchView.xib" />
+    <Compile Include="Views\Search\SearchView.cs" />
+    <Compile Include="Views\Search\SearchView.designer.cs">
       <DependentUpon>SearchView.cs</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Helpers\NavigationItemHelper.cs" />
-    <InterfaceDefinition Include="Presentation\Views\Search\ProfileSearchItemCell.xib" />
-    <Compile Include="Presentation\Views\Search\ProfileSearchItemCell.cs" />
-    <Compile Include="Presentation\Views\Search\ProfileSearchItemCell.designer.cs">
+    <InterfaceDefinition Include="Views\Search\ProfileSearchItemCell.xib" />
+    <Compile Include="Views\Search\ProfileSearchItemCell.cs" />
+    <Compile Include="Views\Search\ProfileSearchItemCell.designer.cs">
       <DependentUpon>ProfileSearchItemCell.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Publication\PublicationItemCell.xib" />
-    <Compile Include="Presentation\Views\Publication\PublicationItemCell.cs" />
-    <Compile Include="Presentation\Views\Publication\PublicationItemCell.designer.cs">
+    <InterfaceDefinition Include="Views\Publication\PublicationItemCell.xib" />
+    <Compile Include="Views\Publication\PublicationItemCell.cs" />
+    <Compile Include="Views\Publication\PublicationItemCell.designer.cs">
       <DependentUpon>PublicationItemCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Views\Base\BaseGradientBarView.cs" />
-    <Compile Include="Presentation\Views\Base\BaseTransparentBarView.cs" />
-    <InterfaceDefinition Include="Presentation\Views\PasswordRecoveryView\FinishPasswordRecoveryView.xib" />
-    <Compile Include="Presentation\Views\PasswordRecoveryView\FinishPasswordRecoveryView.cs" />
-    <Compile Include="Presentation\Views\PasswordRecoveryView\FinishPasswordRecoveryView.designer.cs">
+    <Compile Include="Views\Base\BaseGradientBarView.cs" />
+    <Compile Include="Views\Base\BaseTransparentBarView.cs" />
+    <InterfaceDefinition Include="Views\PasswordRecoveryView\FinishPasswordRecoveryView.xib" />
+    <Compile Include="Views\PasswordRecoveryView\FinishPasswordRecoveryView.cs" />
+    <Compile Include="Views\PasswordRecoveryView\FinishPasswordRecoveryView.designer.cs">
       <DependentUpon>FinishPasswordRecoveryView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Views\Order\OrdersTableSource.cs" />
-    <InterfaceDefinition Include="Presentation\Views\Order\OrderItemCell.xib" />
-    <Compile Include="Presentation\Views\Order\OrderItemCell.cs" />
-    <Compile Include="Presentation\Views\Order\OrderItemCell.designer.cs">
+    <Compile Include="Views\Order\OrdersTableSource.cs" />
+    <InterfaceDefinition Include="Views\Order\OrderItemCell.xib" />
+    <Compile Include="Views\Order\OrderItemCell.cs" />
+    <Compile Include="Views\Order\OrderItemCell.designer.cs">
       <DependentUpon>OrderItemCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Views\Base\BaseTabbedView.cs" />
-    <InterfaceDefinition Include="Presentation\Views\ArbitrationView\ArbitrationItemCell.xib" />
-    <Compile Include="Presentation\Views\ArbitrationView\ArbitrationItemCell.cs" />
-    <Compile Include="Presentation\Views\ArbitrationView\ArbitrationItemCell.designer.cs">
+    <Compile Include="Views\Base\BaseTabbedView.cs" />
+    <InterfaceDefinition Include="Views\ArbitrationView\ArbitrationItemCell.xib" />
+    <Compile Include="Views\ArbitrationView\ArbitrationItemCell.cs" />
+    <Compile Include="Views\ArbitrationView\ArbitrationItemCell.designer.cs">
       <DependentUpon>ArbitrationItemCell.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Order\OrderDetailsView.xib" />
-    <Compile Include="Presentation\Views\Order\OrderDetailsView.cs" />
-    <Compile Include="Presentation\Views\Order\OrderDetailsView.designer.cs">
+    <InterfaceDefinition Include="Views\Order\OrderDetailsView.xib" />
+    <Compile Include="Views\Order\OrderDetailsView.cs" />
+    <Compile Include="Views\Order\OrderDetailsView.designer.cs">
       <DependentUpon>OrderDetailsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\PlaceholderTextView.cs" />
-    <Compile Include="Presentation\Views\NotificationView\NotificationTableSource.cs" />
-    <InterfaceDefinition Include="Presentation\Views\NotificationView\NotificationItemCell.xib" />
-    <Compile Include="Presentation\Views\NotificationView\NotificationItemCell.cs" />
-    <Compile Include="Presentation\Views\NotificationView\NotificationItemCell.designer.cs">
+    <Compile Include="Views\NotificationView\NotificationTableSource.cs" />
+    <InterfaceDefinition Include="Views\NotificationView\NotificationItemCell.xib" />
+    <Compile Include="Views\NotificationView\NotificationItemCell.cs" />
+    <Compile Include="Views\NotificationView\NotificationItemCell.designer.cs">
       <DependentUpon>NotificationItemCell.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Publication\PublicationDetailsView.xib" />
-    <Compile Include="Presentation\Views\Publication\PublicationDetailsView.cs" />
-    <Compile Include="Presentation\Views\Publication\PublicationDetailsView.designer.cs">
+    <InterfaceDefinition Include="Views\Publication\PublicationDetailsView.xib" />
+    <Compile Include="Views\Publication\PublicationDetailsView.cs" />
+    <Compile Include="Views\Publication\PublicationDetailsView.designer.cs">
       <DependentUpon>PublicationDetailsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Views\Comment\CommentsView.cs" />
-    <Compile Include="Presentation\Views\Comment\CommentsView.designer.cs">
+    <Compile Include="Views\Comment\CommentsView.cs" />
+    <Compile Include="Views\Comment\CommentsView.designer.cs">
       <DependentUpon>CommentsView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Comment\CommentsView.xib" />
-    <InterfaceDefinition Include="Presentation\Views\Comment\CommentItemCell.xib" />
-    <Compile Include="Presentation\Views\Comment\CommentItemCell.cs" />
-    <Compile Include="Presentation\Views\Comment\CommentItemCell.designer.cs">
+    <InterfaceDefinition Include="Views\Comment\CommentsView.xib" />
+    <InterfaceDefinition Include="Views\Comment\CommentItemCell.xib" />
+    <Compile Include="Views\Comment\CommentItemCell.cs" />
+    <Compile Include="Views\Comment\CommentItemCell.designer.cs">
       <DependentUpon>CommentItemCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Views\ProfileView\Cashbox\CashboxView.cs" />
-    <Compile Include="Presentation\Views\ProfileView\Cashbox\CashboxView.designer.cs">
+    <Compile Include="Views\ProfileView\Cashbox\CashboxView.cs" />
+    <Compile Include="Views\ProfileView\Cashbox\CashboxView.designer.cs">
       <DependentUpon>CashboxView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\ProfileView\Cashbox\CashboxView.xib" />
-    <InterfaceDefinition Include="Presentation\Views\ProfileView\Cashbox\RefillView.xib" />
-    <Compile Include="Presentation\Views\ProfileView\Cashbox\RefillView.cs" />
-    <Compile Include="Presentation\Views\ProfileView\Cashbox\RefillView.designer.cs">
+    <InterfaceDefinition Include="Views\ProfileView\Cashbox\CashboxView.xib" />
+    <InterfaceDefinition Include="Views\ProfileView\Cashbox\RefillView.xib" />
+    <Compile Include="Views\ProfileView\Cashbox\RefillView.cs" />
+    <Compile Include="Views\ProfileView\Cashbox\RefillView.designer.cs">
       <DependentUpon>RefillView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\ProfileView\Cashbox\WithdrawalView.xib" />
-    <Compile Include="Presentation\Views\ProfileView\Cashbox\WithdrawalView.cs" />
-    <Compile Include="Presentation\Views\ProfileView\Cashbox\WithdrawalView.designer.cs">
+    <InterfaceDefinition Include="Views\ProfileView\Cashbox\WithdrawalView.xib" />
+    <Compile Include="Views\ProfileView\Cashbox\WithdrawalView.cs" />
+    <Compile Include="Views\ProfileView\Cashbox\WithdrawalView.designer.cs">
       <DependentUpon>WithdrawalView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Views\ProfileView\Cashbox\PaymentMethodsCollectionViewSource.cs" />
-    <InterfaceDefinition Include="Presentation\Views\ProfileView\Cashbox\PaymentMethodCell.xib" />
-    <Compile Include="Presentation\Views\ProfileView\Cashbox\PaymentMethodCell.cs" />
-    <Compile Include="Presentation\Views\ProfileView\Cashbox\PaymentMethodCell.designer.cs">
+    <Compile Include="Views\ProfileView\Cashbox\PaymentMethodsCollectionViewSource.cs" />
+    <InterfaceDefinition Include="Views\ProfileView\Cashbox\PaymentMethodCell.xib" />
+    <Compile Include="Views\ProfileView\Cashbox\PaymentMethodCell.cs" />
+    <Compile Include="Views\ProfileView\Cashbox\PaymentMethodCell.designer.cs">
       <DependentUpon>PaymentMethodCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Views\Base\BaseCollectionCell.cs" />
-    <Compile Include="Presentation\Converters\BoolToUIImageConverter.cs" />
-    <Compile Include="Presentation\Converters\DateFormatConverter.cs" />
-    <Compile Include="Presentation\Dialogs\Share\ShareController.cs" />
-    <Compile Include="Presentation\Dialogs\Share\ShareController.designer.cs">
-      <DependentUpon>..\..\Views\Share\ShareController.cs</DependentUpon>
-    </Compile>
-    <InterfaceDefinition Include="Presentation\Dialogs\Share\ShareController.xib" />
-    <InterfaceDefinition Include="Presentation\Dialogs\ArrayPicker\ArrayPickerController.xib" />
-    <Compile Include="Presentation\Dialogs\ArrayPicker\ArrayPickerController.cs" />
-    <Compile Include="Presentation\Dialogs\ArrayPicker\ArrayPickerController.designer.cs">
+    <Compile Include="Views\Base\BaseCollectionCell.cs" />
+    <Compile Include="Converters\BoolToUIImageConverter.cs" />
+    <Compile Include="Converters\DateFormatConverter.cs" />
+    <Compile Include="Dialogs\Share\ShareController.cs" />
+    <Compile Include="Dialogs\Share\ShareController.designer.cs" />
+    <InterfaceDefinition Include="Dialogs\Share\ShareController.xib" />
+    <InterfaceDefinition Include="Dialogs\ArrayPicker\ArrayPickerController.xib" />
+    <Compile Include="Dialogs\ArrayPicker\ArrayPickerController.cs" />
+    <Compile Include="Dialogs\ArrayPicker\ArrayPickerController.designer.cs">
       <DependentUpon>ArrayPickerController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Dialogs\BaseDialog.cs" />
-    <InterfaceDefinition Include="Presentation\Views\ProfileView\ProfileUpdateView.xib" />
-    <Compile Include="Presentation\Views\ProfileView\ProfileUpdateView.cs" />
-    <Compile Include="Presentation\Views\ProfileView\ProfileUpdateView.designer.cs">
+    <Compile Include="Dialogs\BaseDialog.cs" />
+    <InterfaceDefinition Include="Views\ProfileView\ProfileUpdateView.xib" />
+    <Compile Include="Views\ProfileView\ProfileUpdateView.cs" />
+    <Compile Include="Views\ProfileView\ProfileUpdateView.designer.cs">
       <DependentUpon>ProfileUpdateView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Binding\UIButtonSelectedTargetBinding.cs" />
+    <Compile Include="Binding\UIButtonSelectedTargetBinding.cs" />
     <BundleResource Include="Resources\Animations\ripple_animation.json" />
     <Compile Include="Controls\SelectableButton.cs" />
-    <InterfaceDefinition Include="Presentation\Views\Web\WebPageView.xib" />
-    <Compile Include="Presentation\Views\Web\WebPageView.cs" />
-    <Compile Include="Presentation\Views\Web\WebPageView.designer.cs">
+    <InterfaceDefinition Include="Views\Web\WebPageView.xib" />
+    <Compile Include="Views\Web\WebPageView.cs" />
+    <Compile Include="Views\Web\WebPageView.designer.cs">
       <DependentUpon>WebPageView.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\CustomWKWebView.cs" />
-    <InterfaceDefinition Include="Presentation\Views\Video\FullScreenVideoView.xib" />
-    <Compile Include="Presentation\Views\Video\FullScreenVideoView.cs" />
-    <Compile Include="Presentation\Views\Video\FullScreenVideoView.designer.cs">
+    <InterfaceDefinition Include="Views\Video\FullScreenVideoView.xib" />
+    <Compile Include="Views\Video\FullScreenVideoView.cs" />
+    <Compile Include="Views\Video\FullScreenVideoView.designer.cs">
       <DependentUpon>FullScreenVideoView.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\FloatPlaceholderTextField.cs" />
@@ -257,99 +255,99 @@
     </Compile>
     <Compile Include="Services\ExternalAuth\ExternalAuthService.cs" />
     <Compile Include="Services\Callbacks\VkontakteDelegate.cs" />
-    <Compile Include="Presentation\Binding\UIImageViewOrderTypeTargetBinding.cs" />
-    <Compile Include="Presentation\Binding\UIButtonOrderTypeTargetBinding.cs" />
+    <Compile Include="Binding\UIImageViewOrderTypeTargetBinding.cs" />
+    <Compile Include="Binding\UIButtonOrderTypeTargetBinding.cs" />
     <Compile Include="Services\Callbacks\FacebookCallback.cs" />
     <Compile Include="Utils\Helpers\DeviceHelper.cs" />
-    <InterfaceDefinition Include="Presentation\Views\ProfileView\ProfileView.xib" />
-    <Compile Include="Presentation\Views\ProfileView\ProfileView.cs" />
-    <Compile Include="Presentation\Views\ProfileView\ProfileView.designer.cs">
+    <InterfaceDefinition Include="Views\ProfileView\ProfileView.xib" />
+    <Compile Include="Views\ProfileView\ProfileView.cs" />
+    <Compile Include="Views\ProfileView\ProfileView.designer.cs">
       <DependentUpon>ProfileView.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\CircleCachedImageView.cs" />
-    <Compile Include="Presentation\Views\ProfileView\ImageCrop\ImageCropView.cs" />
-    <Compile Include="Presentation\Views\ProfileView\ImageCrop\ImageCropView.designer.cs">
+    <Compile Include="Views\ProfileView\ImageCrop\ImageCropView.cs" />
+    <Compile Include="Views\ProfileView\ImageCrop\ImageCropView.designer.cs">
       <DependentUpon>ImageCropView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\ProfileView\ImageCrop\ImageCropView.xib" />
-    <Compile Include="Presentation\Views\ProfileView\ImageCrop\CropViewDelegate.cs" />
-    <Compile Include="Presentation\SourcesAndDelegates\PagedTableViewSource.cs" />
+    <InterfaceDefinition Include="Views\ProfileView\ImageCrop\ImageCropView.xib" />
+    <Compile Include="Views\ProfileView\ImageCrop\CropViewDelegate.cs" />
+    <Compile Include="SourcesAndDelegates\PagedTableViewSource.cs" />
     <Compile Include="Delegates\PrankChatNotificationDelegate.cs" />
-    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionsView.xib" />
-    <Compile Include="Presentation\Views\Competition\CompetitionsView.cs" />
-    <Compile Include="Presentation\Views\Competition\CompetitionsView.designer.cs">
+    <InterfaceDefinition Include="Views\Competition\CompetitionsView.xib" />
+    <Compile Include="Views\Competition\CompetitionsView.cs" />
+    <Compile Include="Views\Competition\CompetitionsView.designer.cs">
       <DependentUpon>CompetitionsView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionsSectionCell.xib" />
-    <Compile Include="Presentation\Views\Competition\CompetitionsSectionCell.cs" />
-    <Compile Include="Presentation\Views\Competition\CompetitionsSectionCell.designer.cs">
+    <InterfaceDefinition Include="Views\Competition\CompetitionsSectionCell.xib" />
+    <Compile Include="Views\Competition\CompetitionsSectionCell.cs" />
+    <Compile Include="Views\Competition\CompetitionsSectionCell.designer.cs">
       <DependentUpon>CompetitionsSectionCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\SourcesAndDelegates\TableViewSource.cs" />
-    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionItemCell.xib" />
-    <Compile Include="Presentation\Views\Competition\CompetitionItemCell.cs" />
-    <Compile Include="Presentation\Views\Competition\CompetitionItemCell.designer.cs">
+    <Compile Include="SourcesAndDelegates\TableViewSource.cs" />
+    <InterfaceDefinition Include="Views\Competition\CompetitionItemCell.xib" />
+    <Compile Include="Views\Competition\CompetitionItemCell.cs" />
+    <Compile Include="Views\Competition\CompetitionItemCell.designer.cs">
       <DependentUpon>CompetitionItemCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Views\Competition\CompetitionItemCollectionViewSource.cs" />
-    <Compile Include="Presentation\Converters\CompetitionPhaseToHiddenConverter.cs" />
-    <InterfaceDefinition Include="Presentation\Dialogs\DatePicker\DatePickerController.xib" />
-    <Compile Include="Presentation\Dialogs\DatePicker\DatePickerController.cs" />
-    <Compile Include="Presentation\Dialogs\DatePicker\DatePickerController.designer.cs">
+    <Compile Include="Views\Competition\CompetitionItemCollectionViewSource.cs" />
+    <Compile Include="Converters\CompetitionPhaseToHiddenConverter.cs" />
+    <InterfaceDefinition Include="Dialogs\DatePicker\DatePickerController.xib" />
+    <Compile Include="Dialogs\DatePicker\DatePickerController.cs" />
+    <Compile Include="Dialogs\DatePicker\DatePickerController.designer.cs">
       <DependentUpon>DatePickerController.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionRulesView.xib" />
-    <Compile Include="Presentation\Views\Competition\CompetitionRulesView.cs" />
-    <Compile Include="Presentation\Views\Competition\CompetitionRulesView.designer.cs">
+    <InterfaceDefinition Include="Views\Competition\CompetitionRulesView.xib" />
+    <Compile Include="Views\Competition\CompetitionRulesView.cs" />
+    <Compile Include="Views\Competition\CompetitionRulesView.designer.cs">
       <DependentUpon>CompetitionRulesView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Binding\WKWebViewHtmlStringTargetBinding.cs" />
-    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionPrizePoolView.xib" />
-    <Compile Include="Presentation\Views\Competition\CompetitionPrizePoolView.cs" />
-    <Compile Include="Presentation\Views\Competition\CompetitionPrizePoolView.designer.cs">
+    <Compile Include="Binding\WKWebViewHtmlStringTargetBinding.cs" />
+    <InterfaceDefinition Include="Views\Competition\CompetitionPrizePoolView.xib" />
+    <Compile Include="Views\Competition\CompetitionPrizePoolView.cs" />
+    <Compile Include="Views\Competition\CompetitionPrizePoolView.designer.cs">
       <DependentUpon>CompetitionPrizePoolView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionPrizePoolItemCell.xib" />
-    <Compile Include="Presentation\Views\Competition\CompetitionPrizePoolItemCell.cs" />
-    <Compile Include="Presentation\Views\Competition\CompetitionPrizePoolItemCell.designer.cs">
+    <InterfaceDefinition Include="Views\Competition\CompetitionPrizePoolItemCell.xib" />
+    <Compile Include="Views\Competition\CompetitionPrizePoolItemCell.cs" />
+    <Compile Include="Views\Competition\CompetitionPrizePoolItemCell.designer.cs">
       <DependentUpon>CompetitionPrizePoolItemCell.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionDetailsView.xib" />
-    <Compile Include="Presentation\Views\Competition\CompetitionDetailsView.cs" />
-    <Compile Include="Presentation\Views\Competition\CompetitionDetailsView.designer.cs">
+    <InterfaceDefinition Include="Views\Competition\CompetitionDetailsView.xib" />
+    <Compile Include="Views\Competition\CompetitionDetailsView.cs" />
+    <Compile Include="Views\Competition\CompetitionDetailsView.designer.cs">
       <DependentUpon>CompetitionDetailsView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionDetailsHeaderCell.xib" />
-    <Compile Include="Presentation\Views\Competition\CompetitionDetailsHeaderCell.cs" />
-    <Compile Include="Presentation\Views\Competition\CompetitionDetailsHeaderCell.designer.cs">
+    <InterfaceDefinition Include="Views\Competition\CompetitionDetailsHeaderCell.xib" />
+    <Compile Include="Views\Competition\CompetitionDetailsHeaderCell.cs" />
+    <Compile Include="Views\Competition\CompetitionDetailsHeaderCell.designer.cs">
       <DependentUpon>CompetitionDetailsHeaderCell.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Competition\CompetitionVideoCell.xib" />
-    <Compile Include="Presentation\Views\Competition\CompetitionVideoCell.cs" />
-    <Compile Include="Presentation\Views\Competition\CompetitionVideoCell.designer.cs">
+    <InterfaceDefinition Include="Views\Competition\CompetitionVideoCell.xib" />
+    <Compile Include="Views\Competition\CompetitionVideoCell.cs" />
+    <Compile Include="Views\Competition\CompetitionVideoCell.designer.cs">
       <DependentUpon>CompetitionVideoCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Views\Base\BaseVideoTableCell.cs" />
-    <Compile Include="Presentation\SourcesAndDelegates\VideoTableSource.cs" />
+    <Compile Include="Views\Base\BaseVideoTableCell.cs" />
+    <Compile Include="SourcesAndDelegates\VideoTableSource.cs" />
     <Compile Include="Infrastructure\Constants.cs" />
     <BundleResource Include="GoogleService-Info.plist" />
     <Compile Include="PlatformBusinessServices\Notifications\NotificationWrapper.cs" />
-    <Compile Include="Presentation\Binding\FloatPlaceholderTextFieldPaddingTargetBinding.cs" />
-    <InterfaceDefinition Include="Presentation\Views\Onboarding\OnboardingView.xib" />
-    <Compile Include="Presentation\Views\Onboarding\OnboardingView.cs" />
-    <Compile Include="Presentation\Views\Onboarding\OnboardingView.designer.cs">
+    <Compile Include="Binding\FloatPlaceholderTextFieldPaddingTargetBinding.cs" />
+    <InterfaceDefinition Include="Views\Onboarding\OnboardingView.xib" />
+    <Compile Include="Views\Onboarding\OnboardingView.cs" />
+    <Compile Include="Views\Onboarding\OnboardingView.designer.cs">
       <DependentUpon>OnboardingView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Onboarding\OnboardingItemCell.xib" />
-    <Compile Include="Presentation\Views\Onboarding\OnboardingItemCell.cs" />
-    <Compile Include="Presentation\Views\Onboarding\OnboardingItemCell.designer.cs">
+    <InterfaceDefinition Include="Views\Onboarding\OnboardingItemCell.xib" />
+    <Compile Include="Views\Onboarding\OnboardingItemCell.cs" />
+    <Compile Include="Views\Onboarding\OnboardingItemCell.designer.cs">
       <DependentUpon>OnboardingItemCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Views\Onboarding\OnboardingCollectionViewSource.cs" />
-    <Compile Include="Presentation\Converters\BoolToUIColorConverter.cs" />
-    <InterfaceDefinition Include="Presentation\Views\Walthroughs\WalthroughView.xib" />
-    <Compile Include="Presentation\Views\Walthroughs\WalthroughView.cs" />
-    <Compile Include="Presentation\Views\Walthroughs\WalthroughView.designer.cs">
+    <Compile Include="Views\Onboarding\OnboardingCollectionViewSource.cs" />
+    <Compile Include="Converters\BoolToUIColorConverter.cs" />
+    <InterfaceDefinition Include="Views\Walthroughs\WalthroughView.xib" />
+    <Compile Include="Views\Walthroughs\WalthroughView.cs" />
+    <Compile Include="Views\Walthroughs\WalthroughView.designer.cs">
       <DependentUpon>WalthroughView.cs</DependentUpon>
     </Compile>
     <BundleResource Include="Resources\en.lproj\InfoPlist.strings" />
@@ -357,39 +355,39 @@
     <BundleResource Include="Resources\ru-RU.lproj\InfoPlist.strings" />
     <BundleResource Include="Resources\ru-RU.lproj\Localizalbe.strings" />
     <BundleResource Include="Resources\Base.lproj\InfoPlist.strings" />
-    <Compile Include="Presentation\SourcesAndDelegates\CommentsTableSource.cs" />
+    <Compile Include="SourcesAndDelegates\CommentsTableSource.cs" />
     <Compile Include="Controls\CircleProgressBar.cs" />
-    <Compile Include="Presentation\Converters\BoolToNotificationImageConverter.cs" />
+    <Compile Include="Converters\BoolToNotificationImageConverter.cs" />
     <Compile Include="Controls\TabView.cs" />
-    <InterfaceDefinition Include="Presentation\Views\Maintanance\MaintananceView.xib" />
-    <Compile Include="Presentation\Views\Maintanance\MaintananceView.cs" />
-    <Compile Include="Presentation\Views\Maintanance\MaintananceView.designer.cs">
+    <InterfaceDefinition Include="Views\Maintanance\MaintananceView.xib" />
+    <Compile Include="Views\Maintanance\MaintananceView.cs" />
+    <Compile Include="Views\Maintanance\MaintananceView.designer.cs">
       <DependentUpon>MaintananceView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Subscriptions\SubscriptionsView.xib" />
-    <Compile Include="Presentation\Views\Subscriptions\SubscriptionsView.cs" />
-    <Compile Include="Presentation\Views\Subscriptions\SubscriptionsView.designer.cs">
+    <InterfaceDefinition Include="Views\Subscriptions\SubscriptionsView.xib" />
+    <Compile Include="Views\Subscriptions\SubscriptionsView.cs" />
+    <Compile Include="Views\Subscriptions\SubscriptionsView.designer.cs">
       <DependentUpon>SubscriptionsView.cs</DependentUpon>
     </Compile>
-    <InterfaceDefinition Include="Presentation\Views\Subscriptions\Items\SubscriptionItemCell.xib" />
-    <Compile Include="Presentation\Views\Subscriptions\Items\SubscriptionItemCell.cs" />
-    <Compile Include="Presentation\Views\Subscriptions\Items\SubscriptionItemCell.designer.cs">
+    <InterfaceDefinition Include="Views\Subscriptions\Items\SubscriptionItemCell.xib" />
+    <Compile Include="Views\Subscriptions\Items\SubscriptionItemCell.cs" />
+    <Compile Include="Views\Subscriptions\Items\SubscriptionItemCell.designer.cs">
       <DependentUpon>SubscriptionItemCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\TabItemView.cs" />
-    <InterfaceDefinition Include="Presentation\Views\ProfileView\UserProfileView.xib" />
-    <Compile Include="Presentation\Views\ProfileView\UserProfileView.cs" />
-    <Compile Include="Presentation\Views\ProfileView\UserProfileView.designer.cs">
+    <InterfaceDefinition Include="Views\ProfileView\UserProfileView.xib" />
+    <Compile Include="Views\ProfileView\UserProfileView.cs" />
+    <Compile Include="Views\ProfileView\UserProfileView.designer.cs">
       <DependentUpon>UserProfileView.cs</DependentUpon>
     </Compile>
     <Compile Include="Services\ExternalAuth\AppleSignIn\IAppleSignInService.cs" />
     <Compile Include="Services\ExternalAuth\AppleSignIn\AppleSignInService.cs" />
-    <Compile Include="Presentation\Views\Base\IScrollableView.cs" />
-    <Compile Include="Presentation\SourcesAndDelegates\Search\SearchTableSource.cs" />
-    <Compile Include="Presentation\SourcesAndDelegates\Search\OrdersSearchTableSource.cs" />
+    <Compile Include="Views\Base\IScrollableView.cs" />
+    <Compile Include="SourcesAndDelegates\Search\SearchTableSource.cs" />
+    <Compile Include="SourcesAndDelegates\Search\OrdersSearchTableSource.cs" />
     <Compile Include="Controls\CheckBox.cs" />
-    <Compile Include="Presentation\Views\Base\IRefreshableView.cs" />
-    <Compile Include="Presentation\Views\Base\BaseRefreshableTabbedView.cs" />
+    <Compile Include="Views\Base\IRefreshableView.cs" />
+    <Compile Include="Views\Base\BaseRefreshableTabbedView.cs" />
     <Compile Include="Plugins\Video\VideoPlayer.cs" />
     <Compile Include="Providers\PlatformPathsProvider.cs" />
     <Compile Include="PlatformBusinessServices\FileSystem\FileSystemService.cs" />
