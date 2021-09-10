@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.NotificationView
 
 		protected override void SetupControls()
 		{
-            Title = Resources.NotificationView_Title;
+            Title = Resources.Notifications;
             InitializeTableView();
         }
 

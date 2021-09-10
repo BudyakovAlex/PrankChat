@@ -48,14 +48,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.PasswordRecovery
         {
             if (string.IsNullOrWhiteSpace(Email))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Email, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Email, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "E-mail can't be empty.");
                 return false;
             }
 
             if (!Email.IsValidEmail())
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Email, ValidationErrorType.Invalid));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Email, ValidationErrorType.Invalid));
                 ErrorHandleService.LogError(this, "E-mail is invalid.");
                 return false;
             }

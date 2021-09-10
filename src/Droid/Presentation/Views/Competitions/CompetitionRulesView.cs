@@ -18,7 +18,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Competitions
 
         protected override bool HasBackButton => true;
 
-        protected override string TitleActionBar => Core.Localization.Resources.Competition_Rules;
+        protected override string TitleActionBar => Core.Localization.Resources.CompetitionRules;
 
         protected override void OnCreate(Bundle bundle)
         {

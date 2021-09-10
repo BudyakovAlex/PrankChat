@@ -122,7 +122,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
         protected override void SetupControls()
         {
-            Title = Resources.ProfileUpdateView_Title;
+            Title = Resources.ProfileEditing;
 
             descriptionTextView.TextContainer.MaximumNumberOfLines = 3;
 
@@ -133,34 +133,34 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
             rootView.AddGestureRecognizer(new UITapGestureRecognizer(OnViewTapped));
             NavigationItem?.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton(ImageNames.IconLogout, ViewModel.ShowMenuCommand), true);
 
-            emailTextField.SetLightStyle(Resources.ProfileUpdateView_Email_Placeholder);
+            emailTextField.SetLightStyle(Resources.Email);
 
-            loginTextField.SetLightStyle(Resources.ProfileUpdateView_Login_Placeholder);
+            loginTextField.SetLightStyle(Resources.Login);
 
-            nameTextField.SetLightStyle(Resources.ProfileUpdateView_Name_Placeholder);
+            nameTextField.SetLightStyle(Resources.Name);
 
-            birthdayTextField.SetLightStyle(Resources.ProfileUpdateView_Birthday_Placeholder, rightImage: UIImage.FromBundle(ImageNames.IconCalendar));
+            birthdayTextField.SetLightStyle(Resources.Birthday, rightImage: UIImage.FromBundle(ImageNames.IconCalendar));
 
-            sexSelectTitleLabel.Text = Resources.ProfileUpdateView_GenderSelect_Title;
+            sexSelectTitleLabel.Text = Resources.YourGender;
             sexSelectTitleLabel.TextColor = Theme.Color.White;
             sexSelectTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
 
-            maleTitleButton.SetTitle(Resources.RegistrationView_Male_Button, UIControlState.Normal);
+            maleTitleButton.SetTitle(Resources.Male, UIControlState.Normal);
             maleTitleButton.SetRadioTitleStyle();
 
-            femaleTitleButton.SetTitle(Resources.RegistrationView_Female_Button, UIControlState.Normal);
+            femaleTitleButton.SetTitle(Resources.Female, UIControlState.Normal);
             femaleTitleButton.SetRadioTitleStyle();
 
             femaleIconButton.SetSelectableImageStyle(ImageNames.IconRadioButtonInactive, ImageNames.IconRadioButtonActive);
             maleIconButton.SetSelectableImageStyle(ImageNames.IconRadioButtonInactive, ImageNames.IconRadioButtonActive);
 
-            saveButton.SetLightStyle(Resources.ProfileUpdateView_Button_Save);
-            resendEmailLabel.SetLinkStyle(Theme.Color.White, Resources.Profile_Resend_Confirmation, 14);
+            saveButton.SetLightStyle(Resources.Save);
+            resendEmailLabel.SetLinkStyle(Theme.Color.White, Resources.Resend, 14);
 
-            changePasswordLabel.AttributedText = new NSAttributedString(Resources.ProfileUpdateView_ChangePassword, underlineStyle: NSUnderlineStyle.Single);
+            changePasswordLabel.AttributedText = new NSAttributedString(Resources.ChangePassword, underlineStyle: NSUnderlineStyle.Single);
             changePasswordLabel.TextColor = UIColor.White;
 
-            changeProfilePhotoLabel.AttributedText = new NSAttributedString(Resources.ProfileUpdateView_PhotoChange_Title, underlineStyle: NSUnderlineStyle.Single);
+            changeProfilePhotoLabel.AttributedText = new NSAttributedString(Resources.ChangeProfilePhoto, underlineStyle: NSUnderlineStyle.Single);
             changeProfilePhotoLabel.TextColor = UIColor.White;
 
             descriptionTextView.SetTitleStyle(size: 14);
@@ -187,10 +187,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             descriptionTextView.AddGestureRecognizer(new UITapGestureRecognizer(() => descriptionTextView.BecomeFirstResponder()));
 
-            descriptionPlaceholderLabel.SetSmallSubtitleStyle(Resources.ProfileUpdateView_Description_Placeholder, 14);
+            descriptionPlaceholderLabel.SetSmallSubtitleStyle(Resources.AboutMe, 14);
             descriptionPlaceholderLabel.TextColor = Theme.Color.White;
 
-            descriptionTopFloatingPlaceholderLabel.SetSmallSubtitleStyle(Resources.ProfileUpdateView_Description_Placeholder);
+            descriptionTopFloatingPlaceholderLabel.SetSmallSubtitleStyle(Resources.AboutMe);
             descriptionTopFloatingPlaceholderLabel.TextColor = Theme.Color.White;
             descriptionTopFloatingPlaceholderLabel.Hidden = true;
             stackView.SetCustomSpacing(8, stackView.ArrangedSubviews[2]);

@@ -42,27 +42,27 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             orderTitleLabel.SetScreenTitleStyle();
 
             timeLabel.SetMediumStyle(10, Theme.Color.White);
-            timeLabel.Text = Resources.Order_View_Time_Text;
+            timeLabel.Text = Resources.OrderTime;
 
             priceLable.SetMediumStyle(10, Theme.Color.White);
-            priceLable.Text = Resources.Order_View_Price_Text;
+            priceLable.Text = Resources.OrderPrice;
 
             dayLabel.SetRegularStyle(10, Theme.Color.White);
-            dayLabel.Text = Resources.Order_View_Day;
+            dayLabel.Text = Resources.Day;
 
             hourLabel.SetRegularStyle(10, Theme.Color.White);
-            hourLabel.Text = Resources.Order_View_Hour;
+            hourLabel.Text = Resources.Hour;
 
             minuteLabel.SetRegularStyle(10, Theme.Color.White);
-            minuteLabel.Text = Resources.Order_View_Minute;
+            minuteLabel.Text = Resources.Minute;
 
             orderTimeLabel.SetMediumStyle(22, Theme.Color.White);
             priceValueLabel.SetMediumStyle(26, Theme.Color.White);
 
             statusOrderLabel.SetMediumStyle(14, Theme.Color.White);
-            statusOrderLabel.Text = Resources.Order_View_My_Task;
+            statusOrderLabel.Text = Resources.MyOrders;
 
-            orderDetailsButton.TitleLabel.Text = Resources.Order_View_Details;
+            orderDetailsButton.TitleLabel.Text = Resources.MoreDetails;
         }
 
         protected override void Bind()

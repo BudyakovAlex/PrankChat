@@ -18,17 +18,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 
 		protected override void SetupControls()
 		{
-            Title = Resources.RegistrationView_StepThree_Title;
+            Title = Resources.StepThree;
 
-            congratsTitleLabel.Text = Resources.RegistrationView_Congrats_Title;
+            congratsTitleLabel.Text = Resources.Congratulations;
             congratsTitleLabel.TextColor = Theme.Color.White;
             congratsTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
 
-            confirmationDescriptionLabel.Text = Resources.RegistrationView_Confirmation_Label;
+            confirmationDescriptionLabel.Text = Resources.ProfileEmailConfirmationSent;
             confirmationDescriptionLabel.TextColor = Theme.Color.White;
             confirmationDescriptionLabel.Font = Theme.Font.RegularFontOfSize(14);
 
-            finishRegistrationButton.SetLightStyle(Resources.RegistrationView_GoToFeed_Button);
+            finishRegistrationButton.SetLightStyle(Resources.GoToFeed);
         }
 
         public override void ViewDidLoad()

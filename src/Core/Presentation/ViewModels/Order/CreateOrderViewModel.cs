@@ -99,7 +99,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
 
         private Task ShowWalkthrouthSecretAsync()
         {
-            var parameters = new WalthroughNavigationParameter(Resources.Create_Order_Secret_order, Resources.Walkthrouth_CreateOrder_Secret_Description);
+            var parameters = new WalthroughNavigationParameter(Resources.SecretOrder, Resources.WalkthrouthCreateOrderSecretDescription);
             return NavigationManager.NavigateAsync<WalthroughViewModel, WalthroughNavigationParameter>(parameters);
         }
 
@@ -119,7 +119,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
             }
             try
             {
-                var canCreate = await UserInteraction.ShowConfirmAsync(Resources.Order_Create_Message, Resources.Attention, Resources.Order_Add, Resources.Cancel);
+                var canCreate = await UserInteraction.ShowConfirmAsync(Resources.OrderCreateMessage, Resources.Attention, Resources.Create, Resources.Cancel);
                 if (!canCreate)
                 {
                     return;
@@ -173,12 +173,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 return;
             }
 
-            await UserInteraction.ShowAlertAsync(Resources.Error_Unexpected_Server);
+            await UserInteraction.ShowAlertAsync(Resources.ErrorUnexpectedServer);
         }
 
         private async Task HandleLowBalanceExceptionAsync(Exception exception)
         {
-            var canRefil = await UserInteraction.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.ProfileView_Refill, Resources.Cancel);
+            var canRefil = await UserInteraction.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.Replenish, Resources.Cancel);
             if (!canRefil)
             {
                 return;
@@ -203,7 +203,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             var periods = _environmentConfigurationProvider.Periods;
             var titles = periods.Select(period => period.Title).ToList();
-            var result = await UserInteraction.ShowArrayDialogAsync(titles, Resources.CreateOrderView_Choose_Time_Period);
+            var result = await UserInteraction.ShowArrayDialogAsync(titles, Resources.SelectValidityPeriod);
             if (!string.IsNullOrWhiteSpace(result))
             {
                 ActiveFor = periods.FirstOrDefault(p => p.Title == result);
@@ -214,35 +214,35 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
         {
             if (string.IsNullOrWhiteSpace(Title))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Title, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Headline, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Title can't be empty.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Description))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Description, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Description, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Description can't be empty.");
                 return false;
             }
 
             if (Price == null)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Price, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Price, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Price can't be empty.");
                 return false;
             }
 
             if (Price <= 0)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Price, ValidationErrorType.LowerThanRequired, 0.ToString()));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Price, ValidationErrorType.LowerThanRequired, 0.ToString()));
                 ErrorHandleService.LogError(this, "Description can't be lower than zero.");
                 return false;
             }
 
             if (ActiveFor == null)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_OrderPeriod, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Period, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Order period can't be empty.");
                 return false;
             }

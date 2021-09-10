@@ -50,7 +50,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
             var searchBarWidth = navigationBarWidth - BackButtonWidth - SearchBarRightPadding;
             SearchBar = new UISearchBar(new CoreGraphics.CGRect(0, 0, searchBarWidth.Value, 28))
             {
-                Placeholder = Resources.Search_View_Search_Placeholder
+                Placeholder = Resources.Search
             };
 
             SearchBar.SetStyle();
@@ -68,14 +68,14 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
             lottieAnimationView.LoopAnimation = true;
             lottieAnimationView.Play();
 
-            tabView.AddTab(Resources.Search_Peoples, () =>
+            tabView.AddTab(Resources.Peoples, () =>
             {
                 ViewModel.SearchTabType = SearchTabType.Users;
                 peoplesTableView.Hidden = false;
                 videosTableView.Hidden = true;
                 ordersTableView.Hidden = true;
             });
-            tabView.AddTab(Resources.Search_Videos, () =>
+            tabView.AddTab(Resources.Videos, () =>
             {
                 ViewModel.SearchTabType = SearchTabType.Videos;
                 peoplesTableView.Hidden = true;
@@ -83,7 +83,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Search
                 ordersTableView.Hidden = true;
             });
 
-            tabView.AddTab(Resources.Orders_Tab, () =>
+            tabView.AddTab(Resources.Orders, () =>
             {
                 ViewModel.SearchTabType = SearchTabType.Orders;
                 peoplesTableView.Hidden = true;

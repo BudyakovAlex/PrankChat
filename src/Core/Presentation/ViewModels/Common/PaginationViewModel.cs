@@ -101,7 +101,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common
                         return;
                     }
 
-                    UserInteraction.ShowToast(Resources.No_Intentet_Connection, ToastType.Negative);
+                    UserInteraction.ShowToast(Resources.NoIntentetConnection, ToastType.Negative);
                     return;
                 }
 
@@ -110,10 +110,10 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Common
                 ++CurrentPaginationIndex;
                 LoadedItemsCount += loadedItems;
 
-                await Task.WhenAll(
-                    RaisePropertyChanged(nameof(LoadedItemsCount)),
-                    RaisePropertyChanged(nameof(CurrentPaginationIndex)),
-                    RaisePropertyChanged(nameof(HasNextPage)));
+                await RaisePropertiesChanged(
+                    nameof(LoadedItemsCount),
+                    nameof(CurrentPaginationIndex),
+                    nameof(HasNextPage));
 
                 LoadMoreItemsCommand.RaiseCanExecuteChanged();
             }, ShouldNotifyIsBusy, true);

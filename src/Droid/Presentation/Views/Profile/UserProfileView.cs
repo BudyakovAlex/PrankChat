@@ -50,13 +50,13 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
                 _isSubscribed = value;
                 if (_isSubscribed)
                 {
-                    _subscribeToUserButton.Text = Core.Localization.Resources.OrderDetailsView_Unsubscribe_Button;
+                    _subscribeToUserButton.Text = Core.Localization.Resources.Unsubscribe;
                     _subscribeToUserButton.SetBackgroundResource(Resource.Drawable.button_accent_background);
                     _subscribeToUserButton.SetTextColor(Color.White);
                     return;
                 }
 
-                _subscribeToUserButton.Text = Core.Localization.Resources.OrderDetailsView_Subscribe_Button;
+                _subscribeToUserButton.Text = Core.Localization.Resources.Subscribe;
                 _subscribeToUserButton.SetBackgroundResource(Resource.Drawable.border_accent);
                 var colorArgb = ContextCompat.GetColor(this, Resource.Color.accent);
                 var color = new Color(colorArgb);

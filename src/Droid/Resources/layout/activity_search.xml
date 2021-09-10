@@ -23,17 +23,17 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/Search_Peoples" />
+                android:text="@string/Peoples" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/Search_Videos" />
+                android:text="@string/Videos" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/Orders_Tab" />
+                android:text="@string/Orders" />
         </com.google.android.material.tabs.TabLayout>
         <View
             android:layout_width="match_parent"

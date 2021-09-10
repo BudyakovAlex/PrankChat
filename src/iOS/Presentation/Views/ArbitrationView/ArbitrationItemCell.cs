@@ -26,26 +26,26 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ArbitrationView
 			orderTitleLabel.SetScreenTitleStyle();
 
 			timeLablel.SetMediumStyle(10, Theme.Color.White);
-			timeLablel.Text = Resources.Order_View_Time_Text;
+			timeLablel.Text = Resources.OrderTime;
 
 			priceLable.SetMediumStyle(10, Theme.Color.White);
-			priceLable.Text = Resources.Order_View_Price_Text;
+			priceLable.Text = Resources.OrderPrice;
 
 			dayLabel.SetRegularStyle(10, Theme.Color.White);
-			dayLabel.Text = Resources.Order_View_Day;
+			dayLabel.Text = Resources.Day;
 
 			hourLabel.SetRegularStyle(10, Theme.Color.White);
-			hourLabel.Text = Resources.Order_View_Hour;
+			hourLabel.Text = Resources.Hour;
 
 			minuteLabel.SetRegularStyle(10, Theme.Color.White);
-			minuteLabel.Text = Resources.Order_View_Minute;
+			minuteLabel.Text = Resources.Minute;
 
 			orderTimeLabel.SetMediumStyle(22, Theme.Color.White);
 			priceValueLabel.SetMediumStyle(26, Theme.Color.White);
 
-			orderDetailsButton.TitleLabel.Text = Resources.RateView_Vote_Button;
+			orderDetailsButton.TitleLabel.Text = Resources.Estimate;
 
-			OrderStatusLabel.Text = Resources.OrderStatus_InArbitration;
+			OrderStatusLabel.Text = Resources.InDispute;
 		}
 
 		protected override void Bind()

@@ -24,17 +24,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Dialogs.Share
 
         protected override void SetupControls()
         {
-            shareTitleLabel.SetTitleStyle(Resources.ShareDialog_Title);
+            shareTitleLabel.SetTitleStyle(Resources.ShareThis);
 
             shareButton.SetImage(UIImage.FromBundle(ImageNames.IconShare), UIControlState.Normal);
 
             copyLinkImageButton.SetImage(UIImage.FromBundle(ImageNames.IconShareCopy).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
             copyLinkTitleLabel.SetRegularStyle(10, Theme.Color.Black);
-            copyLinkTitleLabel.Text = Resources.ShareDialog_CopyLink_Label;
+            copyLinkTitleLabel.Text = Resources.CopyLink;
 
             shareInstagramImageButton.SetImage(UIImage.FromBundle(ImageNames.IconShareInstagram).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
             shareInstagramTitleLabel.SetRegularStyle(10, Theme.Color.Black);
-            shareInstagramTitleLabel.Text = Resources.ShareDialog_ShareInstagram_Label;
+            shareInstagramTitleLabel.Text = Resources.OnInstagram;
 
             separatorView.BackgroundColor = Theme.Color.Separator;
 

@@ -10,6 +10,7 @@ using PrankChat.Mobile.Core.Plugins.Timer;
 using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
+using System.Linq;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
 
@@ -66,7 +67,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
         {
             await Task.Delay(500);
 
-            UserInteraction.ShowToast(Resources.Error_Something_Went_Wrong_Message, Models.Enums.ToastType.Negative);
+            UserInteraction.ShowToast(Resources.ErrorSomethingWentWrongMessage, Models.Enums.ToastType.Negative);
             Crashes.TrackError(exception);
         }
 
@@ -94,6 +95,12 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
         public void Dispose()
         {
             Dispose(true);
+        }
+
+        public virtual Task RaisePropertiesChanged(params string[] propertiesNames)
+        {
+            var raisePropertiesTasks = propertiesNames.Select(propertyName => RaisePropertyChanged(propertyName));
+            return Task.WhenAll(raisePropertiesTasks);
         }
     }
 }

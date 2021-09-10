@@ -55,21 +55,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
         protected override void SetupControls()
         {
-            cardNumberEditText.SetDarkStyle(Resources.Withdrawal_Enter_Wallet_Number, UIImage.FromBundle(ImageNames.IconYoomoneyAccount));
+            cardNumberEditText.SetDarkStyle(Resources.EnterWalletNumber, UIImage.FromBundle(ImageNames.IconYoomoneyAccount));
             savedCardNumberEditText.SetDarkStyle(
-                Resources.Withdrawal_Enter_Wallet_Number,
+                Resources.EnterWalletNumber,
                 UIImage.FromBundle(ImageNames.IconYoomoneyAccount),
                 UIImage.FromBundle(ImageNames.IconArrowDropdown));
 
-            firstNameTextField.SetDarkStyle(Resources.WithdrawalView_FirstName_Placeholder);
-            surnameTextField.SetDarkStyle(Resources.WithdrawalView_LastName_Placeholder);
+            firstNameTextField.SetDarkStyle(Resources.Name);
+            surnameTextField.SetDarkStyle(Resources.Surname);
 
-            costTextField.SetDarkStyle(Resources.CashboxView_Price_Placeholder);
+            costTextField.SetDarkStyle(Resources.Million);
             costTextField.TextAlignment = UITextAlignment.Right;
 
-            attachDocumentButton.SetDarkStyle(Resources.WithdrawalView_AttachFile_Button);
-            cancelWithdrawalButton.SetDarkStyle(Resources.WithdrawalView_Revoke_Button);
-            withdrawButton.SetDarkStyle(Resources.CashboxView_Withdrawal_Button);
+            attachDocumentButton.SetDarkStyle(Resources.AttachFile);
+            cancelWithdrawalButton.SetDarkStyle(Resources.Revoke);
+            withdrawButton.SetDarkStyle(Resources.TakeOff);
 
             availableAmountTitleLabel.SetRegularStyle(14, Theme.Color.Black);
 
@@ -85,17 +85,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
             pendingWithdrawalSeparator.BackgroundColor = Theme.Color.Accent;
 
             statusValueLabel.SetRegularStyle(12, Theme.Color.Black);
-            statusValueLabel.Text = Resources.WithdrawalView_Pending;
+            statusValueLabel.Text = Resources.Pending;
             statusTitleLabel.SetRegularStyle(12, Theme.Color.Black);
-            statusTitleLabel.Text = Resources.WithdrawalView_Status_Text;
+            statusTitleLabel.Text = Resources.Status;
 
             costValueLabel.SetRegularStyle(12, Theme.Color.Black);
             costTitleLabel.SetRegularStyle(12, Theme.Color.Black);
-            costTitleLabel.Text = Resources.WithdrawalView_Cost;
+            costTitleLabel.Text = Resources.Amount;
 
             dateValueLabel.SetRegularStyle(12, Theme.Color.Black);
             dateTitleLabel.SetRegularStyle(12, Theme.Color.Black);
-            dateTitleLabel.Text = Resources.WithdrawalView_Create_Date;
+            dateTitleLabel.Text = Resources.DateOfCreation;
 
             lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
             lottieAnimationView.LoopAnimation = true;
@@ -114,10 +114,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
             };
 
             yoomoneyDescriptionLabel.SetRegularStyle(14, Theme.Color.Black);
-            var yoomoneyDescriptionAttributedString = new NSMutableAttributedString(Resources.Withdrawal_Yoomoney_Description);
+            var yoomoneyDescriptionAttributedString = new NSMutableAttributedString(Resources.WithdrawalYoomoneyDescription);
 
-            var startPosition = Resources.Withdrawal_Yoomoney_Description.IndexOf(Resources.Withdrawal_Yoomoney);
-            _yoomoneyRange = new NSRange(startPosition, Resources.Withdrawal_Yoomoney.Length);
+            var startPosition = Resources.WithdrawalYoomoneyDescription.IndexOf(Resources.Yoomoney);
+            _yoomoneyRange = new NSRange(startPosition, Resources.Yoomoney.Length);
             yoomoneyDescriptionAttributedString.AddAttributes(linkAttributes, _yoomoneyRange);
 
             yoomoneyDescriptionLabel.AttributedText = yoomoneyDescriptionAttributedString;

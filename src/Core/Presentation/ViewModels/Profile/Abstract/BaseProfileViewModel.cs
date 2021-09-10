@@ -65,7 +65,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract
             set => SetProperty(ref _birthdate, value, () => RaisePropertyChanged(nameof(BirthdayText)));
         }
 
-        public string BirthdayText => Birthday?.ToShortDateString() ?? Resources.ProfileUpdateView_Birthday_Placeholder;
+        public string BirthdayText => Birthday?.ToShortDateString() ?? Resources.Birthday;
 
         private GenderType? _gender;
         public GenderType? Gender
@@ -155,7 +155,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract
         {
             await UsersManager.VerifyEmailAsync();
 
-            UserInteraction.ShowToast(Resources.Profile_Email_Confirmation_Sent, ToastType.Positive);
+            UserInteraction.ShowToast(Resources.ProfileEmailConfirmationSent, ToastType.Positive);
             Preferences.Set(nameof(CanResendEmailValidation), DateTime.Now.AddMinutes(Constants.Profile.UnlockResendMinutes));
             CanResendEmailValidation = false;
         }
@@ -168,7 +168,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Abstract
 
         private void ShowValidationWarning()
         {
-            UserInteraction.ShowToast(Resources.Profile_Your_Email_Not_Actual, ToastType.Negative);
+            UserInteraction.ShowToast(Resources.ProfileYourEmailNotActual, ToastType.Negative);
         }
 
         private async Task SelectBirthdayAsync()

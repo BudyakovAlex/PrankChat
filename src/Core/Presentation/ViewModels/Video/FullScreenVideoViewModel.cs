@@ -93,8 +93,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
 
         private void OnLikesChanged()
         {
-            RaisePropertyChanged(nameof(NumberOfLikesPresentation));
-            RaisePropertyChanged(nameof(NumberOfDislikesPresentation));
+            RaisePropertiesChanged(nameof(NumberOfLikesPresentation), nameof(NumberOfDislikesPresentation));
             _isReloadNeeded = true;
         }
 
@@ -194,7 +193,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Video
             return Share.RequestAsync(new ShareTextRequest
             {
                 Uri = CurrentVideo.ShareLink,
-                Title = Resources.ShareDialog_LinkShareTitle
+                Title = Resources.ShareLink
             });
         }
 

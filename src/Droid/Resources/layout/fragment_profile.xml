@@ -76,7 +76,7 @@
                     android:layout_height="36dp"
                     android:layout_marginStart="16dp"
                     android:padding="0dp"
-                    android:text="@string/ProfileView_Refill"
+                    android:text="@string/Replenish"
                     android:textSize="13dp"
                     app:layout_constraintBottom_toBottomOf="@+id/profile_photo"
                     app:layout_constraintEnd_toStartOf="@+id/profile_withdrawal_button"
@@ -90,7 +90,7 @@
                     android:background="@null"
                     android:layout_marginEnd="16dp"
                     android:padding="0dp"
-                    android:text="@string/ProfileView_Withdrawal"
+                    android:text="@string/Withdraw"
                     android:textSize="13dp"
                     app:layout_constraintBottom_toBottomOf="@+id/profile_refill_button"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -136,7 +136,7 @@
                         android:layout_marginBottom="2dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@string/ProfileView_Subscribers_Subtitle"
+                        android:text="@string/Subscribers"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
@@ -172,7 +172,7 @@
                         android:layout_marginBottom="2dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@string/ProfileView_Subscriptions_Subtitle"
+                        android:text="@string/Subscriptions"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
@@ -227,12 +227,12 @@
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/ProfileView_MyOrders_Tab" />
+                        android:text="@string/Ordered" />
 
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/ProfileView_CompletedOrders_Tab" />
+                        android:text="@string/Execute" />
                 </com.google.android.material.tabs.TabLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

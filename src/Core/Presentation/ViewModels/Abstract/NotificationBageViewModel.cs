@@ -5,6 +5,7 @@ using PrankChat.Mobile.Core.Managers.Notifications;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Plugins.Timer;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using PrankChat.Mobile.Core.Wrappers;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,8 +21,6 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
 
         private readonly INotificationsManager _notificationManager;
         private readonly IUserSessionProvider _userSessionProvider;
-
-        private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
 
         public NotificationBadgeViewModel(INotificationsManager notificationManager, IUserSessionProvider userSessionProvider)
         {
@@ -49,7 +48,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
                 return;
             }
 
-            await _semaphoreSlim.WrapAsync(async () =>
+            await ExecutionStateWrapper.WrapAsync(async () =>
             {
                 var unreadNotifications = await _notificationManager.GetUnreadNotificationsCountAsync();
                 HasUnreadNotifications = unreadNotifications > 0;
@@ -59,7 +58,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Abstract
                 {
                     MainThread.BeginInvokeOnMainThread(() => CrossBadge.Current.SetBadge(unreadNotifications));
                 }
-            });
+            }, awaitWhenBusy: true);
         }
 
         private void OnTimerTick(object _, EventArgs __)

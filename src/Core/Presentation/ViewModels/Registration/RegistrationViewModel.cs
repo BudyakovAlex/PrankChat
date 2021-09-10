@@ -58,7 +58,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
             var isExists = await AuthorizationManager.CheckIsEmailExistsAsync(Email);
             if (isExists is null || isExists.Value)
             {
-                UserInteraction.ShowToast(Resources.Email_Already_Exists, ToastType.Negative);
+                UserInteraction.ShowToast(Resources.EmailAlreadyExists, ToastType.Negative);
                 return;
             }
 
@@ -70,14 +70,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
         {
             if (string.IsNullOrWhiteSpace(Email))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Email, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Email, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "E-mail can't be empty.");
                 return false;
             }
 
             if (!Email.IsValidEmail())
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Email, ValidationErrorType.Invalid));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Email, ValidationErrorType.Invalid));
                 ErrorHandleService.LogError(this, "E-mail is invalid.");
                 return false;
             }

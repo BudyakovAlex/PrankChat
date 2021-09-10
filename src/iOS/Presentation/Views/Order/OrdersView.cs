@@ -54,11 +54,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             orderTabLabel.UserInteractionEnabled = true;
             orderTabLabel.AddGestureRecognizer(new UITapGestureRecognizer(_ => SetSelectedTab(0)));
-            orderTabLabel.Text = Resources.Orders_Tab;
+            orderTabLabel.Text = Resources.Orders;
 
             ratingTabLabel.UserInteractionEnabled = true;
             ratingTabLabel.AddGestureRecognizer(new UITapGestureRecognizer(_ => SetSelectedTab(1)));
-            ratingTabLabel.Text = Resources.Orders_In_Dispute;
+            ratingTabLabel.Text = Resources.InDispute;
 
             ApplySelectedTabStyle(0);
         }

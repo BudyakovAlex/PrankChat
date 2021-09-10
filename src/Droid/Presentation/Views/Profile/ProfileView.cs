@@ -42,7 +42,7 @@ namespace PrankChat.Mobile.Droid.Presentation.Views.Profile
         private MaterialButton _profileWithdrawalButton;
         private MvxSwipeRefreshLayout _mvxSwipeRefreshLayout;
 
-        protected override string TitleActionBar => Core.Localization.Resources.Profile_Tab;
+        protected override string TitleActionBar => Core.Localization.Resources.Profile;
 
         public RecyclerView RecyclerView => _endlessRecyclerView;
 

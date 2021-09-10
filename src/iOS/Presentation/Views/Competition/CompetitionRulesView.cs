@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
         {
             base.SetupControls();
 
-            Title = Resources.Competition_Rules;
+            Title = Resources.CompetitionRules;
         }
 
         protected override void Bind()

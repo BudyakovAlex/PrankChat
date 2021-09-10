@@ -54,7 +54,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         private string GetWithdrawalAvailableTotalString()
         {
             var balance = UserSessionProvider.User.Balance - UserSessionProvider.User?.Balance * Constants.Cashbox.PaymentServceCommissionMultiplier;
-            return $"{Resources.CashboxView_WithdrawalAvailable_Title} {balance.ToPriceString()}";
+            return $"{Resources.AvailableForRemoval} {balance.ToPriceString()}";
         }
 
         private string _cardNumber;
@@ -154,7 +154,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
                     var card = await _usersManager.SaveCardAsync(CardNumber, $"{Name} {Surname}");
                     if (card == null)
                     {
-                        ErrorHandleService.HandleException(new ValidationException(Resources.WithdrawalView_Empty_Card_Error, ValidationErrorType.CanNotMatch));
+                        ErrorHandleService.HandleException(new ValidationException(Resources.EmptyCardError, ValidationErrorType.CanNotMatch));
                         return;
                     }
                     _currentCard = card;
@@ -207,7 +207,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         {
             if (_lastWithdrawal == null)
             {
-                 ErrorHandleService.HandleException(new ValidationException(Resources.WithdrawalView_Cancel_Withdrawal_Error, ValidationErrorType.CanNotMatch, 0.ToString()));
+                 ErrorHandleService.HandleException(new ValidationException(Resources.CancelWithdrawalError, ValidationErrorType.CanNotMatch, 0.ToString()));
                 return;
             }
 
@@ -229,8 +229,8 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
         private async Task OpenCardOptionsAsync()
         {
-            var result = await UserInteraction.ShowMenuDialogAsync(new string[] { Resources.WithdrawalView_Delete_Card_Text }, Resources.Close);
-            if (result == Resources.WithdrawalView_Delete_Card_Text)
+            var result = await UserInteraction.ShowMenuDialogAsync(new string[] { Resources.DeleteCard }, Resources.Close);
+            if (result == Resources.DeleteCard)
             {
                 await DeleteCardAsync();
             }
@@ -257,7 +257,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
 
             try
             {
-                var isConfirmed = await UserInteraction.ShowConfirmAsync(Resources.WithdrawalView_Delete_Card_Question, Resources.Attention, Resources.Delete, Resources.Cancel);
+                var isConfirmed = await UserInteraction.ShowConfirmAsync(Resources.DeleteCardQuestion, Resources.Attention, Resources.Delete, Resources.Cancel);
                 if (!isConfirmed)
                 {
                     return;
@@ -281,13 +281,13 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
         {
             if (Cost == null || Cost == 0)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Cost, ValidationErrorType.CanNotMatch, 0.ToString()));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Cost, ValidationErrorType.CanNotMatch, 0.ToString()));
                 return false;
             }
 
             if (_currentCard == null && string.IsNullOrEmpty(CardNumber))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.WithdrawalView_Empty_Card_Error, ValidationErrorType.CanNotMatch));
+                ErrorHandleService.HandleException(new ValidationException(Resources.EmptyCardError, ValidationErrorType.CanNotMatch));
                 return false;
             }
 
