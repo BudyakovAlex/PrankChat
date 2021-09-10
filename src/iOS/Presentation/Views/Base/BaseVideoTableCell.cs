@@ -100,7 +100,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Base
             VideoView.BackgroundColor = UIColor.Black;
             StubImageView.BackgroundColor = UIColor.Black;
 
-            ProcessingLabel.Text = Resources.Processing_Video;
+            ProcessingLabel.Text = Resources.ProcessingVideo;
             RootProcessingBackgroundView.Layer.InsertSublayer(_gradientLayer, 0);
             ProcessingBackgroundView.Layer.CornerRadius = 8;
 

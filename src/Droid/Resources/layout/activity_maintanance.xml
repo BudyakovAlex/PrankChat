@@ -13,7 +13,7 @@
     android:layout_marginEnd="16dp"
     android:layout_marginTop="53dp"
     android:textSize="14dp"
-    android:text="@string/Application_New_Version_Ready"/>
+    android:text="@string/ApplicationNewVersionReady"/>
 
     <ImageView
         android:layout_width="match_parent"
@@ -29,5 +29,5 @@
         android:layout_gravity="center_horizontal|bottom"
         android:layout_marginBottom="34dp"
         android:layout_marginTop="16dp"
-        android:text="@string/Download_Update" />
+        android:text="@string/DownloadUpdate" />
 </FrameLayout>

@@ -82,7 +82,7 @@
 					android:gravity="center_horizontal"
 					android:textColor="@color/inactive"
 					android:textSize="12dp"
-					android:text="@string/OrderDetailsView_Price_Text" />
+					android:text="@string/OrderPrice" />
 
 				<TextView
                     android:id="@+id/price_value_text_view"
@@ -101,7 +101,7 @@
 					android:gravity="center_horizontal"
 					android:textColor="@color/inactive"
 					android:textSize="12dp"
-					android:text="@string/OrderDetailsView_Time_Text"/>
+					android:text="@string/OrderTime"/>
 
 				<LinearLayout
                     android:id="@+id/linear_layout_time_days_value"
@@ -132,7 +132,7 @@
 							android:layout_marginRight="5dp"
 							android:textColor="@color/inactive"
 							android:textSize="12dp"
-							android:text="@string/Order_View_Day"/>
+							android:text="@string/Day"/>
 
 					</LinearLayout>
 
@@ -167,7 +167,7 @@
 							android:layout_marginRight="5dp"
 							android:textColor="@color/inactive"
 							android:textSize="12dp"
-							android:text="@string/Order_View_Hour"/>
+							android:text="@string/Hour"/>
 
 					</LinearLayout>
 
@@ -203,7 +203,7 @@
 							android:textColor="@color/inactive"
 							android:textSize="12dp"
 							android:textAlignment="center"
-							android:text="@string/Order_View_Minute"/>
+							android:text="@string/Minute"/>
 
 					</LinearLayout>
 				</LinearLayout>
@@ -215,7 +215,7 @@
 					android:layout_height="36dp"
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="26dp"
-					android:text="@string/OrderDetailsView_Take_Order_Button"/>
+					android:text="@string/TakeAnOrder"/>
 
 				<com.google.android.material.button.MaterialButton
                     android:id="@+id/subscribe_material_button"
@@ -224,7 +224,7 @@
 					android:layout_height="36dp"
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="26dp"
-					android:text="@string/OrderDetailsView_Subscribe_Button"/>
+					android:text="@string/Subscribe"/>
 
 				<com.google.android.material.button.MaterialButton
                     android:id="@+id/unsubscribe_button"
@@ -233,7 +233,7 @@
 					android:layout_height="36dp"
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="26dp"
-					android:text="@string/OrderDetailsView_Unsubscribe_Button"/>
+					android:text="@string/Unsubscribe"/>
 				<LinearLayout
                     android:id="@+id/video_load_linear_layout"
 					android:layout_width="match_parent"
@@ -247,7 +247,7 @@
 						android:gravity="center_horizontal"
 						android:textColor="@color/inactive"
 						android:textSize="12dp"
-						android:text="@string/OrderDetailsView_Download_Text"/>
+						android:text="@string/UploadVideo"/>
 
 					<com.google.android.material.button.MaterialButton
                         android:id="@+id/load_video_material_button"
@@ -256,7 +256,7 @@
 						android:layout_height="36dp"
 						android:layout_gravity="center_horizontal"
 						android:layout_marginTop="14.5dp"
-						android:text="@string/OrderDetailsView_LoadVideo"/>
+						android:text="@string/UploadVideo"/>
 				</LinearLayout>
 
 				<com.google.android.material.button.MaterialButton
@@ -266,7 +266,7 @@
 					android:layout_height="36dp"
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="26dp"
-					android:text="@string/OrderDetailsView_Execute_Button"/>
+					android:text="@string/Run"/>
 
 				<com.google.android.material.button.MaterialButton
                     android:id="@+id/cancel_order_details_button"
@@ -276,7 +276,7 @@
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="26dp"
 					android:background="@drawable/border_accent"
-					android:text="@string/OrderDetailsView_Cancel_Button"
+					android:text="@string/Cancel"
 					android:textColor="@color/accent"/>
 				<RelativeLayout
 					android:layout_width="match_parent"
@@ -300,7 +300,7 @@
 						android:gravity="center_horizontal"
 						android:textColor="@color/inactive"
 						android:textSize="12dp"
-						android:text="@string/OrderDetailsView_Took_The_Order_Text"/>
+						android:text="@string/Executor"/>
 
 					<CircleCachedImageView
 						android:id="@+id/executor_photo_image_view"
@@ -382,7 +382,7 @@
 							android:layout_marginBottom="49dp"
 							android:gravity="center"
 							android:maxLines="3"
-							android:text="@string/Processing_Video"
+							android:text="@string/ProcessingVideo"
 							android:textColor="@android:color/white"
 							android:textSize="17dp"
 							app:layout_constraintBottom_toBottomOf="parent"
@@ -403,7 +403,7 @@
 						android:layout_height="wrap_content"
 						android:layout_alignParentTop="true"
 						android:layout_centerHorizontal="true"
-						android:text="@string/OrderDetailsView_Corresponds_To_Video_Text"
+						android:text="@string/OrderMatch"
 						android:textColor="@color/applicationBlack"
 						android:textSize="14dp"/>
 
@@ -448,7 +448,7 @@
 					android:layout_height="36dp"
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="26dp"
-					android:text="@string/OrderDetailsView_Accept_Button"/>
+					android:text="@string/ToAccept"/>
 
 				<com.google.android.material.button.MaterialButton
                     android:id="@+id/arque_order_button"
@@ -459,7 +459,7 @@
 					android:layout_marginTop="10dp"
 					android:layout_marginBottom="24dp"
 					android:background="@null"
-					android:text="@string/OrderDetailsView_Argue_Button"
+					android:text="@string/InDispute"
 					android:textColor="@color/accent"/>
 			</LinearLayout>
 		</ScrollView>

@@ -15,11 +15,11 @@
             android:layout_width="match_parent"
             android:layout_height="41dp">
 
-            <com.google.android.material.tabs.TabItem android:text="@string/Popular_Publication_Tab" />
+            <com.google.android.material.tabs.TabItem android:text="@string/Popular" />
 
-            <com.google.android.material.tabs.TabItem android:text="@string/Actual_Publication_Tab" />
+            <com.google.android.material.tabs.TabItem android:text="@string/Actual" />
 
-            <com.google.android.material.tabs.TabItem android:text="@string/MyFeed_Publication_Tab" />
+            <com.google.android.material.tabs.TabItem android:text="@string/MyFeed" />
         </PrankChat.Mobile.Droid.Controls.ExtendedTabLayout>
 
         <View

@@ -30,15 +30,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView.Cashbox
 
         protected override void SetupControls()
         {
-            costTextField.SetDarkStyle(Resources.CashboxView_Price_Placeholder);
+            costTextField.SetDarkStyle(Resources.Million);
             costTextField.TextAlignment = UITextAlignment.Right;
 
-            refillButton.SetDarkStyle(Resources.CashboxView_Fillup_Button);
+            refillButton.SetDarkStyle(Resources.Replenish);
 
             WarningMessageLabel.SetRegularStyle(14, Theme.Color.Text);
-            WarningMessageLabel.Text = Resources.Cashbox_Commision_Warning;
+            WarningMessageLabel.Text = Resources.CommisionWarning;
 
-            paymentMethodsTitleLabel.Text = Resources.CashboxView_FillupMethodSelect_Title;
+            paymentMethodsTitleLabel.Text = Resources.MethodToReplenish;
             paymentMethodsTitleLabel.SetRegularStyle(14, Theme.Color.Subtitle);
 
             mastercardImageView.Image = UIImage.FromBundle(ImageNames.IconMastercardBanner);

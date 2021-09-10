@@ -111,9 +111,9 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             _checkedImage = UIImage.FromBundle(ImageNames.IconChecked);
             _uncheckedImage = UIImage.FromBundle(ImageNames.IconUnchecked);
 
-            Title = Resources.CreateOrderView_Title;
+            Title = Resources.CreateOrder;
 
-            nameTextField.SetDarkStyle(Resources.CreateOrderView_Name_Placeholder);
+            nameTextField.SetDarkStyle(Resources.OrderName);
 
             descriptionTextView.SetTitleStyle(size:14);
             descriptionTextView.ContentInset = UIEdgeInsets.Zero;
@@ -125,21 +125,21 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
 
             descriptionTextView.AddGestureRecognizer(new UITapGestureRecognizer(() => descriptionTextView.BecomeFirstResponder()));
 
-            descriptionPlaceholderLabel.SetSmallSubtitleStyle(Resources.CreateOrderView_Description_Placeholder, 14);
-            descriptionTopFloatingPlaceholderLabel.SetSmallSubtitleStyle(Resources.CreateOrderView_Description_Placeholder);
+            descriptionPlaceholderLabel.SetSmallSubtitleStyle(Resources.OrderDescription, 14);
+            descriptionTopFloatingPlaceholderLabel.SetSmallSubtitleStyle(Resources.OrderDescription);
             descriptionTopFloatingPlaceholderLabel.Hidden = true;
 
-            priceTextField.SetDarkStyle(Resources.CreateOrderView_Price_Placeholder, rightPadding: 14);
+            priceTextField.SetDarkStyle(Resources.TenThousand, rightPadding: 14);
             priceTextField.TextAlignment = UITextAlignment.Right;
 
-            completeDateTextField.SetDarkStyle(Resources.CreateOrderView_CompleteDate_Placeholder, rightImage: UIImage.FromBundle(ImageNames.IconCalendarAccent));
+            completeDateTextField.SetDarkStyle(Resources.DateOfExecution, rightImage: UIImage.FromBundle(ImageNames.IconCalendarAccent));
 
-            hideExecutorCheckboxLabel.Text = Resources.Create_Order_Secret_order;
+            hideExecutorCheckboxLabel.Text = Resources.SecretOrder;
             hideExecutorCheckboxLabel.SetRegularStyle(14, Theme.Color.Black);
             hideExecutorCheckboxLabel.UserInteractionEnabled = true;
             hideExecutorCheckboxLabel.AddGestureRecognizer(new UITapGestureRecognizer(OnCheckboxTapped));
 
-            createButton.SetDarkStyle(Resources.CreateOrderView_Create_Button);
+            createButton.SetDarkStyle(Resources.CreatingOrder);
 
             lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
             lottieAnimationView.LoopAnimation = true;
@@ -220,10 +220,10 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Order
             };
 
             privacyPolicyLabel.SetRegularStyle(10, Theme.Color.Gray);
-            var privacyMessageAttributedString = new NSMutableAttributedString(Resources.Create_Order_Privacy_Message);
+            var privacyMessageAttributedString = new NSMutableAttributedString(Resources.CreateOrderPrivacyMessage);
 
-            var startPosition = Resources.Create_Order_Privacy_Message.IndexOf(Resources.Create_Order_Privacy_Link);
-            _privacyLinkRange = new NSRange(startPosition, Resources.Create_Order_Privacy_Link.Length);
+            var startPosition = Resources.CreateOrderPrivacyMessage.IndexOf(Resources.CreateOrderPrivacyLink);
+            _privacyLinkRange = new NSRange(startPosition, Resources.CreateOrderPrivacyLink.Length);
             privacyMessageAttributedString.AddAttributes(linkAttributes, _privacyLinkRange);
 
             privacyPolicyLabel.AttributedText = privacyMessageAttributedString;

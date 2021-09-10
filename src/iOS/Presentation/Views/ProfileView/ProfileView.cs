@@ -104,17 +104,17 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.ProfileView
 
             nameLabel.SetTitleStyle();
             priceLabel.SetSmallSubtitleStyle();
-            refillButton.SetDarkStyle(Resources.ProfileView_Refill);
-            withdrawalButton.SetBorderlessStyle(Resources.ProfileView_Withdrawal);
+            refillButton.SetDarkStyle(Resources.Replenish);
+            withdrawalButton.SetBorderlessStyle(Resources.Withdraw);
             subscribersValueLabel.SetBoldTitleStyle();
-            subscribersTitleLabel.SetSmallSubtitleStyle(Resources.ProfileView_Subscribers_Subtitle);
+            subscribersTitleLabel.SetSmallSubtitleStyle(Resources.Subscribers);
             subscriptionsValueLabel.SetBoldTitleStyle();
-            subscriptionsTitleLabel.SetSmallSubtitleStyle(Resources.ProfileView_Subscriptions_Subtitle);
+            subscriptionsTitleLabel.SetSmallSubtitleStyle(Resources.Subscriptions);
             descriptionLabel.SetTitleStyle();
 
-            tabView.AddTab(Resources.ProfileView_MyOrders_Tab, () => TabSelected(ProfileOrderType.MyOrdered));
+            tabView.AddTab(Resources.Ordered, () => TabSelected(ProfileOrderType.MyOrdered));
 
-            tabView.AddTab(Resources.ProfileView_CompletedOrders_Tab, () => TabSelected(ProfileOrderType.OrdersCompletedByMe));
+            tabView.AddTab(Resources.Execute, () => TabSelected(ProfileOrderType.OrdersCompletedByMe));
 
             _refreshControl = new MvxUIRefreshControl();
             rootScrollView.RefreshControl = _refreshControl;

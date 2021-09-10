@@ -31,13 +31,13 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
 
 		protected override void SetupControls()
 		{
-            registrationTitleLabel.Text = Resources.RegistrationView_Title;
+            registrationTitleLabel.Text = Resources.Registration;
             registrationTitleLabel.TextColor = Theme.Color.White;
             registrationTitleLabel.Font = Theme.Font.RegularFontOfSize(20);
 
-            emailTextField.SetLightStyle(Resources.RegistrationView_Email_Placeholder);
+            emailTextField.SetLightStyle(Resources.EnterEmail);
 
-            socialNetworksLabel.Text = Resources.LoginView_AltLogin_Title;
+            socialNetworksLabel.Text = Resources.EnterSocialNetworks;
             socialNetworksLabel.Font = Theme.Font.RegularFontOfSize(12);
             socialNetworksLabel.TextColor = Theme.Color.White;
 
@@ -46,15 +46,15 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Registration
             facebookButton.SetImage(UIImage.FromBundle(ImageNames.IconFacebook).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
             gmailButton.SetImage(UIImage.FromBundle(ImageNames.IconGmail).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
 
-            yetRegisteredLabel.Text = Resources.RegistrationView_RegisteredYet_Label;
+            yetRegisteredLabel.Text = Resources.AlreadyRegistered;
             yetRegisteredLabel.Font = Theme.Font.RegularFontOfSize(16);
             yetRegisteredLabel.TextColor = Theme.Color.White;
 
-            showLoginButton.SetTitle(Resources.RegistrationView_Login_Button, UIControlState.Normal);
+            showLoginButton.SetTitle(Resources.LoginToAccount, UIControlState.Normal);
             showLoginButton.SetTitleColor(Theme.Color.White, UIControlState.Normal);
             showLoginButton.SetLinkStyle(Theme.Font.RegularFontOfSize(16));
 
-            nextStepButton.SetLightStyle(Resources.LoginView_Continue_Button);
+            nextStepButton.SetLightStyle(Resources.Continue);
 
             //TODO: uncomment when will be provided logic on vm
             okButton.Hidden = true;

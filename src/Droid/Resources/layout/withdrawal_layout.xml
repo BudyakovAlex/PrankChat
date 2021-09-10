@@ -39,14 +39,14 @@
                     android:layout_marginLeft="16dp"
                     android:textColor="@color/applicationBlack"
                     android:textSize="14dp"
-                    android:text="@string/WithdrawalView_Verify_User_Text"/>
+                    android:text="@string/NeedToConfirmYourIdentity"/>
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/attach_document_button"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:layout_marginTop="16dp"
                     android:layout_below="@+id/verify_user_separator"
-                    android:text="@string/WithdrawalView_Attach_File"
+                    android:text="@string/AttachFile"
                     app:backgroundTint="@color/accent" />
             </RelativeLayout>
             <LinearLayout
@@ -66,7 +66,7 @@
                     android:layout_marginLeft="16dp"
                     android:textColor="@color/applicationBlack"
                     android:textSize="14dp"
-                    android:text="@string/WithdrawalView_Pendng_Verify_User_Text"/>
+                    android:text="@string/PendingVerifyUser"/>
             </LinearLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:boxStrokeWidth="1dp"
                     android:textColorHint="@color/dark_placeholder"
-                    android:hint="@string/Withdrawal_Enter_Wallet_Number"
+                    android:hint="@string/EnterWalletNumber"
                     android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
                     app:boxStrokeColor="@color/border"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -107,7 +107,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:boxStrokeWidth="1dp"
                     android:textColorHint="@color/dark_placeholder"
-                    android:hint="@string/Withdrawal_Enter_Wallet_Number"
+                    android:hint="@string/EnterWalletNumber"
                     android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
                     app:boxStrokeColor="@color/border"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -133,7 +133,7 @@
                     android:layout_marginTop="12dp"
                     app:boxStrokeWidth="1dp"
                     android:textColorHint="@color/dark_placeholder"
-                    android:hint="@string/WithdrawalView_Name"
+                    android:hint="@string/Name"
                     android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
                     app:boxStrokeColor="@color/border"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -156,7 +156,7 @@
                     android:layout_marginTop="12dp"
                     app:boxStrokeWidth="1dp"
                     android:textColorHint="@color/dark_placeholder"
-                    android:hint="@string/WithdrawalView_Surname"
+                    android:hint="@string/Surname"
                     android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
                     app:boxStrokeColor="@color/border"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -180,7 +180,7 @@
                     android:layout_marginTop="12dp"
                     app:boxStrokeWidth="1dp"
                     android:gravity="right|center_vertical"
-                    android:hint="@string/WithdrawalView_Cost"
+                    android:hint="@string/Amount"
                     android:textColorHint="@color/dark_placeholder"
                     android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
                     app:boxStrokeColor="@color/border"
@@ -203,7 +203,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/withdrawal_cost_edit_text"
                     app:layout_constraintBottom_toBottomOf="@+id/withdrawal_cost_edit_text"
-                    android:text="@string/CashboxView_Withdrawal_Button"
+                    android:text="@string/TakeOff"
                     style="@style/Theme.PrankChat.Button.Accent"
                     app:backgroundTint="@color/accent" />
 
@@ -230,7 +230,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
                     android:textColor="@color/applicationBlack"
-                    tools:text="@string/Cashbox_Commision_Warning"
+                    tools:text="@string/CommisionWarning"
                     android:textSize="14dp"/>
 
                 <TextView
@@ -247,7 +247,7 @@
                     android:textColor="@color/applicationBlack"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:textSize="14dp"
-                    tools:text="@string/Withdrawal_Yoomoney_Description"/>
+                    tools:text="@string/WithdrawalYoomoneyDescription"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -277,7 +277,7 @@
                     android:layout_marginLeft="16dp"
                     android:textColor="@color/applicationBlack"
                     android:textSize="14dp"
-                    android:text="@string/WithdrawalView_Pending_Withdrawal_Text"/>
+                    android:text="@string/PendingWithdrawal"/>
                 <TextView
                     android:id="@+id/pending_withdrawal_date_title"
                     android:layout_width="0dp"
@@ -288,7 +288,7 @@
                     android:layout_marginTop="36dp"
                     android:textColor="@color/applicationBlack"
                     android:textSize="14dp"
-                    android:text="@string/WithdrawalView_Create_Date"/>
+                    android:text="@string/DateOfCreation"/>
                 <TextView
                     android:id="@+id/pending_withdrawal_date_value"
                     android:layout_width="0dp"
@@ -319,7 +319,7 @@
                     android:layout_marginTop="36dp"
                     android:textColor="@color/applicationBlack"
                     android:textSize="14dp"
-                    android:text="@string/WithdrawalView_Cost"/>
+                    android:text="@string/Amount"/>
                 <TextView
                     android:id="@+id/pending_withdrawal_cost_value"
                     android:layout_width="0dp"
@@ -350,7 +350,7 @@
                     android:layout_marginTop="36dp"
                     android:textColor="@color/applicationBlack"
                     android:textSize="14dp"
-                    android:text="@string/WithdrawalView_Status_Text"/>
+                    android:text="@string/Status"/>
                 <TextView
                     android:id="@+id/pending_withdrawal_status_value"
                     android:layout_width="0dp"
@@ -362,7 +362,7 @@
                     android:gravity="right"
                     android:textColor="@color/applicationBlack"
                     android:textSize="14dp"
-                    android:text="@string/WithdrawalView_Pending"/>
+                    android:text="@string/Pending"/>
                 <View
                     android:id="@+id/pending_withdrawal_status_line"
                     android:layout_width="0dp"
@@ -372,7 +372,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pending_withdrawal_status_title"
                     android:layout_marginTop="10dp"
-                    android:text="@string/WithdrawalView_Pending"/>
+                    android:text="@string/Pending"/>
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/cancel_withdrawal_button"
                     android:layout_width="0dp"
@@ -382,7 +382,7 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pending_withdrawal_status_line"
                     android:layout_marginTop="16dp"
-                    android:text="@string/WithdrawalView_Withdraw_Text"
+                    android:text="@string/Revoke"
                     style="@style/Theme.PrankChat.Button.Accent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

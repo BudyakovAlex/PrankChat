@@ -40,7 +40,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Competition
             InitializeLayer();
             InitializeTitleContainer();
 
-            prizeTitleLabel.Text = Resources.Competitions_Prize_Pool;
+            prizeTitleLabel.Text = Resources.TournamentPrizePool;
             button.SetDarkStyle(string.Empty);
         }
 

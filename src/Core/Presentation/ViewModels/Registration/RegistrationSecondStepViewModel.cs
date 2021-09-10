@@ -143,14 +143,14 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Registration
 
             if (string.IsNullOrEmpty(RepeatedPassword))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.PasswordReplay, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.PasswordRepeat, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Password repeat can't be empty.");
                 return false;
             }
 
             if (Password != RepeatedPassword)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Password, ValidationErrorType.NotMatch, Resources.PasswordReplay));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Password, ValidationErrorType.NotMatch, Resources.PasswordRepeat));
                 ErrorHandleService.LogError(this, "Password and repeated password values don't match.");
                 return false;
             }

@@ -62,7 +62,7 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.Comment
 
 		protected override void SetupControls()
 		{
-            Title = Resources.CommentView_Title;
+            Title = Resources.Comments;
             InitializeTableView();
 
             commentTextView.SetBorderlessStyle(string.Empty, Theme.Color.CommentBorder);

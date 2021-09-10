@@ -17,9 +17,9 @@
         android:layout_height="42dp"
         style="@style/Theme.PrankChat.Publication.TabLayout">
         <com.google.android.material.tabs.TabItem
-            android:text="@string/CashboxView_Fillup_Tab" />
+            android:text="@string/Replenishment" />
         <com.google.android.material.tabs.TabItem
-            android:text="@string/CashboxView_Withdrawal_Tab" />
+            android:text="@string/Withdrawal" />
     </com.google.android.material.tabs.TabLayout>
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/cashbox_pager"

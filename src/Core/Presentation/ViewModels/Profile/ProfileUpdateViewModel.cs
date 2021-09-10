@@ -98,11 +98,11 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             // TODO: These features will be implemented.
             //var items = new string[]
             //{
-            //Resources.ProfileView_Menu_Favourites,
-            //Resources.ProfileView_Menu_TaskSubscriptions,
-            //Resources.ProfileView_Menu_Faq,
-            //Resources.ProfileView_Menu_Support,
-            //Resources.ProfileView_Menu_Settings,
+            //Resources.FeaturedVideos,
+            //Resources.CustomSubscriptions,
+            //Resources.Faq,
+            //Resources.ReferencesOrReviews,
+            //Resources.Settings,
             //Resources.ProfileViewMenuLogOut,
             //};
 
@@ -110,19 +110,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile
             //if (string.IsNullOrWhiteSpace(result))
             //    return;
 
-            //if (result == Resources.ProfileView_Menu_Favourites)
+            //if (result == Resources.FeaturedVideos)
             //{
             //}
-            //else if (result == Resources.ProfileView_Menu_TaskSubscriptions)
+            //else if (result == Resources.CustomSubscriptions)
             //{
             //}
-            //else if (result == Resources.ProfileView_Menu_Faq)
+            //else if (result == Resources.Faq)
             //{
             //}
-            //else if (result == Resources.ProfileView_Menu_Support)
+            //else if (result == Resources.ReferencesOrReviews)
             //{
             //}
-            //else if (result == Resources.ProfileView_Menu_Settings)
+            //else if (result == Resources.Settings)
             //{
             //}
             //else if (result == Resources.ProfileViewMenuLogOut)

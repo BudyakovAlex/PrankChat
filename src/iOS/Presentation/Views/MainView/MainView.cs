@@ -106,11 +106,11 @@ namespace PrankChat.Mobile.iOS.Presentation.Views.MainView
             
             if (TabBar.Items?.Length > 0)
             {
-                InitTab(0, ImageNames.IconHome, Resources.Home_Tab);
-                InitTab(1, ImageNames.IconCompetitions, Resources.Competitions_Tab);
+                InitTab(0, ImageNames.IconHome, Resources.Home);
+                InitTab(1, ImageNames.IconCompetitions, Resources.Contests);
                 InitCentralTab(ImageNames.IconCreateOrder);
-                InitTab(3, ImageNames.IconOrders, Resources.Orders_Tab);
-                InitTab(4, ImageNames.IconProfile, Resources.Profile_Tab);
+                InitTab(3, ImageNames.IconOrders, Resources.Orders);
+                InitTab(4, ImageNames.IconProfile, Resources.Profile);
             }
         }
 
