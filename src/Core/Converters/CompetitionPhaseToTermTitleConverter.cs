@@ -10,9 +10,9 @@ namespace PrankChat.Mobile.Core.Converters
     {
         protected override string Convert(CompetitionPhase value, Type targetType, object parameter, CultureInfo culture) => value switch
         {
-            CompetitionPhase.New => Resources.CompetitionsNewTerm,
-            CompetitionPhase.Voting => Resources.CompetitionsVotingTerm,
-            CompetitionPhase.Finished => Resources.CompetitionsFinishedTerm,
+            CompetitionPhase.New => Resources.BeforeStartVoting,
+            CompetitionPhase.Voting => Resources.UntilEndVoting,
+            CompetitionPhase.Finished => Resources.CompetitionPeriod,
             _ => string.Empty,
         };
     }

@@ -237,7 +237,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items
             }
 
             await VideoManager.ComplainVideoAsync(VideoId, text, text);
-            UserInteraction.ShowToast(Resources.ComplaintCompleteMessage, ToastType.Positive);
+            UserInteraction.ShowToast(Resources.ThankYouForLettingUsKnow, ToastType.Positive);
             Messenger.Publish(new ReloadPublicationsMessage(this));
         }
 

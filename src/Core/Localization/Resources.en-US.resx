@@ -552,11 +552,11 @@
     <value>Summary</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CompetitionsVotingTerm" xml:space="preserve">
+  <data name="UntilEndVoting" xml:space="preserve">
     <value>Until the end of voting:</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CompetitionsFinishedTerm" xml:space="preserve">
+  <data name="CompetitionPeriod" xml:space="preserve">
     <value>Competition period:</value>
     <comment>Fuzzy</comment>
   </data>
@@ -572,7 +572,7 @@
     <value>Tournament prize pool:</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CompetitionsNewTerm" xml:space="preserve">
+  <data name="BeforeStartVoting" xml:space="preserve">
     <value>Before the start of voting:</value>
     <comment>Fuzzy</comment>
   </data>
@@ -647,47 +647,47 @@
     <value>Publish your video and become famous</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintSpam" xml:space="preserve">
+  <data name="ThisIsSpam" xml:space="preserve">
     <value>This is spam</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintNakedContent" xml:space="preserve">
+  <data name="PornographyAndNudity" xml:space="preserve">
     <value>Pornography and nudity</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintHostileUtterances" xml:space="preserve">
+  <data name="InsultingOrBullying" xml:space="preserve">
     <value>Insulting or bullying</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintDangerousOrganizations" xml:space="preserve">
+  <data name="ViolenceOrDangerousOrganizations" xml:space="preserve">
     <value>Violence or dangerous organizations</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintRightsViolation" xml:space="preserve">
+  <data name="CopyrighInfringement" xml:space="preserve">
     <value>Copyright infringement</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintCheating" xml:space="preserve">
-    <value>Cheating or cheating</value>
+  <data name="FraudOrDeception" xml:space="preserve">
+    <value>Fraud or deception</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintCompleteMessage" xml:space="preserve">
+  <data name="ThankYouForLettingUsKnow" xml:space="preserve">
     <value>Thank you for letting us know.</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintOther" xml:space="preserve">
+  <data name="Other" xml:space="preserve">
     <value>Other</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintWrongName" xml:space="preserve">
+  <data name="UsesSomeoneElseName" xml:space="preserve">
     <value>Uses someone else&apos;s name</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintUnacceptableContent" xml:space="preserve">
+  <data name="InappropriateContent" xml:space="preserve">
     <value>Inappropriate Content</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintUnacceptableInformationInProfile" xml:space="preserve">
+  <data name="InappropriateProfileInformation" xml:space="preserve">
     <value>Inappropriate profile information</value>
     <comment>Fuzzy</comment>
   </data>
@@ -764,19 +764,19 @@ If the customer did not like your video, he can send the task to the &quot;dispu
     <value>bytes</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="KB" xml:space="preserve">
+  <data name="Kb" xml:space="preserve">
     <value>KB</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="MB" xml:space="preserve">
+  <data name="Mb" xml:space="preserve">
     <value>MB</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="GB" xml:space="preserve">
+  <data name="Gb" xml:space="preserve">
     <value>GB</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="TB" xml:space="preserve">
+  <data name="Tb" xml:space="preserve">
     <value>TB</value>
     <comment>Fuzzy</comment>
   </data>

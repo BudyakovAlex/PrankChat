@@ -485,7 +485,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Order
                 }
 
                 await _ordersManager.ComplainOrderAsync(_orderId, text, text);
-                UserInteraction.ShowToast(Resources.ComplaintCompleteMessage, ToastType.Positive);
+                UserInteraction.ShowToast(Resources.ThankYouForLettingUsKnow, ToastType.Positive);
                 Messenger.Publish(new OrderChangedMessage(this, Order));
                 return;
             }

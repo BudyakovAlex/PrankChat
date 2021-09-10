@@ -552,11 +552,11 @@
     <value>Итоги</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CompetitionsVotingTerm" xml:space="preserve">
+  <data name="UntilEndVoting" xml:space="preserve">
     <value>До конца голосования:</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CompetitionsFinishedTerm" xml:space="preserve">
+  <data name="CompetitionPeriod" xml:space="preserve">
     <value>Период проведения конкурса:</value>
     <comment>Fuzzy</comment>
   </data>
@@ -572,7 +572,7 @@
     <value>Призовой фонд турнира:</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="CompetitionsNewTerm" xml:space="preserve">
+  <data name="BeforeStartVoting" xml:space="preserve">
     <value>До начала голосования:</value>
     <comment>Fuzzy</comment>
   </data>
@@ -647,47 +647,47 @@
     <value>Публикуй свое видео и стань известным</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintSpam" xml:space="preserve">
+  <data name="ThisIsSpam" xml:space="preserve">
     <value>Это спам</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintNakedContent" xml:space="preserve">
+  <data name="PornographyAndNudity" xml:space="preserve">
     <value>Порнография и нагота</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintHostileUtterances" xml:space="preserve">
+  <data name="InsultingOrBullying" xml:space="preserve">
     <value>Оскорбления или травля</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintDangerousOrganizations" xml:space="preserve">
+  <data name="ViolenceOrDangerousOrganizations" xml:space="preserve">
     <value>Насилие или опасные организации</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintRightsViolation" xml:space="preserve">
+  <data name="CopyrighInfringement" xml:space="preserve">
     <value>Нарушение авторских прав</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintCheating" xml:space="preserve">
+  <data name="FraudOrDeception" xml:space="preserve">
     <value>Мошенничество или обман</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintCompleteMessage" xml:space="preserve">
+  <data name="ThankYouForLettingUsKnow" xml:space="preserve">
     <value>Спасибо, что сообщили нам об этом</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintOther" xml:space="preserve">
+  <data name="Other" xml:space="preserve">
     <value>Прочее</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintWrongName" xml:space="preserve">
+  <data name="UsesSomeoneElseName" xml:space="preserve">
     <value>Использует чужое имя</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintUnacceptableContent" xml:space="preserve">
+  <data name="InappropriateContent" xml:space="preserve">
     <value>Неприемлемый контент</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ComplaintUnacceptableInformationInProfile" xml:space="preserve">
+  <data name="InappropriateProfileInformation" xml:space="preserve">
     <value>Неприемлемая информация в профиле</value>
     <comment>Fuzzy</comment>
   </data>
@@ -764,19 +764,19 @@ Apple Inc. не является спонсором проведения кон�
     <value>байт</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="KB" xml:space="preserve">
+  <data name="Kb" xml:space="preserve">
     <value>КБ</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="MB" xml:space="preserve">
+  <data name="Mb" xml:space="preserve">
     <value>МБ</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="GB" xml:space="preserve">
+  <data name="Gb" xml:space="preserve">
     <value>ГБ</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="TB" xml:space="preserve">
+  <data name="Tb" xml:space="preserve">
     <value>ТБ</value>
     <comment>Fuzzy</comment>
   </data>

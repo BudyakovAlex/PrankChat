@@ -15,10 +15,10 @@ namespace PrankChat.Mobile.Core.Extensions
         private static readonly string[] _weightSuffixes = new[]
         {
             Resources.Bytes,
-            Resources.KB,
-            Resources.MB,
-            Resources.GB,
-            Resources.TB
+            Resources.Kb,
+            Resources.Mb,
+            Resources.Gb,
+            Resources.Tb
         };
 
         public static string ToCountString(this int count)
