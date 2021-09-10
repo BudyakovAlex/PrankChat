@@ -66,9 +66,9 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
             set => SetProperty(ref _numberOfViews, value, () => RaisePropertyChanged(nameof(ViewsCount)));
         }
 
-        protected override User User => Video.User;
-
         public IMvxAsyncCommand ShowFullScreenVideoCommand { get; }
+
+        protected override User User => Video.User;
 
         protected override void OnLikeChanged() =>
             RaisePropertyChanged(LikesCount);
