@@ -7,7 +7,6 @@ using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
-using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using RestSharp;
 using System;
 using System.Net;
