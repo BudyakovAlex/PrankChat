@@ -7,6 +7,7 @@ using PrankChat.Mobile.Core.ViewModels.Competition.Items;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract;
 using PrankChat.Mobile.Droid.Bindings;
 using PrankChat.Mobile.Droid.Converters;
+using PrankChat.Mobile.Droid.Extensions;
 
 namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
 {

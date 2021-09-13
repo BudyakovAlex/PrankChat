@@ -46,7 +46,7 @@ namespace PrankChat.Mobile.Droid
             base.FillTargetFactories(registry);
 
             registry.RegisterCustomBindingFactory<AppCompatButton>(nameof(OrderButtonStyleBinding), button => new OrderButtonStyleBinding(button));
-            registry.RegisterCustomBindingFactory<View>(nameof(BackgroundDrawableBinding), view => new BackgroundDrawableBinding(view));
+            registry.RegisterCustomBindingFactory<View>(nameof(BackgroundBinding), view => new BackgroundBinding(view));
             registry.RegisterCustomBindingFactory<VideoView>(nameof(VideoUrlTargetBinding), view => new VideoUrlTargetBinding(view));
             registry.RegisterCustomBindingFactory<View>(nameof(ViewTouchTargetBinding), view => new ViewTouchTargetBinding(view));
             registry.RegisterCustomBindingFactory<View>(nameof(BackgroundColorBinding), view => new BackgroundColorBinding(view));

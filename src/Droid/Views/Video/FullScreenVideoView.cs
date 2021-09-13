@@ -20,6 +20,7 @@ using PrankChat.Mobile.Droid.Listeners;
 using PrankChat.Mobile.Droid.Views.Base;
 using System;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Droid.Extensions;
 
 namespace PrankChat.Mobile.Droid.Views.Video
 {

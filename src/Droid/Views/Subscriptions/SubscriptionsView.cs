@@ -15,8 +15,8 @@ using PrankChat.Mobile.Droid.LayoutManagers;
 using PrankChat.Mobile.Droid.Adapters;
 using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Subscriptions;
-using PrankChat.Mobile.Droid.Bindings;
 using PrankChat.Mobile.Droid.Views.Base;
+using PrankChat.Mobile.Droid.Extensions;
 
 namespace PrankChat.Mobile.Droid.Views.Subscriptions
 {
