@@ -10,7 +10,7 @@ using MvvmCross.Platforms.Android.Views;
 using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Droid.Extensions;
-using PrankChat.Mobile.Droid.Presentation.Views.Base;
+using PrankChat.Mobile.Droid.Views.Base;
 
 using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using System;

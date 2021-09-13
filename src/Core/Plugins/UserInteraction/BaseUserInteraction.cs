@@ -4,9 +4,9 @@ using Plugin.DeviceInfo.Abstractions;
 using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Localization;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Results;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Parameters;
+using PrankChat.Mobile.Core.ViewModels.Results;
+using PrankChat.Mobile.Core.ViewModels.Dialogs;
+using PrankChat.Mobile.Core.ViewModels.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -18,12 +18,12 @@ namespace PrankChat.Mobile.Core.Plugins.UserInteraction
     {
         private readonly INavigationManager _navigationManager;
 
-        public abstract bool IsToastShown { get; protected set; }
-
         protected BaseUserInteraction(INavigationManager navigationManager)
         {
             _navigationManager = navigationManager;
         }
+
+        public abstract bool IsToastShown { get; protected set; }
 
         public abstract Task<DateTime?> ShowDateDialogAsync(DateTime? initialDateTime = null);
 

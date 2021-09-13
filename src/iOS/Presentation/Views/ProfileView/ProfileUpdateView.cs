@@ -10,7 +10,7 @@ using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
+using PrankChat.Mobile.Core.ViewModels.Profile;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;

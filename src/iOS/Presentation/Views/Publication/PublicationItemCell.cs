@@ -6,7 +6,7 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using PrankChat.Mobile.Core.Converters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
+using PrankChat.Mobile.Core.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Common;

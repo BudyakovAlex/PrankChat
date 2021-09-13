@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Foundation;
 using MvvmCross.Platforms.Ios.Views;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.ViewModels.Abstract;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Common;

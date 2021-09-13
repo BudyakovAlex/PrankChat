@@ -1,7 +1,7 @@
 ﻿using System;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items;
+using PrankChat.Mobile.Core.ViewModels.Subscriptions.Items;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 
 namespace PrankChat.Mobile.iOS.Presentation.Views.Subscriptions.Items

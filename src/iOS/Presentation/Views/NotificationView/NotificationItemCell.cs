@@ -4,7 +4,7 @@ using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Notification.Items;
+using PrankChat.Mobile.Core.ViewModels.Notification.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;

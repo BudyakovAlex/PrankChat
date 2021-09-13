@@ -1,8 +1,8 @@
 ﻿using Android.Views;
+using PrankChat.Mobile.Droid.Bindings;
 using Android.Widget;
 using AndroidX.AppCompat.Widget;
 using PrankChat.Mobile.Droid.Controls;
-using PrankChat.Mobile.Droid.Presentation.Bindings;
 using static Google.Android.Material.Tabs.TabLayout;
 
 namespace PrankChat.Mobile.Droid.Extensions
