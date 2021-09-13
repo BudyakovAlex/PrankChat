@@ -90,7 +90,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
                 bundleCollection.Count == 0)
                 return null;
 
-            var orderIdString = bundle.Get(Utils.Constants.PushNotificationKey.OrderId)?.ToString();
+            var orderIdString = bundle.Get(Common.Constants.PushNotificationKey.OrderId)?.ToString();
             if (!string.IsNullOrEmpty(orderIdString))
             {
                 int.TryParse(orderIdString, out var orderId);
@@ -102,7 +102,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             var title = bundle.Get("title")?.ToString();
             var body = bundle.Get("body")?.ToString();
 
-            var pushNotificationData = Core.Services.Notifications.NotificationManager.Instance.GenerateNotificationData(key, value, title, body);
+            var pushNotificationData = Core.Services.Notifications.NotificationHandler.Instance.GenerateNotificationData(key, value, title, body);
             if (pushNotificationData?.Type == NotificationType.OrderEvent)
             {
                 return pushNotificationData.OrderId;
@@ -152,7 +152,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             var intent = new Intent(Application.Context, typeof(NotificationActionService));
 
             var extras = new Bundle();
-            extras.PutString(Utils.Constants.PushNotificationKey.OrderId, pushNotificationData.OrderId.ToString());
+            extras.PutString(Common.Constants.PushNotificationKey.OrderId, pushNotificationData.OrderId.ToString());
 
             intent.PutExtras(extras);
             var requestCode = new Java.Util.Random().NextInt();

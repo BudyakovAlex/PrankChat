@@ -177,7 +177,7 @@
     <Compile Include="Bindings\TextColorTargetBinding.cs" />
     <Compile Include="Adapters\ViewHolders\Abstract\Video\VideoCardViewHolder.cs" />
     <Compile Include="Converters\InvertedInvisibleConverter.cs" />
-    <Compile Include="Utils\Constants.cs" />
+    <Compile Include="Common\Constants.cs" />
     <Compile Include="Adapters\ViewHolders\Arbitration\ArbitrationItemViewHolder.cs" />
     <Compile Include="Extensions\ActivityExtensions.cs" />
     <Compile Include="Bindings\PaddingTargetBinding.cs" />

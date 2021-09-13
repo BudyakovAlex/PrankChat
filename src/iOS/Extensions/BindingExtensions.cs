@@ -1,7 +1,7 @@
-﻿using PrankChat.Mobile.iOS.Controls;
-using PrankChat.Mobile.iOS.Presentation.Binding;
+﻿using PrankChat.Mobile.iOS.Binding;
 using UIKit;
 using WebKit;
+using PrankChat.Mobile.iOS.Controls;
 
 namespace PrankChat.Mobile.iOS.Extensions
 {
