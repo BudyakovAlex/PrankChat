@@ -16,6 +16,7 @@ using PrankChat.Mobile.iOS.Views.Order;
 using System;
 using UIKit;
 using Xamarin.Essentials;
+using PrankChat.Mobile.iOS.Common;
 
 namespace PrankChat.Mobile.iOS.Views.ProfileView
 {

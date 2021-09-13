@@ -2,6 +2,7 @@
 using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Onboarding.Items;
+using PrankChat.Mobile.iOS.Common;
 using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;
 

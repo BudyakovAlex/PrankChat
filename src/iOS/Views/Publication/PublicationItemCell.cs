@@ -8,6 +8,7 @@ using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Common;
 using PrankChat.Mobile.iOS.Views.Base;
 using System;
 using UIKit;

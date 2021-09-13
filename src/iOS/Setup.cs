@@ -20,11 +20,11 @@ using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.FileSystem;
 using PrankChat.Mobile.iOS.Plugins.Video;
 using PrankChat.Mobile.iOS.Binding;
-using PrankChat.Mobile.iOS.Providers;
 using UIKit;
 using WebKit;
 using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.iOS.Plugins.UserInteraction;
+using PrankChat.Mobile.iOS.Common;
 
 namespace PrankChat.Mobile.iOS
 {
