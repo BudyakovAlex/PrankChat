@@ -9,7 +9,7 @@ using PrankChat.Mobile.Core.ViewModels.Results;
 
 namespace PrankChat.Mobile.Core.ViewModels.Dialogs
 {
-    public class ArrayDialogViewModel : BasePageViewModel<ArrayDialogParameter,ArrayDialogResult>, IMvxViewModel<ArrayDialogParameter, ArrayDialogResult>
+    public class ArrayDialogViewModel : BasePageViewModel<ArrayDialogParameter,ArrayDialogResult>
     {
         private string _selectedItem;
 
