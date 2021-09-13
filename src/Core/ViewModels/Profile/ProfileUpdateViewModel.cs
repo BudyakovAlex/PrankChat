@@ -98,39 +98,39 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             // TODO: These features will be implemented.
             //var items = new string[]
             //{
-            //Resources.ProfileView_Menu_Favourites,
-            //Resources.ProfileView_Menu_TaskSubscriptions,
-            //Resources.ProfileView_Menu_Faq,
-            //Resources.ProfileView_Menu_Support,
-            //Resources.ProfileView_Menu_Settings,
-            //Resources.ProfileView_Menu_LogOut,
+            //Resources.FeaturedVideos,
+            //Resources.CustomSubscriptions,
+            //Resources.Faq,
+            //Resources.ReferencesOrReviews,
+            //Resources.Settings,
+            //Resources.ProfileViewMenuLogOut,
             //};
 
             //var result = await UserInteraction.ShowMenuDialogAsync(items, Resources.Cancel);
             //if (string.IsNullOrWhiteSpace(result))
             //    return;
 
-            //if (result == Resources.ProfileView_Menu_Favourites)
+            //if (result == Resources.FeaturedVideos)
             //{
             //}
-            //else if (result == Resources.ProfileView_Menu_TaskSubscriptions)
+            //else if (result == Resources.CustomSubscriptions)
             //{
             //}
-            //else if (result == Resources.ProfileView_Menu_Faq)
+            //else if (result == Resources.Faq)
             //{
             //}
-            //else if (result == Resources.ProfileView_Menu_Support)
+            //else if (result == Resources.ReferencesOrReviews)
             //{
             //}
-            //else if (result == Resources.ProfileView_Menu_Settings)
+            //else if (result == Resources.Settings)
             //{
             //}
-            //else if (result == Resources.ProfileView_Menu_LogOut)
+            //else if (result == Resources.ProfileViewMenuLogOut)
             //{
             //    await LogoutUserAsync();
             //}
 
-            var canLogout = await UserInteraction.ShowConfirmAsync($"{Resources.ProfileView_Menu_LogOut}?");
+            var canLogout = await UserInteraction.ShowConfirmAsync($"{Resources.SignOut}?");
             if (canLogout)
             {
                 await LogoutUserAsync();
@@ -182,11 +182,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
         {
             var result = await UserInteraction.ShowMenuDialogAsync(new string[]
             {
-                Resources.TakePhoto,
-                Resources.PickPhoto,
+                Resources.TakePicture,
+                Resources.ChooseFromGallery,
             });
 
-            var file = result == Resources.TakePhoto
+            var file = result == Resources.TakePicture
                 ? await _mediaManager.TakePhotoAsync()
                 : await _mediaManager.PickPhotoAsync();
 
@@ -212,42 +212,42 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
         {
             if (string.IsNullOrWhiteSpace(Login))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Login, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Login, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Login can't be empty.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Name, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Name, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Name can't be empty.");
                 return false;
             }
 
             if (Birthday == null)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Birthday, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Birthday can't be empty.");
                 return false;
             }
 
             if (Birthday > DateTime.Now)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.GreaterThanRequired));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Birthday, ValidationErrorType.GreaterThanRequired));
                 ErrorHandleService.LogError(this, "Birthday date can't be greater than current date.");
                 return false;
             }
 
             if ((DateTime.Now.Year - Birthday?.Year) <= Constants.Age.AdultAge)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Birthday, ValidationErrorType.LowerThanRequired, Constants.Age.AdultAge.ToString()));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Birthday, ValidationErrorType.LowerThanRequired, Constants.Age.AdultAge.ToString()));
                 ErrorHandleService.LogError(this, $"User can't be younger than {Constants.Age.AdultAge} years.");
                 return false;
             }
 
             if (Gender == null)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Gender, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Floor, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Gender can't be empty.");
                 return false;
             }

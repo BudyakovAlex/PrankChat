@@ -12,6 +12,7 @@ using PrankChat.Mobile.iOS.Views.Base;
 using System;
 using System.Collections.Generic;
 using UIKit;
+using PrankChat.Mobile.iOS.Common;
 
 namespace PrankChat.Mobile.iOS.Views.LoginView
 {
@@ -61,39 +62,39 @@ namespace PrankChat.Mobile.iOS.Views.LoginView
                 _appleIdButton.TrailingAnchor.ConstraintEqualTo(appleButtonContainer.TrailingAnchor),
             });
 
-            loginTitleLabel.Text = Resources.LoginView_Login_Title;
+            loginTitleLabel.Text = Resources.LoginIn;
             loginTitleLabel.TextColor = Theme.Color.White;
             loginTitleLabel.Font = Theme.Font.RegularFontOfSize(20);
 
-            emailTextField.SetLightStyle(Resources.LoginView_Email_Placeholder);
+            emailTextField.SetLightStyle(Resources.EnterEmail);
 
             passwordTextField.SecureTextEntry = true;
-            passwordTextField.SetLightStyle(Resources.LoginView_Password_Placeholder);
+            passwordTextField.SetLightStyle(Resources.EnterPassword);
 
-            forgotPasswordTitleLabel.Text = Resources.LoginView_ForgotPassword_Title;
+            forgotPasswordTitleLabel.Text = Resources.ForgotPassword;
             forgotPasswordTitleLabel.Font = Theme.Font.RegularFontOfSize(12);
             forgotPasswordTitleLabel.TextColor = Theme.Color.White;
 
-            resetPasswordButton.SetTitle(Resources.LoginView_ForgotPassword_Button, UIControlState.Normal);
+            resetPasswordButton.SetTitle(Resources.Restore, UIControlState.Normal);
             resetPasswordButton.SetTitleColor(Theme.Color.White, UIControlState.Normal);
             resetPasswordButton.SetLinkStyle(Theme.Font.RegularFontOfSize(12));
 
-            loginButton.SetLightStyle(Resources.LoginView_Continue_Button);
-            demoButton.SetLightStyle(Resources.Login_Without_Registration);
+            loginButton.SetLightStyle(Resources.Continue);
+            demoButton.SetLightStyle(Resources.LoginWithoutRegistration);
 
-            socialNetworksTitleLabel.Text = Resources.LoginView_AltLogin_Title;
+            socialNetworksTitleLabel.Text = Resources.EnterSocialNetworks;
             socialNetworksTitleLabel.Font = Theme.Font.RegularFontOfSize(12);
             socialNetworksTitleLabel.TextColor = Theme.Color.White;
 
-            vkButton.SetImage(UIImage.FromBundle("ic_vk").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            okButton.SetImage(UIImage.FromBundle("ic_ok").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            facebookButton.SetImage(UIImage.FromBundle("ic_facebook").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
-            gmailButton.SetImage(UIImage.FromBundle("ic_gmail").ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            vkButton.SetImage(UIImage.FromBundle(ImageNames.IconVk).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            okButton.SetImage(UIImage.FromBundle(ImageNames.IconOk).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            facebookButton.SetImage(UIImage.FromBundle(ImageNames.IconFacebook).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
+            gmailButton.SetImage(UIImage.FromBundle(ImageNames.IconGmail).ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), UIControlState.Normal);
 
             _appleButtonTapGesture = new UITapGestureRecognizer(OnAppleIdButtonTouched);
             _appleIdButton.AddGestureRecognizer(_appleButtonTapGesture);
 
-            registrationButton.SetTitle(Resources.LoginView_CreateAccount_Button, UIControlState.Normal);
+            registrationButton.SetTitle(Resources.CreateNewOneAccount, UIControlState.Normal);
             registrationButton.SetTitleColor(Theme.Color.White, UIControlState.Normal);
             registrationButton.SetLinkStyle(Theme.Font.RegularFontOfSize(16));
 

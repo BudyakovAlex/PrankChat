@@ -70,7 +70,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order.Items
             set
             {
                 SetProperty(ref _elapsedTime, value);
-                ExecutionStateWrapper.WrapAsync(() => RaisePropertiesChanged(nameof(TimeText), nameof(IsTimeAvailable)));
+                RaisePropertiesChanged(nameof(TimeText), nameof(IsTimeAvailable));
 
                 if (!IsTimeAvailable)
                 {

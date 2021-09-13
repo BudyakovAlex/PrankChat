@@ -5,26 +5,16 @@ using MvvmCross.Platforms.Android.Binding.Target;
 
 namespace PrankChat.Mobile.Droid.Bindings
 {
-    public class VideoUrlTargetBinding : MvxAndroidTargetBinding
+    public class VideoUrlTargetBinding : MvxAndroidTargetBinding<VideoView, string>
     {
-        public static string TargetBinding = "VideoUrl";
-
-        public VideoUrlTargetBinding(object target) : base(target)
+        public VideoUrlTargetBinding(VideoView target) : base(target)
         {
         }
 
-        public override Type TargetType => typeof(VideoView);
-
-        public override MvxBindingMode DefaultMode => MvxBindingMode.OneWay;
-
-        protected override void SetValueImpl(object target, object value)
+        protected override void SetValueImpl(VideoView target, string value)
         {
-            if (target is VideoView videoView &&
-                value is string url)
-            {
-                videoView.SetVideoPath(url);
-                videoView.Start();
-            }
+            target.SetVideoPath(value);
+            target.Start();
         }
     }
 }

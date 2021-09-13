@@ -7,7 +7,6 @@ using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
-using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using RestSharp;
 using System;
 using System.Net;
@@ -17,9 +16,11 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Authorization
 {
     public class AuthorizationService : IAuthorizationService
     {
+        private const string VkontakteAuthPath = "vk";
+        private const string FacebookAuthPath = "fb";
+
         private readonly IUserSessionProvider _userSessionProvider;
         private readonly IMvxMessenger _messenger;
-
         private readonly HttpClient _client;
 
         public AuthorizationService(
@@ -125,19 +126,11 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Authorization
             RefreshTokenAsync().FireAndForget();
         }
 
-        private string GetAuthPathByLoginType(LoginType loginType)
+        private string GetAuthPathByLoginType(LoginType loginType) => loginType switch
         {
-            switch (loginType)
-            {
-                case LoginType.Vk:
-                    return "vk";
-
-                case LoginType.Facebook:
-                    return "fb";
-
-                default:
-                    throw new ArgumentException();
-            }
-        }
+            LoginType.Vk => VkontakteAuthPath,
+            LoginType.Facebook => FacebookAuthPath,
+            _ => throw new ArgumentException(),
+        };
     }
 }

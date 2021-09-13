@@ -171,9 +171,9 @@ namespace PrankChat.Mobile.Droid.Views.Profile.Cashbox
 
         private void SetupYoomoneyDescriptionTextView()
         {
-            var spannableString = new SpannableString(Core.Localization.Resources.Withdrawal_Yoomoney_Description);
-            var startIndex = Core.Localization.Resources.Withdrawal_Yoomoney_Description.IndexOf(Core.Localization.Resources.Withdrawal_Yoomoney);
-            var endIndex = startIndex + Core.Localization.Resources.Withdrawal_Yoomoney.Length;
+            var spannableString = new SpannableString(Core.Localization.Resources.WithdrawalYoomoneyDescription);
+            var startIndex = Core.Localization.Resources.WithdrawalYoomoneyDescription.IndexOf(Core.Localization.Resources.Yoomoney);
+            var endIndex = startIndex + Core.Localization.Resources.Yoomoney.Length;
             var clickableSpan = new LinkSpan((_) => ViewModel?.GoToYoomoneyCommand?.Execute(null));
             var foregroundSpan = new ForegroundColorSpan(Color.Blue);
 

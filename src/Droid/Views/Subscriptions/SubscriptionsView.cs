@@ -15,8 +15,8 @@ using PrankChat.Mobile.Droid.LayoutManagers;
 using PrankChat.Mobile.Droid.Adapters;
 using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Subscriptions;
-using PrankChat.Mobile.Droid.Bindings;
 using PrankChat.Mobile.Droid.Views.Base;
+using PrankChat.Mobile.Droid.Extensions;
 
 namespace PrankChat.Mobile.Droid.Views.Subscriptions
 {
@@ -91,8 +91,8 @@ namespace PrankChat.Mobile.Droid.Views.Subscriptions
 
             bindingSet.Bind(this).For(v => v.SelectedTabType).To(vm => vm.SelectedTabType);
             bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.Title);
-            bindingSet.Bind(_subscribersTab).For(TabLayoutTabTextBinding.TargetBinding).To(vm => vm.SubscribersTitle);
-            bindingSet.Bind(_subscriptionsTab).For(TabLayoutTabTextBinding.TargetBinding).To(vm => vm.SubscriptionsTitle);
+            bindingSet.Bind(_subscribersTab).For(v => v.BindTabText()).To(vm => vm.SubscribersTitle);
+            bindingSet.Bind(_subscriptionsTab).For(v => v.BindTabText()).To(vm => vm.SubscriptionsTitle);
             bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_recyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
             bindingSet.Bind(_subscriptionsSwipeRefreshLayout).For(v => v.Refreshing).To(vm => vm.IsBusy);

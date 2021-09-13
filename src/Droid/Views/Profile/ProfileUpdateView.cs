@@ -41,7 +41,7 @@ namespace PrankChat.Mobile.Droid.Views.Profile
         private TextView _textViewChangeProfilePhoto;
         private TextView _textViewChangePassword;
 
-        protected override string TitleActionBar => Core.Localization.Resources.ProfileUpdateView_Title;
+        protected override string TitleActionBar => Core.Localization.Resources.ProfileEditing;
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
@@ -114,7 +114,7 @@ namespace PrankChat.Mobile.Droid.Views.Profile
             bindingSet.Bind(_loginEditText).For(v => v.Text).To(vm => vm.Login);
             bindingSet.Bind(_nameEditText).For(v => v.Text).To(vm => vm.Name);
             bindingSet.Bind(_emailEditText).For(v => v.Text).To(vm => vm.Email);
-            bindingSet.Bind(_emailEditText).For(PaddingTargetBinding.EndPadding).To(vm => vm.IsEmailVerified)
+            bindingSet.Bind(_emailEditText).For(v => v.BindPaddingEnd()).To(vm => vm.IsEmailVerified)
                       .WithConversion((bool value) => value ? 0 : DisplayUtils.DpToPx(45));
             bindingSet.Bind(_resendConfirmationTextView).For(v => v.Alpha).To(vm => vm.CanResendEmailValidation)
                       .WithConversion((bool value) => value ? 1 : 0.5f);

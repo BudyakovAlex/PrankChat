@@ -67,7 +67,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Abstract
         {
             await Task.Delay(500);
 
-            UserInteraction.ShowToast(Resources.Error_Something_Went_Wrong_Message, Models.Enums.ToastType.Negative);
+            UserInteraction.ShowToast(Resources.ErrorSomethingWentWrongMessage, Models.Enums.ToastType.Negative);
             Crashes.TrackError(exception);
         }
 

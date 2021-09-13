@@ -9,6 +9,7 @@ using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.ViewModels.Competition;
 using PrankChat.Mobile.Core.ViewModels.Competition.Items;
 using PrankChat.Mobile.Droid.Decorators;
+using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.LayoutManagers;
 using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract;
@@ -50,9 +51,9 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
                       .WithConversion<BoolToGoneConverter>();
             bindingSet.Bind(_rightImageView).For(v => v.Visibility).To(vm => vm.HasNavigationControls)
                       .WithConversion<BoolToGoneConverter>();
-            bindingSet.Bind(_leftDivider).For(BackgroundColorBinding.TargetBinding).To(vm => vm.Phase)
+            bindingSet.Bind(_leftDivider).For(v => v.BindBackgroundColor()).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
-            bindingSet.Bind(_rightDivider).For(BackgroundColorBinding.TargetBinding).To(vm => vm.Phase)
+            bindingSet.Bind(_rightDivider).For(v => v.BindBackgroundColor()).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
         }
 

@@ -98,7 +98,7 @@
                     android:layout_marginBottom="2dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@string/ProfileView_Subscribers_Subtitle"
+                    android:text="@string/Subscribers"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -134,7 +134,7 @@
                     android:layout_marginBottom="2dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@string/ProfileView_Subscriptions_Subtitle"
+                    android:text="@string/Subscriptions"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -189,12 +189,12 @@
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/ProfileView_MyOrders_Tab" />
+                    android:text="@string/Ordered" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/ProfileView_CompletedOrders_Tab" />
+                    android:text="@string/Execute" />
             </com.google.android.material.tabs.TabLayout>
 
             <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView

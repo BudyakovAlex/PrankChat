@@ -23,13 +23,13 @@ namespace PrankChat.Mobile.iOS.Views.PasswordRecoveryView
 
 		protected override void SetupControls()
 		{
-            titleLabel.Text = Resources.Password_Recovery_View_Title; ;
+            titleLabel.Text = Resources.PasswordRecovery; ;
             titleLabel.TextColor = Theme.Color.White;
             titleLabel.Font = Theme.Font.RegularFontOfSize(20);
 
-            emailEditText.SetLightStyle(Resources.Password_Recovery_View_Email_Placeholder);
+            emailEditText.SetLightStyle(Resources.EnterEmail);
 
-            recoverPasswordButton.SetLightStyle(Resources.Password_Recovery_View_Recovery_Button);
+            recoverPasswordButton.SetLightStyle(Resources.Restore);
         }
 	}
 }

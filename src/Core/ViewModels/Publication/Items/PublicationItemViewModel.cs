@@ -24,9 +24,9 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
     {
         private readonly string[] _restrictedActionsInDemoMode = new[]
         {
-             Resources.Publication_Item_Complain,
-             Resources.Publication_Item_Subscribe_To_Author,
-             Resources.Publication_Item_Download
+             Resources.Complain,
+             Resources.SubscribeToAuthor,
+             Resources.Download
         };
 
         private readonly Func<BaseVideoItemViewModel[]> _getAllFullScreenVideosFunc;
@@ -126,7 +126,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
         private Task ShareAsync() => Share.RequestAsync(new ShareTextRequest
         {
             Uri = ShareLink,
-            Title = Resources.ShareDialog_LinkShareTitle
+            Title = Resources.ShareLink
         });
 
         private async Task ShowFullScreenVideoAsync()
@@ -166,10 +166,10 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
         {
             var result = await UserInteraction.ShowMenuDialogAsync(new string[]
             {
-                Resources.Publication_Item_Complain,
-                Resources.Block_User,
-                Resources.Publication_Item_Copy_Link,
-                Resources.Publication_Item_Download,
+                Resources.Complain,
+                Resources.BlockUser,
+                Resources.CopyLink,
+                Resources.Download,Resources.BlockUser
             });
 
             if (string.IsNullOrWhiteSpace(result))
@@ -183,25 +183,25 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
                 return;
             }
 
-            if (result == Resources.Publication_Item_Complain)
+            if (result == Resources.Complain)
             {
                 await ComplaintAsync();
                 return;
             }
 
-            if (result == Resources.Publication_Item_Copy_Link)
+            if (result == Resources.CopyLink)
             {
                 await Clipboard.SetTextAsync(ShareLink);
                 UserInteraction.ShowToast(Resources.LinkCopied, ToastType.Positive);
                 return;
             }
 
-            if (result == Resources.Publication_Item_Download)
+            if (result == Resources.Download)
             {
                 _ = DownloadVideoAsync();
             }
 
-            if (result == Resources.Block_User)
+            if (result == Resources.BlockUser)
             {
                 await BlockUserAsync();
             }
@@ -213,11 +213,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
             var isComplaintSent = await _usersManager.ComplainUserAsync(Video.User.Id, complaintMessage, complaintMessage);
             if (!isComplaintSent)
             {
-                UserInteraction.ShowToast(Resources.Error_Something_Went_Wrong_Message, ToastType.Negative);
+                UserInteraction.ShowToast(Resources.ErrorSomethingWentWrongMessage, ToastType.Negative);
                 return;
             }
 
-            var message = string.Format(Resources.Blocked_User, User.Login);
+            var message = string.Format(Resources.BlockedUser, User.Login);
             UserInteraction.ShowToast(message, ToastType.Positive);
             Messenger.Publish(new ReloadPublicationsMessage(this));
         }
@@ -237,7 +237,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
             }
 
             await VideoManager.ComplainVideoAsync(VideoId, text, text);
-            UserInteraction.ShowToast(Resources.Complaint_Complete_Message, ToastType.Positive);
+            UserInteraction.ShowToast(Resources.ThankYouForLettingUsKnow, ToastType.Positive);
             Messenger.Publish(new ReloadPublicationsMessage(this));
         }
 

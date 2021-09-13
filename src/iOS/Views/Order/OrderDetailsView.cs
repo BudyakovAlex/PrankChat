@@ -168,33 +168,33 @@ namespace PrankChat.Mobile.iOS.Views.Order
         {
             InitializeRightBarButtonItem();
 
-            Title = Resources.OrderDetailsView_Title;
+            Title = Resources.Order;
 
-            takeOrderButton.SetDarkStyle(Resources.OrderDetailsView_Take_Order_Button);
-            subscriptionButton.SetDarkStyle(Resources.OrderDetailsView_Subscribe_Button);
-            unsubscriptionButton.SetDarkStyle(Resources.OrderDetailsView_Unsubscribe_Button);
-            executeVideoButton.SetDarkStyle(Resources.OrderDetailsView_Execute_Button);
-            acceptButton.SetDarkStyle(Resources.OrderDetailsView_Accept_Button);
-            arqueButton.SetBorderlessStyle(Resources.OrderDetailsView_Argue_Button);
-            downloadButton.SetDarkStyle(Resources.OrderDetailsView_LoadVideo);
-            cancelVideoButton.SetDarkStyle(Resources.OrderDetailsView_Cancel_Button);
+            takeOrderButton.SetDarkStyle(Resources.TakeAnOrder);
+            subscriptionButton.SetDarkStyle(Resources.Subscribe);
+            unsubscriptionButton.SetDarkStyle(Resources.Unsubscribe);
+            executeVideoButton.SetDarkStyle(Resources.Run);
+            acceptButton.SetDarkStyle(Resources.ToAccept);
+            arqueButton.SetBorderlessStyle(Resources.InDispute);
+            downloadButton.SetDarkStyle(Resources.UploadVideo);
+            cancelVideoButton.SetDarkStyle(Resources.Cancel);
 
             profileNameLabel.SetTitleStyle();
             videoNameLabel.SetBoldTitleStyle();
             videoDescriptionLabel.SetTitleStyle();
-            priceTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Price_Text);
+            priceTextLabel.SetSmallTitleStyle(Resources.OrderPrice);
             priceValueLabel.SetMediumStyle(26, Theme.Color.Text);
-            timeTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Time_Text);
+            timeTextLabel.SetSmallTitleStyle(Resources.OrderTime);
             daysValueLabel.SetMediumStyle(26, Theme.Color.Text);
             hourValueLabel.SetMediumStyle(26, Theme.Color.Text);
             minutesValueLabel.SetMediumStyle(26, Theme.Color.Text);
             delimiterTimeOneLabel.SetMediumStyle(26, Theme.Color.Text);
             delimiterTimeTwoLabel.SetMediumStyle(26, Theme.Color.Text);
-            daysTitleLabel.SetSmallTitleStyle(Resources.Order_View_Day, 10);
-            hourTitleLabel.SetSmallTitleStyle(Resources.Order_View_Hour, 10);
-            minutesTitleLabel.SetSmallTitleStyle(Resources.Order_View_Minute, 10);
-            downloadVideotextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Download_Text);
-            tookOrderTextLabel.SetSmallTitleStyle(Resources.OrderDetailsView_Took_The_Order_Text);
+            daysTitleLabel.SetSmallTitleStyle(Resources.Day, 10);
+            hourTitleLabel.SetSmallTitleStyle(Resources.Hour, 10);
+            minutesTitleLabel.SetSmallTitleStyle(Resources.Minute, 10);
+            downloadVideotextLabel.SetSmallTitleStyle(Resources.UploadVideo);
+            tookOrderTextLabel.SetSmallTitleStyle(Resources.Executor);
             executorNameLabel.SetTitleStyle();
             startDateLabel.SetSmallSubtitleStyle();
 
@@ -224,7 +224,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
                 EndPoint = new CGPoint(1f, 0f)
             };
 
-            processingLabel.Text = Resources.Processing_Video;
+            processingLabel.Text = Resources.ProcessingVideo;
             processingRootBackgroundView.Layer.InsertSublayer(_gradientLayer, 0);
             processingBackgroundView.Layer.CornerRadius = 8;
 
@@ -242,7 +242,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
             _rightBarButtonItem = new UIBarButtonItem
             {
                 Title = string.Empty,
-                Image = UIImage.FromBundle("ic_three_dots").ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate),
+                Image = UIImage.FromBundle(ImageNames.IconThreeDots).ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate),
                 TintColor = Theme.Color.White
             };
 

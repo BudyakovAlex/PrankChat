@@ -22,11 +22,11 @@ namespace PrankChat.Mobile.iOS.Views.Competition
         {
             base.SetupControls();
 
-            prizeTitleLabel.Text = Resources.Competitions_Prize_Pool;
+            prizeTitleLabel.Text = Resources.TournamentPrizePool;
 
             actionButton.SetDarkStyle(string.Empty);
-            openRulesButton.SetBorderlessStyle(Resources.Competition_Rules, Theme.Color.White, Theme.Color.White);
-            openPrizePoolButton.SetBorderlessStyle(Resources.Competition_Results, Theme.Color.White, Theme.Color.White);
+            openRulesButton.SetBorderlessStyle(Resources.CompetitionRules, Theme.Color.White, Theme.Color.White);
+            openPrizePoolButton.SetBorderlessStyle(Resources.Results, Theme.Color.White, Theme.Color.White);
         }
 
         protected override void Bind()

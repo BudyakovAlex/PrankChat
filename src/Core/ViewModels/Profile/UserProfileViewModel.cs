@@ -172,16 +172,13 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             return SetList(items, page, ProduceOrderItemViewModel, Items);
         }
 
-        protected virtual async Task<Pagination<Models.Data.Order>> GetOrdersAsync(int page, int pageSize)
+        protected virtual async Task<Pagination<Models.Data.Order>> GetOrdersAsync(int page, int pageSize) => SelectedOrderType switch
         {
-            return SelectedOrderType switch
-            {
-                ProfileOrderType.MyOrdered => await _ordersManager.GetUserOwnOrdersAsync(_userId, page, pageSize),
-                ProfileOrderType.OrdersCompletedByMe => await _ordersManager.GetUserExecuteOrdersAsync(_userId, page, pageSize),
-                _ => new Pagination<Models.Data.Order>(),
-            };
-        }
-
+            ProfileOrderType.MyOrdered => await _ordersManager.GetUserOwnOrdersAsync(_userId, page, pageSize),
+            ProfileOrderType.OrdersCompletedByMe => await _ordersManager.GetUserExecuteOrdersAsync(_userId, page, pageSize),
+            _ => new Pagination<Models.Data.Order>(),
+        };
+    
         private OrderItemViewModel ProduceOrderItemViewModel(Models.Data.Order order)
         {
             return new OrderItemViewModel(

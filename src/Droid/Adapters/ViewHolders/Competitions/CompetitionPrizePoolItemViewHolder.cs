@@ -7,6 +7,7 @@ using PrankChat.Mobile.Core.ViewModels.Competition.Items;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract;
 using PrankChat.Mobile.Droid.Bindings;
 using PrankChat.Mobile.Droid.Converters;
+using PrankChat.Mobile.Droid.Extensions;
 
 namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
 {
@@ -43,7 +44,7 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_userTextView).For(v => v.Text).To(vm => vm.Participant);
             bindingSet.Bind(_votesTextView).For(v => v.Text).To(vm => vm.Rating);
             bindingSet.Bind(_prizeTextView).For(v => v.Text).To(vm => vm.Prize);
-            bindingSet.Bind(_parentView).For(BackgroundColorBinding.TargetBinding).To(vm => vm.IsMyPosition)
+            bindingSet.Bind(_parentView).For(v => v.BindBackgroundColor()).To(vm => vm.IsMyPosition)
                 .WithConversion(BoolToResourceConverter.Name, Tuple.Create(Resource.Color.dark_purple, Resource.Color.deep_purple));
         }
     }

@@ -14,11 +14,11 @@ namespace PrankChat.Mobile.Core.Extensions
 
         private static readonly string[] _weightSuffixes = new[]
         {
-            Resources.Bytes_Presentation,
-            Resources.Kilobytes_Presentation,
-            Resources.Megabytes_Presentation,
-            Resources.Gigabytes_Presentation,
-            Resources.Terabytes_Presentation
+            Resources.Bytes,
+            Resources.Kb,
+            Resources.Mb,
+            Resources.Gb,
+            Resources.Tb
         };
 
         public static string ToCountString(this int count)
@@ -51,12 +51,12 @@ namespace PrankChat.Mobile.Core.Extensions
 
             if (count >= BigLimitForCount)
             {
-                return (count / BigLimitForCount)?.ToString(FormatForCount) + Resources.Count_Millions;
+                return (count / BigLimitForCount)?.ToString(FormatForCount) + Resources.CountMillions;
             }
 
             if (count >= SmallLimitForCount)
             {
-                return (count / SmallLimitForCount)?.ToString(FormatForCount) + Resources.Count_Thousand;
+                return (count / SmallLimitForCount)?.ToString(FormatForCount) + Resources.CountThousand;
             }
 
             return count?.ToString(FormatForCountWithFraction);
@@ -69,18 +69,18 @@ namespace PrankChat.Mobile.Core.Extensions
             var lastTwoChars = long.Parse(lastTwoCharsString);
             if (lastTwoChars >= 11 && lastTwoChars <= 19)
             {
-                return $"{count.ToCountString()} {Resources.Count_Views}";
+                return $"{count.ToCountString()} {Resources.Views}";
             }
 
             var lastChar = count.ToString().LastOrDefault();
             if (lastChar == '1')
             {
-                return $"{count.ToCountString()} {Resources.Count_View}";
+                return $"{count.ToCountString()} {Resources.View}";
             }
 
             var viewsText = new[] { '2', '3', '4' }.Contains(lastChar)
-                  ? Resources.Count_Of_Viewing
-                  : Resources.Count_Views;
+                  ? Resources.OfViewing
+                  : Resources.Views;
 
             return $"{count.ToCountString()} {viewsText}";
         }

@@ -58,7 +58,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Abstract
                 {
                     MainThread.BeginInvokeOnMainThread(() => CrossBadge.Current.SetBadge(unreadNotifications));
                 }
-            },true, true);
+            }, awaitWhenBusy: true);
         }
 
         private void OnTimerTick(object _, EventArgs __)

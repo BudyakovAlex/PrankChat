@@ -51,11 +51,11 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
                 _isSubscribed = value;
                 if (_isSubscribed)
                 {
-                    SubscribeButton.SetDarkStyle(Resources.OrderDetailsView_Unsubscribe_Button);
+                    SubscribeButton.SetDarkStyle(Resources.Unsubscribe);
                     return;
                 }
 
-                SubscribeButton.SetBorderlessStyle(Resources.OrderDetailsView_Subscribe_Button, Theme.Color.Accent);
+                SubscribeButton.SetBorderlessStyle(Resources.Subscribe, Theme.Color.Accent);
             }
         }
 
@@ -96,17 +96,17 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
 
             NameLabel.SetTitleStyle();
             SubscribersValueLabel.SetBoldTitleStyle();
-            SubscribersTitleLabel.SetSmallSubtitleStyle(Resources.ProfileView_Subscribers_Subtitle);
+            SubscribersTitleLabel.SetSmallSubtitleStyle(Resources.Subscribers);
             SubscriptionsValueLabel.SetBoldTitleStyle();
-            SubscriptionsTitleLabel.SetSmallSubtitleStyle(Resources.ProfileView_Subscriptions_Subtitle);
+            SubscriptionsTitleLabel.SetSmallSubtitleStyle(Resources.Subscriptions);
             DescriptionLabel.SetTitleStyle();
 
             TabView.AddTab(
-                Resources.ProfileView_MyOrders_Tab,
+                Resources.Ordered,
                 () => ViewModel.SelectedOrderType = ProfileOrderType.MyOrdered);
 
             TabView.AddTab(
-                Resources.ProfileView_CompletedOrders_Tab,
+                Resources.Execute,
                 () => ViewModel.SelectedOrderType = ProfileOrderType.OrdersCompletedByMe);
 
             _refreshControlProfile = new MvxUIRefreshControl();

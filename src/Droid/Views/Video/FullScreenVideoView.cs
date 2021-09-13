@@ -20,6 +20,7 @@ using PrankChat.Mobile.Droid.Listeners;
 using PrankChat.Mobile.Droid.Views.Base;
 using System;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Droid.Extensions;
 
 namespace PrankChat.Mobile.Droid.Views.Video
 {
@@ -159,7 +160,7 @@ namespace PrankChat.Mobile.Droid.Views.Video
             bindingSet.Bind(this).For(v => v.IsSubscribed).To(vm => vm.CurrentVideo.IsSubscribedToUser);
 
             bindingSet.Bind(this).For(v => v.CurrentItem).To(vm => vm.CurrentVideo);
-            bindingSet.Bind(_videoView).For(VideoUrlTargetBinding.TargetBinding).To(vm => vm.CurrentVideo.VideoUrl);
+            bindingSet.Bind(_videoView).For(v => v.BindVideoUrl()).To(vm => vm.CurrentVideo.VideoUrl);
             bindingSet.Bind(_mediaController).For(v => v.IsMuted).To(vm => vm.IsMuted).TwoWay();
 
             bindingSet.Bind(_backImageView).For(v => v.BindClick()).To(vm => vm.CloseCommand);

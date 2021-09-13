@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Profile;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Binding;
 using PrankChat.Mobile.iOS.Views.Base;
@@ -94,10 +95,10 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
             bindingSet.Bind(changeProfilePhotoLabel.Tap()).For(v => v.Command).To(vm => vm.ChangeProfilePhotoCommand);
             bindingSet.Bind(femaleIconButton).To(vm => vm.SelectGenderCommand)
                       .CommandParameter(GenderType.Female);
-            bindingSet.Bind(femaleIconButton).For(UIButtonSelectedTargetBinding.TargetBinding).To(vm => vm.IsGenderFemale);
+            bindingSet.Bind(femaleIconButton).For(v => v.BindSelected()).To(vm => vm.IsGenderFemale);
             bindingSet.Bind(maleIconButton).To(vm => vm.SelectGenderCommand)
                       .CommandParameter(GenderType.Male);
-            bindingSet.Bind(maleIconButton).For(UIButtonSelectedTargetBinding.TargetBinding).To(vm => vm.IsGenderMale);
+            bindingSet.Bind(maleIconButton).For(v => v.BindSelected()).To(vm => vm.IsGenderMale);
             bindingSet.Bind(descriptionTextView).To(vm => vm.Description);
             bindingSet.Bind(this).For(nameof(UserDescription)).To(vm => vm.Description);
             bindingSet.Bind(emailValidationImageView).For(v => v.BindHidden()).To(vm => vm.IsEmailVerified);
@@ -105,7 +106,7 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
                       .OneWay();
             bindingSet.Bind(emailValidationImageView).For(v => v.BindTap()).To(vm => vm.ShowValidationWarningCommand);
             bindingSet.Bind(resendEmailLabel).For(v => v.BindTap()).To(vm => vm.ResendEmailValidationCommand);
-            bindingSet.Bind(emailTextField).For(FloatPlaceholderTextFieldPaddingTargetBinding.EndPadding).To(vm => vm.IsEmailVerified)
+            bindingSet.Bind(emailTextField).For(v => v.BindEndPadding()).To(vm => vm.IsEmailVerified)
                       .WithConversion(BoolToIntConverter.Name, Tuple.Create(0, 45));
             bindingSet.Bind(resendEmailLabel).For(v => v.Alpha).To(vm => vm.CanResendEmailValidation)
                       .WithConversion(BoolToFloatConverter.Name, Tuple.Create(1f, 0.5f));
@@ -120,7 +121,7 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
 
         protected override void SetupControls()
         {
-            Title = Resources.ProfileUpdateView_Title;
+            Title = Resources.ProfileEditing;
 
             descriptionTextView.TextContainer.MaximumNumberOfLines = 3;
 
@@ -129,36 +130,36 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
             textLengthLabel.SetRegularStyle(12, textLengthLabel.TextColor);
 
             rootView.AddGestureRecognizer(new UITapGestureRecognizer(OnViewTapped));
-            NavigationItem?.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton("ic_logout", ViewModel.ShowMenuCommand), true);
+            NavigationItem?.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton(ImageNames.IconLogout, ViewModel.ShowMenuCommand), true);
 
-            emailTextField.SetLightStyle(Resources.ProfileUpdateView_Email_Placeholder);
+            emailTextField.SetLightStyle(Resources.Email);
 
-            loginTextField.SetLightStyle(Resources.ProfileUpdateView_Login_Placeholder);
+            loginTextField.SetLightStyle(Resources.Login);
 
-            nameTextField.SetLightStyle(Resources.ProfileUpdateView_Name_Placeholder);
+            nameTextField.SetLightStyle(Resources.Name);
 
-            birthdayTextField.SetLightStyle(Resources.ProfileUpdateView_Birthday_Placeholder, rightImage: UIImage.FromBundle("ic_calendar"));
+            birthdayTextField.SetLightStyle(Resources.Birthday, rightImage: UIImage.FromBundle(ImageNames.IconCalendar));
 
-            sexSelectTitleLabel.Text = Resources.ProfileUpdateView_GenderSelect_Title;
+            sexSelectTitleLabel.Text = Resources.YourGender;
             sexSelectTitleLabel.TextColor = Theme.Color.White;
             sexSelectTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
 
-            maleTitleButton.SetTitle(Resources.RegistrationView_Male_Button, UIControlState.Normal);
+            maleTitleButton.SetTitle(Resources.Male, UIControlState.Normal);
             maleTitleButton.SetRadioTitleStyle();
 
-            femaleTitleButton.SetTitle(Resources.RegistrationView_Female_Button, UIControlState.Normal);
+            femaleTitleButton.SetTitle(Resources.Female, UIControlState.Normal);
             femaleTitleButton.SetRadioTitleStyle();
 
-            femaleIconButton.SetSelectableImageStyle("ic_radio_button_inactive", "ic_radio_button_active");
-            maleIconButton.SetSelectableImageStyle("ic_radio_button_inactive", "ic_radio_button_active");
+            femaleIconButton.SetSelectableImageStyle(ImageNames.IconRadioButtonInactive, ImageNames.IconRadioButtonActive);
+            maleIconButton.SetSelectableImageStyle(ImageNames.IconRadioButtonInactive, ImageNames.IconRadioButtonActive);
 
-            saveButton.SetLightStyle(Resources.ProfileUpdateView_Button_Save);
-            resendEmailLabel.SetLinkStyle(Theme.Color.White, Resources.Profile_Resend_Confirmation, 14);
+            saveButton.SetLightStyle(Resources.Save);
+            resendEmailLabel.SetLinkStyle(Theme.Color.White, Resources.Resend, 14);
 
-            changePasswordLabel.AttributedText = new NSAttributedString(Resources.ProfileUpdateView_ChangePassword, underlineStyle: NSUnderlineStyle.Single);
+            changePasswordLabel.AttributedText = new NSAttributedString(Resources.ChangePassword, underlineStyle: NSUnderlineStyle.Single);
             changePasswordLabel.TextColor = UIColor.White;
 
-            changeProfilePhotoLabel.AttributedText = new NSAttributedString(Resources.ProfileUpdateView_PhotoChange_Title, underlineStyle: NSUnderlineStyle.Single);
+            changeProfilePhotoLabel.AttributedText = new NSAttributedString(Resources.ChangeProfilePhoto, underlineStyle: NSUnderlineStyle.Single);
             changeProfilePhotoLabel.TextColor = UIColor.White;
 
             descriptionTextView.SetTitleStyle(size: 14);
@@ -185,10 +186,10 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
 
             descriptionTextView.AddGestureRecognizer(new UITapGestureRecognizer(() => descriptionTextView.BecomeFirstResponder()));
 
-            descriptionPlaceholderLabel.SetSmallSubtitleStyle(Resources.ProfileUpdateView_Description_Placeholder, 14);
+            descriptionPlaceholderLabel.SetSmallSubtitleStyle(Resources.AboutMe, 14);
             descriptionPlaceholderLabel.TextColor = Theme.Color.White;
 
-            descriptionTopFloatingPlaceholderLabel.SetSmallSubtitleStyle(Resources.ProfileUpdateView_Description_Placeholder);
+            descriptionTopFloatingPlaceholderLabel.SetSmallSubtitleStyle(Resources.AboutMe);
             descriptionTopFloatingPlaceholderLabel.TextColor = Theme.Color.White;
             descriptionTopFloatingPlaceholderLabel.Hidden = true;
             stackView.SetCustomSpacing(8, stackView.ArrangedSubviews[2]);

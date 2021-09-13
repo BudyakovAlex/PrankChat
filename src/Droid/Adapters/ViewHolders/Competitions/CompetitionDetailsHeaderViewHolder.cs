@@ -68,7 +68,7 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             _prizeTitleTextView = view.FindViewById<TextView>(Resource.Id.prize_title_text_view);
 
             _placeholderImageView.OnError += (s, e) => _placeholderImageView.SetBackgroundResource(Resource.Drawable.button_accent_background);
-            _prizeTitleTextView.Text = Resources.Competitions_Prize_Pool;
+            _prizeTitleTextView.Text = Resources.TournamentPrizePool;
 
             _actionButton = view.FindViewById<MaterialButton>(Resource.Id.load_video_button);
             _rulesButton = view.FindViewById<AppCompatButton>(Resource.Id.rules_button);

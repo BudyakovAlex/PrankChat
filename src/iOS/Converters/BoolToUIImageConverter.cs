@@ -2,6 +2,7 @@
 using System.Globalization;
 using MvvmCross.Converters;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.iOS.Common;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Converters
@@ -11,23 +12,16 @@ namespace PrankChat.Mobile.iOS.Converters
         protected override UIImage Convert(bool value, Type targetType, object parameter, CultureInfo culture)
         {
             var paymentType = (PaymentType)parameter;
-            switch (paymentType)
+            return paymentType switch
             {
-                case PaymentType.Alphabank:
-                    return value ? GetIcon("ic_payment_alphabank_selected") : GetIcon("ic_payment_alphabank");
-                case PaymentType.Card:
-                    return value ? GetIcon("ic_payment_cards_selected") : GetIcon("ic_payment_cards");
-                case PaymentType.Phone:
-                    return value ? GetIcon("ic_payment_phone_selected") : GetIcon("ic_payment_phone");
-                case PaymentType.Qiwi:
-                    return value ? GetIcon("ic_payment_qiwi_selected") : GetIcon("ic_payment_qiwi");
-                case PaymentType.Sberbank:
-                    return value ? GetIcon("ic_payment_sberbank_selected") : GetIcon("ic_payment_sberbank");
-                case PaymentType.YandexMoney:
-                    return value ? GetIcon("ic_payment_yandexmoney_selected") : GetIcon("ic_payment_yandexmoney");
-                default:
-                    return new UIImage();
-            }
+                PaymentType.Alphabank => value ? GetIcon(ImageNames.IconPaymentAlphabankSelected) : GetIcon(ImageNames.IconPaymentAlphabank),
+                PaymentType.Card => value ? GetIcon(ImageNames.IconPaymentСardsSelected) : GetIcon(ImageNames.IconPaymentСards),
+                PaymentType.Phone => value ? GetIcon(ImageNames.IconPaymentPhoneSelected) : GetIcon(ImageNames.IconPaymentPhone),
+                PaymentType.Qiwi => value ? GetIcon(ImageNames.IconPaymentQiwiSelected) : GetIcon(ImageNames.IconPaymentQiwi),
+                PaymentType.Sberbank => value ? GetIcon(ImageNames.IconPaymentSberbankSelected) : GetIcon(ImageNames.IconPaymentSberbank),
+                PaymentType.YandexMoney => value ? GetIcon(ImageNames.IconPaymentYandexmoneySelected) : GetIcon(ImageNames.IconPaymentYandexmoney),
+                _ => new UIImage(),
+            };
         }
 
         private UIImage GetIcon(string name)

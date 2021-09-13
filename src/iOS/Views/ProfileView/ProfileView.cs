@@ -19,7 +19,7 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.iOS.Views.ProfileView
 {
-    [MvxTabPresentation(TabName = "Profile", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
+    [MvxTabPresentation(TabName = "Profile", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected, WrapInNavigationController = true)]
     public partial class ProfileView : BaseRefreshableTabbedView<ProfileViewModel>, IScrollableView
     {
         private MvxUIRefreshControl _refreshControl;
@@ -92,33 +92,33 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
 
             InitializeTableView();
 
-            _notificationBarItem = NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(
                 new UIBarButtonItem[]
                 {
                     _notificationBarItem,
-                    NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand)
+                    NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand)
                 },
                 true);
 
             nameLabel.SetTitleStyle();
             priceLabel.SetSmallSubtitleStyle();
-            refillButton.SetDarkStyle(Resources.ProfileView_Refill);
-            withdrawalButton.SetBorderlessStyle(Resources.ProfileView_Withdrawal);
+            refillButton.SetDarkStyle(Resources.Replenish);
+            withdrawalButton.SetBorderlessStyle(Resources.Withdraw);
             subscribersValueLabel.SetBoldTitleStyle();
-            subscribersTitleLabel.SetSmallSubtitleStyle(Resources.ProfileView_Subscribers_Subtitle);
+            subscribersTitleLabel.SetSmallSubtitleStyle(Resources.Subscribers);
             subscriptionsValueLabel.SetBoldTitleStyle();
-            subscriptionsTitleLabel.SetSmallSubtitleStyle(Resources.ProfileView_Subscriptions_Subtitle);
+            subscriptionsTitleLabel.SetSmallSubtitleStyle(Resources.Subscriptions);
             descriptionLabel.SetTitleStyle();
 
-            tabView.AddTab(Resources.ProfileView_MyOrders_Tab, () => TabSelected(ProfileOrderType.MyOrdered));
+            tabView.AddTab(Resources.Ordered, () => TabSelected(ProfileOrderType.MyOrdered));
 
-            tabView.AddTab(Resources.ProfileView_CompletedOrders_Tab, () => TabSelected(ProfileOrderType.OrdersCompletedByMe));
+            tabView.AddTab(Resources.Execute, () => TabSelected(ProfileOrderType.OrdersCompletedByMe));
 
             _refreshControl = new MvxUIRefreshControl();
             rootScrollView.RefreshControl = _refreshControl;
 
-            var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
+            var logoButton = NavigationItemHelper.CreateBarButton(ImageNames.IconLogo, null);
             logoButton.Enabled = false;
             NavigationItem.LeftBarButtonItem = logoButton;
         }

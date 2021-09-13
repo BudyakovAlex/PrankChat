@@ -14,10 +14,10 @@ namespace PrankChat.Mobile.iOS.Views.Maintanance
         {
             base.SetupControls();
 
-            downloadButton.SetLightStyle(Resources.Download_Update);
+            downloadButton.SetLightStyle(Resources.DownloadUpdate);
             titleLabel.Font = Theme.Font.RegularFontOfSize(14);
             titleLabel.TextColor = Theme.Color.White;
-            titleLabel.Text = Resources.Application_New_Version_Ready;
+            titleLabel.Text = Resources.ApplicationNewVersionReady;
         }
 
         protected override void Bind()

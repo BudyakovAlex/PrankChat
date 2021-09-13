@@ -120,7 +120,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             likeButton.Layer.BorderWidth = 1f;
             likeButton.Layer.BorderColor = Theme.Color.ButtonBorderPrimary.CGColor;
 
-            likeButton.SetImage(UIImage.FromBundle("ic_thumbs_up.png"), UIControlState.Normal);
+            likeButton.SetImage(UIImage.FromBundle(ImageNames.IconThumbsUp), UIControlState.Normal);
         }
     }
 }

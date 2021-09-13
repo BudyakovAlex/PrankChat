@@ -23,7 +23,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:hint="@string/CreateOrderView_Name_Placeholder"
+				android:hint="@string/OrderName"
 				android:textColorHint="@color/dark_placeholder"
 				app:boxStrokeWidth="1dp">
 
@@ -43,7 +43,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="16dp"
-				android:hint="@string/CreateOrderView_Description_Placeholder"
+				android:hint="@string/OrderDescription"
 				android:textColorHint="@color/dark_placeholder"
 				app:boxStrokeWidth="1dp">
 
@@ -65,7 +65,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginTop="16dp"
 				android:gravity="right|center_vertical"
-				android:hint="@string/CreateOrderView_PriceTitle_Placeholder"
+				android:hint="@string/Price"
 				android:textColorHint="@color/dark_placeholder"
 				app:boxStrokeWidth="1dp">
 
@@ -89,7 +89,7 @@
 				android:background="@drawable/border_grey"
 				android:drawableRight="@drawable/ic_calendar_accent"
 				android:gravity="center_vertical"
-				android:hint="@string/CreateOrderView_CompleteDate_Placeholder"
+				android:hint="@string/DateOfExecution"
 				android:paddingLeft="14dp"
 				android:paddingRight="14dp"
 				android:textColor="@color/applicationBlack"
@@ -110,7 +110,7 @@
 					android:buttonTint="@color/accent"
 					android:gravity="left|center_vertical"
 					android:layout_gravity="center_vertical"
-					android:text="@string/Create_Order_Secret_order"
+					android:text="@string/SecretOrder"
 					android:textColor="@color/applicationBlack"
 					android:textSize="14dp"/>
 				<ImageView
@@ -132,7 +132,7 @@
 				android:layout_marginTop="32dp"
 				android:paddingLeft="15dp"
 				android:paddingRight="15dp"
-				android:text="@string/CreateOrderView_Create_Button"/>
+				android:text="@string/CreatingOrder"/>
 		</LinearLayout>
 	</ScrollView>
 

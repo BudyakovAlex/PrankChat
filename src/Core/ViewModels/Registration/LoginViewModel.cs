@@ -134,21 +134,21 @@ namespace PrankChat.Mobile.Core.ViewModels.Registration
         {
             if (string.IsNullOrWhiteSpace(EmailText))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Email, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Email, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "E-mail field can't be empty.");
                 return false;
             }
 
             if (!EmailText.IsValidEmail())
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Email, ValidationErrorType.Invalid));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Email, ValidationErrorType.Invalid));
                 ErrorHandleService.LogError(this, "E-mail field value is incorrect.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(PasswordText))
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Password, ValidationErrorType.Empty));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Password, ValidationErrorType.Empty));
                 ErrorHandleService.LogError(this, "Password field can't be empty.");
                 return false;
             }

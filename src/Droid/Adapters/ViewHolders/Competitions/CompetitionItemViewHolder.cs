@@ -73,7 +73,7 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             _backgroundFrame = view.FindViewById<FrameLayout>(Resource.Id.background_frame);
             _prizeTitleTextView = view.FindViewById<TextView>(Resource.Id.prize_title_text_view);
             _thirdDividerView = view.FindViewById<View>(Resource.Id.third_divider);
-            _prizeTitleTextView.Text = Resources.Competitions_Prize_Pool;
+            _prizeTitleTextView.Text = Resources.TournamentPrizePool;
 
             _borderFrame.SetRoundedCorners(DisplayUtils.DpToPx(15));
             _backgroundFrame.SetRoundedCorners(DisplayUtils.DpToPx(13));
@@ -102,9 +102,9 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
             bindingSet.Bind(_termToTextView).For(v => v.Text).To(vm => vm.ActiveTo)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
-            bindingSet.Bind(_borderFrame).For(BackgroundColorBinding.TargetBinding).To(vm => vm.Phase)
+            bindingSet.Bind(_borderFrame).For(v => v.BindBackgroundColor()).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
-            bindingSet.Bind(_backgroundFrame).For(BackgroundResourceBinding.TargetBinding).To(vm => vm.Phase)
+            bindingSet.Bind(_backgroundFrame).For(v => v.BindBackgroundResource()).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToBackgroundConverter>();
             bindingSet.Bind(_placeholderImageView).For(v => v.ImagePath).To(vm => vm.ImageUrl);
             bindingSet.Bind(_actionButton).For(v => v.Text).To(vm => vm.Phase)

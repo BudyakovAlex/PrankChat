@@ -12,7 +12,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
         {
             base.SetupControls();
 
-            Title = Resources.Competition_Rules;
+            Title = Resources.CompetitionRules;
         }
 
         protected override void Bind()
@@ -21,7 +21,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 
             using var bindingSet = this.CreateBindingSet<CompetitionRulesView, CompetitionRulesViewModel>();
 
-            bindingSet.Bind(webView).For(WKWebViewHtmlStringTargetBinding.TargetBinding).To(vm => vm.HtmlContent);
+            bindingSet.Bind(webView).For(v => v.BindHtmlString()).To(vm => vm.HtmlContent);
         }
     }
 }

@@ -41,8 +41,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 
         public override bool CanPlayVideo => true;
 
-
-
         public string UserName => User?.Login;
 
         public DateTime PublicationDate => Video.CreatedAt.UtcDateTime;

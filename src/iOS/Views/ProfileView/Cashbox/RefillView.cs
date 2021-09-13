@@ -29,22 +29,22 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView.Cashbox
 
         protected override void SetupControls()
         {
-            costTextField.SetDarkStyle(Resources.CashboxView_Price_Placeholder);
+            costTextField.SetDarkStyle(Resources.Million);
             costTextField.TextAlignment = UITextAlignment.Right;
 
-            refillButton.SetDarkStyle(Resources.CashboxView_Fillup_Button);
+            refillButton.SetDarkStyle(Resources.Replenish);
 
             WarningMessageLabel.SetRegularStyle(14, Theme.Color.Text);
-            WarningMessageLabel.Text = Resources.Cashbox_Commision_Warning;
+            WarningMessageLabel.Text = Resources.CommisionWarning;
 
-            paymentMethodsTitleLabel.Text = Resources.CashboxView_FillupMethodSelect_Title;
+            paymentMethodsTitleLabel.Text = Resources.MethodToReplenish;
             paymentMethodsTitleLabel.SetRegularStyle(14, Theme.Color.Subtitle);
 
-            mastercardImageView.Image = UIImage.FromBundle("ic_mastercard_banner");
+            mastercardImageView.Image = UIImage.FromBundle(ImageNames.IconMastercardBanner);
 
-            visaBannerImageView.Image = UIImage.FromBundle("ic_visa_banner");
+            visaBannerImageView.Image = UIImage.FromBundle(ImageNames.IconVisaBanner);
 
-            secureBannerImageView.Image = UIImage.FromBundle("ic_3dsecure_banner");
+            secureBannerImageView.Image = UIImage.FromBundle(ImageNames.IconSecureBanner);
 
             //TODO: remove when all payment methods will be ready
             paymentMethodsCollectionView.Hidden = true;

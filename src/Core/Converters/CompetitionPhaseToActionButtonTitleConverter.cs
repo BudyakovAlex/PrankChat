@@ -8,15 +8,12 @@ namespace PrankChat.Mobile.Core.Converters
 {
     public class CompetitionPhaseToActionButtonTitleConverter : MvxValueConverter<CompetitionPhase, string>
     {
-        protected override string Convert(CompetitionPhase value, Type targetType, object parameter, CultureInfo culture)
+        protected override string Convert(CompetitionPhase value, Type targetType, object parameter, CultureInfo culture) => value switch
         {
-            return value switch
-            {
-                CompetitionPhase.New => Resources.Competitions_Participate,
-                CompetitionPhase.Voting => Resources.Competitions_See,
-                CompetitionPhase.Finished => Resources.Competitions_More,
-                _ => string.Empty,
-            };
-        }
+            CompetitionPhase.New => Resources.Participate,
+            CompetitionPhase.Voting => Resources.Watch,
+            CompetitionPhase.Finished => Resources.MoreDetails,
+            _ => string.Empty,
+        };   
     }
 }

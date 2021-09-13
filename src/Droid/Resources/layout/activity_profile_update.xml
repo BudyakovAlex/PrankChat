@@ -37,7 +37,7 @@
                 android:paddingTop="10dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
-                android:text="@string/ProfileUpdateView_PhotoChange_Title"
+                android:text="@string/ChangeProfilePhoto"
                 android:textColor="@android:color/white" />
 
             <FrameLayout
@@ -53,7 +53,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/ProfileUpdateView_Email_Placeholder"
+                    android:hint="@string/Email"
                     android:textColorHint="@color/applicationWhite"
                     app:boxStrokeWidth="1dp">
 
@@ -88,7 +88,7 @@
                 android:paddingTop="10dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
-                android:text="@string/Profile_Resend_Confirmation"
+                android:text="@string/Resend"
                 android:textColor="@color/applicationWhite"
                 android:textSize="14dp"
                 tools:text="Отправить повторно" />
@@ -102,7 +102,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="13dp"
                 android:layout_marginRight="16dp"
-                android:hint="@string/ProfileUpdateView_Login_Placeholder"
+                android:hint="@string/Login"
                 android:textColorHint="@color/applicationWhite"
                 app:boxStrokeWidth="1dp">
 
@@ -124,7 +124,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
-                android:hint="@string/ProfileUpdateView_Name_Placeholder"
+                android:hint="@string/Name"
                 android:textColorHint="@color/applicationWhite"
                 app:boxStrokeWidth="1dp">
 
@@ -146,7 +146,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
-                android:hint="@string/ProfileUpdateView_Description_Placeholder"
+                android:hint="@string/AboutMe"
                 android:textColorHint="@color/applicationWhite"
                 app:boxStrokeWidth="1dp">
 
@@ -187,7 +187,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="11dp"
                     android:gravity="center_vertical"
-                    android:text="@string/ProfileUpdateView_Birthday_Placeholder"
+                    android:text="@string/Birthday"
                     android:textColor="@color/applicationWhite"
                     android:textSize="14dp" />
 
@@ -206,7 +206,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
-                android:text="@string/ProfileUpdateView_GenderSelect_Title"
+                android:text="@string/YourGender"
                 android:textColor="@color/applicationWhite"
                 android:textSize="14dp" />
 
@@ -225,7 +225,7 @@
                     android:button="@null"
                     android:drawableTop="@drawable/radio_button_background"
                     android:padding="10dp"
-                    android:text="@string/RegistrationView_Male_Button"
+                    android:text="@string/Male"
                     android:textColor="@color/applicationWhite" />
 
                 <RadioButton
@@ -236,7 +236,7 @@
                     android:button="@null"
                     android:drawableTop="@drawable/radio_button_background"
                     android:padding="10dp"
-                    android:text="@string/RegistrationView_Female_Button"
+                    android:text="@string/Female"
                     android:textColor="@color/applicationWhite" />
             </RadioGroup>
 
@@ -256,7 +256,7 @@
                     android:layout_centerHorizontal="true"
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
-                    android:text="@string/ProfileUpdateView_Button_Save" />
+                    android:text="@string/Save" />
 
                 <ProgressBar
                     android:id="@+id/progressBar"
@@ -276,7 +276,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
                 android:padding="5dp"
-                android:text="@string/ProfileUpdateView_ChangePassword"
+                android:text="@string/ChangePassword"
                 android:textColor="@android:color/white" />
         </LinearLayout>
     </ScrollView>

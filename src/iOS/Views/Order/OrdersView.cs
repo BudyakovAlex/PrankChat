@@ -16,7 +16,7 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.iOS.Views.Order
 {
-    [MvxTabPresentation(TabName = "Orders", TabIconName = "unselected", TabSelectedIconName = "selected", WrapInNavigationController = true)]
+    [MvxTabPresentation(TabName = "Orders", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected, WrapInNavigationController = true)]
     public partial class OrdersView : BaseRefreshableTabbedView<OrdersViewModel>, IScrollableView
     {
         private MvxUIRefreshControl _refreshControl;
@@ -48,16 +48,16 @@ namespace PrankChat.Mobile.iOS.Views.Order
 
             NavigationController.NavigationBar.SetNavigationBarStyle();
 
-            filterArrowImageView.Image = UIImage.FromBundle("ic_filter_arrow");
+            filterArrowImageView.Image = UIImage.FromBundle(ImageNames.IconFilterArrow);
             filterTitleLabel.Font = Theme.Font.RegularFontOfSize(14);
 
             orderTabLabel.UserInteractionEnabled = true;
             orderTabLabel.AddGestureRecognizer(new UITapGestureRecognizer(_ => SetSelectedTab(0)));
-            orderTabLabel.Text = Resources.Orders_Tab;
+            orderTabLabel.Text = Resources.Orders;
 
             ratingTabLabel.UserInteractionEnabled = true;
             ratingTabLabel.AddGestureRecognizer(new UITapGestureRecognizer(_ => SetSelectedTab(1)));
-            ratingTabLabel.Text = Resources.Orders_In_Dispute;
+            ratingTabLabel.Text = Resources.InDispute;
 
             ApplySelectedTabStyle(0);
         }
@@ -89,16 +89,16 @@ namespace PrankChat.Mobile.iOS.Views.Order
 
         private void InitializeNavigationBar()
         {
-            _notificationBarItem = NavigationItemHelper.CreateBarButton("ic_notification", ViewModel.ShowNotificationCommand);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                 _notificationBarItem,
-                NavigationItemHelper.CreateBarButton("ic_info", ViewModel.ShowWalkthrouthCommand)
+                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand)
                 // TODO: This feature will be implemented.
                 //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
             }, true);
 
-            var logoButton = NavigationItemHelper.CreateBarButton("ic_logo", null);
+            var logoButton = NavigationItemHelper.CreateBarButton(ImageNames.IconLogo, null);
             logoButton.Enabled = false;
             NavigationItem.LeftBarButtonItem = logoButton;
         }

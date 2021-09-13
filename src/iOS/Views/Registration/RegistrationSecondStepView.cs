@@ -38,22 +38,22 @@ namespace PrankChat.Mobile.iOS.Views.Registration
 
         protected override void SetupControls()
         {
-            Title = Resources.RegistrationView_StepTwo_Title;
+            Title = Resources.StepTwo;
 
-            nicknameTextField.SetLightStyle(Resources.RegistrationView_Login_Placeholder);
-            nameTextField.SetLightStyle(Resources.RegistrationView_Name_Placeholder);
-            birthdayTextField.SetLightStyle(Resources.RegistrationView_Birthday_Placeholder, rightImage: UIImage.FromBundle("ic_calendar"));
+            nicknameTextField.SetLightStyle(Resources.EnterNickname);
+            nameTextField.SetLightStyle(Resources.EnterYourName);
+            birthdayTextField.SetLightStyle(Resources.EnterBirthday, rightImage: UIImage.FromBundle(ImageNames.IconCalendar));
 
-            passwordTextField.SetLightStyle(Resources.RegistrationView_Password_Placeholder);
+            passwordTextField.SetLightStyle(Resources.EnterPassword);
             passwordTextField.SecureTextEntry = true;
             passwordTextField.TextContentType = UITextContentType.OneTimeCode;
 
-            passwordRepeatTextField.SetLightStyle(Resources.RegistrationView_PasswordRepeat_Placeholder);
+            passwordRepeatTextField.SetLightStyle(Resources.EnterPasswordAgain);
             passwordRepeatTextField.SecureTextEntry = true;
             passwordTextField.TextContentType = UITextContentType.OneTimeCode;
 
-            adultCheckButton.SetSelectableImageStyleWithTint("ic_checkbox_unchecked", "ic_checkbox_checked", Theme.Color.White);
-            privacyCheckButton.SetSelectableImageStyleWithTint("ic_checkbox_unchecked", "ic_checkbox_checked", Theme.Color.White);
+            adultCheckButton.SetSelectableImageStyleWithTint(ImageNames.IconUnchecked, ImageNames.IconChecked, Theme.Color.White);
+            privacyCheckButton.SetSelectableImageStyleWithTint(ImageNames.IconUnchecked, ImageNames.IconChecked, Theme.Color.White);
 
             privacyCheckButton.AddGestureRecognizer(new UITapGestureRecognizer(SwitchPolicyState));
             adultCheckButton.AddGestureRecognizer(new UITapGestureRecognizer(SwitchAdultState));
@@ -61,16 +61,16 @@ namespace PrankChat.Mobile.iOS.Views.Registration
             privacyContainerView.AddGestureRecognizer(new UITapGestureRecognizer(SwitchPolicyState));
             adultContainerView.AddGestureRecognizer(new UITapGestureRecognizer(SwitchAdultState));
 
-            adultLabel.SetSmallSubtitleStyle(Resources.Registration_Confirm_Adult);
+            adultLabel.SetSmallSubtitleStyle(Resources.ConfirmAdult);
             adultLabel.TextColor = Theme.Color.White;
 
-            agreeWithLabel.SetSmallSubtitleStyle(Resources.Registration_Agree_With);
+            agreeWithLabel.SetSmallSubtitleStyle(Resources.AgreeWith);
             agreeWithLabel.TextColor = Theme.Color.White;
 
-            termsLabel.SetSmallSubtitleStyle(Resources.Registration_Terms_And_Rules);
+            termsLabel.SetSmallSubtitleStyle(Resources.TermsAndConditions);
             termsBottomLineView.BackgroundColor = termsLabel.TextColor;
 
-            registerButton.SetLightStyle(Resources.RegistrationView_Register_Button);
+            registerButton.SetLightStyle(Resources.Register);
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)

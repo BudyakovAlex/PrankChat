@@ -91,7 +91,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile.Cashbox
         {
             if (Cost == null || Cost == 0)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.Validation_Field_Cost, ValidationErrorType.CanNotMatch, 0.ToString()));
+                ErrorHandleService.HandleException(new ValidationException(Resources.Cost, ValidationErrorType.CanNotMatch, 0.ToString()));
                 return false;
             }
 

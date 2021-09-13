@@ -73,9 +73,9 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
 
         public int DisikesCount => Order?.NegativeArbitrationValuesCount ?? 0;
 
-        public string YesText => IsDecideEnabled ? Resources.OrderDetailsView_Yes_Button : LikesCount.ToString();
+        public string YesText => IsDecideEnabled ? Resources.Yes : LikesCount.ToString();
 
-        public string NoText => IsDecideEnabled ? Resources.OrderDetailsView_No_Button : DisikesCount.ToString();
+        public string NoText => IsDecideEnabled ? Resources.No : DisikesCount.ToString();
 
         public ArbitrationValueType? SelectedArbitration => Order?.MyArbitrationValue;
 
@@ -230,7 +230,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
 
             if (user?.EmailVerifiedAt == null)
             {
-                var canGoProfile = await UserInteraction.ShowConfirmAsync(Resources.Profile_Your_Email_Not_Actual, Resources.Attention, Resources.Ok, Resources.Cancel);
+                var canGoProfile = await UserInteraction.ShowConfirmAsync(Resources.ProfileYourEmailNotActual, Resources.Attention, Resources.Ok, Resources.Cancel);
                 if (canGoProfile)
                 {
                     await NavigationManager.NavigateAsync<ProfileUpdateViewModel, ProfileUpdateResult>();
@@ -239,9 +239,9 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
                 return;
             }
 
-            var result = await UserInteraction.ShowConfirmAsync(Resources.OrderDetailsView_TakeOrderQuestion,
+            var result = await UserInteraction.ShowConfirmAsync(Resources.TakeOrderQuestion,
                                                               Resources.Attention,
-                                                              Resources.OrderDetailsView_TakeOrderTitle,
+                                                              Resources.TakeAnOrder,
                                                               Resources.Cancel);
             if (!result)
             {
@@ -288,7 +288,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
 
         private async Task HandleLowBalanceExceptionAsync(Exception exception)
         {
-            var canRefil = await UserInteraction.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.ProfileView_Refill, Resources.Cancel);
+            var canRefil = await UserInteraction.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.Replenish, Resources.Cancel);
             if (!canRefil)
             {
                 return;
@@ -374,7 +374,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
         private async Task CancelOrderAsync()
         {
             var result = await UserInteraction.ShowConfirmAsync(
-                Resources.OrderDetails_View_Cancel_Title,
+                Resources.WantToCancelOrder,
                 Resources.Attention,
                 Resources.Ok,
                 Resources.Cancel);
@@ -460,8 +460,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
         {
             var result = await UserInteraction.ShowMenuDialogAsync(new[]
             {
-                Resources.Publication_Item_Complain,
-                Resources.Block_User,
+                Resources.Complain,
+                Resources.BlockUser,
                 // TODO: uncomment this when functionality will be available
             });
 
@@ -470,7 +470,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
                 return;
             }
 
-            if (result == Resources.Publication_Item_Complain)
+            if (result == Resources.Complain)
             {
                 if (!IsUserSessionInitialized)
                 {
@@ -485,18 +485,18 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
                 }
 
                 await _ordersManager.ComplainOrderAsync(_orderId, text, text);
-                UserInteraction.ShowToast(Resources.Complaint_Complete_Message, ToastType.Positive);
+                UserInteraction.ShowToast(Resources.ThankYouForLettingUsKnow, ToastType.Positive);
                 Messenger.Publish(new OrderChangedMessage(this, Order));
                 return;
             }
 
-            if (result == Resources.Block_User)
+            if (result == Resources.BlockUser)
             {
                 await BlockUserAsync();
                 return;
             }
 
-            if (result == Resources.Publication_Item_Copy_Link)
+            if (result == Resources.CopyLink)
             {
                 await Clipboard.SetTextAsync(Order?.Video?.ShareUri);
                 UserInteraction.ShowToast(Resources.LinkCopied, ToastType.Positive);
@@ -516,12 +516,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
             var isComplaintSent = await _usersManager.ComplainUserAsync(customerId, complaintMessage, complaintMessage);
             if (!isComplaintSent)
             {
-                UserInteraction.ShowToast(Resources.Error_Something_Went_Wrong_Message, ToastType.Negative);
+                UserInteraction.ShowToast(Resources.ErrorSomethingWentWrongMessage, ToastType.Negative);
                 return;
             }
 
             var customerUsername = CustomerSectionViewModel.Order.Customer.Login;
-            UserInteraction.ShowToast(string.Format(Resources.Blocked_User, customerUsername), ToastType.Positive);
+            UserInteraction.ShowToast(string.Format(Resources.BlockedUser, customerUsername), ToastType.Positive);
 
             Messenger.Publish(new OrderChangedMessage(this, Order));
             return;

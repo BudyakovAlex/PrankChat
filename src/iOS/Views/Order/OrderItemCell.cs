@@ -41,27 +41,27 @@ namespace PrankChat.Mobile.iOS.Views.Order
             orderTitleLabel.SetScreenTitleStyle();
 
             timeLabel.SetMediumStyle(10, Theme.Color.White);
-            timeLabel.Text = Resources.Order_View_Time_Text;
+            timeLabel.Text = Resources.OrderTime;
 
             priceLable.SetMediumStyle(10, Theme.Color.White);
-            priceLable.Text = Resources.Order_View_Price_Text;
+            priceLable.Text = Resources.OrderPrice;
 
             dayLabel.SetRegularStyle(10, Theme.Color.White);
-            dayLabel.Text = Resources.Order_View_Day;
+            dayLabel.Text = Resources.Day;
 
             hourLabel.SetRegularStyle(10, Theme.Color.White);
-            hourLabel.Text = Resources.Order_View_Hour;
+            hourLabel.Text = Resources.Hour;
 
             minuteLabel.SetRegularStyle(10, Theme.Color.White);
-            minuteLabel.Text = Resources.Order_View_Minute;
+            minuteLabel.Text = Resources.Minute;
 
             orderTimeLabel.SetMediumStyle(22, Theme.Color.White);
             priceValueLabel.SetMediumStyle(26, Theme.Color.White);
 
             statusOrderLabel.SetMediumStyle(14, Theme.Color.White);
-            statusOrderLabel.Text = Resources.Order_View_My_Task;
+            statusOrderLabel.Text = Resources.MyOrders;
 
-            orderDetailsButton.TitleLabel.Text = Resources.Order_View_Details;
+            orderDetailsButton.TitleLabel.Text = Resources.MoreDetails;
         }
 
         protected override void Bind()
@@ -71,7 +71,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
             bindingSet.Bind(this).For(v => v.OrderTagType).To(vm => vm.OrderTagType);
             bindingSet.Bind(this).For(v => v.BindTap()).To(vm => vm.OpenDetailsOrderCommand)
                 .Mode(MvxBindingMode.OneTime);
-            bindingSet.Bind(backgroundImageView).For(UIImageViewOrderTypeTargetBinding.TargetBinding).To(vm => vm.OrderType);
+            bindingSet.Bind(backgroundImageView).For(v => v.BindOrderImageStyle()).To(vm => vm.OrderType);
             bindingSet.Bind(profilePhotoImage).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl)
                 .Mode(MvxBindingMode.OneTime);
             bindingSet.Bind(profilePhotoImage).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName)
@@ -85,7 +85,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
                 .Mode(MvxBindingMode.OneTime);
             bindingSet.Bind(orderDetailsButton).To(vm => vm.OpenDetailsOrderCommand)
                 .Mode(MvxBindingMode.OneTime);
-            bindingSet.Bind(orderDetailsButton).For(UIButtonOrderTypeTargetBinding.TargetBinding).To(vm => vm.OrderType);
+            bindingSet.Bind(orderDetailsButton).For(v => v.BindOrderButtonStyle()).To(vm => vm.OrderType);
             bindingSet.Bind(statusOrderLabel).To(vm => vm.StatusText)
                 .Mode(MvxBindingMode.OneWay);
             bindingSet.Bind(orderTimeLabel).For(v => v.BindVisible()).To(vm => vm.IsTimeAvailable);
@@ -95,28 +95,17 @@ namespace PrankChat.Mobile.iOS.Views.Order
             bindingSet.Bind(IsHiddenOrderImageView).For(v => v.BindVisible()).To(vm => vm.IsHiddenOrder);
         }
 
-        private string GetImageName(OrderTagType orderTagType)
+        private string GetImageName(OrderTagType orderTagType) => orderTagType switch
         {
-            switch (orderTagType)
-            {
-                case OrderTagType.InModeration:
-                    return "OrderTagTypeInModeration";
-                case OrderTagType.New:
-                    return "OrderTagTypeNew";
-                case OrderTagType.NewNotMine:
-                    return "OrderTagTypeNewNotMine";
-                case OrderTagType.Wait:
-                    return "OrderTagTypeWait";
-                case OrderTagType.Finished:
-                    return "OrderTagTypeFinished";
-                case OrderTagType.InArbitration:
-                    return "OrderTagTypeInArbitration";
-                case OrderTagType.InWork:
-                    return "OrderTagTypeInWork";
-                case OrderTagType.None:
-                default:
-                    return null;
-            }
-        }
+            OrderTagType.InModeration => "OrderTagTypeInModeration",
+            OrderTagType.New => "OrderTagTypeNew",
+            OrderTagType.NewNotMine => "OrderTagTypeNewNotMine",
+            OrderTagType.Wait => "OrderTagTypeWait",
+            OrderTagType.Finished => "OrderTagTypeFinished",
+            OrderTagType.InArbitration => "OrderTagTypeInArbitration",
+            OrderTagType.InWork => "OrderTagTypeInWork",
+            OrderTagType.None => null,
+            _ => null,
+        };
     }
 }

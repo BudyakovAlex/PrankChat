@@ -16,18 +16,18 @@ namespace PrankChat.Mobile.Core.Providers
     {
         private readonly Dictionary<Type, string> _titles = new Dictionary<Type, string>
         {
-            [typeof(CompetitionsViewModel)] = Resources.Walkthrouth_Competitions_Title,
-            [typeof(CreateOrderViewModel)] = Resources.Walkthrouth_CreateOrder_Title,
-            [typeof(OrdersViewModel)] = Resources.Walkthrouth_Orders_Title,
-            [typeof(ProfileViewModel)] = Resources.Walkthrouth_Profile_Title
+            [typeof(CompetitionsViewModel)] = Resources.Contests,
+            [typeof(CreateOrderViewModel)] = Resources.CreateOrders,
+            [typeof(OrdersViewModel)] = Resources.OrderFeed,
+            [typeof(ProfileViewModel)] = Resources.Profile
         };
 
         private readonly Dictionary<Type, string> _descriptions = new Dictionary<Type, string>
         {
-            [typeof(CompetitionsViewModel)] = Resources.Walkthrouth_Competitions_Description,
-            [typeof(CreateOrderViewModel)] = Resources.Walkthrouth_CreateOrder_Description,
-            [typeof(OrdersViewModel)] = Resources.Walkthrouth_Orders_Description,
-            [typeof(ProfileViewModel)] = Resources.Walkthrouth_Profile_Description
+            [typeof(CompetitionsViewModel)] = Resources.WalkthrouthCompetitionsDescription,
+            [typeof(CreateOrderViewModel)] = Resources.WalkthrouthCreateOrderDescription,
+            [typeof(OrdersViewModel)] = Resources.WalkthrouthOrdersDescription,
+            [typeof(ProfileViewModel)] = Resources.WalkthrouthProfileDescription
         };
 
         private readonly INavigationManager _navigationManager;
