@@ -19,6 +19,7 @@ using PrankChat.Mobile.iOS.Views.Base;
 using System;
 using System.Collections.Generic;
 using UIKit;
+using PrankChat.Mobile.iOS.Common;
 
 namespace PrankChat.Mobile.iOS.Views.ProfileView
 {

@@ -5,6 +5,7 @@ using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Common;
 using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;
 

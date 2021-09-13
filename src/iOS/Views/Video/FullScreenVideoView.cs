@@ -11,6 +11,7 @@ using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.ViewModels.Video;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Common;
 using PrankChat.Mobile.iOS.Views.Base;
 using System;
 using System.Threading.Tasks;
