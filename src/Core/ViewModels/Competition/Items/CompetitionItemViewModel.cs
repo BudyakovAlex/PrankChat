@@ -69,16 +69,13 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 
         public bool IsFinished => Phase == CompetitionPhase.Finished;
 
-        public OrderCategory Category =>
-            Competition.Category ?? OrderCategory.Competition;
+        public OrderCategory Category => Competition.Category ?? OrderCategory.Competition;
 
         public bool IsNew => Phase == CompetitionPhase.New;
 
-        public string LikesCountString =>
-            LikesCount.ToCountString();
+        public string LikesCountString => LikesCount.ToCountString();
 
-        public string PrizePoolPresentation =>
-            string.Format(Constants.Formats.MoneyFormat, PrizePool);
+        public string PrizePoolPresentation => string.Format(Constants.Formats.MoneyFormat, PrizePool);
 
         public string DaysText { get; } = Resources.Count_Days;
 

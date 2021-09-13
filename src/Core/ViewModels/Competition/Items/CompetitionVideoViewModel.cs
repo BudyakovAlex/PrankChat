@@ -17,8 +17,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
     {
         private readonly Func<BaseVideoItemViewModel[]> _getAllFullScreenVideosFunc;
 
-        public IMvxAsyncCommand ShowFullScreenVideoCommand;
-
         public CompetitionVideoViewModel(
             IVideoManager videoManager,
             IUserSessionProvider userSessionProvider,
@@ -42,8 +40,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
         public override bool CanVoteVideo => IsVotingAvailable && !IsMyPublication;
 
         public override bool CanPlayVideo => true;
-
-
 
         public string UserName => User?.Login;
 

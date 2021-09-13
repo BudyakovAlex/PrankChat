@@ -5,7 +5,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Common
 {
     public abstract class PaginationViewModelResult<TResult> : PaginationViewModel, IMvxViewModelResult<TResult>
     {
-        public PaginationViewModelResult(int paginationSize)
+        protected PaginationViewModelResult(int paginationSize)
             : base(paginationSize)
         {
 

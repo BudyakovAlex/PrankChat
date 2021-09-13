@@ -9,7 +9,7 @@ using PrankChat.Mobile.Core.ViewModels.Results;
 
 namespace PrankChat.Mobile.Core.ViewModels.Dialogs
 {
-    public class ArrayDialogViewModel : BasePageViewModel, IMvxViewModel<ArrayDialogParameter, ArrayDialogResult>
+    public class ArrayDialogViewModel : BasePageViewModel<ArrayDialogParameter,ArrayDialogResult>, IMvxViewModel<ArrayDialogParameter, ArrayDialogResult>
     {
         private string _selectedItem;
 
@@ -28,28 +28,13 @@ namespace PrankChat.Mobile.Core.ViewModels.Dialogs
 
         public MvxObservableCollection<string> Items { get; }
 
-        public TaskCompletionSource<object> CloseCompletionSource { get; set; } =
-            new TaskCompletionSource<object>();
-
         public string SelectedItem
         {
             get => _selectedItem;
             set => SetProperty(ref _selectedItem, value);
         }
 
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            if (viewFinishing && CloseCompletionSource != null
-                              && !CloseCompletionSource.Task.IsCompleted
-                              && !CloseCompletionSource.Task.IsFaulted)
-            {
-                CloseCompletionSource?.TrySetCanceled();
-            }
-
-            base.ViewDestroy(viewFinishing);
-        }
-
-        public void Prepare(ArrayDialogParameter parameter)
+        public override void Prepare(ArrayDialogParameter parameter)
         {
             Items.AddRange(parameter.Items);
 
