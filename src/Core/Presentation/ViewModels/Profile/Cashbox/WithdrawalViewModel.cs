@@ -1,4 +1,8 @@
-﻿using PrankChat.Mobile.Core.Common;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
@@ -8,10 +12,6 @@ using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
@@ -118,8 +118,7 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             await base.InitializeAsync();
             await GetUserCardAsync();
 
-            await _usersManager.GetAndRefreshUserInSessionAsync();
-            await GetWithdrawalsAsync();
+            await RefreshDataAsync();
         }
 
         private async Task UpdateDataAsync()
@@ -127,17 +126,19 @@ namespace PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox
             try
             {
                 IsUpdatingData = true;
-
-                if (IsDocumentPending)
-                {
-                    await _usersManager.GetAndRefreshUserInSessionAsync();
-                    await RaiseAllPropertiesChanged();
-                }
+                await RefreshDataAsync();
             }
             finally
             {
                 IsUpdatingData = false;
             }
+        }
+
+        private async Task RefreshDataAsync()
+        {
+            await _usersManager.GetAndRefreshUserInSessionAsync();
+            await GetWithdrawalsAsync();
+            await RaiseAllPropertiesChanged();
         }
 
         private async Task WithdrawAsync()

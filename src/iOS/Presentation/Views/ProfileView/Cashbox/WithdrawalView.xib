@@ -91,7 +91,7 @@
                                                                 <constraint firstAttribute="height" constant="37" id="Ilz-k1-RjR"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="cc-number"/>
+                                                            <textInputTraits key="textInputTraits" textContentType="family-name"/>
                                                         </textField>
                                                     </subviews>
                                                 </stackView>
