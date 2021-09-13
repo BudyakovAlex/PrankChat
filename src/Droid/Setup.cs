@@ -12,7 +12,7 @@ using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Droid.Services;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.FileSystem;
 using PrankChat.Mobile.Droid.PlatformBusinessServices.Video;
-using PrankChat.Mobile.Droid.Presentation.Bindings;
+using PrankChat.Mobile.Droid.Bindings;
 using PrankChat.Mobile.Droid.Presenters;
 using PrankChat.Mobile.Droid.Providers;
 using PrankChat.Mobile.Core.Services.ExternalAuth;
@@ -46,7 +46,7 @@ namespace PrankChat.Mobile.Droid
             base.FillTargetFactories(registry);
 
             registry.RegisterCustomBindingFactory<AppCompatButton>(nameof(OrderButtonStyleBinding), button => new OrderButtonStyleBinding(button));
-            registry.RegisterCustomBindingFactory<View>(nameof(BackgroundDrawableBinding), view => new BackgroundDrawableBinding(view));
+            registry.RegisterCustomBindingFactory<View>(nameof(BackgroundBinding), view => new BackgroundBinding(view));
             registry.RegisterCustomBindingFactory<VideoView>(nameof(VideoUrlTargetBinding), view => new VideoUrlTargetBinding(view));
             registry.RegisterCustomBindingFactory<View>(nameof(ViewTouchTargetBinding), view => new ViewTouchTargetBinding(view));
             registry.RegisterCustomBindingFactory<View>(nameof(BackgroundColorBinding), view => new BackgroundColorBinding(view));

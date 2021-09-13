@@ -5,7 +5,7 @@ using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Extensions.MvvmCross;
 using PrankChat.Mobile.Core.Localization;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Registration;
+using PrankChat.Mobile.Core.ViewModels.Registration;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;

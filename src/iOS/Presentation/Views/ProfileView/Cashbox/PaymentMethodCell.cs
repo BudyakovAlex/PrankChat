@@ -1,7 +1,7 @@
 ﻿using System;
 using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Profile.Cashbox;
+using PrankChat.Mobile.Core.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.iOS.Presentation.Converters;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using PrankChat.Mobile.iOS.Common;

@@ -3,7 +3,7 @@ using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Subscriptions.Items;
+using PrankChat.Mobile.Core.ViewModels.Subscriptions.Items;
 using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.Presentation.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;

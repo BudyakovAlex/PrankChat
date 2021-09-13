@@ -2,10 +2,10 @@
 using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.ViewModels;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Order.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Publication.Items;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Search.Items;
+using PrankChat.Mobile.Core.ViewModels;
+using PrankChat.Mobile.Core.ViewModels.Order.Items;
+using PrankChat.Mobile.Core.ViewModels.Publication.Items;
+using PrankChat.Mobile.Core.ViewModels.Search.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;

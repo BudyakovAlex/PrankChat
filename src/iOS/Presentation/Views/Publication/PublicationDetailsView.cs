@@ -3,7 +3,7 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Localization;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Publication;
+using PrankChat.Mobile.Core.ViewModels.Publication;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 
