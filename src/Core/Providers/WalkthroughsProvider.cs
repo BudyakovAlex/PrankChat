@@ -1,11 +1,11 @@
 ﻿using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Navigation;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Parameters;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Profile;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Walthroughs;
+using PrankChat.Mobile.Core.ViewModels.Competition;
+using PrankChat.Mobile.Core.ViewModels.Order;
+using PrankChat.Mobile.Core.ViewModels.Parameters;
+using PrankChat.Mobile.Core.ViewModels.Profile;
+using PrankChat.Mobile.Core.ViewModels.Walthroughs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

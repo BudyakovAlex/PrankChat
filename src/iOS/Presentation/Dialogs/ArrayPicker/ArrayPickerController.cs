@@ -1,7 +1,7 @@
 ﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views;
 using PrankChat.Mobile.Core.Localization;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Dialogs;
+using PrankChat.Mobile.Core.ViewModels.Dialogs;
 
 namespace PrankChat.Mobile.iOS.Presentation.Dialogs.ArrayPicker
 {

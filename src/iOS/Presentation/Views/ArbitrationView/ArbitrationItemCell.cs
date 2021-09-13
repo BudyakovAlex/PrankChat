@@ -3,7 +3,7 @@ using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Localization;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Arbitration.Items;
+using PrankChat.Mobile.Core.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Binding;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;

@@ -1,7 +1,7 @@
 ﻿using System;
 using Foundation;
 using MvvmCross.Platforms.Ios.Binding.Views;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Comment.Items;
+using PrankChat.Mobile.Core.ViewModels.Comment.Items;
 using PrankChat.Mobile.iOS.Presentation.Views.Comment;
 using UIKit;
 

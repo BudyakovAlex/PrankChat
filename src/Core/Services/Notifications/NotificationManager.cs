@@ -5,8 +5,8 @@ using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Managers.Navigation;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Order;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Parameters;
+using PrankChat.Mobile.Core.ViewModels.Order;
+using PrankChat.Mobile.Core.ViewModels.Parameters;
 using PrankChat.Mobile.Core.Services.Network.JsonSerializers;
 using System;
 

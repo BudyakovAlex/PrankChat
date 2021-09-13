@@ -1,7 +1,7 @@
 ﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Walthroughs;
+using PrankChat.Mobile.Core.ViewModels.Walthroughs;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Presentation.Views.Base;
 using UIKit;

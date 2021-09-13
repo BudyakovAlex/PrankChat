@@ -1,7 +1,7 @@
 ﻿using Android.Views;
 using AndroidX.RecyclerView.Widget;
 using PrankChat.Mobile.Droid.LayoutManagers;
-using PrankChat.Mobile.Droid.Presentation.Adapters.ViewHolders.Abstract.Video;
+using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract.Video;
 using System.Diagnostics;
 using System.Threading.Tasks;
 

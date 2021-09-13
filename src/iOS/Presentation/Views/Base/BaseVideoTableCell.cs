@@ -6,7 +6,7 @@ using LibVLCSharp.Platforms.iOS;
 using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Localization;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Common.Abstract;
+using PrankChat.Mobile.Core.ViewModels.Common.Abstract;
 using PrankChat.Mobile.iOS.AppTheme;
 using System;
 using UIKit;

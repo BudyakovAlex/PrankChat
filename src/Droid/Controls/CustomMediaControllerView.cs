@@ -6,7 +6,7 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using PrankChat.Mobile.Droid.Presentation.Listeners;
+using PrankChat.Mobile.Droid.Listeners;
 
 namespace PrankChat.Mobile.Droid.Controls
 {

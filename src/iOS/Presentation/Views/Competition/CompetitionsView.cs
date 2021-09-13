@@ -2,7 +2,7 @@
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Competition;
+using PrankChat.Mobile.Core.ViewModels.Competition;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Presentation.Converters;
