@@ -724,3 +724,27 @@
 "ConfirmAgeAndAgreeRules" = "Подтвердите возраст и согласие с правилами";
 "OneHour" = "час";
 "LoginWithoutRegistration" = "Войти без регистрации";
+
+/*Fuzzy*/
+"CreateContest" = "Создать конкурс";
+
+/*Fuzzy*/
+"ParticipationFee" = "Взнос за участие";
+
+/*Fuzzy*/
+"PercentageContributionPrizePool" = "% от взноса в призовой фонд";
+
+/*Fuzzy*/
+"SecretContest" = "Секретный конкурс";
+
+/*Fuzzy*/
+"CollectionBidsFrom" = "Сбор заявок с";
+
+/*Fuzzy*/
+"CollectionBidsFor" = "Сбор заявок по";
+
+/*Fuzzy*/
+"VotingFrom" = "Голосование с";
+
+/*Fuzzy*/
+"VotingFor" = "Голосование по";

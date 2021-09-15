@@ -1248,4 +1248,36 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   <data name="LoginWithoutRegistration" xml:space="preserve">
     <value>Sign in without registration</value>
   </data>
+  <data name="CreateContest" xml:space="preserve">
+    <value>Create a competition</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="ParticipationFee" xml:space="preserve">
+    <value>Participation fee</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="PercentageContributionPrizePool" xml:space="preserve">
+    <value>% of the contribution to the prize pool</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="SecretContest" xml:space="preserve">
+    <value>Secret contest</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="CollectionBidsFrom" xml:space="preserve">
+    <value>Collection of bids from</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="CollectionBidsFor" xml:space="preserve">
+    <value>Collection of bids for</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="VotingFrom" xml:space="preserve">
+    <value>voting from</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="VotingFor" xml:space="preserve">
+    <value>Voting for</value>
+    <comment>Fuzzy</comment>
+  </data>
 </root>

@@ -81,6 +81,7 @@
     <Compile Include="Views\Base\BaseFragment.cs" />
     <Compile Include="Views\Base\BaseTabFragment.cs" />
     <Compile Include="Views\Base\BaseView.cs" />
+    <Compile Include="Views\Competitions\CreateCompetitionView.cs" />
     <Compile Include="Views\LoginView.cs" />
     <Compile Include="Views\MainView.cs" />
     <Compile Include="Views\NotificationView.cs" />
@@ -2084,6 +2085,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\border_accent_load_video.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_create_competition.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

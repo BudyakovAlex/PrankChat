@@ -741,4 +741,28 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <string name="ConfirmAgeAndAgreeRules">"Confirm age and agree to the rules"</string>
     <string name="OneHour">"hour"</string>
     <string name="LoginWithoutRegistration">"Sign in without registration"</string>
+
+    <!-- Fuzzy -->
+    <string name="CreateContest">"Create a competition"</string>
+
+    <!-- Fuzzy -->
+    <string name="ParticipationFee">"Participation fee"</string>
+
+    <!-- Fuzzy -->
+    <string name="PercentageContributionPrizePool">"% of the contribution to the prize pool"</string>
+
+    <!-- Fuzzy -->
+    <string name="SecretContest">"Secret contest"</string>
+
+    <!-- Fuzzy -->
+    <string name="CollectionBidsFrom">"Collection of bids from"</string>
+
+    <!-- Fuzzy -->
+    <string name="CollectionBidsFor">"Collection of bids for"</string>
+
+    <!-- Fuzzy -->
+    <string name="VotingFrom">"voting from"</string>
+
+    <!-- Fuzzy -->
+    <string name="VotingFor">"Voting for"</string>
 </resources>

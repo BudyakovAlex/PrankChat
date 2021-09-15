@@ -724,3 +724,27 @@
 "ConfirmAgeAndAgreeRules" = "Confirm age and agree to the rules";
 "OneHour" = "hour";
 "LoginWithoutRegistration" = "Sign in without registration";
+
+/*Fuzzy*/
+"CreateContest" = "Create a competition";
+
+/*Fuzzy*/
+"ParticipationFee" = "Participation fee";
+
+/*Fuzzy*/
+"PercentageContributionPrizePool" = "% of the contribution to the prize pool";
+
+/*Fuzzy*/
+"SecretContest" = "Secret contest";
+
+/*Fuzzy*/
+"CollectionBidsFrom" = "Collection of bids from";
+
+/*Fuzzy*/
+"CollectionBidsFor" = "Collection of bids for";
+
+/*Fuzzy*/
+"VotingFrom" = "voting from";
+
+/*Fuzzy*/
+"VotingFor" = "Voting for";

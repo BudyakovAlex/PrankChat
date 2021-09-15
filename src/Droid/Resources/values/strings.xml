@@ -743,4 +743,28 @@ Apple Inc. не является спонсором проведения кон�
     <string name="ConfirmAgeAndAgreeRules">"Подтвердите возраст и согласие с правилами"</string>
     <string name="OneHour">"час"</string>
     <string name="LoginWithoutRegistration">"Войти без регистрации"</string>
+
+    <!-- Fuzzy -->
+    <string name="CreateContest">"Создать конкурс"</string>
+
+    <!-- Fuzzy -->
+    <string name="ParticipationFee">"Взнос за участие"</string>
+
+    <!-- Fuzzy -->
+    <string name="PercentageContributionPrizePool">"% от взноса в призовой фонд"</string>
+
+    <!-- Fuzzy -->
+    <string name="SecretContest">"Секретный конкурс"</string>
+
+    <!-- Fuzzy -->
+    <string name="CollectionBidsFrom">"Сбор заявок с"</string>
+
+    <!-- Fuzzy -->
+    <string name="CollectionBidsFor">"Сбор заявок по"</string>
+
+    <!-- Fuzzy -->
+    <string name="VotingFrom">"Голосование с"</string>
+
+    <!-- Fuzzy -->
+    <string name="VotingFor">"Голосование по"</string>
 </resources>
