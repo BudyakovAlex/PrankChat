@@ -18,7 +18,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Ioc;
-using PrankChat.Mobile.Core.Plugins.Timer;
 
 namespace PrankChat.Mobile.Core.ViewModels
 {

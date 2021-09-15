@@ -45,7 +45,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
             ShowWalkthrouthSecretCommand = this.CreateCommand(ShowWalkthrouthSecretAsync);
             ShowDateDialogCommand = this.CreateCommand(ShowDateDialogAsync);
             CreateCommand = this.CreateCommand(CreateAsync);
-            ShowPrivacyPolicyCommand = this.CreateCommand(ShowProvacyPolicyAsync);
+            ShowPrivacyPolicyCommand = this.CreateCommand(ShowPrivacyPolicyAsync);
         }
 
         public IMvxAsyncCommand ShowDateDialogCommand { get; }
@@ -259,7 +259,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
             Price = null;
         }
 
-        private Task ShowProvacyPolicyAsync() =>
+        private Task ShowPrivacyPolicyAsync() =>
             Xamarin.Essentials.Browser.OpenAsync(RestConstants.PolicyEndpoint);
     }
 }

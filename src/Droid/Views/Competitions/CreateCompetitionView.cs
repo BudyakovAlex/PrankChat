@@ -10,6 +10,7 @@ using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.ViewModels;
 using PrankChat.Mobile.Core.ViewModels.Competition;
+using PrankChat.Mobile.Droid.Converters;
 using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views.Competitions
@@ -33,6 +34,7 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         private CheckBox _createContestCheckBox;
         private ImageView _descriptionImageView;
         private MaterialButton _createContestButton;
+
         public CreateCompetitionView() : base(Resource.Layout.fragment_create_competition)
         {
             HasOptionsMenu = true;
@@ -59,6 +61,7 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         protected override void Bind()
         {
             base.Bind();
+
             using var bindingSet = CreateBindingSet();
 
             bindingSet.Bind(_nameEditText).For(v => v.Text).To(vm => vm.Name);
@@ -67,9 +70,9 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             bindingSet.Bind(_collectionBidsToEditText).For(v => v.Text).To(vm => vm.CollectionBidsTo);
             bindingSet.Bind(_votingFromEditText).For(v => v.Text).To(vm => vm.VotingFrom);
             bindingSet.Bind(_votingToEditText).For(v => v.Text).To(vm => vm.VotingTo);
-            bindingSet.Bind(_prizePoolEditText).For(v => v.Text).To(vm => vm.PrizePool);
-            bindingSet.Bind(_participationFeeEditText).For(v => v.Text).To(vm => vm.ParticipationFee);
-            bindingSet.Bind(_percentParticipationFeeEditText).For(v => v.Text).To(vm => vm.PercentParticipationFee);
+            bindingSet.Bind(_prizePoolEditText).For(v => v.Text).To(vm => vm.PrizePool).WithConversion<PriceConverter>();
+            bindingSet.Bind(_participationFeeEditText).For(v => v.Text).To(vm => vm.ParticipationFee).WithConversion<PriceConverter>();
+            bindingSet.Bind(_percentParticipationFeeEditText).For(v => v.Text).To(vm => vm.PercentParticipationFee).WithConversion<PercentConvertor>();
             bindingSet.Bind(_createContestCheckBox).For(v => v.Checked).To(vm => vm.IsExecutorHidden);
             bindingSet.Bind(_descriptionImageView).For(v => v.BindClick()).To(vm => vm.ShowWalkthrouthSecretCommand);
             bindingSet.Bind(_createContestButton).For(v => v.BindClick()).To(vm => vm.CreateCommand);
@@ -85,7 +88,7 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         private void PercentParticipationFeeEditTextOnTextChanged(object sender, TextChangedEventArgs e)
         {
             var text = e.Text.ToString();
-            if (text.EndsWith(Core.Localization.Resources.Currency))
+            if (text.EndsWith("%"))
             {
                 _percentParticipationFeeEditText.SetSelection(text.Length - 2);
             }

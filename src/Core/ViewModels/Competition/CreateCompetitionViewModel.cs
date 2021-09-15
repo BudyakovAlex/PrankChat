@@ -59,10 +59,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
         public string CollectionBidsFrom
         {
             get => _collectionBidsFrom;
-            set
-            {
-                SetProperty(ref _collectionBidsFrom, value);
-            }
+            set => SetProperty(ref _collectionBidsFrom, value);
         }
 
         private string _collectionBidsTo;
@@ -114,10 +111,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             set => SetProperty(ref _isExecutorHidden, value);
         }
 
-        private Task ShowWalkthrouthAsync()
-        {
-            return _walkthroughsProvider.ShowWalthroughAsync<CreateCompetitionViewModel>();
-        }
+        private Task ShowWalkthrouthAsync() =>
+            _walkthroughsProvider.ShowWalthroughAsync<CreateCompetitionViewModel>();
 
         private Task ShowWalkthrouthSecretAsync()
         {
@@ -132,31 +127,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
         private async Task SaveOrderAsync()
         {
-            //var createOrderModel = new CreateOrder(Title,
-            //                                       Description,
-            //                                       Price.Value,
-            //                                       ActiveFor?.Hours ?? 0,
-            //                                       false,
-            //                                       IsExecutorHidden);
 
-            //ErrorHandleService.SuspendServerErrorsHandling();
-            //var newOrder = await _ordersManager.CreateOrderAsync(createOrderModel);
-            //if (newOrder != null)
-            //{
-            //    if (newOrder.Customer == null)
-            //    {
-            //        newOrder.Customer = UserSessionProvider.User;
-            //    }
-
-            //    Messenger.Publish(new OrderChangedMessage(this, newOrder));
-
-            //    var parameter = new OrderDetailsNavigationParameter(newOrder.Id, null, 0);
-            //    await NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter>(parameter);
-            //    SetDefaultData();
-            //    return;
-            //}
-
-            //await UserInteraction.ShowAlertAsync(Resources.ErrorUnexpectedServer);
         }
 
         private async Task HandleLowBalanceExceptionAsync(Exception exception)
@@ -183,7 +154,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
         }
 
 
-        private Task ShowProvacyPolicyAsync() =>
+        private Task ShowPrivacyPolicyAsync() =>
             Xamarin.Essentials.Browser.OpenAsync(RestConstants.PolicyEndpoint);
     }
 }
