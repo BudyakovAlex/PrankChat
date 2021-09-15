@@ -10,6 +10,7 @@ using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.ViewModels;
 using PrankChat.Mobile.Core.ViewModels.Order;
+using PrankChat.Mobile.Droid.Listeners;
 using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views.Order
@@ -61,6 +62,7 @@ namespace PrankChat.Mobile.Droid.Views.Order
 
             bindingSet.Bind(_titleEditText).For(v => v.Text).To(vm => vm.Title);
             bindingSet.Bind(_descriptionEditText).For(v => v.Text).To(vm => vm.Description);
+            _createOrderPriceEditText.SetOnTextChangedListener();
             bindingSet.Bind(_createOrderPriceEditText).For(v => v.Text).To(vm => vm.Price).WithConversion<PriceConverter>();
             bindingSet.Bind(_dateTextView).For(v => v.Text).To(vm => vm.ActiveFor.Title);
             bindingSet.Bind(_dateTextView).For(v => v.BindClick()).To(vm => vm.ShowDateDialogCommand);
@@ -68,25 +70,6 @@ namespace PrankChat.Mobile.Droid.Views.Order
             bindingSet.Bind(_descriptionImageView).For(v => v.BindClick()).To(vm => vm.ShowWalkthrouthSecretCommand);
             bindingSet.Bind(_createButton).For(v => v.BindClick()).To(vm => vm.CreateCommand);
             bindingSet.Bind(_createOrderFrameLayout).For(v => v.BindVisible()).To(vm => vm.IsBusy);
-        }
-
-        protected override void Subscription()
-        {
-            _priceEditText.TextChanged += PriceEditTextOnTextChanged;
-        }
-
-        protected override void Unsubscription()
-        {
-            _priceEditText.TextChanged -= PriceEditTextOnTextChanged;
-        }
-
-        private void PriceEditTextOnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            var text = e.Text.ToString();
-            if (text.EndsWith(Core.Localization.Resources.Currency))
-            {
-                _priceEditText.SetSelection(text.Length - 2);
-            }
         }
     }
 }

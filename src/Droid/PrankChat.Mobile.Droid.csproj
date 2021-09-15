@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\PercentConvertor.cs" />
+    <Compile Include="Listeners\TextChangedListener.cs" />
     <Compile Include="Services\ExternalAuthService.cs" />
     <Compile Include="Controls\ApplicationSwipeViewPager.cs" />
     <Compile Include="PlatformBusinessServices\Video\Listeners\VideoPlayerOnPreparedListener.cs" />

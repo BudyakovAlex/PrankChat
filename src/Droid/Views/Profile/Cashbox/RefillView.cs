@@ -8,6 +8,7 @@ using MvvmCross.Platforms.Android.Binding.Views;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.ViewModels.Profile.Cashbox;
+using PrankChat.Mobile.Droid.Listeners;
 using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views.Profile.Cashbox
@@ -42,31 +43,13 @@ namespace PrankChat.Mobile.Droid.Views.Profile.Cashbox
 
             using var bindingSet = CreateBindingSet();
 
+            _refillCostEditText.SetOnTextChangedListener();
             bindingSet.Bind(_refillCostEditText).For(v => v.Text).To(vm => vm.Cost)
                       .WithConversion<PriceConverter>();
 
             bindingSet.Bind(_refillButton).For(v => v.BindClick()).To(vm => vm.RefillCommand);
             bindingSet.Bind(_refillMethodsGrid).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_refillMethodsGrid).For(v => v.ItemClick).To(vm => vm.SelectionChangedCommand);
-        }
-
-        protected override void Subscription()
-        {
-            _refillCostEditText.TextChanged += PriceEditTextOnTextChanged;
-        }
-
-        protected override void Unsubscription()
-        {
-            _refillCostEditText.TextChanged -= PriceEditTextOnTextChanged;
-        }
-
-        private void PriceEditTextOnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            var text = e.Text.ToString();
-            if (text.EndsWith(Core.Localization.Resources.Currency))
-            {
-                _refillCostEditText.SetSelection(text.Length - 2);
-            }
         }
     }
 }

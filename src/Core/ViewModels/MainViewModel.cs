@@ -98,7 +98,7 @@ namespace PrankChat.Mobile.Core.ViewModels
         {
             return Task.WhenAll(NavigationManager.NavigateAsync<PublicationsViewModel>(),
                     NavigationManager.NavigateAsync<CompetitionsViewModel>(),
-                    NavigationManager.NavigateAsync<CreateCompetitionViewModel>(),
+                    NavigationManager.NavigateAsync<CreateOrderViewModel>(),
                     NavigationManager.NavigateAsync<OrdersViewModel>(),
                     NavigationManager.NavigateAsync<ProfileViewModel>(),
                     NotificationBadgeViewModel.RefreshDataCommand.ExecuteAsync());

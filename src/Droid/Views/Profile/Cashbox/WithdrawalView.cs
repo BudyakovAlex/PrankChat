@@ -13,6 +13,7 @@ using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.ViewModels.Profile.Cashbox;
+using PrankChat.Mobile.Droid.Listeners;
 using PrankChat.Mobile.Droid.Spans;
 using PrankChat.Mobile.Droid.Views.Base;
 
@@ -123,6 +124,7 @@ namespace PrankChat.Mobile.Droid.Views.Profile.Cashbox
             bindingSet.Bind(_creditCardEditText).For(v => v.Text).To(vm => vm.CardNumber);
             bindingSet.Bind(_nameEditText).For(v => v.Text).To(vm => vm.Name);
             bindingSet.Bind(_surnameEditText).For(v => v.Text).To(vm => vm.Surname);
+            _costEditText.SetOnTextChangedListener();
             bindingSet.Bind(_costEditText).For(v => v.Text).To(vm => vm.Cost)
                       .WithConversion<PriceConverter>();
 
@@ -138,23 +140,12 @@ namespace PrankChat.Mobile.Droid.Views.Profile.Cashbox
 
         protected override void Subscription()
         {
-            _costEditText.TextChanged += PriceEditTextOnTextChanged;
             _cardEditText.TextChanged += CardEditTextOnTextChanged;
         }
 
         protected override void Unsubscription()
         {
-            _costEditText.TextChanged -= PriceEditTextOnTextChanged;
             _cardEditText.TextChanged -= CardEditTextOnTextChanged;
-        }
-
-        private void PriceEditTextOnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            var text = e.Text.ToString();
-            if (text.EndsWith(Core.Localization.Resources.Currency))
-            {
-                _costEditText.SetSelection(text.Length - 2);
-            }
         }
 
         private void CardEditTextOnTextChanged(object sender, TextChangedEventArgs e)

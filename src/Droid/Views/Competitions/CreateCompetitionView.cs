@@ -6,11 +6,11 @@ using Google.Android.Material.Button;
 using Google.Android.Material.TextField;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.ViewModels;
 using PrankChat.Mobile.Core.ViewModels.Competition;
 using PrankChat.Mobile.Droid.Converters;
+using PrankChat.Mobile.Droid.Listeners;
 using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views.Competitions
@@ -70,53 +70,15 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             bindingSet.Bind(_collectionBidsToEditText).For(v => v.Text).To(vm => vm.CollectionBidsTo);
             bindingSet.Bind(_votingFromEditText).For(v => v.Text).To(vm => vm.VotingFrom);
             bindingSet.Bind(_votingToEditText).For(v => v.Text).To(vm => vm.VotingTo);
+            _prizePoolEditText.SetOnTextChangedListener();
             bindingSet.Bind(_prizePoolEditText).For(v => v.Text).To(vm => vm.PrizePool).WithConversion<PriceConverter>();
+            _participationFeeEditText.SetOnTextChangedListener();
             bindingSet.Bind(_participationFeeEditText).For(v => v.Text).To(vm => vm.ParticipationFee).WithConversion<PriceConverter>();
+            _percentParticipationFeeEditText.SetOnTextChangedListener();
             bindingSet.Bind(_percentParticipationFeeEditText).For(v => v.Text).To(vm => vm.PercentParticipationFee).WithConversion<PercentConvertor>();
             bindingSet.Bind(_createContestCheckBox).For(v => v.Checked).To(vm => vm.IsExecutorHidden);
             bindingSet.Bind(_descriptionImageView).For(v => v.BindClick()).To(vm => vm.ShowWalkthrouthSecretCommand);
             bindingSet.Bind(_createContestButton).For(v => v.BindClick()).To(vm => vm.CreateCommand);
-        }
-
-        protected override void Subscription()
-        {
-            _prizePoolEditText.TextChanged += PrizePoolEditTextOnTextChanged;
-            _participationFeeEditText.TextChanged += ParticipationFeeEditTextOnTextChanged;
-            _percentParticipationFeeEditText.TextChanged += PercentParticipationFeeEditTextOnTextChanged;
-        }
-
-        private void PercentParticipationFeeEditTextOnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            var text = e.Text.ToString();
-            if (text.EndsWith("%"))
-            {
-                _percentParticipationFeeEditText.SetSelection(text.Length - 2);
-            }
-        }
-
-        private void ParticipationFeeEditTextOnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            var text = e.Text.ToString();
-            if (text.EndsWith(Core.Localization.Resources.Currency))
-            {
-                _participationFeeEditText.SetSelection(text.Length - 2);
-            }
-        }
-
-        private void PrizePoolEditTextOnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            var text = e.Text.ToString();
-            if (text.EndsWith(Core.Localization.Resources.Currency))
-            {
-                _prizePoolEditText.SetSelection(text.Length - 2);
-            }
-        }
-
-        protected override void Unsubscription()
-        {
-            _prizePoolEditText.TextChanged -= PrizePoolEditTextOnTextChanged;
-            _participationFeeEditText.TextChanged -= ParticipationFeeEditTextOnTextChanged;
-            _percentParticipationFeeEditText.TextChanged -= PercentParticipationFeeEditTextOnTextChanged;
         }
     }
 }
