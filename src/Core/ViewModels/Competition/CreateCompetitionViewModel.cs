@@ -61,6 +61,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             get => _collectionBidsFrom;
             set
             {
+                if(value == null)
+                {
+                    return;
+                }
+
                 SetProperty(ref _collectionBidsFrom, value);
                 RaisePropertiesChanged(nameof(CollectionBidsFromString));
             }
@@ -74,6 +79,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             get => _collectionBidsTo;
             set
             {
+                if (value == null)
+                {
+                    return;
+                }
+
                 SetProperty(ref _collectionBidsTo, value);
                 RaisePropertiesChanged(nameof(CollectionBidsToString));
             }
@@ -87,6 +97,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             get => _votingFrom;
             set
             {
+                if (value == null)
+                {
+                    return;
+                }
+
                 SetProperty(ref _votingFrom, value);
                 RaisePropertiesChanged(nameof(VotingFromString));
             }
@@ -100,6 +115,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             get => _votingTo;
             set
             {
+                if (value == null)
+                {
+                    return;
+                }
+
                 SetProperty(ref _votingTo, value);
                 RaisePropertiesChanged(nameof(VotingToString));
             }
