@@ -1,9 +1,7 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
     <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -24,7 +22,7 @@
                 android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
                 app:boxStrokeColor="@color/border"
                 app:boxStrokeWidth="1dp"
-                app:layout_constraintBottom_toTopOf="@id/create_competition_text_input_description"
+                app:layout_constraintBottom_toTopOf="@+id/create_competition_text_input_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
@@ -49,7 +47,7 @@
                 android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
                 app:boxStrokeColor="@color/border"
                 app:boxStrokeWidth="1dp"
-                app:layout_constraintTop_toBottomOf="@id/create_competition_text_input_name">
+                app:layout_constraintTop_toBottomOf="@+id/create_competition_text_input_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/description_input_edit_text"
@@ -75,8 +73,8 @@
                 app:boxStrokeWidth="1dp"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/create_competition_text_input_collection_bids_to"
-                app:layout_constraintTop_toBottomOf="@id/create_competition_text_input_description">
+                app:layout_constraintRight_toLeftOf="@+id/create_competition_text_input_collection_bids_to"
+                app:layout_constraintTop_toBottomOf="@+id/create_competition_text_input_description">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/collection_bids_from_input_edit_text"
@@ -99,9 +97,9 @@
                 android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
                 app:boxStrokeColor="@color/border"
                 app:boxStrokeWidth="1dp"
-                app:layout_constraintLeft_toRightOf="@id/create_competition_text_input_collection_bids_from"
+                app:layout_constraintLeft_toRightOf="@+id/create_competition_text_input_collection_bids_from"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/create_competition_text_input_description">
+                app:layout_constraintTop_toBottomOf="@+id/create_competition_text_input_description">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/collection_bids_to_input_edit_text"
@@ -127,8 +125,8 @@
                 app:boxStrokeWidth="1dp"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/text_input_voting_to"
-                app:layout_constraintTop_toBottomOf="@id/create_competition_text_input_collection_bids_from">
+                app:layout_constraintRight_toLeftOf="@+id/text_input_voting_to"
+                app:layout_constraintTop_toBottomOf="@+id/create_competition_text_input_collection_bids_from">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/voting_from_input_edit_text"
@@ -151,9 +149,9 @@
                 android:theme="@style/Theme.PrankChat.TextFieldLayout.Dark"
                 app:boxStrokeColor="@color/border"
                 app:boxStrokeWidth="1dp"
-                app:layout_constraintLeft_toRightOf="@id/create_competition_text_input_voting_from"
+                app:layout_constraintLeft_toRightOf="@+id/create_competition_text_input_voting_from"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/create_competition_text_input_collection_bids_to">
+                app:layout_constraintTop_toBottomOf="@+id/create_competition_text_input_collection_bids_to">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/voting_to_input_edit_text"
@@ -179,7 +177,7 @@
                 app:boxStrokeWidth="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/create_competition_text_input_voting_from">
+                app:layout_constraintTop_toBottomOf="@+id/create_competition_text_input_voting_from">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/prize_pool_input_edit_text"
@@ -207,7 +205,7 @@
                 app:boxStrokeWidth="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/create_competition_text_input_prize_pool">
+                app:layout_constraintTop_toBottomOf="@+id/create_competition_text_input_prize_pool">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/participation_fee_input_edit_text"
@@ -235,7 +233,7 @@
                 app:boxStrokeWidth="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/create_competition_text_input_participation_fee">
+                app:layout_constraintTop_toBottomOf="@+id/create_competition_text_input_participation_fee">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/percent_participation_fee_input_edit_text"
@@ -261,7 +259,7 @@
                 android:text="@string/SecretContest"
                 android:textColor="@color/applicationBlack"
                 android:textSize="14dp"
-                app:layout_constraintTop_toBottomOf="@id/create_competition_text_input_percent_participation_fee" />
+                app:layout_constraintTop_toBottomOf="@+id/create_competition_text_input_percent_participation_fee" />
 
             <ImageView
                 android:id="@+id/description_image_view"
@@ -273,8 +271,8 @@
                 android:scaleType="center"
                 android:src="@drawable/ic_info"
                 android:tint="@color/description"
-                app:layout_constraintStart_toEndOf="@id/create_contest_check_box"
-                app:layout_constraintTop_toBottomOf="@id/create_competition_text_input_percent_participation_fee" />
+                app:layout_constraintStart_toEndOf="@+id/create_contest_check_box"
+                app:layout_constraintTop_toBottomOf="@+id/create_competition_text_input_percent_participation_fee" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/create_contest_button"
@@ -290,10 +288,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/create_contest_check_box" />
+                app:layout_constraintTop_toBottomOf="@+id/create_contest_check_box" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
-</FrameLayout>

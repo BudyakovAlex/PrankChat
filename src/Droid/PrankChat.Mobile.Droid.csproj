@@ -76,7 +76,7 @@
     <Compile Include="Extensions\SetSelectionOnPenultCharExtensions.cs" />
     <Compile Include="Extensions\ViewOnClickListenerExtensions.cs" />
     <Compile Include="Extensions\DelegeteViewOnClickExtension.cs" />
-    <Compile Include="Extensions\EditTextOnClickPeriodExtension.cs" />
+    <Compile Include="Extensions\ViewOnClickPeriodExtension.cs" />
     <Compile Include="Listeners\TextChangeListener.cs" />
     <Compile Include="Services\ExternalAuthService.cs" />
     <Compile Include="Controls\ApplicationSwipeViewPager.cs" />
@@ -2095,9 +2095,7 @@
     <AndroidResource Include="Resources\drawable\border_accent_load_video.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\fragment_create_competition.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_create_competition.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

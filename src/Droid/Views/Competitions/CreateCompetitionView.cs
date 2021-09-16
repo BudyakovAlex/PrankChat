@@ -1,4 +1,6 @@
 ﻿using Android.App;
+using Android.Content.PM;
+using Android.OS;
 using Android.Runtime;
 using Android.Text;
 using Android.Views;
@@ -19,12 +21,9 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Droid.Views.Competitions
 {
-    [MvxTabLayoutPresentation(
-        TabLayoutResourceId = Resource.Id.tabs,
-        ViewPagerResourceId = Resource.Id.viewpager,
-        ActivityHostViewModelType = typeof(MainViewModel))]
-    [Register(nameof(CreateCompetitionView))]
-    public class CreateCompetitionView : BaseTabFragment<CreateCompetitionViewModel>
+    [MvxActivityPresentation]
+    [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
+    public class CreateCompetitionView : BaseView<CreateCompetitionViewModel>
     {
         private TextInputEditText _nameEditText;
         private TextInputEditText _descriptionEditText;
@@ -39,32 +38,32 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         private ImageView _descriptionImageView;
         private MaterialButton _createContestButton;
 
-        public CreateCompetitionView() : base(Resource.Layout.fragment_create_competition)
+        protected override void OnCreate(Bundle bundle)
         {
-            HasOptionsMenu = true;
+            base.OnCreate(bundle, Resource.Layout.activity_create_competition);
+
+            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
         }
 
-        protected override void SetViewProperties(View view)
+        protected override void SetViewProperties()
         {
-            base.SetViewProperties(view);
+            _nameEditText = FindViewById<TextInputEditText>(Resource.Id.name_input_edit_text);
+            _descriptionEditText = FindViewById<TextInputEditText>(Resource.Id.description_input_edit_text);
+            _collectionBidsFromEditText = FindViewById<TextInputEditText>(Resource.Id.collection_bids_from_input_edit_text);
+            _collectionBidsToEditText = FindViewById<TextInputEditText>(Resource.Id.collection_bids_to_input_edit_text);
+            _votingFromEditText = FindViewById<TextInputEditText>(Resource.Id.voting_from_input_edit_text);
+            _votingToEditText = FindViewById<TextInputEditText>(Resource.Id.voting_to_input_edit_text);
+            _prizePoolEditText = FindViewById<TextInputEditText>(Resource.Id.prize_pool_input_edit_text);
+            _participationFeeEditText = FindViewById<TextInputEditText>(Resource.Id.participation_fee_input_edit_text);
+            _percentParticipationFeeEditText = FindViewById<TextInputEditText>(Resource.Id.percent_participation_fee_input_edit_text);
+            _createContestCheckBox = FindViewById<CheckBox>(Resource.Id.create_contest_check_box);
+            _descriptionImageView = FindViewById<ImageView>(Resource.Id.description_image_view);
+            _createContestButton = FindViewById<MaterialButton>(Resource.Id.create_contest_button);
 
-            _nameEditText = view.FindViewById<TextInputEditText>(Resource.Id.name_input_edit_text);
-            _descriptionEditText = view.FindViewById<TextInputEditText>(Resource.Id.description_input_edit_text);
-            _collectionBidsFromEditText = view.FindViewById<TextInputEditText>(Resource.Id.collection_bids_from_input_edit_text);
-            _collectionBidsToEditText = view.FindViewById<TextInputEditText>(Resource.Id.collection_bids_to_input_edit_text);
-            _votingFromEditText = view.FindViewById<TextInputEditText>(Resource.Id.voting_from_input_edit_text);
-            _votingToEditText = view.FindViewById<TextInputEditText>(Resource.Id.voting_to_input_edit_text);
-            _prizePoolEditText = view.FindViewById<TextInputEditText>(Resource.Id.prize_pool_input_edit_text);
-            _participationFeeEditText = view.FindViewById<TextInputEditText>(Resource.Id.participation_fee_input_edit_text);
-            _percentParticipationFeeEditText = view.FindViewById<TextInputEditText>(Resource.Id.percent_participation_fee_input_edit_text);
-            _createContestCheckBox = view.FindViewById<CheckBox>(Resource.Id.create_contest_check_box);
-            _descriptionImageView = view.FindViewById<ImageView>(Resource.Id.description_image_view);
-            _createContestButton = view.FindViewById<MaterialButton>(Resource.Id.create_contest_button);
-            
-            _collectionBidsFromEditText.SetPeriodActionOnEditText(ViewModel.CollectionBidsFrom, OnCollectionBidsFromSelectDate);
-            _collectionBidsToEditText.SetPeriodActionOnEditText(ViewModel.CollectionBidsTo, OnCollectionBidsToSelectDate);
-            _votingFromEditText.SetPeriodActionOnEditText(ViewModel.VotingFrom, OnVotingFromSelectDate);
-            _votingToEditText.SetPeriodActionOnEditText(ViewModel.VotingTo, OnVotingToSelectDate);
+            _collectionBidsFromEditText.SetPeriodActionOnEditText(Window.Context, ViewModel.CollectionBidsFrom, OnCollectionBidsFromSelectDate);
+            _collectionBidsToEditText.SetPeriodActionOnEditText(Window.Context, ViewModel.CollectionBidsTo, OnCollectionBidsToSelectDate);
+            _votingFromEditText.SetPeriodActionOnEditText(Window.Context, ViewModel.VotingFrom, OnVotingFromSelectDate);
+            _votingToEditText.SetPeriodActionOnEditText(Window.Context, ViewModel.VotingTo, OnVotingToSelectDate);
 
             _prizePoolEditText.SetSelectionOnPenultСhar();
             _participationFeeEditText.SetSelectionOnPenultСhar();
