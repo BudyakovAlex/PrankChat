@@ -61,17 +61,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             get => _collectionBidsFrom;
             set
             {
-                if (value == null)
-                {
-                    return;
-                }
-
                 SetProperty(ref _collectionBidsFrom, value);
                 RaisePropertiesChanged(nameof(CollectionBidsFromString));
             }
         }
 
-        public string CollectionBidsFromString => ((DateTime)_collectionBidsFrom).ToShortDateString();
+        public string CollectionBidsFromString => _collectionBidsFrom?.ToShortDateString();
 
         private DateTime? _collectionBidsTo;
         public DateTime? CollectionBidsTo
@@ -79,17 +74,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             get => _collectionBidsTo;
             set
             {
-                if (value == null)
-                {
-                    return;
-                }
-
                 SetProperty(ref _collectionBidsTo, value);
                 RaisePropertiesChanged(nameof(CollectionBidsToString));
             }
         }
 
-        public string CollectionBidsToString => ((DateTime)_collectionBidsTo).ToShortDateString();
+        public string CollectionBidsToString => _collectionBidsTo?.ToShortDateString();
 
         private DateTime? _votingFrom;
         public DateTime? VotingFrom
@@ -97,17 +87,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             get => _votingFrom;
             set
             {
-                if (value == null)
-                {
-                    return;
-                }
-
                 SetProperty(ref _votingFrom, value);
                 RaisePropertiesChanged(nameof(VotingFromString));
             }
         }
 
-        public string VotingFromString => ((DateTime)_votingFrom).ToShortDateString();
+        public string VotingFromString => _votingFrom?.ToShortDateString();
 
         private DateTime? _votingTo;
         public DateTime? VotingTo
@@ -115,17 +100,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             get => _votingTo;
             set
             {
-                if (value == null)
-                {
-                    return;
-                }
-
                 SetProperty(ref _votingTo, value);
                 RaisePropertiesChanged(nameof(VotingToString));
             }
         }
 
-        public string VotingToString => ((DateTime)_votingTo).ToShortDateString();
+        public string VotingToString => _votingTo?.ToShortDateString();
 
         private double? _prizePool;
         public double? PrizePool
