@@ -17,6 +17,7 @@ namespace PrankChat.Mobile.Droid.Extensions
                 {
                     return;
                 }
+
                 var text = s.ToString();
                 if (text.EndsWith(Resources.Percent) || text.EndsWith(Resources.Currency))
                 {

@@ -91,24 +91,24 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             bindingSet.Bind(_createContestButton).For(v => v.BindClick()).To(vm => vm.CreateCommand);
         }
 
-        private void OnCollectionBidsFromSelectDate(object sender, DatePickerDialog.DateSetEventArgs e)
+        private void OnCollectionBidsFromSelectDate(DateTime dateTime)
         {
-            ViewModel.CollectionBidsFrom = e.Date;
+            ViewModel.CollectionBidsFrom = dateTime;
         }
 
-        private void OnCollectionBidsToSelectDate(object sender, DatePickerDialog.DateSetEventArgs e)
+        private void OnCollectionBidsToSelectDate(DateTime dateTime)
         {
-            ViewModel.CollectionBidsTo = e.Date;
+            ViewModel.CollectionBidsTo = dateTime;
         }
 
-        private void OnVotingFromSelectDate(object sender, DatePickerDialog.DateSetEventArgs e)
+        private void OnVotingFromSelectDate(DateTime dateTime)
         {
-            ViewModel.VotingFrom = e.Date;
+            ViewModel.VotingFrom = dateTime;
         }
 
-        private void OnVotingToSelectDate(object sender, DatePickerDialog.DateSetEventArgs e)
+        private void OnVotingToSelectDate(DateTime dateTime)
         {
-            ViewModel.VotingTo = e.Date;
+            ViewModel.VotingTo = dateTime;
         }
     }
 }
