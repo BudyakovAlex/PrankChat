@@ -76,7 +76,7 @@
     <Compile Include="Extensions\SetSelectionOnPenultCharExtensions.cs" />
     <Compile Include="Extensions\ViewOnClickListenerExtensions.cs" />
     <Compile Include="Extensions\DelegeteViewOnClickExtension.cs" />
-    <Compile Include="Extensions\ViewOnClickPeriodExtension.cs" />
+    <Compile Include="Extensions\EditTextOnClickPeriodExtension.cs" />
     <Compile Include="Listeners\TextChangeListener.cs" />
     <Compile Include="Services\ExternalAuthService.cs" />
     <Compile Include="Controls\ApplicationSwipeViewPager.cs" />

@@ -29,7 +29,7 @@ namespace PrankChat.Mobile.Droid.Listeners
 
         public void OnTextChanged(ICharSequence s, int start, int before, int count)
         {
-            _action.Invoke(_editText, s);
+            _action?.Invoke(_editText, s);
         }
     }
 }

@@ -7,9 +7,9 @@ namespace PrankChat.Mobile.Droid.Extensions
 {
     public static class DelegeteViewOnClickExtension
     {
-        public static void SetClickActionOnEditText(this EditText editText, Action<View> action)
+        public static void SetClickActionOnEditText(this View view, Action<View> action)
         {
-            editText.SetOnClickListener(new ViewOnClickListener(action));
+            view.SetOnClickListener(new ViewOnClickListener(action));
         }
     }
 }

@@ -61,10 +61,10 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             _descriptionImageView = view.FindViewById<ImageView>(Resource.Id.description_image_view);
             _createContestButton = view.FindViewById<MaterialButton>(Resource.Id.create_contest_button);
             
-            _collectionBidsFromEditText.SetPeriodActionOnEditText(Context, ViewModel.CollectionBidsFrom, OnCollectionBidsFromSelectDate);
-            _collectionBidsToEditText.SetPeriodActionOnEditText(Context, ViewModel.CollectionBidsTo, OnCollectionBidsToSelectDate);
-            _votingFromEditText.SetPeriodActionOnEditText(Context, ViewModel.VotingFrom, OnVotingFromSelectDate);
-            _votingToEditText.SetPeriodActionOnEditText(Context, ViewModel.VotingTo, OnVotingToSelectDate);
+            _collectionBidsFromEditText.SetPeriodActionOnEditText(ViewModel.CollectionBidsFrom, OnCollectionBidsFromSelectDate);
+            _collectionBidsToEditText.SetPeriodActionOnEditText(ViewModel.CollectionBidsTo, OnCollectionBidsToSelectDate);
+            _votingFromEditText.SetPeriodActionOnEditText(ViewModel.VotingFrom, OnVotingFromSelectDate);
+            _votingToEditText.SetPeriodActionOnEditText(ViewModel.VotingTo, OnVotingToSelectDate);
 
             _prizePoolEditText.SetSelectionOnPenultСhar();
             _participationFeeEditText.SetSelectionOnPenultСhar();
