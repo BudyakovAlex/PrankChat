@@ -10,7 +10,7 @@ using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.ViewModels;
 using PrankChat.Mobile.Core.ViewModels.Order;
-using PrankChat.Mobile.Droid.Listeners;
+using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views.Order
@@ -53,6 +53,8 @@ namespace PrankChat.Mobile.Droid.Views.Order
             _descriptionImageView = view.FindViewById<ImageView>(Resource.Id.description_image_view);
             _createButton = view.FindViewById<MaterialButton>(Resource.Id.create_button);
             _createOrderFrameLayout = view.FindViewById<FrameLayout>(Resource.Id.animation_frame_layout);
+
+            _createOrderPriceEditText.SetSelectionOnPenultСhar();
         }
 
         protected override void Bind()
@@ -62,7 +64,6 @@ namespace PrankChat.Mobile.Droid.Views.Order
 
             bindingSet.Bind(_titleEditText).For(v => v.Text).To(vm => vm.Title);
             bindingSet.Bind(_descriptionEditText).For(v => v.Text).To(vm => vm.Description);
-            _createOrderPriceEditText.SetOnTextChangedListener();
             bindingSet.Bind(_createOrderPriceEditText).For(v => v.Text).To(vm => vm.Price).WithConversion<PriceConverter>();
             bindingSet.Bind(_dateTextView).For(v => v.Text).To(vm => vm.ActiveFor.Title);
             bindingSet.Bind(_dateTextView).For(v => v.BindClick()).To(vm => vm.ShowDateDialogCommand);

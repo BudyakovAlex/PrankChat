@@ -382,8 +382,8 @@
   </data>
   <data name="TakeOrderQuestion" xml:space="preserve">
     <value>To accept the order, you must pay a Deposit as a guarantee of its implementation 
-20% of the cost for simple orders
-40% for secret orders</value>
+20 % of the cost for simple orders
+40 % for secret orders</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="SecondsShort" xml:space="preserve">
@@ -735,7 +735,7 @@ Apple Inc. is not a sponsor of the competitions.</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="WalkthrouthOrdersDescription" xml:space="preserve">
-    <value>You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20% of the order value is the commission PrankChat.
+    <value>You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20 % of the order value is the commission PrankChat.
 
 If the customer did not like your video, he can send the task to the &quot;dispute&quot;. Independent users will decide within 24 hours whether the completed video matches the order. If the number of positive votes exceeds the number of negative, then wait for your well-deserved bonus. In the opposite situation, the reward will be returned to the customer.</value>
     <comment>Fuzzy</comment>
@@ -1278,6 +1278,10 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   </data>
   <data name="VotingFor" xml:space="preserve">
     <value>Voting for</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Percent" xml:space="preserve">
+    <value>%</value>
     <comment>Fuzzy</comment>
   </data>
 </root>

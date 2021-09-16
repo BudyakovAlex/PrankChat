@@ -15,13 +15,13 @@ namespace PrankChat.Mobile.Droid.Converters
                 return string.Empty;
             }
 
-            return $"{value} %"; //TODO replace with constant percent
+            return $"{value} {Resources.Percent}"; //TODO replace with constant percent
         }
 
         protected override double? ConvertBack(string value, Type targetType, object parameter, CultureInfo culture)
         {
-            value = value?.Replace("%", string.Empty).Replace(" ", string.Empty);
-            double.TryParse(value, out var result);
+            var str = value?.Replace(Resources.Percent, string.Empty).Trim();
+            double.TryParse(str, out var result);
             return result;
         }
     }

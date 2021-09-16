@@ -1,4 +1,5 @@
-﻿using Android.Runtime;
+﻿using Android.App;
+using Android.Runtime;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
@@ -10,8 +11,11 @@ using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.ViewModels;
 using PrankChat.Mobile.Core.ViewModels.Competition;
 using PrankChat.Mobile.Droid.Converters;
+using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Listeners;
 using PrankChat.Mobile.Droid.Views.Base;
+using System;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Droid.Views.Competitions
 {
@@ -56,6 +60,15 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             _createContestCheckBox = view.FindViewById<CheckBox>(Resource.Id.create_contest_check_box);
             _descriptionImageView = view.FindViewById<ImageView>(Resource.Id.description_image_view);
             _createContestButton = view.FindViewById<MaterialButton>(Resource.Id.create_contest_button);
+            
+            _collectionBidsFromEditText.SetPeriodActionOnEditText(Context, ViewModel.CollectionBidsFrom, OnCollectionBidsFromSelectDate);
+            _collectionBidsToEditText.SetPeriodActionOnEditText(Context, ViewModel.CollectionBidsTo, OnCollectionBidsToSelectDate);
+            _votingFromEditText.SetPeriodActionOnEditText(Context, ViewModel.VotingFrom, OnVotingFromSelectDate);
+            _votingToEditText.SetPeriodActionOnEditText(Context, ViewModel.VotingTo, OnVotingToSelectDate);
+
+            _prizePoolEditText.SetSelectionOnPenultСhar();
+            _participationFeeEditText.SetSelectionOnPenultСhar();
+            _percentParticipationFeeEditText.SetSelectionOnPenultСhar();
         }
 
         protected override void Bind()
@@ -66,19 +79,36 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
 
             bindingSet.Bind(_nameEditText).For(v => v.Text).To(vm => vm.Name);
             bindingSet.Bind(_descriptionEditText).For(v => v.Text).To(vm => vm.Description);
-            bindingSet.Bind(_collectionBidsFromEditText).For(v => v.Text).To(vm => vm.CollectionBidsFrom);
-            bindingSet.Bind(_collectionBidsToEditText).For(v => v.Text).To(vm => vm.CollectionBidsTo);
-            bindingSet.Bind(_votingFromEditText).For(v => v.Text).To(vm => vm.VotingFrom);
-            bindingSet.Bind(_votingToEditText).For(v => v.Text).To(vm => vm.VotingTo);
-            _prizePoolEditText.SetOnTextChangedListener();
+            bindingSet.Bind(_collectionBidsFromEditText).For(v => v.Text).To(vm => vm.CollectionBidsFromString);
+            bindingSet.Bind(_collectionBidsToEditText).For(v => v.Text).To(vm => vm.CollectionBidsToString);
+            bindingSet.Bind(_votingFromEditText).For(v => v.Text).To(vm => vm.VotingFromString);
+            bindingSet.Bind(_votingToEditText).For(v => v.Text).To(vm => vm.VotingToString);
             bindingSet.Bind(_prizePoolEditText).For(v => v.Text).To(vm => vm.PrizePool).WithConversion<PriceConverter>();
-            _participationFeeEditText.SetOnTextChangedListener();
             bindingSet.Bind(_participationFeeEditText).For(v => v.Text).To(vm => vm.ParticipationFee).WithConversion<PriceConverter>();
-            _percentParticipationFeeEditText.SetOnTextChangedListener();
             bindingSet.Bind(_percentParticipationFeeEditText).For(v => v.Text).To(vm => vm.PercentParticipationFee).WithConversion<PercentConvertor>();
             bindingSet.Bind(_createContestCheckBox).For(v => v.Checked).To(vm => vm.IsExecutorHidden);
             bindingSet.Bind(_descriptionImageView).For(v => v.BindClick()).To(vm => vm.ShowWalkthrouthSecretCommand);
             bindingSet.Bind(_createContestButton).For(v => v.BindClick()).To(vm => vm.CreateCommand);
+        }
+
+        private void OnCollectionBidsFromSelectDate(object sender, DatePickerDialog.DateSetEventArgs e)
+        {
+            ViewModel.CollectionBidsFrom = e.Date;
+        }
+
+        private void OnCollectionBidsToSelectDate(object sender, DatePickerDialog.DateSetEventArgs e)
+        {
+            ViewModel.CollectionBidsTo = e.Date;
+        }
+
+        private void OnVotingFromSelectDate(object sender, DatePickerDialog.DateSetEventArgs e)
+        {
+            ViewModel.VotingFrom = e.Date;
+        }
+
+        private void OnVotingToSelectDate(object sender, DatePickerDialog.DateSetEventArgs e)
+        {
+            ViewModel.VotingTo = e.Date;
         }
     }
 }

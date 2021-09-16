@@ -765,4 +765,7 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
 
     <!-- Fuzzy -->
     <string name="VotingFor">"Voting for"</string>
+
+    <!-- Fuzzy -->
+    <string name="Percent">"%"</string>
 </resources>

@@ -55,33 +55,77 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             set => SetProperty(ref _description, value);
         }
 
-        private string _collectionBidsFrom;
-        public string CollectionBidsFrom
+        private DateTime? _collectionBidsFrom;
+        public DateTime? CollectionBidsFrom
         {
             get => _collectionBidsFrom;
-            set => SetProperty(ref _collectionBidsFrom, value);
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+
+                SetProperty(ref _collectionBidsFrom, value);
+                RaisePropertiesChanged(nameof(CollectionBidsFromString));
+            }
         }
 
-        private string _collectionBidsTo;
-        public string CollectionBidsTo
+        public string CollectionBidsFromString => ((DateTime)_collectionBidsFrom).ToShortDateString();
+
+        private DateTime? _collectionBidsTo;
+        public DateTime? CollectionBidsTo
         {
             get => _collectionBidsTo;
-            set => SetProperty(ref _collectionBidsTo, value);
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+
+                SetProperty(ref _collectionBidsTo, value);
+                RaisePropertiesChanged(nameof(CollectionBidsToString));
+            }
         }
 
-        private string _votingFrom;
-        public string VotingFrom
+        public string CollectionBidsToString => ((DateTime)_collectionBidsTo).ToShortDateString();
+
+        private DateTime? _votingFrom;
+        public DateTime? VotingFrom
         {
             get => _votingFrom;
-            set => SetProperty(ref _votingFrom, value);
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+
+                SetProperty(ref _votingFrom, value);
+                RaisePropertiesChanged(nameof(VotingFromString));
+            }
         }
 
-        private string _votingTo;
-        public string VotingTo
+        public string VotingFromString => ((DateTime)_votingFrom).ToShortDateString();
+
+        private DateTime? _votingTo;
+        public DateTime? VotingTo
         {
             get => _votingTo;
-            set => SetProperty(ref _votingTo, value);
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+
+                SetProperty(ref _votingTo, value);
+                RaisePropertiesChanged(nameof(VotingToString));
+            }
         }
+
+        public string VotingToString => ((DateTime)_votingTo).ToShortDateString();
 
         private double? _prizePool;
         public double? PrizePool
@@ -120,14 +164,14 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             return NavigationManager.NavigateAsync<WalthroughViewModel, WalthroughNavigationParameter>(parameters);
         }
 
-        private async Task CreateAsync()
+        private Task CreateAsync()
         {
-
+            return Task.CompletedTask;
         }
 
-        private async Task SaveOrderAsync()
+        private Task SaveOrderAsync()
         {
-
+            return Task.CompletedTask;
         }
 
         private async Task HandleLowBalanceExceptionAsync(Exception exception)
@@ -152,7 +196,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
             await NavigationManager.NavigateAsync<ProfileUpdateViewModel, ProfileUpdateResult>();
         }
-
 
         private Task ShowPrivacyPolicyAsync() =>
             Xamarin.Essentials.Browser.OpenAsync(RestConstants.PolicyEndpoint);

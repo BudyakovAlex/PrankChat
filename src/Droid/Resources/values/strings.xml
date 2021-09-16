@@ -767,4 +767,7 @@ Apple Inc. не является спонсором проведения кон�
 
     <!-- Fuzzy -->
     <string name="VotingFor">"Голосование по"</string>
+
+    <!-- Fuzzy -->
+    <string name="Percent">"%"</string>
 </resources>

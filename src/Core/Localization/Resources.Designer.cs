@@ -367,6 +367,24 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Сбор заявок по.
+        /// </summary>
+        public static string CollectionBidsFor {
+            get {
+                return ResourceManager.GetString("CollectionBidsFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сбор заявок с.
+        /// </summary>
+        public static string CollectionBidsFrom {
+            get {
+                return ResourceManager.GetString("CollectionBidsFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Комментарии.
         /// </summary>
         public static string Comments {
@@ -651,6 +669,15 @@ namespace PrankChat.Mobile.Core.Localization {
         public static string Create {
             get {
                 return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Создать конкурс.
+        /// </summary>
+        public static string CreateContest {
+            get {
+                return ResourceManager.GetString("CreateContest", resourceCulture);
             }
         }
         
@@ -1753,6 +1780,15 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Взнос за участие.
+        /// </summary>
+        public static string ParticipationFee {
+            get {
+                return ResourceManager.GetString("ParticipationFee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Паспорт(серия и номер).
         /// </summary>
         public static string Passport {
@@ -1848,6 +1884,24 @@ namespace PrankChat.Mobile.Core.Localization {
         public static string Peoples {
             get {
                 return ResourceManager.GetString("Peoples", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на %.
+        /// </summary>
+        public static string Percent {
+            get {
+                return ResourceManager.GetString("Percent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на % от взноса в призовой фонд.
+        /// </summary>
+        public static string PercentageContributionPrizePool {
+            get {
+                return ResourceManager.GetString("PercentageContributionPrizePool", resourceCulture);
             }
         }
         
@@ -2158,6 +2212,15 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Секретный конкурс.
+        /// </summary>
+        public static string SecretContest {
+            get {
+                return ResourceManager.GetString("SecretContest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Секретный заказ.
         /// </summary>
         public static string SecretOrder {
@@ -2384,8 +2447,8 @@ namespace PrankChat.Mobile.Core.Localization {
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Для принятия заказа необходимо внести задаток, как гарантию его выполнения:
-        ///20% стоимости для обычных заказов
-        ///40% для секретных заказов .
+        ///20 % стоимости для обычных заказов
+        ///40 % для секретных заказов .
         /// </summary>
         public static string TakeOrderQuestion {
             get {
@@ -2637,6 +2700,24 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Голосование по.
+        /// </summary>
+        public static string VotingFor {
+            get {
+                return ResourceManager.GetString("VotingFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Голосование с.
+        /// </summary>
+        public static string VotingFrom {
+            get {
+                return ResourceManager.GetString("VotingFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Участвуй в конкурсах с денежными призами! Читай условия и скорее размещай своё видео. Победители будут выбраны путём общего голосования и моментально получат на свой счёт призовые деньги. Не забудь позвать своих друзей на голосование, они увеличат твои шансы на победу!
         ///
         ///Конкурс состоит из трех этапов:
@@ -2661,9 +2742,9 @@ namespace PrankChat.Mobile.Core.Localization {
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Текст «Секретного заказа» не виден и появляется только при принятии заказа исполнителем. 
-        ///Для принятия заказа необходимо внести 40% от его общей стоимости как гарантию выполнения заказа. 
-        ///В случае невыполнения в отведенное время заказчик зарабатывает 20%, поэтому выгодно создавать труднорешаемые и интересные задачи. Задание может быть сложным, но обязательно выполнимым. 
-        ///Если задание невыполнимо, исполнитель может загрузить видео, в котором укажет причину, по которой невозможно снять видео, а заказчик при н [остаток строки не уместился]&quot;;.
+        ///Для принятия заказа необходимо внести 40 % от его общей стоимости как гарантию выполнения заказа. 
+        ///В случае невыполнения в отведенное время заказчик зарабатывает 20 %, поэтому выгодно создавать труднорешаемые и интересные задачи. Задание может быть сложным, но обязательно выполнимым. 
+        ///Если задание невыполнимо, исполнитель может загрузить видео, в котором укажет причину, по которой невозможно снять видео, а заказчик при [остаток строки не уместился]&quot;;.
         /// </summary>
         public static string WalkthrouthCreateOrderSecretDescription {
             get {
@@ -2672,9 +2753,9 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Ты можешь взять любой заказ из категории «Новый» и загрузить готовое видео согласно заданию. Чтобы принять заказ, внеси 20% от его стоимости в качестве гарантии, что не забросишь его исполнение. Когда заказчик проверит твоё видео и одобрит его, жди оплату на свой счёт. Если же заказчик забыл одобрить заказ, деньги тебе поступят автоматически через 24 часа. 20 % от стоимости заказа составляет комиссия PrankChat.
+        ///   Ищет локализованную строку, похожую на Ты можешь взять любой заказ из категории «Новый» и загрузить готовое видео согласно заданию. Чтобы принять заказ, внеси 20 % от его стоимости в качестве гарантии, что не забросишь его исполнение. Когда заказчик проверит твоё видео и одобрит его, жди оплату на свой счёт. Если же заказчик забыл одобрить заказ, деньги тебе поступят автоматически через 24 часа. 20 % от стоимости заказа составляет комиссия PrankChat.
         ///
-        ///В случае, если заказчику не понравилось твоё видео, он может отправить задание в «спор». Там в т [остаток строки не уместился]&quot;;.
+        ///В случае, если заказчику не понравилось твоё видео, он может отправить задание в «спор». Там в  [остаток строки не уместился]&quot;;.
         /// </summary>
         public static string WalkthrouthOrdersDescription {
             get {

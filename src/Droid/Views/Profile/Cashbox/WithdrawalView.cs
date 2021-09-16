@@ -13,7 +13,7 @@ using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.ViewModels.Profile.Cashbox;
-using PrankChat.Mobile.Droid.Listeners;
+using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Spans;
 using PrankChat.Mobile.Droid.Views.Base;
 
@@ -88,6 +88,8 @@ namespace PrankChat.Mobile.Droid.Views.Profile.Cashbox
             _loadingOverlayView = view.FindViewById<View>(Resource.Id.loading_overlay);
             _yoomoneyDescriptionTextView = view.FindViewById<TextView>(Resource.Id.withdrawal_yoomoney_description_text_view);
 
+            _costEditText.SetSelectionOnPenultСhar();
+
             SetupYoomoneyDescriptionTextView();
         }
 
@@ -124,7 +126,6 @@ namespace PrankChat.Mobile.Droid.Views.Profile.Cashbox
             bindingSet.Bind(_creditCardEditText).For(v => v.Text).To(vm => vm.CardNumber);
             bindingSet.Bind(_nameEditText).For(v => v.Text).To(vm => vm.Name);
             bindingSet.Bind(_surnameEditText).For(v => v.Text).To(vm => vm.Surname);
-            _costEditText.SetOnTextChangedListener();
             bindingSet.Bind(_costEditText).For(v => v.Text).To(vm => vm.Cost)
                       .WithConversion<PriceConverter>();
 
