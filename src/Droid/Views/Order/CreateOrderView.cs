@@ -1,4 +1,7 @@
-﻿using Android.Runtime;
+﻿using Android.App;
+using Android.Content.PM;
+using Android.OS;
+using Android.Runtime;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
@@ -15,12 +18,9 @@ using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views.Order
 {
-    [MvxTabLayoutPresentation(
-        TabLayoutResourceId = Resource.Id.tabs,
-        ViewPagerResourceId = Resource.Id.viewpager,
-        ActivityHostViewModelType = typeof(MainViewModel))]
-    [Register(nameof(CreateOrderView))]
-    public class CreateOrderView : BaseTabFragment<CreateOrderViewModel>
+    [MvxActivityPresentation]
+    [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
+    public class CreateOrderView : BaseView<CreateOrderViewModel>
     {
         private TextInputEditText _priceEditText;
         private TextInputEditText _descriptionEditText;
@@ -32,34 +32,33 @@ namespace PrankChat.Mobile.Droid.Views.Order
         private MaterialButton _createButton;
         private FrameLayout _createOrderFrameLayout;
 
-        public CreateOrderView() : base(Resource.Layout.fragment_create_order)
+        protected override void OnCreate(Bundle bundle)
         {
-            HasOptionsMenu = true;
+            base.OnCreate(bundle, Resource.Layout.activity_create_order);
         }
 
         protected override string TitleActionBar => Core.Localization.Resources.CreateOrder;
 
-        protected override void SetViewProperties(View view)
+        protected override void SetViewProperties()
         {
-            base.SetViewProperties(view);
-
-            _priceEditText = view.FindViewById<TextInputEditText>(Resource.Id.create_order_price_edit_text);
-            _descriptionEditText = view.FindViewById<TextInputEditText>(Resource.Id.order_description_edit_text);
+            _priceEditText = FindViewById<TextInputEditText>(Resource.Id.create_order_price_edit_text);
+            _descriptionEditText = FindViewById<TextInputEditText>(Resource.Id.order_description_edit_text);
             _descriptionEditText.SetFilters(new[] { new InputFilterLengthFilter(Constants.Orders.DescriptionMaxLength) });
-            _titleEditText = view.FindViewById<TextInputEditText>(Resource.Id.title_input_edit_text);
-            _createOrderPriceEditText = view.FindViewById<TextInputEditText>(Resource.Id.create_order_price_edit_text);
-            _dateTextView = view.FindViewById<TextView>(Resource.Id.date_text_view);
-            _createOrderCheckBox = view.FindViewById<CheckBox>(Resource.Id.create_order_check_box);
-            _descriptionImageView = view.FindViewById<ImageView>(Resource.Id.description_image_view);
-            _createButton = view.FindViewById<MaterialButton>(Resource.Id.create_button);
-            _createOrderFrameLayout = view.FindViewById<FrameLayout>(Resource.Id.animation_frame_layout);
+            _titleEditText = FindViewById<TextInputEditText>(Resource.Id.title_input_edit_text);
+            _createOrderPriceEditText = FindViewById<TextInputEditText>(Resource.Id.create_order_price_edit_text);
+            _dateTextView = FindViewById<TextView>(Resource.Id.date_text_view);
+            _createOrderCheckBox = FindViewById<CheckBox>(Resource.Id.create_order_check_box);
+            _descriptionImageView = FindViewById<ImageView>(Resource.Id.description_image_view);
+            _createButton = FindViewById<MaterialButton>(Resource.Id.create_button);
+            _createOrderFrameLayout = FindViewById<FrameLayout>(Resource.Id.animation_frame_layout);
 
-            _createOrderPriceEditText.SetSelectionOnPenultСhar();
+            _createOrderPriceEditText.SetTextChangeListened((sequence) => _createOrderPriceEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));
         }
 
         protected override void Bind()
         {
             base.Bind();
+
             using var bindingSet = CreateBindingSet();
 
             bindingSet.Bind(_titleEditText).For(v => v.Text).To(vm => vm.Title);

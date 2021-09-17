@@ -1,7 +1,6 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
@@ -10,14 +9,11 @@ using Google.Android.Material.TextField;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
-using PrankChat.Mobile.Core.ViewModels;
 using PrankChat.Mobile.Core.ViewModels.Competition;
 using PrankChat.Mobile.Droid.Converters;
 using PrankChat.Mobile.Droid.Extensions;
-using PrankChat.Mobile.Droid.Listeners;
 using PrankChat.Mobile.Droid.Views.Base;
 using System;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Droid.Views.Competitions
 {
@@ -41,8 +37,6 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.activity_create_competition);
-
-            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
         }
 
         protected override void SetViewProperties()
@@ -60,14 +54,14 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             _descriptionImageView = FindViewById<ImageView>(Resource.Id.description_image_view);
             _createContestButton = FindViewById<MaterialButton>(Resource.Id.create_contest_button);
 
-            _collectionBidsFromEditText.SetPeriodActionOnEditText(Window.Context, ViewModel.CollectionBidsFrom, OnCollectionBidsFromSelectDate);
-            _collectionBidsToEditText.SetPeriodActionOnEditText(Window.Context, ViewModel.CollectionBidsTo, OnCollectionBidsToSelectDate);
-            _votingFromEditText.SetPeriodActionOnEditText(Window.Context, ViewModel.VotingFrom, OnVotingFromSelectDate);
-            _votingToEditText.SetPeriodActionOnEditText(Window.Context, ViewModel.VotingTo, OnVotingToSelectDate);
+            _collectionBidsFromEditText.InputType = InputTypes.Null;
+            _collectionBidsToEditText.InputType = InputTypes.Null;
+            _votingFromEditText.InputType = InputTypes.Null;
+            _votingToEditText.InputType = InputTypes.Null;
 
-            _prizePoolEditText.SetSelectionOnPenultСhar();
-            _participationFeeEditText.SetSelectionOnPenultСhar();
-            _percentParticipationFeeEditText.SetSelectionOnPenultСhar();
+            _prizePoolEditText.SetTextChangeListened((sequence) => _prizePoolEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));
+            _participationFeeEditText.SetTextChangeListened((sequence) => _participationFeeEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));
+            _percentParticipationFeeEditText.SetTextChangeListened((sequence) => _percentParticipationFeeEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Percent, sequence));
         }
 
         protected override void Bind()
@@ -78,13 +72,24 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
 
             bindingSet.Bind(_nameEditText).For(v => v.Text).To(vm => vm.Name);
             bindingSet.Bind(_descriptionEditText).For(v => v.Text).To(vm => vm.Description);
-            bindingSet.Bind(_collectionBidsFromEditText).For(v => v.Text).To(vm => vm.CollectionBidsFromString);
-            bindingSet.Bind(_collectionBidsToEditText).For(v => v.Text).To(vm => vm.CollectionBidsToString);
-            bindingSet.Bind(_votingFromEditText).For(v => v.Text).To(vm => vm.VotingFromString);
-            bindingSet.Bind(_votingToEditText).For(v => v.Text).To(vm => vm.VotingToString);
-            bindingSet.Bind(_prizePoolEditText).For(v => v.Text).To(vm => vm.PrizePool).WithConversion<PriceConverter>();
-            bindingSet.Bind(_participationFeeEditText).For(v => v.Text).To(vm => vm.ParticipationFee).WithConversion<PriceConverter>();
-            bindingSet.Bind(_percentParticipationFeeEditText).For(v => v.Text).To(vm => vm.PercentParticipationFee).WithConversion<PercentConvertor>();
+            bindingSet.Bind(_collectionBidsFromEditText).For(v => v.Text).To(vm => vm.CollectionBidsFrom)
+                .WithConversion<DateTimeToStringConverter>();
+            bindingSet.Bind(_collectionBidsFromEditText).For(v => v.BindClick()).To(vm => vm.SelectPeriodCollectionBidsFromCommand);
+            bindingSet.Bind(_collectionBidsToEditText).For(v => v.Text).To(vm => vm.CollectionBidsTo)
+                .WithConversion<DateTimeToStringConverter>();
+            bindingSet.Bind(_collectionBidsToEditText).For(v => v.BindClick()).To(vm => vm.SelectPeriodCollectionBidsToCommand);
+            bindingSet.Bind(_votingFromEditText).For(v => v.Text).To(vm => vm.VotingFrom)
+                .WithConversion<DateTimeToStringConverter>();
+            bindingSet.Bind(_votingFromEditText).For(v => v.BindClick()).To(vm => vm.SelectPeriodVotingFromCommand);
+            bindingSet.Bind(_votingToEditText).For(v => v.Text).To(vm => vm.VotingTo)
+                .WithConversion<DateTimeToStringConverter>();
+            bindingSet.Bind(_votingToEditText).For(v => v.BindClick()).To(vm => vm.SelectPeriodVotingToCommand);
+            bindingSet.Bind(_prizePoolEditText).For(v => v.Text).To(vm => vm.PrizePool)
+                .WithConversion<PriceConverter>();
+            bindingSet.Bind(_participationFeeEditText).For(v => v.Text).To(vm => vm.ParticipationFee)
+                .WithConversion<PriceConverter>();
+            bindingSet.Bind(_percentParticipationFeeEditText).For(v => v.Text).To(vm => vm.PercentParticipationFee)
+                .WithConversion<PercentConvertor>();
             bindingSet.Bind(_createContestCheckBox).For(v => v.Checked).To(vm => vm.IsExecutorHidden);
             bindingSet.Bind(_descriptionImageView).For(v => v.BindClick()).To(vm => vm.ShowWalkthrouthSecretCommand);
             bindingSet.Bind(_createContestButton).For(v => v.BindClick()).To(vm => vm.CreateCommand);

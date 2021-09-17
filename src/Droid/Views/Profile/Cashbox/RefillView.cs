@@ -7,7 +7,6 @@ using MvvmCross.Platforms.Android.Binding.Views;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.ViewModels.Profile.Cashbox;
-using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views.Profile.Cashbox
@@ -35,7 +34,6 @@ namespace PrankChat.Mobile.Droid.Views.Profile.Cashbox
             _refillButton = view.FindViewById<MaterialButton>(Resource.Id.refill_button);
             _refillMethodsGrid = view.FindViewById<MvxGridView>(Resource.Id.refill_methods_collection);
 
-            _refillCostEditText.SetSelectionOnPenultСhar();
         }
 
         protected override void Bind()
@@ -46,7 +44,6 @@ namespace PrankChat.Mobile.Droid.Views.Profile.Cashbox
 
             bindingSet.Bind(_refillCostEditText).For(v => v.Text).To(vm => vm.Cost)
                       .WithConversion<PriceConverter>();
-
             bindingSet.Bind(_refillButton).For(v => v.BindClick()).To(vm => vm.RefillCommand);
             bindingSet.Bind(_refillMethodsGrid).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_refillMethodsGrid).For(v => v.ItemClick).To(vm => vm.SelectionChangedCommand);

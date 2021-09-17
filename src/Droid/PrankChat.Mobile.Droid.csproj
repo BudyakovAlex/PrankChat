@@ -70,12 +70,12 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\DateTimeToStringConverter.cs" />
     <Compile Include="Converters\PercentConvertor.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
-    <Compile Include="Extensions\DelegateTextChangeListenerExtensions.cs" />
-    <Compile Include="Extensions\SetSelectionOnPenultCharExtensions.cs" />
+    <Compile Include="Extensions\TextChangeListenerExtensions.cs" />
+    <Compile Include="Extensions\EditTextExtensions.cs" />
     <Compile Include="Extensions\ViewOnClickListenerExtensions.cs" />
-    <Compile Include="Extensions\DelegeteViewOnClickExtension.cs" />
     <Compile Include="Extensions\ViewOnClickPeriodExtension.cs" />
     <Compile Include="Listeners\TextChangeListener.cs" />
     <Compile Include="Services\ExternalAuthService.cs" />
@@ -414,7 +414,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\fragment_create_order.xml">
+    <AndroidResource Include="Resources\layout\activity_create_order.xml">
       <SubType>
       </SubType>
       <Generator>

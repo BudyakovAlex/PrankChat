@@ -14,6 +14,7 @@ using PrankChat.Mobile.Core.Providers;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace PrankChat.Mobile.Core.ViewModels.Competition
 {
@@ -35,11 +36,19 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
             ShowWalkthrouthSecretCommand = this.CreateCommand(ShowWalkthrouthSecretAsync);
             CreateCommand = this.CreateCommand(CreateAsync);
+            SelectPeriodCollectionBidsFromCommand = this.CreateCommand(SelectPeriodCollectionBidsFromAsync);
+            SelectPeriodCollectionBidsToCommand = this.CreateCommand(SelectPeriodCollectionBidsToAsync);
+            SelectPeriodVotingFromCommand = this.CreateCommand(SelectPeriodVotingFromAsync);
+            SelectPeriodVotingToCommand = this.CreateCommand(SelectPeriodVotingToAsync);
         }
 
         public IMvxAsyncCommand CreateCommand { get; }
         public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
         public IMvxAsyncCommand ShowWalkthrouthSecretCommand { get; }
+        public IMvxAsyncCommand SelectPeriodCollectionBidsFromCommand { get; }
+        public IMvxAsyncCommand SelectPeriodCollectionBidsToCommand { get; }
+        public IMvxAsyncCommand SelectPeriodVotingFromCommand { get; }
+        public IMvxAsyncCommand SelectPeriodVotingToCommand { get; }
 
         private string _name;
         public string Name
@@ -67,11 +76,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
                 }
 
                 SetProperty(ref _collectionBidsFrom, value);
-                RaisePropertiesChanged(nameof(CollectionBidsFromString));
             }
         }
-
-        public string CollectionBidsFromString => _collectionBidsFrom?.ToShortDateString();
 
         private DateTime? _collectionBidsTo;
         public DateTime? CollectionBidsTo
@@ -85,11 +91,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
                 }
 
                 SetProperty(ref _collectionBidsTo, value);
-                RaisePropertiesChanged(nameof(CollectionBidsToString));
             }
         }
-
-        public string CollectionBidsToString => _collectionBidsTo?.ToShortDateString();
 
         private DateTime? _votingFrom;
         public DateTime? VotingFrom
@@ -103,11 +106,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
                 }
 
                 SetProperty(ref _votingFrom, value);
-                RaisePropertiesChanged(nameof(VotingFromString));
             }
         }
-
-        public string VotingFromString => _votingFrom?.ToShortDateString();
 
         private DateTime? _votingTo;
         public DateTime? VotingTo
@@ -121,11 +121,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
                 }
 
                 SetProperty(ref _votingTo, value);
-                RaisePropertiesChanged(nameof(VotingToString));
             }
         }
-
-        public string VotingToString => _votingTo?.ToShortDateString();
 
         private double? _prizePool;
         public double? PrizePool
@@ -174,6 +171,26 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             return Task.CompletedTask;
         }
 
+        private async Task SelectPeriodCollectionBidsFromAsync()
+        {
+            CollectionBidsFrom = await UserInteraction.ShowDateDialogAsync();
+        }
+
+        private async Task SelectPeriodVotingToAsync()
+        {
+            VotingTo = await UserInteraction.ShowDateDialogAsync();
+        }
+
+        private async Task SelectPeriodVotingFromAsync()
+        {
+            VotingFrom = await UserInteraction.ShowDateDialogAsync();
+        }
+
+        private async Task SelectPeriodCollectionBidsToAsync()
+        {
+            CollectionBidsTo = await UserInteraction.ShowDateDialogAsync();
+        }
+
         private async Task HandleLowBalanceExceptionAsync(Exception exception)
         {
             var canRefil = await UserInteraction.ShowConfirmAsync(exception.Message, Resources.Attention, Resources.Replenish, Resources.Cancel);
@@ -201,4 +218,3 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             Xamarin.Essentials.Browser.OpenAsync(RestConstants.PolicyEndpoint);
     }
 }
-

@@ -6,12 +6,12 @@ using System.Linq;
 
 namespace PrankChat.Mobile.Droid.Listeners
 {
-    public class TextChangeListener<T> : Java.Lang.Object, ITextWatcher
+    public class TextChangeListener : Java.Lang.Object, ITextWatcher
     {
-        private Action<T, ICharSequence> _action;
-        private T _editText;
+        private Action<ICharSequence> _action;
+        private EditText _editText;
 
-        public TextChangeListener(Action<T, ICharSequence> action , T editText)
+        public TextChangeListener(EditText editText, Action<ICharSequence> action)
         {
             _action = action;
             _editText = editText;
@@ -29,7 +29,7 @@ namespace PrankChat.Mobile.Droid.Listeners
 
         public void OnTextChanged(ICharSequence s, int start, int before, int count)
         {
-            _action?.Invoke(_editText, s);
+            _action?.Invoke(s);
         }
     }
 }
