@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
-    android:background="@android:color/transparent"
+    android:background="@drawable/shadow"
+    android:clipToPadding="false"
+    android:translationZ="10dp"
     app:elevation="25dp">
 
     <androidx.appcompat.widget.Toolbar
