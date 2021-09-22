@@ -371,7 +371,7 @@
 "OnBoardingFifthTitle" = "Do it funny and to the music!";
 
 /*Fuzzy*/
-"OnBoardingFirstDescription" = "The authors of PrankChat only publish exclusive, funniest and craziest videos! watch and enjoy";
+"OnBoardingFirstDescription" = "The authors of OnPlay only publish exclusive, funniest and craziest videos! watch and enjoy";
 
 /*Fuzzy*/
 "OnBoardingSecondDescription" = "Post the task, cost and deadline by which other users will make a video for you. Get your dream movie!";
@@ -440,13 +440,13 @@
 "NotVerified" = "{0} not verified";
 
 /*Fuzzy*/
-"WalkthrouthCompetitionsDescription" = "Take part in contests with cash prizes! Read the terms and conditions and post your video soon. Winners will be selected by general vote and will instantly receive prize money in their account. Do not forget to call your friends to vote, they will increase your chances of winning!\n\nThe competition consists of three stages:\n1) At the initial stage, the participants send their videos to the competition;\n2) Voting. PrankChat users vote for their favorite video;\n3) Results. After summing up the accounts of participants whose videos won prizes, the money won is transferred.\n\nApple Inc. is not a sponsor of the competitions.";
+"WalkthrouthCompetitionsDescription" = "Take part in contests with cash prizes! Read the terms and conditions and post your video soon. Winners will be selected by general vote and will instantly receive prize money in their account. Do not forget to call your friends to vote, they will increase your chances of winning!\n\nThe competition consists of three stages:\n1) At the initial stage, the participants send their videos to the competition;\n2) Voting. OnPlay users vote for their favorite video;\n3) Results. After summing up the accounts of participants whose videos won prizes, the money won is transferred.\n\nApple Inc. is not a sponsor of the competitions.";
 
 /*Fuzzy*/
 "WalkthrouthCreateOrderDescription" = "Post your assignment, according to which other users will make a video for you. Describe the task in as much detail as possible, set the deadline and the amount of remuneration to get the perfect movie.";
 
 /*Fuzzy*/
-"WalkthrouthOrdersDescription" = "You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20\%% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20\%% of the order value is the commission PrankChat.\n\nIf the customer did not like your video, he can send the task to the \"dispute\". Independent users will decide within 24 hours whether the completed video matches the order. If the number of positive votes exceeds the number of negative, then wait for your well-deserved bonus. In the opposite situation, the reward will be returned to the customer.";
+"WalkthrouthOrdersDescription" = "You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20\%% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20\%% of the order value is the commission OnPlay.\n\nIf the customer did not like your video, he can send the task to the \"dispute\". Independent users will decide within 24 hours whether the completed video matches the order. If the number of positive votes exceeds the number of negative, then wait for your well-deserved bonus. In the opposite situation, the reward will be returned to the customer.";
 
 /*Fuzzy*/
 "WalkthrouthProfileDescription" = "In the profile, the user can track the amount of money in the current account, as well as all his tasks: published, executable and completed.";
@@ -517,7 +517,9 @@
 
 /*Fuzzy*/
 "BlockedUser" = "User {0} is blocked";
-"appName" = "";
+
+/*Fuzzy*/
+"appName" = "OnPlay";
 "Rate" = "Rate";
 "Popular" = "Popular";
 "Actual" = "Actual";
@@ -525,7 +527,6 @@
 
 /*Fuzzy*/
 "Search" = "Search";
-"ErrorUnexpectedNotFound" = "";
 "EnterEmail" = "Enter e-mail";
 
 /*Fuzzy*/
@@ -566,7 +567,6 @@
 
 /*Fuzzy*/
 "Congratulations" = "Congratulations!";
-"RegistrationConfitmationMessage" = "";
 
 /*Fuzzy*/
 "PasswordRecoveryOnMail" = "An email was sent to the mail with a link to reset the password.";
@@ -618,7 +618,6 @@
 
 /*Fuzzy*/
 "OnInstagram" = "On Instagram";
-"My" = "";
 
 /*Fuzzy*/
 "Save" = "Save";
@@ -638,15 +637,11 @@
 
 /*Fuzzy*/
 "NotViewed" = "Not viewed";
-"Demo" = "";
 "LoginToAccount" = "Log in";
 "ComVkSdkAppId" = "7343996";
 
 /*Fuzzy*/
 "SentToModerator" = "Sent to moderator";
-"CompetitionsVotingTerm" = "";
-"CompetitionsFinishedTerm" = "";
-"CompetitionsNewTerm" = "";
 "Surname" = "Surname";
 "CardNumber" = "Card number";
 "AttachFile" = "Attach file";
@@ -654,7 +649,6 @@
 /*Fuzzy*/
 "Participant" = "Participant";
 "PrizePool" = "Prize pool";
-"WithdrawalVerifyUser" = "";
 
 /*Fuzzy*/
 "PendingVerifyUser" = "Your request is being processed, the waiting time can be up to 24 hours";
@@ -665,17 +659,6 @@
 "DateOfCreation" = "date of creation";
 "Status" = "Status";
 "Place" = "A place";
-"ComplaintSpam" = "";
-"ComplaintNakedContent" = "";
-"ComplaintHostileUtterances" = "";
-"ComplaintDangerousOrganizations" = "";
-"ComplaintRightsViolation" = "";
-"ComplaintCheating" = "";
-"ComplaintCompleteMessage" = "";
-"ComplaintOther" = "";
-"ComplaintWrongName" = "";
-"ComplaintUnacceptableContent" = "";
-"ComplaintUnacceptableInformationInProfile" = "";
 "Resend" = "resend";
 "CommisionWarning" = "Please note that operator fees will be added to the recharge amount";
 "ConfirmAdult" = "I confirm that I am 18 years old";
@@ -683,7 +666,6 @@
 "TermsAndRules" = "Terms &amp; Conditions";
 "Age" = "Age";
 "TermsAndConditions" = "terms and conditions";
-"CheckmarkNotConfirmed" = "";
 
 /*Fuzzy*/
 "Prize" = "Prize";
@@ -707,8 +689,6 @@
 /*Fuzzy*/
 "CreateOrderPrivacyMessage" = "By completing the creation of the order, I confirm the registration with the terms of the public offer, user agreement and privacy policy";
 "CreateOrderPrivacyLink" = "terms of the public offer, user agreement and privacy policy";
-"AllowStorage" = "";
-"AllowCamera" = "";
 
 /*Fuzzy*/
 "Orderss" = "orders";
@@ -724,3 +704,30 @@
 "ConfirmAgeAndAgreeRules" = "Confirm age and agree to the rules";
 "OneHour" = "hour";
 "LoginWithoutRegistration" = "Sign in without registration";
+
+/*Fuzzy*/
+"CreateContest" = "Create a competition";
+
+/*Fuzzy*/
+"ParticipationFee" = "Participation fee";
+
+/*Fuzzy*/
+"PercentageContributionPrizePool" = "% of the contribution to the prize pool";
+
+/*Fuzzy*/
+"SecretContest" = "Secret contest";
+
+/*Fuzzy*/
+"CollectionBidsFrom" = "Collection of bids from";
+
+/*Fuzzy*/
+"CollectionBidsFor" = "Collection of bids for";
+
+/*Fuzzy*/
+"VotingFrom" = "Voting from";
+
+/*Fuzzy*/
+"VotingFor" = "Voting for";
+
+/*Fuzzy*/
+"Percent" = "%";
