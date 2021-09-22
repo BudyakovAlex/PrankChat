@@ -9,7 +9,6 @@
     <include
         android:id="@+id/action_bar"
         layout="@layout/action_bar_back_and_title"
-        android:background="@color/applicationWhite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
