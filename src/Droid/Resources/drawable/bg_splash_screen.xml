@@ -5,9 +5,9 @@
         </shape>
     </item>
     <item
-        android:width="140dp"
+        android:width="124dp"
         android:height="118dp"
         android:gravity="center"
-        android:drawable="@drawable/ic_prankchat_icon">
+        android:drawable="@drawable/ic_onplay_icon">
     </item>
 </layer-list>

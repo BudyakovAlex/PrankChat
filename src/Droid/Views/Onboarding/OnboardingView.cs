@@ -77,7 +77,7 @@ namespace PrankChat.Mobile.Droid.Views.Onboarding
 
         protected override void OnCreate(Bundle bundle)
         {
-            var colorArgb = ResourcesCompat.GetColor(Resources, Resource.Color.deep_purple, null);
+            var colorArgb = ResourcesCompat.GetColor(Resources, Resource.Color.applicationWhite, null);
             var color = new Color(colorArgb);
             Window.SetStatusBarColor(color);
 
