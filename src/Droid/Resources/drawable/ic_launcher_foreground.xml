@@ -1,0 +1,17 @@
+<vector android:height="108dp" android:viewportHeight="1080"
+    android:viewportWidth="1080" android:width="108dp" xmlns:android="http://schemas.android.com/apk/res/android">
+  <path android:fillColor="#1c1c1e" android:pathData="M0,0h1080v1080h-1080z"/>
+  <group>
+    <clip-path android:pathData="M338.66,320.97h453.73v453.73h-453.73z"/>
+    <path android:fillColor="#f0af31" android:pathData="M627.54,459.68a60.67,60.67 0,0 0,-46.87 -22.12H476.56V715.89l13,-14.37V449.35H593.69a60.4,60.4 0,0 1,33.85 10.33"/>
+    <path android:fillColor="#f0af31" android:pathData="M640.26,445.59A79.59,79.59 0,0 1,580.67 578H538.53l13,11.79h42.14a79.62,79.62 0,0 0,46.57 -144.21"/>
+    <path android:fillColor="#fdff00" android:pathData="M538.52,578l0.01,0l-0.01,0l0,0z"/>
+    <path android:fillColor="#fdff00" android:pathData="M640.26,445.59a79.47,79.47 0,0 0,-59.59 -26.87H457.72V715.89h18.84V437.56H580.67a60.81,60.81 0,0 1,0 121.61H538.52V578h42.15a79.59,79.59 0,0 0,59.59 -132.41"/>
+    <path android:fillColor="#d73a51" android:pathData="M599.07,491.13a19.79,19.79 0,0 0,-18.4 -12.54H517.59v237.3l13,-14.37V490.38h63.08a19.53,19.53 0,0 1,5.38 0.75"/>
+    <path android:fillColor="#d73a51" android:pathData="M613.84,474.8a40.69,40.69 0,0 1,-33.17 64.28H538.52l13,11.79h42.14a40.7,40.7 0,0 0,20.15 -76.07"/>
+    <path android:fillColor="#ed4169" android:pathData="M613.84,474.8a40.66,40.66 0,0 0,-33.17 -17.15h-84V715.89h20.94V478.59h63.08a19.78,19.78 0,0 1,0 39.55H538.52v20.94h42.15a40.69,40.69 0,0 0,33.17 -64.28"/>
+    <path android:fillColor="#0b76b6" android:pathData="M653.82,430.64a99.48,99.48 0,0 0,-73.15 -32h-143V715.89l13,-14.37V410.42h143a99.18,99.18 0,0 1,60.13 20.22"/>
+    <path android:fillColor="#0b76b6" android:pathData="M666.49,416.63a118.52,118.52 0,0 1,-85.82 200.3H538.52l13,11.8h42.14a118.53,118.53 0,0 0,72.8 -212.1"/>
+    <path android:fillColor="#66c5e2" android:pathData="M666.49,416.63h0a118.26,118.26 0,0 0,-85.82 -36.84H418.79v336.1h18.84V398.63h143a99.48,99.48 0,0 1,73.15 32h0A99.69,99.69 0,0 1,580.67 598.1H538.52v18.83h42.15a118.52,118.52 0,0 0,85.82 -200.3"/>
+  </group>
+</vector>

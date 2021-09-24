@@ -42,7 +42,6 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:textColor="@color/applicationWhite"
                 android:textSize="14dp"
                 tools:text="Some text"
                 tools:textColor="@color/applicationBlack" />
