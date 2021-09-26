@@ -34,11 +34,15 @@
         <item name="colorPrimary">@color/accent</item>
     </style>
 
-    <style name="Theme.PrankChat.Splash" parent="Theme.PrankChat.Base">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:statusBarColor">@color/accent</item>
-        <item name="android:windowLightStatusBar">false</item>
+    <style name="Theme.PrankChat.Splash" parent="Theme.AppCompat.Light.NoActionBar.FullScreen">
         <item name="android:windowBackground">@drawable/bg_splash_screen</item>
+    </style>
+
+    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="Theme.PrankChat.Translucent" parent="Theme.PrankChat.Base.Dark">

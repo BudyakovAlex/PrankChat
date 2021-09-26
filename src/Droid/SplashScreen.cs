@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Views;
 using AndroidX.AppCompat.App;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
@@ -21,6 +22,7 @@ namespace PrankChat.Mobile.Droid
     public class SplashScreen : MvxSplashScreenActivity
     {
         private int? _orderId;
+        private TextureView _layerList;
 
         public SplashScreen() : base(0)
         {
@@ -30,7 +32,15 @@ namespace PrankChat.Mobile.Droid
         {
             AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
 
+            RequestWindowFeature(WindowFeatures.NoTitle);
+            var decorView = Window.DecorView;
+            decorView.SystemUiVisibility = (StatusBarVisibility)(SystemUiFlags.Fullscreen
+                | SystemUiFlags.HideNavigation
+                | SystemUiFlags.Immersive
+                | SystemUiFlags.ImmersiveSticky);
+
             base.OnCreate(bundle);
+            RequestedOrientation = ScreenOrientation.FullSensor;
 
             Mvx.IoCProvider.CallbackWhenRegistered<IEnvironmentConfigurationProvider>(provider =>
             {

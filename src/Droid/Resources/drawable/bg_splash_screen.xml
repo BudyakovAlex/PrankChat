@@ -1,7 +1,8 @@
-﻿<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+﻿<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/layer_list">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/deep_purple" />
+            <solid android:color="@color/applicationBlack"/>
         </shape>
     </item>
     <item

@@ -21,27 +21,26 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 
         public void Initialize()
         {
-            if (IsPlayServicesAvailable())
+            if (CheckIsPlayServicesAvailable())
             {
                 CreateNotificationChannel();
             }
         }
 
-        private bool IsPlayServicesAvailable()
+        private bool CheckIsPlayServicesAvailable()
         {
             var resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(Application.Context);
             if (resultCode != ConnectionResult.Success)
             {
-                if (GoogleApiAvailability.Instance.IsUserResolvableError(resultCode))
-                {
-                    Mvx.IoCProvider.Resolve<IMvxLog>().Error(GoogleApiAvailability.Instance.GetErrorString(resultCode), nameof(NotificationWrapper));
-                }
-                else
-                {
-                    Mvx.IoCProvider.Resolve<IMvxLog>().Error("This device is not supported", nameof(NotificationWrapper));
-                }
+                var errorMessage = GoogleApiAvailability.Instance.IsUserResolvableError(resultCode)
+                    ? GoogleApiAvailability.Instance.GetErrorString(resultCode)
+                    : "Firebase is not supported for this device";
+
+                System.Diagnostics.Debug.WriteLine(errorMessage);
+
                 return false;
             }
+
             return true;
         }
 
