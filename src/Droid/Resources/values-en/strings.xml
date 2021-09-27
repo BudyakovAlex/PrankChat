@@ -195,8 +195,8 @@
     <!-- Fuzzy -->
     <string name="TakeOrderQuestion">
       "To accept the order, you must pay a Deposit as a guarantee of its implementation
-      20\%% of the cost for simple orders
-      40\%% for secret orders"</string>
+      20 \%% of the cost for simple orders
+      40 \%% for secret orders"</string>
 
     <!-- Fuzzy -->
     <string name="SecondsShort">"s."</string>
@@ -376,7 +376,7 @@
     <string name="OnBoardingFifthTitle">"Do it funny and to the music!"</string>
 
     <!-- Fuzzy -->
-    <string name="OnBoardingFirstDescription">"The authors of PrankChat only publish exclusive, funniest and craziest videos! watch and enjoy"</string>
+    <string name="OnBoardingFirstDescription">"The authors of OnPlay only publish exclusive, funniest and craziest videos! watch and enjoy"</string>
 
     <!-- Fuzzy -->
     <string name="OnBoardingSecondDescription">"Post the task, cost and deadline by which other users will make a video for you. Get your dream movie!"</string>
@@ -449,7 +449,7 @@
 
 The competition consists of three stages:
 1) At the initial stage, the participants send their videos to the competition;
-2) Voting. PrankChat users vote for their favorite video;
+2) Voting. OnPlay users vote for their favorite video;
 3) Results. After summing up the accounts of participants whose videos won prizes, the money won is transferred.
 
 Apple Inc. is not a sponsor of the competitions."</string>
@@ -459,7 +459,7 @@ Apple Inc. is not a sponsor of the competitions."</string>
 
     <!-- Fuzzy -->
     <string name="WalkthrouthOrdersDescription">
-      "You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20\%% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20\%% of the order value is the commission PrankChat.
+      "You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20\%% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20 \%% of the order value is the commission OnPlay.
 
       If the customer did not like your video, he can send the task to the \"dispute\". Independent users will decide within 24 hours whether the completed video matches the order. If the number of positive votes exceeds the number of negative, then wait for your well-deserved bonus. In the opposite situation, the reward will be returned to the customer."</string>
 
@@ -534,7 +534,9 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
 
     <!-- Fuzzy -->
     <string name="BlockedUser">"User {0} is blocked"</string>
-    <string name="appName"></string>
+
+    <!-- Fuzzy -->
+    <string name="appName">"OnPlay"</string>
     <string name="Rate">"Rate"</string>
     <string name="Popular">"Popular"</string>
     <string name="Actual">"Actual"</string>
@@ -542,7 +544,6 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
 
     <!-- Fuzzy -->
     <string name="Search">"Search"</string>
-    <string name="ErrorUnexpectedNotFound"></string>
     <string name="EnterEmail">"Enter e-mail"</string>
 
     <!-- Fuzzy -->
@@ -583,7 +584,6 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
 
     <!-- Fuzzy -->
     <string name="Congratulations">"Congratulations!"</string>
-    <string name="RegistrationConfitmationMessage"></string>
 
     <!-- Fuzzy -->
     <string name="PasswordRecoveryOnMail">"An email was sent to the mail with a link to reset the password."</string>
@@ -635,7 +635,6 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
 
     <!-- Fuzzy -->
     <string name="OnInstagram">"On Instagram"</string>
-    <string name="My"></string>
 
     <!-- Fuzzy -->
     <string name="Save">"Save"</string>
@@ -655,15 +654,11 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
 
     <!-- Fuzzy -->
     <string name="NotViewed">"Not viewed"</string>
-    <string name="Demo"></string>
     <string name="LoginToAccount">"Log in"</string>
     <integer name="com_vk_sdk_AppId">7343996</integer>
 
     <!-- Fuzzy -->
     <string name="SentToModerator">"Sent to moderator"</string>
-    <string name="CompetitionsVotingTerm"></string>
-    <string name="CompetitionsFinishedTerm"></string>
-    <string name="CompetitionsNewTerm"></string>
     <string name="Surname">"Surname"</string>
     <string name="CardNumber">"Card number"</string>
     <string name="AttachFile">"Attach file"</string>
@@ -671,7 +666,6 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <!-- Fuzzy -->
     <string name="Participant">"Participant"</string>
     <string name="PrizePool">"Prize pool"</string>
-    <string name="WithdrawalVerifyUser"></string>
 
     <!-- Fuzzy -->
     <string name="PendingVerifyUser">"Your request is being processed, the waiting time can be up to 24 hours"</string>
@@ -682,17 +676,6 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <string name="DateOfCreation">"date of creation"</string>
     <string name="Status">"Status"</string>
     <string name="Place">"A place"</string>
-    <string name="ComplaintSpam"></string>
-    <string name="ComplaintNakedContent"></string>
-    <string name="ComplaintHostileUtterances"></string>
-    <string name="ComplaintDangerousOrganizations"></string>
-    <string name="ComplaintRightsViolation"></string>
-    <string name="ComplaintCheating"></string>
-    <string name="ComplaintCompleteMessage"></string>
-    <string name="ComplaintOther"></string>
-    <string name="ComplaintWrongName"></string>
-    <string name="ComplaintUnacceptableContent"></string>
-    <string name="ComplaintUnacceptableInformationInProfile"></string>
     <string name="Resend">"resend"</string>
     <string name="CommisionWarning">"Please note that operator fees will be added to the recharge amount"</string>
     <string name="ConfirmAdult">"I confirm that I am 18 years old"</string>
@@ -700,7 +683,6 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <string name="TermsAndRules">"Terms &amp;amp; Conditions"</string>
     <string name="Age">"Age"</string>
     <string name="TermsAndConditions">"terms and conditions"</string>
-    <string name="CheckmarkNotConfirmed"></string>
 
     <!-- Fuzzy -->
     <string name="Prize">"Prize"</string>
@@ -724,8 +706,6 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <!-- Fuzzy -->
     <string name="CreateOrderPrivacyMessage">"By completing the creation of the order, I confirm the registration with the terms of the public offer, user agreement and privacy policy"</string>
     <string name="CreateOrderPrivacyLink">"terms of the public offer, user agreement and privacy policy"</string>
-    <string name="AllowStorage"></string>
-    <string name="AllowCamera"></string>
 
     <!-- Fuzzy -->
     <string name="Orderss">"orders"</string>
@@ -741,4 +721,34 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <string name="ConfirmAgeAndAgreeRules">"Confirm age and agree to the rules"</string>
     <string name="OneHour">"hour"</string>
     <string name="LoginWithoutRegistration">"Sign in without registration"</string>
+
+    <!-- Fuzzy -->
+    <string name="CreateContest">"Create a competition"</string>
+
+    <!-- Fuzzy -->
+    <string name="ParticipationFee">"Participation fee"</string>
+
+    <!-- Fuzzy -->
+    <string name="PercentageContributionPrizePool">"% of the contribution to the prize pool"</string>
+
+    <!-- Fuzzy -->
+    <string name="SecretContest">"Secret contest"</string>
+
+    <!-- Fuzzy -->
+    <string name="CollectionBidsFrom">"Collection of bids from"</string>
+
+    <!-- Fuzzy -->
+    <string name="CollectionBidsFor">"Collection of bids for"</string>
+
+    <!-- Fuzzy -->
+    <string name="VotingFrom">"Voting from"</string>
+
+    <!-- Fuzzy -->
+    <string name="VotingFor">"Voting for"</string>
+
+    <!-- Fuzzy -->
+    <string name="Percent">"%"</string>
+    <string name="IncorrectEmailOrPasswordException">"The entered Email or password is incorrect. Try to reset your password or check the spelling of your mail."</string>
+    <string name="PerYear">"PerYear"</string>
+    <string name="PerAll">"За все время"</string>
 </resources>

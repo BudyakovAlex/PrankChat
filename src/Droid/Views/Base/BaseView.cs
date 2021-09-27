@@ -27,7 +27,7 @@ namespace PrankChat.Mobile.Droid.Views.Base
                 SetContentView(layoutId);
                 SetViewProperties();
 
-                Toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+                Toolbar = FindViewById<Toolbar>(Resource.Id.back_and_title_toolbar);
                 if (Toolbar == null)
                 {
                     return;

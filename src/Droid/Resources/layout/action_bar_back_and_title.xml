@@ -11,7 +11,7 @@
 
     <!-- app:title=" " need for normal show title-->
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/back_and_title_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/applicationWhite"
