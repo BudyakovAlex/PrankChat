@@ -9,33 +9,18 @@
     android:translationZ="5dp"
     android:background="@drawable/shadow">
 
+    <!-- app:title=" " need for normal show title-->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/applicationWhite"
         android:paddingTop="0dp"
+        app:title=" "
         app:contentInsetLeft="0dp"
-        app:title="asdsad"
+        app:navigationIcon="@drawable/ic_back_arrow"
         app:titleTextColor="@color/applicationBlack"
         app:contentInsetStartWithNavigation="0dp"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageButton
-                android:id="@+id/back_button"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="4dp"
-                android:background="?attr/actionBarItemBackground"
-                android:src="@drawable/ic_back_arrow"
-                app:srcCompat="@drawable/ic_back_arrow"
-                app:MvxBind="Click CloseCommand" />
-        </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
 </com.google.android.material.appbar.AppBarLayout>

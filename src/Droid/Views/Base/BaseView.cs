@@ -1,7 +1,6 @@
 ﻿using Android.Content.PM;
 using Android.OS;
 using Android.Views;
-using Android.Widget;
 using MvvmCross.Platforms.Android.Views;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
@@ -21,43 +20,40 @@ namespace PrankChat.Mobile.Droid.Views.Base
 
 		protected virtual void OnCreate(Bundle savedInstanceState, int layoutId)
         {
-            base.OnCreate(savedInstanceState);
+            try
+            {
+                base.OnCreate(savedInstanceState);
 
-            SetContentView(layoutId);
-            SetViewProperties();
+                SetContentView(layoutId);
+                SetViewProperties();
 
-            Toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            if (Toolbar == null)
+                Toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+                if (Toolbar == null)
+                {
+                    return;
+                }
+
+                SetSupportActionBar(Toolbar);
+                Toolbar.Title = TitleActionBar;
+                SupportActionBar.SetDisplayShowCustomEnabled(true);
+                SupportActionBar.SetHomeButtonEnabled(true);
+                SupportActionBar.SetDisplayHomeAsUpEnabled(HasBackButton);
+                SupportActionBar.SetDisplayShowHomeEnabled(!HasBackButton);
+                SupportActionBar.SetDisplayUseLogoEnabled(true);
+
+                if (HasActionBarVisible)
+                {
+                    SupportActionBar.Show();
+                }
+                else
+                {
+                    SupportActionBar.Hide();
+                }
+            }
+            finally
             {
                 Bind();
-                return;
             }
-
-            SetSupportActionBar(Toolbar);
-            SupportActionBar.SetDisplayShowCustomEnabled(true);
-            SupportActionBar.SetHomeButtonEnabled(true);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(HasBackButton);
-            SupportActionBar.SetDisplayShowHomeEnabled(!HasBackButton);
-            SupportActionBar.SetDisplayUseLogoEnabled(true);
-            SupportActionBar.SetDisplayShowTitleEnabled(false);
-
-            if (HasActionBarVisible)
-            {
-                SupportActionBar.Show();
-            }
-            else
-            {
-                SupportActionBar.Hide();
-            }
-
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            if (toolbar != null)
-            {
-                SetSupportActionBar(toolbar);
-                toolbar.Title = TitleActionBar;
-            }
-
-            Bind();
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
