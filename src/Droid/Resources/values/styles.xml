@@ -31,6 +31,10 @@
       <item name="android:windowLightStatusBar">false</item>
     </style>
 
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+      <item name="android:textSize">16dp</item>
+    </style>
+  
     <style name="Theme.PrankChat.OnBoarding" parent="Theme.PrankChat.Base.Dark">
         <!-- TextEdit Hint Color Workaround-->
         <item name="colorControlNormal">@color/accent</item>

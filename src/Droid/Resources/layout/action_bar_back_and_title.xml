@@ -17,10 +17,9 @@
         android:background="@color/applicationWhite"
         android:paddingTop="0dp"
         app:title=" "
-        app:contentInsetLeft="0dp"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
         app:navigationIcon="@drawable/ic_back_arrow"
         app:titleTextColor="@color/applicationBlack"
-        app:contentInsetStartWithNavigation="0dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
 </com.google.android.material.appbar.AppBarLayout>
