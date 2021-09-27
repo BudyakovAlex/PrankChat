@@ -12,7 +12,9 @@ using Android.Views;
 namespace PrankChat.Mobile.Droid.Views
 {
     [ClearStackActivityPresentation]
-    [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(
+        ScreenOrientation = ScreenOrientation.Portrait,
+        Theme = "@style/Theme.PrankChat.Base.Maintanance")]
     public class MaintananceView : BaseView<MaintananceViewModel>
     {
         private MaterialButton _downloadButton;

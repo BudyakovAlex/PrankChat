@@ -25,6 +25,12 @@
         <item name="colorPrimaryDark">@color/applicationWhite</item>
     </style>
 
+    <style name="Theme.PrankChat.Base.Maintanance" parent="Theme.MaterialComponents.Light.NoActionBar">
+      <!-- TextEdit Hint Color Workaround-->
+      <item name="android:statusBarColor">@color/applicationBlack</item>
+      <item name="android:windowLightStatusBar">false</item>
+    </style>
+
     <style name="Theme.PrankChat.OnBoarding" parent="Theme.PrankChat.Base.Dark">
         <!-- TextEdit Hint Color Workaround-->
         <item name="colorControlNormal">@color/accent</item>

@@ -50,10 +50,11 @@ namespace PrankChat.Mobile.Droid.Views.Base
                 SupportActionBar.Hide();
             }
 
-            var title = FindViewById<TextView>(Resource.Id.toolbar_title);
-            if (title != null)
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            if (toolbar != null)
             {
-                title.Text = TitleActionBar;
+                SetSupportActionBar(toolbar);
+                toolbar.Title = TitleActionBar;
             }
 
             Bind();

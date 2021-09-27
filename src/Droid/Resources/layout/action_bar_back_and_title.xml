@@ -16,6 +16,8 @@
         android:background="@color/applicationWhite"
         android:paddingTop="0dp"
         app:contentInsetLeft="0dp"
+        app:title="asdsad"
+        app:titleTextColor="@color/applicationBlack"
         app:contentInsetStartWithNavigation="0dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -34,17 +36,6 @@
                 android:src="@drawable/ic_back_arrow"
                 app:srcCompat="@drawable/ic_back_arrow"
                 app:MvxBind="Click CloseCommand" />
-
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:textSize="14dp"
-                tools:text="Some text"
-                tools:textColor="@color/applicationBlack" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 </com.google.android.material.appbar.AppBarLayout>
