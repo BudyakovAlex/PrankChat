@@ -24,30 +24,7 @@ namespace PrankChat.Mobile.Droid.Views.Base
 
             SetContentView(layoutId);
             SetViewProperties();
-
-            Toolbar = FindViewById<Toolbar>(Resource.Id.back_and_title_toolbar);
-            if (Toolbar == null)
-            {
-                return;
-            }
-
-            SetSupportActionBar(Toolbar);
-            Toolbar.Title = TitleActionBar;
-            SupportActionBar.SetDisplayShowCustomEnabled(true);
-            SupportActionBar.SetHomeButtonEnabled(true);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(HasBackButton);
-            SupportActionBar.SetDisplayShowHomeEnabled(!HasBackButton);
-            SupportActionBar.SetDisplayUseLogoEnabled(true);
-
-            if (HasActionBarVisible)
-            {
-                SupportActionBar.Show();
-            }
-            else
-            {
-                SupportActionBar.Hide();
-            }
-            
+            SetupToolbar();
             Bind();
         }
 
@@ -66,6 +43,11 @@ namespace PrankChat.Mobile.Droid.Views.Base
         {
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        public override void OnBackPressed()
+        {
+            ViewModel.CloseCommand.Execute(null);
         }
 
         protected virtual void Bind()
@@ -96,9 +78,30 @@ namespace PrankChat.Mobile.Droid.Views.Base
 			Unsubscription();
 		}
 
-		public override void OnBackPressed()
+        private void SetupToolbar()
         {
-            ViewModel.CloseCommand.Execute(null);
+            Toolbar = FindViewById<Toolbar>(Resource.Id.back_and_title_toolbar);
+            if (Toolbar == null)
+            {
+                return;
+            }
+
+            SetSupportActionBar(Toolbar);
+            Toolbar.Title = TitleActionBar;
+            SupportActionBar.SetDisplayShowCustomEnabled(true);
+            SupportActionBar.SetHomeButtonEnabled(true);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(HasBackButton);
+            SupportActionBar.SetDisplayShowHomeEnabled(!HasBackButton);
+            SupportActionBar.SetDisplayUseLogoEnabled(true);
+
+            if (HasActionBarVisible)
+            {
+                SupportActionBar.Show();
+            }
+            else
+            {
+                SupportActionBar.Hide();
+            }
         }
     }
 }

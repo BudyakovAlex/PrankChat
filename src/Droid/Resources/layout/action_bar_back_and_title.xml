@@ -9,7 +9,6 @@
     android:translationZ="5dp"
     android:background="@drawable/shadow">
 
-    <!-- app:title=" " need for normal show title-->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/back_and_title_toolbar"
         android:layout_width="match_parent"
