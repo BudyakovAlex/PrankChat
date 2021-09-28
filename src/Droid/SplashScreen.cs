@@ -22,7 +22,6 @@ namespace PrankChat.Mobile.Droid
     public class SplashScreen : MvxSplashScreenActivity
     {
         private int? _orderId;
-        private TextureView _layerList;
 
         public SplashScreen() : base(0)
         {

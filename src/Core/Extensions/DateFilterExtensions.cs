@@ -11,7 +11,6 @@ namespace PrankChat.Mobile.Core.Extensions
         private const int MonthsInQuarter = 3;
         private const int MonthsInHalfYear = 6;
         private const int MonthsInYear = 12;
-        private const int MonthsInAll = int.MaxValue;
 
         public static string GetDateString(this DateFilterType dateFilterType)
         {
@@ -27,7 +26,7 @@ namespace PrankChat.Mobile.Core.Extensions
             DateFilterType.Quarter => GetDaysInMonth(MonthsInQuarter),
             DateFilterType.HalfYear => GetDaysInMonth(MonthsInHalfYear),
             DateFilterType.Year => GetDaysInMonth(MonthsInYear),
-            DateFilterType.All => GetDaysInMonth(MonthsInAll),
+            DateFilterType.All => GetDaysInMonth(int.MaxValue),
             _ => 0,
         };
 

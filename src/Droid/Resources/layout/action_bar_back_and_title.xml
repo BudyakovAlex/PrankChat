@@ -16,7 +16,6 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/applicationWhite"
         android:paddingTop="0dp"
-        app:title=" "
         app:titleTextAppearance="@style/Toolbar.TitleText"
         app:navigationIcon="@drawable/ic_back_arrow"
         app:titleTextColor="@color/applicationBlack"
