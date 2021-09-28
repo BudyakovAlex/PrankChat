@@ -12,8 +12,6 @@ namespace PrankChat.Mobile.Droid.Views.PasswordRecovery
 {
     [MvxFragmentPresentation(
         Tag = nameof(FinishPasswordRecoveryView),
-        ActivityHostViewModelType = typeof(LoginViewModel),
-        FragmentContentId = Resource.Id.container_layout,
         AddToBackStack = true)]
     [Register(nameof(FinishPasswordRecoveryView))]
     public class FinishPasswordRecoveryView : BaseFragment<FinishPasswordRecoveryViewModel>
