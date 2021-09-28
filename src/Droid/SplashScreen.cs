@@ -14,7 +14,7 @@ using PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications;
 
 namespace PrankChat.Mobile.Droid
 {
-    [Activity(Label = "PrankChat",
+    [Activity(Label = "OnPlay",
         MainLauncher = true,
         NoHistory = true,
         Theme = "@style/Theme.PrankChat.Splash",
