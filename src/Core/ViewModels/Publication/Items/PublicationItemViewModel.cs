@@ -26,7 +26,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
         {
              Resources.Complain,
              Resources.SubscribeToAuthor,
-             Resources.Download
+             Resources.Download,
+             Resources.BlockUser
         };
 
         private readonly Func<BaseVideoItemViewModel[]> _getAllFullScreenVideosFunc;
@@ -169,7 +170,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
                 Resources.Complain,
                 Resources.BlockUser,
                 Resources.CopyLink,
-                Resources.Download,Resources.BlockUser
+                Resources.Download,
             });
 
             if (string.IsNullOrWhiteSpace(result))
