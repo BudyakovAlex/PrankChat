@@ -24,7 +24,6 @@ namespace PrankChat.Mobile.Droid.Dialogs
         {
             base.OnCreate(savedInstanceState);
             SetStyle(StyleNoFrame, Resource.Style.Theme_PrankChat_DialogStyle);
-            Bind();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -39,6 +38,7 @@ namespace PrankChat.Mobile.Droid.Dialogs
             _titleTextView = view.FindViewById<TextView>(Resource.Id.title_text_view);
             _titleRecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.recycler_view);
             _closeTextView = view.FindViewById<TextView>(Resource.Id.close_text_view);
+            Bind();
             return view;
         }
 
