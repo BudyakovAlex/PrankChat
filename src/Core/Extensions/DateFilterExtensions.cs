@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.Core.Extensions
             DateFilterType.Quarter => GetDaysInMonth(MonthsInQuarter),
             DateFilterType.HalfYear => GetDaysInMonth(MonthsInHalfYear),
             DateFilterType.Year => GetDaysInMonth(MonthsInYear),
-            DateFilterType.All => GetDaysInMonth(int.MaxValue),
+            DateFilterType.All => int.MaxValue,
             _ => 0,
         };
 
