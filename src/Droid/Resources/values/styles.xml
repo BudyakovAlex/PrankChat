@@ -9,7 +9,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:colorControlHighlight">@color/accent</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/applicationWhite</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:includeFontPadding">false</item>
 
         <!-- TextEdit Hint Color Workaround-->
@@ -24,6 +25,16 @@
         <item name="colorPrimaryDark">@color/applicationWhite</item>
     </style>
 
+    <style name="Theme.PrankChat.Base.Maintanance" parent="Theme.MaterialComponents.Light.NoActionBar">
+      <!-- TextEdit Hint Color Workaround-->
+      <item name="android:statusBarColor">@color/applicationBlack</item>
+      <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+      <item name="android:textSize">16dp</item>
+    </style>
+  
     <style name="Theme.PrankChat.OnBoarding" parent="Theme.PrankChat.Base.Dark">
         <!-- TextEdit Hint Color Workaround-->
         <item name="colorControlNormal">@color/accent</item>
@@ -33,9 +44,15 @@
         <item name="colorPrimary">@color/accent</item>
     </style>
 
-    <style name="Theme.PrankChat.Splash" parent="Theme.PrankChat.Base">
-        <item name="android:windowNoTitle">true</item>
+    <style name="Theme.PrankChat.Splash" parent="Theme.AppCompat.Light.NoActionBar.FullScreen">
         <item name="android:windowBackground">@drawable/bg_splash_screen</item>
+    </style>
+
+    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="Theme.PrankChat.Translucent" parent="Theme.PrankChat.Base.Dark">

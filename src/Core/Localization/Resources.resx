@@ -753,7 +753,7 @@ Apple Inc. не является спонсором проведения кон�
     <comment>Fuzzy</comment>
   </data>
   <data name="NoIntentetConnection" xml:space="preserve">
-    <value>Интернет соединение отсувствует</value>
+    <value>Интернет соединение отсуствует</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="VideoFailedToUpload" xml:space="preserve">
@@ -1218,6 +1218,16 @@ Apple Inc. не является спонсором проведения кон�
   </data>
   <data name="Percent" xml:space="preserve">
     <value>%</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="IncorrectEmailOrPasswordException" xml:space="preserve">
+    <value>Введенный Email или пароль неверный. Попробуйте восстановить пароль или проверьте правильное написание почты.</value>
+  </data>
+  <data name="PerYear" xml:space="preserve">
+    <value>За год</value>
+  </data>
+  <data name="AllTime" xml:space="preserve">
+    <value>Per all time</value>
     <comment>Fuzzy</comment>
   </data>
 </root>

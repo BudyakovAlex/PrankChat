@@ -124,6 +124,15 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Per all time.
+        /// </summary>
+        public static string AllTime {
+            get {
+                return ResourceManager.GetString("AllTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Уже зарегистрированы?.
         /// </summary>
         public static string AlreadyRegistered {
@@ -1015,6 +1024,15 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Введенный Email или пароль неверный. Попробуйте восстановить пароль или проверьте правильное написание почты..
+        /// </summary>
+        public static string IncorrectEmailOrPasswordException {
+            get {
+                return ResourceManager.GetString("IncorrectEmailOrPasswordException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на В спор.
         /// </summary>
         public static string InDispute {
@@ -1303,7 +1321,7 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Интернет соединение отсувствует.
+        ///   Ищет локализованную строку, похожую на Интернет соединение отсуствует.
         /// </summary>
         public static string NoIntentetConnection {
             get {
@@ -1785,6 +1803,15 @@ namespace PrankChat.Mobile.Core.Localization {
         public static string PerWeek {
             get {
                 return ResourceManager.GetString("PerWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на За год.
+        /// </summary>
+        public static string PerYear {
+            get {
+                return ResourceManager.GetString("PerYear", resourceCulture);
             }
         }
         

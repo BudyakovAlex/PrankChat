@@ -1219,4 +1219,14 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
     <value>%</value>
     <comment>Fuzzy</comment>
   </data>
+  <data name="IncorrectEmailOrPasswordException" xml:space="preserve">
+    <value>The entered Email or password is incorrect. Try to reset your password or check the spelling of your mail.</value>
+  </data>
+  <data name="PerYear" xml:space="preserve">
+    <value>PerYear</value>
+  </data>
+  <data name="AllTime" xml:space="preserve">
+    <value>За все время</value>
+    <comment>Fuzzy</comment>
+  </data>
 </root>

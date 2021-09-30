@@ -4,8 +4,10 @@
     android:id="@+id/container_toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
     android:fitsSystemWindows="true"
+    android:background="@drawable/shadow"
+    android:clipToPadding="false"
+    android:translationZ="10dp"
     app:elevation="25dp">
 
     <androidx.appcompat.widget.Toolbar

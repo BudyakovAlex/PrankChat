@@ -1,7 +1,6 @@
 ﻿using Android.Content.PM;
 using Android.OS;
 using Android.Views;
-using Android.Widget;
 using MvvmCross.Platforms.Android.Views;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
@@ -25,37 +24,7 @@ namespace PrankChat.Mobile.Droid.Views.Base
 
             SetContentView(layoutId);
             SetViewProperties();
-
-            Toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            if (Toolbar == null)
-            {
-                Bind();
-                return;
-            }
-
-            SetSupportActionBar(Toolbar);
-            SupportActionBar.SetDisplayShowCustomEnabled(true);
-            SupportActionBar.SetHomeButtonEnabled(true);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(HasBackButton);
-            SupportActionBar.SetDisplayShowHomeEnabled(!HasBackButton);
-            SupportActionBar.SetDisplayUseLogoEnabled(true);
-            SupportActionBar.SetDisplayShowTitleEnabled(false);
-
-            if (HasActionBarVisible)
-            {
-                SupportActionBar.Show();
-            }
-            else
-            {
-                SupportActionBar.Hide();
-            }
-
-            var title = FindViewById<TextView>(Resource.Id.toolbar_title);
-            if (title != null)
-            {
-                title.Text = TitleActionBar;
-            }
-
+            SetupToolbar();
             Bind();
         }
 
@@ -74,6 +43,11 @@ namespace PrankChat.Mobile.Droid.Views.Base
         {
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        public override void OnBackPressed()
+        {
+            ViewModel.CloseCommand.Execute(null);
         }
 
         protected virtual void Bind()
@@ -104,9 +78,28 @@ namespace PrankChat.Mobile.Droid.Views.Base
 			Unsubscription();
 		}
 
-		public override void OnBackPressed()
+        private void SetupToolbar()
         {
-            ViewModel.CloseCommand.Execute(null);
+            Toolbar = FindViewById<Toolbar>(Resource.Id.back_and_title_toolbar);
+            if (Toolbar == null)
+            {
+                return;
+            }
+
+            SetSupportActionBar(Toolbar);
+            Toolbar.Title = TitleActionBar;
+            SupportActionBar.SetDisplayShowCustomEnabled(true);
+            SupportActionBar.SetHomeButtonEnabled(true);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(HasBackButton);
+            SupportActionBar.SetDisplayShowHomeEnabled(!HasBackButton);
+            SupportActionBar.SetDisplayUseLogoEnabled(true);
+
+            if (HasActionBarVisible)
+            {
+                SupportActionBar.Show();
+            }
+
+            SupportActionBar.Hide();
         }
     }
 }

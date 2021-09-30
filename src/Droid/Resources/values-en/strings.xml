@@ -195,8 +195,8 @@
     <!-- Fuzzy -->
     <string name="TakeOrderQuestion">
       "To accept the order, you must pay a Deposit as a guarantee of its implementation
-      20\%% of the cost for simple orders
-      40\%% for secret orders"</string>
+      20 \%% of the cost for simple orders
+      40 \%% for secret orders"</string>
 
     <!-- Fuzzy -->
     <string name="SecondsShort">"s."</string>
@@ -459,7 +459,7 @@ Apple Inc. is not a sponsor of the competitions."</string>
 
     <!-- Fuzzy -->
     <string name="WalkthrouthOrdersDescription">
-      "You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20\%% of the order value is the commission OnPlay.
+      "You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20\%% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20 \%% of the order value is the commission OnPlay.
 
       If the customer did not like your video, he can send the task to the \"dispute\". Independent users will decide within 24 hours whether the completed video matches the order. If the number of positive votes exceeds the number of negative, then wait for your well-deserved bonus. In the opposite situation, the reward will be returned to the customer."</string>
 
@@ -748,4 +748,9 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
 
     <!-- Fuzzy -->
     <string name="Percent">"%"</string>
+    <string name="IncorrectEmailOrPasswordException">"The entered Email or password is incorrect. Try to reset your password or check the spelling of your mail."</string>
+    <string name="PerYear">"PerYear"</string>
+
+    <!-- Fuzzy -->
+    <string name="AllTime">"За все время"</string>
 </resources>
