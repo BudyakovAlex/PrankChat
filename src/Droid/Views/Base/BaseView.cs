@@ -98,6 +98,7 @@ namespace PrankChat.Mobile.Droid.Views.Base
             {
                 SupportActionBar.Show();
             }
+
             SupportActionBar.Hide();
         }
     }
