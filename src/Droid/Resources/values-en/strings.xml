@@ -750,5 +750,7 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <string name="Percent">"%"</string>
     <string name="IncorrectEmailOrPasswordException">"The entered Email or password is incorrect. Try to reset your password or check the spelling of your mail."</string>
     <string name="PerYear">"PerYear"</string>
-    <string name="PerAll">"За все время"</string>
+
+    <!-- Fuzzy -->
+    <string name="AllTime">"За все время"</string>
 </resources>

@@ -752,5 +752,7 @@ Apple Inc. не является спонсором проведения кон�
     <string name="Percent">"%"</string>
     <string name="IncorrectEmailOrPasswordException">"Введенный Email или пароль неверный. Попробуйте восстановить пароль или проверьте правильное написание почты."</string>
     <string name="PerYear">"За год"</string>
-    <string name="PerAll">"Per all time"</string>
+
+    <!-- Fuzzy -->
+    <string name="AllTime">"Per all time"</string>
 </resources>

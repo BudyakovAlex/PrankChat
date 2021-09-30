@@ -733,4 +733,6 @@
 "Percent" = "%";
 "IncorrectEmailOrPasswordException" = "The entered Email or password is incorrect. Try to reset your password or check the spelling of your mail.";
 "PerYear" = "PerYear";
-"PerAll" = "За все время";
+
+/*Fuzzy*/
+"AllTime" = "За все время";

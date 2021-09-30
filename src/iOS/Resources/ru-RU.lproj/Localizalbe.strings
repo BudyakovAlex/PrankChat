@@ -733,4 +733,6 @@
 "Percent" = "%";
 "IncorrectEmailOrPasswordException" = "Введенный Email или пароль неверный. Попробуйте восстановить пароль или проверьте правильное написание почты.";
 "PerYear" = "За год";
-"PerAll" = "Per all time";
+
+/*Fuzzy*/
+"AllTime" = "Per all time";
