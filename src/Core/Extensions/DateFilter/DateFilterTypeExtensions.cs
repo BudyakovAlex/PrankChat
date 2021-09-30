@@ -14,7 +14,7 @@ namespace PrankChat.Mobile.Core.Extensions.DateFilter
             DateFilterType.Quarter => Resources.PerQuarter,
             DateFilterType.HalfYear => Resources.PerHalfYear,
             DateFilterType.Year => Resources.PerYear,
-            DateFilterType.All => Resources.AllTime,
+            DateFilterType.AllTime => Resources.AllTime,
             _ => throw new NotSupportedException($"Not supported dataFilterType for value {dateFilterType}"),
         };
     }
