@@ -1,7 +1,6 @@
 ﻿using CoreAnimation;
 using CoreGraphics;
 using Foundation;
-using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
@@ -14,7 +13,6 @@ using PrankChat.Mobile.Core.ViewModels.Profile;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
-using PrankChat.Mobile.iOS.Binding;
 using PrankChat.Mobile.iOS.Views.Base;
 using System;
 using System.Collections.Generic;
@@ -24,7 +22,7 @@ using PrankChat.Mobile.iOS.Common;
 namespace PrankChat.Mobile.iOS.Views.ProfileView
 {
     [MvxModalPresentation(WrapInNavigationController = true)]
-    public partial class ProfileUpdateView : BaseTransparentBarView<ProfileUpdateViewModel>
+    public partial class ProfileUpdateView : BaseViewController<ProfileUpdateViewModel>
     {
         private const int MinimumDescriptionHeight = 80;
 
@@ -76,20 +74,16 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
         {
             using var bindingSet = this.CreateBindingSet<ProfileUpdateView, ProfileUpdateViewModel>();
 
-            bindingSet.Bind(emailTextField).For(v => v.Text).To(vm => vm.Email)
-                      .Mode(MvxBindingMode.TwoWay);
-            bindingSet.Bind(loginTextField).For(v => v.Text).To(vm => vm.Login)
-                      .Mode(MvxBindingMode.TwoWay);
-            bindingSet.Bind(nameTextField).For(v => v.Text).To(vm => vm.Name)
-                      .Mode(MvxBindingMode.TwoWay);
+            bindingSet.Bind(emailTextField).For(v => v.Text).To(vm => vm.Email).TwoWay();
+            bindingSet.Bind(loginTextField).For(v => v.Text).To(vm => vm.Login).TwoWay();
+            bindingSet.Bind(nameTextField).For(v => v.Text).To(vm => vm.Name).TwoWay();
             bindingSet.Bind(birthdayTextField).For(v => v.Text).To(vm => vm.BirthdayText);
             bindingSet.Bind(birthdayTextField.Tap()).For(v => v.Command).To(vm => vm.SelectBirthdayCommand);
             bindingSet.Bind(progressBar).For(v => v.BindHidden()).To(vm => vm.IsBusy)
                       .WithConversion<MvxInvertedBooleanConverter>();
             bindingSet.Bind(saveButton).To(vm => vm.SaveProfileCommand);
             bindingSet.Bind(changePasswordLabel.Tap()).For(tap => tap.Command).To(vm => vm.ChangePasswordCommand);
-            bindingSet.Bind(profileImage).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl)
-                      .Mode(MvxBindingMode.OneWay);
+            bindingSet.Bind(profileImage).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl).OneWay();
             bindingSet.Bind(profileImage.Tap()).For(v => v.Command).To(vm => vm.ChangeProfilePhotoCommand);
             bindingSet.Bind(profileImage).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName);
             bindingSet.Bind(textLengthLabel).For(v => v.Text).To(vm => vm.LimitTextPresentation);
@@ -103,8 +97,7 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
             bindingSet.Bind(descriptionTextView).To(vm => vm.Description);
             bindingSet.Bind(this).For(nameof(UserDescription)).To(vm => vm.Description);
             bindingSet.Bind(emailValidationImageView).For(v => v.BindHidden()).To(vm => vm.IsEmailVerified);
-            bindingSet.Bind(resndEmailContainerView).For(v => v.BindHidden()).To(vm => vm.IsEmailVerified)
-                      .OneWay();
+            bindingSet.Bind(resndEmailContainerView).For(v => v.BindHidden()).To(vm => vm.IsEmailVerified).OneWay();
             bindingSet.Bind(emailValidationImageView).For(v => v.BindTap()).To(vm => vm.ShowValidationWarningCommand);
             bindingSet.Bind(resendEmailLabel).For(v => v.BindTap()).To(vm => vm.ResendEmailValidationCommand);
             bindingSet.Bind(emailTextField).For(v => v.BindEndPadding()).To(vm => vm.IsEmailVerified)
@@ -123,6 +116,8 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
         protected override void SetupControls()
         {
             Title = Resources.ProfileEditing;
+
+            View.SetGradientBackground();
 
             descriptionTextView.TextContainer.MaximumNumberOfLines = 3;
 

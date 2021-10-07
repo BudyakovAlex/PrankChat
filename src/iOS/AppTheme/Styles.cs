@@ -14,6 +14,13 @@ namespace PrankChat.Mobile.iOS.AppTheme
     {
         public static void SetNavigationBarStyle(this UINavigationBar navigationBar)
         {
+            navigationBar.BackgroundColor = UIColor.White;
+            navigationBar.Layer.MasksToBounds = false;
+            navigationBar.Layer.ShadowColor = UIColor.Black.ColorWithAlpha(0.15f).CGColor;
+            navigationBar.Layer.ShadowOpacity = 1f;
+            navigationBar.Layer.ShadowOffset = new CGSize(0, 2f);
+            navigationBar.Layer.ShadowRadius = 10f;
+            navigationBar.ShadowImage = new UIImage();
             navigationBar.Translucent = false;
         }
 
@@ -90,32 +97,6 @@ namespace PrankChat.Mobile.iOS.AppTheme
             tabBar.BarTintColor = Theme.Color.White;
         }
 
-        public static void SetGradientStyle(this UINavigationBar navigationBar)
-        {
-            var statusBarHeight = UIApplication.SharedApplication.StatusBarFrame.Height;
-            var fullHeight = navigationBar.Frame.Size.Width + statusBarHeight;
-            var gradientContainer = new UIView();
-            gradientContainer.Frame = new CGRect(navigationBar.Frame.Location, new CGSize(navigationBar.Frame.Size.Width, fullHeight));
-            gradientContainer.ClipsToBounds = true;
-
-            var gradient = new CAGradientLayer();
-            gradient.Colors = new CGColor[]
-            {
-                Theme.Color.GradientHeaderStart.CGColor,
-                Theme.Color.GradientHeaderEnd.CGColor
-            };
-
-            gradient.Locations = new Foundation.NSNumber[] { 0, 1 };
-            gradient.StartPoint = new CGPoint(x: 0.25, y: 0.5);
-            gradient.EndPoint = new CGPoint(x: 0.75, y: 0.5);
-            gradient.Transform = CATransform3D.MakeFromAffine(new CGAffineTransform(-0.74f, 0.71f, -0.71f, -0.74f, 1.2f, 0.49f));
-            gradient.Bounds = gradientContainer.Bounds.Inset(-0.5f * gradientContainer.Bounds.Size.Height, -0.5f * gradientContainer.Bounds.Size.Width);
-            gradient.Position = gradientContainer.Center;
-            gradientContainer.Layer.AddSublayer(gradient);
-            navigationBar.SetBackgroundImage(GetNavigationBarBackgroundImage(gradientContainer), UIBarMetrics.Default);
-            navigationBar.BarStyle = UIBarStyle.BlackTranslucent;
-        }
-
         public static void SetTransparentStyle(this UINavigationBar navigationBar)
         {
             var statusBarHeight = UIApplication.SharedApplication.StatusBarFrame.Height;
@@ -141,6 +122,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
                 searchBar.SearchTextField.BackgroundColor = Theme.Color.White;
                 searchBar.SearchTextField.TextColor = Theme.Color.Text;
             }
+
             searchBar.TintColor = Theme.Color.Text;
         }
 
@@ -314,7 +296,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             var attributes = new UIStringAttributes
             {
                 Font = Theme.Font.MediumOfSize(14),
-                ForegroundColor = Theme.Color.White
+                ForegroundColor = Theme.Color.Black
             };
 
             label.AttributedText = new NSAttributedString(label.Text, attributes);

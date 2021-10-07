@@ -15,7 +15,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Views.Registration
 {
     [MvxModalPresentation(WrapInNavigationController = true)]
-    public partial class RegistrationSecondStepView : BaseTransparentBarView<RegistrationSecondStepViewModel>
+    public partial class RegistrationSecondStepView : BaseTransparentBarViewController<RegistrationSecondStepViewModel>
     {
         public override bool CanHandleKeyboardNotifications => true;
 

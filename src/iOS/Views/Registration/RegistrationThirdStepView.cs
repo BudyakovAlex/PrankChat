@@ -8,7 +8,7 @@ using PrankChat.Mobile.iOS.Views.Base;
 namespace PrankChat.Mobile.iOS.Views.Registration
 {
     [MvxModalPresentation(WrapInNavigationController = false)]
-    public partial class RegistrationThirdStepView : BaseTransparentBarView<RegistrationThirdStepViewModel>
+    public partial class RegistrationThirdStepView : BaseTransparentBarViewController<RegistrationThirdStepViewModel>
     {
 		protected override void Bind()
 		{

@@ -4,7 +4,7 @@ using PrankChat.Mobile.iOS.Views.Base;
 
 namespace PrankChat.Mobile.iOS.Views.Web
 {
-    public partial class WebPageView : BaseView<WebViewModel>
+    public partial class WebPageView : BaseViewController<WebViewModel>
     {
         protected override void SetupControls()
         {

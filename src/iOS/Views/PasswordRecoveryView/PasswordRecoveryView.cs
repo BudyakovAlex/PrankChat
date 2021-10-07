@@ -10,7 +10,7 @@ using PrankChat.Mobile.iOS.Views.Base;
 namespace PrankChat.Mobile.iOS.Views.PasswordRecoveryView
 {
     [MvxModalPresentation(WrapInNavigationController = true)]
-	public partial class PasswordRecoveryView : BaseTransparentBarView<PasswordRecoveryViewModel>
+	public partial class PasswordRecoveryView : BaseTransparentBarViewController<PasswordRecoveryViewModel>
 	{
 		protected override void Bind()
 		{

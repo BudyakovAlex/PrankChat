@@ -74,7 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
-    <Compile Include="Views\Base\BaseView.cs" />
+    <Compile Include="Views\Base\BaseViewController.cs" />
     <Compile Include="Views\Base\BaseTableCell.cs" />
     <InterfaceDefinition Include="Views\MainView\MainView.xib" />
     <Compile Include="Views\MainView\MainView.cs" />
@@ -149,8 +149,7 @@
     <Compile Include="Views\Publication\PublicationItemCell.designer.cs">
       <DependentUpon>PublicationItemCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Base\BaseGradientBarView.cs" />
-    <Compile Include="Views\Base\BaseTransparentBarView.cs" />
+    <Compile Include="Views\Base\BaseTransparentBarViewController.cs" />
     <InterfaceDefinition Include="Views\PasswordRecoveryView\FinishPasswordRecoveryView.xib" />
     <Compile Include="Views\PasswordRecoveryView\FinishPasswordRecoveryView.cs" />
     <Compile Include="Views\PasswordRecoveryView\FinishPasswordRecoveryView.designer.cs">
@@ -162,7 +161,7 @@
     <Compile Include="Views\Order\OrderItemCell.designer.cs">
       <DependentUpon>OrderItemCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Base\BaseTabbedView.cs" />
+    <Compile Include="Views\Base\BaseTabbedViewController.cs" />
     <InterfaceDefinition Include="Views\ArbitrationView\ArbitrationItemCell.xib" />
     <Compile Include="Views\ArbitrationView\ArbitrationItemCell.cs" />
     <Compile Include="Views\ArbitrationView\ArbitrationItemCell.designer.cs">
@@ -388,7 +387,7 @@
     <Compile Include="SourcesAndDelegates\Search\OrdersSearchTableSource.cs" />
     <Compile Include="Controls\CheckBox.cs" />
     <Compile Include="Views\Base\IRefreshableView.cs" />
-    <Compile Include="Views\Base\BaseRefreshableTabbedView.cs" />
+    <Compile Include="Views\Base\BaseRefreshableTabbedViewController.cs" />
     <Compile Include="Plugins\Video\VideoPlayer.cs" />
     <Compile Include="Providers\PlatformPathsProvider.cs" />
     <Compile Include="PlatformBusinessServices\FileSystem\FileSystemService.cs" />
@@ -1050,9 +1049,6 @@
     <ImageAsset Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\bg_onboarding_fifth_slide.pdf">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Group 108.pdf">
-      <Visible>false</Visible>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\bg_order_type_my_completed.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -1212,6 +1208,7 @@
     <ImageAsset Include="Assets.xcassets\ic_yoomoney_account.imageset\ic_yoomoney_account.pdf">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Logo-v1 %281%29 %281%29-1.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\" />

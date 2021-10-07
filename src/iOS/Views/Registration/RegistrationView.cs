@@ -12,7 +12,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Views.Registration
 {
     [MvxModalPresentation(WrapInNavigationController = true)]
-    public partial class RegistrationView : BaseTransparentBarView<RegistrationViewModel>
+    public partial class RegistrationView : BaseTransparentBarViewController<RegistrationViewModel>
     {
 		protected override void Bind()
 		{

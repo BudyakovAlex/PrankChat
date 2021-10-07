@@ -10,7 +10,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Views.ProfileView
 {
-    public partial class CashboxView : BaseGradientBarView<CashboxViewModel>
+    public partial class CashboxView : BaseViewController<CashboxViewModel>
     {
         public override void ViewDidLayoutSubviews()
         {

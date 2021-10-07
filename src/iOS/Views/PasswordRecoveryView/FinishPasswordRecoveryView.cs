@@ -9,7 +9,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Views.PasswordRecoveryView
 {
     [MvxModalPresentation(WrapInNavigationController = true)]
-    public partial class FinishPasswordRecoveryView : BaseTransparentBarView<FinishPasswordRecoveryViewModel>
+    public partial class FinishPasswordRecoveryView : BaseTransparentBarViewController<FinishPasswordRecoveryViewModel>
     {
         protected override void Bind()
         {

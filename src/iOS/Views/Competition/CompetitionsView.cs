@@ -15,7 +15,7 @@ using PrankChat.Mobile.iOS.Common;
 namespace PrankChat.Mobile.iOS.Views.Competition
 {
     [MvxTabPresentation(TabName = "Competitions", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected, WrapInNavigationController = true)]
-    public partial class CompetitionsView : BaseRefreshableTabbedView<CompetitionsViewModel>, IScrollableView
+    public partial class CompetitionsView : BaseRefreshableTabbedViewController<CompetitionsViewModel>, IScrollableView
     {
         private TableViewSource _source;
         private MvxUIRefreshControl _refreshControl;
@@ -69,18 +69,16 @@ namespace PrankChat.Mobile.iOS.Views.Competition
         {
             NavigationController.NavigationBar.SetNavigationBarStyle();
 
-            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand, UIColor.Black);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                _notificationBarItem,
-                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand),
+                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand, UIColor.Black),
                 // TODO: This feature will be implemented.
                 //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
             }, true);
 
-            var logoButton = NavigationItemHelper.CreateBarButton(ImageNames.IconLogo, null);
-            logoButton.Enabled = false;
-            NavigationItem.LeftBarButtonItem = logoButton;
+            NavigationItem.LeftBarButtonItem = NavigationItemHelper.CreateBarLogoButton();
         }
     }
 }

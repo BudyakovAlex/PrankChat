@@ -17,7 +17,7 @@ using PrankChat.Mobile.iOS.Common;
 namespace PrankChat.Mobile.iOS.Views.LoginView
 {
     [MvxRootPresentation]
-    public partial class LoginView : BaseTransparentBarView<LoginViewModel>
+    public partial class LoginView : BaseTransparentBarViewController<LoginViewModel>
     {
         private readonly Lazy<IAppleSignInService> _lazyAppleSignInService = new Lazy<IAppleSignInService>(() => Mvx.IoCProvider.Resolve<IAppleSignInService>());
 

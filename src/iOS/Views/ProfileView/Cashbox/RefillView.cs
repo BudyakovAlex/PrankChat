@@ -11,7 +11,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Views.ProfileView.Cashbox
 {
-    public partial class RefillView : BaseView<RefillViewModel>
+    public partial class RefillView : BaseViewController<RefillViewModel>
     {
         private UITextPosition _position;
 

@@ -10,7 +10,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Views.Competition
 {
-    public partial class CompetitionDetailsView : BaseView<CompetitionDetailsViewModel>
+    public partial class CompetitionDetailsView : BaseViewController<CompetitionDetailsViewModel>
     {
         private MvxUIRefreshControl _refreshControl;
         private VideoTableSource _source;

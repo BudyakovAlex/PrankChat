@@ -16,7 +16,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Views.Comment
 {
     [MvxModalPresentation(WrapInNavigationController = true)]
-	public partial class CommentsView : BaseGradientBarView<CommentsViewModel>
+	public partial class CommentsView : BaseViewController<CommentsViewModel>
 	{
         private MvxUIRefreshControl _refreshControl;
 
