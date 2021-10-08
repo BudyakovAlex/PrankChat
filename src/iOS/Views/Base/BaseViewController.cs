@@ -102,7 +102,7 @@ namespace PrankChat.Mobile.iOS.Views.Base
         {
             SetNeedsStatusBarAppearanceUpdate();
 
-            NavigationController.NavigationBar.SetNavigationBarStyle();
+            NavigationController?.NavigationBar?.SetNavigationBarStyle();
 
             if (NavigationItem.HidesBackButton == false && !IsTabbedView)
             {

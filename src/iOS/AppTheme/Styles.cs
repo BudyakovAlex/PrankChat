@@ -14,6 +14,11 @@ namespace PrankChat.Mobile.iOS.AppTheme
     {
         public static void SetNavigationBarStyle(this UINavigationBar navigationBar)
         {
+            if (navigationBar == null)
+            {
+                return;
+            }
+
             navigationBar.BackgroundColor = UIColor.White;
             navigationBar.Layer.MasksToBounds = false;
             navigationBar.Layer.ShadowColor = UIColor.Black.ColorWithAlpha(0.15f).CGColor;
