@@ -12,7 +12,8 @@ namespace PrankChat.Mobile.iOS.Views.Registration
     {
 		protected override void Bind()
 		{
-			using var bindingSet = this.CreateBindingSet<RegistrationThirdStepView, RegistrationThirdStepViewModel>();
+            using var bindingSet = CreateBindingSet();
+
 			bindingSet.Bind(finishRegistrationButton).To(vm => vm.FinishRegistrationCommand);
 		}
 
@@ -29,6 +30,12 @@ namespace PrankChat.Mobile.iOS.Views.Registration
             confirmationDescriptionLabel.Font = Theme.Font.RegularFontOfSize(14);
 
             finishRegistrationButton.SetLightStyle(Resources.GoToFeed);
+        }
+
+        protected override void SetCommonStyles()
+        {
+            View.SetGradientBackground();
+            base.SetCommonStyles();
         }
 
         public override void ViewDidLoad()

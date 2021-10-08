@@ -126,7 +126,7 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
             textLengthLabel.SetRegularStyle(12, textLengthLabel.TextColor);
 
             rootView.AddGestureRecognizer(new UITapGestureRecognizer(OnViewTapped));
-            NavigationItem?.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton(ImageNames.IconLogout, ViewModel.ShowMenuCommand), true);
+            NavigationItem?.SetRightBarButtonItem(NavigationItemHelper.CreateBarButton(ImageNames.IconLogout, ViewModel.ShowMenuCommand, UIColor.Black), true);
 
             emailTextField.SetLightStyle(Resources.Email);
 

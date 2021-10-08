@@ -16,7 +16,7 @@ namespace PrankChat.Mobile.iOS.Views.Registration
     {
 		protected override void Bind()
 		{
-			using var bindingSet = this.CreateBindingSet<RegistrationView, RegistrationViewModel>();
+            using var bindingSet = CreateBindingSet();
 
 			bindingSet.Bind(nextStepButton).To(vm => vm.ShowSecondStepCommand);
             bindingSet.Bind(emailTextField).To(vm => vm.Email);
@@ -59,6 +59,12 @@ namespace PrankChat.Mobile.iOS.Views.Registration
             //TODO: uncomment when will be provided logic on vm
             okButton.Hidden = true;
             gmailButton.Hidden = true;
+        }
+
+        protected override void SetCommonStyles()
+        {
+            View.SetGradientBackground();
+            base.SetCommonStyles();
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)

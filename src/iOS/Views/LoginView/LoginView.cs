@@ -103,6 +103,12 @@ namespace PrankChat.Mobile.iOS.Views.LoginView
             gmailButton.Hidden = true;
         }
 
+        protected override void SetCommonStyles()
+        {
+            View.SetGradientBackground();
+            base.SetCommonStyles();
+        }
+
         public override void ViewDidUnload()
         {
             _appleIdButton.RemoveGestureRecognizer(_appleButtonTapGesture);

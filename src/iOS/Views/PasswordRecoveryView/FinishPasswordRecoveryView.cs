@@ -38,10 +38,16 @@ namespace PrankChat.Mobile.iOS.Views.PasswordRecoveryView
             showPublicationButton.SetLinkStyle(Theme.Font.RegularFontOfSize(16));
         }
 
+        protected override void SetCommonStyles()
+        {
+            View.SetGradientBackground();
+            base.SetCommonStyles();
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            this.NavigationItem.LeftBarButtonItem = null;
+            NavigationItem.LeftBarButtonItem = null;
         }
     }
 }

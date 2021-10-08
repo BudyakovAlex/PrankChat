@@ -74,6 +74,12 @@ namespace PrankChat.Mobile.iOS.Views.Registration
             registerButton.SetLightStyle(Resources.Register);
         }
 
+        protected override void SetCommonStyles()
+        {
+            View.SetGradientBackground();
+            base.SetCommonStyles();
+        }
+
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)
         {
             views.Add(scrollView);

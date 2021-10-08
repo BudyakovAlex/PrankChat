@@ -12,7 +12,6 @@ namespace PrankChat.Mobile.iOS.Views.Base
             base.SetCommonStyles();
 
             NavigationController?.NavigationBar.SetTransparentStyle();
-            View.SetGradientBackground();
             SetNeedsStatusBarAppearanceUpdate();
 
             View.LayoutMargins = new UIEdgeInsets(24, View.LayoutMargins.Left, View.LayoutMargins.Bottom, View.LayoutMargins.Right);

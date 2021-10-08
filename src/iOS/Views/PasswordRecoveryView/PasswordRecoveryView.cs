@@ -31,6 +31,12 @@ namespace PrankChat.Mobile.iOS.Views.PasswordRecoveryView
 
             recoverPasswordButton.SetLightStyle(Resources.Restore);
         }
-	}
+
+        protected override void SetCommonStyles()
+        {
+            View.SetGradientBackground();
+            base.SetCommonStyles();
+        }
+    }
 }
 
