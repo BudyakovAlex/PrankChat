@@ -1,6 +1,7 @@
 ﻿using Android.Content.PM;
 using Android.OS;
 using Android.Views;
+using Android.Widget;
 using MvvmCross.Platforms.Android.Views;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
@@ -80,19 +81,40 @@ namespace PrankChat.Mobile.Droid.Views.Base
 
         private void SetupToolbar()
         {
-            Toolbar = FindViewById<Toolbar>(Resource.Id.back_and_title_toolbar);
+            //Toolbar = FindViewById<Toolbar>(Resource.Id.back_and_title_toolbar);
+            //if (Toolbar == null)
+            //{
+            //    return;
+            //}
+
+            //SetSupportActionBar(Toolbar);
+            //Toolbar.Title = TitleActionBar;
+            //SupportActionBar.SetDisplayShowCustomEnabled(true);
+            //SupportActionBar.SetHomeButtonEnabled(true);
+            //SupportActionBar.SetDisplayHomeAsUpEnabled(HasBackButton);
+            //SupportActionBar.SetDisplayShowHomeEnabled(!HasBackButton);
+            //SupportActionBar.SetDisplayUseLogoEnabled(true);
+
+            //if (HasActionBarVisible)
+            //{
+            //    SupportActionBar.Show();
+            //}
+            //SupportActionBar.Hide();
+
+            #region New
+            Toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             if (Toolbar == null)
             {
                 return;
             }
 
             SetSupportActionBar(Toolbar);
-            Toolbar.Title = TitleActionBar;
             SupportActionBar.SetDisplayShowCustomEnabled(true);
             SupportActionBar.SetHomeButtonEnabled(true);
             SupportActionBar.SetDisplayHomeAsUpEnabled(HasBackButton);
             SupportActionBar.SetDisplayShowHomeEnabled(!HasBackButton);
             SupportActionBar.SetDisplayUseLogoEnabled(true);
+            SupportActionBar.SetDisplayShowTitleEnabled(false);
 
             if (HasActionBarVisible)
             {
@@ -102,6 +124,9 @@ namespace PrankChat.Mobile.Droid.Views.Base
             {
                 SupportActionBar.Hide();
             }
+
+            Toolbar.Title = TitleActionBar;
+            #endregion
         }
     }
 }
