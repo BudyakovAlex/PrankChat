@@ -19,7 +19,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Views.Search
 {
-    public partial class SearchView : BaseGradientBarView<SearchViewModel>
+    public partial class SearchView : BaseViewController<SearchViewModel>
     {
         private const int SearchBarRightPadding = 16;
         private const int BackButtonWidth = 40;
@@ -44,7 +44,7 @@ namespace PrankChat.Mobile.iOS.Views.Search
 
         protected override void SetupControls()
         {
-            var backButton = NavigationItemHelper.CreateBarButton(ImageNames.IconBack, ViewModel.CloseCommand);
+            var backButton = NavigationItemHelper.CreateBarButton(ImageNames.IconBack, ViewModel.CloseCommand, UIColor.Black);
 
             var navigationBarWidth = NavigationController?.NavigationBar.Frame.Width;
             var searchBarWidth = navigationBarWidth - BackButtonWidth - SearchBarRightPadding;

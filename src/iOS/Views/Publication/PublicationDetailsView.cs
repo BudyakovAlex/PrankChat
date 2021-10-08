@@ -10,7 +10,7 @@ using PrankChat.Mobile.iOS.Views.Base;
 namespace PrankChat.Mobile.iOS.Views.Publication
 {
     [MvxModalPresentation(WrapInNavigationController = true)]
-	public partial class PublicationDetailsView : BaseGradientBarView<PublicationDetailsViewModel>
+	public partial class PublicationDetailsView : BaseViewController<PublicationDetailsViewModel>
 	{
 		protected override void Bind()
 		{

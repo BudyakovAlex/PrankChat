@@ -15,7 +15,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Views.Order
 {
-    public partial class OrderDetailsView : BaseGradientBarView<OrderDetailsViewModel>
+    public partial class OrderDetailsView : BaseViewController<OrderDetailsViewModel>
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _rightBarButtonItem;

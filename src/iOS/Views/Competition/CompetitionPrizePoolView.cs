@@ -9,7 +9,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Views.Competition
 {
-    public partial class CompetitionPrizePoolView : BaseView<CompetitionPrizePoolViewModel>
+    public partial class CompetitionPrizePoolView : BaseViewController<CompetitionPrizePoolViewModel>
     {
         private TableViewSource _source;
         private MvxUIRefreshControl _refreshControl;

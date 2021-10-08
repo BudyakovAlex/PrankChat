@@ -5,7 +5,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Views.Base
 {
-    public abstract class BaseRefreshableTabbedView<TViewModel> : BaseTabbedView<TViewModel>, IRefreshableView
+    public abstract class BaseRefreshableTabbedViewController<TViewModel> : BaseTabbedViewController<TViewModel>, IRefreshableView
         where TViewModel : BasePageViewModel
     {
         private NSObject _backgroundNotificationObserver;
@@ -14,7 +14,7 @@ namespace PrankChat.Mobile.iOS.Views.Base
 
         private bool _isDisposed;
 
-        public BaseRefreshableTabbedView()
+        public BaseRefreshableTabbedViewController()
         {
             _backgroundNotificationObserver = UIApplication.Notifications.ObserveDidEnterBackground(OnDidEnterBackground);
             _foregroundNotificationObserver = UIApplication.Notifications.ObserveWillEnterForeground(OnWillEnterForeground);

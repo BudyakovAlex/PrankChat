@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="222">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="222">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,18 +18,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_prankcaht_icon" translatesAutoresizingMaskIntoConstraints="NO" id="m7A-Sp-dlJ">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_onplay" translatesAutoresizingMaskIntoConstraints="NO" id="A4J-v5-hEq">
                                 <rect key="frame" x="137" y="389" width="140" height="118"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="140" id="Fkc-xS-319"/>
-                                    <constraint firstAttribute="height" constant="118" id="iCG-xl-kRD"/>
+                                    <constraint firstAttribute="height" constant="118" id="iTZ-W9-GR4"/>
+                                    <constraint firstAttribute="width" constant="140" id="pdn-Yh-VA6"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.13333333333333333" green="0.039215686274509803" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="m7A-Sp-dlJ" firstAttribute="centerY" secondItem="223" secondAttribute="centerY" id="JPO-Ls-tgn"/>
-                            <constraint firstItem="m7A-Sp-dlJ" firstAttribute="centerX" secondItem="223" secondAttribute="centerX" id="QJ3-6d-ers"/>
+                            <constraint firstItem="A4J-v5-hEq" firstAttribute="centerX" secondItem="223" secondAttribute="centerX" id="cG5-6y-9O1"/>
+                            <constraint firstItem="A4J-v5-hEq" firstAttribute="centerY" secondItem="223" secondAttribute="centerY" id="du4-7q-h5B"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -40,6 +39,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_prankcaht_icon" width="16" height="16"/>
+        <image name="ic_onplay" width="1080" height="1080"/>
     </resources>
 </document>

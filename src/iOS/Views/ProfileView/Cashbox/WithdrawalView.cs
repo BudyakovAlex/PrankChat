@@ -13,7 +13,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Views.ProfileView.Cashbox
 {
-    public partial class WithdrawalView : BaseGradientBarView<WithdrawalViewModel>
+    public partial class WithdrawalView : BaseViewController<WithdrawalViewModel>
     {
         private MvxUIRefreshControl _refreshControl;
         private NSRange _yoomoneyRange;

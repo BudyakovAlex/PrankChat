@@ -186,6 +186,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
                 Resources.ChooseFromGallery,
             });
 
+            if (result == null)
+            {
+                return;
+            }
+
             var file = result == Resources.TakePicture
                 ? await _mediaManager.TakePhotoAsync()
                 : await _mediaManager.PickPhotoAsync();

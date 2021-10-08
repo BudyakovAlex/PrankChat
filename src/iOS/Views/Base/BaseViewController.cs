@@ -11,7 +11,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Views.Base
 {
-    public abstract class BaseView<TMvxViewModel> : MvxViewController<TMvxViewModel> where TMvxViewModel : BasePageViewModel
+    public abstract class BaseViewController<TMvxViewModel> : MvxViewController<TMvxViewModel> where TMvxViewModel : BasePageViewModel
     {
         private List<UIView> _viewForKeyboardDismiss = new List<UIView>();
         private NSObject _keyBoardWillDisapear;
@@ -102,9 +102,11 @@ namespace PrankChat.Mobile.iOS.Views.Base
         {
             SetNeedsStatusBarAppearanceUpdate();
 
+            NavigationController?.NavigationBar?.SetNavigationBarStyle();
+
             if (NavigationItem.HidesBackButton == false && !IsTabbedView)
             {
-                var backButton = NavigationItemHelper.CreateBarButton(ImageNames.IconBack, ViewModel.CloseCommand);
+                var backButton = NavigationItemHelper.CreateBarButton(ImageNames.IconBack, ViewModel.CloseCommand, UIColor.Black);
                 NavigationItem.LeftBarButtonItem = backButton;
             }
         }
@@ -170,13 +172,17 @@ namespace PrankChat.Mobile.iOS.Views.Base
 
         private void SetTitle(string title)
         {
-            var titleItem = new UILabel(new CoreGraphics.CGRect(0, 0, 200, 20));
-            titleItem.Text = title;
-            titleItem.TextAlignment = UITextAlignment.Center;
+            var titleItem = new UILabel(new CoreGraphics.CGRect(0, 0, 200, 20))
+            {
+                Text = title,
+                TextAlignment = UITextAlignment.Center
+            };
             titleItem.SetScreenTitleStyle();
 
-            var container = new UIView(new CoreGraphics.CGRect(0, 0, 200, 20));
-            container.ContentMode = UIViewContentMode.Center;
+            var container = new UIView(new CoreGraphics.CGRect(0, 0, 200, 20))
+            {
+                ContentMode = UIViewContentMode.Center
+            };
             container.AddSubview(titleItem);
 
             NavigationItem.TitleView = container;

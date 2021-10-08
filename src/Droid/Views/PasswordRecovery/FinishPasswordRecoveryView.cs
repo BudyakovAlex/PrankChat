@@ -1,14 +1,12 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Google.Android.Material.Button;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.ViewModels.PasswordRecovery;
-using PrankChat.Mobile.Core.ViewModels.Registration;
 using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views.PasswordRecovery

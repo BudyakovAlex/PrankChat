@@ -13,7 +13,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Views.Subscriptions
 {
     [MvxModalPresentation(WrapInNavigationController = true)]
-    public partial class SubscriptionsView : BaseGradientBarView<SubscriptionsViewModel>
+    public partial class SubscriptionsView : BaseViewController<SubscriptionsViewModel>
     {
         private TabItemView _subscribersTab;
         private TabItemView _subscriptionsTab;

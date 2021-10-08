@@ -9,7 +9,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Views.PasswordRecoveryView
 {
     [MvxModalPresentation(WrapInNavigationController = true)]
-    public partial class FinishPasswordRecoveryView : BaseTransparentBarView<FinishPasswordRecoveryViewModel>
+    public partial class FinishPasswordRecoveryView : BaseTransparentBarViewController<FinishPasswordRecoveryViewModel>
     {
         protected override void Bind()
         {
@@ -38,10 +38,16 @@ namespace PrankChat.Mobile.iOS.Views.PasswordRecoveryView
             showPublicationButton.SetLinkStyle(Theme.Font.RegularFontOfSize(16));
         }
 
+        protected override void SetCommonStyles()
+        {
+            View.SetGradientBackground();
+            base.SetCommonStyles();
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            this.NavigationItem.LeftBarButtonItem = null;
+            NavigationItem.LeftBarButtonItem = null;
         }
     }
 }

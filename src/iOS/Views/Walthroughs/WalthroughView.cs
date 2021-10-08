@@ -9,7 +9,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Views.Walthroughs
 {
     [MvxModalPresentation(ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext)]
-    public partial class WalthroughView : BaseView<WalthroughViewModel>
+    public partial class WalthroughView : BaseViewController<WalthroughViewModel>
     {
         protected override void SetupControls()
         {

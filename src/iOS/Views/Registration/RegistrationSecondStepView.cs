@@ -15,7 +15,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Views.Registration
 {
     [MvxModalPresentation(WrapInNavigationController = true)]
-    public partial class RegistrationSecondStepView : BaseTransparentBarView<RegistrationSecondStepViewModel>
+    public partial class RegistrationSecondStepView : BaseTransparentBarViewController<RegistrationSecondStepViewModel>
     {
         public override bool CanHandleKeyboardNotifications => true;
 
@@ -72,6 +72,12 @@ namespace PrankChat.Mobile.iOS.Views.Registration
             termsBottomLineView.BackgroundColor = termsLabel.TextColor;
 
             registerButton.SetLightStyle(Resources.Register);
+        }
+
+        protected override void SetCommonStyles()
+        {
+            View.SetGradientBackground();
+            base.SetCommonStyles();
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)

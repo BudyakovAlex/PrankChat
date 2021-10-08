@@ -18,7 +18,7 @@ using PrankChat.Mobile.iOS.Common;
 namespace PrankChat.Mobile.iOS.Views.Order
 {
     [MvxTabPresentation(TabName = "Orders", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected, WrapInNavigationController = true)]
-    public partial class OrdersView : BaseRefreshableTabbedView<OrdersViewModel>, IScrollableView
+    public partial class OrdersView : BaseRefreshableTabbedViewController<OrdersViewModel>, IScrollableView
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
@@ -90,18 +90,16 @@ namespace PrankChat.Mobile.iOS.Views.Order
 
         private void InitializeNavigationBar()
         {
-            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand, UIColor.Black);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                 _notificationBarItem,
-                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand)
+                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand, UIColor.Black)
                 // TODO: This feature will be implemented.
                 //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
             }, true);
 
-            var logoButton = NavigationItemHelper.CreateBarButton(ImageNames.IconLogo, null);
-            logoButton.Enabled = false;
-            NavigationItem.LeftBarButtonItem = logoButton;
+            NavigationItem.LeftBarButtonItem = NavigationItemHelper.CreateBarLogoButton();
         }
 
         private void SetSelectedTab(int index)

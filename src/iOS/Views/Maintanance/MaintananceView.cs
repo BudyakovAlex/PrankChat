@@ -8,7 +8,7 @@ using PrankChat.Mobile.iOS.Views.Base;
 namespace PrankChat.Mobile.iOS.Views.Maintanance
 {
     [MvxRootPresentation]
-    public partial class MaintananceView : BaseTransparentBarView<MaintananceViewModel>
+    public partial class MaintananceView : BaseTransparentBarViewController<MaintananceViewModel>
     {
         protected override void SetupControls()
         {
@@ -23,6 +23,7 @@ namespace PrankChat.Mobile.iOS.Views.Maintanance
         protected override void Bind()
         {
             base.Bind();
+
             using var bindingSet = this.CreateBindingSet<MaintananceView, MaintananceViewModel>();
 
             bindingSet.Bind(downloadButton).To(vm => vm.OpenInBrowserCommand);

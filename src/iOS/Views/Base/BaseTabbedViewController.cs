@@ -2,10 +2,10 @@
 
 namespace PrankChat.Mobile.iOS.Views.Base
 {
-    public abstract class BaseTabbedView<TViewModel> : BaseGradientBarView<TViewModel>
+    public abstract class BaseTabbedViewController<TViewModel> : BaseViewController<TViewModel>
         where TViewModel : BasePageViewModel
     {
-        public BaseTabbedView()
+        public BaseTabbedViewController()
         {
             IsTabbedView = true;
         }

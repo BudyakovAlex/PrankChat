@@ -9,7 +9,7 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>This app needs access to calendar to pick date and time.</string>
 	<key>CFBundleDisplayName</key>
-	<string>PrankChat</string>
+	<string>OnPlay</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
