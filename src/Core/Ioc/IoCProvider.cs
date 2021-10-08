@@ -140,5 +140,12 @@ namespace PrankChat.Mobile.Core.Ioc
         {
             iocProvider.CallbackWhenRegistered(action);
         }
+
+        public TType ConstructAndRegisterSingleton<TInterface, TType>()
+            where TInterface : class
+            where TType : class, TInterface
+        {
+            return iocProvider.ConstructAndRegisterSingleton<TInterface, TType>();
+        }
     }
 }

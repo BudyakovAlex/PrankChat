@@ -71,7 +71,7 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<ISearchService, SearchService>();
             Container.RegisterSingleton<IUsersService, UsersService>();
             Container.RegisterSingleton<IVideoService, VideoService>();
-            Container.RegisterSingleton<IErrorHandleService, ErrorHandleService>();
+            Container.ConstructAndRegisterSingleton<IErrorHandleService, ErrorHandleService>();
         }
 
         private void RegisterManagers()
