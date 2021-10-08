@@ -35,6 +35,8 @@ namespace PrankChat.Mobile.iOS.Views.Base
 
         public virtual bool CanHandleKeyboardNotifications => false;
 
+        public virtual bool SetNavigationBarStyle => true;
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -102,7 +104,10 @@ namespace PrankChat.Mobile.iOS.Views.Base
         {
             SetNeedsStatusBarAppearanceUpdate();
 
-            NavigationController?.NavigationBar?.SetNavigationBarStyle();
+            if (SetNavigationBarStyle)
+            {
+                NavigationController?.NavigationBar?.SetNavigationBarStyle();
+            }
 
             if (NavigationItem.HidesBackButton == false && !IsTabbedView)
             {

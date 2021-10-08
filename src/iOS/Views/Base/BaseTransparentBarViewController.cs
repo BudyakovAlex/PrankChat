@@ -7,6 +7,8 @@ namespace PrankChat.Mobile.iOS.Views.Base
 {
     public abstract class BaseTransparentBarViewController<TMvxViewModel> : BaseViewController<TMvxViewModel> where TMvxViewModel : BasePageViewModel
     {
+        public override bool SetNavigationBarStyle => false;
+
         protected override void SetCommonStyles()
         {
             base.SetCommonStyles();
