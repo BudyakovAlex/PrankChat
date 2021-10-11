@@ -81,27 +81,6 @@ namespace PrankChat.Mobile.Droid.Views.Base
 
         private void SetupToolbar()
         {
-            //Toolbar = FindViewById<Toolbar>(Resource.Id.back_and_title_toolbar);
-            //if (Toolbar == null)
-            //{
-            //    return;
-            //}
-
-            //SetSupportActionBar(Toolbar);
-            //Toolbar.Title = TitleActionBar;
-            //SupportActionBar.SetDisplayShowCustomEnabled(true);
-            //SupportActionBar.SetHomeButtonEnabled(true);
-            //SupportActionBar.SetDisplayHomeAsUpEnabled(HasBackButton);
-            //SupportActionBar.SetDisplayShowHomeEnabled(!HasBackButton);
-            //SupportActionBar.SetDisplayUseLogoEnabled(true);
-
-            //if (HasActionBarVisible)
-            //{
-            //    SupportActionBar.Show();
-            //}
-            //SupportActionBar.Hide();
-
-            #region New
             Toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             if (Toolbar == null)
             {
@@ -126,7 +105,6 @@ namespace PrankChat.Mobile.Droid.Views.Base
             }
 
             Toolbar.Title = TitleActionBar;
-            #endregion
         }
     }
 }
