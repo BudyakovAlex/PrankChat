@@ -4,10 +4,9 @@
     android:id="@+id/container_toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shadow"
+    android:background="@android:color/transparent"
     android:fitsSystemWindows="true"
     android:clipToPadding="false"
-    android:translationZ="10dp"
     app:elevation="25dp">
 
     <androidx.appcompat.widget.Toolbar
@@ -15,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="center_vertical"
-        android:background="@color/applicationWhite"
+        android:background="@android:color/transparent"
         app:contentInsetLeft="0dp"
         app:contentInsetStartWithNavigation="0dp">
 
