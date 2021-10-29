@@ -96,6 +96,7 @@ namespace PrankChat.Mobile.Droid.Plugins.UserInteraction
                     selectedDate.Month,
                     selectedDate.Day);
 
+                datePicker.DatePicker.MaxDate = DateTime.Now.Ticks;
                 datePicker.CancelEvent += (s, e) =>
                 {
                     taskCompletionSource.TrySetResult(null);

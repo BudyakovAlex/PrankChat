@@ -26,8 +26,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Common
 
         private void CheckUrl()
         {
-            // TODO: Update this condition.
-            if (Url == "https://stage.onplaysite.com/")
+            if (Url == _environmentConfigurationProvider.Environment.SiteUrl)
             {
                 CloseCommand?.Execute(null);
             }

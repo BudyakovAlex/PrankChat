@@ -5,16 +5,16 @@ namespace PrankChat.Mobile.iOS.Delegates
 {
     public class WKWebViewNavigationDelegate : WKNavigationDelegate
     {
-        private Action<string> _action;
+        private Action<string> _navigationAction;
 
-        public WKWebViewNavigationDelegate(Action<string> action)
+        public WKWebViewNavigationDelegate(Action<string> navigaitonAction)
         {
-            _action = action;
+            _navigationAction = navigaitonAction;
         }
 
         public override void DidStartProvisionalNavigation(WKWebView webView, WKNavigation navigation)
         {
-            _action?.Invoke(webView.Url.ToString());
+            _navigationAction?.Invoke(webView.Url.ToString());
         }
     }
 }

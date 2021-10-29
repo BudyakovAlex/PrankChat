@@ -34,6 +34,7 @@ namespace PrankChat.Mobile.Droid.Views
         protected override void Bind()
         {
             base.Bind();
+
             using var bindingSet = CreateBindingSet();
 
             bindingSet.Bind(_bindableWebView).For(v => v.WebViewUrlContent).To(vm => vm.Url);

@@ -2,11 +2,10 @@
 using PrankChat.Mobile.Core.ViewModels.Common;
 using PrankChat.Mobile.iOS.Delegates;
 using PrankChat.Mobile.iOS.Views.Base;
-using WebKit;
 
 namespace PrankChat.Mobile.iOS.Views.Web
 {
-    public partial class WebPageView : BaseViewController<WebViewModel>, IWKNavigationDelegate
+    public partial class WebPageView : BaseViewController<WebViewModel>
     {
         protected override void SetupControls()
         {

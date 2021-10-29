@@ -6,7 +6,7 @@ namespace PrankChat.Mobile.Droid.Controls.WebView
 {
     public class CustomWebViewClient : WebViewClient
     {
-        public Action<string> OnBeforeNavigation { get; set; }
+        public Action<string> BeforeNavigationAction { get; set; }
 
         public CustomWebViewClient()
         {
@@ -18,7 +18,7 @@ namespace PrankChat.Mobile.Droid.Controls.WebView
 
         public override bool ShouldOverrideUrlLoading(Android.Webkit.WebView view, IWebResourceRequest request)
         {
-            OnBeforeNavigation?.Invoke(request.Url.ToString());
+            BeforeNavigationAction?.Invoke(request.Url.ToString());
             view.LoadUrl(request.Url.ToString());
             return true;
         }

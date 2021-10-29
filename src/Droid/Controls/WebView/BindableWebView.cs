@@ -51,9 +51,9 @@ namespace PrankChat.Mobile.Droid.Controls.WebView
             }
         }
 
-        public void SetOnBeforeNavigation(Action<string> action)
+        public void SetOnBeforeNavigation(Action<string> navigationAction)
         {
-            _webViewClient.OnBeforeNavigation = action;
+            _webViewClient.BeforeNavigationAction = navigationAction;
         }
 
         private void Initilize()

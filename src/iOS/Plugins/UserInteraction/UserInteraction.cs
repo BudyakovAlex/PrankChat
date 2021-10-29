@@ -56,6 +56,7 @@ namespace PrankChat.Mobile.iOS.Plugins.UserInteraction
                 {
                     ModalTransitionStyle = UIModalTransitionStyle.CrossDissolve,
                     ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext,
+                    
                 };
                 topViewController.PresentViewController(datePicker, true, null);
             });
