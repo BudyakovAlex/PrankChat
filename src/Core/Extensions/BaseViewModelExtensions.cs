@@ -1,6 +1,6 @@
 ﻿using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Commands;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.ViewModels.Abstract;
 using System;
 using System.Threading.Tasks;
 

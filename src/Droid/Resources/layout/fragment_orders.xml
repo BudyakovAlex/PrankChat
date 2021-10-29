@@ -14,11 +14,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <com.google.android.material.tabs.TabItem
-            android:text="@string/Orders_Tab"
+            android:text="@string/Orders"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <com.google.android.material.tabs.TabItem
-            android:text="@string/Orders_In_Dispute"
+            android:text="@string/InTheDispute"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </com.google.android.material.tabs.TabLayout>
@@ -27,7 +27,6 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:orientation="horizontal"
-        app:MvxBind="Click OpenFilterCommand"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tab_layout">
@@ -40,7 +39,6 @@
             android:gravity="end|center_vertical"
             android:textColor="@color/filter"
             android:textSize="14dp"
-            app:MvxBind="Text ActiveFilterName"
             tools:text="Все заказы" />
         <ImageView
             android:layout_width="10dp"
@@ -52,13 +50,13 @@
             android:src="@drawable/ic_filter_arrow" />
     </LinearLayout>
     <mvvmcross.droidx.MvxSwipeRefreshLayout
+        android:id="@+id/publication_refresh_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filter_view"
-        app:MvxBind="Refreshing IsBusy; RefreshCommand LoadDataCommand">
+        app:layout_constraintTop_toBottomOf="@+id/filter_view">
         <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
             android:id="@+id/publication_recycler_view"
             android:layout_height="match_parent"

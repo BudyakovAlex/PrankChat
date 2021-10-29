@@ -6,46 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
-    android:background="@android:color/transparent"
-    app:elevation="25dp">
+    android:translationZ="5dp">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/transparent"
+        android:background="@color/applicationWhite"
         android:paddingTop="0dp"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStartWithNavigation="0dp"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        app:navigationIcon="@drawable/ic_back_arrow"
+        app:titleTextColor="@color/applicationBlack"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageButton
-                android:id="@+id/back_button"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="4dp"
-                android:background="?attr/actionBarItemBackground"
-                android:src="@drawable/ic_back_arrow"
-                app:srcCompat="@drawable/ic_back_arrow"
-                app:MvxBind="Click CloseCommand" />
-
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:textColor="@color/applicationWhite"
-                android:textSize="14dp"
-                tools:text="Some text"
-                tools:textColor="@color/applicationBlack" />
-        </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
 </com.google.android.material.appbar.AppBarLayout>

@@ -1,7 +1,7 @@
 ﻿using PrankChat.Mobile.Core.Providers.Platform;
 using System;
 
-namespace PrankChat.Mobile.iOS.Providers
+namespace PrankChat.Mobile.iOS.Common
 {
     public class PlatformPathsProvider : IPlatformPathsProvider
     {

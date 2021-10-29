@@ -23,17 +23,17 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:hint="@string/CreateOrderView_Name_Placeholder"
+				android:hint="@string/OrderName"
 				android:textColorHint="@color/dark_placeholder"
 				app:boxStrokeWidth="1dp">
 
 				<com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/title_input_edit_text"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:maxLines="1"
 					android:textColor="@color/applicationBlack"
-					android:textSize="14dp"
-					app:MvxBind="Text Title" />
+					android:textSize="14dp"/>
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<com.google.android.material.textfield.TextInputLayout
@@ -43,7 +43,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="16dp"
-				android:hint="@string/CreateOrderView_Description_Placeholder"
+				android:hint="@string/OrderDescription"
 				android:textColorHint="@color/dark_placeholder"
 				app:boxStrokeWidth="1dp">
 
@@ -54,8 +54,7 @@
 					android:gravity="top|left"
 					android:minLines="3"
 					android:textColor="@color/applicationBlack"
-					android:textSize="14dp"
-					app:MvxBind="Text Description" />
+					android:textSize="14dp"/>
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<com.google.android.material.textfield.TextInputLayout
@@ -66,7 +65,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginTop="16dp"
 				android:gravity="right|center_vertical"
-				android:hint="@string/CreateOrderView_PriceTitle_Placeholder"
+				android:hint="@string/Price"
 				android:textColorHint="@color/dark_placeholder"
 				app:boxStrokeWidth="1dp">
 
@@ -78,25 +77,24 @@
 					android:maxLines="1"
 					android:textAlignment="viewEnd"
 					android:textColor="@color/applicationBlack"
-					android:textSize="14dp"
-					app:MvxBind="Text Price(Price)" />
+					android:textSize="14dp"/>
 
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<TextView
+                android:id="@id/date_text_view"
 				android:layout_width="match_parent"
 				android:layout_height="46dp"
 				android:layout_marginTop="16dp"
 				android:background="@drawable/border_grey"
 				android:drawableRight="@drawable/ic_calendar_accent"
 				android:gravity="center_vertical"
-				android:hint="@string/CreateOrderView_CompleteDate_Placeholder"
+				android:hint="@string/DateOfExecution"
 				android:paddingLeft="14dp"
 				android:paddingRight="14dp"
 				android:textColor="@color/applicationBlack"
 				android:textColorHint="@color/dark_placeholder"
-				android:textSize="14dp"
-				app:MvxBind="Text ActiveFor.Title; Click ShowDateDialogCommand;" />
+				android:textSize="14dp"/>
 
 			<LinearLayout
 				android:layout_width="match_parent"
@@ -104,6 +102,7 @@
 				android:orientation="horizontal"
 				android:layout_marginTop="26dp">
 				<CheckBox
+                    android:id="@+id/create_order_check_box"
 					android:layout_width="wrap_content"
 					android:layout_height="18dp"
 					android:layout_marginTop="1dp"
@@ -111,18 +110,17 @@
 					android:buttonTint="@color/accent"
 					android:gravity="left|center_vertical"
 					android:layout_gravity="center_vertical"
-					android:text="@string/Create_Order_Secret_order"
+					android:text="@string/SecretOrder"
 					android:textColor="@color/applicationBlack"
-					android:textSize="14dp"
-					app:MvxBind="Checked IsExecutorHidden" />
+					android:textSize="14dp"/>
 				<ImageView
+                    android:id="@+id/description_image_view"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
 					android:layout_marginLeft="10dp"
 					android:tint="@color/description"
 					android:src="@drawable/ic_info"
-                    android:scaleType="center"
-                    app:MvxBind="Click ShowWalkthrouthSecretCommand"/>
+                    android:scaleType="center"/>
 			</LinearLayout>
 
 			<com.google.android.material.button.MaterialButton
@@ -134,17 +132,16 @@
 				android:layout_marginTop="32dp"
 				android:paddingLeft="15dp"
 				android:paddingRight="15dp"
-				android:text="@string/CreateOrderView_Create_Button"
-				app:MvxBind="Click CreateCommand" />
+				android:text="@string/CreatingOrder"/>
 		</LinearLayout>
 	</ScrollView>
 
 	<FrameLayout
+        android:id="@id/animation_frame_layout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@id/action_bar"
-		android:background="@color/applicationTransparent"
-		app:MvxBind="Visibility Visibility(IsBusy)">
+		android:background="@color/applicationTransparent">
 
 		<com.airbnb.lottie.LottieAnimationView
 			android:id="@+id/animation_view"

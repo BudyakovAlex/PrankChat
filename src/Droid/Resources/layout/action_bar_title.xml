@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@android:color/transparent"
     android:fitsSystemWindows="true"
+    android:clipToPadding="false"
     app:elevation="25dp">
 
     <androidx.appcompat.widget.Toolbar
@@ -13,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/gradient_action_bar_background"
+        android:background="@android:color/transparent"
         app:contentInsetLeft="0dp"
         app:contentInsetStartWithNavigation="0dp">
 
@@ -23,7 +24,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@color/applicationWhite"
+            android:textColor="@color/applicationBlack"
             android:textSize="14dp" />
     </androidx.appcompat.widget.Toolbar>
 </com.google.android.material.appbar.AppBarLayout>

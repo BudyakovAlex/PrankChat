@@ -16,7 +16,7 @@
         android:layout_gravity="center_horizontal"
         android:textColor="@color/applicationWhite"
         android:textSize="14dp"
-        android:text="@string/RegistrationView_Congrats_Title"/>
+        android:text="@string/Congratulations"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,6 +35,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        android:text="@string/RegistrationView_GoToFeed_Button"
+        android:text="@string/GoToFeed"
         style="@style/Theme.PrankChat.Button.Borderless" />
 </LinearLayout>

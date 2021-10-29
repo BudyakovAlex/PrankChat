@@ -91,21 +91,21 @@ namespace PrankChat.Mobile.Core.Common
         {
             public static readonly string[] ProfileCompetitionAims =
             {
-                Resources.Complaint_Wrong_Name,
-                Resources.Complaint_Unacceptable_Content,
-                Resources.Complaint_Unacceptable_Information_In_Profile,
-                Resources.Complaint_Other
+                Resources.UsesSomeoneElseName,
+                Resources.InappropriateContent,
+                Resources.InappropriateProfileInformation,
+                Resources.Other
             };
 
             public static readonly string[] CommonCompetitionAims =
             {
-                Resources.Complaint_Spam,
-                Resources.Complaint_Naked_Content,
-                Resources.Complaint_Hostile_Utterances,
-                Resources.Complaint_Dangerous_Organizations,
-                Resources.Complaint_Rights_Violation,
-                Resources.Complaint_Cheating,
-                Resources.Complaint_Other
+                Resources.ThisIsSpam,
+                Resources.PornographyAndNudity,
+                Resources.InsultingOrBullying,
+                Resources.ViolenceOrDangerousOrganizations,
+                Resources.CopyrighInfringement,
+                Resources.FraudOrDeception,
+                Resources.Other
             };
         }
     }

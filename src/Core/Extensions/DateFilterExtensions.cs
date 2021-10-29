@@ -10,6 +10,7 @@ namespace PrankChat.Mobile.Core.Extensions
         private const int DaysInWeek = 7;
         private const int MonthsInQuarter = 3;
         private const int MonthsInHalfYear = 6;
+        private const int MonthsInYear = 12;
 
         public static string GetDateString(this DateFilterType dateFilterType)
         {
@@ -17,18 +18,17 @@ namespace PrankChat.Mobile.Core.Extensions
             return (DateTime.UtcNow - TimeSpan.FromDays(days)).ToString(DateFormats.RestApiDate);
         }
 
-        private static int GetDays(DateFilterType dateFilterType)
+        private static int GetDays(DateFilterType dateFilterType) => dateFilterType switch
         {
-            return dateFilterType switch
-            {
-                DateFilterType.Day => 0,
-                DateFilterType.Week => DaysInWeek,
-                DateFilterType.Month => GetDaysInMonth(),
-                DateFilterType.Quarter => GetDaysInMonth(MonthsInQuarter),
-                DateFilterType.HalfYear => GetDaysInMonth(MonthsInHalfYear),
-                _ => 0,
-            };
-        }
+            DateFilterType.Day => 0,
+            DateFilterType.Week => DaysInWeek,
+            DateFilterType.Month => GetDaysInMonth(),
+            DateFilterType.Quarter => GetDaysInMonth(MonthsInQuarter),
+            DateFilterType.HalfYear => GetDaysInMonth(MonthsInHalfYear),
+            DateFilterType.Year => GetDaysInMonth(MonthsInYear),
+            DateFilterType.AllTime => int.MaxValue,
+            _ => 0,
+        };
 
         private static int GetDaysInMonth(int monthAgo = 0)
         {

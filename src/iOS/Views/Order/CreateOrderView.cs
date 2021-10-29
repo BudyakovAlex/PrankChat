@@ -1,0 +1,237 @@
+﻿using System;
+using System.Collections.Generic;
+using Foundation;
+using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Binding;
+using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
+using MvvmCross.Platforms.Ios.Presenters.Attributes;
+using PrankChat.Mobile.Core.Common;
+using PrankChat.Mobile.Core.Converters;
+using PrankChat.Mobile.Core.Localization;
+using PrankChat.Mobile.Core.ViewModels.Order;
+using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Infrastructure.Helpers;
+using PrankChat.Mobile.iOS.Converters;
+using PrankChat.Mobile.iOS.Views.Base;
+using UIKit;
+using PrankChat.Mobile.iOS.Common;
+
+namespace PrankChat.Mobile.iOS.Views.Order
+{
+    [MvxTabPresentation(TabName = "Create Order", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected, WrapInNavigationController = true)]
+    public partial class CreateOrderView : BaseTabbedViewController<CreateOrderViewModel>
+    {
+        private const int MinimumDescriptionHeight = 80;
+
+        private UIImage _checkedImage;
+        private UIImage _uncheckedImage;
+
+        private UITextPosition _position;
+        private UITextView _dynamicDescriptionTextView;
+        private UIBarButtonItem _notificationBarItem;
+        private NSRange _privacyLinkRange;
+
+        public string OrderDescription
+        {
+            set
+            {
+                if (value is null)
+                {
+                    return;
+                }
+
+                var size = GetTextViewHeight(descriptionTextView.Bounds.Width, descriptionTextView.Font, value);
+                TextViewHeightConstraint.Constant = size > MinimumDescriptionHeight ? size : MinimumDescriptionHeight;
+                descriptionPlaceholderLabel.Hidden = value.Length > 0;
+                descriptionTopFloatingPlaceholderLabel.Hidden = value.Length == 0;
+            }
+        }
+
+        public override bool CanHandleKeyboardNotifications => true;
+
+        protected override void OnKeyboardChanged(bool visible, nfloat keyboardHeight)
+        {
+            base.OnKeyboardChanged(visible, keyboardHeight);
+
+            var window = UIApplication.SharedApplication.KeyWindow;
+            var bottomPadding = window.SafeAreaInsets.Bottom;
+            var topPadding = window.SafeAreaInsets.Top;
+            scrollViewBottomConstraint.Constant = visible ? -(keyboardHeight - (topPadding + bottomPadding)) : 0;
+            UIView.Animate(0.5, () => View.LayoutIfNeeded());
+        }
+
+        protected override void Bind()
+		{
+			using var bindingSet = this.CreateBindingSet<CreateOrderView, CreateOrderViewModel>();
+
+            bindingSet.Bind(nameTextField).To(vm => vm.Title);
+            bindingSet.Bind(descriptionTextView).To(vm => vm.Description);
+            bindingSet.Bind(this).For(nameof(OrderDescription)).To(vm => vm.Description);
+            bindingSet.Bind(priceTextField).To(vm => vm.Price)
+               .WithConversion<PriceConverter>();
+            bindingSet.Bind(completeDateTextField).To(vm => vm.ActiveFor.Title);
+            bindingSet.Bind(completeDateTextField.Tap()).For(v => v.Command).To(vm => vm.ShowDateDialogCommand);
+            bindingSet.Bind(createButton).To(vm => vm.CreateCommand);
+            bindingSet.Bind(progressBarView).For(v => v.BindVisible()).To(vm => vm.IsBusy);
+            bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
+               .WithConversion<BoolToNotificationImageConverter>();
+            bindingSet.Bind(HideExecutorCheckBoxButton).For(v => v.IsChecked).To(vm => vm.IsExecutorHidden)
+                .Mode(MvvmCross.Binding.MvxBindingMode.TwoWay);
+            bindingSet.Bind(InfoImageView).For(v => v.BindTap()).To(vm => vm.ShowWalkthrouthSecretCommand);
+		}
+
+        private nfloat GetTextViewHeight(double width, UIFont font, string text)
+        {
+            _dynamicDescriptionTextView.Frame = new CoreGraphics.CGRect(0, 0, width, double.MaxValue);
+            _dynamicDescriptionTextView.Font = font;
+            _dynamicDescriptionTextView.Text = text;
+            _dynamicDescriptionTextView.SizeToFit();
+
+            return _dynamicDescriptionTextView.Frame.Height;
+        }
+
+        protected override void SetupControls()
+		{
+            rootView.AddGestureRecognizer(new UITapGestureRecognizer(OnViewTapped));
+
+            descriptionTextView.TextContainer.MaximumNumberOfLines = 100;
+            descriptionContainerView.Layer.BorderColor = Theme.Color.TextFieldDarkBorder.CGColor;
+            descriptionContainerView.Layer.BorderWidth = 1f;
+            descriptionContainerView.Layer.CornerRadius = 3f;
+            _dynamicDescriptionTextView = new UITextView();
+            DefinesPresentationContext = true;
+
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand, UIColor.Black);
+            NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
+            {
+                _notificationBarItem,
+                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand, UIColor.Black)
+            }, true);
+
+            _checkedImage = UIImage.FromBundle(ImageNames.IconChecked);
+            _uncheckedImage = UIImage.FromBundle(ImageNames.IconUnchecked);
+
+            Title = Resources.CreateOrder;
+
+            nameTextField.SetDarkStyle(Resources.OrderName);
+
+            descriptionTextView.SetTitleStyle(size:14);
+            descriptionTextView.ContentInset = UIEdgeInsets.Zero;
+            descriptionTextView.ShouldChangeText = (textField, range, replacementString) =>
+            {
+                var newLength = textField.Text.Length + replacementString.Length - range.Length;
+                return newLength <= Constants.Orders.DescriptionMaxLength;
+            };
+
+            descriptionTextView.AddGestureRecognizer(new UITapGestureRecognizer(() => descriptionTextView.BecomeFirstResponder()));
+
+            descriptionPlaceholderLabel.SetSmallSubtitleStyle(Resources.OrderDescription, 14);
+            descriptionTopFloatingPlaceholderLabel.SetSmallSubtitleStyle(Resources.OrderDescription);
+            descriptionTopFloatingPlaceholderLabel.Hidden = true;
+
+            priceTextField.SetDarkStyle(Resources.TenThousand, rightPadding: 14);
+            priceTextField.TextAlignment = UITextAlignment.Right;
+
+            completeDateTextField.SetDarkStyle(Resources.DateOfExecution, rightImage: UIImage.FromBundle(ImageNames.IconCalendarAccent));
+
+            hideExecutorCheckboxLabel.Text = Resources.SecretOrder;
+            hideExecutorCheckboxLabel.SetRegularStyle(14, Theme.Color.Black);
+            hideExecutorCheckboxLabel.UserInteractionEnabled = true;
+            hideExecutorCheckboxLabel.AddGestureRecognizer(new UITapGestureRecognizer(OnCheckboxTapped));
+
+            createButton.SetDarkStyle(Resources.CreatingOrder);
+
+            lottieAnimationView.SetAnimationNamed("Animations/ripple_animation");
+            lottieAnimationView.LoopAnimation = true;
+            lottieAnimationView.Play();
+
+            stackView.SetCustomSpacing(8, stackView.ArrangedSubviews[0]);
+            SetupPrivacyLabelAttributedText();
+        }
+
+        protected override void RegisterKeyboardDismissResponders(List<UIView> views)
+        {
+            views.Add(scrollView);
+            views.Add(stackView);
+            views.Add(descriptionTextView);
+
+            base.RegisterKeyboardDismissResponders(views);
+        }
+
+        protected override void RegisterKeyboardDismissTextFields(List<UIView> viewList)
+        {
+            viewList.Add(nameTextField);
+            viewList.Add(descriptionTextView);
+            viewList.Add(completeDateTextField);
+            viewList.Add(priceTextField);
+
+            descriptionTextView.ScrollEnabled = false;
+
+            base.RegisterKeyboardDismissTextFields(viewList);
+        }
+
+        protected override void Subscription()
+        {
+            priceTextField.EditingChanged += OnPriceTextFieldEditingChanged;
+        }
+
+        protected override void Unsubscription()
+        {
+            priceTextField.EditingChanged -= OnPriceTextFieldEditingChanged;
+        }
+
+        private void OnViewTapped()
+        {
+            View.EndEditing(true);
+        }
+
+        private void OnPriceTextFieldEditingChanged(object sender, System.EventArgs e)
+        {
+            var text = priceTextField.Text;
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return;
+            }
+
+            if (text.EndsWith(Resources.Currency))
+            {
+                var position = priceTextField.GetPosition(priceTextField.EndOfDocument, -2);
+                if (_position == position)
+                {
+                    return;
+                }
+
+                _position = position;
+                priceTextField.SelectedTextRange = priceTextField.GetTextRange(_position, _position);
+            }
+        }
+
+        private void OnCheckboxTapped()
+        {
+            HideExecutorCheckBoxButton.SwitchChecked();
+        }
+
+        private void SetupPrivacyLabelAttributedText()
+        {
+            var linkAttributes = new UIStringAttributes
+            {
+                UnderlineStyle = NSUnderlineStyle.Single,
+                ForegroundColor = Theme.Color.Gray
+            };
+
+            privacyPolicyLabel.SetRegularStyle(10, Theme.Color.Gray);
+            var privacyMessageAttributedString = new NSMutableAttributedString(Resources.CreateOrderPrivacyMessage);
+
+            var startPosition = Resources.CreateOrderPrivacyMessage.IndexOf(Resources.CreateOrderPrivacyLink);
+            _privacyLinkRange = new NSRange(startPosition, Resources.CreateOrderPrivacyLink.Length);
+            privacyMessageAttributedString.AddAttributes(linkAttributes, _privacyLinkRange);
+
+            privacyPolicyLabel.AttributedText = privacyMessageAttributedString;
+            privacyPolicyLabel.AddGestureRecognizer(new UITapGestureRecognizer(OnPrivacyLabelTapped));
+            privacyPolicyLabel.UserInteractionEnabled = true;
+        }
+
+        private void OnPrivacyLabelTapped(UITapGestureRecognizer gesture) =>
+            ViewModel?.ShowPrivacyPolicyCommand?.Execute(null);
+    }
+}
