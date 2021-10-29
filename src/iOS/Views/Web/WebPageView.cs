@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using PrankChat.Mobile.Core.ViewModels.Common;
+using PrankChat.Mobile.iOS.Delegates;
 using PrankChat.Mobile.iOS.Views.Base;
 
 namespace PrankChat.Mobile.iOS.Views.Web
@@ -12,6 +13,7 @@ namespace PrankChat.Mobile.iOS.Views.Web
 
             var nsurl = NSUrl.FromString(ViewModel.Url);
             webView.LoadRequest(new NSUrlRequest(nsurl));
+            webView.NavigationDelegate = new WKWebViewNavigationDelegate(url => ViewModel.Url = url);
         }
     }
 }

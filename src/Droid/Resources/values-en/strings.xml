@@ -38,10 +38,10 @@
     <string name="Continue">"Continue"</string>
 
     <!-- Fuzzy -->
-    <string name="StepTwo">"Step 2"</string>
+    <string name="StepTwo" formatted="false">"Step 2"</string>
 
     <!-- Fuzzy -->
-    <string name="StepThree">"Step 3"</string>
+    <string name="StepThree" formatted="false">"Step 3"</string>
 
     <!-- Fuzzy -->
     <string name="GoToFeed">"Go to the feed"</string>
@@ -193,10 +193,9 @@
     <string name="Attention">"Attention!"</string>
 
     <!-- Fuzzy -->
-    <string name="TakeOrderQuestion">
-      "To accept the order, you must pay a Deposit as a guarantee of its implementation
-      20 \%% of the cost for simple orders
-      40 \%% for secret orders"</string>
+    <string name="TakeOrderQuestion" formatted="false">"To accept the order, you must pay a Deposit as a guarantee of its implementation 
+20 % of the cost for simple orders
+40 % for secret orders"</string>
 
     <!-- Fuzzy -->
     <string name="SecondsShort">"s."</string>
@@ -458,10 +457,9 @@ Apple Inc. is not a sponsor of the competitions."</string>
     <string name="WalkthrouthCreateOrderDescription">"Post your assignment, according to which other users will make a video for you. Describe the task in as much detail as possible, set the deadline and the amount of remuneration to get the perfect movie."</string>
 
     <!-- Fuzzy -->
-    <string name="WalkthrouthOrdersDescription">
-      "You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20\%% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20 \%% of the order value is the commission OnPlay.
+    <string name="WalkthrouthOrdersDescription" formatted="false">"You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20 % of the order value is the commission OnPlay.
 
-      If the customer did not like your video, he can send the task to the \"dispute\". Independent users will decide within 24 hours whether the completed video matches the order. If the number of positive votes exceeds the number of negative, then wait for your well-deserved bonus. In the opposite situation, the reward will be returned to the customer."</string>
+If the customer did not like your video, he can send the task to the \"dispute\". Independent users will decide within 24 hours whether the completed video matches the order. If the number of positive votes exceeds the number of negative, then wait for your well-deserved bonus. In the opposite situation, the reward will be returned to the customer."</string>
 
     <!-- Fuzzy -->
     <string name="WalkthrouthProfileDescription">"In the profile, the user can track the amount of money in the current account, as well as all his tasks: published, executable and completed."</string>
@@ -655,7 +653,7 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <!-- Fuzzy -->
     <string name="NotViewed">"Not viewed"</string>
     <string name="LoginToAccount">"Log in"</string>
-    <integer name="com_vk_sdk_AppId">7343996</integer>
+    <string name="ComVkSdkAppId">"7343996"</string>
 
     <!-- Fuzzy -->
     <string name="SentToModerator">"Sent to moderator"</string>
@@ -729,7 +727,7 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <string name="ParticipationFee">"Participation fee"</string>
 
     <!-- Fuzzy -->
-    <string name="PercentageContributionPrizePool">"% of the contribution to the prize pool"</string>
+    <string name="PercentageContributionPrizePool" formatted="false">"% of the contribution to the prize pool"</string>
 
     <!-- Fuzzy -->
     <string name="SecretContest">"Secret contest"</string>
@@ -747,10 +745,10 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <string name="VotingFor">"Voting for"</string>
 
     <!-- Fuzzy -->
-    <string name="Percent">"%"</string>
+    <string name="Percent" formatted="false">"%"</string>
     <string name="IncorrectEmailOrPasswordException">"The entered Email or password is incorrect. Try to reset your password or check the spelling of your mail."</string>
     <string name="PerYear">"PerYear"</string>
 
     <!-- Fuzzy -->
-    <string name="AllTime">"За все время"</string>
+    <string name="AllTime">"Per all time"</string>
 </resources>

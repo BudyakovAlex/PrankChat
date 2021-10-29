@@ -17,6 +17,7 @@ using PrankChat.Mobile.Droid.Presenters.Attributes;
 using PrankChat.Mobile.Droid.Utils.Helpers;
 using System.Linq;
 using Localization = PrankChat.Mobile.Core.Localization.Resources;
+using PrankChat.Mobile.Droid.Extensions;
 
 namespace PrankChat.Mobile.Droid.Views
 {
@@ -166,6 +167,8 @@ namespace PrankChat.Mobile.Droid.Views
             {
                 return;
             }
+
+            this.HideKeyboard();
 
             _toolbarLogo.Visibility = e.Tab.Position != 2 ? ViewStates.Visible : ViewStates.Invisible;
             _toolbarTitle.Visibility = e.Tab.Position == 2 ? ViewStates.Visible : ViewStates.Invisible;
